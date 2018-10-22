@@ -1,18 +1,21 @@
 @import "../../../../mixin.less";
 
 .question-card {
+  &.sbf-card-undefined {
+    background-color: #fff;
+  }
   border-radius: 4px;
   min-height: 100px;
   height: 100%;
   width: 100%;
   max-width: @cellWidth;
   position: relative;
-   .box-stroke{
+  .box-stroke {
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     border-radius: 4px;
   }
 
-  .zoom-image{
+  .zoom-image {
     overflow-y: hidden;
   }
   .top-block {
@@ -20,10 +23,9 @@
     align-items: start;
     justify-content: space-between;
   }
-
   p {
     padding: 16px 16px 16px 16px;
-    margin: 16px 16px 10px 16px;
+    margin: 16px 16px 16px 16px;
     @media (max-width: @screen-xs) {
       margin: 16px 16px 6px 8px;
     }
@@ -41,26 +43,26 @@
     text-align: center;
     padding-left: 26px;
     display: inline-block;
-    @media(max-width: @screen-xs ){
+    @media (max-width: @screen-xs ) {
       padding-left: 16px;
-      padding-right: 6px!important;
+      padding-right: 6px !important;
     }
     span {
       line-height: 40px;
-      @media(max-width: @screen-xs ){
+      @media (max-width: @screen-xs ) {
         line-height: 2;
         display: flex;
         height: 100%;
         text-align: left;
       }
-      display: block;
+      display: inline-block;
       letter-spacing: -0.4px;
     }
-    .sold-badge{
+    .sold-badge {
       min-width: 84px;
       color: @color-red-heavy;
       font-size: 18px;
-      font-weight: 600;
+      //font-weight: 600;
       letter-spacing: -0.4px;
       text-transform: uppercase;
     }
@@ -156,24 +158,23 @@
     letter-spacing: -0.3px;
     text-align: left;
     color: @color-grey;
-    white-space: pre-wrap;
+    //white-space: pre-wrap;
     font-size: 16px;
     //TODO encoding error prevent overlap
     overflow-y: hidden;
   }
 
-  .ellipsis{
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .ellipsis {
+    .giveEllipsisUpdated(16px, 1.75, 3);
+
   }
 
   .gallery {
     padding: 16px;
     margin: 16px;
     .v-carousel {
-      .v-jumbotron__wrapper{
-        .v-jumbotron__image{
+      .v-jumbotron__wrapper {
+        .v-jumbotron__image {
           height: auto;
           width: 100%;
         }
@@ -190,8 +191,8 @@
           opacity: 0.2;
           background-color: #000000;
         }
-        .v-icon  {
-         font-size: 20px!important;
+        .v-icon {
+          font-size: 20px !important;
           &.left {
             transform: scale(-1, 1);
             margin-right: 3px;
@@ -203,13 +204,18 @@
         }
 
       }
+      //TODO background image changed to contain in order to fit and not be cutted, this cause small image to be blured
       .v-carousel__item {
-        background-size: cover;
-        -webkit-background-size: auto 100%;
-        -moz-background-size: auto 100%;
-        -o-background-size: auto 100%;
-        background-size: auto 100%;
+        //background-size: contain;
+        // -webkit-background-size: auto 100%;
+        // -moz-background-size: auto 100%;
+        //  -o-background-size: auto 100%;
+        //   background-size: auto 100%;
+        .v-image__image--cover {
+          background-size: contain;
+        }
       }
+
     }
   }
 
@@ -247,7 +253,7 @@
       display: flex;
       flex-direction: row;
 
-      .sbf-attach  {
+      .sbf-attach {
         transform: rotate(260deg);
         &::before {
           transform: scale(1, -1);
@@ -316,34 +322,33 @@
     background-color: #FF006B;
     .cellActionBtnMixinAnswer();
   }
-  .v-dialog.zoom-image{
+  .v-dialog.zoom-image {
     overflow-y: hidden;
-    width: auto!important;
+    width: auto !important;
     border: 1px solid red;
   }
-  .zoomed-image{
+  .zoomed-image {
     height: auto;
     width: 100%;
     max-height: 720px;
   }
 
-
-  .question-card-answer{
-    .text{
+  .question-card-answer {
+    .text {
       font-size: 12px;
     }
-    .transparent{
-      background-color:transparent;
+    .transparent {
+      background-color: transparent;
     }
-    .full-width-flex{
-      display:flex;
-      width:100%;
+    .full-width-flex {
+      display: flex;
+      width: 100%;
     }
-    .calc-Margin{
+    .calc-Margin {
       .responsive-property(margin-left, -40px, null, -40px);
     }
-    .answer-block{
-      .triangle{
+    .answer-block {
+      .triangle {
         border-top: 0px solid transparent;
         border-right: 32px solid @Question-Answer-Bg;
         border-bottom: 20px solid transparent;
@@ -352,7 +357,7 @@
         margin-right: 5px;
         margin-top: 14px;
       }
-      .text-container{
+      .text-container {
         background-color: @Question-Answer-Bg;
         margin: 14px -22px 0 -10px;
         width: 100%;
@@ -367,12 +372,12 @@
       }
     }
 
-    .fixed-margin{
+    .fixed-margin {
       margin: 0px 18px 18px -13px;
       background-color: @Question-Answer-Bg;
     }
-    .column-direction{
-      flex-direction:column;
+    .column-direction {
+      flex-direction: column;
     }
 
     p {

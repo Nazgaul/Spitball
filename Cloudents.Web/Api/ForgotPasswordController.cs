@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using System.Globalization;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
@@ -52,7 +53,7 @@ namespace Cloudents.Web.Api
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
             var link = Url.Link("ResetPassword", new { user.Id, code });
-            var message = new ResetPasswordEmail(user.Email, link);
+            var message = new ResetPasswordEmail(user.Email, link, CultureInfo.CurrentUICulture);
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
         }
 

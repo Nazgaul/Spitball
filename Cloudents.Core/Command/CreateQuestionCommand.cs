@@ -10,7 +10,18 @@ namespace Cloudents.Core.Command
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global" , Justification = "Automapper")]
     public class CreateQuestionCommand : ICommand
     {
-        public int SubjectId { get;  set; }
+        public CreateQuestionCommand(QuestionSubject subjectId, string text, decimal price, long userId, 
+            [CanBeNull] IEnumerable<string> files,  QuestionColor color)
+        {
+            SubjectId = subjectId;
+            Text = text;
+            Price = price;
+            UserId = userId;
+            Files = files;
+            Color = color;
+        }
+
+        public QuestionSubject SubjectId { get;  set; }
         public string Text { get;  set; }
 
         public decimal Price { get;  set; }

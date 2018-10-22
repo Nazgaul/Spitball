@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
-using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Write
@@ -11,30 +10,47 @@ namespace Cloudents.Infrastructure.Write
     [UsedImplicitly]
     public class UniversitySearchWrite : SearchServiceWrite<Core.Entities.Search.University>
     {
-        public const string IndexName = "universities3";
+        public const string IndexName = "universities4";
         public const string ScoringProfile = "university-default";
-        public const string DistanceScoringParameter = "currentLocation";
+
+        public const string CountryTagScoringParameters = "country";
+        //public const string DistanceScoringParameter = "currentLocation";
 
         public UniversitySearchWrite(SearchService client)
-            : base(client, IndexName)
+            : base(client, client.GetClient(IndexName))
         {
         }
+
+
+      
 
         public override async Task CreateOrUpdateAsync(CancellationToken token)
         {
             // _synonymWrite.CreateEmpty(SynonymName);
-            await Client.Indexes.DeleteAsync(IndexName, cancellationToken: token).ConfigureAwait(false);
+            //await Client.Indexes.DeleteAsync(IndexClient.IndexName, cancellationToken: token).ConfigureAwait(false);
+            //var synonymMap = new SynonymMap()
+            //{
+            //    Name = "university-synonymmap",
+            //    Format = "solr",
+            //    Synonyms = @"
+            //    university, of, college, school, the, a, המכללה,אוניברסיטת,מכללת,אוניברסיטה,ה=> "
+            //};
+
+            //Client.SynonymMaps.CreateOrUpdate(synonymMap);
+
             await base.CreateOrUpdateAsync(token).ConfigureAwait(false);
         }
 
         protected override Index GetIndexStructure(string indexName)
         {
-            var stopWordsList = new[]{ "university",
-                    "of",
-                    "college",
-                    "school",
-                    "the",
-                    "a"};
+            //var stopWordsList = new[]{ "university",
+            //        "of",
+            //        "college",
+            //        "school",
+            //        "the",
+            //        "a",
+            //    "המכללה","אוניברסיטת","מכללת","אוניברסיטה","ה"
+            //};
             return new Index
             {
                 Name = indexName,
@@ -46,28 +62,35 @@ namespace Cloudents.Infrastructure.Write
                     },
                     new Field(nameof(Core.Entities.Search.University.Name), DataType.String)
                     {
-                        IsSearchable = true,
-                        IsSortable = true,
-                        SearchAnalyzer = AnalyzerName.StandardLucene,
-                        IndexAnalyzer =  AnalyzerName.Create("stopWords")
+                        IsSearchable = true
+                        
+                        //SearchAnalyzer = AnalyzerName.StandardLucene,
+                        //IndexAnalyzer =  AnalyzerName.Create("stopWords")
+                    },
+                    new Field(nameof(Core.Entities.Search.University.DisplayName), DataType.String)
+                    {
+                        IsRetrievable = true,
+                        IsSortable = true
+
+                        //IndexAnalyzer =  AnalyzerName.Create("stopWords")
                     },
                     new Field(nameof(Core.Entities.Search.University.Prefix), DataType.Collection(DataType.String))
                     {
                         IsSearchable = true,
                         SearchAnalyzer = AnalyzerName.StandardLucene,
-                        IndexAnalyzer = AnalyzerName.Create("prefix"),
+                        IndexAnalyzer = AnalyzerName.Create("prefix")
+                        
                     },
                     new Field(nameof(Core.Entities.Search.University.Extra), DataType.String)
                     {
-                        IsSearchable = true,
-                        SearchAnalyzer = AnalyzerName.StandardLucene,
-                        IndexAnalyzer =  AnalyzerName.Create("stopWords")
-                    },
-                    new Field(nameof(Core.Entities.Search.University.Image), DataType.String),
+                        IsSearchable = true
+                       
+                        //SearchAnalyzer = AnalyzerName.StandardLucene,
+                        //IndexAnalyzer =  AnalyzerName.Create("stopWords"),
 
-                    new Field(nameof(Core.Entities.Search.University.GeographyPoint), DataType.GeographyPoint)
+                    },
+                    new Field(nameof(Core.Entities.Search.University.Country), DataType.String)
                     {
-                        IsSortable = true,
                         IsFilterable = true
                     }
                 },
@@ -77,14 +100,14 @@ namespace Cloudents.Infrastructure.Write
                     {
                         TokenFilterName.Lowercase,
                         TokenFilterName.Stopwords,
-                        TokenFilterName.Create("my_stopWords"),
+                        //TokenFilterName.Create("my_stopWords"),
                         TokenFilterName.Create("my_edgeNGram")
                     }),
-                    new StandardAnalyzer("stopWords",stopwords:stopWordsList)
+                   // new StandardAnalyzer("stopWords",stopwords:stopWordsList)
                 },
                 TokenFilters = new List<TokenFilter>
                 {
-                    new StopwordsTokenFilter("my_stopWords",stopWordsList,ignoreCase:true),
+                   // new StopwordsTokenFilter("my_stopWords",stopWordsList,ignoreCase:true),
                     new EdgeNGramTokenFilterV2("my_edgeNGram",2,20)
                 },
                 ScoringProfiles = new List<ScoringProfile>
@@ -102,19 +125,20 @@ namespace Cloudents.Infrastructure.Write
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new DistanceScoringFunction(
-                                nameof(Core.Entities.Search.University.GeographyPoint),
-                                5,DistanceScoringParameter,10,ScoringFunctionInterpolation.Linear),
+                            new TagScoringFunction(nameof(Core.Entities.Search.University.Country),5, new TagScoringParameters(CountryTagScoringParameters))
+                        //    new DistanceScoringFunction(
+                        //        nameof(Core.Entities.Search.University.GeographyPoint),
+                        //        5,DistanceScoringParameter,10,ScoringFunctionInterpolation.Linear),
 
                         }
                     }
+                },
+                Suggesters = new List<Suggester>
+                {
+                    new Suggester("sg",
+                        nameof(Core.Entities.Search.University.Extra),
+                        nameof(Core.Entities.Search.University.Name))
                 }
-                //Suggesters = new List<Suggester>
-                //{
-                //    new Suggester("sg",
-                //        nameof(Core.Entities.Search.University.Extra),
-                //        nameof(Core.Entities.Search.University.Name))
-                //}
             };
         }
     }

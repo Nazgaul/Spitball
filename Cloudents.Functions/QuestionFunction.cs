@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using Cloudents.Functions.Sync;
 
 namespace Cloudents.Functions
 {
@@ -28,25 +30,15 @@ namespace Cloudents.Functions
         }
 
 
-        //[FunctionName("QuestionSearchSync")]
-        //public static async Task RunQuestionSearchAsync([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer,
-        //    [Blob("spitball/AzureSearch/question-version.txt", FileAccess.ReadWrite)]
-        //    CloudBlockBlob blob,
-        //    [Inject]
-        //    IQueryBus bus,
-        //    [Inject] ISearchServiceWrite<Question> searchServiceWrite,
-        //    TraceWriter log,
-        //    CancellationToken token)
-        //{
-        //    //var (update, delete, version) = await bus.QueryAsync<(IEnumerable<QuestionAzureSyncDto> update, IEnumerable<long> delete, long version)>(query, token);
-        //    await SyncFunc.SyncAsync2(blob, searchServiceWrite, s =>
-        //        {
-        //            s.Prefix = s.Text;
-        //            return s;
-        //        }, q => bus.QueryAsync(q, token),
-        //        log, token);
-        //    log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
-        //}
+        [FunctionName("QuestionSearchSync")]
+        public static async Task RunQuestionSearchAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+            [OrchestrationClient] DurableOrchestrationClient starter,
+            TraceWriter log)
+        {
+            await SyncFunc.StartSearchSync(starter, log, SyncType.Question);
+        }
+
+       
 
         [FunctionName("QuestionPopulate")]
         public static async Task QuestionPopulateAsync([TimerTrigger("0 */15 * * * *", RunOnStartup = true)]TimerInfo myTimer,
@@ -63,13 +55,12 @@ namespace Cloudents.Functions
             }
 
             var answerMessage = JsonConvert.DeserializeObject<NewQuestionMessage>(msg.AsString);
-            var command = new CreateQuestionCommand
-            {
-                Price = answerMessage.Price,
-                SubjectId = answerMessage.SubjectId,
-                Text = answerMessage.Text,
-                UserId = answerMessage.UserId
-            };
+            var command = new CreateQuestionCommand(
+                answerMessage.SubjectId,
+                answerMessage.Text,
+                answerMessage.Price,
+                answerMessage.UserId, null, 
+                QuestionColor.Default);
             await commandBus.DispatchAsync(command, token);
             await queue.DeleteMessageAsync(msg, token);
             log.Info($"QuestionPopulate function executed at: {DateTime.Now}");

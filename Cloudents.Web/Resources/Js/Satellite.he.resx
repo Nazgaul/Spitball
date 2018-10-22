@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="routes_about" xml:space="preserve">
+    <value>איך פועל ספיטבול</value>
+  </data>
+  <data name="routes_blog" xml:space="preserve">
+    <value>בלוג</value>
+  </data>
+  <data name="routes_contact" xml:space="preserve">
+    <value>קשר</value>
+  </data>
+  <data name="routes_faq" xml:space="preserve">
+    <value>שאלות נפוצות</value>
+  </data>
+  <data name="routes_partners" xml:space="preserve">
+    <value>שותפים</value>
+  </data>
+  <data name="routes_privacy" xml:space="preserve">
+    <value>פרטיות</value>
+  </data>
+  <data name="routes_reps" xml:space="preserve">
+    <value>נציגים</value>
+  </data>
+  <data name="routes_terms" xml:space="preserve">
+    <value>תנאים</value>
+  </data>
 </root>

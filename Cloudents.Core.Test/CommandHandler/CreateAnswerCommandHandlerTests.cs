@@ -34,7 +34,7 @@ namespace Cloudents.Core.Test.CommandHandler
                 mock.Mock<IRepository<Question>>().Setup(s => s.LoadAsync(questionId, default)).ReturnsAsync(question);
                 var instance = mock.Create<CreateAnswerCommandHandler>();
 
-                var command = new CreateAnswerCommand(questionId, "someText", userId, null, null);
+                var command = new CreateAnswerCommand(questionId, "someText", userId, null);
 
 
                 await instance.ExecuteAsync(command, default);
@@ -59,7 +59,7 @@ namespace Cloudents.Core.Test.CommandHandler
                 mock.Mock<IRepository<User>>().Setup(s => s.LoadAsync(userId, default)).ReturnsAsync(user);
                 mock.Mock<IRepository<Question>>().Setup(s => s.LoadAsync(questionId, default)).ReturnsAsync(question);
                 var instance = mock.Create<CreateAnswerCommandHandler>();
-                var command = new CreateAnswerCommand(questionId, "someText", userId, null, null);
+                var command = new CreateAnswerCommand(questionId, "someText", userId, null);
                 await instance.ExecuteAsync(command, default);
             }
         }

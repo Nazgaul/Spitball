@@ -3,11 +3,6 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {
-    //public abstract class BaseEvent
-    //{
-
-    //}
-
     public class AnswerCreatedEvent : IEvent
     {
         public AnswerCreatedEvent(Answer answer)

@@ -1,18 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Cloudents.Core.DTOs.Admin
 {
     public class QuestionWithoutCorrectAnswerDto
     {
 
-        public long QuestionId { get; set; }
-        public Guid AnswerId { get; set; }
-        public string  QuestionText { get; set; }
-        public string AnswerText { get; set; }
+
+        public long Id { get; set; }
+       
+        public string  Text { get; set; }
 
         public string Url { get; set; }
 
         public bool IsFictive { get; set; }
+
+        public IEnumerable<AnswerOfQuestionWithoutCorrectAnswer> Answers { get; set; }
+    }
+
+    [DataContract]
+    public class AnswerOfQuestionWithoutCorrectAnswer
+    {
+        [DataMember]
+        public Guid Id { get; set; }
+        [DataMember]
+        public string Text { get; set; }
+
+        public long QuestionId { get; set; }
 
     }
 }

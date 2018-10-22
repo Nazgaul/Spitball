@@ -130,7 +130,7 @@
     <value>The more SBL you have, the more valuable they are.</value>
   </data>
   <data name="My_Wallet" xml:space="preserve">
-    <value>My Wallet</value>
+    <value>My Walle</value>
   </data>
   <data name="redeemable_SBL" xml:space="preserve">
     <value>redeemable SBL</value>
@@ -143,5 +143,32 @@
   </data>
   <data name="You_have" xml:space="preserve">
     <value>You have</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Tokens" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
   </data>
 </root>

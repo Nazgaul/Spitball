@@ -53,7 +53,7 @@ function QuestionItem(objInit) {
     this.answers = objInit.answers;
     this.user = objInit.user;
     this.dateTime = objInit.dateTime;
-    this.color = !!objInit.color ? objInit.color : undefined;
+    this.color = !!objInit.color ? objInit.color.toLowerCase() : undefined;
     this.hasCorrectAnswer = objInit.hasCorrectAnswer;
     this.template = objInit.template;
     this.template = "ask";
@@ -159,6 +159,35 @@ const transferMap = {
 };
 
 
+
+function FilterItem(ObjInit){
+    this.key = ObjInit.key;
+    this.value = ObjInit.value;
+}
+
+function FilterChunk(ObjInit){
+    this.id = ObjInit.id;
+    this.title = ObjInit.title;
+    this.data = [];
+    this.dictionaryData = {};
+    ObjInit.data.forEach((filterItem)=>{
+        this.data.push(new FilterItem(filterItem));
+        this.dictionaryData[filterItem.key] = filterItem.value
+    })
+}
+
+function Filters(ObjInit){
+    this.filterChunkList = [];
+    this.filterChunkDictionary = [];
+    ObjInit.forEach((filterChunk)=>{
+        let createdFilterChunk = new FilterChunk(filterChunk);
+        this.filterChunkList.push(createdFilterChunk);
+        this.filterChunkDictionary[createdFilterChunk.id] = createdFilterChunk;
+    })
+}
+
+
+
 export default {
     activateFunction: {
         // ask({ source, term=""}) {
@@ -196,5 +225,9 @@ export default {
 
     createQuestionItem: (objInit) => {
         return new QuestionItem(objInit);
+    },
+
+    createFilters: (objInit)=>{
+       return new Filters(objInit)
     }
 }

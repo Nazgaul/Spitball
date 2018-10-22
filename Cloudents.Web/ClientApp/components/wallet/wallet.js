@@ -1,11 +1,8 @@
 import walletService from '../../services/walletService';
-import {
-    cashOutCards
-} from './consts'
-import cashOutCard from './cashOutCard/cashOutCard.vue'
-import {
-    mapGetters
-} from 'vuex'
+import { cashOutCards } from './consts';
+import cashOutCard from './cashOutCard/cashOutCard.vue';
+import { mapGetters } from 'vuex';
+import { LanguageService } from "../../services/language/languageService";
 
 export default {
     components: {
@@ -15,6 +12,7 @@ export default {
     data() {
         return {
             activeTab: 1,
+            isRtl: global.isRtl,
             active: null,
             walletData: {},
             cashOut: false,
@@ -27,35 +25,35 @@ export default {
 
             selected: [],
             allTransactionsHeaders: [{
-                text: 'Date',
+                text: LanguageService.getValueByKey('wallet_Date'),
                 align: 'left',
                 value: 'date',
                 sortable: false,
                 showOnMobile: true
             },
                 {
-                    text: 'Action',
+                    text: LanguageService.getValueByKey('wallet_Action'),
                     align: 'left',
                     value: 'action',
                     sortable: false,
                     showOnMobile: true
                 },
                 {
-                    text: 'Type',
+                    text: LanguageService.getValueByKey('wallet_Type'),
                     align: 'left',
                     value: 'type',
                     sortable: false,
                     showOnMobile: false
                 },
                 {
-                    text: 'Amount',
+                    text: LanguageService.getValueByKey('wallet_Amount'),
                     align: 'right',
                     value: 'amount',
                     sortable: false,
                     showOnMobile: true
                 },
                 {
-                    text: 'Balance',
+                    text: LanguageService.getValueByKey('wallet_Balance'),
                     align: 'right',
                     value: 'balance',
                     sortable: false,
@@ -69,14 +67,14 @@ export default {
                 showOnMobile: true
             },
                 {
-                    text: 'Tokens',
+                    text: LanguageService.getValueByKey('wallet_Tokens'),
                     align: 'left',
                     value: 'points',
                     align: 'right',
                     showOnMobile: true
                 },
                 {
-                    text: 'Value',
+                    text: LanguageService.getValueByKey('wallet_Value'),
                     align: 'left',
                     value: 'value',
                     align: 'right',
@@ -111,16 +109,17 @@ export default {
                         let earnedVal;
                         const total = {
                             points: 0,
-                            type: "total",
-                            value: 0
+                            type: 'total',
+                            value: 0,
+                            name: LanguageService.getValueByKey("wallet_Total")
                         };
                         this.items = response.data;
                         this.items = this.items.map((item) => {
                             item.value = item.value.toFixed(2);
-                            if (item.type !== 'pending') {
+                            if (item.type.toLowerCase() !== 'pending') {
                                 parseFloat(item.value);
                                 this.cash += parseFloat(item.value);
-                                if (item.type === 'Earned') {
+                                if (item.type.toLowerCase() === 'earned') {
                                     earnedVal = parseFloat(item.value)
                                     this.earnedPoints = parseFloat(item.points)
                                 }

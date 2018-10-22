@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Localization;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
 {
@@ -18,10 +19,12 @@ namespace Cloudents.Web.Filters
         private class ValidateEmailImpl : ActionFilterAttribute
         {
             private readonly IMailProvider _mailProvider;
+            private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
 
-            public ValidateEmailImpl(IMailProvider mailProvider)
+            public ValidateEmailImpl(IMailProvider mailProvider, IStringLocalizer<DataAnnotationSharedResource> localizer)
             {
                 _mailProvider = mailProvider;
+                _localizer = localizer;
             }
 
             public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -29,23 +32,20 @@ namespace Cloudents.Web.Filters
                 foreach (var value in context.ActionArguments.Values)
                 {
                     var t = ScanObject(value);
-                    if (t != null)
+                    if (t == null) continue;
+                    var result = await _mailProvider.ValidateEmailAsync(t.Value.propertyValue.ToString(), context.HttpContext.RequestAborted);
+                    if (!result)
                     {
-                        var result = await _mailProvider.ValidateEmailAsync(t.ToString(), context.HttpContext.RequestAborted);
-                        if (!result)
-                        {
-                            //TODO: Localize
-                            context.ModelState.AddModelError("Email", "invalid email");
-                            context.Result = new BadRequestObjectResult(context.ModelState);
-                        }
-
-                        break;
+                        context.ModelState.AddModelError(t.Value.propertyName, _localizer["EmailAddress", t.Value.propertyName]);
+                        context.Result = new BadRequestObjectResult(context.ModelState);
                     }
+
+                    break;
                 }
                 await base.OnActionExecutionAsync(context, next);
             }
 
-            private object ScanObject(object obj)
+            private static (string propertyName, object propertyValue)? ScanObject(object obj)
             {
                 switch (obj)
                 {
@@ -55,24 +55,17 @@ namespace Cloudents.Web.Filters
 
                 foreach (var property in obj.GetType().GetProperties())
                 {
-                    object propValue = property.GetValue(obj, null);
+                    var propValue = property.GetValue(obj, null);
                     if (property.PropertyType.IsPrimitive || property.PropertyType == typeof(string))
                     {
                         if (property.GetCustomAttribute(typeof(EmailAddressAttribute)) != null)
                         {
-                            return propValue;
+                            return (property.Name, propValue);
                         }
                     }
                     else if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
                     {
                         return null;
-                        //Console.WriteLine("{0}{1}:", indentString, property.Name);
-                        //IEnumerable enumerable = (IEnumerable)propValue;
-                        //foreach (object child in enumerable)
-                        //{
-
-                        //}
-
                     }
                     else
                     {

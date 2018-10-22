@@ -9,6 +9,7 @@ import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue'
 import { sendEventList } from '../../../services/signalR/signalREventSender'
 import { LanguageService } from "../../../services/language/languageService";
+import analyticsService from '../../../services/analytics.service';
 
 export default {
     mixins: [disableForm],
@@ -21,6 +22,7 @@ export default {
         return {
             textAreaValue: "",
             errorTextArea: {},
+            errorHasAnswer: '',
             answerFiles: [],
             questionData: null,
             cardList: [],
@@ -52,14 +54,16 @@ export default {
                 self.textAreaValue = self.textAreaValue.trim();
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
                     .then(function (resp) {
-                        self.$ga.event("Submit_answer", "Homwork help");
+                        //self.$ga.event("Submit_answer", "Homwork help");
+                        analyticsService.sb_unitedEvent("Submit_answer", "Homwork help")
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
                         self.cardList = resp.data;
                         self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog
-                    }, () => {
+                    }, (error) => {
+                        self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
                         self.updateLoading(true);
                     })
@@ -167,8 +171,7 @@ export default {
     created() {
         global.addEventListener('beforeunload', () => {
             this.removeViewer();
-        })
-
+        });
         this.getData();
         // to do may be to consider change to State Store VueX
         this.$root.$on('deleteAnswer', (id) => {

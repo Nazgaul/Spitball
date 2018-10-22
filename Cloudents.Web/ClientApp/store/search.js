@@ -81,9 +81,15 @@ const mutations = {
             }
         }
     },
+    [SEARCH.RESETQUE](state){
+        //check if ask Tab was loaded at least once
+        for(let verticalName in state.queItemsPerVertical){
+            state.queItemsPerVertical[verticalName] = [];
+        }
+    },
     [SEARCH.REMOVE_QUESTION](state, questionToRemove){
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
-            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; i++ ){
+            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; questionIndex++ ){
                 let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
                 if(currentQuestion.id === questionToRemove.id){
                     //remove the question from the list
@@ -178,8 +184,10 @@ const actions = {
 
     
     fetchingData(context, { name, params, page, skipLoad}){
-        let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-         let paramsList = {...context.state.search,...params, university, page};
+         //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
+        //let paramsList = {...context.state.search, ...params, university, page};
+
+        let paramsList = {...context.state.search, ...params, page};
             //update box terms
             context.dispatch('updateAITerm',{vertical:name,data:{text:paramsList.term}});
             //get location if needed
@@ -194,13 +202,14 @@ const actions = {
                         context.commit(SEARCH.INJECT_QUESTION)
                     }                
                     
-                    let filtersData = !!verticalItems.filters ? verticalItems.filters : null;
+                    let filtersData = !!verticalItems.filters ? searchService.createFilters(verticalItems.filters) : null;
                     let sortData = !!verticalItems.sort  ? verticalItems.sort : null;
                     context.dispatch('updateSort', sortData);
                     context.dispatch('updateFilters', filtersData);
     
                     return verticalItems
                 }else{
+                   context.commit(SEARCH.RESETQUE);
                    return getData();
                 }
             
@@ -234,11 +243,11 @@ const actions = {
                         let verticalObj = {
                             verticalName: name,
                             verticalData: data
-                        }
+                        };
                         context.dispatch('setDataByVerticalType', verticalObj);
                         let sortData = !!data.sort ? data.sort : null;
-                        context.dispatch('updateSort', sortData);   
-                        let filtersData = !!data.filters ? data.filters : null;
+                        context.dispatch('updateSort', sortData);
+                        let filtersData = !!data.filters ? searchService.createFilters(data.filters) : null;
                         context.dispatch('updateFilters', filtersData);
                         return data;
                     },(err) => {

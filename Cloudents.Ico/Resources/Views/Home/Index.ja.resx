@@ -143,7 +143,7 @@
     <value>連絡先</value>
   </data>
   <data name="Copyright &amp; 2018, Cloudents LTD ." xml:space="preserve">
-    <value>Copyright © Cloudents 2018</value>
+    <value>&lt;span lang="en"&gt;Copyright © Cloudents 2018&lt;/span&gt;</value>
   </data>
   <data name="Developers" xml:space="preserve">
     <value>開発者</value>
@@ -158,10 +158,10 @@
     <value>世界中の &lt;b&gt;10&lt;/b&gt; 億人の学生達が、サードパーティーの高額な中間コストなしでお互いに直接コンテンツ、知識、サービスを交換できるようになると&lt;b&gt; - - 1500 億円市場が崩壊することになります&lt;/b&gt;</value>
   </data>
   <data name="Founded" xml:space="preserve">
-    <value>Spitball は 2014年に創業しました。私たちが既に成し遂げてきた出来事、そしてSpitball チーム、コミュニティ、投資家の支援によって将来成し遂げることを心待ちにしている出来事を以下に紹介します。</value>
+    <value>&lt;span lang="en"&gt;Spitball&lt;/span&gt; は 2014年に創業しました。私たちが既に成し遂げてきた出来事、そして&lt;span lang="en"&gt;Spitball&lt;/span&gt; チーム、コミュニティ、投資家の支援によって将来成し遂げることを心待ちにしている出来事を以下に紹介します。</value>
   </data>
   <data name="Get In Touch" xml:space="preserve">
-    <value>Spitball へ連絡</value>
+    <value>&lt;span lang="en"&gt;Spitball&lt;/span&gt; へ連絡</value>
   </data>
   <data name="Initial wallet released" xml:space="preserve">
     <value>初期ウォレットのリリース</value>
@@ -173,19 +173,19 @@
     <value>サードパーティーのサイトと統合して SBL トークンの使用を受付</value>
   </data>
   <data name="Join Telegram" xml:space="preserve">
-    <value>Telegram に参加</value>
+    <value>&lt;span lang="en"&gt;Telegram&lt;/span&gt; に参加</value>
   </data>
   <data name="Join us on Telegram" xml:space="preserve">
-    <value>Telegram で参加</value>
+    <value>&lt;span lang="en"&gt;Telegram&lt;/span&gt; で参加</value>
   </data>
   <data name="Launch of Spitball Marketplace for all student-related goods and services (tutors, textbooks, class material, second-hand items, etc.)" xml:space="preserve">
-    <value>あらゆる学生関連の商品やサービス（個人指導、教科書、教材、中古品）に対応する Spitball マーケットプレイスを開始</value>
+    <value>あらゆる学生関連の商品やサービス（個人指導、教科書、教材、中古品）に対応する &lt;span lang="en"&gt;Spitball&lt;/span&gt; マーケットプレイスを開始</value>
   </data>
   <data name="Mission" xml:space="preserve">
-    <value>Spitball の&lt;b&gt;ミッション&lt;/b&gt;は、学生のニーズに貢献するマーケットプレイスを学生の皆さんに提供することであり、課題のヘルプや講義ノートの交換、求職、教科書の売買をはじめ、より多くのことができる場を実現します。</value>
+    <value>&lt;span lang="en"&gt;Spitball&lt;/span&gt; の&lt;b&gt;ミッション&lt;/b&gt;は、学生のニーズに貢献するマーケットプレイスを学生の皆さんに提供することであり、課題のヘルプや講義ノートの交換、求職、教科書の売買をはじめ、より多くのことができる場を実現します。</value>
   </data>
   <data name="Our Partners" xml:space="preserve">
-    <value>Spitball のパートナー</value>
+    <value>&lt;span lang="en"&gt;Spitball&lt;/span&gt; のパートナー</value>
   </data>
   <data name="Partners" xml:space="preserve">
     <value>パートナー</value>
@@ -230,22 +230,22 @@
     <value>教材の共有</value>
   </data>
   <data name="Spitball 1.0" xml:space="preserve">
-    <value>Spitball 1.0</value>
+    <value>&lt;span lang="en"&gt;Spitball 1.0&lt;/span&gt; </value>
   </data>
   <data name="Spitball 2.0" xml:space="preserve">
-    <value>Spitball 2.0</value>
+    <value>&lt;span lang="en"&gt;Spitball 2.0&lt;/span&gt; </value>
   </data>
   <data name="Spitball expands to new markets (Asia, EU)" xml:space="preserve">
-    <value>Spitball の新たな市場への拡大（アジア、EU）</value>
+    <value>&lt;span lang="en"&gt;Spitball&lt;/span&gt; の新たな市場への拡大（アジア、EU）</value>
   </data>
   <data name="Spitball is launched in Israel as a social studying app" xml:space="preserve">
-    <value>イスラエルで Spitball を社会学習アプリとして開始</value>
+    <value>イスラエルで &lt;span lang="en"&gt;Spitball&lt;/span&gt; を社会学習アプリとして開始</value>
   </data>
   <data name="Spitball is launched in the United States" xml:space="preserve">
-    <value>米国で Spitball を開始</value>
+    <value>米国で &lt;span lang="en"&gt;Spitball&lt;/span&gt; を開始</value>
   </data>
   <data name="Spitball partners with 25+ leading educational companies to become the premier aggregator of academic content &amp; services" xml:space="preserve">
-    <value>Spitball は 25 社以上の大手教育関連企業をパートナーになり、学術的コンテンツとサービスのトップアグリゲータになる</value>
+    <value>&lt;span lang="en"&gt;Spitball&lt;/span&gt; は 25 社以上の大手教育関連企業のパートナーになり、学術的コンテンツとサービスのトップアグリゲータになる</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>送信</value>
@@ -281,10 +281,10 @@
     <value>は自社サイトの支払いシステムとしてSBL を統合することに対する恩恵を受けます</value>
   </data>
   <data name="Token Economy 3" xml:space="preserve">
-    <value>はプラットフォーム上に dApps を作成することに対してトークンが与えられます</value>
+    <value>はプラットフォーム上に &lt;span lang="en"&gt;dApps&lt;/span&gt; を作成することに対してトークンが与えられます</value>
   </data>
   <data name="Token Economy Desc" xml:space="preserve">
-    <value>Spitball 2.0 の初期においては、&lt;br /&gt;ネットワーク参加者はこのネットワークの活性化を支援する活動に対する恩恵を受けます</value>
+    <value>&lt;span lang="en"&gt;Spitball 2.0&lt;/span&gt; の初期においては、&lt;br /&gt;ネットワーク参加者はこのネットワークの活性化を支援する活動に対する恩恵を受けます</value>
   </data>
   <data name="Use Cases" xml:space="preserve">
     <value>使用事例</value>
@@ -296,7 +296,7 @@
     <value>ユーザー</value>
   </data>
   <data name="Vision" xml:space="preserve">
-    <value>Spitball の&lt;b&gt;ビジョン&lt;/b&gt;は、&lt;b&gt;透明、安全&lt;/b&gt;&lt;b&gt;、直接的&lt;/b&gt;（ピアツーピア）な&lt;b&gt;学生のための経済圏&lt;/b&gt;を、&lt;b&gt;効率性の高い市場&lt;/b&gt;において&lt;b&gt;低価格&lt;/b&gt;、高用量、そしてコミュニティの貢献者に&lt;b&gt;妥当な報酬&lt;/b&gt;で作り出すことです。</value>
+    <value>&lt;span lang="en"&gt;Spitball&lt;/span&gt; の&lt;b&gt;ビジョン&lt;/b&gt;は、&lt;b&gt;透明、安全&lt;/b&gt;&lt;b&gt;、直接的&lt;/b&gt;（ピアツーピア）な&lt;b&gt;学生のための経済圏&lt;/b&gt;を、&lt;b&gt;効率性の高い市場&lt;/b&gt;において&lt;b&gt;低価格&lt;/b&gt;、高用量、そしてコミュニティの貢献者に&lt;b&gt;妥当な報酬&lt;/b&gt;で作り出すことです。</value>
   </data>
   <data name="VisionFooter" xml:space="preserve">
     <value>ビジョン</value>
@@ -305,7 +305,7 @@
     <value>ホワイトペーパー</value>
   </data>
   <data name="Whitepaper published and launch of Spitball 2.0 Homework Help marketplace" xml:space="preserve">
-    <value>ホワイトペーパーの公開と Spitball 2.0 Homework Help Marketplace の開始</value>
+    <value>ホワイトペーパーの公開と &lt;span lang="en"&gt;Spitball 2.0 Homework Help Marketplace&lt;/span&gt; の開始</value>
   </data>
   <data name="Your Email" xml:space="preserve">
     <value>メールアドレス</value>

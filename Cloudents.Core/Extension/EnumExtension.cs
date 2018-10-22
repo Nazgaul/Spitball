@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Attributes;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Reflection;
-using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
 {
@@ -11,30 +11,57 @@ namespace Cloudents.Core.Extension
         public static string GetDescription(this System.Enum value)
         {
             if (value == null) throw new ArgumentNullException(nameof(value));
-            var fi = value.GetType().GetField(value.ToString());
+            var val = GetAttributeValue<ParseAttribute>(value);
 
-            switch (fi.GetCustomAttributes(typeof(ParseAttribute), false).FirstOrDefault())
+            switch (val)
             {
                 case null:
                     return value.ToString();
                 case ParseAttribute parse:
                     return parse.Description;
             }
-
-            throw new InvalidCastException();
         }
 
-        public static IEnumerable<string> GetPublicEnumNames(Type value)
+        public static string GetEnumLocalization(this System.Enum value)
+        {
+            if (value == null) throw new ArgumentNullException(nameof(value));
+
+            var val = GetAttributeValue<ResourceDescriptionAttribute>(value);
+            if (val == null)
+            {
+                return value.ToString("G");
+            }
+
+            if (val.ResourceType == null) return val.Description;
+            var x = new System.Resources.ResourceManager(val.ResourceType);
+            return x.GetString(val.ResourceName, CultureInfo.CurrentUICulture);
+        }
+
+        public static T GetAttributeValue<T>(this System.Enum value) where T : Attribute
+        {
+            if (value == null) throw new ArgumentNullException(nameof(value));
+            var fi = value.GetType().GetField(value.ToString());
+            return fi.GetCustomAttribute<T>();
+        }
+
+        public static IEnumerable<string> GetPublicEnumNames(this Type value)
         {
             var memberInfos = value.GetFields(BindingFlags.Public | BindingFlags.Static);
+
 
             foreach (var memberInfo in memberInfos)
             {
                 if (memberInfo.GetCustomAttribute<PublicValueAttribute>() != null)
                 {
                     yield return memberInfo.Name;
+
                 }
             }
+        }
+
+        public static IEnumerable<T> GetValues<T>() where T : System.Enum
+        {
+            return (T[])System.Enum.GetValues(typeof(T));
         }
     }
 }

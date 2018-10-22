@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using Aspose.Slides;
-using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
@@ -13,9 +12,9 @@ namespace Cloudents.Infrastructure.Framework
     public class PowerPoint2007Processor : Processor, IPreviewProvider
     {
         private const string CacheVersion = CacheVersionPrefix + "4";
-        public PowerPoint2007Processor(Uri blobUri,
-            IBlobProvider blobProvider,
-            IBlobProvider<CacheContainer> blobProviderCache)
+        public PowerPoint2007Processor(string blobUri,
+            IBlobProvider<OldSbFilesContainerName> blobProvider,
+            IBlobProvider<OldCacheContainer> blobProviderCache)
             : base(blobProvider, blobProviderCache, blobUri)
         {
             SetLicense();
@@ -29,7 +28,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
+           // var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
 
             var ppt = new AsyncLazy<Presentation>(async () =>
             {
@@ -41,7 +40,7 @@ namespace Cloudents.Infrastructure.Framework
             });
 
             var retVal = await UploadPreviewCacheToAzureAsync(indexNum,
-                i => CreateCacheFileName(blobName, i),
+                i => CreateCacheFileName(BlobUri, i),
                 async z =>
                 {
                     var p = await ppt;

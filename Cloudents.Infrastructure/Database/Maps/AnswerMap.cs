@@ -16,7 +16,14 @@ namespace Cloudents.Infrastructure.Database.Maps
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
 
-            //References(x => x.Transaction).ForeignKey("Answer_Transaction").Nullable();
+            //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
+            HasMany(x => x.Transactions)
+                //.Cascade()
+                .LazyLoad()
+                .Inverse();
+
+            SchemaAction.None();
+            
         }
     }
 }

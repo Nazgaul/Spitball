@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,163 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="agree" xml:space="preserve">
+    <value>אני מסכים לאמור ב-?? של ספיטבול</value>
+  </data>
+  <data name="already_have_account" xml:space="preserve">
+    <value>האם כבר יש לך חשבון?</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>וכן</value>
+  </data>
+  <data name="an_activation_email_has_been_sent_to" xml:space="preserve">
+    <value>הודעת דוא"ל עם קוד הפעלה נשלחה אל</value>
+  </data>
+  <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך לצאת?</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>שנה/החלף</value>
+  </data>
+  <data name="check_your_email" xml:space="preserve">
+    <value>בדוק את הדוא"ל כדי להפעיל</value>
+  </data>
+  <data name="confirmation_link_expired" xml:space="preserve">
+    <value>פג תוקף הקישור שלך לאישור</value>
+  </data>
+  <data name="congrats" xml:space="preserve">
+    <value>כל הכבוד!</value>
+  </data>
+  <data name="continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="continue_registration" xml:space="preserve">
+    <value>המשך בהרשמה</value>
+  </data>
+  <data name="didnt_get_an_email" xml:space="preserve">
+    <value>לא קיבלת הודעת דוא"ל?</value>
+  </data>
+  <data name="enter_the_confirm_code" xml:space="preserve">
+    <value>הזן קוד אישור</value>
+  </data>
+  <data name="enter_your_phone_number" xml:space="preserve">
+    <value>הזן מספר טלפון</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>יציאה</value>
+  </data>
+  <data name="exiting_information1" xml:space="preserve">
+    <value>יציאה מהתהליך תגרום למחיקת כל</value>
+  </data>
+  <data name="exiting_information2" xml:space="preserve">
+    <value>התקדמות ומידע</value>
+  </data>
+  <data name="get_started" xml:space="preserve">
+    <value>תחילת העבודה</value>
+  </data>
+  <data name="homework_questions" xml:space="preserve">
+    <value>שאלות בנושא שיעורי בית.</value>
+  </data>
+  <data name="lets_start" xml:space="preserve">
+    <value>בואו נתחיל</value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>כניסה</value>
+  </data>
+  <data name="login_click_here_to_send" xml:space="preserve">
+    <value>לחץ כאן כדי לשלוח שוב.</value>
+  </data>
+  <data name="login_didnt_get_sms" xml:space="preserve">
+    <value>לא קיבלת סמס?</value>
+  </data>
+  <data name="login_until_activate_account3" xml:space="preserve">
+    <value>עד שתפעיל את חשבונך</value>
+  </data>
+  <data name="need_an_account" xml:space="preserve">
+    <value>זקוק לחשבון?</value>
+  </data>
+  <data name="not_complete_registration" xml:space="preserve">
+    <value>לא השלמת את תהליך ההרשמה</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>או</value>
+  </data>
+  <data name="please_agree" xml:space="preserve">
+    <value>כדי להמשיך, אנא הסכם לתנאים וההתניות</value>
+  </data>
+  <data name="please_login" xml:space="preserve">
+    <value>התחבר למערכת</value>
+  </data>
+  <data name="privacy_policy" xml:space="preserve">
+    <value>מדיניות הפרטיות</value>
+  </data>
+  <data name="register" xml:space="preserve">
+    <value>הירשם</value>
+  </data>
+  <data name="sbl" xml:space="preserve">
+    <value> SBL</value>
+  </data>
+  <data name="select_your_country_code" xml:space="preserve">
+    <value>בחר קוד מדינה</value>
+  </data>
+  <data name="sent_code_by_sms" xml:space="preserve">
+    <value>שלחנו לך את הקוד בסמס</value>
+  </data>
+  <data name="sent_confirmation_code" xml:space="preserve">
+    <value>שלחנו קוד אישור אל הטלפון הנייד שלך.</value>
+  </data>
+  <data name="signin_your_email" xml:space="preserve">
+    <value>התחבר באמצעות דוא"ל</value>
+  </data>
+  <data name="sign_in" xml:space="preserve">
+    <value>כניסה</value>
+  </data>
+  <data name="sign_up" xml:space="preserve">
+    <value>הרשמה</value>
+  </data>
+  <data name="sign_up_with_google" xml:space="preserve">
+    <value>הירשם באמצעות גוגל</value>
+  </data>
+  <data name="sure_exit1" xml:space="preserve">
+    <value>האם אתה</value>
+  </data>
+  <data name="sure_exit2" xml:space="preserve">
+    <value>בטוח ש</value>
+  </data>
+  <data name="sure_exit3" xml:space="preserve">
+    <value>ברצונך</value>
+  </data>
+  <data name="sure_exit4" xml:space="preserve">
+    <value>אל</value>
+  </data>
+  <data name="sure_exit5" xml:space="preserve">
+    <value>האם לצאת?</value>
+  </data>
+  <data name="terms_of_services" xml:space="preserve">
+    <value>תנאי שירות</value>
+  </data>
+  <data name="until_activate_account" xml:space="preserve">
+    <value>תוכל להיכנס אל Spitball.co רק לאחר שתפעיל את חשבונך</value>
+  </data>
+  <data name="until_activate_account1" xml:space="preserve">
+    <value>לא תוכל</value>
+  </data>
+  <data name="until_activate_account2" xml:space="preserve">
+    <value>כדי להיכנס אל Spitball.co</value>
+  </data>
+  <data name="welcome_back" xml:space="preserve">
+    <value>ברוך השב</value>
+  </data>
+  <data name="Your" xml:space="preserve">
+    <value>שלך</value>
+  </data>
+  <data name="your_account" xml:space="preserve">
+    <value>החשבון שלך</value>
+  </data>
+  <data name="you_are_reward_with" xml:space="preserve">
+    <value>אנו מזכים אותך ב</value>
+  </data>
+  <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
+    <value>תוכל להשתמש בהם כדי לקבל עזרה לגבי</value>
+  </data>
 </root>

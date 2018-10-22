@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="login" xml:space="preserve">
+    <value>כניסה</value>
+  </data>
+  <data name="placeholder_ask" xml:space="preserve">
+    <value>חיפוש בשאלות</value>
+  </data>
+  <data name="placeholder_book" xml:space="preserve">
+    <value>כותרת או קוד ISBN של ספר לימוד...</value>
+  </data>
+  <data name="placeholder_flashcard" xml:space="preserve">
+    <value>חפש כרטיסיות לימוד...</value>
+  </data>
+  <data name="placeholder_job" xml:space="preserve">
+    <value>תחום ההתמחות שלך...</value>
+  </data>
+  <data name="placeholder_note" xml:space="preserve">
+    <value>אתר מסמכי לימוד ב...</value>
+  </data>
+  <data name="placeholder_tutor" xml:space="preserve">
+    <value>אתר מורה פרטי...</value>
+  </data>
+  <data name="sbl" xml:space="preserve">
+    <value> SBL</value>
+  </data>
+  <data name="sign_up" xml:space="preserve">
+    <value>הרשמה</value>
+  </data>
 </root>

@@ -1,13 +1,14 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Linq;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -38,8 +39,8 @@ namespace Cloudents.Infrastructure.Database.Query
                  })
                  .ToFutureValue();
             var futureQuestions = _session.Query<Question>()
-                .Fetch(f => f.Subject)
                 .Where(w => w.User.Id == query.Id)
+                .Where(w => w.State == null || w.State == QuestionState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new QuestionDto
                 {
@@ -49,7 +50,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Files = s.Attachments,
                     Price = s.Price,
                     Id = s.Id,
-                    Subject = s.Subject.Text,
+                    Subject = s.Subject,
                     Color = s.Color,
                     HasCorrectAnswer = s.CorrectAnswer != null
                 }).ToFuture();
@@ -57,7 +58,6 @@ namespace Cloudents.Infrastructure.Database.Query
             var answerQuery = _session.Query<Answer>()
                 .Fetch(f => f.Question);
 
-            answerQuery.ThenFetch(f => f.Subject);
             answerQuery.ThenFetch(f => f.User);
 
             var futureAnswers = answerQuery.Where(w => w.User.Id == query.Id)
@@ -70,7 +70,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Files = s.Question.Attachments,
                     Price = s.Question.Price,
                     Id = s.Question.Id,
-                    Subject = s.Question.Subject.Text,
+                    Subject = s.Question.Subject,
                     Color = s.Question.Color,
                     HasCorrectAnswer = s.Question.CorrectAnswer != null,
                     User = new UserDto
@@ -80,6 +80,8 @@ namespace Cloudents.Infrastructure.Database.Query
                         Image = s.Question.User.Image
                     }
                 }).ToFuture();
+
+
 
             var dto = await futureDto.GetValueAsync(token).ConfigureAwait(false);
             if (dto == null)

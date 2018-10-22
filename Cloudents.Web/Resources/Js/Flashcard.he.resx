@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="B" xml:space="preserve">
+    <value>נ</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>חזרה</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>גם וגם</value>
+  </data>
+  <data name="both_l" xml:space="preserve">
+    <value>גם וגם</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>קלפים</value>
+  </data>
+  <data name="F" xml:space="preserve">
+    <value>כ</value>
+  </data>
+  <data name="flashcard_pin_l" xml:space="preserve">
+    <value>נעץ</value>
+  </data>
+  <data name="flipdown" xml:space="preserve">
+    <value>הפוך מטה</value>
+  </data>
+  <data name="flipup" xml:space="preserve">
+    <value>הפוך מעלה</value>
+  </data>
+  <data name="Front" xml:space="preserve">
+    <value>קדמי</value>
+  </data>
+  <data name="front_l" xml:space="preserve">
+    <value>קדמי</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>ל</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>הבא</value>
+  </data>
+  <data name="P" xml:space="preserve">
+    <value>פ</value>
+  </data>
+  <data name="Pin" xml:space="preserve">
+    <value>נעץ</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>הקודם</value>
+  </data>
+  <data name="S" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="shuffle" xml:space="preserve">
+    <value>ערבוב</value>
+  </data>
+  <data name="shuffle_cards" xml:space="preserve">
+    <value>ערבוב קלפים</value>
+  </data>
+  <data name="Study" xml:space="preserve">
+    <value>לימוד</value>
+  </data>
 </root>

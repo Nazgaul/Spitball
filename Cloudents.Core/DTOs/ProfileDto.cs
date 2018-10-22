@@ -10,5 +10,6 @@ namespace Cloudents.Core.DTOs
 
         public IEnumerable<QuestionDto> Questions { get; set; }
         public IEnumerable<QuestionDto> Answers { get; set; }
+        
     }
 }

@@ -1,5 +1,6 @@
 import { mapGetters, mapMutations } from "vuex";
-import { page }  from "../../services/navigation/vertical-navigation/nav";
+import { page } from "../../services/navigation/vertical-navigation/nav";
+
 const MobileSortAndFilter = () => import('../SortAndFilter/MobileSortAndFilter.vue');
 const SortAndFilter = () => import('../SortAndFilter/SortAndFilter.vue');
 const plusBtn = () => import("../settings/svg/plus-button.svg");
@@ -9,43 +10,108 @@ export default {
     data() {
         return {
             filter: '',
-            filtersDefault:{}
+            filtersDefault: {}
         };
     },
-    components: { SortAndFilter, plusBtn, MobileSortAndFilter },
+    components: {SortAndFilter, plusBtn, MobileSortAndFilter},
 
     props: {
-        name: { type: String },
-        query: { type: Object },
-        params: { type: Object }
+        name: {type: String},
+        query: {type: Object},
+        params: {type: Object}
     },
     computed: {
-        ...mapGetters({'loading':'getIsLoading', 'getFilters': 'getFilters', 'getSort': 'getSort'}),
-        page() { return page[this.name] },
+        ...mapGetters({'loading': 'getIsLoading', 'getFilters': 'getFilters', 'getSort': 'getSort'}),
+        page() {
+            return page[this.name]
+        },
         sort() {
             return this.query.sort
         },
+
         filterSelection() {
+            /**
+             * return {
+             *  key,
+             *  value,
+             *  name
+             * }
+             */
             let filterOptions = [];
-            let filtersList = [];
             let filters = this.getFilters;
-            if(!!filters){
-                filtersList = filters.map((item)=>{
-                    return item.id
-                })
+
+            if (!!filters) {
+                // iterate filter and add/remove filter value
+                Object.entries(this.query).forEach(([key, vals]) => {
+                    if(!filters.filterChunkDictionary[key] || key === 'sort') return;
+                    let filterIds = vals; //could be a string not only array (e.g: sort)
+                    if (typeof filterIds === 'object') { // TODO sort could be alos an object
+                        if (filterIds.length === 0) {
+                            return filterOptions;
+                        }
+                        filterIds.forEach((id) => {
+                            let filterId = id;
+                            let filterType = key;
+                            let name = filters.filterChunkDictionary[filterType].dictionaryData[filterId];
+                            let filterItem = {
+                                filterId,
+                                filterType,
+                                name
+                            };
+                            filterOptions.push(filterItem);
+                        })
+                    } else {
+                        let filterId = filterIds;
+                        let filterType = key;
+                        let name = filters.filterChunkDictionary[filterType].dictionaryData[filterId];
+                        let filterItem = {
+                            filterId,
+                            filterType,
+                            name
+                        };
+                        filterOptions.push(filterItem);
+                    }
+                });
+            } else if (this.$route.name === 'bookDetails') {
+            //we need to create the filters according to the query string
+                Object.entries(this.query).forEach(([key, vals]) => {
+                    let filterIds = vals; //could be a string not only array (e.g: sort)
+                    if (typeof filterIds === 'object') { // TODO sort could be alos an object
+                        if (filterIds.length === 0) {
+                            return filterOptions;
+                        }
+                        filterIds.forEach((id) => {
+                            let filterId = id;
+                            let filterType = key;
+                            let name = id;
+                            let filterItem = {
+                                filterId,
+                                filterType,
+                                name
+                            };
+                            filterOptions.push(filterItem);
+                        })
+                    } else {
+                        let filterId = filterIds;
+                        let filterType = key;
+                        let name = filterIds;
+                        let filterItem = {
+                            filterId,
+                            filterType,
+                            name
+                        };
+                        filterOptions.push(filterItem);
+                    }
+                });
             }
-            // iterate filter and add/remove filter value
-            Object.entries(this.query).forEach(([key, val]) => {
-                if (val && val.length && filtersList.includes(key)) {
-                    [].concat(val).forEach((value) =>{
-                        return  filterOptions = filterOptions.concat({ key, value })
-                    }) ;
-                }
-            });
+
             return filterOptions;
         }
     },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
     },
-  };
+    created() {
+        console.log(this.query)
+    }
+};

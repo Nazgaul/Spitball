@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Functions.Sync;
 using Cloudents.Infrastructure;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.WebJobs.Host.Config;
@@ -55,6 +57,18 @@ namespace Cloudents.Functions.Di
 
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance();
+
+            builder.RegisterType<QuestionDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Question);
+            builder.RegisterType<UniversityDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.University);
+            builder.RegisterType<CourseDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Course);
+
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+        }
+
+        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            return AppDomain.CurrentDomain
+                .GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
         }
 
         public static string GetEnvironmentVariable(string name)

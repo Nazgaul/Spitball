@@ -1,13 +1,16 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -20,15 +23,18 @@ namespace Cloudents.Web.Api
     public class TutorController : ControllerBase
     {
         private readonly ITutorSearch _tutorSearch;
+        private readonly IStringLocalizer<TutorController> _localizer;
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="tutorSearch"></param>
-        public TutorController(ITutorSearch tutorSearch)
+        /// <param name="localizer"></param>
+        public TutorController(ITutorSearch tutorSearch, IStringLocalizer<TutorController> localizer)
         {
             _tutorSearch = tutorSearch;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -56,10 +62,12 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<TutorDto>
             {
                 Result = result,
-                Sort = Enum.GetNames(typeof(TutorRequestSort)),
-                Filters = new[]
+                Sort = Enum.GetNames(typeof(TutorRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
+                Filters = new IFilters[]
                 {
-                    new Models.Filters(nameof(TutorRequest.Filter),"Status", Enum.GetNames(typeof(TutorRequestFilter)))
+                    new Filters<string>(nameof(TutorRequest.Filter),_localizer["StatusFilter"],
+                        EnumExtension.GetValues<TutorRequestFilter>()
+                            .Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization())))
                 },
                 NextPageLink = nextPageLink
             };

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>קבל</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>תשובה</value>
+  </data>
+  <data name="Answer_dot" xml:space="preserve">
+    <value>השב ·</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="Earn" xml:space="preserve">
+    <value>בוא להרוויח</value>
+  </data>
+  <data name="Sold" xml:space="preserve">
+    <value>נמכר</value>
+  </data>
 </root>

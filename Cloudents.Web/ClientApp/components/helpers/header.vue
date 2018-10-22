@@ -17,31 +17,48 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
+                                    <!--TODO AB-Test-->
+                                    <!--<div class="ab-test static-card-what-is-hw-question hidden-sm-and-down" v-show="loggedIn && $route.path.slice(1) === 'ask'">-->
+                                    <div class="ab-test static-card-what-is-hw-question hidden-sm-and-down">
+                                    <button class="ab-test-button" @click="openNewQuestionDialog()">
+                                        <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                                        <span v-language:inner>abTest_addQuestion</span>
+                                    </button>
+                                    </div>
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} <span v-language:inner>header_sbl</span></span>
-                                        <span>$ {{accountUser.balance | dollarVal}}</span>
+                                        <span class="bold" style="direction:ltr;">{{accountUser.balance | currencyLocalyFilter}}</span>
+                                        <span>${{accountUser.balance | dollarVal}}</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu bottom left offset-y>
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
                                                          :user-name="accountUser.name"/>
+
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
 
-                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
-                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
+                                    <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
+                                    <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
 
                                     <v-menu bottom left offset-y class="gamburger"
-                                            v-if="!loggedIn && $vuetify.breakpoint.xsOnly">
-                                        <v-btn icon slot="activator" @click.native="drawer = !drawer">
+                                            v-if="!loggedIn">
+                                        <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
                                         </v-btn>
                                         <menu-list :isAuthUser="loggedIn"
                                                    v-if="$vuetify.breakpoint.smAndUp"></menu-list>
                                     </v-menu>
+                                    <!--<v-menu bottom left offset-y class="gamburger"-->
+                                            <!--v-if="!loggedIn && $vuetify.breakpoint.xsOnly">-->
+                                        <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
+                                            <!--<v-icon>sbf-menu</v-icon>-->
+                                        <!--</v-btn>-->
+                                        <!--<menu-list :isAuthUser="loggedIn"-->
+                                                   <!--v-if="$vuetify.breakpoint.smAndUp"></menu-list>-->
+                                    <!--</v-menu>-->
 
                                 </div>
                             </v-toolbar-items>
@@ -60,13 +77,12 @@
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
         </v-toolbar>
 
-        <v-navigation-drawer temporary v-model="drawer" light right fixed app v-if=$vuetify.breakpoint.xsOnly
+        <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
+                             fixed app v-if=$vuetify.breakpoint.xsOnly
+                             :class="isRtl ? 'hebrew-drawer' : ''"
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
-        <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">
-            <login-to-answer></login-to-answer>
-        </sb-dialog>
     </div>
 </template>
 
@@ -75,13 +91,10 @@
     import SearchInput from '../helpers/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
-
     import {mapActions, mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
-    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
-    import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
     import {LanguageService } from "../../services/language/languageService";
 
     export default {
@@ -91,8 +104,6 @@
             SearchInput,
             UserAvatar,
             menuList,
-            sbDialog,
-            loginToAnswer
         },
         placeholders: {
             job: LanguageService.getValueByKey("header_placeholder_job"),
@@ -109,7 +120,8 @@
                 clickOnce: false,
                 drawer: null,
                 toasterTimeout: 5000,
-                showDialogLogin: false
+                showDialogLogin: false,
+                isRtl: global.isRtl
             }
         },
         props: {
@@ -123,7 +135,8 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'loginDialogState']),
+            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
+
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -150,7 +163,23 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateLoginDialogState', 'resetData']),
+            ...mapActions(['updateToasterParams', 'resetData', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData']),
+            openNewQuestionDialog(){
+                    if(this.accountUser == null){
+                        this.updateLoginDialogState(true);
+                        //set user profile
+                        this.updateUserProfileData('profileHWH')
+                    }else{
+                        //ab test original do not delete
+                        let Obj = {
+                            status:true,
+                            from: 1
+                        };
+                        this.updateNewQuestionDialogState(Obj)
+                    }
+
+
+            },
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
@@ -162,6 +191,7 @@
                     })
                 }
             },
+
             resetItems(){
                 if(this.$route.path === '/ask'){
                     if(this.$route.fullPath === '/ask'){
@@ -177,7 +207,6 @@
             }
         },
         created() {
-            console.log('route::', this.submitRoute)
             this.$root.$on("personalize",
                 (type) => {
                     this.clickOnce = true;
@@ -187,14 +216,6 @@
                         }
                     })
                 });
-
-            this.$root.$on('closePopUp', (name) => {
-                if (name === 'suggestions') {
-                    this.showDialogSuggestQuestion = false
-                } else {
-                    this.updateLoginDialogState(false)
-                }
-            });
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
         },

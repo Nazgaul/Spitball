@@ -8,9 +8,12 @@
             </div>
             <div slot="step-data" class="limited-width">
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
-                <select v-model="phone.countryCode" class="mb-1">
+                <select v-model="phone.countryCode" :class="['mb-1']">
                     <option value="" disabled hidden v-language:inner>login_select_your_country_code</option>
-                    <option v-for="item in countryCodesList" :value="item.callingCode">{{item.name}}
+                    <option v-for="(item, index) in countryCodesList"
+                            :value="item.callingCode"
+                            :key="index"
+                            :class="[ isRtl ?  'left-to-right' : '']">{{item.name}}
                         ({{item.callingCode}})
                     </option>
                 </select>
@@ -37,6 +40,7 @@
     import registrationService from '../../../services/registrationService'
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+    import { LanguageService } from "../../../services/language/languageService";
 
     export default {
         components: {stepTemplate, SbInput},
@@ -51,9 +55,9 @@
                     confirmPassword: ''
                 },
                 loading: false,
-                bottomError: false
+                bottomError: false,
+                isRtl: global.isRtl
             }
-
         },
         props: {
             isMobile: {
@@ -76,6 +80,11 @@
         computed: {
 
         },
+        created(){
+                registrationService.getLocalCode().then(({data}) => {
+                    this.$parent.$emit('updateCountryCodeList', data.code);
+        });
+            },
         methods: {
             ...mapMutations({updateLoading: "UPDATE_LOADING"}),
             ...mapActions({updateToasterParams: 'updateToasterParams'}),
@@ -87,7 +96,7 @@
                     .then(function (resp) {
                         self.errorMessage.code = '';
                         self.updateToasterParams({
-                            toasterText: 'A verification code was sent to your phone',
+                            toasterText: LanguageService.getValueByKey("login_verification_code_sent_to_phone"),
                             showToaster: true,
                         });
                         self.loading = false;

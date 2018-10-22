@@ -141,4 +141,16 @@
   <data name="Type_it_in_here" xml:space="preserve">
     <value>Type it in here</value>
   </data>
+  <data name="dont_see_university" xml:space="preserve">
+    <value>Please make sure you entered your school full name correctly. Still Can’t find your school?</value>
+  </data>
+  <data name="error_chars" xml:space="preserve">
+    <value>University name must contain at least 10 characters</value>
+  </data>
+  <data name="error_university_create" xml:space="preserve">
+    <value>Failed To create University</value>
+  </data>
+  <data name="class_selection" xml:space="preserve">
+    <value>What class are you taking?</value>
+  </data>
 </root>

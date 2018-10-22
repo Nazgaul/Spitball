@@ -46,8 +46,8 @@ namespace Cloudents.Web
 
         public static readonly CultureInfo[] SupportedCultures = {
 
-            new CultureInfo("en"),
-           // new CultureInfo("he"),
+            Language.English.Culture,
+            Language.Hebrew.Culture
         };
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
@@ -102,6 +102,7 @@ namespace Cloudents.Web
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
+                options.SerializerSettings.Converters.Add(new RequestCultureConverter());
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             })
 
@@ -109,6 +110,7 @@ namespace Cloudents.Web
                 {
                     //TODO: check in source code
                     // o.SuppressBindingUndefinedValueToEnumType
+                    o.Filters.Add<UserLockedExceptionFilter>();
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.Filters.Add(new ResponseCacheAttribute
                     {
@@ -119,7 +121,7 @@ namespace Cloudents.Web
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             if (HostingEnvironment.IsDevelopment())
             {
-                SwaggerInitial(services);
+                Swagger.Startup.SwaggerInitial(services);
             }
 
             services.AddSignalR().AddRedis(Configuration["Redis"]).AddJsonProtocol(o =>
@@ -128,7 +130,6 @@ namespace Cloudents.Web
                     o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                     o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 });
-
             services.AddResponseCompression();
             services.AddResponseCaching();
 
@@ -161,24 +162,19 @@ namespace Cloudents.Web
             
             services.ConfigureApplicationCookie(o =>
             {
-                o.EventsType = typeof(CustomCookieAuthenticationEvents);
-                o.Cookie.Name = "sb3";
+                o.Cookie.Name = "sb4";
                 o.SlidingExpiration = true;
-                //o.Events.OnValidatePrincipal = context =>
-                //{
-                //    context.
-                //    return Task.CompletedTask;
-                //};
-                //o.Events.OnRedirectToLogin = context =>
-                //{
-                //    context.Response.StatusCode = 401;
-                //    return Task.CompletedTask;
-                //};
-                //o.Events.OnRedirectToAccessDenied = context =>
-                //{
-                //    context.Response.StatusCode = 401;
-                //    return Task.CompletedTask;
-                //};
+
+                o.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+                o.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
             });
 
 
@@ -186,7 +182,6 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
-            services.AddScoped<CustomCookieAuthenticationEvents>();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -207,6 +202,7 @@ namespace Cloudents.Web
                     !HostingEnvironment.IsProduction()
                     ),
                 Storage = Configuration["Storage"],
+                ProdStorage = Configuration["ProdStorage"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
             };
@@ -216,6 +212,8 @@ namespace Cloudents.Web
                 Core.Enum.System.Web, assembliesOfProgram);
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
+            containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
+
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
@@ -241,11 +239,13 @@ namespace Cloudents.Web
 
                 configuration.DisableTelemetry = true;
                 app.UseDeveloperExceptionPage();
+                
+
             }
             else
             {
-                app.UseStatusCodePagesWithReExecute("/Error");
-                app.UseExceptionHandler("/Error");
+                //app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                //app.UseExceptionHandler("/Error");
                 app.UseHsts(new HstsOptions
                 {
                     Duration = TimeSpan.FromDays(365),
@@ -253,6 +253,7 @@ namespace Cloudents.Web
                     Preload = true
                 });
             }
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
@@ -265,16 +266,19 @@ namespace Cloudents.Web
             app.UseResponseCompression();
             app.UseResponseCaching();
 
-            app.UseStatusCodePages();
+            //app.UseStatusCodePages();
             
 
-            app.UseRequestLocalization(new RequestLocalizationOptions
+            app.UseRequestLocalization(o =>
             {
-                DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
+
+                o.DefaultRequestCulture = new RequestCulture(SupportedCultures[0]);
                 // Formatting numbers, dates, etc.
-                SupportedCultures = SupportedCultures,
+                o.SupportedCultures = SupportedCultures;
                 // UI strings that we have localized.
-                SupportedUICultures = SupportedCultures
+                o.SupportedUICultures = SupportedCultures;
+                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+
             });
             app.UseStaticFiles(new StaticFileOptions
             {

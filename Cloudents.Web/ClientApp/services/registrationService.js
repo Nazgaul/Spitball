@@ -19,8 +19,8 @@ export default {
     smsCodeVerification: (data) => {
         return connectivityModule.http.post("/sms/verify", {number: data})
     },
-    signIn: (email, captcha, password) => {
-        return connectivityModule.http.post("LogIn", {email, captcha, password})
+    signIn: (email,  password) => {
+        return connectivityModule.http.post("LogIn", {email,  password})
     },
     resendCode: () => {
         return connectivityModule.http.post("/sms/resend")
@@ -40,5 +40,7 @@ export default {
     updatePassword: (password, confirmPassword, id, code) => {
         return connectivityModule.http.post("ForgotPassword/reset", {id, code, password, confirmPassword})
     },
-
+    validateEmail: (email) => {
+        return connectivityModule.http.post("LogIn/ValidateEmail", {email})
+    },
 }

@@ -17,9 +17,9 @@ namespace Cloudents.Infrastructure.Framework
     public class TiffProcessor : Processor, IPreviewProvider
     {
         public TiffProcessor(
-                Uri blobUri,
-                IBlobProvider blobProvider,
-                IBlobProvider<CacheContainer> blobProviderCache)
+                string blobUri,
+                IBlobProvider<OldSbFilesContainerName> blobProvider,
+                IBlobProvider<OldCacheContainer> blobProviderCache)
             //: base(blobProvider, blobProviderPreview, blobProviderCache)
             : base(blobProvider, blobProviderCache, blobUri)
         {
@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
+           // var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
             Stream blobStr = null;
             var tiff = new AsyncLazy<TiffImage>(async () =>
            {
@@ -49,7 +49,7 @@ namespace Cloudents.Infrastructure.Framework
 
             for (var pageIndex = indexNum; pageIndex < indexNum + 15; pageIndex++)
             {
-                var cacheBlobName = CreateCacheFileName(blobName, pageIndex);
+                var cacheBlobName = CreateCacheFileName(BlobUri, pageIndex);
 
                 if (await BlobProviderCache.ExistsAsync(cacheBlobName, cancelToken).ConfigureAwait(false))
                 {

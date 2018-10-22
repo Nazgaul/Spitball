@@ -24,10 +24,6 @@ namespace Cloudents.Core.Interfaces
 
     public interface IUserRepository : IRepository<User>
     {
-        //Task<IList<User>> GetAllUsersAsync(CancellationToken token);
-
-        //Task<User> GetUserByEmail(string email, CancellationToken token);
-
         Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
 
         Task<User> GetRandomFictiveUserAsync(CancellationToken token);
@@ -47,8 +43,13 @@ namespace Cloudents.Core.Interfaces
         Task<Course> GetCourseAsync(long universityId, string courseName, CancellationToken token);
     }
 
+    public interface IUniversityRepository : IRepository<University>
+    {
+        Task<IList<University>> GetUniversityByNameAsync(string name, 
+            string country,
+            CancellationToken token);
 
-
+    }
 
     public interface IMailGunStudentRepository : IRepository<MailGunStudent>
     {

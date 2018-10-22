@@ -2,36 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Query\Queries\**" />
-    <EmbeddedResource Remove="Query\Queries\**" />
-    <None Remove="Query\Queries\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="CommandHandler\UpVoteAnswerCommandHandler.cs" />
-    <Compile Remove="Command\UpVoteAnswerCommand.cs" />
-    <Compile Remove="Interfaces\IBlockChainCrowdsaleService.cs" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
     <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp">
-      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.CSharp\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.CSharp.dll</HintPath>
-    </Reference>
+    <EmbeddedResource Update="Enum\Resources\EnumResources.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Enum\Resources\QuestionSubjectResources.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

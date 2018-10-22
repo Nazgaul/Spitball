@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
+using JetBrains.Annotations;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -9,10 +13,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Mail
 {
@@ -62,7 +62,7 @@ namespace Cloudents.Infrastructure.Mail
 
         public async Task<bool> ValidateEmailAsync(string email, CancellationToken token)
         {
-            var uri = new Uri($"https://api.mailgun.net/v3/address/validate");
+            var uri = new Uri("https://api.mailgun.net/v3/address/validate");
             var nvc = new NameValueCollection()
             {
                 ["address"] = email,

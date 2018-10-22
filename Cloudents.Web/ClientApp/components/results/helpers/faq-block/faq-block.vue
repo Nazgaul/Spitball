@@ -14,13 +14,13 @@
                 <router-link class="footer-btn" tag="button" to="/faq" v-language:inner>faqBlock_more</router-link>
             </div>
         </v-flex>
-        <v-flex xs12 class="card-block mt-3">
+        <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-3">
             <div class="header" v-language:inner>faqBlock_spitball</div>
             <div class="content">
                 <p>{{suggestList[name]}}</p>
             </div>
             <div class="footer">
-                <router-link class="footer-btn" tag="button" :to="{path:'/'+name,query:{q:text}}" v-language:inner>faqBlock_show_me</router-link>
+                <router-link class="footer-btn" tag="button" :to="{path:'/'+name,query:{term:text}}" v-language:inner>faqBlock_show_me</router-link>
             </div>
         </v-flex>
     </v-flex>
@@ -35,7 +35,6 @@
     export default {
         components:{
             askQuestionBtn
-
         },
         data() {
             return {
@@ -54,15 +53,6 @@
         },
         methods:{
             ...mapActions(["updateLoginDialogState", 'updateUserProfileData']),
-            goToAskQuestion(){
-                if(this.accountUser == null){
-                    this.updateLoginDialogState(true);
-                    //set user profile
-                    this.updateUserProfileData('profileHWH')
-                }else{
-                    this.$router.push({name: 'newQuestion'});
-                }
-            }
         },
 
         created() {

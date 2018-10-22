@@ -16,7 +16,10 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
             Map(x => x.Color);
-            References(x => x.Subject).ForeignKey("Question_AskQuestionSubject").Not.Nullable();
+            Map(x => x.State);
+            //References(x => x.Subject).ForeignKey("Question_AskQuestionSubject").Not.Nullable();
+            Map(x => x.Subject).Column("Subject_id").CustomType<int>();
+
             References(x => x.User).Column("UserId").ForeignKey("Question_User").Not.Nullable();
             //HasOne(x => x.CorrectAnswer).Not.ForeignKey();
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
@@ -33,6 +36,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 //.Cascade.()
                 .LazyLoad()
                 .Inverse();
+
         }
     }
 }

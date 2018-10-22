@@ -1,22 +1,18 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
-using Cloudents.Core.EventHandler;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Criterion;
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
+
     public class QuestionsQueryHandler : IQueryHandler<QuestionsQuery, IEnumerable<QuestionDto>>
     {
         private readonly ISession _session;
@@ -26,19 +22,21 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-      //  [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
+        // [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
         public async Task<IEnumerable<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
-            QuestionSubject commentAlias = null;
+            //QuestionSubject commentAlias = null;
             Question questionAlias = null;
             User userAlias = null;
 
             var queryOverObj = _session.QueryOver(() => questionAlias)
-                .JoinAlias(x => x.Subject, () => commentAlias)
+                //.JoinAlias(x => x.Subject, () => commentAlias)
                 .JoinAlias(x => x.User, () => userAlias)
+                .Where(w => w.State == null || w.State == QuestionState.Ok)
                 .SelectList(l => l
-                    .Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
+                    //.Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
+                    .Select(s => s.Subject).WithAlias(() => dto.Subject)
                     .Select(s => s.Id).WithAlias(() => dto.Id)
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Price).WithAlias(() => dto.Price)
@@ -59,7 +57,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .TransformUsing(new DeepTransformer<QuestionDto>());
             if (query.Source != null)
             {
-                queryOverObj.WhereRestrictionOn(() => commentAlias.Text).IsIn(query.Source.ToArray<object>());
+                queryOverObj.WhereRestrictionOn(() => questionAlias.Subject).IsIn(query.Source);
             }
 
             if (!string.IsNullOrEmpty(query.Term))
@@ -69,7 +67,7 @@ namespace Cloudents.Infrastructure.Database.Query
             }
 
 
-            switch (query.Filter)
+            switch (query.Filters.FirstOrDefault())
             {
                 case QuestionFilter.Unanswered:
                     queryOverObj.WithSubquery.WhereNotExists(QueryOver.Of<Answer>()
@@ -89,13 +87,9 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Skip(query.Page * 50)
                 .Take(50);
 
-            //var futureQueryOver = queryOverObj.Future<QuestionDto>();
-
-            //var facetsFuture = QuestionSubjectRepository.GetSubjects(_session.QueryOver<QuestionSubject>()).Select(s => s.Text)
-            //    .Cacheable().CacheMode(CacheMode.Normal)
-            //    .Future<string>();
 
             return await queryOverObj.ListAsync<QuestionDto>(token);
         }
     }
+
 }

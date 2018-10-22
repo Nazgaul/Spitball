@@ -31,15 +31,13 @@
                         </div>
                     </div>
                 </div>
-
                 <v-flex class="web-content">
-
                     <div class="empty-state" v-if="activeTab === 1 && !profileData.questions.length">
                         <div class="text-block">
                             <p v-html="emptyStateData.text"></p>
                             <b>{{emptyStateData.boldText}}</b>
                         </div>
-                        <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">{{emptyStateData.btnText}}</router-link>
+                        <a class="ask-question" @click="emptyStateData.btnUrl()">{{emptyStateData.btnText}}</a>
                     </div>
                     <div class="empty-state" v-else-if="activeTab === 2 && !profileData.answers.length">
                         <div class="text-block">

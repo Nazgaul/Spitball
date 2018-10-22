@@ -120,8 +120,12 @@
   <data name="BadLogin" xml:space="preserve">
     <value>Wrong email or password</value>
   </data>
+  <data name="EmailNotFound" xml:space="preserve">
+    <value>Couldn't find you Spitball Account</value>
+  </data>
   <data name="LockOut" xml:space="preserve">
-    <value>User is locked out</value>
+    <value>Your account has been suspended
+Reason: fraudulent behavior against our T&amp;C</value>
   </data>
   <data name="NotAllowed" xml:space="preserve">
     <value>User is not allowed</value>

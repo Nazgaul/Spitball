@@ -1,13 +1,13 @@
-﻿
-import Vue from "vue";
+﻿import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
-import { Language } from "./services/language/langDirective"
+import { Language } from "./services/language/langDirective";
+import {LanguageService} from './services/language/languageService'
+ 
 import initSignalRService from './services/signalR/signalrEventService'
 
 // clip board copy text
 import VueClipboard from 'vue-clipboard2'
-
 import Scroll from "vuetify/es5/directives/scroll";
 const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
 
@@ -87,7 +87,7 @@ import { constants } from "./utilities/constants";
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: ["Open+Sans:300,400,600,700"]
+        families: ["Open+Sans:300,400,600,700", "Fira+Sans:300,400,600,700"]
     }
 });
 
@@ -97,11 +97,11 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
+
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
         Scroll,
-
     },
     components: vuetifyComponents
 });
@@ -164,10 +164,12 @@ Vue.filter('capitalize',
     });
 //#endregion
 
+//check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
+global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 Vue.filter('ellipsis',
     function (value, characters, datailedView) {
         value = value || '';
-        if (value.length <= characters || datailedView){
+        if (value.length <= characters || datailedView || !global.isFirefox){
             return value;
         }else{
             return value.substr(0, characters) + '...';
@@ -199,14 +201,16 @@ Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
     //return load if no data
     if (!value) {
-        return 'Loading..';
+        return LanguageService.getValueByKey('wallet_Loading');
     }
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
 Vue.filter('currencyLocalyFilter', function (value) {
     let amount = Number(value);
-    return amount && amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0';
+    let sblCurrency = LanguageService.getValueByKey('wallet_SBL');
+    let result =  amount && amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0';
+    return result + " " + sblCurrency;
 });
 
 Vue.filter('commasFilter', function (value) {
@@ -228,6 +232,10 @@ router.beforeEach((to, from, next) => {
     }
     else {
         intercomSettings.hide_default_launcher = false;
+    }
+    //case 10995
+    if (global.appInsights) {
+        appInsights.trackPageView(to.fullPath);
     }
     store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
@@ -259,11 +267,14 @@ function checkUserStatus(to, next) {
     });
 }
 
+global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
+
+
 initSignalRService();
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch
-global.mainCdn = true;
+
 export {
     app,
     router

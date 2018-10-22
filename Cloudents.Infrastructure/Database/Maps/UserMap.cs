@@ -22,8 +22,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
-            //Map(e => e.CountryCodePhone);
-            //Map(e => e.CountryNameIp);
+            Map(e => e.Culture);
+            Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();
             Map(e => e.Fictive).ReadOnly();
@@ -58,17 +58,6 @@ namespace Cloudents.Infrastructure.Database.Maps
                ON sb.[User](PhoneNumberHash)
                WHERE PhoneNumberHash IS NOT NULL;
              */
-        }
-    }
-
-    [UsedImplicitly]
-    internal class UserLoginsMap : SpitballClassMap<UserLogin>
-    {
-        public UserLoginsMap()
-        {
-            CompositeId().KeyProperty(x => x.LoginProvider).KeyProperty(x => x.ProviderKey);
-            Map(x => x.ProviderDisplayName).Nullable();
-            References(x => x.User).Column("UserId").ForeignKey("UserLogin_User");
         }
     }
 }

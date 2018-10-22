@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Tori はフロリダ アトランティック大学をマーケティング、人事、リーダーシップの経営学士号を取得して卒業し、大手保険会社の B2B/B2C マーケティング・コミュニケーション部門での 5 年の勤務経験を発揮しています。Spitball ではマネジメント、コピーライティング、そしてあらゆる公開チャネル上での明瞭なコミュニケーションとコミュニティ マネジメントの立案を提供しています。</value>
+    <value>&lt;span lang="en"&gt;Tori&lt;/span&gt; はフロリダ アトランティック大学をマーケティング、人事、リーダーシップの経営学士号を取得して卒業し、大手保険会社の &lt;span lang="en"&gt;B2B/B2C&lt;/span&gt; マーケティング・コミュニケーション部門での 5 年の勤務経験を発揮しています。&lt;span lang="en"&gt;Spitball&lt;/span&gt; ではマネジメント、コピーライティング、そしてあらゆる公開チャネル上での明瞭なコミュニケーションとコミュニティ マネジメントの立案を提供しています。</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Tori</value>
@@ -127,6 +127,6 @@
     <value>Withee</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>コミュニティ マネージャー</value>
+    <value>コミュニティ&lt;br/&gt;&lt; マネージャー</value>
   </data>
 </root>

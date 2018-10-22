@@ -14,7 +14,6 @@ function getPromoQueryFromRoute(path, query){
     }
 }
 
-
 const nav = {
     ask: {
         banner: getPromoQueryFromRoute,
@@ -23,7 +22,7 @@ const nav = {
             id: routes.questionRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_ask"),
             icon: "sbf-ask-q", //TODO do we need this.....
-            show: true
+            visible: true
         }
     },
     note: {
@@ -35,7 +34,7 @@ const nav = {
             filter: [ { id: "source", name: "sources" }],
             sort: [],
             icon: "sbf-note",
-            show: false
+            visible: global.country.toUpperCase() !== 'IL'
         }
      },
     flashcard: {
@@ -46,7 +45,8 @@ const nav = {
             needLocation: false,
             filter: [],
             sort: [],
-            icon: "sbf-flashcards"
+            icon: "sbf-flashcards",
+            visible: global.country.toUpperCase() !== 'IL'
         }
     },
     tutor: {
@@ -57,7 +57,8 @@ const nav = {
             needLocation: true,
             filter: [],
             sort: [],
-            icon: "sbf-tutor"
+            icon: "sbf-tutor",
+            visible: global.country.toUpperCase() !== 'IL'
         }
     },
     book: {
@@ -65,10 +66,9 @@ const nav = {
         data:{
             id: routes.bookRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_book"),
-            icon: "sbf-textbooks"
+            icon: "sbf-textbooks",
+            visible: global.country.toUpperCase() !== 'IL'
         },
-
-
     },
     job: {
         banner: getPromoQueryFromRoute,
@@ -78,7 +78,8 @@ const nav = {
             needLocation: true,
             filter: [],
             sort: [],
-            icon: "sbf-job"
+            icon: "sbf-job",
+            visible: global.country.toUpperCase() !== 'IL'
         }
     }
 };
@@ -86,32 +87,37 @@ const nav = {
 export let details = {
     bookDetails: {
         filter: [
-            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new"),
-            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_rental"),
-            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_used"),
-          ],
+            {key: 'new', value: LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new")},
+            {key: 'rental', value: LanguageService.getValueByKey("navigation_nav_bookDetails_filter_rental")},
+            {key: 'used', value:LanguageService.getValueByKey("navigation_nav_bookDetails_filter_used")}
+    ],
         sort: [
-            "price",
+            {key: "buy", value: LanguageService.getValueByKey("book_sort_buy")},
+            {key: "sell",value: LanguageService.getValueByKey("book_sort_sell")}
         ]
     }
 };
-export let verticalsList = [];
+//export let verticalsList = [];
 export let names = [];
 export let page = [];
 export let verticalsNavbar = [];
 export let verticalsName = [];
 for (let i in nav) {
     let item = nav[i].data;
+    if(!item.visible) continue;
     verticalsName.push(i);
     names.push({'id': item.id, 'name': item.name});
+if(!!item.visible){
     verticalsNavbar.push(
         {
             'id': item.id,
             'name': item.name,
-            'icon': item.icon
+            'icon': item.icon,
+            'visible': item.visible
             //image: item.image
         });
-    verticalsList.push(nav[i]);
+}
+   // verticalsList.push(nav[i]);
     page[i] = {
         // title: item.resultTitle,
         //emptyText: item.emptyState,

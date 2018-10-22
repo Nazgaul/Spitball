@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,9 +15,9 @@ namespace Cloudents.Infrastructure.Framework
         private const string CacheVersion = CacheVersionPrefix + "4";
 
         public PdfProcessor(
-            Uri blobUri,
-            IBlobProvider blobProvider,
-            IBlobProvider<CacheContainer> blobProviderCache)
+            string blobUri,
+            IBlobProvider<OldSbFilesContainerName> blobProvider,
+            IBlobProvider<OldCacheContainer> blobProviderCache)
             : base(blobProvider,  blobProviderCache, blobUri)
         {
             SetLicense();
@@ -32,7 +31,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
+            //var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
 
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
@@ -47,7 +46,7 @@ namespace Cloudents.Infrastructure.Framework
 
             var retVal = await UploadPreviewCacheToAzureAsync(
                 indexNum,
-                i => CreateCacheFileName(blobName, i),
+                i => CreateCacheFileName(BlobUri, i),
                 async z =>
                 {
                     var ms = new MemoryStream();

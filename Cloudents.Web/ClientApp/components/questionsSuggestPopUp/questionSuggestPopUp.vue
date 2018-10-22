@@ -15,8 +15,8 @@
             </div>
             <v-carousel :interval="interval" v-if="cardList"
                         delimiter-icon="sbf-circle-solid"
-                        prev-icon="sbf-arrow-left-carousel"
-                        next-icon="sbf-arrow-right-carousel">
+                        :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
+                        :next-icon="isRtl ?  'sbf-arrow-left-carousel': 'sbf-arrow-right-carousel'" >
 
                 <v-carousel-item  v-for="(item,i) in cardList" src="" :key="i"  @click.native="answerMore(item.id)">
                         <question-card :fromCarousel="true" :cardData="item" :typeAnswer="typeAnswer" :suggestion="true" class="user-question mb-1 mt-1" detailed-view ></question-card>

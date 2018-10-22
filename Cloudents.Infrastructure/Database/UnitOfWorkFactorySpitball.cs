@@ -52,8 +52,10 @@ namespace Cloudents.Infrastructure.Database
                 {
                     m.FluentMappings.Add(type);
                 }
+                m.FluentMappings.Add<DomainTimeStampMap>();
+                m.FluentMappings.Add<RowDetailMap>();
             });
-            //TODO: Azure function as usuall making live harder
+            //TODO: Azure function as usual making live harder
             //Could not load file or assembly 'Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60' or one of its dependencies. The system cannot find the file specified.
             //configuration.Cache(c =>
             //{
@@ -90,7 +92,7 @@ namespace Cloudents.Infrastructure.Database
             config.SetInterceptor(new LoggingInterceptor());
 #endif
             var eventPublisherListener = new PublishEventsListener(_lifetimeScope.Resolve<IEventPublisher>());
-            config.SetListener(ListenerType.PostDelete, eventPublisherListener);
+            config.SetListener(ListenerType.PostCommitDelete, eventPublisherListener);
             config.SetListener(ListenerType.PostInsert, eventPublisherListener);
             config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);

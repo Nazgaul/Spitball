@@ -9,20 +9,19 @@
                                 <img :src="require(`./img/student_ask.png`)"/>
                             </div>
                             <span class="text-blue" v-language:inner>newQuestion_Get_Your_Question_Answered</span>
-                            <button class="back-button" @click="$router.go(-1)">
+                            <button class="back-button" @click="requestNewQuestionDialogClose()">
                                 <v-icon right>sbf-close</v-icon>
                             </button>
                         </div>
                     </v-flex>
-
-
                     <extended-text-area uploadUrl="/api/upload/ask"
                                         v-model="textAreaValue"
                                         @addFile="addFile"
                                         :actionType="actionType"
                                         :error="errorTextArea"
-                                        @removeFile="removeFile">
+                                        @removeFile="removeFile"
 
+                    >
                     </extended-text-area>
 
                     <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
@@ -68,7 +67,8 @@
                                             v-language:inner>newQuestion_SBL</span></label>
                                 </div>
                                 <div class="point-btn other inputBorder">
-                                    <input type="number" placeholder="Other amount"
+                                    <input type="number" placeholder="newQuestion_otherAmount_placeholder"
+                                           v-language:placeholder
                                            @focus="selectOtherAmount()" step="1"
                                            min="1" max="100"
                                            :class="[price ? 'has-value' : '']"
@@ -84,6 +84,10 @@
                             {{errorSelectPrice}}
                         </div>
 
+                            <div v-else-if="errorWaitTime.length" class="error-message">
+                                {{errorWaitTime}}
+                            </div>
+
                     </v-flex>
 
                     <v-flex xs12 class="last-text-block">
@@ -95,6 +99,7 @@
                         <div v-if="currentSum < 0" class="error-message" v-language:inner>newQuestion_sufficient_SBL
                         </div>
                         <v-btn block color="primary" @click="submitQuestion()" :disabled="submitted"
+                               :loading="loading"
                                class="ask_btn"><span v-language:inner>newQuestion_Ask</span></v-btn>
                     </v-flex>
 

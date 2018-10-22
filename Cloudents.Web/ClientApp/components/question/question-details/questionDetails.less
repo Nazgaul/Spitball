@@ -49,6 +49,19 @@
     max-width: @cellWidth;
     width: 100%;
   }
+  .has-answer-error-wrapper{
+    position: relative;
+    width:inherit;
+    .has-answer-error{
+      color: @color-red;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
 
   .chat-wrapper {
     max-height: fit-content;

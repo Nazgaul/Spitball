@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using IMapper = AutoMapper.IMapper;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Search
 {
@@ -17,12 +16,10 @@ namespace Cloudents.Infrastructure.Search
     public class CourseSearch : ICourseSearch
     {
         private readonly ISearchIndexClient _client;
-        private readonly IMapper _mapper;
 
-        public CourseSearch(ISearchService client, IMapper mapper)
+        public CourseSearch(ISearchService client)
         {
-            _client = client.GetOldClient(CourseSearchWrite.IndexName);
-            _mapper = mapper;
+            _client = client.GetClient(CourseSearchWrite.IndexName);
         }
 
         public async Task<IEnumerable<CourseDto>> SearchAsync([CanBeNull]string term, long universityId,
@@ -30,7 +27,7 @@ namespace Cloudents.Infrastructure.Search
         {
             term = term?.Replace(":", @"\:");
 
-            var tResult = _client.Documents.SearchAsync<Course>(term, new SearchParameters
+            var result = await _client.Documents.SearchAsync<Course>(term, new SearchParameters
             {
                 Select = new[] { nameof(Course.Id), nameof(Course.Name) },
                 Top = 40,
@@ -39,9 +36,11 @@ namespace Cloudents.Infrastructure.Search
 
             }, cancellationToken: token);
 
-            await Task.WhenAll(tResult).ConfigureAwait(false);
-
-            return _mapper.Map<IEnumerable<Course>, IList<CourseDto>>(tResult.Result.Results.Select(s => s.Document));
+            return result.Results.Select(s => new CourseDto()
+            {
+                Id = long.Parse(s.Document.Id),
+                Name = s.Document.Name
+            }).Distinct(new CourseDtoEquality());
         }
     }
 }

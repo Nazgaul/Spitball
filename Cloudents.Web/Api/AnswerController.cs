@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
@@ -11,6 +12,7 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -21,14 +23,14 @@ namespace Cloudents.Web.Api
     {
         //internal const string CreateAnswerPurpose = "CreateAnswer";
         private readonly ICommandBus _commandBus;
-        private readonly IMapper _mapper;
+        private readonly IStringLocalizer<AnswerController> _localizer;
         private readonly UserManager<User> _userManager;
 
-        public AnswerController(ICommandBus commandBus, IMapper mapper, UserManager<User> userManager)
+        public AnswerController(ICommandBus commandBus, UserManager<User> userManager, IStringLocalizer<AnswerController> localizer)
         {
             _commandBus = commandBus;
-            _mapper = mapper;
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         [HttpPost]
@@ -37,11 +39,9 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-           // var code = _dataProtector.Protect(userId.ToString(), DateTimeOffset.UtcNow.AddDays(2));
-            var link = Url.Action("Index", "Question", new { id = model.QuestionId });
             try
             {
-                var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files, link);
+                var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files);
                 var t1 = _commandBus.DispatchAsync(command, token);
 
                 var query = new NextQuestionQuery(model.QuestionId, userId);
@@ -53,9 +53,20 @@ namespace Cloudents.Web.Api
                     NextQuestions = t2.Result
                 };
             }
+            catch (QuestionAlreadyAnsweredException)
+            {
+                ModelState.AddModelError(nameof(model.Text), _localizer["This question have correct answer"]);
+                return BadRequest(ModelState);
+            }
+            catch (DuplicateRowException)
+            {
+                ModelState.AddModelError(nameof(model.Text), _localizer["DuplicateAnswer"]);
+                return BadRequest(ModelState);
+            }
             catch (ArgumentException)
             {
-                return BadRequest();
+                ModelState.AddModelError(nameof(model.Text), _localizer["QuestionNotExists"]);
+                return BadRequest(ModelState);
             }
         }
 
@@ -67,13 +78,14 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var command = _mapper.Map<DeleteAnswerCommand>(model);
+                var command = new DeleteAnswerCommand(model.Id, _userManager.GetLongUserId(User));
                 await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
                 return Ok();
             }
             catch (ArgumentException)
             {
-                return BadRequest();
+                ModelState.AddModelError(nameof(model.Id), _localizer["Answer does not exists"]);
+                return BadRequest(ModelState);
             }
         }
         

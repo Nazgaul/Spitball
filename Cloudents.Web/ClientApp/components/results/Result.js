@@ -14,10 +14,12 @@ import {LanguageService} from '../../services/language/languageService'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 import notificationCenter from '../notificationCenter/notificationCenter.vue'
-
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
+
+//ab testing
+import abTestCard from './helpers/abTestCards/abTestCard.vue'
 
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
@@ -40,6 +42,7 @@ export default {
     },
 
     components: {
+        abTestCard,
         emptyState,
         ResultItem,
         SuggestCard,
@@ -126,7 +129,7 @@ export default {
             return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
         },
         userText() {
-            return this.query.q
+            return this.query.term
         },
         isAcademic() {
             return ACADEMIC_VERTICALS.includes(this.name)
@@ -138,16 +141,24 @@ export default {
 
     watch: {
         //update the course list of filters if have in page while the course list changes
-        myCourses(val) {
-            if (this.filterObject) {
-                const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
-                if (courseIndex > -1)
-                    this.filterObject[courseIndex].data = val;
-            }
-        }
+        // myCourses(val) {
+        //     if (this.filterObject) {
+        //         const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
+        //         if (courseIndex > -1)
+        //             this.filterObject[courseIndex].data = val;
+        //     }
+        // }
     },
     methods: {
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState', 'updateUserProfileData']),
+        ...mapActions([
+            'fetchingData',
+            'setFilteredCourses',
+            'cleanData',
+            'updateFilters',
+            'updateLoginDialogState',
+            'updateUserProfileData',
+            'updateNewQuestionDialogState'
+        ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
 
         loadNewQuestions(){
@@ -161,7 +172,8 @@ export default {
                 //user profile update
                 this.updateUserProfileData('profileHWH')
             }else{
-                this.$router.push({name: 'newQuestion'});
+                //ab test original do not delete
+                 this.updateNewQuestionDialogState(true);
             }
         },
         //   2-%%%
@@ -172,7 +184,7 @@ export default {
         //    3-%%%   fetching data and calling updateData func
         updateContentOfPage(to, from, next) {
             const toName = to.path.slice(1);
-            let params=  {...to.query, ...to.params, term: to.query.q};
+            let params=  {...to.query, ...to.params, term: to.query.term};
             this.fetchingData({name: toName, params}, true)
                 .then((data) => {
                     //update data for this page
@@ -181,7 +193,7 @@ export default {
                     next();
                 }).catch(reason => {
                 //when error from fetching data remove the loader
-                if (to.path === from.path && to.query.q === from.query.q) {
+                if (to.path === from.path && to.query.term === from.query.term) {
                     this.isLoad = false;
                     this.UPDATE_LOADING(false);
                     this.UPDATE_SEARCH_LOADING(false);
@@ -198,7 +210,7 @@ export default {
 
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject() {
-            this.filterObject =this.getFilters;
+            this.filterObject = this.getFilters;
         },
 
         //   4-%%%
@@ -217,7 +229,7 @@ export default {
             }
         },
         //removes filter from selected filter
-        $_removeFilter({value, key}) {
+        $_removeFilter({filterId:value, filterType:key}) {
             this.UPDATE_SEARCH_LOADING(true);
             let updatedList = this.query[key];
             updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());
@@ -230,7 +242,7 @@ export default {
             if (!this.accountUser) {
                 this.updateLoginDialogState(true);
             }else {
-                this.$root.$emit("personalize", typesPersonalize.course);
+                this.$root.$emit("personalize", typesPersonalize.university);
             }
         },
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)

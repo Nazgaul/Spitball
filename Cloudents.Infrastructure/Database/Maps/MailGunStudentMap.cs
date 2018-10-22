@@ -11,6 +11,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Sent).Length(8000);
             Map(x => x.ShouldSend);
             Table("students2");
+
+            SchemaAction.None();
         }
     }
 }

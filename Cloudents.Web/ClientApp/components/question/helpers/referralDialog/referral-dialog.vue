@@ -1,4 +1,4 @@
-<template>
+  <template>
     <v-card>
         <div class="dialog-wrapp referral-container">
             <button class="close-btn text-md-right" @click.prevent="requestDialogClose()">
@@ -133,23 +133,23 @@ export default {
             switch(socialMedia){
                 case this.socialMedias.whatsApp:
                 //https://api.whatsapp.com/send?text={{url  here}}
-                    global.open(`https://api.whatsapp.com/send?text=${message.whatsAppText}`,"_blank")
+                    global.open(`https://api.whatsapp.com/send?text=${message.whatsAppText}`,"_blank");
                 break;
                 case this.socialMedias.facebook:
                 //https://www.facebook.com/sharer.php?u={{url  here}}
-                    global.open(`https://www.facebook.com/sharer.php?u=${message.encodedUrl}`,"_blank")
+                    global.open(`https://www.facebook.com/sharer.php?u=${message.encodedUrl}`,"_blank");
                 break;
                 case this.socialMedias.linkedin:
                 //https://www.linkedin.com/shareArticle?mini=true&url={{url here}}&title={{title here}}&summary={{text here}}
-                global.open(`https://www.linkedin.com/shareArticle?mini=true&url=${message.encodedUrl}&title=${message.title}&summary=${message.text}`,"_blank")
+                global.open(`https://www.linkedin.com/shareArticle?mini=true&url=${message.encodedUrl}&title=${message.title}&summary=${message.text}`,"_blank");
                 break;
                 case this.socialMedias.twitter:
                 //https://twitter.com/intent/tweet?url={{url here}}&text={{text here}}&hashtags={{hashtag name}}
-                    global.open(`https://twitter.com/intent/tweet?url=${message.encodedUrl}&text=${message.twitterText}`,"_blank")
+                    global.open(`https://twitter.com/intent/tweet?url=${message.encodedUrl}&text=${message.twitterText}`,"_blank");
                 break;
                 case this.socialMedias.gmail:
                 //https://mail.google.com/mail/?view=cm&su={{title here}}&body={{url here}}
-                global.open(`https://mail.google.com/mail/?view=cm&su=${message.title}&body=${message.text}`,"_blank")
+                global.open(`https://mail.google.com/mail/?view=cm&su=${message.title}&body=${message.text}`,"_blank");
                 break;
             }
         }            

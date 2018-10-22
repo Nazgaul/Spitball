@@ -58,16 +58,18 @@ namespace Cloudents.Core.Entities.Db
         public virtual User User { get; protected set; }
 
         public virtual DateTime Created { get; protected set; }
+        public virtual DateTime Updated { get; set; }
 
-        public virtual Answer CorrectAnswer { get; protected set; }
+       [CanBeNull]
+       public virtual Answer CorrectAnswer { get;  set; }
 
         public virtual IList<Answer> Answers { get; protected set; }
 
-        public virtual DateTime Updated { get; set; }
 
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual QuestionColor? Color { get; set; }
+        public virtual QuestionState? State { get; set; }
 
 
         public virtual void QuestionCreateTransaction()

@@ -1,4 +1,6 @@
-﻿@section styleSection {
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@section styleSection {
     <link rel="stylesheet" href="~/Content/ErrorPages/css/error.css">
 }
 <div class="error-page-404">
@@ -8,14 +10,14 @@
     <div class="error-content">
         <h2>
             <span class="num">404</span>
-            <span class="text">OOPS THE FILE WAS NOT FOUND</span>
+            <span class="text">@Localizer["OOPS THE FILE WAS NOT FOUND"]</span>
         </h2>
 
         <div class="image">
             <img src="~/Content/ErrorPages/img/404_image.png" alt="Page not found">
         </div>
 
-        <a href="/">Return To home page</a>
+        <a href="/">@Localizer["Return To home page"]</a>
     </div>
 </div>
 

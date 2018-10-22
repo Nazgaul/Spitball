@@ -1,25 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
+    //[DataContract]
     public class QuestionDto
     {
-
+       // //[DataMember]
         public long Id { get; set; }
-        public string Subject { get; set; }
+        ////[DataMember]
+        //public string Subject { get; set; }
+        public QuestionSubject Subject { get; set; }
+        ////[DataMember]
         public decimal Price { get; set; }
+        //[DataMember]
         public string Text { get; set; }
-
+        //[DataMember]
         public int Files { get; set; }
+        //[DataMember]
         public int Answers { get; set; }
+        //[DataMember]
         public UserDto User { get; set; }
 
+        //[DataMember]
         public DateTime DateTime { get; set; }
 
+        //[DataMember]
         public QuestionColor? Color { get; set; }
 
+        //[DataMember]
         public bool HasCorrectAnswer { get; set; }
     }
 
@@ -28,7 +39,7 @@ namespace Cloudents.Core.DTOs
     {
         public bool Equals(QuestionDto x, QuestionDto y)
         {
-            return x.Id == y.Id;
+            return y != null && (x != null && x.Id == y.Id);
         }
 
         public int GetHashCode(QuestionDto obj)

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command.Admin;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler.Admin
@@ -21,14 +22,8 @@ namespace Cloudents.Core.CommandHandler.Admin
         public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
             var user = await _userRepository.GetRandomFictiveUserAsync(token);
-            var command = new Command.CreateQuestionCommand
-            {
-                Text = message.Text,
-                Price = message.Price,
-                Files = message.Files,
-                SubjectId = message.SubjectId,
-                UserId = user.Id
-            };
+            var command = new Command.CreateQuestionCommand(message.SubjectId, message.Text, message.Price, user.Id,
+                message.Files, QuestionColor.Default);
             await _commandHandler.ExecuteAsync(command, token);
         }
     }

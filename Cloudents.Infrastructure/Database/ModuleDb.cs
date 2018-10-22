@@ -36,6 +36,8 @@ namespace Cloudents.Infrastructure.Database
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
+            
+
             var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf()
                 .AsImplementedInterfaces().InstancePerLifetimeScope();

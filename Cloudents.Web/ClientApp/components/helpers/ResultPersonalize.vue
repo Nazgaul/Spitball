@@ -10,7 +10,7 @@
             </v-card-text>
             <v-card-actions class="pb-1">
                 <v-spacer></v-spacer>
-                <v-btn flat="flat" @click.native="showDialog = false"> <span v-language:inner>resultPersonalize_not_now</span></v-btn>
+                <v-btn flat="flat" @click.native="showDialog = false"><span v-language:inner>resultPersonalize_not_now</span></v-btn>
                 <v-btn flat="flat" @click.native="$_personalize"><span v-language:inner>resultPersonalize_personalize</span></v-btn>
             </v-card-actions>
         </v-card>

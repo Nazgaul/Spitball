@@ -1,6 +1,6 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Data;
-using NHibernate;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -23,4 +23,59 @@ namespace Cloudents.Infrastructure.Database.Query
             Session?.Dispose();
         }
     }
+
+    //https://stackoverflow.com/a/44853182/1235448
+    //public interface IReadQuery
+    //{
+    //    Task<dynamic> QueryAsync(string sql, object param, CancellationToken token);
+    //}
+
+    //public sealed class DapperReadQuery : IReadQuery
+    //{
+    //    private readonly string _connectionString;
+
+    //    public DapperReadQuery(DbConnectionStringProvider provider)
+    //    {
+    //        _connectionString = provider.GetConnectionString(Core.Enum.Database.System);
+
+    //    }
+
+    //    public async Task<dynamic> QueryAsync(string sql, object param, CancellationToken token)
+    //    {
+    //        using (var connection = new SqlConnection(_connectionString))
+    //        {
+    //            await connection.OpenAsync(token);
+    //            using (var command = new SqlCommand(sql, connection))
+    //            {
+    //                foreach (var propertyInfo in param.GetType().GetProperties())
+    //                {
+    //                    command.Parameters.AddWithValue(propertyInfo.Name, propertyInfo.GetValue(param));
+    //                }
+
+    //                using (var reader = await command.ExecuteReaderAsync(token))
+    //                {
+    //                    while (reader.Read())
+    //                    {
+
+
+    //                    }
+    //                }
+
+    //            }
+
+
+    //            return await connection.QueryAsync(sql, param);
+    //        }
+    //    }
+
+    //    //public async Task<dynamic> QueryAsync2(string sql, object param, CancellationToken token)
+    //    //{
+
+    //    //    using (var connection = new SqlConnection(_connectionString))
+    //    //    {
+    //    //        await connection.OpenAsync(token);
+    //    //        return await connection.QueryAsync(sql,);
+    //    //    }
+    //    //}
+    //}
 }

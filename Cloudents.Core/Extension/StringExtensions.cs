@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cloudents.Core.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
 {
@@ -65,7 +65,7 @@ namespace Cloudents.Core.Extension
             var concatString = value.Substring(0, maxChars);
             if (threeDotsAtTheEnd)
             {
-               return concatString + "...";
+                return concatString + "...";
             }
 
             return concatString;
@@ -82,15 +82,28 @@ namespace Cloudents.Core.Extension
             return char.ToUpperInvariant(str[0]) + str.Substring(1).ToLowerInvariant();
         }
 
-        //public static string CamelCase(this string str)
-        //{
-        //    if (string.IsNullOrEmpty(str))
-        //    {
-        //        return string.Empty;
-        //    }
-        //    // Return char and concat substring.
-        //    return char.ToLowerInvariant(str[0]) + str.Substring(1);
-        //}
+        public static string RemoveWords(this string str, IEnumerable<string> occurrences)
+        {
+            //var sb = new StringBuilder(str);
+
+            return Regex.Replace(str, "\\b" + string.Join("\\b|\\b", occurrences) + "\\b", "", RegexOptions.IgnoreCase);
+            //foreach (var occurrence in occurrences)
+            //{
+            //    sb.Replace($" {occurrence} ", string.Empty);
+            //}
+
+            //return sb.ToString();
+        }
+
+        public static string ToCamelCase(this string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToLowerInvariant(str[0]) + str.Substring(1);
+        }
 
         /// <summary>
         /// Wraps matched strings in HTML span elements styled with a background-color
@@ -124,7 +137,7 @@ namespace Cloudents.Core.Extension
         }
 
 
-        private  static string DecodeHtmlEntities(this string text)
+        private static string DecodeHtmlEntities(this string text)
         {
             return HttpUtility.HtmlDecode(text);
         }

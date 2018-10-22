@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
@@ -74,7 +75,6 @@ namespace Cloudents.Web.Api
                     await Task.WhenAll(t1, t2);
                     return new ReturnSignUserResponse(NextStep.VerifyPhone, false);
                 }
-                //TODO: Localize
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
@@ -88,6 +88,9 @@ namespace Cloudents.Web.Api
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
         }
+
+        
+
 
 
         [HttpPost("google")]
@@ -183,7 +186,7 @@ namespace Cloudents.Web.Api
 
             var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url, referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
-            var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
+            var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link),CultureInfo.CurrentUICulture);
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
         }
 
@@ -195,15 +198,13 @@ namespace Cloudents.Web.Api
             var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");
             if (email == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "Cannot resend email");
+                ModelState.AddModelError(string.Empty, _localizer["EmailResend"]);
                 return BadRequest(ModelState);
             }
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "no user");
+                ModelState.AddModelError(string.Empty, _localizer["UserNotExists"]);
                 return BadRequest(ModelState);
             }
 

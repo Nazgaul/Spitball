@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Hadar はエンド ツー エンドの BI （ビジネス インテリジェンス）モデル、分析、プレゼンテーションの開発スキルをシニア マネジメントに実現し、それに組織の DW （データウェアハウス）実装プロセス、クラスタリング アルゴリズムと予測モデルの実装を伴わせています。Hadar は Ruppin Academic Center の生産管理工学部を理学士号を取得して卒業しています。</value>
+    <value>&lt;span lang="en"&gt;Hadar&lt;/span&gt; はエンド ツー エンドの BI （ビジネス インテリジェンス）モデル、分析、プレゼンテーションの開発スキルをシニア マネジメントに実現し、それに組織の &lt;span lang="en"&gt;DW&lt;/span&gt; （データウェアハウス）実装プロセス、クラスタリング アルゴリズムと予測モデルの実装を伴わせています。&lt;span lang="en"&gt;Hadar&lt;/span&gt; は &lt;span lang="en"&gt;Ruppin Academic Center&lt;/span&gt; の生産管理工学部を理学士号を取得して卒業しています。</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Hadar</value>

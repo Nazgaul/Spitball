@@ -17,7 +17,9 @@ export default {
         return {
             showDialog: false,
             interval: 700000,
-            typeAnswer: false
+            typeAnswer: false,
+            isRtl: global.isRtl
+
         }
     },
     beforeRouteLeave(to, from, next) {
@@ -30,8 +32,8 @@ export default {
             this.$root.$emit('closePopUp', 'suggestions')
         },
         answerMore(id) {
-            this.$router.push({name: 'question', params: {id: `${id}`}});
-            console.log(this.$router);
+            this.$router.push({path: `/question/${id}`}) ;
+            //this.$router.push({name: 'question', params: {id: `${id}`}});
             this.requestDialogClose();
         }
     },

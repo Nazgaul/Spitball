@@ -2,7 +2,7 @@ import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
-import registrationService from '../../services/registrationService'
+
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 import step_1 from "./steps/step_1.vue";
@@ -15,7 +15,10 @@ import step_7 from "./steps/step_7.vue";
 import step_8 from "./steps/step_8.vue";
 import step_9 from "./steps/step_9.vue";
 import step_10 from "./steps/step_10.vue";
+import step_11 from "./steps/step_11.vue";
+
 import { LanguageService } from "../../services/language/languageService";
+
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
@@ -33,7 +36,8 @@ export default {
         step_7,
         step_8,
         step_9,
-        step_10
+        step_10,
+        step_11
     },
     props: {
         default: false,
@@ -109,7 +113,8 @@ export default {
                 "loginstep": 7,
                 "emailconfirmedpass": 8,
                 "createpassword": 9,
-                "emailpassword": 10
+                "emailpassword": 10,
+                "validateemail" : 11
             }
         }
     },
@@ -124,6 +129,13 @@ export default {
                 }, this.toasterTimeout)
             }
         },
+        '$route': function (form, to) {
+            if (this.$route.path === '/signin') {
+                return this.isSignIn = true;
+            } else {
+                return this.isSignIn = false;
+            }
+        }
     },
     computed: {
         ...mapGetters({
@@ -135,6 +147,9 @@ export default {
             profileData: 'getProfileData',
             isCampaignOn: 'isCampaignOn'
         }),
+        isSignInComputed() {
+            return this.isSignIn
+        },
         isShowProgress() {
             let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8 && this.stepNumber !== 9 && this.stepNumber !== 10;
             return filteredSteps
@@ -213,6 +228,9 @@ export default {
         this.$on('updatePhone', (phone) => {
             this.phone = phone;
         });
+        this.$on('updateIsNewUser', (isNew) => {
+            this.isNewUser = isNew;
+        });
         this.$on('fromCreate', (create) => {
             if (create === 'create') {
                 this.camefromCreate = true
@@ -220,11 +238,13 @@ export default {
                 this.camefromCreate = false
             }
         });
-
+        this.$on('updateCountryCodeList', (countryCodes)=>{
+            this.phone.countryCode = countryCodes;
+        })
         let path = this.$route.path.toLowerCase();
         //check if returnUrl exists
         if (!!this.$route.query.returnUrl) {
-            this.toUrl = {path: `${this.$route.query.returnUrl}`, query: {q: ''}};
+            this.toUrl = {path: `${this.$route.query.returnUrl}`, query: {term: ''}};
         }
         if (this.$route.query && this.$route.query.step) {
             let step = this.$route.query.step;
@@ -238,12 +258,9 @@ export default {
             this.ID = this.$route.query['Id'] ? this.$route.query['Id'] : '';
             this.changeStepNumber('createpassword', true);
         }
-        registrationService.getLocalCode().then(({data}) => {
-            this.phone.countryCode = data.code;
-        });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['isNew'] !== undefined;
-        if (this.isNewUser && this.stepNumber === 3) {
+        if (this.isNewUser && this.stepNumber === 4) {
             analyticsService.sb_unitedEvent('Registration', 'Email Verified');
 
         }

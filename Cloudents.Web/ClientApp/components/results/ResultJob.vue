@@ -4,7 +4,9 @@
                class="cell-title-wrap mb-1"><span class="cell-title">{{item.title}}</span></div>
         <div class="desc">
             <div class="desc-title-wrap"><span class="desc-title" v-language:inner>resultJob_Job_description</span></div>
-            <p><span>{{item.responsibilities}}</span></p>
+            <p :class="isFirefox ? 'ellipsisHeightFirefox' : ''">
+                <span class="ellipsis-job">{{item.responsibilities}}</span>
+            </p>
         </div>
         <v-layout row wrap class="properties">
             <v-flex class="property" sm4 xs6><company-icon class="mr-2"></company-icon><span class="company"
@@ -28,6 +30,11 @@
 
     export default {
         components: {caldendarIcon, companyIcon, locationIcon, paidIcon},
+        data() {
+            return {
+                isFirefox: global.isFirefox || false
+            }
+        },
         props: {
             item: {type: Object, required: true}, index: {Number}
         },

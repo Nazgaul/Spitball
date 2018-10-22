@@ -80,6 +80,16 @@ export default {
             console.log('progress: %s', progress);
         });
 
+        this.$root.$on('colorReset', () => {
+           return self.activeColor = {
+                name: 'default',
+                id: 0
+            }
+        });
+        this.$root.$on('previewClean', () => {
+           return this.previewList = [];
+        });
+
     },
 
 }

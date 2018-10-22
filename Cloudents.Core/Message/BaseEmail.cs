@@ -1,32 +1,56 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Cloudents.Core.Message
 {
     [Serializable]
     public abstract class BaseEmail
     {
-        protected BaseEmail(string to, string template, string subject, string source = "SendGrid",
-            string medium = "Email",
-            string campaign = null)
+        protected BaseEmail(string to, string subject, [CanBeNull] CultureInfo info)
         {
             To = to;
-            Template = template;
             Subject = subject;
-            Source = source;
-            Medium = medium;
-            Campaign = campaign;
+            TemplateId = AssignTemplate(info);
+            //Campaign = campaign;
         }
 
         [DebuggerDisplay("To = {To}")]
 
         public string To { get; private set; }
 
-        public string Template { get; private set; }
+        public string TemplateId { get; }
         public string Subject { get; private set; }
-        public string Source { get; private set; }
-        public string Medium { get; private set; }
-        public string Campaign { get; private set; }
+        [CanBeNull] public abstract string Campaign { get; }
+
+        //public abstract string TemplateEnglishId { get; }
+        //public abstract string TemplateHebrewId { get; }
+
+        [CanBeNull] protected abstract IDictionary<CultureInfo, string> Templates { get; }
+
+        private string AssignTemplate(CultureInfo info)
+        {
+            if (Templates == null)
+            {
+                return null;
+            }
+            while (info != null)
+            {
+                if (Templates.TryGetValue(info, out var template))
+                {
+                    return template;
+                }
+                info = info.Parent;
+            }
+            if (Templates.TryGetValue(Language.English.Culture, out var template2))
+            {
+                return template2;
+            }
+            return null;
+        }
+
 
     }
 }

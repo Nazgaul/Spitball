@@ -124,7 +124,7 @@
     <value>모든 상표 및 저작권은 해당 소유자의 자산입니다.</value>
   </data>
   <data name="Any questions? Reach out to us and we’ll get back to you shortly." xml:space="preserve">
-    <value>질문 사항이 있습니까? 연락주시면 곧 답변 드리겠습니다.</value>
+    <value>질문 사항이 있습니까?&lt;br/&gt; 연락주시면 곧 답변 드리겠습니다.</value>
   </data>
   <data name="As seen in" xml:space="preserve">
     <value>살펴보았듯이</value>
@@ -155,10 +155,12 @@
     <value>귀하의 이메일을 입력하십시오</value>
   </data>
   <data name="FirstParagraph" xml:space="preserve">
-    <value>지원을 방해하는 고비용의 제 3자 중개인없이, 전세계 &lt;b&gt;10억&lt;/b&gt; 학생들이 콘텐츠, 지식, 서비스를 서로 직접 교환할 수 있도록 &lt;b&gt;1500억 달러 규모의 시장&lt;/b&gt;을 지원합니다.</value>
+    <value>지원을 방해하는 고비용의 제 3자 중개인없이,&lt;br/&gt; 전세계 &lt;b&gt;10억&lt;/b&gt; 학생들이 콘텐츠, 지식, 서비스를 서로 직접 교환할 수 있도록 &lt;b&gt;1500억 달러 규모의 시장&lt;/b&gt;을 &lt;br/&gt;지원합니다.</value>
   </data>
   <data name="Founded" xml:space="preserve">
-    <value>Spitball은 2014년에 설립되었습니다. 이러한 성과는 이미 달성한 주요 단계 중 하나이며 나머지 단계는 커뮤니티 및 투자자의 도움을 통해 미래에 달성할 수 있기를 기대하고 있습니다.</value>
+    <value>Spitball은 2014년에 설립되었습니다. 이러한 성과는 이미 달성한 주요 단계 중 하나이며 
+
+나머지 단계는 커뮤니티 및 투자자의 도움을 통해 미래에 달성할 수 있기를 기대하고 있습니다.</value>
   </data>
   <data name="Get In Touch" xml:space="preserve">
     <value>소식 받아보기</value>
@@ -167,10 +169,14 @@
     <value>초기 월렛 출시</value>
   </data>
   <data name="Integration with 3rd party (offline) stores &amp; universities to accept SBL on campuses" xml:space="preserve">
-    <value>캠퍼스에서 SBL을 수락한 타사(오프라인) 매장 및 대학교와의 통합</value>
+    <value>캠퍼스에서 SBL을 수락한
+타사(오프라인) 매장 및
+대학교와의 통합</value>
   </data>
   <data name="Integration with 3rd party sites to accept SBL token" xml:space="preserve">
-    <value>SBL 토큰을 허용하는 타사 사이트와의 통합</value>
+    <value>SBL 토큰을 허용하는
+타사 사이트와의 
+통합</value>
   </data>
   <data name="Join Telegram" xml:space="preserve">
     <value>텔레그램에서 만날 수 있습니다</value>
@@ -182,7 +188,10 @@
     <value>모든 학생 관련 상품 및 서비스(개인 교습자, 교재, 수업 자료, 중고 물품 등)를 위한 Spitball 마켓플레이스 출시</value>
   </data>
   <data name="Mission" xml:space="preserve">
-    <value>우리의 &lt;b&gt;미션&lt;/b&gt;은 학생들에게 숙제 도움을 받고 제공하고, 강의 노트를 교환하고, 일거리를 찾고, 책을 사고 파는 등 학생들이 필요로 하는 마켓플레이스를 학생들에게 제공하는 것입니다.</value>
+    <value>우리의 미션은 학생들에게 숙제 도움을 받고 제공하고, 
+강의 노트를 교환하고, 일거리를 찾고, 책을 사고 파는 등 
+학생들이 필요로 하는 마켓플레이스를 
+학생들에게 제공하는 것입니다.</value>
   </data>
   <data name="Our Partners" xml:space="preserve">
     <value>당사의 파트너들</value>
@@ -236,16 +245,24 @@
     <value>Spitball 2.0</value>
   </data>
   <data name="Spitball expands to new markets (Asia, EU)" xml:space="preserve">
-    <value>새로운 시장(아시아, 유럽)으로 Spitball 확장</value>
+    <value>새로운 시장으로
+(아시아, 유럽)
+Spitball 확장</value>
   </data>
   <data name="Spitball is launched in Israel as a social studying app" xml:space="preserve">
-    <value>Spitball은 소셜 스터디 앱으로 이스라엘에서 출시</value>
+    <value>Spitball은 &lt;br/&gt;
+소셜 스터디 앱으로 &lt;br/&gt;
+이스라엘에서 출시</value>
   </data>
   <data name="Spitball is launched in the United States" xml:space="preserve">
     <value>Spitball 미국에서 출시</value>
   </data>
   <data name="Spitball partners with 25+ leading educational companies to become the premier aggregator of academic content &amp; services" xml:space="preserve">
-    <value>Spitball은 학술 콘텐츠 및 서비스의 프리미어 애그리게이터(aggregator)가 되기 위해 25개 이상의 선도적인 교육 업체와 제휴</value>
+    <value>Spitball은 학술 콘텐츠 및
+서비스의 프리미어 
+애그리게이터(aggregator)가
+되기 위해 25개 이상의
+선도적인 교육 업체와 제휴</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>제출</value>
@@ -275,10 +292,11 @@
     <value>토큰 경제</value>
   </data>
   <data name="Token Economy 1" xml:space="preserve">
-    <value>학생 경제에 대한 참여로 보상을 받습니다.</value>
+    <value>학생 경제에 대한 참여로 &lt;br/&gt;보상을 받습니다.</value>
   </data>
   <data name="Token Economy 2" xml:space="preserve">
-    <value>SBL을 사이트의 결제 시스템으로 통합하여 보상을 받습니다.</value>
+    <value>파트너들 사이트 결제 시스템에 
+SBL을 통합하여 보상 받습니다.</value>
   </data>
   <data name="Token Economy 3" xml:space="preserve">
     <value>플랫폼에 dApp을 생성하여 토큰으로 보상을 받습니다.</value>
@@ -296,7 +314,7 @@
     <value>사용자들</value>
   </data>
   <data name="Vision" xml:space="preserve">
-    <value>우리의 &lt;b&gt;비전&lt;/b&gt;은 커뮤니티 기여자가  &lt;b&gt;효율적인 시장&lt;/b&gt;에서, &lt;b&gt;저렴한 가격&lt;/b&gt;으로 더 많이 &lt;b&gt;공정하게 이익을 보상&lt;/b&gt; 받을 수 있는 &lt;b&gt;투명하고, 안전하며&lt;/b&gt;, &lt;b&gt;직접적인&lt;/b&gt;(P2P)&lt;b&gt; 학생을 위한 경제&lt;/b&gt;를 건설하는 것입니다.</value>
+    <value>우리의 비전은 커뮤니티 기여자가 효율적인 시장에서, 저렴한 가격으로 더 많이 공정하게 이익을 보상 받을 수 있는투명하고, 안전하며, 직접적인(P2P) 학생을 위한 경제를 건설하는 것입니다.</value>
   </data>
   <data name="VisionFooter" xml:space="preserve">
     <value>비전</value>
@@ -305,7 +323,9 @@
     <value>백서</value>
   </data>
   <data name="Whitepaper published and launch of Spitball 2.0 Homework Help marketplace" xml:space="preserve">
-    <value>백서 발행 및 Spitball 2.0 숙제 도우미 마켓플레이스 출시</value>
+    <value>백서 발행 및
+Spitball 2.0 숙제 도우미
+마켓플레이스 출시</value>
   </data>
   <data name="Your Email" xml:space="preserve">
     <value>귀하의 이메일</value>

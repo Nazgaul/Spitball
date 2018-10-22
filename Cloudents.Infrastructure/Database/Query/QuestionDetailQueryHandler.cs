@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using NHibernate;
 using NHibernate.Linq;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Injected")]
-    public class QuestionDetailQueryHandler: IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
+    public class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
     {
         private readonly ISession _session;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
@@ -30,8 +31,8 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             //TODO: this is left join query need to fix that
             var questionFuture = _session.Query<Question>().Where(w => w.Id == id)
-                .Fetch(f => f.Subject)
                 .Fetch(f => f.User)
+                .Where(w => w.State == null || w.State == QuestionState.Ok)
                 .Select(s => new QuestionDetailDto
                 {
                     User = new UserDto
@@ -43,7 +44,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Id = s.Id,
                     Create = s.Updated,
                     Price = s.Price,
-                    Subject = s.Subject.Text,
+                    Subject = s.Subject,
                     Text = s.Text,
                     Color = s.Color,
                     CorrectAnswerId = s.CorrectAnswer.Id
@@ -101,7 +102,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return dto;
         }
 
-        public static ILookup<Guid?, Uri> AggregateFiles(IEnumerable<Uri> files)
+        private static ILookup<Guid?, Uri> AggregateFiles(IEnumerable<Uri> files)
         {
             var aggregateFiles = files.ToLookup<Uri, Guid?>(v =>
             {

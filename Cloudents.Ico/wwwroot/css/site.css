@@ -72,9 +72,19 @@ body {
     -moz-osx-font-smoothing: grayscale;
     position: relative;
 }
-    body:lang(ja) {
+   body:lang(ja) {
         font-family: 'MS Mincho', "MS gothic" !important;
     }
+   
+
+    /* fixes for korean  */
+    body:lang(ko)  .header-txt  h1{
+            font-size: 2.7rem
+    }
+
+    span:lang(en), a:lang(en) {
+    font-family: 'OpenSans Light', sans-serif !important;
+}
 
     body {
         color: #fff;
@@ -245,9 +255,9 @@ p {
         line-height: 1.68;
     }
 
-    h1 span, h2 span, h3 span, h4 span, h5 span, h6 span, p span {
+    /*h1 span, h2 span, h3 span, h4 span, h5 span, h6 span, p span {
         color: #46bdf4;
-    }
+    }*/
 
 ul, ol {
     padding: 0;

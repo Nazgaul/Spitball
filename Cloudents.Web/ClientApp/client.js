@@ -1,10 +1,22 @@
 ﻿import "./publicPath";
-import { app, router } from "./main";
-router.onReady(() => {
-    const matchedComponents = router.getMatchedComponents()
-    // no matched routes, reject with 404
-    if (!matchedComponents.length) {
-       window.location = "/error/notfound"
-    }
-    app.$mount("#app");
+import {GetDictionary} from './services/language/languageService'
+// get dictionary before we load the website
+global.lang = document.getElementsByTagName("html")[0].getAttribute("lang");
+global.mainCdn = true;
+GetDictionary().then(()=>{
+    function getComponent() {
+        return import("./main").catch(error => 'An error occurred while loading the component');
+      }
+
+      // dynamic import the main component
+      getComponent().then(component => {
+          component.router.onReady(() => {
+            const matchedComponents = component.router.getMatchedComponents()
+            // no matched routes, reject with 404
+            if (!matchedComponents.length) {
+               window.location = "/error/notfound"
+            }
+            component.app.$mount("#app");
+        })
+      })
 })

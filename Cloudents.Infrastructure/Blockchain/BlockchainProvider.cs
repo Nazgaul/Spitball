@@ -16,8 +16,9 @@ namespace Cloudents.Infrastructure.BlockChain
         private readonly IConfigurationKeys _configurationKeys;
 
         protected const double FromWei = 1e18;
-        protected const double MaxGas = 4.7e6;
-        protected const string SpitballPrivateKey = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
+        protected const double MaxGas = 4.1e6;
+        protected const double GasPrice = 30e9;
+        protected const string SpitballPrivateKey = "428ac528cbc75b2832f4a46592143f46d3cb887c5822bed23c8bf39d027615a8";
 
         protected BlockChainProvider(IConfigurationKeys configurationKeys)
         {
@@ -37,7 +38,7 @@ namespace Cloudents.Infrastructure.BlockChain
         protected abstract string Abi { get; }
         protected abstract string ContractAddress { get; }
 
-        private async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
+        protected async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
         {
             var abi = await ReadAbiAsync(token).ConfigureAwait(false);
             return web3.Eth.GetContract(abi, ContractAddress);
@@ -72,6 +73,12 @@ namespace Cloudents.Infrastructure.BlockChain
         protected async Task<Function> GetFunctionAsync(string name, CancellationToken token)
         {
             var contract = await GetContractAsync(GenerateWeb3Instance(SpitballPrivateKey), token).ConfigureAwait(false);
+            return contract.GetFunction(name);
+        }
+
+        protected async Task<Function> GetFunctionAsync(string name, string privateKey, CancellationToken token)
+        {
+            var contract = await GetContractAsync(GenerateWeb3Instance(privateKey), token).ConfigureAwait(false);
             return contract.GetFunction(name);
         }
     }

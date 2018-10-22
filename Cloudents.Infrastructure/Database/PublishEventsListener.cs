@@ -5,7 +5,9 @@ using NHibernate.Event;
 
 namespace Cloudents.Infrastructure.Database
 {
-    public class PublishEventsListener : IPostDeleteEventListener , IPostInsertEventListener, IPostUpdateEventListener
+    public class PublishEventsListener : IPostDeleteEventListener
+        , IPostInsertEventListener, IPostUpdateEventListener
+    
     {
         private readonly IEventPublisher _eventPublisher;
 
@@ -32,6 +34,8 @@ namespace Cloudents.Infrastructure.Database
 
         public void OnPostDelete(PostDeleteEvent @event)
         {
+            var t =  PublishEvents(@event.Entity, CancellationToken.None);
+            Task.WaitAll(t);
         }
 
         public async Task OnPostInsertAsync(PostInsertEvent @event, CancellationToken cancellationToken)

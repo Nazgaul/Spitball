@@ -5,16 +5,16 @@
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
                     <p class="text-block-sub-title" v-html="meta.heading"></p>
-                    <p class="text-block-sub-title" v-if="phone.phoneNum">(+{{phone.countryCode}})
+                    <p class="text-block-sub-title" style="direction:ltr;" v-if="phone.phoneNum">(+{{phone.countryCode}})
                         {{phone.phoneNum }} <span class="phone-change" @click="changePhone()" v-language:inner>login_Change</span>
                     </p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width wide">
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
-                <p v-if="phone.phoneNum && !isMobile" class="sub-title">
+                <p v-if="phone.phoneNum && !isMobile" class="sub-title" style="direction:ltr;">
                     (+{{phone.countryCode}})
-                    {{phone.phoneNum}} <span class="phone-change" @click="changePhone()"
+                    {{phone.phoneNum}}<span class="phone-change" @click="changePhone()"
                                              v-language:inner>login_Change</span></p>
                 <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" :bottomError="true"
                           v-model="confirmationCode" placeholder="login_placeholder_enter_confirmation_code"
@@ -44,6 +44,7 @@
     import registrationService from '../../../services/registrationService'
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+    import {LanguageService} from "../../../services/language/languageService";
 
     const defaultSubmitRoute = {path: '/ask'};
 
@@ -121,7 +122,7 @@
                     .then((success) => {
                             this.updateLoading(false);
                             this.updateToasterParams({
-                                toasterText: 'A verification code was sent to your phone',
+                                toasterText: LanguageService.getValueByKey("login_verification_code_sent_to_phone"),
                                 showToaster: true,
                             });
                         },

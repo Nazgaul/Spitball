@@ -15,6 +15,11 @@
 @color-transparent: transparent;
 @color-black: #000000;
 @color-red-heavy: #d0021b;
+@color-grey-icon-static: #888b8e;
+@color-AB-test-background : #E7E8F7;
+@color-AB-test-text: #4452fc;
+@uploadHeaderBackground: #4452fc;
+
 /*
 @color-pink-gradient: fade(#f14d4d, 15%);
 @color-purple-gradient: fade(@color-purple, 15%);
@@ -72,7 +77,30 @@
   align-items: center;
 }
 
-.giveMeEllipsis(@lines,@line-height) {
+//updated version TODO rework and remove previous
+.giveEllipsisUpdated(@fontSize, @lineHeigh, @lines, @maxHeight: 96px){
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  max-height: @maxHeight; /* Fallback for non-webkit */
+  font-size: @fontSize;
+  line-height: @lineHeigh;
+  -webkit-line-clamp: @lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -o-text-overflow: ellipsis;	/* required for Opera */
+  -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
+}
+
+.widthMinMax(@width, @minWidth: @width, @maxWidth: @width){
+  width: @width;
+  min-width: @minWidth;
+  max-width: @maxWidth;
+}
+
+
+.giveMeEllipsis(@lines, @line-height) {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -107,7 +135,7 @@
 }
 // generate classes for question card  based on user selced color, background and font color
 @colors: #ffffff, #6bc248, #a757db, #e5455d, #edaf2e, #7472ff, #3bbda4, #53a0fd, #a09c9c, #abb55e, #d251ae;
-@names: default, green, purple, red, yellow, blue, turquoise, lightBlue, grey, olive, pink;
+@names: default, green, purple, red, yellow, blue, turquoise, lightblue, grey, olive, pink;
 @fontColors: #000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
 @length: length(@colors);
 .user-question-style(@names; @colors; @fontColors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {

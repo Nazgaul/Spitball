@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="accepts_your_answer" xml:space="preserve">
+    <value>כדי לברר אם התשובה שלך מקובלת.</value>
+  </data>
+  <data name="below_question_should_help" xml:space="preserve">
+    <value>בינתיים, הנה שאלה נוספת שאולי תוכל לסייע להשיב עליה.</value>
+  </data>
+  <data name="Great_Job" xml:space="preserve">
+    <value>כל הכבוד!</value>
+  </data>
+  <data name="Lets_wait_for" xml:space="preserve">
+    <value>בואו נמתין ל</value>
+  </data>
 </root>

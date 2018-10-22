@@ -37,7 +37,7 @@ namespace Cloudents.Web.EventHandler
                 Price = question.Price,
                 Text = question.Text,
                 Color = question.Color,
-                Subject = question.Subject.Text
+                Subject = question.Subject
             };
             await _hubContext.Clients.All.SendAsync(SbHub.MethodName, new SignalRTransportType<QuestionDto>("question", SignalRAction.Update, dto), token);
         }

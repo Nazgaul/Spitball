@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
+
+[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
 namespace Cloudents.Core.Entities.Db
 {
@@ -38,6 +41,9 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; set; }
 
+        //protected internal virtual Question QuestionAnswerCorrect { get; set; }
+
+        protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual IList<IEvent> Events { get; }
     }

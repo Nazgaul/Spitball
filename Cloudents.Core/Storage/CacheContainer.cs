@@ -1,8 +1,8 @@
 ﻿namespace Cloudents.Core.Storage
 {
-    public class CacheContainer : IStorageContainer
+    public class OldCacheContainer : IStorageContainer
     {
-        public StorageContainer Container  => StorageContainer.CacheContainer;
+        public StorageContainer Container  => StorageContainer.OldCacheContainer;
     }
 
     public class SpitballContainer : IStorageContainer

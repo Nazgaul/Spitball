@@ -9,16 +9,16 @@ export default {
         }
     },
     props: {
-        // sortOptions: { type: Array, default: () => [] },
+       // sortOptions: { type: Array, default: () => [] },
         sortVal: {},
-        filterOptions: {type: Array, default: () => []},
+        filterOptions: {type: Object, default: () => {}},
         filterVal: {type: Array, default: () => []},
 
     },
     computed: {
         ...mapGetters(['getSort']),
         filterList() {
-            return this.filterOptions;
+            return this.filterOptions.filterChunkList;
         },
         sortOptions() {
             return this.getSort;
@@ -32,11 +32,16 @@ export default {
             this.$router.push({query: {...this.$route.query, sort: val}});
         },
         isChecked(singleFilter, filterItem) {
+            //keep this way to make sure integer is converted and compare returns correct result
+            let keyString = filterItem.key ? filterItem.key : '';
+            keyString = keyString + "";
             return this.filterVal.find((item) => {
-                return item.key === singleFilter.id && item.value === (filterItem.id ? filterItem.id.toString() : filterItem.toString())
+            let filterId = item.filterId + "";
+              return item.filterType === singleFilter.id && filterId === keyString;
+
             });
         },
-        updateFilter({id, val, event}) {
+        updateFilter({id, val, name, event}) {
             this.UPDATE_SEARCH_LOADING(true);
             let query = {};
             let isChecked = event.target.checked;
@@ -44,16 +49,21 @@ export default {
             Object.assign(query, this.$route.query);
             let currentFilter = query[id] ? [].concat(query[id]) : [];
             query[id] = [].concat([...currentFilter, val]);
+
             if (!isChecked) {
                 query[id] = query[id].filter(item => item !== val);
             }
             if (val === 'inPerson' && isChecked) {
                 query.sort = "price"
             }
-            if (id === 'course') {
+            if (id.toLowerCase() === 'course') {
                 this.setFilteredCourses(query.course)
             }
             this.$router.push({query});
-        }
+        },
+        isRadioChecked(singleSort, index){
+           return this.sortVal ? this.sortVal === singleSort.key : index===0
+        },
+
     },
 }

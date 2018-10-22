@@ -1,16 +1,21 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -23,13 +28,16 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly ICommandBus _commandBus;
+
 
         public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager, IConfiguration configuration)
+            SignInManager<User> signInManager, IConfiguration configuration, ICommandBus commandBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _commandBus = commandBus;
         }
 
         // GET
@@ -46,10 +54,8 @@ namespace Cloudents.Web.Api
             var user = await taskUser.ConfigureAwait(false);
             if (user == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty,"user not exists");
                 await _signInManager.SignOutAsync().ConfigureAwait(false);
-                return BadRequest(ModelState);
+                return Unauthorized();
             }
             user.Token = talkJs;
             return user;
@@ -76,12 +82,29 @@ namespace Cloudents.Web.Api
             }
         }
 
-        //[HttpPost("university")]
-        //public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
-        //{
-        //    var command = _mapper.Map<AssignUniversityToUserCommand>(model);
-        //    await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-        //    return Ok();
-        //}
+        [AllowAnonymous, HttpPost("language")]
+        public async Task<IActionResult> ChangeLanguage([FromBody]ChangeCultureRequest model, CancellationToken token)
+        {
+            var culture = model.Culture;
+
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(culture),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Ok();
+            }
+
+            var userId = _userManager.GetLongUserId(User);
+            var command = new UpdateUserCultureCommand(userId, culture.Culture);
+            await _commandBus.DispatchAsync(command, token);
+
+            return Ok();
+        }
+
+
     }
 }

@@ -13,7 +13,18 @@ export default {
         contentClass: {
             type: String,
             required: false
+        },
+        isFullScreen: {
+            type: Boolean,
+            default: false,
+            required: false
+        },
+        fullWidth:{
+            type: Boolean,
+            default: false,
+            required: false
         }
+
     },
     data: function () {
         return {
@@ -22,7 +33,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            loginDialogState: 'loginDialogState'
+            loginDialogState: 'loginDialogState',
         }),
     },
     watch: {
@@ -30,6 +41,7 @@ export default {
         showDialog(){
             if(!!this.showDialog){
                 this.show = true;
+                console.log('width', this.fullWidth)
             }else{
                 this.show = false;
             }
@@ -38,13 +50,14 @@ export default {
         show(){
             if(!this.show){
                 this.updateLoginDialogState(false);
+                this.updateNewQuestionDialogState(false);
                 this.$root.$emit('closePopUp', this.popUpType);
             }
         }
     },
 
     methods: {
-        ...mapActions(["updateLoginDialogState"]),
+        ...mapActions(['updateLoginDialogState', 'updateNewQuestionDialogState']),
     },
 
 
