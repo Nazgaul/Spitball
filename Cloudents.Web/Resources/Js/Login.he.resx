@@ -223,7 +223,7 @@
     <value>שלחנו קוד אישור אל הטלפון הנייד שלך.</value>
   </data>
   <data name="signin_your_email" xml:space="preserve">
-    <value>הירשם באמצעות דוא"ל</value>
+    <value>התחבר באמצעות דוא"ל</value>
   </data>
   <data name="sign_in" xml:space="preserve">
     <value>כניסה</value>
