@@ -120,6 +120,15 @@
   <data name="about_spitball" xml:space="preserve">
     <value>אודות ספיטבול</value>
   </data>
+  <data name="Change" xml:space="preserve">
+    <value>שנה/החלף</value>
+  </data>
+  <data name="changeCourse" xml:space="preserve">
+    <value>כיתות</value>
+  </data>
+  <data name="changeUniversity" xml:space="preserve">
+    <value>אוניברסיטה</value>
+  </data>
   <data name="feedback" xml:space="preserve">
     <value>משוב</value>
   </data>
@@ -152,6 +161,9 @@
   </data>
   <data name="privacy_policy" xml:space="preserve">
     <value>מדיניות הפרטיות</value>
+  </data>
+  <data name="referral_spitball" xml:space="preserve">
+    <value>הפנה חבר</value>
   </data>
   <data name="Sign_up" xml:space="preserve">
     <value>הרשמה</value>

@@ -207,6 +207,10 @@
   <data name="campaign_job_default_banner_title" xml:space="preserve">
     <value>אתר משרות והתמחויות שמתאימות ספציפית לסטודנטים.</value>
   </data>
+  <data name="campaign_referral_ask_banner_title" xml:space="preserve">
+    <value>קבל עזרה עם שיעורי הבית מסטודנטים מובילים 
+והתחל להרוויח כסף בעזרה לאחרים</value>
+  </data>
   <data name="campaign_tutor_askaquestion_banner_boldText" xml:space="preserve">
     <value>כאן כדי לסייע לך להצליח.</value>
   </data>

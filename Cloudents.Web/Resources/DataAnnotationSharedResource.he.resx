@@ -117,37 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ask" xml:space="preserve">
-    <value>שאל/בקש</value>
+  <data name="Compare" xml:space="preserve">
+    <value>'{0}' ו-'{1}' אינם תואמים.</value>
   </data>
-  <data name="fair_prise" xml:space="preserve">
-    <value>מחיר הוגן יבטיח לך מכירה</value>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>שדה {0} אינו כתובת דוא"ל חוקית.</value>
   </data>
-  <data name="Get_Your_Question_Answered" xml:space="preserve">
-    <value>קבל תשובות על השאלה שלך</value>
+  <data name="InvalidCulture" xml:space="preserve">
+    <value>שפה זו אינה נתמכת</value>
   </data>
-  <data name="max_SBL" xml:space="preserve">
-    <value>הסכום המרבי לשאלה הוא 100 SBL</value>
+  <data name="InvalidPhoneNumber" xml:space="preserve">
+    <value>מספר טלפון אינו חוקי</value>
   </data>
-  <data name="min_SBL" xml:space="preserve">
-    <value>הסכום המינימלי לשאלה הוא SBL 1</value>
+  <data name="InvalidRedeemValue" xml:space="preserve">
+    <value>ניתן לממש 1000,2000,3000,4000 בלבד</value>
   </data>
-  <data name="otherAmount_placeholder" xml:space="preserve">
-    <value>סכום אחר</value>
+  <data name="MaxLength" xml:space="preserve">
+    <value>שדה {0} חייב להיות מסוג מחרוזת או מערך באורך מרבי של '{1}'.</value>
   </data>
-  <data name="Pick_a_subject" xml:space="preserve">
-    <value>בחר נושא</value>
+  <data name="MinLength" xml:space="preserve">
+    <value>שדה {0} חייב להיות מסוג מחרוזת או מערך באורך מינימלי של '{1}'.</value>
   </data>
-  <data name="SBL" xml:space="preserve">
-    <value> SBL</value>
+  <data name="NeedCountry" xml:space="preserve">
+    <value>ראשית יש להקליד מדינה.</value>
   </data>
-  <data name="sufficient_SBL" xml:space="preserve">
-    <value>אין לך מספיק  SBL</value>
+  <data name="NeedUniversity" xml:space="preserve">
+    <value>ראשית יש לבחור אוניברסיטה.</value>
   </data>
-  <data name="Tip" xml:space="preserve">
-    <value>עצה:</value>
+  <data name="PasswordNotMatch" xml:space="preserve">
+    <value>סיסמה חייבת להיות תואמת</value>
   </data>
-  <data name="You_have" xml:space="preserve">
-    <value>יש לך</value>
+  <data name="Range" xml:space="preserve">
+    <value>שדה {0} חייב להיות בין {1} ו-{2}.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>שדה {0} הנו חובה.</value>
+  </data>
+  <data name="StringLength" xml:space="preserve">
+    <value>שדה {0} חייב להיות מסוג מחרוזת באורך מינימלי של {2} ובאורך מרבי של {1}.</value>
+  </data>
+  <data name="StringLengthMax" xml:space="preserve">
+    <value>שדה {0} חייב להיות מסוג מחרוזת באורך מרבי של {1}.</value>
   </data>
 </root>

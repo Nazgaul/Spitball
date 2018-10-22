@@ -117,37 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ask" xml:space="preserve">
-    <value>שאל/בקש</value>
-  </data>
-  <data name="fair_prise" xml:space="preserve">
-    <value>מחיר הוגן יבטיח לך מכירה</value>
-  </data>
-  <data name="Get_Your_Question_Answered" xml:space="preserve">
-    <value>קבל תשובות על השאלה שלך</value>
-  </data>
-  <data name="max_SBL" xml:space="preserve">
-    <value>הסכום המרבי לשאלה הוא 100 SBL</value>
-  </data>
-  <data name="min_SBL" xml:space="preserve">
-    <value>הסכום המינימלי לשאלה הוא SBL 1</value>
-  </data>
-  <data name="otherAmount_placeholder" xml:space="preserve">
-    <value>סכום אחר</value>
-  </data>
-  <data name="Pick_a_subject" xml:space="preserve">
-    <value>בחר נושא</value>
-  </data>
-  <data name="SBL" xml:space="preserve">
-    <value> SBL</value>
-  </data>
-  <data name="sufficient_SBL" xml:space="preserve">
-    <value>אין לך מספיק  SBL</value>
-  </data>
-  <data name="Tip" xml:space="preserve">
-    <value>עצה:</value>
-  </data>
-  <data name="You_have" xml:space="preserve">
-    <value>יש לך</value>
+  <data name="Loading...." xml:space="preserve">
+    <value>טוען...</value>
   </data>
 </root>

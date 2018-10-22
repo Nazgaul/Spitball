@@ -69,8 +69,6 @@ const nav = {
             icon: "sbf-textbooks",
             visible: global.country.toUpperCase() !== 'IL'
         },
-
-
     },
     job: {
         banner: getPromoQueryFromRoute,
