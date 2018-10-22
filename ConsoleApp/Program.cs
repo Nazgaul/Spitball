@@ -14,6 +14,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Threading;
 using Cloudents.Core.Command;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Query.Sync;
 
 namespace ConsoleApp
 {
@@ -112,9 +114,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var bus = _container.Resolve<ICommandBus>();
-            var command = new Cloudents.Core.Command.MarkAnswerAsCorrectCommand(Guid.Parse("EB558BF9-75C1-4953-B005-A97D00E21611"), 3982);
-            await bus.DispatchAsync(command, default);
+            var query = SyncAzureQuery.Empty();
+
+            var bus = _container.Resolve<IQueryBus>();
+            await bus.QueryAsync< (IEnumerable<CourseSearchDto> update, IEnumerable<long> delete, long version)>(query, default);
         }
 
         private static async Task HadarMethod()

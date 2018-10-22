@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Component(x => x.TimeStamp);
             Map(x => x.Ip).Nullable();
             Map(x => x.Country).Length(10).Nullable();
-            SchemaAction.Update();
+            SchemaAction.None();
         }
     }
 }

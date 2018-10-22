@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,10 +36,9 @@ namespace Cloudents.FunctionsV2.Sync
                 return new Course
                 {
                     Name = s.Name,
-                    Id = s.Id.ToString(),
-                    Code = s.Code,
-                    UniversityId = s.UniversityId,
-                    Prefix = new[] { s.Name, s.Code }.Where(x => x != null).ToArray(),
+                    Id = s.Name.ToString(),
+                    Extra = s.Extra.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries),
+                    Prefix = new[] { s.Name, s.Extra }.Where(x => x != null).ToArray(),
                 };
             }), delete.Select(s => s.ToString()), token);
             return new SyncResponse(version, result);

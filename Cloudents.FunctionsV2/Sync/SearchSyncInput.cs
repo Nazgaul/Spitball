@@ -21,7 +21,7 @@ namespace Cloudents.FunctionsV2.Sync
                     case SyncType.University:
                         return "university";
                     case SyncType.Course:
-                        return "course";
+                        return "course2";
                     case SyncType.Question:
                         return "question";
 
@@ -40,7 +40,7 @@ namespace Cloudents.FunctionsV2.Sync
                     case SyncType.University:
                         return "UniversitySearchSync";
                     case SyncType.Course:
-                        return "CourseSearchSync";
+                        return "CourseSearch2Sync";
                     case SyncType.Question:
                         return "QuestionSearchSync";
 

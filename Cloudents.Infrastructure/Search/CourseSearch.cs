@@ -22,23 +22,21 @@ namespace Cloudents.Infrastructure.Search
             _client = client.GetClient(CourseSearchWrite.IndexName);
         }
 
-        public async Task<IEnumerable<CourseDto>> SearchAsync([CanBeNull]string term, long universityId,
+        public async Task<IEnumerable<CourseDto>> SearchAsync([CanBeNull]string term, 
             CancellationToken token)
         {
             term = term?.Replace(":", @"\:");
 
             var result = await _client.Documents.SearchAsync<Course>(term, new SearchParameters
             {
-                Select = new[] { nameof(Course.Id), nameof(Course.Name) },
-                Top = 40,
-                Filter = $"{nameof(Course.UniversityId)} eq {universityId}",
+                Select = new[] { nameof(Course.Name) },
+                Top = 10,
                 ScoringProfile = CourseSearchWrite.ScoringProfile
 
             }, cancellationToken: token);
 
             return result.Results.Select(s => new CourseDto()
             {
-                Id = long.Parse(s.Document.Id),
                 Name = s.Document.Name
             }).Distinct(new CourseDtoEquality());
         }

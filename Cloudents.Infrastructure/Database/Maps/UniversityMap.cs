@@ -20,7 +20,8 @@ namespace Cloudents.Infrastructure.Database.Maps
 
             Schema("Zbox");
 
-            
+            SchemaAction.None();
+
         }
     }
 }
