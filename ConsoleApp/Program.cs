@@ -14,6 +14,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Threading;
 using Cloudents.Core.Command;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Query.Admin;
+using NHibernate;
 
 namespace ConsoleApp
 {
@@ -26,7 +29,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -112,9 +115,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var bus = _container.Resolve<ICommandBus>();
-            var command = new Cloudents.Core.Command.MarkAnswerAsCorrectCommand(Guid.Parse("EB558BF9-75C1-4953-B005-A97D00E21611"), 3982);
-            await bus.DispatchAsync(command, default);
+            var _queryBus = _container.Resolve<IQueryBus>();
+
+            var query = new AdminEmptyQuery();
+            var t =  await _queryBus.QueryAsync<IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, default);
         }
 
         private static async Task HadarMethod()

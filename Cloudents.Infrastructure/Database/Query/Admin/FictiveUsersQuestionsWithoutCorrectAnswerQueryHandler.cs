@@ -33,38 +33,9 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
             AnswerOfQuestionWithoutCorrectAnswer dtoAnswerAlias = null;
             Question questionAlias = null;
-            Answer answerAlias = null;
             User userAlias = null;
 
-
-            //this is better but the mapping to answer not working
-            //https://github.com/nhibernate/nhibernate-core/issues/1298
-            //var q = await _session.Query<Question>()
-            //    .Fetch(f => f.User)
-            //    .FetchMany(f => f.Answers)
-            //    .Where(w => w.CorrectAnswer == null)
-            //    .Where(w => w.User.Fictive.GetValueOrDefault() || w.Created < DateTime.UtcNow.AddDays(-5))
-
-            //    .SelectMany(s => s.Answers, (question, answer) => new { question, answer })
-            //    .OrderBy(o => o.question.Id).ThenBy(o => o.answer.Id)
-            //    .Select(s => new QuestionWithoutCorrectAnswerDto
-            //    {
-            //        Id = s.question.Id,
-            //        Text = s.question.Text,
-            //        IsFictive = s.question.User.Fictive.GetValueOrDefault(),
-
-            //        //Answers = new[] { s.answer }
-            //        Answers = s.question.Answers.Select(s2 => new AnswerOfQuestionWithoutCorrectAnswer
-            //        {
-            //            Id = s2.Id,
-            //            Text = s2.Text
-            //        }).ToList()
-            //    })
-            //    .ToListAsync(token);
-
-
             var questionFuture = _session.QueryOver(() => questionAlias)
-                .JoinAlias(x => x.Answers, () => answerAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .Where(w => w.CorrectAnswer == null)
                 .And(Restrictions.Or(

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
@@ -33,7 +34,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(CancellationToken token)
         {
             var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, token);
+            var t =  await _queryBus.QueryAsync<IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, token);
+            return t.Take(100);
         }
 
         /// <summary>
