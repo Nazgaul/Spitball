@@ -29,6 +29,7 @@ namespace Cloudents.Core.Entities.Db
         {
             Transactions = new List<Transaction>();
             UserLogins = new List<UserLogin>();
+            Courses = new HashSet<Course>();
         }
 
         public virtual long Id { get; set; }
@@ -83,6 +84,11 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Question> Questions { get; protected set; }
         protected internal virtual IList<Answer> Answers { get; protected set; }
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
+
+
+
+        protected internal virtual ICollection<Course> Courses { get; protected set; }
+
 
         public virtual DateTime Created { get; protected set; }
 

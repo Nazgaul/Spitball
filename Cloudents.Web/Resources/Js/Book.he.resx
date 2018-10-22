@@ -120,4 +120,10 @@
   <data name="header_textbook" xml:space="preserve">
     <value>ספרי לימוד</value>
   </data>
+  <data name="sort_buy" xml:space="preserve">
+    <value>קנה</value>
+  </data>
+  <data name="sort_sell" xml:space="preserve">
+    <value>מכור</value>
+  </data>
 </root>

@@ -28,16 +28,15 @@
     }
 
     p {
-        //.giveMeEllipsis(3,1.29);
+
         margin-bottom: 0;
-        //font-size: 14px;
-        //color: #000;
         max-width: 420px;
         height: 72px;
-        //margin-right: 70px;
-        //line-height: 1.29;
-        //letter-spacing: -0.3px;
         overflow: hidden;
+        //only if firefox
+        &.ellipsisHeightFirefox{
+            height: 64px;
+        }
     }
 
 

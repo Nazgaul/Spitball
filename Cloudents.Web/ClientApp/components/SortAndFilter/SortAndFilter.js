@@ -32,8 +32,13 @@ export default {
             this.$router.push({query: {...this.$route.query, sort: val}});
         },
         isChecked(singleFilter, filterItem) {
+            //keep this way to make sure integer is converted and compare returns correct result
+            let keyString = filterItem.key ? filterItem.key : '';
+            keyString = keyString + "";
             return this.filterVal.find((item) => {
-                return item.filterType === singleFilter.id && item.name === (filterItem.value ? filterItem.value.toString() : '')
+            let filterId = item.filterId + "";
+              return item.filterType === singleFilter.id && filterId === keyString;
+
             });
         },
         updateFilter({id, val, name, event}) {
@@ -51,7 +56,7 @@ export default {
             if (val === 'inPerson' && isChecked) {
                 query.sort = "price"
             }
-            if (id === 'course') {
+            if (id.toLowerCase() === 'course') {
                 this.setFilteredCourses(query.course)
             }
             this.$router.push({query});

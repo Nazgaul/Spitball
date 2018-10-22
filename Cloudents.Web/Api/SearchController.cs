@@ -105,9 +105,9 @@ namespace Cloudents.Web.Api
 
             if (coursesTask.Result != null)
             {
-                filters.Add(new Filters<long>(nameof(SearchRequest.Course),
+                filters.Add(new Filters<string>(nameof(SearchRequest.Course),
                     _localizer["CoursesFilterTitle"],
-                    coursesTask.Result.Select(s => new KeyValuePair<long, string>(s.Id, s.Name))));
+                    coursesTask.Result.Select(s => new KeyValuePair<string, string>(s.Name, s.Name))));
             }
             return new WebResponseWithFacet<SearchResult>
             {

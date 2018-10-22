@@ -11,8 +11,7 @@ namespace Cloudents.Core.Entities.Search
 
         public string[] Prefix { get; set; }
 
-        public string Code { get; set; }
+        public string[] Extra { get; set; }
 
-        public long UniversityId { get; set; }
     }
 }

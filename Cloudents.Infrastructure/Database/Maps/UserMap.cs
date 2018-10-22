@@ -53,6 +53,14 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
+
+            HasManyToMany(x => x.Courses)
+                .ParentKeyColumn("UserId")
+                .ChildKeyColumn("CourseId")
+                .ForeignKeyConstraintNames("User_Courses","Courses_User")
+                .Table("UsersCourses").AsSet();
+
+            SchemaAction.Update();
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)

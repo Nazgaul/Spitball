@@ -15,7 +15,8 @@ namespace Cloudents.Web.Views
             {
                 return string.Empty;
             }
-            return "//spitball.azureedge.net";
+
+            return string.Empty;// "//spitball.azureedge.net";
         }
     }
 }

@@ -82,14 +82,10 @@ export default {
         },
 
         resetFilters() {
-            this.initFilters();
-            // if (this.sortOptions) { // TODO have no idea why we need this code
-            //     this.sort = this.sortOptions[0].key;
-            // }else{
+                this.initFilters();
                 this.$router.push({query: {term: this.$route.query.term}});
                 this.applyFilters();
                 this.$emit('input', false);
-            // }
 
         },
 

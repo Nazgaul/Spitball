@@ -19,6 +19,8 @@
 <script src="./markQuestion.js"></script>
 
 <style lang="scss" scoped>
+    
+
     .questionItem{
         display:flex;
         margin:0 auto;

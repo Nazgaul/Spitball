@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Cloudents.Core.Command.Admin;
+using Cloudents.Core.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -21,7 +21,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             foreach (var userId in message.UserIds)
             {
                 var balance = await _userRepository.UserBalanceAsync(userId, token);
-                var user = await _userRepository.LoadAsync(userId, token);
+                var user = await _userRepository.LoadAsync(userId, false, token);
                 user.Balance = balance;
                 await _userRepository.UpdateAsync(user, token);
             }

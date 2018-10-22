@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Blockchain
             CancellationToken receiptRequestCancellationToken, params object[] functionInput)
         {
            
-            var gas = new HexBigInteger((BigInteger)maxGas);
+           // var gas = new HexBigInteger((BigInteger)maxGas);
             var publicAddress = Web3.GetAddressFromPrivateKey(privateKey);
             
             using (var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(receiptRequestCancellationToken))

@@ -1,6 +1,6 @@
-﻿using System;
-using Cloudents.Core.Command.Admin;
+﻿using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Interfaces;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,7 +9,7 @@ namespace Cloudents.Core.CommandHandler.Admin
     public class SuspendUserCommandHandler : ICommandHandler<SuspendUserCommand>
     {
 
-   
+
         private readonly IUserRepository _userRepository;
 
 
@@ -19,11 +19,11 @@ namespace Cloudents.Core.CommandHandler.Admin
         }
 
 
-         public async Task ExecuteAsync(SuspendUserCommand message, CancellationToken token)
-         {
-             var user = await _userRepository.LoadAsync(message.Id,token);
-             user.LockoutEnd = DateTimeOffset.MaxValue;
-             await _userRepository.UpdateAsync(user, token);
-         }
+        public async Task ExecuteAsync(SuspendUserCommand message, CancellationToken token)
+        {
+            var user = await _userRepository.LoadAsync(message.Id, false, token);
+            user.LockoutEnd = DateTimeOffset.MaxValue;
+            await _userRepository.UpdateAsync(user, token);
+        }
     }
 }

@@ -26,7 +26,8 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
 
                 qb.InitTable<Course>();
                 qb.CustomTable(
-                    $"right outer join CHANGETABLE (CHANGES {qb.Table<Course>()}, {qb.Param("Version")}) AS c ON {qb.ColumnAlias<Course>(q => q.Id)} = c.BoxId");
+                    $"right outer join CHANGETABLE (CHANGES {qb.Table<Course>()}," +
+                    $" {qb.Param("Version")}) AS c ON {qb.ColumnAlias<Course>(q => q.Name)} = c.Name");
                 SimilarQuery(qb);
                 return qb;
             }
@@ -39,7 +40,8 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
                 qb.InitTable<Course>()
                     
                     .CustomTable(
-                        $"CROSS APPLY CHANGETABLE (VERSION {qb.Table<Course>()}, (BoxId), ({qb.ColumnAlias<Course>(x => x.Id)})) AS c"
+                        $"CROSS APPLY CHANGETABLE (VERSION {qb.Table<Course>()}," +
+                        $" (Name), ({qb.ColumnAlias<Course>(x => x.Name)})) AS c"
                     );
                 SimilarQuery(qb);
                 return qb;
@@ -49,24 +51,14 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
 
         private static void SimilarQuery(FluentQueryBuilder qb)
         {
-            qb.Join<Course, University>(c => c.University, u => u.Id);
-            qb.Select<Course>(s => s.Id, nameof(CourseSearchDto.Id))
+            //qb.Join<Course, University>(c => c.University, u => u.Id);
+            qb
                 .Select<Course>(s => s.Name, nameof(CourseSearchDto.Name))
-                .Select<Course>(s => s.Code, nameof(CourseSearchDto.Code))
-                .Select<Course>(s => s.IsDeleted, nameof(CourseSearchDto.IsDeleted))
-                .Select<University>(s => s.Id, nameof(CourseSearchDto.UniversityId))
-                .Where($"{qb.ColumnAlias<Course>(c=>c.Discriminator)} = {(int)CourseType.Academic}")
-                .Where($"{qb.ColumnAlias<Course>(c=>c.PrivacySetting)} = {(int)CoursePrivacySetting.AnyoneWithUrl}")
                 .Select("c.*")
-                .AddOrder<Course>(o => o.Id)
+                .AddOrder<Course>(o => o.Name)
                 .Paging("PageSize", "PageNumber");
 
 
-        }
-
-        protected override ILookup<bool, AzureSyncBaseDto<CourseSearchDto>> SeparateUpdateFromDelete(IEnumerable<AzureSyncBaseDto<CourseSearchDto>> result)
-        {
-            return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.IsDeleted );
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs

@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;

@@ -12,12 +12,13 @@ export default {
             },
             acceptQuestion(question, answer){
                 acceptAnswer(question.toServer(answer.id)).then(()=>{
-                    alert(`SUCCESS: question id: ${question.id} accepted answer id: ${answer.id}`)
+                    //alert(`SUCCESS: question id: ${question.id} accepted answer id: ${answer.id}`)
                     //remove the question from the list
+                    this.$toaster.success(`Question id: ${question.id} accepted answer id: ${answer.id}`)
                     let questionIndex = this.questions.indexOf(question)
                     this.questions.splice(questionIndex, 1);
                 }, ()=>{
-                    alert(`ERROR FAILED TO ACCEPT question id: ${question.id} answer id: ${answer.id}`)
+                    this.$toaster.error(`ERROR FAILED TO ACCEPT question id: ${question.id} answer id: ${answer.id}`)
                 })
             }
         

@@ -5,6 +5,6 @@ namespace Cloudents.Web.Models
     public class AssignCourseRequest
     {
         [Required(ErrorMessage = "Required")]
-        public long CourseId { get; set; }
+        public string Name { get; set; }
     }
 }

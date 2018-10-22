@@ -15,7 +15,7 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// User courses id
         /// </summary>
-        public long[] Course { get; set; }
+        public string[] Course { get; set; }
 
         /// <summary>
         /// Format of result
