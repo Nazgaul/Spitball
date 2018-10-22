@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Controllers
 {
@@ -29,8 +30,10 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        public async Task<IActionResult> Index(string code)
+        public async Task<IActionResult> Index(string code,
+            [ModelBinder(typeof(CountryModelBinder))] string country)
         {
+            ViewBag.country = country ?? "us";
             if (string.IsNullOrEmpty(code))
             {
                 return View();

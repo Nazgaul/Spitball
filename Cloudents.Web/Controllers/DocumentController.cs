@@ -12,6 +12,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Controllers
 {
@@ -37,6 +38,7 @@ namespace Cloudents.Web.Controllers
         [ActionName("Index")]
         public async Task<IActionResult> IndexAsync(long id,
             [FromQuery] bool? isNew,
+            [ModelBinder(typeof(CountryModelBinder))] string country,
             CancellationToken token)
         {
             var query = new DocumentById(id);
@@ -61,6 +63,7 @@ namespace Cloudents.Web.Controllers
             }
             ViewBag.imageSrc = ViewBag.fbImage = "https://az779114.vo.msecnd.net/preview/" + model.ImageUrl +
                                                  ".jpg?width=1200&height=630&mode=crop";
+            ViewBag.country = country ?? "us";
             if (string.IsNullOrEmpty(model.Country)) return View();
 
 
