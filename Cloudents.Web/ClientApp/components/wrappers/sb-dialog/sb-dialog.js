@@ -14,6 +14,16 @@ export default {
             type: String,
             required: false
         },
+        isFullScreen: {
+            type: Boolean,
+            default: false,
+            required: false
+        },
+        fullWidth:{
+            type: Boolean,
+            default: false,
+            required: false
+        }
 
     },
     data: function () {
@@ -31,6 +41,7 @@ export default {
         showDialog(){
             if(!!this.showDialog){
                 this.show = true;
+                console.log('width', this.fullWidth)
             }else{
                 this.show = false;
             }
