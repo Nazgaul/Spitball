@@ -117,37 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ask" xml:space="preserve">
-    <value>שאל/בקש</value>
+  <data name="Accounting" xml:space="preserve">
+    <value>חשבונאות</value>
   </data>
-  <data name="fair_prise" xml:space="preserve">
-    <value>מחיר הוגן יבטיח לך מכירה</value>
+  <data name="Anthropology" xml:space="preserve">
+    <value>אנתרופולוגיה</value>
   </data>
-  <data name="Get_Your_Question_Answered" xml:space="preserve">
-    <value>קבל תשובות על השאלה שלך</value>
+  <data name="Arts" xml:space="preserve">
+    <value>אומנות</value>
   </data>
-  <data name="max_SBL" xml:space="preserve">
-    <value>הסכום המרבי לשאלה הוא 100 SBL</value>
+  <data name="Biology" xml:space="preserve">
+    <value>ביולוגיה</value>
   </data>
-  <data name="min_SBL" xml:space="preserve">
-    <value>הסכום המינימלי לשאלה הוא SBL 1</value>
+  <data name="BlockChain" xml:space="preserve">
+    <value>בלוקצ'יין</value>
   </data>
-  <data name="otherAmount_placeholder" xml:space="preserve">
-    <value>סכום אחר</value>
+  <data name="Business" xml:space="preserve">
+    <value>עסקים</value>
   </data>
-  <data name="Pick_a_subject" xml:space="preserve">
-    <value>בחר נושא</value>
+  <data name="Chemistry" xml:space="preserve">
+    <value>כימיה</value>
   </data>
-  <data name="SBL" xml:space="preserve">
-    <value> SBL</value>
+  <data name="Computer Science" xml:space="preserve">
+    <value>מדעי המחשב</value>
   </data>
-  <data name="sufficient_SBL" xml:space="preserve">
-    <value>אין לך מספיק  SBL</value>
+  <data name="Economics" xml:space="preserve">
+    <value>כלכלה</value>
   </data>
-  <data name="Tip" xml:space="preserve">
-    <value>עצה:</value>
+  <data name="Education" xml:space="preserve">
+    <value>חינוך</value>
   </data>
-  <data name="You_have" xml:space="preserve">
-    <value>יש לך</value>
+  <data name="Geography" xml:space="preserve">
+    <value>גיאוגרפיה</value>
+  </data>
+  <data name="Health &amp; Medicine" xml:space="preserve">
+    <value>בריאות ורפואה</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>היסטוריה</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>שפות</value>
+  </data>
+  <data name="Law &amp; Politics" xml:space="preserve">
+    <value>משפטים ופוליטיקה</value>
+  </data>
+  <data name="Literature" xml:space="preserve">
+    <value>ספרות</value>
+  </data>
+  <data name="Mathematics" xml:space="preserve">
+    <value>מתמטיקה</value>
+  </data>
+  <data name="Miscellaneous" xml:space="preserve">
+    <value>שונות</value>
+  </data>
+  <data name="Physics" xml:space="preserve">
+    <value>פיזיקה</value>
+  </data>
+  <data name="Psychology" xml:space="preserve">
+    <value>פסיכולוגיה</value>
+  </data>
+  <data name="Religion/Philosophy" xml:space="preserve">
+    <value>דת ופילוסופיה</value>
+  </data>
+  <data name="Social Studies" xml:space="preserve">
+    <value>מדעי החברה</value>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>ספורט</value>
+  </data>
+  <data name="Technology" xml:space="preserve">
+    <value>טכנולוגיה</value>
   </data>
 </root>
