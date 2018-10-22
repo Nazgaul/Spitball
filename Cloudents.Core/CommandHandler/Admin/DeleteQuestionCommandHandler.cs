@@ -36,7 +36,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             question.Events.Add(new QuestionDeletedEvent(question));
             var userId = question.User.Id;
             var correctAnswerUserId = question.CorrectAnswer?.User.Id;
-            IList<long> users = new[] { userId };
+            var users = new List<long> { userId };
             if (correctAnswerUserId != null)
             {
                 users.Add(correctAnswerUserId.Value);

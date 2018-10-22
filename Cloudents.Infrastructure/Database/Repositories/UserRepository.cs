@@ -1,13 +1,13 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {
@@ -35,10 +35,22 @@ namespace Cloudents.Infrastructure.Database.Repositories
             return user;
         }
 
-        public override async Task<User> LoadAsync(object id, CancellationToken token)
+        public override Task<User> LoadAsync(object id, CancellationToken token)
+        {
+            return LoadAsync(id, true, token);
+            //var user = await base.LoadAsync(id, token);
+            //CheckUserLockout(user);
+
+            //return user;
+        }
+
+        public async Task<User> LoadAsync(object id, bool checkUserLocked, CancellationToken token)
         {
             var user = await base.LoadAsync(id, token);
-            CheckUserLockout(user);
+            if (checkUserLocked)
+            {
+                CheckUserLockout(user);
+            }
 
             return user;
         }

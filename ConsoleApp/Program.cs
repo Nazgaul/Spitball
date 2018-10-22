@@ -14,9 +14,15 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Threading;
 using Cloudents.Core.Command;
+using Cloudents.Core.Command.Admin;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Query;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
+using DeleteAnswerCommand = Cloudents.Core.Command.Admin.DeleteAnswerCommand;
+using DeleteQuestionCommand = Cloudents.Core.Command.Admin.DeleteQuestionCommand;
 
 namespace ConsoleApp
 {
@@ -116,9 +122,35 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             var _queryBus = _container.Resolve<IQueryBus>();
+            var commandBus = _container.Resolve<ICommandBus>();
 
-            var query = new AdminEmptyQuery();
-            var t =  await _queryBus.QueryAsync<IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, default);
+
+            var token = CancellationToken.None;
+            
+
+
+            var userDataByIdQuery = new UserDataByIdQuery(38188);
+            var userDataTask = _queryBus.QueryAsync<User>(userDataByIdQuery, token);
+
+                var answersQuery = new UserDataByIdQuery(38188);
+                var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
+
+                foreach (var question in answersInfo.Questions)
+                {
+                    var deleteQuestionCommand = new DeleteQuestionCommand(question);
+                    await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
+                }
+
+                foreach (var answer in answersInfo.Answers)
+                {
+                    var deleteAnswerCommand = new DeleteAnswerCommand(answer);
+                    await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
+                }
+
+            var command = new SuspendUserCommand(38188);
+            await commandBus.DispatchAsync(command, token);
+            var userData = await userDataTask;
+            //return new SuspendUserResponse() { Email = userData.Email };
         }
 
         private static async Task HadarMethod()
