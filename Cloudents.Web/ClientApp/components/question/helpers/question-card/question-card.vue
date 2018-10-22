@@ -1,10 +1,10 @@
 <template>
     <v-flex v-if="cardData && !isDeleted " class="question-card"
-            :class="[`sbf-card-${cardData.color.toLowerCase()}`, {'highlight':flaggedAsCorrect}]">
+            :class="[`sbf-card-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' }`, {'highlight':flaggedAsCorrect}]">
         <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
             <div class="top-block">
-                <user-block :class="`sbf-font-${cardData.color.toLowerCase()}`" :cardData="cardData" :user="cardData.user"
+                <user-block :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' }`" :cardData="cardData" :user="cardData.user"
                             v-if="cardData.user" :name="cardData.subject">
                     <template> · <span class="timeago" :datetime="cardTime"></span><span
                             v-if="typeAnswer"
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <p class="q-text"
-               :class="[`sbf-font-${cardData.color.toLowerCase()}`, { 'answer': typeAnswer, 'ellipsis': fromCarousel || !detailedView}]">
+               :class="[`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`, { 'answer': typeAnswer, 'ellipsis': fromCarousel || !detailedView}]">
                 {{cardData.text | ellipsis(150, detailedView)}}</p>
             <!-- v-if="cardData.files.length" -->
             <div class="gallery" v-if="gallery&&gallery.length">
@@ -51,8 +51,8 @@
                     <div class="new-block">
                         <div class="files" v-if="cardData.filesNum">
                             <template>
-                                <v-icon :class="`sbf-font-${cardData.color.toLowerCase()}`">sbf-attach</v-icon>
-                                <span :class="`sbf-font-${cardData.color.toLowerCase()}`">{{cardData.filesNum}}</span>
+                                <v-icon :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`">sbf-attach</v-icon>
+                                <span :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`">{{cardData.filesNum}}</span>
                             </template>
                         </div>
                         <div class="users" v-if="!detailedView">
@@ -62,7 +62,7 @@
                                 </div>
                             </template>
                         </div>
-                        <span class="user-counter" :class="`sbf-font-${cardData.color.toLowerCase()}`"
+                        <span class="user-counter" :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`"
                               v-show="!detailedView ? cardAnswers > 3 : ''">+{{cardAnswers-3}}</span>
                     </div>
                     <!--show only if in suggestion popup-->
