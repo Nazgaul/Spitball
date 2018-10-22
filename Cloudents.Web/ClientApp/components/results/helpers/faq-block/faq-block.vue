@@ -1,6 +1,7 @@
 <template>
     <v-flex class="right-sidebar">
         <askQuestionBtn v-if="isAsk"></askQuestionBtn>
+        <upload-files v-else-if="isNotes"></upload-files>
         <v-flex xs12 class="card-block">
             <div class="header" v-language:inner>faqBlock_faq</div>
             <div class="content">
@@ -31,10 +32,12 @@
     import {suggestList} from "./../../consts"
     import help from "../../../../services/satelliteService";
     import {mapGetters, mapActions } from 'vuex';
-    import askQuestionBtn from '../askQuestionBtn/askQuestionBtn.vue'
+    import askQuestionBtn from '../askQuestionBtn/askQuestionBtn.vue';
+    import uploadFiles from '../uploadFiles/uploadFiles.vue'
     export default {
         components:{
-            askQuestionBtn
+            askQuestionBtn,
+            uploadFiles
         },
         data() {
             return {
@@ -43,7 +46,12 @@
                 showDialogLogin: false
             }
         },
-        props: {name: {}, text: {}, isAsk: Boolean},
+        props: {
+            name: {},
+            text: {},
+            isAsk: Boolean,
+            isNotes: Boolean
+        },
         computed: {
             ...mapGetters({
                 accountUser: 'accountUser',

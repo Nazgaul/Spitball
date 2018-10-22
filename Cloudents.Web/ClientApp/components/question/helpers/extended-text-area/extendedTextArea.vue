@@ -36,11 +36,11 @@
                         </button>
                         <img :src="image"/>
                     </li>
-                    <li class="add-file" v-show="previewList.length < uploadLimit">
-                        <label for="file-input">
-                            <v-icon>sbf-close</v-icon>
-                        </label>
-                    </li>
+                    <!--<li class="add-file" v-show="previewList.length < uploadLimit">-->
+                        <!--<label for="file-input">-->
+                            <!--<v-icon>sbf-close</v-icon>-->
+                        <!--</label>-->
+                    <!--</li>-->
                 </ul>
             </div>
         </transition>
