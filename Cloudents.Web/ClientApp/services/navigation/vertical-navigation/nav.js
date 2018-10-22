@@ -34,7 +34,7 @@ const nav = {
             filter: [ { id: "source", name: "sources" }],
             sort: [],
             icon: "sbf-note",
-            visible: true
+            visible: global.country.toUpperCase() !== 'IL'
         }
      },
     flashcard: {
@@ -46,7 +46,7 @@ const nav = {
             filter: [],
             sort: [],
             icon: "sbf-flashcards",
-            visible: true
+            visible: global.country.toUpperCase() !== 'IL'
         }
     },
     tutor: {

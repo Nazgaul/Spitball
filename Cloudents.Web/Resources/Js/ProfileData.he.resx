@@ -129,7 +129,7 @@
   </data>
   <data name="generalProfile_register_stepFive_heading" xml:space="preserve">
     <value>הזן את קוד האישור
- שלחנו לך את הקוד ב-SMS</value>
+ שלחנו לך את הקוד בסמס</value>
   </data>
   <data name="generalProfile_register_stepFour_boldTextOne" xml:space="preserve">
     <value>הזן מספר טלפון</value>
@@ -156,14 +156,14 @@
     <value>התחל בציון כתובת הדוא"ל שלך. אנחנו צריכים אותו כדי ליצור איתך קשר.</value>
   </data>
   <data name="generalProfile_register_stepSix_boldTextOne" xml:space="preserve">
-    <value>100 נקודות SBL</value>
+    <value>100  SBL</value>
   </data>
   <data name="generalProfile_register_stepSix_heading" xml:space="preserve">
     <value>כל הכבוד!</value>
   </data>
   <data name="generalProfile_register_stepSix_text" xml:space="preserve">
-    <value>הענקנו לך 100 נקודות SBL
- תוכל להשתמש בהן כדי לקבל עזרה עם שאלות שיש לך לגבי שיעורי הבית שלך או להשיב על שאלות של תלמידים אחרים כדי להרוויח נקודות SBL שתוכל להחליף בכסף אמיתי!</value>
+    <value>הענקנו לך 100  SBL
+ תוכל להשתמש בהן כדי לקבל עזרה עם שאלות שיש לך לגבי שיעורי הבית שלך או להשיב על שאלות של תלמידים אחרים כדי להרוויח  SBL שתוכל להחליף בכסף אמיתי!</value>
   </data>
   <data name="generalProfile_register_stepThree_boldTextOne" xml:space="preserve">
     <value>הפעל את חשבונך</value>
@@ -185,14 +185,14 @@
  התחבר למערכת.</value>
   </data>
   <data name="HHP_modal_text" xml:space="preserve">
-    <value>אתה במרחק של כמה הקלקות מעזרה מידית בשיעורי הבית ונקודות SBL שאפשר לצבור.</value>
+    <value>אתה במרחק של כמה הקלקות מעזרה מידית בשיעורי הבית ו SBL שאפשר לצבור.</value>
   </data>
   <data name="HHP_register_stepFive_boldTextOne" xml:space="preserve">
     <value>הזן קוד אישור</value>
   </data>
   <data name="HHP_register_stepFive_heading" xml:space="preserve">
     <value>הזן את קוד האישור
- שלחנו לך את הקוד ב-SMS</value>
+ שלחנו לך את הקוד בסמס</value>
   </data>
   <data name="HHP_register_stepFour_boldTextOne" xml:space="preserve">
     <value>הזן מספר טלפון</value>
@@ -214,7 +214,7 @@
     <value>התחל בציון כתובת הדוא"ל שלך. אנחנו צריכים אותו כדי ליצור איתך קשר.</value>
   </data>
   <data name="HHP_register_stepSix_boldTextOne" xml:space="preserve">
-    <value>100 נקודות SBL</value>
+    <value>100  SBL</value>
   </data>
   <data name="HHP_register_stepSix_heading" xml:space="preserve">
     <value>כל הכבוד!</value>
@@ -222,7 +222,7 @@
   <data name="HHP_register_stepSix_sub_heading" xml:space="preserve">
     <value>אנו מזכים אותך
  ב-100 
- נקודות SBL</value>
+  SBL</value>
   </data>
   <data name="HHP_register_stepSix_text" xml:space="preserve">
     <value>תוכל לנצל אותן כדי לקבל עזרה עם שאלות שיש לך לגבי שיעורי הבית שלך.</value>
@@ -254,7 +254,7 @@
   </data>
   <data name="makeMoneyProfile_register_stepFive_heading" xml:space="preserve">
     <value>הזן את קוד האישור
- שלחנו לך את הקוד ב-SMS</value>
+ שלחנו לך את הקוד בסמס</value>
   </data>
   <data name="makeMoneyProfile_register_stepFour_boldTextOne" xml:space="preserve">
     <value>הזן מספר טלפון</value>
@@ -279,7 +279,7 @@
     <value>התחל בציון כתובת הדוא"ל שלך. אנחנו צריכים אותו כדי ליצור איתך קשר.</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_boldTextOne" xml:space="preserve">
-    <value>100 נקודות SBL</value>
+    <value>100  SBL</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_boldTextTwo" xml:space="preserve">
     <value>רווח כספי!</value>
@@ -291,7 +291,7 @@
     <value>אתה מוכן ומזומן להתחיל להרוויח!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_text" xml:space="preserve">
-    <value>בנוסף, הענקנו לך 100 נקודות SBL
+    <value>בנוסף, הענקנו לך 100  SBL
  (תוכל להשתמש בהן כדי לקבל עזרה עם שאלות שיש לך לגבי שיעורי הבית שלך)</value>
   </data>
   <data name="makeMoneyProfile_register_stepThree_boldTextOne" xml:space="preserve">

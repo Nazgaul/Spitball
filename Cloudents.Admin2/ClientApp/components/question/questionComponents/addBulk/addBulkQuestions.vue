@@ -10,7 +10,10 @@
         </div>
         <div>
             <h1>Add Multiple Questions</h1>
-
+            <div class="example-container">
+                <span>Example</span>
+                <img src="../../../../assets/img/csvExample.png" alt="">
+            </div>
             <!-- Deprecated -->
             <!-- <div class="text-area-container">
                 <textarea v-model="subjectContent" :placeholder="areaPlaceHolder" cols="90" rows="50"></textarea>    
@@ -34,10 +37,7 @@
         </div>
 
 
-        <div class="example-container">
-            <span>Example</span>
-            <img src="../../../../assets/img/csvExample.png" alt="">
-        </div>
+        
     </div>
 </template>
 
