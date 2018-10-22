@@ -47,6 +47,7 @@ const vuetifyComponents = {
     VAvatar,
     VPagination,
     VDataTable,
+    VStepper
 };
 import {
     Vuetify,
@@ -77,6 +78,7 @@ import {
     VAvatar,
     VPagination,
     VDataTable,
+    VStepper
 
 
 } from "vuetify";

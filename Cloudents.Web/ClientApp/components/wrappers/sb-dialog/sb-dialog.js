@@ -14,6 +14,11 @@ export default {
             type: String,
             required: false
         },
+        fullWidth: {
+            type: Boolean,
+            required: false,
+            default:false
+        }
 
     },
     data: function () {

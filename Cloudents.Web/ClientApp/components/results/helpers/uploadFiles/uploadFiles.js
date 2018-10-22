@@ -2,7 +2,6 @@ import { mapGetters, mapActions } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
-import googlePickerApi from './initApi.js'
 //var VueUploadComponent = import('vue-upload-component');
 Vue.component('file-upload', FileUpload);
 
@@ -24,7 +23,11 @@ export default {
             dbReady: false,
             regularUploadFiles: [],
             progressValue: '',
-            files: []
+            files: [],
+            steps: 2,
+            e1 : 1,
+            n: 1,
+            stepsProgress: 0
 
 
         }
@@ -107,45 +110,6 @@ export default {
             global.Dropbox.choose(options);
         },
 
-        //load google picker uploader
-        loadGooglePicker() {
-            googlePickerApi.loadPicker(this.returnedGPickerData)
-        },
-
-        returnedGPickerData(data) {
-            if (data.action == google.picker.Action.PICKED) {
-               // let files = data.docs;
-                let doc, url, name, size;
-                let type = "googleDrive";
-                for (var i = 0, l = data[google.picker.Response.DOCUMENTS].length; i < l; i++) {
-                    doc = data[google.picker.Response.DOCUMENTS][i];
-                    if (doc.type === google.picker.Type.DOCUMENT) {
-                        url = doc[google.picker.Document.URL];
-                    } else {
-                        url = 'https://drive.google.com/uc?id=' + doc.id;
-                    }
-                    name = doc.name;
-                    size = doc.sizeBytes;
-                    if (!url) {
-                        continue;
-                    }
-                    this.files.push({
-                        name: name,
-                        link: url,
-                        size: size,
-                        type: type
-                    });
-                    this.uploadsPreviewList.push({
-                        name: name,
-                        link: 'https://az32006.vo.msecnd.net:443/spitball/quizlet.png',
-                        type: type
-                    })
-                }
-
-
-            }
-
-        },
         // regular upload methods
         inputFile(newFile, oldFile) {
             if (newFile && !oldFile) {
@@ -211,6 +175,16 @@ export default {
             this.uploadsPreviewList.splice(index, 1);
             this.files.splice(index, 1)
         },
+        nextStep (n) {
+            if (n === this.steps) {
+                this.e1 = 1
+            } else {
+                this.e1 = n + 1;
+                this.stepsProgress = (n + 1)* 10;
+            }
+            console.log('step', this.stepsProgress,  this.e1  );
+
+        }
     },
 
     mounted() {
