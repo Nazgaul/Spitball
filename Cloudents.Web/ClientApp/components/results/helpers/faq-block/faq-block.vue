@@ -14,7 +14,7 @@
                 <router-link class="footer-btn" tag="button" to="/faq" v-language:inner>faqBlock_more</router-link>
             </div>
         </v-flex>
-        <v-flex xs12 class="card-block mt-3">
+        <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-3">
             <div class="header" v-language:inner>faqBlock_spitball</div>
             <div class="content">
                 <p>{{suggestList[name]}}</p>
