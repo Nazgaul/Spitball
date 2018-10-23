@@ -4,7 +4,7 @@ import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
 //var VueUploadComponent = import('vue-upload-component');
 Vue.component('file-upload', FileUpload);
-
+//just test
 
 export default {
     components: {
