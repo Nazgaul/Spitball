@@ -18,6 +18,11 @@ namespace Cloudents.Core.CommandHandler.Admin
 
         public async Task ExecuteAsync(UpdateUserBalanceCommand message, CancellationToken token)
         {
+            if (message.UserIds == null)
+            {
+                return;
+            }
+
             foreach (var userId in message.UserIds)
             {
                 var balance = await _userRepository.UserBalanceAsync(userId, token);
