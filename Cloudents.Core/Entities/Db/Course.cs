@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities.Db
@@ -14,6 +15,10 @@ namespace Cloudents.Core.Entities.Db
         public Course(string name)
         {
             Name = name.Trim();
+            if (Name.Length > 150 || Name.Length < 4)
+            {
+                throw new ArgumentException();
+            }
         }
 
 

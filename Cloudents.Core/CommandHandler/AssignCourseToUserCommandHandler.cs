@@ -27,6 +27,7 @@ namespace Cloudents.Core.CommandHandler
 
             if (course == null)
             {
+                
                 course = new Course(message.Name);
                 await _courseRepository.AddAsync(course, token).ConfigureAwait(true);
             }
