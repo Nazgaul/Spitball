@@ -18,8 +18,6 @@ namespace Cloudents.Core.Entities.Db
 
 
         public virtual string Name { get; protected set; }
-        public virtual int Count { get; protected set; }
-
-        public virtual string Extra { get; set; }
+        public virtual int Count { get; set; }
     }
 }

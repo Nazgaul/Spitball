@@ -30,7 +30,13 @@ namespace Cloudents.Core.CommandHandler
                 course = new Course(message.Name);
                 await _courseRepository.AddAsync(course, token).ConfigureAwait(true);
             }
-            user.Courses.Add(course);
+
+            if (user.Courses.Add(course))
+            {
+                course.Count++;
+            }
+
+            await _courseRepository.UpdateAsync(course, token);
             await _userRepository.UpdateAsync(user, token);
         }
     }
