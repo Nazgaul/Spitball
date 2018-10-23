@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -43,7 +44,8 @@ namespace Cloudents.Core.Interfaces
 
     public interface IUniversityRepository : IRepository<University>
     {
-        Task<IList<University>> GetUniversityByNameAsync(string name, 
+        [ItemCanBeNull]
+        Task<University> GetUniversityByNameAsync(string name, 
             string country,
             CancellationToken token);
 
