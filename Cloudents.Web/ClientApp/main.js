@@ -47,6 +47,7 @@ const vuetifyComponents = {
     VAvatar,
     VPagination,
     VDataTable,
+    VStepper
 };
 import {
     Vuetify,
@@ -77,6 +78,7 @@ import {
     VAvatar,
     VPagination,
     VDataTable,
+    VStepper
 
 
 } from "vuetify";
@@ -268,7 +270,7 @@ function checkUserStatus(to, next) {
 }
 
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
-
+//global.country = 'US';
 
 initSignalRService();
 
