@@ -50,6 +50,7 @@ const allModules = [
     "vuetify/es5/components/VPagination",
     "vuetify/es5/components/VDataTable",
     "vuetify/es5/components/VStepper",
+    "vuetify/es5/components/VCombobox",
     "webfontloader",
    
 
