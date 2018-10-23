@@ -41,6 +41,9 @@ namespace Cloudents.Infrastructure
                 .SingleInstance().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(LogInterceptor));
 
+
+            builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>();
+
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(ITypeConverter<,>));
 

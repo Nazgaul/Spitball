@@ -53,3 +53,5 @@ and CourseCode is not null
 and discriminator in (2,3)
 except
 select Name,0 from sb.Course
+
+--run update in program.cs - to update question language UpdateLanguageAsync

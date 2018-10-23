@@ -34,7 +34,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionRepository : IRepository<Question>
     {
-        Task<IList<Question>> GetAllQuestionsAsync();
+        Task<IList<Question>> GetAllQuestionsAsync(int page);
         Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
         Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
     }
