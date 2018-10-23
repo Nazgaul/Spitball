@@ -1,6 +1,6 @@
 <template functional>
     <div>
-        <div v-if="true">
+        <div v-if="false">
             <slot name="uniSelect"></slot>
         </div>
         <div v-else>
