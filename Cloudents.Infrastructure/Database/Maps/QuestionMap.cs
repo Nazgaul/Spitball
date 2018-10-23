@@ -9,6 +9,7 @@ namespace Cloudents.Infrastructure.Database.Maps
         public QuestionMap()
         {
             DynamicUpdate();
+            //https://stackoverflow.com/a/7084697/1235448
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(Question)}'");
             Map(x => x.Text).Length(8000).Not.Nullable();
             Map(x => x.Price).Not.Nullable();
