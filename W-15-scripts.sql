@@ -1,5 +1,5 @@
 ﻿---V7
--- need to create signalr service
+-- need to create signalr service for production
 
 CREATE TABLE [sb].[Course](
 	[Name] [nvarchar](255) NOT NULL,
