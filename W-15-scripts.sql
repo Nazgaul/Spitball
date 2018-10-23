@@ -3,8 +3,8 @@
 
 CREATE TABLE [sb].[Course](
 	[Name] [nvarchar](255) NOT NULL,
-	[Count] [int] NOT NULL,
-	[Extra] [nvarchar](4000) NULL,
+	[Count] [int] NOT NULL
+	
 PRIMARY KEY CLUSTERED 
 (
 	[Name] ASC
@@ -35,3 +35,20 @@ GO
 
 ALTER TABLE [sb].[UsersCourses] CHECK CONSTRAINT [User_Courses]
 GO
+
+--populate courses tags
+insert into sb.Course(Name,Count)
+select distinct BoxName,0 from zbox.box
+where isdeleted = 0
+and discriminator in (2,3)
+except
+select Name,0 from sb.Course
+
+
+insert into sb.Course(Name,Count)
+select distinct CourseCode,0 from zbox.box
+where isdeleted = 0
+and CourseCode is not null
+and discriminator in (2,3)
+except
+select Name,0 from sb.Course
