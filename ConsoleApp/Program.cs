@@ -2,20 +2,20 @@
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Threading;
-using Cloudents.Core.Command;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Query.Sync;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Infrastructure.Data;
+using Dapper;
 
 namespace ConsoleApp
 {
@@ -61,8 +61,8 @@ namespace ConsoleApp
             }
             else
             {
-                
-               await HadarMethod();
+
+                await HadarMethod();
             }
 
 
@@ -114,15 +114,14 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var query = SyncAzureQuery.Empty();
+            await TransferUniversities();
 
-            var bus = _container.Resolve<IQueryBus>();
-            await bus.QueryAsync< (IEnumerable<CourseSearchDto> update, IEnumerable<long> delete, long version)>(query, default);
+
         }
 
         private static async Task HadarMethod()
         {
-          
+
 
             var t = _container.Resolve<IBlockChainErc20Service>();
             string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
@@ -148,26 +147,6 @@ namespace ConsoleApp
             string spitballServerPK18 = "5be05be0da379bd16f62932a89eba920d7aec0ca5f178919fe08a4f830c079c0";
             string spitballServerPK19 = "707fa6cf9416cf40bfc41bab94cd14b8002046f5c894373867097f4218f0710d";
             string spitballServerPK20 = "58f3e1dcfa9c919c0d1f5aa41f31e96f72324b8adb819ffb500e0bc71cb3d17c";
-
-            string SbAdd2 = "0xc7fe8b32b435aa2a4a624f8dd84cb39dfafef83d";
-            string SbAdd3 = "0xabe6778e3091496628ff39ab206dd84a7fd09141";
-            string SbAdd4 = "0xb47b4a77dbfaad4d0b0bdfe6bb7070d27538ff52";
-            string SbAdd5 = "0x71597bff6c07d5d1061182b4bec820a45f6cb900";
-            string SbAdd6 = "0x8f333898c9b0c52d3a1ce020120bd4d80dd585b7";
-            string SbAdd7 = "0x611a77566067e18d7eb59b9ba9e4d99d0bac4c2b";
-            string SbAdd8 = "0xbf74d27e2667ca48d3a82fb525f10001a2fe2b7d";
-            string SbAdd9 = "0x68e29eab0092aa2272701f6971ab311ac4618822";
-            string SbAdd10 = "0xa130fec27ccc8296a7dcf193a52c31e6e62b886c";
-            string SbAdd11 = "0xc111cd3653566d5766f20e45453eeb7a935d4dbe";
-            string SbAdd12 = "0x87b44bc3e4e4a08ee61e637c12fbe762548fa861";
-            string SbAdd13 = "0xd33a0681e1a1a8d9ecb77623cc9f6d92716fa119";
-            string SbAdd14 = "0xc1d65387b8bb6562864eb300b376cd41e7eba5c3";
-            string SbAdd15 = "0x53a25bd100cee10bd27c9427830e49535f66a2f3";
-            string SbAdd16 = "0xe4f05adca00694b52a98edefbab72097659e6009";
-            string SbAdd17 = "0x38f4f82dbfd4fd35dc3f98e3e3e662a22d927c7d";
-            string SbAdd18 = "0x7eda528e3110134f06ac1b1e4ac08b95119793dd";
-            string SbAdd19 = "0xf6bed5cdb4cafebcb75f024c3b44aa126290b1ce";
-            string SbAdd20 = "0x7dec1bb43ccdd782c195ab63b12482bda9663d8d";
 
             /*
             string metaMaskPK = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
@@ -227,11 +206,11 @@ namespace ConsoleApp
             var wl19 = await t.WhitelistUserForTransfers(SbAdd19, default);
             var wl20 = await t.WhitelistUserForTransfers(SbAdd20, default);
             */
-            
+
             var d = await t.GetBalanceAsync(spitballServerAddress, default);
             Console.WriteLine($"spitballServerAddress Balance: {d}");
             ConcurrentQueue<string> staticQ = new ConcurrentQueue<string>();
-            
+
             staticQ.Enqueue(spitballServerPK1);
             staticQ.Enqueue(spitballServerPK2);
             staticQ.Enqueue(spitballServerPK3);
@@ -253,14 +232,14 @@ namespace ConsoleApp
             staticQ.Enqueue(spitballServerPK19);
             staticQ.Enqueue(spitballServerPK20);
 
-            
+
 
             for (int i = 0; i < 200; i++)
             {
 
 
                 ConcurrentQueue<string> blockQ = new ConcurrentQueue<string>(staticQ);
-                
+
                 string res;
                 blockQ.TryDequeue(out res);
                 var tx1 = t.TransferPreSignedAsync(res, spitballServerPK1, spitballServerAddress, 2, 1, default);
@@ -373,29 +352,84 @@ namespace ConsoleApp
         //}
 
 
-        public static async Task UpdateCreationTimeProductionAsync()
+        /// <summary>
+        /// This is dbi for update question language
+        /// </summary>
+        /// <returns></returns>
+        public static async Task UpdateLanguageAsync()
         {
+            var t = _container.Resolve<ITextAnalysis>();
+            var i = 0;
+            bool continueLoop = false;
+            do
+            {
+                using (var child = _container.BeginLifetimeScope())
+                {
+
+
+                    using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                    {
+                        var repository = child.Resolve<IQuestionRepository>();
+                        var questions = await repository.GetAllQuestionsAsync(i).ConfigureAwait(false);
+                        continueLoop = questions.Count > 0;
+                        var result = await t.DetectLanguageAsync(
+                            questions.Where(w => w.Language == null)
+                                .Select(s => new KeyValuePair<long, string>(s.Id, s.Text)), default);
+
+                        foreach (var pair in result.Where(w => !w.Value.Equals(CultureInfo.InvariantCulture)))
+                        {
+                            var q = await repository.LoadAsync(pair.Key, default);
+
+                            q.SetLanguage(pair.Value);
+
+                            await repository.UpdateAsync(q, default);
+                        }
+
+                        await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                    }
+
+                }
+
+                i++;
+            } while (continueLoop);
+
+        }
+
+        public static async Task TransferUniversities()
+        {
+            var d = _container.Resolve<DapperRepository>();
+            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+            {
+                return await f.QueryAsync(
+                    @"SELECT u.UniversityName,u.Country,u.Extra
+                FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
+                ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
+                    FROM zbox.University u
+                where isdeleted = 0
+                    ) u
+                WHERE cnt = 1");
+            },default);
+
             using (var child = _container.BeginLifetimeScope())
             {
                 using (var unitOfWork = child.Resolve<IUnitOfWork>())
                 {
-                    var repository = child.Resolve<IQuestionRepository>();
-                    var questions = await repository.GetAllQuestionsAsync().ConfigureAwait(false);
-                    var random = new Random();
-                    foreach (var question in questions)
+                    var repository = child.Resolve<IUniversityRepository>();
+
+                    foreach (var pair in z)
                     {
-                        if (question.CorrectAnswer == null && question.User.Fictive)
+                        var university = new University(pair.UniversityName, pair.Country)
                         {
-                            // question.Created = DateTimeHelpers.NextRandomDate(2, random);
-                            Console.WriteLine(question.Created);
-                            await repository.UpdateAsync(question, default);
-                        }
-                        //user1.UserCreateTransaction();
-                        //await t.UpdateAsync(user1, default).ConfigureAwait(false);
+                            Extra = pair.Extra
+                        };
+                        await repository.AddAsync(university, default);
                     }
+
                     await unitOfWork.CommitAsync(default).ConfigureAwait(false);
                 }
+
             }
+
 
         }
     }

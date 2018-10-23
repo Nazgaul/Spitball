@@ -40,7 +40,8 @@ namespace Cloudents.Infrastructure.Database.Query
             if (query.UniversityId.HasValue)
             {
                 universityFuture = _readonlySession.Session.Query<University>()
-                    .Where(w => w.Id == query.UniversityId).Select(s => new UniversityResult(s.Name,s.ExtraSearch))
+                    .Where(w => w.Id == query.UniversityId)
+                    .Select(s => new UniversityResult(s.Name,s.Extra))
                     .ToFutureValue();
             }
 

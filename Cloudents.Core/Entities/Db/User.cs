@@ -87,7 +87,7 @@ namespace Cloudents.Core.Entities.Db
 
 
 
-        protected internal virtual ICollection<Course> Courses { get; protected set; }
+        protected internal virtual ISet<Course> Courses { get; protected set; }
 
 
         public virtual DateTime Created { get; protected set; }

@@ -52,7 +52,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [Route("documents", Name = "DocumentSearch"), HttpGet]
         public async Task<WebResponseWithFacet<SearchResult>> SearchDocumentAsync([FromQuery] SearchRequest model,
-           [ClaimModelBinder(AppClaimsPrincipalFactory.University)] long? universityId,
+           [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             [ModelBinder(typeof(CountryModelBinder))] string country,
            [FromServices] IWebDocumentSearch searchProvider,
             [FromServices] IDocumentSearch ilSearchProvider,
@@ -135,7 +135,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [Route("flashcards", Name = "FlashcardSearch"), HttpGet]
         public async Task<WebResponseWithFacet<SearchResult>> SearchFlashcardAsync([FromQuery] SearchRequest model,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] long? universityId,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             [FromServices] IWebFlashcardSearch searchProvider, CancellationToken token)
         {
             var query = SearchQuery.Flashcard(model.Query, universityId, model.Course, model.Source, model.Page.GetValueOrDefault());
