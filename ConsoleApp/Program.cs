@@ -13,6 +13,9 @@ using System.Net.Mail;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Infrastructure.Data;
+using Dapper;
 
 namespace ConsoleApp
 {
@@ -111,7 +114,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await UpdateLanguageAsync();
+            await TransferUniversities();
 
 
         }
@@ -389,6 +392,44 @@ namespace ConsoleApp
 
                 i++;
             } while (continueLoop);
+
+        }
+
+        public static async Task TransferUniversities()
+        {
+            var d = _container.Resolve<DapperRepository>();
+            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+            {
+                return await f.QueryAsync(
+                    @"SELECT u.UniversityName,u.Country,u.Extra
+                FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
+                ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
+                    FROM zbox.University u
+                where isdeleted = 0
+                    ) u
+                WHERE cnt = 1");
+            },default);
+
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var repository = child.Resolve<IUniversityRepository>();
+
+                    foreach (var pair in z)
+                    {
+                        var university = new University(pair.UniversityName, pair.Country)
+                        {
+                            Extra = pair.Extra
+                        };
+                        await repository.AddAsync(university, default);
+                    }
+
+                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                }
+
+            }
+
 
         }
     }
