@@ -6,18 +6,18 @@
             <v-card class="sb-steps-wrap">
                 <!--<v-progress-linear v-model="progressValue" :active="progressShow"></v-progress-linear>-->
                 <v-stepper v-model="e1" class="sb-stepper">
-                    <v-stepper-header class="sb-stepper-header">
+                    <v-stepper-header class="sb-stepper-header" v-if="e1 ===1">
                         <template>
                             <h2 class="sb-step-title">Ready, Set, Sale!</h2>
-                            <h4 class="sb-step-subtitle">Make money of your study documants.</h4>
+                            <h4 class="sb-step-subtitle">Make money of your study documents.</h4>
                         </template>
                     </v-stepper-header>
-                    <v-stepper-items>
+                    <v-stepper-items class="sb-stepper-item">
                         <!--step 1-->
                         <v-stepper-content class="sb-stepper-content step-one"
                                 :key="`${1}-content`"
                                 :step="1">
-                            <v-card class="mb-5 sb-step-card" color="grey lighten-1" >
+                            <v-card class="sb-step-card" color="" >
                                 <!--dropshadow for drag and drop-->
                                  <div class="upload-row-1">
                                     <v-icon>sbf-upload-cloud</v-icon>
@@ -65,9 +65,6 @@
                                     </div>
                                 </div>
                             </v-card>
-                            <v-btn color="primary" @click="nextStep(n)">Continue</v-btn>
-
-                            <v-btn flat>Cancel</v-btn>
                         </v-stepper-content>
                         <!--step 2-->
                         <v-stepper-content class="sb-stepper-content step-two"
@@ -75,35 +72,30 @@
                                            :step="2">
                             <v-card class="mb-5 sb-step-card" color="grey lighten-1" >
                                 <div class="upload-row-1">
-                                    <v-icon>sbf-upload-cloud</v-icon>
-                                    <h3 class="text-blue upload-cloud-text">Upload a Documentdfgfdg</h3>
+                                    <h3 class="upload-cloud-text sb-title">Awesome! get your document ready for sale</h3>
+                                    <h4 class="sb-subtitle mt-2">Filling details will increase this doc. chances to get sold</h4>
                                 </div>
                                 <div class="upload-row-2">
                                     <div class="btn-holder">
-                                        <v-btn fab class="upload-option-btn">
-                                            <v-icon>sbf-upload-dropbox</v-icon>
+                                        <sb-input :bottomError="true"
+                                                  v-model="schoolName" placeholder="Your School" name="password"
+                                                  type="text"
+                                                  :autofocus="true" @keyup.enter.native="">
 
-                                        </v-btn>
-                                        <span  class="btn-label">DropBox</span>
+                                        </sb-input>
                                     </div>
                                     <div class="btn-holder">
-                                        <v-btn fab class="upload-option-btn">
-                                            <v-icon>sbf-upload-desktop</v-icon>
-                                        </v-btn>
-                                        <span class="btn-label">Your Dekstop</span>
+
                                     </div>
                                 </div>
                                 <div class="upload-row-3">
-                                    <div class="btn-holder">
-                                        <v-icon>sbf-upload-drag</v-icon>
-                                        <span  class="btn-label">Or just drop your file here</span>
-                                    </div>
+
                                 </div>
 
                             </v-card>
-                            <v-btn color="primary" @click="nextStep(n)">Continue</v-btn>
+                            <!--<v-btn color="primary" @click="nextStep(n)">Continue</v-btn>-->
 
-                            <v-btn flat>Cancel</v-btn>
+                            <!--<v-btn flat>Cancel</v-btn>-->
                         </v-stepper-content>
 
                     </v-stepper-items>
@@ -130,6 +122,12 @@
                             type="button">Stop upload
                     </button>
                 </div>
+                <div class="step-controls">
+                    <v-btn color="primary" @click="nextStep(step)">Continue</v-btn>
+
+                    <v-btn flat>Cancel</v-btn>
+                </div>
+
             </v-card>
         </sb-dialog>
 

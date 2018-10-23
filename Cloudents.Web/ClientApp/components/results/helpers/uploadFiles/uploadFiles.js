@@ -2,15 +2,15 @@ import { mapGetters, mapActions } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
+import sbInput from "../../../question/helpers/sbInput/sbInput";
 //var VueUploadComponent = import('vue-upload-component');
 Vue.component('file-upload', FileUpload);
-//just test
 
 export default {
     components: {
         sbDialog,
+        sbInput,
         FileUpload
-
     },
     name: "uploadFiles",
 
@@ -26,10 +26,12 @@ export default {
             files: [],
             steps: 2,
             e1 : 1,
-            n: 1,
-            stepsProgress: 0
-
-
+            step: 1,
+            stepsProgress: 0,
+            schoolName: {
+                type : String,
+                default: ''
+            }
         }
     },
     props: {},
@@ -175,12 +177,12 @@ export default {
             this.uploadsPreviewList.splice(index, 1);
             this.files.splice(index, 1)
         },
-        nextStep (n) {
-            if (n === this.steps) {
+        nextStep (step) {
+            if (step === this.steps) {
                 this.e1 = 1
             } else {
-                this.e1 = n + 1;
-                this.stepsProgress = (n + 1)* 10;
+                this.e1 = step + 1;
+                this.stepsProgress = (step + 1)* 10;
             }
             console.log('step', this.stepsProgress,  this.e1  );
 
