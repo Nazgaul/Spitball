@@ -46,6 +46,7 @@ select Name,0 from sb.Course
 
 
 insert into sb.Course(Name,Count)
+
 select distinct CourseCode,0 from zbox.box
 where isdeleted = 0
 and CourseCode is not null
