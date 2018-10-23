@@ -16,13 +16,14 @@ namespace Cloudents.Core.CommandHandler
         private readonly IQuestionRepository _questionRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly ITextAnalysis _textAnalysis;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
-             IRepository<User> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider = null)
+             IRepository<User> userRepository, ITextAnalysis textAnalysis, IBlobProvider<QuestionAnswerContainer> blobProvider = null)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
+            _textAnalysis = textAnalysis;
             _blobProvider = blobProvider;
         }
 
@@ -38,8 +39,11 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("You need to wait before asking more questions");
             }
 
+            var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
 
-            var question = new Question(message.SubjectId, message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color);
+            var question = new Question(message.SubjectId,
+                message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color);
+            question.SetLanguage(textLanguage);
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;
 

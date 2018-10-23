@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Query;
 
 namespace Cloudents.Web.Api
 {
@@ -19,7 +20,7 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController, Authorize]
     public class CourseController : ControllerBase
     {
-        private readonly ICourseSearch _courseProvider;
+        private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly UserManager<User> _userManager;
 
@@ -28,12 +29,12 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="courseProvider"></param>
+        /// <param name="queryBus"></param>
         /// <param name="commandBus"></param>
         /// <param name="userManager"></param>
-        public CourseController(ICourseSearch courseProvider, ICommandBus commandBus, UserManager<User> userManager)
+        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<User> userManager)
         {
-            _courseProvider = courseProvider;
+            _queryBus = queryBus;
             _commandBus = commandBus;
             _userManager = userManager;
         }
@@ -47,10 +48,10 @@ namespace Cloudents.Web.Api
         [Route("search")]
         [HttpGet]
         public async Task<CoursesResponse> GetAsync([FromQuery]CourseRequest model,
-
             CancellationToken token)
         {
-            var result = await _courseProvider.SearchAsync(model.Term, token).ConfigureAwait(false);
+            var query = new CourseSearchQuery(model.Term);
+            var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
                 Courses = result
@@ -59,7 +60,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("assign")]
-        public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignCourseRequest model, CancellationToken token)
+        public async Task<IActionResult> AssignCoursesAsync([FromBody] AssignCourseRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new AssignCourseToUserCommand(model.Name, userId);

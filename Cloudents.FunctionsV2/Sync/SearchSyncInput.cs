@@ -19,9 +19,9 @@ namespace Cloudents.FunctionsV2.Sync
                 switch (SyncType)
                 {
                     case SyncType.University:
-                        return "university";
-                    case SyncType.Course:
-                        return "course2";
+                        return "university2";
+                    //case SyncType.Course:
+                    //    return "course2";
                     case SyncType.Question:
                         return "question";
 
@@ -39,8 +39,8 @@ namespace Cloudents.FunctionsV2.Sync
                 {
                     case SyncType.University:
                         return "UniversitySearchSync";
-                    case SyncType.Course:
-                        return "CourseSearch2Sync";
+                    //case SyncType.Course:
+                    //    return "CourseSearch2Sync";
                     case SyncType.Question:
                         return "QuestionSearchSync";
 
@@ -59,7 +59,7 @@ namespace Cloudents.FunctionsV2.Sync
     public enum SyncType
     {
         University,
-        Course,
+        //Course,
         Question
     }
 }

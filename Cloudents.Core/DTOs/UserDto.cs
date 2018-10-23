@@ -21,6 +21,6 @@
 
         public string Email { get; set; }
 
-        public long? UniversityId { get; set; }
+        public bool UniversityExists { get; set; }
     }
 }

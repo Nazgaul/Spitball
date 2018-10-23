@@ -17,6 +17,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Updated).Not.Nullable();
             Map(x => x.Color);
             Map(x => x.State);
+            Map(x => x.Language);
             //References(x => x.Subject).ForeignKey("Question_AskQuestionSubject").Not.Nullable();
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
 
@@ -37,7 +38,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .LazyLoad()
                 .Inverse();
 
-            SchemaAction.None();
+            SchemaAction.Update();
 
 
         }
