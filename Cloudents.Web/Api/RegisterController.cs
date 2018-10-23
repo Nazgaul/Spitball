@@ -63,13 +63,13 @@ namespace Cloudents.Web.Api
 
                 if (string.IsNullOrEmpty(user.PhoneNumber))
                 {
-                    await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+                    await _signInManager.TempSignIn(user).ConfigureAwait(false);
                     return new ReturnSignUserResponse(NextStep.EnterPhone, false);
 
                 }
                 if (!user.PhoneNumberConfirmed)
                 {
-                    var t1 = _signInManager.SignInTwoFactorAsync(user, false);
+                    var t1 = _signInManager.TempSignIn(user);
                     var t2 = _client.SendSmsAsync(user, token);
 
                     await Task.WhenAll(t1, t2);
@@ -131,7 +131,7 @@ namespace Cloudents.Web.Api
                 if (result3.Succeeded)
                 {
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                    await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+                    await _signInManager.TempSignIn(user).ConfigureAwait(false);
                     return new ReturnSignUserResponse(NextStep.EnterPhone, true);
                 }
             }
@@ -148,7 +148,7 @@ namespace Cloudents.Web.Api
                     await _signInManager.SignInAsync(user, false);
                     return new ReturnSignUserResponse(false);
                 }
-                await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+                await _signInManager.TempSignIn(user).ConfigureAwait(false);
                 return new ReturnSignUserResponse(NextStep.EnterPhone, true);
             }
 
