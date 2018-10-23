@@ -23,13 +23,11 @@ namespace Cloudents.Web.Identity
         {
             var p = await base.GenerateClaimsAsync(user).ConfigureAwait(false);
 
-            if (user.EmailConfirmed && user.PhoneNumberConfirmed)
+            if (!user.EmailConfirmed || !user.PhoneNumberConfirmed) return p;
+            p.AddClaim(new Claim(Country, user.Country));
+            if (user.University?.Id != null)
             {
-                p.AddClaim(new Claim(Country, user.Country));
-                if (user.University?.Id != null)
-                {
-                    p.AddClaim(new Claim(University, user.University.Id.ToString()));
-                }
+                p.AddClaim(new Claim(University, user.University.Id.ToString()));
             }
             return p;
         }

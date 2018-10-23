@@ -53,7 +53,6 @@
                               maxActive: 3,
                               maxRetries: 5,}">
                                         </file-upload>
-
                                 </v-btn>
                                         <span class="btn-label">Your Dekstop</span>
                                     </div>

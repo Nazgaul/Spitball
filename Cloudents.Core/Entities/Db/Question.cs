@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
@@ -124,5 +125,22 @@ namespace Cloudents.Core.Entities.Db
 
 
         public virtual IList<IEvent> Events { get; protected set; }
+
+        public virtual CultureInfo Language { get; protected set; }
+
+        public virtual void SetLanguage(CultureInfo info)
+        {
+            if (info.Equals(CultureInfo.InvariantCulture))
+            {
+                return;
+            }
+
+            if (Language != null)
+            {
+                throw new InvalidOperationException("Cannot change language of question");
+            }
+
+            Language = info;
+        }
     }
 }

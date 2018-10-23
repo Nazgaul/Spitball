@@ -9,9 +9,8 @@ namespace Cloudents.Infrastructure.Database.Maps
     {
         public CourseMap()
         {
-            Id(e => e.Name).GeneratedBy.Assigned();
+            Id(e => e.Name).GeneratedBy.Assigned().Length(150);
             Map(x => x.Count).Not.Nullable();
-            Map(x => x.Extra).Length(4000).LazyLoad();
 
             SchemaAction.Update();
         }
