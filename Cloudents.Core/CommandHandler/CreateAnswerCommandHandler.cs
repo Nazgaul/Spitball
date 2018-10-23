@@ -57,7 +57,7 @@ namespace Cloudents.Core.CommandHandler
             //I can argue about that - but for now it'll work
             if (question.Answers?.Any(a => a.User.Id == user.Id) == true)
             {
-                throw new InvalidOperationException("user cannot give more the one answer");
+                throw new InvalidOperationException("user cannot give more then one answer");
             }
 
             if (question.Answers?.Any(a => string.Equals(a.Text, message.Text, StringComparison.OrdinalIgnoreCase)) ==
