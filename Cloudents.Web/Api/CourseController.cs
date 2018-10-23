@@ -29,7 +29,7 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="courseProvider"></param>
+        /// <param name="queryBus"></param>
         /// <param name="commandBus"></param>
         /// <param name="userManager"></param>
         public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<User> userManager)
@@ -48,12 +48,10 @@ namespace Cloudents.Web.Api
         [Route("search")]
         [HttpGet]
         public async Task<CoursesResponse> GetAsync([FromQuery]CourseRequest model,
-
             CancellationToken token)
         {
             var query = new CourseSearchQuery(model.Term);
             var result = await _queryBus.QueryAsync(query, token);
-            //var result = await _courseProvider.SearchAsync(model.Term, token).ConfigureAwait(false);
             return new CoursesResponse
             {
                 Courses = result
@@ -62,7 +60,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("assign")]
-        public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignCourseRequest model, CancellationToken token)
+        public async Task<IActionResult> AssignCoursesAsync([FromBody] AssignCourseRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new AssignCourseToUserCommand(model.Name, userId);

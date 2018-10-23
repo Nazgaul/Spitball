@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Query;
 using Cloudents.Core.Query.Sync;
 
 namespace ConsoleApp
@@ -114,10 +115,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var query = SyncAzureQuery.Empty();
 
-            var bus = _container.Resolve<IQueryBus>();
-            await bus.QueryAsync< (IEnumerable<CourseSearchDto> update, IEnumerable<long> delete, long version)>(query, default);
+            var _queryBus = _container.Resolve<IQueryBus>();
+            var query = new CourseSearchQuery("000");
+            var result = await _queryBus.QueryAsync(query, default);
         }
 
         private static async Task HadarMethod()
