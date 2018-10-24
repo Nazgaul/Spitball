@@ -19,7 +19,6 @@ export default {
         return{
             enumSteps: stepsEnum,
             actualStep: stepsEnum.set_school_landing,
-            schoolName: '',
             classes: [],
             fnMethods: {
                 changeStep: this.changeStep,
@@ -38,9 +37,6 @@ export default {
         changeStep(step){
             console.log(`step changed to ${step}`)
             this.actualStep = step;
-        },
-        changeSchoolName(name){
-            this.schoolName = name;
         },
         goBack(){
             this.actualStep = 'SetSchoolLanding'

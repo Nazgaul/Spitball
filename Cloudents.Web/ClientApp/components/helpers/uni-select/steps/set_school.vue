@@ -28,15 +28,8 @@
                 </template>
                 <template slot="selection" slot-scope="{ item, parent, selected }">
                    <span style="font-weight:bold;">{{!!item.text ? item.text : item}}</span> 
-                </template> 
-                 <!-- <template slot="item" slot-scope="{ index, item, parent }">
-                        <v-list-tile-content>
-                            {{item.text}}
-                        </v-list-tile-content>
-                    </template> -->
+                </template>
                 </v-combobox>
-                <!-- <input type="text" placeholder="Type your school name" autofocus>-->
-                <!-- <v-icon>sbf-arrow-right</v-icon> -->
             </div>
         </div>
 </template>
@@ -56,7 +49,7 @@ export default {
     },
     data(){
         return{
-            university: '',
+            universityModel: '',
             search: ''
         }
     },
@@ -72,32 +65,45 @@ export default {
         }
     },
     methods:{
-        ...mapActions(["updateUniversities", "clearUniversityList"]),
+        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName"]),
+        ...mapGetters(["getUniversities", "getSchoolName"]),
         clearData(){
             this.search = null;
-            this.university = undefined;
+            this.universityModel = undefined;
             this.clearUniversityList();
         },
         nextStep(){
-            console.log("nextStep")
-            console.log("search: " + this.search)
-            console.log("university: " + this.university)
+            let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : this.search;
+            if(!schoolName){
+                //if the user went 1 step back, we should take the school name that was already set from the store
+                schoolName = this.getSchoolName();
+            }
+            this.updateSchoolName(schoolName);
+            this.fnMethods.changeStep(this.enumSteps.set_class);
         }
         
     },
     computed:{
-        ...mapGetters(["getUniversities"]),
         showBox(){
             return this.search.length > 0;
         },
         universities(){
-            return this.getUniversities;
+            return this.getUniversities();
+        },
+        university:{
+            get: function(){
+                let schoolNameFromStore = this.getSchoolName();
+                return schoolNameFromStore || this.universityModel
+            },
+            set: function(newValue){
+                this.universityModel = newValue
+            }
         }
     }
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     .subheading{
         font-size: 16px;
         font-weight: normal;
