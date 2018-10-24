@@ -1,11 +1,13 @@
 import SetSchoolLanding from './steps/set_school_landing.vue'
 import SetSchool from './steps/set_school.vue'
 import SetClass from './steps/set_class.vue'
+import { mapGetters, mapActions } from 'vuex';
 
 const stepsEnum = {
     set_school_landing: 'SetSchoolLanding',
     set_school: 'SetSchool',
     set_class: 'SetClass',
+    done: 'done'
 }
 
 export default {
@@ -34,9 +36,14 @@ export default {
     },
 
     methods:{
+        ...mapActions(['changeSelectUniState']),
         changeStep(step){
-            console.log(`step changed to ${step}`)
-            this.actualStep = step;
+            if(step === stepsEnum.done){
+                this.changeSelectUniState(false);
+            }else{
+                console.log(`step changed to ${step}`)
+                this.actualStep = step;
+            }
         },
         goBack(){
             this.actualStep = 'SetSchoolLanding'
