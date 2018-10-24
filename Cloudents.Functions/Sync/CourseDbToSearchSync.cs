@@ -29,7 +29,7 @@ namespace Cloudents.Functions.Sync
         public async Task<SyncResponse> DoSyncAsync(SyncAzureQuery query, CancellationToken token)
         {
             var (update, delete, version) =
-                await _bus.QueryAsync<(IEnumerable<CourseSearchDto> update, IEnumerable<long> delete, long version)>(query, token);
+                await _bus.QueryAsync<(IEnumerable<CourseSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
             var result = await _courseServiceWrite.UpdateDataAsync(update.Select(s =>
             {
 
@@ -40,7 +40,7 @@ namespace Cloudents.Functions.Sync
                     Extra = s.Extra.Split(new []{' '},StringSplitOptions.RemoveEmptyEntries),
                     Prefix = new[] { s.Name, s.Extra }.Where(x => x != null).ToArray(),
                 };
-            }), delete.Select(s => s.ToString()), token);
+            }), delete, token);
             return new SyncResponse(version, result);
         }
     }

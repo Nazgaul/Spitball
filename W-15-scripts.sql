@@ -94,4 +94,9 @@ ADD [UniversityId2] [uniqueidentifier] NULL;
 ALTER TABLE [sb].[User]  WITH CHECK ADD  CONSTRAINT [User_University2] FOREIGN KEY([UniversityId2])
 REFERENCES [sb].[University] ([Id])
 
+
+
+ALTER TABLE sb.[University]
+ENABLE CHANGE_TRACKING  
+WITH (TRACK_COLUMNS_UPDATED = ON)  
 --Run TransferUniversities

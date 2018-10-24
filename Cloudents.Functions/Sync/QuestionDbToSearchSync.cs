@@ -30,8 +30,8 @@ namespace Cloudents.Functions.Sync
         public async Task<SyncResponse> DoSyncAsync(SyncAzureQuery query, CancellationToken token)
         {
             var (update, delete, version) =
-                await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<long> delete, long version)>(query, token);
-            var result = await _questionServiceWrite.UpdateDataAsync(update.Select(s => s.ToQuestion()), delete.Select(s => s.ToString()), token);
+                await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+            var result = await _questionServiceWrite.UpdateDataAsync(update.Select(s => s.ToQuestion()), delete, token);
             return new SyncResponse(version, result);
         }
     }
