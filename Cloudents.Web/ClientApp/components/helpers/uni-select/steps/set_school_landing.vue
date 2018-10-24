@@ -13,12 +13,13 @@
             </div>
 
             <div class="skip-container">
-                <a href="#">Skip for now</a> 
+                <a @click="skipUniSelect()">Skip for now</a> 
             </div>
         </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
     props:{
         fnMethods:{
@@ -32,8 +33,12 @@ export default {
     },
 
     methods:{
+        ...mapActions(['changeSelectUniState']),
         inputClicked(){
             this.fnMethods.changeStep(this.enumSteps.set_school)
+        },
+        skipUniSelect(){
+            this.changeSelectUniState(false);
         }
     }
 }

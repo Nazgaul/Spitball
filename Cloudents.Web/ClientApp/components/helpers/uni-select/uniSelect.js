@@ -28,7 +28,7 @@ export default {
     },
 
     methods:{
-        ...mapActions(['changeSelectUniState', 'updateCurrentStep']),
+        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setSelectUniState']),
         ...mapGetters(['getAllSteps','getCurrentStep']),
         changeStep(step){
             if(step === this.enumSteps.done){
@@ -38,8 +38,8 @@ export default {
                 this.updateCurrentStep(step);
             }
         },
-        goBack(){
-            this.actualStep = 'SetSchoolLanding'
+        closeInterface(){
+            this.changeSelectUniState(false);
         }
     }
 }

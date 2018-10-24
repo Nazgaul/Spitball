@@ -3,7 +3,7 @@ const state = {
     classes: [],
     schoolName: '',
     selectedClasses: [],
-    showSelectUniInterface: true,
+    showSelectUniInterface: false,
     currentStep: 'SetSchoolLanding',
     stepsEnum: {
         set_school_landing: 'SetSchoolLanding',
