@@ -15,7 +15,7 @@
             </div>
             <div class="select-school-container">
                 <v-combobox
-                    v-model="classModel"
+                    v-model="selectedClasses"
                     :items="classes"
                     label="Type your Class name"
                     placeholder="Type your Class name"
@@ -28,7 +28,6 @@
                     autofocus
                     multiple
                     chips
-                    deletable-chips
                 >
                 <template slot="no-data">
                     <v-list-tile v-if="showBox">
@@ -43,9 +42,13 @@
                         <div class="subheading dark">Show all Classes</div>
                     </v-list-tile> -->
                 </template>
-                <!-- <template slot="selection" slot-scope="{ item, parent, selected }">
-                   <span style="font-weight:bold;">{{!!item.text ? item.text : item}}</span> 
-                </template> -->
+                <template slot="selection" slot-scope="{ item, parent, selected }">
+                   <v-chip class="chip-style" :class="{'dark-chip': !itemInList(item)}">
+                       <span class="chip-button" @click="parent.selectItem(item)">
+                           {{!!item.text ? item.text : item}} <v-icon class="chip-close">sbf-close</v-icon>
+                       </span>
+                    </v-chip> 
+                </template>
                 <template slot="item" slot-scope="{ index, item, parent }">
                     <v-list-tile-content>
                        <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
@@ -72,7 +75,7 @@ export default {
     data(){
         return{
         classModel: '',
-        search:''
+        search:'',
         }
         
     },
@@ -97,6 +100,16 @@ export default {
         },
         classes(){
             return this.getClasses()
+        },
+        selectedClasses:{
+            get(){
+                this.classModel = this.getSelectedClasses() || this.classModel
+                return this.classModel
+            },
+            set(val){
+                this.classModel = val;
+                this.updateSelectedClasses(val);
+            }
         }
     },
     filters:{
@@ -107,8 +120,8 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['updateClasses']),
-        ...mapGetters(['getSchoolName', 'getClasses']),
+        ...mapActions(['updateClasses', 'updateSelectedClasses', 'changeSelectUniState']),
+        ...mapGetters(['getSchoolName', 'getClasses', 'getSelectedClasses']),
         clearData(){
             this.classModel = '';
             this.search = '';
@@ -118,13 +131,36 @@ export default {
             this.fnMethods.changeStep(this.enumSteps.set_school);
         },
         nextStep(){
-            console.log("next Step")
+            //TODO add action update the server instead of 'updateSelectedClasses'
+            this.updateSelectedClasses(this.selectedClasses);
+            this.fnMethods.changeStep(this.enumSteps.done);
+        },
+        itemInList(item){
+            if(typeof item !== 'object'){
+                return false;
+            }else{
+                return true;
+            }
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
+    .chip-style{
+        background-color: rgba(68, 82, 252, 0.09);
+        &.dark-chip{
+            background-color: rgba(68, 82, 252, 0.27);
+        }
+    }
+    .chip-button{
+        cursor: pointer;
+        .sbf-close{
+            font-size: 8px !important;
+            margin-bottom: 3px;
+            margin-left: 8px;
+        }
+    }
     .subheading{
         font-size: 16px;
         font-weight: normal;

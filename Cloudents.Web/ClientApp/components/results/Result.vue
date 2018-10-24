@@ -1,5 +1,5 @@
 ﻿<template>
-    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
+    <general-page :showUniSelectInterface="showUniSelect" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <uni-select slot="uniSelect"></uni-select>
         <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main">
@@ -65,8 +65,7 @@
                                     <div>
                                         <span class="question-viewer"
                                               v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow === 1 && item.watchingNow !== 0"
-                                              :style="watchinNowStyle(item)">{{item.watchingNow}} <span
-                                                v-language:inner>result_user_answering</span></span>
+                                              :style="watchinNowStyle(item)">{{item.watchingNow}} <span v-language:inner>result_user_answering</span></span>
                                         <span class="question-viewer"
                                               v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0"
                                               :style="watchinNowStyle(item)">{{item.watchingNow}} <span
