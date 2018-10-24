@@ -139,17 +139,18 @@
                                            :step="4">
                             <v-card class="mb-5 sb-step-card">
                                 <div class="upload-row-1">
-                                    <h3 class="upload-cloud-text sb-title">Create a title or use the one we created for you</h3>
+                                    <h3 class="upload-cloud-text sb-title">Create a title or use the one we created for
+                                        you</h3>
                                 </div>
                                 <div class="upload-row-2 paddingTopBg">
                                     <div class="btn-holder">
                                         <!--<label :for="'school'" class="steps-form-label school mb-2">-->
-                                            <!--<v-icon class="mr-1">sbf-university</v-icon>-->
-                                            <!--<span>School</span></label>-->
+                                        <!--<v-icon class="mr-1">sbf-university</v-icon>-->
+                                        <!--<span>School</span></label>-->
                                         <sb-input :bottomError="true"
                                                   v-model="documentTitle" placeholder="title" name="document title"
                                                   type="text"
-                                                  :autofocus="true" >
+                                                  :autofocus="true">
                                         </sb-input>
                                     </div>
                                     <div class="btn-holder">
@@ -165,32 +166,70 @@
                                            :step="5">
                             <v-card class="mb-5 sb-step-card">
                                 <div class="upload-row-1">
-                                    <h3 class="upload-cloud-text sb-title">Add any tag you think is relevant for this doc.</h3>
-                                    <h4 class="sb-subtitle mt-2">It will help other to find you in more than one way</h4>
+                                    <h3 class="upload-cloud-text sb-title">Add any tag you think is relevant for this
+                                        doc.</h3>
+                                    <h4 class="sb-subtitle mt-2">It will help other to find you in more than one
+                                        way</h4>
                                 </div>
                                 <div class="upload-row-2 paddingTopSm">
                                     <div class="btn-holder">
                                         <label :for="'school'" class="steps-form-label school mb-2">
-                                        <v-icon class="mr-1">sbf-university</v-icon>
-                                        <span>School</span></label>
-                                        <v-combobox
+                                            <v-icon class="mr-1">sbf-tag-icon</v-icon>
+                                            <span>Tags</span></label>
+                                        <v-combobox class="sb-combo"
                                                 v-model="selectedTags"
-                                                append-icon="sbf-close"
+                                                height="'48px'"
+                                                append-icon=""
                                                 prepend-icon=""
-                                                :items="tagsOptions"
+                                                placeholder="Type a tag name"
+                                                :background-color="''"
                                                 deletable-chips
+                                                color="'#979797'"
                                                 multiple
-                                                clearable
                                                 chips
-                                        >  <template slot="selection" slot-scope="data">
-                                            <v-chip
-                                                    close
-                                                    @input="removeTag(data.item)"
-                                            >
-                                                <strong>{{ data.item }}</strong>&nbsp;
-                                            </v-chip>
-                                        </template>
+                                                solo
+                                                type="text"
+                                                :allow-overflow="false"
+
+
+                                        >
+                                            <template slot="selection" slot-scope="data" class="sb-selection">
+                                                <v-chip class="sb-chip-tag">
+                                                   <span class="chip-button px-2" >
+                                                       {{!!data.item ? data.item : ''}}
+                                                       <v-icon class="chip-close ml-4"  @click="removeTag(data.item)">sbf-close</v-icon>
+                                                   </span>
+                                                </v-chip>
+                                            </template>
                                         </v-combobox>
+                                    </div>
+                                    <div class="btn-holder">
+                                    </div>
+                                </div>
+                            </v-card>
+                        </v-stepper-content>
+
+                        <!--step 6-->
+                        <v-stepper-content class="sb-stepper-content step-six mt-5"
+                                           :key="`${6}-content`"
+                                           :step="6">
+                            <v-card class="mb-5 sb-step-card">
+                                <div class="upload-row-1">
+                                    <h3 class="upload-cloud-text sb-title">Set your price</h3>
+                                    <h4 class="sb-subtitle mt-2">In spitball platform You can buy and sell with SBL’s.
+                                        <a href="">What are SBL’s? </a></h4>
+                                </div>
+                                <div class="upload-row-2 paddingTopSm">
+                                    <div class="btn-holder">
+                                        <label :for="'school'" class="steps-form-label school mb-2">
+                                            <v-icon class="mr-1">sbf-tag-icon</v-icon>
+                                            <span>Price</span></label>
+                                        <sb-input :bottomError="true"
+                                                  v-model="documentTitle" placeholder="title" name="document title"
+                                                  type="text"
+                                                  :autofocus="true">
+                                        </sb-input>
+
                                     </div>
                                     <div class="btn-holder">
                                     </div>

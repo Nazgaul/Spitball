@@ -1,5 +1,9 @@
 @import "../../../../mixin.less";
 
+.v-select__selections{
+  min-height: 42px!important;
+  padding-top: 0!important;
+}
 @-webkit-keyframes color_change_doc_type {
   from { background-color: transparent }
   to { background-color: @uploadGreyBackground; }
@@ -30,6 +34,8 @@
 @labelColor: rgba(68, 82, 252, 0.38);
 @borderOpacityGrey: rgba(151, 151, 151, 0.18);
 @borderGreyColor: rgba(0, 0, 0, 0.25);
+@chipActiveColor:  rgba(68, 82, 252, 0.87);
+@inputGreyBorder :#979797;
 .paddingTopSm{
   padding-top: 44px;
 }
@@ -386,7 +392,7 @@
             //upload-row-3
           }
           //sb-step-card
-          &.step-two {
+          &.step-two, &.step-six {
             border: 1px solid transparent;
             .sb-step-card {
               align-items: center;
@@ -464,7 +470,7 @@
                     margin-left: 0;
                     margin-right: 8px;
                     &.v-chip--selected {
-                      color: rgba(68, 82, 252, 0.87);
+                      color: @chipActiveColor;
                       background-color: @uploadGreyBackground;
                       border: 1px solid @uploadGreyBackground;
                       box-shadow: none;
@@ -568,21 +574,40 @@
                   flex-direction: column;
                   width: 100%;
                   flex-wrap: wrap;
-                  align-items: flex-start;
-                  .input-wrapper {
-                    width: 100%;
-                  }
+                  align-items: stretch;
+
                   .steps-form-label {
                     font-family: 'Open Sans', sans-serif;
                     font-size: 12px;
                     color: @labelColor;
                     display: flex;
                     justify-content: flex-start;
-                    align-items: baseline;
+                    align-items: center;
                   }
                   .sbf {
                     font-size: 14px;
                     color: @labelColor;
+                  }
+                  .sb-combo{
+                    height: 48px;
+                    //border: 1px solid @inputGreyBorder;
+                    //border-radius: 4px;
+                    max-width: 430px;
+                    //.v-input__control{
+                    //  box-shadow: none!important;
+                    //  border: 1px solid @inputGreyBorder!important;
+                    //  border-radius: 4px;
+                    //}
+                    .chip-button{
+                      color: @chipActiveColor;
+                      display: flex;
+                      .sb-chip-tag{
+
+                      }
+                    }
+                    .chip-close{
+                      font-size: 8px;
+                    }
                   }
                 }
               }
@@ -609,7 +634,7 @@
                     margin-left: 0;
                     margin-right: 8px;
                     &.v-chip--selected {
-                      color: rgba(68, 82, 252, 0.87);
+                      color: @chipActiveColor;
                       background-color: @uploadGreyBackground;
                       border: 1px solid @uploadGreyBackground;
                       box-shadow: none;

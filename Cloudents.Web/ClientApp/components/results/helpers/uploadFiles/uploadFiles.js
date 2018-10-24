@@ -24,7 +24,7 @@ export default {
             regularUploadFiles: [],
             progressValue: '',
             files: [],
-            steps: 5,
+            steps: 6,
             e1 : 1,
             step: 1,
             stepsProgress: 0,
@@ -61,6 +61,10 @@ export default {
     watch: {
         files(newValue, oldValue) {
             console.log('newVal::: ',newValue, 'files',this.files)
+        },
+        selectedTags(newV, oldV){
+            console.log('newVal::: ',newV, 'files',this.selectedTags)
+
         }
     },
     methods: {
