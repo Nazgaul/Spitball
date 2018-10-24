@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Action" xml:space="preserve">
-    <value>פעולה</value>
+    <value>סוג פעולה</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>סכום</value>
   </data>
   <data name="Balance" xml:space="preserve">
-    <value>מאזן</value>
+    <value>מצב חשבון</value>
   </data>
   <data name="Balances" xml:space="preserve">
-    <value>יתרות</value>
+    <value>תמונת מצב</value>
   </data>
   <data name="Cash_Out" xml:space="preserve">
-    <value>פדיון</value>
+    <value>טוקנים לפדיון</value>
   </data>
   <data name="currency" xml:space="preserve">
     <value>$</value>
@@ -154,19 +154,19 @@
     <value> SBL</value>
   </data>
   <data name="Tokens" xml:space="preserve">
-    <value>נקודות</value>
+    <value>טוקנים</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>סך הכל</value>
   </data>
   <data name="Transaction" xml:space="preserve">
-    <value>עסקה</value>
+    <value>עסקאות</value>
   </data>
   <data name="Type" xml:space="preserve">
-    <value>סוג</value>
+    <value>סוג טוקנים</value>
   </data>
   <data name="Value" xml:space="preserve">
-    <value>ערך</value>
+    <value>שווי ב-$</value>
   </data>
   <data name="You_have" xml:space="preserve">
     <value>יש לך</value>

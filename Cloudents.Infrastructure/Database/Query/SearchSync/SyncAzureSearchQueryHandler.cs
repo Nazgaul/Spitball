@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         protected virtual int PageSize => 100;
 
 
-        public async Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
+        public async Task<(IEnumerable<T> update, IEnumerable<string> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
         {
             var sql = query.Version == 0 ? FirstQuery : VersionSql;
 
@@ -46,13 +46,13 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             var result = await sqlQuery.ListAsync<AzureSyncBaseDto<T>>(token);
             if (result.Count == 0)
             {
-                return (Enumerable.Empty<T>(), Enumerable.Empty<long>(), 0);
+                return (Enumerable.Empty<T>(), Enumerable.Empty<string>(), 0);
             }
 
             //sqlQuery.
             var lookupTable = SeparateUpdateFromDelete(result);
 
-            var max = result.Max(m => m.SYS_CHANGE_VERSION);
+            var max = result.Max(m => m.SYS_CHANGE_VERSION.GetValueOrDefault());
 
             return (lookupTable[false].Select(s => s.Data), lookupTable[true].Select(s => s.Id), max);
 

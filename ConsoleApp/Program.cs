@@ -13,7 +13,9 @@ using System.Net.Mail;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Query.Sync;
 using Cloudents.Infrastructure.Data;
 using Dapper;
 
@@ -22,7 +24,7 @@ namespace ConsoleApp
     internal static class Program
     {
         private static IContainer _container;
-
+        private static CancellationToken token = CancellationToken.None;
         static async Task Main()
         {
             var builder = new ContainerBuilder();
@@ -114,7 +116,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await TransferUniversities();
+            var query = new SyncAzureQuery(0,0);
+            var _bus = _container.Resolve<IQueryBus>();
+            (object update, object delete, object version) =
+                await _bus.QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(query, token);
 
 
         }

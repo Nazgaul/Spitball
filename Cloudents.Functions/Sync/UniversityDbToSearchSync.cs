@@ -29,7 +29,7 @@ namespace Cloudents.Functions.Sync
         {
            
             var (update, delete, version) =
-                await _bus.QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<long> delete, long version)>(query, token);
+                await _bus.QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(query, token);
             var result = await _universityServiceWrite.UpdateDataAsync(update.Select(s =>
             {
                 
@@ -44,7 +44,7 @@ namespace Cloudents.Functions.Sync
                     DisplayName = s.Name,
                     Prefix = new[] { s.Name, s.Extra}.Where(x => x != null).ToArray(),
                 };
-            }), delete.Select(s => s.ToString()), token);
+            }), delete, token);
             return new SyncResponse(version, result);
         }
     }

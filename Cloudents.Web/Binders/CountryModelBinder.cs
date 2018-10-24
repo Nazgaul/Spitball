@@ -23,11 +23,17 @@ namespace Cloudents.Web.Binders
 
         public async Task BindModelAsync(ModelBindingContext bindingContext)
         {
+
             var cookieValue = bindingContext.HttpContext.User.Claims.FirstOrDefault(f =>
                 string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
                     StringComparison.OrdinalIgnoreCase))?.Value;
             if (cookieValue == null)
             {
+                cookieValue = bindingContext.HttpContext.Request.Query["country"].FirstOrDefault();
+            }
+            if (cookieValue == null)
+            {
+
                 cookieValue = bindingContext.HttpContext.Request.Cookies["country"];
             }
 

@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using System.Security.Claims;
+using Cloudents.Core.Entities.Db;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,17 +11,36 @@ namespace Cloudents.Web.Identity
 {
     public class SbSignInManager : SignInManager<User>
     {
-        public async Task<SignInResult> SignInTwoFactorAsync(User user, bool isPersistent)
+        //public async Task<SignInResult> SignInTwoFactorAsync(User user, bool isPersistent)
+        //{
+        //    var signInResult = await SignInOrTwoFactorAsync(user, isPersistent);
+        //    if (signInResult.Succeeded)
+        //    {
+        //        await SignOutAsync();
+        //        return SignInResult.Failed;
+        //    }
+        //    return signInResult;
+        //}
+
+
+        public async Task TempSignIn(User user)
         {
-            var signInResult = await SignInOrTwoFactorAsync(user, isPersistent);
-            if (signInResult.Succeeded)
-            {
-                await SignOutAsync();
-                return SignInResult.Failed;
-            }
-            return signInResult;
+
+            var userId = await UserManager.GetUserIdAsync(user);
+            await Context.SignInAsync(IdentityConstants.TwoFactorUserIdScheme, StoreTwoFactorInfo(userId, null));
         }
 
+
+        private ClaimsPrincipal StoreTwoFactorInfo(string userId, string loginProvider)
+        {
+            var identity = new ClaimsIdentity(IdentityConstants.TwoFactorUserIdScheme);
+            identity.AddClaim(new Claim(ClaimTypes.Name, userId));
+            if (loginProvider != null)
+            {
+                identity.AddClaim(new Claim(ClaimTypes.AuthenticationMethod, loginProvider));
+            }
+            return new ClaimsPrincipal(identity);
+        }
         //public async Task TempSignIn(User user)
         //{
         //   this.GetTwoFactorAuthenticationUserAsync()

@@ -118,11 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="personalization_text" xml:space="preserve">
-    <value>Ah, the good stuff. So you wanna cash out? No problem Just go to your wallet (make sure you have enough redeemable SBL), click on Cash Out and choose your reward. Your Amazon Coupon will be sent to your email within 24 hours.
-
-             Easy Peasy 
-
-             Tip: We encourage students to save some SBLs in order to ask tough homework questions in the future.</value>
+    <value>             Tip: We encourage students to save some SBLs in order to ask tough homework questions in the future.</value>
   </data>
   <data name="personalization_title" xml:space="preserve">
     <value>Cashing Out</value>

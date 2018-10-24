@@ -121,9 +121,9 @@
     <value>חיפוש</value>
   </data>
   <data name="searchText_find" xml:space="preserve">
-    <value>אתר מסמכי לימודים, ספרי לימוד, מורים פרטיים, משרות, מבצעים ועוד...</value>
+    <value>אתר מסמכי לימוד, ספרי לימוד, מורים פרטיים, משרות, מבצעים ועוד...</value>
   </data>
   <data name="searchText_find_short" xml:space="preserve">
-    <value>מסמכי לימודים, ספרי לימוד, מורים פרטיים...</value>
+    <value>מסמכי לימוד, ספרי לימוד, מורים פרטיים...</value>
   </data>
 </root>
