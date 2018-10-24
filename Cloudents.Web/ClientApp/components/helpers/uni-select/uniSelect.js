@@ -3,13 +3,6 @@ import SetSchool from './steps/set_school.vue'
 import SetClass from './steps/set_class.vue'
 import { mapGetters, mapActions } from 'vuex';
 
-const stepsEnum = {
-    set_school_landing: 'SetSchoolLanding',
-    set_school: 'SetSchool',
-    set_class: 'SetClass',
-    done: 'done'
-}
-
 export default {
     components:{
         SetSchoolLanding,
@@ -19,8 +12,7 @@ export default {
 
     data(){
         return{
-            enumSteps: stepsEnum,
-            actualStep: stepsEnum.set_school_landing,
+            enumSteps: this.getAllSteps(),
             classes: [],
             fnMethods: {
                 changeStep: this.changeStep,
@@ -31,18 +23,19 @@ export default {
 
     computed:{
         currentStep: function(){
-            return this.actualStep;
+            return this.getCurrentStep();
         }
     },
 
     methods:{
-        ...mapActions(['changeSelectUniState']),
+        ...mapActions(['changeSelectUniState', 'updateCurrentStep']),
+        ...mapGetters(['getAllSteps','getCurrentStep']),
         changeStep(step){
-            if(step === stepsEnum.done){
+            if(step === this.enumSteps.done){
                 this.changeSelectUniState(false);
             }else{
                 console.log(`step changed to ${step}`)
-                this.actualStep = step;
+                this.updateCurrentStep(step);
             }
         },
         goBack(){

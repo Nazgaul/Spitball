@@ -3,32 +3,26 @@ const state = {
     classes: [],
     schoolName: '',
     selectedClasses: [],
-    showSelectUniInterface: false
-};
-const mutations = {
-    setUniversities(state,val) {
-        state.universities = val;
-    },
-    setSchoolName(state,val) {
-        state.schoolName = val;
-    },
-    setClasses(state, val){
-        state.classes = val;
-    },
-    setSelectedClasses(state, val){
-        state.selectedClasses = val;
-    },
-    setSelectUniState(state, val){
-        state.showSelectUniInterface = val;
+    showSelectUniInterface: true,
+    currentStep: 'SetSchoolLanding',
+    stepsEnum: {
+        set_school_landing: 'SetSchoolLanding',
+        set_school: 'SetSchool',
+        set_class: 'SetClass',
+        done: 'done'
     }
 };
+
 const getters = {
     getUniversities:  state => state.universities,
     getSchoolName:  state => state.schoolName,
     getClasses: state => state.classes,
     getSelectedClasses: state => state.selectedClasses,
-    getShowSelectUniInterface: state => state.showSelectUniInterface
+    getShowSelectUniInterface: state => state.showSelectUniInterface,
+    getAllSteps: state => state.stepsEnum,
+    getCurrentStep: state => state.currentStep
 };
+
 const actions = {
     updateSchoolName({commit}, val){
         commit('setSchoolName', val);
@@ -50,6 +44,30 @@ const actions = {
     },
     changeSelectUniState({commit}, val){
         commit('setSelectUniState', val);
+    },
+    updateCurrentStep({commit}, val){
+        commit("setCurrentStep", val);
+    }
+};
+
+const mutations = {
+    setUniversities(state,val) {
+        state.universities = val;
+    },
+    setSchoolName(state,val) {
+        state.schoolName = val;
+    },
+    setClasses(state, val){
+        state.classes = val;
+    },
+    setSelectedClasses(state, val){
+        state.selectedClasses = val;
+    },
+    setSelectUniState(state, val){
+        state.showSelectUniInterface = val;
+    },
+    setCurrentStep(state, val){
+        state.currentStep = val;
     }
 };
 
