@@ -225,10 +225,13 @@
                                             <v-icon class="mr-1">sbf-tag-icon</v-icon>
                                             <span>Price</span></label>
                                         <sb-input :bottomError="true"
-                                                  v-model="documentTitle" placeholder="title" name="document title"
+                                                  v-model="documentTitle" placeholder="00.00" name="price"
                                                   type="text"
                                                   :autofocus="true">
                                         </sb-input>
+                                        <div class="sb-current-balance">
+
+                                        </div>
 
                                     </div>
                                     <div class="btn-holder">
