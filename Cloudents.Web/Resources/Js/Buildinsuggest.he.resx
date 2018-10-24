@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ask_logarithms" xml:space="preserve">
-    <value>כיצד לפתור לוגריתמים</value>
+    <value>עובדות על היסטוריה במזרח התיכון</value>
   </data>
   <data name="ask_plate" xml:space="preserve">
-    <value>טקטוניקת לוחות – הסבר</value>
+    <value>סוגיות מרכזיות בדיני חוזים</value>
   </data>
   <data name="ask_triassic" xml:space="preserve">
-    <value>עובדות על תקופת הטריאס</value>
+    <value>איך ליצור דאטה בייס/ מסד נתונים</value>
   </data>
   <data name="book_biology" xml:space="preserve">
     <value>ביולוגיה – The Core מהדורה 2</value>
@@ -133,13 +133,13 @@
     <value>גרגורי מנקיב – ספר לימוד</value>
   </data>
   <data name="flashcard_calculus" xml:space="preserve">
-    <value>חשבון דיפרנציאלי ואינטגרלי 2 – סט חזרה</value>
+    <value>החדרת שינוי ארגוני</value>
   </data>
   <data name="flashcard_physics_study" xml:space="preserve">
-    <value>פיזיקה – סט לימוד</value>
+    <value>הכרת מערכות מידע</value>
   </data>
   <data name="flashcard_spanish" xml:space="preserve">
-    <value>ספרדית – רמת ביניים, אוצר מילים</value>
+    <value>עקרונות כלכלה מיקרו</value>
   </data>
   <data name="home_flashcards" xml:space="preserve">
     <value>כרטיסיות לימוד עבור ניהול חשבונות</value>
@@ -154,13 +154,13 @@
     <value>התמחות לסטודנטים</value>
   </data>
   <data name="note_electrical" xml:space="preserve">
-    <value>הנדסת חשמל – סיכומים</value>
+    <value>אלגברה לניארית</value>
   </data>
   <data name="note_microeconomics" xml:space="preserve">
-    <value>מיקרו-כלכלה – מדריכי לימוד</value>
+    <value>סיכומים במדעי המחשב</value>
   </data>
   <data name="note_pastExams" xml:space="preserve">
-    <value>ביולוגיה 101 – בחינות קודמות</value>
+    <value>ממ"ן 13 דני תאגידים</value>
   </data>
   <data name="tutorphysics_esl" xml:space="preserve">
     <value>esl – מורים פרטיים</value>

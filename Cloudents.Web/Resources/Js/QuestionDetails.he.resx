@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add_answer" xml:space="preserve">
-    <value>הוסף תשובה</value>
+    <value>שלח</value>
   </data>
   <data name="Add_it_here" xml:space="preserve">
     <value>הוסף אותה כאן!</value>
   </data>
   <data name="Ask_question" xml:space="preserve">
-    <value>הצג שאלה</value>
+    <value>יש לי שאלה</value>
   </data>
   <data name="Chat" xml:space="preserve">
     <value>צ'אט</value>

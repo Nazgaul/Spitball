@@ -181,7 +181,7 @@
     <value>יציאה</value>
   </data>
   <data name="exiting_information1" xml:space="preserve">
-    <value>יציאה מהתהליך תגרום למחיקת כל</value>
+    <value>יציאה מהתהליך תגרום למחיקת ההתקדמות והמידע</value>
   </data>
   <data name="exiting_information2" xml:space="preserve">
     <value>התקדמות ומידע</value>

@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ask" xml:space="preserve">
-    <value>הצג את השאלה שלך</value>
+    <value>שאל שאלה</value>
   </data>
   <data name="faq" xml:space="preserve">
     <value>ספיטבול – שאלות נפוצות</value>
   </data>
   <data name="more" xml:space="preserve">
-    <value>עוד</value>
+    <value>כנס</value>
   </data>
   <data name="show_me" xml:space="preserve">
     <value>הראה לי</value>

@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Ask" xml:space="preserve">
-    <value>שאל/בקש</value>
+    <value>שתף</value>
   </data>
   <data name="fair_prise" xml:space="preserve">
     <value>מחיר הוגן יבטיח לך מכירה</value>
   </data>
   <data name="Get_Your_Question_Answered" xml:space="preserve">
-    <value>קבל תשובות על השאלה שלך</value>
+    <value>קבל תשובות חכמות ומהירות לשאלה שלך</value>
   </data>
   <data name="max_SBL" xml:space="preserve">
     <value>הסכום המרבי לשאלה הוא 100 SBL</value>

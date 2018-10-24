@@ -121,9 +121,9 @@
     <value>לא כרגע</value>
   </data>
   <data name="personalize" xml:space="preserve">
-    <value>פרסונליזציה</value>
+    <value>התאם אישית</value>
   </data>
   <data name="personalize_results" xml:space="preserve">
-    <value>פרסונליזציה של התוצאות</value>
+    <value>הגדר מוסד לימודים וקבל תוצאות חיפוש מותאמות אישית</value>
   </data>
 </root>
