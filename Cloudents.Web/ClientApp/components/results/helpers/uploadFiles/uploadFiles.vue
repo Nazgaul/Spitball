@@ -174,12 +174,23 @@
                                         <v-icon class="mr-1">sbf-university</v-icon>
                                         <span>School</span></label>
                                         <v-combobox
-                                                v-model="select"
-                                                :items="items"
+                                                v-model="selectedTags"
+                                                append-icon="sbf-close"
+                                                prepend-icon=""
+                                                :items="tagsOptions"
                                                 deletable-chips
                                                 multiple
+                                                clearable
                                                 chips
-                                        ></v-combobox>
+                                        >  <template slot="selection" slot-scope="data">
+                                            <v-chip
+                                                    close
+                                                    @input="removeTag(data.item)"
+                                            >
+                                                <strong>{{ data.item }}</strong>&nbsp;
+                                            </v-chip>
+                                        </template>
+                                        </v-combobox>
                                     </div>
                                     <div class="btn-holder">
                                     </div>

@@ -33,7 +33,10 @@ export default {
             selectedClass: '',
             documentTypes: documentTypes,
             selectedDoctype: '',
-            documentTitle: ''
+            documentTitle: '',
+            selectedTags: [],
+            tagsOptions: [, 'behaviourl', 'Biology',  'Math', 'History']
+
         }
     },
     props: {},
@@ -81,7 +84,10 @@ export default {
             this.selectedDoctype = docType;
             console.log(this.selectedDoctype)
         },
-
+        removeTag (item) {
+            this.selectedTags.splice(this.selectedTags.indexOf(item), 1)
+            this.selectedTags = [...this.selectedTags]
+        },
 
 
 
