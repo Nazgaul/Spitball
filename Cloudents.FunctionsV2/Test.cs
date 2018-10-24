@@ -12,7 +12,7 @@ namespace Cloudents.FunctionsV2
 {
     public static class Test
     {
-        [FunctionName("Test")]
+        //[FunctionName("Test")]
         public static async Task Run([TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [Inject] ICommandBus commandBus,
             ILogger log,

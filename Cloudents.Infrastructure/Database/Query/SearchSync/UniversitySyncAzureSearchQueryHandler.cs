@@ -8,7 +8,7 @@ using Cloudents.Core.Query.Sync;
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
     public class UniversitySyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<UniversitySearchDto>,
-        IQueryHandler<SyncAzureQuery, (IEnumerable<UniversitySearchDto> update, IEnumerable<long> delete, long version)>
+        IQueryHandler<SyncAzureQuery, (IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>
     {
         private readonly FluentQueryBuilder _queryBuilder;
         public UniversitySyncAzureSearchQueryHandler(ReadonlyStatelessSession session, FluentQueryBuilder queryBuilder) : base(session)

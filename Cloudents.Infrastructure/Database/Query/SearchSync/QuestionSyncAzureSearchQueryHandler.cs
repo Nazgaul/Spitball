@@ -9,7 +9,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class QuestionSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<QuestionSearchDto>,
-        IQueryHandler<SyncAzureQuery, (IEnumerable<QuestionSearchDto> update, IEnumerable<long> delete, long version)>
+        IQueryHandler<SyncAzureQuery, (IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>
     {
         private readonly FluentQueryBuilder _queryBuilder;
 
