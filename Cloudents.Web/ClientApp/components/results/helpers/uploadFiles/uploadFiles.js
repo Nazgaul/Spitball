@@ -2,18 +2,17 @@ import { mapGetters, mapActions } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
+import sbInput from "../../../question/helpers/sbInput/sbInput";
 //var VueUploadComponent = import('vue-upload-component');
 Vue.component('file-upload', FileUpload);
-//just test
 
 export default {
     components: {
         sbDialog,
+        sbInput,
         FileUpload
-
     },
     name: "uploadFiles",
-
     data() {
         return {
             showUploadDialog: false,
@@ -26,10 +25,11 @@ export default {
             files: [],
             steps: 2,
             e1 : 1,
-            n: 1,
-            stepsProgress: 0
-
-
+            step: 1,
+            stepsProgress: 0,
+            schoolName: '',
+            classesList: ['Social Psych', 'behaviourl psych', 'Biology 2',  'Biology 3', 'behaviourl psych2'],
+            selectedClass: ''
         }
     },
     props: {},
@@ -42,6 +42,12 @@ export default {
                 return false
             }
 
+        },
+        hideOnFirstStep(){
+            this.e1 === 1
+        },
+        isFirstStep(){
+            return  this.e1 === 1
         }
 
     },
@@ -61,6 +67,10 @@ export default {
                 this.loadDropBoxSrc(); // load Drop box script
                 this.showUploadDialog = true;
             }
+        },
+        updateClass(singleClass){
+            this.selectedClass = singleClass;
+            console.log(this.selectedClass)
         },
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
@@ -84,13 +94,14 @@ export default {
             var self = this;
             let options = {
                 success:  (files)=> {
-                    let type = 'dropBox'
+                    let type = 'dropBox';
+                    //clean if was trying to upload from desktop before
                     files.forEach((file)=> {
-                        self.uploadsPreviewList.push({
-                            name : file,
-                            link:  file.thumbnails["64x64"],
-                            type: type
-                        });
+                        // self.uploadsPreviewList.push({
+                        //     name : file,
+                        //     link:  file.thumbnails["64x64"],
+                        //     type: type
+                        // });
                         this.files.push({
                             name: file.name,
                             link: file.link,
@@ -99,12 +110,13 @@ export default {
 
                         });
                     });
+               this.nextStep(1)
                 },
                 cancel: function () {
                     //optional
                 },
                 linkType: "preview", // "preview" or "direct"
-                multiselect: true, // true or false
+                multiselect: false, // true or false
                 extensions: ['.png', '.jpg', 'doc', 'pdf'],
             };
             global.Dropbox.choose(options);
@@ -112,11 +124,13 @@ export default {
 
         // regular upload methods
         inputFile(newFile, oldFile) {
+            console.log('files regular two ');
+
             if (newFile && !oldFile) {
                 // Add file
             }
             // Upload progress
-            if (newFile.progress) {
+            if (newFile && newFile.progress) {
                 this.progressValue = newFile.progress;
                 console.log('progress', newFile.progress, newFile)
             }
@@ -131,6 +145,14 @@ export default {
                 if (newFile.xhr) {
                     //  Get the response status code
                     console.log('status', newFile.xhr.status)
+                    if(newFile.xhr.status === 200){
+                       this.nextStep(1)
+                    }
+                }
+            }
+            if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+                if (!this.$refs.upload.active) {
+                    this.$refs.upload.active = true
                 }
             }
         },
@@ -149,7 +171,7 @@ export default {
                 let URL = window.URL || window.webkitURL;
                 let type = 'fromDisk'
                 if (URL && URL.createObjectURL) {
-                    this.uploadsPreviewList.push({
+                    this.files.push({
                         name: newFile.name,
                         link: URL.createObjectURL(newFile.file),
                         type: type
@@ -172,17 +194,28 @@ export default {
             }
         },
         deletePreview: function(index){
-            this.uploadsPreviewList.splice(index, 1);
             this.files.splice(index, 1)
         },
-        nextStep (n) {
-            if (n === this.steps) {
+        nextStep (step) {
+            console.log('files', this.files)
+            if (step === this.steps) {
                 this.e1 = 1
             } else {
-                this.e1 = n + 1;
-                this.stepsProgress = (n + 1)* 10;
+                this.e1 = step + 1;
+                this.stepsProgress = (step + 1)* 10;
             }
             console.log('step', this.stepsProgress,  this.e1  );
+
+        },
+        previousStep(step){
+            if(step===1){
+                this.stepsProgress = 0;
+               return this.e1 = 1;
+
+            }else{
+                this.e1 = this.e1 - 1;
+                this.stepsProgress = (step - 1)* 10;
+            }
 
         }
     },

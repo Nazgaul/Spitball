@@ -1,13 +1,18 @@
 const state = {
-    universities: []
+    universities: [],
+    schoolName: '',
 };
 const mutations = {
     setUniversities(state,val) {
-        state.universities=val;
+        state.universities = val;
+    },
+    setSchoolName(state,val) {
+        state.schoolName = val;
     },
 };
 const getters = {
     getUniversities:  state => state.universities,
+    getSchoolName:  state => state.schoolName,
 };
 const actions = {
     updateUniversities({commit}, val){
@@ -15,6 +20,9 @@ const actions = {
     },
     clearUniversityList({commit}){
         commit('setUniversities', []);
+    },
+    updateSchoolName({commit}, val){
+        commit('setSchoolName', val);
     }
 };
 

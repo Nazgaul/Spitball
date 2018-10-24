@@ -62,14 +62,14 @@ namespace Cloudents.Web.Api
         {
             if (User.Identity.IsAuthenticated)
             {
+                _logger.Error("Set User Phone number User is already sign in");
                 return Unauthorized();
             }
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
-                var ex = new ArgumentNullException(nameof(user));
-                ex.Data.Add("model", model.ToString());
-                throw ex;
+                _logger.Error("Set User Phone number We can't identify the user");
+                return Unauthorized();
             }
             if (!user.EmailConfirmed || user.PhoneNumberConfirmed)
             {
@@ -130,9 +130,11 @@ namespace Cloudents.Web.Api
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
-                var ex = new ArgumentNullException(nameof(user));
-                ex.Data.Add("model", model.ToString());
-                throw ex;
+                _logger.Error("VerifySmsAsync We can't identify the user");
+                return Unauthorized();
+                //var ex = new ArgumentNullException(nameof(user));
+                //ex.Data.Add("model", model.ToString());
+                //throw ex;
             }
 
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);

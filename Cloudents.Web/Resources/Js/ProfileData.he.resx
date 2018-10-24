@@ -158,9 +158,7 @@
     <value>רווח כספי</value>
   </data>
   <data name="generalProfile_register_stepOne_heading" xml:space="preserve">
-    <value>הצג שאלות וקבל עזרה מידית 
- או 
- השב על שאלות כדי להרוויח כסף</value>
+    <value>שאל שאלות וקבל עזרה מיידית או השב על שאלות כדי להרוויח כסף</value>
   </data>
   <data name="generalProfile_register_stepOne_text" xml:space="preserve">
     <value>התחל בציון כתובת הדוא"ל שלך. אנחנו צריכים אותו כדי ליצור איתך קשר.</value>
@@ -345,10 +343,7 @@
     <value>&lt;b&gt;בוא להרוויח כסף&lt;/b&gt;&lt;br/&gt; תוך כדי עזרה לאחרים בשיעורי  הבית שלהם.</value>
   </data>
   <data name="makeMoneyProfile_register_stepOne_headinmakeMoneyProfile_register_stepOne_heading" xml:space="preserve">
-    <value>בוא להרוויח כסף
- תוך כדי עזרה
- לאחרים בשיעורי 
- הבית שלהם.</value>
+    <value>הרשם והתחיל להרוויח כסף מלעזור לאחרים בשיעורי הבית שלהם</value>
   </data>
   <data name="makeMoneyProfile_register_stepOne_text" xml:space="preserve">
     <value>התחל בציון כתובת הדוא"ל שלך. אנחנו צריכים אותו כדי ליצור איתך קשר.</value>

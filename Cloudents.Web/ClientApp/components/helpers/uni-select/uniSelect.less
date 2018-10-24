@@ -104,13 +104,13 @@
                     color: rgba(255, 255, 255, 0.54);
                 }
             }
-            
+            //select school
             &.mini{
                 &.selected{
                     height: 120px;
                 }
                 height: 155px;
-                animation: changeHeight 0.25s ease-in;
+                animation: changeMinHeight 0.25s ease-in;
                 .title-container{
                     font-size: 28px;
                     font-weight: normal;
@@ -140,15 +140,79 @@
                     
                 }
 
-                @keyframes changeHeight{
+                @keyframes changeMinHeight{
                         from {
-                            height: 516px;
+                            height: 222px;
                         }
                         to {
                             height: 155px;
                         }
                     }
                 }
+                //select class
+                &.meduim{
+                    height: 222px;
+                    animation: changeMedHeight 0.25s ease-in;
+                    .title-container{
+                        display: flex;
+                        flex-direction: column;
+                        font-size: 28px;
+                        font-weight: normal;
+                        line-height: normal;
+                        letter-spacing: -0.3px;
+                        color: rgba(255, 255, 255, 0.54);
+                        position:relative;
+                        .first-container{
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 20px;
+                            margin-top: -15px;
+                            .sbf-arrow-back{
+                                color: #fff;
+                                opacity: 0.87;
+                            }
+                        }
+                    }
+                    .explain-container{
+                        width: 293px;
+                        height: 19px;
+                        font-size: 16px;
+                        font-weight: normal;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        color: rgba(255, 255, 255, 0.38);
+                        margin-top: -50px;
+                        position: absolute;
+                    }
+                    .next-container{
+                        font-size: 18px;
+                        color: #fff;
+                        font-weight: 300;
+                    }
+                    .select-school-container{
+                        margin-top: 0;
+                        i{
+                            position: unset;
+                            opacity: .5;
+                            font-size: 12px;
+                            &.sbf-chevron-down{
+                                font-size: 25px;
+                            }
+                        }
+                        
+                    }
+    
+                    @keyframes changeMedHeight{
+                            from {
+                                height: 120px;
+                            }
+                            to {
+                                height: 222px;
+                            }
+                        }
+                    }
             }
         }
     
