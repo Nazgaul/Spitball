@@ -1,7 +1,8 @@
 <template>
     <v-flex class="right-sidebar">
         <askQuestionBtn v-if="isAsk"></askQuestionBtn>
-        <upload-files v-else-if="isNotes"></upload-files>
+        <!--<upload-files v-else-if="!isNotes"></upload-files>-->
+        <upload-files></upload-files>
         <v-flex xs12 class="card-block">
             <div class="header" v-language:inner>faqBlock_faq</div>
             <div class="content">
