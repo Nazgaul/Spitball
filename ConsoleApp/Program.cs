@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Infrastructure.Data;
 using Dapper;
+using Cloudents.Infrastructure.Blockchain;
 
 namespace ConsoleApp
 {
@@ -122,7 +123,7 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
 
-
+            await TransferUsers();
             var t = _container.Resolve<IBlockChainErc20Service>();
             string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
@@ -432,7 +433,58 @@ namespace ConsoleApp
 
 
         }
-    }
+        public static async Task TransferUsers()
+        {
+            var d = _container.Resolve<DapperRepository>();
+            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+            {
+                return await f.QueryAsync(
+                    @"
+	                select UserId
+		                    ,ZU.Email
+		                    ,IsEmailVerified
+		                    ,U.OrgName
+							,u.[Country]
+		                    ,ZU.Culture
+                      from zbox.Users ZU
+					  join [Zbox].[University] U
+						on U.Id = ZU.UniversityId
+                      where LastAccessTime > DATEADD(YEAR,-2,GETDATE())  
+	                    and ZU.Email not in (select Email from sb.[User] where Email = ZU.Email)
+	                    and Email like '%@%'
+	                    and ZU.Email not like '%facebook.com'; 
+                ");
+            }, default);
+
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var repository = child.Resolve<IUserRepository>();
+                    var erc = _container.Resolve<IBlockChainErc20Service>();
+
+                  
+
+                    foreach (var pair in z)
+                    {
+                        var tempIndex = pair.Email.IndexOf("@");
+                        var (privateKey, _) = erc.CreateAccount();
+                        var user = new User(pair.Email, pair.Email.Substring(0, tempIndex), privateKey)
+                        {
+                            EmailConfirmed = pair.IsEmailVerified,
+                            University = new University(pair.OrgName, pair.Country),
+                            Culture = new CultureInfo(pair.Culture)
+
+                        };
+                        await repository.AddAsync(user, default);
+                    }
+
+                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                    
+                }
+
+            }
+        }
 
     //public class PPP : IDataProtect
     //{
@@ -446,4 +498,9 @@ namespace ConsoleApp
     //        throw new NotImplementedException();
     //    }
     //}
+
+    
+
+
+    }
 }
