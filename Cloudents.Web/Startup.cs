@@ -34,6 +34,7 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.HttpOverrides;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -302,6 +303,12 @@ namespace Cloudents.Web
             app.UseSignalR(routes =>
             {
                 routes.MapHub<SbHub>("/SbHub");
+            });
+            //This is for ip
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                                   ForwardedHeaders.XForwardedProto
             });
             app.UseMvc(routes =>
             {
