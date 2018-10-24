@@ -60,6 +60,12 @@ export default {
                 uniArr.push({text:'the collage of new jersey'})
                 uniArr.push({text:'new jersey city'})
                 uniArr.push({text:'new mexico state uni'})
+                uniArr.push({text:'new mexico state wrerg'})
+                uniArr.push({text:'new mexico state ertryr'})
+                uniArr.push({text:'new mexico state rtyery'})
+                uniArr.push({text:'new erty state uni'})
+                uniArr.push({text:'new mexico state rtyry'})
+                uniArr.push({text:'new eryry state uni'})
                 this.updateUniversities(uniArr);
             }
         }
