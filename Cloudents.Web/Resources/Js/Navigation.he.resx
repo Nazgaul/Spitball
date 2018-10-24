@@ -124,7 +124,7 @@
     <value>הירשם עכשיו!</value>
   </data>
   <data name="campaign_askaquestion_ask_banner_title" xml:space="preserve">
-    <value>הצג עכשיו שאלה משיעורי הבית וקבל במהירות תשובות מתלמידים מצטיינים.</value>
+    <value>שאל עכשיו שאלה משיעורי הבית שלך וקבל במהירות תשובות מתלמידים מצטיינים.</value>
   </data>
   <data name="campaign_askaquestion_flashcard_banner_boldText" xml:space="preserve">
     <value>בית הספר, השיעורים וההעדפות שלך</value>
@@ -142,13 +142,13 @@
     <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. יחסוך לכם בזמן!</value>
   </data>
   <data name="campaign_askaquestion_note_banner_title" xml:space="preserve">
-    <value>רשימות, מדריכי לימוד, בחינות ועוד – ממיטב האתרים.</value>
+    <value>סיכומים, מסמכי לימוד, בחינות ועוד - ממיטב האתרים.</value>
   </data>
   <data name="campaign_book_askaquestion_banner_boldText" xml:space="preserve">
     <value>מאות אתרים – במקביל.</value>
   </data>
   <data name="campaign_book_askaquestion_banner_textMain" xml:space="preserve">
-    <value>הצג הצעות ממאות אתרים – במקביל.</value>
+    <value>קבל הצצה להצעות נוספות ממאות אתרים במקביל </value>
   </data>
   <data name="campaign_book_askaquestion_banner_title" xml:space="preserve">
     <value>השווה את המחירים הטובים ביותר לקנייה, השכרה או מכירה של ספרי לימוד.</value>
@@ -157,7 +157,7 @@
     <value>מאות אתרים – במקביל.</value>
   </data>
   <data name="campaign_book_default_banner_textMain" xml:space="preserve">
-    <value>הצג הצעות ממאות אתרים – במקביל.</value>
+    <value>קבל הצצה להצעות נוספות ממאות אתרים במקביל </value>
   </data>
   <data name="campaign_book_default_banner_title" xml:space="preserve">
     <value>השווה את המחירים הטובים ביותר לקנייה, השכרה או מכירה של ספרי לימוד.</value>
@@ -166,10 +166,10 @@
     <value>החלף SBL בקופונים של אמאזון</value>
   </data>
   <data name="campaign_default_ask_banner_textMain" xml:space="preserve">
-    <value>השב על שאלות של שיעורי בית ופדה SBL בקופונים של אמאזון. אמיתי לגמרי!</value>
+    <value>ענה על שאלות, הרווח טוקני SBL, ופדה אותם בקופונים של אמאזון. *אנו עובדים לצרף עוד רשתות לפדיון טוקני SBL </value>
   </data>
   <data name="campaign_default_ask_banner_title" xml:space="preserve">
-    <value>אפשר להרוויח כסף מעזרה עם שיעורי בית לאחרים.</value>
+    <value>הירשמו עכשיו וקבלו עזרה מיידית בשיעורי בית! יש לכם את כל התשובות?  ב - Spitball תוכלו גם להרוויח כסף מלעזור לאחרים!</value>
   </data>
   <data name="campaign_default_flashcard_banner_boldText" xml:space="preserve">
     <value>בית הספר, השיעורים וההעדפות שלך</value>
@@ -184,7 +184,7 @@
     <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. יחסוך לכם בזמן!</value>
   </data>
   <data name="campaign_default_note_banner_title" xml:space="preserve">
-    <value>רשימות, מדריכי לימוד, בחינות ועוד – ממיטב האתרים.</value>
+    <value>סיכומים, מסמכי לימוד, בחינות ועוד - ממיטב האתרים.</value>
   </data>
   <data name="campaign_default_note_banner__boldText" xml:space="preserve">
     <value>בית הספר, השיעורים וההעדפות שלך</value>
@@ -251,7 +251,7 @@
     <value>משרות</value>
   </data>
   <data name="nav_name_note" xml:space="preserve">
-    <value>מסמכי לימודים</value>
+    <value>מסמכי לימוד</value>
   </data>
   <data name="nav_name_tutor" xml:space="preserve">
     <value>מורים פרטיים</value>

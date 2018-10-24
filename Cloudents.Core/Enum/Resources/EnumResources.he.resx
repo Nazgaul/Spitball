@@ -154,16 +154,16 @@
     <value>רלוונטיות</value>
   </data>
   <data name="TransactionTypeAwarded" xml:space="preserve">
-    <value>הוענק</value>
+    <value>טוקנים שהוענקו לי</value>
   </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
-    <value>הורווח</value>
+    <value>טוקנים שהרווחתי</value>
   </data>
   <data name="TransactionTypeSpent" xml:space="preserve">
-    <value>הוצא</value>
+    <value>טוקנים שהוצאתי</value>
   </data>
   <data name="TransactionTypeStake" xml:space="preserve">
-    <value>מוצע</value>
+    <value>טוקנים שמוצעים למכירה כרגע</value>
   </data>
   <data name="TutorFilterInPerson" xml:space="preserve">
     <value>אחד על אחד</value>

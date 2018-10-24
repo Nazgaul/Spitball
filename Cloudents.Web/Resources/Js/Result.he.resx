@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="answer" xml:space="preserve">
-    <value>תשובה</value>
+    <value>ענה עכשיו</value>
   </data>
   <data name="answer_not_found" xml:space="preserve">
     <value>לא מצאנו תשובה על השאלה שלך</value>
   </data>
   <data name="ask_question" xml:space="preserve">
-    <value>הצג את השאלה שלך</value>
+    <value>יש לי שאלה</value>
   </data>
   <data name="different_keywords" xml:space="preserve">
     <value>נסה מילות מפתח אחרות.</value>
@@ -157,7 +157,7 @@
     <value>הצעות:</value>
   </data>
   <data name="suggestions_ask" xml:space="preserve">
-    <value>יש לך שאלה ואתה מחפש תשובות? נסה אותנו.</value>
+    <value>יש לך שאלה ואתה חייב תשובה? נסה אותנו.</value>
   </data>
   <data name="suggestions_book" xml:space="preserve">
     <value>קונה או מוכר ספר לימוד? אנחנו נוודא שתקבל את המחיר הטוב ביותר!</value>
@@ -169,7 +169,7 @@
     <value>זקוק לכסף מזומן? אתר את מיטב המשרות והצעות ההתמחות לסטודנטים במוסד שאתה לומד בו.</value>
   </data>
   <data name="suggestions_note" xml:space="preserve">
-    <value>מחפש מסמכי לימודים לשיעורים שלך? הגעת למקום הנכון.</value>
+    <value>מחפש מסמכי לימוד לשיעורים שלך? הגעת למקום הנכון.</value>
   </data>
   <data name="suggestions_tutor" xml:space="preserve">
     <value>עדיין זקוק לעזרה? צור קשר עם מורה פרטי כדי להבטיח שתצליח בשיעור.</value>

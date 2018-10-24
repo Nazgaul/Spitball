@@ -130,9 +130,9 @@
     <value>סינון על ידי</value>
   </data>
   <data name="sortBy" xml:space="preserve">
-    <value>מיון על פי</value>
+    <value>מיין לפי</value>
   </data>
   <data name="toolbarTitle" xml:space="preserve">
-    <value>סינון ומיון</value>
+    <value>סנן ומיין</value>
   </data>
 </root>

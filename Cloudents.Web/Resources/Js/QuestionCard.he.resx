@@ -121,16 +121,16 @@
     <value>קבל</value>
   </data>
   <data name="Answer" xml:space="preserve">
-    <value>תשובה</value>
+    <value>ענה עכשיו</value>
   </data>
   <data name="Answer_dot" xml:space="preserve">
-    <value>השב ·</value>
+    <value>תשובה ·</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>מחק</value>
   </data>
   <data name="Earn" xml:space="preserve">
-    <value>בוא להרוויח</value>
+    <value>קבל</value>
   </data>
   <data name="Sold" xml:space="preserve">
     <value>נמכר</value>

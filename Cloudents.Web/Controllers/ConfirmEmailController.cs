@@ -67,7 +67,7 @@ namespace Cloudents.Web.Controllers
 
         private async Task<RedirectToRouteResult> GoToStep(User user, NextStep step, bool isNew, string returnUrl)
         {
-            await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+            await _signInManager.TempSignIn(user).ConfigureAwait(false);
             return RedirectToRoute(RegisterController.RegisterRouteName,
                 new
                 {

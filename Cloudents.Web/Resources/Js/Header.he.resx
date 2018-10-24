@@ -121,7 +121,7 @@
     <value>כניסה</value>
   </data>
   <data name="placeholder_ask" xml:space="preserve">
-    <value>חיפוש בשאלות</value>
+    <value>חפש שאלה על...</value>
   </data>
   <data name="placeholder_book" xml:space="preserve">
     <value>כותרת או קוד ISBN של ספר לימוד...</value>
