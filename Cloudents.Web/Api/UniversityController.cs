@@ -63,17 +63,20 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost("assign")]
-        public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new AssignUniversityToUserCommand(userId, model.Name);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            var user = await _userManager.GetUserAsync(User);
+        //[HttpPost("assign")]
+        //public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new AssignUniversityToUserCommand(userId, model.Name);
+        //    await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+        //    var user = await _userManager.GetUserAsync(User);
 
-            await _signInManager.RefreshSignInAsync(user);
-            return Ok();
-        }
+        //    await _signInManager.RefreshSignInAsync(user);
+        //    return Ok();
+        //}
+
+
+
 
     }
 }
