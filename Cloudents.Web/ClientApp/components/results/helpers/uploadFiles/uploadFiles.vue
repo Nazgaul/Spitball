@@ -18,7 +18,7 @@
                         <v-stepper-content class="sb-stepper-content step-one"
                                            :key="`${1}-content`"
                                            :step="1">
-                            <v-card class="sb-step-card" color="">
+                            <v-card class="sb-step-card">
                                 <!--dropshadow for drag and drop-->
                                 <div class="upload-row-1">
                                     <v-icon>sbf-upload-cloud</v-icon>
@@ -142,19 +142,31 @@
                                     <h3 class="upload-cloud-text sb-title">Create a title or use the one we created for
                                         you</h3>
                                 </div>
-                                <div class="upload-row-2 paddingTopBg">
+                                <div class="upload-row-2 paddingTopSm">
                                     <div class="btn-holder">
-                                        <!--<label :for="'school'" class="steps-form-label school mb-2">-->
+                                        <label :for="'school'" class="steps-form-label school mb-2">
                                         <!--<v-icon class="mr-1">sbf-university</v-icon>-->
-                                        <!--<span>School</span></label>-->
+                                        <span>Document Title</span></label>
                                         <sb-input :bottomError="true"
                                                   v-model="documentTitle" placeholder="title" name="document title"
                                                   type="text"
                                                   :autofocus="true">
                                         </sb-input>
                                     </div>
-                                    <div class="btn-holder">
+                                    <div class="btn-holder ml-0 ">
+
                                     </div>
+                                </div>
+                                <div class="upload-row-3">
+                                    <label :for="'school'" class="steps-form-label school mb-2">
+                                        <!--<v-icon class="mr-1">sbf-university</v-icon>-->
+                                        <span>Professor Name</span></label>
+                                    <sb-input :bottomError="true"
+                                              v-model="proffesorName" placeholder="proffesor name" name="proffesor"
+                                              type="text"
+                                              :autofocus="true">
+                                    </sb-input>
+
                                 </div>
                             </v-card>
                         </v-stepper-content>
@@ -177,28 +189,24 @@
                                             <v-icon class="mr-1">sbf-tag-icon</v-icon>
                                             <span>Tags</span></label>
                                         <v-combobox class="sb-combo"
-                                                v-model="selectedTags"
-                                                height="'48px'"
-                                                append-icon=""
-                                                prepend-icon=""
-                                                placeholder="Type a tag name"
-                                                :background-color="''"
-                                                deletable-chips
-                                                color="'#979797'"
-                                                multiple
-                                                chips
-                                                solo
-                                                type="text"
-                                                :allow-overflow="false"
-
-
-                                        >
+                                                    v-model="selectedTags"
+                                                    height="'48px'"
+                                                    append-icon=""
+                                                    prepend-icon=""
+                                                    placeholder="Type a tag name"
+                                                    color="'#979797'"
+                                                    multiple
+                                                    chips
+                                                    solo
+                                                    :allow-overflow="false">
                                             <template slot="selection" slot-scope="data" class="sb-selection">
                                                 <v-chip class="sb-chip-tag">
-                                                   <span class="chip-button px-2" >
+                                                   <span class="chip-button px-2">
                                                        {{!!data.item ? data.item : ''}}
-                                                       <v-icon class="chip-close ml-4"  @click="removeTag(data.item)">sbf-close</v-icon>
                                                    </span>
+                                                    <v-icon class="chip-close ml-3" @click="removeTag(data.item)">
+                                                        sbf-close
+                                                    </v-icon>
                                                 </v-chip>
                                             </template>
                                         </v-combobox>
@@ -217,24 +225,66 @@
                                 <div class="upload-row-1">
                                     <h3 class="upload-cloud-text sb-title">Set your price</h3>
                                     <h4 class="sb-subtitle mt-2">In spitball platform You can buy and sell with SBL’s.
-                                        <a href="">What are SBL’s? </a></h4>
+                                        <a href="" class="sbl-faq">What are SBL’s? </a></h4>
                                 </div>
                                 <div class="upload-row-2 paddingTopSm">
                                     <div class="btn-holder">
                                         <label :for="'school'" class="steps-form-label school mb-2">
                                             <v-icon class="mr-1">sbf-tag-icon</v-icon>
                                             <span>Price</span></label>
-                                        <sb-input :bottomError="true"
-                                                  v-model="documentTitle" placeholder="00.00" name="price"
-                                                  type="text"
-                                                  :autofocus="true">
-                                        </sb-input>
-                                        <div class="sb-current-balance">
+                                        <div class="wrap-row-price">
+                                            <div class="price-wrap">
+                                                <sbl-currency v-model="uploadPrice"
+                                                              class="sb-input-upload-price"></sbl-currency>
+                                                <div class="sbl-suffix">SBL</div>
 
+                                                <span class="balance-label">Equals to {{uploadPrice | dollarVal}}$</span>
+
+                                            </div>
+                                            <div class="sb-current-balance">
+                                                <v-icon class="sb-wallet-icon">sbf-wallet-new</v-icon>
+                                                <span name="account-balance" class="sb-account-amount">{{accountUser.balance | currencyLocalyFilter}}</span>
+                                                <span class="balance-label">Your balance</span>
+                                            </div>
                                         </div>
-
                                     </div>
                                     <div class="btn-holder">
+
+                                    </div>
+                                </div>
+                            </v-card>
+                        </v-stepper-content>
+                        <!--step 6-->
+                        <v-stepper-content class="sb-stepper-content step-seven mt-5"
+                                           :key="`${7}-content`"
+                                           :step="7">
+                            <v-card class="mb-5 sb-step-card">
+                                <div class="upload-row-1">
+                                    <h3 class="upload-cloud-text sb-title">Set your price</h3>
+                                    <h4 class="sb-subtitle mt-2">In spitball platform You can buy and sell with SBL’s.
+                                        <a href="">What are SBL’s? </a></h4>
+                                </div>
+                                <div class="upload-row-2 paddingTopSm">
+                                    <div class="btn-holder">
+                                        <label :for="'price'" class="steps-form-label school mb-2">
+                                            <v-icon class="mr-1">sbf-tag-icon</v-icon>
+                                            <span>Price</span></label>
+                                        <div class="wrap-row-price">
+                                            <div class="price-wrap">
+                                                <sbl-currency v-model="uploadPrice"
+                                                              class="sb-input-upload-price"></sbl-currency>
+                                                <div class="sbl-suffix">SBL</div>
+
+                                            </div>
+                                            <div class="sb-current-balance">
+                                                <v-icon class="sb-wallet-icon">sbf-wallet-new</v-icon>
+                                                <span name="account-balance" class="sb-account-amount">{{accountUser.balance | currencyLocalyFilter}}</span>
+                                                <span class="balance-label">Your balance</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-holder">
+
                                     </div>
                                 </div>
                             </v-card>
@@ -273,6 +323,6 @@
     </v-flex>
 </template>
 <script src="./uploadFiles.js"></script>
-<style scoped lang="less" src="./uploadFiles.less">
+<style lang="less" src="./uploadFiles.less">
 
 </style>

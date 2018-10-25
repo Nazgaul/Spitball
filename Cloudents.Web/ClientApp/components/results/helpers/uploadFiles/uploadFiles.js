@@ -3,7 +3,8 @@ import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
 import sbInput from "../../../question/helpers/sbInput/sbInput";
-import {documentTypes} from "./consts";
+import { documentTypes, currencyValidator } from "./consts";
+import sblCurrency from "./sbl-currency.vue"
 //var VueUploadComponent = import('vue-upload-component');
 Vue.component('file-upload', FileUpload);
 
@@ -11,6 +12,7 @@ export default {
     components: {
         sbDialog,
         sbInput,
+        sblCurrency,
         FileUpload
     },
     name: "uploadFiles",
@@ -24,18 +26,21 @@ export default {
             regularUploadFiles: [],
             progressValue: '',
             files: [],
-            steps: 6,
-            e1 : 1,
+            steps: 7,
+            e1: 1,
             step: 1,
             stepsProgress: 0,
             schoolName: '',
-            classesList: ['Social Psych', 'behaviourl psych', 'Biology 2',  'Biology 3', 'behaviourl psych2'],
+            classesList: ['Social Psych', 'behaviourl psych', 'Biology 2', 'Biology 3', 'behaviourl psych2'],
             selectedClass: '',
             documentTypes: documentTypes,
             selectedDoctype: '',
             documentTitle: '',
+            proffesorName: '',
             selectedTags: [],
-            tagsOptions: [, 'behaviourl', 'Biology',  'Math', 'History']
+            tagsOptions: [, 'behaviourl', 'Biology', 'Math', 'History'],
+            uploadPrice: null,
+
 
         }
     },
@@ -50,25 +55,26 @@ export default {
             }
 
         },
-        hideOnFirstStep(){
+        hideOnFirstStep() {
             this.e1 === 1
         },
-        isFirstStep(){
-            return  this.e1 === 1
-        }
+        isFirstStep() {
+            return this.e1 === 1
+        },
 
     },
     watch: {
         files(newValue, oldValue) {
-            console.log('newVal::: ',newValue, 'files',this.files)
+            console.log('newVal::: ', newValue, 'files', this.files)
         },
-        selectedTags(newV, oldV){
-            console.log('newVal::: ',newV, 'files',this.selectedTags)
+        selectedTags(newV, oldV) {
+            console.log('newVal::: ', newV, 'files', this.selectedTags)
 
         }
     },
     methods: {
         ...mapActions(["updateLoginDialogState", 'updateUserProfileData']),
+
         openUploaderDialog() {
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
@@ -81,19 +87,17 @@ export default {
         },
 
         // update data methods
-        updateClass(singleClass){
+        updateClass(singleClass) {
             this.selectedClass = singleClass;
         },
-        updateDocumentType(docType){
+        updateDocumentType(docType) {
             this.selectedDoctype = docType;
             console.log(this.selectedDoctype)
         },
-        removeTag (item) {
+        removeTag(item) {
             this.selectedTags.splice(this.selectedTags.indexOf(item), 1)
             this.selectedTags = [...this.selectedTags]
         },
-
-
 
 
         loadDropBoxSrc() {
@@ -117,10 +121,10 @@ export default {
         DbFilesList() {
             var self = this;
             let options = {
-                success:  (files)=> {
+                success: (files) => {
                     let type = 'dropBox';
                     //clean if was trying to upload from desktop before
-                    files.forEach((file)=> {
+                    files.forEach((file) => {
                         // self.uploadsPreviewList.push({
                         //     name : file,
                         //     link:  file.thumbnails["64x64"],
@@ -134,7 +138,7 @@ export default {
 
                         });
                     });
-               this.nextStep(1)
+                    this.nextStep(1)
                 },
                 cancel: function () {
                     //optional
@@ -169,8 +173,8 @@ export default {
                 if (newFile.xhr) {
                     //  Get the response status code
                     console.log('status', newFile.xhr.status)
-                    if(newFile.xhr.status === 200){
-                       this.nextStep(1)
+                    if (newFile.xhr.status === 200) {
+                        this.nextStep(1)
                     }
                 }
             }
@@ -217,27 +221,27 @@ export default {
                 // return prevent()
             }
         },
-        deletePreview: function(index){
+        deletePreview: function (index) {
             this.files.splice(index, 1)
         },
-        nextStep (step) {
+        nextStep(step) {
             console.log('files', this.files)
             if (this.e1 === this.steps) {
                 this.e1 = 1
             } else {
                 this.e1 = this.e1 + 1;
-                this.stepsProgress = (this.e1)* 10;
+                this.stepsProgress = (this.e1) * 10;
             }
-            console.log('step', this.stepsProgress,  this.e1  );
+            console.log('step', this.stepsProgress, this.e1);
 
         },
-        previousStep(step){
-            if(this.e1===1){
-               return this.e1 = 1;
+        previousStep(step) {
+            if (this.e1 === 1) {
+                return this.e1 = 1;
 
-            }else{
+            } else {
                 this.e1 = this.e1 - 1;
-                this.stepsProgress = (this.e1)* 10;
+                this.stepsProgress = (this.e1) * 10;
             }
 
         }

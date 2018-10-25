@@ -104,7 +104,7 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <v-list-tile v-if="!!user.universityId" @click="openPersonalizeCourse()">
+            <v-list-tile v-if="!!user.universityExists" @click="openPersonalizeCourse()">
                 <v-list-tile-action>
                     <v-icon>sbf-classes</v-icon>
                 </v-list-tile-action>
@@ -250,7 +250,8 @@
             },
         },
         methods: {
-            ...mapActions(['logout', 'updateLoginDialogState']),
+            ...mapActions(['logout', 'updateLoginDialogState', 'changeSelectUniState', 'updateCurrentStep']),
+            ...mapGetters(['getAllSteps']),
             currentTemplate(val) {
                 return val ? 'router-link' : 'v-list-tile';
             },
@@ -276,14 +277,21 @@
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
                 } else {
-                    this.$root.$emit("personalize", typesPersonalize.university);
+                    let steps = this.getAllSteps();
+                    this.updateCurrentStep(steps.set_school_landing);
+                    this.changeSelectUniState(true);
+                    this.$root.$emit("closeDrawer");
+                    // this.$root.$emit("personalize", typesPersonalize.university);
                 }
             },
             openPersonalizeCourse() {
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
                 } else {
-                    this.$root.$emit("personalize", typesPersonalize.course,);
+                    let steps = this.getAllSteps();
+                    this.updateCurrentStep(steps.set_class);
+                    this.changeSelectUniState(true);
+                    this.$root.$emit("closeDrawer");
                 }
             }
         },

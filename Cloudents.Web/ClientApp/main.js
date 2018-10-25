@@ -224,6 +224,7 @@ Vue.filter('commasFilter', function (value) {
 
 
 router.beforeEach((to, from, next) => {
+    store.dispatch('changeSelectUniState', false)
     if (!!to.query && Object.keys(to.query).length > 0) {
         for (let prop in to.query) {
             if (constants.regExXSSCheck.test(to.query[prop])) {
