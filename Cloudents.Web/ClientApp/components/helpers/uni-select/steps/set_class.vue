@@ -1,11 +1,11 @@
 <template>
-    <div class="select-university-container meduim">
+    <div class="select-university-container set-class">
             <div class="title-container">
                 <div class="first-container">
-                    <v-icon @click="lastStep()">sbf-arrow-back</v-icon>
-                    <a class="next-container" @click="nextStep()">Done</a>  
+                    <div><v-icon @click="lastStep()">sbf-arrow-back</v-icon></div>
+                    <div><a class="next-container" @click="nextStep()">Done</a> </div>
                 </div>
-                <div>
+                <div class="select-class-string">
                     <span>Select Class</span> 
                 </div>
                 
