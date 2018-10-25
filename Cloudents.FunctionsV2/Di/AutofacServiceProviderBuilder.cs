@@ -26,10 +26,9 @@ namespace Cloudents.FunctionsV2
             // Get a setting from the configuration.
             Debug.WriteLine(_configuration["Setting"]);
 
+            // ReSharper disable once CollectionNeverUpdated.Local - We need that because otherwise the inject fails
             var services = new ServiceCollection();
-            //services.AddTransient<ITransientGreeter, Greeter>();
-            //services.AddScoped<IScopedGreeter, Greeter>();
-            //services.AddSingleton<ISingletonGreeter, Greeter>();
+           
 
             var builder = new ContainerBuilder();
 
@@ -65,7 +64,6 @@ namespace Cloudents.FunctionsV2
            // builder.RegisterType<CourseDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Course);
 
             builder.Populate(services); // Populate is needed to have support for scopes.
-
             return new AutofacServiceProvider(builder.Build());
         }
     }

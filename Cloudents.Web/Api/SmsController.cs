@@ -93,11 +93,13 @@ namespace Cloudents.Web.Api
 
             if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
             {
+                var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
+                var t1 = _commandBus.DispatchAsync(command2, token);
                 await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
                 ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["PhoneNumberNotSameCountry"]);
-                await _signInManager.SignOutAsync();
+                var t2 =  _signInManager.SignOutAsync();
+                await Task.WhenAll(t1, t2);
                 return BadRequest(ModelState);
-                //user.LockoutEnd = DateTimeOffset.MaxValue;
 
             }
             if (retVal.Succeeded)

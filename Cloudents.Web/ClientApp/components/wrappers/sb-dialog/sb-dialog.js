@@ -18,6 +18,9 @@ export default {
             type: Boolean,
             required: false,
             default:false
+        },
+        onclosefn: {
+            required: false
         }
 
     },
@@ -43,6 +46,9 @@ export default {
         //changed locally
         show(){
             if(!this.show){
+                if(!!this.onclosefn){
+                    this.onclosefn();
+                }
                 this.updateLoginDialogState(false);
                 this.updateNewQuestionDialogState(false);
                 this.$root.$emit('closePopUp', this.popUpType);

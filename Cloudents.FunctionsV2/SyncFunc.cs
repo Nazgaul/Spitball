@@ -27,11 +27,16 @@ namespace Cloudents.FunctionsV2
                 OrchestrationRuntimeStatus.Failed,
                 OrchestrationRuntimeStatus.Terminated
             };
+            
             if (existingInstance == null || startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
             {
                 log.LogInformation($"started {model.InstanceId}");
-               // var model = new SearchSyncInput(SyncType.Question);
                 await starter.StartNewAsync("SearchSync", model.InstanceId, model);
+            }
+            else
+            {
+                log.LogInformation($"{model.InstanceId} is in status {existingInstance.RuntimeStatus}");
+
             }
         }
 

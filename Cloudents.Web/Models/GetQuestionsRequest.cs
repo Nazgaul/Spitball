@@ -11,5 +11,6 @@ namespace Cloudents.Web.Models
         public QuestionSubject[] Source { get; set; }
 
         public QuestionFilter?[] Filter { get; set; }
+
     }
 }

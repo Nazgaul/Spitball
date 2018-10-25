@@ -1,9 +1,11 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query.Sync;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Query.Sync;
+using System.Linq;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
@@ -36,11 +38,12 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         private void SimilarQuery(FluentQueryBuilder qb)
         {
             qb.Join<Question, User>(q => q.User, u => u.Id);
-             //.Join<Question, QuestionSubject>(q => q.Subject, qs => qs.Id);
             qb.Select<User>(x => x.Id, nameof(QuestionSearchDto.UserId))
                 .Select<User>(x => x.Name, nameof(QuestionSearchDto.UserName))
                 .Select<User>(x => x.Image, nameof(QuestionSearchDto.UserImage))
                 .Select<Question>(x => x.Id, nameof(QuestionSearchDto.Id))
+                .Select<User>(x => x.University, nameof(QuestionSearchDto.UniversityId))
+                .Select<Question>(x => x.Language, nameof(QuestionSearchDto.Language))
                 .Select<User>(x => x.Country, nameof(QuestionSearchDto.Country))
                 .Select(
                     $"(select count(*) from {qb.Table<Answer>()} where {qb.Column<Answer>(x => x.Question)} = {qb.ColumnAlias<Question>(x => x.Id)}) {nameof(QuestionSearchDto.AnswerCount)}")
@@ -51,6 +54,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
                 .Select<Question>(x => x.Price, nameof(QuestionSearchDto.Price))
                 .Select<Question>(x => x.Text, nameof(QuestionSearchDto.Text))
                 .Select<Question>(x => x.Color, nameof(QuestionSearchDto.Color))
+                .Select<Question>(x => x.State, nameof(QuestionSearchDto.State))
                 //.Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
                 .Select<Question>(x => x.Subject, nameof(QuestionSearchDto.Subject))
                 .Select("c.*")
@@ -72,5 +76,11 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         }
 
         protected override int PageSize => 200;
+
+
+        protected override ILookup<bool, AzureSyncBaseDto<QuestionSearchDto>> SeparateUpdateFromDelete(IEnumerable<AzureSyncBaseDto<QuestionSearchDto>> result)
+        {
+            return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.State == QuestionState.Suspended);
+        }
     }
 }

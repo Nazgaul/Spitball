@@ -22,11 +22,13 @@ namespace Cloudents.Core.DTOs.SearchSync
 
 
         public string Country { get; set; }
+        public Guid? UniversityId { get; set; }
+        public string Language { get; set; }
 
         public QuestionColor Color { get; set; }
 
         public QuestionSubject Subject { get; set; } // facetable
-        //public QuestionFilter State { get; set; }
+        public QuestionState? State { get; set; }
 
         public Question ToQuestion()
         {
@@ -57,7 +59,9 @@ namespace Cloudents.Core.DTOs.SearchSync
                 Price = Price,
                 Color = Color,
                 State = state,
-                Prefix = new[] { Text }
+                Prefix = new[] { Text },
+                Language = Language,
+                UniversityId = UniversityId?.ToString()
             };
         }
     }

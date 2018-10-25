@@ -18,6 +18,8 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query.Sync;
 using Cloudents.Infrastructure.Data;
 using Dapper;
+using Cloudents.Infrastructure.Blockchain;
+using Cloudents.Core.Command;
 
 namespace ConsoleApp
 {
@@ -72,45 +74,7 @@ namespace ConsoleApp
             Console.Read();
 
 
-            //var u = _container.Resolve<ISearchServiceWrite<University>>();
-            //await u.CreateOrUpdateAsync(default);
-
-
-
-
-            // var b2 = _container.Resolve<IDocumentSearch>();
-            // var query = SearchQuery.Document(null, 920, null, null, 0);
-            // var query = new CoursesQuery(2343);
-            //var query = new QuestionsQuery(null, null, 0, null);
-            //var t = await b2.SearchDocumentsAsync(query, default);
-
-
-
-            //var d = await b2.SearchAsync(query, default);
-            ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
-            //    new GeoPoint(-74.006f, 40.7128f)
-            //    , 0, false, default);
-
-
-
-            // QuestionRepository c = new QuestionRepository(b);
-            // Console.WriteLine(c.GetOldQuestionsAsync(default));
-
-
-
-            //await UpdateCreationTimeProductionAsync();
-            //IEventMessage z = new AnswerCreatedEvent(null);
-            //var query = new UserDataByIdQuery(1642);
-            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            //var t = await bus.QueryAsync< ProfileDto>(query, default);
-            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            //var t = await bus.QueryAsync(query, default);
-            //  var bus = _container.Resolve<IQueryBus>();
-            // var z = new NextQuestionQuery(68, 11);
-            // var x = await bus.QueryAsync(z, default);
-
-
-
+            
 
         }
 
@@ -119,7 +83,7 @@ namespace ConsoleApp
             var query = new SyncAzureQuery(0,0);
             var _bus = _container.Resolve<IQueryBus>();
             (object update, object delete, object version) =
-                await _bus.QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+                await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
 
 
         }
@@ -127,7 +91,7 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
 
-
+            await TransferUsers();
             var t = _container.Resolve<IBlockChainErc20Service>();
             string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
@@ -437,18 +401,126 @@ namespace ConsoleApp
 
 
         }
+        public static async Task TransferUsers()
+        {
+            var d = _container.Resolve<DapperRepository>();
+
+            
+                var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+                {
+
+                    return await f.QueryAsync(
+                        @"
+	               select top 1 UserId
+		                    ,ZU.Email
+		                    ,U.[UniversityName]
+							--,u.[Country]
+		                    ,ZU.Culture
+                      from zbox.Users ZU
+					  join [Zbox].[University] U
+						on U.Id = ZU.UniversityId
+                      where LastAccessTime > DATEADD(YEAR,-2,GETDATE())  
+	                    and ZU.Email not in (select Email from sb.[User] where Email = ZU.Email)
+	                    and Email like '%@%'
+	                    and ZU.Email not like '%facebook.com'
+						and email not in (select Email from sb.[User] U where U.Email = ZU.Email)
+						and IsEmailVerified = 1; 
+                ");
+                }, default);
+
+                if (z.Count() == 0)
+                { return; }
+
+                using (var child = _container.BeginLifetimeScope())
+                {
+                    using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                    {
+                        var repository = child.Resolve<IUserRepository>();
+                        var erc = _container.Resolve<IBlockChainErc20Service>();
+                       
+
+                        foreach (var pair in z)
+                        {
+                           
+                            var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                            var (privateKey, _) = erc.CreateAccount();
+
+                        var user = new User(pair.Email, $"{name}.{GenerateRandomNumber()}", privateKey)
+                        {
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = pair.Email.ToUpper(),
+                            Culture = new CultureInfo(pair.Culture),
+                            OldUser = true
+                            };
+                            user.NormalizedName = user.Name.ToUpper();
+                            await repository.AddAsync(user, default);
+                        }
+
+                        await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+
+                    }
+
+                }
+            await TransferUsers();
+        }
+
+        private static int GenerateRandomNumber()
+        {
+            var rdm = new Random();
+            return rdm.Next(1000, 9999);
+        }
+        public static async Task MigrateUniversity()
+        {
+            var d = _container.Resolve<DapperRepository>();
+
+            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+            {
+
+                return await f.QueryAsync(
+                    @"
+	               select top 1 ZU.UserId, ZU.UniversityName
+                      from zbox.Users ZU
+					  join [Zbox].[University] U
+						on U.Id = ZU.UniversityId
+                      where LastAccessTime > DATEADD(YEAR,-2,GETDATE())  
+	                    and ZU.Email not in (select Email from sb.[User] where Email = ZU.Email)
+	                    and Email like '%@%'
+	                    and ZU.Email not like '%facebook.com'
+						and IsEmailVerified = 1; 
+                ");
+            }, default);
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var repository = child.Resolve<IUserRepository>();
+                    var erc = _container.Resolve<IBlockChainErc20Service>();
+
+
+                    foreach (var pair in z)
+                    {
+                        var t = new AssignUniversityToUserCommand(pair.UserId, pair.UniversityName);
+                    }
+                }
+            }
+        }
+
+        //public class PPP : IDataProtect
+        //{
+        //    public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    public string Unprotect(string purpose, string protectedData)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
+
+
+
     }
-
-    //public class PPP : IDataProtect
-    //{
-    //    public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public string Unprotect(string purpose, string protectedData)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
 }

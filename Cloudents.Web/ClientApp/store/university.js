@@ -4,6 +4,7 @@ const state = {
     schoolName: '',
     selectedClasses: [],
     showSelectUniInterface: false,
+    showSelectUniPopUpInterface: false,
     currentStep: 'SetSchoolLanding',
     stepsEnum: {
         set_school_landing: 'SetSchoolLanding',
@@ -19,11 +20,18 @@ const getters = {
     getClasses: state => state.classes,
     getSelectedClasses: state => state.selectedClasses,
     getShowSelectUniInterface: state => state.showSelectUniInterface,
+    getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
     getAllSteps: state => state.stepsEnum,
     getCurrentStep: state => state.currentStep
 };
 
 const actions = {
+    changeSelectUniState({commit}, val){
+        commit('setSelectUniState', val);
+    },
+    changeSelectPopUpUniState({commit}, val){
+        commit('setSelectPopUpUniState', val);
+    },
     updateSchoolName({commit}, val){
         commit('setSchoolName', val);
     },
@@ -41,9 +49,6 @@ const actions = {
     },
     updateSelectedClasses({commit}, val){
         commit('setSelectedClasses', val);
-    },
-    changeSelectUniState({commit}, val){
-        commit('setSelectUniState', val);
     },
     updateCurrentStep({commit}, val){
         commit("setCurrentStep", val);
@@ -68,6 +73,9 @@ const mutations = {
     },
     setCurrentStep(state, val){
         state.currentStep = val;
+    },
+    setSelectPopUpUniState(state, val){
+        state.showSelectUniPopUpInterface = val;
     }
 };
 

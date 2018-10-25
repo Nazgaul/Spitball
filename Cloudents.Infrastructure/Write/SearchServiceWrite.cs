@@ -76,7 +76,7 @@ namespace Cloudents.Infrastructure.Write
         public virtual Task CreateOrUpdateAsync(CancellationToken token)
         {
             var index = GetIndexStructure(IndexClient.IndexName);
-            return _client.Indexes.CreateOrUpdateAsync(index, cancellationToken: token);
+            return _client.Indexes.CreateAsync(index, cancellationToken: token);
         }
 
         protected abstract Index GetIndexStructure(string indexName);

@@ -47,12 +47,13 @@
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading"
+                                <!-- Deprecated -->
+                                <!-- <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading"
                                         class="personalize-wrapper pa-3 mb-3 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo flat
                                                   :placeholder="placeholder.whereSchool" @click="$_openPersonalize"
                                                   v-language:placeholder></v-text-field>
-                                </v-flex>
+                                </v-flex> -->
 
                                 <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">

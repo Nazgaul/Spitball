@@ -1,6 +1,6 @@
 <template functional>
-    <div>
-        <div v-if="props.showUniSelectInterface">
+    <div style="height: 100%;">
+        <div v-if="props.showUniSelectInterface" style="height: 100%;">
             <slot name="uniSelect"></slot>
         </div>
         <div v-else>

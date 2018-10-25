@@ -1,13 +1,18 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Search.Question
 {
-    public class AzureQuestionSearch //: IQuestionSearch
+    public class AzureQuestionSearch : IQuestionSearch
     {
         private readonly ISearchIndexClient _client;
 
@@ -16,80 +21,86 @@ namespace Cloudents.Infrastructure.Search.Question
             _client = client.GetClient(QuestionSearchWrite.IndexName);
         }
 
-        public async Task<DocumentSearchResult<Core.Entities.Search.Question>> SearchAsync(QuestionsQuery query, CancellationToken token)
+        public async Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query, CancellationToken token)
         {
-            string filterStr = null;
+            var filters = new List<string>();
+            if (query.Source != null)
+            {
+                var filterStr = string.Join(" or ", query.Source.Select(s =>
+                    $"{nameof(Core.Entities.Search.Question.Subject)} eq {(int)s}"));
 
-            //if (query.Source != null)
-            //{
-            //    filterStr = string.Join(" or ", query.Source.Select(s =>
-            //        $"{nameof(Question.Subject)} eq '{s}'"));
-            //}
+                filters.Add($"({filterStr})");
+            }
+
+            if (query.Filters != null)
+            {
+               var filterStr = string.Join(" or ", query.Filters.Select(s =>
+                    $"{nameof(Core.Entities.Search.Question.State)} eq {(int)s}"));
+                filters.Add($"({filterStr})");
+            }
 
             var searchParameter = new SearchParameters
             {
                 Facets = new[] { nameof(Core.Entities.Search.Question.Subject), nameof(Core.Entities.Search.Question.State) },
-                //Filter = filterStr,
+                Filter = string.Join(" and ", filters),
                 Top = 50,
                 Skip = query.Page * 50,
-                ScoringProfile = "ScoringProfile",
+                ScoringProfile = QuestionSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                 {
                     new ScoringParameter
-                    ("Country"
-                        , new[] {"IL"}) //TODO: finish
+                    (QuestionSearchWrite.TagsCountryParameter
+                        , new[] {query.Country}),
+
+                    new ScoringParameter
+                    (QuestionSearchWrite.TagsUniversityParameter
+                        , new[] {query.UniversityId}),
+
+                    new ScoringParameter
+                    (QuestionSearchWrite.TagsLanguageParameter
+                        , query.Languages ?? new string[] {null})
                 }
 
             };
 
-            return await
+            var result = await
                 _client.Documents.SearchAsync<Core.Entities.Search.Question>(query.Term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
 
-            //var retVal = new QuestionWithFacetDto
-            //{
-            //    Result = result.Results.Select(s=>s.Document)
-            //    //Result = result.Results.Select(s=> new QuestionDto()
-            //    //{
-                    
-            //    //    User = new UserDto
-            //    //    {
-            //    //        Id = s.Document.UserId,
-            //    //        Name = s.Document.UserName,
-            //    //        Image = s.Document.UserImage
-            //    //    },
-            //    //    Id = long.Parse(s.Document.Id),
-            //    //    DateTime = s.Document.DateTime,
-            //    //    Answers = s.Document.AnswerCount,
-            //    //    //Subject = s.Document.Subject,
-            //    //    Color = s.Document.Color,
-            //    //    Files = s.Document.FilesCount,
-            //    //    HasCorrectAnswer = s.Document.HasCorrectAnswer,
-            //    //    Price = (decimal)s.Document.Price,
-            //    //    Text = s.Document.Text
-            //    //})
-            //   // Result = _mapper.Map<IEnumerable<QuestionDto>>(result.Results.Select(s => s.Document))
-            //};
-            //if (result.Facets.TryGetValue(nameof(Question.Subject), out var p))
-            //{
 
-            //    retVal.FacetSubject = p.Select(s => (int)s.AsValueFacetResult<long>().Value);
-                
-            //    //retVal.Facet = p.Select(s => s.AsValueFacetResult<string>().Value);
-            //}
+            var retVal = new QuestionWithFacetDto
+            {
+                Result = result.Results.Select(s => new QuestionDto()
+                {
 
-            //if (result.Facets.TryGetValue(nameof(Question.State), out var p2))
-            //{
-            //    //var t = p2.Select(s =>
-            //    //{
-            //    //    return s.AsValueFacetResult<long>().Value;
-            //    //});
-            //    retVal.FacetState = p2.Select(s => (QuestionFilter) s.AsValueFacetResult<long>().Value);
-            //    //
-            //    // retVal.Facets[nameof(Question.State)] = p2.Select(s => s.AsValueFacetResult<string>().Value);
+                    User = new UserDto
+                    {
+                        Id = s.Document.UserId,
+                        Name = s.Document.UserName,
+                        Image = s.Document.UserImage
+                    },
+                    Id = long.Parse(s.Document.Id),
+                    DateTime = s.Document.DateTime,
+                    Answers = s.Document.AnswerCount,
+                    Subject = s.Document.Subject,
+                    Color = s.Document.Color,
+                    Files = s.Document.FilesCount,
+                    HasCorrectAnswer = s.Document.HasCorrectAnswer,
+                    Price = (decimal)s.Document.Price,
+                    Text = s.Document.Text
+                })
+            };
+            if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
+            {
 
-            //}
-            //return retVal;
+                retVal.FacetSubject = p.Select(s => (QuestionSubject)s.AsValueFacetResult<long>().Value);
+            }
+
+            if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.State), out var p2))
+            {
+                retVal.FacetState = p2.Select(s => (QuestionFilter)s.AsValueFacetResult<long>().Value);
+            }
+            return retVal;
         }
     }
 }

@@ -22,7 +22,8 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(AssignUniversityToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            var university = await _universityRepository.GetUniversityByNameAsync(message.UniversityName, user.Country, token);
+            var country = message.Country ?? user.Country;
+            var university = await _universityRepository.GetUniversityByNameAsync(message.UniversityName, country, token);
             if (university == null)
             {
                 university = new University(message.UniversityName, user.Country);
