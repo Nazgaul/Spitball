@@ -1,9 +1,11 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Sync;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
@@ -52,6 +54,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
                 .Select<Question>(x => x.Price, nameof(QuestionSearchDto.Price))
                 .Select<Question>(x => x.Text, nameof(QuestionSearchDto.Text))
                 .Select<Question>(x => x.Color, nameof(QuestionSearchDto.Color))
+                .Select<Question>(x => x.State, nameof(QuestionSearchDto.State))
                 //.Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
                 .Select<Question>(x => x.Subject, nameof(QuestionSearchDto.Subject))
                 .Select("c.*")
@@ -73,5 +76,11 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         }
 
         protected override int PageSize => 200;
+
+
+        protected override ILookup<bool, AzureSyncBaseDto<QuestionSearchDto>> SeparateUpdateFromDelete(IEnumerable<AzureSyncBaseDto<QuestionSearchDto>> result)
+        {
+            return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.State == QuestionState.Suspended);
+        }
     }
 }
