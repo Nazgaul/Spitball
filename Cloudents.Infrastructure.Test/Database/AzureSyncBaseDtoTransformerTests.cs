@@ -9,10 +9,16 @@ namespace Cloudents.Infrastructure.Test.Database
     [TestClass]
     public class AzureSyncBaseDtoTransformerTests
     {
+        enum ResultEnum
+        {
+            Test1,
+            Test2
+        }
 
         class ResultTest
         {
             public string Id { get; set; }
+            public ResultEnum SomeEnum { get; set; }
         }
         [TestMethod]
         public void TransformTuple_GuidCheck_ReturnGuidString()
@@ -81,6 +87,27 @@ namespace Cloudents.Infrastructure.Test.Database
             var result = (AzureSyncBaseDto<ResultTest>)x.TransformTuple(arr, alias);
 
             result.SYS_CHANGE_VERSION.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void TransformTuple_IntToEnum_ReturnEnum()
+        {
+            var x = new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<ResultTest>, ResultTest>();
+
+            object[] arr = new object[]
+            {
+                (int)ResultEnum.Test2
+
+            };
+
+            string[] alias = new string[]
+            {
+                nameof(AzureSyncBaseDto<ResultTest>.Data.SomeEnum)
+
+            };
+            var result = (AzureSyncBaseDto<ResultTest>)x.TransformTuple(arr, alias);
+
+            result.Data.SomeEnum.Should().Be(ResultEnum.Test2);
         }
     }
 }

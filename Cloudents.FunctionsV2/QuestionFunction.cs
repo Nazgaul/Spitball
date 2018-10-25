@@ -32,7 +32,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("QuestionSearchSync")]
-        public static async Task RunQuestionSearchAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+        public static async Task RunQuestionSearchAsync([TimerTrigger("0 */10 * * * *", RunOnStartup = true)] TimerInfo myTimer,
             [OrchestrationClient] DurableOrchestrationClient starter,
             ILogger log)
         {

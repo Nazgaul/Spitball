@@ -35,11 +35,22 @@ namespace Cloudents.Infrastructure.Database
         {
             if (!dic.TryGetValue(propertyInfo.Name, out var value)) return;
             if (value == null) return;
-            if (propertyInfo.PropertyType.IsEnum && value is string str)
+            if (propertyInfo.PropertyType.IsEnum)
             {
-                var e = Enum.Parse(propertyInfo.PropertyType, str, true);
-                propertyInfo.SetValue(x, e);
-                return;
+                if (value is string str)
+                {
+                    var e = Enum.Parse(propertyInfo.PropertyType, str, true);
+                    propertyInfo.SetValue(x, e);
+                    return;
+                }
+
+                if (value is int i)
+                {
+
+                    var t = Enum.ToObject(propertyInfo.PropertyType, i);
+                    propertyInfo.SetValue(x, t);
+                    return;
+                }
             }
             if (value is Guid g && propertyInfo.PropertyType == typeof(string))
             {

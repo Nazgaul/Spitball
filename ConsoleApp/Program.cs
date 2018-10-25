@@ -72,45 +72,7 @@ namespace ConsoleApp
             Console.Read();
 
 
-            //var u = _container.Resolve<ISearchServiceWrite<University>>();
-            //await u.CreateOrUpdateAsync(default);
-
-
-
-
-            // var b2 = _container.Resolve<IDocumentSearch>();
-            // var query = SearchQuery.Document(null, 920, null, null, 0);
-            // var query = new CoursesQuery(2343);
-            //var query = new QuestionsQuery(null, null, 0, null);
-            //var t = await b2.SearchDocumentsAsync(query, default);
-
-
-
-            //var d = await b2.SearchAsync(query, default);
-            ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
-            //    new GeoPoint(-74.006f, 40.7128f)
-            //    , 0, false, default);
-
-
-
-            // QuestionRepository c = new QuestionRepository(b);
-            // Console.WriteLine(c.GetOldQuestionsAsync(default));
-
-
-
-            //await UpdateCreationTimeProductionAsync();
-            //IEventMessage z = new AnswerCreatedEvent(null);
-            //var query = new UserDataByIdQuery(1642);
-            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            //var t = await bus.QueryAsync< ProfileDto>(query, default);
-            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            //var t = await bus.QueryAsync(query, default);
-            //  var bus = _container.Resolve<IQueryBus>();
-            // var z = new NextQuestionQuery(68, 11);
-            // var x = await bus.QueryAsync(z, default);
-
-
-
+            
 
         }
 
@@ -119,7 +81,7 @@ namespace ConsoleApp
             var query = new SyncAzureQuery(0,0);
             var _bus = _container.Resolve<IQueryBus>();
             (object update, object delete, object version) =
-                await _bus.QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+                await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
 
 
         }
