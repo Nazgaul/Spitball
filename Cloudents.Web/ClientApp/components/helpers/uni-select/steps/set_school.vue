@@ -1,5 +1,5 @@
 <template>
-        <div class="select-university-container mini" :class="{'selected': (!!search && search.length > 10) || !!university}">
+        <div class="select-university-container set-school" :class="{'selected': (!!search && search.length > 10) || !!university}">
             <div class="title-container">
                 Select School
                 <a v-show="search.length > 10 || !!university" class="next-container" @click="nextStep()">Next</a>  
@@ -28,7 +28,7 @@
                     </v-list-tile>
                 </template>
                 <template slot="selection" slot-scope="{ item, parent, selected }">
-                   <span style="font-weight:bold;">{{!!item.text ? item.text : item}}</span> 
+                   <span style="color: rgba(0, 0, 0, 0.54);">{{!!item.text ? item.text : item}}</span> 
                 </template>
                 <template slot="item" slot-scope="{ index, item, parent }">
                     <v-list-tile-content>
@@ -37,6 +37,11 @@
                 </template>
                 </v-combobox>
             </div>
+
+            <div class="skip-container" v-if="$vuetify.breakpoint.xsOnly">
+                <a @click="skipUniSelect()">Skip for now</a> 
+            </div>
+
         </div>
 </template>
 
@@ -86,12 +91,15 @@ export default {
         }
     },
     methods:{
-        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName"]),
+        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "changeSelectUniState"]),
         ...mapGetters(["getUniversities", "getSchoolName"]),
         clearData(){
             this.search = null;
             this.universityModel = undefined;
             this.clearUniversityList();
+        },
+        skipUniSelect(){
+            this.changeSelectUniState(false);
         },
         nextStep(){
             let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : this.search;
