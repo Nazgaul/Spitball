@@ -17,6 +17,7 @@
                     :clear-icon="'sbf-close'"
                     @click:clear="clearData()"
                     autofocus
+                    no-filter
                 >
                 <template slot="no-data">
                     <v-list-tile v-show="showBox">
@@ -28,6 +29,11 @@
                 </template>
                 <template slot="selection" slot-scope="{ item, parent, selected }">
                    <span style="font-weight:bold;">{{!!item.text ? item.text : item}}</span> 
+                </template>
+                <template slot="item" slot-scope="{ index, item, parent }">
+                    <v-list-tile-content>
+                       <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
+                    </v-list-tile-content>
                 </template>
                 </v-combobox>
             </div>
@@ -67,7 +73,16 @@ export default {
                 uniArr.push({text:'new mexico state rtyry'})
                 uniArr.push({text:'new eryry state uni'})
                 this.updateUniversities(uniArr);
+            }else if(val.length === 0 ){
+                this.updateUniversities([]);
             }
+        }
+    },
+    filters:{
+        boldText(value, search){
+            //mark the text bold according to the search value
+            if (!value) return '';
+            return value.replace(search, '<b>' + search + '</b>')
         }
     },
     methods:{
