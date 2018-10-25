@@ -1,4 +1,6 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using Cloudents.Core.Entities.Db;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Database.Maps
@@ -53,12 +55,16 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
+            Map(x => x.Languages).CustomType<JsonType<ISet<CultureInfo>>>();
+
 
             HasManyToMany(x => x.Courses)
                 .ParentKeyColumn("UserId")
                 .ChildKeyColumn("CourseId")
                 .ForeignKeyConstraintNames("User_Courses","Courses_User")
                 .Table("UsersCourses").AsSet();
+
+
 
             SchemaAction.Update();
             /*

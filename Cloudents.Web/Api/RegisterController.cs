@@ -165,7 +165,7 @@ namespace Cloudents.Web.Api
                 name = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             }
             var (privateKey, _) = _blockChainErc20Service.CreateAccount();
-            return new User(email, $"{name}.{GenerateRandomNumber()}", privateKey);
+            return new User(email, $"{name}.{GenerateRandomNumber()}", privateKey, CultureInfo.CurrentCulture);
         }
 
         private static int GenerateRandomNumber()
