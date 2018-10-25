@@ -17,6 +17,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Infrastructure.Data;
 using Dapper;
 using Cloudents.Infrastructure.Blockchain;
+using Cloudents.Core.Command;
 
 namespace ConsoleApp
 {
@@ -436,15 +437,17 @@ namespace ConsoleApp
         public static async Task TransferUsers()
         {
             var d = _container.Resolve<DapperRepository>();
-            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-            {
-                return await f.QueryAsync(
-                    @"
-	                select UserId
+
+            
+                var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+                {
+
+                    return await f.QueryAsync(
+                        @"
+	               select top 1 UserId
 		                    ,ZU.Email
-		                    ,IsEmailVerified
-		                    ,U.OrgName
-							,u.[Country]
+		                    ,U.[UniversityName]
+							--,u.[Country]
 		                    ,ZU.Culture
                       from zbox.Users ZU
 					  join [Zbox].[University] U
@@ -452,10 +455,74 @@ namespace ConsoleApp
                       where LastAccessTime > DATEADD(YEAR,-2,GETDATE())  
 	                    and ZU.Email not in (select Email from sb.[User] where Email = ZU.Email)
 	                    and Email like '%@%'
-	                    and ZU.Email not like '%facebook.com'; 
+	                    and ZU.Email not like '%facebook.com'
+						and email not in (select Email from sb.[User] U where U.Email = ZU.Email)
+						and IsEmailVerified = 1; 
+                ");
+                }, default);
+
+                if (z.Count() == 0)
+                { return; }
+
+                using (var child = _container.BeginLifetimeScope())
+                {
+                    using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                    {
+                        var repository = child.Resolve<IUserRepository>();
+                        var erc = _container.Resolve<IBlockChainErc20Service>();
+                       
+
+                        foreach (var pair in z)
+                        {
+                           
+                            var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                            var (privateKey, _) = erc.CreateAccount();
+
+                        var user = new User(pair.Email, $"{name}.{GenerateRandomNumber()}", privateKey)
+                        {
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = pair.Email.ToUpper(),
+                            Culture = new CultureInfo(pair.Culture),
+                            OldUser = true
+                            };
+                            user.NormalizedName = user.Name.ToUpper();
+                            await repository.AddAsync(user, default);
+                        }
+
+                        await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+
+                    }
+
+                }
+            await TransferUsers();
+        }
+
+        private static int GenerateRandomNumber()
+        {
+            var rdm = new Random();
+            return rdm.Next(1000, 9999);
+        }
+        public static async Task MigrateUniversity()
+        {
+            var d = _container.Resolve<DapperRepository>();
+
+            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+            {
+
+                return await f.QueryAsync(
+                    @"
+	               select top 1 ZU.UserId, ZU.UniversityName
+                      from zbox.Users ZU
+					  join [Zbox].[University] U
+						on U.Id = ZU.UniversityId
+                      where LastAccessTime > DATEADD(YEAR,-2,GETDATE())  
+	                    and ZU.Email not in (select Email from sb.[User] where Email = ZU.Email)
+	                    and Email like '%@%'
+	                    and ZU.Email not like '%facebook.com'
+						and IsEmailVerified = 1; 
                 ");
             }, default);
-
             using (var child = _container.BeginLifetimeScope())
             {
                 using (var unitOfWork = child.Resolve<IUnitOfWork>())
@@ -463,43 +530,29 @@ namespace ConsoleApp
                     var repository = child.Resolve<IUserRepository>();
                     var erc = _container.Resolve<IBlockChainErc20Service>();
 
-                  
 
                     foreach (var pair in z)
                     {
-                        var tempIndex = pair.Email.IndexOf("@");
-                        var (privateKey, _) = erc.CreateAccount();
-                        var user = new User(pair.Email, pair.Email.Substring(0, tempIndex), privateKey)
-                        {
-                            EmailConfirmed = pair.IsEmailVerified,
-                            University = new University(pair.OrgName, pair.Country),
-                            Culture = new CultureInfo(pair.Culture)
-
-                        };
-                        await repository.AddAsync(user, default);
+                        var t = new AssignUniversityToUserCommand(pair.UserId, pair.UniversityName);
                     }
-
-                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-                    
                 }
-
             }
         }
 
-    //public class PPP : IDataProtect
-    //{
-    //    public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
+        //public class PPP : IDataProtect
+        //{
+        //    public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-    //    public string Unprotect(string purpose, string protectedData)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
+        //    public string Unprotect(string purpose, string protectedData)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
-    
+
 
 
     }

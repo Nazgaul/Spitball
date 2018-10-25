@@ -176,6 +176,10 @@ namespace Cloudents.Web.Api
 
         private async Task GenerateEmailAsync(User user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
+            if (!user.EmailConfirmed && user.OldUser)
+            {
+                await _userManager.UpdateSecurityStampAsync(user);
+            }
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
             code = UrlEncoder.Default.Encode(code);
             var url = returnUrl?.Url;
@@ -183,7 +187,7 @@ namespace Cloudents.Web.Api
             {
                 url = null;
             }
-
+           
             var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url, referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link),CultureInfo.CurrentUICulture);

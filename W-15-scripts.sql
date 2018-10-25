@@ -146,3 +146,7 @@ GO
 insert into sb.Tags
 select DISTINCT [Name], 0 
 from Zbox.Tag
+
+
+ALTER TABLE sb.[User]
+  ADD OldUser bit;
