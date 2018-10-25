@@ -205,6 +205,7 @@
           left: 0;
           height: 82px;
           width: auto;
+          min-width: 335px;
           padding: 0 32px;
           border-right: 1px solid @borderOpacityGrey;
           .file-item {
@@ -415,6 +416,9 @@
                   font-size: 14px;
                   color: @stepSubTitleColor;
                   font-weight: normal;
+                  .sbl-faq{
+                    color: rgba(68, 82, 252, 0.59);
+                  }
                 }
                 // subtitle
               }
@@ -435,7 +439,13 @@
                   .input-wrapper {
                     width: 100%;
                   }
+                  .wrap-row-price{
+                    display: flex;
+                    min-width: 134px;
+                    align-items: center;
+                    justify-content: center;
                   .price-wrap {
+                    position: relative;
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -444,7 +454,14 @@
                     border-radius: 4px;
                     border: 1px solid rgba(0, 0, 0, .25);
                     justify-content: center;
+                  .balance-label{
+                    position: absolute;
+                    bottom: -20px;
+                    left: 0;
+                    color: @labelColor;
+                    font-size: 12px;
 
+                  }
                     .sb-input-upload-price {
                       max-width: 125px;
                       height: 90px;
@@ -459,6 +476,41 @@
                         }
                         .placeholder-color(@placeholderGrey, 1)
                       }
+                    }
+                    .sbl-suffix{
+                      color: @stepSubTitleColor;
+                      font-size: 14px;
+                    }
+                  }
+                }
+                  .sb-current-balance{
+                    background-color: @uploadGreyBackground;
+                    height: 92px;
+                    min-width: 134px;
+                    border-radius: 4px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 16px;
+                    position: relative;
+
+                    .sb-wallet-icon{
+                      font-size: 26px;
+                      color: @labelColor;
+                    }
+                    .sb-account-amount{
+                      color: @color-grey;
+                      opacity: 0.67;
+                      font-size: 16px;
+                      padding-top: 12px;
+                    }
+                    .balance-label{
+                      position: absolute;
+                      bottom: -20px;
+                      left: 0;
+                      font-size: 12px;
+                      color: @borderGreyColor;
                     }
                   }
                     .steps-form-label {
@@ -648,6 +700,10 @@
                 max-width: @maxWidthForm;
                 flex-wrap: wrap;
                 padding-top: 32px;
+                justify-content: flex-start;
+                .input-wrapper{
+                  width: 100%;
+                }
                 .steps-form-label {
                   font-family: 'Open Sans', sans-serif;
                   font-size: 12px;
