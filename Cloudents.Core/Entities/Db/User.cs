@@ -121,11 +121,16 @@ namespace Cloudents.Core.Entities.Db
                 _culture = value;
                 if (value != null)
                 {
+                    if (Languages == null)
+                    {
+                        Languages = new HashSet<CultureInfo>();
+                    }
                     Languages.Add(value);
                 }
             }
         }
 
+        [CanBeNull]
         protected internal virtual ISet<CultureInfo> Languages { get; protected set; }
 
 
@@ -136,6 +141,10 @@ namespace Cloudents.Core.Entities.Db
             {
                 if (Core.Country.Israel == value)
                 {
+                    if (Languages == null)
+                    {
+                        Languages = new HashSet<CultureInfo>();
+                    }
                     Languages.Add(Core.Country.Israel.DefaultLanguage);
                 }
 

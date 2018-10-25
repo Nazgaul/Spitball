@@ -176,7 +176,7 @@ namespace Cloudents.Web.Api
 
         private async Task GenerateEmailAsync(User user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
-            if (!user.EmailConfirmed && user.OldUser)
+            if (user.OldUser && user.SecurityStamp == null) 
             {
                 await _userManager.UpdateSecurityStampAsync(user);
             }

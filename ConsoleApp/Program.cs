@@ -82,7 +82,7 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-            var cmd = new UpdateUserCultureCommand(683, new CultureInfo("he"));
+            var cmd = new UpdateUserCultureCommand(638, new CultureInfo("he"));
 
             //var query = new SyncAzureQuery(0,0);
             var _bus = _container.Resolve<ICommandBus>();
@@ -455,12 +455,11 @@ namespace ConsoleApp
                             var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
                             var (privateKey, _) = erc.CreateAccount();
 
-                        var user = new User(pair.Email, $"{name}.{GenerateRandomNumber()}", privateKey)
+                        var user = new User(pair.Email, $"{name}.{GenerateRandomNumber()}", privateKey, new CultureInfo(pair.Culture))
                         {
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = pair.Email.ToUpper(),
-                            Culture = new CultureInfo(pair.Culture),
                             OldUser = true
                             };
                             user.NormalizedName = user.Name.ToUpper();
@@ -510,7 +509,7 @@ namespace ConsoleApp
 
                     foreach (var pair in z)
                     {
-                        var t = new AssignUniversityToUserCommand(pair.UserId, pair.UniversityName);
+                       // var t = new AssignUniversityToUserCommand(pair.UserId, pair.UniversityName,pair.);
                     }
                 }
             }
