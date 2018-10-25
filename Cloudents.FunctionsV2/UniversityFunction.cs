@@ -11,11 +11,12 @@ namespace Cloudents.FunctionsV2
         [FunctionName("UniversitySearchSync")]
         public static async Task RunQuestionSearchAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)] TimerInfo myTimer,
             [OrchestrationClient] DurableOrchestrationClient starter,
-            ILogger log,
-            CancellationToken token)
+            ILogger log)
         {
+            log.LogInformation("UniversitySearchSync started");
             await SyncFunc.StartSearchSync(starter, log, SyncType.University);
-           
+            log.LogInformation("UniversitySearchSync ended");
+
         }
     }
 }
