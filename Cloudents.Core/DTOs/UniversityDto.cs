@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,14 +7,16 @@ namespace Cloudents.Core.DTOs
 {
     public class UniversityDto
     {
-        public UniversityDto(long id, string name)
+        public UniversityDto(Guid id, string name, string country)
         {
             Id = id;
             Name = name;
+            Country = country;
         }
 
-        public long Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Country { get; set; }
     }
 
     public class UniversitySearchDto

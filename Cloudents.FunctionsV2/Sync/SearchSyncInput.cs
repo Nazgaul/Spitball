@@ -19,11 +19,9 @@ namespace Cloudents.FunctionsV2.Sync
                 switch (SyncType)
                 {
                     case SyncType.University:
-                        return "university2";
-                    //case SyncType.Course:
-                    //    return "course2";
+                        return "university3";
                     case SyncType.Question:
-                        return "question";
+                        return "question2";
 
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -38,11 +36,9 @@ namespace Cloudents.FunctionsV2.Sync
                 switch (SyncType)
                 {
                     case SyncType.University:
-                        return "UniversitySearchSync";
-                    //case SyncType.Course:
-                    //    return "CourseSearch2Sync";
+                        return "UniversitySearchSync3";
                     case SyncType.Question:
-                        return "QuestionSearchSync";
+                        return "QuestionSearchSync2";
 
                     default:
                         throw new ArgumentOutOfRangeException();

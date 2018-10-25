@@ -57,7 +57,7 @@ namespace Cloudents.Web.Controllers
             if (!result.Succeeded)
             {
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
-                return RedirectToRoute(RegisterController.RegisterRouteName, new { step = "expiredStep" });
+                return RedirectToRoute(RegisterController.RegisterRouteName, new { step = NextStep.ExpiredStep });
             }
           
             TempData[HomeController.Referral] = model.Referral;

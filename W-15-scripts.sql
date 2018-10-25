@@ -1,5 +1,7 @@
 ﻿---V7
 -- need to create signalr service for production
+-- need to update application insight connection string
+-- need to update db connection string to support v2 functions
 
 CREATE TABLE [sb].[Course](
 	[Name] [nvarchar](255) NOT NULL,
@@ -94,6 +96,11 @@ ADD [UniversityId2] [uniqueidentifier] NULL;
 ALTER TABLE [sb].[User]  WITH CHECK ADD  CONSTRAINT [User_University2] FOREIGN KEY([UniversityId2])
 REFERENCES [sb].[University] ([Id])
 
+
+
+ALTER TABLE sb.[University]
+ENABLE CHANGE_TRACKING  
+WITH (TRACK_COLUMNS_UPDATED = ON)  
 --Run TransferUniversities
 
 

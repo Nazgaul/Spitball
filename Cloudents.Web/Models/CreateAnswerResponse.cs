@@ -37,6 +37,7 @@ namespace Cloudents.Web.Models
         VerifyPhone,
         EnterPhone,
         EmailPassword,
+        ExpiredStep,
         // ReSharper disable once IdentifierTypo - this is because client sucks
         Loginstep
     }

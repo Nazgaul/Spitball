@@ -12,6 +12,7 @@ namespace Cloudents.Web.Identity
     {
         internal const string Country = "country";
         internal const string University = "university";
+        internal const string Languages = "languages";
 
         public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager, 
             IOptions<IdentityOptions> options) :

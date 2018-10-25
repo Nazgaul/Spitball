@@ -78,7 +78,7 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
+        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster', 'getShowSelectUniInterface']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
 
         //not interesting
@@ -87,6 +87,9 @@ export default {
         },
         showQuestionToaster(){
             return this.getShowQuestionToaster;
+        },
+        showUniSelect(){
+            return this.getShowSelectUniInterface;
         },
         content: {
             get() {

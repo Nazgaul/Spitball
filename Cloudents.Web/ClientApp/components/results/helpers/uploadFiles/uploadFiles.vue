@@ -24,11 +24,11 @@
                                     <v-icon>sbf-upload-cloud</v-icon>
                                     <h3 class="text-blue upload-cloud-text">Upload a Document</h3>
                                 </div>
-                                <div class="upload-row-2">
+                                <div class="upload-row-2 paddingTopSm">
                                     <div class="btn-holder">
-                                        <v-btn fab class="upload-option-btn"  @click="DbFilesList()" :disabled="!dbReady">
+                                        <v-btn fab class="upload-option-btn" @click="DbFilesList()"
+                                               :disabled="!dbReady">
                                             <v-icon>sbf-upload-dropbox</v-icon>
-                                            {{dbReady}}
                                         </v-btn>
                                         <span class="btn-label">DropBox</span>
                                     </div>
@@ -57,7 +57,6 @@
                                         <span class="btn-label">Your Dekstop</span>
                                     </div>
                                 </div>
-                                <!--</div>-->
                                 <div class="upload-row-3">
                                     <div :class="['btn-holder', $refs.upload && $refs.upload.dropActive ? 'drop-active' : '' ]">
                                         <v-icon>sbf-upload-drag</v-icon>
@@ -66,6 +65,7 @@
                                 </div>
                             </v-card>
                         </v-stepper-content>
+
                         <!--step 2-->
                         <v-stepper-content class="sb-stepper-content step-two mt-5"
                                            :key="`${2}-content`"
@@ -77,7 +77,7 @@
                                     <h4 class="sb-subtitle mt-2">Filling details will increase this doc. chances to get
                                         sold</h4>
                                 </div>
-                                <div class="upload-row-2">
+                                <div class="upload-row-2 paddingTopSm">
                                     <div class="btn-holder">
                                         <label :for="'school'" class="steps-form-label school mb-2">
                                             <v-icon class="mr-1">sbf-university</v-icon>
@@ -108,10 +108,143 @@
 
                             </v-card>
                         </v-stepper-content>
+
+
+                        <!--step 3-->
+                        <v-stepper-content class="sb-stepper-content step-three mt-5"
+                                           :key="`${3}-content`"
+                                           :step="3">
+                            <v-card class="mb-5 sb-step-card">
+                                <div class="upload-row-1">
+                                    <h3 class="sb-title">Choose document type, it would be easier to
+                                        find it</h3>
+                                </div>
+                                <div class="upload-row-2">
+                                    <div :class="['sb-doc-type', singleType.title === selectedDoctype ? 'selected': '']"
+                                         v-for="(singleType, index) in documentTypes"
+                                         :key="singleType.id"
+                                         @click="updateDocumentType(singleType.title)">
+                                        <v-icon class="sb-doc-icon mt-2">{{singleType.icon}}</v-icon>
+                                        <span class="sb-doc-title mb-2">
+                                           {{singleType.title}}
+                                       </span>
+                                    </div>
+                                </div>
+                            </v-card>
+                        </v-stepper-content>
+
+                        <!--step 4-->
+                        <v-stepper-content class="sb-stepper-content step-four mt-5"
+                                           :key="`${4}-content`"
+                                           :step="4">
+                            <v-card class="mb-5 sb-step-card">
+                                <div class="upload-row-1">
+                                    <h3 class="upload-cloud-text sb-title">Create a title or use the one we created for
+                                        you</h3>
+                                </div>
+                                <div class="upload-row-2 paddingTopBg">
+                                    <div class="btn-holder">
+                                        <!--<label :for="'school'" class="steps-form-label school mb-2">-->
+                                        <!--<v-icon class="mr-1">sbf-university</v-icon>-->
+                                        <!--<span>School</span></label>-->
+                                        <sb-input :bottomError="true"
+                                                  v-model="documentTitle" placeholder="title" name="document title"
+                                                  type="text"
+                                                  :autofocus="true">
+                                        </sb-input>
+                                    </div>
+                                    <div class="btn-holder">
+                                    </div>
+                                </div>
+                            </v-card>
+                        </v-stepper-content>
+
+
+                        <!--step 5-->
+                        <v-stepper-content class="sb-stepper-content step-five mt-5"
+                                           :key="`${5}-content`"
+                                           :step="5">
+                            <v-card class="mb-5 sb-step-card">
+                                <div class="upload-row-1">
+                                    <h3 class="upload-cloud-text sb-title">Add any tag you think is relevant for this
+                                        doc.</h3>
+                                    <h4 class="sb-subtitle mt-2">It will help other to find you in more than one
+                                        way</h4>
+                                </div>
+                                <div class="upload-row-2 paddingTopSm">
+                                    <div class="btn-holder">
+                                        <label :for="'school'" class="steps-form-label school mb-2">
+                                            <v-icon class="mr-1">sbf-tag-icon</v-icon>
+                                            <span>Tags</span></label>
+                                        <v-combobox class="sb-combo"
+                                                v-model="selectedTags"
+                                                height="'48px'"
+                                                append-icon=""
+                                                prepend-icon=""
+                                                placeholder="Type a tag name"
+                                                :background-color="''"
+                                                deletable-chips
+                                                color="'#979797'"
+                                                multiple
+                                                chips
+                                                solo
+                                                type="text"
+                                                :allow-overflow="false"
+
+
+                                        >
+                                            <template slot="selection" slot-scope="data" class="sb-selection">
+                                                <v-chip class="sb-chip-tag">
+                                                   <span class="chip-button px-2" >
+                                                       {{!!data.item ? data.item : ''}}
+                                                       <v-icon class="chip-close ml-4"  @click="removeTag(data.item)">sbf-close</v-icon>
+                                                   </span>
+                                                </v-chip>
+                                            </template>
+                                        </v-combobox>
+                                    </div>
+                                    <div class="btn-holder">
+                                    </div>
+                                </div>
+                            </v-card>
+                        </v-stepper-content>
+
+                        <!--step 6-->
+                        <v-stepper-content class="sb-stepper-content step-six mt-5"
+                                           :key="`${6}-content`"
+                                           :step="6">
+                            <v-card class="mb-5 sb-step-card">
+                                <div class="upload-row-1">
+                                    <h3 class="upload-cloud-text sb-title">Set your price</h3>
+                                    <h4 class="sb-subtitle mt-2">In spitball platform You can buy and sell with SBL’s.
+                                        <a href="">What are SBL’s? </a></h4>
+                                </div>
+                                <div class="upload-row-2 paddingTopSm">
+                                    <div class="btn-holder">
+                                        <label :for="'school'" class="steps-form-label school mb-2">
+                                            <v-icon class="mr-1">sbf-tag-icon</v-icon>
+                                            <span>Price</span></label>
+                                        <sb-input :bottomError="true"
+                                                  v-model="documentTitle" placeholder="00.00" name="price"
+                                                  type="text"
+                                                  :autofocus="true">
+                                        </sb-input>
+                                        <div class="sb-current-balance">
+
+                                        </div>
+
+                                    </div>
+                                    <div class="btn-holder">
+                                    </div>
+                                </div>
+                            </v-card>
+                        </v-stepper-content>
+
+
                     </v-stepper-items>
                 </v-stepper>
                 <div class="bottom-upload-controls" v-show="e1 > 1">
-                    <v-progress-linear :height="'3px'" v-show="e1 >1" v-model="stepsProgress"
+                    <v-progress-linear :height="'3px'" v-show="e1 >1" :color="'#4452fc'" v-model="stepsProgress"
                                        class="sb-steps-progress ma-0" :active="true"></v-progress-linear>
                     <!--<v-btn block color="primary"-->
 
@@ -128,9 +261,11 @@
                             </div>
                             <!--<span v-show="$refs.upload && $refs.upload.uploaded">All files have been uploaded</span>-->
                         </div>
-                        <v-btn round color="primary" class="next-btn" @click="nextStep(step)">Next</v-btn>
-                        <v-btn round v-if="e1 > 1" color="primary" class="next-btn" @click="previousStep(step)">Back
+                        <v-btn round v-if="e1 > 1" flat class="sb-back-flat-btn" @click="previousStep(step)">
+                            <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
+                            <span>Back</span>
                         </v-btn>
+                        <v-btn round class="next-btn" @click="nextStep(step)">Next</v-btn>
                     </div>
                 </div>
             </v-card>

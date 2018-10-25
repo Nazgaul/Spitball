@@ -1,5 +1,5 @@
 <template>
-        <div class="select-university-container mini" :class="{'selected': (!!search && search.length > 10) || !!university}">
+        <div class="select-university-container set-school" :class="{'selected': (!!search && search.length > 10) || !!university}">
             <div class="title-container">
                 Select School
                 <a v-show="search.length > 10 || !!university" class="next-container" @click="nextStep()">Next</a>  
@@ -17,6 +17,7 @@
                     :clear-icon="'sbf-close'"
                     @click:clear="clearData()"
                     autofocus
+                    no-filter
                 >
                 <template slot="no-data">
                     <v-list-tile v-show="showBox">
@@ -27,10 +28,20 @@
                     </v-list-tile>
                 </template>
                 <template slot="selection" slot-scope="{ item, parent, selected }">
-                   <span style="font-weight:bold;">{{!!item.text ? item.text : item}}</span> 
+                   <span style="color: rgba(0, 0, 0, 0.54);">{{!!item.text ? item.text : item}}</span> 
+                </template>
+                <template slot="item" slot-scope="{ index, item, parent }">
+                    <v-list-tile-content>
+                       <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
+                    </v-list-tile-content>
                 </template>
                 </v-combobox>
             </div>
+
+            <div class="skip-container" v-if="$vuetify.breakpoint.xsOnly">
+                <a @click="skipUniSelect()">Skip for now</a> 
+            </div>
+
         </div>
 </template>
 
@@ -60,17 +71,35 @@ export default {
                 uniArr.push({text:'the collage of new jersey'})
                 uniArr.push({text:'new jersey city'})
                 uniArr.push({text:'new mexico state uni'})
+                uniArr.push({text:'new mexico state wrerg'})
+                uniArr.push({text:'new mexico state ertryr'})
+                uniArr.push({text:'new mexico state rtyery'})
+                uniArr.push({text:'new erty state uni'})
+                uniArr.push({text:'new mexico state rtyry'})
+                uniArr.push({text:'new eryry state uni'})
                 this.updateUniversities(uniArr);
+            }else if(val.length === 0 ){
+                this.updateUniversities([]);
             }
         }
     },
+    filters:{
+        boldText(value, search){
+            //mark the text bold according to the search value
+            if (!value) return '';
+            return value.replace(search, '<b>' + search + '</b>')
+        }
+    },
     methods:{
-        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName"]),
+        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "changeSelectUniState"]),
         ...mapGetters(["getUniversities", "getSchoolName"]),
         clearData(){
             this.search = null;
             this.universityModel = undefined;
             this.clearUniversityList();
+        },
+        skipUniSelect(){
+            this.changeSelectUniState(false);
         },
         nextStep(){
             let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : this.search;

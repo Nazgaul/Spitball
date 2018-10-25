@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Write
     [UsedImplicitly]
     public class UniversitySearchWrite : SearchServiceWrite<Core.Entities.Search.University>
     {
-        public const string IndexName = "universities4";
+        public const string IndexName = "universities5";
         public const string ScoringProfile = "university-default";
 
         public const string CountryTagScoringParameters = "country";
