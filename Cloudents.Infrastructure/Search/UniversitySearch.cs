@@ -22,6 +22,7 @@ namespace Cloudents.Infrastructure.Search
         private readonly string[] _listOfSelectParams = {
             nameof(University.Id),
             nameof(University.DisplayName),
+            nameof(University.Country)
         };
 
         public UniversitySearch(ISearchService client)
@@ -67,7 +68,8 @@ namespace Cloudents.Infrastructure.Search
             var result = await
                 _client.Documents.SearchAsync<University>(term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
-            return new UniversitySearchDto(result.Results.Select(s => new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName)));
+            return new UniversitySearchDto(result.Results.Select(s =>
+                new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName, s.Document.Country)));
         }
     }
 }
