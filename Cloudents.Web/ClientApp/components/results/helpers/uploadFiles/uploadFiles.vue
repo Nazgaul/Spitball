@@ -237,7 +237,9 @@
                                                 <sbl-currency v-model="uploadPrice"
                                                               class="sb-input-upload-price"></sbl-currency>
                                                 <div class="sbl-suffix">SBL</div>
+
                                                 <span class="balance-label">Equals to {{uploadPrice | dollarVal}}$</span>
+
                                             </div>
                                             <div class="sb-current-balance">
                                                 <v-icon class="sb-wallet-icon">sbf-wallet-new</v-icon>
