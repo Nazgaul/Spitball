@@ -131,7 +131,7 @@ namespace Cloudents.Core.Entities.Db
         }
 
         [CanBeNull]
-        protected internal virtual ISet<CultureInfo> Languages { get; protected set; }
+        public virtual ISet<CultureInfo> Languages { get; protected set; }
 
 
         public virtual string Country
