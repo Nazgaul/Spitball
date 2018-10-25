@@ -142,7 +142,7 @@
                                     <h3 class="upload-cloud-text sb-title">Create a title or use the one we created for
                                         you</h3>
                                 </div>
-                                <div class="upload-row-2 paddingTopBg">
+                                <div class="upload-row-2 paddingTopSm">
                                     <div class="btn-holder">
                                         <label :for="'school'" class="steps-form-label school mb-2">
                                         <!--<v-icon class="mr-1">sbf-university</v-icon>-->
