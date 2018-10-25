@@ -30,7 +30,7 @@
                                         <span>${{accountUser.balance | dollarVal}}</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
-                                        <v-menu bottom left offset-y>
+                                        <v-menu close-on-content-click bottom left offset-y>
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
                                                          :user-name="accountUser.name"/>
 
@@ -43,7 +43,7 @@
                                     <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
                                     <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
 
-                                    <v-menu bottom left offset-y class="gamburger"
+                                    <v-menu close-on-content-click bottom left offset-y class="gamburger"
                                             v-if="!loggedIn">
                                         <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
@@ -118,7 +118,7 @@
                 settingMenu,
                 notRegMenu,
                 clickOnce: false,
-                drawer: null,
+                drawer: false,
                 toasterTimeout: 5000,
                 showDialogLogin: false,
                 isRtl: global.isRtl
@@ -204,9 +204,17 @@
                     this.resetData();
                     this.$router.push('/');
                 }
+            },
+            closeDrawer(){
+                this.drawer = !this.drawer;
             }
         },
         created() {
+            this.$root.$on("closeDrawer", ()=>{
+                this.$nextTick(() => {
+                    this.closeDrawer();
+                })
+            })
             this.$root.$on("personalize",
                 (type) => {
                     this.clickOnce = true;
@@ -219,7 +227,6 @@
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
         },
-
     }
 </script>
 <style src="./header.less" lang="less"></style>

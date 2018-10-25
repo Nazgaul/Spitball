@@ -56,7 +56,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getAutocmplete']),
+        ...mapActions(['getAutocmplete', 'changeSelectPopUpUniState']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         selectos({item, index}) {
             this.msg = item.text;
@@ -79,7 +79,14 @@ export default {
                 this.$el.querySelector('input').blur();
             });
         },
+        checkUni(){
+            console.log("uni select pop")
+            this.changeSelectPopUpUniState(true);
+
+        },
         openSuggestions() {
+            // this.checkUni();
+            // return;
             this.showSuggestions = true;
             if (this.$root.$el.querySelector('.box-search')) { // Limit height Only in home page
                 var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
