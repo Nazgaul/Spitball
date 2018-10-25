@@ -2,15 +2,19 @@
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Write
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
+    [UsedImplicitly]
     public class QuestionSearchWrite : SearchServiceWrite<Question>
     {
         private readonly FluentSearchFieldBuilder<Question> _fieldBuilder = new FluentSearchFieldBuilder<Question>();
         internal const string IndexName = "question";
+        internal const string TagsCountryParameter = "Country";
+        internal const string TagsUniversityParameter = "University";
+        internal const string TagsLanguageParameter = "Language";
+        internal const string ScoringProfile = "ScoringProfile";
 
 
         public QuestionSearchWrite(SearchService client) : base(client, client.GetClient(IndexName))
@@ -42,11 +46,14 @@ namespace Cloudents.Infrastructure.Write
                    _fieldBuilder.Map(x=>x.Text).IsSearchable(),
                    _fieldBuilder.Map(x=>x.Color),
                    _fieldBuilder.Map(x=>x.Subject).IsFilterable().IsFacetable(),
+
                    _fieldBuilder.Map(x=>x.Country).IsFilterable(),
-                    _fieldBuilder.Map(x=>x.State).IsFilterable().IsFacetable(),
+                   _fieldBuilder.Map(x=>x.Language).IsFilterable(),
+                    _fieldBuilder.Map(x=>x.UniversityId).IsFilterable(),
+
+                   _fieldBuilder.Map(x=>x.State).IsFilterable().IsFacetable(),
                    _fieldBuilder.Map(x=>x.Prefix).IsSearchable().WithIndexAnalyzer(AnalyzerName.Create("prefix"))
                        .WithSearchAnalyzer(AnalyzerName.StandardLucene),
-                   //_fieldBuilder.Map(x=>x.SubjectText).IsFilterable().IsSearchable(),
 
                 },
                 Analyzers = new List<Analyzer>
@@ -64,7 +71,7 @@ namespace Cloudents.Infrastructure.Write
                 },
                 ScoringProfiles = new List<ScoringProfile>
                 {
-                    new ScoringProfile("ScoringProfile")
+                    new ScoringProfile(ScoringProfile)
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
@@ -74,7 +81,9 @@ namespace Cloudents.Infrastructure.Write
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new TagScoringFunction(nameof(Question.Country),5, new TagScoringParameters("Country"))
+                            new TagScoringFunction(nameof(Question.Country),5, new TagScoringParameters(TagsCountryParameter)),
+                            new TagScoringFunction(nameof(Question.UniversityId),8, new TagScoringParameters(TagsUniversityParameter)),
+                            new TagScoringFunction(nameof(Question.Language),10, new TagScoringParameters(TagsLanguageParameter))
 
                         }
                     }
