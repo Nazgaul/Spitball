@@ -1,7 +1,7 @@
 <template>
 <div class="uni-select-component">
     <div class="back-img">
-            <div class="close-container" @click="goBack">
+            <div class="close-container" @click="closeInterface">
                 <v-icon>sbf-close</v-icon>
             </div>
         </div>

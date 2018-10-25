@@ -3,6 +3,7 @@ import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
 import sbInput from "../../../question/helpers/sbInput/sbInput";
+import {documentTypes} from "./consts";
 //var VueUploadComponent = import('vue-upload-component');
 Vue.component('file-upload', FileUpload);
 
@@ -23,13 +24,19 @@ export default {
             regularUploadFiles: [],
             progressValue: '',
             files: [],
-            steps: 2,
+            steps: 6,
             e1 : 1,
             step: 1,
             stepsProgress: 0,
             schoolName: '',
             classesList: ['Social Psych', 'behaviourl psych', 'Biology 2',  'Biology 3', 'behaviourl psych2'],
-            selectedClass: ''
+            selectedClass: '',
+            documentTypes: documentTypes,
+            selectedDoctype: '',
+            documentTitle: '',
+            selectedTags: [],
+            tagsOptions: [, 'behaviourl', 'Biology',  'Math', 'History']
+
         }
     },
     props: {},
@@ -54,6 +61,10 @@ export default {
     watch: {
         files(newValue, oldValue) {
             console.log('newVal::: ',newValue, 'files',this.files)
+        },
+        selectedTags(newV, oldV){
+            console.log('newVal::: ',newV, 'files',this.selectedTags)
+
         }
     },
     methods: {
@@ -68,10 +79,23 @@ export default {
                 this.showUploadDialog = true;
             }
         },
+
+        // update data methods
         updateClass(singleClass){
             this.selectedClass = singleClass;
-            console.log(this.selectedClass)
         },
+        updateDocumentType(docType){
+            this.selectedDoctype = docType;
+            console.log(this.selectedDoctype)
+        },
+        removeTag (item) {
+            this.selectedTags.splice(this.selectedTags.indexOf(item), 1)
+            this.selectedTags = [...this.selectedTags]
+        },
+
+
+
+
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
             let isDbExists = !!document.getElementById('dropboxjs');
@@ -198,23 +222,22 @@ export default {
         },
         nextStep (step) {
             console.log('files', this.files)
-            if (step === this.steps) {
+            if (this.e1 === this.steps) {
                 this.e1 = 1
             } else {
-                this.e1 = step + 1;
-                this.stepsProgress = (step + 1)* 10;
+                this.e1 = this.e1 + 1;
+                this.stepsProgress = (this.e1)* 10;
             }
             console.log('step', this.stepsProgress,  this.e1  );
 
         },
         previousStep(step){
-            if(step===1){
-                this.stepsProgress = 0;
+            if(this.e1===1){
                return this.e1 = 1;
 
             }else{
                 this.e1 = this.e1 - 1;
-                this.stepsProgress = (step - 1)* 10;
+                this.stepsProgress = (this.e1)* 10;
             }
 
         }
