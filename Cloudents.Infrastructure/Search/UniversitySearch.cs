@@ -31,11 +31,8 @@ namespace Cloudents.Infrastructure.Search
 
 
         private static readonly string[] StopWordsList = { "university","university of",
-            //"of",
             "college",
             "school",
-            // "the",
-            // "a",
             "Community",
             "High",
             "Uni",
@@ -68,9 +65,9 @@ namespace Cloudents.Infrastructure.Search
 
             term = term.Replace("\"", "\\");
             var result = await
-                _client.Documents.SearchAsync<University>(term/*+"~"*/, searchParameter,
+                _client.Documents.SearchAsync<University>(term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
-            return new UniversitySearchDto(result.Results.Select(s => new UniversityDto(long.Parse(s.Document.Id), s.Document.DisplayName)));
+            return new UniversitySearchDto(result.Results.Select(s => new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName)));
         }
     }
 }
