@@ -35,6 +35,8 @@
 @borderOpacityGrey: rgba(151, 151, 151, 0.18);
 @borderGreyColor: rgba(0, 0, 0, 0.25);
 @chipActiveColor:  rgba(68, 82, 252, 0.87);
+@colorPrice:  rgba(74, 74, 74, 0.87);
+@placeholderGrey:  rgba(74, 74, 74, 0.25);
 @inputGreyBorder :#979797;
 .paddingTopSm{
   padding-top: 44px;
@@ -433,18 +435,45 @@
                   .input-wrapper {
                     width: 100%;
                   }
-                  .steps-form-label {
-                    font-family: 'Open Sans', sans-serif;
-                    font-size: 12px;
-                    color: @labelColor;
+                  .price-wrap {
                     display: flex;
-                    justify-content: flex-start;
-                    align-items: baseline;
+                    flex-direction: row;
+                    align-items: center;
+                    max-width: 270px;
+                    min-width: 270px;
+                    border-radius: 4px;
+                    border: 1px solid rgba(0, 0, 0, .25);
+                    justify-content: center;
+
+                    .sb-input-upload-price {
+                      max-width: 125px;
+                      height: 90px;
+                      .input-field {
+                        font-size: 36px;
+                        color: @colorPrice;
+                        text-align: center;
+                        height: 100%;
+                        width: 100%;
+                        &:focus {
+                          outline: none;
+                        }
+                        .placeholder-color(@placeholderGrey, 1)
+                      }
+                    }
                   }
-                  .sbf {
-                    font-size: 14px;
-                    color: @labelColor;
-                  }
+                    .steps-form-label {
+                      font-family: 'Open Sans', sans-serif;
+                      font-size: 12px;
+                      color: @labelColor;
+                      display: flex;
+                      justify-content: flex-start;
+                      align-items: baseline;
+                    }
+                    .sbf {
+                      font-size: 14px;
+                      color: @labelColor;
+                    }
+
                 }
               }
               //upload-row-2
@@ -576,6 +605,16 @@
                   flex-wrap: wrap;
                   align-items: stretch;
 
+                  //keep it here cause of dynamicly generated slot of vuetify, to classes to take affect
+                  .v-input__slot{
+                     box-shadow: none;
+                     border: 1px solid @inputGreyBorder;
+                     border-radius: 4px;
+                     padding: 0 4px;
+                    .sb-chip-tag{
+                      background-color: rgba(68, 82, 252, 0.09);
+                    }
+                  }
                   .steps-form-label {
                     font-family: 'Open Sans', sans-serif;
                     font-size: 12px;
@@ -590,20 +629,12 @@
                   }
                   .sb-combo{
                     height: 48px;
-                    //border: 1px solid @inputGreyBorder;
-                    //border-radius: 4px;
                     max-width: 430px;
-                    //.v-input__control{
-                    //  box-shadow: none!important;
-                    //  border: 1px solid @inputGreyBorder!important;
-                    //  border-radius: 4px;
-                    //}
                     .chip-button{
                       color: @chipActiveColor;
                       display: flex;
-                      .sb-chip-tag{
+                      text-transform: capitalize;
 
-                      }
                     }
                     .chip-close{
                       font-size: 8px;

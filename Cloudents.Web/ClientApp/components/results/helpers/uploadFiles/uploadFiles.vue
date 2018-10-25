@@ -18,7 +18,7 @@
                         <v-stepper-content class="sb-stepper-content step-one"
                                            :key="`${1}-content`"
                                            :step="1">
-                            <v-card class="sb-step-card" color="">
+                            <v-card class="sb-step-card">
                                 <!--dropshadow for drag and drop-->
                                 <div class="upload-row-1">
                                     <v-icon>sbf-upload-cloud</v-icon>
@@ -182,23 +182,17 @@
                                                 append-icon=""
                                                 prepend-icon=""
                                                 placeholder="Type a tag name"
-                                                :background-color="''"
-                                                deletable-chips
                                                 color="'#979797'"
                                                 multiple
                                                 chips
                                                 solo
-                                                type="text"
-                                                :allow-overflow="false"
-
-
-                                        >
+                                                :allow-overflow="false">
                                             <template slot="selection" slot-scope="data" class="sb-selection">
                                                 <v-chip class="sb-chip-tag">
                                                    <span class="chip-button px-2" >
                                                        {{!!data.item ? data.item : ''}}
-                                                       <v-icon class="chip-close ml-4"  @click="removeTag(data.item)">sbf-close</v-icon>
                                                    </span>
+                                                    <v-icon class="chip-close ml-3"  @click="removeTag(data.item)">sbf-close</v-icon>
                                                 </v-chip>
                                             </template>
                                         </v-combobox>
@@ -224,11 +218,10 @@
                                         <label :for="'school'" class="steps-form-label school mb-2">
                                             <v-icon class="mr-1">sbf-tag-icon</v-icon>
                                             <span>Price</span></label>
-                                        <sb-input :bottomError="true"
-                                                  v-model="documentTitle" placeholder="00.00" name="price"
-                                                  type="text"
-                                                  :autofocus="true">
-                                        </sb-input>
+                                        <div class="price-wrap">
+                                            <sbl-currency v-model="uploadPrice" class="sb-input-upload-price"></sbl-currency>
+                                            <div class="sbl-suffix">SBL</div>
+                                        </div>
                                         <div class="sb-current-balance">
 
                                         </div>
@@ -273,6 +266,6 @@
     </v-flex>
 </template>
 <script src="./uploadFiles.js"></script>
-<style scoped lang="less" src="./uploadFiles.less">
+<style lang="less" src="./uploadFiles.less">
 
 </style>
