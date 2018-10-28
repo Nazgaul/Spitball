@@ -39,11 +39,15 @@ namespace Cloudents.Infrastructure.Search.Question
                 filters.Add($"({filterStr})");
             }
 
-            var t = query.Languages;
-
-            if (t == null)
+            var t = new List<string>();
+            if (query.Languages != null)
             {
-                t = new[] { "en", null };
+                t.AddRange(query.Languages);
+            }
+
+            if (t.Count == 0)
+            {
+                t.AddRange(new[] { "en", null });
             }
             else
             {
@@ -106,7 +110,6 @@ namespace Cloudents.Infrastructure.Search.Question
             };
             if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
             {
-
                 retVal.FacetSubject = p.Select(s => (QuestionSubject)s.AsValueFacetResult<long>().Value);
             }
 
