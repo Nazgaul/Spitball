@@ -1,3 +1,4 @@
+
 const state = {
     universities: [],
     classes: [],
@@ -11,6 +12,10 @@ const state = {
         set_school: 'SetSchool',
         set_class: 'SetClass',
         done: 'done'
+    },
+    universityPopStorage:{
+        session: !!window.sessionStorage.getItem('sb_uniSelectPoped_s'), //boolean
+        local: window.localStorage.getItem('sb_uniSelectPoped_l') || 0 //integer
     }
 };
 
@@ -22,7 +27,8 @@ const getters = {
     getShowSelectUniInterface: state => state.showSelectUniInterface,
     getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
     getAllSteps: state => state.stepsEnum,
-    getCurrentStep: state => state.currentStep
+    getCurrentStep: state => state.currentStep,
+    getUniversityPopStorage: state => state.universityPopStorage
 };
 
 const actions = {
@@ -52,7 +58,14 @@ const actions = {
     },
     updateCurrentStep({commit}, val){
         commit("setCurrentStep", val);
-    }
+    },
+    setUniversityPopStorage_session({commit, state}, val){
+        let localPopedItem = state.universityPopStorage.local;
+        if(localPopedItem < 3){
+            localPopedItem++;
+            commit('setUniversityPopStorage', localPopedItem);
+        }        
+    },
 };
 
 const mutations = {
@@ -76,6 +89,13 @@ const mutations = {
     },
     setSelectPopUpUniState(state, val){
         state.showSelectUniPopUpInterface = val;
+    },
+    setUniversityPopStorage(state, val){
+        window.sessionStorage.setItem('sb_uniSelectPoped_s', true);
+        window.localStorage.setItem('sb_uniSelectPoped_l', val);
+        state.universityPopStorage.session = true;
+        state.universityPopStorage.local = val;
+
     }
 };
 
