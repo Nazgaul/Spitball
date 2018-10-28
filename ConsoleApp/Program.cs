@@ -1,7 +1,13 @@
 ﻿using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Command;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
+using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Data;
+using Dapper;
 using Nethereum.Web3.Accounts;
 using System;
 using System.Collections.Concurrent;
@@ -13,14 +19,6 @@ using System.Net.Mail;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Query.Sync;
-using Cloudents.Infrastructure.Data;
-using Dapper;
-using Cloudents.Infrastructure.Blockchain;
-using Cloudents.Core.Command;
 using System.Runtime.InteropServices;
 using Cloudents.Core.CommandHandler;
 
@@ -62,9 +60,6 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-
-
-            Console.WriteLine(Environment.UserName);
             if (Environment.UserName == "Ram")
             {
                 await RamMethod();
@@ -86,12 +81,11 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
-            var cmd = new UpdateUserCultureCommand(638, new CultureInfo("he"));
+            var sms = new ResetPasswordEmail("ram@cloudents.com", "https://www.spitball.co", CultureInfo.InvariantCulture);
 
             //var query = new SyncAzureQuery(0,0);
-            var _bus = _container.Resolve<ICommandBus>();
-            await _bus.DispatchAsync(cmd, token);
+            var _bus = _container.Resolve<IQueueProvider>();
+            await _bus.InsertMessageAsync(sms, token);
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
         }
