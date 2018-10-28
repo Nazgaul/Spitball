@@ -99,7 +99,7 @@ export default {
             showDialog: false,
             passDialog: false,
             toasterTimeout: 5000,
-            stepNumber: 1,
+            stepNumber: 6,
             lastStep: [],
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',

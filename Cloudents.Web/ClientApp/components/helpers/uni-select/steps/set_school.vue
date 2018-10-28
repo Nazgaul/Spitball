@@ -91,7 +91,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "changeSelectUniState"]),
+        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "changeSelectUniState", "setUniversityPopStorage_session"]),
         ...mapGetters(["getUniversities", "getSchoolName"]),
         clearData(){
             this.search = null;
@@ -100,6 +100,7 @@ export default {
         },
         skipUniSelect(){
             this.changeSelectUniState(false);
+            this.setUniversityPopStorage_session();
         },
         nextStep(){
             let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : this.search;
