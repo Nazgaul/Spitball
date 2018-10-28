@@ -453,7 +453,7 @@ namespace ConsoleApp
                         var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
                         var (privateKey, _) = erc.CreateAccount();
 
-                        var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey)
+                        var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, pair.Culture)
                         {
                             // EmailConfirmed = true,
                             LockoutEnabled = true,
