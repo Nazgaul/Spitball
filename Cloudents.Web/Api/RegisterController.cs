@@ -27,7 +27,7 @@ namespace Cloudents.Web.Api
         private readonly SbSignInManager _signInManager;
 
         private readonly IBlockChainErc20Service _blockChainErc20Service;
-        private readonly IServiceBusProvider _queueProvider;
+        private readonly IQueueProvider _queueProvider;
         private readonly ISmsSender _client;
         private readonly IStringLocalizer<RegisterController> _localizer;
         private readonly IStringLocalizer<LogInController> _loginLocalizer;
@@ -35,7 +35,8 @@ namespace Cloudents.Web.Api
         internal const string Email = "email2";
 
 
-        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer)
+        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, 
+            IBlockChainErc20Service blockChainErc20Service, IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;

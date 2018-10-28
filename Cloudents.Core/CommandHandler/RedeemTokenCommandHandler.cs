@@ -14,9 +14,9 @@ namespace Cloudents.Core.CommandHandler
     public class RedeemTokenCommandHandler : ICommandHandler<RedeemTokenCommand>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IServiceBusProvider _serviceBusProvider;
+        private readonly IQueueProvider _serviceBusProvider;
 
-        public RedeemTokenCommandHandler(IUserRepository userRepository, IServiceBusProvider serviceBusProvider)
+        public RedeemTokenCommandHandler(IUserRepository userRepository, IQueueProvider serviceBusProvider)
         {
             _userRepository = userRepository;
             _serviceBusProvider = serviceBusProvider;

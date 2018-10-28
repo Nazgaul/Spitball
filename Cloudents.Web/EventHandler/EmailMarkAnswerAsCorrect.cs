@@ -14,12 +14,12 @@ namespace Cloudents.Web.EventHandler
     public class EmailMarkAnswerAsCorrect : IEventHandler<MarkAsCorrectEvent>
     {
         public const string ProtectPurpose = "MarkAnswerAsCorrect";
-        private readonly IServiceBusProvider _serviceBusProvider;
+        private readonly IQueueProvider _serviceBusProvider;
         private readonly IDataProtect _dataProtect;
         private readonly IUrlBuilder _urlBuilder;
 
 
-        public EmailMarkAnswerAsCorrect(IServiceBusProvider serviceBusProvider, IDataProtect dataProtect, IUrlBuilder urlBuilder)
+        public EmailMarkAnswerAsCorrect(IQueueProvider serviceBusProvider, IDataProtect dataProtect, IUrlBuilder urlBuilder)
         {
             _serviceBusProvider = serviceBusProvider;
             _dataProtect = dataProtect;

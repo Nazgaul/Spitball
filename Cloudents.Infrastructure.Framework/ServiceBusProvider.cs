@@ -24,18 +24,18 @@ namespace Cloudents.Infrastructure.Framework
             _connectionString = configurationKeys.ServiceBus;
         }
 
-        public Task InsertMessageAsync(BaseEmail message, CancellationToken token)
-        {
-            var topicSubscription = TopicSubscription.Email;
-            return InsertMessageAsync(message, topicSubscription);
-        }
+        //public Task InsertMessageAsync(BaseEmail message, CancellationToken token)
+        //{
+        //    var topicSubscription = TopicSubscription.Email;
+        //    return InsertMessageAsync(message, topicSubscription);
+        //}
 
 
-        public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
-        {
-            var topicSubscription = TopicSubscription.Sms;
-            return InsertMessageAsync(message, topicSubscription);
-        }
+        //public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
+        //{
+        //    var topicSubscription = TopicSubscription.Sms;
+        //    return InsertMessageAsync(message, topicSubscription);
+        //}
 
         public Task InsertMessageAsync(ServiceBusMessageBase message, CancellationToken token)
         {

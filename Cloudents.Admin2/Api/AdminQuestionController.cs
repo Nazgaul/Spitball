@@ -32,6 +32,7 @@ namespace Cloudents.Admin2.Api
 
         /// <summary>
         /// Get the ability to create a question
+        /// 
         /// </summary>
         /// <param name="model"></param>
         /// <param name="token"></param>
@@ -41,7 +42,7 @@ namespace Cloudents.Admin2.Api
         {
             var userId = await _queryBus.QueryAsync<long>(new AdminEmptyQuery(), token);
             var message = new NewQuestionMessage(model.SubjectId, model.Text, model.Price, userId);
-            await _queueProvider.InsertQuestionMessageAsync(message, token);
+            await _queueProvider.InsertMessageAsync(message, token);
             return Ok();
         }
 
