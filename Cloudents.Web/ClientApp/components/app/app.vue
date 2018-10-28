@@ -13,7 +13,7 @@
             <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
                 <login-to-answer></login-to-answer>
             </sb-dialog>
-            <sb-dialog :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'" :onclosefn="closeUniPopDialog" :content-class="'pop-uniselect-container'">
+            <sb-dialog :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'" :onclosefn="closeUniPopDialog" :activateOverlay="true" :content-class="'pop-uniselect-container'">
                 <uni-Select-pop :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
             </sb-dialog>
             <sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">
