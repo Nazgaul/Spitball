@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Web.Binders
 {
-    public class ClaimModelBinder :  IModelBinder
+    public class ClaimModelBinder : IModelBinder
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
@@ -25,6 +26,15 @@ namespace Cloudents.Web.Binders
             }
             else
             {
+                if (bindingContext.ModelMetadata.ModelType.IsArray)
+                {
+                    var arr = result.Value.Split(',');
+                    //var type = bindingContext.ModelMetadata.ModelType.GetEnumeratedType();
+                    //var val = result.Select(s => Convert.ChangeType(s, type));
+                    bindingContext.Result = ModelBindingResult.Success(arr);
+                    return Task.CompletedTask;
+                }
+
                 var nullableType = Nullable.GetUnderlyingType(bindingContext.ModelMetadata.ModelType);
                 if (nullableType != null)
                 {
@@ -40,6 +50,8 @@ namespace Cloudents.Web.Binders
 
             return Task.CompletedTask;
         }
+
+        
 
     }
 }

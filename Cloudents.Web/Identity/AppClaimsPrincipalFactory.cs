@@ -1,9 +1,9 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Identity
 {
@@ -14,7 +14,7 @@ namespace Cloudents.Web.Identity
         internal const string University = "university";
         internal const string Languages = "languages";
 
-        public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager, 
+        public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager,
             IOptions<IdentityOptions> options) :
             base(userManager, roleManager, options)
         {
@@ -29,6 +29,16 @@ namespace Cloudents.Web.Identity
             if (user.University?.Id != null)
             {
                 p.AddClaim(new Claim(University, user.University.Id.ToString()));
+            }
+
+            if (user.Languages != null)
+            {
+                p.AddClaim(new Claim(Languages, string.Join(",", user.Languages)));
+                //foreach (var language in user.Languages)
+                //{
+                //    p.AddClaim(new Claim(Languages, language.ToString()));
+
+                //}
             }
             return p;
         }

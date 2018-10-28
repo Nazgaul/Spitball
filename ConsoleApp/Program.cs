@@ -13,6 +13,7 @@ using System.Net.Mail;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query.Sync;
@@ -80,12 +81,21 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var query = new SyncAzureQuery(0,0);
-            var _bus = _container.Resolve<IQueryBus>();
-            (object update, object delete, object version) =
-                await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+
+            var cmd = new UpdateUserCultureCommand(638, new CultureInfo("he"));
+
+            //var query = new SyncAzureQuery(0,0);
+            var _bus = _container.Resolve<ICommandBus>();
+            await _bus.DispatchAsync(cmd, token);
+            //(object update, object delete, object version) =
+            //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+        }
 
 
+        static IEnumerable<CultureInfo> FindCandidateCultures(RegionInfo region)
+        {
+            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                .Where(x => (new RegionInfo(x.Name)).GeoId == region.GeoId);
         }
 
         private static async Task HadarMethod()
@@ -445,12 +455,11 @@ namespace ConsoleApp
                             var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
                             var (privateKey, _) = erc.CreateAccount();
 
-                        var user = new User(pair.Email, $"{name}.{GenerateRandomNumber()}", privateKey)
+                        var user = new User(pair.Email, $"{name}.{GenerateRandomNumber()}", privateKey, new CultureInfo(pair.Culture))
                         {
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = pair.Email.ToUpper(),
-                            Culture = new CultureInfo(pair.Culture),
                             OldUser = true
                             };
                             user.NormalizedName = user.Name.ToUpper();
@@ -500,7 +509,7 @@ namespace ConsoleApp
 
                     foreach (var pair in z)
                     {
-                        var t = new AssignUniversityToUserCommand(pair.UserId, pair.UniversityName);
+                       // var t = new AssignUniversityToUserCommand(pair.UserId, pair.UniversityName,pair.);
                     }
                 }
             }
