@@ -22,7 +22,6 @@ namespace Cloudents.Core
                 .Select(i => new KeyedService("handler", i)));
 
             builder.RegisterType<CommandHandler.MarkAnswerAsCorrectCommandHandler>().As<ICommandHandler<Command.MarkAnswerAsCorrectCommand>>();
-            builder.RegisterType<CommandHandler.CreateQuestionCommandHandler>().As<ICommandHandler<Command.CreateQuestionCommand>>();
         }
     }
 }

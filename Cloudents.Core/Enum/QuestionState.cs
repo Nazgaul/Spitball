@@ -3,6 +3,7 @@
     public enum QuestionState
     {
         Ok,
-        Suspended
+        Suspended,
+        Pending
     }
 }
