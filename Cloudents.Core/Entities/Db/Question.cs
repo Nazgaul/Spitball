@@ -35,9 +35,12 @@ namespace Cloudents.Core.Entities.Db
             //{
             //    Updated = DateTimeHelpers.NextRandomDate(1);
             //}
-
+            State = QuestionState.Pending;
             QuestionCreateTransaction();
-            Events.Add(new QuestionCreatedEvent(this));
+            if (State.GetValueOrDefault() == QuestionState.Ok)
+            {
+                Events.Add(new QuestionCreatedEvent(this));
+            }
 
 
         }

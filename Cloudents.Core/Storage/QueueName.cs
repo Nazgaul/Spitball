@@ -3,7 +3,7 @@
     public sealed class QueueName
     {
         public const string QuestionsQueueName = "questions";
-        public const string EmailQueueName = "emails";
+        public const string EmailQueueName = "email";
         public const string SmsQueueName = "sms";
 
         public string Name { get; }
