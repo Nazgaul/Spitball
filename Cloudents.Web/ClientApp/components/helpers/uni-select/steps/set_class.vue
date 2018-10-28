@@ -81,13 +81,8 @@ export default {
     },
         watch:{
         search(val){
-            if(val.length > 3){
-                let classArr = [];
-                classArr.push({text:'biology'})
-                classArr.push({text:'chemistry'})
-                classArr.push({text:'lolr'})
-                classArr.push({text:'blahda'})
-                this.updateClasses(classArr);
+            if(val.length >= 3){
+                this.updateClasses(val);
             }
         }
     },
@@ -114,13 +109,20 @@ export default {
     },
     filters:{
         boldText(value, search){
-            //mark the text bold according to the search value
-            if (!value) return '';
-            return value.replace(search, '<b>' + search + '</b>')
+           if (!value) return '';
+            let match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
+            if(match){
+                let startIndex = value.toLowerCase().indexOf(search.toLowerCase())
+                let endIndex = search.length;
+                let word = value.substr(startIndex, endIndex)
+                return value.replace(word, '<b>' + word + '</b>')
+            }else{
+                return value;
+            }
         }
     },
     methods:{
-        ...mapActions(['updateClasses', 'updateSelectedClasses', 'changeSelectUniState']),
+        ...mapActions(['updateClasses', 'updateSelectedClasses', 'changeSelectUniState', 'assignClasses']),
         ...mapGetters(['getSchoolName', 'getClasses', 'getSelectedClasses']),
         clearData(){
             this.classModel = '';
@@ -131,9 +133,11 @@ export default {
             this.fnMethods.changeStep(this.enumSteps.set_school);
         },
         nextStep(){
+            console.log("kasdjfhasdlkf")
             //TODO add action update the server instead of 'updateSelectedClasses'
-            this.updateSelectedClasses(this.selectedClasses);
-            this.fnMethods.changeStep(this.enumSteps.done);
+            this.assignClasses().then(()=>{
+                this.fnMethods.changeStep(this.enumSteps.done);
+            });
         },
         itemInList(item){
             if(typeof item !== 'object'){

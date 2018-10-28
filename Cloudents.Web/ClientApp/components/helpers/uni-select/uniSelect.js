@@ -28,7 +28,7 @@ export default {
     },
 
     methods:{
-        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setSelectUniState']),
+        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setSelectUniState', 'setUniversityPopStorage_session']),
         ...mapGetters(['getAllSteps','getCurrentStep']),
         changeStep(step){
             if(step === this.enumSteps.done){
@@ -39,6 +39,7 @@ export default {
             }
         },
         closeInterface(){
+            this.setUniversityPopStorage_session();
             this.changeSelectUniState(false);
         }
     }

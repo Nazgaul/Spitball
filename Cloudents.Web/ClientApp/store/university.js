@@ -1,3 +1,4 @@
+import universityService from '../services/universityService'
 const state = {
     universities: [],
     classes: [],
@@ -11,6 +12,10 @@ const state = {
         set_school: 'SetSchool',
         set_class: 'SetClass',
         done: 'done'
+    },
+    universityPopStorage:{
+        session: !!window.sessionStorage.getItem('sb_uniSelectPoped_s'), //boolean
+        local: window.localStorage.getItem('sb_uniSelectPoped_l') || 0 //integer
     }
 };
 
@@ -22,7 +27,8 @@ const getters = {
     getShowSelectUniInterface: state => state.showSelectUniInterface,
     getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
     getAllSteps: state => state.stepsEnum,
-    getCurrentStep: state => state.currentStep
+    getCurrentStep: state => state.currentStep,
+    getUniversityPopStorage: state => state.universityPopStorage
 };
 
 const actions = {
@@ -33,16 +39,25 @@ const actions = {
         commit('setSelectPopUpUniState', val);
     },
     updateSchoolName({commit}, val){
-        commit('setSchoolName', val);
+        if(!val) return;
+        return universityService.assaignUniversity(val).then(()=>{
+            commit('setSchoolName', val);
+            Promise.resolve(true);
+        })
     },
     updateUniversities({commit}, val){
-        commit('setUniversities', val);
+        if(!val) return;
+        universityService.getUni(val).then(data=>{
+            commit('setUniversities', data);
+        })
     },
     clearUniversityList({commit}){
         commit('setUniversities', []);
     },
     updateClasses({commit}, val){
-        commit('setClasses', val);
+        universityService.getCourse(val).then(data=>{
+            commit('setClasses', data);
+        });
     },
     clearClasses({commit}){
         commit('setClasses', []);
@@ -50,8 +65,20 @@ const actions = {
     updateSelectedClasses({commit}, val){
         commit('setSelectedClasses', val);
     },
+    assignClasses({state}){
+        universityService.assaignCourse(state.selectedClasses).then(()=>{
+            Promise.resolve(true);
+        })
+    },
     updateCurrentStep({commit}, val){
         commit("setCurrentStep", val);
+    },
+    setUniversityPopStorage_session({commit, state}, val){
+        let localPopedItem = state.universityPopStorage.local;
+        if(localPopedItem < 3){
+            localPopedItem++;
+            commit('setUniversityPopStorage', localPopedItem);
+        }        
     }
 };
 
@@ -76,6 +103,13 @@ const mutations = {
     },
     setSelectPopUpUniState(state, val){
         state.showSelectUniPopUpInterface = val;
+    },
+    setUniversityPopStorage(state, val){
+        window.sessionStorage.setItem('sb_uniSelectPoped_s', true);
+        window.localStorage.setItem('sb_uniSelectPoped_l', val);
+        state.universityPopStorage.session = true;
+        state.universityPopStorage.local = val;
+
     }
 };
 

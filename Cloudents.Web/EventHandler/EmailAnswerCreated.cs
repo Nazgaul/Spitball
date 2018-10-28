@@ -14,12 +14,12 @@ namespace Cloudents.Web.EventHandler
     public class EmailAnswerCreated : IEventHandler<AnswerCreatedEvent>
     {
         public const string CreateAnswer = "CreateAnswer";
-        private readonly IServiceBusProvider _serviceBusProvider;
+        private readonly IQueueProvider _serviceBusProvider;
         private readonly IDataProtect _dataProtect;
         private readonly IUrlBuilder _urlBuilder;
 
 
-        public EmailAnswerCreated(IServiceBusProvider serviceBusProvider,
+        public EmailAnswerCreated(IQueueProvider serviceBusProvider,
              IDataProtect dataProtect,
              IUrlBuilder urlBuilder)
         {

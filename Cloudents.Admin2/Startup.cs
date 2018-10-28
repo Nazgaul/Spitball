@@ -76,7 +76,6 @@ namespace Cloudents.Admin2
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
-                ServiceBus = Configuration["ServiceBus"],
                 Storage = Configuration["Storage"],
                 Redis = Configuration["Redis"]
             };

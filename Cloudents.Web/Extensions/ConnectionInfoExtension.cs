@@ -24,7 +24,7 @@ namespace Cloudents.Web.Extensions
         {
             if (connection.IsLocal())
             {
-                return IPAddress.Parse("2.52.0.0");
+                return IPAddress.Parse("27.123.246.12");
             }
             var ip = connection.RemoteIpAddress;
             return ip?.MapToIPv4();

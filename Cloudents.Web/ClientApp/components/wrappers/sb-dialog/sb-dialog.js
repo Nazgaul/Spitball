@@ -19,6 +19,11 @@ export default {
             required: false,
             default:false
         },
+        activateOverlay:{
+            type: Boolean,
+            required: false,
+            default: false
+        },
         onclosefn: {
             required: false
         }
@@ -33,6 +38,17 @@ export default {
         ...mapGetters({
             loginDialogState: 'loginDialogState',
         }),
+        OverlayActive(){
+            if(this.$vuetify.breakpoint.xs){
+                if(this.activateOverlay){
+                    return false
+                }else{
+                    return true;
+                }
+            }else{
+                return false;
+            }
+        }
     },
     watch: {
         //changed from parent only!!!

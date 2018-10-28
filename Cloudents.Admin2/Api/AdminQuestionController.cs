@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Admin2.Models;
+﻿using Cloudents.Admin2.Models;
 using Cloudents.Core;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Enum;
@@ -12,6 +7,11 @@ using Cloudents.Core.Query.Admin;
 using Cloudents.Core.Storage;
 using Cloudents.Core.Storage.Dto;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Api
 {
@@ -32,6 +32,7 @@ namespace Cloudents.Admin2.Api
 
         /// <summary>
         /// Get the ability to create a question
+        /// 
         /// </summary>
         /// <param name="model"></param>
         /// <param name="token"></param>
@@ -41,7 +42,7 @@ namespace Cloudents.Admin2.Api
         {
             var userId = await _queryBus.QueryAsync<long>(new AdminEmptyQuery(), token);
             var message = new NewQuestionMessage(model.SubjectId, model.Text, model.Price, userId);
-            await _queueProvider.InsertQuestionMessageAsync(message, token);
+            await _queueProvider.InsertMessageAsync(message, token);
             return Ok();
         }
 
@@ -55,7 +56,7 @@ namespace Cloudents.Admin2.Api
         {
             var values = QuestionSubjectMethod.GetValues();
 
-            return values.Select(s => new QuestionSubjectResponse((int) s, s.ToString("G")));
+            return values.Select(s => new QuestionSubjectResponse((int)s, s.ToString("G")));
         }
 
         /// <summary>
@@ -72,6 +73,18 @@ namespace Cloudents.Admin2.Api
 
                 var command = new DeleteQuestionCommand(id);
 
+                await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+            }
+            return Ok();
+        }
+
+        [HttpPost("approve")]
+        public async Task<ActionResult> ApproveQuestionAsync([FromBody]ApproveRequest model, CancellationToken token)
+        {
+            foreach (var id in model.Ids)
+            {
+
+                var command = new ApproveQuestionCommand(id);
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             }
             return Ok();
