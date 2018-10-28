@@ -47,6 +47,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import debounce from "lodash/debounce";
+
 export default {
     props:{
         fnMethods:{
@@ -65,29 +67,28 @@ export default {
         }
     },
     watch:{
-        search(val){
-            if(val.length > 3){
-                let uniArr = [];
-                uniArr.push({text:'the collage of new jersey'})
-                uniArr.push({text:'new jersey city'})
-                uniArr.push({text:'new mexico state uni'})
-                uniArr.push({text:'new mexico state wrerg'})
-                uniArr.push({text:'new mexico state ertryr'})
-                uniArr.push({text:'new mexico state rtyery'})
-                uniArr.push({text:'new erty state uni'})
-                uniArr.push({text:'new mexico state rtyry'})
-                uniArr.push({text:'new eryry state uni'})
-                this.updateUniversities(uniArr);
-            }else if(val.length === 0 ){
-                this.updateUniversities([]);
+        search: debounce(function(){
+            if(!!this.search && this.search.length > 3 ){
+                this.updateUniversities(this.search);                
+            }else if(!!this.search && this.search.length === 0 ){
+                this.clearUniversityList();
             }
-        }
+        }, 250)
     },
     filters:{
         boldText(value, search){
             //mark the text bold according to the search value
             if (!value) return '';
-            return value.replace(search, '<b>' + search + '</b>')
+            let match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
+            if(match){
+                let startIndex = value.toLowerCase().indexOf(search.toLowerCase())
+                let endIndex = search.length;
+                let word = value.substr(startIndex, endIndex)
+                return value.replace(word, '<b>' + word + '</b>')
+            }else{
+                return value;
+            }
+            
         }
     },
     methods:{
@@ -107,9 +108,12 @@ export default {
             if(!schoolName){
                 //if the user went 1 step back, we should take the school name that was already set from the store
                 schoolName = this.getSchoolName();
+                if(!schoolName) return;
             }
-            this.updateSchoolName(schoolName);
-            this.fnMethods.changeStep(this.enumSteps.set_class);
+            this.updateSchoolName(schoolName).then(()=>{
+                this.fnMethods.changeStep(this.enumSteps.set_class);
+            });
+            
         }
         
     },

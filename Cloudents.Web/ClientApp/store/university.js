@@ -1,4 +1,4 @@
-
+import universityService from '../services/universityService'
 const state = {
     universities: [],
     classes: [],
@@ -39,10 +39,17 @@ const actions = {
         commit('setSelectPopUpUniState', val);
     },
     updateSchoolName({commit}, val){
-        commit('setSchoolName', val);
+        if(!val) return;
+        return universityService.assaignUniversity(val).then(()=>{
+            commit('setSchoolName', val);
+            Promise.resolve(true);
+        })
     },
     updateUniversities({commit}, val){
-        commit('setUniversities', val);
+        if(!val) return;
+        universityService.getUni(val).then(data=>{
+            commit('setUniversities', data);
+        })
     },
     clearUniversityList({commit}){
         commit('setUniversities', []);
@@ -65,7 +72,7 @@ const actions = {
             localPopedItem++;
             commit('setUniversityPopStorage', localPopedItem);
         }        
-    },
+    }
 };
 
 const mutations = {
