@@ -85,6 +85,8 @@ export default {
 
         },
         openSuggestions() {
+            //if user with no university pop it, up to 3 times in seperated seassons
+            console.log("select uni pop up check");
             // this.checkUni();
             // return;
             this.showSuggestions = true;
