@@ -6,7 +6,7 @@
        <div class="title-text">Set your school & classes</div>
        <div class="explain-text">By setting this up you will get the best questions & study info fit for your shool & classes</div>
        <div class="input-container">
-           <input type="text" class="input-area" placeholder="Select Your School">
+           <input type="text" class="input-area" @click="openUniInterface()" placeholder="Select Your School">
        </div>
        <div class="skip-text" @click="closePopup">I’ll do it Later</div>
     </div>
@@ -26,11 +26,15 @@ export default {
         }
     },
     methods:{
-        ...mapActions([ 'changeSelectPopUpUniState']),
+        ...mapActions([ 'changeSelectPopUpUniState', 'changeSelectUniState']),
         closePopup(){
-            console.log(this.popUpType)
+            //console.log(this.popUpType)
             this.$root.$emit('closePopUp', this.popUpType);
             this.changeSelectPopUpUniState(false);
+        },
+        openUniInterface(){
+            this.changeSelectUniState(true);
+            this.closePopup();
         }
     }
 }
