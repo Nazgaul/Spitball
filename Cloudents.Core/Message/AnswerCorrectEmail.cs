@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Cloudents.Core.Extension;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Message
 {
     [Serializable]
     public class AnswerCorrectEmail : BaseEmail
     {
-        public AnswerCorrectEmail(string to, 
+        public AnswerCorrectEmail(string to,
             string questionText, string answerText,
-            string link, decimal tokens, CultureInfo info) 
-            : base(to,  "Congratulations, your answer has been accepted",
+            string link, decimal tokens, CultureInfo info)
+            : base(to, "Congratulations, your answer has been accepted",
                 info)
         {
             QuestionText = questionText.Truncate(40, true);

@@ -32,6 +32,7 @@
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
     const defaultSubmitRoute = {path: '/ask'};
+    import { mapActions } from 'vuex';
     export default {
 
         name: "step_6",
@@ -54,13 +55,22 @@
             toUrl: {}
         },
         methods: {
+            ...mapActions(['changeSelectUniState']),
             finishRegistration() {
                 this.loading = true;
                 analyticsService.sb_unitedEvent('Registration', 'Congrats');
                 let url = this.toUrl || defaultSubmitRoute;
                 window.isAuth = true;
                 this.loading = false;
+
+                let self = this;
+                setTimeout(()=>{
+                    //show selectUni interface
+                    self.changeSelectUniState(true);
+                })
+                
                 this.$router.push({path: `${url.path }`});
+                
             },
         },
     }

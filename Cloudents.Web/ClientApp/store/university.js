@@ -1,15 +1,21 @@
+
 const state = {
     universities: [],
     classes: [],
     schoolName: '',
     selectedClasses: [],
     showSelectUniInterface: false,
+    showSelectUniPopUpInterface: false,
     currentStep: 'SetSchoolLanding',
     stepsEnum: {
         set_school_landing: 'SetSchoolLanding',
         set_school: 'SetSchool',
         set_class: 'SetClass',
         done: 'done'
+    },
+    universityPopStorage:{
+        session: !!window.sessionStorage.getItem('sb_uniSelectPoped_s'), //boolean
+        local: window.localStorage.getItem('sb_uniSelectPoped_l') || 0 //integer
     }
 };
 
@@ -19,11 +25,19 @@ const getters = {
     getClasses: state => state.classes,
     getSelectedClasses: state => state.selectedClasses,
     getShowSelectUniInterface: state => state.showSelectUniInterface,
+    getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
     getAllSteps: state => state.stepsEnum,
-    getCurrentStep: state => state.currentStep
+    getCurrentStep: state => state.currentStep,
+    getUniversityPopStorage: state => state.universityPopStorage
 };
 
 const actions = {
+    changeSelectUniState({commit}, val){
+        commit('setSelectUniState', val);
+    },
+    changeSelectPopUpUniState({commit}, val){
+        commit('setSelectPopUpUniState', val);
+    },
     updateSchoolName({commit}, val){
         commit('setSchoolName', val);
     },
@@ -42,12 +56,16 @@ const actions = {
     updateSelectedClasses({commit}, val){
         commit('setSelectedClasses', val);
     },
-    changeSelectUniState({commit}, val){
-        commit('setSelectUniState', val);
-    },
     updateCurrentStep({commit}, val){
         commit("setCurrentStep", val);
-    }
+    },
+    setUniversityPopStorage_session({commit, state}, val){
+        let localPopedItem = state.universityPopStorage.local;
+        if(localPopedItem < 3){
+            localPopedItem++;
+            commit('setUniversityPopStorage', localPopedItem);
+        }        
+    },
 };
 
 const mutations = {
@@ -68,6 +86,16 @@ const mutations = {
     },
     setCurrentStep(state, val){
         state.currentStep = val;
+    },
+    setSelectPopUpUniState(state, val){
+        state.showSelectUniPopUpInterface = val;
+    },
+    setUniversityPopStorage(state, val){
+        window.sessionStorage.setItem('sb_uniSelectPoped_s', true);
+        window.localStorage.setItem('sb_uniSelectPoped_l', val);
+        state.universityPopStorage.session = true;
+        state.universityPopStorage.local = val;
+
     }
 };
 

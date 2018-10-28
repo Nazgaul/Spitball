@@ -18,6 +18,14 @@ export default {
             type: Boolean,
             required: false,
             default:false
+        },
+        activateOverlay:{
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        onclosefn: {
+            required: false
         }
 
     },
@@ -30,6 +38,17 @@ export default {
         ...mapGetters({
             loginDialogState: 'loginDialogState',
         }),
+        OverlayActive(){
+            if(this.$vuetify.breakpoint.xs){
+                if(this.activateOverlay){
+                    return false
+                }else{
+                    return true;
+                }
+            }else{
+                return false;
+            }
+        }
     },
     watch: {
         //changed from parent only!!!
@@ -43,6 +62,9 @@ export default {
         //changed locally
         show(){
             if(!this.show){
+                if(!!this.onclosefn){
+                    this.onclosefn();
+                }
                 this.updateLoginDialogState(false);
                 this.updateNewQuestionDialogState(false);
                 this.$root.$emit('closePopUp', this.popUpType);

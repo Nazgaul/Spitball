@@ -35,6 +35,8 @@
 @borderOpacityGrey: rgba(151, 151, 151, 0.18);
 @borderGreyColor: rgba(0, 0, 0, 0.25);
 @chipActiveColor:  rgba(68, 82, 252, 0.87);
+@colorPrice:  rgba(74, 74, 74, 0.87);
+@placeholderGrey:  rgba(74, 74, 74, 0.25);
 @inputGreyBorder :#979797;
 .paddingTopSm{
   padding-top: 44px;
@@ -203,6 +205,7 @@
           left: 0;
           height: 82px;
           width: auto;
+          min-width: 335px;
           padding: 0 32px;
           border-right: 1px solid @borderOpacityGrey;
           .file-item {
@@ -413,6 +416,9 @@
                   font-size: 14px;
                   color: @stepSubTitleColor;
                   font-weight: normal;
+                  .sbl-faq{
+                    color: rgba(68, 82, 252, 0.59);
+                  }
                 }
                 // subtitle
               }
@@ -433,18 +439,93 @@
                   .input-wrapper {
                     width: 100%;
                   }
-                  .steps-form-label {
-                    font-family: 'Open Sans', sans-serif;
-                    font-size: 12px;
-                    color: @labelColor;
+                  .wrap-row-price{
                     display: flex;
-                    justify-content: flex-start;
-                    align-items: baseline;
-                  }
-                  .sbf {
-                    font-size: 14px;
+                    min-width: 134px;
+                    align-items: center;
+                    justify-content: center;
+                  .price-wrap {
+                    position: relative;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    max-width: 270px;
+                    min-width: 270px;
+                    border-radius: 4px;
+                    border: 1px solid rgba(0, 0, 0, .25);
+                    justify-content: center;
+                  .balance-label{
+                    position: absolute;
+                    bottom: -20px;
+                    left: 0;
                     color: @labelColor;
+                    font-size: 12px;
+
                   }
+                    .sb-input-upload-price {
+                      max-width: 125px;
+                      height: 90px;
+                      .input-field {
+                        font-size: 36px;
+                        color: @colorPrice;
+                        text-align: center;
+                        height: 100%;
+                        width: 100%;
+                        &:focus {
+                          outline: none;
+                        }
+                        .placeholder-color(@placeholderGrey, 1)
+                      }
+                    }
+                    .sbl-suffix{
+                      color: @stepSubTitleColor;
+                      font-size: 14px;
+                    }
+                  }
+                }
+                  .sb-current-balance{
+                    background-color: @uploadGreyBackground;
+                    height: 92px;
+                    min-width: 134px;
+                    border-radius: 4px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 16px;
+                    position: relative;
+
+                    .sb-wallet-icon{
+                      font-size: 26px;
+                      color: @labelColor;
+                    }
+                    .sb-account-amount{
+                      color: @color-grey;
+                      opacity: 0.67;
+                      font-size: 16px;
+                      padding-top: 12px;
+                    }
+                    .balance-label{
+                      position: absolute;
+                      bottom: -20px;
+                      left: 0;
+                      font-size: 12px;
+                      color: @borderGreyColor;
+                    }
+                  }
+                    .steps-form-label {
+                      font-family: 'Open Sans', sans-serif;
+                      font-size: 12px;
+                      color: @labelColor;
+                      display: flex;
+                      justify-content: flex-start;
+                      align-items: baseline;
+                    }
+                    .sbf {
+                      font-size: 14px;
+                      color: @labelColor;
+                    }
+
                 }
               }
               //upload-row-2
@@ -576,6 +657,16 @@
                   flex-wrap: wrap;
                   align-items: stretch;
 
+                  //keep it here cause of dynamicly generated slot of vuetify, to classes to take affect
+                  .v-input__slot{
+                     box-shadow: none;
+                     border: 1px solid @inputGreyBorder;
+                     border-radius: 4px;
+                     padding: 0 4px;
+                    .sb-chip-tag{
+                      background-color: rgba(68, 82, 252, 0.09);
+                    }
+                  }
                   .steps-form-label {
                     font-family: 'Open Sans', sans-serif;
                     font-size: 12px;
@@ -590,20 +681,12 @@
                   }
                   .sb-combo{
                     height: 48px;
-                    //border: 1px solid @inputGreyBorder;
-                    //border-radius: 4px;
                     max-width: 430px;
-                    //.v-input__control{
-                    //  box-shadow: none!important;
-                    //  border: 1px solid @inputGreyBorder!important;
-                    //  border-radius: 4px;
-                    //}
                     .chip-button{
                       color: @chipActiveColor;
                       display: flex;
-                      .sb-chip-tag{
+                      text-transform: capitalize;
 
-                      }
                     }
                     .chip-close{
                       font-size: 8px;
@@ -617,6 +700,10 @@
                 max-width: @maxWidthForm;
                 flex-wrap: wrap;
                 padding-top: 32px;
+                justify-content: flex-start;
+                .input-wrapper{
+                  width: 100%;
+                }
                 .steps-form-label {
                   font-family: 'Open Sans', sans-serif;
                   font-size: 12px;

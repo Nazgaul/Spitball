@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NHibernate;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using FluentAssertions;
 
@@ -18,7 +19,7 @@ namespace Cloudents.Infrastructure.Test.Database.Repositories
         {
             const long userId = 1L;
 
-            var user = new User("someEmail", "someName", "somePrivateKey")
+            var user = new User("someEmail", "someName", "somePrivateKey", CultureInfo.InvariantCulture)
             {
                 LockoutEnd = DateTimeOffset.MaxValue,
                 LockoutEnabled = true

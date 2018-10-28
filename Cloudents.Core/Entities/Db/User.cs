@@ -12,11 +12,12 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class User
     {
-        public User(string email, string name, string privateKey) : this()
+        public User(string email, string name, string privateKey, CultureInfo culture) : this()
         {
             Email = email;
             Name = name;
             TwoFactorEnabled = true;
+            Culture = culture;
             PrivateKey = privateKey;
             UserCreateTransaction();
             Created = DateTime.UtcNow;
@@ -30,6 +31,7 @@ namespace Cloudents.Core.Entities.Db
             Transactions = new List<Transaction>();
             UserLogins = new List<UserLogin>();
             Courses = new HashSet<Course>();
+            Languages = new HashSet<CultureInfo>();
         }
 
         public virtual long Id { get; set; }
@@ -107,8 +109,47 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual bool LockoutEnabled { get; set; }
 
-        [CanBeNull] public virtual CultureInfo Culture { get; set; }
-        public virtual string Country { get; set; }
 
+        private CultureInfo _culture;
+        private string _country;
+        
+        [CanBeNull]
+        public virtual CultureInfo Culture {
+            get => _culture;
+            set
+            {
+                _culture = value;
+                if (value != null)
+                {
+                    if (Languages == null)
+                    {
+                        Languages = new HashSet<CultureInfo>();
+                    }
+                    Languages.Add(value);
+                }
+            }
+        }
+
+        [CanBeNull]
+        public virtual ISet<CultureInfo> Languages { get; protected set; }
+
+
+        public virtual string Country
+        {
+            get => _country;
+            set
+            {
+                if (Core.Country.Israel == value)
+                {
+                    if (Languages == null)
+                    {
+                        Languages = new HashSet<CultureInfo>();
+                    }
+                    Languages.Add(Core.Country.Israel.DefaultLanguage);
+                }
+
+                _country = value;
+            }
+        }
     }
 }

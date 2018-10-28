@@ -1,15 +1,14 @@
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
-using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio.Rest.Api.V2010.Account;
@@ -22,44 +21,45 @@ namespace Cloudents.FunctionsV2
     {
         [FunctionName("FunctionEmail")]
         public static async Task EmailFunctionAsync(
-            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email))]Message brokeredMessage,
+            [QueueTrigger(QueueName.EmailQueueName)] CloudQueueMessage cloudMessage,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
             ILogger log,
             CancellationToken token)
         {
-            if (brokeredMessage.SystemProperties.DeliveryCount > 1)
+            //if (cloudMessage.DequeueCount)
+            //if (brokeredMessage.SystemProperties.DeliveryCount > 1)
+            //{
+            //    //log.Warning("invoking message from queue");
+            //    //await brokeredMessage.DeadLetterAsync();
+            //    return;
+            //}
+
+            //try
+            //{
+            //  var jsonMsg = Encoding.UTF8.GetString(cloudMessage.AsString);
+            var topicMessage = JsonConvert.DeserializeObject<BaseEmail>(cloudMessage.AsString, new JsonSerializerSettings()
             {
-                //log.Warning("invoking message from queue");
-                //await brokeredMessage.DeadLetterAsync();
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            //var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
+
+            if (topicMessage == null)
+            {
+                log.LogError("error with parsing message");
                 return;
             }
 
-            try
-            {
-                var jsonMsg = Encoding.UTF8.GetString(brokeredMessage.Body);
-                var topicMessage = JsonConvert.DeserializeObject<BaseEmail>(jsonMsg,new JsonSerializerSettings()
-                {
-                    TypeNameHandling = TypeNameHandling.Auto
-                });
-                //var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
+            await ProcessEmail(emailProvider, log, topicMessage, token);
 
-                if (topicMessage == null)
-                {
-                    log.LogError("error with parsing message");
-                    return;
-                }
-
-                await ProcessEmail(emailProvider, log, topicMessage, token);
-
-                log.LogInformation("finish sending email");
-            }
-            catch (System.Runtime.Serialization.SerializationException ex)
-            {
-                if (brokeredMessage.UserProperties.TryGetValue("messageType", out var messageType))
-                {
-                    log.LogError($"Can't serialize {messageType}", ex);
-                }
-            }
+            log.LogInformation("finish sending email");
+            //}
+            //catch (System.Runtime.Serialization.SerializationException ex)
+            //{
+            //    if (brokeredMessage.UserProperties.TryGetValue("messageType", out var messageType))
+            //    {
+            //        log.LogError($"Can't serialize {messageType}", ex);
+            //    }
+            //}
         }
 
         //[FunctionName("FunctionEmailTest")]
@@ -134,39 +134,25 @@ namespace Cloudents.FunctionsV2
         //From = "Spitball"
         [FunctionName("FunctionSms")]
         public static async Task SmsServiceBusAsync(
-            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms))]Message message,
+            [QueueTrigger(QueueName.SmsQueueName)] SmsMessage2 msg,
+            DateTimeOffset insertionTime,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
             ILogger log,
             CancellationToken token
         )
         {
-            if (message.SystemProperties.DeliveryCount > 2)
-            {
-                log.LogWarning("invoking message from queue");
-                return;
-            }
+            //if (message.SystemProperties.DeliveryCount > 2)
+            //{
+            //    log.LogWarning("invoking message from queue");
+            //    return;
+            //}
 
-            if (message.SystemProperties.EnqueuedTimeUtc < DateTime.Now.AddDays(-1))
+            if (insertionTime < DateTime.UtcNow.AddMinutes(-30))
             {
                 log.LogWarning("Too late of a message");
                 return;
             }
-
-            if (message.Label == "Email")
-            {
-                log.LogWarning("Getting message in topic sms of email - need to check it out");
-                //var topicMessage = message.GetBodyInheritance<BaseEmail>();
-                //var msMessage = new BrokeredMessage(topicMessage)
-                //{
-                //    Label = nameof(TopicSubscription.Email)
-                //};
-                //msMessage.Properties["messageType"] = topicMessage.GetType().AssemblyQualifiedName;
-                //await meg.AddAsync(msMessage);
-                return;
-            }
-
-            var jsonMsg = Encoding.UTF8.GetString(message.Body);
-            var msg = JsonConvert.DeserializeObject<SmsMessage2>(jsonMsg);
+            //var msg = JsonConvert.DeserializeObject<SmsMessage2>(cloudMessage.AsString);
             //var msg = message.GetBody<SmsMessage2>();
 
 

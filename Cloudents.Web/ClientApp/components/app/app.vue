@@ -13,6 +13,9 @@
             <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
                 <login-to-answer></login-to-answer>
             </sb-dialog>
+            <sb-dialog :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'" :onclosefn="closeUniPopDialog" :activateOverlay="true" :content-class="'pop-uniselect-container'">
+                <uni-Select-pop :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
+            </sb-dialog>
             <sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">
                 <new-question></new-question>
             </sb-dialog>
@@ -25,12 +28,14 @@
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
     import NewQuestion from "../question/newQuestion/newQuestion.vue";
-    import {GetDictionary} from '../../services/language/languageService'
+    import {GetDictionary} from '../../services/language/languageService';
+    import uniSelectPop from '../helpers/uni-select/uniSelectPop.vue'
     export default {
         components: {
             NewQuestion,
             sbDialog,
-            loginToAnswer
+            loginToAnswer,
+            uniSelectPop
         },
         data(){
             return {
@@ -38,9 +43,12 @@
             }
         },
         computed: {
-            ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner", "loginDialogState", "newQuestionDialogSate"]),
+            ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner", "loginDialogState", "newQuestionDialogSate", "getShowSelectUniPopUpInterface"]),
             cookiesShow(){
                 return this.acceptedCookies
+            },
+            universitySelectPopup(){
+                return this.getShowSelectUniPopUpInterface;
             }
         },
         updated: function () {
@@ -58,11 +66,14 @@
             })
         },
         methods: {
-            ...mapActions([ 'updateLoginDialogState', 'updateNewQuestionDialogState']),
+            ...mapActions([ 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState']),
             removeCookiesPopup: function(){
                 global.localStorage.setItem("sb-acceptedCookies", true);
                 this.acceptedCookies = true;
             },
+            closeUniPopDialog(){
+                this.changeSelectPopUpUniState(false);
+            }
         },
         created() {
             this.$root.$on('closePopUp', (name) => {

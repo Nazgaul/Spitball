@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,10 +34,28 @@ namespace Cloudents.Infrastructure.Search.Question
 
             if (query.Filters != null)
             {
-               var filterStr = string.Join(" or ", query.Filters.Select(s =>
-                    $"{nameof(Core.Entities.Search.Question.State)} eq {(int)s}"));
+                var filterStr = string.Join(" or ", query.Filters.Select(s =>
+                     $"{nameof(Core.Entities.Search.Question.State)} eq {(int)s}"));
                 filters.Add($"({filterStr})");
             }
+
+            var t = new List<string>();
+            if (query.Languages != null)
+            {
+                t.AddRange(query.Languages);
+            }
+
+            if (t.Count == 0)
+            {
+                t.AddRange(new[] { "en", null });
+            }
+            else
+            {
+                t.Add(null);
+            }
+
+
+
 
             var searchParameter = new SearchParameters
             {
@@ -47,7 +65,7 @@ namespace Cloudents.Infrastructure.Search.Question
                 Skip = query.Page * 50,
                 ScoringProfile = QuestionSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
-                {
+                             {
                     new ScoringParameter
                     (QuestionSearchWrite.TagsCountryParameter
                         , new[] {query.Country}),
@@ -58,7 +76,7 @@ namespace Cloudents.Infrastructure.Search.Question
 
                     new ScoringParameter
                     (QuestionSearchWrite.TagsLanguageParameter
-                        , query.Languages ?? new string[] {null})
+                        , t)
                 }
 
             };
@@ -92,7 +110,6 @@ namespace Cloudents.Infrastructure.Search.Question
             };
             if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
             {
-
                 retVal.FacetSubject = p.Select(s => (QuestionSubject)s.AsValueFacetResult<long>().Value);
             }
 

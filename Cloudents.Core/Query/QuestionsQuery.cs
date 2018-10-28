@@ -15,7 +15,7 @@ namespace Cloudents.Core.Query
             int page,
             IEnumerable<QuestionFilter> filters,
             string country,
-            string universityId, IEnumerable<string> languages)
+            string universityId, IList<string> languages)
         {
             Term = term;
             Country = country;
@@ -30,7 +30,7 @@ namespace Cloudents.Core.Query
         public string Country { get; }
         public string UniversityId { get; }
 
-        public IEnumerable<string> Languages { get; }
+        public IList<string> Languages { get; }
         public QuestionSubject[] Source { get; }
         public int Page { get; }
 
