@@ -1,8 +1,3 @@
 {
-  "version": "2.0",
-  "functions": [ "FunctionEmail" ]
-
-
+  "version": "2.0"
 }
-
-//"functions": [ "SearchSync", "CreateSearchIndex", "DoSearchSync", "GetSyncProgress", "SetSyncProgress", "UniversitySearchSync" ],
