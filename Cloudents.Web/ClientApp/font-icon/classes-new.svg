@@ -1,17 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="11px" height="12px" viewBox="0 0 11 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: sketchtool 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
-    <title>72D35240-A211-4B01-87C6-C0BFBD1D3E6A</title>
-    <desc>Created with sketchtool.</desc>
-    <defs></defs>
-    <g id="Upload-Docs." stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Upload-Flow_3" transform="translate(-429.000000, -374.000000)">
-            <g id="Group-10" transform="translate(427.000000, 372.000000)">
-                <g id="baseline-assignment-24px" transform="translate(0.000000, 1.000000)">
-                    <polygon id="Shape" points="0 0 14 0 14 14 0 14"></polygon>
-                    <path d="M11.7777778,2.2 L9.22333333,2.2 C8.96666667,1.504 8.29444444,1 7.5,1 C6.70555556,1 6.03333333,1.504 5.77666667,2.2 L3.22222222,2.2 C2.55,2.2 2,2.74 2,3.4 L2,11.8 C2,12.46 2.55,13 3.22222222,13 L11.7777778,13 C12.45,13 13,12.46 13,11.8 L13,3.4 C13,2.74 12.45,2.2 11.7777778,2.2 Z M7.5,2.2 C7.83611111,2.2 8.11111111,2.47 8.11111111,2.8 C8.11111111,3.13 7.83611111,3.4 7.5,3.4 C7.16388889,3.4 6.88888889,3.13 6.88888889,2.8 C6.88888889,2.47 7.16388889,2.2 7.5,2.2 Z M8.72222222,10.6 L4.44444444,10.6 L4.44444444,9.4 L8.72222222,9.4 L8.72222222,10.6 Z M10.5555556,8.2 L4.44444444,8.2 L4.44444444,7 L10.5555556,7 L10.5555556,8.2 Z M10.5555556,5.8 L4.44444444,5.8 L4.44444444,4.6 L10.5555556,4.6 L10.5555556,5.8 Z" id="Shape" fill-opacity="0.25" fill="#4452FC" fill-rule="nonzero"></path>
-                </g>
-            </g>
-        </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="11" height="12">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#4452FC" fill-opacity=".25" fill-rule="nonzero" d="M9.78 1.2H7.22a1.84 1.84 0 0 0-3.44 0H1.22C.55 1.2 0 1.74 0 2.4v8.4c0 .66.55 1.2 1.22 1.2h8.56c.67 0 1.22-.54 1.22-1.2V2.4c0-.66-.55-1.2-1.22-1.2zm-4.28 0a.6.6 0 0 1 .61.6.6.6 0 0 1-.61.6.6.6 0 0 1-.61-.6c0-.33.27-.6.61-.6zm1.22 8.4H2.44V8.4h4.28v1.2zm1.84-2.4H2.44V6h6.12v1.2zm0-2.4H2.44V3.6h6.12v1.2z"/>
     </g>
 </svg>

@@ -1,28 +1,53 @@
 @import "../../../../mixin.less";
 
-.v-select__selections{
-  min-height: 42px!important;
-  padding-top: 0!important;
+.v-select__selections {
+  min-height: 42px !important;
+  padding-top: 0 !important;
 }
+
 @-webkit-keyframes color_change_doc_type {
-  from { background-color: transparent }
-  to { background-color: @uploadGreyBackground; }
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
 }
+
 @-moz-keyframes color_change_doc_type {
-  from { background-color: transparent }
-  to { background-color: @uploadGreyBackground; }
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
 }
+
 @-ms-keyframes color_change_doc_type {
-  from { background-color: transparent }
-  to { background-color: @uploadGreyBackground; }
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
 }
+
 @-o-keyframes color_change_doc_type {
-  from { background-color: transparent }
-  to { background-color: @uploadGreyBackground; }
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
 }
+
 @keyframes color_change_doc_type {
-  from {background-color: transparent }
-  to { background-color: @uploadGreyBackground; }
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
 }
 
 @textColor: rgba(0, 0, 0, 0.87);
@@ -34,16 +59,18 @@
 @labelColor: rgba(68, 82, 252, 0.38);
 @borderOpacityGrey: rgba(151, 151, 151, 0.18);
 @borderGreyColor: rgba(0, 0, 0, 0.25);
-@chipActiveColor:  rgba(68, 82, 252, 0.87);
-@colorPrice:  rgba(74, 74, 74, 0.87);
-@placeholderGrey:  rgba(74, 74, 74, 0.25);
-@inputGreyBorder :#979797;
-.paddingTopSm{
+@chipActiveColor: rgba(68, 82, 252, 0.87);
+@colorPrice: rgba(74, 74, 74, 0.87);
+@placeholderGrey: rgba(74, 74, 74, 0.25);
+@inputGreyBorder: #979797;
+.paddingTopSm {
   padding-top: 44px;
 }
-.paddingTopBg{
+
+.paddingTopBg {
   padding-top: 88px;
 }
+
 .upload-files {
   border-radius: 4px;
   //TODO ui changes
@@ -65,7 +92,7 @@
 
 .files {
   //transition: visibility 4s, ease-out;
-  background-color: #c7c7ee;
+  //background-color: #c7c7ee;
   padding: 8px;
   text-align: center;
   .preview-list {
@@ -189,7 +216,7 @@
     padding: 12px 0;
     .bottom-upload-controls {
       height: 82px;
-      padding-top: 12px;
+      padding-top: 0;
       .step-controls {
         display: flex;
         flex-direction: row;
@@ -246,6 +273,7 @@
       }
     }
     .sb-stepper {
+      background-image: linear-gradient(to bottom, rgba(68, 82, 252, 0), rgba(68, 82, 252, 0) 16%, rgba(68, 82, 252, 0.05));
       box-shadow: none;
       .sb-stepper-header {
         height: 92px;
@@ -275,13 +303,14 @@
       }
       //sb-stepper-header
       .sb-stepper-item {
-        background-color: @stepContentBackground;
+        //background-color: @stepContentBackground;
         .sb-stepper-content {
           border: 1px dashed @colorUploadBlue;
           padding: 0;
           //background-color: @stepContentBackground;
           .sb-step-card {
-            background-color: @stepContentBackground;
+            //background-color: @stepContentBackground;
+            background-color: transparent;
             min-height: 367px;
             display: flex;
             flex-direction: column;
@@ -416,7 +445,7 @@
                   font-size: 14px;
                   color: @stepSubTitleColor;
                   font-weight: normal;
-                  .sbl-faq{
+                  .sbl-faq {
                     color: rgba(68, 82, 252, 0.59);
                   }
                 }
@@ -439,51 +468,51 @@
                   .input-wrapper {
                     width: 100%;
                   }
-                  .wrap-row-price{
+                  .wrap-row-price {
                     display: flex;
                     min-width: 134px;
                     align-items: center;
                     justify-content: center;
-                  .price-wrap {
-                    position: relative;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    max-width: 270px;
-                    min-width: 270px;
-                    border-radius: 4px;
-                    border: 1px solid rgba(0, 0, 0, .25);
-                    justify-content: center;
-                  .balance-label{
-                    position: absolute;
-                    bottom: -20px;
-                    left: 0;
-                    color: @labelColor;
-                    font-size: 12px;
+                    .price-wrap {
+                      position: relative;
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                      max-width: 270px;
+                      min-width: 270px;
+                      border-radius: 4px;
+                      border: 1px solid rgba(0, 0, 0, .25);
+                      justify-content: center;
+                      .balance-label {
+                        position: absolute;
+                        bottom: -20px;
+                        left: 0;
+                        color: @labelColor;
+                        font-size: 12px;
 
-                  }
-                    .sb-input-upload-price {
-                      max-width: 125px;
-                      height: 90px;
-                      .input-field {
-                        font-size: 36px;
-                        color: @colorPrice;
-                        text-align: center;
-                        height: 100%;
-                        width: 100%;
-                        &:focus {
-                          outline: none;
+                      }
+                      .sb-input-upload-price {
+                        max-width: 125px;
+                        height: 90px;
+                        .input-field {
+                          font-size: 36px;
+                          color: @colorPrice;
+                          text-align: center;
+                          height: 100%;
+                          width: 100%;
+                          &:focus {
+                            outline: none;
+                          }
+                          .placeholder-color(@placeholderGrey, 1)
                         }
-                        .placeholder-color(@placeholderGrey, 1)
+                      }
+                      .sbl-suffix {
+                        color: @stepSubTitleColor;
+                        font-size: 14px;
                       }
                     }
-                    .sbl-suffix{
-                      color: @stepSubTitleColor;
-                      font-size: 14px;
-                    }
                   }
-                }
-                  .sb-current-balance{
+                  .sb-current-balance {
                     background-color: @uploadGreyBackground;
                     height: 92px;
                     min-width: 134px;
@@ -495,17 +524,17 @@
                     margin-left: 16px;
                     position: relative;
 
-                    .sb-wallet-icon{
+                    .sb-wallet-icon {
                       font-size: 26px;
                       color: @labelColor;
                     }
-                    .sb-account-amount{
+                    .sb-account-amount {
                       color: @color-grey;
                       opacity: 0.67;
                       font-size: 16px;
                       padding-top: 12px;
                     }
-                    .balance-label{
+                    .balance-label {
                       position: absolute;
                       bottom: -20px;
                       left: 0;
@@ -513,18 +542,18 @@
                       color: @borderGreyColor;
                     }
                   }
-                    .steps-form-label {
-                      font-family: 'Open Sans', sans-serif;
-                      font-size: 12px;
-                      color: @labelColor;
-                      display: flex;
-                      justify-content: flex-start;
-                      align-items: baseline;
-                    }
-                    .sbf {
-                      font-size: 14px;
-                      color: @labelColor;
-                    }
+                  .steps-form-label {
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 12px;
+                    color: @labelColor;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: baseline;
+                  }
+                  .sbf {
+                    font-size: 14px;
+                    color: @labelColor;
+                  }
 
                 }
               }
@@ -569,9 +598,9 @@
             border: 1px solid transparent;
             .sb-step-card {
               align-items: center;
-              .upload-row-1{
+              .upload-row-1 {
                 padding-top: 0;
-                .sb-title{
+                .sb-title {
                   font-weight: 600;
                   font-size: 18px;
                 }
@@ -579,7 +608,7 @@
               .upload-row-2 {
                 flex-direction: row;
                 padding-top: 88px;
-                .sb-doc-type{
+                .sb-doc-type {
                   border: 1px solid @borderGreyColor;
                   border-radius: 4px;
                   display: flex;
@@ -589,25 +618,25 @@
                   margin: 0 6px;
                   align-items: center;
                   justify-content: space-around;
-                  .sb-doc-icon{
+                  .sb-doc-icon {
                     font-size: 35px;
                     color: @labelColor;
 
                   }
-                  .sb-doc-title{
+                  .sb-doc-title {
                     font-size: 14px;
                     color: @textColor;
                   }
-                  &.selected{
+                  &.selected {
                     //animate background change
                     animation: color_change_doc_type 0.7s ease-in-out;
                     animation-iteration-count: 1;
                     border: solid 1px #4452fc;
                     background-color: @uploadGreyBackground;
-                    .sb-doc-title{
+                    .sb-doc-title {
                       color: @colorUploadBlue;
                     }
-                    .sb-doc-icon{
+                    .sb-doc-icon {
                       color: @colorUploadBlue;
                     }
 
@@ -615,13 +644,148 @@
                 }
               }
 
-          }//step card step three
+            }
+            //step card step three
 
-        }//step-three end
-          &.step-four, &.step-five  {
+          }
+          //step-three end
+          &.step-four, &.step-five, &.step-seven {
             border: 1px solid transparent;
             .sb-step-card {
               align-items: center;
+              .v-input__slot {
+                box-shadow: none;
+                border: none;
+                .sb-chip-tag {
+                  background-color: @uploadGreyBackground;
+                  .chip-button {
+                    color: @chipActiveColor;
+                  }
+                }
+              }
+              .final-item {
+                border: 1px solid @borderGreyColor;
+                border-radius: 4px;
+                height: 96px;
+                display: flex;
+                flex-direction: column;
+                padding: 12px;
+                position: relative;
+                .edit {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  opacity: 0;
+                  position: absolute;
+                  right: 8px;
+                  top: 8px;
+                  font-size: 12px;
+                  color: @borderGreyColor;
+                  .edit-icon {
+                    font-size: 14px;
+                    color: @borderGreyColor;
+                  }
+
+                }
+                &:hover {
+                  .edit {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    opacity: 1;
+                    .transition(all .4s ease-in-out);
+                  }
+                }
+                &.school {
+                  width: 205px;
+                  margin-right: 16px;
+
+                }
+                &.class-selected {
+                  width: 205px;
+                }
+                &.doc-type-selected {
+                  width: 94px;
+                  margin-right: 16px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  display: flex;
+                  flex-direction: column;
+
+                }
+                &.tags-selected {
+                  width: 313px;
+                  .sb-chip-tag {
+                    height: 22px;
+                    margin: 3px;
+                   background-color:  @uploadGreyBackground;
+
+                      .chip-button {
+                        color: @chipActiveColor;
+                        display: flex;
+                        text-transform: capitalize;
+
+                      }
+                      .chip-close {
+                        font-size: 6px;
+                      }
+
+                  }
+                }
+                .final-item-wrap {
+                  // display: flex;
+                  //flex-direction: row;
+                  //justify-content: flex-start;
+                  // align-items: baseline;
+                  margin-bottom: 14px;
+                  &.doc-type-wrap {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                  }
+                  .final-icon {
+                    color: @chipActiveColor;
+                    font-size: 18px;
+                    &.doc-type {
+                      font-size: 24px;
+                      margin-bottom: 14px;
+
+                    }
+                    &.tags {
+                      font-size: 14px;
+                    }
+                  }
+                  .item-name {
+                    color: @chipActiveColor;
+                    margin-left: 9px;
+                    font-size: 12px;
+                    &.doc-type-name {
+                      margin-left: 0;
+                    }
+                  }
+                }
+
+                .class-name {
+                  color: @stepSubTitleColor;
+                  font-size: 12px;
+
+                }
+                .school-name {
+                  color: @stepSubTitleColor;
+                  font-size: 12px;
+                  .giveEllipsisUpdated(12px, 1.5, 2);
+                  //display: block;
+                }
+                .sb-doc-type {
+                  color: @stepSubTitleColor;
+                  font-size: 12px;
+                }
+              }
+
               .upload-row-1 {
                 padding-top: 0;
                 flex-direction: column;
@@ -641,6 +805,11 @@
                   font-weight: normal;
                 }
                 // subtitle
+                .five{
+                  font-size: 36px;
+                  margin-bottom: 24px;
+                  color: @textColor;
+                }
               }
               //upload-row-1
               .upload-row-2 {
@@ -650,6 +819,10 @@
                 flex-direction: column;
                 flex-wrap: wrap;
                 align-content: center;
+                &.final-row {
+                  flex-direction: row;
+                  justify-content: space-around;
+                }
                 .btn-holder {
                   display: flex;
                   flex-direction: column;
@@ -658,13 +831,17 @@
                   align-items: stretch;
 
                   //keep it here cause of dynamicly generated slot of vuetify, to classes to take affect
-                  .v-input__slot{
-                     box-shadow: none;
-                     border: 1px solid @inputGreyBorder;
-                     border-radius: 4px;
-                     padding: 0 4px;
-                    .sb-chip-tag{
-                      background-color: rgba(68, 82, 252, 0.09);
+                  .v-input__slot {
+                    box-shadow: none;
+                    border: 1px solid @inputGreyBorder;
+                    border-radius: 4px;
+                    padding: 0 4px;
+                    background: transparent;
+                    .v-select__selections {
+
+                    }
+                    .sb-chip-tag {
+                      background-color: @uploadGreyBackground;
                     }
                   }
                   .steps-form-label {
@@ -679,16 +856,17 @@
                     font-size: 14px;
                     color: @labelColor;
                   }
-                  .sb-combo{
+                  .sb-combo {
                     height: 48px;
                     max-width: 430px;
-                    .chip-button{
+
+                    .chip-button {
                       color: @chipActiveColor;
                       display: flex;
                       text-transform: capitalize;
 
                     }
-                    .chip-close{
+                    .chip-close {
                       font-size: 8px;
                     }
                   }
@@ -701,7 +879,11 @@
                 flex-wrap: wrap;
                 padding-top: 32px;
                 justify-content: flex-start;
-                .input-wrapper{
+                &.final-row {
+                  flex-direction: row;
+                  justify-content: space-around;
+                }
+                .input-wrapper {
                   width: 100%;
                 }
                 .steps-form-label {
@@ -733,17 +915,17 @@
             }
             //sb-step-card
           }
+        }
+        //sb-stepper-content
       }
-      //sb-stepper-content
+      //sb-stepper-item
+
     }
-    //sb-stepper-item
+    //sb-stepper
 
   }
-  //sb-stepper
 
-}
-
-//sb-steps-wrap
+  //sb-steps-wrap
 }
 
 // upload-dilaog

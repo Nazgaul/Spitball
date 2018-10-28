@@ -78,8 +78,8 @@
 
 //updated version TODO rework and remove previous
 .giveEllipsisUpdated(@fontSize, @lineHeigh, @lines, @maxHeight: 96px){
-  display: block; /* Fallback for non-webkit */
   display: -webkit-box;
+  display: block; /* Fallback for non-webkit */
   max-height: @maxHeight; /* Fallback for non-webkit */
   font-size: @fontSize;
   line-height: @lineHeigh;
@@ -90,6 +90,7 @@
   white-space: normal;
   -o-text-overflow: ellipsis;	/* required for Opera */
   -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
+  white-space: nowrap;
 }
 
 .widthMinMax(@width, @minWidth: @width, @maxWidth: @width){
