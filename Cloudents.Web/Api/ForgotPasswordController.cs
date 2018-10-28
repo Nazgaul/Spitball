@@ -19,12 +19,12 @@ namespace Cloudents.Web.Api
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IServiceBusProvider _queueProvider;
+        private readonly IQueueProvider _queueProvider;
         private const string EmailTempDictionaryKey = "EmailForgotPassword";
         private readonly IStringLocalizer<ForgotPasswordController> _localizer;
 
         public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager,
-            IServiceBusProvider queueProvider, IStringLocalizer<ForgotPasswordController> localizer)
+            IQueueProvider queueProvider, IStringLocalizer<ForgotPasswordController> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;

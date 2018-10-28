@@ -17,11 +17,11 @@ namespace Cloudents.Infrastructure.Storage
             _connectionString = connectionString;
         }
 
-        public Task InsertMessageAsync(BaseEmail message, CancellationToken token)
-        {
-            var topicSubscription = TopicSubscription.Email;
-            return InsertMessageAsync(message, topicSubscription);
-        }
+        //public Task InsertMessageAsync(BaseEmail message, CancellationToken token)
+        //{
+        //    var topicSubscription = TopicSubscription.Email;
+        //    return InsertMessageAsync(message, topicSubscription);
+        //}
 
        
 
@@ -31,11 +31,11 @@ namespace Cloudents.Infrastructure.Storage
             return InsertMessageAsync(message, topicSubscription);
         }
 
-        public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
-        {
-            var topicSubscription = TopicSubscription.Sms;
-            return InsertMessageAsync(message, topicSubscription);
-        }
+        //public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
+        //{
+        //    var topicSubscription = TopicSubscription.Sms;
+        //    return InsertMessageAsync(message, topicSubscription);
+        //}
 
 
         private Task InsertMessageAsync(object obj, TopicSubscription subscription)
