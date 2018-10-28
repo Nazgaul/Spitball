@@ -34,8 +34,14 @@ namespace Cloudents.Infrastructure.Storage
 
         public Task InsertMessageAsync(BaseEmail message, CancellationToken token)
         {
-
-            return InsertMessageAsync(message, QueueName.EmailQueue, token);
+            var queue = _queueClient.GetQueueReference(QueueName.EmailQueue.Name);
+            var json = JsonConvert.SerializeObject(message, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            });
+            var cloudMessage = new CloudQueueMessage(json);
+            token.ThrowIfCancellationRequested();
+            return queue.AddMessageAsync(cloudMessage);
         }
 
         public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
@@ -46,10 +52,16 @@ namespace Cloudents.Infrastructure.Storage
 
 
 
+
+
+
         private Task InsertMessageAsync(object obj, QueueName queueName, CancellationToken token)
         {
             var queue = _queueClient.GetQueueReference(queueName.Name);
-            var json = JsonConvert.SerializeObject(obj);
+            var json = JsonConvert.SerializeObject(obj,new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
             var cloudMessage = new CloudQueueMessage(json);
             token.ThrowIfCancellationRequested();
             return queue.AddMessageAsync(cloudMessage);

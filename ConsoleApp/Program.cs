@@ -1,7 +1,13 @@
 ﻿using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Command;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
+using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Data;
+using Dapper;
 using Nethereum.Web3.Accounts;
 using System;
 using System.Collections.Concurrent;
@@ -13,14 +19,6 @@ using System.Net.Mail;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Query.Sync;
-using Cloudents.Infrastructure.Data;
-using Dapper;
-using Cloudents.Infrastructure.Blockchain;
-using Cloudents.Core.Command;
 
 namespace ConsoleApp
 {
@@ -57,9 +55,6 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-
-
-            Console.WriteLine(Environment.UserName);
             if (Environment.UserName == "Ram")
             {
                 await RamMethod();
@@ -75,18 +70,17 @@ namespace ConsoleApp
             Console.Read();
 
 
-            
+
 
         }
 
         private static async Task RamMethod()
         {
-
-            var cmd = new UpdateUserCultureCommand(638, new CultureInfo("he"));
+            var sms = new ResetPasswordEmail("ram@cloudents.com", "https://www.spitball.co", CultureInfo.InvariantCulture);
 
             //var query = new SyncAzureQuery(0,0);
-            var _bus = _container.Resolve<ICommandBus>();
-            await _bus.DispatchAsync(cmd, token);
+            var _bus = _container.Resolve<IQueueProvider>();
+            await _bus.InsertMessageAsync(sms, token);
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
         }
@@ -387,7 +381,7 @@ namespace ConsoleApp
                 where isdeleted = 0
                     ) u
                 WHERE cnt = 1");
-            },default);
+            }, default);
 
             using (var child = _container.BeginLifetimeScope())
             {
@@ -415,12 +409,12 @@ namespace ConsoleApp
         {
             var d = _container.Resolve<DapperRepository>();
 
-            
-                var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-                {
 
-                    return await f.QueryAsync(
-                        @"
+            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+            {
+
+                return await f.QueryAsync(
+                    @"
 	               select top 1 UserId
 		                    ,ZU.Email
 		                    ,U.[UniversityName]
@@ -436,24 +430,24 @@ namespace ConsoleApp
 						and email not in (select Email from sb.[User] U where U.Email = ZU.Email)
 						and IsEmailVerified = 1; 
                 ");
-                }, default);
+            }, default);
 
-                if (z.Count() == 0)
-                { return; }
+            if (z.Count() == 0)
+            { return; }
 
-                using (var child = _container.BeginLifetimeScope())
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
                 {
-                    using (var unitOfWork = child.Resolve<IUnitOfWork>())
-                    {
-                        var repository = child.Resolve<IUserRepository>();
-                        var erc = _container.Resolve<IBlockChainErc20Service>();
-                       
+                    var repository = child.Resolve<IUserRepository>();
+                    var erc = _container.Resolve<IBlockChainErc20Service>();
 
-                        foreach (var pair in z)
-                        {
-                           
-                            var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
-                            var (privateKey, _) = erc.CreateAccount();
+
+                    foreach (var pair in z)
+                    {
+
+                        var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                        var (privateKey, _) = erc.CreateAccount();
 
                         var user = new User(pair.Email, $"{name}.{GenerateRandomNumber()}", privateKey, new CultureInfo(pair.Culture))
                         {
@@ -461,16 +455,16 @@ namespace ConsoleApp
                             LockoutEnabled = true,
                             NormalizedEmail = pair.Email.ToUpper(),
                             OldUser = true
-                            };
-                            user.NormalizedName = user.Name.ToUpper();
-                            await repository.AddAsync(user, default);
-                        }
-
-                        await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-
+                        };
+                        user.NormalizedName = user.Name.ToUpper();
+                        await repository.AddAsync(user, default);
                     }
 
+                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+
                 }
+
+            }
             await TransferUsers();
         }
 
@@ -509,7 +503,7 @@ namespace ConsoleApp
 
                     foreach (var pair in z)
                     {
-                       // var t = new AssignUniversityToUserCommand(pair.UserId, pair.UniversityName,pair.);
+                        // var t = new AssignUniversityToUserCommand(pair.UserId, pair.UniversityName,pair.);
                     }
                 }
             }

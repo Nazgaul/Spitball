@@ -39,7 +39,7 @@ namespace Cloudents.FunctionsV2
             //  var jsonMsg = Encoding.UTF8.GetString(cloudMessage.AsString);
             var topicMessage = JsonConvert.DeserializeObject<BaseEmail>(cloudMessage.AsString, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto
+                TypeNameHandling = TypeNameHandling.All
             });
             //var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
 

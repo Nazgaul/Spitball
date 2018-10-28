@@ -38,9 +38,15 @@ namespace Cloudents.Core.Message
             }
             while (info != null)
             {
+                
                 if (Templates.TryGetValue(info, out var template))
                 {
                     return template;
+                }
+
+                if (Equals(info, info.Parent))
+                {
+                    break;
                 }
                 info = info.Parent;
             }
