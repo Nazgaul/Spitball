@@ -37,7 +37,6 @@ namespace Cloudents.Core
 
         public string BlockChainNetwork { get; set; }
 
-        public string ServiceBus { get; set; }
         public string SiteEndPoint { get; }
     }
 
