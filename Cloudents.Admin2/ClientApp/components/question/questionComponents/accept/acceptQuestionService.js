@@ -3,17 +3,19 @@ import {connectivityModule} from '../../../../services/connectivity.module'
 
     function setIdQuery(ids){
         if(!ids) return "";
-        let query = "";
+        let arrIds = {
+            ids:[]
+        }
         ids.forEach(function(id, index){
-            query += index === 0 ? `?id=${id}` : `&id=${id}`
+            arrIds.ids.push(id)
         })
-        return query;
+        return arrIds;
     }
 
-    export const deleteQuestion =(ids)=>{
+    export const acceptQuestion =(ids)=>{
         let idsQueryString = setIdQuery(ids);
-        let url = 'AdminQuestion' + idsQueryString
-        return connectivityModule.http.delete(`${url}`)
+        let url = 'AdminQuestion/approve'
+        return connectivityModule.http.post(`${url}`, idsQueryString)
         .then((resp)=>{
             console.log(resp, 'success deleted')
             return Promise.resolve(resp) 

@@ -6,6 +6,7 @@
             <router-link to="/question/delete">Delete Question</router-link>
             <router-link to="/question/add">Add Question</router-link>
             <router-link to="/question/addBulk">Add Multiple Questions</router-link>
+            <router-link to="/question/acceptQuestion">Accept pending Question</router-link>
         </nav> 
         <div class="question-content">
             <router-view></router-view>
