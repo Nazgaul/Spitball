@@ -55,13 +55,20 @@ const actions = {
         commit('setUniversities', []);
     },
     updateClasses({commit}, val){
-        commit('setClasses', val);
+        universityService.getCourse(val).then(data=>{
+            commit('setClasses', data);
+        });
     },
     clearClasses({commit}){
         commit('setClasses', []);
     },
     updateSelectedClasses({commit}, val){
         commit('setSelectedClasses', val);
+    },
+    assignClasses({state}){
+        universityService.assaignCourse(state.selectedClasses).then(()=>{
+            Promise.resolve(true);
+        })
     },
     updateCurrentStep({commit}, val){
         commit("setCurrentStep", val);
