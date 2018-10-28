@@ -10,4 +10,9 @@ namespace Cloudents.Admin2.Models
 
         [Required] public decimal Price { get; set; }
     }
+
+    public class ApproveRequest
+    {
+        public long[] Ids { get; set; }
+    }
 }
