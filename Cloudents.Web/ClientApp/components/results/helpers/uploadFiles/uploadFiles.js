@@ -140,23 +140,25 @@ export default {
             let options = {
                 success: (files) => {
                     let type = 'dropBox';
+                    let singleFile;
                     //clean if was trying to upload from desktop before
                     files.forEach((file) => {
-                        let singleFile = {
+                        singleFile = {
                             name: file.name,
                             link: file.link,
                             size: file.bytes,
                             type: type
                         };
                         // add to array or replace
-                        this.files.splice(1, 1, singleFile);
+
                     });
+                    this.files.splice(0, 1, singleFile);
                     this.nextStep(1)
                 },
                 cancel: function () {
                     //optional
                 },
-                linkType: "preview", // "preview" or "direct"
+                linkType: "direct", // "preview" or "direct"
                 multiselect: false, // true or false
                 extensions: ['.png', '.jpg', 'doc', 'pdf'],
             };
@@ -169,6 +171,8 @@ export default {
 
             if (newFile && !oldFile) {
                 // Add file
+                this.nextStep(1)
+
             }
             // Upload progress
             if (newFile && newFile.progress) {
@@ -187,7 +191,9 @@ export default {
                     //  Get the response status code
                     console.log('status', newFile.xhr.status)
                     if (newFile.xhr.status === 200) {
-                        this.nextStep(1)
+                        console.log('Succesfully uploadede')
+                    }else{
+                        console.log('error, not uploaded')
                     }
                 }
             }
@@ -196,6 +202,7 @@ export default {
                     this.$refs.upload.active = true
                 }
             }
+
         },
         inputFilter(newFile, oldFile, prevent) {
             if (newFile && !oldFile) {
@@ -218,7 +225,7 @@ export default {
                         type: type
                     };
                     //add or replace
-                    this.files.splice(1, 1, singleFile)
+                    this.files.splice(0, 1, singleFile)
 
                 }
             }
