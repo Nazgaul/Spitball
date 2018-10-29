@@ -42,14 +42,14 @@
                                                     ref="upload"
                                                     :drop="true"
                                                     v-model="files"
-                                                    post-action="/api/upload/ask"
+                                                    post-action="/api/upload/file"
                                                     chunk-enabled
                                                     :extensions="['doc', 'pdf', 'png', 'jpg']"
                                                     :maximum="1"
                                                     @input-file="inputFile"
                                                     @input-filter="inputFilter"
                                                     :chunk="{
-                              action: '/upload/chunk',
+                              action: '/api/upload/file',
                               minSize: 1048576,
                               maxActive: 3,
                               maxRetries: 5,}">

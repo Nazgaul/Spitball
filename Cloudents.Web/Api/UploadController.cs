@@ -1,22 +1,26 @@
-﻿using System;
+﻿using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Storage;
+using Cloudents.Web.Filters;
+using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Storage;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
 {
     //DO NOT ADD API CONTROLLER - UPLOAD WILL NOT WORK
-    [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [Produces("application/json")]
     [Authorize]
     public class UploadController : ControllerBase
     {
@@ -64,5 +68,85 @@ namespace Cloudents.Web.Api
             }
             return new UploadAskFileResponse(fileNames);
         }
+
+
+
+        [HttpPost("file"), FormContentType]
+        public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model)
+        {
+            var t = model.Chunk.Length;
+            await Task.Delay(TimeSpan.FromSeconds(10));
+            return new UploadResponse();
+        }
+
+        [HttpPost("file")]
+        public async Task<ActionResult<UploadResponse>> Upload([FromBody] UploadRequest model)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            if (model.Phase == UploadPhase.Start)
+            {
+                var response = new UploadResponse(Guid.NewGuid());
+                return response;
+            }
+            return Ok();
+        }
+
+    }
+
+    public class UploadResponse
+    {
+        public UploadResponse(Guid sessionId)
+        {
+            Data = new UploadInnerResponse(sessionId);
+        }
+
+        public UploadResponse()
+        {
+            
+        }
+
+        public string Status => "success";
+
+        public UploadInnerResponse Data { get; set; }
+    }
+
+    public class UploadInnerResponse
+    {
+        public UploadInnerResponse(Guid sessionId)
+        {
+            SessionId = sessionId;
+        }
+
+        [JsonProperty("session_id")]
+        public Guid SessionId { get; set; }
+
+        [JsonProperty("end_offset")]
+        public double EndOffset => 4e+6;
+    }
+
+    public class UploadRequest
+    {
+        public UploadPhase Phase { get; set; }
+
+        [JsonProperty("mime_type")]
+        public string MimeType { get; set; }
+        public long Size { get; set; }
+        public string Name { get; set; }
+    }
+
+    public enum UploadPhase
+    {
+        Start,
+        Upload,
+        Finish
+    }
+
+    public class UploadRequest2
+    {
+        public UploadPhase Phase { get; set; }
+        public Guid session_id { get; set; }
+        public long start_offset { get; set; }
+
+        public IFormFile Chunk { get; set; }
     }
 }
