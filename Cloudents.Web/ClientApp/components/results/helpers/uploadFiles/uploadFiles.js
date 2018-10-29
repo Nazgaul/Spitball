@@ -50,7 +50,7 @@ export default {
             accountUser: 'accountUser',
         }),
         progressShow() {
-            if (this.progressValue === '100.00') {
+            if (this.progressValue === '100.00' && this.progressValue === '') {
                 return false
             }
 

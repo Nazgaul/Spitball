@@ -36,24 +36,26 @@
                                     <div class="btn-holder">
                                         <v-btn fab class="upload-option-btn">
                                             <v-icon>sbf-upload-desktop</v-icon>
-                                            <file-upload
-                                                    class="upload-input"
-                                                    ref="upload"
-                                                    :drop="true"
-                                                    v-model="files"
-                                                    post-action="/api/upload/ask"
-                                                    chunk-enabled
-                                                    :extensions="['doc', 'pdf', 'png', 'jpg']"
-                                                    :maximum="1"
-                                                    @input-file="inputFile"
-                                                    @input-filter="inputFilter"
-                                                    :chunk="{
+
+                                        </v-btn>
+                                        <file-upload
+                                                id="upload-input"
+                                                class="upload-input"
+                                                ref="upload"
+                                                :drop="true"
+                                                v-model="files"
+                                                post-action="/api/upload/ask"
+                                                chunk-enabled
+                                                :extensions="['doc', 'pdf', 'png', 'jpg']"
+                                                :maximum="1"
+                                                @input-file="inputFile"
+                                                @input-filter="inputFilter"
+                                                :chunk="{
                               action: '/upload/chunk',
                               minSize: 1048576,
                               maxActive: 3,
                               maxRetries: 5,}">
-                                            </file-upload>
-                                        </v-btn>
+                                        </file-upload>
                                         <span class="btn-label">Your Dekstop</span>
                                     </div>
                                 </div>
@@ -364,8 +366,9 @@
                             <div class="step-controls">
                                 <div class="upload upload-result-file">
                                     <div class="file-item" v-for="file in files">
-                                        <v-icon>sbf-terms</v-icon>
-                                        <span class="upload-file-name ml-4 mr-3">{{file.name}}</span>
+                                        <v-icon v-if="!progressShow">sbf-terms</v-icon>
+                                        <div v-else class="dot-flashing" ></div>
+                                        <span class="upload-file-name ml-5 mr-3">{{file.name}}</span>
                                         <v-icon class="sb-close">sbf-close</v-icon>
                                         <!-- - Error: {{file.error}}, Success: {{file.success}}-->
                                     </div>
@@ -396,6 +399,6 @@
 <script src="./uploadFiles.js">
 
 </script>
-<style lang="less" src="./uploadFiles.less">
+<style lang="less" src="./uploadFiles.less" scoped>
 
 </style>
