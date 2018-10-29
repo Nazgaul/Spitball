@@ -486,7 +486,7 @@ namespace ConsoleApp
 
                 return await f.QueryAsync(
                     @"
-                  select top 1 U.Id, Un.UniversityName, Un.Country
+                  select top 1000 U.Id, Un.UniversityName, Un.Country
                         from sb.[User] U
 						join zbox.Users ZU
 							on U.Email = ZU.Email
@@ -495,7 +495,8 @@ namespace ConsoleApp
                         where LastAccessTime > DATEADD(YEAR,-2,GETDATE())  
                             and U.Email like '%@%'
                             and ZU.Email not like '%facebook.com'
-                            and IsEmailVerified = 1 and U.UniversityId2 is null; 
+                            and IsEmailVerified = 1 and U.UniversityId2 is null
+                            and Un.isdeleted = 0; 
                   ");
             }, default);
 
@@ -509,11 +510,13 @@ namespace ConsoleApp
                 using (var unitOfWork = child.Resolve<IUnitOfWork>())
                 {
                     var ch = new AssignUniversityToUserCommandHandler(repository, uni);
+                    List<Task> taskes = new List<Task>();
                     foreach (var pair in z)
                     {
                         var t = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
-                        await ch.ExecuteAsync(t, default);
+                        taskes.Add(ch.ExecuteAsync(t, default));
                     }
+                    await Task.WhenAll(taskes);
                     await unitOfWork.CommitAsync(default).ConfigureAwait(false);
                 }
             }
