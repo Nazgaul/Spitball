@@ -19,6 +19,7 @@ export default {
     data() {
         return {
             showUploadDialog: false,
+            allowOverflow: true,
             uploadUrl: "/api/upload/ask",
             counter: 0,
             uploadsPreviewList: [],
@@ -34,14 +35,12 @@ export default {
             classesList: ['Social Psych', 'behaviourl psych', 'Biology 2', 'Biology 3', 'behaviourl psych2'],
             selectedClass: '',
             documentTypes: documentTypes,
-            selectedDoctype: '',
+            selectedDoctype: {},
             documentTitle: '',
             proffesorName: '',
             selectedTags: [],
             tagsOptions: [, 'behaviourl', 'Biology', 'Math', 'History'],
             uploadPrice: null,
-
-
         }
     },
     props: {},
@@ -98,7 +97,9 @@ export default {
             this.selectedTags.splice(this.selectedTags.indexOf(item), 1)
             this.selectedTags = [...this.selectedTags]
         },
-
+        sendDocumentData(){
+            console.log('sending data')
+        },
 
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
@@ -244,6 +245,10 @@ export default {
                 this.stepsProgress = (this.e1) * 10;
             }
 
+        },
+        changeStep(step){
+            console.log('clicked step change',step);
+            this.e1 = step;
         }
     },
 

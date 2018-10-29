@@ -3,6 +3,7 @@
 
         <a class="upload-files" @click="openUploaderDialog()">Upload Documents</a>
         <sb-dialog :showDialog="showUploadDialog" :popUpType="'uploadDialog'" :fullWidth="true"
+                   :transition="'slide-y-transition'"
                    :content-class="'upload-dialog'">
             <v-card :class="['sb-steps-wrap', isFirstStep ? 'px-2' : 'px-0' ]">
                 <!--<v-progress-linear v-model="progressValue" :active="progressShow"></v-progress-linear>-->
@@ -120,10 +121,10 @@
                                         find it</h3>
                                 </div>
                                 <div class="upload-row-2">
-                                    <div :class="['sb-doc-type', singleType.title === selectedDoctype ? 'selected': '']"
+                                    <div :class="['sb-doc-type', singleType.title === selectedDoctype.title ? 'selected': '']"
                                          v-for="(singleType, index) in documentTypes"
                                          :key="singleType.id"
-                                         @click="updateDocumentType(singleType.title)">
+                                         @click="updateDocumentType(singleType)">
                                         <v-icon class="sb-doc-icon mt-2">{{singleType.icon}}</v-icon>
                                         <span class="sb-doc-title mb-2">
                                            {{singleType.title}}
@@ -145,8 +146,8 @@
                                 <div class="upload-row-2 paddingTopSm">
                                     <div class="btn-holder">
                                         <label :for="'school'" class="steps-form-label school mb-2">
-                                        <!--<v-icon class="mr-1">sbf-university</v-icon>-->
-                                        <span>Document Title</span></label>
+                                            <!--<v-icon class="mr-1">sbf-university</v-icon>-->
+                                            <span>Document Title</span></label>
                                         <sb-input :bottomError="true"
                                                   v-model="documentTitle" placeholder="title" name="document title"
                                                   type="text"
@@ -238,7 +239,7 @@
                                                               class="sb-input-upload-price"></sbl-currency>
                                                 <div class="sbl-suffix">SBL</div>
 
-                                                <span class="balance-label">Equals to {{uploadPrice | dollarVal}}$</span>
+                                                <span class="balance-label" v-show="uploadPrice">Equals to {{uploadPrice | dollarVal}}$</span>
 
                                             </div>
                                             <div class="sb-current-balance">
@@ -254,36 +255,90 @@
                                 </div>
                             </v-card>
                         </v-stepper-content>
-                        <!--step 6-->
+                        <!--step 7-->
                         <v-stepper-content class="sb-stepper-content step-seven mt-5"
                                            :key="`${7}-content`"
                                            :step="7">
                             <v-card class="mb-5 sb-step-card">
                                 <div class="upload-row-1">
-                                    <h3 class="upload-cloud-text sb-title">Set your price</h3>
-                                    <h4 class="sb-subtitle mt-2">In spitball platform You can buy and sell with SBL’s.
-                                        <a href="">What are SBL’s? </a></h4>
+                                    <v-icon class="five">sbf-five</v-icon>
+                                    <h3 class="sb-title">You Rock! you finished sooo fast! </h3>
+                                    <h4 class="sb-subtitle mt-2">Please make sure all the details are just right before sale</h4>
                                 </div>
-                                <div class="upload-row-2 paddingTopSm">
-                                    <div class="btn-holder">
-                                        <label :for="'price'" class="steps-form-label school mb-2">
-                                            <v-icon class="mr-1">sbf-tag-icon</v-icon>
-                                            <span>Price</span></label>
-                                        <div class="wrap-row-price">
-                                            <div class="price-wrap">
-                                                <sbl-currency v-model="uploadPrice"
-                                                              class="sb-input-upload-price"></sbl-currency>
-                                                <div class="sbl-suffix">SBL</div>
-
-                                            </div>
-                                            <div class="sb-current-balance">
-                                                <v-icon class="sb-wallet-icon">sbf-wallet-new</v-icon>
-                                                <span name="account-balance" class="sb-account-amount">{{accountUser.balance | currencyLocalyFilter}}</span>
-                                                <span class="balance-label">Your balance</span>
-                                            </div>
+                                <div class="upload-row-2 final-row paddingTopSm" @click="changeStep(2)">
+                                    <div class="final-item school" >
+                                        <div class="edit">
+                                            <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                                            <span>Edit</span>
                                         </div>
+                                        <div class="final-item-wrap">
+                                            <v-icon class="final-icon">sbf-university</v-icon>
+                                            <span class="item-name">School</span>
+                                        </div>
+                                        <div>
+                                            <p class="school-name">{{schoolName}}</p>
+                                        </div>
+
                                     </div>
-                                    <div class="btn-holder">
+                                    <div class="final-item class-selected">
+                                        <div class="edit">
+                                            <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                                            <span>Edit</span>
+                                        </div>
+                                        <div class="final-item-wrap">
+                                            <v-icon class="final-icon">sbf-classes-new</v-icon>
+                                            <span class="item-name">Class</span>
+                                        </div>
+                                        <span class="class-name">{{selectedClass}}</span>
+                                    </div>
+                                </div>
+                                <div class="upload-row-3 final-row">
+                                    <div class="final-item doc-type-selected"  @click="changeStep(3)">
+                                        <div class="edit">
+                                            <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                                            <span>Edit</span>
+                                        </div>
+                                        <div class="final-item-wrap doc-type-wrap">
+                                            <v-icon class="final-icon doc-type">{{selectedDoctype.icon}}</v-icon>
+                                            <span class="item-name doc-type-name">{{selectedDoctype.title}}</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="final-item tags-selected" @click="changeStep(5)">
+                                        <div class="edit">
+                                            <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                                            <span>Edit</span>
+                                        </div>
+                                        <div class="final-item-wrap">
+                                            <v-icon class="final-icon tags">sbf-tag-icon</v-icon>
+                                            <span class="item-name">Tags</span>
+
+                                        </div>
+                                        <div class="sb-combo">
+                                            <!--<v-combobox class="sb-combo"-->
+                                            <!--v-model="selectedTags"-->
+                                            <!--append-icon=""-->
+                                            <!--prepend-icon=""-->
+                                            <!--color="'#979797'"-->
+                                            <!--:height="56"-->
+                                            <!--multiple-->
+                                            <!--chips-->
+                                            <!--solo-->
+                                            <!--disabled-->
+                                            <!--&gt;-->
+                                            <!--<template slot="selection" slot-scope="data" class="sb-selection">-->
+                                            <v-chip class="sb-chip-tag" v-for="tag in selectedTags">
+                                                   <span class="chip-button px-1">
+                                                       {{tag}}
+                                                       <!--{{!!data.item ? data.item : ''}}-->
+                                                   </span>
+                                                <!--<v-icon class="chip-close ml-1" @click="removeTag(data.item)">-->
+                                                <!--sbf-close-->
+                                                <!--</v-icon>-->
+                                            </v-chip>
+                                            <!--</template>-->
+                                            <!--</v-combobox>-->
+                                        </div>
 
                                     </div>
                                 </div>
@@ -315,7 +370,10 @@
                             <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
                             <span>Back</span>
                         </v-btn>
-                        <v-btn round class="next-btn" @click="nextStep(step)">Next</v-btn>
+                        <v-btn v-show="e1 !==7" round class="next-btn" @click="nextStep(step)">Next</v-btn>
+                        <v-btn v-show="e1 ===7" round class="next-btn" @click="sendDocumentData()">SELL MY DOCUMENT
+                        <v-icon>sbf-credit-card</v-icon>
+                        </v-btn>
                     </div>
                 </div>
             </v-card>

@@ -6,6 +6,13 @@ function University(objInit){
     this.text = objInit.name;
 }
 
+function Course(objInit){
+    this.text = objInit.name;
+}
+function ServerCourse(name){
+    this.name = name
+}
+
 const getUni = (val) => {
     return connectivityModule.http.get(`university?term=${val}`).then(({data})=>{
         let result = [];
@@ -33,14 +40,29 @@ const assaignUniversity = (uniName) => {
 }
 
 const getCourse = (val) => {
-    return connectivityModule.http.get("course/search", val)
+    return connectivityModule.http.get(`course/search?term=${val}`).then(({data})=>{
+        let result = [];
+        if(!!data.courses && data.courses.length > 0){
+            data.courses.forEach((course)=>{
+                result.push(new Course(course));
+            });
+        }
+        return result;
+    }, (err)=>{
+        return err;
+    })
 };
 
-const assaignCourse = (courseName) => {
-    let course = {
-        name: courseName
-    }
-    return connectivityModule.http.post("Course/assign", course)
+const assaignCourse = (arrCourses) => {
+    let courses = [];
+    arrCourses.forEach(course=>{
+        if(typeof course === 'object'){
+            courses.push(new ServerCourse(course.text))
+        }else{
+            courses.push(new ServerCourse(course))
+        }
+    })
+    return connectivityModule.http.post("Course/assign", courses)
 }
 
 export default {

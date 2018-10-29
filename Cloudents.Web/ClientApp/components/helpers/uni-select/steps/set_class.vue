@@ -81,13 +81,8 @@ export default {
     },
         watch:{
         search(val){
-            if(val.length > 3){
-                let classArr = [];
-                classArr.push({text:'biology'})
-                classArr.push({text:'chemistry'})
-                classArr.push({text:'lolr'})
-                classArr.push({text:'blahda'})
-                this.updateClasses(classArr);
+            if(val.length >= 3){
+                this.updateClasses(val);
             }
         }
     },
@@ -127,7 +122,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['updateClasses', 'updateSelectedClasses', 'changeSelectUniState']),
+        ...mapActions(['updateClasses', 'updateSelectedClasses', 'changeSelectUniState', 'assignClasses']),
         ...mapGetters(['getSchoolName', 'getClasses', 'getSelectedClasses']),
         clearData(){
             this.classModel = '';
@@ -138,9 +133,11 @@ export default {
             this.fnMethods.changeStep(this.enumSteps.set_school);
         },
         nextStep(){
+            console.log("kasdjfhasdlkf")
             //TODO add action update the server instead of 'updateSelectedClasses'
-            this.updateSelectedClasses(this.selectedClasses);
-            this.fnMethods.changeStep(this.enumSteps.done);
+            this.assignClasses().then(()=>{
+                this.fnMethods.changeStep(this.enumSteps.done);
+            });
         },
         itemInList(item){
             if(typeof item !== 'object'){
