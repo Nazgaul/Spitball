@@ -11,7 +11,7 @@
         </div>
         <div class="img-container"></div>
         <div class="footer-container">
-            <span @click="stay()">Select School now</span>
+            <span @click="stay()" class="bold-text">Select School now</span>
             <span @click="leave()" class="clear">Got It!</span>
         </div>
     </div>
