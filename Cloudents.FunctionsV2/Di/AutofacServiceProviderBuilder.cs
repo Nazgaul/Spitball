@@ -6,7 +6,9 @@ using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
 using Cloudents.FunctionsV2.Sync;
+using Cloudents.FunctionsV2.System;
 using Cloudents.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -61,7 +63,10 @@ namespace Cloudents.FunctionsV2
 
             builder.RegisterType<QuestionDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Question);
             builder.RegisterType<UniversityDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.University);
-           // builder.RegisterType<CourseDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Course);
+            // builder.RegisterType<CourseDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Course);
+
+
+            builder.RegisterType<SignalROperation>().Keyed<ISystemOperation>(SystemMessageType.SignalR);
 
             builder.Populate(services); // Populate is needed to have support for scopes.
             return new AutofacServiceProvider(builder.Build());

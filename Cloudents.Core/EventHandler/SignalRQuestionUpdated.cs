@@ -1,22 +1,21 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Web.Hubs;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.SignalR;
-using System.Threading;
-using System.Threading.Tasks;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 
-namespace Cloudents.Web.EventHandler
+namespace Cloudents.Core.EventHandler
 {
     public class SignalRQuestionUpdated : IEventHandler<MarkAsCorrectEvent>, IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>
     {
-        private readonly IHubContext<SbHub> _hubContext;
+        private readonly IQueueProvider _queueProvider;
 
-        public SignalRQuestionUpdated(IHubContext<SbHub> hubContext)
+        public SignalRQuestionUpdated(IQueueProvider queueProvider)
         {
-            _hubContext = hubContext;
+            _queueProvider = queueProvider;
         }
 
         private async Task Handle(Question question, CancellationToken token)
@@ -39,7 +38,7 @@ namespace Cloudents.Web.EventHandler
                 Color = question.Color,
                 Subject = question.Subject
             };
-            await _hubContext.Clients.All.SendAsync(SbHub.MethodName, new SignalRTransportType<QuestionDto>("question", SignalRAction.Update, dto), token);
+            await _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Update, dto), token);
         }
 
         public Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
