@@ -265,7 +265,7 @@
                                     <h3 class="sb-title">You Rock! you finished sooo fast! </h3>
                                     <h4 class="sb-subtitle mt-2">Please make sure all the details are just right before sale</h4>
                                 </div>
-                                <div class="upload-row-2 final-row paddingTopSm" @click="changeStep(2)">
+                                <div class="upload-row-2 final-row " style="padding-top: 32px;" @click="changeStep(2)">
                                     <div class="final-item school" >
                                         <div class="edit">
                                             <v-icon class="edit-icon">sbf-edit-icon</v-icon>
@@ -309,78 +309,83 @@
                                             <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                                             <span>Edit</span>
                                         </div>
-                                        <div class="final-item-wrap">
+                                        <div class="final-item-wrap mb-1">
                                             <v-icon class="final-icon tags">sbf-tag-icon</v-icon>
                                             <span class="item-name">Tags</span>
 
                                         </div>
-                                        <div class="sb-combo">
-                                            <!--<v-combobox class="sb-combo"-->
-                                            <!--v-model="selectedTags"-->
-                                            <!--append-icon=""-->
-                                            <!--prepend-icon=""-->
-                                            <!--color="'#979797'"-->
-                                            <!--:height="56"-->
-                                            <!--multiple-->
-                                            <!--chips-->
-                                            <!--solo-->
-                                            <!--disabled-->
-                                            <!--&gt;-->
-                                            <!--<template slot="selection" slot-scope="data" class="sb-selection">-->
+                                        <div class="sb-combo final-tags">                                       
                                             <v-chip class="sb-chip-tag" v-for="tag in selectedTags">
                                                    <span class="chip-button px-1">
                                                        {{tag}}
-                                                       <!--{{!!data.item ? data.item : ''}}-->
-                                                   </span>
-                                                <!--<v-icon class="chip-close ml-1" @click="removeTag(data.item)">-->
-                                                <!--sbf-close-->
-                                                <!--</v-icon>-->
+                                                   </span>                                             
                                             </v-chip>
-                                            <!--</template>-->
-                                            <!--</v-combobox>-->
                                         </div>
+                                    </div>
 
+                                </div>
+                                <div class="upload-row-4 final-row">
+                                    <div class="legal-wrap">
+                                    <input type="checkbox" class="legal-input" id="legal-ownership" v-model="legalCheck" name="legalyOwn" @change="updateLegal()"/>
+                                    <label for="legal-ownership" class="ml-3 legal-ownership">I legally own this document, and all its legal rights</label>
                                     </div>
                                 </div>
                             </v-card>
                         </v-stepper-content>
+                        <!--step 7-->
+                        <v-stepper-content class="sb-stepper-content step-eight mt-5"
+                                           :key="`${8}-content`"
+                                           :step="8">
+                            <v-card class="mb-5 sb-step-card">
+                                <div class="upload-row-1">
+                                    <v-icon class="five">sbf-spread-loud</v-icon>
+                                    <h3 class="sb-title">Spread the Word</h3>
+                                </div>
+                                <div class="upload-row-2 paddingTopSm referral-row">
+                                    <referral-dialog :popUpType="''" ></referral-dialog>
+                                </div>
 
 
+                            </v-card>
+                        </v-stepper-content>
+
+                        <div class="bottom-upload-controls" v-show="e1 > 1">
+                            <v-progress-linear :height="'3px'" v-show="e1 >1" :color="'#4452fc'" v-model="stepsProgress"
+                                               class="sb-steps-progress ma-0" :active="true"></v-progress-linear>
+                            <!--<v-btn block color="primary"-->
+
+                            <!--class="ask_btn">{{files.length >= 1 ? 'D Upload more' : 'Dropbox'}}-->
+                            <!--</v-btn>-->
+                            <!--<div id="result"></div>-->
+                            <div class="step-controls">
+                                <div class="upload upload-result-file">
+                                    <div class="file-item" v-for="file in files">
+                                        <v-icon>sbf-terms</v-icon>
+                                        <span class="upload-file-name ml-4 mr-3">{{file.name}}</span>
+                                        <v-icon class="sb-close">sbf-close</v-icon>
+                                        <!-- - Error: {{file.error}}, Success: {{file.success}}-->
+                                    </div>
+                                    <!--<span v-show="$refs.upload && $refs.upload.uploaded">All files have been uploaded</span>-->
+                                </div>
+                                <v-btn round v-if="e1 > 1" flat class="sb-back-flat-btn" @click="previousStep(step)">
+                                    <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
+                                    <span>Back</span>
+                                </v-btn>
+                                <v-btn v-show="e1 !==7" round class="next-btn" @click="nextStep(step)" :disabled="isDisabled">Next</v-btn>
+                                <v-btn v-show="e1 ===7" round class="next-btn sell" @click="sendDocumentData(step)" :disabled="isDisabled">SELL MY DOCUMENT
+                                    <v-icon class="credit-card">sbf-credit-card</v-icon>
+                                </v-btn>
+                            </div>
+                        </div>
                     </v-stepper-items>
                 </v-stepper>
-                <div class="bottom-upload-controls" v-show="e1 > 1">
-                    <v-progress-linear :height="'3px'" v-show="e1 >1" :color="'#4452fc'" v-model="stepsProgress"
-                                       class="sb-steps-progress ma-0" :active="true"></v-progress-linear>
-                    <!--<v-btn block color="primary"-->
-
-                    <!--class="ask_btn">{{files.length >= 1 ? 'D Upload more' : 'Dropbox'}}-->
-                    <!--</v-btn>-->
-                    <!--<div id="result"></div>-->
-                    <div class="step-controls">
-                        <div class="upload upload-result-file">
-                            <div class="file-item" v-for="file in files">
-                                <v-icon>sbf-terms</v-icon>
-                                <span class="upload-file-name ml-4 mr-3">{{file.name}}</span>
-                                <v-icon class="sb-close">sbf-close</v-icon>
-                                <!-- - Error: {{file.error}}, Success: {{file.success}}-->
-                            </div>
-                            <!--<span v-show="$refs.upload && $refs.upload.uploaded">All files have been uploaded</span>-->
-                        </div>
-                        <v-btn round v-if="e1 > 1" flat class="sb-back-flat-btn" @click="previousStep(step)">
-                            <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
-                            <span>Back</span>
-                        </v-btn>
-                        <v-btn v-show="e1 !==7" round class="next-btn" @click="nextStep(step)">Next</v-btn>
-                        <v-btn v-show="e1 ===7" round class="next-btn" @click="sendDocumentData()">SELL MY DOCUMENT
-                        <v-icon>sbf-credit-card</v-icon>
-                        </v-btn>
-                    </div>
-                </div>
             </v-card>
         </sb-dialog>
     </v-flex>
 </template>
-<script src="./uploadFiles.js"></script>
+<script src="./uploadFiles.js">
+
+</script>
 <style lang="less" src="./uploadFiles.less">
 
 </style>
