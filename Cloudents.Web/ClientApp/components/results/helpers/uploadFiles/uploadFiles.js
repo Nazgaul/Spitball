@@ -202,9 +202,9 @@ export default {
                 // Filter non-image file remove for docs
                 // Will not be added to files
 
-                if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
-                    return prevent()
-                }
+                //if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+                //    return prevent()
+                //}
 
                 // Create the 'blob' field for thumbnail preview
                 newFile.blob = ''
