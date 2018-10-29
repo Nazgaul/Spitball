@@ -49,7 +49,7 @@ namespace Cloudents.Infrastructure.Storage
 
 
         public Task UploadStreamAsync(string blobName, Stream fileContent,
-            string mimeType, bool fileGziped, int cacheControlMinutes, CancellationToken token)
+            string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
             if (!fileContent.CanSeek)
@@ -57,12 +57,21 @@ namespace Cloudents.Infrastructure.Storage
                 throw new ArgumentException("stream should need to be able to seek");
             }
             fileContent.Seek(0, SeekOrigin.Begin);
-            blob.Properties.ContentType = mimeType;
+            if (mimeType != null)
+            {
+                blob.Properties.ContentType = mimeType;
+            }
+
             if (fileGziped)
             {
                 blob.Properties.ContentEncoding = "gzip";
             }
-            blob.Properties.CacheControl = "private, max-age=" + (TimeConst.Minute * cacheControlMinutes);
+
+            if (cacheControlSeconds.HasValue)
+            {
+                blob.Properties.CacheControl = "private, max-age=" + (TimeConst.Second * cacheControlSeconds.Value);
+            }
+
             return blob.UploadFromStreamAsync(fileContent);
         }
 

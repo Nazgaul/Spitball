@@ -10,7 +10,7 @@ namespace Cloudents.Core.Storage
     public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
     {
         Task UploadStreamAsync(string blobName, Stream fileContent,
-            string mimeType, bool fileGziped, int cacheControlMinutes, CancellationToken token);
+            string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default);
 
         Task UploadBlockFileAsync(string blobName, Stream fileContent, int index, CancellationToken token);
         Task CommitBlockListAsync(string blobName, IList<int> indexes, CancellationToken token);

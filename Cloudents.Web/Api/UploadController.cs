@@ -1,13 +1,12 @@
 ﻿using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -39,7 +38,7 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpPost("ask")]
-        public async Task<UploadAskFileResponse> UploadFileAsync(UploadFileRequest model,
+        public async Task<UploadAskFileResponse> UploadFileAsync(UploadAskFileRequest model,
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
@@ -114,80 +113,23 @@ namespace Cloudents.Web.Api
                 indexes.Add((int)(i / UploadInnerResponse.BlockSize));
             }
             await _documentBlobProvider.CommitBlockListAsync(tempData2.BlobName, indexes, token);
-            return new UploadResponse();
+            return new UploadResponse(tempData2.BlobName);
         }
 
-    }
 
-    public class UploadResponse
-    {
-        public UploadResponse(Guid sessionId)
+        [HttpPost("dropbox")]
+        public async Task<UploadResponse> UploadDropBox([FromBody] DropBoxRequest model,
+            [FromServices] IRestClient client,
+            CancellationToken token)
         {
-            Data = new UploadInnerResponse(sessionId);
+            var (stream, _) = await client.DownloadStreamAsync(model.Link, token);
+            var blobName = $"{Guid.NewGuid()}-{model.Name}{Path.GetExtension(model.Name)}";
+            await _documentBlobProvider.UploadStreamAsync(blobName, stream, token: token);
+
+            return new UploadResponse(blobName);
         }
 
-        public UploadResponse()
-        {
-
-        }
-
-        public string Status => "success";
-
-        public UploadInnerResponse Data { get; set; }
     }
 
-    public class UploadInnerResponse
-    {
-        internal const double BlockSize = 3.5e+6;
 
-        public UploadInnerResponse(Guid sessionId)
-        {
-            SessionId = sessionId;
-        }
-
-        [JsonProperty("session_id")]
-        public Guid SessionId { get; set; }
-
-        [JsonProperty("end_offset")]
-        public double EndOffset => BlockSize;
-    }
-
-    public class UploadRequest
-    {
-        public UploadPhase Phase { get; set; }
-
-        [JsonProperty("mime_type")]
-        public string MimeType { get; set; }
-        public long Size { get; set; }
-        public string Name { get; set; }
-
-        [JsonProperty("session_id")]
-        public Guid SessionId { get; set; }
-    }
-
-    public class TempData
-    {
-        public string Name { get; set; }
-
-        public string BlobName { get; set; }
-
-        public double Size { get; set; }
-        //public IList<long> Indexes { get; set; }
-    }
-
-    public enum UploadPhase
-    {
-        Start,
-        Upload,
-        Finish
-    }
-
-    public class UploadRequest2
-    {
-        public UploadPhase Phase { get; set; }
-        public Guid session_id { get; set; }
-        public long start_offset { get; set; }
-
-        public IFormFile Chunk { get; set; }
-    }
 }
