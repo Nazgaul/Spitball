@@ -4,7 +4,7 @@ import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
 import sbInput from "../../../question/helpers/sbInput/sbInput";
 import referralDialog from "../../../question/helpers/referralDialog/referral-dialog.vue";
-
+import uploadService from "../../../../services/uploadService"
 import { documentTypes, currencyValidator } from "./consts";
 import sblCurrency from "./sbl-currency.vue"
 //var VueUploadComponent = import('vue-upload-component');
@@ -21,6 +21,7 @@ export default {
     name: "uploadFiles",
     data() {
         return {
+            uploadUrl: '/api/upload/file',
             showUploadDialog: false,
             uploadUrl: "/api/upload/file",
             counter: 0,
@@ -30,7 +31,7 @@ export default {
             steps: 8,
             currentStep: 1,
             step: 1,
-            stepsProgress: 100/8,
+            stepsProgress: 100 / 8,
             schoolName: '',
             classesList: ['Social Psych', 'behaviourl psych', 'Biology 2', 'Biology 3', 'behaviourl psych2'],
             selectedClass: '',
@@ -50,7 +51,7 @@ export default {
             accountUser: 'accountUser',
         }),
         progressShow() {
-            if (this.progressValue === '100.00' && this.progressValue === '') {
+            if (this.progressValue === '100.00' && this.progressValue === '' && this.progressValue === 100) {
                 return false
             }
 
@@ -61,21 +62,21 @@ export default {
         isFirstStep() {
             return this.currentStep === 1
         },
-        isDisabled(){
-            if(this.currentStep === 2 && !this.schoolName || !this.selectedClass){
+        isDisabled() {
+            if (this.currentStep === 2 && !this.schoolName || !this.selectedClass) {
                 return true
             }
-            else if(this.currentStep === 3 && Object.keys(this.selectedDoctype).length === 0   ){
+            else if (this.currentStep === 3 && Object.keys(this.selectedDoctype).length === 0) {
                 return true
-            }else if(this.currentStep === 4 && (!this.documentTitle || !this.proffesorName)){
+            } else if (this.currentStep === 4 && (!this.documentTitle || !this.proffesorName)) {
                 return true
-            }else if(this.currentStep === 5 && this.selectedTags.length < 1){
+            } else if (this.currentStep === 5 && this.selectedTags.length < 1) {
                 return true
-            }else if(this.currentStep === 6 && !this.uploadPrice){
+            } else if (this.currentStep === 6 && !this.uploadPrice) {
                 return true
-            }else if(this.currentStep === 7 && !this.legalCheck){
+            } else if (this.currentStep === 7 && !this.legalCheck) {
                 return true
-            }else{
+            } else {
                 return false
             }
 
@@ -109,13 +110,13 @@ export default {
             this.selectedTags.splice(this.selectedTags.indexOf(item), 1)
             this.selectedTags = [...this.selectedTags]
         },
-        sendDocumentData(step){
+        sendDocumentData(step) {
             console.log('sending data');
             //documentTitle if exists replace with custom before send
             this.nextStep(step)
         },
-        updateLegal(){
-          console.log('legal check',this.legalCheck)
+        updateLegal() {
+            console.log('legal check', this.legalCheck)
         },
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
@@ -153,7 +154,14 @@ export default {
 
                     });
                     this.files.splice(0, 1, singleFile);
-                    this.nextStep(1)
+                    uploadService.uploadDropbox(this.files)
+                        .then((response) => {
+                                console.log("success responce ulpoad drop box api call", response)
+                            },
+                            error => {
+                                console.log('error drop box api call', error)
+                            })
+
                 },
                 cancel: function () {
                     //optional
@@ -192,7 +200,7 @@ export default {
                     console.log('status', newFile.xhr.status)
                     if (newFile.xhr.status === 200) {
                         console.log('Succesfully uploadede')
-                    }else{
+                    } else {
                         console.log('error, not uploaded')
                     }
                 }
@@ -249,7 +257,7 @@ export default {
                 this.currentStep = 1
             } else {
                 this.currentStep = this.currentStep + 1;
-                this.stepsProgress =  ((100/8)* this.currentStep);
+                this.stepsProgress = ((100 / 8) * this.currentStep);
 
             }
             console.log('step', this.stepsProgress, this.currentStep);
@@ -261,13 +269,13 @@ export default {
 
             } else {
                 this.currentStep = this.currentStep - 1;
-                this.stepsProgress = ((100/8)* this.currentStep);
+                this.stepsProgress = ((100 / 8) * this.currentStep);
             }
 
         },
-        changeStep(step){
+        changeStep(step) {
             //clean up everytnig for new doc upload
-            if(step ===1){
+            if (step === 1) {
 
             }
             this.currentStep = step;
