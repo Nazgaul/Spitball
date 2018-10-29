@@ -111,6 +111,7 @@ export default {
         },
         sendDocumentData(step){
             console.log('sending data');
+            //documentTitle if exists replace with custom before send
             this.nextStep(step)
         },
         updateLegal(){

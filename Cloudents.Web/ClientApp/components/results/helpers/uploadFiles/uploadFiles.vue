@@ -4,10 +4,11 @@
         <a class="upload-files" @click="openUploaderDialog()">Upload Documents</a>
         <sb-dialog :showDialog="showUploadDialog" :popUpType="'uploadDialog'" :fullWidth="true"
                    :transition="'slide-y-transition'"
+                   :isPersistent="true"
                    :content-class="'upload-dialog'">
+          <v-icon class="close-upload-btn-icon"@click="showUploadDialog = false" >sbf-close</v-icon>
             <v-card :class="['sb-steps-wrap', isFirstStep ? 'px-2' : 'px-0' ]">
-                <!--<v-progress-linear v-model="progressValue" :active="progressShow"></v-progress-linear>-->
-                <v-stepper v-model="cuurentStep" class="sb-stepper">
+                <v-stepper v-model="currentStep" class="sb-stepper">
                     <v-stepper-header class="sb-stepper-header" v-show="currentStep===1">
                         <template>
                             <h2 class="sb-step-title">Ready, Set, Sale!</h2>
@@ -33,7 +34,6 @@
                                         <span class="btn-label">DropBox</span>
                                     </div>
                                     <div class="btn-holder">
-                                        <!--<div class="desktop-upload-btn">-->
                                         <v-btn fab class="upload-option-btn">
                                             <v-icon>sbf-upload-desktop</v-icon>
                                             <file-upload
@@ -159,7 +159,6 @@
                                 </div>
                                 <div class="upload-row-3">
                                     <label :for="'school'" class="steps-form-label school mb-2">
-                                        <!--<v-icon class="mr-1">sbf-university</v-icon>-->
                                         <span>Professor Name</span></label>
                                     <sb-input :bottomError="true"
                                               v-model="proffesorName" placeholder="proffesor name" name="proffesor"
@@ -361,10 +360,6 @@
                         <div class="bottom-upload-controls" v-show="currentStep > 1">
                             <v-progress-linear :height="'3px'" v-show="currentStep >1" :color="'#4452fc'" v-model="stepsProgress"
                                                class="sb-steps-progress ma-0" :active="true"></v-progress-linear>
-                            <!--<v-btn block color="primary"-->
-
-                            <!--class="ask_btn">{{files.length >= 1 ? 'D Upload more' : 'Dropbox'}}-->
-                            <!--</v-btn>-->
                             <!--<div id="result"></div>-->
                             <div class="step-controls">
                                 <div class="upload upload-result-file">
@@ -381,7 +376,8 @@
                                     <span>Back</span>
                                 </v-btn>
                                 <v-btn v-show="currentStep !==7 && currentStep !==8" round class="next-btn" @click="nextStep(step)" :disabled="isDisabled">Next</v-btn>
-                                <v-btn v-show="currentStep ===7 && currentStep !==8" round class="next-btn sell" @click="sendDocumentData(step)" :disabled="isDisabled">SELL MY DOCUMENT
+                                <v-btn v-show="currentStep ===7 && currentStep !==8" round class="next-btn sell" @click="sendDocumentData(step)" :disabled="isDisabled">
+                                    SELL MY DOCUMENT
                                     <v-icon class="credit-card">sbf-credit-card</v-icon>
                                 </v-btn>
                                 <v-btn v-show="currentStep ===8" flat class="sb-back-flat-btn" @click="showUploadDialog = false">Close
