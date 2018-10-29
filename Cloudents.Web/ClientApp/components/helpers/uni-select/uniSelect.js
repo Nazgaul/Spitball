@@ -20,7 +20,8 @@ export default {
             classes: [],
             fnMethods: {
                 changeStep: this.changeStep,
-                changeSchoolName: this.changeSchoolName
+                changeSchoolName: this.changeSchoolName,
+                openNoWorriesPopup: this.openNoWorriesPopup
             },
             beforeLeave: false,
         }
@@ -49,6 +50,9 @@ export default {
         },
         closeNoWorriesPopup(){
             this.beforeLeave = false;
+        },
+        openNoWorriesPopup(){
+            this.beforeLeave = true;
         }
     }
 }
