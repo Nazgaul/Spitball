@@ -86,6 +86,7 @@
 @colorPrice: rgba(74, 74, 74, 0.87);
 @placeholderGrey: rgba(74, 74, 74, 0.25);
 @inputGreyBorder: #979797;
+@buttonHeigh: 41px;
 .paddingTopSm {
   padding-top: 44px;
 }
@@ -236,7 +237,7 @@
   font-family: 'Fira Sans', sans-serif;
   .sb-steps-wrap {
     font-family: 'Fira Sans', sans-serif;
-    padding: 12px 0;
+    padding: 12px 0 0 0;
     .bottom-upload-controls {
       height: 82px;
       padding-top: 0;
@@ -274,6 +275,7 @@
               font-size: 13px;
 
             }
+
           }
           //file-item
         }
@@ -284,7 +286,7 @@
           color: @color-white;
           font-size: 14px;
           font-weight: 500;
-          height: 41px;
+          height: @buttonHeigh;
           &.sell {
             width: 202px;
             padding: 0 16px;
@@ -301,6 +303,16 @@
           .arrow-back {
             font-size: 16px;
             transform: rotate(-90deg);
+          }
+        }
+      .another-doc{
+          border: 1px solid @colorUploadBlue;
+          color: @colorUploadBlue;
+          height:@buttonHeigh;
+          font-weight: 500;
+          .cloud-upload{
+            color: @colorUploadBlue;
+            font-size: 18px;
           }
         }
       }
@@ -350,7 +362,6 @@
             justify-content: flex-start;
             //align-items: center;
             box-shadow: none;
-
             .upload-row-1 {
               padding-top: 44px;
               display: flex;
@@ -358,6 +369,10 @@
               flex-direction: row;
               align-items: center;
               justify-content: center;
+              &.referal-row-1{
+                align-items: center;
+                justify-content: center;
+              }
               .sbf-upload-cloud {
                 font-size: 24px;
                 color: @colorUploadBlue;
@@ -382,6 +397,7 @@
               align-items: flex-start;
               align-content: center;
               &.referral-row {
+                padding-top: 21px;
                 .v-card {
                   box-shadow: none;
                   .close-btn, h2 {
@@ -404,12 +420,15 @@
                           .input-field{
                             border-radius: 4px 0 0 4px;
                             border-color: @borderGreyColor;
+                            border-right: none;
+                            font-size: 12px;
+                            color: @borderGreyColor;
                           }
                         }
                         .referral-btn {
                           width: 106px;
                           background-color: @colorUploadBlue;
-                          border-radius: 0;
+                          border-radius: 0 4px 4px 0;
                           margin-left: -4px;
                         }
                       }
@@ -435,8 +454,10 @@
                   border: 1px solid @uploadGrey;
                   background-color: transparent;
                   .upload-input {
-                    height: 48px;
-                    width: 48px;
+                    height: 221px;
+                    width: 257px;
+                    //height: 48px;
+                    //width: 48px;
                   }
                   .sbf {
                     font-size: 18px;
@@ -460,6 +481,37 @@
               flex-direction: row;
               justify-content: center;
               align-items: center;
+              &.referal-row-3 {
+                display: flex;
+                flex-direction: column;
+                padding-top: 48px;
+                .sb-subtitle {
+                  font-size: 14px;
+                  color: @stepSubTitleColor;
+                  font-weight: normal;
+                }
+                .referal-ask {
+                  background: @colorUploadBlue;
+                  color: rgba(255, 255, 255, 0.87);
+                  height: @buttonHeigh;
+                  font-weight: 500;
+                  .referal-edit-icon{
+                    color: @color-white;
+                  }
+                }
+                .referal-answer {
+                  border: 1px solid @colorUploadBlue;
+                  color: @colorUploadBlue;
+                  height: @buttonHeigh;
+                  font-weight: 500;
+                }
+                .referal-btns-wrap{
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: center;
+                  align-items: center;
+                }
+              }
               .btn-holder {
                 display: flex;
                 flex-direction: row;
@@ -869,6 +921,9 @@
                 width: 100%;
                 align-items: flex-start;
                 max-width: @maxWidthForm;
+                &.referal-row-1{
+                  align-items: center;
+                }
                 .sb-title {
                   font-size: 18px;
                   font-weight: 600;

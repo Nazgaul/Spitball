@@ -28,9 +28,9 @@ export default {
             progressValue: '',
             files: [],
             steps: 8,
-            e1: 1,
+            currentStep: 1,
             step: 1,
-            stepsProgress: 0,
+            stepsProgress: 100/8,
             schoolName: '',
             classesList: ['Social Psych', 'behaviourl psych', 'Biology 2', 'Biology 3', 'behaviourl psych2'],
             selectedClass: '',
@@ -56,24 +56,24 @@ export default {
 
         },
         hideOnFirstStep() {
-            this.e1 === 1
+            this.currentStep === 1
         },
         isFirstStep() {
-            return this.e1 === 1
+            return this.currentStep === 1
         },
         isDisabled(){
-            if(this.e1 === 2 && !this.schoolName || !this.selectedClass){
+            if(this.currentStep === 2 && !this.schoolName || !this.selectedClass){
                 return true
             }
-            else if(this.e1 === 3 && Object.keys(this.selectedDoctype).length === 0   ){
+            else if(this.currentStep === 3 && Object.keys(this.selectedDoctype).length === 0   ){
                 return true
-            }else if(this.e1 === 4 && (!this.documentTitle || !this.proffesorName)){
+            }else if(this.currentStep === 4 && (!this.documentTitle || !this.proffesorName)){
                 return true
-            }else if(this.e1 === 5 && this.selectedTags.length < 1){
+            }else if(this.currentStep === 5 && this.selectedTags.length < 1){
                 return true
-            }else if(this.e1 === 6 && !this.uploadPrice){
+            }else if(this.currentStep === 6 && !this.uploadPrice){
                 return true
-            }else if(this.e1 === 7 && !this.legalCheck){
+            }else if(this.currentStep === 7 && !this.legalCheck){
                 return true
             }else{
                 return false
@@ -237,33 +237,33 @@ export default {
         },
         nextStep(step) {
             console.log('files', this.files)
-            if (this.e1 === this.steps) {
-                this.e1 = 1
+            if (this.currentStep === this.steps) {
+                this.currentStep = 1
             } else {
-                this.e1 = this.e1 + 1;
-                this.stepsProgress = (this.e1) * 10;
+                this.currentStep = this.currentStep + 1;
+                this.stepsProgress =  ((100/8)* this.currentStep);
+
             }
-            console.log('step', this.stepsProgress, this.e1);
+            console.log('step', this.stepsProgress, this.currentStep);
 
         },
         previousStep(step) {
-            if (this.e1 === 1) {
-                return this.e1 = 1;
+            if (this.currentStep === 1) {
+                return this.currentStep = 1;
 
             } else {
-                this.e1 = this.e1 - 1;
-                this.stepsProgress = (this.e1) * 10;
+                this.currentStep = this.currentStep - 1;
+                this.stepsProgress = ((100/8)* this.currentStep);
             }
 
         },
         changeStep(step){
-            console.log('clicked step change',step);
-            this.e1 = step;
+            //clean up everytnig for new doc upload
+            if(step ===1){
+
+            }
+            this.currentStep = step;
         }
-    },
-
-    mounted() {
-
     },
 
     created() {

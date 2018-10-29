@@ -7,8 +7,8 @@
                    :content-class="'upload-dialog'">
             <v-card :class="['sb-steps-wrap', isFirstStep ? 'px-2' : 'px-0' ]">
                 <!--<v-progress-linear v-model="progressValue" :active="progressShow"></v-progress-linear>-->
-                <v-stepper v-model="e1" class="sb-stepper">
-                    <v-stepper-header class="sb-stepper-header" v-show="e1===1">
+                <v-stepper v-model="cuurentStep" class="sb-stepper">
+                    <v-stepper-header class="sb-stepper-header" v-show="currentStep===1">
                         <template>
                             <h2 class="sb-step-title">Ready, Set, Sale!</h2>
                             <h4 class="sb-step-subtitle">Make money of your study documents.</h4>
@@ -20,7 +20,6 @@
                                            :key="`${1}-content`"
                                            :step="1">
                             <v-card class="sb-step-card">
-                                <!--dropshadow for drag and drop-->
                                 <div class="upload-row-1">
                                     <v-icon>sbf-upload-cloud</v-icon>
                                     <h3 class="text-blue upload-cloud-text">Upload a Document</h3>
@@ -322,7 +321,6 @@
                                             </v-chip>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="upload-row-4 final-row">
                                     <div class="legal-wrap">
@@ -337,20 +335,31 @@
                                            :key="`${8}-content`"
                                            :step="8">
                             <v-card class="mb-5 sb-step-card">
-                                <div class="upload-row-1">
+                                <div class="upload-row-1 referal-row-1">
                                     <v-icon class="five">sbf-spread-loud</v-icon>
                                     <h3 class="sb-title">Spread the Word</h3>
                                 </div>
-                                <div class="upload-row-2 paddingTopSm referral-row">
+                                <div class="upload-row-2 referral-row">
                                     <referral-dialog :popUpType="''" ></referral-dialog>
                                 </div>
+                                <div class="upload-row-3 referal-row-3">
+                                    <h3 class="sb-subtitle mb-3">Help others while you are waiting</h3>
+                                    <div class="referal-btns-wrap">
+                                    <v-btn round   class="referal-ask" @click="">
+                                        <span>Ask a question</span>
+                                        <v-icon left class="referal-edit-icon ml-3">sbf-edit-icon</v-icon>
 
-
+                                    </v-btn>
+                                    <v-btn round  outline class="sb-back-flat-btn referal-answer" @click="">
+                                        <span>ANSWER A QUESTION</span>
+                                    </v-btn>
+                                    </div>
+                                </div>
                             </v-card>
                         </v-stepper-content>
 
-                        <div class="bottom-upload-controls" v-show="e1 > 1">
-                            <v-progress-linear :height="'3px'" v-show="e1 >1" :color="'#4452fc'" v-model="stepsProgress"
+                        <div class="bottom-upload-controls" v-show="currentStep > 1">
+                            <v-progress-linear :height="'3px'" v-show="currentStep >1" :color="'#4452fc'" v-model="stepsProgress"
                                                class="sb-steps-progress ma-0" :active="true"></v-progress-linear>
                             <!--<v-btn block color="primary"-->
 
@@ -367,13 +376,18 @@
                                     </div>
                                     <!--<span v-show="$refs.upload && $refs.upload.uploaded">All files have been uploaded</span>-->
                                 </div>
-                                <v-btn round v-if="e1 > 1" flat class="sb-back-flat-btn" @click="previousStep(step)">
+                                <v-btn round v-if="currentStep > 1 && currentStep !==8" flat class="sb-back-flat-btn" @click="previousStep(step)">
                                     <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
                                     <span>Back</span>
                                 </v-btn>
-                                <v-btn v-show="e1 !==7" round class="next-btn" @click="nextStep(step)" :disabled="isDisabled">Next</v-btn>
-                                <v-btn v-show="e1 ===7" round class="next-btn sell" @click="sendDocumentData(step)" :disabled="isDisabled">SELL MY DOCUMENT
+                                <v-btn v-show="currentStep !==7 && currentStep !==8" round class="next-btn" @click="nextStep(step)" :disabled="isDisabled">Next</v-btn>
+                                <v-btn v-show="currentStep ===7 && currentStep !==8" round class="next-btn sell" @click="sendDocumentData(step)" :disabled="isDisabled">SELL MY DOCUMENT
                                     <v-icon class="credit-card">sbf-credit-card</v-icon>
+                                </v-btn>
+                                <v-btn v-show="currentStep ===8" flat class="sb-back-flat-btn" @click="showUploadDialog = false">Close
+                                </v-btn>
+                                <v-btn v-show="currentStep ===8" round outline class="another-doc" @click="changeStep(1)">Upload another document
+                                    <v-icon class="cloud-upload">sbf-upload-cloud</v-icon>
                                 </v-btn>
                             </div>
                         </div>
