@@ -5,7 +5,6 @@ import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import { typesPersonalize } from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
-import uniSelect from './../helpers/uni-select/uniSelect.vue'
 import QuestionCard from "../question/helpers/question-card/question-card";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
@@ -57,7 +56,6 @@ export default {
         sbDialog,
         loginToAnswer,
         notificationCenter,
-        uniSelect
     },
 
     //use basic sort and filter functionality( same for book details and result page)
@@ -78,7 +76,7 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster', 'getShowSelectUniInterface']),
+        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
 
         //not interesting
@@ -87,9 +85,6 @@ export default {
         },
         showQuestionToaster(){
             return this.getShowQuestionToaster;
-        },
-        showUniSelect(){
-            return this.getShowSelectUniInterface;
         },
         content: {
             get() {

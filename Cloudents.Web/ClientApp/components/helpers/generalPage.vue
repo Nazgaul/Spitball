@@ -1,9 +1,5 @@
 <template functional>
     <div style="height: 100%;">
-        <div v-if="props.showUniSelectInterface" style="height: 100%;">
-            <slot name="uniSelect"></slot>
-        </div>
-        <div v-else>
             <slot name="signupBanner"></slot>
             <div class="p-result">
                 <v-container fluid class="pa-0 wrap">
@@ -38,7 +34,7 @@
                     </v-layout>
                 </v-container>
             </div>
-        </div>
+        <!-- </div> -->
         
     </div>
 </template>
