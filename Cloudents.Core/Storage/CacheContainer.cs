@@ -15,6 +15,11 @@
         public StorageContainer Container =>StorageContainer.QuestionsAndAnswers;
     }
 
+    public class DocumentContainer : IStorageContainer
+    {
+        public StorageContainer Container => StorageContainer.Document;
+    }
+
     public class IcoContainer : IStorageContainer
     {
         public StorageContainer Container => StorageContainer.IcoFiles;

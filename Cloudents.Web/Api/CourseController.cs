@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Query;
+using System.Collections.Generic;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Query.Admin;
+using System.Linq;
 
 namespace Cloudents.Web.Api
 {
@@ -37,6 +41,7 @@ namespace Cloudents.Web.Api
             _queryBus = queryBus;
             _commandBus = commandBus;
             _userManager = userManager;
+           
         }
 
         /// <summary>
@@ -56,6 +61,16 @@ namespace Cloudents.Web.Api
             {
                 Courses = result
             };
+        }
+
+
+        [Route("GetUserCourses")]
+        [HttpGet]
+        public async Task<IEnumerable<CourseDto>> Get([FromQuery]UserCoursesRequest model, CancellationToken token)
+        {
+            var query = new CoursesQuery(model.UserId);
+            var t = await _queryBus.QueryAsync<IEnumerable<CourseDto>>(query, token);
+            return t.Take(100);
         }
 
 

@@ -28,9 +28,9 @@ export default {
             progressValue: '',
             files: [],
             steps: 8,
-            e1: 1,
+            currentStep: 1,
             step: 1,
-            stepsProgress: 0,
+            stepsProgress: 100/8,
             schoolName: '',
             classesList: ['Social Psych', 'behaviourl psych', 'Biology 2', 'Biology 3', 'behaviourl psych2'],
             selectedClass: '',
@@ -50,30 +50,30 @@ export default {
             accountUser: 'accountUser',
         }),
         progressShow() {
-            if (this.progressValue === '100.00') {
+            if (this.progressValue === '100.00' && this.progressValue === '') {
                 return false
             }
 
         },
         hideOnFirstStep() {
-            this.e1 === 1
+            this.currentStep === 1
         },
         isFirstStep() {
-            return this.e1 === 1
+            return this.currentStep === 1
         },
         isDisabled(){
-            if(this.e1 === 2 && !this.schoolName || !this.selectedClass){
+            if(this.currentStep === 2 && !this.schoolName || !this.selectedClass){
                 return true
             }
-            else if(this.e1 === 3 && Object.keys(this.selectedDoctype).length === 0   ){
+            else if(this.currentStep === 3 && Object.keys(this.selectedDoctype).length === 0   ){
                 return true
-            }else if(this.e1 === 4 && (!this.documentTitle || !this.proffesorName)){
+            }else if(this.currentStep === 4 && (!this.documentTitle || !this.proffesorName)){
                 return true
-            }else if(this.e1 === 5 && this.selectedTags.length < 1){
+            }else if(this.currentStep === 5 && this.selectedTags.length < 1){
                 return true
-            }else if(this.e1 === 6 && !this.uploadPrice){
+            }else if(this.currentStep === 6 && !this.uploadPrice){
                 return true
-            }else if(this.e1 === 7 && !this.legalCheck){
+            }else if(this.currentStep === 7 && !this.legalCheck){
                 return true
             }else{
                 return false
@@ -111,6 +111,7 @@ export default {
         },
         sendDocumentData(step){
             console.log('sending data');
+            //documentTitle if exists replace with custom before send
             this.nextStep(step)
         },
         updateLegal(){
@@ -139,23 +140,25 @@ export default {
             let options = {
                 success: (files) => {
                     let type = 'dropBox';
+                    let singleFile;
                     //clean if was trying to upload from desktop before
                     files.forEach((file) => {
-                        let singleFile = {
+                        singleFile = {
                             name: file.name,
                             link: file.link,
                             size: file.bytes,
                             type: type
                         };
                         // add to array or replace
-                        this.files.splice(1, 1, singleFile);
+
                     });
+                    this.files.splice(0, 1, singleFile);
                     this.nextStep(1)
                 },
                 cancel: function () {
                     //optional
                 },
-                linkType: "preview", // "preview" or "direct"
+                linkType: "direct", // "preview" or "direct"
                 multiselect: false, // true or false
                 extensions: ['.png', '.jpg', 'doc', 'pdf'],
             };
@@ -168,6 +171,8 @@ export default {
 
             if (newFile && !oldFile) {
                 // Add file
+                this.nextStep(1)
+
             }
             // Upload progress
             if (newFile && newFile.progress) {
@@ -186,7 +191,9 @@ export default {
                     //  Get the response status code
                     console.log('status', newFile.xhr.status)
                     if (newFile.xhr.status === 200) {
-                        this.nextStep(1)
+                        console.log('Succesfully uploadede')
+                    }else{
+                        console.log('error, not uploaded')
                     }
                 }
             }
@@ -195,6 +202,7 @@ export default {
                     this.$refs.upload.active = true
                 }
             }
+
         },
         inputFilter(newFile, oldFile, prevent) {
             if (newFile && !oldFile) {
@@ -217,7 +225,7 @@ export default {
                         type: type
                     };
                     //add or replace
-                    this.files.splice(1, 1, singleFile)
+                    this.files.splice(0, 1, singleFile)
 
                 }
             }
@@ -237,33 +245,33 @@ export default {
         },
         nextStep(step) {
             console.log('files', this.files)
-            if (this.e1 === this.steps) {
-                this.e1 = 1
+            if (this.currentStep === this.steps) {
+                this.currentStep = 1
             } else {
-                this.e1 = this.e1 + 1;
-                this.stepsProgress = (this.e1) * 10;
+                this.currentStep = this.currentStep + 1;
+                this.stepsProgress =  ((100/8)* this.currentStep);
+
             }
-            console.log('step', this.stepsProgress, this.e1);
+            console.log('step', this.stepsProgress, this.currentStep);
 
         },
         previousStep(step) {
-            if (this.e1 === 1) {
-                return this.e1 = 1;
+            if (this.currentStep === 1) {
+                return this.currentStep = 1;
 
             } else {
-                this.e1 = this.e1 - 1;
-                this.stepsProgress = (this.e1) * 10;
+                this.currentStep = this.currentStep - 1;
+                this.stepsProgress = ((100/8)* this.currentStep);
             }
 
         },
         changeStep(step){
-            console.log('clicked step change',step);
-            this.e1 = step;
+            //clean up everytnig for new doc upload
+            if(step ===1){
+
+            }
+            this.currentStep = step;
         }
-    },
-
-    mounted() {
-
     },
 
     created() {
