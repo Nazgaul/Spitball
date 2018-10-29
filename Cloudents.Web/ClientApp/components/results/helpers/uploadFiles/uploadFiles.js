@@ -3,6 +3,8 @@ import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
 import sbInput from "../../../question/helpers/sbInput/sbInput";
+import referralDialog from "../../../question/helpers/referralDialog/referral-dialog.vue";
+
 import { documentTypes, currencyValidator } from "./consts";
 import sblCurrency from "./sbl-currency.vue"
 //var VueUploadComponent = import('vue-upload-component');
@@ -13,21 +15,19 @@ export default {
         sbDialog,
         sbInput,
         sblCurrency,
-        FileUpload
+        FileUpload,
+        referralDialog
     },
     name: "uploadFiles",
     data() {
         return {
             showUploadDialog: false,
-            allowOverflow: true,
-            uploadUrl: "/api/upload/ask",
+            uploadUrl: "/api/upload/file",
             counter: 0,
-            uploadsPreviewList: [],
             dbReady: false,
-            regularUploadFiles: [],
             progressValue: '',
             files: [],
-            steps: 7,
+            steps: 8,
             e1: 1,
             step: 1,
             stepsProgress: 0,
@@ -41,6 +41,7 @@ export default {
             selectedTags: [],
             tagsOptions: [, 'behaviourl', 'Biology', 'Math', 'History'],
             uploadPrice: null,
+            legalCheck: false,
         }
     },
     props: {},
@@ -60,17 +61,28 @@ export default {
         isFirstStep() {
             return this.e1 === 1
         },
-
-    },
-    watch: {
-        files(newValue, oldValue) {
-            console.log('newVal::: ', newValue, 'files', this.files)
-        },
-        selectedTags(newV, oldV) {
-            console.log('newVal::: ', newV, 'files', this.selectedTags)
+        isDisabled(){
+            if(this.e1 === 2 && !this.schoolName || !this.selectedClass){
+                return true
+            }
+            else if(this.e1 === 3 && Object.keys(this.selectedDoctype).length === 0   ){
+                return true
+            }else if(this.e1 === 4 && (!this.documentTitle || !this.proffesorName)){
+                return true
+            }else if(this.e1 === 5 && this.selectedTags.length < 1){
+                return true
+            }else if(this.e1 === 6 && !this.uploadPrice){
+                return true
+            }else if(this.e1 === 7 && !this.legalCheck){
+                return true
+            }else{
+                return false
+            }
 
         }
+
     },
+
     methods: {
         ...mapActions(["updateLoginDialogState", 'updateUserProfileData']),
 
@@ -97,10 +109,13 @@ export default {
             this.selectedTags.splice(this.selectedTags.indexOf(item), 1)
             this.selectedTags = [...this.selectedTags]
         },
-        sendDocumentData(){
-            console.log('sending data')
+        sendDocumentData(step){
+            console.log('sending data');
+            this.nextStep(step)
         },
-
+        updateLegal(){
+          console.log('legal check',this.legalCheck)
+        },
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
             let isDbExists = !!document.getElementById('dropboxjs');
@@ -126,18 +141,14 @@ export default {
                     let type = 'dropBox';
                     //clean if was trying to upload from desktop before
                     files.forEach((file) => {
-                        // self.uploadsPreviewList.push({
-                        //     name : file,
-                        //     link:  file.thumbnails["64x64"],
-                        //     type: type
-                        // });
-                        this.files.push({
+                        let singleFile = {
                             name: file.name,
                             link: file.link,
                             size: file.bytes,
                             type: type
-
-                        });
+                        };
+                        // add to array or replace
+                        this.files.splice(1, 1, singleFile);
                     });
                     this.nextStep(1)
                 },
@@ -198,13 +209,15 @@ export default {
                 // Create the 'blob' field for thumbnail preview
                 newFile.blob = ''
                 let URL = window.URL || window.webkitURL;
-                let type = 'fromDisk'
+                let type = 'fromDisk';
                 if (URL && URL.createObjectURL) {
-                    this.files.push({
+                    let singleFile = {
                         name: newFile.name,
                         link: URL.createObjectURL(newFile.file),
                         type: type
-                    })
+                    };
+                    //add or replace
+                    this.files.splice(1, 1, singleFile)
 
                 }
             }
@@ -221,9 +234,6 @@ export default {
                 // Refused to remove the file
                 // return prevent()
             }
-        },
-        deletePreview: function (index) {
-            this.files.splice(index, 1)
         },
         nextStep(step) {
             console.log('files', this.files)
