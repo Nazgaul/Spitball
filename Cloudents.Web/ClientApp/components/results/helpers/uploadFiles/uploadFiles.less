@@ -1,78 +1,12 @@
 @import "../../../../mixin.less";
-
-::-webkit-scrollbar {
-  width: 3px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  background: lighten(@color-main-purple, 30%);
-  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
-}
-
-::-webkit-scrollbar-thumb:window-inactive {
-  background: lighten(@color-main-purple, 30%);
-}
+@import "style-helpers/dotsanimate.less";
+@import "style-helpers/scroll-bar.less";
+@import "style-helpers/docType-animate.less";
 
 .v-select__selections {
   min-height: 42px !important;
   padding-top: 0 !important;
 }
-
-@-webkit-keyframes color_change_doc_type {
-  from {
-    background-color: transparent
-  }
-  to {
-    background-color: @uploadGreyBackground;
-  }
-}
-
-@-moz-keyframes color_change_doc_type {
-  from {
-    background-color: transparent
-  }
-  to {
-    background-color: @uploadGreyBackground;
-  }
-}
-
-@-ms-keyframes color_change_doc_type {
-  from {
-    background-color: transparent
-  }
-  to {
-    background-color: @uploadGreyBackground;
-  }
-}
-
-@-o-keyframes color_change_doc_type {
-  from {
-    background-color: transparent
-  }
-  to {
-    background-color: @uploadGreyBackground;
-  }
-}
-
-@keyframes color_change_doc_type {
-  from {
-    background-color: transparent
-  }
-  to {
-    background-color: @uploadGreyBackground;
-  }
-}
-
 @textColor: rgba(0, 0, 0, 0.87);
 @uploadGreyBackground: rgba(68, 82, 252, 0.09);
 @uploadGrey: #D1D1D1;
@@ -86,6 +20,7 @@
 @colorPrice: rgba(74, 74, 74, 0.87);
 @placeholderGrey: rgba(74, 74, 74, 0.25);
 @inputGreyBorder: #979797;
+@buttonHeigh: 41px;
 .paddingTopSm {
   padding-top: 44px;
 }
@@ -94,6 +29,16 @@
   padding-top: 88px;
 }
 
+#upload-input {
+  position: absolute;
+  height: 221px;
+  width: 165px;
+  transform: rotate(0deg);
+  input{
+    height: 221px;
+    width: 165px;
+  }
+}
 .upload-files {
   border-radius: 4px;
   //TODO ui changes
@@ -113,130 +58,20 @@
   }
 }
 
-.files {
-  //transition: visibility 4s, ease-out;
-  //background-color: #c7c7ee;
-  padding: 8px;
-  text-align: center;
-  .preview-list {
-    display: inline-block;
-    overflow: hidden;
-    //padding: 1px;
-    list-style-type: none;
-    position: relative;
-    //@media (max-width: @screen-sm) {
-    //  display: flex;
-    //  flex-wrap: wrap;
-    //}
-    @media (max-width: @screen-xs) {
-      margin-right: 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      padding-left: 0;
-    }
-    li {
-      width: 104px;
-      height: 104px;
-      padding: 8px;
-      border-radius: 4px;
-      background-color: #ffffff;
-      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-      display: inline-flex;
-      margin-bottom: 16px;
-      position: relative;
-      float: left;
-      &:not(:last-child) {
-        margin-right: 8px;
-        @media (max-width: @screen-xs) {
-          margin-right: 0;
-        }
-      }
-      @media (max-width: @screen-xs) {
-        margin-right: 0;
-      }
-
-      .hover-trash {
-        position: absolute;
-        width: 24px;
-        height: 24px;
-        display: none;
-        right: 2px;
-        top: 4px;
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 15px;
-        outline: none;
-        @media (max-width: @screen-xs) {
-          display: block;
-        }
-      }
-
-      &.add-file {
-        label {
-          line-height: 88px;
-          width: 100%;
-          text-align: center;
-          cursor: pointer;
-          .sbf {
-            transform: rotate(45deg);
-            color: @color-main-purple;
-            font-size: 16px;
-          }
-        }
-      }
-      .hover-trash {
-        z-index: 2;
-        .sbf {
-          font-size: 12px;
-          color: @color-white;
-          vertical-align: initial;
-        }
-      }
-      img {
-        width: 88px;
-        height: 88px;
-        object-fit: cover;
-        border-radius: inherit;
-      }
-      &:hover {
-        .hover-trash, .background {
-          display: block;
-        }
-      }
-    }
-    &.full-preview {
-      width: 100%;
-      overflow-x: auto;
-    }
-
-    .show-more {
-      opacity: 0.7;
-      background-color: #000000;
-      color: @color-white;
-      position: absolute;
-      bottom: 0;
-      width: 160px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 40px;
-      cursor: pointer;
-      z-index: 2;
-      .background {
-        display: block;
-      }
-      @media (max-width: @screen-xs) {
-        width: 120px;
-      }
-    }
-  }
-}
-
 .upload-dialog {
+  position: relative;
   font-family: 'Fira Sans', sans-serif;
+  .close-upload-btn-icon{
+    position: absolute;
+    right: 16px;
+    top: 21px;
+    z-index: 99;
+    font-size: 16px;
+    cursor: pointer;
+  }
   .sb-steps-wrap {
     font-family: 'Fira Sans', sans-serif;
-    padding: 12px 0;
+    padding: 12px 0 0 0;
     .bottom-upload-controls {
       height: 82px;
       padding-top: 0;
@@ -274,6 +109,7 @@
               font-size: 13px;
 
             }
+
           }
           //file-item
         }
@@ -284,7 +120,7 @@
           color: @color-white;
           font-size: 14px;
           font-weight: 500;
-          height: 41px;
+          height: @buttonHeigh;
           &.sell {
             width: 202px;
             padding: 0 16px;
@@ -301,6 +137,16 @@
           .arrow-back {
             font-size: 16px;
             transform: rotate(-90deg);
+          }
+        }
+      .another-doc{
+          border: 1px solid @colorUploadBlue;
+          color: @colorUploadBlue;
+          height:@buttonHeigh;
+          font-weight: 500;
+          .cloud-upload{
+            color: @colorUploadBlue;
+            font-size: 18px;
           }
         }
       }
@@ -350,7 +196,6 @@
             justify-content: flex-start;
             //align-items: center;
             box-shadow: none;
-
             .upload-row-1 {
               padding-top: 44px;
               display: flex;
@@ -358,6 +203,10 @@
               flex-direction: row;
               align-items: center;
               justify-content: center;
+              &.referal-row-1{
+                align-items: center;
+                justify-content: center;
+              }
               .sbf-upload-cloud {
                 font-size: 24px;
                 color: @colorUploadBlue;
@@ -382,6 +231,7 @@
               align-items: flex-start;
               align-content: center;
               &.referral-row {
+                padding-top: 21px;
                 .v-card {
                   box-shadow: none;
                   .close-btn, h2 {
@@ -404,12 +254,15 @@
                           .input-field{
                             border-radius: 4px 0 0 4px;
                             border-color: @borderGreyColor;
+                            border-right: none;
+                            font-size: 12px;
+                            color: @borderGreyColor;
                           }
                         }
                         .referral-btn {
                           width: 106px;
                           background-color: @colorUploadBlue;
-                          border-radius: 0;
+                          border-radius: 0 4px 4px 0;
                           margin-left: -4px;
                         }
                       }
@@ -434,10 +287,7 @@
                   box-shadow: none;
                   border: 1px solid @uploadGrey;
                   background-color: transparent;
-                  .upload-input {
-                    height: 48px;
-                    width: 48px;
-                  }
+
                   .sbf {
                     font-size: 18px;
                   }
@@ -460,6 +310,37 @@
               flex-direction: row;
               justify-content: center;
               align-items: center;
+              &.referal-row-3 {
+                display: flex;
+                flex-direction: column;
+                padding-top: 48px;
+                .sb-subtitle {
+                  font-size: 14px;
+                  color: @stepSubTitleColor;
+                  font-weight: normal;
+                }
+                .referal-ask {
+                  background: @colorUploadBlue;
+                  color: rgba(255, 255, 255, 0.87);
+                  height: @buttonHeigh;
+                  font-weight: 500;
+                  .referal-edit-icon{
+                    color: @color-white;
+                  }
+                }
+                .referal-answer {
+                  border: 1px solid @colorUploadBlue;
+                  color: @colorUploadBlue;
+                  height: @buttonHeigh;
+                  font-weight: 500;
+                }
+                .referal-btns-wrap{
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: center;
+                  align-items: center;
+                }
+              }
               .btn-holder {
                 display: flex;
                 flex-direction: row;
@@ -869,6 +750,9 @@
                 width: 100%;
                 align-items: flex-start;
                 max-width: @maxWidthForm;
+                &.referal-row-1{
+                  align-items: center;
+                }
                 .sb-title {
                   font-size: 18px;
                   font-weight: 600;

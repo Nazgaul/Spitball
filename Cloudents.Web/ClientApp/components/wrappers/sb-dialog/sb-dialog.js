@@ -26,8 +26,8 @@ export default {
         },
         onclosefn: {
             required: false
-        }
-
+        },
+        isPersistent: false
     },
     data: function () {
         return {
