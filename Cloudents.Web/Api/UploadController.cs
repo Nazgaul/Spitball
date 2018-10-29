@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -22,15 +23,18 @@ namespace Cloudents.Web.Api
     [ApiExplorerSettings(IgnoreApi = true)]
     [Produces("application/json")]
     [Authorize]
-    public class UploadController : ControllerBase
+    public class UploadController : Controller
     {
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly IBlobProvider<DocumentContainer> _documentBlobProvider;
+
         private readonly string[] _supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
 
 
-        public UploadController(IBlobProvider<QuestionAnswerContainer> blobProvider)
+        public UploadController(IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider<DocumentContainer> documentBlobProvider)
         {
             _blobProvider = blobProvider;
+            _documentBlobProvider = documentBlobProvider;
         }
 
         // GET
@@ -72,23 +76,45 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("file"), FormContentType]
-        public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model)
+        public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model, CancellationToken token)
         {
-            var t = model.Chunk.Length;
-            await Task.Delay(TimeSpan.FromSeconds(10));
+            var tempData = TempData.Get<TempData>($"update-{model.session_id}");
+            // tempData.Indexes = tempData.Indexes ?? new List<long>();
+            var index = (int)(model.start_offset / UploadInnerResponse.BlockSize);
+            //tempData.Indexes.Add(model.start_offset);
+            await _documentBlobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
+                index, token);
+
+            TempData.Put($"update-{model.session_id}", tempData);
             return new UploadResponse();
         }
 
         [HttpPost("file")]
-        public async Task<ActionResult<UploadResponse>> Upload([FromBody] UploadRequest model)
+        public async Task<UploadResponse> Upload([FromBody] UploadRequest model, CancellationToken token)
         {
-            await Task.Delay(TimeSpan.FromSeconds(1));
             if (model.Phase == UploadPhase.Start)
             {
                 var response = new UploadResponse(Guid.NewGuid());
+
+                var tempData = new TempData
+                {
+                    Name = model.Name,
+                    Size = model.Size,
+                    BlobName = $"{response.Data.SessionId}-{model.Name}{Path.GetExtension(model.Name)}"
+                };
+                TempData.Put($"update-{response.Data.SessionId}", tempData);
                 return response;
             }
-            return Ok();
+            var tempData2 = TempData.Get<TempData>($"update-{model.SessionId}");
+            TempData.Remove($"update-{model.SessionId}");
+
+            var indexes = new List<int>();
+            for (double i = 0; i < tempData2.Size; i += UploadInnerResponse.BlockSize)
+            {
+                indexes.Add((int)(i / UploadInnerResponse.BlockSize));
+            }
+            await _documentBlobProvider.CommitBlockListAsync(tempData2.BlobName, indexes, token);
+            return new UploadResponse();
         }
 
     }
@@ -102,7 +128,7 @@ namespace Cloudents.Web.Api
 
         public UploadResponse()
         {
-            
+
         }
 
         public string Status => "success";
@@ -112,6 +138,8 @@ namespace Cloudents.Web.Api
 
     public class UploadInnerResponse
     {
+        internal const double BlockSize = 3.5e+6;
+
         public UploadInnerResponse(Guid sessionId)
         {
             SessionId = sessionId;
@@ -121,7 +149,7 @@ namespace Cloudents.Web.Api
         public Guid SessionId { get; set; }
 
         [JsonProperty("end_offset")]
-        public double EndOffset => 4e+6;
+        public double EndOffset => BlockSize;
     }
 
     public class UploadRequest
@@ -132,6 +160,19 @@ namespace Cloudents.Web.Api
         public string MimeType { get; set; }
         public long Size { get; set; }
         public string Name { get; set; }
+
+        [JsonProperty("session_id")]
+        public Guid SessionId { get; set; }
+    }
+
+    public class TempData
+    {
+        public string Name { get; set; }
+
+        public string BlobName { get; set; }
+
+        public double Size { get; set; }
+        //public IList<long> Indexes { get; set; }
     }
 
     public enum UploadPhase
