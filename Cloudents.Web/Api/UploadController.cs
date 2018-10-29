@@ -20,6 +20,7 @@ namespace Cloudents.Web.Api
     //DO NOT ADD API CONTROLLER - UPLOAD WILL NOT WORK
     [Route("api/[controller]")]
     [ApiExplorerSettings(IgnoreApi = true)]
+    [Produces("application/json")]
     [Authorize]
     public class UploadController : ControllerBase
     {
@@ -73,14 +74,15 @@ namespace Cloudents.Web.Api
         [HttpPost("file"), FormContentType]
         public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model)
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1));
+            var t = model.Chunk.Length;
+            await Task.Delay(TimeSpan.FromSeconds(10));
             return new UploadResponse();
         }
 
         [HttpPost("file")]
         public async Task<ActionResult<UploadResponse>> Upload([FromBody] UploadRequest model)
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(1));
             if (model.Phase == UploadPhase.Start)
             {
                 var response = new UploadResponse(Guid.NewGuid());
@@ -118,7 +120,7 @@ namespace Cloudents.Web.Api
         [JsonProperty("session_id")]
         public Guid SessionId { get; set; }
 
-        [JsonProperty("session_id")]
+        [JsonProperty("end_offset")]
         public double EndOffset => 4e+6;
     }
 
@@ -142,11 +144,8 @@ namespace Cloudents.Web.Api
     public class UploadRequest2
     {
         public UploadPhase Phase { get; set; }
-        [JsonProperty("session_id")]
-        public Guid SessionId { get; set; }
-        [JsonProperty("start_offset")]
-
-        public long StartOffset { get; set; }
+        public Guid session_id { get; set; }
+        public long start_offset { get; set; }
 
         public IFormFile Chunk { get; set; }
     }
