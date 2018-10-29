@@ -4,20 +4,20 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Web.Hubs;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.SignalR;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 
-namespace Cloudents.Web.EventHandler
+namespace Cloudents.Core.EventHandler
 {
     public class SignalRQuestionCreated : IEventHandler<QuestionCreatedEvent>
     {
-        private readonly IHubContext<SbHub> _hubContext;
+        private readonly IQueueProvider _queueProvider;
 
-        public SignalRQuestionCreated(IHubContext<SbHub> hubContext)
+        public SignalRQuestionCreated(IQueueProvider queueProvider)
         {
-            _hubContext = hubContext;
+            _queueProvider = queueProvider;
         }
+
 
         public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
@@ -39,7 +39,7 @@ namespace Cloudents.Web.EventHandler
                 Color = eventMessage.Question.Color,
                 Subject = eventMessage.Question.Subject
             };
-            await _hubContext.Clients.All.SendAsync(SbHub.MethodName, new SignalRTransportType<QuestionDto>("question", SignalRAction.Add, dto), token);
+            await _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Add, dto), token);
         }
     }
 }
