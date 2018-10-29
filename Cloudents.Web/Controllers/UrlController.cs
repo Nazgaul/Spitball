@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Cloudents.Core.Extension;
@@ -19,13 +17,13 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class UrlController : Controller
     {
-        private readonly IServiceBusProvider _serviceBus;
+       // private readonly IServiceBusProvider _serviceBus;
         private readonly ILogger _logger;
         private readonly IDomainParser _domainParser;
 
-        public UrlController(IServiceBusProvider serviceBus, ILogger logger, IDomainParser domainParser)
+        public UrlController(/*IServiceBusProvider serviceBus,*/ ILogger logger, IDomainParser domainParser)
         {
-            _serviceBus = serviceBus;
+            //_serviceBus = serviceBus;
             _logger = logger;
             _domainParser = domainParser;
         }
@@ -34,7 +32,7 @@ namespace Cloudents.Web.Controllers
             .Union(PrioritySource.FlashcardPriority.Values)
             .SelectMany(s => s.Domains).ToList();
 
-        public async Task<IActionResult> Index([FromQuery]UrlRequest model,
+        public IActionResult Index([FromQuery]UrlRequest model,
             CancellationToken token)
         {
             if (!ModelState.IsValid)
@@ -67,7 +65,7 @@ namespace Cloudents.Web.Controllers
          
             var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());
 
-            await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
+           // await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
 
             if (model.Url.Host.Contains("courseHero", StringComparison.OrdinalIgnoreCase))
             {

@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write;
 using JetBrains.Annotations;
@@ -45,7 +44,7 @@ namespace Cloudents.Infrastructure.Search
         public async Task<UniversitySearchDto> SearchAsync(string term, string country,
             CancellationToken token)
         {
-            if (term.Contains(StopWordsList, StringComparison.InvariantCultureIgnoreCase))
+            if (StopWordsList.Any(a=> string.Equals(a, term, StringComparison.OrdinalIgnoreCase)))
             {
                 return UniversitySearchDto.StopWordResponse();
             }

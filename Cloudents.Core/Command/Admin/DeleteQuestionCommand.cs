@@ -13,5 +13,15 @@ namespace Cloudents.Core.Command.Admin
 
     }
 
+    public class ApproveQuestionCommand : ICommand
+    {
+        public ApproveQuestionCommand(long questionId)
+        {
+            QuestionId = questionId;
+        }
+
+        public long QuestionId { get; }
+    }
+
    
 }

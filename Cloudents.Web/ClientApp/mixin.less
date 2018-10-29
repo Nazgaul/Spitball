@@ -78,8 +78,8 @@
 
 //updated version TODO rework and remove previous
 .giveEllipsisUpdated(@fontSize, @lineHeigh, @lines, @maxHeight: 96px){
-  display: block; /* Fallback for non-webkit */
   display: -webkit-box;
+  display: block; /* Fallback for non-webkit */
   max-height: @maxHeight; /* Fallback for non-webkit */
   font-size: @fontSize;
   line-height: @lineHeigh;
@@ -90,7 +90,22 @@
   white-space: normal;
   -o-text-overflow: ellipsis;	/* required for Opera */
   -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
+  white-space: nowrap;
 }
+
+
+//.checkboxStyle(){
+//  -webkit-appearance: none;
+//  background-color: #fafafa;
+//  border: 1px solid #cacece;
+//  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+//  padding: 9px;
+//  border-radius: 3px;
+//  display: inline-block;
+//  position: relative;
+//}
+
+
 
 .widthMinMax(@width, @minWidth: @width, @maxWidth: @width){
   width: @width;

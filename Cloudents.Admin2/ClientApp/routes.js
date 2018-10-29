@@ -5,6 +5,7 @@ import QMark from './components/question/questionComponents/mark/markQuestion.vu
 import QDelete from './components/question/questionComponents/delete/deleteQuestion.vue'
 import QAdd from './components/question/questionComponents/add/addQuestion.vue'
 import QAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue'
+import QAccept from './components/question/questionComponents/accept/acceptQuestion.vue'
 
 import User from './components/user/user.vue'
 import UToken from './components/user/token/tokenUser.vue'
@@ -45,6 +46,11 @@ export const routes = [
             path:'addBulk',
             component: QAddBulk
           },
+          {
+            path:'acceptQuestion',
+            component: QAccept
+          },
+          
           {
             path: '*',
             redirect: 'mark',

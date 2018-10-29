@@ -3,20 +3,20 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Web.Hubs;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.SignalR;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 
-namespace Cloudents.Web.EventHandler
+namespace Cloudents.Core.EventHandler
 {
     public class SignalRQuestionDelete : IEventHandler<QuestionDeletedEvent>
     {
-        private readonly IHubContext<SbHub> _hubContext;
+        private readonly IQueueProvider _queueProvider;
 
-        public SignalRQuestionDelete(IHubContext<SbHub> hubContext)
+        public SignalRQuestionDelete(IQueueProvider queueProvider)
         {
-            _hubContext = hubContext;
+            _queueProvider = queueProvider;
         }
+
 
         public async Task HandleAsync(QuestionDeletedEvent eventMessage, CancellationToken token)
         {
@@ -38,7 +38,7 @@ namespace Cloudents.Web.EventHandler
                 Color = eventMessage.Question.Color,
                 Subject = eventMessage.Question.Subject
             };
-            await _hubContext.Clients.All.SendAsync(SbHub.MethodName, new SignalRTransportType<QuestionDto>("question", SignalRAction.Delete, dto), token);
+            await _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Delete, dto), token);
         }
     }
 }

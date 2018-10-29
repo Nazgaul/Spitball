@@ -45,8 +45,7 @@ namespace ConsoleApp
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://localhost:8545",
-                ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
+                BlockChainNetwork = "http://localhost:8545"
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
