@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -48,7 +49,7 @@ namespace Cloudents.Infrastructure.Storage
 
 
         public Task UploadStreamAsync(string blobName, Stream fileContent,
-            string mimeType, bool fileGziped, int cacheControlMinutes, CancellationToken token)
+            string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
             if (!fileContent.CanSeek)
@@ -56,13 +57,45 @@ namespace Cloudents.Infrastructure.Storage
                 throw new ArgumentException("stream should need to be able to seek");
             }
             fileContent.Seek(0, SeekOrigin.Begin);
-            blob.Properties.ContentType = mimeType;
+            if (mimeType != null)
+            {
+                blob.Properties.ContentType = mimeType;
+            }
+
             if (fileGziped)
             {
                 blob.Properties.ContentEncoding = "gzip";
             }
-            blob.Properties.CacheControl = "private, max-age=" + (TimeConst.Minute * cacheControlMinutes);
+
+            if (cacheControlSeconds.HasValue)
+            {
+                blob.Properties.CacheControl = "private, max-age=" + (TimeConst.Second * cacheControlSeconds.Value);
+            }
+
             return blob.UploadFromStreamAsync(fileContent);
+        }
+
+        public Task UploadBlockFileAsync(string blobName, Stream fileContent, int index, CancellationToken token)
+        {
+            var blob = GetBlob(blobName);
+            fileContent.Seek(0, SeekOrigin.Begin);
+            return blob.PutBlockAsync(ToBase64(index), fileContent, null, null, new BlobRequestOptions
+            {
+                StoreBlobContentMD5 = true
+            }, null, token);
+        }
+
+        public Task CommitBlockListAsync(string blobName, IList<int> indexes, CancellationToken token)
+        {
+            var blob = GetBlob(blobName);
+
+            return blob.PutBlockListAsync(indexes.Select(ToBase64));
+        }
+
+        private static string ToBase64(int blockIndex)
+        {
+            var blockId = blockIndex.ToString("D10");
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
 
         public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes)

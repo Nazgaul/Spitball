@@ -3,10 +3,7 @@
 @import "style-helpers/scroll-bar.less";
 @import "style-helpers/docType-animate.less";
 
-.v-select__selections {
-  min-height: 42px !important;
-  padding-top: 0 !important;
-}
+
 @textColor: rgba(0, 0, 0, 0.87);
 @uploadGreyBackground: rgba(68, 82, 252, 0.09);
 @uploadGrey: #D1D1D1;
@@ -24,7 +21,10 @@
 .paddingTopSm {
   padding-top: 44px;
 }
-
+.v-select__selections {
+  min-height: 42px !important;
+  padding-top: 0 !important;
+}
 .paddingTopBg {
   padding-top: 88px;
 }
@@ -144,9 +144,11 @@
           color: @colorUploadBlue;
           height:@buttonHeigh;
           font-weight: 500;
+          width: 284px;
           .cloud-upload{
             color: @colorUploadBlue;
             font-size: 18px;
+            margin-left: 9px;
           }
         }
       }
@@ -186,6 +188,9 @@
         .sb-stepper-content {
           border: 1px dashed @colorUploadBlue;
           padding: 0;
+          &.step-one{
+            margin-bottom: 12px;
+          }
           //background-color: @stepContentBackground;
           .sb-step-card {
             //background-color: @stepContentBackground;

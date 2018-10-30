@@ -44,14 +44,14 @@
                                                 ref="upload"
                                                 :drop="true"
                                                 v-model="files"
-                                                post-action="/api/upload/ask"
+                                                :post-action = uploadUrl
                                                 chunk-enabled
-                                                :extensions="['doc', 'pdf', 'png', 'jpg']"
+                                                :extensions="['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt']"
                                                 :maximum="1"
                                                 @input-file="inputFile"
                                                 @input-filter="inputFilter"
                                                 :chunk="{
-                              action: '/upload/chunk',
+                              action: uploadUrl,
                               minSize: 1048576,
                               maxActive: 3,
                               maxRetries: 5,}">
@@ -348,7 +348,7 @@
                                     <div class="referal-btns-wrap">
                                     <v-btn round   class="referal-ask" @click="">
                                         <span>Ask a question</span>
-                                        <v-icon left class="referal-edit-icon ml-3">sbf-edit-icon</v-icon>
+                                        <v-icon right class="referal-edit-icon ml-3">sbf-edit-icon</v-icon>
 
                                     </v-btn>
                                     <v-btn round  outline class="sb-back-flat-btn referal-answer" @click="">
@@ -381,12 +381,12 @@
                                 <v-btn v-show="currentStep !==7 && currentStep !==8" round class="next-btn" @click="nextStep(step)" :disabled="isDisabled">Next</v-btn>
                                 <v-btn v-show="currentStep ===7 && currentStep !==8" round class="next-btn sell" @click="sendDocumentData(step)" :disabled="isDisabled">
                                     SELL MY DOCUMENT
-                                    <v-icon class="credit-card">sbf-credit-card</v-icon>
+                                    <v-icon right class="credit-card">sbf-credit-card</v-icon>
                                 </v-btn>
                                 <v-btn v-show="currentStep ===8" flat class="sb-back-flat-btn" @click="showUploadDialog = false">Close
                                 </v-btn>
                                 <v-btn v-show="currentStep ===8" round outline class="another-doc" @click="changeStep(1)">Upload another document
-                                    <v-icon class="cloud-upload">sbf-upload-cloud</v-icon>
+                                    <v-icon right class="cloud-upload">sbf-upload-cloud</v-icon>
                                 </v-btn>
                             </div>
                         </div>
@@ -399,6 +399,6 @@
 <script src="./uploadFiles.js">
 
 </script>
-<style lang="less" src="./uploadFiles.less" scoped>
+<style lang="less" src="./uploadFiles.less">
 
 </style>
