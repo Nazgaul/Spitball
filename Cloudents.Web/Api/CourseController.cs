@@ -63,14 +63,19 @@ namespace Cloudents.Web.Api
             };
         }
 
-
-        [Route("GetUserCourses")]
+        /// <summary>
+        /// Perform course search per user
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns>list of courses for a user</returns>
+        [Route("UserCourses")]
         [HttpGet]
-        public async Task<IEnumerable<CourseDto>> Get([FromQuery]UserCoursesRequest model, CancellationToken token)
+        public async Task<IEnumerable<CourseDto>> Get(CancellationToken token)
         {
-            var query = new CoursesQuery(model.UserId);
+            var userId = _userManager.GetLongUserId(User);
+            var query = new CoursesQuery(userId);
             var t = await _queryBus.QueryAsync<IEnumerable<CourseDto>>(query, token);
-            return t.Take(100);
+            return t;
         }
 
 
