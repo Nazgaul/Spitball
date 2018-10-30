@@ -100,7 +100,7 @@
                                         <v-chip name="sbf-class-chip" class="sbf-class-chip mb-2" outline
                                                 v-for="(singleClass, index) in classesList"
                                                 @click="updateClass(singleClass)"
-                                                :selected="selectedClass ===singleClass"
+                                                :selected="isSelected(singleClass)"
                                                 :key="index">{{singleClass}}
                                         </v-chip>
                                     </div>
@@ -287,7 +287,7 @@
                                             <v-icon class="final-icon">sbf-classes-new</v-icon>
                                             <span class="item-name">Class</span>
                                         </div>
-                                        <span class="class-name">{{selectedClass}}</span>
+                                        <span class="class-name" v-for="singleClass in selectedClass">{{singleClass}}</span>
                                     </div>
                                 </div>
                                 <div class="upload-row-3 final-row">
@@ -363,7 +363,7 @@
                             <!--<div id="result"></div>-->
                             <div class="step-controls">
                                 <div class="upload upload-result-file">
-                                    <div class="file-item" v-for="file in files">
+                                    <div class="file-item" v-for="file in filesUploaded">
                                         <v-icon v-if="!progressShow">sbf-terms</v-icon>
                                         <div v-else class="dot-flashing" ></div>
                                         <span class="upload-file-name ml-5 mr-3">{{file.name}}</span>

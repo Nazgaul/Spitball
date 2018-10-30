@@ -29,6 +29,7 @@ export default {
             dbReady: false,
             progressDone: false,
             files: [],
+            filesUploaded: [],
             generatedFileName: '',
             steps: 8,
             currentStep: 1,
@@ -36,13 +37,12 @@ export default {
             stepsProgress: 100 / 8,
             schoolName: '',
             classesList: ['Social Psych', 'behaviourl psych', 'Biology 2', 'Biology 3', 'behaviourl psych2'],
-            selectedClass: '',
+            selectedClass: [],
             documentTypes: documentTypes,
-            selectedDoctype: {},
+            selectedDoctype: [],
             documentTitle: '',
             proffesorName: '',
             selectedTags: [],
-            tagsOptions: [, 'behaviourl', 'Biology', 'Math', 'History'],
             uploadPrice: null,
             legalCheck: false,
             gotoAsk: false,
@@ -61,6 +61,7 @@ export default {
         },
         progress() {
             console.log(this.files[0] ? this.files[0].progress : 0);
+            //files model of uploader
             return this.files[0] ? this.files[0].progress : 0
         },
         isFirstStep() {
@@ -103,23 +104,46 @@ export default {
 
         // update data methods
         updateClass(singleClass) {
-            this.selectedClass = singleClass;
+            if( this.selectedClass.indexOf(singleClass) === -1 ){
+                this.selectedClass.push(singleClass)
+            }else{
+                let index = this.selectedClass.indexOf(singleClass);
+                this.selectedClass.splice(index, 1);
+            }
         },
+
+        isSelected(singleClass){
+           return this.selectedClass.indexOf(singleClass) !== -1
+        },
+
         updateDocumentType(docType) {
             this.selectedDoctype = docType;
             console.log(this.selectedDoctype)
         },
         removeTag(item) {
-            this.selectedTags.splice(this.selectedTags.indexOf(item), 1)
+            this.selectedTags.splice(this.selectedTags.indexOf(item), 1);
             this.selectedTags = [...this.selectedTags]
         },
         sendDocumentData(step) {
-            console.log('sending data');
             //documentTitle if exists replace with custom before send
-            let file = this.files[0];
-            console.log('FILE:: SEND::', file)
-            documentService.sendDocumentData(file);
-            this.nextStep(step)
+            let file = this.filesUploaded[0];
+            let docData ={
+                "blobName": this.generatedFileName,
+                "name" : file.name,
+                "type": this.selectedDoctype.id,
+                "courses": this.selectedClass,
+                "tags": this.selectedTags
+            };
+            console.log('doc data:: SEND::', docData);
+            documentService.sendDocumentData(docData)
+                .then((resp)=>{
+                    console.log('doc data success')
+                this.nextStep(step)
+                },
+                (error)=>{
+                    console.log('doc data error', error)
+            });
+
         },
         updateLegal() {
             console.log('legal check', this.legalCheck)
@@ -168,7 +192,7 @@ export default {
                     uploadService.uploadDropbox(singleFile)
                         .then((response) => {
                                 console.log("success responce ulpoad drop box api call", response);
-                                this.files.splice(0, 1, singleFile);
+                                this.filesUploaded.splice(0, 1, singleFile);
                                 this.progressDone = true;
                                 this.generatedFileName = response.data.fileName ? response.data.fileName : '';
                                 this.nextStep(1)
@@ -250,7 +274,7 @@ export default {
                     };
                     //add or replace
                     this.documentTitle = singleFile.name ?  singleFile.name : '';
-                    this.files.splice(0, 1, singleFile)
+                    this.filesUploaded.splice(0, 1, singleFile)
                 }
             }
             if (newFile && oldFile) {
@@ -268,7 +292,6 @@ export default {
             }
         },
         nextStep(step) {
-            console.log('files', this.files)
             if (this.currentStep === this.steps) {
                 this.currentStep = 1
             } else {
