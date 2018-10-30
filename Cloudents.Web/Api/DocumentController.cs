@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Infrastructure.Framework;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -34,30 +35,30 @@ namespace Cloudents.Web.Api
             _userManager = userManager;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAsync(long id, bool? firstTime, CancellationToken token)
-        {
-            var query = new DocumentById(id);
-            var tModel = _queryBus.QueryAsync<DocumentDto>(query, token);
-            var tContent = firstTime.GetValueOrDefault() ?
-                _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
-            await Task.WhenAll(tModel, tContent).ConfigureAwait(false);
-            var model = tModel.Result;
-            if (model == null)
-            {
-                return NotFound();
-            }
-            var preview = _factoryProcessor.PreviewFactory(model.Blob);
-            var result = await preview.ConvertFileToWebsitePreviewAsync(0, token).ConfigureAwait(false);
+        //[HttpGet]
+        //public async Task<IActionResult> GetAsync(long id, bool? firstTime, CancellationToken token)
+        //{
+        //    var query = new DocumentById(id);
+        //    var tModel = _queryBus.QueryAsync<DocumentDto>(query, token);
+        //    var tContent = firstTime.GetValueOrDefault() ?
+        //        _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
+        //    await Task.WhenAll(tModel, tContent).ConfigureAwait(false);
+        //    var model = tModel.Result;
+        //    if (model == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var preview = _factoryProcessor.PreviewFactory(model.Blob);
+        //    var result = await preview.ConvertFileToWebsitePreviewAsync(0, token).ConfigureAwait(false);
             
-            return Ok(
-                new
-                {
-                    details = model,
-                    content = tContent.Result,
-                    preview = result
-                });
-        }
+        //    return Ok(
+        //        new
+        //        {
+        //            details = model,
+        //            content = tContent.Result,
+        //            preview = result
+        //        });
+        //}
 
         [HttpPost]
         public async Task<ActionResult> CreateDocumentAsync([FromBody]CreateDocumentRequest model, CancellationToken token)
