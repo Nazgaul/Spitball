@@ -133,7 +133,6 @@ export default {
             this.fnMethods.changeStep(this.enumSteps.set_school);
         },
         nextStep(){
-            
             //TODO add action update the server instead of 'updateSelectedClasses'
             this.assignClasses().then(()=>{
                 this.fnMethods.changeStep(this.enumSteps.done);
