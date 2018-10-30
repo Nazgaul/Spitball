@@ -34,10 +34,12 @@ const getters = {
 const actions = {
     syncUniData({commit}){
         universityService.getProfileUniversity().then((university)=>{
-            commit('setSchoolName', university.name);
+            commit('setSchoolName', university.text);
         })
         universityService.getProfileCourses().then((courses)=>{
-            commit('updateSelectedClasses', courses);
+            if(courses.length > 0){
+                commit('updateSelectedClasses', courses);
+            }
         })
         
     },

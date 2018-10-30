@@ -41,7 +41,7 @@ export default {
     },
 
     methods:{
-        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setUniversityPopStorage_session']),
+        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setUniversityPopStorage_session', 'syncUniData']),
         ...mapGetters(['getAllSteps','getCurrentStep']),
         changeStep(step){
             if(step === this.enumSteps.done){
@@ -71,6 +71,7 @@ export default {
         }
     },
     created(){
+        this.syncUniData();
         console.log("unicreated")
     }
 }
