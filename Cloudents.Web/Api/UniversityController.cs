@@ -67,9 +67,8 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UniversityQuery(userId);
-            var t = await _queryBus.QueryAsync<string>(query, token);
+            var t = await _queryBus.QueryAsync<IEnumerable<UniversityDto>>(query, token);
             return t;
-
         }
 
         [HttpPost("assign")]
