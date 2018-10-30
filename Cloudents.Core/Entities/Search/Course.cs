@@ -3,15 +3,15 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities.Search
 {
-    public class Course : ISearchObject
-    {
-        public string Id { get; set; }
+    //public class Course : ISearchObject
+    //{
+    //    public string Id { get; set; }
 
-        public string Name { get; set; }
+    //    public string Name { get; set; }
 
-        public string[] Prefix { get; set; }
+    //    public string[] Prefix { get; set; }
 
-        public string[] Extra { get; set; }
+    //    public string[] Extra { get; set; }
 
-    }
+    //}
 }

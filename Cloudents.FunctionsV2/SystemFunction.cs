@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -6,8 +5,6 @@ using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.System;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
@@ -19,7 +16,7 @@ namespace Cloudents.FunctionsV2
         public static async Task Run([QueueTrigger(QueueName.BackgroundQueueName)]string queueMsg, 
             [Inject] ILifetimeScope lifetimeScope,
             IBinder binder,
-            ILogger log, CancellationToken token)
+            CancellationToken token)
         {
             var message = JsonConvert.DeserializeObject<BaseSystemMessage>(queueMsg, new JsonSerializerSettings()
             {
