@@ -6,7 +6,7 @@
     </div>
         <component v-show="!beforeLeave" :is="currentStep" :fnMethods="fnMethods" :enumSteps="enumSteps" style="z-index:1;"></component>
         <no-worries :fnStay="closeNoWorriesPopup" :fnLeave="closeInterface" v-show="beforeLeave"></no-worries>
-        <changing-school></changing-school>
+        <changing-school :popupData="areYouSurePopup"></changing-school>
         
 </div>
 </template>

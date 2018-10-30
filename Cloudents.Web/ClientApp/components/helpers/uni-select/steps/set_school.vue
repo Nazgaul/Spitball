@@ -3,7 +3,7 @@
                 
                 <div class="title-container">
                     Select School
-                    <a v-show="search.length > 10 || !!university" class="next-container" @click="nextStep()">Next</a>  
+                    <a v-show="search.length > 10 || !!university" class="next-container" @click="checkBeforeNextStep()">Next</a>  
                 </div>
                 <div class="select-school-container">
                     <v-combobox
@@ -106,23 +106,36 @@ export default {
             this.changeSelectUniState(false);
             this.setUniversityPopStorage_session();
         },
-        nextStep(){
+        nextStep(dontChangeUniversity){
+            if(dontChangeUniversity) {
+                this.fnMethods.changeStep(this.enumSteps.set_class)
+            }else{
+                let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+                   if(!schoolName) {
+                       console.log("No university name found")
+                       return;
+                    };
+                   this.updateSchoolName(schoolName).then(()=>{
+                        this.fnMethods.changeStep(this.enumSteps.set_class);
+                });
+            }
+        },
+        checkBeforeNextStep(){
             let user = this.accountUser();
             if(!!user && user.universityExists){
-                console.log("popUp are u sure")
+                //compare previous and current school name, if different show popup
+                let previousSchoolName = this.getSchoolName();
+                let currentSchoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+                if(previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase()){
+                    this.fnMethods.openAreYouSurePopup(this.nextStep);
+                }else{
+                    //if the same university is presented then skip the set on the server
+                    this.nextStep(true);
+                }
+            }else{
+                this.nextStep();
             }
-            let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : this.search;
-            if(!schoolName){
-                //if the user went 1 step back, we should take the school name that was already set from the store
-                schoolName = this.getSchoolName();
-                if(!schoolName) return;
-            }
-            this.updateSchoolName(schoolName).then(()=>{
-                this.fnMethods.changeStep(this.enumSteps.set_class);
-            });
-            
         }
-        
     },
     computed:{
         showBox(){

@@ -1,5 +1,5 @@
 <template>
-    <div class="changing-school-container" :class="{'active': showPopup}">
+    <div class="changing-school-container" :class="{'active': popupData.show}">
         <div class="header-container">
             <div class="warning-triangle"><span>!</span></div>
             <div class="icons">
@@ -26,19 +26,26 @@
 
 <script>
 export default {
+    props:{
+        popupData:{
+            type: Object,
+            required: true
+        }
+    },
     data(){
         return{
             schoolName: "New Jersey Institue of Technology,",
             schoolDesc: "\n and all of the selected classes \n will be deleted",
-            showPopup: false,
         }
     },
     methods:{
         revertAction(){
-            this.showPopup = false;
+            this.popupData.continueActionFunction(true);
+            this.popupData.closeFunction();
         },
         continueAction(){
-            this.showPopup = false;
+            this.popupData.continueActionFunction();
+            this.popupData.closeFunction();
         },
     }
 }
