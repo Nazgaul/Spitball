@@ -2,11 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Autofac;
-using Cloudents.Core;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Functions.Sync;
-using Cloudents.Infrastructure;
+using Cloudents.Infrastructure.Framework;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.WebJobs.Host.Config;
 
@@ -32,37 +28,33 @@ namespace Cloudents.Functions.Di
         }
         private static void RegisterServices(ContainerBuilder builder)
         {
-            var keys = new ConfigurationKeys(
-                GetEnvironmentVariable("SiteEndPoint") ?? "https://www.spitball.co")
-            {
-                Db = new DbConnectionString(GetEnvironmentVariable("ConnectionString"), GetEnvironmentVariable("Redis")),
-                Redis = GetEnvironmentVariable("Redis"),
-                Search = new SearchServiceCredentials(
-                    GetEnvironmentVariable("SearchServiceName"),
-                    GetEnvironmentVariable("SearchServiceAdminApiKey"),
-                    bool.Parse(GetEnvironmentVariable("IsDevelop"))
-                    ),
-                MailGunDb = GetEnvironmentVariable("MailGunConnectionString"),
-                BlockChainNetwork = GetEnvironmentVariable("BlockChainNetwork"),
-                Storage = GetEnvironmentVariable("AzureWebJobsStorage")
-            };
+            //var keys = new ConfigurationKeys(
+            //    GetEnvironmentVariable("SiteEndPoint") ?? "https://www.spitball.co")
+            //{
+            //    Db = new DbConnectionString(GetEnvironmentVariable("ConnectionString"), GetEnvironmentVariable("Redis")),
+            //    Redis = GetEnvironmentVariable("Redis"),
+            //    Search = new SearchServiceCredentials(
+            //        GetEnvironmentVariable("SearchServiceName"),
+            //        GetEnvironmentVariable("SearchServiceAdminApiKey"),
+            //        bool.Parse(GetEnvironmentVariable("IsDevelop"))
+            //        ),
+            //    MailGunDb = GetEnvironmentVariable("MailGunConnectionString"),
+            //    BlockChainNetwork = GetEnvironmentVariable("BlockChainNetwork"),
+            //    Storage = GetEnvironmentVariable("AzureWebJobsStorage")
+            //};
 
-            builder.Register(_ => keys).As<IConfigurationKeys>();
+            //builder.Register(_ => keys).As<IConfigurationKeys>();
 
-            builder.RegisterSystemModules(
-                Core.Enum.System.Function,
-                Assembly.Load("Cloudents.Infrastructure.Framework"),
-                Assembly.Load("Cloudents.Infrastructure"),
-                Assembly.Load("Cloudents.Core"));
+            builder.RegisterModule<ModuleFile>();
+            //builder.RegisterSystemModules(
+            //    Core.Enum.System.Function,
+            //    Assembly.Load("Cloudents.Infrastructure.Framework"));
 
-            builder.RegisterType<RestClient>().As<IRestClient>()
-                .SingleInstance();
 
-            builder.RegisterType<QuestionDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Question);
-            builder.RegisterType<UniversityDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.University);
-            builder.RegisterType<CourseDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Course);
 
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+
+
+            //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
