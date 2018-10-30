@@ -1,53 +1,56 @@
 <template>
         <div class="select-university-container set-school" :class="{'selected': (!!search && search.length > 10) || !!university}">
-            <div class="title-container">
-                Select School
-                <a v-show="search.length > 10 || !!university" class="next-container" @click="nextStep()">Next</a>  
-            </div>
-            <div class="select-school-container">
-                <v-combobox
-                    v-model="university"
-                    :items="universities"
-                    label="Type your school name"
-                    placeholder="Type your school name"
-                    clearable
-                    solo
-                    :search-input.sync="search"
-                    :append-icon="''"
-                    :clear-icon="'sbf-close'"
-                    @click:clear="clearData()"
-                    autofocus
-                    no-filter
-                >
-                <template slot="no-data">
-                    <v-list-tile v-show="showBox">
-                        <div class="subheading">Keep typing we are searching for you</div> 
-                    </v-list-tile>
-                    <v-list-tile>
-                        <div class="subheading dark">Show all Schools</div>
-                    </v-list-tile>
-                </template>
-                <template slot="selection" slot-scope="{ item, parent, selected }">
-                   <span style="color: rgba(0, 0, 0, 0.54);">{{!!item.text ? item.text : item}}</span> 
-                </template>
-                <template slot="item" slot-scope="{ index, item, parent }">
-                    <v-list-tile-content>
-                       <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
-                    </v-list-tile-content>
-                </template>
-                </v-combobox>
-            </div>
+                
+                <div class="title-container">
+                    Select School
+                    <a v-show="search.length > 10 || !!university" class="next-container" @click="nextStep()">Next</a>  
+                </div>
+                <div class="select-school-container">
+                    <v-combobox
+                        v-model="university"
+                        :items="universities"
+                        label="Type your school name"
+                        placeholder="Type your school name"
+                        clearable
+                        solo
+                        :search-input.sync="search"
+                        :append-icon="''"
+                        :clear-icon="'sbf-close'"
+                        @click:clear="clearData()"
+                        autofocus
+                        no-filter
+                    >
+                    <template slot="no-data">
+                        <v-list-tile v-show="showBox">
+                            <div class="subheading">Keep typing we are searching for you</div> 
+                        </v-list-tile>
+                        <v-list-tile>
+                            <div class="subheading dark">Show all Schools</div>
+                        </v-list-tile>
+                    </template>
+                    <template slot="selection" slot-scope="{ item, parent, selected }">
+                    <span style="color: rgba(0, 0, 0, 0.54);">{{!!item.text ? item.text : item}}</span> 
+                    </template>
+                    <template slot="item" slot-scope="{ index, item, parent }">
+                        <v-list-tile-content>
+                        <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
+                        </v-list-tile-content>
+                    </template>
+                    </v-combobox>
+                </div>
 
-            <div class="skip-container" v-if="$vuetify.breakpoint.xsOnly">
-                <a @click="skipUniSelect()">Skip for now</a> 
-            </div>
+                <div class="skip-container" v-if="$vuetify.breakpoint.xsOnly">
+                    <a @click="skipUniSelect()">Skip for now</a> 
+                </div>
 
-        </div>
+            </div>        
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
+
+
 
 export default {
     props:{
