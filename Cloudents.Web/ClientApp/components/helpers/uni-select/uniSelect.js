@@ -54,5 +54,8 @@ export default {
         openNoWorriesPopup(){
             this.beforeLeave = true;
         }
+    },
+    created(){
+        console.log("unicreated")
     }
 }
