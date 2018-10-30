@@ -126,15 +126,14 @@ export default {
         },
         sendDocumentData(step) {
             //documentTitle if exists replace with custom before send
-            let file = this.filesUploaded[0];
+            let name = this.filesUploaded[0] ? this.filesUploaded[0].name : '';
             let docData ={
                 "blobName": this.generatedFileName,
-                "name" : file.name,
+                "name" : `${name}`,
                 "type": this.selectedDoctype.id,
                 "courses": this.selectedClass,
                 "tags": this.selectedTags
             };
-            console.log('doc data:: SEND::', docData);
             documentService.sendDocumentData(docData)
                 .then((resp)=>{
                     console.log('doc data success')
