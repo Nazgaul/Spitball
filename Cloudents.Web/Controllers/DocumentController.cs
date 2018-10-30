@@ -68,8 +68,8 @@ namespace Cloudents.Web.Controllers
             return View();
         }
 
-        [Route("Item/{universityName}/{boxId:long}/{boxName}/{id:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
-        [Route("D/{boxId:long:min(0)}/{id:long:min(0)}", Name = "ItemDownload2")]
+        [Route("Document/{id:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
+        [Route("D/{id:long:min(0)}", Name = "ItemDownload2")]
         public async Task<ActionResult> DownloadAsync(long id, CancellationToken token)
         {
             var query = new DocumentById(id);
@@ -78,10 +78,7 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            if (item.Type == "Link")
-            {
-                return Redirect(item.Blob);
-            }
+            
 
             var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
             var extension = Path.GetExtension(item.Blob);

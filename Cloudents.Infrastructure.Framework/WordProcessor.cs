@@ -1,23 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Aspose.Words;
 using Aspose.Words.Saving;
-using Cloudents.Core;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class WordProcessor : Processor, IPreviewProvider
+    public class WordProcessor : IPreviewProvider2
     {
-        private const string CacheVersion = CacheVersionPrefix + "6";
 
-        public WordProcessor(
-                string blobUri,
-                IBlobProvider<OldSbFilesContainerName> blobProvider,
-                IBlobProvider<OldCacheContainer> blobProviderCache)
-            : base(blobProvider, blobProviderCache, blobUri)
+        public WordProcessor()
         {
             SetLicense();
         }
@@ -28,40 +22,11 @@ namespace Cloudents.Infrastructure.Framework
             license.SetLicense("Aspose.Total.lic");
         }
 
-        public Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(
-            int indexNum,
-            CancellationToken cancelToken)
-        {
-           // var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
-
-            var word = new AsyncLazy<Document>(async () =>
-            {
-                SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(BlobUri, cancelToken).ConfigureAwait(false))
-                {
-                    return new Document(sr);
-                }
-            });
-
-            var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
-            return UploadPreviewCacheToAzureAsync(indexNum,
-                i => CreateCacheFileName(BlobUri, i),
-                async z =>
-                {
-                    svgOptions.PageIndex = z;
-                    var ms = new MemoryStream();
-                    var w = await word;
-                    w.Save(ms, svgOptions);
-                    return ms;
-                }, CacheVersion, "image/svg+xml", cancelToken
-            );
-        }
-
-        protected static string CreateCacheFileName(string blobName, int index)
-        {
-            return
-                $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.svg";
-        }
+        //protected static string CreateCacheFileName(string blobName, int index)
+        //{
+        //    return
+        //        $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.svg";
+        //}
 
         public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".odt" };
         //public static bool CanProcessFile(Uri blobName)
@@ -69,53 +34,19 @@ namespace Cloudents.Infrastructure.Framework
         //    return WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         //}
 
-        //public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,
-        //    CancellationToken cancelToken = default(CancellationToken))
-        //{
-        //    try
-        //    {
-        //        var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
-        //        SetLicense();
-        //        var word = new Document(path);
+        
 
-        //        return await ProcessFileAsync(blobUri, () =>
-        //        {
-        //            var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
-        //            {
-        //                JpegQuality = 80,
-        //                Resolution = 150
-        //            };
-
-        //            var ms = new MemoryStream();
-        //            word.Save(ms, imgOptions);
-        //            ms.Seek(0, SeekOrigin.Begin);
-        //            return ms;
-        //        }, () => word.PageCount, CacheVersion, cancelToken).ConfigureAwait(false);
-        //    }
-        //    catch (UnsupportedFileFormatException)
-        //    {
-        //        return null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        m_Logger.Exception(ex);
-        //        return null;
-        //    }
-        //}
-
-        //private string ExtractDocumentText(Document doc)
-        //{
-        //    try
-        //    {
-        //        var str = doc.ToString(SaveFormat.Text);
-        //        return StripUnwantedChars(str);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        m_Logger.Exception(ex);
-        //        return string.Empty;
-        //    }
-        //}
+        private static string ExtractDocumentText(Document doc)
+        {
+            try
+            {
+                return doc.ToString(SaveFormat.Text);
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
 
         //public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         //{
@@ -133,5 +64,29 @@ namespace Cloudents.Infrastructure.Framework
         //        }
         //    }
         //}
+
+        public async Task CreatePreviewFilesAsync(MemoryStream stream, Func<Stream, string, Task> callback, Func<string, Task> textCallback, CancellationToken token)
+        {
+            var word = new Document(stream);
+            var txt = ExtractDocumentText(word);
+
+            await textCallback(txt);
+
+            var t = new List<Task>();
+            var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
+            {
+                JpegQuality = 80,
+                Resolution = 150
+            };
+            for (var i = 0; i < word.PageCount; i++)
+            {
+                var ms = new MemoryStream();
+                word.Save(ms, imgOptions);
+                ms.Seek(0, SeekOrigin.Begin);
+                t.Add(callback(ms, $"{i}.svg"));
+            }
+            await Task.WhenAll(t);
+
+        }
     }
 }

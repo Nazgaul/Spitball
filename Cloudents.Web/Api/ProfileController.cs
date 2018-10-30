@@ -54,5 +54,15 @@ namespace Cloudents.Web.Api
             var t = await _queryBus.QueryAsync<IEnumerable<CourseDto>>(query, token);
             return t;
         }
+
+        [Route("University")]
+        [HttpGet]
+        public async Task<IEnumerable<UniversityDto>> Get([FromServices] IQueryBus _queryBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UniversityQuery(userId);
+            var t = await _queryBus.QueryAsync<IEnumerable<UniversityDto>>(query, token);
+            return t;
+        }
     }
 }

@@ -23,13 +23,15 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(AssignCourseToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var course = await _courseRepository.GetOrAddAsync(message.Name, token);
-            if (user.Courses.Add(course))
+            foreach (var name in message.Name)
             {
-                course.Count++;
+                var course = await _courseRepository.GetOrAddAsync(name, token);
+                if (user.Courses.Add(course))
+                {
+                    course.Count++;
+                    await _courseRepository.UpdateAsync(course, token);
+                }
             }
-
-            await _courseRepository.UpdateAsync(course, token);
             await _userRepository.UpdateAsync(user, token);
         }
     }

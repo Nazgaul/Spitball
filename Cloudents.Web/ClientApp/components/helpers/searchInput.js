@@ -87,7 +87,7 @@ export default {
         },
         showUniPop(){
             let user = this.accountUser();
-            if(!user.universityExists){
+            if(!!user && !user.universityExists){
                 console.log("select uni pop up check");
                 let uniStoragePop = this.getUniversityPopStorage();
                 if(uniStoragePop.local < 3 && !uniStoragePop.session){

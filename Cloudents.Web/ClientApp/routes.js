@@ -110,7 +110,7 @@ let routes2 = [
         props: bookDetailsProps
     },
     {
-        path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",
+        path: "/document/:id/:itemName", name: "item",
         components: {default: showItem, header: documentPreviewHeader},
         props: {default: (route) => ({id: route.params.id})}
     },
