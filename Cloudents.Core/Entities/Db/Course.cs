@@ -7,6 +7,8 @@ namespace Cloudents.Core.Entities.Db
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public class Course
     {
+        public const int MinLength = 4;
+        public const int MaxLength = 150;
         protected Course()
         {
 
@@ -15,7 +17,7 @@ namespace Cloudents.Core.Entities.Db
         public Course(string name)
         {
             Name = name.Trim();
-            if (Name.Length > 150 || Name.Length < 4)
+            if (Name.Length > MaxLength || Name.Length < MinLength)
             {
                 throw new ArgumentException();
             }

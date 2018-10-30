@@ -29,9 +29,7 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
-            //if you get an exception doing debug make sure the locals window is minimized.
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
-
             var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
 
             if (oldQuestion?.Created.AddSeconds(20) > DateTime.UtcNow)
@@ -49,13 +47,12 @@ namespace Cloudents.Core.CommandHandler
 
             if (_blobProvider != null)
             {
-                var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ??
+                var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{id}", token)) ??
                         Enumerable.Empty<Task>();
                 await Task.WhenAll(l).ConfigureAwait(true);
             }
-            
 
-            message.Id = id;
+           // message.Id = id;
         }
     }
 }
