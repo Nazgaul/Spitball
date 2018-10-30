@@ -32,6 +32,7 @@ const getters = {
 };
 
 const actions = {
+
     changeSelectUniState({commit}, val){
         commit('setSelectUniState', val);
     },
