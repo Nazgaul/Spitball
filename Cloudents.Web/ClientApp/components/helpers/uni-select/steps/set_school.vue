@@ -1,53 +1,56 @@
 <template>
         <div class="select-university-container set-school" :class="{'selected': (!!search && search.length > 10) || !!university}">
-            <div class="title-container">
-                Select School
-                <a v-show="search.length > 10 || !!university" class="next-container" @click="nextStep()">Next</a>  
-            </div>
-            <div class="select-school-container">
-                <v-combobox
-                    v-model="university"
-                    :items="universities"
-                    label="Type your school name"
-                    placeholder="Type your school name"
-                    clearable
-                    solo
-                    :search-input.sync="search"
-                    :append-icon="''"
-                    :clear-icon="'sbf-close'"
-                    @click:clear="clearData()"
-                    autofocus
-                    no-filter
-                >
-                <template slot="no-data">
-                    <v-list-tile v-show="showBox">
-                        <div class="subheading">Keep typing we are searching for you</div> 
-                    </v-list-tile>
-                    <v-list-tile>
-                        <div class="subheading dark">Show all Schools</div>
-                    </v-list-tile>
-                </template>
-                <template slot="selection" slot-scope="{ item, parent, selected }">
-                   <span style="color: rgba(0, 0, 0, 0.54);">{{!!item.text ? item.text : item}}</span> 
-                </template>
-                <template slot="item" slot-scope="{ index, item, parent }">
-                    <v-list-tile-content>
-                       <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
-                    </v-list-tile-content>
-                </template>
-                </v-combobox>
-            </div>
+                
+                <div class="title-container">
+                    Select School
+                    <a v-show="search.length > 10 || !!university" class="next-container" @click="checkBeforeNextStep()">Next</a>  
+                </div>
+                <div class="select-school-container">
+                    <v-combobox
+                        v-model="university"
+                        :items="universities"
+                        label="Type your school name"
+                        placeholder="Type your school name"
+                        clearable
+                        solo
+                        :search-input.sync="search"
+                        :append-icon="''"
+                        :clear-icon="'sbf-close'"
+                        @click:clear="clearData()"
+                        autofocus
+                        no-filter
+                    >
+                    <template slot="no-data">
+                        <v-list-tile v-show="showBox">
+                            <div class="subheading">Keep typing we are searching for you</div> 
+                        </v-list-tile>
+                        <v-list-tile>
+                            <div class="subheading dark">Show all Schools</div>
+                        </v-list-tile>
+                    </template>
+                    <template slot="selection" slot-scope="{ item, parent, selected }">
+                    <span style="color: rgba(0, 0, 0, 0.54);">{{!!item.text ? item.text : item}}</span> 
+                    </template>
+                    <template slot="item" slot-scope="{ index, item, parent }">
+                        <v-list-tile-content>
+                        <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
+                        </v-list-tile-content>
+                    </template>
+                    </v-combobox>
+                </div>
 
-            <div class="skip-container" v-if="$vuetify.breakpoint.xsOnly">
-                <a @click="skipUniSelect()">Skip for now</a> 
-            </div>
+                <div class="skip-container" v-if="$vuetify.breakpoint.xsOnly">
+                    <a @click="skipUniSelect()">Skip for now</a> 
+                </div>
 
-        </div>
+            </div>        
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
+
+
 
 export default {
     props:{
@@ -103,23 +106,36 @@ export default {
             this.changeSelectUniState(false);
             this.setUniversityPopStorage_session();
         },
-        nextStep(){
+        nextStep(dontChangeUniversity){
+            if(dontChangeUniversity) {
+                this.fnMethods.changeStep(this.enumSteps.set_class)
+            }else{
+                let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+                   if(!schoolName) {
+                       console.log("No university name found")
+                       return;
+                    };
+                   this.updateSchoolName(schoolName).then(()=>{
+                        this.fnMethods.changeStep(this.enumSteps.set_class);
+                });
+            }
+        },
+        checkBeforeNextStep(){
             let user = this.accountUser();
             if(!!user && user.universityExists){
-                console.log("popUp are u sure")
+                //compare previous and current school name, if different show popup
+                let previousSchoolName = this.getSchoolName();
+                let currentSchoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+                if(previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase()){
+                    this.fnMethods.openAreYouSurePopup(this.nextStep);
+                }else{
+                    //if the same university is presented then skip the set on the server
+                    this.nextStep(true);
+                }
+            }else{
+                this.nextStep();
             }
-            let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : this.search;
-            if(!schoolName){
-                //if the user went 1 step back, we should take the school name that was already set from the store
-                schoolName = this.getSchoolName();
-                if(!schoolName) return;
-            }
-            this.updateSchoolName(schoolName).then(()=>{
-                this.fnMethods.changeStep(this.enumSteps.set_class);
-            });
-            
         }
-        
     },
     computed:{
         showBox(){

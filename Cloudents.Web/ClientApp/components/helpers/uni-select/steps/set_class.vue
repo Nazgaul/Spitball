@@ -122,7 +122,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['updateClasses', 'updateSelectedClasses', 'changeSelectUniState', 'assignClasses']),
+        ...mapActions(['updateClasses', 'updateSelectedClasses', 'assignClasses']),
         ...mapGetters(['getSchoolName', 'getClasses', 'getSelectedClasses']),
         clearData(){
             this.classModel = '';
@@ -133,7 +133,6 @@ export default {
             this.fnMethods.changeStep(this.enumSteps.set_school);
         },
         nextStep(){
-            
             //TODO add action update the server instead of 'updateSelectedClasses'
             this.assignClasses().then(()=>{
                 this.fnMethods.changeStep(this.enumSteps.done);

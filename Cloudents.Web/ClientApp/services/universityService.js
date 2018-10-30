@@ -65,9 +65,30 @@ const assaignCourse = (arrCourses) => {
     return connectivityModule.http.post("Course/assign", courses)
 }
 
+const getProfileUniversity = () => {
+    return connectivityModule.http.get("Profile/university").then(({data})=> {
+        let result = new University(data); 
+        return result;
+    })
+}
+
+const getProfileCourses = () => {
+    return connectivityModule.http.get("Profile/courses").then(({data})=> {
+        let result = [];
+        if(!!data && data.length > 0){
+            data.forEach((course)=>{
+                result.push(new Course(course));
+            });
+        }
+        return result;
+    })
+}
+
 export default {
     getUni,
     assaignUniversity,
     getCourse,
-    assaignCourse
+    assaignCourse,
+    getProfileUniversity,
+    getProfileCourses
 }

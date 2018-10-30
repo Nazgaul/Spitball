@@ -52,7 +52,7 @@
                                                 @input-filter="inputFilter"
                                                 :chunk="{
                               action: uploadUrl,
-                              minSize: 1048576,
+                              minSize: 2,
                               maxActive: 3,
                               maxRetries: 5,}">
                                         </file-upload>

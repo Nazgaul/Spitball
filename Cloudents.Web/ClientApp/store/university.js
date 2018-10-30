@@ -32,6 +32,15 @@ const getters = {
 };
 
 const actions = {
+    syncUniData({commit}){
+        universityService.getProfileUniversity().then((university)=>{
+            commit('setSchoolName', university.name);
+        })
+        universityService.getProfileCourses().then((courses)=>{
+            commit('updateSelectedClasses', courses);
+        })
+        
+    },
     changeSelectUniState({commit}, val){
         commit('setSelectUniState', val);
     },

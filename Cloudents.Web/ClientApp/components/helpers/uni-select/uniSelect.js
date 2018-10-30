@@ -3,7 +3,7 @@ import SetSchool from './steps/set_school.vue'
 import SetClass from './steps/set_class.vue'
 import { mapGetters, mapActions } from 'vuex'
 import noWorries from './popups/noWorries/noWorries.vue'
-import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
+import changingSchool from "./popups/changingSchool/changingSchool.vue"
 
 export default {
     components:{
@@ -11,7 +11,7 @@ export default {
         SetSchool,
         SetClass,
         noWorries,
-        sbDialog
+        changingSchool
     },
 
     data(){
@@ -21,9 +21,16 @@ export default {
             fnMethods: {
                 changeStep: this.changeStep,
                 changeSchoolName: this.changeSchoolName,
-                openNoWorriesPopup: this.openNoWorriesPopup
+                openNoWorriesPopup: this.openNoWorriesPopup,
+                openAreYouSurePopup: this.openAreYouSurePopup
             },
             beforeLeave: false,
+            areYouSurePopup: {
+                show: false,
+                continueActionFunction: null,
+                closeFunction: null
+            },
+            
         }
     },
 
@@ -34,7 +41,7 @@ export default {
     },
 
     methods:{
-        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setSelectUniState', 'setUniversityPopStorage_session']),
+        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setUniversityPopStorage_session']),
         ...mapGetters(['getAllSteps','getCurrentStep']),
         changeStep(step){
             if(step === this.enumSteps.done){
@@ -53,6 +60,14 @@ export default {
         },
         openNoWorriesPopup(){
             this.beforeLeave = true;
+        },
+        openAreYouSurePopup(continueActionFunction){
+            this.areYouSurePopup.show = true;
+            this.areYouSurePopup.continueActionFunction = continueActionFunction;
+            this.areYouSurePopup.closeFunction = this.closeAreYouSurePopup;
+        },
+        closeAreYouSurePopup(){
+            this.areYouSurePopup.show = false;
         }
     },
     created(){

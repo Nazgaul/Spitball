@@ -7,6 +7,7 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -26,13 +27,15 @@ namespace Cloudents.Web.Api
     {
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly IBlobProvider<DocumentContainer> _documentBlobProvider;
+        private readonly IStringLocalizer<UploadController> _localizer;
 
 
 
-        public UploadController(IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider<DocumentContainer> documentBlobProvider)
+        public UploadController(IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider<DocumentContainer> documentBlobProvider, IStringLocalizer<UploadController> localizer)
         {
             _blobProvider = blobProvider;
             _documentBlobProvider = documentBlobProvider;
+            _localizer = localizer;
         }
 
         // GET
@@ -42,7 +45,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
-
+            
             var userId = userManager.GetUserId(User);
 
             var fileNames = new List<string>();
@@ -92,8 +95,27 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("file")]
-        public async Task<UploadResponse> Upload([FromBody] UploadRequest model, CancellationToken token)
+        public async Task<ActionResult<UploadResponse>> Upload([FromBody] UploadRequest model, CancellationToken token)
         {
+
+            string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "ppt" };
+
+            var extension = Path.GetExtension(model.Name).TrimStart('.');
+
+            if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            {
+                ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
+                return BadRequest(ModelState);
+            }
+
+            var test = Cloudents.Web.MimeTypes.GetMimeType(model.Name);
+            if (model.MimeType != test)
+            {
+                ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
+                return BadRequest(ModelState);
+            }
+            
+
             if (model.Phase == UploadPhase.Start)
             {
                 var response = new UploadResponse(Guid.NewGuid());
