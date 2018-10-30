@@ -4,6 +4,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ namespace Cloudents.Functions
                     }, s =>
                     {
                         var blob = directory.GetBlockBlobReference("text.txt");
+                        blob.Properties.ContentType = "text/plain";
                         s = Regex.Replace(s, @"\s+", " ", RegexOptions.Multiline);
                         return blob.UploadTextAsync(s, token);
                     }, token);
