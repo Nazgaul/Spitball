@@ -93,7 +93,7 @@ export default {
     },
     methods:{
         ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "changeSelectUniState", "setUniversityPopStorage_session"]),
-        ...mapGetters(["getUniversities", "getSchoolName"]),
+        ...mapGetters(["getUniversities", "getSchoolName", "accountUser"]),
         clearData(){
             this.search = null;
             this.universityModel = undefined;
@@ -104,6 +104,10 @@ export default {
             this.setUniversityPopStorage_session();
         },
         nextStep(){
+            let user = this.accountUser();
+            if(!!user && user.universityExists){
+                console.log("popUp are u sure")
+            }
             let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : this.search;
             if(!schoolName){
                 //if the user went 1 step back, we should take the school name that was already set from the store

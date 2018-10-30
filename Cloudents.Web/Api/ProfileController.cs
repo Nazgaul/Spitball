@@ -1,8 +1,12 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Web.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -12,10 +16,12 @@ namespace Cloudents.Web.Api
     public class ProfileController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
+        private readonly UserManager<User> _userManager;
 
-        public ProfileController(IQueryBus queryBus)
+        public ProfileController(IQueryBus queryBus, UserManager<User> userManager)
         {
             _queryBus = queryBus;
+            _userManager = userManager;
         }
 
         // GET
@@ -32,6 +38,21 @@ namespace Cloudents.Web.Api
                 return NotFound();
             }
             return retVal;
+        }
+
+        /// <summary>
+        /// Perform course search per user
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns>list of courses for a user</returns>
+        [Route("courses")]
+        [HttpGet]
+        public async Task<IEnumerable<CourseDto>> Get(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new CoursesQuery(userId);
+            var t = await _queryBus.QueryAsync<IEnumerable<CourseDto>>(query, token);
+            return t;
         }
     }
 }

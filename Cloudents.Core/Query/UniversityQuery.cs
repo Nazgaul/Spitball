@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Cloudents.Core.Query
 {
-    public class UniversityQuery : IQuery<string>
+    public class UniversityQuery : IQuery<IEnumerable<UniversityDto>>
     {
         public UniversityQuery(long userId)
         {
