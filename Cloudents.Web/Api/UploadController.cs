@@ -7,7 +7,6 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -109,9 +108,8 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            var provider = new FileExtensionContentTypeProvider();
-            string contentType;
-            if (!provider.TryGetContentType(model.MimeType, out contentType))
+            var test = Cloudents.Web.MimeTypes.GetMimeType(model.Name);
+            if (model.MimeType != test)
             {
                 ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
                 return BadRequest(ModelState);
