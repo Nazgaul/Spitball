@@ -117,70 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActionTypeAnswerCorrect" xml:space="preserve">
-    <value>Answer correct</value>
-  </data>
-  <data name="ActionTypeCashOut" xml:space="preserve">
-    <value>Cash out</value>
-  </data>
-  <data name="ActionTypeDeleteQuestion" xml:space="preserve">
-    <value>Delete question</value>
-  </data>
-  <data name="ActionTypeNone" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="ActionTypeQuestion" xml:space="preserve">
-    <value>Question</value>
-  </data>
-  <data name="ActionTypeReferringUser" xml:space="preserve">
-    <value>Referring user</value>
-  </data>
-  <data name="ActionTypeSignUp" xml:space="preserve">
-    <value>Sign up</value>
-  </data>
-  <data name="DocumentTypeExam" xml:space="preserve">
-    <value>Exam note</value>
-  </data>
-  <data name="DocumentTypeLecture" xml:space="preserve">
-    <value>Lecture note</value>
-  </data>
-  <data name="DocumentTypeTextbook" xml:space="preserve">
-    <value>Textbook note</value>
-  </data>
-  <data name="QuestionFilterAnswered" xml:space="preserve">
-    <value>Answered</value>
-  </data>
-  <data name="QuestionFilterSold" xml:space="preserve">
-    <value>Sold</value>
-  </data>
-  <data name="QuestionFilterUnanswered" xml:space="preserve">
-    <value>Unanswered</value>
-  </data>
-  <data name="SearchRequestSortDate" xml:space="preserve">
-    <value>Date</value>
-  </data>
-  <data name="SearchRequestSortRelevance" xml:space="preserve">
-    <value>Relevance</value>
-  </data>
-  <data name="TransactionTypeAwarded" xml:space="preserve">
-    <value>Awarded</value>
-  </data>
-  <data name="TransactionTypeEarned" xml:space="preserve">
-    <value>Earned</value>
-  </data>
-  <data name="TransactionTypeSpent" xml:space="preserve">
-    <value>Spent</value>
-  </data>
-  <data name="TransactionTypeStake" xml:space="preserve">
-    <value>Stake</value>
-  </data>
-  <data name="TutorFilterInPerson" xml:space="preserve">
-    <value>InPerson</value>
-  </data>
-  <data name="TutorFilterOnline" xml:space="preserve">
-    <value>Online</value>
-  </data>
-  <data name="TutorSortPrice" xml:space="preserve">
-    <value>Price</value>
+  <data name="Upload" xml:space="preserve">
+    <value>unsupported file</value>
   </data>
 </root>

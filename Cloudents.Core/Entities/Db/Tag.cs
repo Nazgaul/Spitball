@@ -1,20 +1,18 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System;
 
 namespace Cloudents.Core.Entities.Db
 {
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-    // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
-    public class Course
+    
+    public class Tag
     {
-        public const int MinLength = 4;
+        public const int MinLength = 3;
         public const int MaxLength = 150;
-        protected Course()
+        protected Tag()
         {
 
         }
 
-        public Course(string name)
+        public Tag(string name)
         {
             Name = name.Trim();
             if (Name.Length > MaxLength || Name.Length < MinLength)
