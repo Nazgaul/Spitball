@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
@@ -37,7 +38,12 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> Post(ForgotPasswordRequest model, [FromHeader] CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+
+            var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            var phoneConfirmed = await _userManager.IsPhoneNumberConfirmedAsync(user);
+            var userLockedOut = await _userManager.GetLockoutEndDateAsync(user) ?? DateTimeOffset.MinValue;
+
+            if (user == null || !emailConfirmed || !phoneConfirmed || userLockedOut == DateTimeOffset.MaxValue)
             {
                 ModelState.AddModelError("ForgotPassword", _localizer["UserDoesntExists"]);
                 return BadRequest(ModelState);
@@ -91,9 +97,14 @@ namespace Cloudents.Web.Api
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
+                if (user.EmailConfirmed && user.PhoneNumberConfirmed)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    return Ok();
+                }
+                ModelState.AddModelError(string.Empty, _localizer["UserDoesntExists"]);
+                return BadRequest(ModelState);
 
-                return Ok();
             }
             //TODO: Localize
             ModelState.AddIdentityModelError(result);
