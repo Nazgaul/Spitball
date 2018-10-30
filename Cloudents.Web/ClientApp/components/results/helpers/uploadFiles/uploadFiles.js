@@ -26,8 +26,9 @@ export default {
             uploadUrl: "/api/upload/file",
             counter: 0,
             dbReady: false,
-            progressValue: '',
+            progressDone: false,
             files: [],
+            generatedFileName: '',
             steps: 8,
             currentStep: 1,
             step: 1,
@@ -46,22 +47,23 @@ export default {
         }
     },
     props: {},
+
     computed: {
         ...mapGetters({
             accountUser: 'accountUser',
+
         }),
         progressShow() {
-            if (this.progressValue === '100.00' && this.progressValue === '' && this.progressValue === 100) {
-                return false
-            }
-
+            return this.progress > 0 < 100 && !this.progressDone
         },
-        hideOnFirstStep() {
-            this.currentStep === 1
+        progress() {
+            console.log(this.files[0] ? this.files[0].progress : 0);
+            return this.files[0] ? this.files[0].progress : 0
         },
         isFirstStep() {
             return this.currentStep === 1
         },
+        // button disabled for each step and enabled once everything filled
         isDisabled() {
             if (this.currentStep === 2 && !this.schoolName || !this.selectedClass) {
                 return true
@@ -156,7 +158,7 @@ export default {
                     this.files.splice(0, 1, singleFile);
                     uploadService.uploadDropbox(singleFile)
                         .then((response) => {
-                                console.log("success responce ulpoad drop box api call", response);
+                                console.log("success responce ulpoad drop box api call", response)
                                 this.nextStep(1)
                             },
                             error => {
@@ -176,16 +178,14 @@ export default {
 
         // regular upload methods
         inputFile(newFile, oldFile) {
-            console.log('files regular two ');
-
+            //happnes once file is added and upload starts
             if (newFile && !oldFile) {
                 // Add file
                 this.nextStep(1)
-
             }
             // Upload progress
             if (newFile && newFile.progress) {
-                this.progressValue = newFile.progress;
+                this.progressDone = newFile.progress === 100;
                 console.log('progress', newFile.progress, newFile)
             }
             // Upload error
@@ -205,6 +205,12 @@ export default {
                         console.log('error, not uploaded')
                     }
                 }
+                if (newFile.response.status === 'success') {
+                    //add or replace
+                    let name = newFile.response.fileName;
+                    this.generatedFileName = `${name}`
+                }
+
             }
             if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
                 if (!this.$refs.upload.active) {
