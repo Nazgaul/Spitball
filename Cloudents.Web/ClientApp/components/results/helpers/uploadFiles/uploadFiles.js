@@ -127,6 +127,9 @@ export default {
         sendDocumentData(step) {
             //documentTitle if exists replace with custom before send
             let name = this.filesUploaded[0] ? this.filesUploaded[0].name : '';
+            if(name !== this.documentTitle){
+                name = this.documentTitle
+            }
             let docData ={
                 "blobName": this.generatedFileName,
                 "name" : `${name}`,
@@ -134,9 +137,10 @@ export default {
                 "courses": this.selectedClass,
                 "tags": this.selectedTags
             };
+            //post all doc data
             documentService.sendDocumentData(docData)
                 .then((resp)=>{
-                    console.log('doc data success')
+                    console.log('doc data success');
                 this.nextStep(step)
                 },
                 (error)=>{
