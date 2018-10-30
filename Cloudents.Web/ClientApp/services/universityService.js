@@ -67,7 +67,7 @@ const assaignCourse = (arrCourses) => {
 
 const getProfileUniversity = () => {
     return connectivityModule.http.get("Profile/university").then(({data})=> {
-        let result = new University(data[0]); 
+        let result = new University(data); 
         return result;
     })
 }
