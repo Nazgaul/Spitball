@@ -20,16 +20,18 @@ namespace Cloudents.Infrastructure.Database.Query
         }
         public Task<DocumentDto> GetAsync(DocumentById query, CancellationToken token)
         {
-            return _session.Query<Document>()
-                .Where(w => w.Id == query.Id && !w.IsDeleted)
-                .Select(s => new DocumentDto
-                {
-                    Name = s.Name,
-                    Type = s.Discriminator,
-                    Date = s.RowDetail.CreationTime,
-                    Blob = s.BlobName
-                   
-                }).SingleOrDefaultAsync(token);
+            //TODO: v7 this need to be fixed
+            return null;
+            //return _session.Query<Document>()
+            //    .Where(w => w.Id == query.Id && !w.IsDeleted)
+            //    .Select(s => new DocumentDto
+            //    {
+            //        Name = s.Name,
+            //        Type = s.Discriminator,
+            //        Date = s.RowDetail.CreationTime,
+            //        Blob = s.BlobName
+
+            //    }).SingleOrDefaultAsync(token);
         }
     }
 }
