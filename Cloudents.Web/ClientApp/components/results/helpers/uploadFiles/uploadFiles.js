@@ -7,7 +7,7 @@ import referralDialog from "../../../question/helpers/referralDialog/referral-di
 import uploadService from "../../../../services/uploadService"
 import { documentTypes, currencyValidator } from "./consts";
 import sblCurrency from "./sbl-currency.vue"
-//var VueUploadComponent = import('vue-upload-component');
+// var VueUploadComponent = import('vue-upload-component');
 Vue.component('file-upload', FileUpload);
 
 export default {
@@ -153,12 +153,14 @@ export default {
                             type: type
                         };
                         // add to array or replace
-
                     });
-                    this.files.splice(0, 1, singleFile);
+                    this.documentTitle = singleFile.name ?  singleFile.name : '';
                     uploadService.uploadDropbox(singleFile)
                         .then((response) => {
-                                console.log("success responce ulpoad drop box api call", response)
+                                console.log("success responce ulpoad drop box api call", response);
+                                this.files.splice(0, 1, singleFile);
+                                this.progressDone = true;
+                                this.generatedFileName = response.data.fileName ? response.data.fileName : '';
                                 this.nextStep(1)
                             },
                             error => {
@@ -230,6 +232,7 @@ export default {
                 //}
 
                 // Create the 'blob' field for thumbnail preview
+                // create file object  in filter before upload starts
                 newFile.blob = ''
                 let URL = window.URL || window.webkitURL;
                 let type = 'fromDisk';
@@ -240,8 +243,8 @@ export default {
                         type: type
                     };
                     //add or replace
+                    this.documentTitle = singleFile.name ?  singleFile.name : '';
                     this.files.splice(0, 1, singleFile)
-
                 }
             }
             if (newFile && oldFile) {
