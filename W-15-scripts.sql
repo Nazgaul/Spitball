@@ -157,3 +157,5 @@ from Zbox.Tag
 
 ALTER TABLE sb.[User]
   ADD OldUser bit;
+
+  insert into sb.HiLoGenerator values('Document',0);

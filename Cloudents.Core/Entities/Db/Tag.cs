@@ -2,8 +2,11 @@
 
 namespace Cloudents.Core.Entities.Db
 {
+    
     public class Tag
     {
+        public const int MinLength = 3;
+        public const int MaxLength = 150;
         protected Tag()
         {
 
@@ -12,7 +15,7 @@ namespace Cloudents.Core.Entities.Db
         public Tag(string name)
         {
             Name = name.Trim();
-            if (Name.Length > 150 || Name.Length < 4)
+            if (Name.Length > MaxLength || Name.Length < MinLength)
             {
                 throw new ArgumentException();
             }
