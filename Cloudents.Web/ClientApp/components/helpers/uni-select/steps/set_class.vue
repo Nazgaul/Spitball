@@ -122,7 +122,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['updateClasses', 'updateSelectedClasses', 'changeSelectUniState', 'assignClasses']),
+        ...mapActions(['updateClasses', 'updateSelectedClasses', 'assignClasses']),
         ...mapGetters(['getSchoolName', 'getClasses', 'getSelectedClasses']),
         clearData(){
             this.classModel = '';

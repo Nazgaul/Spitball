@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Admin2", "Clouden
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.FunctionsV2", "Cloudents.FunctionsV2\Cloudents.FunctionsV2.csproj", "{4E7E766C-BBAF-46C9-81D4-5375ED0206A7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Functions", "Cloudents.Functions\Cloudents.Functions.csproj", "{3AC66976-4B8A-4585-9124-961D979B05EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{4E7E766C-BBAF-46C9-81D4-5375ED0206A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E7E766C-BBAF-46C9-81D4-5375ED0206A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E7E766C-BBAF-46C9-81D4-5375ED0206A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AC66976-4B8A-4585-9124-961D979B05EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AC66976-4B8A-4585-9124-961D979B05EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AC66976-4B8A-4585-9124-961D979B05EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AC66976-4B8A-4585-9124-961D979B05EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,12 +127,13 @@ Global
 		{5E402ABD-00DC-4640-ACF5-2C6F948920F6} = {2EB273BF-0342-4FDC-942E-70261335187C}
 		{70D5B492-28D9-4612-87A0-A77C046D9DA9} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{4E7E766C-BBAF-46C9-81D4-5375ED0206A7} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
+		{3AC66976-4B8A-4585-9124-961D979B05EF} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_PrefixTranslations = False
-		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
-		RESX_SortFileContentOnSave = True
-		RESX_AutoCreateNewLanguageFiles = True
 		RESX_ConfirmAddLanguageFile = False
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_SortFileContentOnSave = True
+		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
+		RESX_PrefixTranslations = False
 	EndGlobalSection
 EndGlobal

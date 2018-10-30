@@ -33,13 +33,10 @@ export default {
     },
 
     methods:{
-        ...mapActions(['changeSelectUniState', 'setUniversityPopStorage_session']),
         inputClicked(){
             this.fnMethods.changeStep(this.enumSteps.set_school)
         },
         skipUniSelect(){
-            // this.setUniversityPopStorage_session();
-            // this.changeSelectUniState(false);
             this.fnMethods.openNoWorriesPopup();
         }
     }

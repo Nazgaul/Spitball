@@ -21,9 +21,9 @@ namespace Cloudents.Core.DTOs
         //[DataMember]
         //public string Owner { get; set; }
 
-        [DataMember]
+        //[DataMember]
         public string Blob { get; set; }
 
-        public string Type { get; set; }
+        //public string Type { get; set; }
     }
 }

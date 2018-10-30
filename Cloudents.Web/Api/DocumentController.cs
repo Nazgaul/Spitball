@@ -3,10 +3,14 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Framework;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -20,42 +24,44 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly UserManager<User> _userManager;
-        private readonly Lazy<IDocumentSearch> _documentSearch;
-        private readonly IFactoryProcessor _factoryProcessor;
+        private readonly IBlobProvider<DocumentContainer> _blobProvider;
 
         public DocumentController(IQueryBus queryBus,
-            Lazy<IDocumentSearch> documentSearch,
-            IFactoryProcessor factoryProcessor, ICommandBus commandBus, UserManager<User> userManager)
+             ICommandBus commandBus, UserManager<User> userManager, IBlobProvider<DocumentContainer> blobProvider)
         {
             _queryBus = queryBus;
-            _documentSearch = documentSearch;
-            _factoryProcessor = factoryProcessor;
             _commandBus = commandBus;
             _userManager = userManager;
+            _blobProvider = blobProvider;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync(long id, bool? firstTime, CancellationToken token)
+        public async Task<IActionResult> GetAsync(long id, CancellationToken token)
         {
             var query = new DocumentById(id);
             var tModel = _queryBus.QueryAsync<DocumentDto>(query, token);
-            var tContent = firstTime.GetValueOrDefault() ?
-                _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
-            await Task.WhenAll(tModel, tContent).ConfigureAwait(false);
+            //var tContent = firstTime.GetValueOrDefault() ?
+            //    _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
+            
+
+            var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
+
+            await Task.WhenAll(tModel,filesTask);
+
             var model = tModel.Result;
+            var files = filesTask.Result.Where(w => Regex.IsMatch(w.AbsolutePath, @"\d\."));
             if (model == null)
             {
                 return NotFound();
             }
-            var preview = _factoryProcessor.PreviewFactory(model.Blob);
-            var result = await preview.ConvertFileToWebsitePreviewAsync(0, token).ConfigureAwait(false);
-            
+            //var preview = _factoryProcessor.PreviewFactory(model.Blob);
+            //var result = await preview.ConvertFileToWebsitePreviewAsync(0, token).ConfigureAwait(false);
+
             return Ok(
                 new
                 {
                     details = model,
-                    content = tContent.Result,
-                    preview = result
+                    preview = files
                 });
         }
 

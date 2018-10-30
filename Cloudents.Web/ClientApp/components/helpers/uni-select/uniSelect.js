@@ -21,9 +21,16 @@ export default {
             fnMethods: {
                 changeStep: this.changeStep,
                 changeSchoolName: this.changeSchoolName,
-                openNoWorriesPopup: this.openNoWorriesPopup
+                openNoWorriesPopup: this.openNoWorriesPopup,
+                openAreYouSurePopup: this.openAreYouSurePopup
             },
             beforeLeave: false,
+            areYouSurePopup: {
+                show: false,
+                continueActionFunction: null,
+                closeFunction: null
+            },
+            
         }
     },
 
@@ -34,7 +41,7 @@ export default {
     },
 
     methods:{
-        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setSelectUniState', 'setUniversityPopStorage_session']),
+        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setUniversityPopStorage_session', 'syncUniData']),
         ...mapGetters(['getAllSteps','getCurrentStep']),
         changeStep(step){
             if(step === this.enumSteps.done){
@@ -53,9 +60,18 @@ export default {
         },
         openNoWorriesPopup(){
             this.beforeLeave = true;
+        },
+        openAreYouSurePopup(continueActionFunction){
+            this.areYouSurePopup.show = true;
+            this.areYouSurePopup.continueActionFunction = continueActionFunction;
+            this.areYouSurePopup.closeFunction = this.closeAreYouSurePopup;
+        },
+        closeAreYouSurePopup(){
+            this.areYouSurePopup.show = false;
         }
     },
     created(){
+        this.syncUniData();
         console.log("unicreated")
     }
 }

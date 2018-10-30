@@ -1,22 +1,17 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Aspose.Cells;
 using Aspose.Cells.Rendering;
-using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class ExcelProcessor : Processor, IPreviewProvider
+    public class ExcelProcessor :  IPreviewProvider2
     {
-        private const string CacheVersion = CacheVersionPrefix + "5";
-        public ExcelProcessor(string blobUri,
-            IBlobProvider<OldSbFilesContainerName> blobProvider,
-            IBlobProvider<OldCacheContainer> blobProviderCache)
-            : base(blobProvider, blobProviderCache, blobUri)
+        public ExcelProcessor()
+            
         {
             SetLicense();
         }
@@ -35,42 +30,33 @@ namespace Cloudents.Infrastructure.Framework
             license.SetLicense("Aspose.Total.lic");
         }
 
-        public Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum, CancellationToken cancelToken)
-        {
-            //var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
+       
 
-            var excel = new AsyncLazy<Workbook>(async () =>
-            {
-                using (var sr = await BlobProvider.DownloadFileAsync(BlobUri, cancelToken).ConfigureAwait(false))
-                {
-                    return new Workbook(sr);
-                }
-            });
-
-            var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-            return UploadPreviewCacheToAzureAsync(indexNum,
-                i => CreateCacheFileName(BlobUri, i),
-               async z =>
-               {
-                   var p = await excel;
-                   var workSheet = p.Worksheets[z];
-                   ScalePageSetupToFitPage(workSheet);
-
-                   var sr = new SheetRender(workSheet, imgOptions);
-                   //Render the image for the sheet
-                   var ms = new MemoryStream();
-
-                   sr.ToImage(0, ms);
-                   return ms;
-               }, CacheVersion, "image/jpg", cancelToken
-            );
-        }
-
-        private static string CreateCacheFileName(string blobName, int index)
-        {
-            return $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.jpg";
-        }
+     
 
         public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
+        public async Task CreatePreviewFilesAsync(MemoryStream stream, Func<Stream, string, Task> callback, Func<string, Task> textCallback, CancellationToken token)
+        {
+            var excel = new Workbook(stream);
+            var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
+
+            for (int i = 0; i < excel.Worksheets.Count; i++)
+            {
+                var wb = excel.Worksheets[i];
+                ScalePageSetupToFitPage(wb);
+                var sr = new SheetRender(wb, imgOptions);
+                using (var img = sr.ToImage(0))
+                {
+                    if (img == null)
+                    {
+                        continue;
+                    }
+                    var ms = new MemoryStream();
+                    img.Save(ms, ImageFormat.Jpeg);
+                    await callback(ms, $"{i}.jpg");
+                }
+            }
+            
+        }
     }
 }
