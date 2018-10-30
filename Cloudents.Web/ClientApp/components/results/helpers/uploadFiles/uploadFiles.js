@@ -156,9 +156,8 @@ export default {
                     this.files.splice(0, 1, singleFile);
                     uploadService.uploadDropbox(singleFile)
                         .then((response) => {
-                                console.log("success responce ulpoad drop box api call", response)
+                                console.log("success responce ulpoad drop box api call", response);
                                 this.nextStep(1)
-
                             },
                             error => {
                                 console.log('error drop box api call', error)
