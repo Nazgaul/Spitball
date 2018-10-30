@@ -27,7 +27,6 @@ namespace Cloudents.Web.Api
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly IBlobProvider<DocumentContainer> _documentBlobProvider;
 
-        private readonly string[] _supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
 
 
         public UploadController(IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider<DocumentContainer> documentBlobProvider)
@@ -42,6 +41,8 @@ namespace Cloudents.Web.Api
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
+            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
+
             var userId = userManager.GetUserId(User);
 
             var fileNames = new List<string>();
@@ -54,7 +55,7 @@ namespace Cloudents.Web.Api
 
                 var extension = Path.GetExtension(formFile.FileName);
 
-                if (!_supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+                if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
                 {
                     throw new ArgumentException("not an image");
                 }
@@ -78,6 +79,8 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model, CancellationToken token)
         {
             var tempData = TempData.Get<TempData>($"update-{model.session_id}");
+
+            await Task.Delay(TimeSpan.FromSeconds(5));
             // tempData.Indexes = tempData.Indexes ?? new List<long>();
             var index = (int)(model.start_offset / UploadInnerResponse.BlockSize);
             //tempData.Indexes.Add(model.start_offset);
@@ -99,7 +102,7 @@ namespace Cloudents.Web.Api
                 {
                     Name = model.Name,
                     Size = model.Size,
-                    BlobName = $"{response.Data.SessionId}-{model.Name}{Path.GetExtension(model.Name)}"
+                    BlobName = $"{response.Data.SessionId}-{model.Name}"
                 };
                 TempData.Put($"update-{response.Data.SessionId}", tempData);
                 return response;
@@ -123,7 +126,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var (stream, _) = await client.DownloadStreamAsync(model.Link, token);
-            var blobName = $"{Guid.NewGuid()}-{model.Name}{Path.GetExtension(model.Name)}";
+            var blobName = $"{Guid.NewGuid()}-{model.Name}";
             await _documentBlobProvider.UploadStreamAsync(blobName, stream, token: token);
 
             return new UploadResponse(blobName);

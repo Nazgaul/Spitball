@@ -52,11 +52,11 @@ namespace Cloudents.Infrastructure.Storage
             string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
-            if (!fileContent.CanSeek)
+            if (fileContent.CanSeek)
             {
-                throw new ArgumentException("stream should need to be able to seek");
+                fileContent.Seek(0, SeekOrigin.Begin);
+                //throw new ArgumentException("stream should need to be able to seek");
             }
-            fileContent.Seek(0, SeekOrigin.Begin);
             if (mimeType != null)
             {
                 blob.Properties.ContentType = mimeType;

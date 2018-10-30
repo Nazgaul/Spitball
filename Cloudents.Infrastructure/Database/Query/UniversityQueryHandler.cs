@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query 
 {
-    class UniversityQueryHandler //: IQueryHandler<UniversityQuery, string>
+    class UniversityQueryHandler : IQueryHandler<UniversityQuery, IEnumerable<UniversityDto>>
     {
 
         private readonly IStatelessSession _session;
@@ -24,16 +24,15 @@ namespace Cloudents.Infrastructure.Database.Query
         }
 
 
-        //public string Get(UniversityQuery query, CancellationToken token)
-        //{
+        public async Task<IEnumerable<UniversityDto>> GetAsync(UniversityQuery query, CancellationToken token)
+        {
 
-        //    return _session.Query<User>()
-        //         .Fetch(f => f.University)
-
-        //         .Where(w => w.Id == query.UserId)
-        //         .Select(s => s.University.Name).ToString();
+            return await _session.Query<User>()
+                 .Fetch(f => f.University)
+                 .Where(w => w.Id == query.UserId)
+                 .Select(s => new UniversityDto(s.University.Id, s.University.Name, s.University.Country)).ToListAsync(token);
               
-        //}
+        }
 
     }
 }
