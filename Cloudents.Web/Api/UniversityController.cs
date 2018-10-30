@@ -61,7 +61,7 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        [Route("Name")]
+        [Route("Details")]
         [HttpGet]
         public async Task<IEnumerable<UniversityDto>> Get([FromServices] IQueryBus _queryBus, CancellationToken token)
         {
