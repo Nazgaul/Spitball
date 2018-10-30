@@ -33,6 +33,16 @@ namespace Cloudents.Core.Interfaces
         Task<User> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
     }
 
+    public interface ICourseRepository : IRepository<Course>
+    {
+        Task<Course> GetOrAddAsync(string name, CancellationToken token);
+    }
+
+    public interface ITagRepository : IRepository<Tag>
+    {
+        Task<Tag> GetOrAddAsync(string name, CancellationToken token);
+    }
+
     public interface IQuestionRepository : IRepository<Question>
     {
         Task<IList<Question>> GetAllQuestionsAsync(int page);
