@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Database.Query
         
         public async Task<IEnumerable<CourseDto>> GetAsync(CoursesQuery query, CancellationToken token)
         {
-            //TODO:V7 - need to check
+            
             return await _session.Query<User>()
                  .Fetch(f => f.Courses)
 

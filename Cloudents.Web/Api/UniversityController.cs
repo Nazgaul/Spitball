@@ -2,12 +2,14 @@
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,9 +26,7 @@ namespace Cloudents.Web.Api
         private readonly IUniversitySearch _universityProvider;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
         private readonly ICommandBus _commandBus;
-
 
         /// <inheritdoc />
         /// <summary>
@@ -61,7 +61,16 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [Route("Name")]
+        [HttpGet]
+        public async Task<IEnumerable<UniversityDto>> Get([FromServices] IQueryBus _queryBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UniversityQuery(userId);
+            var t = await _queryBus.QueryAsync<string>(query, token);
+            return t;
 
+        }
 
         [HttpPost("assign")]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
