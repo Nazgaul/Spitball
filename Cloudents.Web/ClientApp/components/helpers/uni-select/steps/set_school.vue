@@ -103,14 +103,13 @@ export default {
             this.clearUniversityList();
         },
         skipUniSelect(){
-            this.changeSelectUniState(false);
-            this.setUniversityPopStorage_session();
+            this.fnMethods.openNoWorriesPopup();
         },
         nextStep(dontChangeUniversity){
             if(dontChangeUniversity) {
                 this.fnMethods.changeStep(this.enumSteps.set_class)
             }else{
-                let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+                let schoolName = this.getCurrentSchoolName();
                    if(!schoolName) {
                        console.log("No university name found")
                        return;
@@ -125,7 +124,7 @@ export default {
             if(!!user && user.universityExists){
                 //compare previous and current school name, if different show popup
                 let previousSchoolName = this.getSchoolName();
-                let currentSchoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+                let currentSchoolName = this.getCurrentSchoolName();
                 if(previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase()){
                     this.fnMethods.openAreYouSurePopup(this.nextStep);
                 }else{
@@ -134,6 +133,20 @@ export default {
                 }
             }else{
                 this.nextStep();
+            }
+        },
+        getCurrentSchoolName(){
+            //!!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+            if(!!this.universityModel){
+                if(!!this.universityModel.text){
+                    return this.universityModel.text;
+                }else{
+                    return this.universityModel;
+                }
+            }else if(!!this.search){
+                return this.search;
+            }else{
+                return this.university;
             }
         }
     },

@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     props:{
         popupData:{
@@ -34,11 +36,16 @@ export default {
     },
     data(){
         return{
-            schoolName: "New Jersey Institue of Technology,",
-            schoolDesc: "\n and all of the selected classes \n will be deleted",
+            schoolDesc: "\n and all of the selected classes \n will be deleted"
+        }
+    },
+    computed:{
+        schoolName(){
+           return this.getSchoolName()
         }
     },
     methods:{
+        ...mapGetters(["getSchoolName"]),
         revertAction(){
             this.popupData.continueActionFunction(true);
             this.popupData.closeFunction();
@@ -59,7 +66,7 @@ export default {
         border-radius: 4px;
         box-shadow: 0 1px 17px 0 rgba(0, 0, 0, 0.39);
         background-color: #ffffff;
-        z-index: 10;
+        z-index: 15;
         position: absolute;
         top: 38px;
         &.active{
@@ -138,6 +145,7 @@ export default {
             .description{
                 height:66px;
                 white-space: pre-wrap;
+                margin-top: 10px;
                 .blueText{
                     color: #4452fc;
                     font-weight: 600;
@@ -146,7 +154,7 @@ export default {
             .buttons-container{
                 display: flex;
                 flex-direction: column;
-                margin-top: 20px;
+                margin-top: 10px;
                 button{
                     width: 162px;
                     height: 48px;
