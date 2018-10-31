@@ -23,7 +23,10 @@ namespace Cloudents.Infrastructure.Search.Question
 
         public async Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query, CancellationToken token)
         {
-            var filters = new List<string>();
+            var filters = new List<string>
+            {
+                $"{nameof(Core.Entities.Search.Question.Country)} eq '{query.Country}' or {nameof(Core.Entities.Search.Question.Language)} eq 'en'"
+            };
             if (query.Source != null)
             {
                 var filterStr = string.Join(" or ", query.Source.Select(s =>
@@ -38,46 +41,27 @@ namespace Cloudents.Infrastructure.Search.Question
                      $"{nameof(Core.Entities.Search.Question.State)} eq {(int)s}"));
                 filters.Add($"({filterStr})");
             }
-
-            var t = new List<string>();
-            if (query.Languages != null)
-            {
-                t.AddRange(query.Languages);
-            }
-
-            if (t.Count == 0)
-            {
-                t.AddRange(new[] { "en", null });
-            }
-            else
-            {
-                t.Add(null);
-            }
-
-
-
-
             var searchParameter = new SearchParameters
             {
                 Facets = new[] { nameof(Core.Entities.Search.Question.Subject), nameof(Core.Entities.Search.Question.State) },
                 Filter = string.Join(" and ", filters),
                 Top = 50,
                 Skip = query.Page * 50,
-                ScoringProfile = QuestionSearchWrite.ScoringProfile,
-                ScoringParameters = new[]
-                             {
-                    new ScoringParameter
-                    (QuestionSearchWrite.TagsCountryParameter
-                        , new[] {query.Country}),
+                //ScoringProfile = QuestionSearchWrite.ScoringProfile,
+                //ScoringParameters = new[]
+                //             {
+                //    new ScoringParameter
+                //    (QuestionSearchWrite.TagsCountryParameter
+                //        , new[] {query.Country}),
 
-                    new ScoringParameter
-                    (QuestionSearchWrite.TagsUniversityParameter
-                        , new[] {query.UniversityId}),
+                //    //new ScoringParameter
+                //    //(QuestionSearchWrite.TagsUniversityParameter
+                //    //    , new[] {query.UniversityId}),
 
-                    new ScoringParameter
-                    (QuestionSearchWrite.TagsLanguageParameter
-                        , t)
-                }
+                //    //new ScoringParameter
+                //    //(QuestionSearchWrite.TagsLanguageParameter
+                //    //    , t)
+                //}
 
             };
 

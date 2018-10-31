@@ -1,13 +1,13 @@
 ﻿using Autofac;
-using Microsoft.Azure.WebJobs;
-using Microsoft.WindowsAzure.Storage.Blob;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
 using Cloudents.Core.Query.Sync;
 using Cloudents.FunctionsV2.Sync;
+using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage.Blob;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
@@ -16,7 +16,7 @@ namespace Cloudents.FunctionsV2
     {
 
         internal static async Task StartSearchSync(DurableOrchestrationClient starter,
-            ILogger log,  SyncType syncType)
+            ILogger log, SyncType syncType)
         {
             var model = new SearchSyncInput(syncType);
             var existingInstance = await starter.GetStatusAsync(model.InstanceId);
@@ -27,10 +27,22 @@ namespace Cloudents.FunctionsV2
                 OrchestrationRuntimeStatus.Failed,
                 OrchestrationRuntimeStatus.Terminated
             };
-            
-            if (existingInstance == null || startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
+
+            if (existingInstance == null)
             {
+                await starter.StartNewAsync("SearchSync", model.InstanceId, model);
+                return;
+
+            }
+            if (startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
+            {
+                if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Failed)
+                {
+                    await starter.TerminateAsync(model.InstanceId, "the status failed");
+                }
+
                 log.LogInformation($"started {model.InstanceId}");
+
                 await starter.StartNewAsync("SearchSync", model.InstanceId, model);
             }
             else
@@ -59,7 +71,7 @@ namespace Cloudents.FunctionsV2
             do
             {
 
-                var result =  await context.CallActivityAsync<SyncResponse>("DoSearchSync", input);
+                var result = await context.CallActivityAsync<SyncResponse>("DoSearchSync", input);
                 needContinue = result.NeedContinue;
                 nextVersion = Math.Max(nextVersion, result.Version);
                 input.SyncAzureQuery.Page++;
@@ -71,7 +83,7 @@ namespace Cloudents.FunctionsV2
             }
             input.SyncAzureQuery = new SyncAzureQuery(nextVersion, 0);
             await context.CallActivityAsync("SetSyncProgress", input);
-            
+
         }
 
         [FunctionName("CreateSearchIndex")]

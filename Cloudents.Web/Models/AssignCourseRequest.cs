@@ -6,6 +6,6 @@ namespace Cloudents.Web.Models
     {
         [Required(ErrorMessage = "Required")]
         [StringLength(150, MinimumLength = 4, ErrorMessage = "StringLength")]
-        public string[] Name { get; set; }
+        public string Name { get; set; }
     }
 }

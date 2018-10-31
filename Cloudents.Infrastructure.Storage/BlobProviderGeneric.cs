@@ -88,7 +88,13 @@ namespace Cloudents.Infrastructure.Storage
         public Task CommitBlockListAsync(string blobName, IList<int> indexes, CancellationToken token)
         {
             var blob = GetBlob(blobName);
+            return blob.PutBlockListAsync(indexes.Select(ToBase64));
+        }
 
+        public Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token)
+        {
+            var blob = GetBlob(blobName);
+            blob.Properties.ContentType = mimeType;
             return blob.PutBlockListAsync(indexes.Select(ToBase64));
         }
 

@@ -38,7 +38,7 @@ const actions = {
         })
         universityService.getProfileCourses().then((courses)=>{
             if(courses.length > 0){
-                commit('updateSelectedClasses', courses);
+                commit('setSelectedClasses', courses);
             }
         })
         

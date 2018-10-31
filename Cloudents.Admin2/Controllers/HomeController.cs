@@ -7,7 +7,7 @@ namespace Cloudents.Admin2.Controllers
     public class HomeController : Controller
     {
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Index()
         {
             return View();

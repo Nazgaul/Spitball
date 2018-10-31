@@ -185,7 +185,6 @@ namespace Cloudents.Web
             services.AddTransient<ISmsSender, SmsSender>();
             var assembliesOfProgram = new[]
             {
-                Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
@@ -235,9 +234,9 @@ namespace Cloudents.Web
                 {
                     HotModuleReplacement = true
                 });
-                var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+                //var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
 
-                configuration.DisableTelemetry = true;
+                //configuration.DisableTelemetry = true;
                 app.UseDeveloperExceptionPage();
                 
 

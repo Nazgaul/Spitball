@@ -1,19 +1,14 @@
 <template>
         <div class="select-university-container">
-            <div class="title-container">
-                Set your school & classes
-            </div>
-            <div class="explain-container">
-                By setting this up you will get the best questions & study info fit for your shool & classes
-            </div>
-            
+            <div class="title-container" v-language:inner>uniSelect_set_school_class</div>
+            <div class="explain-container" v-language:inner>uniSelect_set_school_class_explain</div>
             <div class="select-school-container">
-                <input type="text" placeholder="Select Your School" @click="inputClicked">  
+                <input type="text" placeholder="uniSelect_select_school_placeholder" v-language:placeholder @click="inputClicked">  
                 <v-icon>sbf-arrow-right</v-icon>
             </div>
 
             <div class="skip-container">
-                <a @click="skipUniSelect()">Skip for now</a> 
+                <a @click="skipUniSelect()" v-language:inner>uniSelect_skip_for_now</a> 
             </div>
         </div>
 </template>

@@ -22,7 +22,6 @@ namespace Cloudents.Core.DTOs.SearchSync
 
 
         public string Country { get; set; }
-        public Guid? UniversityId { get; set; }
         public string Language { get; set; }
 
         public QuestionColor Color { get; set; }
@@ -61,7 +60,6 @@ namespace Cloudents.Core.DTOs.SearchSync
                 State = state,
                 Prefix = new[] { Text },
                 Language = Language,
-                UniversityId = UniversityId?.ToString()
             };
         }
     }

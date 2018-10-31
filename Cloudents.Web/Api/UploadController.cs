@@ -98,38 +98,39 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<UploadResponse>> Upload([FromBody] UploadRequest model, CancellationToken token)
         {
 
-            string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "ppt" };
-
-            var extension = Path.GetExtension(model.Name).TrimStart('.');
-
-            if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
-            {
-                ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
-                return BadRequest(ModelState);
-            }
-
-            var test = Cloudents.Web.MimeTypes.GetMimeType(model.Name);
-            if (model.MimeType != test)
-            {
-                ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
-                return BadRequest(ModelState);
-            }
-            
-
+           
             if (model.Phase == UploadPhase.Start)
             {
+                string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "ppt" };
+
+                var extension = Path.GetExtension(model.Name).TrimStart('.');
+
+                if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
+                {
+                    ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
+                    return BadRequest(ModelState);
+                }
+
+                var test = Cloudents.Web.MimeTypes.GetMimeType(model.Name);
+                if (model.MimeType != test)
+                {
+                    ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
+                    return BadRequest(ModelState);
+                }
                 var response = new UploadResponse(Guid.NewGuid());
 
                 var tempData = new TempData
                 {
                     Name = model.Name,
                     Size = model.Size,
-                    BlobName = $"{response.Data.SessionId}-{model.Name}"
+                    BlobName = $"{response.Data.SessionId}-{model.Name}",
+                    MimeType = model.MimeType
                 };
                 TempData.Put($"update-{response.Data.SessionId}", tempData);
                 return response;
             }
             var tempData2 = TempData.Get<TempData>($"update-{model.SessionId}");
+            
             TempData.Remove($"update-{model.SessionId}");
 
             var indexes = new List<int>();
@@ -137,7 +138,7 @@ namespace Cloudents.Web.Api
             {
                 indexes.Add((int)(i / UploadInnerResponse.BlockSize));
             }
-            await _documentBlobProvider.CommitBlockListAsync(tempData2.BlobName, indexes, token);
+            await _documentBlobProvider.CommitBlockListAsync(tempData2.BlobName, tempData2.MimeType, indexes, token);
             return new UploadResponse(tempData2.BlobName);
         }
 

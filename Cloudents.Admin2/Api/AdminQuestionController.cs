@@ -1,6 +1,7 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Core;
 using Cloudents.Core.Command.Admin;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
-    [ApiController/*, Authorize*/]
+    [ApiController]
     public class AdminQuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;
@@ -81,13 +82,26 @@ namespace Cloudents.Admin2.Api
         [HttpPost("approve")]
         public async Task<ActionResult> ApproveQuestionAsync([FromBody]ApproveRequest model, CancellationToken token)
         {
-            foreach (var id in model.Ids)
-            {
+            //foreach (var id in model.Ids)
+            // {
 
-                var command = new ApproveQuestionCommand(id);
-                await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
-            }
+            var command = new ApproveQuestionCommand(model.Id);
+            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+            //}
             return Ok();
+        }
+
+        /// <summary>
+        /// Get a list of question with pending state
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet("Pending")]
+        public async Task<IEnumerable<PendingQuestionDto>> Get(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            var t = await _queryBus.QueryAsync<IEnumerable<PendingQuestionDto>>(query, token);
+            return t.Take(100);
         }
 
     }

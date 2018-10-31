@@ -5,7 +5,7 @@
     <DebugType>full</DebugType>
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>8.10.28.0</AssemblyVersion>
+    <AssemblyVersion>8.10.31.0</AssemblyVersion>
     <FileVersion>8.10.14.1</FileVersion>
     <Version>8.10.14.1</Version>
     <UserSecretsId>edbe3a22-9985-49e7-8ceb-7cd343f48247</UserSecretsId>
@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-    <ProjectReference Include="..\Cloudents.Infrastructure.Framework\Cloudents.Infrastructure.Framework.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
     <ProjectReference Include="..\Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj" />
