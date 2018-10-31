@@ -12,7 +12,7 @@ namespace Cloudents.Infrastructure.Write
 {
     public abstract class SearchServiceWrite<T> : IDisposable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
-        private readonly SearchServiceClient _client;
+        protected readonly SearchServiceClient _client;
         protected readonly ISearchIndexClient IndexClient;
        // private readonly string _indexName;
 
@@ -73,10 +73,17 @@ namespace Cloudents.Infrastructure.Write
             return result.Results.Count > 0;
         }
 
-        public virtual Task CreateOrUpdateAsync(CancellationToken token)
+        public virtual async Task CreateOrUpdateAsync(CancellationToken token)
         {
-            var index = GetIndexStructure(IndexClient.IndexName);
-            return _client.Indexes.CreateAsync(index, cancellationToken: token);
+            try
+            {
+                var index = GetIndexStructure(IndexClient.IndexName);
+                await _client.Indexes.CreateAsync(index, cancellationToken: token);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         protected abstract Index GetIndexStructure(string indexName);
