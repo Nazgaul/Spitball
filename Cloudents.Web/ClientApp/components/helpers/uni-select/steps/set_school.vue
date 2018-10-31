@@ -2,15 +2,15 @@
         <div class="select-university-container set-school" :class="{'selected': (!!search && search.length > 10) || !!university}">
                 
                 <div class="title-container">
-                    Select School
-                    <a v-show="search.length > 10 || !!university" class="next-container" @click="checkBeforeNextStep()">Next</a>  
+                    <span v-language:inner>uniSelect_select_school</span> 
+                    <a v-show="search.length > 10 || !!university" class="next-container" @click="checkBeforeNextStep()" v-language:inner>uniSelect_next</a>  
                 </div>
                 <div class="select-school-container">
                     <v-combobox
                         v-model="university"
                         :items="universities"
-                        label="Type your school name"
-                        placeholder="Type your school name"
+                        :label="schoolNamePlaceholder"
+                        :placeholder="schoolNamePlaceholder"
                         clearable
                         solo
                         :search-input.sync="search"
@@ -22,10 +22,10 @@
                     >
                     <template slot="no-data">
                         <v-list-tile v-show="showBox">
-                            <div class="subheading">Keep typing we are searching for you</div> 
+                            <div class="subheading" v-language:inner>uniSelect_keep_typing</div> 
                         </v-list-tile>
                         <v-list-tile>
-                            <div class="subheading dark">Show all Schools</div>
+                            <div class="subheading dark" v-language:inner>uniSelect_show_all_schools</div>
                         </v-list-tile>
                     </template>
                     <template slot="selection" slot-scope="{ item, parent, selected }">
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="skip-container" v-if="$vuetify.breakpoint.xsOnly">
-                    <a @click="skipUniSelect()">Skip for now</a> 
+                    <a @click="skipUniSelect()" v-language:inner>uniSelect_skip_for_now</a> 
                 </div>
 
             </div>        
@@ -49,7 +49,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
-
+import { LanguageService } from "../../../../services/language/languageService";
 
 
 export default {
@@ -66,7 +66,8 @@ export default {
     data(){
         return{
             universityModel: '',
-            search: ''
+            search: '',
+            schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
         }
     },
     watch:{
@@ -103,14 +104,13 @@ export default {
             this.clearUniversityList();
         },
         skipUniSelect(){
-            this.changeSelectUniState(false);
-            this.setUniversityPopStorage_session();
+            this.fnMethods.openNoWorriesPopup();
         },
         nextStep(dontChangeUniversity){
             if(dontChangeUniversity) {
                 this.fnMethods.changeStep(this.enumSteps.set_class)
             }else{
-                let schoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+                let schoolName = this.getCurrentSchoolName();
                    if(!schoolName) {
                        console.log("No university name found")
                        return;
@@ -125,7 +125,7 @@ export default {
             if(!!user && user.universityExists){
                 //compare previous and current school name, if different show popup
                 let previousSchoolName = this.getSchoolName();
-                let currentSchoolName = !!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+                let currentSchoolName = this.getCurrentSchoolName();
                 if(previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase()){
                     this.fnMethods.openAreYouSurePopup(this.nextStep);
                 }else{
@@ -134,6 +134,20 @@ export default {
                 }
             }else{
                 this.nextStep();
+            }
+        },
+        getCurrentSchoolName(){
+            //!!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+            if(!!this.universityModel){
+                if(!!this.universityModel.text){
+                    return this.universityModel.text;
+                }else{
+                    return this.universityModel;
+                }
+            }else if(!!this.search){
+                return this.search;
+            }else{
+                return this.university;
             }
         }
     },

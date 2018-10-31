@@ -27,7 +27,8 @@ export default {
         onclosefn: {
             required: false
         },
-        isPersistent: false
+        isPersistent: false,
+        transitionAnimation: ''
     },
     data: function () {
         return {

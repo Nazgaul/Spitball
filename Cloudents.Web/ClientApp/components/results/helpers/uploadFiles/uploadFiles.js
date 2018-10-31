@@ -4,10 +4,11 @@ import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
 import sbInput from "../../../question/helpers/sbInput/sbInput";
 import referralDialog from "../../../question/helpers/referralDialog/referral-dialog.vue";
-import uploadService from "../../../../services/uploadService"
+import uploadService from "../../../../services/uploadService";
+import documentService from "../../../../services/documentService";
 import { documentTypes, currencyValidator } from "./consts";
 import sblCurrency from "./sbl-currency.vue"
-//var VueUploadComponent = import('vue-upload-component');
+// var VueUploadComponent = import('vue-upload-component');
 Vue.component('file-upload', FileUpload);
 
 export default {
@@ -28,6 +29,7 @@ export default {
             dbReady: false,
             progressDone: false,
             files: [],
+            filesUploaded: [],
             generatedFileName: '',
             steps: 8,
             currentStep: 1,
@@ -35,15 +37,16 @@ export default {
             stepsProgress: 100 / 8,
             schoolName: '',
             classesList: ['Social Psych', 'behaviourl psych', 'Biology 2', 'Biology 3', 'behaviourl psych2'],
-            selectedClass: '',
+            selectedClass: [],
             documentTypes: documentTypes,
-            selectedDoctype: {},
+            selectedDoctype: [],
             documentTitle: '',
             proffesorName: '',
             selectedTags: [],
-            tagsOptions: [, 'behaviourl', 'Biology', 'Math', 'History'],
             uploadPrice: null,
             legalCheck: false,
+            gotoAsk: false,
+            transitionAnimation: 'slide-y-transition'
         }
     },
     props: {},
@@ -58,6 +61,7 @@ export default {
         },
         progress() {
             console.log(this.files[0] ? this.files[0].progress : 0);
+            //files model of uploader
             return this.files[0] ? this.files[0].progress : 0
         },
         isFirstStep() {
@@ -87,13 +91,11 @@ export default {
     },
 
     methods: {
-        ...mapActions(["updateLoginDialogState", 'updateUserProfileData']),
+        ...mapActions(["updateLoginDialogState",  'updateNewQuestionDialogState']),
 
         openUploaderDialog() {
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
-                //set user profile
-                this.updateUserProfileData('profileHWH')
             } else {
                 this.loadDropBoxSrc(); // load Drop box script
                 this.showUploadDialog = true;
@@ -102,28 +104,63 @@ export default {
 
         // update data methods
         updateClass(singleClass) {
-            this.selectedClass = singleClass;
+            if( this.selectedClass.indexOf(singleClass) === -1 ){
+                this.selectedClass.push(singleClass)
+            }else{
+                let index = this.selectedClass.indexOf(singleClass);
+                this.selectedClass.splice(index, 1);
+            }
         },
+
+        isSelected(singleClass){
+           return this.selectedClass.indexOf(singleClass) !== -1
+        },
+
         updateDocumentType(docType) {
             this.selectedDoctype = docType;
             console.log(this.selectedDoctype)
         },
         removeTag(item) {
-            this.selectedTags.splice(this.selectedTags.indexOf(item), 1)
+            this.selectedTags.splice(this.selectedTags.indexOf(item), 1);
             this.selectedTags = [...this.selectedTags]
         },
         sendDocumentData(step) {
-            console.log('sending data');
             //documentTitle if exists replace with custom before send
-            this.nextStep(step)
+            let name = this.filesUploaded[0] ? this.filesUploaded[0].name : '';
+            if(name !== this.documentTitle){
+                name = this.documentTitle
+            }
+            let docData ={
+                "blobName": this.generatedFileName,
+                "name" : `${name}`,
+                "type": this.selectedDoctype.id,
+                "courses": this.selectedClass,
+                "tags": this.selectedTags
+            };
+            //post all doc data
+            documentService.sendDocumentData(docData)
+                .then((resp)=>{
+                    console.log('doc data success');
+                this.nextStep(step)
+                },
+                (error)=>{
+                    console.log('doc data error', error)
+            });
+
         },
         updateLegal() {
             console.log('legal check', this.legalCheck)
         },
+        closeAndOpenAsk(){
+            this.gotoAsk= true;
+            this.showUploadDialog = false;
+        },
+
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
             let isDbExists = !!document.getElementById('dropboxjs');
             if (isDbExists) {
+                this.dbReady = true;
                 return
             }
             //if didnt exist before
@@ -153,25 +190,26 @@ export default {
                             type: type
                         };
                         // add to array or replace
-
                     });
-                    this.files.splice(0, 1, singleFile);
+                    this.documentTitle = singleFile.name ?  singleFile.name : '';
                     uploadService.uploadDropbox(singleFile)
                         .then((response) => {
-                                console.log("success responce ulpoad drop box api call", response)
+                                console.log("success responce ulpoad drop box api call", response);
+                                this.filesUploaded.splice(0, 1, singleFile);
+                                this.progressDone = true;
+                                this.generatedFileName = response.data.fileName ? response.data.fileName : '';
                                 this.nextStep(1)
                             },
                             error => {
                                 console.log('error drop box api call', error)
                             })
-
                 },
                 cancel: function () {
                     //optional
                 },
                 linkType: "direct", // "preview" or "direct"
                 multiselect: false, // true or false
-                extensions: ['.png', '.jpg', 'doc', 'pdf'],
+                extensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg'],
             };
             global.Dropbox.choose(options);
         },
@@ -205,32 +243,30 @@ export default {
                         console.log('error, not uploaded')
                     }
                 }
-                if (newFile.response.status === 'success') {
+                if (newFile && newFile.response && newFile.response.status === 'success') {
                     //add or replace
                     let name = newFile.response.fileName;
                     this.generatedFileName = `${name}`
                 }
-
             }
             if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
                 if (!this.$refs.upload.active) {
                     this.$refs.upload.active = true
                 }
             }
-
         },
         inputFilter(newFile, oldFile, prevent) {
             if (newFile && !oldFile) {
                 // Add file
                 // Filter non-image file remove for docs
                 // Will not be added to files
-
-                //if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
-                //    return prevent()
-                //}
+                if (/\.(js|html|php|webp|exe)$/i.test(newFile.name)) {
+                   return prevent()
+                }
 
                 // Create the 'blob' field for thumbnail preview
-                newFile.blob = ''
+                // create file object  in filter before upload starts
+                newFile.blob = '';
                 let URL = window.URL || window.webkitURL;
                 let type = 'fromDisk';
                 if (URL && URL.createObjectURL) {
@@ -240,8 +276,8 @@ export default {
                         type: type
                     };
                     //add or replace
-                    this.files.splice(0, 1, singleFile)
-
+                    this.documentTitle = singleFile.name ?  singleFile.name : '';
+                    this.filesUploaded.splice(0, 1, singleFile)
                 }
             }
             if (newFile && oldFile) {
@@ -259,7 +295,6 @@ export default {
             }
         },
         nextStep(step) {
-            console.log('files', this.files)
             if (this.currentStep === this.steps) {
                 this.currentStep = 1
             } else {
@@ -288,7 +323,12 @@ export default {
             this.currentStep = step;
         }
     },
+    beforeDestroy(){
+        if(this.gotoAsk){
+            this.updateNewQuestionDialogState(true);
+        }
 
+    },
     created() {
     }
 

@@ -8,7 +8,7 @@
                 <span><v-icon>sbf-school</v-icon></span>
             </div>
             <div class="title">
-                <span>Changing Schools?</span>
+                <span v-language:inner>uniSelect_changing_school_question</span>
             </div>
         </div>
         <div class="bottom-container">
@@ -17,14 +17,17 @@
                 <span>{{schoolDesc}}</span>
             </div>
             <div class="buttons-container">
-                <button @click="revertAction()">Keep Current School</button>
-                <button class="transparent" @click="continueAction()">YES, Change School</button>
+                <button @click="revertAction()" v-language:inner>uniSelect_keep_school</button>
+                <button class="transparent" @click="continueAction()" v-language:inner>uniSelect_yes_change</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { LanguageService } from "../../../../../services/language/languageService";
+
 export default {
     props:{
         popupData:{
@@ -34,11 +37,16 @@ export default {
     },
     data(){
         return{
-            schoolName: "New Jersey Institue of Technology,",
-            schoolDesc: "\n and all of the selected classes \n will be deleted",
+            schoolDesc: LanguageService.getValueByKey("uniSelect_school_desc")
+        }
+    },
+    computed:{
+        schoolName(){
+           return this.getSchoolName()
         }
     },
     methods:{
+        ...mapGetters(["getSchoolName"]),
         revertAction(){
             this.popupData.continueActionFunction(true);
             this.popupData.closeFunction();
@@ -59,7 +67,7 @@ export default {
         border-radius: 4px;
         box-shadow: 0 1px 17px 0 rgba(0, 0, 0, 0.39);
         background-color: #ffffff;
-        z-index: 10;
+        z-index: 15;
         position: absolute;
         top: 38px;
         &.active{
@@ -138,6 +146,7 @@ export default {
             .description{
                 height:66px;
                 white-space: pre-wrap;
+                margin-top: 10px;
                 .blueText{
                     color: #4452fc;
                     font-weight: 600;
@@ -146,7 +155,7 @@ export default {
             .buttons-container{
                 display: flex;
                 flex-direction: column;
-                margin-top: 20px;
+                margin-top: 10px;
                 button{
                     width: 162px;
                     height: 48px;

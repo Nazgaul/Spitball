@@ -71,7 +71,7 @@ export default {
         }
     },
     created(){
+        console.log("Sync data from server");
         this.syncUniData();
-        console.log("unicreated")
     }
 }
