@@ -1,6 +1,8 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Core;
 using Cloudents.Core.Command.Admin;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
@@ -87,6 +89,19 @@ namespace Cloudents.Admin2.Api
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             }
             return Ok();
+        }
+
+        /// <summary>
+        /// Get a list of question with pending state
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet("Pending")]
+        public async Task<IEnumerable<PendingQuestionDto>> Get(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            var t = await _queryBus.QueryAsync<IEnumerable<PendingQuestionDto>>(query, token);
+            return t.Take(100);
         }
 
     }
