@@ -8,7 +8,7 @@
                 <span><v-icon>sbf-school</v-icon></span>
             </div>
             <div class="title">
-                <span>Changing Schools?</span>
+                <span v-language:inner>uniSelect_changing_school_question</span>
             </div>
         </div>
         <div class="bottom-container">
@@ -17,8 +17,8 @@
                 <span>{{schoolDesc}}</span>
             </div>
             <div class="buttons-container">
-                <button @click="revertAction()">Keep Current School</button>
-                <button class="transparent" @click="continueAction()">YES, Change School</button>
+                <button @click="revertAction()" v-language:inner>uniSelect_keep_school</button>
+                <button class="transparent" @click="continueAction()" v-language:inner>uniSelect_yes_change</button>
             </div>
         </div>
     </div>
@@ -26,6 +26,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { LanguageService } from "../../../../../services/language/languageService";
 
 export default {
     props:{
@@ -36,7 +37,7 @@ export default {
     },
     data(){
         return{
-            schoolDesc: "\n and all of the selected classes \n will be deleted"
+            schoolDesc: LanguageService.getValueByKey("uniSelect_school_desc")
         }
     },
     computed:{
