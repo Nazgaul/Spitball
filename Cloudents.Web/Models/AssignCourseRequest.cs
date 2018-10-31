@@ -2,10 +2,6 @@
 
 namespace Cloudents.Web.Models
 {
-    public class AssignCoursesRequest
-    {
-        public AssignCourseRequest[] Courses { get; set; }
-    }
     public class AssignCourseRequest
     {
         [Required(ErrorMessage = "Required")]
