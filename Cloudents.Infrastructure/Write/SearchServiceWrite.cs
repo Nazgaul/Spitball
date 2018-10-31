@@ -14,13 +14,13 @@ namespace Cloudents.Infrastructure.Write
     {
         protected readonly SearchServiceClient _client;
         protected readonly ISearchIndexClient IndexClient;
-       // private readonly string _indexName;
+        // private readonly string _indexName;
 
-        protected SearchServiceWrite(SearchService client, string indexName) 
-            :this(client, client.GetOldClient(indexName))
+        protected SearchServiceWrite(SearchService client, string indexName)
+            : this(client, client.GetOldClient(indexName))
 
         {
-           
+
         }
 
         protected SearchServiceWrite(SearchService client, ISearchIndexClient indexClient)
@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure.Write
             {
                 Id = s
             }));
-            var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token); 
+            var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
             return result.Results.Count > 0;
         }
 
@@ -75,14 +75,11 @@ namespace Cloudents.Infrastructure.Write
 
         public virtual async Task CreateOrUpdateAsync(CancellationToken token)
         {
-            try
+            var t = _client.Indexes.GetAsync(IndexClient.IndexName, cancellationToken: token);
+            if (t == null)
             {
                 var index = GetIndexStructure(IndexClient.IndexName);
                 await _client.Indexes.CreateAsync(index, cancellationToken: token);
-            }
-            catch (Exception ex)
-            {
-
             }
         }
 
