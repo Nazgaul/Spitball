@@ -13,6 +13,6 @@ namespace Cloudents.Admin2.Models
 
     public class ApproveRequest
     {
-        public long[] Ids { get; set; }
+        public long Id { get; set; }
     }
 }

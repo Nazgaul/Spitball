@@ -4,9 +4,11 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Linq;
 using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
@@ -26,18 +28,19 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             _session = session.Session;
         }
 
-
-
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
+            
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
             AnswerOfQuestionWithoutCorrectAnswer dtoAnswerAlias = null;
             Question questionAlias = null;
             User userAlias = null;
 
-            var questionFuture = _session.QueryOver(() => questionAlias)
+            var questions = await _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .Where(w => w.CorrectAnswer == null)
+                .WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
+                    .Select(s => s.Id))
                 .And(Restrictions.Or(
                     Restrictions.Where(() => userAlias.Fictive),
                     Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))
@@ -50,15 +53,11 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 )
                 .TransformUsing(Transformers.AliasToBean<QuestionWithoutCorrectAnswerDto>())
                 .OrderBy(o => o.Id).Asc
-                .Future<QuestionWithoutCorrectAnswerDto>();
+                .Take(100)
+                .ListAsync<QuestionWithoutCorrectAnswerDto>(token);
 
-            var answerFuture = _session.QueryOver<Answer>()
-                .JoinAlias(x => x.User, () => userAlias)
-                .JoinAlias(x => x.Question, () => questionAlias)
-                .Where(() => questionAlias.CorrectAnswer == null)
-                .And(Restrictions.Or(
-                    Restrictions.Where(() => userAlias.Fictive),
-                    Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))))
+            var answersResult = await _session.QueryOver<Answer>()
+                .Where(w=>w.Question.Id.IsIn(questions.Select(s=>s.Id).ToArray()))
                 .SelectList(
                             l =>
                                 l.Select(s => s.Id).WithAlias(() => dtoAnswerAlias.Id)
@@ -66,12 +65,10 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                             .Select(s => s.Question.Id).WithAlias(() => dtoAnswerAlias.QuestionId))
                 .TransformUsing(Transformers.AliasToBean<AnswerOfQuestionWithoutCorrectAnswer>())
                 .OrderBy(x => x.Id).Asc
-                .Future<AnswerOfQuestionWithoutCorrectAnswer>();
+                .ListAsync<AnswerOfQuestionWithoutCorrectAnswer>(token);
 
-
-            var t = await questionFuture.GetEnumerableAsync(token);
-            var answers = answerFuture.GetEnumerable().ToLookup(l => l.QuestionId);
-            return t.Select(s =>
+            var answers = answersResult.ToLookup(l => l.QuestionId);
+            return questions.Select(s =>
             {
                 s.Url = _urlBuilder.BuildQuestionEndPoint(s.Id);
                 s.Answers = answers[s.Id];
