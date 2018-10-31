@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Admin2.Models;
+﻿using Cloudents.Admin2.Models;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Api
 {
@@ -34,8 +33,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(CancellationToken token)
         {
             var query = new AdminEmptyQuery();
-            var t =  await _queryBus.QueryAsync<IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, token);
-            return t.Take(100);
+            return await _queryBus.QueryAsync<IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, token);
         }
 
         /// <summary>
@@ -55,6 +53,6 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
         }
 
-     
+
     }
 }
