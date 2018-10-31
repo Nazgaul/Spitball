@@ -1,7 +1,6 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Core;
 using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -82,12 +81,12 @@ namespace Cloudents.Admin2.Api
         [HttpPost("approve")]
         public async Task<ActionResult> ApproveQuestionAsync([FromBody]ApproveRequest model, CancellationToken token)
         {
-            foreach (var id in model.Ids)
-            {
+            //foreach (var id in model.Ids)
+            // {
 
-                var command = new ApproveQuestionCommand(id);
-                await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
-            }
+            var command = new ApproveQuestionCommand(model.Id);
+            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+            //}
             return Ok();
         }
 
