@@ -3,22 +3,22 @@
             <div class="title-container">
                 <div class="first-container">
                     <div><v-icon @click="lastStep()">sbf-arrow-back</v-icon></div>
-                    <div><a class="next-container" @click="nextStep()">Done</a> </div>
+                    <div><a class="next-container" @click="nextStep()" v-language:inner>uniSelect_done</a> </div>
                 </div>
                 <div class="select-class-string">
-                    <span>Select Class</span> 
+                    <span v-language:inner>uniSelect_select_class</span> 
                 </div>
                 
             </div>
             <div class="explain-container">
-                From {{schoolName}}
+               <span v-language:inner>uniSelect_from</span> &nbsp; {{schoolName}}
             </div>
             <div class="select-school-container">
                 <v-combobox
                     v-model="selectedClasses"
                     :items="classes"
-                    label="Type your Class name"
-                    placeholder="Type your Class name"
+                    :label="classNamePlaceholder"
+                    :placeholder="classNamePlaceholder"
                     clearable
                     solo
                     :search-input.sync="search"
@@ -32,7 +32,7 @@
                 <template slot="no-data">
                     <v-list-tile v-if="showBox">
                         <div class="subheading">
-                           <span>Create</span>
+                           <span v-language:inner>uniSelect_create</span>
                             <v-chip>
                                 {{ search }}
                             </v-chip>    
@@ -61,6 +61,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import { LanguageService } from "../../../../services/language/languageService";
+
 export default {
     props:{
         fnMethods:{
@@ -76,6 +78,7 @@ export default {
         return{
         classModel: '',
         search:'',
+        classNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_class_name_placeholder'),
         }
         
     },
