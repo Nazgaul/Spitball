@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Write
     public class QuestionSearchWrite : SearchServiceWrite<Question>
     {
         private readonly FluentSearchFieldBuilder<Question> _fieldBuilder = new FluentSearchFieldBuilder<Question>();
-        internal const string IndexName = "question2";
+        internal const string IndexName = "question";
         internal const string TagsCountryParameter = "Country";
         internal const string ScoringProfile = "ScoringProfile";
 

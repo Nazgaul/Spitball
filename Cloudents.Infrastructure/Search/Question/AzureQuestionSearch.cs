@@ -47,21 +47,21 @@ namespace Cloudents.Infrastructure.Search.Question
                 Filter = string.Join(" and ", filters),
                 Top = 50,
                 Skip = query.Page * 50,
-                ScoringProfile = QuestionSearchWrite.ScoringProfile,
-                ScoringParameters = new[]
-                             {
-                    new ScoringParameter
-                    (QuestionSearchWrite.TagsCountryParameter
-                        , new[] {query.Country}),
+                //ScoringProfile = QuestionSearchWrite.ScoringProfile,
+                //ScoringParameters = new[]
+                //             {
+                //    new ScoringParameter
+                //    (QuestionSearchWrite.TagsCountryParameter
+                //        , new[] {query.Country}),
 
-                    //new ScoringParameter
-                    //(QuestionSearchWrite.TagsUniversityParameter
-                    //    , new[] {query.UniversityId}),
+                //    //new ScoringParameter
+                //    //(QuestionSearchWrite.TagsUniversityParameter
+                //    //    , new[] {query.UniversityId}),
 
-                    //new ScoringParameter
-                    //(QuestionSearchWrite.TagsLanguageParameter
-                    //    , t)
-                }
+                //    //new ScoringParameter
+                //    //(QuestionSearchWrite.TagsLanguageParameter
+                //    //    , t)
+                //}
 
             };
 

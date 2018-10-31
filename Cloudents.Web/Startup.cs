@@ -185,7 +185,6 @@ namespace Cloudents.Web
             services.AddTransient<ISmsSender, SmsSender>();
             var assembliesOfProgram = new[]
             {
-                Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
