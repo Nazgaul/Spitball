@@ -14,7 +14,7 @@
                 </div>
                 <div class="question-right-body">
                     <button @click="aproveQ(question, index)">Aprove</button>
-                    <button class="decline" @click="declineQuestion(question, index)">Decline</button>
+                    <button class="decline" @click="declineQuestion(question, index)">Delete</button>
                 </div>
             </div>
             <div v-show="questions.length === 0">Loading questions, please wait...</div>
