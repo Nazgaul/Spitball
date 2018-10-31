@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -16,6 +17,8 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Question : IEvents
     {
+        private readonly string[] _listOfWhiteListCountries = new[] { "US", "CA", "AU" , "GB", "IE", "IL", "NZ", "MX", "SE" ,
+            "NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA" };
         public Question(QuestionSubject subject, string text, decimal price, int attachments, User user, QuestionColor color)
         : this()
         {
@@ -29,12 +32,12 @@ namespace Cloudents.Core.Entities.Db
             {
                 Color = color;
             }
-
-            //if (user.Fictive)
-            //{
-            //    Updated = DateTimeHelpers.NextRandomDate(1);
-            //}
             State = QuestionState.Pending;
+            if (user.Country.Contains(_listOfWhiteListCountries, StringComparison.OrdinalIgnoreCase))
+            {
+                State = QuestionState.Ok;
+            }
+
             QuestionCreateTransaction();
             if (State.GetValueOrDefault() == QuestionState.Ok)
             {
@@ -63,8 +66,8 @@ namespace Cloudents.Core.Entities.Db
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime Updated { get; set; }
 
-       [CanBeNull]
-       public virtual Answer CorrectAnswer { get;  set; }
+        [CanBeNull]
+        public virtual Answer CorrectAnswer { get; set; }
 
         public virtual IList<Answer> Answers { get; protected set; }
 
