@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
-    [ApiController/*, Authorize*/]
+    [ApiController]
     public class AdminQuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;

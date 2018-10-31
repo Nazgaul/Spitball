@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
-    [ApiController/*,Authorize*/]
+    [ApiController]
     public class AdminMarkQuestionController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
