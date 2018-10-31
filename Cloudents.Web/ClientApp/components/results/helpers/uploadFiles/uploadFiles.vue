@@ -100,7 +100,7 @@
                                         <v-chip name="sbf-class-chip" class="sbf-class-chip mb-2" outline
                                                 v-for="(singleClass, index) in classesList"
                                                 @click="updateClass(singleClass)"
-                                                :selected="isSelected(singleClass)"
+                                                :selected="selectedClass ===singleClass"
                                                 :key="index">{{singleClass}}
                                         </v-chip>
                                     </div>

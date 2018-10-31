@@ -91,30 +91,25 @@ export default {
     },
 
     methods: {
-        ...mapActions(["updateLoginDialogState",  'updateNewQuestionDialogState']),
+        ...mapActions(["updateLoginDialogState", 'updateNewQuestionDialogState', 'changeSelectPopUpUniState']),
 
         openUploaderDialog() {
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
-            } else {
+            } else if (this.accountUser.universityExists) {
                 this.loadDropBoxSrc(); // load Drop box script
                 this.showUploadDialog = true;
+            } else {
+                this.changeSelectPopUpUniState(true)
             }
+
         },
 
         // update data methods
         updateClass(singleClass) {
-            if( this.selectedClass.indexOf(singleClass) === -1 ){
-                this.selectedClass.push(singleClass)
-            }else{
-                let index = this.selectedClass.indexOf(singleClass);
-                this.selectedClass.splice(index, 1);
-            }
+           this.selectedClass = singleClass;
         },
 
-        isSelected(singleClass){
-           return this.selectedClass.indexOf(singleClass) !== -1
-        },
 
         updateDocumentType(docType) {
             this.selectedDoctype = docType;
@@ -127,32 +122,32 @@ export default {
         sendDocumentData(step) {
             //documentTitle if exists replace with custom before send
             let name = this.filesUploaded[0] ? this.filesUploaded[0].name : '';
-            if(name !== this.documentTitle){
+            if (name !== this.documentTitle) {
                 name = this.documentTitle
             }
-            let docData ={
+            let docData = {
                 "blobName": this.generatedFileName,
-                "name" : `${name}`,
+                "name": `${name}`,
                 "type": this.selectedDoctype.id,
                 "courses": this.selectedClass,
                 "tags": this.selectedTags
             };
             //post all doc data
             documentService.sendDocumentData(docData)
-                .then((resp)=>{
-                    console.log('doc data success');
-                this.nextStep(step)
-                },
-                (error)=>{
-                    console.log('doc data error', error)
-            });
+                .then((resp) => {
+                        console.log('doc data success');
+                        this.nextStep(step)
+                    },
+                    (error) => {
+                        console.log('doc data error', error)
+                    });
 
         },
         updateLegal() {
             console.log('legal check', this.legalCheck)
         },
-        closeAndOpenAsk(){
-            this.gotoAsk= true;
+        closeAndOpenAsk() {
+            this.gotoAsk = true;
             this.showUploadDialog = false;
         },
 
@@ -191,7 +186,7 @@ export default {
                         };
                         // add to array or replace
                     });
-                    this.documentTitle = singleFile.name ?  singleFile.name : '';
+                    this.documentTitle = singleFile.name ? singleFile.name : '';
                     uploadService.uploadDropbox(singleFile)
                         .then((response) => {
                                 console.log("success responce ulpoad drop box api call", response);
@@ -261,7 +256,7 @@ export default {
                 // Filter non-image file remove for docs
                 // Will not be added to files
                 if (/\.(js|html|php|webp|exe)$/i.test(newFile.name)) {
-                   return prevent()
+                    return prevent()
                 }
 
                 // Create the 'blob' field for thumbnail preview
@@ -276,7 +271,7 @@ export default {
                         type: type
                     };
                     //add or replace
-                    this.documentTitle = singleFile.name ?  singleFile.name : '';
+                    this.documentTitle = singleFile.name ? singleFile.name : '';
                     this.filesUploaded.splice(0, 1, singleFile)
                 }
             }
@@ -323,13 +318,14 @@ export default {
             this.currentStep = step;
         }
     },
-    beforeDestroy(){
-        if(this.gotoAsk){
+    beforeDestroy() {
+        if (this.gotoAsk) {
             this.updateNewQuestionDialogState(true);
         }
 
     },
     created() {
+        console.log("account user:", this.accountUser);
     }
 
 }
