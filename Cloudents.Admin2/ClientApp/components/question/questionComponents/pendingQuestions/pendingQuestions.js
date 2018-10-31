@@ -4,7 +4,8 @@ import {deleteQuestion} from '../delete/deleteQuestionService'
 export default {
     data(){
         return {
-            questions:[]
+            questions:[],
+            deletedMails: []
         }
     },
     methods:{     
@@ -19,6 +20,7 @@ export default {
         declineQuestion(question, index){
             let id = question.id
             deleteQuestion([id]).then(()=>{
+                this.deletedMails.push(question.user.email)
                 this.questions.splice(index, 1);
                 this.$toaster.success(`Question Declined`);
             }, err=>{

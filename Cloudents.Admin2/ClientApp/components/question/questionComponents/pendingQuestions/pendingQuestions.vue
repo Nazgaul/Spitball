@@ -1,6 +1,16 @@
 <template>
     <div>
         <h1>Pending Questions</h1>
+        <h3>The emails of users that their question were deleted are on the left</h3>
+        <h3>after sending an email, refresh the page to clear the list</h3>
+        <div class="page-container">
+            <div class="deleted-emails" v-show="deletedMails.length > 0">
+                <ul>
+                    <span class="bold">Deleted Emails</span> 
+                    <li v-for="(email, index) in deletedMails" :key="index">{{email}}</li>
+                </ul>
+            </div>
+        <div class="question-co">
             <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
                 <div class="question-left-body">
                     <div class="user-container">
@@ -18,83 +28,100 @@
                 </div>
             </div>
             <div v-show="questions.length === 0">Loading questions, please wait...</div>
+        </div>
+        </div>
+        
     </div>
 </template>
 
 <script src="./pendingQuestions.js"></script>
 
 <style lang="scss" scoped>
-    .questionItem{
-        display:flex;
-        margin:0 auto;
-        flex-direction: row;
-        border: 2px solid #c7c7c7;
-        margin-bottom: 10px;
-        width: 70%;
-        min-width:500px;   
-        border-radius: 29px;  
-        
-       .question-left-body{
-            flex-grow: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding:10px;
-            padding-left: 15px;
-            background-color: #c7c7c7;
-            border-radius: 20px;
-            margin: 10px;
-           .user-container{
-                display: flex;
-                flex-grow: 1;
+.page-container{
+    display: flex;
+    .deleted-emails{
+            position: absolute;
+            color:#c25050;
+            .bold{
+                font-weight: 600;
+            }
+        }
+    .question-co{
+        flex-grow: 1;
+        .questionItem{
+                display:flex;
+                margin:0 auto;
                 flex-direction: row;
-                justify-content: space-between;
-                width: 98%;
-                border-bottom: 1px solid #e0e0e0;
-           }
-           .question-container{
-                display: flex;
-                flex-grow: 5;
-                flex-direction: column;
-                width:100%;
-                text-align: left;
-                .bottom-border{
-                    border-bottom: 1px solid #c7c7c7;
-                    width: fit-content;
+                border: 2px solid #c7c7c7;
+                margin-bottom: 10px;
+                width: 70%;
+                min-width:500px;   
+                border-radius: 29px;  
+                
+            .question-left-body{
+                    flex-grow: 10;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    padding:10px;
+                    padding-left: 15px;
+                    background-color: #c7c7c7;
+                    border-radius: 20px;
+                    margin: 10px;
+                .user-container{
+                        display: flex;
+                        flex-grow: 1;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        width: 98%;
+                        border-bottom: 1px solid #e0e0e0;
                 }
-                .bold{
-                    font-weight: 600;
-                }
-                .bottom-space{
-                    margin-bottom:5px;
-                }
-           }
-       }
-       .question-right-body{
-            position:relative;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            margin:10px;
-            justify-content: left;
-            text-align: left;
-            background-color: #c7c7c7;
-            border-radius: 25px;
-            padding: 7px;
-            button{
-                cursor: pointer;
-                background-color: #affb93;
-                border-radius: 25px;
-                border: none;
-                outline: none;
-                cursor:pointer;
-                height: 40px;
-                margin-bottom: 5px;
-                margin-top: 5px;
-                &.decline{
-                   background-color: #fb9393
+                .question-container{
+                        display: flex;
+                        flex-grow: 5;
+                        flex-direction: column;
+                        width:100%;
+                        text-align: left;
+                        .bottom-border{
+                            border-bottom: 1px solid #c7c7c7;
+                            width: fit-content;
+                        }
+                        .bold{
+                            font-weight: 600;
+                        }
+                        .bottom-space{
+                            margin-bottom:5px;
+                        }
                 }
             }
-       }
+            .question-right-body{
+                    position:relative;
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    margin:10px;
+                    justify-content: left;
+                    text-align: left;
+                    background-color: #c7c7c7;
+                    border-radius: 25px;
+                    padding: 7px;
+                    button{
+                        cursor: pointer;
+                        background-color: #affb93;
+                        border-radius: 25px;
+                        border: none;
+                        outline: none;
+                        cursor:pointer;
+                        height: 40px;
+                        margin-bottom: 5px;
+                        margin-top: 5px;
+                        &.decline{
+                        background-color: #fb9393
+                        }
+                    }
+                }
+            }
+        }
     }
+    
 </style>
