@@ -134,35 +134,35 @@ const actions = {
             }
         });
     },
-    getUniversities(context, data) {
-        return context.dispatch("updateLocation").then((location) => {
-            return settingsService.getUniversity({ term: data.term, location });
-        });
-    },
-    getCourses(context, { term }) {
-        return settingsService.getCourse({ term, university: context.getters.getUniversity });
-    },
+    // getUniversities(context, data) {
+    //     return context.dispatch("updateLocation").then((location) => {
+    //         return settingsService.getUniversity({ term: data.term, location });
+    //     });
+    // },
+    // getCourses(context, { term }) {
+    //     return settingsService.getCourse({ term, university: context.getters.getUniversity });
+    // },
 
-    createCourse(context, { name }) {
-        const university = context.getters.getUniversity;
-        return settingsService.createCourse({ courseName: name, university }).then(({ data: body }) => {
-            context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: name }] });
-        });
-    },
+    // createCourse(context, { name }) {
+    //     const university = context.getters.getUniversity;
+    //     return settingsService.createCourse({ courseName: name, university }).then(({ data: body }) => {
+    //         context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: name }] });
+    //     });
+    // },
     updateFirstTime({ commit }, val) {
         let ob = { [val]: false };
         commit(USER.UPDATE_USER, ob);
     },
-    updateUniversity({ commit }, { id, name, image }) {
-        commit(USER.UPDATE_USER, { universityId: { id, name, image } });
-        return settingsService.assaignUni(id)
-    },
-    updateCourse(context, courseId){
-        return settingsService.assaignCou(courseId)
-    },
-    createUniversity({ commit }, universityName){
-        return settingsService.createUni(universityName)
-    },
+    // updateUniversity({ commit }, { id, name, image }) {
+    //     commit(USER.UPDATE_USER, { universityId: { id, name, image } });
+    //     return settingsService.assaignUni(id)
+    // },
+    // updateCourse(context, courseId){
+    //     return settingsService.assaignCou(courseId)
+    // },
+    // createUniversity({ commit }, universityName){
+    //     return settingsService.createUni(universityName)
+    // },
     updatePinnedCards(context, data) {
         context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards, ...data } });
     },
