@@ -5,7 +5,7 @@
                    :isPersistent="true"
                    :content-class="'upload-dialog'">
           <v-icon class="close-upload-btn-icon"@click="showUploadDialog = false" >sbf-close</v-icon>
-            <v-card :class="['sb-steps-wrap', isFirstStep ? 'px-2' : 'px-2' ]">
+            <v-card :class="['sb-steps-wrap', isFirstStep ? 'px-2' : '0' ]">
                 <v-stepper v-model="currentStep" class="sb-stepper">
                     <v-stepper-header class="sb-stepper-header" v-show="currentStep===1">
                         <template>
@@ -15,7 +15,7 @@
                     </v-stepper-header>
                     <v-stepper-items class="sb-stepper-item">
 
-                        <v-stepper-content :class="['sb-stepper-content', `step-${n}`]"  v-for="n in steps"
+                        <v-stepper-content :class="['sb-stepper-content', `step-${n}`, n !==1 ? 'paddingTopSm': '']"  v-for="n in steps"
                                            :key="`${n}-content`"
                                            :step="n">
                             <!--upload steps rendering-->
@@ -24,9 +24,15 @@
 
 
                         <div class="bottom-upload-controls" v-show="currentStep > 1">
-                            <v-progress-linear :height="'3px'" v-show="currentStep >1" :color="'#4452fc'" v-model="stepsProgress"
-                                               class="sb-steps-progress ma-0" :active="true"></v-progress-linear>
-                            <!--<div id="result"></div>-->
+                            <v-progress-linear
+                                    :height="'3px'"
+                                    v-show="currentStep >1"
+                                    :color="'#4452fc'"
+                                    v-model="stepsProgress"
+                                    class="sb-steps-progress ma-0"
+                                    :active="true">
+
+                            </v-progress-linear>
                             <div class="step-controls">
                                 <div class="upload upload-result-file">
                                     <div class="file-item">
