@@ -26,9 +26,8 @@
             <sb-dialog :showDialog="getDialogState" :transitionAnimation="'slide-y-transition'" :popUpType="'uploadDialog'" :fullWidth="true"
                        :isPersistent="true"
                        :content-class="'upload-dialog'">
-                <upload-files></upload-files>
+                <upload-files v-if="getDialogState"></upload-files>
                 </sb-dialog>
-
         </v-content>
     </v-app>
 </template>

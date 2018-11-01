@@ -144,7 +144,7 @@ export default {
     },
     created() {
         this.syncUniData()
-
+        console.log('created upload dilog sync')
     }
 
 }
