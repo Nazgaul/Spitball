@@ -52,8 +52,15 @@ namespace Cloudents.Infrastructure.Database.Query
                     Files = s.Attachments,
                     Price = s.Price,
                     HasCorrectAnswer = s.CorrectAnswer.Id != null
-                    //HasCorrectAnswer = s.
-                }).ToListAsync(token);
+                })
+               .WithOptions(w=>
+               {
+                   w.SetCacheMode(CacheMode.Normal);
+                   w.SetCacheRegion("question");
+                   w.SetCacheable(true);
+                   w.SetReadOnly(true);
+               })
+               .ToListAsync(token);
 
             //var queryOverObj = _session.QueryOver(() => questionAlias)
             //    //.JoinAlias(x => x.Subject, () => commentAlias)

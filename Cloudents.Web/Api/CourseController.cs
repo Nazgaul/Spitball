@@ -9,9 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Query;
-using System.Collections.Generic;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Query.Admin;
 using System.Linq;
 
 namespace Cloudents.Web.Api
@@ -66,11 +63,11 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost("assign")]
-        public async Task<IActionResult> AssignCoursesAsync([FromBody] AssignCourseRequest[] model, CancellationToken token)
+        [HttpPost]
+        public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AssignCourseToUserCommand(model.Select(s=>s.Name), userId);
+            var command = new SetCoursesToUserCommand(model.Select(s=>s.Name), userId);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }

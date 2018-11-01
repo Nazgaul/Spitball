@@ -3,9 +3,9 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Command
 {
-    public class AssignCourseToUserCommand : ICommand
+    public class SetCoursesToUserCommand : ICommand
     {
-        public AssignCourseToUserCommand(IEnumerable<string> name, long userId)
+        public SetCoursesToUserCommand(IEnumerable<string> name, long userId)
         {
             Name = name;
             UserId = userId;
