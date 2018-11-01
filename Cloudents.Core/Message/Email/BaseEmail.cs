@@ -21,14 +21,14 @@ namespace Cloudents.Core.Message.Email
 
         public string To { get; private set; }
 
-        public string TemplateId { get; }
+        public string TemplateId { get; private set; }
         public string Subject { get; private set; }
         [CanBeNull] public abstract string Campaign { get; }
 
         //public abstract string TemplateEnglishId { get; }
         //public abstract string TemplateHebrewId { get; }
 
-        [CanBeNull] protected abstract IDictionary<CultureInfo, string> Templates { get; }
+        [CanBeNull] protected abstract IDictionary<CultureInfo, string> Templates { get;  }
 
         private string AssignTemplate(CultureInfo info)
         {

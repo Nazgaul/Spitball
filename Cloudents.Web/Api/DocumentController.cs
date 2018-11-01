@@ -68,8 +68,8 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
 
-            var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type, model.Courses, model.Tags,
-                userId);
+            var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
+                model.Course, model.Tags, userId, model.Professor);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

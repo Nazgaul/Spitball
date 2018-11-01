@@ -70,7 +70,7 @@ namespace Cloudents.Core.CommandHandler
             var id = answer.Id;
 
 
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
             await Task.WhenAll(l/*.Union(new[] { t })*/).ConfigureAwait(true);
         }
