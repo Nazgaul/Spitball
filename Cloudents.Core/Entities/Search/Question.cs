@@ -14,7 +14,7 @@ namespace Cloudents.Core.Entities.Search
         public string Id { get; set; } //key readonly
 
         //public int AnswerCount { get; set; } //readonly
-        public DateTime DateTime { get; set; } //readonly
+        public DateTime? DateTime { get; set; } //readonly
         //public int FilesCount { get; set; } //readonly 
         //public bool HasCorrectAnswer { get; set; } //readonly
         //public double Price { get; set; } //readonly
@@ -27,8 +27,8 @@ namespace Cloudents.Core.Entities.Search
 
         //public QuestionColor Color { get; set; } //readonly
 
-        public QuestionSubject Subject { get; set; } // facetable readonly
-        public QuestionFilter State { get; set; }
+        public QuestionSubject? Subject { get; set; } // facetable readonly
+        public QuestionFilter? State { get; set; }
 
         // public string SubjectText { get; set; } // facetable
 

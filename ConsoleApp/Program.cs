@@ -21,6 +21,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Cloudents.Core.CommandHandler;
+using Cloudents.Core.Message.Email;
 using Cloudents.Core.Query;
 using Question = Cloudents.Core.Entities.Search.Question;
 

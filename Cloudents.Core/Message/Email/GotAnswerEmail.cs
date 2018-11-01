@@ -1,9 +1,9 @@
-﻿using Cloudents.Core.Extension;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Cloudents.Core.Extension;
 
-namespace Cloudents.Core.Message
+namespace Cloudents.Core.Message.Email
 {
     [Serializable]
     public class GotAnswerEmail : BaseEmail
