@@ -15,7 +15,7 @@
                             height="'48px'"
                             append-icon=""
                             prepend-icon=""
-                            placeholder="upload_files_placeholder_tags"
+                            :placeholder="placeholderTags"
                             color="'#979797'"
                             multiple
                             chips
@@ -40,10 +40,12 @@
 </template>
 <script>
     import { mapGetters, mapActions } from 'vuex';
+    import { LanguageService } from "../../../../../services/language/languageService";
      export default {
         name: "uploadStep_5",
         data() {
             return {
+                placeholderTags: LanguageService.getValueByKey('upload_files_placeholder_tags')
             }
         },
         computed: {
