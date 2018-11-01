@@ -19,7 +19,7 @@ namespace Cloudents.Core.DTOs
         //    Facets = new Dictionary<string, IEnumerable<string>>();
         //}
         [ItemCanBeNull]
-        public IEnumerable<QuestionDto> Result { get; set; }
+        public IList<QuestionDto> Result { get; set; }
         public IEnumerable<QuestionFilter> FacetState { get; set; }
         public IEnumerable<QuestionSubject> FacetSubject { get; set; }
     }

@@ -31,15 +31,15 @@ namespace Cloudents.Web.Identity
                 p.AddClaim(new Claim(University, user.University.Id.ToString()));
             }
 
-            if (user.Languages != null)
-            {
-                p.AddClaim(new Claim(Languages, string.Join(",", user.Languages)));
-                //foreach (var language in user.Languages)
-                //{
-                //    p.AddClaim(new Claim(Languages, language.ToString()));
+            //if (user.Languages != null)
+            //{
+            //    p.AddClaim(new Claim(Languages, string.Join(",", user.Languages)));
+            //    //foreach (var language in user.Languages)
+            //    //{
+            //    //    p.AddClaim(new Claim(Languages, language.ToString()));
 
-                //}
-            }
+            //    //}
+            //}
             return p;
         }
     }

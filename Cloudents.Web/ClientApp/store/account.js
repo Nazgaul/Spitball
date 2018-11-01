@@ -93,7 +93,7 @@ const getters = {
     lastActiveRoute: state => state.lastActiveRoute,
     getProfileData: state => state.profileData,
     getUniversity: state => {
-        if(!!state.user && !!state.user.universityId){
+        if(!!state.user && !!state.user.universityExists){
             return true;
         }else{
             return false;

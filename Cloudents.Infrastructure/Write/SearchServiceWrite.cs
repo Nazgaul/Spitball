@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Write
 {
-    public abstract class SearchServiceWrite<T> : IDisposable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
+    public abstract class SearchServiceWrite<T> :  ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
         protected readonly SearchServiceClient _client;
         protected readonly ISearchIndexClient IndexClient;
@@ -86,24 +86,8 @@ namespace Cloudents.Infrastructure.Write
         protected abstract Index GetIndexStructure(string indexName);
 
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+       
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _client?.Dispose();
-            }
-        }
-
-        ~SearchServiceWrite()
-        {
-            // Finalizer calls Dispose(false)  
-            Dispose(false);
-        }
+       
     }
 }
