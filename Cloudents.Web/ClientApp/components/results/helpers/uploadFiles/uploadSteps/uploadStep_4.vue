@@ -9,7 +9,7 @@
                     <!--<v-icon class="mr-1">sbf-university</v-icon>-->
                     <span v-language:inner>upload_files_label_document_title</span></label>
                 <sb-input :bottomError="true"
-                          v-model="documentTitle" placeholder="title" name="document title"
+                          v-model="documentTitle" placeholder="upload_files_label_document_title" name="document title"
                           type="text"
                           :autofocus="true">
                 </sb-input>
@@ -22,7 +22,7 @@
             <label :for="'school'" class="steps-form-label school mb-2">
                 <span v-language:inner>upload_files_label_proff_name</span></label>
             <sb-input :bottomError="true"
-                      v-model="proffesorName" placeholder="proffesor name" name="proffesor"
+                      v-model="proffesorName" placeholder="upload_files_label_proff_name" name="proffesor"
                       type="text"
                       :autofocus="true">
             </sb-input>
