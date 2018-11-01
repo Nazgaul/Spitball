@@ -212,6 +212,7 @@
         },
         created() {
             this.loadDropBoxSrc(); // load Drop box script
+            this.syncUniData()
 
         }
     }

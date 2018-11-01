@@ -154,7 +154,7 @@ export default {
         }
     },
     created() {
-        this.syncUniData()
+
 
     }
 
