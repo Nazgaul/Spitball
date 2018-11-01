@@ -60,7 +60,6 @@ namespace Cloudents.Web.Controllers
                 var user = await userManager.FindByIdAsync(userId);
                 if (user != null)
                 {
-                    //await signInManager.RefreshSignInAsync(user);
                     await signInManager.SignInAsync(user, false);
                     return true;
                 }
