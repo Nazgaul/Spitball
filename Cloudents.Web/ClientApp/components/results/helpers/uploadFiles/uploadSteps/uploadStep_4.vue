@@ -1,16 +1,15 @@
 <template>
     <v-card class="mb-5 sb-step-card">
         <div class="upload-row-1">
-            <h3 class="upload-cloud-text sb-title">Create a title or use the one we created for
-                you</h3>
+            <h3 class="upload-cloud-text sb-title" v-language:inner>upload_files_step4_title</h3>
         </div>
         <div class="upload-row-2 paddingTopSm">
             <div class="btn-holder">
                 <label :for="'school'" class="steps-form-label school mb-2">
                     <!--<v-icon class="mr-1">sbf-university</v-icon>-->
-                    <span>Document Title</span></label>
+                    <span v-language:inner>upload_files_label_document_title</span></label>
                 <sb-input :bottomError="true"
-                          v-model="documentTitle" placeholder="title" name="document title"
+                          v-model="documentTitle" placeholder="upload_files_label_document_title" name="document title"
                           type="text"
                           :autofocus="true">
                 </sb-input>
@@ -21,9 +20,9 @@
         </div>
         <div class="upload-row-3">
             <label :for="'school'" class="steps-form-label school mb-2">
-                <span>Professor Name</span></label>
+                <span v-language:inner>upload_files_label_proff_name</span></label>
             <sb-input :bottomError="true"
-                      v-model="proffesorName" placeholder="proffesor name" name="proffesor"
+                      v-model="proffesorName" placeholder="upload_files_label_proff_name" name="proffesor"
                       type="text"
                       :autofocus="true">
             </sb-input>

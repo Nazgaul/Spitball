@@ -1,8 +1,7 @@
 <template>
     <v-card class="mb-5 sb-step-card">
         <div class="upload-row-1">
-            <h3 class="sb-title">Choose document type, it would be easier to
-                find it</h3>
+            <h3 class="sb-title"v-language:inner>upload_files_step3_title</h3>
         </div>
         <div class="upload-row-2">
             <div :class="['sb-doc-type', singleType.title === selectedDoctype.title ? 'selected': '']"
