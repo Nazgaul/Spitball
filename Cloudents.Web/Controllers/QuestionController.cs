@@ -38,7 +38,11 @@ namespace Cloudents.Web.Controllers
             {
                 return View();
             }
-            await WalletController.SignInUserAsync(code, EmailAnswerCreated.CreateAnswer, _dataProtect, _userManager, _logger, _signInManager);
+            var retVal = await WalletController.SignInUserAsync(code, EmailAnswerCreated.CreateAnswer, _dataProtect, _userManager, _logger, _signInManager);
+            if (retVal)
+            {
+                ViewBag.Auth = true;
+            }
             return View();
         }
     }

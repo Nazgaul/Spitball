@@ -13,6 +13,7 @@
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
     var cdnEndPoint = Constants.GetCdnEndpoint(Environment);
+    var isAuth = ViewBag.Auth ?? User.Identity.IsAuthenticated;
 }
 <!DOCTYPE html>
 
@@ -103,10 +104,10 @@
 
 
    
-<script>
-    window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(4)';  
+    <script>
+    window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(4)';
             window.publicPath = '@cdnEndPoint' + '/dist/';
-            window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
+            window.isAuth = @isAuth.ToString().ToLower();
     window.talkJsId = '@Configuration["TalkJs"]';
     window.country = '@ViewBag.country';
     @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@

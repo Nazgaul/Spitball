@@ -40,13 +40,17 @@ namespace Cloudents.Web.Controllers
             }
 
 
-            await SignInUserAsync(code, EmailMarkAnswerAsCorrect.ProtectPurpose, _dataProtect, _userManager, _logger, _signInManager);
+            var retVal = await SignInUserAsync(code, EmailMarkAnswerAsCorrect.ProtectPurpose, _dataProtect, _userManager, _logger, _signInManager);
+            if (retVal)
+            {
+                ViewBag.Auth = true;
+            }
 
 
             return View();
         }
 
-        public static async Task SignInUserAsync(string code, string purpose, IDataProtect dataProtector, UserManager<User> userManager,
+        public static async Task<bool> SignInUserAsync(string code, string purpose, IDataProtect dataProtector, UserManager<User> userManager,
             ILogger logger, SignInManager<User> signInManager)
         {
             try
@@ -56,8 +60,11 @@ namespace Cloudents.Web.Controllers
                 var user = await userManager.FindByIdAsync(userId);
                 if (user != null)
                 {
+                    //await signInManager.RefreshSignInAsync(user);
                     await signInManager.SignInAsync(user, false);
+                    return true;
                 }
+                
             }
             catch (CryptographicException ex)
             {
@@ -65,6 +72,7 @@ namespace Cloudents.Web.Controllers
                 //If we see this persist then maybe we need to increase the amount of time
                 logger.Exception(ex);
             }
+            return false;
         }
     }
 }
