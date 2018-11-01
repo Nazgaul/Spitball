@@ -1,7 +1,10 @@
-﻿using Cloudents.Core.Entities.Search;
+﻿using System;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Write
@@ -12,16 +15,12 @@ namespace Cloudents.Infrastructure.Write
         private readonly FluentSearchFieldBuilder<Question> _fieldBuilder = new FluentSearchFieldBuilder<Question>();
         internal const string IndexName = "question";
         internal const string TagsCountryParameter = "Country";
-        internal const string TagsUniversityParameter = "University";
-        internal const string TagsLanguageParameter = "Language";
         internal const string ScoringProfile = "ScoringProfile";
 
 
         public QuestionSearchWrite(SearchService client) : base(client, client.GetClient(IndexName))
         {
         }
-
-
 
         protected override Index GetIndexStructure(string indexName)
         {
@@ -40,7 +39,7 @@ namespace Cloudents.Infrastructure.Write
                    _fieldBuilder.Map(x=>x.UserImage),
                    _fieldBuilder.Map(x=>x.AnswerCount),//.IsFilterable().IsFacetable(),
                    _fieldBuilder.Map(x=>x.FilesCount),
-                   _fieldBuilder.Map(x=>x.DateTime).IsSortable(),
+                   _fieldBuilder.Map(x=>x.DateTime).IsSortable().IsFilterable(),
                    _fieldBuilder.Map(x=>x.HasCorrectAnswer),//.IsFilterable(),
                    _fieldBuilder.Map(x=>x.Price),
                    _fieldBuilder.Map(x=>x.Text).IsSearchable(),
@@ -49,7 +48,7 @@ namespace Cloudents.Infrastructure.Write
 
                    _fieldBuilder.Map(x=>x.Country).IsFilterable(),
                    _fieldBuilder.Map(x=>x.Language).IsFilterable(),
-                    _fieldBuilder.Map(x=>x.UniversityId).IsFilterable(),
+                    
 
                    _fieldBuilder.Map(x=>x.State).IsFilterable().IsFacetable(),
                    _fieldBuilder.Map(x=>x.Prefix).IsSearchable().WithIndexAnalyzer(AnalyzerName.Create("prefix"))
@@ -75,20 +74,17 @@ namespace Cloudents.Infrastructure.Write
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(Question.Text)] = 3,
+                            [nameof(Question.Text)] = 2,
                             [nameof(Question.Prefix)] = 1,
                         }),
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new TagScoringFunction(nameof(Question.Country),5, new TagScoringParameters(TagsCountryParameter)),
-                            new TagScoringFunction(nameof(Question.UniversityId),8, new TagScoringParameters(TagsUniversityParameter)),
-                            new TagScoringFunction(nameof(Question.Language),10, new TagScoringParameters(TagsLanguageParameter))
-
+                            new FreshnessScoringFunction(nameof(Question.DateTime),4,TimeSpan.FromHours(6)),
+                            new TagScoringFunction(nameof(Question.Country),4, new TagScoringParameters(TagsCountryParameter)),
                         }
                     }
                 },
-                //DefaultScoringProfile = "ScoringProfile"
             };
         }
     }

@@ -12,15 +12,15 @@ namespace Cloudents.Infrastructure.Write
 {
     public abstract class SearchServiceWrite<T> : IDisposable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
-        private readonly SearchServiceClient _client;
+        protected readonly SearchServiceClient _client;
         protected readonly ISearchIndexClient IndexClient;
-       // private readonly string _indexName;
+        // private readonly string _indexName;
 
-        protected SearchServiceWrite(SearchService client, string indexName) 
-            :this(client, client.GetOldClient(indexName))
+        protected SearchServiceWrite(SearchService client, string indexName)
+            : this(client, client.GetOldClient(indexName))
 
         {
-           
+
         }
 
         protected SearchServiceWrite(SearchService client, ISearchIndexClient indexClient)
@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure.Write
             {
                 Id = s
             }));
-            var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token); 
+            var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
             return result.Results.Count > 0;
         }
 
@@ -73,10 +73,14 @@ namespace Cloudents.Infrastructure.Write
             return result.Results.Count > 0;
         }
 
-        public virtual Task CreateOrUpdateAsync(CancellationToken token)
+        public virtual async Task CreateOrUpdateAsync(CancellationToken token)
         {
-            var index = GetIndexStructure(IndexClient.IndexName);
-            return _client.Indexes.CreateAsync(index, cancellationToken: token);
+            var t = _client.Indexes.GetAsync(IndexClient.IndexName, cancellationToken: token);
+            if (t == null)
+            {
+                var index = GetIndexStructure(IndexClient.IndexName);
+                await _client.Indexes.CreateAsync(index, cancellationToken: token);
+            }
         }
 
         protected abstract Index GetIndexStructure(string indexName);

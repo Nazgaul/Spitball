@@ -67,10 +67,10 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("assign")]
-        public async Task<IActionResult> AssignCoursesAsync([FromBody] AssignCourseRequest model, CancellationToken token)
+        public async Task<IActionResult> AssignCoursesAsync([FromBody] AssignCourseRequest[] model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AssignCourseToUserCommand(model.Name, userId);
+            var command = new AssignCourseToUserCommand(model.Select(s=>s.Name), userId);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }

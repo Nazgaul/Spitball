@@ -7,7 +7,8 @@ namespace Cloudents.Core.Query.Admin
     public class AdminEmptyQuery : 
         IQuery<IEnumerable<QuestionWithoutCorrectAnswerDto>>,
         IQuery<IEnumerable<Cloudents.Core.DTOs.QuestionDto>>,
-        IQuery<IEnumerable<CashOutDto>>, IQuery<long>
+        IQuery<IEnumerable<CashOutDto>>,
+        IQuery<IEnumerable<PendingQuestionDto>>, IQuery<long>
     {
         
     }

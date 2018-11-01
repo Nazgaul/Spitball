@@ -116,14 +116,13 @@ namespace Cloudents.Web.Api
             [FromQuery]GetQuestionsRequest model,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
             [ClaimModelBinder(AppClaimsPrincipalFactory.University)] string university,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.Languages)] string[] languages,
            CancellationToken token)
         {
             var query = new QuestionsQuery(model.Term, model.Source, 
                 model.Page.GetValueOrDefault(),
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value),
                 country,
-                university, languages
+                university
                 );
             var result = await _questionSearch.SearchAsync(query, token);
             string nextPageLink = null;

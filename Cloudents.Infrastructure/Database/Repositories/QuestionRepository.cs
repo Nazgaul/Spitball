@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
             //TODO: we can do this better maybe
             return await Session.Query<Question>().Where(w => w.Updated < DateTime.UtcNow.AddDays(4))
-                .Where(w => Session.Query<Answer>().Where(x => x.Question.Id == w.Id).FirstOrDefault() == null)
+                .Where(w => Session.Query<Answer>().FirstOrDefault(x => x.Question.Id == w.Id) == null)
                 .ToListAsync(token).ConfigureAwait(false);
         }
 
