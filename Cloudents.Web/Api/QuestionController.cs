@@ -115,18 +115,15 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<WebResponseWithFacet<QuestionDto>>> GetQuestionsAsync(
             [FromQuery]GetQuestionsRequest model,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] string university,
            CancellationToken token)
         {
             var query = new QuestionsQuery(model.Term, model.Source, 
                 model.Page.GetValueOrDefault(),
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value),
-                country,
-                university
-                );
+                country);
             var result = await _questionSearch.SearchAsync(query, token);
             string nextPageLink = null;
-            if (result.Result.Any())
+            if (result.Result.Count > 0)
             {
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
