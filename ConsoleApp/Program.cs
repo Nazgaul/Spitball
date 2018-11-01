@@ -21,6 +21,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Cloudents.Core.CommandHandler;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Query;
 using Question = Cloudents.Core.Entities.Search.Question;
@@ -83,6 +84,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            QuestionSubject t = QuestionSubject.Education;
+
+            var z = t.GetEnumLocalizationAllValues();
 
             var sms = new ResetPasswordEmail("ram@cloudents.com", "https://www.spitball.co", CultureInfo.InvariantCulture);
 
