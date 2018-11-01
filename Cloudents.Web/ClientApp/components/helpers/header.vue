@@ -74,7 +74,7 @@
             <v-snackbar absolute :timeout="toasterTimeout" :value="getShowToaster">
                 <div class="text-wrap" v-html="getToasterText"></div>
             </v-snackbar>
-            <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
+            
         </v-toolbar>
 
         <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
@@ -94,12 +94,10 @@
     import {mapActions, mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
-    const PersonalizeDialog = () => import('./ResultPersonalize.vue');
     import {LanguageService } from "../../services/language/languageService";
 
     export default {
         components: {
-            PersonalizeDialog,
             AppLogo,
             SearchInput,
             UserAvatar,
@@ -135,7 +133,7 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
+            ...mapGetters(['accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
 
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;

@@ -15,6 +15,7 @@ import newQuestionDialog from './newQuestionDialog'
 //TODO: server side fix
 import createPersistedState from "vuex-persistedstate"
 import notification from "./notification";
+import uploadFiles from  "./uploadFiles";
 import University from "./university"
 
 function canWriteStorage(storage) {
@@ -66,7 +67,8 @@ const store = new Vuex.Store({
         loginDialog,
         newQuestionDialog,
         notification,
-        University
+        University,
+        uploadFiles
     },
     //plugins: plugins
 });
