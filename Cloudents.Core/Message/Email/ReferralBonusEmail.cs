@@ -9,7 +9,7 @@ namespace Cloudents.Core.Message.Email
     public class ReferralBonusEmail : BaseEmail
     {
         public ReferralBonusEmail(string to, CultureInfo info)
-            : base(to, "Test String", info)
+            : base(to, "One of your friends just joined Spitball", info)
         {
            
         }
