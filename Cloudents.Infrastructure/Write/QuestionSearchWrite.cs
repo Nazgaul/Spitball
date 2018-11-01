@@ -34,16 +34,8 @@ namespace Cloudents.Infrastructure.Write
                 {
 
                    _fieldBuilder.Map(x=>x.Id).IsKey(),
-                   //_fieldBuilder.Map(x=>x.UserId).IsFilterable(),
-                   //_fieldBuilder.Map(x=>x.UserName),
-                   //_fieldBuilder.Map(x=>x.UserImage),
-                   //_fieldBuilder.Map(x=>x.AnswerCount),//.IsFilterable().IsFacetable(),
-                   //_fieldBuilder.Map(x=>x.FilesCount),
                    _fieldBuilder.Map(x=>x.DateTime).IsSortable().IsFilterable(),
-                   //_fieldBuilder.Map(x=>x.HasCorrectAnswer),//.IsFilterable(),
-                   //_fieldBuilder.Map(x=>x.Price),
                    _fieldBuilder.Map(x=>x.Text).IsSearchable(),
-                   //_fieldBuilder.Map(x=>x.Color),
                    _fieldBuilder.Map(x=>x.Subject).IsFilterable().IsFacetable(),
 
                    _fieldBuilder.Map(x=>x.Country).IsFilterable(),

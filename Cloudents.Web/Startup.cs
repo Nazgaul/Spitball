@@ -31,6 +31,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -45,11 +46,11 @@ namespace Cloudents.Web
         public const string IntegrationTestEnvironmentName = "Integration-Test";
         internal const int PasswordRequiredLength = 8;
 
-        public static readonly CultureInfo[] SupportedCultures = {
+        //public static readonly IList<CultureInfo> SupportedCultures = new {
 
-            Language.English.Culture,
-            Language.Hebrew.Culture
-        };
+        //    Language.English.Culture,
+        //    Language.Hebrew.Culture
+        //};
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
@@ -271,11 +272,11 @@ namespace Cloudents.Web
             app.UseRequestLocalization(o =>
             {
 
-                o.DefaultRequestCulture = new RequestCulture(SupportedCultures[0]);
+                o.DefaultRequestCulture = new RequestCulture(Language.English);
                 // Formatting numbers, dates, etc.
-                o.SupportedCultures = SupportedCultures;
+                o.SupportedCultures = Language.SystemSupportLanguage;// SupportedCultures;
                 // UI strings that we have localized.
-                o.SupportedUICultures = SupportedCultures;
+                o.SupportedUICultures = Language.SystemSupportLanguage;
                 o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
 
             });

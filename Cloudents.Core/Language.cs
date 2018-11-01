@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Cloudents.Core
 {
@@ -20,6 +21,16 @@ namespace Cloudents.Core
         {
             return tb.Culture;
         }
+
+        //public static IList<CultureInfo> SystemSupportLanguageCulture()
+        //{
+        //    return SystemSupportLanguage.Select(s => s.Culture).ToList();
+        //}
+
+        public static readonly IList<CultureInfo> SystemSupportLanguage = new List<CultureInfo>()
+        {
+            English,Hebrew
+        };
     }
 
     //public sealed class Country

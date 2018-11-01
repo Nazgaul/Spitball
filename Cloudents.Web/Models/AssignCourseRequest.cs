@@ -2,7 +2,7 @@
 
 namespace Cloudents.Web.Models
 {
-    public class AssignCourseRequest
+    public class SetCourseRequest
     {
         [Required(ErrorMessage = "Required")]
         [StringLength(150, MinimumLength = 4, ErrorMessage = "StringLength")]

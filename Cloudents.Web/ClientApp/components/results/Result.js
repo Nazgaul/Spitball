@@ -255,6 +255,10 @@ export default {
             if(!!item.user){
                 sameUser = userId === item.user.id;
             }
+            if(!item.color){
+                //if item color is undefined set it to default so the color wont be white
+                item.color = "default";
+            }
         return {
             'color': item.color !== 'default' ? 'white' : '',
             'bottom' : sameUser ? '15px' : ''

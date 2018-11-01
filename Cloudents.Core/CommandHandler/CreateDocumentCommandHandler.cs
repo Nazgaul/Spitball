@@ -30,12 +30,7 @@ namespace Cloudents.Core.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            var courses = new List<Course>();
-            foreach (var courseName in message.Courses)
-            {
-                var course = await _courseRepository.GetOrAddAsync(courseName, token);
-                courses.Add(course);
-            }
+            var course = await _courseRepository.GetOrAddAsync(message.Course, token);
 
             var tags = new List<Tag>();
             foreach (var tagName in message.Tags)
@@ -44,7 +39,8 @@ namespace Cloudents.Core.CommandHandler
                 tags.Add(tag);
             }
 
-            var document = new Document(message.Name, message.BlobName, user.University, courses, message.Type, tags, user);
+            var document = new Document(message.Name, message.BlobName, user.University, 
+                course, message.Type, tags, user, message.Professor);
             await _documentRepository.AddAsync(document, token).ConfigureAwait(true);
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);
