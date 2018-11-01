@@ -62,7 +62,7 @@ const assaignCourse = (arrCourses) => {
             courses.push(new ServerCourse(course))
         }
     })
-    return connectivityModule.http.post("Course/assign", courses)
+    return connectivityModule.http.post("Course", courses)
 }
 
 const getProfileUniversity = () => {
