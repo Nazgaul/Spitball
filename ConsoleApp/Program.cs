@@ -90,8 +90,6 @@ namespace ConsoleApp
             var _bus = _container.Resolve<IQuestionSearch>();
             await _bus.SearchAsync(new QuestionsQuery(null, null, 0, null, "IL"), token);
 
-            Console.WriteLine("again");
-            await _bus.SearchAsync(new QuestionsQuery(null, null, 0, null, "IL"), token);
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
         }
