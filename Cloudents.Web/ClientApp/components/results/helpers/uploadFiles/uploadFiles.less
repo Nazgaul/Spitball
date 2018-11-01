@@ -188,7 +188,7 @@
         .sb-stepper-content {
           border: 1px dashed @colorUploadBlue;
           padding: 0;
-          &.step-one{
+          &.step-1{
             margin-bottom: 12px;
           }
           //background-color: @stepContentBackground;
@@ -382,7 +382,7 @@
             //upload-row-3
           }
           //sb-step-card
-          &.step-two, &.step-six {
+          &.step-2, &.step-6 {
             border: 1px solid transparent;
             .sb-step-card {
               align-items: center;
@@ -521,6 +521,9 @@
                 max-width: @maxWidthForm;
                 flex-wrap: wrap;
                 padding-top: 32px;
+                &.chip-classes-row{
+                  justify-content: flex-start;
+                }
                 .steps-form-label {
                   font-family: 'Open Sans', sans-serif;
                   font-size: 12px;
@@ -552,7 +555,7 @@
           }
           //step two end
 
-          &.step-three {
+          &.step-3 {
             border: 1px solid transparent;
             .sb-step-card {
               align-items: center;
@@ -607,7 +610,8 @@
 
           }
           //step-three end
-          &.step-four, &.step-five, &.step-seven, &.step-eight{
+          &.step-4, &.step-5, &.step-6, &.step-7{
+            //&.step-4, &.step-5, &.step-7, &.step-8{
             border: 1px solid transparent;
             .sb-step-card {
               align-items: center;
@@ -727,6 +731,7 @@
                     margin-left: 9px;
                     font-size: 12px;
                     &.doc-type-name {
+                      text-transform: capitalize;
                       margin-left: 0;
                     }
                   }

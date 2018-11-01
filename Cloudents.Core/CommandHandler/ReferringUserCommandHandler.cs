@@ -17,15 +17,15 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(ReferringUserCommand message, CancellationToken token)
         {
-            var user = await _userRepository.GetAsync(message.InvitingUserId, token);
-            var referringUser = await _userRepository.LoadAsync(message.RegisteredUserId, token);
+            
+            var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
             if (user == null)
             {
                 //User not exists not crashing the system.
                 return;
             }
 
-            var transaction = Transaction.ReferringUserTransaction(referringUser);
+            var transaction = Transaction.ReferringUserTransaction(user);
             user.AddTransaction(transaction);
             await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);
         }

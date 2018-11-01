@@ -1,0 +1,77 @@
+<template>
+    <v-card class="mb-5 sb-step-card">
+        <div class="upload-row-1">
+            <h3 class="upload-cloud-text sb-title">Create a title or use the one we created for
+                you</h3>
+        </div>
+        <div class="upload-row-2 paddingTopSm">
+            <div class="btn-holder">
+                <label :for="'school'" class="steps-form-label school mb-2">
+                    <!--<v-icon class="mr-1">sbf-university</v-icon>-->
+                    <span>Document Title</span></label>
+                <sb-input :bottomError="true"
+                          v-model="documentTitle" placeholder="title" name="document title"
+                          type="text"
+                          :autofocus="true">
+                </sb-input>
+            </div>
+            <div class="btn-holder ml-0 ">
+
+            </div>
+        </div>
+        <div class="upload-row-3">
+            <label :for="'school'" class="steps-form-label school mb-2">
+                <span>Professor Name</span></label>
+            <sb-input :bottomError="true"
+                      v-model="proffesorName" placeholder="proffesor name" name="proffesor"
+                      type="text"
+                      :autofocus="true">
+            </sb-input>
+        </div>
+    </v-card>
+</template>
+
+<script>
+    import { mapGetters, mapActions } from 'vuex';
+    import sbInput from "../../../../question/helpers/sbInput/sbInput";
+
+    export default {
+        name: "uploadStep_4",
+        components:{
+            sbInput
+        },
+        data() {
+            return {
+            }
+        },
+        computed: {
+            ...mapGetters({
+                getFileData: 'getFileData',
+            }),
+            documentTitle: {
+                get () {
+                    return this.getFileData.name;
+                },
+                set (value) {
+                    this.updateFile({'name': value});
+                }
+            },
+            proffesorName:{
+                get () {
+                    return this.getFileData.proffesorName;
+                },
+                set (profName) {
+                    this.updateFile({'proffesorName': profName});
+                }
+            }
+        },
+        methods: {
+            ...mapActions(['updateFile']),
+
+        },
+    }
+</script>
+
+<style >
+
+</style>
