@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace Cloudents.Core
 {
@@ -22,29 +21,29 @@ namespace Cloudents.Core
         }
     }
 
-    public sealed class Country
-    {
-        public Language DefaultLanguage { get; }
+    //public sealed class Country
+    //{
+    //    public Language DefaultLanguage { get; }
 
-        public string Symbol { get;  }
+    //    public string Symbol { get;  }
 
-        private Country(Language culture, string symbol)
-        {
-            DefaultLanguage = culture;
-            Symbol = symbol;
-        }
+    //    private Country(Language culture, string symbol)
+    //    {
+    //        DefaultLanguage = culture;
+    //        Symbol = symbol;
+    //    }
 
-        public static readonly Country Israel = new Country(Language.Hebrew, "il");
+    //    public static readonly Country Israel = new Country(Language.Hebrew, "il");
 
 
-        public static bool operator ==(Country x, string y)
-        {
-            return string.Equals(x?.Symbol, y, StringComparison.OrdinalIgnoreCase);
-        }
+    //    public static bool operator ==(Country x, string y)
+    //    {
+    //        return string.Equals(x?.Symbol, y, StringComparison.OrdinalIgnoreCase);
+    //    }
 
-        public static bool operator !=(Country x, string y)
-        {
-            return !(x == y);
-        }
-    }
+    //    public static bool operator !=(Country x, string y)
+    //    {
+    //        return !(x == y);
+    //    }
+    //}
 }

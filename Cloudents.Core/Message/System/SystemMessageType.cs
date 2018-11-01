@@ -2,6 +2,7 @@
 {
     public enum SystemMessageType
     {
-        SignalR
+        SignalR,
+        QuestionSearch
     }
 }

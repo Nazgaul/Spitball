@@ -1,10 +1,10 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using JetBrains.Annotations;
 
-namespace Cloudents.Core.Message
+namespace Cloudents.Core.Message.Email
 {
     [Serializable]
     public abstract class BaseEmail

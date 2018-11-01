@@ -10,12 +10,12 @@
         <div class="upload-row-3 referal-row-3">
             <h3 class="sb-subtitle mb-3">Help others while you are waiting</h3>
             <div class="referal-btns-wrap">
-                <v-btn round class="referal-ask" @click="closeAndGoTo('ask')">
+                <v-btn round class="referal-ask" @click="closeAndGoTo()">
                     <span>Ask a question</span>
                     <v-icon right class="referal-edit-icon ml-3">sbf-edit-icon</v-icon>
 
                 </v-btn>
-                <v-btn round outline class="sb-back-flat-btn referal-answer" @click="closeAndGoTo('answer')">
+                <v-btn round outline class="sb-back-flat-btn referal-answer" @click="goToaskQuestion()">
                     <span>Answer a question</span>
                 </v-btn>
             </div>
@@ -33,13 +33,7 @@
         data() {
             return {}
         },
-        props: {
-            callBackmethods: {
-                type: Object,
-                default: {},
-                required: false
-            }
-        },
+
         computed: {
             ...mapGetters({
                 getLegal: 'getLegal',
@@ -48,11 +42,14 @@
             }),
         },
         methods: {
-            ...mapActions(['updateLegalAgreement']),
-
-            closeAndGoTo(val) {
-                this.callBackmethods.closeAndOpenAsk(val)
+            ...mapActions(['updateLegalAgreement', 'askQuestion', 'updateDialogState']),
+            closeAndGoTo() {
+                this.askQuestion(false)
             },
+            goToaskQuestion(){
+                this.$router.push({path: '/ask'});
+                this.updateDialogState(false)
+            }
 
         },
 

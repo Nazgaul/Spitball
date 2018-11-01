@@ -21,6 +21,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Cloudents.Core.CommandHandler;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Query;
 using Question = Cloudents.Core.Entities.Search.Question;
 
 namespace ConsoleApp
@@ -81,11 +83,13 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+
             var sms = new ResetPasswordEmail("ram@cloudents.com", "https://www.spitball.co", CultureInfo.InvariantCulture);
 
             //var query = new SyncAzureQuery(0,0);
-            var _bus = _container.Resolve<ISearchServiceWrite<Question>>();
-            await _bus.CreateOrUpdateAsync(default);
+            var _bus = _container.Resolve<IQuestionSearch>();
+            await _bus.SearchAsync(new QuestionsQuery(null, null, 0, null, "IL"), token);
+
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
         }

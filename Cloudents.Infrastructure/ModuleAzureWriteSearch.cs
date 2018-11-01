@@ -21,7 +21,21 @@ namespace Cloudents.Infrastructure
             var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ISearchServiceWrite<>))
                 .AsImplementedInterfaces();
+
+
             builder.RegisterType<SearchService>().AsSelf().As<ISearchService>().SingleInstance();
+            builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>();
+        }
+    }
+
+    [ModuleRegistration(Core.Enum.System.Function)]
+    [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.Console)]
+    public class ModuleInfrastructure : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>();
         }
     }
 }

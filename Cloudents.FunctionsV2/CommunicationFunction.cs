@@ -12,6 +12,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message.Email;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 

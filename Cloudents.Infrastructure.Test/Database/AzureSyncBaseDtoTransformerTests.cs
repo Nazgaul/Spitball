@@ -19,6 +19,9 @@ namespace Cloudents.Infrastructure.Test.Database
         {
             public string Id { get; set; }
             public ResultEnum SomeEnum { get; set; }
+
+            public ResultEnum? NullableEnum { get; set; }
+
         }
         [TestMethod]
         public void TransformTuple_GuidCheck_ReturnGuidString()
@@ -108,6 +111,28 @@ namespace Cloudents.Infrastructure.Test.Database
             var result = (AzureSyncBaseDto<ResultTest>)x.TransformTuple(arr, alias);
 
             result.Data.SomeEnum.Should().Be(ResultEnum.Test2);
+        }
+
+
+        [TestMethod]
+        public void TransformTuple_StringToNullableEnum_ReturnEnum()
+        {
+            var x = new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<ResultTest>, ResultTest>();
+
+            object[] arr = new object[]
+            {
+                "Test2"
+
+            };
+
+            string[] alias = new string[]
+            {
+                nameof(AzureSyncBaseDto<ResultTest>.Data.NullableEnum)
+
+            };
+            var result = (AzureSyncBaseDto<ResultTest>)x.TransformTuple(arr, alias);
+
+            result.Data.NullableEnum.Should().Be(ResultEnum.Test2);
         }
     }
 }

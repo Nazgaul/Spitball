@@ -5,7 +5,7 @@ using System.Collections.Concurrent;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class SearchService : ISearchService
+    public sealed class SearchService : ISearchService, IDisposable
     {
         private readonly bool _isDevelop;
 
@@ -52,5 +52,10 @@ namespace Cloudents.Infrastructure.Search
         }
 
         internal SearchServiceClient Client { get; }
+
+        public void Dispose()
+        {
+            Client?.Dispose();
+        }
     }
 }

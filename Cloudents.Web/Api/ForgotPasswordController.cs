@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message.Email;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api

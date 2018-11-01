@@ -7,19 +7,18 @@ using System.Diagnostics.CodeAnalysis;
 namespace Cloudents.Core.Query
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper initialize")]
-    public class QuestionsQuery : IQuery<IEnumerable<QuestionDto>>
+    public class QuestionsQuery 
     {
         public QuestionsQuery(string term, 
             
             QuestionSubject[] source,
             int page,
             IEnumerable<QuestionFilter> filters,
-            string country,
-            string universityId)
+            string country
+            )
         {
             Term = term;
             Country = country;
-            UniversityId = universityId;
             Source = source;
             Page = page;
             Filters = filters;
@@ -27,11 +26,20 @@ namespace Cloudents.Core.Query
 
         public string Term { get; }
         public string Country { get; }
-        public string UniversityId { get; }
 
         public QuestionSubject[] Source { get; }
         public int Page { get; }
 
         public IEnumerable<QuestionFilter> Filters { get; }
+    }
+
+    public class QuestionsByIdsQuery :  IQuery<IList<QuestionDto>>
+    {
+        public QuestionsByIdsQuery(IEnumerable<long> questionIds)
+        {
+            QuestionIds = questionIds;
+        }
+
+        public IEnumerable<long> QuestionIds { get; set; }
     }
 }

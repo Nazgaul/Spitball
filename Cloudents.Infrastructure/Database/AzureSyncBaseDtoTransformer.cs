@@ -37,20 +37,7 @@ namespace Cloudents.Infrastructure.Database
             if (value == null) return;
             if (propertyInfo.PropertyType.IsEnum)
             {
-                if (value is string str)
-                {
-                    var e = Enum.Parse(propertyInfo.PropertyType, str, true);
-                    propertyInfo.SetValue(x, e);
-                    return;
-                }
-
-                if (value is int i)
-                {
-
-                    var t = Enum.ToObject(propertyInfo.PropertyType, i);
-                    propertyInfo.SetValue(x, t);
-                    return;
-                }
+                if (HandleEnum(propertyInfo, propertyInfo.PropertyType, x, value)) return;
             }
             if (value is Guid g && propertyInfo.PropertyType == typeof(string))
             {
@@ -61,12 +48,35 @@ namespace Cloudents.Infrastructure.Database
             var nullableType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
             if (nullableType != null)
             {
+                if (nullableType.IsEnum && HandleEnum(propertyInfo, nullableType, x, value))
+                {
+                    return;
+                }
                 var z = Convert.ChangeType(value, nullableType);
                 propertyInfo.SetValue(x, z);
                 return;
             }
             var y = Convert.ChangeType(value, propertyInfo.PropertyType);
             propertyInfo.SetValue(x, y);
+        }
+
+        private static bool HandleEnum(PropertyInfo propertyInfo,Type property, object x, object value)
+        {
+            if (value is string str)
+            {
+                var e = Enum.Parse(property, str, true);
+                propertyInfo.SetValue(x, e);
+                return true;
+            }
+
+            if (value is int i)
+            {
+                var t = Enum.ToObject(property, i);
+                propertyInfo.SetValue(x, t);
+                return true;
+            }
+
+            return false;
         }
 
         public IList TransformList(IList collection)

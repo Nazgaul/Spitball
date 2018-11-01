@@ -23,7 +23,7 @@
                         ref="upload"
                         :drop="true"
                         v-model="files"
-                        :post-action = uploadUrl
+                        :post-action=uploadUrl
                         chunk-enabled
                         :extensions="['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg']"
                         :maximum="1"
@@ -52,6 +52,7 @@
     import uploadService from "../../../../../services/uploadService";
     import Vue from 'vue';
     import FileUpload from 'vue-upload-component/src';
+
     Vue.component('file-upload', FileUpload);
 
     export default {
@@ -66,7 +67,7 @@
             }
         },
         props: {
-            callBackmethods:{
+            callBackmethods: {
                 type: Object,
                 default: {},
                 required: false
@@ -76,13 +77,10 @@
             ...mapGetters({
                 getFileData: 'getFileData'
             }),
-            progressFile() {
-              return  this.callBackmethods.updateFileLoading(this.files[0] ? this.files[0].progress : 0)
 
-            }
         },
         methods: {
-            ...mapActions([ 'updateFile']),
+            ...mapActions(['updateFile', 'updateUploadProgress']),
 
             loadDropBoxSrc() {
                 // if exists prevent duplicate loading
@@ -121,14 +119,13 @@
                         // this.documentTitle = singleFile.name ? singleFile.name : '';
                         uploadService.uploadDropbox(singleFile)
                             .then((response) => {
-                                self.filesUploaded.splice(0, 1, singleFile);
-                                self.progressDone = true;
-                               // generated blob name from server
-                                self.generatedFileName = response.data.fileName ? response.data.fileName : '';
-                                self.updateFile({'name': singleFile.name, 'blobName': self.generatedFileName  });
-                                self.callBackmethods.next(1)
-                                this.callBackmethods.stopProgress(true);
-                                    // this.nextStep(1)
+                                    self.filesUploaded.splice(0, 1, singleFile);
+                                    self.progressDone = true;
+                                    // generated blob name from server
+                                    self.generatedFileName = response.data.fileName ? response.data.fileName : '';
+                                    self.updateFile({'name': singleFile.name, 'blobName': self.generatedFileName});
+                                    self.callBackmethods.stopProgress(true);
+                                    self.callBackmethods.next(1);
                                 },
                                 error => {
                                     console.log('error drop box api call', error)
@@ -155,20 +152,21 @@
                         let singleFile = {
                             name: newFile.name,
                             link: URL.createObjectURL(newFile.file),
-                     };
+                        };
                         //add or replace
-                        this.documentTitle = singleFile.name ? singleFile.name : '';
-                        this.filesUploaded.splice(0, 1, singleFile)
-                        this.updateFile({'name': this.documentTitle});
+                        let documentTitle = singleFile.name ? singleFile.name : '';
+                        this.filesUploaded.splice(0, 1, singleFile);
+                        this.updateFile({'name': documentTitle});
 
                         // this.callBackmethods.setFile(this.filesUploaded);
                     }
                     this.callBackmethods.next(1)
-                    // this.nextStep(1)
                 }
                 // Upload progress
                 if (newFile && newFile.progress) {
-                    this.progressDone = newFile.progress === 100;
+                    if (newFile.progress === 100) {
+                        this.callBackmethods.stopProgress(true);
+                    }
                     console.log('progress', newFile.progress, newFile)
                 }
                 // Upload error
@@ -212,13 +210,14 @@
                 }
             },
         },
-        created(){
+        created() {
             this.loadDropBoxSrc(); // load Drop box script
+            this.syncUniData()
 
         }
     }
 </script>
 
-<style >
+<style>
 
 </style>
