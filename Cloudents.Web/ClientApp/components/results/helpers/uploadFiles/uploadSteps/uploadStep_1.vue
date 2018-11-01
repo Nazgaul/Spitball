@@ -157,8 +157,6 @@
                         let documentTitle = singleFile.name ? singleFile.name : '';
                         this.filesUploaded.splice(0, 1, singleFile);
                         this.updateFile({'name': documentTitle});
-
-                        // this.callBackmethods.setFile(this.filesUploaded);
                     }
                     this.callBackmethods.next(1)
                 }
@@ -212,7 +210,6 @@
         },
         created() {
             this.loadDropBoxSrc(); // load Drop box script
-            this.syncUniData()
 
         }
     }

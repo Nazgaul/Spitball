@@ -22,6 +22,12 @@
             <sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">
                 <new-question></new-question>
             </sb-dialog>
+            <!--upload dilaog-->
+            <sb-dialog :showDialog="getDialogState" :transitionAnimation="'slide-y-transition'" :popUpType="'uploadDialog'" :fullWidth="true"
+                       :isPersistent="true"
+                       :content-class="'upload-dialog'">
+                <upload-files></upload-files>
+                </sb-dialog>
 
         </v-content>
     </v-app>
@@ -31,6 +37,7 @@
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
     import NewQuestion from "../question/newQuestion/newQuestion.vue";
+    import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue"
     import {GetDictionary} from '../../services/language/languageService';
     import uniSelectPop from '../helpers/uni-select/uniSelectPop.vue';
     import uniSelect from '../helpers/uni-select/uniSelect.vue';
@@ -40,7 +47,8 @@
             sbDialog,
             loginToAnswer,
             uniSelectPop,
-            uniSelect
+            uniSelect,
+            uploadFiles
         },
         data(){
             return {
@@ -48,7 +56,7 @@
             }
         },
         computed: {
-            ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner", "loginDialogState", "newQuestionDialogSate", "getShowSelectUniPopUpInterface", "getShowSelectUniInterface"]),
+            ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner", "loginDialogState", "newQuestionDialogSate", "getShowSelectUniPopUpInterface", "getShowSelectUniInterface", "getDialogState"]),
             cookiesShow(){
                 return this.acceptedCookies
             },

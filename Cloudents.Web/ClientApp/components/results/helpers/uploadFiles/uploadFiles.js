@@ -54,7 +54,7 @@ export default {
             getDialogState: 'getDialogState'
         }),
         showUploadDialog() {
-                return this.getDialogState
+            return this.getDialogState
         },
         progressShow() {
             return !this.progressDone
@@ -93,18 +93,9 @@ export default {
             'updateNewQuestionDialogState',
             'changeSelectPopUpUniState',
             'syncUniData',
-            'updateDialogState']),
+            'updateDialogState'
+        ]),
 
-        openUploaderDialog() {
-            if (this.accountUser == null) {
-                this.updateLoginDialogState(true);
-            } else if (this.accountUser.universityExists && !this.isClassesSet) {
-                this.updateDialogState(true);
-            } else {
-                this.changeSelectPopUpUniState(true)
-            }
-
-        },
         stopProgress(val) {
             return this.progressDone = val;
         },
@@ -121,10 +112,8 @@ export default {
                     });
 
         },
-        closeAndOpenAsk(val) {
-            this.goto = val;
-            //got to implement val is 'ask' || 'answer'
-            this.showUploadDialog = false;
+        closeDialog() {
+            this.updateDialogState(false)
         },
         nextStep(step) {
             if (this.currentStep === this.steps) {
@@ -154,7 +143,7 @@ export default {
         }
     },
     created() {
-
+        this.syncUniData()
 
     }
 

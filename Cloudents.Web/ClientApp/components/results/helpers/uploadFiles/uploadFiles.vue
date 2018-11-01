@@ -1,10 +1,6 @@
 <template>
     <v-flex xs12>
-        <a class="upload-files" @click="openUploaderDialog()">Upload Documents</a>
-        <sb-dialog :showDialog="showUploadDialog" :transitionAnimation="transitionAnimation" :popUpType="'uploadDialog'" :fullWidth="true"
-                   :isPersistent="true"
-                   :content-class="'upload-dialog'">
-          <v-icon class="close-upload-btn-icon"@click="showUploadDialog = false" >sbf-close</v-icon>
+          <v-icon class="close-upload-btn-icon"@click="closeDialog()" >sbf-close</v-icon>
             <v-card :class="['sb-steps-wrap', isFirstStep ? 'px-2' : '0' ]">
                 <v-stepper v-model="currentStep" class="sb-stepper">
                     <v-stepper-header class="sb-stepper-header" v-show="currentStep===1">
@@ -21,8 +17,6 @@
                             <!--upload steps rendering-->
                             <component :is="`upload-step_${n}`" :callBackmethods="callBackmethods"></component>
                         </v-stepper-content>
-
-
                         <div class="bottom-upload-controls" v-show="currentStep > 1">
                             <v-progress-linear
                                     :height="'3px'"
@@ -51,7 +45,7 @@
                                     SELL MY DOCUMENT
                                     <v-icon right class="credit-card">sbf-credit-card</v-icon>
                                 </v-btn>
-                                <v-btn v-show="currentStep ===8" flat class="sb-back-flat-btn" @click="showUploadDialog = false">Close
+                                <v-btn v-show="currentStep ===8" flat class="sb-back-flat-btn" @click="closeDialog()">Close
                                 </v-btn>
                                 <v-btn v-show="currentStep ===8" round outline class="another-doc" @click="changeStep(1)">Upload another document
                                     <v-icon right class="cloud-upload">sbf-upload-cloud</v-icon>
@@ -61,7 +55,6 @@
                     </v-stepper-items>
                 </v-stepper>
             </v-card>
-        </sb-dialog>
     </v-flex>
 </template>
 <script src="./uploadFiles.js">

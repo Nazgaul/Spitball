@@ -57,9 +57,6 @@
             schoolName() {
                 return this.getSchoolName ? this.getSchoolName : ''
             },
-            isClassesSet(){
-                return this.getSelectedClasses.length > 0
-            },
             classesList() {
                 return this.isClassesSet ? this.getSelectedClasses : ['Class A', 'Class B', 'Class C', 'Class D', 'Class E']
             },
