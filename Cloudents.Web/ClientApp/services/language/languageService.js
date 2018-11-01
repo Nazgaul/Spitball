@@ -13,6 +13,15 @@ const LanguageService = {
             return `###${key}`;
         }
         return locale[key];
+    },
+    changePlaceHolders: (rawKey, arrPlaceholders)=>{
+        let key = rawKey;
+        arrPlaceholders.forEach((placeHolder, index)=>{
+            //placeholder numbers starts with 1
+            let placeHolderNum = index + 1;
+            key = key.replace(`{${placeHolderNum}}`, placeHolder);
+        })
+        return key;
     }    
 };
 

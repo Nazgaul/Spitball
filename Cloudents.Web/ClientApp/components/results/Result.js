@@ -37,7 +37,7 @@ export default {
             showDialog: false,
             placeholder:{
                 whereSchool: LanguageService.getValueByKey("result_where_school")
-            }
+            }            
         };
     },
 
@@ -164,8 +164,7 @@ export default {
         loadNewQuestions(){
             this.INJECT_QUESTION();
             console.log("new question loading");
-        },
-
+        },        
         goToAskQuestion(){
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);
