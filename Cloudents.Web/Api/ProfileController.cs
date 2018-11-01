@@ -59,7 +59,13 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<UniversityDto> Get([FromServices] IQueryBus _queryBus, CancellationToken token)
         {
+            
             var userId = _userManager.GetLongUserId(User);
+            User user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user.University == null)
+            {
+                return null;
+            }
             var query = new UniversityQuery(userId);
             var t = await _queryBus.QueryAsync<UniversityDto>(query, token);
             return t;

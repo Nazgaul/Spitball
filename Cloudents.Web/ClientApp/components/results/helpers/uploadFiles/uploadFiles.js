@@ -1,16 +1,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
-//import Vue from 'vue';
-import FileUpload from 'vue-upload-component/src';
-//import sbInput from "../../../question/helpers/sbInput/sbInput";
-//import referralDialog from "../../../question/helpers/referralDialog/referral-dialog.vue";
-//import uploadService from "../../../../services/uploadService";
-import documentService from "../../../../services/documentService";
-//import { documentTypes, currencyValidator } from "./consts";
-//import sblCurrency from "./sbl-currency.vue"
-// var VueUploadComponent = import('vue-upload-component');
-//Vue.component('file-upload', FileUpload);
 
+import documentService from "../../../../services/documentService";
 import uploadStep_1 from "./uploadSteps/uploadStep_1.vue";
 import uploadStep_2 from "./uploadSteps/uploadStep_2.vue";
 import uploadStep_3 from "./uploadSteps/uploadStep_3.vue";
@@ -18,7 +9,6 @@ import uploadStep_4 from "./uploadSteps/uploadStep_4.vue";
 import uploadStep_5 from "./uploadSteps/uploadStep_5.vue";
 import uploadStep_6 from "./uploadSteps/uploadStep_6.vue";
 import uploadStep_7 from "./uploadSteps/uploadStep_7.vue";
-
 
 
 export default {
@@ -30,40 +20,24 @@ export default {
         uploadStep_5,
         uploadStep_6,
         uploadStep_7,
-
         sbDialog,
     },
     name: "uploadFiles",
     data() {
         return {
-            // uploadUrl: '/api/upload/file',
-            showUploadDialog: false,
-            // counter: 0,
-            // dbReady: false,
+
             progressDone: false,
-            // files: [],
-            // filesUploaded: [],
-            // generatedFileName: '',
             steps: 7,
             currentStep: 1,
             step: 1,
             stepsProgress: 100 / 7,
-            // selectedClass: '',
-            //documentTypes: documentTypes,
-            // selectedDoctype: [],
-            // documentTitle: '',
-            // proffesorName: '',
-            // selectedTags: [],
-            // uploadPrice: null,
-            // legalCheck: false,
             gotoAsk: false,
             transitionAnimation: 'slide-y-transition',
             callBackmethods: {
                 next: this.nextStep,
                 changeStep: this.changeStep,
-                updateFileLoading: this.progress,
                 stopProgress: this.stopProgress,
-                closeAndOpenAsk: this.closeAndOpenAsk
+                // closeAndOpenAsk: this.closeAndOpenAsk
             }
         }
     },
@@ -75,22 +49,23 @@ export default {
             getSchoolName: 'getSchoolName',
             getSelectedClasses: 'getSelectedClasses',
             getFileData: 'getFileData',
-            getLegal: 'getLegal'
-
+            getLegal: 'getLegal',
+            getUploadProgress: 'getUploadProgress',
+            getDialogState: 'getDialogState'
         }),
-
+        showUploadDialog() {
+                return this.getDialogState
+        },
         progressShow() {
-            return this.progress > 0 < 100 && !this.progressDone
+            return !this.progressDone
         },
-        progress(progress) {
-            return progress
-        },
+
         isFirstStep() {
             return this.currentStep === 1
         },
         // button disabled for each step and enabled once everything filled
         isDisabled() {
-            if (this.currentStep === 2  && !this.getFileData.courses) {
+            if (this.currentStep === 2 && !this.getFileData.courses) {
                 return true
             }
             else if (this.currentStep === 3 && Object.keys(this.getFileData.type).length === 0) {
@@ -112,27 +87,28 @@ export default {
     },
 
     methods: {
-        ...mapActions([ 'updateFile', 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState', 'syncUniData']),
+        ...mapActions([
+            'updateFile',
+            'updateLoginDialogState',
+            'updateNewQuestionDialogState',
+            'changeSelectPopUpUniState',
+            'syncUniData',
+            'updateDialogState']),
 
         openUploaderDialog() {
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
             } else if (this.accountUser.universityExists && !this.isClassesSet) {
-                this.showUploadDialog = true;
+                this.updateDialogState(true);
             } else {
                 this.changeSelectPopUpUniState(true)
             }
 
         },
-        stopProgress(val){
+        stopProgress(val) {
             return this.progressDone = val;
         },
         sendDocumentData(step) {
-            //documentTitle if exists replace with custom before send
-            //
-            // if (this.getFileData.name !== this.documentTitle) {
-            //     this.getFileData.name = this.documentTitle
-            // }
             let docData = this.getFileData;
             //post all doc data
             documentService.sendDocumentData(docData)
@@ -164,7 +140,6 @@ export default {
         previousStep(step) {
             if (this.currentStep === 1) {
                 return this.currentStep = 1;
-
             } else {
                 this.currentStep = this.currentStep - 1;
                 this.stepsProgress = ((100 / 7) * this.currentStep);
@@ -179,7 +154,7 @@ export default {
         }
     },
     created() {
-        this.syncUniData()
+
 
     }
 
