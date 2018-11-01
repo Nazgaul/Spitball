@@ -6,13 +6,15 @@ namespace Cloudents.Core.Command
 {
     public class CreateDocumentCommand : ICommand
     {
-        public CreateDocumentCommand(string blobName, string name, DocumentType type, IEnumerable<string> courses, IEnumerable<string> tags, long userId)
+        public CreateDocumentCommand(string blobName, string name, DocumentType type, string course,
+            IEnumerable<string> tags, long userId, string professor)
         {
             BlobName = blobName;
             Name = name;
             Type = type;
-            Courses = courses;
+            Course = course;
             Tags = tags;
+            Professor = professor;
             UserId = userId;
         }
 
@@ -20,10 +22,12 @@ namespace Cloudents.Core.Command
         public string Name { get; }
         public DocumentType Type { get;  }
 
-        public IEnumerable<string> Courses { get;  }
+        public string Course { get;  }
         public IEnumerable<string> Tags { get;  }
 
         public long UserId { get;  }
+
+        public string Professor { get; set; }
 
 
     }

@@ -60,9 +60,6 @@ namespace Cloudents.Web.Api
             };
         }
 
-
-
-
         [HttpPost]
         public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
         {
