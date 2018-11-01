@@ -238,12 +238,12 @@
             }
         },
         computed: {
-            ...mapGetters(['unreadMessages', 'accountUser', 'getUniversityName']),
+            ...mapGetters(['unreadMessages', 'accountUser']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
             user() {
-                return {...this.accountUser, universityName: this.getUniversityName}
+                return {...this.accountUser}
             },
             isLoggedIn() {
                 return !!this.accountUser
