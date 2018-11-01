@@ -7,26 +7,27 @@ namespace Cloudents.Core.Entities.Db
 {
     public class Document
     {
-        public Document([NotNull] string name, [NotNull] string blobName, [NotNull] University university, [NotNull] IEnumerable<Course> courses, DocumentType type,
-            [NotNull] IEnumerable<Tag> tags, User user)
+        public Document([NotNull] string name, [NotNull] string blobName, [NotNull] University university,
+            [NotNull] Course course, DocumentType type,
+            [NotNull] IEnumerable<Tag> tags, User user, string professor)
         : this()
         {
-            if (courses == null) throw new ArgumentNullException(nameof(courses));
             if (tags == null) throw new ArgumentNullException(nameof(tags));
             Name = name ?? throw new ArgumentNullException(nameof(name));
             BlobName = blobName ?? throw new ArgumentNullException(nameof(blobName));
             University = university ?? throw new ArgumentNullException(nameof(university));
-            Courses = new HashSet<Course>(courses);
+            Course = course ?? throw new ArgumentNullException(nameof(course));
             Type = type;
             Tags = new HashSet<Tag>(tags);
             User = user;
             Views = 0;
+            Professor = professor;
         }
 
         protected Document()
         {
             TimeStamp = new DomainTimeStamp();
-            Courses = new HashSet<Course>();
+            //Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
         }
 
@@ -39,7 +40,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual University University { get; set; }
 
-        public virtual ISet<Course> Courses { get; set; }
+        public virtual Course Course { get; set; }
 
         public virtual DocumentType Type { get; set; }
 
@@ -49,7 +50,13 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual User User { get; set; }
 
+
+        public virtual string Professor { get; set; }
+
         public virtual int Views { get; set; }
+        public virtual int Purchased { get; set; }
+        public virtual int? PageCount { get; set; }
+
 
     }
 }
