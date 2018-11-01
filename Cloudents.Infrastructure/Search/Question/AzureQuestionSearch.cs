@@ -43,8 +43,10 @@ namespace Cloudents.Infrastructure.Search.Question
             }
             var searchParameter = new SearchParameters
             {
-                Facets = new[] { nameof(Core.Entities.Search.Question.Subject), nameof(Core.Entities.Search.Question.State) },
+                Facets = new[] { nameof(Core.Entities.Search.Question.Subject),
+                    nameof(Core.Entities.Search.Question.State) },
                 Filter = string.Join(" and ", filters),
+                Select = new [] {nameof(Core.Entities.Search.Question.Id)},
                 Top = 50,
                 Skip = query.Page * 50,
                 //ScoringProfile = QuestionSearchWrite.ScoringProfile,
@@ -72,25 +74,25 @@ namespace Cloudents.Infrastructure.Search.Question
 
             var retVal = new QuestionWithFacetDto
             {
-                Result = result.Results.Select(s => new QuestionDto()
-                {
+                //Result = result.Results.Select(s => new QuestionDto()
+                //{
 
-                    User = new UserDto
-                    {
-                        Id = s.Document.UserId,
-                        Name = s.Document.UserName,
-                        Image = s.Document.UserImage
-                    },
-                    Id = long.Parse(s.Document.Id),
-                    DateTime = s.Document.DateTime,
-                    Answers = s.Document.AnswerCount,
-                    Subject = s.Document.Subject,
-                    Color = s.Document.Color,
-                    Files = s.Document.FilesCount,
-                    HasCorrectAnswer = s.Document.HasCorrectAnswer,
-                    Price = (decimal)s.Document.Price,
-                    Text = s.Document.Text
-                })
+                //    User = new UserDto
+                //    {
+                //        Id = s.Document.UserId,
+                //        Name = s.Document.UserName,
+                //        Image = s.Document.UserImage
+                //    },
+                //    Id = long.Parse(s.Document.Id),
+                //    DateTime = s.Document.DateTime,
+                //    Answers = s.Document.AnswerCount,
+                //    Subject = s.Document.Subject,
+                //    Color = s.Document.Color,
+                //    Files = s.Document.FilesCount,
+                //    HasCorrectAnswer = s.Document.HasCorrectAnswer,
+                //    Price = (decimal)s.Document.Price,
+                //    Text = s.Document.Text
+                //})
             };
             if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
             {

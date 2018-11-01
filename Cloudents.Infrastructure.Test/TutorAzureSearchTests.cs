@@ -14,14 +14,12 @@ namespace Cloudents.Infrastructure.Test
     [TestClass]
     public class TutorAzureSearchTests
     {
-        private readonly Mock<ISearchServiceClient> _searchIndexMock = new Mock<ISearchServiceClient>();
         //private readonly Mock<IMapper> _searchMapper = new Mock<IMapper>();
 
 
         //[TestInitialize]
         public void Setup()
         {
-            _searchIndexMock.Setup(s => s.Indexes.GetClient(TutorSearchWrite.IndexName));
         }
 
 

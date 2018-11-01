@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
-            Map(x => x.Languages).CustomType<JsonType<ISet<CultureInfo>>>();
+            //Map(x => x.Languages).CustomType<JsonType<ISet<CultureInfo>>>();
 
 
             HasManyToMany(x => x.Courses)
