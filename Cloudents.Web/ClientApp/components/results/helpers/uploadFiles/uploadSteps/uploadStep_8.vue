@@ -14,7 +14,6 @@
                     <div class="price-wrap">
                         <sbl-currency v-model="uploadPrice"
                                       class="sb-input-upload-price">
-
                         </sbl-currency>
 
                         <div class="sbl-suffix">SBL</div>

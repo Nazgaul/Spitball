@@ -5,8 +5,8 @@
                 <v-stepper v-model="currentStep" class="sb-stepper">
                     <v-stepper-header class="sb-stepper-header" v-show="currentStep===1">
                         <template>
-                            <h2 class="sb-step-title">Ready, Set, Sale!</h2>
-                            <h4 class="sb-step-subtitle">Make money of your study documents.</h4>
+                            <h2 class="sb-step-title"  v-language:inner>upload_files_header_title</h2>
+                            <h4 class="sb-step-subtitle" v-language:inner>upload_files_header_subtitle</h4>
                         </template>
                     </v-stepper-header>
                     <v-stepper-items class="sb-stepper-item">
@@ -40,14 +40,19 @@
                                     <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
                                     <span>Back</span>
                                 </v-btn>
-                                <v-btn v-show="currentStep !==7 && currentStep !==8" round class="next-btn" @click="nextStep(step)" :disabled="isDisabled">Next</v-btn>
+                                <v-btn v-show="currentStep !==7 && currentStep !==8" round class="next-btn" @click="nextStep(step)" :disabled="isDisabled">
+                                <span v-language:inner>upload_files_btn_next</span>
+                                </v-btn>
                                 <v-btn v-show="currentStep ===7 && currentStep !==8" round class="next-btn sell" @click="sendDocumentData(step)" :disabled="isDisabled">
-                                    SELL MY DOCUMENT
+                                    <span v-language:inner>upload_files_btn_sell</span>
+
                                     <v-icon right class="credit-card">sbf-credit-card</v-icon>
                                 </v-btn>
-                                <v-btn v-show="currentStep ===8" flat class="sb-back-flat-btn" @click="closeDialog()">Close
+                                <v-btn v-show="currentStep ===8" flat class="sb-back-flat-btn" @click="closeDialog()">
+                                    <span v-language:inner>upload_files_btn_close</span>
                                 </v-btn>
-                                <v-btn v-show="currentStep ===8" round outline class="another-doc" @click="changeStep(1)">Upload another document
+                                <v-btn v-show="currentStep ===8" round outline class="another-doc" @click="changeStep(1)">
+                                    <span v-language:inner>upload_files_btn_anotherUpload</span>
                                     <v-icon right class="cloud-upload">sbf-upload-cloud</v-icon>
                                 </v-btn>
                             </div>
