@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Framework
                 var page = pdf.Pages[j];
                 var ms = new MemoryStream();
                 jpegDevice.Process(page, ms);
-                t.Add(callback(ms, $"{j - 1}.jpg"));
+                t.Add(callback(ms, $"{j - 1}.jpg").ContinueWith(_ => ms.Dispose(), token));
 
             }
             //foreach (Page page in pdf.Pages)
