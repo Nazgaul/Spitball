@@ -83,7 +83,7 @@ namespace Cloudents.Infrastructure.Framework
                 var ms = new MemoryStream();
                 word.Save(ms, imgOptions);
                 ms.Seek(0, SeekOrigin.Begin);
-                t.Add(callback(ms, $"{i}.svg"));
+                t.Add(callback(ms, $"{i}.svg").ContinueWith(_=> ms.Dispose(), token));
             }
             await Task.WhenAll(t);
 
