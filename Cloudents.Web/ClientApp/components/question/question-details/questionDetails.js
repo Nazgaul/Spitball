@@ -117,7 +117,7 @@ export default {
                 conversation.setAttributes({
                     photoUrl: `${location.origin}/images/conversation.png`,
                     subject: `<${location.href}|${subject}>`
-                })
+                });
                     var chatbox = this.talkSession.createChatbox(conversation, {
                     showChatHeader: false
                     });
@@ -135,7 +135,7 @@ export default {
             }
             else {
                 this.updateUserProfileData('profileMakeMoney');
-                this.dialogType = ''
+                this.dialogType = '';
                 this.updateLoginDialogState(true);
             }
         },
