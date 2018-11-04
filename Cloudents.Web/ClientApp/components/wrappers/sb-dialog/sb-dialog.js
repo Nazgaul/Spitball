@@ -55,8 +55,10 @@ export default {
         //changed from parent only!!!
         showDialog(){
             if(!!this.showDialog){
+                document.getElementsByTagName("body")[0].className="noscroll";
                 this.show = true;
             }else{
+                document.body.removeAttribute("class","noscroll");
                 this.show = false;
             }
         },
