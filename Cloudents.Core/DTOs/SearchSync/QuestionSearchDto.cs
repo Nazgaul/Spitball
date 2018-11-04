@@ -11,7 +11,7 @@ namespace Cloudents.Core.DTOs.SearchSync
         //public string UserImage { get; set; }
 
 
-        public string Id { get; set; } //key
+        public long Id { get; set; } //key
 
         public int AnswerCount { get; set; }
         public DateTime DateTime { get; set; }
@@ -42,25 +42,25 @@ namespace Cloudents.Core.DTOs.SearchSync
                 state = QuestionFilter.Sold;
             }
 
-            return new Question
-            {
-                Id = Id,
-                DateTime = DateTime,
-                Country = Country,
-               // UserId = UserId,
-                //UserName = UserName,
-                Subject = Subject,
-                //AnswerCount = AnswerCount,
-               // HasCorrectAnswer = HasCorrectAnswer,
-                //FilesCount = FilesCount,
-                Text = Text,
-               // UserImage = UserImage,
-               // Price = Price,
-               // Color = Color,
-                State = state,
-                Prefix = new[] { Text },
-                Language = Language,
-            };
+            return new Question(Id, DateTime, Text, Country, Language, Subject, state);
+            //{
+            //    Id = Id,
+            //    DateTime = DateTime,
+            //    Country = Country,
+            //   // UserId = UserId,
+            //    //UserName = UserName,
+            //    Subject = Subject,
+            //    //AnswerCount = AnswerCount,
+            //   // HasCorrectAnswer = HasCorrectAnswer,
+            //    //FilesCount = FilesCount,
+            //    Text = Text,
+            //   // UserImage = UserImage,
+            //   // Price = Price,
+            //   // Color = Color,
+            //    State = state,
+            //    Prefix = new[] { Text },
+            //    Language = Language,
+            //};
         }
     }
 }

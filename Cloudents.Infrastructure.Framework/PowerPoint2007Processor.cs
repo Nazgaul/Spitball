@@ -70,6 +70,7 @@ namespace Cloudents.Infrastructure.Framework
             {
                 await textCallback(t);
             }
+            var tasksList = new List<Task>();
 
             for (int i = 0; i < pptx.Slides.Count; i++)
             {
@@ -77,9 +78,11 @@ namespace Cloudents.Infrastructure.Framework
                 {
                     var ms = new MemoryStream();
                     img.Save(ms, ImageFormat.Jpeg);
-                    await callback(ms, $"{i}.jpg");
+                    tasksList.Add(callback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
                 }
             }
+
+            await Task.WhenAll(tasksList);
 
         }
     }

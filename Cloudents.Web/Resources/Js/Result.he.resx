@@ -178,7 +178,7 @@
     <value>משתמשים משיבים כרגע</value>
   </data>
   <data name="user_answering" xml:space="preserve">
-    <value>משתמש משיב כרגע</value>
+    <value>משתמש {1} משיב כרגע</value>
   </data>
   <data name="where_school" xml:space="preserve">
     <value>איפה אתה לומד?</value>

@@ -65,7 +65,7 @@
                                     <div>
                                         <span class="question-viewer"
                                               v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow === 1 && item.watchingNow !== 0"
-                                              :style="watchinNowStyle(item)">{{item.watchingNow}} <span v-language:inner>result_user_answering</span></span>
+                                              :style="watchinNowStyle(item)"><span v-html="$Ph('result_user_answering', item.watchingNow)"></span></span>
                                         <span class="question-viewer"
                                               v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0"
                                               :style="watchinNowStyle(item)">{{item.watchingNow}} <span
@@ -140,7 +140,7 @@
 
         <template slot="rightSide">
             <slot name="rightSide">
-                <faq-block :isAsk="name==='ask'" :isNotes="name==='note'" :name="currentSuggest" :text="userText"></faq-block>
+                <faq-block :isAsk="name==='ask'" :isNotes="name ==='note'" :name="currentSuggest" :text="userText"></faq-block>
                 <!--<notificationCenter v-else :isAsk="name==='ask'"></notificationCenter>-->
             </slot>
 

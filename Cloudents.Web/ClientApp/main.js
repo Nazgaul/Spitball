@@ -209,6 +209,25 @@ Vue.filter('dateFromISO', function (value) {
     }
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
+
+Vue.prototype.$Ph = function(key, placeholders){
+    let rawKey = LanguageService.getValueByKey(key);
+    //if no placeholders return the Key without the replace
+    if(!placeholders) {
+        console.error(`${key} have no placeholders to replace`)
+        return rawKey
+    };
+
+    let argumentsToSend = [];
+    //placeholders must be an array
+    if(Array.isArray(placeholders)){
+        argumentsToSend = placeholders;
+    }else{
+        argumentsToSend = [placeholders];
+    }
+    return LanguageService.changePlaceHolders(rawKey, argumentsToSend)
+}
+
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
 Vue.filter('currencyLocalyFilter', function (value) {
     let amount = Number(value);

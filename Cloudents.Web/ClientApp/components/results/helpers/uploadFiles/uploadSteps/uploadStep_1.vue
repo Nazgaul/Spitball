@@ -2,7 +2,7 @@
     <v-card class="sb-step-card">
         <div class="upload-row-1">
             <v-icon>sbf-upload-cloud</v-icon>
-            <h3 class="text-blue upload-cloud-text">Upload a Document</h3>
+            <h3 class="text-blue upload-cloud-text" v-language:inner>upload_files_uploadDoc</h3>
         </div>
         <div class="upload-row-2 paddingTopSm">
             <div class="btn-holder">
@@ -10,7 +10,8 @@
                        :disabled="!dbReady">
                     <v-icon>sbf-upload-dropbox</v-icon>
                 </v-btn>
-                <span class="btn-label">DropBox</span>
+                <span  class="btn-label" v-language:inner>upload_files_btn_dropBox</span>
+
             </div>
             <div class="btn-holder">
                 <v-btn fab class="upload-option-btn">
@@ -35,13 +36,13 @@
                               maxActive: 3,
                               maxRetries: 5,}">
                 </file-upload>
-                <span class="btn-label">Your Dekstop</span>
+                <span class="btn-label" v-language:inner>upload_files_btn_desktop</span>
             </div>
         </div>
         <div class="upload-row-3">
             <div :class="['btn-holder', $refs.upload && $refs.upload.dropActive ? 'drop-active' : '' ]">
                 <v-icon>sbf-upload-drag</v-icon>
-                <span class="btn-label">Or just drop your file here</span>
+                <span class="btn-label" v-language:inner>upload_files_btn_drop</span>
             </div>
         </div>
     </v-card>
@@ -157,8 +158,6 @@
                         let documentTitle = singleFile.name ? singleFile.name : '';
                         this.filesUploaded.splice(0, 1, singleFile);
                         this.updateFile({'name': documentTitle});
-
-                        // this.callBackmethods.setFile(this.filesUploaded);
                     }
                     this.callBackmethods.next(1)
                 }
@@ -212,7 +211,6 @@
         },
         created() {
             this.loadDropBoxSrc(); // load Drop box script
-            this.syncUniData()
 
         }
     }

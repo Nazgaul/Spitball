@@ -4,7 +4,6 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,17 +25,11 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
-            var question = new Question
-            {
-                Id = eventMessage.Question.Id.ToString(),
-                Country = eventMessage.Question.User.Country,
-                DateTime = DateTime.UtcNow,
-                Language = eventMessage.Question.Language.TwoLetterISOLanguageName,
-                State = QuestionFilter.Unanswered,
-                Subject = eventMessage.Question.Subject,
-                Text = eventMessage.Question.Text,
-                Prefix = new[] { eventMessage.Question.Text }
-            };
+            var dbQuestion = eventMessage.Question;
+            var question = new Question(dbQuestion.Id, dbQuestion.Created, dbQuestion.Text, dbQuestion.User.Country,
+                dbQuestion.Language.TwoLetterISOLanguageName,
+                dbQuestion.Subject, QuestionFilter.Unanswered);
+          
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
 

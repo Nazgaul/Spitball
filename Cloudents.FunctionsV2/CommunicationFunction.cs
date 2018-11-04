@@ -45,17 +45,17 @@ namespace Cloudents.FunctionsV2
         }
 
        // [FunctionName("FunctionEmailTest")]
-        public static async Task EmailFunctionTimerAsync(
-            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
-            IAsyncCollector<SendGridMessage> emailProvider,
-            ILogger log,
-            CancellationToken token)
-        {
-            var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
-             "https://www.spitball.co", 456.23424M, CultureInfo.InvariantCulture);
-            await ProcessEmail(emailProvider, log, topicMessage, token);
-        }
+        //public static async Task EmailFunctionTimerAsync(
+        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
+        //    IAsyncCollector<SendGridMessage> emailProvider,
+        //    ILogger log,
+        //    CancellationToken token)
+        //{
+        //    var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
+        //     "https://www.spitball.co", 456.23424M, CultureInfo.InvariantCulture);
+        //    await ProcessEmail(emailProvider, log, topicMessage, token);
+        //}
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
