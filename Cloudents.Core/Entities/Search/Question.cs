@@ -25,50 +25,6 @@ namespace Cloudents.Core.Entities.Search
             
         }
 
-        //public static Question MarkAsSold(long id)
-        //{
-        //    return new Question
-        //    {
-        //        Id = id.ToString(),
-        //        State = QuestionFilter.Sold,
-        //    };
-
-        //}
-
-        //public static Question MarkAsAnswered(long id)
-        //{
-        //    return new Question
-        //    {
-        //        Id = id.ToString(),
-        //        State = QuestionFilter.Answered,
-        //    };
-
-        //}
-
-        //public static Question MarkAsUnAnswered(long id)
-        //{
-        //    return new Question
-        //    {
-        //        Id = id.ToString(),
-        //        State = QuestionFilter.Unanswered,
-        //    };
-
-        //}
-
-        //public static Question Delete(long id)
-        //{
-        //    return new Question
-        //    {
-        //        Id = id.ToString(),
-        //    };
-
-        //}
-
-        //public Question()
-        //{
-
-        //}
-
         public string Id { get; set; } //key readonly
 
         public DateTime? DateTime { get; private set; } //readonly

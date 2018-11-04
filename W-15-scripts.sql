@@ -160,4 +160,10 @@ from Zbox.Tag
 ALTER TABLE sb.[User]
   ADD OldUser bit;
 
+
+  --TODO - script of document table
+  ALTER TABLE sb.[Document]
+ENABLE CHANGE_TRACKING  
+WITH (TRACK_COLUMNS_UPDATED = ON)  
+
   insert into sb.HiLoGenerator values('Document',0);

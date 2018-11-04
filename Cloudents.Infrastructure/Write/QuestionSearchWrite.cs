@@ -1,18 +1,15 @@
-﻿using System;
-using Cloudents.Core.Entities.Search;
+﻿using Cloudents.Core.Entities.Search;
 using Cloudents.Infrastructure.Search;
-using Microsoft.Azure.Search.Models;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Microsoft.Azure.Search.Models;
+using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Infrastructure.Write
 {
     [UsedImplicitly]
     public class QuestionSearchWrite : SearchServiceWrite<Question>
     {
-        private readonly FluentSearchFieldBuilder<Question> _fieldBuilder = new FluentSearchFieldBuilder<Question>();
         internal const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
         internal const string ScoringProfile = "ScoringProfile";
@@ -26,6 +23,7 @@ namespace Cloudents.Infrastructure.Write
         {
             //_fieldBuilder.Name(indexName)
             //    .Fields().Map(x => x.Id).IsKey();
+            var fieldBuilder = new FluentSearchFieldBuilder<Question>();
 
             return new Index()
             {
@@ -33,17 +31,17 @@ namespace Cloudents.Infrastructure.Write
                 Fields = new List<Field>
                 {
 
-                   _fieldBuilder.Map(x=>x.Id).IsKey(),
-                   _fieldBuilder.Map(x=>x.DateTime).IsSortable().IsFilterable(),
-                   _fieldBuilder.Map(x=>x.Text).IsSearchable(),
-                   _fieldBuilder.Map(x=>x.Subject).IsFilterable().IsFacetable(),
+                   fieldBuilder.Map(x=>x.Id).IsKey(),
+                   fieldBuilder.Map(x=>x.DateTime).IsSortable().IsFilterable(),
+                   fieldBuilder.Map(x=>x.Text).IsSearchable(),
+                   fieldBuilder.Map(x=>x.Subject).IsFilterable().IsFacetable(),
 
-                   _fieldBuilder.Map(x=>x.Country).IsFilterable(),
-                   _fieldBuilder.Map(x=>x.Language).IsFilterable(),
-                    
+                   fieldBuilder.Map(x=>x.Country).IsFilterable(),
+                   fieldBuilder.Map(x=>x.Language).IsFilterable(),
 
-                   _fieldBuilder.Map(x=>x.State).IsFilterable().IsFacetable(),
-                   _fieldBuilder.Map(x=>x.Prefix).IsSearchable().WithIndexAnalyzer(AnalyzerName.Create("prefix"))
+
+                   fieldBuilder.Map(x=>x.State).IsFilterable().IsFacetable(),
+                   fieldBuilder.Map(x=>x.Prefix).IsSearchable().WithIndexAnalyzer(AnalyzerName.Create("prefix"))
                        .WithSearchAnalyzer(AnalyzerName.StandardLucene),
 
                 },

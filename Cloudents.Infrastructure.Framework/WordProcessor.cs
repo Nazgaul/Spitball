@@ -65,12 +65,17 @@ namespace Cloudents.Infrastructure.Framework
         //    }
         //}
 
-        public async Task CreatePreviewFilesAsync(MemoryStream stream, Func<Stream, string, Task> callback, Func<string, Task> textCallback, CancellationToken token)
+        public async Task ProcessFilesAsync(MemoryStream stream,
+            Func<Stream, string, Task> pagePreviewCallback,
+            Func<string, Task> textCallback,
+            Func<int, Task> pageCountCallback,
+            CancellationToken token)
         {
             var word = new Document(stream);
             var txt = ExtractDocumentText(word);
 
             await textCallback(txt);
+            await pageCountCallback(word.PageCount);
 
             var t = new List<Task>();
             var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
@@ -83,7 +88,7 @@ namespace Cloudents.Infrastructure.Framework
                 var ms = new MemoryStream();
                 word.Save(ms, imgOptions);
                 ms.Seek(0, SeekOrigin.Begin);
-                t.Add(callback(ms, $"{i}.svg").ContinueWith(_=> ms.Dispose(), token));
+                t.Add(pagePreviewCallback(ms, $"{i}.svg").ContinueWith(_=> ms.Dispose(), token));
             }
             await Task.WhenAll(t);
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
@@ -13,7 +14,7 @@ namespace Cloudents.Core.Command
             Name = name;
             Type = type;
             Course = course;
-            Tags = tags;
+            Tags = tags ?? Enumerable.Empty<string>();
             Professor = professor;
             UserId = userId;
         }

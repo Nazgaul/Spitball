@@ -103,7 +103,7 @@ namespace Cloudents.Web.Api
             {
                 string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "ppt" };
 
-                var extension = Path.GetExtension(model.Name).TrimStart('.');
+                var extension = Path.GetExtension(model.Name)?.TrimStart('.');
 
                 if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
                 {
@@ -111,7 +111,7 @@ namespace Cloudents.Web.Api
                     return BadRequest(ModelState);
                 }
 
-                var test = Cloudents.Web.MimeTypes.GetMimeType(model.Name);
+                var test = MimeTypes.GetMimeType(model.Name);
                 if (model.MimeType != test)
                 {
                     ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
@@ -123,7 +123,7 @@ namespace Cloudents.Web.Api
                 {
                     Name = model.Name,
                     Size = model.Size,
-                    BlobName = $"{response.Data.SessionId}-{model.Name}",
+                    BlobName = $"file-{response.Data.SessionId}-{model.Name}",
                     MimeType = model.MimeType
                 };
                 TempData.Put($"update-{response.Data.SessionId}", tempData);

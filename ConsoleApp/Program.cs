@@ -84,15 +84,15 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            QuestionSubject t = QuestionSubject.Education;
-
-            var z = t.GetEnumLocalizationAllValues();
-
-            var sms = new ResetPasswordEmail("ram@cloudents.com", "https://www.spitball.co", CultureInfo.InvariantCulture);
-
+            var ids = new long[]
+            {
+                4264, 4314, 4313, 4312, 4258, 4268, 4257, 4162, 2541, 4004, 4224, 4191, 3861, 4136, 3872, 4038, 2717,
+                4170, 2728, 2750, 4165, 4202, 2761, 4147, 2827, 3597, 3003, 4163, 3608, 2706, 2739, 1265, 2486, 1375,
+                1452, 1342, 1243, 1255, 1254, 2058, 2681, 3818, 2078, 4070, 1951, 2652, 4095, 2068, 1045
+            };
             //var query = new SyncAzureQuery(0,0);
-            var _bus = _container.Resolve<IQuestionSearch>();
-            await _bus.SearchAsync(new QuestionsQuery(null, null, 0, null, "IL"), token);
+            var _bus = _container.Resolve<IQueryBus>();
+            await _bus.QueryAsync(new QuestionsByIdsQuery(ids), token);
 
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);

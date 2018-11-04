@@ -3,6 +3,7 @@ using Cloudents.Core.Enum;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
@@ -18,6 +19,7 @@ namespace Cloudents.Web.Models
         [Required]
         [StringLength(Core.Entities.Db.Course.MaxLength,ErrorMessage = "StringLength", MinimumLength = Core.Entities.Db.Course.MinLength)]
         public string Course { get; set; }
+        [CanBeNull]
         public string[] Tags { get; set; }
 
         public string Professor { get; set; }
@@ -26,20 +28,25 @@ namespace Cloudents.Web.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-
-            foreach (var tag in Tags)
+            if (Tags != null)
             {
-                if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
+                foreach (var tag in Tags)
                 {
-                    var stringLocalizer = validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as IStringLocalizer<DataAnnotationSharedResource>;
-                    var errorMessage = "Invalid length";
-                    if (stringLocalizer != null)
+                    if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
                     {
-                        errorMessage = stringLocalizer["StringLength"];
+                        var stringLocalizer =
+                            validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as
+                                IStringLocalizer<DataAnnotationSharedResource>;
+                        var errorMessage = "Invalid length";
+                        if (stringLocalizer != null)
+                        {
+                            errorMessage = stringLocalizer["StringLength"];
+                        }
+
+                        yield return new ValidationResult(
+                            errorMessage,
+                            new[] {nameof(Tags)});
                     }
-                    yield return new ValidationResult(
-                        errorMessage,
-                        new[] { nameof(Tags) });
                 }
             }
         }

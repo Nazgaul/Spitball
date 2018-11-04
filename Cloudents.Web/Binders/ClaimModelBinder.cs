@@ -28,8 +28,6 @@ namespace Cloudents.Web.Binders
                 if (bindingContext.ModelMetadata.ModelType.IsArray)
                 {
                     var arr = result.Value.Split(',');
-                    //var type = bindingContext.ModelMetadata.ModelType.GetEnumeratedType();
-                    //var val = result.Select(s => Convert.ChangeType(s, type));
                     bindingContext.Result = ModelBindingResult.Success(arr);
                     return Task.CompletedTask;
                 }
@@ -37,6 +35,16 @@ namespace Cloudents.Web.Binders
                 var nullableType = Nullable.GetUnderlyingType(bindingContext.ModelMetadata.ModelType);
                 if (nullableType != null)
                 {
+                    if (nullableType == typeof(Guid))
+                    {
+                        if (Guid.TryParse(result.Value, out var r))
+                        {
+                            bindingContext.Result = ModelBindingResult.Success(r);
+                            return Task.CompletedTask;
+                        }
+
+                        bindingContext.Result = ModelBindingResult.Failed();
+                    }
                     var val = Convert.ChangeType(result.Value, nullableType);
                     bindingContext.Result = ModelBindingResult.Success(val);
                 }

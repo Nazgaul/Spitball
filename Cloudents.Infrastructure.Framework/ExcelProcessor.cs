@@ -36,11 +36,16 @@ namespace Cloudents.Infrastructure.Framework
 
 
         public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
-        public async Task CreatePreviewFilesAsync(MemoryStream stream, Func<Stream, string, Task> callback, Func<string, Task> textCallback, CancellationToken token)
+        public async Task ProcessFilesAsync(MemoryStream stream,
+            Func<Stream, string, Task> pagePreviewCallback,
+            Func<string, Task> textCallback,
+            Func<int, Task> pageCountCallback,
+            CancellationToken token)
         {
             var excel = new Workbook(stream);
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
 
+            await pageCountCallback(excel.Worksheets.Count);
             var t = new List<Task>();
             for (int i = 0; i < excel.Worksheets.Count; i++)
             {
@@ -57,7 +62,7 @@ namespace Cloudents.Infrastructure.Framework
                     var ms = new MemoryStream();
 
                     img.Save(ms, ImageFormat.Jpeg);
-                    t.Add(callback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
+                    t.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
 
                 }
             }

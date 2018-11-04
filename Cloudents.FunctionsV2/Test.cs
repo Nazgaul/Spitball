@@ -19,9 +19,13 @@ namespace Cloudents.FunctionsV2
     public static class Test
     {
         //[FunctionName("Test")]
-        //public static async Task Run([BlobTrigger("spitball-files/files/{id}/{name}")] Stream myBlob,string id, string name)
+        //public static async Task Run(
+        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true) ]TimerInfo timer,
+        //    IBinder binder
+        //    //[BlobTrigger("spitball-files/files/{id}/{name}")] Stream myBlob,string id, string name
+        //    )
         //{
-
+            
            
         //}
     }
