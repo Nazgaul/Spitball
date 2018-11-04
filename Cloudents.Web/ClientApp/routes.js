@@ -109,9 +109,15 @@ let routes2 = [
         },
         props: bookDetailsProps
     },
+    //TODO doc previe refactoring header
     {
         path: "/document/:id/:itemName", name: "item",
-        components: {default: showItem, header: documentPreviewHeader},
+        components: {
+            default: showItem,
+            header: pageHeader
+
+            // header: documentPreviewHeader
+        },
         props: {default: (route) => ({id: route.params.id})}
     },
     {

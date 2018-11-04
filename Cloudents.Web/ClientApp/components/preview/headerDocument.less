@@ -2,7 +2,7 @@
 
 
 .item-header {
-    background-color: @Site-Background;
+    background-color: @color-white;
     position: sticky;
     .responsive-property(top, @mainNavHeightSmAndUp,null,@mainNavHeightXsOnly);
     flex-grow: 1;
@@ -10,8 +10,17 @@
     align-items: center;
 
     .item-header-content {
-        .item-page-width();
-
+        //.item-page-width();
+        max-width: 880px;
+        width: 100%;
+        padding: 0 8px;
+        margin: 0 auto;
+        .doc-details{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
         .item-name {
             .responsive-property(font-size, 24px, null, 18px);
             font-weight: 600;
