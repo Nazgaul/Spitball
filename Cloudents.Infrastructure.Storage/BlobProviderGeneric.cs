@@ -15,6 +15,7 @@ namespace Cloudents.Infrastructure.Storage
     public class BlobProviderContainer<T> : IBlobProvider<T> where T : IStorageContainer, new()
     {
         private readonly CloudBlobDirectory _blobDirectory;
+        private readonly CloudBlobContainer _cloudContainer;
         private readonly T _container = new T();
 
         private const string CdnHostEndpoint = "az32006.vo.msecnd.net";
@@ -22,7 +23,10 @@ namespace Cloudents.Infrastructure.Storage
 
         public BlobProviderContainer(ICloudStorageProvider storageProvider)
         {
-            _blobDirectory = storageProvider.GetBlobClient(_container);
+            var client = storageProvider.GetBlobClient(/*_container*/);
+            _cloudContainer = client.GetContainerReference(_container.Container.Name.ToLowerInvariant());
+
+            _blobDirectory = _cloudContainer.GetDirectoryReference(_container.Container.RelativePath ?? string.Empty);
         }
 
         //public BlobProvider(StorageContainer container, ICloudStorageProvider storageProvider)
@@ -149,9 +153,20 @@ namespace Cloudents.Infrastructure.Storage
         public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token)
         {
             var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
-
-            var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 1000, null, null, null, token).ConfigureAwait(false);
+            var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
+                1000, null, null, null, token).ConfigureAwait(false);
             return result.Results.Select(s => s.Uri);
+
+        }
+
+
+        public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix,string directory, CancellationToken token)
+        {
+            var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
+            var path = $"{_container.Container.RelativePath}/{directory}/{prefix}";
+            var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, BlobListingDetails.None, 1000, null, null, null, token);
+            
+            return result.Results.Select(s =>  s.Uri);
 
         }
 

@@ -40,14 +40,14 @@ namespace Cloudents.Web.Api
             var tModel = _queryBus.QueryAsync<DocumentDto>(query, token);
             //var tContent = firstTime.GetValueOrDefault() ?
             //    _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
-            
 
-            var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
+            var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
+            //var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
 
             await Task.WhenAll(tModel,filesTask);
 
             var model = tModel.Result;
-            var files = filesTask.Result.Where(w => Regex.IsMatch(w.AbsolutePath, @"\d\."));
+            var files = filesTask.Result;//.Where(w => Regex.IsMatch(w.AbsolutePath, @"\d\."));
             if (model == null)
             {
                 return NotFound();

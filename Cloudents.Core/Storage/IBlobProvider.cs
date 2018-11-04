@@ -27,6 +27,7 @@ namespace Cloudents.Core.Storage
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
 
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
+        Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
         Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token);
         Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token);
