@@ -8,7 +8,7 @@ namespace Cloudents.Infrastructure.Write
 {
     public class DocumentSearchWrite : SearchServiceWrite<Document>
     {
-        internal const string IndexName = "document";
+        internal const string IndexName = "document2";
 
         internal const string TagsCourseParameter = "Course";
         internal const string TagsUniversityParameter = "University";

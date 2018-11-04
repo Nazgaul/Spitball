@@ -28,15 +28,29 @@ namespace Cloudents.Web.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            var stringLocalizer =
+                validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as
+                    IStringLocalizer<DataAnnotationSharedResource>;
             if (Tags != null)
             {
                 foreach (var tag in Tags)
                 {
+                    if (tag.Contains(","))
+                    {
+                        var errorMessage = "Invalid length";
+                        if (stringLocalizer != null)
+                        {
+                            errorMessage = stringLocalizer["TagCannotContain"];
+                        }
+
+                        yield return new ValidationResult(
+                            errorMessage,
+                            new[] { nameof(Tags) });
+                        
+                    }
                     if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
                     {
-                        var stringLocalizer =
-                            validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as
-                                IStringLocalizer<DataAnnotationSharedResource>;
+                      
                         var errorMessage = "Invalid length";
                         if (stringLocalizer != null)
                         {

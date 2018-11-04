@@ -64,6 +64,7 @@ namespace Cloudents.FunctionsV2
 
             builder.RegisterType<QuestionDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Question);
             builder.RegisterType<UniversityDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.University);
+            builder.RegisterType<DocumentDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Document);
 
 
             builder.RegisterType<SignalROperation>().Keyed<ISystemOperation>(SystemMessageType.SignalR);

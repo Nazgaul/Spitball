@@ -58,6 +58,6 @@ namespace Cloudents.Core.Entities.Db
         public virtual int Purchased { get; set; }
         public virtual int? PageCount { get; set; }
 
-        public virtual CultureInfo Language { get; protected set; }
+        public virtual CultureInfo Language { get; set; }
     }
 }
