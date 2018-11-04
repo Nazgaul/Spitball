@@ -1,4 +1,5 @@
 {
   "version": "2.0",
-  //"functions": [ "QuestionSearchSync", "SearchSync", "CreateSearchIndex", "DoSearchSync", "GetSyncProgress", "SetSyncProgress" ]
+  //"functions": [ "Test" ]
+  "functions": [ "DocumentSearchSync", "SearchSync", "CreateSearchIndex", "DoSearchSync", "GetSyncProgress", "SetSyncProgress" ]
 }

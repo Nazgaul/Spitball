@@ -6,8 +6,8 @@ using System.Collections.Generic;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
-    public class DocumentSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<QuestionSearchDto>,
-    IQueryHandler<SyncAzureQuery, (IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>
+    public class DocumentSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<DocumentSearchDto>,
+    IQueryHandler<SyncAzureQuery, (IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>
     {
         private readonly FluentQueryBuilder _queryBuilder;
         public DocumentSyncAzureSearchQueryHandler(ReadonlyStatelessSession session, FluentQueryBuilder queryBuilder) : base(session)
@@ -32,9 +32,15 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         {
             qb.Select<Document>(x => x.Id, nameof(DocumentSearchDto.Id));
             qb.Select<Document>(x => x.Name, nameof(DocumentSearchDto.Name));
-            //TODO: tags
             qb.Select<Document>(x => x.Course, nameof(DocumentSearchDto.Course));
-            qb.Select<Document>(x => x.TimeStamp.CreationTime, nameof(DocumentSearchDto.DateTime));
+            qb.Select<Document>(x => x.Language, nameof(DocumentSearchDto.Language));
+
+            //TODO - we do not implement component as expression
+            qb.Select(
+                $"{qb.TableAlias<Document>()}.{nameof(Document.TimeStamp.CreationTime)} as {nameof(DocumentSearchDto.DateTime)}");
+           // qb.Select<Document>(x => x.TimeStamp.CreationTime, nameof(DocumentSearchDto.DateTime));
+            qb.Select(
+                $" (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where {qb.ColumnAlias<Document>(x => x.Id)} = dt.DocumentId) AS {nameof(DocumentSearchDto.Tags)}");
             qb.Join<Document, User>(q => q.User, u => u.Id);
 
             qb.Select<User>(x => x.Country, nameof(DocumentSearchDto.Country));

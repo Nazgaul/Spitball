@@ -23,6 +23,8 @@ namespace Cloudents.FunctionsV2.Sync
                     case SyncType.Question:
                         return "question5";
 
+                    case SyncType.Document:
+                        return "document";
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -37,6 +39,8 @@ namespace Cloudents.FunctionsV2.Sync
                 {
                     case SyncType.University:
                         return "UniversitySearchSync3";
+                    case SyncType.Document:
+                        return "DocumentSearchSync";
                     case SyncType.Question:
                         return "QuestionSearchSync6";
 
@@ -55,6 +59,7 @@ namespace Cloudents.FunctionsV2.Sync
     public enum SyncType
     {
         University,
+        Document,
         //Course,
         Question
     }

@@ -41,6 +41,12 @@ namespace Cloudents.FunctionsV2
                     await starter.TerminateAsync(model.InstanceId, "the status failed");
                 }
 
+                if (existingInstance.LastUpdatedTime > DateTime.UtcNow.AddHours(-5))
+                {
+                    log.LogError($"issue with {syncType}");
+                    await starter.TerminateAsync(model.InstanceId, $"issue with {syncType}");
+                }
+
                 log.LogInformation($"started {model.InstanceId}");
 
                 await starter.StartNewAsync("SearchSync", model.InstanceId, model);
