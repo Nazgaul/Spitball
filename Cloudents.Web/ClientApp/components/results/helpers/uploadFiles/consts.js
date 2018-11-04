@@ -5,7 +5,6 @@ export let documentTypes = [
         id: 'lecture',
         title: LanguageService.getValueByKey("upload_files_type_lecture"),
         icon:"sbf-lecture-note",
-
     },
     {
         id: 'textbook',
