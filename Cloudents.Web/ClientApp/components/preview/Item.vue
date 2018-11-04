@@ -25,14 +25,14 @@
         },
         data() {
             var actions = [
-                {
-                    id: 'info',
-                    click: function () {
-                    }
-                },
-                {id: 'download'},
-                {id: 'print'},
-                {id: 'more'},
+                // {
+                //     id: 'info',
+                //     click: function () {
+                //     }
+                // },
+                // {id: 'download'},
+                // {id: 'print'},
+                // {id: 'more'},
                 {id: 'close'}
             ];
             return {
