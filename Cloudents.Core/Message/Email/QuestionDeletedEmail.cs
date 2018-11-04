@@ -6,23 +6,23 @@ using System.Text;
 
 namespace Cloudents.Core.Message.Email
 {
-    class SuspendUserEmail : BaseEmail
+    class QuestionDeletedEmail : BaseEmail
     {
-        public SuspendUserEmail(string to, CultureInfo info)
-            : base(to, "Your account have been suspended", info)
+        public QuestionDeletedEmail(string to, CultureInfo info)
+            : base(to, "Your question was deleted", info)
         {
 
         }
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Using it with reflection")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Using it with reflection")]
 
-        public override string Campaign => "User Suspended";
+        public override string Campaign => "Question Deleted";
 
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
-            {Language.Hebrew.Culture , "7c24161f-f447-4760-a35b-5a42e6835766" },
-            {Language.English.Culture , "b3c762bd-605b-41a2-9c6c-24b01e5adf92" }
+            {Language.Hebrew.Culture , "8e4035cd-c7d4-408a-a4ed-e0fa68f4e444" },
+            {Language.English.Culture , "43ec6c46-0478-45f8-ac13-a83c83a4076d" }
         };
     }
+   
 }
-
