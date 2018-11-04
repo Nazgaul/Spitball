@@ -33,6 +33,13 @@ export default {
             this.initFilters(val);
             this.sort = this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0] : "";
         },
+        value(val){
+            if(!!val){
+                document.getElementsByTagName("body")[0].className="noscroll";
+            }else{
+                document.body.removeAttribute("class","noscroll");
+            }
+        }
     },
     methods: {
         ...mapActions(['setFilteredCourses', 'updateSort']),

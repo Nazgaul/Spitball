@@ -22,6 +22,7 @@ namespace Cloudents.FunctionsV2
         public static async Task Run([TimerTrigger("0 0 0 1 * *")]TimerInfo myTimer,
             [Inject] ICommandBus commandBus,
             ILogger log,
+
             CancellationToken token)
         {
             log.LogInformation("QuestionUpdateTimeFunction invoke");

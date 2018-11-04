@@ -75,12 +75,20 @@ namespace Cloudents.Infrastructure.Write
 
         public virtual async Task CreateOrUpdateAsync(CancellationToken token)
         {
-            var t = _client.Indexes.GetAsync(IndexClient.IndexName, cancellationToken: token);
-            if (t == null)
+            //var t = await _client.Indexes.GetAsync(IndexClient.IndexName, cancellationToken: token);
+            //if (t == null)
+            //{
+            try
             {
                 var index = GetIndexStructure(IndexClient.IndexName);
                 await _client.Indexes.CreateAsync(index, cancellationToken: token);
             }
+            catch (Microsoft.Rest.Azure.CloudException)
+            {
+
+            }
+
+            //}
         }
 
         protected abstract Index GetIndexStructure(string indexName);

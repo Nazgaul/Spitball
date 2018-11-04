@@ -1,6 +1,7 @@
 ﻿using System;
 using Cloudents.Core.Enum;
 using System.Collections.Generic;
+using System.Globalization;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
@@ -57,6 +58,6 @@ namespace Cloudents.Core.Entities.Db
         public virtual int Purchased { get; set; }
         public virtual int? PageCount { get; set; }
 
-
+        public virtual CultureInfo Language { get; set; }
     }
 }

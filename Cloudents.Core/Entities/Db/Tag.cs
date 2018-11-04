@@ -19,6 +19,11 @@ namespace Cloudents.Core.Entities.Db
             {
                 throw new ArgumentException();
             }
+
+            if (Name.Contains(","))
+            {
+                throw new ArgumentException();
+            }
         }
 
 

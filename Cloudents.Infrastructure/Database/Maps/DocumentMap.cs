@@ -28,6 +28,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Views).Not.Nullable();
             Map(x => x.Professor).Nullable();
             Map(x => x.PageCount).Nullable();
+            Map(x => x.Language).Nullable();
             Map(x => x.Purchased).Not.Nullable();
 
             SchemaAction.Update();

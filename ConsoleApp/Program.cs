@@ -21,9 +21,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Cloudents.Core.CommandHandler;
+using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Query;
+using Cloudents.Core.Query.Sync;
 using Question = Cloudents.Core.Entities.Search.Question;
 
 namespace ConsoleApp
@@ -84,15 +86,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            QuestionSubject t = QuestionSubject.Education;
-
-            var z = t.GetEnumLocalizationAllValues();
-
-            var sms = new ResetPasswordEmail("ram@cloudents.com", "https://www.spitball.co", CultureInfo.InvariantCulture);
-
-            //var query = new SyncAzureQuery(0,0);
-            var _bus = _container.Resolve<IQuestionSearch>();
-            await _bus.SearchAsync(new QuestionsQuery(null, null, 0, null, "IL"), token);
+          
+            var t = new SyncAzureQuery(0,0);
+            var _bus = _container.Resolve<IQueryBus>();
+            await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(t, token);
 
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
