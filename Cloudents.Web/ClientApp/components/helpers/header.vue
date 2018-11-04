@@ -30,7 +30,7 @@
                                         <span>${{accountUser.balance | dollarVal}}</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
-                                        <v-menu close-on-content-click bottom left offset-y>
+                                        <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
                                                          :user-name="accountUser.name"/>
 
@@ -43,7 +43,7 @@
                                     <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
                                     <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
 
-                                    <v-menu close-on-content-click bottom left offset-y class="gamburger"
+                                    <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'" class="gamburger"
                                             v-if="!loggedIn">
                                         <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
@@ -157,6 +157,15 @@
                         })
                     }, this.toasterTimeout)
                 }
+            },
+            drawer(val){
+                if(!!val && this.$vuetify.breakpoint.xsOnly){
+                    document.getElementsByTagName("body")[0].className="noscroll";
+                    console.log("drawer open")
+                }else{
+                    document.body.removeAttribute("class","noscroll");
+                    console.log("drawer closed")
+                }
             }
 
         },
@@ -225,6 +234,9 @@
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
         },
+        beforeDestroy(){
+             document.body.removeAttribute("class","noscroll");
+        }
     }
 </script>
 <style src="./header.less" lang="less"></style>

@@ -1,5 +1,10 @@
 ﻿@import "../../mixin.less";
 
+.fixed-content{
+  position:fixed;
+  top: 50px !important;
+}
+
 .header {
   z-index: 102;
   &.v-toolbar {
@@ -132,7 +137,7 @@
         width: 180px;
         height: 32px;
         border-radius: 24px;
-        background-color: @color-AB-test-text;
+        background-color: @color-blue-new;
         box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.36);
         font-size: 18px;
         font-weight: 500;
@@ -144,7 +149,7 @@
           font-size: 14px;
         }
         &:hover {
-          background: lighten(@color-AB-test-text, 5%);
+          background: lighten(@color-blue-new, 5%);
         }
       }
     }

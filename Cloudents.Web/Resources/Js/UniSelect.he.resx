@@ -117,70 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActionTypeAnswerCorrect" xml:space="preserve">
-    <value>תשובה נכונה</value>
+  <data name="changing_school_question" xml:space="preserve">
+    <value>משנה מוסד לימודים?</value>
   </data>
-  <data name="ActionTypeCashOut" xml:space="preserve">
-    <value>פדיון</value>
+  <data name="create" xml:space="preserve">
+    <value>צור</value>
   </data>
-  <data name="ActionTypeDeleteQuestion" xml:space="preserve">
-    <value>מחק שאלה</value>
+  <data name="done" xml:space="preserve">
+    <value>סיים</value>
   </data>
-  <data name="ActionTypeNone" xml:space="preserve">
-    <value>ללא</value>
+  <data name="from" xml:space="preserve">
+    <value>מ</value>
   </data>
-  <data name="ActionTypeQuestion" xml:space="preserve">
-    <value>שאלה</value>
+  <data name="got_it" xml:space="preserve">
+    <value>הבנתי!</value>
   </data>
-  <data name="ActionTypeReferringUser" xml:space="preserve">
-    <value>הפניית משתמש</value>
+  <data name="keep_school" xml:space="preserve">
+    <value>שמור מוסד לימודים נוכחי</value>
   </data>
-  <data name="ActionTypeSignUp" xml:space="preserve">
-    <value>הירשמו</value>
+  <data name="keep_typing" xml:space="preserve">
+    <value>המשך להקליד אנו מחפשים בשבילך</value>
   </data>
-  <data name="DocumentTypeExam" xml:space="preserve">
-    <value>סיכום בחינה</value>
+  <data name="next" xml:space="preserve">
+    <value>הבא</value>
   </data>
-  <data name="DocumentTypeLecture" xml:space="preserve">
-    <value>סיכום שיעור</value>
+  <data name="no_worries" xml:space="preserve">
+    <value>אל דאגה :)</value>
   </data>
-  <data name="DocumentTypeTextbook" xml:space="preserve">
-    <value>סיכום ספר לימוד</value>
+  <data name="school_desc" xml:space="preserve">
+    <value>וכל הקורסים שבחרת יימחקו</value>
   </data>
-  <data name="QuestionFilterAnswered" xml:space="preserve">
-    <value>שאלות שנענו</value>
+  <data name="select_class" xml:space="preserve">
+    <value>בחר קורס</value>
   </data>
-  <data name="QuestionFilterSold" xml:space="preserve">
-    <value>שאלות שנמכרו</value>
+  <data name="select_school" xml:space="preserve">
+    <value>בחר מוסד לימודים</value>
   </data>
-  <data name="QuestionFilterUnanswered" xml:space="preserve">
-    <value>שאלות שלא נענו</value>
+  <data name="select_school_any_time" xml:space="preserve">
+    <value>באפשרותך להגדיר מוסד לימודים וקורסים בכל עת בתפריט הצד</value>
   </data>
-  <data name="SearchRequestSortDate" xml:space="preserve">
-    <value>תאריך</value>
+  <data name="select_school_now" xml:space="preserve">
+    <value>בחר מוסד לימודים עכשיו</value>
   </data>
-  <data name="SearchRequestSortRelevance" xml:space="preserve">
-    <value>רלוונטיות</value>
+  <data name="select_school_placeholder" xml:space="preserve">
+    <value>בחר את מוסד הלימודים שלך</value>
   </data>
-  <data name="TransactionTypeAwarded" xml:space="preserve">
-    <value>טוקנים שהוענקו לי</value>
+  <data name="set_school_class" xml:space="preserve">
+    <value>הגדר את מוסד הלימודים והקורסים שלך</value>
   </data>
-  <data name="TransactionTypeEarned" xml:space="preserve">
-    <value>טוקנים שהרווחתי</value>
+  <data name="set_school_class_explain" xml:space="preserve">
+    <value>על ידי הגדרות אלו, יוצגו השאלות הרלוונטיות ביותר וחומרי הלימוד המתאימים ביותר למוסד הלימודים והקורסים שלך</value>
   </data>
-  <data name="TransactionTypeSpent" xml:space="preserve">
-    <value>טוקנים שהוצאתי</value>
+  <data name="show_all_schools" xml:space="preserve">
+    <value>הצג את כל מוסדות הלימודים</value>
   </data>
-  <data name="TransactionTypeStake" xml:space="preserve">
-    <value>טוקנים שמוצעים למכירה כרגע</value>
+  <data name="skip_for_now" xml:space="preserve">
+    <value>דלג בינתיים</value>
   </data>
-  <data name="TutorFilterInPerson" xml:space="preserve">
-    <value>אחד על אחד</value>
+  <data name="type_class_name_placeholder" xml:space="preserve">
+    <value>הקלד את שמות הקורסים שאתה לומד</value>
   </data>
-  <data name="TutorFilterOnline" xml:space="preserve">
-    <value>מקוון</value>
+  <data name="type_school_name_placeholder" xml:space="preserve">
+    <value>הקלד את שם מוסד הלימודים בו אתה לומד</value>
   </data>
-  <data name="TutorSortPrice" xml:space="preserve">
-    <value>מחיר</value>
+  <data name="yes_change" xml:space="preserve">
+    <value>כן, שנה מוסד לימודים</value>
   </data>
 </root>
