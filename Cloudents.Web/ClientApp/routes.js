@@ -154,7 +154,8 @@ let routes2 = [
         path: "/wallet",
         components: {
             default: wallet,
-            header: previewHeader
+            header: pageHeader
+            //header: previewHeader
         },
         name: "wallet",
         meta: {
