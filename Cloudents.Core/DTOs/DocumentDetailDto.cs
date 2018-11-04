@@ -6,7 +6,7 @@ using Cloudents.Core.Enum;
 namespace Cloudents.Core.DTOs
 {
     [DataContract]
-    public class DocumentDto
+    public class DocumentDetailDto
     {
         [DataMember]
 
@@ -26,7 +26,7 @@ namespace Cloudents.Core.DTOs
 
 
         [DataMember]
-        public string Owner { get; set; }
+        public UserDto User { get; set; }
 
         [DataMember]
         public string Extension => Path.GetExtension(Blob)?.TrimStart('.');

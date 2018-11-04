@@ -12,7 +12,7 @@ using NHibernate.Linq;
 namespace Cloudents.Infrastructure.Database.Query
 {
     [UsedImplicitly]
-    public class DocumentByIdQueryHandler : IQueryHandler<DocumentById, DocumentDto>
+    public class DocumentByIdQueryHandler : IQueryHandler<DocumentById, DocumentDetailDto>
     {
         private readonly IStatelessSession _session;
 
@@ -20,13 +20,13 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             _session = session.Session;
         }
-        public Task<DocumentDto> GetAsync(DocumentById query, CancellationToken token)
+        public Task<DocumentDetailDto> GetAsync(DocumentById query, CancellationToken token)
         {
             return _session.Query<Document>()
                 .Fetch(f=>f.University)
                 .Fetch(f=>f.User)
                 .Where(w => w.Id == query.Id)
-                .Select(s => new DocumentDto
+                .Select(s => new DocumentDetailDto
                 {
                     Name = s.Name,
                     Date = s.TimeStamp.CreationTime,
@@ -36,7 +36,12 @@ namespace Cloudents.Infrastructure.Database.Query
                     Pages = s.PageCount.GetValueOrDefault(),
                     Professor = s.Professor,
                     Views = s.Views,
-                    Owner = s.User.Name,
+                    User = new UserDto
+                    {
+                        Id = s.User.Id,
+                        Name = s.User.Name,
+                        Image = s.User.Image
+                    },
                     Course = s.Course.Name
                 })
                 .SingleOrDefaultAsync(token);

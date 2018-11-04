@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -26,8 +27,8 @@ namespace Cloudents.Infrastructure.Search
         {
             var searchResult = await _questionSearch.SearchAsync(query, token);
             var ids = searchResult.Results.Select(s => long.Parse(s.Document.Id));
-            var queryDb = new QuestionsByIdsQuery(ids);
-            var dbResult = await _queryBus.QueryAsync(queryDb, token);
+            var queryDb = new IdsQuery<long>(ids);
+            var dbResult = await _queryBus.QueryAsync<IList<QuestionFeedDto>>(queryDb, token);
 
 
             var retVal = new QuestionWithFacetDto {Result = dbResult};

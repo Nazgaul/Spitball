@@ -34,6 +34,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             qb.Select<Document>(x => x.Name, nameof(DocumentSearchDto.Name));
             qb.Select<Document>(x => x.Course, nameof(DocumentSearchDto.Course));
             qb.Select<Document>(x => x.Language, nameof(DocumentSearchDto.Language));
+            qb.Select<Document>(x => x.University, nameof(DocumentSearchDto.University));
 
             //TODO - we do not implement component as expression
             qb.Select(
@@ -44,7 +45,6 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             qb.Join<Document, User>(q => q.User, u => u.Id);
 
             qb.Select<User>(x => x.Country, nameof(DocumentSearchDto.Country));
-            qb.Select<User>(x => x.University, nameof(DocumentSearchDto.University));
             qb.Select("c.*")
                 .AddOrder<Document>(q => q.Id)
                 .Paging("PageSize", "PageNumber");

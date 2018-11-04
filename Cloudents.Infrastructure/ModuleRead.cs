@@ -15,6 +15,7 @@ using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Cloudents.Infrastructure.Search.Document;
 using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
 using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
 using Module = Autofac.Module;
@@ -48,6 +49,9 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<AzureQuestionSearch>().AsSelf();//
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
 
+            builder.RegisterType<AzureDocumentSearch>().AsSelf();//
+            builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
+
             #region Tutor
 
             builder.RegisterAssemblyTypes(currentAssembly)
@@ -76,7 +80,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
-            builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
+            //builder.RegisterType<DocumentSearch>().AsImplementedInterfaces();
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
         }

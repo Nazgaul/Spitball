@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
             _queryBus = queryBus;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Search document vertical result
         /// </summary>
         /// <param name="model"></param>
@@ -120,7 +120,7 @@ namespace Cloudents.Web.Api
 
 
 
-        }
+        }*/
 
        
 

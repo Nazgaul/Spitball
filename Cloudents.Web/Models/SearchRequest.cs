@@ -49,4 +49,26 @@ namespace Cloudents.Web.Models
         public string[] Source { get; set; }
       
     }
+
+    public class DocumentRequest : IPaging
+    {
+        /// <summary>
+        /// User courses id
+        /// </summary>
+        public string[] Course { get; set; }
+
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Page for paging
+        /// </summary>
+        public int? Page { get; set; }
+
+        /// <summary>
+        /// The term of search
+        /// </summary>
+        // [DisplayFormat(HtmlEncode = true)]
+        public string Query { get; set; }
+
+    }
 }

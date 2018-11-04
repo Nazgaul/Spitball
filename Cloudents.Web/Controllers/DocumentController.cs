@@ -73,7 +73,7 @@ namespace Cloudents.Web.Controllers
         public async Task<ActionResult> DownloadAsync(long id, CancellationToken token)
         {
             var query = new DocumentById(id);
-            var item = await _queryBus.QueryAsync<DocumentDto>(query, token);
+            var item = await _queryBus.QueryAsync<DocumentDetailDto>(query, token);
             if (item == null)
             {
                 return NotFound();

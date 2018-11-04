@@ -3,7 +3,7 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
-    public class QuestionDto
+    public class QuestionFeedDto
     {
         public long Id { get; set; }
         public QuestionSubject Subject { get; set; }

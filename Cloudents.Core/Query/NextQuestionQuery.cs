@@ -4,7 +4,7 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Query
 {
-    public class NextQuestionQuery : IQuery<IEnumerable<QuestionDto>>
+    public class NextQuestionQuery : IQuery<IEnumerable<QuestionFeedDto>>
     {
         public NextQuestionQuery(long questionId, long userId)
         {

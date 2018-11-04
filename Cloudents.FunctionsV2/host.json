@@ -1,5 +1,5 @@
 {
   "version": "2.0",
-  "functions": [ "BlobFunction" ]
+  //"functions": [ "BlobFunction" ]
   //"functions": [ "DocumentSearchSync", "SearchSync", "CreateSearchIndex", "DoSearchSync", "GetSyncProgress", "SetSyncProgress" ]
 }

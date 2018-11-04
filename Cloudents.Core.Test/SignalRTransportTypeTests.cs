@@ -22,7 +22,7 @@ namespace Cloudents.Core.Test
         [TestMethod]
         public void Serialize_SignalRTransportType_RightJson2()
         {
-            var dto = new QuestionDto
+            var dto = new QuestionFeedDto
             {
                 User = new UserDto
                 {

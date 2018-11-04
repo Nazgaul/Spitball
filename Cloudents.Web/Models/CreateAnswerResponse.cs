@@ -5,7 +5,7 @@ namespace Cloudents.Web.Models
 {
     public class CreateAnswerResponse
     {
-        public IEnumerable<QuestionDto> NextQuestions { get; set; }
+        public IEnumerable<QuestionFeedDto> NextQuestions { get; set; }
     }
 
 

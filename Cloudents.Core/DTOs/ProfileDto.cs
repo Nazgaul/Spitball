@@ -8,8 +8,8 @@ namespace Cloudents.Core.DTOs
     {
         public UserProfileDto User { get; set; }
 
-        public IEnumerable<QuestionDto> Questions { get; set; }
-        public IEnumerable<QuestionDto> Answers { get; set; }
+        public IEnumerable<QuestionFeedDto> Questions { get; set; }
+        public IEnumerable<QuestionFeedDto> Answers { get; set; }
         
     }
 }

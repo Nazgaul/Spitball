@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Where(w => w.User.Id == query.Id)
                 .Where(w => w.State == null || w.State == QuestionState.Ok)
                 .OrderByDescending(o => o.Id)
-                .Select(s => new QuestionDto
+                .Select(s => new QuestionFeedDto
                 {
                     Text = s.Text,
                     Answers = s.Answers.Count,
@@ -62,7 +62,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             var futureAnswers = answerQuery.Where(w => w.User.Id == query.Id)
                 .OrderByDescending(o => o.Question.Id)
-                .Select(s => new QuestionDto
+                .Select(s => new QuestionFeedDto
                 {
                     Text = s.Question.Text,
                     Answers = s.Question.Answers.Count,

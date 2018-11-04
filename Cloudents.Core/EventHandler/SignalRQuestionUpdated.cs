@@ -20,7 +20,7 @@ namespace Cloudents.Core.EventHandler
 
         private async Task Handle(Question question, CancellationToken token)
         {
-            var dto = new QuestionDto
+            var dto = new QuestionFeedDto
             {
                 User = new UserDto
                 {

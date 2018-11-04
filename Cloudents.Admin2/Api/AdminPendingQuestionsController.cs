@@ -30,10 +30,10 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<QuestionDto>> Get(CancellationToken token)
+        public async Task<IEnumerable<QuestionFeedDto>> Get(CancellationToken token)
         {
             var query = new AdminEmptyQuery();
-            var t = await _queryBus.QueryAsync<IEnumerable<QuestionDto>>(query, token);
+            var t = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
             return t.Take(100);
         }
 

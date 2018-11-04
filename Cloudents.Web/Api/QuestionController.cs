@@ -112,7 +112,7 @@ namespace Cloudents.Web.Api
         }
 
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
-        public async Task<ActionResult<WebResponseWithFacet<QuestionDto>>> GetQuestionsAsync(
+        public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
             [FromQuery]GetQuestionsRequest model,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
            CancellationToken token)
@@ -128,7 +128,7 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
-            return new WebResponseWithFacet<QuestionDto>
+            return new WebResponseWithFacet<QuestionFeedDto>
             {
                 Result = result.Result,
                 Filters = new IFilters[]
