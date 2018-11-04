@@ -47,11 +47,17 @@ namespace Cloudents.Infrastructure
             var result =
                 await client.DetectLanguageAsync(b, cancellationToken: token);
 
+            
 
             return result.Documents.Select(x =>
              {
                  var t = CultureInfo.InvariantCulture;
-                 if (x.DetectedLanguages[0].Score > 0)
+                 
+                 if (x.DetectedLanguages[0].Score == 0)
+                 {
+                     x.DetectedLanguages[0] = new DetectedLanguage("English", "en", 1);
+                 }
+                     if (x.DetectedLanguages[0].Score > 0)
                  {
                      t = new CultureInfo(x.DetectedLanguages[0].Iso6391Name);
                  }

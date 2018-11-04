@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
@@ -10,7 +12,7 @@ namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-    public class User
+    public class User : IEvents
     {
         public User(string email, string name, string privateKey, CultureInfo culture) : this()
         {
@@ -31,6 +33,7 @@ namespace Cloudents.Core.Entities.Db
             Transactions = new List<Transaction>();
             UserLogins = new List<UserLogin>();
             Courses = new HashSet<Course>();
+            Events = new List<IEvent>();
             //Languages = new HashSet<CultureInfo>();
         }
 
@@ -80,6 +83,8 @@ namespace Cloudents.Core.Entities.Db
             AddTransaction(t);
         }
 
+  
+
         public virtual decimal Balance { get; set; }
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
@@ -87,7 +92,7 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Question> Questions { get; protected set; }
         protected internal virtual IList<Answer> Answers { get; protected set; }
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
-
+        public virtual IList<IEvent> Events { get; }
 
 
         protected internal virtual ISet<Course> Courses { get; protected set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace Cloudents.Core.Message
+namespace Cloudents.Core.Message.Email
 {
     [Serializable]
     public class RegistrationEmail : BaseEmail

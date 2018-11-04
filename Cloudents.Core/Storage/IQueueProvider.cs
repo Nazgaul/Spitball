@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message;
+using Cloudents.Core.Message.Email;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage.Dto;
 

@@ -37,7 +37,7 @@ export default {
             showDialog: false,
             placeholder:{
                 whereSchool: LanguageService.getValueByKey("result_where_school")
-            }
+            }            
         };
     },
 
@@ -164,8 +164,7 @@ export default {
         loadNewQuestions(){
             this.INJECT_QUESTION();
             console.log("new question loading");
-        },
-
+        },        
         goToAskQuestion(){
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);
@@ -254,6 +253,10 @@ export default {
             let userId = this.accountUser ? this.accountUser.id : -1;
             if(!!item.user){
                 sameUser = userId === item.user.id;
+            }
+            if(!item.color){
+                //if item color is undefined set it to default so the color wont be white
+                item.color = "default";
             }
         return {
             'color': item.color !== 'default' ? 'white' : '',

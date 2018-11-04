@@ -1,17 +1,18 @@
-﻿using System;
-using System.Threading;
-using Aspose.Cells;
+﻿using Aspose.Cells;
 using Aspose.Cells.Rendering;
+using System;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class ExcelProcessor :  IPreviewProvider2
+    public class ExcelProcessor : IPreviewProvider2
     {
         public ExcelProcessor()
-            
+
         {
             SetLicense();
         }
@@ -30,16 +31,22 @@ namespace Cloudents.Infrastructure.Framework
             license.SetLicense("Aspose.Total.lic");
         }
 
-       
 
-     
+
+
 
         public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
-        public async Task CreatePreviewFilesAsync(MemoryStream stream, Func<Stream, string, Task> callback, Func<string, Task> textCallback, CancellationToken token)
+        public async Task ProcessFilesAsync(MemoryStream stream,
+            Func<Stream, string, Task> pagePreviewCallback,
+            Func<string, Task> textCallback,
+            Func<int, Task> pageCountCallback,
+            CancellationToken token)
         {
             var excel = new Workbook(stream);
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
 
+            await pageCountCallback(excel.Worksheets.Count);
+            var t = new List<Task>();
             for (int i = 0; i < excel.Worksheets.Count; i++)
             {
                 var wb = excel.Worksheets[i];
@@ -51,12 +58,16 @@ namespace Cloudents.Infrastructure.Framework
                     {
                         continue;
                     }
+
                     var ms = new MemoryStream();
+
                     img.Save(ms, ImageFormat.Jpeg);
-                    await callback(ms, $"{i}.jpg");
+                    t.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
+
                 }
             }
-            
+
+            await Task.WhenAll(t);
         }
     }
 }

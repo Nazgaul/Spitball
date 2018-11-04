@@ -31,11 +31,12 @@ namespace Cloudents.Infrastructure.Database.Query
             //Question questionAlias = null;
            // User userAlias = null;
 
+            var ids = query.QuestionIds.ToList();
 
            return await _session.Query<Question>()
                 .Fetch(f => f.User)
-                .Where(w => query.QuestionIds.Contains(w.Id))
-                .Select(s => new QuestionDto()
+                .Where(w => ids.Contains(w.Id))
+                .Select(s => new QuestionDto
                 {
                     Id = s.Id,
                     User = new UserDto()
@@ -52,8 +53,15 @@ namespace Cloudents.Infrastructure.Database.Query
                     Files = s.Attachments,
                     Price = s.Price,
                     HasCorrectAnswer = s.CorrectAnswer.Id != null
-                    //HasCorrectAnswer = s.
-                }).ToListAsync(token);
+                })
+               //.WithOptions(w=>
+               //{
+               //    w.SetCacheMode(CacheMode.Normal);
+               //    w.SetCacheRegion("question");
+               //    w.SetCacheable(true);
+               //    w.SetReadOnly(true);
+               //})
+               .ToListAsync(token);
 
             //var queryOverObj = _session.QueryOver(() => questionAlias)
             //    //.JoinAlias(x => x.Subject, () => commentAlias)

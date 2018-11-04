@@ -33,6 +33,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             public decimal Price { get; set; }
             public DateTime Created { get; set; }
             public int? FraudScore { get; set; }
+            public bool IsIsrael { get; set; }
         }
 
         public CashOutQueryHandler(ReadonlySession session)
@@ -69,7 +70,9 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                     Email = s.User.Email,
                     Price = s.Price,
                     Created = s.Created,
-                    FraudScore = s.User.FraudScore
+                    FraudScore = s.User.FraudScore,
+                    IsIsrael = s.User.Country == "IL"
+                   
                 })
 
                .OrderByDescending(o => o.Created)
@@ -94,8 +97,8 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                     CashOutPrice = index.Price,
                     CashOutTime = index.Created,
                     FraudScore = index.FraudScore,
-                    UserQueryRatio = tIndex.UserQueryRatio
-
+                    UserQueryRatio = tIndex.UserQueryRatio,
+                    IsIsrael = index.IsIsrael
                 });
 
             }

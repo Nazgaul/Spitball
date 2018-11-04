@@ -19,12 +19,14 @@ namespace Cloudents.Infrastructure.Storage
             CloudStorage = CloudStorageAccount.Parse(connectionString);
         }
 
-        public CloudBlobDirectory GetBlobClient(IStorageContainer container)
+        public CloudBlobClient GetBlobClient(/*IStorageContainer container*/)
         {
             var blobClient = GetCloudBlobClient();
+            return blobClient;
             //var att = ExtractContainerData(container);
-            var con = blobClient.GetContainerReference(container.Container.Name.ToLowerInvariant());
-            return con.GetDirectoryReference(container.Container.RelativePath ?? string.Empty);
+           // var con = blobClient.GetContainerReference(container.Container.Name.ToLowerInvariant());
+            
+            //return con.GetDirectoryReference(container.Container.RelativePath ?? string.Empty);
         }
 
         //private static StorageAttribute ExtractContainerData(StorageContainer container)

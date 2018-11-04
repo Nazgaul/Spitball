@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message.Email;
 using Cloudents.Core.Message.System;
 
 namespace Cloudents.Infrastructure.Storage

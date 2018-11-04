@@ -24,17 +24,11 @@ namespace Cloudents.Infrastructure.Search
 
         public async Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query, CancellationToken token)
         {
-            var sw = new Stopwatch();
-            sw.Start();
             var searchResult = await _questionSearch.SearchAsync(query, token);
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedTicks);
             var ids = searchResult.Results.Select(s => long.Parse(s.Document.Id));
             var queryDb = new QuestionsByIdsQuery(ids);
-            sw.Restart();
             var dbResult = await _queryBus.QueryAsync(queryDb, token);
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedTicks);
+
 
             var retVal = new QuestionWithFacetDto {Result = dbResult};
 

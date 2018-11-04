@@ -1,22 +1,21 @@
 <template>
     <v-card class="mb-5 sb-step-card">
         <div class="upload-row-1">
-            <h3 class="upload-cloud-text sb-title">Add any tag you think is relevant for this
-                doc.</h3>
-            <h4 class="sb-subtitle mt-2">It will help other to find you in more than one
-                way</h4>
+            <h3 class="upload-cloud-text sb-title" v-language:inner>upload_files_step5_title</h3>
+            <h4 class="sb-subtitle mt-2"  v-language:inner>upload_files_step5_subtitle</h4>
         </div>
         <div class="upload-row-2 paddingTopSm">
             <div class="btn-holder">
                 <label :for="'school'" class="steps-form-label school mb-2">
                     <v-icon class="mr-1">sbf-tag-icon</v-icon>
-                    <span>Tags</span></label>
+                    <span v-language:inner>upload_files_label_tags</span></label>
                 <v-combobox class="sb-combo"
+                            v-language:placeholder
                             v-model="selectedTags"
                             height="'48px'"
                             append-icon=""
                             prepend-icon=""
-                            placeholder="Type a tag name"
+                            :placeholder="placeholderTags"
                             color="'#979797'"
                             multiple
                             chips
@@ -41,10 +40,12 @@
 </template>
 <script>
     import { mapGetters, mapActions } from 'vuex';
+    import { LanguageService } from "../../../../../services/language/languageService";
      export default {
         name: "uploadStep_5",
         data() {
             return {
+                placeholderTags: LanguageService.getValueByKey('upload_files_placeholder_tags')
             }
         },
         computed: {

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
+using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
@@ -18,37 +17,38 @@ namespace Cloudents.Web.Models
         public DocumentType Type { get; set; }
 
         [Required]
-        public string[] Courses { get; set; }
+        [StringLength(Core.Entities.Db.Course.MaxLength,ErrorMessage = "StringLength", MinimumLength = Core.Entities.Db.Course.MinLength)]
+        public string Course { get; set; }
+        [CanBeNull]
         public string[] Tags { get; set; }
+
+        public string Professor { get; set; }
 
 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-
-            foreach (var tag in Tags)
+            if (Tags != null)
             {
-                if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
+                foreach (var tag in Tags)
                 {
-                    //TODO : v7 localize
-                    yield return new ValidationResult(
-                        "invalid length",
-                        new[] { nameof(Tags) });
+                    if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
+                    {
+                        var stringLocalizer =
+                            validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as
+                                IStringLocalizer<DataAnnotationSharedResource>;
+                        var errorMessage = "Invalid length";
+                        if (stringLocalizer != null)
+                        {
+                            errorMessage = stringLocalizer["StringLength"];
+                        }
+
+                        yield return new ValidationResult(
+                            errorMessage,
+                            new[] {nameof(Tags)});
+                    }
                 }
             }
-
-
-            foreach (var course in Courses)
-            {
-                if (course.Length > Course.MaxLength || course.Length < Course.MinLength)
-                {
-                    //TODO : v7 localize
-                    yield return new ValidationResult(
-                        "invalid length",
-                        new[] { nameof(Courses) });
-                }
-            }
-
         }
     }
 }

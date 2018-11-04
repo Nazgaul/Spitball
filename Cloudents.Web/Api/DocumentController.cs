@@ -40,14 +40,14 @@ namespace Cloudents.Web.Api
             var tModel = _queryBus.QueryAsync<DocumentDto>(query, token);
             //var tContent = firstTime.GetValueOrDefault() ?
             //    _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
-            
 
-            var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
+            //https://stackoverflow.com/questions/6396378/c-sharp-linq-orderby-numbers-that-are-string-and-you-cannot-convert-them-to-int
+            var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
 
             await Task.WhenAll(tModel,filesTask);
 
             var model = tModel.Result;
-            var files = filesTask.Result.Where(w => Regex.IsMatch(w.AbsolutePath, @"\d\."));
+            var files = filesTask.Result;
             if (model == null)
             {
                 return NotFound();
@@ -68,8 +68,8 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
 
-            var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type, model.Courses, model.Tags,
-                userId);
+            var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
+                model.Course, model.Tags, userId, model.Professor);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

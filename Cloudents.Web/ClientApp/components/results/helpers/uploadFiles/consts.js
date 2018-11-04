@@ -3,18 +3,18 @@ import { LanguageService } from "../../../../services/language/languageService";
 export let documentTypes = [
     {
         id: 'lecture',
-        title:  'Lecture note',
+        title: LanguageService.getValueByKey("upload_files_type_lecture"),
         icon:"sbf-lecture-note",
 
     },
     {
         id: 'textbook',
-        title: 'Textbook note',
+        title:  LanguageService.getValueByKey("upload_files_type_textbook"),
         icon:"sbf-textbook-note"
     },
     {
         id: 'exam',
-        title:  'Exam note',
+        title: LanguageService.getValueByKey("upload_files_type_exam"),
         icon:"sbf-exam-note"
     },
 ];

@@ -24,9 +24,10 @@ namespace Cloudents.Infrastructure.Framework
         }
 
 
-        public async Task CreatePreviewFilesAsync(MemoryStream stream,
-            Func<Stream, string, Task> callback,
+        public async Task ProcessFilesAsync(MemoryStream stream,
+            Func<Stream, string, Task> pagePreviewCallback,
             Func<string, Task> textCallback,
+            Func<int, Task> pageCountCallback,
             CancellationToken token)
         {
             var pdf = new Document(stream);
@@ -36,26 +37,16 @@ namespace Cloudents.Infrastructure.Framework
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
 
+            await pageCountCallback(pdf.Pages.Count - 1);
             var t = new List<Task>();
-            for (int j = 1; j < pdf.Pages.Count; j++)
+            for (var j = 1; j < pdf.Pages.Count; j++)
             {
                 var page = pdf.Pages[j];
                 var ms = new MemoryStream();
                 jpegDevice.Process(page, ms);
-                t.Add(callback(ms, $"{j - 1}.jpg"));
+                t.Add(pagePreviewCallback(ms, $"{j - 1}.jpg").ContinueWith(_ => ms.Dispose(), token));
 
             }
-            //foreach (Page page in pdf.Pages)
-            //{
-            //    //using (var ms = new MemoryStream())
-            //    //{
-            //    //    jpegDevice.Process(page,ms);
-            //    //    t.Add(callback(ms,$"{i}.pdf"));
-            //    //}
-
-            //    i++;
-            //}
-
             await Task.WhenAll(t);
 
         }

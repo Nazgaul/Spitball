@@ -53,52 +53,52 @@ namespace Cloudents.Infrastructure.Search
         public async Task<ResultWithFacetDto<SearchResult>> SearchDocumentsAsync(SearchQuery query,
             CancellationToken cancelToken)
         {
+            return null;
+            //var listFilterExpression = new List<string>();
+            //if (query.University.HasValue)
+            //{
+            //    listFilterExpression.Add($"({GetFieldName(x => x.UniversityId)} eq '{query.University.Value}')");
+            //}
+            //else
+            //{
+            //    listFilterExpression.Add($"({GetFieldName(x => x.UniversityId)} ne '-1')");
+            //}
 
-            var listFilterExpression = new List<string>();
-            if (query.University.HasValue)
-            {
-                listFilterExpression.Add($"({GetFieldName(x => x.UniversityId)} eq '{query.University.Value}')");
-            }
-            else
-            {
-                listFilterExpression.Add($"({GetFieldName(x => x.UniversityId)} ne '-1')");
-            }
-
-            if (query.Courses != null)
-            {
-                listFilterExpression.AddRange(query.Courses.Select(course =>
-                    $"({GetFieldName(x => x.BoxId2)} eq {course})"));
-            }
+            //if (query.Courses != null)
+            //{
+            //    listFilterExpression.AddRange(query.Courses.Select(course =>
+            //        $"({GetFieldName(x => x.BoxId2)} eq {course})"));
+            //}
 
 
-            var searchParameters = new SearchParameters
-            {
-                Select = new[]
-                    {
-                    GetFieldName(x=>x.Id),
-                    GetFieldName(x=>x.Image),
-                    GetFieldName(x=>x.Name),
-                    GetFieldName(x=>x.MetaContent),
-                    GetFieldName(x=>x.Url)
-                },
-                Top = 50,
-                Skip = 50 * query.Page,
-                Filter = string.Join("and", listFilterExpression)
+            //var searchParameters = new SearchParameters
+            //{
+            //    Select = new[]
+            //        {
+            //        GetFieldName(x=>x.Id),
+            //        GetFieldName(x=>x.Image),
+            //        GetFieldName(x=>x.Name),
+            //        GetFieldName(x=>x.MetaContent),
+            //        GetFieldName(x=>x.Url)
+            //    },
+            //    Top = 50,
+            //    Skip = 50 * query.Page,
+            //    Filter = string.Join("and", listFilterExpression)
 
-            };
+            //};
 
-            var retVal = new ResultWithFacetDto<SearchResult>();
-            var result = await _client.Documents.SearchAsync<Document>(query.Query, searchParameters, cancellationToken: cancelToken);
-            retVal.Result = result.Results.Select(s => new SearchResult
-            {
-                Id = s.Document.Id,
-                Image = s.Document.Image,
-                Title = s.Document.Name,
-                Snippet = s.Document.MetaContent,
-                Url = BuildUrlWithIsNew(s.Document.Url),
-                Source = "Spitball"
-            });
-            return retVal;
+            //var retVal = new ResultWithFacetDto<SearchResult>();
+            //var result = await _client.Documents.SearchAsync<Document>(query.Query, searchParameters, cancellationToken: cancelToken);
+            //retVal.Result = result.Results.Select(s => new SearchResult
+            //{
+            //    Id = s.Document.Id,
+            //    Image = s.Document.Image,
+            //    Title = s.Document.Name,
+            //    Snippet = s.Document.MetaContent,
+            //    Url = BuildUrlWithIsNew(s.Document.Url),
+            //    Source = "Spitball"
+            //});
+            //return retVal;
         }
 
         private static string BuildUrlWithIsNew(string x)

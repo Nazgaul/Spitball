@@ -1,7 +1,4 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
+﻿using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -25,7 +22,7 @@ namespace Cloudents.Infrastructure.Search.Question
         {
             var filters = new List<string>
             {
-                $"{nameof(Core.Entities.Search.Question.Country)} eq '{query.Country}' or {nameof(Core.Entities.Search.Question.Language)} eq 'en'"
+                $"({nameof(Core.Entities.Search.Question.Country)} eq '{query.Country}' or {nameof(Core.Entities.Search.Question.Language)} eq 'en')"
             };
             if (query.Source != null)
             {
@@ -49,21 +46,14 @@ namespace Cloudents.Infrastructure.Search.Question
                 Select = new [] {nameof(Core.Entities.Search.Question.Id)},
                 Top = 50,
                 Skip = query.Page * 50,
-                //ScoringProfile = QuestionSearchWrite.ScoringProfile,
-                //ScoringParameters = new[]
-                //             {
-                //    new ScoringParameter
-                //    (QuestionSearchWrite.TagsCountryParameter
-                //        , new[] {query.Country}),
-
-                //    //new ScoringParameter
-                //    //(QuestionSearchWrite.TagsUniversityParameter
-                //    //    , new[] {query.UniversityId}),
-
-                //    //new ScoringParameter
-                //    //(QuestionSearchWrite.TagsLanguageParameter
-                //    //    , t)
-                //}
+                OrderBy = new List<string> { "search.score() desc", $"{nameof(Core.Entities.Search.Question.DateTime)} desc"  },
+                ScoringProfile = QuestionSearchWrite.ScoringProfile,
+                ScoringParameters = new[]
+                             {
+                    new ScoringParameter
+                    (QuestionSearchWrite.TagsCountryParameter
+                        , new[] {query.Country}),
+                }
 
             };
 
@@ -72,39 +62,6 @@ namespace Cloudents.Infrastructure.Search.Question
                     cancellationToken: token).ConfigureAwait(false);
 
             return result;
-
-            //var retVal = new QuestionWithFacetDto
-            //{
-            //    //Result = result.Results.Select(s => new QuestionDto()
-            //    //{
-
-            //    //    User = new UserDto
-            //    //    {
-            //    //        Id = s.Document.UserId,
-            //    //        Name = s.Document.UserName,
-            //    //        Image = s.Document.UserImage
-            //    //    },
-            //    //    Id = long.Parse(s.Document.Id),
-            //    //    DateTime = s.Document.DateTime,
-            //    //    Answers = s.Document.AnswerCount,
-            //    //    Subject = s.Document.Subject,
-            //    //    Color = s.Document.Color,
-            //    //    Files = s.Document.FilesCount,
-            //    //    HasCorrectAnswer = s.Document.HasCorrectAnswer,
-            //    //    Price = (decimal)s.Document.Price,
-            //    //    Text = s.Document.Text
-            //    //})
-            //};
-            //if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
-            //{
-            //    retVal.FacetSubject = p.Select(s => (QuestionSubject)s.AsValueFacetResult<long>().Value);
-            //}
-
-            //if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.State), out var p2))
-            //{
-            //    retVal.FacetState = p2.Select(s => (QuestionFilter)s.AsValueFacetResult<long>().Value);
-            //}
-            //return retVal;
         }
     }
 }

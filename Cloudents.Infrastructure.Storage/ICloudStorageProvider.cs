@@ -7,7 +7,7 @@ namespace Cloudents.Infrastructure.Storage
 {
     public interface ICloudStorageProvider
     {
-        CloudBlobDirectory GetBlobClient(IStorageContainer container);
+        CloudBlobClient GetBlobClient(/*IStorageContainer container*/);
         StorageCredentials GetCredentials();
         CloudQueueClient GetQueueClient();
     }

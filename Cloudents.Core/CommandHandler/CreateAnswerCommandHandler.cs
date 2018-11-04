@@ -66,15 +66,11 @@ namespace Cloudents.Core.CommandHandler
                 throw new DuplicateRowException();
             }
             var answer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
-            //var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
-
             var id = answer.Id;
 
 
-
-
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
             await Task.WhenAll(l/*.Union(new[] { t })*/).ConfigureAwait(true);
         }
