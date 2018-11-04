@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Cloudents.Core.Extension;
+using NHibernate;
+using NHibernate.Persister.Entity;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using Cloudents.Core.Extension;
-using NHibernate;
-using NHibernate.Persister.Entity;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
 
-    
+
     public class FluentQueryBuilder
     {
         private readonly ISessionFactory _sessionFactoryImplementor;
@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _paramPrefix = ":";
         }
 
-        public FluentQueryBuilder(string sqlParam,UnitOfWorkFactorySpitball unitOfWorkFactory)
+        public FluentQueryBuilder(string sqlParam, UnitOfWorkFactorySpitball unitOfWorkFactory)
         {
             _sessionFactoryImplementor = unitOfWorkFactory.GetFactory();
             _paramPrefix = sqlParam;
@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure.Database.Query
         public delegate FluentQueryBuilder Factory(string sqlParam);
 
 
-        
+
 
         #region Table
 
@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return this;
         }
 
-        
+
 
 
 
@@ -98,7 +98,7 @@ namespace Cloudents.Infrastructure.Database.Query
             }
             var aliasSeq = _abcSeq[0].ToString();
             _abcSeq.RemoveAt(0);
-            
+
             retVal = $"{aliasSeq}{_rand.Next(1000, 9999)}";
             _aliasTypes.Add(typeof(T), retVal);
             return retVal;
@@ -122,7 +122,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return this;
         }
 
-        public  FluentQueryBuilder Select<TIn, TOut>(Expression<Func<TIn, object>> expressionIn, Expression<Func<TOut, object>> expressionOut)
+        public FluentQueryBuilder Select<TIn, TOut>(Expression<Func<TIn, object>> expressionIn, Expression<Func<TOut, object>> expressionOut)
         {
             var tableAlias = GetAlias<TIn>();
 
@@ -153,6 +153,10 @@ namespace Cloudents.Infrastructure.Database.Query
             Debug.Assert(t != null, nameof(t) + " != null");
 
             return t.TableName;
+        }
+        public string TableAlias<T>()
+        {
+            return GetAlias<T>();
         }
 
         public string Column<T>(Expression<Func<T, object>> expression)
