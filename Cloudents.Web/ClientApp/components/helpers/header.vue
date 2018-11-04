@@ -157,6 +157,15 @@
                         })
                     }, this.toasterTimeout)
                 }
+            },
+            drawer(val){
+                if(!!val){
+                    document.getElementsByTagName("body")[0].className="noscroll";
+                    console.log("drawer open")
+                }else{
+                    document.body.removeAttribute("class","noscroll");
+                    console.log("drawer closed")
+                }
             }
 
         },
@@ -225,6 +234,9 @@
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
         },
+        beforeDestroy(){
+             document.body.removeAttribute("class","noscroll");
+        }
     }
 </script>
 <style src="./header.less" lang="less"></style>
