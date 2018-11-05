@@ -187,10 +187,6 @@ export default {
             }
         });
         this.getData();
-        // to do may be to consider change to State Store VueX
-        this.$root.$on('deleteAnswer', (id) => {
-            this.questionData.answers = this.questionData.answers.filter(item => item.id !== id)
-        });
         this.$root.$on('closePopUp', (name) => {
             if (name === 'suggestions') {
                 this.showDialogSuggestQuestion = false;

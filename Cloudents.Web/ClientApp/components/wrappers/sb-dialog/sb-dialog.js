@@ -55,7 +55,9 @@ export default {
         //changed from parent only!!!
         showDialog(){
             if(!!this.showDialog){
-                document.getElementsByTagName("body")[0].className="noscroll";
+                if(this.$vuetify.breakpoint.xs){
+                    document.getElementsByTagName("body")[0].className="noscroll";
+                }
                 this.show = true;
             }else{
                 document.body.removeAttribute("class","noscroll");
