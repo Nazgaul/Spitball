@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Aspose.Words;
 using Aspose.Words.Saving;
+using License = Aspose.Pdf.License;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -18,8 +20,11 @@ namespace Cloudents.Infrastructure.Framework
 
         private static void SetLicense()
         {
-            var license = new License();
-            license.SetLicense("Aspose.Total.lic");
+            using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
+            {
+                var license = new License();
+                license.SetLicense(sr);
+            }
         }
 
         //protected static string CreateCacheFileName(string blobName, int index)

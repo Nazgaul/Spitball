@@ -5,6 +5,7 @@ using Aspose.Pdf.Text.TextOptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,15 +13,14 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class PdfProcessor : IPreviewProvider2 //: Processor, IPreviewProvider
     {
-        //private const string CacheVersion = CacheVersionPrefix + "4";
 
         public PdfProcessor()
-
-        //IBlobProvider<OldSbFilesContainerName> blobProvider,
-        //IBlobProvider<OldCacheContainer> blobProviderCache)
-        //: base(blobProvider,  blobProviderCache, blobUri)
         {
-            SetLicense();
+            using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
+            {
+                var license = new License();
+                license.SetLicense(sr);
+            }
         }
 
 
@@ -50,13 +50,6 @@ namespace Cloudents.Infrastructure.Framework
             await Task.WhenAll(t);
 
         }
-
-        private static void SetLicense()
-        {
-            var license = new License();
-            license.SetLicense("Aspose.Total.lic");
-        }
-
 
         private static string ExtractPdfText(Document doc)
         {

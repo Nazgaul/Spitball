@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities.Search
@@ -17,6 +18,8 @@ namespace Cloudents.Core.Entities.Search
         public string Language { get;  set; }
         public string University { get;  set; }
         public DateTime DateTime { get; set; }
+
+        public DocumentType Type { get; set; }
 
     }
 }

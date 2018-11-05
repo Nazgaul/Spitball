@@ -27,6 +27,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Query;
 using Cloudents.Core.Query.Sync;
+using Cloudents.Infrastructure.Framework;
 using Question = Cloudents.Core.Entities.Search.Question;
 
 namespace ConsoleApp
@@ -64,6 +65,7 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure"),
                 //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
+            builder.RegisterModule<ModuleFile>();
             _container = builder.Build();
 
             if (Environment.UserName == "Ram")
@@ -87,10 +89,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
-            var query = new CoursesQuery(638);
-            var _blobProvider = _container.Resolve<IBlobProvider<DocumentContainer>>();
-            var t = await _blobProvider.FilesInDirectoryAsync("preview-", 1.ToString(), token);
+            
+            var _blobProvider = _container.Resolve<IFactoryProcessor>();
+            var z = _blobProvider.PreviewFactory("xxx.pdf");
             // await _bus.QueryAsync(query, token);
 
             //(object update, object delete, object version) =
