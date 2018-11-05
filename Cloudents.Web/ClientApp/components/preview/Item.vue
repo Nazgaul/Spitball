@@ -48,8 +48,8 @@
 
         methods: {
             ...mapActions([
-                'getPreview',
-                'updateItemDetails'
+                'getDocumentPreview',
+                'updateDocumentDetails'
             ]),
 
             buildChat() {
@@ -97,14 +97,15 @@
         },
         created() {
             let self = this;
-            this.getPreview({type: 'item', id: this.id})
-                .then(({data: body}) => {
-                    self.item = {...body.details, preview: body.preview};
-                    self.updateItemDetails({details: body.details});
-                    let postfix = self.item.preview[0].split('?')[0].split('.');
-                    self.item.type = postfix[postfix.length - 1];
-                    self.buildChat();
-                })
+           let item =  this.getDocumentPreview({type: 'item', id: this.id})
+              console.log(item, 'wer')
+                // .then(({data: body}) => {
+                //     self.item = {...body.details, preview: body.preview};
+                //     self.updateDocumentDetails({details: body.details});
+                //     let postfix = self.item.preview[0].split('?')[0].split('.');
+                //     self.item.type = postfix[postfix.length - 1];
+                //     self.buildChat();
+                // })
         },
     }
 </script>

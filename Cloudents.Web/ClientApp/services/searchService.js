@@ -8,7 +8,7 @@ const getQuestions = (params) => {
 }
 
 const getDocument = (params) => {
-    return connectivityModule.http.get("search/documents", {params});
+    return connectivityModule.http.get("/Document", {params});
 }
 
 const getFlashcard = (params) => {

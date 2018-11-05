@@ -97,7 +97,7 @@
             itemActions
         },
         computed: {
-            ...mapGetters({'item': 'itemDetails'}),
+            ...mapGetters({'item': 'getDocumentDetails'}),
 
         },
         filters: {

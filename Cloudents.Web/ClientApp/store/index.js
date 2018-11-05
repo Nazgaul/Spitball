@@ -12,6 +12,7 @@ import Toaster from "./Toaster";
 import MarketingCampaign from './marketingCampaigns'
 import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
+import document from './document'
 //TODO: server side fix
 import createPersistedState from "vuex-persistedstate"
 import notification from "./notification";
@@ -68,7 +69,8 @@ const store = new Vuex.Store({
         newQuestionDialog,
         notification,
         University,
-        uploadFiles
+        uploadFiles,
+        document
     },
     //plugins: plugins
 });
