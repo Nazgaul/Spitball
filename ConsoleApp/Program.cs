@@ -90,15 +90,48 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             
-            var _blobProvider = _container.Resolve<IFactoryProcessor>();
-            var z = _blobProvider.PreviewFactory("xxx.pdf");
+            var _bus = _container.Resolve<IQueryBus>();
+            var query = new SyncAzureQuery(1, 0);
+
+            var (update, delete, version) =
+                await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+
+
             // await _bus.QueryAsync(query, token);
 
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
         }
 
-        
+
+        private static IEnumerable<string> SplitSentence(string input)
+        {
+            //TODO: Check environment newline
+            return input.Split(new[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
+
+
+        static string StripUnwantedChars(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            var z = Regex.Replace(input, "\\b(\\S)\\s+(?=\\S)", string.Empty);
+
+            var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
+           var result = SpaceReg.Replace(z, " ");
+            result = eightOrNineDigitsId.Replace(result, string.Empty);
+            result = new string(result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray());
+            //result = result.Replace("\0", string.Empty);
+            result = result.Replace("בס\"ד", string.Empty);
+            return result.Replace("find more resources at oneclass.com", string.Empty);
+        }
+
+
 
 
         static IEnumerable<CultureInfo> FindCandidateCultures(RegionInfo region)
@@ -552,4 +585,7 @@ namespace ConsoleApp
 
 
     }
+
+
+
 }

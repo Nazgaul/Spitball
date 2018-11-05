@@ -1,4 +1,4 @@
-using Cloudents.Functions.Di;
+﻿using Cloudents.Functions.Di;
 using Cloudents.Infrastructure.Framework;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
@@ -6,6 +6,8 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,7 +54,8 @@ namespace Cloudents.Functions
                     {
                         var blob = directory.GetBlockBlobReference("text.txt");
                         blob.Properties.ContentType = "text/plain";
-                        s = Regex.Replace(s, @"\s+", " ", RegexOptions.Multiline);
+                        s = StripUnwantedChars(s);
+                        //s = Regex.Replace(s, @"\s+", " ", RegexOptions.Multiline);
                         return blob.UploadTextAsync(s, token);
                     }, pageCount =>
                     {
@@ -67,6 +70,29 @@ namespace Cloudents.Functions
                 }
                 log.Info("C# Blob trigger function Processed");
             }
+        }
+
+
+       private static string StripUnwantedChars(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            input = Regex.Replace(input, "\\b(\\S)\\s+(?=\\S)", string.Empty);
+            var result = Regex.Replace(input, @"\s+", " ");
+            var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
+
+            result = eightOrNineDigitsId.Replace(result, string.Empty);
+
+           
+            
+            result = new string(result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray());
+            
+            //result = result.Replace("\0", string.Empty);
+            result = result.Replace("בס\"ד", string.Empty);
+            return result.Replace("find more resources at oneclass.com", string.Empty);
         }
 
 

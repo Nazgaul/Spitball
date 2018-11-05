@@ -6,7 +6,7 @@ namespace Cloudents.Core.DTOs.SearchSync
 {
     public class DocumentSearchDto
     {
-        public long Id { get; set; }
+        public long ItemId { get; set; }
         public string Name { get; set; }
         public string Tags { get; set; }
 
@@ -27,7 +27,7 @@ namespace Cloudents.Core.DTOs.SearchSync
                 DateTime = DateTime,
                 Country = Country,
                 Course = Course,
-                Id = Id.ToString(),
+                Id = ItemId.ToString(),
                 Name = Name,
                 Language = Language,
                 Type = Type,

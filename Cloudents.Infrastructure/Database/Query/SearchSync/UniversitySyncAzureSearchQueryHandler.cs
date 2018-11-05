@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
 
         private static void SimilarQuery(FluentQueryBuilder qb)
         {
-            qb.Select<University>(s => s.Id, nameof(UniversitySearchDto.Id))
+            qb.Select<University>(s => s.Id, nameof(UniversitySearchDto.UniversityId))
                 .Select<University>(s => s.Name, nameof(UniversitySearchDto.Name))
                 .Select<University>(s => s.Extra, nameof(UniversitySearchDto.Extra))
                 .Select<University>(s => s.Country, nameof(UniversitySearchDto.Country))
