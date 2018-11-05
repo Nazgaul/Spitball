@@ -15,6 +15,7 @@ export const signlaREvents = {
         update: function(arrEventObj){
             arrEventObj.forEach((question)=>{
                 store.dispatch("updateQuestionItem", question)
+                store.dispatch("updateQuestionSignalR", question)
             })
         },
         addviewr: function(question){
