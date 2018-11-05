@@ -33,33 +33,10 @@ namespace Cloudents.Infrastructure.Search.Question
             {
                 if (dic.TryGetValue(long.Parse(resultResult.Document.Id), out var value))
                 {
-                    //p.Snippet = p.Snippet;
                     retVal.Result.Add(value);
                 }
 
             }
-
-            //{
-            //    //Result = result.Results.Select(s => new QuestionDto()
-            //    //{
-
-            //    //    User = new UserDto
-            //    //    {
-            //    //        Id = s.Document.UserId,
-            //    //        Name = s.Document.UserName,
-            //    //        Image = s.Document.UserImage
-            //    //    },
-            //    //    Id = long.Parse(s.Document.Id),
-            //    //    DateTime = s.Document.DateTime,
-            //    //    Answers = s.Document.AnswerCount,
-            //    //    Subject = s.Document.Subject,
-            //    //    Color = s.Document.Color,
-            //    //    Files = s.Document.FilesCount,
-            //    //    HasCorrectAnswer = s.Document.HasCorrectAnswer,
-            //    //    Price = (decimal)s.Document.Price,
-            //    //    Text = s.Document.Text
-            //    //})
-            //};
             if (searchResult.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
             {
                 retVal.FacetSubject = p.Select(s => (QuestionSubject)s.AsValueFacetResult<long>().Value);
@@ -70,7 +47,6 @@ namespace Cloudents.Infrastructure.Search.Question
                 retVal.FacetState = p2.Select(s => (QuestionFilter)s.AsValueFacetResult<long>().Value);
             }
             return retVal;
-            //QuestionsByIdsQuery
         }
     }
 }

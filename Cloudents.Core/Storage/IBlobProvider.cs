@@ -13,10 +13,10 @@ namespace Cloudents.Core.Storage
             string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default);
 
         Task UploadBlockFileAsync(string blobName, Stream fileContent, int index, CancellationToken token);
-        Task CommitBlockListAsync(string blobName, IList<int> indexes, CancellationToken token);
+       // Task CommitBlockListAsync(string blobName, IList<int> indexes, CancellationToken token);
         Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
 
-        string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes);
+        //string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes);
 
         string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes,
             string contentDisposition);
@@ -30,8 +30,8 @@ namespace Cloudents.Core.Storage
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
         Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token);
-        Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token);
-        Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token);
+        //Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token);
+        //Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token);
     }
 
     

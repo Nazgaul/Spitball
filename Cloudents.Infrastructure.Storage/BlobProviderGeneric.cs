@@ -89,11 +89,11 @@ namespace Cloudents.Infrastructure.Storage
             }, null, token);
         }
 
-        public Task CommitBlockListAsync(string blobName, IList<int> indexes, CancellationToken token)
-        {
-            var blob = GetBlob(blobName);
-            return blob.PutBlockListAsync(indexes.Select(ToBase64));
-        }
+        //public Task CommitBlockListAsync(string blobName, IList<int> indexes, CancellationToken token)
+        //{
+        //    var blob = GetBlob(blobName);
+        //    return blob.PutBlockListAsync(indexes.Select(ToBase64));
+        //}
 
         public Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token)
         {
@@ -162,7 +162,6 @@ namespace Cloudents.Infrastructure.Storage
 
         public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix,string directory, CancellationToken token)
         {
-            var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
             var path = $"{_container.Container.RelativePath}/{directory}/{prefix}";
             var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, BlobListingDetails.None, 1000, null, null, null, token);
             
@@ -179,22 +178,22 @@ namespace Cloudents.Infrastructure.Storage
             return ms;
         }
 
-        public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token)
-        {
-            var blob = GetBlob(blobUri);// GetFile(blobName);
-            await blob.FetchAttributesAsync().ConfigureAwait(false);
-            return blob.Metadata;
-        }
+        //public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token)
+        //{
+        //    var blob = GetBlob(blobUri);// GetFile(blobName);
+        //    await blob.FetchAttributesAsync().ConfigureAwait(false);
+        //    return blob.Metadata;
+        //}
 
-        public Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token)
-        {
-            if (metadata == null) throw new ArgumentNullException(nameof(metadata));
-            var blob = GetBlob(blobUri);
-            foreach (var item in metadata)
-            {
-                blob.Metadata[item.Key] = item.Value;
-            }
-            return blob.SetMetadataAsync();
-        }
+        //public Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token)
+        //{
+        //    if (metadata == null) throw new ArgumentNullException(nameof(metadata));
+        //    var blob = GetBlob(blobUri);
+        //    foreach (var item in metadata)
+        //    {
+        //        blob.Metadata[item.Key] = item.Value;
+        //    }
+        //    return blob.SetMetadataAsync();
+        //}
     }
 }
