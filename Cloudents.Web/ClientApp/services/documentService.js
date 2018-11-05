@@ -1,12 +1,16 @@
 import { connectivityModule } from "./connectivity.module"
 
 function DocumentItem(ObjInit){
+    this.name = ObjInit.name || '';
+    this.date = ObjInit.date || '';
     this.course = ObjInit.course || '';
     this.id= ObjInit.id || '';
-    this.title= ObjInit.title || '';
     this.university= ObjInit.university || '';
     this.user = ObjInit.user || {};
-    this.views= ObjInit.views || '';
+    this.views = ObjInit.views || 0;
+    this.pages = ObjInit.pages || '';
+    this.extension = ObjInit.extension || '';
+    this.docType = ObjInit.type || '';
 };
 function createDocumentItem(ObjInit){
     return new DocumentItem(ObjInit)
@@ -14,9 +18,6 @@ function createDocumentItem(ObjInit){
 
 export default {
     sendDocumentData: (data) => connectivityModule.http.post("/Document", data),
-    getDocument : (id) => connectivityModule.http.get(`/Document/${id}`)
-        .then((re)=>{
-           console.log('rererere', re)
-        }),
+    getDocument : (id) => connectivityModule.http.get(`/Document/${id}`),
     createDocumentItem
 }
