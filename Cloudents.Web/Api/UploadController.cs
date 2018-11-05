@@ -65,7 +65,7 @@ namespace Cloudents.Web.Api
 
                 using (var sr = formFile.OpenReadStream())
                 {
-                    Image.FromStream(sr);
+                    //Image.FromStream(sr);
                     var fileName = $"{userId}.{Guid.NewGuid()}.{formFile.FileName}";
                     await _blobProvider
                         .UploadStreamAsync(fileName, sr, formFile.ContentType, false, 60 * 24, token);

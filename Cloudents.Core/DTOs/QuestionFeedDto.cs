@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Cloudents.Core.Enum;
 
@@ -28,6 +29,13 @@ namespace Cloudents.Core.DTOs
             Color = color;
             HasCorrectAnswer = hasCorrectAnswer;
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
+        }
+
+        
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "We need this for next question query")]
+        public QuestionFeedDto()
+        {
+            
         }
 
         public long Id { get; set; }

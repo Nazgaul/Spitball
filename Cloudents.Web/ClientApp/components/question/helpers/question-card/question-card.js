@@ -134,7 +134,6 @@ export default {
                         } else {
                             //emit to root to update array of answers
                             this.$ga.event("Delete_answer", "Homework help");
-                            this.$root.$emit('deleteAnswer', this.cardData.id);
                             this.isDeleted = true
                         }
                     },

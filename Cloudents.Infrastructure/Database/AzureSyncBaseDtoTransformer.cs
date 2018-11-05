@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using NHibernate.Util;
 
 namespace Cloudents.Infrastructure.Database
 {
@@ -15,7 +16,8 @@ namespace Cloudents.Infrastructure.Database
             var dic = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
             for (var i = 0; i < aliases.Length; i++)
             {
-                dic[aliases[i]] = tuple[i];
+                dic.Add(aliases[i], tuple[i]);
+                
             }
 
             var x = new T { Data = new TU() };
