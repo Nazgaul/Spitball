@@ -132,6 +132,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual IList<IEvent> Events { get; protected set; }
 
+        [CanBeNull]
         public virtual CultureInfo Language { get; protected set; }
 
         public virtual void SetLanguage(CultureInfo info)

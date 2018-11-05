@@ -42,18 +42,15 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Where(w => w.User.Id == query.Id)
                 .Where(w => w.State == null || w.State == QuestionState.Ok)
                 .OrderByDescending(o => o.Id)
-                .Select(s => new QuestionFeedDto
-                {
-                    Text = s.Text,
-                    Answers = s.Answers.Count,
-                    DateTime = s.Updated,
-                    Files = s.Attachments,
-                    Price = s.Price,
-                    Id = s.Id,
-                    Subject = s.Subject,
-                    Color = s.Color,
-                    HasCorrectAnswer = s.CorrectAnswer != null
-                }).ToFuture();
+                .Select(s => new QuestionFeedDto(s.Id,
+                    s.Subject,
+                    s.Price,
+                    s.Text,
+                    s.Attachments,
+                    s.Answers.Count,
+                    s.Updated,
+                    s.Color, s.CorrectAnswer.Id != null, s.Language)
+                ).ToFuture();
 
             var answerQuery = _session.Query<Answer>()
                 .Fetch(f => f.Question);
@@ -62,24 +59,21 @@ namespace Cloudents.Infrastructure.Database.Query
 
             var futureAnswers = answerQuery.Where(w => w.User.Id == query.Id)
                 .OrderByDescending(o => o.Question.Id)
-                .Select(s => new QuestionFeedDto
-                {
-                    Text = s.Question.Text,
-                    Answers = s.Question.Answers.Count,
-                    DateTime = s.Question.Updated,
-                    Files = s.Question.Attachments,
-                    Price = s.Question.Price,
-                    Id = s.Question.Id,
-                    Subject = s.Question.Subject,
-                    Color = s.Question.Color,
-                    HasCorrectAnswer = s.Question.CorrectAnswer != null,
-                    User = new UserDto
+                .Select(s=> new QuestionFeedDto(s.Question.Id,
+                    s.Question.Subject,
+                    s.Question.Price,
+                    s.Question.Text,
+                    s.Question.Attachments,
+                    s.Question.Answers.Count,
+                    new UserDto()
                     {
                         Id = s.Question.User.Id,
                         Name = s.Question.User.Name,
                         Image = s.Question.User.Image
-                    }
-                }).ToFuture();
+                    }, s.Question.Updated,
+                    s.Question.Color, s.Question.CorrectAnswer.Id != null, s.Question.Language))
+
+                .ToFuture();
 
 
 

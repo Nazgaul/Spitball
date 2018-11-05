@@ -13,12 +13,12 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -34,7 +34,9 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<DocumentController> _localizer;
 
         public DocumentController(IQueryBus queryBus,
-             ICommandBus commandBus, UserManager<User> userManager, IBlobProvider<DocumentContainer> blobProvider, SignInManager<User> signInManager, IStringLocalizer<DocumentController> localizer)
+             ICommandBus commandBus, UserManager<User> userManager,
+            IBlobProvider<DocumentContainer> blobProvider,
+            SignInManager<User> signInManager, IStringLocalizer<DocumentController> localizer)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -45,14 +47,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(long id, CancellationToken token)
+        public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id, CancellationToken token)
         {
             var query = new DocumentById(id);
             var tModel = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
-            //var tContent = firstTime.GetValueOrDefault() ?
-            //    _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
-
-            //https://stackoverflow.com/questions/6396378/c-sharp-linq-orderby-numbers-that-are-string-and-you-cannot-convert-them-to-int
             var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
 
             await Task.WhenAll(tModel, filesTask);
@@ -63,15 +61,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            //var preview = _factoryProcessor.PreviewFactory(model.Blob);
-            //var result = await preview.ConvertFileToWebsitePreviewAsync(0, token).ConfigureAwait(false);
-
-            return Ok(
-                new
-                {
-                    details = model,
-                    preview = files
-                });
+            return new DocumentPreviewResponse(model, files);
         }
 
         [HttpPost, Authorize]
@@ -102,16 +92,14 @@ namespace Cloudents.Web.Api
             [FromServices] IDocumentSearch ilSearchProvider,
             CancellationToken token)
         {
-
             model = model ?? new DocumentRequest();
-
-            var query = new DocumentQuery(model.Course, universityId, model.Query, country, model.Page.GetValueOrDefault());
-            
+            var query = new DocumentQuery(model.Course, universityId, model.Query, country,
+                model.Page.GetValueOrDefault(), model.Source);
 
             var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);
-
             if (_signInManager.IsSignedIn(User))
             {
+                //TODO: we have too much queries in here - need to fix that
                 var userId = _signInManager.UserManager.GetLongUserId(User);
                 var dbQuery = new CoursesQuery(userId);
                 coursesTask = _queryBus.QueryAsync(dbQuery, token);
@@ -132,15 +120,14 @@ namespace Cloudents.Web.Api
             {
                 filters.Add(
 
-                    new Filters<string>(nameof(SearchRequest.Source), _localizer["Sources"],
+                    new Filters<string>(nameof(DocumentRequest.Source), _localizer["Sources"],
                         result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
-
                 );
             }
 
             if (coursesTask.Result != null)
             {
-                filters.Add(new Filters<string>(nameof(SearchRequest.Course),
+                filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
                     _localizer["CoursesFilterTitle"],
                     coursesTask.Result.Select(s => new KeyValuePair<string, string>(s.Name, s.Name))));
             }

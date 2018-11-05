@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using License = Aspose.Pdf.License;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -14,7 +16,11 @@ namespace Cloudents.Infrastructure.Framework
         public ExcelProcessor()
 
         {
-            SetLicense();
+            using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
+            {
+                var license = new License();
+                license.SetLicense(sr);
+            }
         }
 
         private static void ScalePageSetupToFitPage(Worksheet workSheet)
@@ -24,15 +30,6 @@ namespace Cloudents.Infrastructure.Framework
             workSheet.PageSetup.FitToPagesWide = 0;
             workSheet.PageSetup.PaperSize = PaperSizeType.PaperA4;
         }
-
-        private static void SetLicense()
-        {
-            var license = new License();
-            license.SetLicense("Aspose.Total.lic");
-        }
-
-
-
 
 
         public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };

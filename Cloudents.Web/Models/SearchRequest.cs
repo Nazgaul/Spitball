@@ -52,6 +52,8 @@ namespace Cloudents.Web.Models
 
     public class DocumentRequest : IPaging
     {
+        public string[] Source { get; set; }
+
         /// <summary>
         /// User courses id
         /// </summary>

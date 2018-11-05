@@ -1,10 +1,35 @@
 ﻿using System;
+using System.Globalization;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
     public class QuestionFeedDto
     {
+        public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text, int files,
+            int answers, UserDto user, DateTime dateTime, QuestionColor? color, bool hasCorrectAnswer, CultureInfo culture)
+        :this(id,subject,price,text,files,answers,dateTime,color,hasCorrectAnswer,culture)
+        {
+          
+            User = user;
+            
+        }
+
+        public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text,
+            int files, int answers, DateTime dateTime, QuestionColor? color, bool hasCorrectAnswer, CultureInfo culture)
+        {
+            Id = id;
+            Subject = subject;
+            Price = price;
+            Text = text;
+            Files = files;
+            Answers = answers;
+            DateTime = dateTime;
+            Color = color;
+            HasCorrectAnswer = hasCorrectAnswer;
+            IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
+        }
+
         public long Id { get; set; }
         public QuestionSubject Subject { get; set; }
         public decimal Price { get; set; }
@@ -18,5 +43,7 @@ namespace Cloudents.Core.DTOs
         public QuestionColor? Color { get; set; }
 
         public bool HasCorrectAnswer { get; set; }
+
+        public bool IsRtl { get; set; }
     }
 }

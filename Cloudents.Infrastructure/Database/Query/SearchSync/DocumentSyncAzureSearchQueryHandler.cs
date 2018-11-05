@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             qb.Select<Document>(x => x.Course, nameof(DocumentSearchDto.Course));
             qb.Select<Document>(x => x.Language, nameof(DocumentSearchDto.Language));
             qb.Select<Document>(x => x.University, nameof(DocumentSearchDto.University));
-
+            qb.Select<Document>(x => x.Type, nameof(DocumentSearchDto.Type));
             //TODO - we do not implement component as expression
             qb.Select(
                 $"{qb.TableAlias<Document>()}.{nameof(Document.TimeStamp.CreationTime)} as {nameof(DocumentSearchDto.DateTime)}");

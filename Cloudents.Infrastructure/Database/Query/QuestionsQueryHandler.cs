@@ -24,27 +24,24 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IList<QuestionFeedDto>> GetAsync(IdsQuery<long> query, CancellationToken token)
         {
             var ids = query.QuestionIds.ToList();
+            
             return await _session.Query<Question>()
                  .Fetch(f => f.User)
                  .Where(w => ids.Contains(w.Id))
-                 .Select(s => new QuestionFeedDto
-                 {
-                     Id = s.Id,
-                     User = new UserDto()
-                     {
-                         Id = s.User.Id,
-                         Name = s.User.Name,
-                         Image = s.User.Image
-                     },
-                     Answers = s.Answers.Count,
-                     DateTime = s.Updated,
-                     Subject = s.Subject,
-                     Text = s.Text,
-                     Color = s.Color,
-                     Files = s.Attachments,
-                     Price = s.Price,
-                     HasCorrectAnswer = s.CorrectAnswer.Id != null
-                 })
+                 .Select(s => new QuestionFeedDto(s.Id,
+                    s.Subject,
+                    s.Price,
+                    s.Text,
+                    s.Attachments,
+                    s.Answers.Count,
+                    new UserDto()
+                    {
+                        Id = s.User.Id,
+                        Name = s.User.Name,
+                        Image = s.User.Image
+                    }, s.Updated,
+                    s.Color, s.CorrectAnswer.Id != null, s.Language)
+                 )
                 .ToListAsync(token);
 
         }

@@ -19,11 +19,6 @@ namespace Cloudents.Core.CommandHandler
         {
             
             var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
-            if (user == null)
-            {
-                //User not exists not crashing the system.
-                return;
-            }
 
             var transaction = Transaction.ReferringUserTransaction(user);
             user.AddTransaction(transaction);

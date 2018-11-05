@@ -1,4 +1,6 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -20,7 +22,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-        
+        [Cache(TimeConst.Day, "user-courses", true)]
         public async Task<IEnumerable<CourseDto>> GetAsync(CoursesQuery query, CancellationToken token)
         {
             //TODO: we can do the sql better

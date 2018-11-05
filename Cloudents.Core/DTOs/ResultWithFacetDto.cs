@@ -19,17 +19,17 @@ namespace Cloudents.Core.DTOs
             Result = new List<T>();
         }
         [ItemCanBeNull]
-        public IList<T> Result { get; set; }
+        public List<T> Result { get; set; }
         public IEnumerable<string> Facet { get; set; }
     }
 
 
     public class QuestionWithFacetDto
     {
-        //public ResultWithFacetDto2()
-        //{
-        //    Facets = new Dictionary<string, IEnumerable<string>>();
-        //}
+        public QuestionWithFacetDto()
+        {
+            Result = new List<QuestionFeedDto>();
+        }
         [ItemCanBeNull]
         public IList<QuestionFeedDto> Result { get; set; }
         public IEnumerable<QuestionFilter> FacetState { get; set; }
