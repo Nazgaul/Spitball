@@ -1,20 +1,4 @@
 ﻿<template>
-    <!--<main-header class="elevation-0" :toolbarHeight="$vuetify.breakpoint.mdAndUp ? 140 : 182" layoutClass="header-elements">-->
-    <!--<nav class="item-header elevation-0 mt-2" slot="extraHeader">-->
-    <!--<div class="item-header-content">-->
-    <!--<v-layout row align-center justify-space-between>-->
-    <!--<h1 class="item-name">{{item.name}}</h1>-->
-    <!--<item-actions></item-actions>-->
-    <!--</v-layout>-->
-    <!--<v-flex class="item-meta mt-2">-->
-    <!--<v-layout row align-center justify-space-between>-->
-    <!--<div class="author">{{item.owner}}</div>-->
-    <!--<div class="date">{{item.date | mediumDate}}</div>-->
-    <!--</v-layout>-->
-    <!--</v-flex>-->
-    <!--</div>-->
-    <!--</nav>-->
-    <!--</main-header>-->
     <div class="header-wrap">
         <nav class="item-header doc-header  mt-2" slot="extraHeader">
             <div class="item-header-content">
@@ -34,12 +18,12 @@
                     </div>
                     <item-actions></item-actions>
                 </v-layout>
-                <v-flex class="item-meta mt-2">
-                    <v-layout row align-center justify-space-between>
-                        <!--<div class="author">{{item.owner}}</div>-->
-                        <!--<div class="date">{{item.date | mediumDate}}</div>-->
-                    </v-layout>
-                </v-flex>
+                <!--<v-flex class="item-meta mt-2">-->
+                    <!--<v-layout row align-center justify-space-between>-->
+                        <!--&lt;!&ndash;<div class="author">{{item.owner}}</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="date">{{item.date | mediumDate}}</div>&ndash;&gt;-->
+                    <!--</v-layout>-->
+                <!--</v-flex>-->
             </div>
         </nav>
         <div class="details-content">

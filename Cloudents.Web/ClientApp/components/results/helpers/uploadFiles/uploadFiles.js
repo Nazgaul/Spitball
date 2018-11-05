@@ -30,7 +30,7 @@ export default {
             steps: 7,
             currentStep: 1,
             step: 1,
-            stepsProgress: 100 / 7,
+            stepsProgress: 100 / 6,
             gotoAsk: false,
             transitionAnimation: 'slide-y-transition',
             callBackmethods: {
@@ -65,7 +65,7 @@ export default {
         },
         // button disabled for each step and enabled once everything filled
         isDisabled() {
-            if (this.currentStep === 2 && !this.getFileData.courses) {
+            if (this.currentStep === 2 && !this.getFileData.course) {
                 return true
             }
             else if (this.currentStep === 3 && Object.keys(this.getFileData.type).length === 0) {
@@ -120,7 +120,7 @@ export default {
                 this.currentStep = 1
             } else {
                 this.currentStep = this.currentStep + 1;
-                this.stepsProgress = ((100 / 7) * this.currentStep);
+                this.stepsProgress = ((100 / 6) * this.currentStep);
 
             }
             console.log('step', this.stepsProgress, this.currentStep);
@@ -131,7 +131,7 @@ export default {
                 return this.currentStep = 1;
             } else {
                 this.currentStep = this.currentStep - 1;
-                this.stepsProgress = ((100 / 7) * this.currentStep);
+                this.stepsProgress = ((100 / 6) * this.currentStep);
             }
 
         },

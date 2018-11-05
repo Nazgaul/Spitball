@@ -5,7 +5,7 @@ function FileData(ObjInit){
         this.blobName = ObjInit.blobName || '';
         this.name= ObjInit.name || '';
         this.type= ObjInit.type || '';
-        this.courses= ObjInit.courses || '';
+        this.course= ObjInit.course || '';
         this.tags = ObjInit.tags || [];
         this.proffesorName= ObjInit.proffesorName || '';
 }

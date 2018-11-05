@@ -57,9 +57,6 @@
 }
 
 .upload-dialog {
-  .input-field {
-    font-size: 13px;
-  }
   position: relative;
   font-family: 'Fira Sans', sans-serif;
   .close-upload-btn-icon {
@@ -101,6 +98,7 @@
             justify-content: center;
             .sbf {
               color: @labelColor;
+              font-size: 22px;
               &.sb-close {
                 font-size: 8px;
                 cursor: pointer;
@@ -123,6 +121,9 @@
           font-size: 14px;
           font-weight: 500;
           height: @buttonHeigh;
+          &[disabled]{
+            color: @color-white!important;
+          }
           &.sell {
             width: 202px;
             padding: 0 16px;
@@ -187,7 +188,21 @@
       //sb-stepper-header
       .sb-stepper-item {
         .scrollBarStyle();
-        //background-color: @stepContentBackground;
+        input[type="text"]{
+          font-size: 13px;
+        }
+        .input-wrapper {
+          width: 100%;
+          .input-field {
+            .placeholder-color(@colorGreyLight);
+            font-size: 13px;
+            padding: 12px;
+            border: solid 1px @colorInputNotFocused;
+            &:focus{
+              border: solid 1px @colorInputFocus;
+            }
+          }
+        }
         .sb-stepper-content {
           border: 1px dashed @colorUploadBlue;
           //padding: 0;
@@ -261,10 +276,10 @@
                           min-width: 320px;
                           .input-field {
                             border-radius: 4px 0 0 4px;
-                            border-color: @borderGreyColor;
+                            border-color: @colorGreyLight;
                             border-right: none;
                             font-size: 12px;
-                            color: @borderGreyColor;
+                            color: @colorGreyLight;
                           }
                         }
                         .referral-btn {
@@ -428,9 +443,6 @@
                   width: 100%;
                   flex-wrap: wrap;
                   align-items: flex-start;
-                  .input-wrapper {
-                    width: 100%;
-                  }
                   .wrap-row-price {
                     display: flex;
                     min-width: 134px;
@@ -458,6 +470,7 @@
                         max-width: 125px;
                         height: 90px;
                         .input-field {
+                          .placeholder-color(@placeholderGrey, 1);
                           font-size: 36px;
                           color: @colorPrice;
                           text-align: center;
@@ -466,7 +479,7 @@
                           &:focus {
                             outline: none;
                           }
-                          .placeholder-color(@placeholderGrey, 1)
+
                         }
                       }
                       .sbl-suffix {
@@ -502,7 +515,7 @@
                       bottom: -20px;
                       left: 0;
                       font-size: 12px;
-                      color: @borderGreyColor;
+                      color: @colorGreyLight;
                     }
                   }
                   .steps-form-label {
@@ -545,6 +558,7 @@
                   .sbf-class-chip {
                     margin-left: 0;
                     margin-right: 8px;
+                    font-size: 12px;
                     &.v-chip--selected {
                       color: @chipActiveColor;
                       background-color: @uploadGreyBackground;
@@ -575,7 +589,7 @@
                 flex-direction: row;
                 padding-top: 88px;
                 .sb-doc-type {
-                  border: 1px solid @borderGreyColor;
+                  border: 1px solid @colorGreyLight;
                   border-radius: 4px;
                   display: flex;
                   flex-direction: column;
@@ -586,7 +600,7 @@
                   justify-content: space-around;
                   .sb-doc-icon {
                     font-size: 35px;
-                    color: @borderGreyColor;
+                    color: @colorGreyLight;
 
                   }
                   .sb-doc-title {
@@ -631,7 +645,7 @@
                 }
               }
               .final-item {
-                border: 1px solid @borderGreyColor;
+                border: 1px solid @colorGreyLight;
                 border-radius: 4px;
                 height: 96px;
                 display: flex;
@@ -648,10 +662,10 @@
                   right: 8px;
                   top: 8px;
                   font-size: 12px;
-                  color: @borderGreyColor;
+                  color: @colorGreyLight;
                   .edit-icon {
                     font-size: 14px;
-                    color: @borderGreyColor;
+                    color: @colorGreyLight;
                   }
 
                 }
@@ -815,7 +829,7 @@
                     box-shadow: none;
                     border: 1px solid @inputGreyBorder;
                     border-radius: 4px;
-                    padding: 0 4px;
+                    padding: 0 8px;
                     background: transparent;
                     .v-select__selections {
 
@@ -907,6 +921,9 @@
                 }
                 .input-wrapper {
                   width: 100%;
+                  .input-field {
+                    font-size: 13px;
+                  }
                 }
                 .steps-form-label {
                   font-family: 'Open Sans', sans-serif;
@@ -924,6 +941,7 @@
                   .sbf-class-chip {
                     margin-left: 0;
                     margin-right: 8px;
+                    font-size: 12px;
                     &.v-chip--selected {
                       color: @chipActiveColor;
                       background-color: @uploadGreyBackground;

@@ -74,7 +74,7 @@
             openUploaderDialog() {
                 if (this.accountUser == null) {
                     this.updateLoginDialogState(true);
-                } else if (this.accountUser.universityExists && this.isClassesSet) {
+                } else if (this.accountUser.universityExists && !this.isClassesSet) {
                     this.updateDialogState(true);
                 } else {
                     this.changeSelectPopUpUniState(true)
