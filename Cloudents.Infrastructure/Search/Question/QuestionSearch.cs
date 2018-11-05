@@ -26,9 +26,18 @@ namespace Cloudents.Infrastructure.Search.Question
             var ids = searchResult.Results.Select(s => long.Parse(s.Document.Id));
             var queryDb = new IdsQuery<long>(ids);
             var dbResult = await _queryBus.QueryAsync<IList<QuestionFeedDto>>(queryDb, token);
+            var dic = dbResult.ToDictionary(x => x.Id);
 
+            var retVal = new QuestionWithFacetDto();// {Result = dbResult};
+            foreach (var resultResult in searchResult.Results)
+            {
+                if (dic.TryGetValue(long.Parse(resultResult.Document.Id), out var value))
+                {
+                    //p.Snippet = p.Snippet;
+                    retVal.Result.Add(value);
+                }
 
-            var retVal = new QuestionWithFacetDto {Result = dbResult};
+            }
 
             //{
             //    //Result = result.Results.Select(s => new QuestionDto()
