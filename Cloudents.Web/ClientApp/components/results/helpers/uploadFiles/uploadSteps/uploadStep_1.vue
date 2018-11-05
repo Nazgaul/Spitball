@@ -41,7 +41,7 @@
         </div>
         <div class="upload-row-3">
             <div :class="['btn-holder', $refs.upload && $refs.upload.dropActive ? 'drop-active' : '' ]">
-                <v-icon>sbf-upload-drag</v-icon>
+                <!--<v-icon>sbf-upload-drag</v-icon>-->
                 <span class="btn-label" v-language:inner>upload_files_btn_drop</span>
             </div>
         </div>

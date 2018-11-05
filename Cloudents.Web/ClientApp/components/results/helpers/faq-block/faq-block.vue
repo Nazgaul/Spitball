@@ -2,7 +2,7 @@
     <v-flex class="right-sidebar">
         <askQuestionBtn v-if="isAsk"></askQuestionBtn>
         <!--open upload-->
-        <a class="upload-files" v-if="isNotes" @click="openUploaderDialog()" v-language:inner>upload_btn_open</a>
+        <a class="upload-files" v-if="!isNotes" @click="openUploaderDialog()" v-language:inner>upload_btn_open</a>
         <v-flex xs12 class="card-block">
             <div class="header" v-language:inner>faqBlock_faq</div>
             <div class="content">

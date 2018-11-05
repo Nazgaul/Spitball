@@ -49,7 +49,7 @@
                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                     <span v-language:inner>upload_files_edit</span>
                 </div>
-                <div class="final-item-wrap mb-1">
+                <div class="final-item-wrap">
                     <v-icon class="final-icon tags">sbf-tag-icon</v-icon>
                     <span class="item-name"  v-language:inner>upload_files_label_tags</span>
 
