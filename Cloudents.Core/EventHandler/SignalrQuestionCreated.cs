@@ -21,24 +21,24 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
-            var dto = new QuestionFeedDto
+            var user = new UserDto
             {
-                User = new UserDto
-                {
-                    Id = eventMessage.Question.User.Id,
-                    Name = eventMessage.Question.User.Name,
-                    Image = eventMessage.Question.User.Image
-                },
-                Answers = 0,
-                Id = eventMessage.Question.Id,
-                DateTime = DateTime.UtcNow,
-                Files = eventMessage.Question.Attachments,
-                HasCorrectAnswer = false,
-                Price = eventMessage.Question.Price,
-                Text = eventMessage.Question.Text,
-                Color = eventMessage.Question.Color,
-                Subject = eventMessage.Question.Subject
+                Id = eventMessage.Question.User.Id,
+                Name = eventMessage.Question.User.Name,
+                Image = eventMessage.Question.User.Image
             };
+            var dto = new QuestionFeedDto(eventMessage.Question.Id,
+                eventMessage.Question.Subject,
+                eventMessage.Question.Price,
+                eventMessage.Question.Text,
+                eventMessage.Question.Attachments,
+                0,
+                user,
+                DateTime.UtcNow,
+                eventMessage.Question.Color,
+                false,
+                eventMessage.Question.Language);
+            
             await _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Add, dto), token);
         }
     }

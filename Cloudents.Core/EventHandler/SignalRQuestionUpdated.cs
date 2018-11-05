@@ -9,7 +9,8 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class SignalRQuestionUpdated : IEventHandler<MarkAsCorrectEvent>, IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>
+    public class SignalRQuestionUpdated : IEventHandler<MarkAsCorrectEvent>, 
+        IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>
     {
         private readonly IQueueProvider _queueProvider;
 
@@ -20,24 +21,25 @@ namespace Cloudents.Core.EventHandler
 
         private async Task Handle(Question question, CancellationToken token)
         {
-            var dto = new QuestionFeedDto
+            var user = new UserDto
             {
-                User = new UserDto
-                {
-                    Id = question.User.Id,
-                    Name = question.User.Name,
-                    Image = question.User.Image
-                },
-                Answers = question.Answers.Count,
-                Id = question.Id,
-                DateTime = question.Updated,
-                Files = question.Attachments,
-                HasCorrectAnswer = question.CorrectAnswer != null,
-                Price = question.Price,
-                Text = question.Text,
-                Color = question.Color,
-                Subject = question.Subject
+                Id = question.User.Id,
+                Name = question.User.Name,
+                Image = question.User.Image
             };
+            var dto = new QuestionFeedDto(question.Id,
+                question.Subject,
+                question.Price,
+                question.Text,
+                question.Attachments,
+                question.Answers.Count,
+                user,
+                question.Updated,
+                question.Color,
+                question.CorrectAnswer?.Id != null,
+                question.Language);
+
+            
             await _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Update, dto), token);
         }
 
