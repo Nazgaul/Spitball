@@ -37,11 +37,11 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
 
         private void SimilarQuery(FluentQueryBuilder qb)
         {
-            qb.Join<Question, User>(q => q.User, u => u.Id)
+            qb.LeftJoin<Question, User>(q => q.User, u => u.Id)
             //qb.Select<User>(x => x.Id, nameof(QuestionSearchDto.UserId))
              //   .Select<User>(x => x.Name, nameof(QuestionSearchDto.UserName))
              //   .Select<User>(x => x.Image, nameof(QuestionSearchDto.UserImage))
-                .Select<Question>(x => x.Id, nameof(QuestionSearchDto.Id))
+                .Select<Question>(x => x.Id, nameof(QuestionSearchDto.QuestionId))
                 .Select<Question>(x => x.Language, nameof(QuestionSearchDto.Language))
                 .Select<User>(x => x.Country, nameof(QuestionSearchDto.Country))
                 .Select(

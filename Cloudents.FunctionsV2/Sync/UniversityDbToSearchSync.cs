@@ -38,7 +38,7 @@ namespace Cloudents.FunctionsV2.Sync
                 return new University
                 {
                     Name = s.Name,
-                    Id = s.Id,
+                    Id = s.UniversityId,
                     Country = s.Country,
                     Extra = s.Extra,
                     DisplayName = s.Name,

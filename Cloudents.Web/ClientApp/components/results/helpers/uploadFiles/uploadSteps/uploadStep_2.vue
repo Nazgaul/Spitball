@@ -63,7 +63,7 @@
             ...mapActions([ 'updateFile']),
             // update data methods
             updateClass(singleClass) {
-                this.updateFile({'courses':singleClass});
+                this.updateFile({'course':singleClass});
                 this.selectedClass = singleClass;
             },
         },

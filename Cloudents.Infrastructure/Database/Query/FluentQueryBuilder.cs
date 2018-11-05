@@ -88,6 +88,19 @@ namespace Cloudents.Infrastructure.Database.Query
             //on { _user.Column(x => x.Id)}={ _question.Column(x => x.User)}
         }
 
+        public FluentQueryBuilder LeftJoin<TExists, TNew>(Expression<Func<TExists, object>> expressionExists,
+            Expression<Func<TNew, object>> expressionNew)
+        {
+            var tableAlias = GetAlias<TNew>();
+
+            var sql =
+                $"left join {Table<TNew>()} {tableAlias} On {ColumnAlias(expressionNew)} = {ColumnAlias(expressionExists)}";
+            _fromStringBuilder.AppendLine(sql);
+            return this;
+            //join { _user.TableAlias}
+            //on { _user.Column(x => x.Id)}={ _question.Column(x => x.User)}
+        }
+
         #endregion
 
         private string GetAlias<T>()

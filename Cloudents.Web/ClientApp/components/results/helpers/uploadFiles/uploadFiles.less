@@ -3,16 +3,11 @@
 @import "style-helpers/scroll-bar.less";
 @import "style-helpers/docType-animate.less";
 
-
-//@textColor: rgba(0, 0, 0, 0.87);
 @uploadGreyBackground: rgba(68, 82, 252, 0.09);
 @uploadGrey: #D1D1D1;
 @stepContentBackground: rgba(68, 82, 252, 0.02);
-//@stepSubTitleColor: rgba(0, 0, 0, 0.54);
 @maxWidthForm: 430px;
-//@labelColor: rgba(68, 82, 252, 0.38);
 @borderOpacityGrey: rgba(151, 151, 151, 0.18);
-//@borderGreyColor: rgba(0, 0, 0, 0.25);
 @chipActiveColor: rgba(68, 82, 252, 0.87);
 @colorPrice: rgba(74, 74, 74, 0.87);
 @placeholderGrey: rgba(74, 74, 74, 0.25);
@@ -21,10 +16,12 @@
 .paddingTopSm {
   padding-top: 44px;
 }
+
 .v-select__selections {
   min-height: 42px !important;
   padding-top: 0 !important;
 }
+
 .paddingTopBg {
   padding-top: 88px;
 }
@@ -34,11 +31,12 @@
   height: 221px;
   width: 165px;
   transform: rotate(0deg);
-  input{
+  input {
     height: 221px;
     width: 165px;
   }
 }
+
 .upload-files {
   border-radius: 4px;
   //TODO ui changes
@@ -61,7 +59,7 @@
 .upload-dialog {
   position: relative;
   font-family: 'Fira Sans', sans-serif;
-  .close-upload-btn-icon{
+  .close-upload-btn-icon {
     position: absolute;
     right: 16px;
     top: 21px;
@@ -100,6 +98,7 @@
             justify-content: center;
             .sbf {
               color: @labelColor;
+              font-size: 22px;
               &.sb-close {
                 font-size: 8px;
                 cursor: pointer;
@@ -122,6 +121,9 @@
           font-size: 14px;
           font-weight: 500;
           height: @buttonHeigh;
+          &[disabled]{
+            color: @color-white!important;
+          }
           &.sell {
             width: 202px;
             padding: 0 16px;
@@ -140,13 +142,13 @@
             transform: rotate(-90deg);
           }
         }
-      .another-doc{
+        .another-doc {
           border: 1px solid @colorUploadBlue;
           color: @colorUploadBlue;
-          height:@buttonHeigh;
+          height: @buttonHeigh;
           font-weight: 500;
           width: 284px;
-          .cloud-upload{
+          .cloud-upload {
             color: @colorUploadBlue;
             font-size: 18px;
             margin-left: 9px;
@@ -186,11 +188,25 @@
       //sb-stepper-header
       .sb-stepper-item {
         .scrollBarStyle();
-        //background-color: @stepContentBackground;
+        input[type="text"]{
+          font-size: 13px;
+        }
+        .input-wrapper {
+          width: 100%;
+          .input-field {
+            .placeholder-color(@colorGreyLight);
+            font-size: 13px;
+            padding: 12px;
+            border: solid 1px @colorInputNotFocused;
+            &:focus{
+              border: solid 1px @colorInputFocus;
+            }
+          }
+        }
         .sb-stepper-content {
           border: 1px dashed @colorUploadBlue;
           //padding: 0;
-          &.step-1{
+          &.step-1 {
             margin-bottom: 12px;
           }
           //background-color: @stepContentBackground;
@@ -210,7 +226,7 @@
               flex-direction: row;
               align-items: center;
               justify-content: center;
-              &.referal-row-1{
+              &.referal-row-1 {
                 align-items: center;
                 justify-content: center;
               }
@@ -247,8 +263,8 @@
                   .referral-container {
                     display: flex;
                     flex-direction: column;
-                    .share-icon-container{
-                      span{
+                    .share-icon-container {
+                      span {
                         margin-right: 24px;
                       }
                     }
@@ -256,14 +272,14 @@
                       width: 100%;
                       .link-container {
                         width: 100%;
-                        .referral-input{
+                        .referral-input {
                           min-width: 320px;
-                          .input-field{
+                          .input-field {
                             border-radius: 4px 0 0 4px;
-                            border-color: @borderGreyColor;
+                            border-color: @colorGreyLight;
                             border-right: none;
                             font-size: 12px;
-                            color: @borderGreyColor;
+                            color: @colorGreyLight;
                           }
                         }
                         .referral-btn {
@@ -274,7 +290,7 @@
                         }
                       }
                     }
-                    .text-style{
+                    .text-style {
                       display: none;
                     }
                   }
@@ -325,13 +341,14 @@
                   font-size: 14px;
                   color: @colorBlackNew;
                   font-weight: normal;
+                  line-height: 0.75;
                 }
                 .referal-ask {
                   background: @colorUploadBlue;
                   color: rgba(255, 255, 255, 0.87);
                   height: @buttonHeigh;
                   font-weight: 500;
-                  .referal-edit-icon{
+                  .referal-edit-icon {
                     color: @color-white;
                   }
                 }
@@ -341,7 +358,7 @@
                   height: @buttonHeigh;
                   font-weight: 500;
                 }
-                .referal-btns-wrap{
+                .referal-btns-wrap {
                   display: flex;
                   flex-direction: row;
                   justify-content: center;
@@ -405,6 +422,7 @@
                   font-size: 14px;
                   color: @colorBlackNew;
                   font-weight: normal;
+                  line-height: 0.75;
                   .sbl-faq {
                     color: rgba(68, 82, 252, 0.59);
                   }
@@ -425,9 +443,6 @@
                   width: 100%;
                   flex-wrap: wrap;
                   align-items: flex-start;
-                  .input-wrapper {
-                    width: 100%;
-                  }
                   .wrap-row-price {
                     display: flex;
                     min-width: 134px;
@@ -455,6 +470,7 @@
                         max-width: 125px;
                         height: 90px;
                         .input-field {
+                          .placeholder-color(@placeholderGrey, 1);
                           font-size: 36px;
                           color: @colorPrice;
                           text-align: center;
@@ -463,7 +479,7 @@
                           &:focus {
                             outline: none;
                           }
-                          .placeholder-color(@placeholderGrey, 1)
+
                         }
                       }
                       .sbl-suffix {
@@ -499,7 +515,7 @@
                       bottom: -20px;
                       left: 0;
                       font-size: 12px;
-                      color: @borderGreyColor;
+                      color: @colorGreyLight;
                     }
                   }
                   .steps-form-label {
@@ -511,7 +527,7 @@
                     align-items: baseline;
                   }
                   .sbf {
-                    font-size: 14px;
+                    font-size: 11px;
                     color: @labelColor;
                   }
 
@@ -523,7 +539,7 @@
                 max-width: @maxWidthForm;
                 flex-wrap: wrap;
                 padding-top: 32px;
-                &.chip-classes-row{
+                &.chip-classes-row {
                   justify-content: flex-start;
                 }
                 .steps-form-label {
@@ -542,6 +558,7 @@
                   .sbf-class-chip {
                     margin-left: 0;
                     margin-right: 8px;
+                    font-size: 12px;
                     &.v-chip--selected {
                       color: @chipActiveColor;
                       background-color: @uploadGreyBackground;
@@ -572,7 +589,7 @@
                 flex-direction: row;
                 padding-top: 88px;
                 .sb-doc-type {
-                  border: 1px solid @borderGreyColor;
+                  border: 1px solid @colorGreyLight;
                   border-radius: 4px;
                   display: flex;
                   flex-direction: column;
@@ -583,7 +600,7 @@
                   justify-content: space-around;
                   .sb-doc-icon {
                     font-size: 35px;
-                    color: @labelColor;
+                    color: @colorGreyLight;
 
                   }
                   .sb-doc-title {
@@ -612,7 +629,7 @@
 
           }
           //step-three end
-          &.step-4, &.step-5, &.step-6, &.step-7{
+          &.step-4, &.step-5, &.step-6, &.step-7 {
             //&.step-4, &.step-5, &.step-7, &.step-8{
             border: 1px solid transparent;
             .sb-step-card {
@@ -628,7 +645,7 @@
                 }
               }
               .final-item {
-                border: 1px solid @borderGreyColor;
+                border: 1px solid @colorGreyLight;
                 border-radius: 4px;
                 height: 96px;
                 display: flex;
@@ -645,10 +662,10 @@
                   right: 8px;
                   top: 8px;
                   font-size: 12px;
-                  color: @borderGreyColor;
+                  color: @colorGreyLight;
                   .edit-icon {
                     font-size: 14px;
-                    color: @borderGreyColor;
+                    color: @colorGreyLight;
                   }
 
                 }
@@ -690,23 +707,25 @@
                       overflow: auto;
 
                     }
-                  }
-                  .sb-chip-tag {
-                    height: 22px;
-                    margin: 2px 3px 2px 3px;
-                    background-color: @uploadGreyBackground;
+                    .sb-chip-tag {
+                      height: 22px;
+                      margin: 2px 3px 2px 3px;
+                      background-color: @uploadGreyBackground;
 
-                    .chip-button {
-                      color: @chipActiveColor;
-                      display: flex;
-                      text-transform: capitalize;
+                      .chip-button {
+                        color: @chipActiveColor;
+                        display: flex;
+                        text-transform: capitalize;
+                        font-size: 12px;
+
+                      }
+                      .chip-close {
+                        font-size: 6px;
+                      }
 
                     }
-                    .chip-close {
-                      font-size: 6px;
-                    }
-
                   }
+
                 }
                 .final-item-wrap {
                   margin-bottom: 14px;
@@ -730,7 +749,7 @@
                   }
                   .item-name {
                     color: @chipActiveColor;
-                    margin-left: 9px;
+                    margin-left: 6px;
                     font-size: 12px;
                     &.doc-type-name {
                       text-transform: capitalize;
@@ -762,7 +781,7 @@
                 width: 100%;
                 align-items: flex-start;
                 max-width: @maxWidthForm;
-                &.referal-row-1{
+                &.referal-row-1 {
                   align-items: center;
                 }
                 .sb-title {
@@ -776,6 +795,7 @@
                   font-size: 14px;
                   color: @colorBlackNew;
                   font-weight: normal;
+                  line-height: 0.75;
                 }
                 // subtitle
                 .five {
@@ -809,7 +829,7 @@
                     box-shadow: none;
                     border: 1px solid @inputGreyBorder;
                     border-radius: 4px;
-                    padding: 0 4px;
+                    padding: 0 8px;
                     background: transparent;
                     .v-select__selections {
 
@@ -839,6 +859,7 @@
                       display: flex;
                       text-transform: capitalize;
 
+
                     }
                     .chip-close {
                       font-size: 8px;
@@ -856,6 +877,7 @@
                 &.final-row {
                   flex-direction: row;
                   justify-content: space-around;
+                  padding-top: 16px;
                   .legal-wrap {
                     display: flex;
                     flex-direction: row;
@@ -868,7 +890,6 @@
                       -webkit-appearance: none;
                       background-color: #fafafa;
                       border: 1px solid #cacece;
-                      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
                       padding: 9px;
                       border-radius: 3px;
                       display: inline-block;
@@ -900,6 +921,9 @@
                 }
                 .input-wrapper {
                   width: 100%;
+                  .input-field {
+                    font-size: 13px;
+                  }
                 }
                 .steps-form-label {
                   font-family: 'Open Sans', sans-serif;
@@ -917,6 +941,7 @@
                   .sbf-class-chip {
                     margin-left: 0;
                     margin-right: 8px;
+                    font-size: 12px;
                     &.v-chip--selected {
                       color: @chipActiveColor;
                       background-color: @uploadGreyBackground;
@@ -926,6 +951,7 @@
                   }
                 }
               }
+
               //upload-row-3
             }
             //sb-step-card
