@@ -11,6 +11,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Aspose.Total.lic">
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="8.5.0" />
     <PackageReference Include="Aspose.Imaging" Version="3.0.0" />
@@ -21,10 +26,5 @@
     <PackageReference Include="ImageResizer" Version="4.2.5" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Aspose.Total.lic">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

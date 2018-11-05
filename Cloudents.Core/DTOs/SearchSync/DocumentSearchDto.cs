@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Entities.Search;
 using System;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
@@ -14,6 +15,8 @@ namespace Cloudents.Core.DTOs.SearchSync
         public Guid University { get; set; }
         public DateTime DateTime { get; set; }
         public string Language { get; set; }
+
+        public DocumentType Type { get; set; }
         //public string Country { get; set; }
 
         public Document ToDocument()
@@ -27,6 +30,7 @@ namespace Cloudents.Core.DTOs.SearchSync
                 Id = Id.ToString(),
                 Name = Name,
                 Language = Language,
+                Type = Type,
                 Tags = Tags?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
             };
         }

@@ -20,12 +20,14 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using Cloudents.Core.CommandHandler;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Query;
 using Cloudents.Core.Query.Sync;
+using Cloudents.Infrastructure.Framework;
 using Question = Cloudents.Core.Entities.Search.Question;
 
 namespace ConsoleApp
@@ -63,6 +65,7 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure"),
                 //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
+            builder.RegisterModule<ModuleFile>();
             _container = builder.Build();
 
             if (Environment.UserName == "Ram")
@@ -86,14 +89,16 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
-            var query = new CoursesQuery(638);
-            var _bus = _container.Resolve<IQueryBus>();
-            await _bus.QueryAsync(query, token);
+            
+            var _blobProvider = _container.Resolve<IFactoryProcessor>();
+            var z = _blobProvider.PreviewFactory("xxx.pdf");
+            // await _bus.QueryAsync(query, token);
 
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
         }
+
+        
 
 
         static IEnumerable<CultureInfo> FindCandidateCultures(RegionInfo region)

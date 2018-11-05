@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using Cloudents.Infrastructure.Search;
+﻿using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search.Models;
+using System.Collections.Generic;
 using Document = Cloudents.Core.Entities.Search.Document;
 
 namespace Cloudents.Infrastructure.Write
 {
     public class DocumentSearchWrite : SearchServiceWrite<Document>
     {
-        internal const string IndexName = "document2";
+        internal const string IndexName = "document3";
 
         internal const string TagsCourseParameter = "Course";
         internal const string TagsUniversityParameter = "University";
@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Write
         {
         }
 
-        
+
 
         protected override Index GetIndexStructure(string indexName)
         {
@@ -38,9 +38,10 @@ namespace Cloudents.Infrastructure.Write
 
                     fieldBuilder.Map(x=>x.Tags).IsSearchable().IsFilterable(),
                     fieldBuilder.Map(x=>x.Course).IsFilterable(),
-                    fieldBuilder.Map(x=>x.Country).IsFilterable(),
+                    fieldBuilder.Map(x=>x.Country).IsFilterable().IsFacetable(),
                     fieldBuilder.Map(x=>x.Language).IsFilterable(),
                     fieldBuilder.Map(x=>x.University).IsFilterable(),
+                    fieldBuilder.Map(x=>x.Type).IsFilterable().IsFacetable()
                 },
                 ScoringProfiles = new List<ScoringProfile>
                 {

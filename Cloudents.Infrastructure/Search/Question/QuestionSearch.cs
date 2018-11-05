@@ -26,31 +26,17 @@ namespace Cloudents.Infrastructure.Search.Question
             var ids = searchResult.Results.Select(s => long.Parse(s.Document.Id));
             var queryDb = new IdsQuery<long>(ids);
             var dbResult = await _queryBus.QueryAsync<IList<QuestionFeedDto>>(queryDb, token);
+            var dic = dbResult.ToDictionary(x => x.Id);
 
+            var retVal = new QuestionWithFacetDto();// {Result = dbResult};
+            foreach (var resultResult in searchResult.Results)
+            {
+                if (dic.TryGetValue(long.Parse(resultResult.Document.Id), out var value))
+                {
+                    retVal.Result.Add(value);
+                }
 
-            var retVal = new QuestionWithFacetDto {Result = dbResult};
-
-            //{
-            //    //Result = result.Results.Select(s => new QuestionDto()
-            //    //{
-
-            //    //    User = new UserDto
-            //    //    {
-            //    //        Id = s.Document.UserId,
-            //    //        Name = s.Document.UserName,
-            //    //        Image = s.Document.UserImage
-            //    //    },
-            //    //    Id = long.Parse(s.Document.Id),
-            //    //    DateTime = s.Document.DateTime,
-            //    //    Answers = s.Document.AnswerCount,
-            //    //    Subject = s.Document.Subject,
-            //    //    Color = s.Document.Color,
-            //    //    Files = s.Document.FilesCount,
-            //    //    HasCorrectAnswer = s.Document.HasCorrectAnswer,
-            //    //    Price = (decimal)s.Document.Price,
-            //    //    Text = s.Document.Text
-            //    //})
-            //};
+            }
             if (searchResult.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
             {
                 retVal.FacetSubject = p.Select(s => (QuestionSubject)s.AsValueFacetResult<long>().Value);
@@ -61,7 +47,6 @@ namespace Cloudents.Infrastructure.Search.Question
                 retVal.FacetState = p2.Select(s => (QuestionFilter)s.AsValueFacetResult<long>().Value);
             }
             return retVal;
-            //QuestionsByIdsQuery
         }
     }
 }

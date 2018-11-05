@@ -27,15 +27,12 @@ namespace Cloudents.Web.Api
     public class SearchController : ControllerBase
     {
         private readonly IStringLocalizer<SearchController> _localizer;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IQueryBus _queryBus;
 
 
-        public SearchController(IStringLocalizer<SearchController> localizer, SignInManager<User> signInManager, IQueryBus queryBus)
+        public SearchController(IStringLocalizer<SearchController> localizer
+        )
         {
             _localizer = localizer;
-            _signInManager = signInManager;
-            _queryBus = queryBus;
         }
 
         /*/// <summary>
