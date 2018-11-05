@@ -81,7 +81,7 @@
 
         },
         methods: {
-            ...mapActions(['updateFile', 'updateUploadProgress']),
+            ...mapActions(['updateFile', 'updateUploadProgress', 'updateFileName']),
 
             loadDropBoxSrc() {
                 // if exists prevent duplicate loading
@@ -125,6 +125,7 @@
                                     // generated blob name from server
                                     self.generatedFileName = response.data.fileName ? response.data.fileName : '';
                                     self.updateFile({'name': singleFile.name, 'blobName': self.generatedFileName});
+                                    self.updateFileName(singleFile.name);
                                     self.callBackmethods.stopProgress(true);
                                     self.callBackmethods.next(1);
                                 },

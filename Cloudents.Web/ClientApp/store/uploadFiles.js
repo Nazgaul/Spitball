@@ -5,7 +5,8 @@ const state = {
     fileData: uploadService.createFileData({}),
     legalCheck: false,
     uploadProgress: 0,
-    showDialog: false
+    showDialog: false,
+    customFileName : ''
 };
 const mutations = {
     setUploadProgress(state,val){
@@ -22,20 +23,27 @@ const mutations = {
     setDialogUploadState(state, val){
         state.showDialog = val
     },
+    setFileName(state, data){
+        state.customFileName = data
+    }
 };
 const getters = {
     getFileData: (state) => state.fileData,
     getLegal: (state) => state.legalCheck,
     getUploadProgress: (state) => state.uploadProgress,
-    getDialogState: (state) => state.showDialog
-
+    getDialogState: (state) => state.showDialog,
+    getCustomFileName: (state) => state.customFileName
 };
 const actions = {
     updateLegalAgreement({commit},  val) {
         commit('setLegal', val);
     },
+    updateFileName({commit}, data){
+        commit('setFileName',  data);
+    },
     updateFile({commit}, data){
         commit('setFile',  data);
+
     },
     updateUploadProgress({commit}, val){
         commit('setUploadProgress',val)
