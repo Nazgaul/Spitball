@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {

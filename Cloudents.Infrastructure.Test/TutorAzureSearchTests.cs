@@ -4,10 +4,7 @@ using Autofac.Extras.Moq;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Search.Tutor;
-using Cloudents.Infrastructure.Write.Tutor;
-using Microsoft.Azure.Search;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Cloudents.Infrastructure.Test
 {

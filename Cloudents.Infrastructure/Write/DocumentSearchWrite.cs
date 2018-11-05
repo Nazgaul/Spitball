@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search.Models;
 using Document = Cloudents.Core.Entities.Search.Document;

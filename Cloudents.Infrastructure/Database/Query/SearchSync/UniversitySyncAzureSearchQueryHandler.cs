@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Entities.Db;

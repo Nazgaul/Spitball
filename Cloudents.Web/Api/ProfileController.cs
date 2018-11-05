@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -6,6 +7,8 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Identity;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,28 +50,26 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses for a user</returns>
         [Route("courses")]
         [HttpGet]
-        public async Task<IEnumerable<CourseDto>> Get(CancellationToken token)
+        public async Task<IEnumerable<CourseDto>> GetCourses(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new CoursesQuery(userId);
-            var t = await _queryBus.QueryAsync<IEnumerable<CourseDto>>(query, token);
+            var t = await _queryBus.QueryAsync(query, token);
             return t;
         }
 
         [Route("University")]
         [HttpGet]
-        public async Task<UniversityDto> Get([FromServices] IQueryBus _queryBus, CancellationToken token)
+        public async Task<UniversityDto> GetUniversityAsync(
+            [ClaimModelBinderAttribute(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            CancellationToken token)
         {
-            
-            var userId = _userManager.GetLongUserId(User);
-            User user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user.University == null)
+            if (!universityId.HasValue)
             {
                 return null;
             }
-            var query = new UniversityQuery(userId);
-            var t = await _queryBus.QueryAsync<UniversityDto>(query, token);
-            return t;
+            var query = new UniversityQuery(universityId.Value);
+            return await _queryBus.QueryAsync(query, token);
         }
     }
 }

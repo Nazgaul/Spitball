@@ -86,10 +86,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-          
-            var t = new SyncAzureQuery(0,0);
+
+            var query = new CoursesQuery(638);
             var _bus = _container.Resolve<IQueryBus>();
-            await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(t, token);
+            await _bus.QueryAsync(query, token);
 
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);

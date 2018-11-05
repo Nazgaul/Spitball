@@ -100,8 +100,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingQuestionDto>> Get(CancellationToken token)
         {
             var query = new AdminEmptyQuery();
-            var t = await _queryBus.QueryAsync<IEnumerable<PendingQuestionDto>>(query, token);
-            return t.Take(100);
+            return await _queryBus.QueryAsync<IEnumerable<PendingQuestionDto>>(query, token);
         }
 
     }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Database.Maps
