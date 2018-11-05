@@ -19,7 +19,7 @@ namespace Cloudents.Core.DTOs
             Result = new List<T>();
         }
         [ItemCanBeNull]
-        public IList<T> Result { get; set; }
+        public List<T> Result { get; set; }
         public IEnumerable<string> Facet { get; set; }
     }
 

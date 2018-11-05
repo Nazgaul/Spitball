@@ -13,12 +13,12 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -94,11 +94,12 @@ namespace Cloudents.Web.Api
         {
             model = model ?? new DocumentRequest();
             var query = new DocumentQuery(model.Course, universityId, model.Query, country,
-                model.Page.GetValueOrDefault());
+                model.Page.GetValueOrDefault(), model.Source);
 
             var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);
             if (_signInManager.IsSignedIn(User))
             {
+                //TODO: we have too much queries in here - need to fix that
                 var userId = _signInManager.UserManager.GetLongUserId(User);
                 var dbQuery = new CoursesQuery(userId);
                 coursesTask = _queryBus.QueryAsync(dbQuery, token);
@@ -119,14 +120,14 @@ namespace Cloudents.Web.Api
             {
                 filters.Add(
 
-                    new Filters<string>(nameof(SearchRequest.Source), _localizer["Sources"],
+                    new Filters<string>(nameof(DocumentRequest.Source), _localizer["Sources"],
                         result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
                 );
             }
 
             if (coursesTask.Result != null)
             {
-                filters.Add(new Filters<string>(nameof(SearchRequest.Course),
+                filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
                     _localizer["CoursesFilterTitle"],
                     coursesTask.Result.Select(s => new KeyValuePair<string, string>(s.Name, s.Name))));
             }
