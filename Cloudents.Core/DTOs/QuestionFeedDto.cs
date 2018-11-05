@@ -30,6 +30,11 @@ namespace Cloudents.Core.DTOs
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
         }
 
+        public QuestionFeedDto()
+        {
+            
+        }
+
         public long Id { get; set; }
         public QuestionSubject Subject { get; set; }
         public decimal Price { get; set; }
