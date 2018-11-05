@@ -1,4 +1,5 @@
 import { connectivityModule } from "./connectivity.module"
+import searchService from './searchService'
 
 
 export default {
@@ -12,7 +13,7 @@ export default {
        return connectivityModule.http.post("/Question", {subjectId, text, price, files, color})
     },
     getQuestion: (id) => connectivityModule.http.get("/Question/"+id).then(({data}) => {
-        let res = data;
+        let res = searchService.createQuestionItem(data);
         return { ...res,filesNum:res.files.length, answersNum:res.answers.length }
     }),
     answerQuestion: (questionId, text, files) => {

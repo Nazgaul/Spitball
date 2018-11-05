@@ -3,7 +3,7 @@
     <div class="answer-question" v-if="questionData">
         <!-- Web version -->
         <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
-             :class="{'my-question': questionData.cardOwner}">
+             :class="{'my-question': cardOwner}">
             <v-flex xs12 class="breadcrumbs">
                 <router-link  to="/ask" v-language:inner>questionDetails_Ask_question</router-link>
                 <span class="question-category"> <span v-language:inner>questionDetails_question_dash</span>{{questionData.subject}}</span>

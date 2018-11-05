@@ -214,7 +214,7 @@ Vue.prototype.$Ph = function(key, placeholders){
     let rawKey = LanguageService.getValueByKey(key);
     //if no placeholders return the Key without the replace
     if(!placeholders) {
-        console.error(`${key} have no placeholders to replace`)
+        //console.error(`${key} have no placeholders to replace`)
         return rawKey
     };
 

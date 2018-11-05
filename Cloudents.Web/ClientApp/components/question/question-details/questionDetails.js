@@ -24,7 +24,7 @@ export default {
             errorTextArea: {},
             errorHasAnswer: '',
             answerFiles: [],
-            questionData: null,
+            //questionData: null,
             cardList: [],
             showForm: false,
             showDialogSuggestQuestion: false,
@@ -37,8 +37,9 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState", 'updateUserProfileData']),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState", 'updateUserProfileData', 'setQuestion']),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapGetters(["getQuestion"]),
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorTextArea = {
@@ -80,27 +81,33 @@ export default {
             let updateViewer = skipViewerUpdate ? false : true;
             //enable submit btn
             this.$data.submitted = false;
-            questionService.getQuestion(this.id)
-                .then((response) => {
-                    this.questionData = response;
+            this.setQuestion(this.id).then(()=>{
+                if (updateViewer) {
+                    sendEventList.question.addViewr(this.questionData);
+                }
+                this.buildChat();
+            })
+            // questionService.getQuestion(this.id)
+            //     .then((response) => {
+            //         this.questionData = response;
 
-                    if (updateViewer) {
-                        sendEventList.question.addViewr(this.questionData);
-                    }
+            //         if (updateViewer) {
+            //             sendEventList.question.addViewr(this.questionData);
+            //         }
 
-                    if (this.accountUser) {
-                        this.questionData.cardOwner = this.accountUser.id === response.user.id;
-                    } else {
-                        this.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
-                    }
-                    this.buildChat();
-                }, (error) => {
-                    if (error.response.status === 404) {
-                        window.location = "/error/notfound";
-                        return;
-                    }
-                    console.error(error);
-                });
+            //         if (this.accountUser) {
+            //             this.questionData.cardOwner = this.accountUser.id === response.user.id;
+            //         } else {
+            //             this.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
+            //         }
+            //         this.buildChat();
+            //     }, (error) => {
+            //         if (error.response.status === 404) {
+            //             window.location = "/error/notfound";
+            //             return;
+            //         }
+            //         console.error(error);
+            //     });
         },
 
         buildChat() {
@@ -151,8 +158,13 @@ export default {
         '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState"]),
-
+        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
+        questionData(){
+            return this.getQuestion();
+        },
+        cardOwner(){
+            return this.isCardOwner
+        },
         userNotAnswered() {
             this.isDeletedAnswer ? this.submitForm(false) : "";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
@@ -170,7 +182,9 @@ export default {
     },
     created() {
         global.addEventListener('beforeunload', () => {
-            this.removeViewer();
+            if(!!this.removeViewer){
+                this.removeViewer();
+            }
         });
         this.getData();
         // to do may be to consider change to State Store VueX

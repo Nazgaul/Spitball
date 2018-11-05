@@ -55,6 +55,7 @@ function QuestionItem(objInit) {
     this.dateTime = objInit.dateTime;
     this.color = !!objInit.color ? objInit.color.toLowerCase() : undefined;
     this.hasCorrectAnswer = objInit.hasCorrectAnswer;
+    this.correctAnswerId = objInit.correctAnswerId;
     this.template = objInit.template;
     this.template = "ask";
     this.filesNum = this.files;
