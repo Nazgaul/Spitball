@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Cloudents.Core.Event
 {
-    class ReferredUserEvent : IEvent
+    public class TransactionReferredEvent : IEvent
     {
-        public ReferredUserEvent(Transaction tx)
+        public TransactionReferredEvent(Transaction tx)
         {
             Transaction = tx;
         }

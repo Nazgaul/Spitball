@@ -71,7 +71,7 @@ namespace Cloudents.Core.Entities.Db
                 InvitedUser = invitedUser
                 
         };
-            Tx.Events.Add(new ReferredUserEvent(Tx));
+            Tx.Events.Add(new TransactionReferredEvent(Tx));
             return Tx;
         }
 
