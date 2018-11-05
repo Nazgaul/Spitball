@@ -15,7 +15,13 @@ const mutations = {
     }
 };
 const getters = {
-    getCorrectAnswer: (state) => state.question.hasOwnProperty('correctAnswerId'),
+    getCorrectAnswer: (state) => {
+        if(!!state.question){
+            return state.question.hasOwnProperty('correctAnswerId')
+        }else{
+            return false;
+        }
+    },
     isDeletedAnswer: (state) => state.deletedAnswer,
     getQuestion: (state) => state.question,
     isCardOwner: (state, {accountUser}) =>{
