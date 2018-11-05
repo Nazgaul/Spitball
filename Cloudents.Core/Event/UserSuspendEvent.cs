@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Cloudents.Core.Event
 {
-    class SuspendUserEvent : IEvent
+    public class UserSuspendEvent : IEvent
     {
-        public SuspendUserEvent(User _user)
+        public UserSuspendEvent(User user)
         {
-            User = _user;
+            User = user;
         }
         public User User { get; private set; }
     }

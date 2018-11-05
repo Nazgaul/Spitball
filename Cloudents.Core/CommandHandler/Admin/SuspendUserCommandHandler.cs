@@ -25,7 +25,7 @@ namespace Cloudents.Core.CommandHandler.Admin
         {
             var user = await _userRepository.LoadAsync(message.Id, false, token);
             user.LockoutEnd = DateTimeOffset.MaxValue;
-            user.Events.Add(new SuspendUserEvent(user));
+            user.Events.Add(new UserSuspendEvent(user));
             await _userRepository.UpdateAsync(user, token);
         }
     }

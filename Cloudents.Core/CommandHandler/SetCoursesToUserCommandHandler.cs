@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler
@@ -33,6 +34,7 @@ namespace Cloudents.Core.CommandHandler
                     await _courseRepository.UpdateAsync(course, token);
                 }
             }
+            user.Events.Add(new UserChangeCoursesEvent(user));
             await _userRepository.UpdateAsync(user, token);
         }
     }

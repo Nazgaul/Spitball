@@ -36,7 +36,6 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<UniversityCoursesSynonymDto> GetAsync(UniversityCoursesSynonymQuery query, CancellationToken token)
         {
             IFutureValue<UniversityResult> universityFuture = null;
-            //IFutureEnumerable<string> coursesFuture = null;
             if (query.UniversityId.HasValue)
             {
                 universityFuture = _readonlySession.Session.Query<University>()
@@ -44,14 +43,6 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(s => new UniversityResult(s.Name,s.Extra))
                     .ToFutureValue();
             }
-
-            //if (query.CoursesIds?.Any() == true)
-            //{
-            //    coursesFuture = _readonlySession.Session.Query<Course>()
-            //        .Where(w => query.CoursesIds.Contains(w.Id))
-            //        .Select(s => s.Name).ToFuture();
-            //}
-
             var retVal = new UniversityCoursesSynonymDto();
             if (universityFuture != null)
             {

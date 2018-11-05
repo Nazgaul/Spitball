@@ -38,7 +38,7 @@ namespace Cloudents.FunctionsV2
                     new Document()
                     {
                         Id = id.ToString(),
-                        Content = text,
+                        Content = text.Truncate(6000),
                         Language = lang.TwoLetterISOLanguageName,
                         MetaContent = text.Truncate(200, true)
                     }
