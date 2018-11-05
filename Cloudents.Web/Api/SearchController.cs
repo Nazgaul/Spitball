@@ -2,9 +2,7 @@
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Core.Request;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;

@@ -57,15 +57,15 @@ namespace Cloudents.Functions.Di
             //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 
-        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            return AppDomain.CurrentDomain
-                .GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
-        }
+        //private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        //{
+        //    return AppDomain.CurrentDomain
+        //        .GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
+        //}
 
-        public static string GetEnvironmentVariable(string name)
-        {
-            return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
-        }
+        //public static string GetEnvironmentVariable(string name)
+        //{
+        //    return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
+        //}
     }
 }

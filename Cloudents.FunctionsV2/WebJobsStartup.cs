@@ -1,4 +1,5 @@
 ﻿using Cloudents.FunctionsV2;
+using Cloudents.FunctionsV2.Di;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Extensions.DependencyInjection;

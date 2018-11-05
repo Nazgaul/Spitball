@@ -14,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
-namespace Cloudents.FunctionsV2
+namespace Cloudents.FunctionsV2.Di
 {
     public class AutofacServiceProviderBuilder : IServiceProviderBuilder
     {

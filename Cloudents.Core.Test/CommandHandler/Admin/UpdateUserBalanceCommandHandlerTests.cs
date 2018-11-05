@@ -1,12 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Autofac.Extras.Moq;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.CommandHandler.Admin;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Cloudents.Core.Test.CommandHandler.Admin
 {

@@ -1,12 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Command;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
-using Microsoft.Azure.WebJobs;
-using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
-
 namespace Cloudents.FunctionsV2
 {
     public static class UrlProcessFunction

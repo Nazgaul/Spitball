@@ -8,11 +8,11 @@ namespace Cloudents.Core.Query
 {
     public class UniversityQuery : IQuery<UniversityDto>
     {
-        public UniversityQuery(long userId)
+        public UniversityQuery(Guid universityId)
         {
-            UserId = userId;
+            UniversityId = universityId;
         }
 
-        public long UserId { get; private set; }
+        public Guid UniversityId { get; private set; }
     }
 }
