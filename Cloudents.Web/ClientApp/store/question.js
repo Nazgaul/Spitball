@@ -49,8 +49,13 @@ const actions = {
     },
     updateQuestionSignalR({commit, state}, question){
         if(!!state.question && state.question.id === question.id){
-            let res = searchService.createQuestionItem(question);
-            commit('updateQuestion', res);
+            // let res = searchService.createQuestionItem(question);
+            // commit('updateQuestion', res);
+
+            //todo currently we are gonna get question by id.           
+            questionService.getQuestion(question.id).then((res)=>{
+                commit('updateQuestion', res);
+            })
         }
         
     }
