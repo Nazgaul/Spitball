@@ -10,6 +10,7 @@ using Module = Autofac.Module;
 namespace Cloudents.Core
 {
     [ModuleRegistration(Enum.System.Admin, Order = 2)]
+    [ModuleRegistration(Enum.System.Function, Order = 2)]
     //[ModuleRegistration(Enum.System.Console, Order = 2)]
     [UsedImplicitly]
     public class ModuleAdmin : Module
