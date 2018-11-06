@@ -4,29 +4,30 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UpdateUserBalanceEventHandler : IEventHandler<QuestionDeletedAdminEvent>, IEventHandler<AnswerDeletedAdminEvent>
     {
-        private readonly ICommandBus _commandBus;
+        private readonly IQueueProvider _queueProvider;
 
-        public UpdateUserBalanceEventHandler(ICommandBus commandBus)
+        public UpdateUserBalanceEventHandler( IQueueProvider queueProvider)
         {
-            _commandBus = commandBus;
+            _queueProvider = queueProvider;
         }
 
-        public async Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
         {
-            var command = new UpdateUserBalanceCommand(eventMessage.UserIds);
-            await _commandBus.DispatchAsync(command, token);
+            //var command = new UpdateUserBalanceCommand(eventMessage.UserIds);
+            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(eventMessage.UserIds), token);
         }
 
-        public async Task HandleAsync(AnswerDeletedAdminEvent answerEventMessage, CancellationToken token)
+        public Task HandleAsync(AnswerDeletedAdminEvent answerEventMessage, CancellationToken token)
         {
-            var command = new UpdateUserBalanceCommand(answerEventMessage.UserIds);
-            await _commandBus.DispatchAsync(command, token);
+            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(answerEventMessage.UserIds), token);
         }
     }
 }

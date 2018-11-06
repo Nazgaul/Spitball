@@ -126,7 +126,4 @@
   <data name="newQuestion_error_pickSubject" xml:space="preserve">
     <value>בחר נושא</value>
   </data>
-  <data name="newQuestion_toasterPostedText" xml:space="preserve">
-    <value>השאלה נשלחה ומיטב המוחות שוקדים עליה ברגע זה</value>
-  </data>
 </root>

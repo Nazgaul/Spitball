@@ -69,6 +69,7 @@ namespace Cloudents.FunctionsV2.Di
 
             builder.RegisterType<SignalROperation>().Keyed<ISystemOperation>(SystemMessageType.SignalR);
             builder.RegisterType<QuestionSyncOperation>().Keyed<ISystemOperation>(SystemMessageType.QuestionSearch);
+            builder.RegisterType<UpdateUserBalanceOperation>().Keyed<ISystemOperation>(SystemMessageType.QuestionSearch);
 
             builder.Populate(services); // Populate is needed to have support for scopes.
             return new AutofacServiceProvider(builder.Build());

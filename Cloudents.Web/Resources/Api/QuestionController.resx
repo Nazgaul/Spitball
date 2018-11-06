@@ -120,6 +120,12 @@
   <data name="FilterTypeTitle" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="PostedQuestionToasterOk" xml:space="preserve">
+    <value>The best brains are working on it right now</value>
+  </data>
+  <data name="PostedQuestionToasterPending" xml:space="preserve">
+    <value>Your question is pending approval, please do not resubmit this question. </value>
+  </data>
   <data name="QuestionFlood" xml:space="preserve">
     <value>You need to wait before asking a new question</value>
   </data>
