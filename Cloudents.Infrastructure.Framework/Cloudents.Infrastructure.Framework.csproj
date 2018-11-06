@@ -13,7 +13,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Aspose.Total.lic" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Aspose.Total.lic">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

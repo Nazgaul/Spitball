@@ -31,6 +31,7 @@ namespace Cloudents.Core.Command
         [CanBeNull]
         public IEnumerable<string> Files { get;  set; }
 
+        //TODO : remove this
         public long Id { get; set; }
 
         public QuestionColor Color { get; set; }

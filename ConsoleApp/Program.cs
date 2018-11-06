@@ -14,6 +14,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -29,6 +30,9 @@ using Cloudents.Core.Query;
 using Cloudents.Core.Query.Sync;
 using Cloudents.Infrastructure.Framework;
 using Question = Cloudents.Core.Entities.Search.Question;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Cloudents.Infrastructure;
 
 namespace ConsoleApp
 {
@@ -52,6 +56,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
+                ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545"
             };
@@ -66,6 +71,9 @@ namespace ConsoleApp
                 //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             builder.RegisterModule<ModuleFile>();
+        
+       
+
             _container = builder.Build();
 
             if (Environment.UserName == "Ram")
@@ -90,11 +98,22 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             
-            var _bus = _container.Resolve<IQueryBus>();
-            var query = new SyncAzureQuery(1, 0);
+            var _bus = _container.Resolve<IFactoryProcessor>();
+            var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
 
-            var (update, delete, version) =
-                await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+            var ms = File.OpenRead(@"C:\Users\Ram\Downloads\file-b198fed1-4b9e-483e-b742-600d8f58ed84-601.docx");
+            ms.Seek(0, SeekOrigin.Begin);
+            await z.ProcessFilesAsync(ms, (stream, s) => Task.CompletedTask, sssssss =>
+            {
+                Console.WriteLine(sssssss);
+                return Task.CompletedTask;
+            }, i => Task.CompletedTask, token);
+
+            //_bus.ProcessFilesAsync()
+            //var query = new SyncAzureQuery(1, 0);
+
+            //var (update, delete, version) =
+            //    await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
 
 
             // await _bus.QueryAsync(query, token);
@@ -143,7 +162,7 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
 
-            await MigrateUniversity();
+            await TransferDocumants();
             //var t = _container.Resolve<IBlockChainErc20Service>();
             //string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
@@ -513,6 +532,157 @@ namespace ConsoleApp
 
             }
             await TransferUsers();
+        }
+
+        public static async Task TransferDocumants()
+        {
+            var d = _container.Resolve<DapperRepository>();
+
+            var key = _container.Resolve<IConfigurationKeys>().ProdStorage;
+            var productionOldstorageAccount = CloudStorageAccount.Parse(key);
+            var oldBlobClient = productionOldstorageAccount.CreateCloudBlobClient();
+            var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");
+            
+
+
+            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+            var storageAccount = CloudStorageAccount.Parse(keyNew);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("spitball-files/files");
+
+            //CloudBlobContainer directoryToPutFiles = container.Get .GetDirectoryReference("./files");
+
+            Dictionary<int, DocumentType> DocType = new Dictionary<int, DocumentType>
+            {
+                { 1, DocumentType.Exam },
+                { 2, DocumentType.Exam },
+                { 7, DocumentType.Exam },
+                { 8, DocumentType.Exam },
+                { 9, DocumentType.Lecture },
+                { 10, DocumentType.Lecture},
+                { 5, DocumentType.Textbook }
+            };
+
+            string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "ppt", "jpg", "png", "gif", "jpeg", "bmp" };
+
+
+            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+            {
+
+                return await f.QueryAsync(
+                    @"select top 100 I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0) as DocType,
+			            STRING_AGG((T.Name), ',') as Tags
+                        FROM [Zbox].[Item] I
+                        join zbox.Box B
+	                        on I.BoxId = B.BoxId
+                        join Zbox.Users ZU
+	                        on I.UserId = ZU.UserId
+                        join sb.[User] U
+	                        on ZU.Email = U.Email
+						left join zbox.ItemTag IT
+							on IT.ItemId = I.ItemId
+						left join zbox.Tag T
+							on IT.TagId = T.Id and len(T.Name) >= 4
+                        where I.Discriminator = 'File'
+	                        and I.IsDeleted = 0 
+							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
+							and SUBSTRING (I.Name,CHARINDEX ('.',I.Name), 5) in ('.doc', '.docx', '.xls', '.xlsx', '.PDF', '.png', '.jpg', '.ppt', '.ppt', '.jpg', '.png', '.gif', '.jpeg', '.bmp' )
+                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0)
+                        order by I.ItemId desc;
+                ");
+            }, default);
+
+            if (z.Count() == 0)
+            { return; }
+
+
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var repository = child.Resolve<IRepository<Document>>();
+                    var blb = child.Resolve<IBlobProvider<DocumentContainer>>();
+                    var userRep = child.Resolve<IRepository<User>>();
+                    var Course = child.Resolve<ICourseRepository>();
+                    var Tag = child.Resolve<ITagRepository>();
+                    var ch = new CreateDocumentCommandHandler(blb, userRep, repository, Course, Tag);
+
+                    foreach (var pair in z)
+                    {
+                     
+
+
+                        string[] blobName = pair.BlobName.Split('.');
+                        CloudBlockBlob blobDestination = container.GetBlockBlobReference($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}");
+
+                        CloudBlockBlob srcBlob = oldContainer.GetBlockBlobReference(pair.BlobName);
+                        
+                        var sharedAccessUri = GetShareAccessUri(pair.BlobName, 360, oldContainer);
+                        
+                        var blobUri = new Uri(sharedAccessUri);
+
+                        
+                        if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
+                        {
+                            continue;
+                        }
+
+                        
+                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+                        while (blobDestination.CopyState.Status != CopyStatus.Success) {
+                            Console.WriteLine(blobDestination.CopyState.Status);
+                            await Task.Delay(TimeSpan.FromSeconds(1));
+                            await blobDestination.ExistsAsync();
+                        }
+                       
+
+                        string[] words;
+                        if (pair.Tags != null)
+                        {
+                            words = pair.Tags.Split(',');
+                        }
+                        else { words = null; }
+                        DocumentType type;
+
+                        if (DocType.ContainsKey(pair.DocType))
+                        {
+                            DocType.TryGetValue(pair.DocType, out type);
+                        }
+                        else { type = DocumentType.None; }
+
+                        
+
+                        var document = new CreateDocumentCommand($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}", pair.Name,
+                        type, pair.BoxName, words, pair.Id, pair.ProfessorName, (long)pair.ItemId);
+                       
+                        await ch.ExecuteAsync(document, default);
+                        
+                        
+                    }
+
+                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                }
+
+            }
+            await TransferDocumants();
+        }
+
+        private static string GetShareAccessUri(string blobname,
+                                 int validityPeriodInMinutes,
+                                 CloudBlobContainer container)
+        {
+            var toDateTime = DateTime.Now.AddMinutes(validityPeriodInMinutes);
+
+            var policy = new SharedAccessBlobPolicy
+            {
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessStartTime = null,
+                SharedAccessExpiryTime = new DateTimeOffset(toDateTime)
+            };
+
+            var blob = container.GetBlockBlobReference(blobname);
+            var sas = blob.GetSharedAccessSignature(policy);
+            return blob.Uri.AbsoluteUri + sas;
         }
 
         //private static int GenerateRandomNumber()

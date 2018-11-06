@@ -23,6 +23,7 @@ export default {
             textAreaValue: "",
             errorTextArea: {},
             errorHasAnswer: '',
+            errorDuplicatedAnswer:'',
             answerFiles: [],
             //questionData: null,
             cardList: [],
@@ -50,6 +51,13 @@ export default {
             }
             this.updateLoading(true);
             var self = this;
+            if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
+                console.log("duplicated answer detected");
+                this.errorDuplicatedAnswer = LanguageService.getValueByKey("questionDetails_error_duplicated");
+                return
+            }else{
+                this.errorDuplicatedAnswer = '';
+            };
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 self.textAreaValue = self.textAreaValue.trim();
@@ -70,6 +78,12 @@ export default {
                     })
             }
         },
+        hasDuplicatiedAnswer(currentText, answers){  
+            let duplicated = answers.filter(answer=>{
+                return answer.text.indexOf(currentText) > -1;
+            })
+            return duplicated.length > 0;
+        },
 
         addFile(filename) {
             this.answerFiles.push(...filename.split(','));
@@ -87,27 +101,6 @@ export default {
                 }
                 this.buildChat();
             })
-            // questionService.getQuestion(this.id)
-            //     .then((response) => {
-            //         this.questionData = response;
-
-            //         if (updateViewer) {
-            //             sendEventList.question.addViewr(this.questionData);
-            //         }
-
-            //         if (this.accountUser) {
-            //             this.questionData.cardOwner = this.accountUser.id === response.user.id;
-            //         } else {
-            //             this.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
-            //         }
-            //         this.buildChat();
-            //     }, (error) => {
-            //         if (error.response.status === 404) {
-            //             window.location = "/error/notfound";
-            //             return;
-            //         }
-            //         console.error(error);
-            //     });
         },
 
         buildChat() {
@@ -119,6 +112,8 @@ export default {
                 );
                 //conversation
                 let subject = this.questionData.text.replace(/\r?\n|\r/g, '');
+                subject = subject.substr(0, 2000);
+                subject = subject + '...';
                 conversation.setParticipant(this.chatAccount, {notify: false});
                 conversation.setParticipant(other1);
                 conversation.setAttributes({

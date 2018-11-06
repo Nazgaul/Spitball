@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace Cloudents.Core
 {
@@ -17,16 +17,24 @@ namespace Cloudents.Core
         public static readonly Language English = new Language(new CultureInfo("en"));
 
 
-        public static implicit operator CultureInfo(Language tb)
+        public static readonly SortedSet<string> ListOfWhiteListCountries = new SortedSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            return tb.Culture;
-        }
+            "US", "CA", "AU" , "GB", "IE", "IL", "NZ", "MX", "SE" ,
+            "NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
+        };
+        //public static readonly string[] ListOfWhiteListCountries2 = { "US", "CA", "AU" , "GB", "IE", "IL", "NZ", "MX", "SE" ,
+        //    "NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA" };
+
 
         //public static IList<CultureInfo> SystemSupportLanguageCulture()
         //{
         //    return SystemSupportLanguage.Select(s => s.Culture).ToList();
         //}
 
+        public static implicit operator CultureInfo(Language tb)
+        {
+            return tb.Culture;
+        }
         public static readonly IList<CultureInfo> SystemSupportLanguage = new List<CultureInfo>()
         {
             English,Hebrew

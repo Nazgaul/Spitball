@@ -1,12 +1,13 @@
 <template>
-        <div class="select-university-container set-school" :class="{'selected': (!!search && search.length > 10) || !!university}">
-                
+        <div class="select-university-container set-school" :class="{'selected': (!!search && search.length > 10)}">
                 <div class="title-container">
                     <span v-language:inner>uniSelect_select_school</span> 
-                    <a v-show="search.length > 10 || !!university" class="next-container" @click="checkBeforeNextStep()" v-language:inner>uniSelect_next</a>  
+                    <a v-show="showNext" class="next-container" @click="checkBeforeNextStep()" v-language:inner>uniSelect_next</a>  
+                    
                 </div>
                 <div class="select-school-container">
                     <v-combobox
+                    class="hello-gaby"
                         v-model="university"
                         :items="universities"
                         :label="schoolNamePlaceholder"
@@ -16,9 +17,10 @@
                         :search-input.sync="search"
                         :append-icon="''"
                         :clear-icon="'sbf-close'"
-                        @click:clear="clearData()"
+                        @click:clear="clearData(search, university)"
                         autofocus
                         no-filter
+                        :color="`gray`"
                     >
                     <template slot="no-data">
                         <v-list-tile v-show="showBox">
@@ -28,11 +30,8 @@
                             <div class="subheading dark" v-language:inner>uniSelect_show_all_schools</div>
                         </v-list-tile>
                     </template>
-                    <template slot="selection" slot-scope="{ item, parent, selected }">
-                    <span style="color: rgba(0, 0, 0, 0.54);">{{!!item.text ? item.text : item}}</span> 
-                    </template>
                     <template slot="item" slot-scope="{ index, item, parent }">
-                        <v-list-tile-content>
+                        <v-list-tile-content style="max-width:385px;">
                         <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
                         </v-list-tile-content>
                     </template>
@@ -98,9 +97,9 @@ export default {
     methods:{
         ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "changeSelectUniState", "setUniversityPopStorage_session"]),
         ...mapGetters(["getUniversities", "getSchoolName", "accountUser"]),
-        clearData(){
-            this.search = null;
-            this.universityModel = undefined;
+        clearData(search, university){
+            search = '';
+            university = undefined;
             this.clearUniversityList();
         },
         skipUniSelect(){
@@ -154,6 +153,9 @@ export default {
     computed:{
         showBox(){
             return this.search.length > 0;
+        },
+        showNext(){
+           return this.search.length > 10
         },
         universities(){
             return this.getUniversities();

@@ -1,5 +1,6 @@
 <template>
     <div class="noWorries-Container">
+        <div class="gray-overlay"></div>
         <div class="close-btn-container">
             <v-icon @click="stay()">sbf-close</v-icon>
         </div>
@@ -11,8 +12,8 @@
         </div>
         <div class="img-container"></div>
         <div class="footer-container">
-            <span @click="stay()" class="bold-text" v-language:inner>uniSelect_select_school_now</span>
             <span @click="leave()" class="clear" v-language:inner>uniSelect_got_it</span>
+            <span @click="stay()" class="bold-text" v-language:inner>uniSelect_select_school_now</span>
         </div>
     </div>
 </template>

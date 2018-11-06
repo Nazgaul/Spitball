@@ -112,18 +112,24 @@ WITH (TRACK_COLUMNS_UPDATED = ON)
 
 
 
-CREATE TABLE sb.Tags(
-[Name] nvarchar(255) not null,
-[Count] int not null,
+/****** Object:  Table [sb].[Tag]    Script Date: 06/11/2018 13:51:19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[Tag](
+	[Name] [nvarchar](150) NOT NULL,
+	[Count] [int] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Name] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE sb.Tags
-ENABLE CHANGE_TRACKING  
-WITH (TRACK_COLUMNS_UPDATED = ON)  
+
+
 
 
 
@@ -155,15 +161,78 @@ GO
 insert into sb.Tags
 select DISTINCT [Name], 0 
 from Zbox.Tag
+where len(Name) >= 4
 
 
 ALTER TABLE sb.[User]
   ADD OldUser bit;
 
 
-  --TODO - script of document table
+/****** Object:  Table [sb].[Document]    Script Date: 06/11/2018 13:51:48 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[Document](
+	[Id] [bigint] NOT NULL,
+	[Name] [nvarchar](150) NOT NULL,
+	[BlobName] [nvarchar](255) NOT NULL,
+	[Type] [nvarchar](255) NOT NULL,
+	[Views] [int] NOT NULL,
+	[UniversityId] [uniqueidentifier] NULL,
+	[UserId] [bigint] NOT NULL,
+	[CreationTime] [datetime2](7) NULL,
+	[UpdateTime] [datetime2](7) NULL,
+	[Professor] [nvarchar](255) NULL,
+	[PageCount] [int] NULL,
+	[Purchased] [int] NULL,
+	[CourseName] [nvarchar](150) NULL,
+	[Language] [nvarchar](5) NULL,
+	[OldId] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[Document]  WITH CHECK ADD  CONSTRAINT [Document_course] FOREIGN KEY([CourseName])
+REFERENCES [sb].[Course] ([Name])
+GO
+
+ALTER TABLE [sb].[Document] CHECK CONSTRAINT [Document_course]
+GO
+
+ALTER TABLE [sb].[Document]  WITH CHECK ADD  CONSTRAINT [Document_University] FOREIGN KEY([UniversityId])
+REFERENCES [sb].[University] ([Id])
+GO
+
+ALTER TABLE [sb].[Document] CHECK CONSTRAINT [Document_University]
+GO
+
+ALTER TABLE [sb].[Document]  WITH CHECK ADD  CONSTRAINT [Document_User] FOREIGN KEY([UserId])
+REFERENCES [sb].[User] ([Id])
+GO
+
+ALTER TABLE [sb].[Document] CHECK CONSTRAINT [Document_User]
+GO
+
+
   ALTER TABLE sb.[Document]
 ENABLE CHANGE_TRACKING  
 WITH (TRACK_COLUMNS_UPDATED = ON)  
 
   insert into sb.HiLoGenerator values('Document',0);
+
+
+
+begin tran
+ALTER TABLE sb.Document ADD OldId Bigint NULL
+COMMIT
+
+-- after user and university population
+update sb.[user]
+set country = (select country from  sb.University u2 where universityid2 = u2.Id)
+where OldUser = 1

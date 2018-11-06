@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using License = Aspose.Pdf.License;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -66,7 +65,7 @@ namespace Cloudents.Infrastructure.Framework
 
 
 
-        public async Task ProcessFilesAsync(MemoryStream stream,
+        public async Task ProcessFilesAsync(Stream stream,
             Func<Stream, string, Task> pagePreviewCallback,
             Func<string, Task> textCallback,
             Func<int, Task> pageCountCallback,
