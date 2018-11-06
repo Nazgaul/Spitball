@@ -133,7 +133,7 @@
     <value>Discussion Board</value>
   </data>
   <data name="error_minChar" xml:space="preserve">
-    <value>min. 15 characters</value>
+    <value>Genuine answer should be more than 15 characters.</value>
   </data>
   <data name="Know_the_answer" xml:space="preserve">
     <value>Know the answer?</value>

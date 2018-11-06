@@ -120,6 +120,9 @@
   <data name="FilterTypeTitle" xml:space="preserve">
     <value>סוגי שאלות</value>
   </data>
+  <data name="PostedQuestionToasterOk" xml:space="preserve">
+    <value>השאלה נשלחה ומיטב המוחות שוקדים עליה ברגע זה</value>
+  </data>
   <data name="QuestionFlood" xml:space="preserve">
     <value>יש להמתין לפני שאילת שאלה חדשה</value>
   </data>
