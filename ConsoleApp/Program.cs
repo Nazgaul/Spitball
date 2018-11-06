@@ -121,36 +121,37 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var _queryBus = _container.Resolve<IQueryBus>();
-            var commandBus = _container.Resolve<ICommandBus>();
+            var _queryBus = _container.Resolve<IAnswerRepository>();
+            var z = await _queryBus.GetNumberOfPendingAnswer(638, default);
+           // var commandBus = _container.Resolve<ICommandBus>();
 
 
-            var token = CancellationToken.None;
+            //var token = CancellationToken.None;
             
 
 
-            var userDataByIdQuery = new UserDataByIdQuery(38188);
-            var userDataTask = _queryBus.QueryAsync<User>(userDataByIdQuery, token);
+            //var userDataByIdQuery = new UserDataByIdQuery(38188);
+            //var userDataTask = _queryBus.QueryAsync<User>(userDataByIdQuery, token);
 
-                var answersQuery = new UserDataByIdQuery(38188);
-                var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
+            //    var answersQuery = new UserDataByIdQuery(38188);
+            //    var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
 
-                foreach (var question in answersInfo.Questions)
-                {
-                    var deleteQuestionCommand = new DeleteQuestionCommand(question);
-                    await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
-                }
+            //    foreach (var question in answersInfo.Questions)
+            //    {
+            //        var deleteQuestionCommand = new DeleteQuestionCommand(question);
+            //        await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
+            //    }
 
-                foreach (var answer in answersInfo.Answers)
-                {
-                    var deleteAnswerCommand = new DeleteAnswerCommand(answer);
-                    await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
-                }
+            //    foreach (var answer in answersInfo.Answers)
+            //    {
+            //        var deleteAnswerCommand = new DeleteAnswerCommand(answer);
+            //        await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
+            //    }
 
-            var command = new SuspendUserCommand(38188);
-            await commandBus.DispatchAsync(command, token);
-            var userData = await userDataTask;
-            //return new SuspendUserResponse() { Email = userData.Email };
+            //var command = new SuspendUserCommand(38188);
+            //await commandBus.DispatchAsync(command, token);
+            //var userData = await userDataTask;
+            ////return new SuspendUserResponse() { Email = userData.Email };
         }
 
         private static async Task HadarMethod()

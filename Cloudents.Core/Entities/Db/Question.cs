@@ -32,7 +32,8 @@ namespace Cloudents.Core.Entities.Db
                 Color = color;
             }
             State = QuestionState.Pending;
-            if (user.Country.Contains(Language.ListOfWhiteListCountries, StringComparison.OrdinalIgnoreCase))
+            
+            if (Language.ListOfWhiteListCountries.Contains(user.Country))
             {
                 State = QuestionState.Ok;
             }

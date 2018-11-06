@@ -57,7 +57,7 @@ namespace Cloudents.Web.Api
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
 
                 var toasterMessage = _localizer["PostedQuestionToasterOk"];
-                if (country.Contains(Language.ListOfWhiteListCountries, StringComparison.OrdinalIgnoreCase))
+                if (!Language.ListOfWhiteListCountries.Contains(country))
                 {
                     toasterMessage = _localizer["PostedQuestionToasterPending"];
                 }

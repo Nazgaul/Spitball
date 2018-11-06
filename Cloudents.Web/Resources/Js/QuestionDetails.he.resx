@@ -132,9 +132,6 @@
   <data name="Discussion_Board" xml:space="preserve">
     <value>לוח דיונים</value>
   </data>
-  <data name="error_minChar" xml:space="preserve">
-    <value>לפחות 15 תווים</value>
-  </data>
   <data name="Know_the_answer" xml:space="preserve">
     <value>יודע את התשובה?</value>
   </data>

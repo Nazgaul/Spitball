@@ -44,6 +44,11 @@ namespace Cloudents.Core.Interfaces
         Task<Course> GetCourseAsync(long universityId, string courseName, CancellationToken token);
     }
 
+    public interface IAnswerRepository : IRepository<Answer>
+    {
+        Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
+    }
+
     public interface IUniversityRepository : IRepository<University>
     {
         Task<IList<University>> GetUniversityByNameAsync(string name, 

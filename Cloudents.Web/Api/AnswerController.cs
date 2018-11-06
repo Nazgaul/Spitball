@@ -53,6 +53,11 @@ namespace Cloudents.Web.Api
                     NextQuestions = t2.Result
                 };
             }
+            catch (QuotaExceedException)
+            {
+                ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
+                return BadRequest(ModelState);
+            }
             catch (QuestionAlreadyAnsweredException)
             {
                 ModelState.AddModelError(nameof(model.Text), _localizer["This question have correct answer"]);
