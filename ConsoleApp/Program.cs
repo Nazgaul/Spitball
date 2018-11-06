@@ -14,6 +14,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -97,11 +98,22 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             
-            var _bus = _container.Resolve<IQueryBus>();
-            var query = new SyncAzureQuery(1, 0);
+            var _bus = _container.Resolve<IFactoryProcessor>();
+            var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
 
-            var (update, delete, version) =
-                await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+            var ms = File.OpenRead(@"C:\Users\Ram\Downloads\file-b198fed1-4b9e-483e-b742-600d8f58ed84-601.docx");
+            ms.Seek(0, SeekOrigin.Begin);
+            await z.ProcessFilesAsync(ms, (stream, s) => Task.CompletedTask, sssssss =>
+            {
+                Console.WriteLine(sssssss);
+                return Task.CompletedTask;
+            }, i => Task.CompletedTask, token);
+
+            //_bus.ProcessFilesAsync()
+            //var query = new SyncAzureQuery(1, 0);
+
+            //var (update, delete, version) =
+            //    await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
 
 
             // await _bus.QueryAsync(query, token);
