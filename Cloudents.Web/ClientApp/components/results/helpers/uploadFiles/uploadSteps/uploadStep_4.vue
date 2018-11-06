@@ -46,13 +46,14 @@
         computed: {
             ...mapGetters({
                 getFileData: 'getFileData',
+                getCustomFileName: 'getCustomFileName'
             }),
             documentTitle: {
                 get () {
-                    return this.getFileData.name;
+                    return this.getCustomFileName;
                 },
                 set (value) {
-                    this.updateFile({'name': value});
+                    this.updateFileName(value)
                 }
             },
             proffesorName:{
@@ -65,7 +66,7 @@
             }
         },
         methods: {
-            ...mapActions(['updateFile']),
+            ...mapActions(['updateFileName', 'updateFile']),
 
         },
     }

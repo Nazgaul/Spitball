@@ -51,7 +51,8 @@ export default {
             getFileData: 'getFileData',
             getLegal: 'getLegal',
             getUploadProgress: 'getUploadProgress',
-            getDialogState: 'getDialogState'
+            getDialogState: 'getDialogState',
+            getCustomFileName: "getCustomFileName"
         }),
         showUploadDialog() {
             return this.getDialogState
@@ -101,6 +102,7 @@ export default {
         },
         sendDocumentData(step) {
             let docData = this.getFileData;
+            docData.name = this.getCustomFileName;
             //post all doc data
             documentService.sendDocumentData(docData)
                 .then((resp) => {
