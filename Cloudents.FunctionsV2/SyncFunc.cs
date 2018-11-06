@@ -99,7 +99,7 @@ namespace Cloudents.FunctionsV2
 
         }
 
-        [FunctionName("CreateSearchIndex")]
+        [FunctionName("SearchSyncCreateIndex")]
         public static async Task CreateSearchIndex(
             [ActivityTrigger] SearchSyncInput input,
             [Inject] ILifetimeScope lifetimeScope,
@@ -110,18 +110,19 @@ namespace Cloudents.FunctionsV2
             await syncObject.CreateIndexAsync(token);
         }
 
-        [FunctionName("DoSearchSync")]
+        [FunctionName("SearchSyncSync")]
         public static async Task<SyncResponse> DoSearchSync(
             [ActivityTrigger] SearchSyncInput input,
             [Inject] ILifetimeScope lifetimeScope,
+            ILogger log,
             CancellationToken token)
         {
-
+            log.LogInformation($"Going to sync {input}");
             var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
             return await syncObject.DoSyncAsync(input.SyncAzureQuery, token);
         }
 
-        [FunctionName("GetSyncProgress")]
+        [FunctionName("SearchSyncGetProgress")]
         public static async Task<SyncAzureQuery> GetSyncProgress(
             [ActivityTrigger] string blobName, IBinder binder, CancellationToken token)
         {
@@ -135,7 +136,7 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        [FunctionName("SetSyncProgress")]
+        [FunctionName("SearchSyncSetProgress")]
         public static async Task SetSyncProgress(
             [ActivityTrigger] SearchSyncInput searchSyncInput, IBinder binder, CancellationToken token)
         {
