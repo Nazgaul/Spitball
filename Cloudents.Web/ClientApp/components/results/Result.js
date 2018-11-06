@@ -1,4 +1,5 @@
 ﻿import ResultItem from './ResultItem.vue';
+import ResultNote from "./ResultNote.vue"
 import questionCard from './../question/helpers/question-card/question-card.vue';
 import { page, verticalsName } from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
@@ -45,6 +46,7 @@ export default {
         abTestCard,
         emptyState,
         ResultItem,
+        ResultNote,
         SuggestCard,
         ResultTutor,
         ResultJob,

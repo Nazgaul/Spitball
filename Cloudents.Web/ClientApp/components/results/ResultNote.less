@@ -1,115 +1,113 @@
 @import "../../mixin.less";
 
-
-
-.cell-title {
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: -0.3px;
-  .giveMeEllipsisOne();
-  max-width: ~"calc(100% - 5px)";
-  display: block;
-
-  &.text-note {
-    //TODO ui change
-    //color: @color-dark-purple;
-    color: @color-main-purple
+.note-block {
+  min-height: 223px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+  &.cell {
+    //will remove important after refactor of result WAF styles
+    //padding: 0 !important;
   }
 
-  &.text-flashcard {
-    margin-bottom: 4px;
-    //TODO ui change
-    //color: @Flashcards;
-    color: @color-main-purple
+  &.type-lecture {
+    border-left: 2px solid @colorTypeLecture;
   }
-  //.giveMeEllipsis(1,1.14);
-  //margin-right: 40px;
-}
-
-.right-section {
-  min-width: 0; // elipsis casus issue this is the solution
-  margin-left: 2px;
-  margin-right: 36px;
-
-  @media(max-width: 599px) {
-    margin-right: 0;
-  }
-
-  .item-data {
-    max-width: 100%;
-  }
-}
-
-.snippet-wrap {
-  margin-top: 4px;
-  margin-bottom: 8px;
-
-  .snippet {
-    font-size: 14px;
-    color: #000;
-    height: 72px;
-    //margin-right: 40px;
-    line-height: 1.29;
-    letter-spacing: -0.3px;
-    overflow: hidden;
-    //.giveMeEllipsis(4,1.29);
-    .giveEllipsisUpdated(2, 1.29, 4);
+  &.type-textbook {
+    border-left: 2px solid @color-blue-new;
 
   }
-}
-
-
-
-.bottom-wrap {
-  flex-grow: 0;
-  .flexSameSize();
-
-  .bottom {
-    color: #9b9b9b;
-    font-size: 12px;
-    letter-spacing: -0.03em;
+  &.type-exam {
+    border-left: 2px solid @colorTypeExam;
   }
-}
+  &.type-document {
+    border-left: 2px solid @colorTypeDocDefault;
+  }
+  .wrapper {
+    .top-row {
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      border-bottom: 1px solid rgba(151, 151, 151, 0.21);
+      //margin: 0 16px;
+      .type-wrap {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .doc-type-text{
+          font-size: 13px;
+          font-weight: 500;
+        }
+        i{
+          font-size: 16px;
+        }
+        i, .doc-type-text {
+          &.type-lecture {
+            color: @colorTypeLecture;
+          }
+          &.type-textbook {
+            color: @color-blue-new;
+          }
+          &.type-exam {
+            color: @colorTypeExam;
+          }
+          &.type-document {
+            color: @colorTypeDocDefault;
+          }
+        }
 
-.imageWrapper(118px,160px,39px);
-
-@media only screen and (max-device-width : 600px) {
-  .imageWrapper(88px,120px, 32);
-}
-
-.img-wrap {
-  .flexSameSize();
-  box-shadow: 0 0 1px black;
-}
-
-.loading-skeleton {
-  .img-wrap {
-    background: @Site-Background !important;
-    box-shadow: none;
-
-    svg {
-      display: none;
+      }
     }
-  }
+    .details-row{
+      .details-wrap{
+        .aligned{
+          font-size: 11px;
+          color: @colorBlackNew;
+          display: inline-flex;
+          justify-content: flex-start;
+          .sb-icon-arrow{
+            font-size: 24px;
+            height: 16px;
+            width: 16px;
+            color: @colorGreyLight;
+          }
+        }
+      }
+    }
 
-  .cell-title, .snippet, .bottom {
-    background: @Site-Background;
-    color: transparent;
-  }
 
-  .cell-title {
-    font-size: 12px;
-    line-height: 0;
-    display: inline;
-  }
 
-  .snippet {
-    font-size: 7px;
-    line-height: 0;
-  }
 
-  .bottom {
-    font-size: 7px;
-    line-height: 0;
+    .loading-skeleton {
+      .img-wrap {
+        background: @Site-Background !important;
+        box-shadow: none;
+
+        svg {
+          display: none;
+        }
+      }
+
+      .cell-title, .snippet, .bottom {
+        background: @Site-Background;
+        color: transparent;
+      }
+
+      .cell-title {
+        font-size: 12px;
+        line-height: 0;
+        display: inline;
+      }
+
+      .snippet {
+        font-size: 7px;
+        line-height: 0;
+      }
+
+      .bottom {
+        font-size: 7px;
+        line-height: 0;
+      }
+    }
   }
 }

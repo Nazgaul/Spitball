@@ -16,6 +16,11 @@ export let documentTypes = [
         title: LanguageService.getValueByKey("upload_files_type_exam"),
         icon:"sbf-exam-note"
     },
+    {
+        id: 'none',
+        title: 'Document',
+        icon:"sbf-document-note",
+    },
 ];
 
 export let currencyValidator = {

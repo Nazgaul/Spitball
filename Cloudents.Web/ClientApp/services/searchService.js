@@ -214,7 +214,7 @@ export default {
             return getDocument(params).then(transferResultNote);
         },
         flashcard(params) {
-            return getFlashcard(params).then(transferResultNote);
+            return getFlashcard(params).then(transferResultFlashcard);
         },
         tutor(params) {
             return getTutor(params).then(transferResultTutor);
