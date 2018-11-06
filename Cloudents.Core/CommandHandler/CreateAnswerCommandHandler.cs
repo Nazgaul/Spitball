@@ -59,7 +59,8 @@ namespace Cloudents.Core.CommandHandler
             if (!Language.ListOfWhiteListCountries.Contains(user.Country))
             {
                 var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
-                if (pendingAnswers > 5)
+                var pendingAnswerAfterThisInsert = pendingAnswers + 1;
+                if (pendingAnswerAfterThisInsert > 5)
                 {
                     throw new QuotaExceedException();
                 }
