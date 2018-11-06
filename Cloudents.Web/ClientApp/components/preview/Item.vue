@@ -9,6 +9,15 @@
                 </div>
             </div>
             <v-flex v-if="accountUser" class="doc-chat-wrapper">
+                <div  class="download-action-container">
+                    <div class="text-wrap" >
+                        <span class="download-text">Download</span>
+                    </div>
+                    <div class="btn-wrap">
+                        <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
+                    </div>
+
+                </div>
                 <div v-show="chatReady" class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>
                 <div ref="chat-area" class="chat-container"></div>
             </v-flex>
