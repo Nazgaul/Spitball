@@ -31,16 +31,19 @@ namespace Cloudents.Core.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
             var course = await _courseRepository.GetOrAddAsync(message.Course, token);
-
             var tags = new List<Tag>();
-            foreach (var tagName in message.Tags)
+
+            if (message.Tags != null)
             {
-                var tag = await _tagRepository.GetOrAddAsync(tagName, token);
-                tags.Add(tag);
+                foreach (var tagName in message.Tags)
+                {
+                    var tag = await _tagRepository.GetOrAddAsync(tagName, token);
+                    tags.Add(tag);
+                }
             }
 
             var document = new Document(message.Name, message.BlobName, user.University, 
-                course, message.Type, tags, user, message.Professor);
+                course, message.Type, tags, user, message.Professor, message.OldId);
             await _documentRepository.AddAsync(document, token).ConfigureAwait(true);
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);

@@ -8,7 +8,7 @@ namespace Cloudents.Core.Command
     public class CreateDocumentCommand : ICommand
     {
         public CreateDocumentCommand(string blobName, string name, DocumentType type, string course,
-            IEnumerable<string> tags, long userId, string professor)
+            IEnumerable<string> tags, long userId, string professor, long? oldId = null)
         {
             BlobName = blobName;
             Name = name;
@@ -17,6 +17,7 @@ namespace Cloudents.Core.Command
             Tags = tags ?? Enumerable.Empty<string>();
             Professor = professor;
             UserId = userId;
+            OldId = oldId;
         }
 
         public string BlobName { get;  }
@@ -29,6 +30,7 @@ namespace Cloudents.Core.Command
         public long UserId { get;  }
 
         public string Professor { get; set; }
+        public long? OldId { get; set; }
 
 
     }

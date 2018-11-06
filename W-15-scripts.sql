@@ -167,3 +167,9 @@ ENABLE CHANGE_TRACKING
 WITH (TRACK_COLUMNS_UPDATED = ON)  
 
   insert into sb.HiLoGenerator values('Document',0);
+
+
+
+begin tran
+ALTER TABLE sb.Document ADD OldId Bigint NULL
+commit
