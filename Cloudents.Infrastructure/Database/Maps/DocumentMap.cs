@@ -30,7 +30,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.PageCount).Nullable();
             Map(x => x.Language).Nullable();
             Map(x => x.Purchased).Not.Nullable();
-
+            Map(x => x.OldId).Nullable();
+  
             SchemaAction.Update();
         }
     }
