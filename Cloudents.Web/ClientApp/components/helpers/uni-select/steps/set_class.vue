@@ -11,7 +11,7 @@
                 
             </div>
             <div class="explain-container">
-               <span v-language:inner>uniSelect_from</span> &nbsp; {{schoolName}}
+               <span v-language:inner>uniSelect_from</span> {{schoolName}}
             </div>
             <div class="select-school-container">
                 <v-combobox
@@ -19,15 +19,14 @@
                     :items="classes"
                     :label="classNamePlaceholder"
                     :placeholder="classNamePlaceholder"
-                    clearable
                     solo
                     :search-input.sync="search"
                     :append-icon="''"
                     :clear-icon="'sbf-close'"
-                    @click:clear="clearData()"
                     autofocus
                     multiple
                     chips
+                    :color="`gray`"
                 >
                 <template slot="no-data">
                     <v-list-tile v-if="showBox">
@@ -50,7 +49,7 @@
                     </v-chip> 
                 </template>
                 <template slot="item" slot-scope="{ index, item, parent }">
-                    <v-list-tile-content>
+                    <v-list-tile-content style="max-width:385px;">
                        <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
                     </v-list-tile-content>
                 </template>
@@ -127,11 +126,7 @@ export default {
     methods:{
         ...mapActions(['updateClasses', 'updateSelectedClasses', 'assignClasses']),
         ...mapGetters(['getSchoolName', 'getClasses', 'getSelectedClasses']),
-        clearData(){
-            this.classModel = '';
-            this.search = '';
-            this.clearClasses();
-        },
+        
         lastStep(){
             this.fnMethods.changeStep(this.enumSteps.set_school);
         },
@@ -161,6 +156,10 @@ export default {
     }
     .chip-button{
         cursor: pointer;
+        max-width: 380px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
         .sbf-close{
             font-size: 8px !important;
             margin-bottom: 3px;
