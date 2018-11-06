@@ -5,7 +5,7 @@
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
   &.cell {
     //will remove important after refactor of result WAF styles
-    //padding: 0 !important;
+    padding: 0 16px !important;
   }
 
   &.type-lecture {
@@ -33,12 +33,13 @@
         flex-grow: 1;
         display: flex;
         flex-direction: row;
-        align-items: center;
-        .doc-type-text{
+        align-items: baseline;
+        .doc-type-text {
           font-size: 13px;
-          font-weight: 500;
+          font-weight: 600;
+          font-family: @fontFiraSans;
         }
-        i{
+        i {
           font-size: 16px;
         }
         i, .doc-type-text {
@@ -58,14 +59,15 @@
 
       }
     }
-    .details-row{
-      .details-wrap{
-        .aligned{
+    .details-row {
+      .details-wrap {
+        padding-top: 5px;
+        .aligned {
           font-size: 11px;
           color: @colorBlackNew;
           display: inline-flex;
           justify-content: flex-start;
-          .sb-icon-arrow{
+          .sb-icon-arrow {
             font-size: 24px;
             height: 16px;
             width: 16px;
@@ -75,9 +77,72 @@
       }
     }
 
+    .data-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 81px;
+      margin: 26px 0;
+      .upvotes-counter {
 
+      }
+      .content-wrap {
+        padding: 9px 8px;
+        background: @colorContentBackground;
+        .title-wrap {
+          padding-bottom: 9px;
+          display: flex;
+          align-items: center;
 
+          i.doc {
+            color: @colorGreyLight;
+            font-size: 14px;
+          }
+          .doc-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: @textColor;
+          }
+        }
+        .content-text {
+          span {
+            color: @colorBlackNew;
+            font-size: 13px;
+            line-height: 1.46;
+            letter-spacing: -0.2px;
+          }
+        }
+      }
+    }
+    .doc-details {
+      display: flex;
+      flex-direction: row;
+      .author-info-date {
+        color: @colorGreyLight;
+        flex-grow: 1;
 
+      }
+      .doc-actions-info {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+
+        .sb-doc-icon {
+          color: @colorGreyLight;
+          font-size: 12px;
+
+        }
+        .sb-doc-info {
+          color: @colorBlackNew;
+          font-size: 11px;
+          opacity: 0.9;
+          font-family: @fontFiraSans;
+          &.views{
+            margin-right: 12px;
+          }
+        }
+      }
+    }
     .loading-skeleton {
       .img-wrap {
         background: @Site-Background !important;
