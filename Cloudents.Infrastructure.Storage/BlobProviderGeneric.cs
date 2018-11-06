@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
@@ -146,7 +147,7 @@ namespace Cloudents.Infrastructure.Storage
             var destinationDirectory = _blobDirectory.GetDirectoryReference(destinationContainerName);
             var sourceBlob = GetBlob(blobName);
             var destinationBlob = destinationDirectory.GetBlockBlobReference(blobName);
-            await destinationBlob.StartCopyAsync(sourceBlob).ConfigureAwait(false);
+            await destinationBlob.StartCopyAsync(sourceBlob,AccessCondition.GenerateIfExistsCondition(),AccessCondition.GenerateEmptyCondition(),null,null,token);
             await sourceBlob.DeleteAsync().ConfigureAwait(false);
         }
 
