@@ -37,7 +37,7 @@ namespace Cloudents.FunctionsV2
             }
             if (startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
             {
-                log.LogInformation($"existing instance is in status:{existingInstance.RuntimeStatus}");
+                log.LogInformation($"existing instance is in status:{existingInstance.RuntimeStatus} reason {existingInstance.CustomStatus}");
                 if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Failed)
                 {
                     log.LogInformation($"terminate existing instance");
