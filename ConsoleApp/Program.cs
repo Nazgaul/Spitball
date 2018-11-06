@@ -582,7 +582,7 @@ namespace ConsoleApp
 						left join zbox.ItemTag IT
 							on IT.ItemId = I.ItemId
 						left join zbox.Tag T
-							on IT.TagId = T.Id
+							on IT.TagId = T.Id and len(T.Name) >= 4
                         where I.Discriminator = 'File'
 	                        and I.IsDeleted = 0 
 							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
