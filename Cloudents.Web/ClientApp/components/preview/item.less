@@ -3,46 +3,81 @@
 @itemToolbarHeight: 80px;
 
 .svg-content, .jpg-content {
-    border-radius: 4px;
-    max-width: 100%;
-    vertical-align: middle;
-    margin: 10px 0;
+  border-radius: 4px;
+  max-width: 100%;
+  vertical-align: middle;
+  margin: 10px 0;
 }
 
 .html-content {
-    border: 0;
-    height: ~"calc(100vh - 175px)";
-    max-width: 760px;
-    width: 100%;
+  border: 0;
+  height: ~"calc(100vh - 175px)";
+  max-width: 760px;
+  width: 100%;
 }
 
 .item {
-    &.document-wrap {
+  &.document-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    max-width: 1304px;
+    padding-right: 24px;
+    padding-left: 24px;
+    margin: 0 auto;
+    .doc-chat-wrapper {
+      max-width: 302px;
+      margin: 10px 0 0 28px;
+      .download-action-container {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+        border-radius: 4px;
+        height: 96px;
         display: flex;
         flex-direction: row;
-        justify-content: center;
-        width: 100%;
-        max-width: 1304px;
-        padding-right: 24px;
-        padding-left: 24px;
-        margin: 0 auto;
-        .doc-chat-wrapper{
-           max-width: 302px;
-            margin: 10px 0 0 28px;
-            .chat-title{
-                border-radius: 4px;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
-                color: @color-blue-new;
-                font-size: 16px;
-                font-weight: 600;
-            }
+        min-width: 304px;
+        margin-bottom: 20px;
+        .text-wrap {
+          border-radius: 4px 0 0 4px;
+          background:@color-white;
+          color: @color-blue-new;
+          flex-grow: 1;
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          .download-text{
+            font-size: 16px;
+            font-weight: 600;
+            font-family: @fontFiraSans;
+          }
         }
-        .item-content {
-            //.item-page-width();
-            max-width: 532px;
-            .page-content {
-                background: @color-white;
-            }
+        .btn-wrap {
+          border-radius:  0 4px 4px 0;
+          background:@color-blue-new;
+          width: 108px;
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          .sb-download-icon{
+            color: @color-white;
+            font-size: 24px;
+          }
         }
+      }
+      .chat-title {
+        border-radius: 4px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+        color: @color-blue-new;
+        font-size: 16px;
+        font-weight: 600;
+      }
     }
+    .item-content {
+      //.item-page-width();
+      max-width: 532px;
+      .page-content {
+        background: @color-white;
+      }
+    }
+  }
 }

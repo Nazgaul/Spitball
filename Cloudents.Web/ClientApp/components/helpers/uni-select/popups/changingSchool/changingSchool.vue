@@ -60,6 +60,7 @@ export default {
 </script>
 
 <style lang="less">
+    @import "../../../../../mixin.less";
     .changing-school-container{
         display: none;
         width: 297px;
@@ -96,7 +97,7 @@ export default {
                     right: -37px;
                     top: 4px;
                     font-weight: 600;
-                    font-family: 'Fira Sans', sans-serif;
+                    font-family: @fontFiraSans;
                     font-size: 18px;
                     font-weight: normal;
                     font-style: normal;
@@ -129,7 +130,7 @@ export default {
             }
             .title{
                 margin: 0px auto;
-                font-family: 'Fira Sans', sans-serif;
+                font-family: @fontFiraSans;
                 font-size: 18px;
                 font-weight: normal;
                 font-style: normal;
