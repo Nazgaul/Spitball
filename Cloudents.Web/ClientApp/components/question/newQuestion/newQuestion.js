@@ -100,7 +100,7 @@ export default {
             if (this.submitForm()) {
                 this.updateLoading(true);
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default')
-                    .then(function () {
+                    .then(function (response) {
                             //self.$ga.event("Submit_question", "Homework help");
                             analyticsService.sb_unitedEvent("Submit_question", "Homework help")
                             let val = self.selectedPrice || self.price;
@@ -109,8 +109,8 @@ export default {
                             self.requestNewQuestionDialogClose(false);
                             self.$router.push({path: '/ask', query: {term: ''}});
                             self.updateLoading(false);
-                            self.updateToasterParams({
-                                toasterText: LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
+                        self.updateToasterParams({
+                            toasterText: response.data.toasterText // LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
                                 showToaster: true,
                             });
                             self.submitForm(false);

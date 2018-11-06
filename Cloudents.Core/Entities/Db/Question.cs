@@ -17,8 +17,7 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Question : IEvents
     {
-        private readonly string[] _listOfWhiteListCountries = new[] { "US", "CA", "AU" , "GB", "IE", "IL", "NZ", "MX", "SE" ,
-            "NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA" };
+        
         public Question(QuestionSubject subject, string text, decimal price, int attachments, User user, QuestionColor color)
         : this()
         {
@@ -33,7 +32,7 @@ namespace Cloudents.Core.Entities.Db
                 Color = color;
             }
             State = QuestionState.Pending;
-            if (user.Country.Contains(_listOfWhiteListCountries, StringComparison.OrdinalIgnoreCase))
+            if (user.Country.Contains(Language.ListOfWhiteListCountries, StringComparison.OrdinalIgnoreCase))
             {
                 State = QuestionState.Ok;
             }

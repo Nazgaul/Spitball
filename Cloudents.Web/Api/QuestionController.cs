@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
@@ -7,6 +8,7 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,11 +16,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
 
 namespace Cloudents.Web.Api
 {
@@ -31,7 +33,7 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
 
-        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager, 
+        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager,
             IStringLocalizer<QuestionController> localizer)
         {
             _commandBus = commandBus;
@@ -42,15 +44,25 @@ namespace Cloudents.Web.Api
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
+        public async Task<ActionResult<CreateQuestionResponse>> CreateQuestionAsync([FromBody]CreateQuestionRequest model,
+            [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
+            CancellationToken token)
         {
             try
             {
                 Debug.Assert(model.SubjectId != null, "model.SubjectId != null");
-                var command = new CreateQuestionCommand(model.SubjectId.Value,model.Text,model.Price, _userManager.GetLongUserId(User), model.Files,model.Color.GetValueOrDefault());
+                
+
+                var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price, _userManager.GetLongUserId(User), model.Files, model.Color.GetValueOrDefault());
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
 
-                return CreatedAtAction(nameof(GetQuestionAsync), new { id = command.Id });
+                var toasterMessage = _localizer["PostedQuestionToasterOk"];
+                if (country.Contains(Language.ListOfWhiteListCountries, StringComparison.OrdinalIgnoreCase))
+                {
+                    toasterMessage = _localizer["PostedQuestionToasterPending"];
+                }
+
+                return new CreateQuestionResponse(toasterMessage);
             }
             catch (InvalidOperationException)
             {
@@ -149,14 +161,14 @@ namespace Cloudents.Web.Api
             QuestionFilter[] filters;
             if (model.Filter == null || model.Filter.Length == 0)
             {
-                filters = new[] {QuestionFilter.All};
+                filters = new[] { QuestionFilter.All };
             }
             else
             {
-                filters =  model.Filter.Where(w => w.HasValue).Select(s => s.Value).ToArray();
+                filters = model.Filter.Where(w => w.HasValue).Select(s => s.Value).ToArray();
             }
 
-            
+
 
             foreach (var filter in filters)
             {
@@ -188,7 +200,7 @@ namespace Cloudents.Web.Api
             var values = EnumExtension.GetValues<QuestionFilter>();
             var facets = values.Where(w => w.GetAttributeValue<PublicValueAttribute>() != null).ToArray();//.Select(s => s.GetEnumLocalization());
 
-                
+
             return new WebResponseWithFacet<QuestionDto>
             {
                 Result = result,
