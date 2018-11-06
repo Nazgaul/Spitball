@@ -119,6 +119,8 @@ export default {
                 );
                 //conversation
                 let subject = this.questionData.text.replace(/\r?\n|\r/g, '');
+                subject = subject.substr(0, 2000);
+                subject = subject + '...';
                 conversation.setParticipant(this.chatAccount, {notify: false});
                 conversation.setParticipant(other1);
                 conversation.setAttributes({
