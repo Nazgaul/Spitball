@@ -111,7 +111,7 @@ let routes2 = [
     },
     //TODO doc previe refactoring header
     {
-        path: "/document/:id/:itemName", name: "item",
+        path: "/document/:id/", name: "item",
         components: {
             default: showItem,
             header: pageHeader

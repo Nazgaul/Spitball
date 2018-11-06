@@ -41,7 +41,7 @@
         </div>
         <div class="upload-row-3">
             <div :class="['btn-holder', $refs.upload && $refs.upload.dropActive ? 'drop-active' : '' ]">
-                <v-icon>sbf-upload-drag</v-icon>
+                <!--<v-icon>sbf-upload-drag</v-icon>-->
                 <span class="btn-label" v-language:inner>upload_files_btn_drop</span>
             </div>
         </div>
@@ -81,7 +81,7 @@
 
         },
         methods: {
-            ...mapActions(['updateFile', 'updateUploadProgress']),
+            ...mapActions(['updateFile', 'updateUploadProgress', 'updateFileName']),
 
             loadDropBoxSrc() {
                 // if exists prevent duplicate loading
@@ -125,6 +125,7 @@
                                     // generated blob name from server
                                     self.generatedFileName = response.data.fileName ? response.data.fileName : '';
                                     self.updateFile({'name': singleFile.name, 'blobName': self.generatedFileName});
+                                    self.updateFileName(singleFile.name);
                                     self.callBackmethods.stopProgress(true);
                                     self.callBackmethods.next(1);
                                 },

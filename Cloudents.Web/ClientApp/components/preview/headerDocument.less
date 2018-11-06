@@ -24,8 +24,10 @@
         .upload-by {
           color: @labelColor;
           font-size: 13px;
+          line-height: 1;
+          vertical-align: middle;
           .sbf, &.sb-person {
-            font-size: 18px;
+            font-size: 15px;
             color: @labelColor;
           }
           .name {
@@ -34,14 +36,14 @@
           }
         }
         .date {
-          color: @borderGreyColor;
+          color: @colorGreyLight;
 
         }
       }
       .item-name {
         .responsive-property(font-size, 22px, null, 18px);
         font-weight: 600;
-        font-family: 'Fira Sans', sans-serif;
+        font-family: @fontFiraSans;
         letter-spacing: -0.5px;
         text-align: left;
         color: @textColor;
@@ -85,9 +87,9 @@
     margin: 0 auto;
     .details-wrap {
       margin-top: 24px;
-      height: 97px;
-      padding: 12px 0;
+      height: 71px;
       align-items: center;
+      margin-bottom: 11px;
       .doc-type {
         width: 108px;
         display: flex;
@@ -95,7 +97,8 @@
         justify-content: space-around;
         align-items: center;
         text-align: center;
-        border-right: 1px solid rgba(151,151,151, 0.28);
+        border-right: 1px solid hsla(0,0%,59%,.28);
+        height: 71px;
       .doc-type-icon {
           color: @color-blue-new;
           margin-bottom: 24px;
@@ -128,7 +131,7 @@
                 color: @colorBlackNew;
               }
               .icon{
-                color: @borderGreyColor;
+                color: @colorGreyLight;
                 font-size: 16px;
                 &.views-icon{
                   font-size: 18px;

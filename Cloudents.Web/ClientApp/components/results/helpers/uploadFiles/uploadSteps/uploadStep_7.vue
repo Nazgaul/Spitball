@@ -2,6 +2,7 @@
     <v-card class="mb-5 sb-step-card">
         <div class="upload-row-1 referal-row-1">
             <v-icon class="five">sbf-spread-loud</v-icon>
+
             <h3 class="sb-title" v-language:inner>upload_files_step7_title</h3>
         </div>
         <div class="upload-row-2 referral-row">

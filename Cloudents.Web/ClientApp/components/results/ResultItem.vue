@@ -1,9 +1,10 @@
 ﻿<template>
     <a class="d-block" :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'"
-       @click="(isOurs?$_spitball($event):'')" :href="url" :class="'cell-'+$route.path.slice(1)">
+       @click="(isOurs ? $_spitball($event):'')" :href="url" :class="'cell-'+$route.path.slice(1)">
         <v-container class="pa-0"
                      @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-layout row fluid class="result-cell-content">
+
                 <v-flex class="img-wrap mr-2 pa-0"
                         :class="['border-'+$route.path.slice(1),'spitball-bg-'+$route.path.slice(1)]">
                     <template v-if="!item.skelaton"><img :src="item.image" v-if="item.image" alt=""
@@ -35,10 +36,9 @@
 </template>
 <script>
 
-    import FlashcardDefault from '../helpers/img/flashcard.svg'
-    import AskDefault from '../helpers/img/ask.svg'
-    import NoteDefault from '../helpers/img/document.svg'
-
+    import FlashcardDefault from '../helpers/img/flashcard.svg';
+    import AskDefault from '../helpers/img/ask.svg';
+    import NoteDefault from '../helpers/img/document.svg';
 
     export default {
         components: {AskDefault, NoteDefault, FlashcardDefault},

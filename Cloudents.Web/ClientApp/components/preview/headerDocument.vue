@@ -1,22 +1,6 @@
 ﻿<template>
-    <!--<main-header class="elevation-0" :toolbarHeight="$vuetify.breakpoint.mdAndUp ? 140 : 182" layoutClass="header-elements">-->
-    <!--<nav class="item-header elevation-0 mt-2" slot="extraHeader">-->
-    <!--<div class="item-header-content">-->
-    <!--<v-layout row align-center justify-space-between>-->
-    <!--<h1 class="item-name">{{item.name}}</h1>-->
-    <!--<item-actions></item-actions>-->
-    <!--</v-layout>-->
-    <!--<v-flex class="item-meta mt-2">-->
-    <!--<v-layout row align-center justify-space-between>-->
-    <!--<div class="author">{{item.owner}}</div>-->
-    <!--<div class="date">{{item.date | mediumDate}}</div>-->
-    <!--</v-layout>-->
-    <!--</v-flex>-->
-    <!--</div>-->
-    <!--</nav>-->
-    <!--</main-header>-->
     <div class="header-wrap">
-        <nav class="item-header doc-header elevation-0 mt-2" slot="extraHeader">
+        <nav class="item-header doc-header  mt-2" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between>
                     <h1 class="item-name">{{item.name}}</h1>
@@ -25,7 +9,7 @@
                         <span class="upload-by">
                             <v-icon class="sb-person mr-2">sbf-person</v-icon>
                             <span class="mr-2">By</span>
-                            <span class="name mr-2">{{item.owner}},</span>
+                            <span class="name mr-2">{{item.user.name}},</span>
                         </span>
                         </div>
                         <div class="date">
@@ -34,19 +18,19 @@
                     </div>
                     <item-actions></item-actions>
                 </v-layout>
-                <v-flex class="item-meta mt-2">
-                    <v-layout row align-center justify-space-between>
-                        <!--<div class="author">{{item.owner}}</div>-->
-                        <!--<div class="date">{{item.date | mediumDate}}</div>-->
-                    </v-layout>
-                </v-flex>
+                <!--<v-flex class="item-meta mt-2">-->
+                    <!--<v-layout row align-center justify-space-between>-->
+                        <!--&lt;!&ndash;<div class="author">{{item.owner}}</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="date">{{item.date | mediumDate}}</div>&ndash;&gt;-->
+                    <!--</v-layout>-->
+                <!--</v-flex>-->
             </div>
         </nav>
         <div class="details-content">
             <v-layout class="details-wrap" row align-center justify-start>
-                <div class="doc-type">
+                <div class="doc-type pr-2">
                     <v-icon class="doc-type-icon">sbf-textbook-note</v-icon>
-                    <span class="doc-type-text">{{item.type.toLowerCase()}}</span>
+                    <span class="doc-type-text">{{item.docType}}</span>
                 </div>
                 <div class="details" >
                     <div class="school detail-cell">
@@ -72,7 +56,7 @@
                             <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
                             <span class="viewed-text">{{item.views}}</span>
                         </div>
-                        <div class="ml-3 downloaded">
+                        <div class="ml-4 downloaded">
                             <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
                             <span class="downloaded-text">{{item.views}}</span>
                         </div>
@@ -97,7 +81,11 @@
             itemActions
         },
         computed: {
-            ...mapGetters({'item': 'itemDetails'}),
+            ...mapGetters([ 'getDocumentDetails']),
+            item(){
+
+                return this.getDocumentDetails
+            }
 
         },
         filters: {
@@ -106,7 +94,8 @@
                 let date = new Date(value);
                 return date.toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric'});
             }
-        }
+        },
+
     }
 </script>
 <style src="./headerDocument.less" lang="less"></style>
