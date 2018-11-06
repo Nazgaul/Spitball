@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
@@ -7,6 +8,7 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -32,7 +35,7 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
 
-        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager, 
+        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager,
             IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch)
         {
             _commandBus = commandBus;
@@ -44,15 +47,25 @@ namespace Cloudents.Web.Api
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
+        public async Task<ActionResult<CreateQuestionResponse>> CreateQuestionAsync([FromBody]CreateQuestionRequest model,
+            [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
+            CancellationToken token)
         {
             try
             {
                 Debug.Assert(model.SubjectId != null, "model.SubjectId != null");
-                var command = new CreateQuestionCommand(model.SubjectId.Value,model.Text,model.Price, _userManager.GetLongUserId(User), model.Files,model.Color.GetValueOrDefault());
+                
+
+                var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price, _userManager.GetLongUserId(User), model.Files, model.Color.GetValueOrDefault());
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
 
-                return CreatedAtAction(nameof(GetQuestionAsync), new { id = command.Id });
+                var toasterMessage = _localizer["PostedQuestionToasterOk"];
+                if (!Language.ListOfWhiteListCountries.Contains(country))
+                {
+                    toasterMessage = _localizer["PostedQuestionToasterPending"];
+                }
+
+                return new CreateQuestionResponse(toasterMessage);
             }
             catch (InvalidOperationException)
             {

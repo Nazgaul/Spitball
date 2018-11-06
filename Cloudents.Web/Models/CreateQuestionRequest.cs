@@ -24,4 +24,14 @@ namespace Cloudents.Web.Models
 
       
     }
+
+    public class CreateQuestionResponse
+    {
+        public CreateQuestionResponse(string toasterText)
+        {
+            ToasterText = toasterText;
+        }
+
+        public string ToasterText { get; set; }
+    }
 }

@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Framework
         }
 
 
-        public async Task ProcessFilesAsync(MemoryStream stream,
+        public async Task ProcessFilesAsync(Stream stream,
             Func<Stream, string, Task> pagePreviewCallback,
             Func<string, Task> textCallback,
             Func<int, Task> pageCountCallback,

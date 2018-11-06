@@ -7,7 +7,7 @@ namespace Cloudents.Infrastructure.Framework
 {
     public interface IPreviewProvider2
     {
-        Task ProcessFilesAsync(MemoryStream stream,
+        Task ProcessFilesAsync(Stream stream,
             Func<Stream,string,Task> pagePreviewCallback,
             Func<string, Task> textCallback,
             Func<int, Task> pageCountCallback,

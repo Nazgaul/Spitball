@@ -27,17 +27,20 @@ namespace Cloudents.FunctionsV2
                 OrchestrationRuntimeStatus.Failed,
                 OrchestrationRuntimeStatus.Terminated
             };
-
+           
             if (existingInstance == null)
             {
+                log.LogInformation($"start new instance of {syncType}");
                 await starter.StartNewAsync("SearchSync", model.InstanceId, model);
                 return;
 
             }
             if (startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
             {
+                log.LogInformation($"existing instance is in status:{existingInstance.RuntimeStatus}");
                 if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Failed)
                 {
+                    log.LogInformation($"terminate existing instance");
                     await starter.TerminateAsync(model.InstanceId, "the status failed");
                 }
 
@@ -60,14 +63,16 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("SearchSync")]
         public static async Task SearchSync(
-            [OrchestrationTrigger] DurableOrchestrationContextBase context)
+            [OrchestrationTrigger] DurableOrchestrationContextBase context,
+            ILogger log)
         {
             var input = context.GetInput<SearchSyncInput>();
-
+            
             var query = await context.CallActivityAsync<SyncAzureQuery>("GetSyncProgress", input.BlobName);
 
             if (query.Version == 0 && query.Page == 0)
             {
+                
                 await context.CallActivityAsync("CreateSearchIndex", input);
             }
             input.SyncAzureQuery = query;
@@ -76,7 +81,7 @@ namespace Cloudents.FunctionsV2
             long nextVersion = 0;
             do
             {
-
+                log.LogInformation($"start syncing {input.SyncType:G} with version {input.SyncAzureQuery.Version} page {input.SyncAzureQuery.Page}");
                 var result = await context.CallActivityAsync<SyncResponse>("DoSearchSync", input);
                 needContinue = result.NeedContinue;
                 nextVersion = Math.Max(nextVersion, result.Version);
@@ -89,6 +94,8 @@ namespace Cloudents.FunctionsV2
             }
             input.SyncAzureQuery = new SyncAzureQuery(nextVersion, 0);
             await context.CallActivityAsync("SetSyncProgress", input);
+            log.LogInformation($"finish syncing {input.SyncType:G} with version {input.SyncAzureQuery.Version} page {input.SyncAzureQuery.Page}");
+
 
         }
 

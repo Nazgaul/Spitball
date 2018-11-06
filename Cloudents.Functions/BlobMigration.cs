@@ -85,14 +85,12 @@ namespace Cloudents.Functions
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
 
             result = eightOrNineDigitsId.Replace(result, string.Empty);
-
-           
-            
-            result = new string(result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray());
-            
-            //result = result.Replace("\0", string.Empty);
-            result = result.Replace("בס\"ד", string.Empty);
-            return result.Replace("find more resources at oneclass.com", string.Empty);
+            var sb = new StringBuilder(new string (result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray()));
+            sb.Replace(
+              "אזהרההנך רשאי להשתמש  שימוש הוגן  ביצירה מוגנת למטרות שונותלרבות  לימוד עצמי  ואין לעשות שימוש בעל אופי מסחרי או מעיןמסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצהשעמל על הכנת ההרצאות והחומר לציבור התלמידים",
+                string.Empty);
+            sb.Replace("בס\"ד", string.Empty);
+            return sb.Replace("find more resources at oneclass.com", string.Empty).ToString();
         }
 
 

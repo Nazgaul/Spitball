@@ -126,7 +126,4 @@
   <data name="newQuestion_error_pickSubject" xml:space="preserve">
     <value>Pick a subject</value>
   </data>
-  <data name="newQuestion_toasterPostedText" xml:space="preserve">
-    <value>Question posted, the best brains are working on it right now</value>
-  </data>
 </root>

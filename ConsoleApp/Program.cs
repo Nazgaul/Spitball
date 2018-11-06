@@ -14,6 +14,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -97,11 +98,22 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             
-            var _bus = _container.Resolve<IQueryBus>();
-            var query = new SyncAzureQuery(1, 0);
+            var _bus = _container.Resolve<IFactoryProcessor>();
+            var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
 
-            var (update, delete, version) =
-                await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+            var ms = File.OpenRead(@"C:\Users\Ram\Downloads\file-b198fed1-4b9e-483e-b742-600d8f58ed84-601.docx");
+            ms.Seek(0, SeekOrigin.Begin);
+            await z.ProcessFilesAsync(ms, (stream, s) => Task.CompletedTask, sssssss =>
+            {
+                Console.WriteLine(sssssss);
+                return Task.CompletedTask;
+            }, i => Task.CompletedTask, token);
+
+            //_bus.ProcessFilesAsync()
+            //var query = new SyncAzureQuery(1, 0);
+
+            //var (update, delete, version) =
+            //    await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
 
 
             // await _bus.QueryAsync(query, token);
@@ -558,7 +570,7 @@ namespace ConsoleApp
             {
 
                 return await f.QueryAsync(
-                    @"select top 10 I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0) as DocType,
+                    @"select top 100 I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0) as DocType,
 			            STRING_AGG((T.Name), ',') as Tags
                         FROM [Zbox].[Item] I
                         join zbox.Box B
@@ -570,12 +582,13 @@ namespace ConsoleApp
 						left join zbox.ItemTag IT
 							on IT.ItemId = I.ItemId
 						left join zbox.Tag T
-							on IT.TagId = T.Id
+							on IT.TagId = T.Id and len(T.Name) >= 4
                         where I.Discriminator = 'File'
 	                        and I.IsDeleted = 0 
 							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
 							and SUBSTRING (I.Name,CHARINDEX ('.',I.Name), 5) in ('.doc', '.docx', '.xls', '.xlsx', '.PDF', '.png', '.jpg', '.ppt', '.ppt', '.jpg', '.png', '.gif', '.jpeg', '.bmp' )
-                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0);
+                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0)
+                        order by I.ItemId desc;
                 ");
             }, default);
 
@@ -603,9 +616,7 @@ namespace ConsoleApp
                         CloudBlockBlob blobDestination = container.GetBlockBlobReference($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}");
 
                         CloudBlockBlob srcBlob = oldContainer.GetBlockBlobReference(pair.BlobName);
-
-                      
-
+                        
                         var sharedAccessUri = GetShareAccessUri(pair.BlobName, 360, oldContainer);
                         
                         var blobUri = new Uri(sharedAccessUri);
@@ -653,7 +664,7 @@ namespace ConsoleApp
                 }
 
             }
-
+            await TransferDocumants();
         }
 
         private static string GetShareAccessUri(string blobname,

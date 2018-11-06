@@ -7,7 +7,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using License = Aspose.Pdf.License;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -33,7 +32,7 @@ namespace Cloudents.Infrastructure.Framework
 
 
         public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
-        public async Task ProcessFilesAsync(MemoryStream stream,
+        public async Task ProcessFilesAsync(Stream stream,
             Func<Stream, string, Task> pagePreviewCallback,
             Func<string, Task> textCallback,
             Func<int, Task> pageCountCallback,

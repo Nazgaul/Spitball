@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Aspose.Words;
 using Aspose.Words.Saving;
-using License = Aspose.Pdf.License;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -15,17 +14,13 @@ namespace Cloudents.Infrastructure.Framework
 
         public WordProcessor()
         {
-            SetLicense();
-        }
-
-        private static void SetLicense()
-        {
             using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
             {
                 var license = new License();
                 license.SetLicense(sr);
             }
         }
+
 
         //protected static string CreateCacheFileName(string blobName, int index)
         //{
@@ -70,7 +65,7 @@ namespace Cloudents.Infrastructure.Framework
         //    }
         //}
 
-        public async Task ProcessFilesAsync(MemoryStream stream,
+        public async Task ProcessFilesAsync(Stream stream,
             Func<Stream, string, Task> pagePreviewCallback,
             Func<string, Task> textCallback,
             Func<int, Task> pageCountCallback,

@@ -52,6 +52,11 @@ namespace Cloudents.Core.Interfaces
 
    
 
+    public interface IAnswerRepository : IRepository<Answer>
+    {
+        Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
+    }
+
     public interface IUniversityRepository : IRepository<University>
     {
         [ItemCanBeNull]

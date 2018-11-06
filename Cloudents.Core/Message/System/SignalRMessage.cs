@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities.Search;
 using NotImplementedException = System.NotImplementedException;
 
 namespace Cloudents.Core.Message.System
@@ -30,28 +29,6 @@ namespace Cloudents.Core.Message.System
         public override dynamic GetData()
         {
             return new SignalRTransportType(MessageType, Action, Data);
-        }
-    }
-
-    public class QuestionSearchMessage : BaseSystemMessage
-    {
-        public bool ShouldInsert { get; private set; }
-        public Question Question { get; private set; }
-        public override SystemMessageType Type => SystemMessageType.QuestionSearch;
-        public override dynamic GetData()
-        {
-            return this;
-        }
-
-        public QuestionSearchMessage(bool shouldInsert,Question question)
-        {
-            ShouldInsert = shouldInsert;
-            Question = question;
-        }
-
-        protected QuestionSearchMessage()
-        {
-            
         }
     }
 }
