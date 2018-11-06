@@ -1,31 +1,49 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Enum;
+using System.Globalization;
 
 namespace Cloudents.Core.DTOs
 {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailDto
     {
-        public QuestionSubject Subject { get; set; }
+        public QuestionDetailDto(UserDto user, long id, string text, decimal price,
+             DateTime create,
+            Guid? correctAnswerId, QuestionColor? color, QuestionSubject subject, CultureInfo culture)
+        {
+            Subject = subject;
+            Id = id;
+            Text = text;
+            Price = price;
+            User = user;
+            Create = create;
+            CorrectAnswerId = correctAnswerId;
+            Color = color;
+            IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
+        }
 
-        public long Id { get; set; }
+        public QuestionSubject Subject { get; }
 
-        public string Text { get; set; }
+        public long Id { get; }
 
-        public decimal Price { get; set; }
+        public string Text { get; }
 
-        public UserDto User { get; set; }
+        public decimal Price { get; }
+
+        public UserDto User { get; }
         public IEnumerable<QuestionDetailAnswerDto> Answers { get; set; }
 
-        public DateTime Create { get; set; }
+        public DateTime Create { get; }
 
         public IEnumerable<Uri> Files { get; set; }
 
-        public Guid? CorrectAnswerId { get; set; }
+        public Guid? CorrectAnswerId { get; }
 
-        public QuestionColor? Color { get; set; }
+        public QuestionColor? Color { get; }
+
+        public bool IsRtl { get; }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
