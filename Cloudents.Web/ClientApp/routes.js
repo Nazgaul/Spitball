@@ -184,7 +184,7 @@ let routes2 = [
         name: "conversations",
         components: {
             default: () => import("./components/conversations/conversations.vue"),
-            header: slimHeader
+            header: pageHeader
         },
         meta: {
             requiresAuth: true
