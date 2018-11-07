@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
+using Cloudents.FunctionsV2.Di;
 using Cloudents.FunctionsV2.System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
+using Microsoft.Rest.Serialization;
 using Newtonsoft.Json;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 

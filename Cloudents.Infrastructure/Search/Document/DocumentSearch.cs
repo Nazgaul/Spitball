@@ -53,13 +53,13 @@ namespace Cloudents.Infrastructure.Search.Document
             {
                 if (Math.Abs(resultResult.Score - 1) < 0.01)
                 {
-                    retVal.Result.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
-                    {
-                        Snippet = s2.Snippet,
-                        Title = s2.Title,
-                        Url = s2.Url,
-                        Source = s2.Source
-                    }));
+                    //retVal.Result.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
+                    //{
+                    //    Snippet = s2.Snippet,
+                    //    Title = s2.Title,
+                    //    Url = s2.Url,
+                    //    Source = s2.Source
+                    //}));
                 }
                 if (dic.TryGetValue(long.Parse(resultResult.Document.Id), out var p))
                 {
