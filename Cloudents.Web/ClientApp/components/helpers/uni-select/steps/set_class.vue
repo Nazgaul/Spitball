@@ -2,7 +2,7 @@
     <div class="select-university-container set-class">
             <div class="title-container">
                 <div class="first-container">
-                    <div><v-icon @click="lastStep()">sbf-arrow-back</v-icon></div>
+                    <div><v-icon @click="lastStep()" :class="{'rtl': isRtl}">sbf-arrow-back</v-icon></div>
                     <div><a class="next-container" @click="nextStep()" v-language:inner>uniSelect_done</a> </div>
                 </div>
                 <div class="select-class-string">
@@ -78,6 +78,7 @@ export default {
         classModel: '',
         search:'',
         classNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_class_name_placeholder'),
+        isRtl: global.isRtl
         }
         
     },
