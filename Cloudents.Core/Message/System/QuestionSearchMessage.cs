@@ -20,10 +20,10 @@ namespace Cloudents.Core.Message.System
             Question = question;
         }
 
-        protected QuestionSearchMessage()
-        {
+        //protected QuestionSearchMessage()
+        //{
             
-        }
+        //}
     }
 
     public class UpdateUserBalanceMessage: BaseSystemMessage
