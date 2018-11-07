@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
@@ -34,7 +36,13 @@ namespace Cloudents.Core.CommandHandler
 
             if (oldQuestion?.Created.AddSeconds(20) > DateTime.UtcNow)
             {
-                throw new InvalidOperationException("You need to wait before asking more questions");
+                throw  new QuotaExceededException("You need to wait before asking more questions");
+            }
+
+            if (await _questionRepository.GetSimilarQuestionAsync(message.Text, token))
+            {
+                user.Events.Add(new QuestionRejectEvent(user));
+                throw new DuplicateRowException();
             }
 
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);

@@ -145,7 +145,8 @@
     <value>אל דאגה :)</value>
   </data>
   <data name="school_desc" xml:space="preserve">
-    <value>וכל הקורסים שבחרת יימחקו</value>
+    <value>
+וכל הקורסים שבחרת יימחקו</value>
   </data>
   <data name="select_class" xml:space="preserve">
     <value>בחר קורס</value>

@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,17 +36,24 @@ namespace Cloudents.Infrastructure.Storage
 
         }
 
-        public Task InsertMessageAsync(BaseEmail message, CancellationToken token)
+        public Task InsertMessageAsync(BaseEmail obj, CancellationToken token)
+        {
+            return InsertMessageAsync(obj, TimeSpan.Zero, token);
+        }
+
+        public Task InsertMessageAsync(BaseEmail obj, TimeSpan delay, CancellationToken token)
         {
             var queue = _queueClient.GetQueueReference(QueueName.EmailQueue.Name);
-            var json = JsonConvert.SerializeObject(message, new JsonSerializerSettings
+            var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             });
             var cloudMessage = new CloudQueueMessage(json);
-            token.ThrowIfCancellationRequested();
-            return queue.AddMessageAsync(cloudMessage);
+            return queue.AddMessageAsync(cloudMessage, null, delay, new QueueRequestOptions(),
+                new OperationContext(), token);
         }
+
+
 
         public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
         {

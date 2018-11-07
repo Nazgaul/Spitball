@@ -47,14 +47,14 @@ export default {
                 },
                 {
                     text: LanguageService.getValueByKey('wallet_Amount'),
-                    align: 'right',
+                    align: 'left',
                     value: 'amount',
                     sortable: false,
                     showOnMobile: true
                 },
                 {
                     text: LanguageService.getValueByKey('wallet_Balance'),
-                    align: 'right',
+                    align: 'left',
                     value: 'balance',
                     sortable: false,
                     showOnMobile: false
@@ -70,14 +70,14 @@ export default {
                     text: LanguageService.getValueByKey('wallet_Tokens'),
                     align: 'left',
                     value: 'points',
-                    align: 'right',
+                    align: 'left',
                     showOnMobile: true
                 },
                 {
                     text: LanguageService.getValueByKey('wallet_Value'),
                     align: 'left',
                     value: 'value',
-                    align: 'right',
+                    align: 'left',
                     showOnMobile: true
                 },
             ],
