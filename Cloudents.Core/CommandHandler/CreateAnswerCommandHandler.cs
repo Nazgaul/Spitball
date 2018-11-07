@@ -62,7 +62,7 @@ namespace Cloudents.Core.CommandHandler
                 var pendingAnswerAfterThisInsert = pendingAnswers + 1;
                 if (pendingAnswerAfterThisInsert > 5)
                 {
-                    throw new QuotaExceedException();
+                    throw new QuotaExceededException();
                 }
             }
             //if (!user.Country.Contains<string>(Language.ListOfWhiteListCountries, StringComparison.OrdinalIgnoreCase))

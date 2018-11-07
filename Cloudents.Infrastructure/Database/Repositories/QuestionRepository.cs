@@ -36,5 +36,12 @@ namespace Cloudents.Infrastructure.Database.Repositories
             return Session.Query<Question>().Where(w => w.User.Id == userId).OrderByDescending(o => o.Id).Take(1)
                 .SingleOrDefaultAsync(cancellationToken: token);
         }
+
+
+        public Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token)
+        {
+            return Session.Query<Question>().Where(w => w.Text == text.Trim())
+                .AnyAsync(token);
+        }
     }
 }
