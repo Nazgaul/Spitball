@@ -33,7 +33,13 @@ namespace Cloudents.Web.Controllers
             _queryBus = queryBus;
         }
 
-        [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
+        //[Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
+        //public IActionResult OldDocumentLinkRedirect()
+        //{
+
+        //}
+
+        [Route("document/{universityName}/{boxId}/{id:long}/{name}", Name = "Document")]
         [ActionName("Index")]
         public async Task<IActionResult> IndexAsync(long id,
             [ModelBinder(typeof(CountryModelBinder))] string country,
@@ -46,14 +52,15 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (!model.Discriminator.Equals("file", StringComparison.OrdinalIgnoreCase))
-            {
-                return View();
-            }
-            ViewBag.imageSrc = ViewBag.fbImage = "https://az779114.vo.msecnd.net/preview/" + model.ImageUrl +
-                                                 ".jpg?width=1200&height=630&mode=crop";
+            //if (!model.Discriminator.Equals("file", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    return View();
+            //}
+            //ViewBag.imageSrc = ViewBag.fbImage = "https://az779114.vo.msecnd.net/preview/" + model.ImageUrl +
+            //                                     ".jpg?width=1200&height=630&mode=crop";
             ViewBag.country = country ?? "us";
             if (string.IsNullOrEmpty(model.Country)) return View();
+            
             
             //TODO: need to be university culture
             ViewBag.title =
