@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 
@@ -20,8 +21,16 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(TCommand message, CancellationToken token)
         {
-            await _decoratee.ExecuteAsync(message, token).ConfigureAwait(true);
-            await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
+            try
+            {
+                await _decoratee.ExecuteAsync(message, token).ConfigureAwait(true);
+                await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.PublishEventsAsync(token);
+                throw ;
+            }
         }
     }
 

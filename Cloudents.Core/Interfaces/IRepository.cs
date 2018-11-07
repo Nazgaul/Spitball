@@ -53,6 +53,7 @@ namespace Cloudents.Core.Interfaces
         Task<IList<Question>> GetAllQuestionsAsync(int page);
         Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
         Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
+        Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
     }
 
    
