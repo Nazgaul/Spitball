@@ -33,22 +33,13 @@ namespace Cloudents.Infrastructure.Database.Query
             var questionFuture = _session.Query<Question>().Where(w => w.Id == id)
                 .Fetch(f => f.User)
                 .Where(w => w.State == null || w.State == QuestionState.Ok)
-                .Select(s => new QuestionDetailDto
+                .Select(s => new QuestionDetailDto(new UserDto
                 {
-                    User = new UserDto
-                    {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Image = s.User.Image
-                    },
-                    Id = s.Id,
-                    Create = s.Updated,
-                    Price = s.Price,
-                    Subject = s.Subject,
-                    Text = s.Text,
-                    Color = s.Color,
-                    CorrectAnswerId = s.CorrectAnswer.Id
-                }).ToFutureValue();
+                    Id = s.User.Id,
+                    Name = s.User.Name,
+                    Image = s.User.Image
+                }, s.Id,s.Text,s.Price,s.Updated,s.CorrectAnswer.Id,s.Color,s.Subject,s.Language)
+                ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
                 .Where(w => w.Question.Id == id)
                 .Fetch(f => f.User)

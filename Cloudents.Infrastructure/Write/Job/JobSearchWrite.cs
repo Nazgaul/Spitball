@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -13,8 +14,8 @@ namespace Cloudents.Infrastructure.Write.Job
     {
         public const string IndexName = "jobs3";
 
-        public JobSearchWrite(SearchService client)
-            : base(client, IndexName)
+        public JobSearchWrite(SearchService client, ILogger logger)
+            : base(client, IndexName,logger)
         {
 
         }

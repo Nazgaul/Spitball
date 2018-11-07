@@ -52,6 +52,10 @@ namespace Cloudents.FunctionsV2.Sync
 
         public SyncAzureQuery SyncAzureQuery { get; set; }
 
+        public override string ToString()
+        {
+            return $"{nameof(SyncType)}: {SyncType}, {nameof(BlobName)}: {BlobName}, {nameof(InstanceId)}: {InstanceId}, {nameof(SyncAzureQuery)}: {SyncAzureQuery}";
+        }
     }
 
     
