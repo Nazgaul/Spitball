@@ -29,7 +29,7 @@
                     <div class="content-wrap">
                         <div class="title-wrap">
                             <v-icon class="doc mr-2">sbf-document-note</v-icon>
-                            <span class="doc-title">{{item.title}}</span>
+                            <span class="doc-title" v-line-clamp="1">{{item.title}}</span>
                         </div>
                         <div class="content-text">
                             <span v-line-clamp="2">{{item.snippet}}</span>
@@ -48,7 +48,6 @@
                         <span class="sb-doc-info">{{docDownloads}}</span>
                     </div>
                 </v-flex>
-
             </v-flex>
         </v-container>
     </a>
