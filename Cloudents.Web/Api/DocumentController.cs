@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message.System;
 
 namespace Cloudents.Web.Api
 {
@@ -32,11 +33,12 @@ namespace Cloudents.Web.Api
         private readonly SignInManager<User> _signInManager;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
+        private readonly IQueueProvider _queueProvider;
 
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<User> userManager,
             IBlobProvider<DocumentContainer> blobProvider,
-            SignInManager<User> signInManager, IStringLocalizer<DocumentController> localizer)
+            SignInManager<User> signInManager, IStringLocalizer<DocumentController> localizer, IQueueProvider queueProvider)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -44,6 +46,7 @@ namespace Cloudents.Web.Api
             _blobProvider = blobProvider;
             _signInManager = signInManager;
             _localizer = localizer;
+            _queueProvider = queueProvider;
         }
 
         [HttpGet("{id}")]
@@ -53,7 +56,8 @@ namespace Cloudents.Web.Api
             var tModel = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
             var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
 
-            await Task.WhenAll(tModel, filesTask);
+            var tQueue = _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
+            await Task.WhenAll(tModel, filesTask, tQueue);
 
             var model = tModel.Result;
             var files = filesTask.Result;

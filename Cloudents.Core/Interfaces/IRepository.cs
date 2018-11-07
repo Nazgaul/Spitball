@@ -43,6 +43,11 @@ namespace Cloudents.Core.Interfaces
         Task<Tag> GetOrAddAsync(string name, CancellationToken token);
     }
 
+    public interface IDocumentRepository : IRepository<Document>
+    {
+        Task UpdateNumberOfViews(long id, CancellationToken token);
+    }
+
     public interface IQuestionRepository : IRepository<Question>
     {
         Task<IList<Question>> GetAllQuestionsAsync(int page);
