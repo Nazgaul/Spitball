@@ -1,12 +1,10 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using System;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -18,13 +16,13 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class DocumentController : Controller
     {
-        private readonly IBlobProvider<OldSbFilesContainerName> _blobProvider;
+        private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IQueryBus _queryBus;
 
         public DocumentController(
-            IBlobProvider<OldSbFilesContainerName> blobProvider, IStringLocalizer<SharedResource> sharedLocalizer,
+            IBlobProvider<DocumentContainer> blobProvider, IStringLocalizer<SharedResource> sharedLocalizer,
             IStringLocalizer<DocumentController> localizer, IQueryBus queryBus)
         {
             _blobProvider = blobProvider;
