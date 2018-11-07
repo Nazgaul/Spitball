@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
-    class EmailQuestionDeleted : IEventHandler<QuestionDeletedEvent>
+    public class EmailQuestionDeleted : IEventHandler<QuestionDeletedEvent>
     {
         private readonly IQueueProvider _serviceBusProvider;
 
