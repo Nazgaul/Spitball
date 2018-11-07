@@ -10,6 +10,11 @@
                 <a v-if="$route.path.slice(1)==='ask' "
                    :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "
                    @click.prevent="goToAskQuestion()" v-language:inner>result_ask_question</a>
+
+                  <a :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'upload-files','ask-question-mob', 'hidden-md-and-up'] "
+                     v-show="$route.path.slice(1)==='note'"  @click="updateDialogState(true)" v-language:inner>upload_btn_open</a>
+
+
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
                        class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
