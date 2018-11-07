@@ -32,7 +32,7 @@
                             <span class="doc-title">{{item.title}}</span>
                         </div>
                         <div class="content-text">
-                            <span>{{item.snippet}}</span>
+                            <span v-line-clamp="2">{{item.snippet}}</span>
                         </div>
                     </div>
                 </v-flex>
