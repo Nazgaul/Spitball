@@ -83,7 +83,7 @@
                                             {{'result_answer'}}
                                         </div>
                                         <!-- not ask -->
-                                        <div class="show-btn" v-show="name !=='ask' || (name ==='ask' && item.hasCorrectAnswer) "
+                                        <div class="show-btn" v-show="name !=='ask' && name !=='note' || (name ==='ask' && item.hasCorrectAnswer)"
                                              :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme
                                         </div>
                                     </div>
