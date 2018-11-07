@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Cloudents.Core.Message.Email
 {
-    class QuestionDeletedEmail : BaseEmail
+    public class QuestionDeletedEmail : BaseEmail
     {
         public QuestionDeletedEmail(string to, CultureInfo info)
             : base(to, "Your question was deleted", info)

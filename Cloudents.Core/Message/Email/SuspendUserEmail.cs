@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Text;
 
 namespace Cloudents.Core.Message.Email
 {
-    class SuspendUserEmail : BaseEmail
+    public class SuspendUserEmail : BaseEmail
     {
         public SuspendUserEmail(string to, CultureInfo info)
             : base(to, "Your account have been suspended", info)
