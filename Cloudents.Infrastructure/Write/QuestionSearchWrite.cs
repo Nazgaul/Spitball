@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
@@ -15,7 +16,7 @@ namespace Cloudents.Infrastructure.Write
         internal const string ScoringProfile = "ScoringProfile";
 
 
-        public QuestionSearchWrite(SearchService client) : base(client, client.GetClient(IndexName))
+        public QuestionSearchWrite(SearchService client, ILogger logger) : base(client, client.GetClient(IndexName), logger)
         {
         }
 

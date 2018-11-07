@@ -8,7 +8,7 @@ namespace Cloudents.Core.Entities.Search
 {
     public class Question : ISearchObject
     {
-        public Question(long id, DateTime? dateTime, string text, string country, string language, QuestionSubject subject, QuestionFilter? state)
+        public Question(long id, DateTime dateTime, string text, string country, string language, QuestionSubject subject, QuestionFilter? state)
         {
             Id = id.ToString();
             DateTime = dateTime;
@@ -27,7 +27,7 @@ namespace Cloudents.Core.Entities.Search
 
         public string Id { get; set; } //key readonly
 
-        public DateTime? DateTime { get; private set; } //readonly
+        public DateTime DateTime { get; private set; } //readonly
         public string Text { get; private set; } //search readonly
 
         public string[] Prefix { get; private set; } //search
