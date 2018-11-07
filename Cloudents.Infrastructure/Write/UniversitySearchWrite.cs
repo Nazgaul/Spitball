@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
@@ -16,8 +17,8 @@ namespace Cloudents.Infrastructure.Write
         public const string CountryTagScoringParameters = "country";
         //public const string DistanceScoringParameter = "currentLocation";
 
-        public UniversitySearchWrite(SearchService client)
-            : base(client, client.GetClient(IndexName))
+        public UniversitySearchWrite(SearchService client, ILogger logger)
+            : base(client, client.GetClient(IndexName),logger)
         {
         }
 

@@ -1,5 +1,5 @@
 {
   "version": "2.0",
-  //"functions": [ "RemoveDuplicatePendingQuestion" ]
-  //"functions": [ "DocumentSearchSync", "SearchSync", "CreateSearchIndex", "DoSearchSync", "GetSyncProgress", "SetSyncProgress" ]
+  //"functions": [ "SystemFunction" ]
+  //"functions": [ "QuestionSearchSync", "SearchSync", "SearchSyncCreateIndex", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }

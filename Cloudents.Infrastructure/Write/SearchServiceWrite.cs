@@ -14,19 +14,22 @@ namespace Cloudents.Infrastructure.Write
     {
         protected readonly SearchServiceClient _client;
         protected readonly ISearchIndexClient IndexClient;
+
+        private readonly ILogger _logger;
         // private readonly string _indexName;
 
-        protected SearchServiceWrite(SearchService client, string indexName)
-            : this(client, client.GetOldClient(indexName))
+        protected SearchServiceWrite(SearchService client, string indexName, ILogger logger)
+            : this(client, client.GetOldClient(indexName), logger)
 
         {
 
         }
 
-        protected SearchServiceWrite(SearchService client, ISearchIndexClient indexClient)
+        protected SearchServiceWrite(SearchService client, ISearchIndexClient indexClient, ILogger logger)
         {
             _client = client.Client;
             IndexClient = indexClient;
+            _logger = logger;
         }
 
 
@@ -35,6 +38,10 @@ namespace Cloudents.Infrastructure.Write
             if (items == null) throw new ArgumentNullException(nameof(items));
             var batch = IndexBatch.MergeOrUpload(items);
             var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            foreach (var errorResult in result.Results.Where(w => !w.Succeeded))
+            {
+                _logger.Error($"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {IndexClient.IndexName} ");
+            }
             return result.Results.Count > 0;
         }
 
@@ -46,11 +53,16 @@ namespace Cloudents.Infrastructure.Write
                 Id = s
             }));
             var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            foreach (var errorResult in result.Results.Where(w => !w.Succeeded))
+            {
+                _logger.Error($"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {IndexClient.IndexName} ");
+            }
             return result.Results.Count > 0;
         }
 
         public async Task<bool> UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token)
         {
+            _logger.Info("processing");
             if (items == null && ids == null) throw new ArgumentNullException();
             if (ids == null)
             {
@@ -70,6 +82,11 @@ namespace Cloudents.Infrastructure.Write
             if (actions.Count <= 0) return false;
             var batch = IndexBatch.New(actions);
             var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            foreach (var errorResult in result.Results.Where(w=>!w.Succeeded))
+            {
+                _logger.Error($"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {IndexClient.IndexName} ");
+            }
+
             return result.Results.Count > 0;
         }
 

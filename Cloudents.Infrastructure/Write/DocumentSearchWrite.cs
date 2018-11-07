@@ -1,4 +1,5 @@
-﻿using Cloudents.Infrastructure.Search;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
 using Document = Cloudents.Core.Entities.Search.Document;
@@ -14,7 +15,7 @@ namespace Cloudents.Infrastructure.Write
         internal const string TagsTagsParameter = "Tag";
         internal const string ScoringProfile = "ScoringProfile";
 
-        public DocumentSearchWrite(SearchService client) : base(client, client.GetClient(IndexName))
+        public DocumentSearchWrite(SearchService client, ILogger logger) : base(client, client.GetClient(IndexName), logger)
         {
         }
 
