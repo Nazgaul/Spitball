@@ -166,7 +166,7 @@ export default {
         },
         enableAnswer() {
             let hasCorrectAnswer = !!this.questionData.correctAnswerId;
-            let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered) && !hasCorrectAnswer;
+            let val = !this.cardOwner && (!this.accountUser || this.userNotAnswered) && !hasCorrectAnswer;
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
