@@ -47,8 +47,7 @@
                             <template slot="items" slot-scope="props">
                                 <td class="text-xs-left">{{ props.item.date | dateFromISO}}</td>
                                 <td class="text-xs-left">{{ props.item.action }}</td>
-                                <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}
-                                </td>
+                                <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}</td>
                                 <td class="text-xs-right" style="direction:ltr;">{{ props.item.amount | currencyLocalyFilter}}</td>
                                 <td class="text-xs-right bold" style="direction:ltr;" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance | currencyLocalyFilter }}</td>
                             </template>
