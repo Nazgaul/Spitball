@@ -7,9 +7,9 @@ using SignalRMessage = Microsoft.Azure.WebJobs.Extensions.SignalRService.SignalR
 
 namespace Cloudents.FunctionsV2.System
 {
-    public class SignalROperation : ISystemOperation
+    public class SignalROperation : ISystemOperation<Cloudents.Core.Message.System.SignalRMessage>
     {
-        public async Task DoOperationAsync(BaseSystemMessage msg, IBinder binder, CancellationToken token)
+        public async Task DoOperationAsync(Cloudents.Core.Message.System.SignalRMessage msg, IBinder binder, CancellationToken token)
         {
             
             var signalRMessages = await binder.BindAsync<IAsyncCollector<SignalRMessage>>(new SignalRAttribute()

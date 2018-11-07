@@ -88,8 +88,8 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-            var _bus = _container.Resolve<AzureQuestionSearch>();
-             await _bus.GetById("4829");
+            var _bus = _container.Resolve<IDocumentRepository>();
+            await _bus.UpdateNumberOfViews(1, default);
             //var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
 
             //var ms = File.OpenRead(@"C:\Users\Ram\Downloads\file-b198fed1-4b9e-483e-b742-600d8f58ed84-601.docx");

@@ -1,24 +1,32 @@
-using System.Threading;
-using Cloudents.Infrastructure.Database.Query;
+using Autofac;
+using Cloudents.Core.Message.System;
+using Cloudents.FunctionsV2.System;
 using Microsoft.Azure.WebJobs;
+using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Interfaces;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
 {
     public static class Test
     {
-        //[FunctionName("Test"), Disable]
-        //public static async Task Run(
-        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo timer,
-        //   [Blob("spitball-files/files/1/text.txt")] string text, IDictionary<string, string> metadata
-        //    )
-        //{
+        [FunctionName("Test")]
+        public static async Task Run(
+            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo timer,
+            [Inject] ILifetimeScope lifetimeScope
+            )
+        {
+            var command = new QuestionSearchMessage(true, null);
 
 
-        //}
+            var handlerType =
+                typeof(ISystemOperation<>).MakeGenericType(command.GetType());
+
+            dynamic operation = lifetimeScope.Resolve(handlerType);
+
+            await operation.DoOperationAsync((dynamic)command, null, CancellationToken.None);
+            //var operation = lifetimeScope.ResolveNamed<ISystemOperation>("ram");
+        }
 
 
         //[FunctionName("RemoveDuplicatePendingQuestion"),Disb]

@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
@@ -82,9 +83,49 @@ namespace Cloudents.FunctionsV2.Di
             builder.RegisterType<DocumentDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Document);
 
 
-            builder.RegisterType<SignalROperation>().Keyed<ISystemOperation>(SystemMessageType.SignalR);
-            builder.RegisterType<QuestionSyncOperation>().Keyed<ISystemOperation>(SystemMessageType.QuestionSearch);
-            builder.RegisterType<UpdateUserBalanceOperation>().Keyed<ISystemOperation>(SystemMessageType.UpdateBalance);
+
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ISystemOperation<>));
+            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            //    .AsClosedTypesOf(typeof(ISystemOperation<>))
+            //    .Named(i =>
+            //    {
+            //        return i.GetInterfaces()[0].GetGenericArguments()[0].Name;
+            //    },typeof(ISystemOperation<>));
+                    
+                //.Select(i => {
+                //    return new Autofac.Core.KeyedService(i.GetGenericArguments()[0].Name, i);
+                //}));
+
+
+
+            //builder.RegisterType<SignalROperation>().As<ISystemOperation>().WithMetadata()
+            //    .Keyed<ISystemOperation>(SystemMessageType.SignalR);
+            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            //    .Where(t => t.IsClosedTypeOf(typeof(ISystemOperation<>)))
+            //    .Select(s=> )
+
+            //    .Named(t => t.Name);
+            //.AsImplementedInterfaces();
+            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            //    .Where(w =>
+            //    {
+            //        return w.IsAssignableTo<ISystemOperation>();
+            //    })
+            //    .Keyed<SystemMessageType>(x =>
+            //    {
+            //        return x.GetProperty("Type").GetConstantValue();
+            //    });
+            //   // .AssignableTo<ISystemOperation>()
+
+            //   // .Keyed<SystemMessageType>(x =>
+            //   // {
+            //   //    var z = (ISystemOperation)x;
+            //   //    return z.Type;
+            //   //});
+            //builder.RegisterType<SignalROperation>().Keyed<ISystemOperation>(SystemMessageType.SignalR);
+            // builder.RegisterType<QuestionSyncOperation>().Keyed<ISystemOperation>(SystemMessageType.QuestionSearch);
+            // builder.RegisterType<UpdateUserBalanceOperation>().Keyed<ISystemOperation>(SystemMessageType.UpdateBalance);
 
             builder.Populate(services); // Populate is needed to have support for scopes.
             return new AutofacServiceProvider(builder.Build());

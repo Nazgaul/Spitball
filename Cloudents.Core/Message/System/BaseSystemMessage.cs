@@ -1,9 +1,9 @@
 ﻿namespace Cloudents.Core.Message.System
 {
-    public abstract class BaseSystemMessage
+    public interface ISystemQueueMessage
     {
-        public abstract SystemMessageType Type { get; }
+        //public abstract SystemMessageType Type { get; }
 
-        public abstract dynamic GetData();
+        //public abstract dynamic GetData();
     }
 }

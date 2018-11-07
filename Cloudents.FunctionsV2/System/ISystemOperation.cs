@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2.System
 {
-    public interface ISystemOperation
+    public interface ISystemOperation<in T>  where T : ISystemQueueMessage
     {
-        Task DoOperationAsync(BaseSystemMessage msg, IBinder binder, CancellationToken token);
+        Task DoOperationAsync(T msg, IBinder binder, CancellationToken token);
     }
+
+   
 }

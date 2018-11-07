@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2.System
 {
-    public class QuestionSyncOperation : ISystemOperation
+    public class QuestionSyncOperation : ISystemOperation<QuestionSearchMessage> 
     {
         private readonly ISearchServiceWrite<Question> _questionServiceWrite;
 
@@ -18,20 +18,25 @@ namespace Cloudents.FunctionsV2.System
             _questionServiceWrite = questionServiceWrite;
         }
 
-        public Task DoOperationAsync(BaseSystemMessage msg, IBinder binder, CancellationToken token)
+        public Task DoOperationAsync(QuestionSearchMessage msg, IBinder binder, CancellationToken token)
         {
-            var d = msg.GetData();
-            if (!(d is QuestionSearchMessage p))
+            //var d = msg.GetData();
+            //if (!(d is QuestionSearchMessage p))
+            //{
+            //    throw new ArgumentException("QuestionSyncOperation is not QuestionSearchMessage");
+            //}
+
+            if (msg.ShouldInsert)
             {
-                throw new ArgumentException("QuestionSyncOperation is not QuestionSearchMessage");
+                return _questionServiceWrite.UpdateDataAsync(new[] { msg.Question }, token);
             }
 
-            if (p.ShouldInsert)
-            {
-                return _questionServiceWrite.UpdateDataAsync(new[] { p.Question }, token);
-            }
-
-            return _questionServiceWrite.DeleteDataAsync(new[] { p.Question.Id }, token);
+            return _questionServiceWrite.DeleteDataAsync(new[] { msg.Question.Id }, token);
         }
+
+        //public Task DoOperationAsync(QuestionSearchMessage msg, IBinder binder, CancellationToken token)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
