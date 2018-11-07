@@ -6,7 +6,8 @@ const state = {
     legalCheck: false,
     uploadProgress: 0,
     showDialog: false,
-    customFileName : ''
+    customFileName : '',
+    uploadFullMobile: true
 };
 const mutations = {
     setUploadProgress(state,val){
@@ -25,6 +26,9 @@ const mutations = {
     },
     setFileName(state, data){
         state.customFileName = data
+    },
+    setUploadFullMobile(state, val){
+        state.uploadFullMobile = val
     }
 };
 const getters = {
@@ -32,7 +36,8 @@ const getters = {
     getLegal: (state) => state.legalCheck,
     getUploadProgress: (state) => state.uploadProgress,
     getDialogState: (state) => state.showDialog,
-    getCustomFileName: (state) => state.customFileName
+    getCustomFileName: (state) => state.customFileName,
+    getUploadFullMobile: (state) => state.uploadFullMobile
 };
 const actions = {
     updateLegalAgreement({commit},  val) {
@@ -58,6 +63,9 @@ const actions = {
     },
     updateDialogState({commit}, val){
         commit('setDialogUploadState', val);
+    },
+    updateUploadFullMobile({commit}, val){
+      commit('setUploadFullMobile', val)
     }
 };
 

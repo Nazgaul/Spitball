@@ -36,7 +36,8 @@
                               maxActive: 3,
                               maxRetries: 5,}">
                 </file-upload>
-                <span class="btn-label" v-language:inner>upload_files_btn_desktop</span>
+                <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label" v-language:inner>upload_files_btn_phone</span>
+                <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label" v-language:inner>upload_files_btn_desktop</span>
             </div>
         </div>
         <div class="upload-row-3">
@@ -81,7 +82,7 @@
 
         },
         methods: {
-            ...mapActions(['updateFile', 'updateUploadProgress', 'updateFileName']),
+            ...mapActions(['updateFile', 'updateUploadProgress', 'updateFileName', 'updateUploadFullMobile']),
 
             loadDropBoxSrc() {
                 // if exists prevent duplicate loading
@@ -127,6 +128,7 @@
                                     self.updateFile({'name': singleFile.name, 'blobName': self.generatedFileName});
                                     self.updateFileName(singleFile.name);
                                     self.callBackmethods.stopProgress(true);
+                                    self.updateUploadFullMobile(false);
                                     self.callBackmethods.next(1);
                                 },
                                 error => {
@@ -160,6 +162,7 @@
                         this.filesUploaded.splice(0, 1, singleFile);
                         this.updateFile({'name': documentTitle});
                     }
+                    this.updateUploadFullMobile(false)
                     this.callBackmethods.next(1)
                 }
                 // Upload progress

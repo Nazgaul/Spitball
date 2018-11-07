@@ -23,9 +23,12 @@
                 <new-question></new-question>
             </sb-dialog>
             <!--upload dilaog-->
+
             <sb-dialog :showDialog="getDialogState" :transitionAnimation="'slide-y-transition'" :popUpType="'uploadDialog'" :fullWidth="true"
-                       :isPersistent="true"
-                       :content-class="'upload-dialog'">
+
+                       :fullScreen="!isUploadAbsoluteMobile"
+                       :isPersistent="$vuetify.breakpoint.smAndUp"
+                       :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'">
                 <upload-files v-if="getDialogState"></upload-files>
                 </sb-dialog>
         </v-content>
@@ -55,7 +58,7 @@
             }
         },
         computed: {
-            ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner", "loginDialogState", "newQuestionDialogSate", "getShowSelectUniPopUpInterface", "getShowSelectUniInterface", "getDialogState"]),
+            ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner", "loginDialogState", "newQuestionDialogSate", "getShowSelectUniPopUpInterface", "getShowSelectUniInterface", "getDialogState", "getUploadFullMobile"]),
             cookiesShow(){
                 return this.acceptedCookies
             },
@@ -64,6 +67,9 @@
             },
             showUniSelect(){
             return this.getShowSelectUniInterface;
+            },
+            isUploadAbsoluteMobile(){
+                return this.$vuetify.breakpoint.xsOnly && this.getUploadFullMobile
             }
         },
         updated: function () {
