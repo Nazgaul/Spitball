@@ -1,6 +1,9 @@
 ﻿
+
+//fonts variables
 @fontFiraSans: "Fira Sans", sans-serif;
 
+//color variables global
 @color-blue: #3293f6;
 @color-dark-blue: #0455a8;
 @color-white: #fff;
@@ -21,21 +24,28 @@
 @color-grey-icon-static: #888b8e;
 @color-AB-test-background : #E7E8F7;
 @color-blue-new: #4452fc;
-@colorUploadBlue: #4452fc;
-/*
-@color-pink-gradient: fade(#f14d4d, 15%);
-@color-purple-gradient: fade(@color-purple, 15%);
-@color-green-gradient: fade(@color-green, 15%);
-@color-orange-gradient: fade(@color-orange, 15%);
+@colorContentBackground: #f8f8f8;
 
-.gradient (@startColor: @color-white, @endColor: @color-purple) {
-    background-color: @startColor;
-    background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
-    background: -webkit-linear-gradient(top, @startColor, @endColor);
-    background: -moz-linear-gradient(top, @startColor, @endColor);
-    background: -ms-linear-gradient(top, @startColor, @endColor);
-    background: -o-linear-gradient(top, @startColor, @endColor);
-}*/
+//color variables for documents types
+@colorTypeLecture: #50e3c2;
+@colorTypeExam: #d056ff;
+@colorTypeDocDefault: rgba(0, 0, 0, 0.25);
+
+
+  /*
+  @color-pink-gradient: fade(#f14d4d, 15%);
+  @color-purple-gradient: fade(@color-purple, 15%);
+  @color-green-gradient: fade(@color-green, 15%);
+  @color-orange-gradient: fade(@color-orange, 15%);
+
+  .gradient (@startColor: @color-white, @endColor: @color-purple) {
+      background-color: @startColor;
+      background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+      background: -webkit-linear-gradient(top, @startColor, @endColor);
+      background: -moz-linear-gradient(top, @startColor, @endColor);
+      background: -ms-linear-gradient(top, @startColor, @endColor);
+      background: -o-linear-gradient(top, @startColor, @endColor);
+  }*/
 
 @Ask-a-Question: #0455a8;
 @Class-Material: #320161;
@@ -102,20 +112,6 @@
   // white-space: nowrap;
 }
 
-
-//.checkboxStyle(){
-//  -webkit-appearance: none;
-//  background-color: #fafafa;
-//  border: 1px solid #cacece;
-//  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
-//  padding: 9px;
-//  border-radius: 3px;
-//  display: inline-block;
-//  position: relative;
-//}
-
-
-
 .widthMinMax(@width, @minWidth: @width, @maxWidth: @width){
   width: @width;
   min-width: @minWidth;
@@ -156,7 +152,7 @@
     }
   }
 }
-// generate classes for question card  based on user selced color, background and font color
+// generate classes for question card  based on user selected color, background and font color
 @colors: #ffffff, #6bc248, #a757db, #e5455d, #edaf2e, #7472ff, #3bbda4, #53a0fd, #a09c9c, #abb55e, #d251ae;
 @names: default, green, purple, red, yellow, blue, turquoise, lightblue, grey, olive, pink;
 @fontColors: #000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
@@ -388,3 +384,4 @@
   0%   { opacity: 0; }
   100% { opacity: 1; }
 }
+

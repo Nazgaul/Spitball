@@ -161,6 +161,7 @@ GO
 insert into sb.Tags
 select DISTINCT [Name], 0 
 from Zbox.Tag
+where len(Name) >= 4
 
 
 ALTER TABLE sb.[User]

@@ -71,7 +71,7 @@ namespace Cloudents.Ico
             };
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                ServiceBus = Configuration["ServiceBus"],
+                
                 Storage = Configuration["Storage"]
             };
 

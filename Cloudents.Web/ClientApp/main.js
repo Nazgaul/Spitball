@@ -210,6 +210,8 @@ Vue.filter('dateFromISO', function (value) {
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
 
+
+
 Vue.prototype.$Ph = function(key, placeholders){
     let rawKey = LanguageService.getValueByKey(key);
     //if no placeholders return the Key without the replace
