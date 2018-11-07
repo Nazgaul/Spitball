@@ -24,7 +24,7 @@ const getUni = (val) => {
         console.log(data);
         return result;
     },(err)=>{
-        return err;
+        return Promise.reject(err);
     })
 };
 
@@ -35,7 +35,7 @@ const assaignUniversity = (uniName) => {
     return connectivityModule.http.post("University/assign", university).then(()=>{
         return true;
     }, (err)=>{
-        return err;
+        return Promise.reject(err);
     })
 }
 
@@ -49,7 +49,7 @@ const getCourse = (val) => {
         }
         return result;
     }, (err)=>{
-        return err;
+        return Promise.reject(err);
     })
 };
 

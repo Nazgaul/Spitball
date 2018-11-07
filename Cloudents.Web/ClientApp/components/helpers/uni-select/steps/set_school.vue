@@ -27,7 +27,7 @@
                             <div class="subheading" v-language:inner>uniSelect_keep_typing</div> 
                         </v-list-tile>
                         <v-list-tile>
-                            <div class="subheading dark" v-language:inner>uniSelect_show_all_schools</div>
+                            <div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark" v-language:inner>uniSelect_show_all_schools</div>
                         </v-list-tile>
                     </template>
                     <template slot="item" slot-scope="{ index, item, parent }">
@@ -101,6 +101,10 @@ export default {
             search = '';
             university = undefined;
             this.clearUniversityList();
+        },
+        getAllUniversities(){
+            //leave space
+            this.updateUniversities(' ');   
         },
         skipUniSelect(){
             this.fnMethods.openNoWorriesPopup();
