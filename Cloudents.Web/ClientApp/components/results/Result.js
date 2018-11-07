@@ -159,7 +159,8 @@ export default {
             'updateFilters',
             'updateLoginDialogState',
             'updateUserProfileData',
-            'updateNewQuestionDialogState'
+            'updateNewQuestionDialogState',
+            'updateDialogState'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
 
