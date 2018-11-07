@@ -32,7 +32,10 @@ namespace Cloudents.Core.DTOs
         public string Extension => Path.GetExtension(Blob)?.TrimStart('.');
 
         [DataMember]
-        public DocumentType Type { get; set; }
+        public DocumentType? TypeStr { get; set; }
+
+        [DataMember]
+        public string Type => TypeStr?.ToString("G");
 
         [DataMember]
         public int Pages { get; set; }

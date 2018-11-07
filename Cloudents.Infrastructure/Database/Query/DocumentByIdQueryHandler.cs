@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Date = s.TimeStamp.CreationTime,
                     Blob = s.BlobName,
                     University = s.University.Name,
-                    Type = s.Type,
+                    TypeStr =  s.Type,
                     Pages = s.PageCount.GetValueOrDefault(),
                     Professor = s.Professor,
                     Views = s.Views,
