@@ -25,10 +25,7 @@ namespace Cloudents.FunctionsV2
             log.LogInformation($"Got message {queueMsg}");
             var message = JsonConvert.DeserializeObject<BaseSystemMessage>(queueMsg, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.All,
-                ContractResolver = new PrivateAssignContractResolver()
-                
-                
+                TypeNameHandling = TypeNameHandling.All
             });
             var operation = lifetimeScope.ResolveKeyed<ISystemOperation>(message.Type);
             await operation.DoOperationAsync(message, binder, token);
