@@ -158,7 +158,7 @@ ALTER TABLE [sb].[UsersTags] CHECK CONSTRAINT [User_Tags]
 GO
 
 
-insert into sb.Tags
+insert into sb.Tag
 select DISTINCT [Name], 0 
 from Zbox.Tag
 where len(Name) >= 4
@@ -236,3 +236,6 @@ COMMIT
 update sb.[user]
 set country = (select country from  sb.University u2 where universityid2 = u2.Id)
 where OldUser = 1
+
+
+

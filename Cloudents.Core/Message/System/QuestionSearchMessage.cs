@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.Entities.Search;
-using NotImplementedException = System.NotImplementedException;
+﻿using Cloudents.Core.Entities.Search;
 
 namespace Cloudents.Core.Message.System
 {
-    public class QuestionSearchMessage : BaseSystemMessage
+    public class QuestionSearchMessage : ISystemQueueMessage
     {
         public bool ShouldInsert { get; private set; }
         public Question Question { get; private set; }
-        public override SystemMessageType Type => SystemMessageType.QuestionSearch;
-        public override dynamic GetData()
-        {
-            return this;
-        }
+        //public override dynamic GetData()
+        //{
+        //    return this;
+        //}
 
         public QuestionSearchMessage(bool shouldInsert,Question question)
         {
@@ -20,29 +17,9 @@ namespace Cloudents.Core.Message.System
             Question = question;
         }
 
-        protected QuestionSearchMessage()
-        {
+        //protected QuestionSearchMessage()
+        //{
             
-        }
-    }
-
-    public class UpdateUserBalanceMessage: BaseSystemMessage
-    {
-        public UpdateUserBalanceMessage(IEnumerable<long> userIds)
-        {
-            UserIds = userIds;
-        }
-
-        public override SystemMessageType Type => SystemMessageType.UpdateBalance;
-        public override dynamic GetData()
-        {
-            return UserIds;
-        }
-
-        protected UpdateUserBalanceMessage()
-        {
-            
-        }
-        public IEnumerable<long> UserIds { get; private set; }
+        //}
     }
 }

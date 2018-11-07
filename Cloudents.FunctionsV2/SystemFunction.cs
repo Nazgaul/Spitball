@@ -21,12 +21,16 @@ namespace Cloudents.FunctionsV2
             CancellationToken token)
         {
             log.LogInformation($"Got message {queueMsg}");
-            var message = JsonConvert.DeserializeObject<BaseSystemMessage>(queueMsg, new JsonSerializerSettings()
+            var message = JsonConvert.DeserializeObject<ISystemQueueMessage>(queueMsg, new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.All
             });
-            var operation = lifetimeScope.ResolveKeyed<ISystemOperation>(message.Type);
-            await operation.DoOperationAsync(message, binder, token);
+
+            var handlerType =
+                typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+
+            dynamic operation = lifetimeScope.Resolve(handlerType);
+            await operation.DoOperationAsync((dynamic)message, binder, token);
         }
     }
 }

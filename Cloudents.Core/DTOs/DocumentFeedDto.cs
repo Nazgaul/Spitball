@@ -18,7 +18,10 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Professor { get; set; }
         [DataMember]
-        public DocumentType? DocumentType { get; set; }
+        public DocumentType? TypeStr { get; set; }
+
+        [DataMember]
+        public string Type => TypeStr?.ToString("G");
         [DataMember]
         public UserDto User { get; set; }
         [DataMember]

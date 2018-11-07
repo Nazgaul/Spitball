@@ -10,7 +10,7 @@ namespace Cloudents.Core
     public class EventPublisher : IEventPublisher
     {
         private readonly ILifetimeScope _container;
-
+    
         public EventPublisher(ILifetimeScope subscriptionService)
         {
             _container = subscriptionService;
