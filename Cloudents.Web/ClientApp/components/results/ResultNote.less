@@ -92,6 +92,10 @@
         max-height: 81px;
         height: 81px;
         width: 100%;
+        @media (max-width: @screen-xs) {
+          height: auto;
+          max-height: unset;
+        }
         .title-wrap {
           padding-bottom: 9px;
           display: flex;
