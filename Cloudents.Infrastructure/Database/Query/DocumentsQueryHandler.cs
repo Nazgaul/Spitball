@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Database.Query
                         Image = s.User.Image
                     },
                     Course = s.Course.Name,
-                    DocumentType = s.Type,
+                    TypeStr = s.Type,
                     Professor = s.Professor,
                     Title = s.Name,
                     Views = s.Views,
