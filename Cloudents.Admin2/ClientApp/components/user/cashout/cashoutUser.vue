@@ -12,6 +12,7 @@
                 <th>Fraud Score</th>
                 <th>User Query Ratio</th>
                 <th>Is Suspect</th>
+                <th>Is From Israel</th>
                 <tbody v-for="(user,index) in cashOutList" :key="index">
                     <td>{{user.userId}}</td>
                     <td>{{user.cashOutPrice}}</td>
@@ -20,6 +21,7 @@
                     <td>{{user.fraudScore}}</td>
                     <td>{{user.userQueryRatio}}</td>
                     <td :class="{'suspect': user.isSuspect}">{{user.isSuspect}}</td>
+                    <td>{{user.isIsrael}}</td>
                 </tbody>
             </table>
         </div>
