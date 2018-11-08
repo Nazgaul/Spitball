@@ -59,7 +59,7 @@ namespace Cloudents.Infrastructure.Search
                 }
             };
 
-            term = term.Replace("\"", "\\");
+            term = term?.Replace("\"", "\\");
             var result = await
                 _client.Documents.SearchAsync<University>(term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);

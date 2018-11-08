@@ -70,7 +70,7 @@ namespace Cloudents.Web.Models
         /// The term of search
         /// </summary>
         // [DisplayFormat(HtmlEncode = true)]
-        public string Query { get; set; }
+        public string Term { get; set; }
 
     }
 }

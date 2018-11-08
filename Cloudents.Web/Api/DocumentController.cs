@@ -4,6 +4,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Binders;
@@ -19,7 +20,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message.System;
 
 namespace Cloudents.Web.Api
 {
@@ -97,7 +97,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Course, universityId, model.Query, country,
+            var query = new DocumentQuery(model.Course, universityId, model.Term, country,
                 model.Page.GetValueOrDefault(), model.Source);
 
             var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);
@@ -139,15 +139,19 @@ namespace Cloudents.Web.Api
             {
                 Result = p.Select(s =>
                 {
-                    s.Url = Url.RouteUrl(SeoTypeString.Document, new
+                    if (s.Url == null)
                     {
-                        universityName = s.University,
-                        courseName = s.Course,
-                        id = s.Id,
-                        name = s.Title
-                    });
+                        s.Url = Url.RouteUrl(SeoTypeString.Document, new
+                        {
+                            universityName = s.University,
+                            courseName = s.Course,
+                            id = s.Id,
+                            name = s.Title
+                        });
+                    }
+
                     return s;
-                }),
+                  }),
                 Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = filters,
                 NextPageLink = nextPageLink

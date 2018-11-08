@@ -22,7 +22,9 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-        [Cache(TimeConst.Day, "user-courses", true)]
+        //the query cache key is - CacheResultInterceptor.GetCacheKey(_decoratee.GetType(), "GetAsync", new object[] { query });
+        //we can disable this if we want to
+        //[Cache(TimeConst.Day, "user-courses", true)]
         public async Task<IEnumerable<CourseDto>> GetAsync(CoursesQuery query, CancellationToken token)
         {
             //TODO: we can do the sql better
