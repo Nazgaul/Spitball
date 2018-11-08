@@ -35,12 +35,17 @@ namespace Cloudents.Infrastructure.Search.Document
             return _client.ItemMetaContentAsync(itemId, cancelToken);
         }
 
-        public async Task<ResultWithFacetDto2<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
+        public async Task<IList<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken token)
         {
+            Task<ResultWithFacetDto<SearchResult>> taskWebResult = Task.FromResult<ResultWithFacetDto<SearchResult>>(null);
             //need to bring university Name , need to use sources
-            var webQuery = SearchQuery.Document(query.Term, query.University, query.Course, query.Sources, query.Page);
-            var taskWebResult = _documentSearch.SearchWithUniversityAndCoursesAsync(webQuery, HighlightTextFormat.None, token);
+            if (!query.Filters.Any())
+            {
+                var webQuery = SearchQuery.Document(query.Term, query.University, query.Course, query.Page);
+                taskWebResult =
+                    _documentSearch.SearchWithUniversityAndCoursesAsync(webQuery, HighlightTextFormat.None, token);
+            }
 
             var searchResult = await _client.SearchAsync(query, token);
             var ids = searchResult.Results.Select(s => long.Parse(s.Document.Id));
@@ -51,14 +56,39 @@ namespace Cloudents.Infrastructure.Search.Document
 
 
             var webResult = await taskWebResult;
-            var retVal = new ResultWithFacetDto2<DocumentFeedDto>();
+            var retVal = new List<DocumentFeedDto>();
             var addedBing = false;
             foreach (var resultResult in searchResult.Results)
             {
                 if (resultResult.Score - 1 < 0)
                 {
                     addedBing = true;
-                    retVal.Result.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
+                    if (webResult != null)
+                    {
+                        retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
+                        {
+                            Snippet = s2.Snippet,
+                            Title = s2.Title,
+                            Url = s2.Url,
+                            Source = s2.Source
+                        }));
+                    }
+                }
+                if (dic.TryGetValue(long.Parse(resultResult.Document.Id), out var p))
+                {
+                    p.Snippet = resultResult.Document.MetaContent;
+                    p.Source = "Cloudents";
+                    //p.Url = _urlBuilder.BuildDocumentEndPoint(p.Id);
+                    retVal.Add(p);
+                }
+
+            }
+
+            if (!addedBing)
+            {
+                if (webResult != null)
+                {
+                    retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
                     {
                         Snippet = s2.Snippet,
                         Title = s2.Title,
@@ -66,28 +96,7 @@ namespace Cloudents.Infrastructure.Search.Document
                         Source = s2.Source
                     }));
                 }
-                if (dic.TryGetValue(long.Parse(resultResult.Document.Id), out var p))
-                {
-                    p.Snippet = resultResult.Document.MetaContent;
-                    p.Source = "Cloudents";
-                    //p.Url = _urlBuilder.BuildDocumentEndPoint(p.Id);
-                    retVal.Result.Add(p);
-                }
-
             }
-
-            if (!addedBing)
-            {
-                retVal.Result.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
-                {
-                    Snippet = s2.Snippet,
-                    Title = s2.Title,
-                    Url = s2.Url,
-                    Source = s2.Source
-                }));
-            }
-
-            retVal.Facet = webResult.Facet;
             return retVal;
             //var retVal = new QuestionWithFacetDto { Result = dbResult };
         }

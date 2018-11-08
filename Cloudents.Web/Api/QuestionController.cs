@@ -133,7 +133,7 @@ namespace Cloudents.Web.Api
 
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
-            [FromQuery]GetQuestionsRequest model,
+            [FromQuery]QuestionsRequest model,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
            CancellationToken token)
         {
@@ -153,10 +153,10 @@ namespace Cloudents.Web.Api
                 Result = result.Result,
                 Filters = new IFilters[]
                 {
-                    new Filters<string>(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"],
+                    new Filters<string>(nameof(QuestionsRequest.Filter),_localizer["FilterTypeTitle"],
                         result.FacetState.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization()))),
 
-                    new Filters<string>(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"],
+                    new Filters<string>(nameof(QuestionsRequest.Source),_localizer["SubjectTypeTitle"],
                         result.FacetSubject
                             .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
                 },
