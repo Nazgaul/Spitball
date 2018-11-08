@@ -64,6 +64,13 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Table("UsersCourses").AsSet();
 
 
+            HasManyToMany(x => x.Tags)
+                .ParentKeyColumn("UserId")
+                .ChildKeyColumn("TagId")
+                .ForeignKeyConstraintNames("User_Tags", "Tags_User")
+                .Table("UsersTags").AsSet();
+
+
 
             SchemaAction.Update();
             /*
