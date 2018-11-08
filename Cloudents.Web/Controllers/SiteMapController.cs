@@ -1,30 +1,33 @@
-﻿using System;
+﻿using Autofac.Features.Indexed;
+using Cloudents.Core;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
+using Cloudents.Core.Request;
+using Cloudents.Web.Services;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using NHibernate;
+using SimpleMvcSitemap;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
-using Autofac.Features.Indexed;
-using Cloudents.Core;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SiteMapController : Controller
     {
-        private readonly IReadRepositoryAsync<IEnumerable<SiteMapCountDto>> _readRepository;
+        private readonly IQueryBus _queryBus;
         private readonly IIndex<SeoType, IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>> _seoRepositories;
 
-        public SiteMapController(IReadRepositoryAsync<IEnumerable<SiteMapCountDto>> readRepository, IIndex<SeoType, IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>> seoRepositories)
+        public SiteMapController(IQueryBus queryBus, IIndex<SeoType, IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>> seoRepositories)
         {
-            _readRepository = readRepository;
+            _queryBus = queryBus;
             _seoRepositories = seoRepositories;
         }
 
@@ -32,36 +35,37 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(Duration = 2 * TimeConst.Day)]
         public async Task<IActionResult> IndexAsync(CancellationToken token)
         {
-            XNamespace nameSpace = "http://www.sitemaps.org/schemas/sitemap/0.9";
-            var model = await _readRepository.GetAsync(token).ConfigureAwait(false);
+            //List<SitemapNode> nodes = new List<SitemapNode>
+            //{
+            //    new SitemapNode(Url.Action("Index","Home")),
+            //   // new SitemapNode(Url.Action("About","Home")),
+            //    //other nodes
+            //};
 
-            const int pageSize = 49950;
-            // ReSharper disable once StringLiteralTypo
-            var root = new XElement(nameSpace + "sitemapindex");
-            foreach (var elem in model)
+            var sitemapIndexNodes = new List<SitemapIndexNode>();
+            var query = new EmptyQuery();
+            var result = await _queryBus.QueryAsync(query, token);
+            foreach (var mapCountDto in result)
             {
-                for (var i = 0; i <= elem.Count / pageSize; i++)
+                for (var i = 0; i <= mapCountDto.Count / 50000; i++)
                 {
-                    var url = Url.RouteUrl("siteMapDescription", new { type = elem.Type, index = i }, Request.GetUri().Scheme);
-                    root.Add(
-                        new XElement(nameSpace + "sitemap",
-                            new XElement(nameSpace + "loc",
-                                url)
-                        )
-                    );
+                    sitemapIndexNodes.Add(new SitemapIndexNode(Url.RouteUrl("siteMapDescription", new
+                    {
+                        type = mapCountDto.Type,
+                        index = i
+                    })));
                 }
             }
-            var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
-            return Content(document.ToString(), "application/xml");
+            return new SitemapProvider().CreateSitemapIndex(new SitemapIndexModel(sitemapIndexNodes));
         }
 
-        [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription")]
-        //[ResponseCache(Duration = 2 * TimeConst.Day,Va)]
-        public async Task DetailIndexAsync(SeoType type, int index, CancellationToken token)
+        [Route("sitemap-flashcard-{index:int}.xml",Order = 1)]
+        public async Task FlashcardSeoAsync(int index,
+            [FromServices] IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery> query2,
+            CancellationToken token)
         {
-            var query = new SeoQuery(index);
-            //var entities = _seoRepositories[type].Get(query);
-            var routeName = type.GetDescription();
+            // var entities = _seoRepositories[type].Get(query);
+            //var routeName = type.GetDescription();
             var response = HttpContext.Response;
             response.StatusCode = 200;
             response.ContentType = "application/xml";
@@ -73,10 +77,11 @@ namespace Cloudents.Web.Controllers
             await writer.WriteStartDocumentAsync().ConfigureAwait(false);
             writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
             var iterator = 0;
-            foreach (var entity in _seoRepositories[type].Get(query))
+            var query = new SeoQuery(index);
+            foreach (var entity in query2.Get(query))
             {
-                iterator++;
-                var url = Url.RouteUrl(routeName, new
+                //iterator++;
+                var url = Url.RouteUrl(SeoTypeString.Flashcard, new
                 {
                     universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
                     boxId = entity.BoxId,
@@ -96,6 +101,22 @@ namespace Cloudents.Web.Controllers
             await writer.WriteEndDocumentAsync().ConfigureAwait(false);
             await writer.FlushAsync().ConfigureAwait(false);
             await response.Body.FlushAsync(token).ConfigureAwait(false);
+        }
+
+        [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription", Order = 2)]
+        //[ResponseCache(Duration = 2 * TimeConst.Day,Va)]
+        public IActionResult DetailIndexAsync(SeoType type, int index,
+            [FromServices] IStatelessSession session,
+            CancellationToken token)
+        {
+            if (type == SeoType.Flashcard)
+            {
+                return Ok();
+            }
+            var siteMap = new DocumentSiteMapIndexConfiguration(index, session, Url);
+            return new DynamicSitemapIndexProvider().CreateSitemapIndex(new SitemapProvider(), siteMap);
+
+
         }
 
         private static async Task WriteTagAsync(string priority, string freq,

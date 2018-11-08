@@ -16,19 +16,23 @@ namespace Cloudents.Infrastructure.Search.Document
         private readonly AzureDocumentSearch _client;
         private readonly IQueryBus _queryBus;
         private readonly IWebDocumentSearch _documentSearch;
-        private readonly IUrlBuilder _urlBuilder;
 
-        public DocumentSearch(AzureDocumentSearch client, IQueryBus queryBus, IWebDocumentSearch documentSearch, IUrlBuilder urlBuilder)
+        public DocumentSearch(AzureDocumentSearch client, IQueryBus queryBus, IWebDocumentSearch documentSearch
+            )
         {
             _client = client;
             _queryBus = queryBus;
             _documentSearch = documentSearch;
-            _urlBuilder = urlBuilder;
         }
 
         public Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
         {
             return _client.ItemContentAsync(itemId, cancelToken);
+        }
+
+        public Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
+        {
+            return _client.ItemMetaContentAsync(itemId, cancelToken);
         }
 
         public async Task<ResultWithFacetDto2<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
@@ -48,27 +52,39 @@ namespace Cloudents.Infrastructure.Search.Document
 
             var webResult = await taskWebResult;
             var retVal = new ResultWithFacetDto2<DocumentFeedDto>();
-
+            var addedBing = false;
             foreach (var resultResult in searchResult.Results)
             {
-                if (Math.Abs(resultResult.Score - 1) < 0.01)
+                if (resultResult.Score - 1 < 0)
                 {
-                    //retVal.Result.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
-                    //{
-                    //    Snippet = s2.Snippet,
-                    //    Title = s2.Title,
-                    //    Url = s2.Url,
-                    //    Source = s2.Source
-                    //}));
+                    addedBing = true;
+                    retVal.Result.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
+                    {
+                        Snippet = s2.Snippet,
+                        Title = s2.Title,
+                        Url = s2.Url,
+                        Source = s2.Source
+                    }));
                 }
                 if (dic.TryGetValue(long.Parse(resultResult.Document.Id), out var p))
                 {
-                    p.Snippet = p.Snippet;
+                    p.Snippet = resultResult.Document.MetaContent;
                     p.Source = "Cloudents";
-                    p.Url = _urlBuilder.BuildDocumentEndPoint(p.Id);
+                    //p.Url = _urlBuilder.BuildDocumentEndPoint(p.Id);
                     retVal.Result.Add(p);
                 }
 
+            }
+
+            if (!addedBing)
+            {
+                retVal.Result.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
+                {
+                    Snippet = s2.Snippet,
+                    Title = s2.Title,
+                    Url = s2.Url,
+                    Source = s2.Source
+                }));
             }
 
             retVal.Facet = webResult.Facet;

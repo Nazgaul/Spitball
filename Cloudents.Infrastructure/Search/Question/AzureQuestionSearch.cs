@@ -46,8 +46,6 @@ namespace Cloudents.Infrastructure.Search.Question
             }
             var searchParameter = new SearchParameters
             {
-                Facets = new[] { nameof(Core.Entities.Search.Question.Subject),
-                    nameof(Core.Entities.Search.Question.State) },
                 Filter = string.Join(" and ", filters),
                 Select = new [] {nameof(Core.Entities.Search.Question.Id)},
                 Top = 50,
@@ -62,6 +60,14 @@ namespace Cloudents.Infrastructure.Search.Question
                 }
 
             };
+            if (!string.IsNullOrEmpty(query.Term))
+            {
+                searchParameter.Facets = new[]
+                {
+                    nameof(Core.Entities.Search.Question.Subject),
+                    nameof(Core.Entities.Search.Question.State)
+                };
+            }
 
             var result = await
                 _client.Documents.SearchAsync<Core.Entities.Search.Question>(query.Term, searchParameter,

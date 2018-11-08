@@ -55,7 +55,7 @@ namespace Cloudents.Web.Api
         {
 
             Debug.Assert(model.SubjectId != null, "model.SubjectId != null");
-
+            var toasterMessage = _localizer["PostedQuestionToasterOk"];
             try
             {
                 var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price,
@@ -64,14 +64,13 @@ namespace Cloudents.Web.Api
             }
             catch (DuplicateRowException)
             {
-                
+                toasterMessage = _localizer["PostedQuestionToasterPending"];
             }
             catch (QuotaExceededException)
             {
                 ModelState.AddModelError(string.Empty, _localizer["QuestionFlood"]);
                 return BadRequest(ModelState);
             }
-            var toasterMessage = _localizer["PostedQuestionToasterOk"];
             if (!Language.ListOfWhiteListCountries.Contains(country))
             {
                 toasterMessage = _localizer["PostedQuestionToasterPending"];

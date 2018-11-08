@@ -111,7 +111,8 @@ let routes2 = [
     },
     //TODO doc previe refactoring header
     {
-        path: "/document/:id/", name: "item",
+        //document/{universityName}/{courseName}/{id:long}/{name}
+        path: "/document/:universityName/:courseName/:id/:name", name: "item",
         components: {
             default: showItem,
             header: pageHeader

@@ -46,7 +46,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
-                ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
+               // ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545"
             };
@@ -529,7 +529,7 @@ namespace ConsoleApp
         {
             var d = _container.Resolve<DapperRepository>();
 
-            var key = _container.Resolve<IConfigurationKeys>().ProdStorage;
+            var key = ConfigurationManager.AppSettings["OldStrageConnectionString"];
             var productionOldstorageAccount = CloudStorageAccount.Parse(key);
             var oldBlobClient = productionOldstorageAccount.CreateCloudBlobClient();
             var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");

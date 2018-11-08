@@ -9,19 +9,19 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Core.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class SetCoursesToUserCommandHandler : ICommandHandler<SetCoursesToUserCommand>
+    public class AssignCoursesToUserCommandHandler : ICommandHandler<AssignCoursesToUserCommand>
     {
         private readonly ICourseRepository _courseRepository;
         private readonly IRepository<User> _userRepository;
 
-        public SetCoursesToUserCommandHandler(ICourseRepository courseRepository, IRepository<User> userRepository)
+        public AssignCoursesToUserCommandHandler(ICourseRepository courseRepository, IRepository<User> userRepository)
         {
             _courseRepository = courseRepository;
             _userRepository = userRepository;
         }
 
 
-        public async Task ExecuteAsync(SetCoursesToUserCommand message, CancellationToken token)
+        public async Task ExecuteAsync(AssignCoursesToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
             user.Courses.Clear();
@@ -34,7 +34,7 @@ namespace Cloudents.Core.CommandHandler
                     await _courseRepository.UpdateAsync(course, token);
                 }
             }
-            user.Events.Add(new UserChangeCoursesEvent(user));
+
             await _userRepository.UpdateAsync(user, token);
         }
     }

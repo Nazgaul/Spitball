@@ -37,13 +37,13 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildDocumentEndPoint
-            (long id, object parameters = null)
-        {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{id}" };
-            builder.AddQuery(parameters);
-            return builder.ToString();
-        }
+        //public string BuildDocumentEndPoint
+        //    (long id, object parameters = null)
+        //{
+        //    var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{id}" };
+        //    builder.AddQuery(parameters);
+        //    return builder.ToString();
+        //}
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {
@@ -75,8 +75,7 @@ namespace Cloudents.Core
             return uri.ToString();
         }
 
-        //public string WalletEndPoint => _webSiteEndPoint + "wallet";
-
+        [Obsolete]
         public static string NameToQueryString(string name)
         {
             if (string.IsNullOrEmpty(name))
@@ -85,8 +84,6 @@ namespace Cloudents.Core
             }
             var previousChar = '\0';
             var sb = new StringBuilder();
-            // name = name.Replace(Convert.ToChar(160), ' ');
-            //name = name.Replace("\n", string.Empty);
 
             foreach (var character in name)
             {

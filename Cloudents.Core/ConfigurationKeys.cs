@@ -17,19 +17,19 @@ namespace Cloudents.Core
         public string Redis { get; set; }
         public string Storage { get; set; }
 
-        public string ProdStorage
-        {
-            get
-            {
-                if (_prodStorage != null)
-                {
-                    return _prodStorage;
-                }
+        //public string ProdStorage
+        //{
+        //    get
+        //    {
+        //        if (_prodStorage != null)
+        //        {
+        //            return _prodStorage;
+        //        }
 
-                return Storage;
-            }
-            set => _prodStorage = value;
-        }
+        //        return Storage;
+        //    }
+        //    set => _prodStorage = value;
+        //}
         //public string SystemUrl { get; set; }
 
         public LocalStorageData LocalStorageData { get; set; }
