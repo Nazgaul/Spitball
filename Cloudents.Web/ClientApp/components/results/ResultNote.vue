@@ -71,7 +71,6 @@
                 if (!!self.item.documentType) {
                     return documentTypes.find((single) => {
                         if (single.title.toLowerCase() === self.item.documentType.toLowerCase()) {
-
                             return single
                         }
                     })
