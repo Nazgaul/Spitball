@@ -24,11 +24,12 @@
                 <span v-language:inner>upload_files_label_class</span>
             </label>
             <div class="chip-wrap">
+
                 <v-chip name="sbf-class-chip" class="sbf-class-chip mb-2" outline
                         v-for="(singleClass, index) in classesList"
-                        @click="updateClass(singleClass)"
-                        :selected="selectedClass ===singleClass"
-                        :key="index">{{singleClass}}
+                        @click="updateClass(singleClass.text)"
+                        :selected="selectedClass ===singleClass.text"
+                        :key="index">{{singleClass.text}}
                 </v-chip>
             </div>
         </div>
@@ -55,8 +56,11 @@
             schoolName() {
                 return this.getSchoolName ? this.getSchoolName : ''
             },
+            isClassesSet(){
+                return this.getSelectedClasses.length > 0
+            },
             classesList() {
-                return this.isClassesSet ? this.getSelectedClasses : ['Class A', 'Class B', 'Class C', 'Class D', 'Class E']
+                return this.isClassesSet ? this.getSelectedClasses : []
             },
         },
         methods: {

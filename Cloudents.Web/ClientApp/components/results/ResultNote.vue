@@ -7,6 +7,7 @@
             <v-flex class="wrapper">
                 <v-flex grow class="top-row">
                     <div class="type-wrap">
+
                         <v-icon :class="['type-'+typeID]">{{type ? type.icon : ''}}</v-icon>
                         <span :class="[ 'doc-type-text', 'ml-2', 'type-'+typeID]">{{typeTitle}}</span>
                     </div>
