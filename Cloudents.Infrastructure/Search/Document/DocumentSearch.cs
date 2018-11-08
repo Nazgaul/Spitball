@@ -52,11 +52,12 @@ namespace Cloudents.Infrastructure.Search.Document
 
             var webResult = await taskWebResult;
             var retVal = new ResultWithFacetDto2<DocumentFeedDto>();
-
+            var addedBing = false;
             foreach (var resultResult in searchResult.Results)
             {
-                if (Math.Abs(resultResult.Score - 1) < 0.01)
+                if (resultResult.Score - 1 < 0)
                 {
+                    addedBing = true;
                     retVal.Result.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
                     {
                         Snippet = s2.Snippet,
@@ -73,6 +74,17 @@ namespace Cloudents.Infrastructure.Search.Document
                     retVal.Result.Add(p);
                 }
 
+            }
+
+            if (!addedBing)
+            {
+                retVal.Result.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
+                {
+                    Snippet = s2.Snippet,
+                    Title = s2.Title,
+                    Url = s2.Url,
+                    Source = s2.Source
+                }));
             }
 
             retVal.Facet = webResult.Facet;
