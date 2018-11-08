@@ -22,26 +22,11 @@ const ResultJob = () => import('./ResultJob.vue');
 //ab testing
 import abTestCard from './helpers/abTestCards/abTestCard.vue'
 
+import uploadFilesBtn from "./helpers/uploadFilesBtn/uploadFilesBtn.vue"
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
 //The vue functionality for result page
 export default {
-    data() {
-        return {
-            pageData: '',
-            selectedItem: null,
-            filterObject: null,
-            showFilters: false,
-            showPersonalizeField: true,
-            showFilterNotApplied: false,
-            isLoad: false,
-            showDialog: false,
-            placeholder:{
-                whereSchool: LanguageService.getValueByKey("result_where_school")
-            }            
-        };
-    },
-
     components: {
         abTestCard,
         emptyState,
@@ -58,7 +43,24 @@ export default {
         sbDialog,
         loginToAnswer,
         notificationCenter,
+        uploadFilesBtn
     },
+    data() {
+        return {
+            pageData: '',
+            selectedItem: null,
+            filterObject: null,
+            showFilters: false,
+            showPersonalizeField: true,
+            showFilterNotApplied: false,
+            isLoad: false,
+            showDialog: false,
+            placeholder:{
+                whereSchool: LanguageService.getValueByKey("result_where_school")
+            }            
+        };
+    },
+
 
     //use basic sort and filter functionality( same for book details and result page)
     mixins: [sortAndFilterMixin],
@@ -78,9 +80,12 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
 
+        isNote(){
+            return  this.$route.path.slice(1)==='note'
+        },
         //not interesting
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)

@@ -1,5 +1,5 @@
   <template>
-    <v-card>
+    <v-card style="background: transparent;">
         <div class="dialog-wrapp referral-container">
             <button class="close-btn text-md-right" @click.prevent="requestDialogClose()">
                 <v-icon>sbf-close</v-icon>

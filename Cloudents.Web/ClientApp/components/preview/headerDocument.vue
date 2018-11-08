@@ -8,8 +8,8 @@
                         <div class="author">
                         <span class="upload-by">
                             <v-icon class="sb-person mr-2">sbf-person</v-icon>
-                            <span class="mr-2">By</span>
-                            <span class="name mr-2">{{item.user.name}},</span>
+                            <span class="mr-2">By </span>
+                            <span class="name mr-2">{{uploaderName}},</span>
                         </span>
                         </div>
                         <div class="date">
@@ -83,8 +83,11 @@
         computed: {
             ...mapGetters([ 'getDocumentDetails']),
             item(){
-
                 return this.getDocumentDetails
+            },
+            uploaderName(){
+                if(this.item.user &&  this.item.user.name)
+               return this.item.user.name
             }
 
         },

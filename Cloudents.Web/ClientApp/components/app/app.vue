@@ -25,7 +25,7 @@
             <!--upload dilaog-->
 
             <sb-dialog :showDialog="getDialogState" :transitionAnimation="'slide-y-transition'" :popUpType="'uploadDialog'" :fullWidth="true"
-
+                       :onclosefn="setUploadDialogState"
                        :fullScreen="!isUploadAbsoluteMobile"
                        :isPersistent="$vuetify.breakpoint.smAndUp"
                        :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'">
@@ -87,14 +87,18 @@
             })
         },
         methods: {
-            ...mapActions([ 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState']),
+            ...mapActions([ 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState', 'updateDialogState']),
             removeCookiesPopup: function(){
                 global.localStorage.setItem("sb-acceptedCookies", true);
                 this.acceptedCookies = true;
             },
             closeUniPopDialog(){
                 this.changeSelectPopUpUniState(false);
+            },
+            setUploadDialogState(){
+                this.updateDialogState(false)
             }
+
         },
         created() {
             this.$root.$on('closePopUp', (name) => {

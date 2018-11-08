@@ -161,6 +161,7 @@
                         let documentTitle = singleFile.name ? singleFile.name : '';
                         this.filesUploaded.splice(0, 1, singleFile);
                         this.updateFile({'name': documentTitle});
+                        this.updateFileName(documentTitle);
                     }
                     this.updateUploadFullMobile(false)
                     this.callBackmethods.next(1)

@@ -64,6 +64,9 @@ export default {
         isFirstStep() {
             return this.currentStep === 1
         },
+        isLastStepAndMobile(){
+          return   this.$vuetify.breakpoint.smAndDown && this.currentStep === this.steps;
+        },
         // button disabled for each step and enabled once everything filled
         isDisabled() {
             if (this.currentStep === 2 && !this.getFileData.course) {
@@ -93,7 +96,7 @@ export default {
             'updateLoginDialogState',
             'updateNewQuestionDialogState',
             'changeSelectPopUpUniState',
-            'syncUniData',
+            // 'syncUniData',
             'updateDialogState'
         ]),
 
@@ -144,8 +147,9 @@ export default {
             this.currentStep = step;
         }
     },
+
     created() {
-        this.syncUniData()
+        // this.syncUniData()
         console.log('created upload dilog sync')
     }
 
