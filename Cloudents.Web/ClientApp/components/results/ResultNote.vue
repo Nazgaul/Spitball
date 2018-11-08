@@ -13,13 +13,13 @@
                 </v-flex>
                 <v-flex grow class="details-row">
                     <div class="details-wrap">
-                        <span class="aligned">{{item.university}}New Jersey Institute…
+                        <span class="aligned">{{item.university}}
                         <v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>
                         </span>
-                        <span class="aligned">{{item.course}}Social Psych
+                        <span class="aligned">{{item.course}}
                         <v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>
                         </span>
-                        <span class="aligned">{{item.proffesor}}Prof. Apelbaum</span>
+                        <span class="aligned">{{item.professor}}</span>
                     </div>
                 </v-flex>
                 <v-flex grow class="data-row">
@@ -38,8 +38,8 @@
                 </v-flex>
                 <v-flex grow class="doc-details">
                     <div class="author-info-date">
-                        <span class="autor">By{{authorName}}</span>
-                        <span class="date">Aug 24, 2018</span>
+                        <span class="autor">By {{authorName}}</span>
+                        <span class="date"></span>
                     </div>
                     <div class="doc-actions-info">
                         <v-icon class="sb-doc-icon mr-1">sbf-views</v-icon>
