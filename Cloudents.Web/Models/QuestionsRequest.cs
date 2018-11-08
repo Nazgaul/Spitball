@@ -2,7 +2,7 @@
 
 namespace Cloudents.Web.Models
 {
-    public class GetQuestionsRequest : IPaging
+    public class QuestionsRequest : IPaging
     {
       //  [DisplayFormat(HtmlEncode = true)]
         public string Term { get; set; }

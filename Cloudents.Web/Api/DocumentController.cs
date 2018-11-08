@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Command;
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
@@ -98,7 +99,7 @@ namespace Cloudents.Web.Api
         {
             model = model ?? new DocumentRequest();
             var query = new DocumentQuery(model.Course, universityId, model.Term, country,
-                model.Page.GetValueOrDefault(), model.Source);
+                model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
 
             var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);
             if (_signInManager.IsSignedIn(User))
@@ -112,7 +113,7 @@ namespace Cloudents.Web.Api
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
             await Task.WhenAll(coursesTask, resultTask);
             var result = resultTask.Result;
-            var p = result.Result?.ToList() ?? new List<DocumentFeedDto>();
+            var p = result;
             string nextPageLink = null;
             if (p.Count > 0)
             {
@@ -120,14 +121,15 @@ namespace Cloudents.Web.Api
             }
             var filters = new List<IFilters>();
 
-            if (result.Facet != null)
-            {
-                filters.Add(
+            //if (result.Facet != null)
+            //{
 
-                    new Filters<string>(nameof(DocumentRequest.Source), _localizer["Sources"],
-                        result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
-                );
-            }
+            filters.Add(
+                new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+                    EnumExtension.GetValues<DocumentType>().Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
+                        .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
+            );
+            // }
 
             if (coursesTask.Result != null)
             {
@@ -151,8 +153,8 @@ namespace Cloudents.Web.Api
                     }
 
                     return s;
-                  }),
-                Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
+                }),
+                //Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = filters,
                 NextPageLink = nextPageLink
             };

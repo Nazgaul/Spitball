@@ -237,5 +237,7 @@ update sb.[user]
 set country = (select country from  sb.University u2 where universityid2 = u2.Id)
 where OldUser = 1
 
+--need to remove cloudents from bing custom search
+
 
 
