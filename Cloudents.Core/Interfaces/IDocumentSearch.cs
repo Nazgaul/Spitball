@@ -11,6 +11,9 @@ namespace Cloudents.Core.Interfaces
     {
         Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
 
+
+        Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
+
         Task<ResultWithFacetDto2<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken cancelToken);
     }

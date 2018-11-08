@@ -11,8 +11,8 @@ namespace Cloudents.Core.Interfaces
 
         string BuildQuestionEndPoint(long id, object parameters = null);
 
-        string BuildDocumentEndPoint
-            (long id, object parameters = null);
+        //string BuildDocumentEndPoint
+        //    (long id, object parameters = null);
     }
 
     public interface IUrlRedirectBuilder
