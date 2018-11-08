@@ -1,9 +1,9 @@
 import {connectivityModule} from '../../../services/connectivity.module'
 
-const suspendUser = function(id, deleteUserQuestions){
+const suspendUser = function(ids, deleteUserQuestions){
     let path = "AdminUser/suspend";
     let data = {
-        id,
+        ids,
         deleteUserQuestions
     }
     return connectivityModule.http.post(path, data).then((resp)=>{

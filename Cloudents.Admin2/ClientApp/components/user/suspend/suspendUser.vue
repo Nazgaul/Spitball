@@ -2,7 +2,7 @@
     <form class="suspend-container">
         <h1>Suspend User</h1>
         <div class="suspend-input-container">
-            <input type="number" class="user-id-input" placeholder="Insert user id..." v-model.number="userId"/>
+            <input type="text" class="user-id-input" placeholder="Insert user id..." v-model="userIds"/>
         </div>
         <div class="suspend-checkbox-container">
             <input type="checkbox" v-model="deleteUserQuestions"> Remove Question 
@@ -22,7 +22,8 @@ import {suspendUser} from './suspendUserService'
 export default {
     data(){
         return{
-            userId: null,
+            userIds: null,
+            serverIds: [],
             deleteUserQuestions:false,
             showSuspendedDetails: false,
             suspendedMail: null,
@@ -31,12 +32,19 @@ export default {
     },
     methods:{
         banUser:function(){
-            if(!this.userId){
+            if(!this.userIds){
                 this.$toaster.error("Please Insert A user ID")
                 return;
             }
+            this.userIds.split(',').forEach(id=>{
+                let num = parseInt(id.trim());
+                if(!!num){
+                    return this.serverIds.push(num);
+                }  
+            });
+            
             this.lock = true;
-            suspendUser(this.userId, this.deleteUserQuestions).then((email)=>{
+            suspendUser(this.serverIds, this.deleteUserQuestions).then((email)=>{
                 this.$toaster.success(`userId ${this.userId} got suspended, email is: ${email}`)
                 this.showSuspendedDetails = true;
                 this.suspendedMail = email;
