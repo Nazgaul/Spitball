@@ -75,7 +75,6 @@ export default {
     },
     data(){
         return{
-        classModel: '',
         search:'',
         classNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_class_name_placeholder'),
         isRtl: global.isRtl
@@ -90,6 +89,7 @@ export default {
         }
     },
     computed:{
+        ...mapGetters(['getSelectedClasses']),
         schoolName(){
             return this.getSchoolName()
         },
@@ -101,11 +101,9 @@ export default {
         },
         selectedClasses:{
             get(){
-                this.classModel = this.getSelectedClasses() || this.classModel
-                return this.classModel
+                return this.getSelectedClasses;
             },
             set(val){
-                this.classModel = val;
                 this.updateSelectedClasses(val);
             }
         }
@@ -126,7 +124,7 @@ export default {
     },
     methods:{
         ...mapActions(['updateClasses', 'updateSelectedClasses', 'assignClasses']),
-        ...mapGetters(['getSchoolName', 'getClasses', 'getSelectedClasses']),
+        ...mapGetters(['getSchoolName', 'getClasses']),
         
         lastStep(){
             this.fnMethods.changeStep(this.enumSteps.set_school);

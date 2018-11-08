@@ -127,6 +127,7 @@ const actions = {
                 commit("changeLoginStatus", true);
                 commit("updateUser", UserAccount);
                 dispatch("connectToChat");
+                dispatch("syncUniData");
                 analyticsService.sb_setUserId(UserAccount.id);
             }).catch(_ => {
                 setIntercomeData()
