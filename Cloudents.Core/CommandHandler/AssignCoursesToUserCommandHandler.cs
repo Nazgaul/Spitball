@@ -35,9 +35,6 @@ namespace Cloudents.Core.CommandHandler
                 }
             }
 
-            //this command handler only save courses and user courses. temp solution
-            user.Events.Add(new UserChangeCoursesEvent(user));
-            user.ForceEvent();
             await _userRepository.UpdateAsync(user, token);
         }
     }
