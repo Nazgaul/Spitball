@@ -130,7 +130,7 @@
     <value>בית הספר, השיעורים וההעדפות שלך</value>
   </data>
   <data name="campaign_askaquestion_flashcard_banner_textMain" xml:space="preserve">
-    <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. יחסוך לכם בזמן!</value>
+    <value>סינון מסמכים לפי בית הספר, קורסים והעדפות אישיות, יחסוך לכם בזמן!</value>
   </data>
   <data name="campaign_askaquestion_flashcard_banner_title" xml:space="preserve">
     <value>למד ממיליוני סטים של כרטיסיות לימוד כדי לשפר ציונים.</value>
@@ -139,10 +139,10 @@
     <value>בית הספר, השיעורים וההעדפות שלך</value>
   </data>
   <data name="campaign_askaquestion_note_banner_textMain" xml:space="preserve">
-    <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. יחסוך לכם בזמן!</value>
+    <value>סינון מסמכים לפי בית הספר, קורסים והעדפות אישיות, יחסוך לכם בזמן!</value>
   </data>
   <data name="campaign_askaquestion_note_banner_title" xml:space="preserve">
-    <value>סיכומים, מסמכי לימוד, בחינות ועוד - ממיטב האתרים.</value>
+    <value>סיכומים, בחנים, מסמכי בחינות ועוד מגוון מסמכי לימוד ממיטב האתרים</value>
   </data>
   <data name="campaign_book_askaquestion_banner_boldText" xml:space="preserve">
     <value>מאות אתרים – במקביל.</value>
@@ -175,16 +175,16 @@
     <value>בית הספר, השיעורים וההעדפות שלך</value>
   </data>
   <data name="campaign_default_flashcard_banner_textMain" xml:space="preserve">
-    <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. יחסוך לכם בזמן!</value>
+    <value>סינון מסמכים לפי בית ספר, קורסים והעדפות אישיות, יחסוך לכם בזמן!</value>
   </data>
   <data name="campaign_default_flashcard_banner_title" xml:space="preserve">
     <value>למד ממיליוני סטים של כרטיסיות לימוד כדי לשפר ציונים.</value>
   </data>
   <data name="campaign_default_note_banner_textMain" xml:space="preserve">
-    <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. יחסוך לכם בזמן!</value>
+    <value>סינון מסמכים לפי בית הספר, קורסים והעדפות אישיות, יחסוך לכם בזמן!</value>
   </data>
   <data name="campaign_default_note_banner_title" xml:space="preserve">
-    <value>סיכומים, מסמכי לימוד, בחינות ועוד - ממיטב האתרים.</value>
+    <value>סיכומים, בחנים, מסמכי בחינות ועוד מגוון מסמכי לימוד ממיטב האתרים</value>
   </data>
   <data name="campaign_default_note_banner__boldText" xml:space="preserve">
     <value>בית הספר, השיעורים וההעדפות שלך</value>

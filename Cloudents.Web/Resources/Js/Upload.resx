@@ -117,70 +117,120 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActionTypeAnswerCorrect" xml:space="preserve">
-    <value>תשובה נכונה</value>
+  <data name="btn_open" xml:space="preserve">
+    <value>Upload Documents</value>
   </data>
-  <data name="ActionTypeCashOut" xml:space="preserve">
-    <value>פדיון</value>
+  <data name="files_btn_anotherUpload" xml:space="preserve">
+    <value>Upload another document</value>
   </data>
-  <data name="ActionTypeDeleteQuestion" xml:space="preserve">
-    <value>מחיקת שאלה</value>
+  <data name="files_btn_answer" xml:space="preserve">
+    <value>Answer a question</value>
   </data>
-  <data name="ActionTypeNone" xml:space="preserve">
-    <value>ללא</value>
+  <data name="files_btn_askQuestion" xml:space="preserve">
+    <value>Ask a question</value>
   </data>
-  <data name="ActionTypeQuestion" xml:space="preserve">
-    <value>שאילת שאלה</value>
+  <data name="files_btn_close" xml:space="preserve">
+    <value>Close</value>
   </data>
-  <data name="ActionTypeReferringUser" xml:space="preserve">
-    <value>הפניית משתמש</value>
+  <data name="files_btn_desktop" xml:space="preserve">
+    <value>Your Dekstop</value>
   </data>
-  <data name="ActionTypeSignUp" xml:space="preserve">
-    <value>הרשמה</value>
+  <data name="files_btn_drop" xml:space="preserve">
+    <value>Or just drop your file here</value>
   </data>
-  <data name="DocumentTypeExam" xml:space="preserve">
-    <value>סיכום בחינה</value>
+  <data name="files_btn_dropBox" xml:space="preserve">
+    <value>Dropbox</value>
   </data>
-  <data name="DocumentTypeLecture" xml:space="preserve">
-    <value>סיכום שיעור</value>
+  <data name="files_btn_next" xml:space="preserve">
+    <value>Next</value>
   </data>
-  <data name="DocumentTypeTextbook" xml:space="preserve">
-    <value>סיכום ספר לימוד</value>
+  <data name="files_btn_phone" xml:space="preserve">
+    <value>Your Phone</value>
   </data>
-  <data name="QuestionFilterAnswered" xml:space="preserve">
-    <value>שאלות שנענו</value>
+  <data name="files_btn_sell" xml:space="preserve">
+    <value>Upload my document</value>
   </data>
-  <data name="QuestionFilterSold" xml:space="preserve">
-    <value>שאלות שנמכרו</value>
+  <data name="files_class" xml:space="preserve">
+    <value>Class</value>
   </data>
-  <data name="QuestionFilterUnanswered" xml:space="preserve">
-    <value>שאלות שלא נענו</value>
+  <data name="files_edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="SearchRequestSortDate" xml:space="preserve">
-    <value>תאריך</value>
+  <data name="files_header_subtitle" xml:space="preserve">
+    <value>Make money of your study documents.</value>
   </data>
-  <data name="SearchRequestSortRelevance" xml:space="preserve">
-    <value>רלוונטיות</value>
+  <data name="files_header_title" xml:space="preserve">
+    <value>Ready, Set, Go!</value>
   </data>
-  <data name="TransactionTypeAwarded" xml:space="preserve">
-    <value>הענקה</value>
+  <data name="files_label_class" xml:space="preserve">
+    <value>Select a Relevant Class</value>
   </data>
-  <data name="TransactionTypeEarned" xml:space="preserve">
-    <value>הכנסה</value>
+  <data name="files_label_document_title" xml:space="preserve">
+    <value>Document Title</value>
   </data>
-  <data name="TransactionTypeSpent" xml:space="preserve">
-    <value>הוצאה</value>
+  <data name="files_label_legal" xml:space="preserve">
+    <value>I legally own this document, and all its legal rights</value>
   </data>
-  <data name="TransactionTypeStake" xml:space="preserve">
-    <value>במשמורת</value>
+  <data name="files_label_proff_name" xml:space="preserve">
+    <value>Professor Name</value>
   </data>
-  <data name="TutorFilterInPerson" xml:space="preserve">
-    <value>אחד על אחד</value>
+  <data name="files_label_school" xml:space="preserve">
+    <value>School</value>
   </data>
-  <data name="TutorFilterOnline" xml:space="preserve">
-    <value>מקוון</value>
+  <data name="files_label_tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
-  <data name="TutorSortPrice" xml:space="preserve">
-    <value>מחיר</value>
+  <data name="files_placeholder_proff_name" xml:space="preserve">
+    <value>Enter a professor name</value>
+  </data>
+  <data name="files_placeholder_tags" xml:space="preserve">
+    <value>Type a tag name</value>
+  </data>
+  <data name="files_step2_subtitle" xml:space="preserve">
+    <value>Filling details will increase this doc. chances to get
+                found</value>
+  </data>
+  <data name="files_step2_title" xml:space="preserve">
+    <value>Awesome! get your document ready for upload</value>
+  </data>
+  <data name="files_step3_title" xml:space="preserve">
+    <value>Choose document type, it would be easier to
+                find it</value>
+  </data>
+  <data name="files_step4_title" xml:space="preserve">
+    <value>Create a title or use the one we created for
+                you</value>
+  </data>
+  <data name="files_step5_subtitle" xml:space="preserve">
+    <value>It will help other to find you in more than one
+                way</value>
+  </data>
+  <data name="files_step5_title" xml:space="preserve">
+    <value>Add any tag you think is relevant for this
+                doc.</value>
+  </data>
+  <data name="files_step6_subtitle" xml:space="preserve">
+    <value>Please make sure all the details are just right </value>
+  </data>
+  <data name="files_step6_title" xml:space="preserve">
+    <value>You Rock! you finished sooo fast!</value>
+  </data>
+  <data name="files_step7_subtitle" xml:space="preserve">
+    <value>Help others while you are waiting</value>
+  </data>
+  <data name="files_step7_title" xml:space="preserve">
+    <value>Spread the Word</value>
+  </data>
+  <data name="files_type_exam" xml:space="preserve">
+    <value>Exam note</value>
+  </data>
+  <data name="files_type_lecture" xml:space="preserve">
+    <value>Lecture note</value>
+  </data>
+  <data name="files_type_textbook" xml:space="preserve">
+    <value>Textbook note</value>
+  </data>
+  <data name="files_uploadDoc" xml:space="preserve">
+    <value>Upload a Document</value>
   </data>
 </root>

@@ -7,6 +7,7 @@
             <div :class="['sb-doc-type', singleType.title === selectedDoctype.title ? 'selected': '']"
                  v-for="singleType in documentTypes"
                  :key="singleType.id"
+                 v-show="singleType.id !== 'none'"
                  @click="updateDocumentType(singleType)">
                 <v-icon class="sb-doc-icon mt-2">{{singleType.icon}}</v-icon>
                 <span class="sb-doc-title mb-2">

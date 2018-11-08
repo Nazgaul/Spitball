@@ -71,7 +71,6 @@
                 if (!!self.item.documentType) {
                     return documentTypes.find((single) => {
                         if (single.title.toLowerCase() === self.item.documentType.toLowerCase()) {
-
                             return single
                         }
                     })
@@ -119,11 +118,7 @@
                 return this.item.source.includes('Spitball')
             },
             url: function () {
-                if (this.isCloudents) {
-                    return this.item.url.split('.co/')[1]
-                } else {
-                    return this.item.url
-                }
+                return this.item.url
             },
 
         },
