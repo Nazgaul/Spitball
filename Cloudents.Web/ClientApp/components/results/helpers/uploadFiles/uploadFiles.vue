@@ -25,7 +25,6 @@
                                     v-model="stepsProgress"
                                     class="sb-steps-progress ma-0"
                                     :active="true">
-
                             </v-progress-linear>
                             <div :class="['step-controls', isLastStepAndMobile ? 'mobile-controls-last' : '' ]">
                                 <div class="upload upload-result-file">

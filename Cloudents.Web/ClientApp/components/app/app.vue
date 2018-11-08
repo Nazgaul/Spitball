@@ -24,7 +24,10 @@
             </sb-dialog>
             <!--upload dilaog-->
 
-            <sb-dialog :showDialog="getDialogState" :transitionAnimation="'slide-y-transition'" :popUpType="'uploadDialog'" :fullWidth="true"
+            <sb-dialog :showDialog="getDialogState"
+                       :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
+                       :popUpType="'uploadDialog'"
+                       :fullWidth="true"
                        :onclosefn="setUploadDialogState"
                        :fullScreen="!isUploadAbsoluteMobile"
                        :isPersistent="$vuetify.breakpoint.smAndUp"
@@ -69,7 +72,7 @@
             return this.getShowSelectUniInterface;
             },
             isUploadAbsoluteMobile(){
-                return this.$vuetify.breakpoint.xsOnly && this.getUploadFullMobile
+                return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile
             }
         },
         updated: function () {

@@ -96,7 +96,7 @@ export default {
             'updateLoginDialogState',
             'updateNewQuestionDialogState',
             'changeSelectPopUpUniState',
-            // 'syncUniData',
+            'updateUploadFullMobile',
             'updateDialogState'
         ]),
 
@@ -118,6 +118,7 @@ export default {
 
         },
         closeDialog() {
+            this.resetFirstStepMobile();
             this.updateDialogState(false)
         },
         nextStep(step) {
@@ -126,7 +127,6 @@ export default {
             } else {
                 this.currentStep = this.currentStep + 1;
                 this.stepsProgress = ((100 / 6) * this.currentStep);
-
             }
             console.log('step', this.stepsProgress, this.currentStep);
 
@@ -140,17 +140,22 @@ export default {
             }
 
         },
+        //resets mobile first step to mobile design
+        resetFirstStepMobile(){
+            if(this.$vuetify.breakpoint.smAndDown){
+                this.updateUploadFullMobile(true);
+            }
+        },
         changeStep(step) {
             //clean up everytnig for new doc upload
             if (step === 1) {
+                this.resetFirstStepMobile()
             }
             this.currentStep = step;
         }
     },
 
     created() {
-        // this.syncUniData()
-        console.log('created upload dilog sync')
     }
 
 }
