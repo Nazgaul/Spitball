@@ -16,14 +16,13 @@ namespace Cloudents.Infrastructure.Search.Document
         private readonly AzureDocumentSearch _client;
         private readonly IQueryBus _queryBus;
         private readonly IWebDocumentSearch _documentSearch;
-        private readonly IUrlBuilder _urlBuilder;
 
-        public DocumentSearch(AzureDocumentSearch client, IQueryBus queryBus, IWebDocumentSearch documentSearch, IUrlBuilder urlBuilder)
+        public DocumentSearch(AzureDocumentSearch client, IQueryBus queryBus, IWebDocumentSearch documentSearch
+            )
         {
             _client = client;
             _queryBus = queryBus;
             _documentSearch = documentSearch;
-            _urlBuilder = urlBuilder;
         }
 
         public Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
@@ -68,7 +67,7 @@ namespace Cloudents.Infrastructure.Search.Document
                 }
                 if (dic.TryGetValue(long.Parse(resultResult.Document.Id), out var p))
                 {
-                    p.Snippet = p.Snippet;
+                    p.Snippet = resultResult.Document.MetaContent;
                     p.Source = "Cloudents";
                     //p.Url = _urlBuilder.BuildDocumentEndPoint(p.Id);
                     retVal.Result.Add(p);

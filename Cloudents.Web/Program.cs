@@ -20,7 +20,7 @@ namespace Cloudents.Web
                 {
                     if (hostingContext.HostingEnvironment.IsDevelopment())
                     {
-                       // logging.AddLog4Net();
+                        logging.AddLog4Net();
                     }
                 }).Build();
     }

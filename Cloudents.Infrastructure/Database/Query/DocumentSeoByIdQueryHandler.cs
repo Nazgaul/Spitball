@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Fetch(f => f.University)
                  .Where(w => w.Id == query.Id)
 
-                 .Select(s => new DocumentSeoDto(s.Name, s.Course.Name, s.University.Country, s.University.Name)
+                 .Select(s => new DocumentSeoDto(s.Name, s.Course.Name, s.University.Country, s.University.Name,s.Id)
                 ).SingleOrDefaultAsync(token);
         }
     }

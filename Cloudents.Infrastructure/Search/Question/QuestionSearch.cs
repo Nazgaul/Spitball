@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 
@@ -37,15 +39,25 @@ namespace Cloudents.Infrastructure.Search.Question
                 }
 
             }
-            if (searchResult.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
+
+            if (string.IsNullOrEmpty(query.Term))
             {
-                retVal.FacetSubject = p.Select(s => (QuestionSubject)s.AsValueFacetResult<long>().Value);
+                retVal.FacetSubject = EnumExtension.GetValues<QuestionSubject>();
+                retVal.FacetState = EnumExtension.GetValues<QuestionFilter>().Where(w => w.GetAttributeValue<PublicValueAttribute>() != null);
+            }
+            else
+            {
+                if (searchResult.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
+                {
+                    retVal.FacetSubject = p.Select(s => (QuestionSubject) s.AsValueFacetResult<long>().Value);
+                }
+
+                if (searchResult.Facets.TryGetValue(nameof(Core.Entities.Search.Question.State), out var p2))
+                {
+                    retVal.FacetState = p2.Select(s => (QuestionFilter) s.AsValueFacetResult<long>().Value);
+                }
             }
 
-            if (searchResult.Facets.TryGetValue(nameof(Core.Entities.Search.Question.State), out var p2))
-            {
-                retVal.FacetState = p2.Select(s => (QuestionFilter)s.AsValueFacetResult<long>().Value);
-            }
             return retVal;
         }
     }
