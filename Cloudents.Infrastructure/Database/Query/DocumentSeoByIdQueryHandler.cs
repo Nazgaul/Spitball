@@ -1,9 +1,12 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -18,22 +21,18 @@ namespace Cloudents.Infrastructure.Database.Query
         public Task<DocumentSeoDto> GetAsync(DocumentById query, CancellationToken token)
         {
             //V7 - need to fix
-            return Task.FromResult<DocumentSeoDto>(null);
-            //return _session.Query<Document>()
-            //    .Fetch(f=>f.Course)
-            //    .ThenFetch(f=>f.University)
+            return _session.Query<Document>()
+                .Fetch(f=>f.University)
+                //.ThenFetch(f => f.University)
+                 .Where(w => w.Id == query.Id)
 
-            //     .Where(w => w.Id == query.Id && !w.IsDeleted)
-
-            //     .Select(s => new DocumentSeoDto
-            //     {
-            //        Name = s.Name,
-            //         Country = s.Course.University != null ? s.Course.University.Country : null,
-            //         Discriminator = s.Discriminator,
-            //         CourseName = s.Course.Name,
-            //         Description = s.Content,
-            //         ImageUrl = s.BlobName
-            //     }).SingleOrDefaultAsync(token);
+                 .Select(s => new DocumentSeoDto
+                 {
+                     Name = s.Name,
+                     Country = s.University.Country,
+                     CourseName = s.Course.Name,
+                     //Description = s.Content,
+                 }).SingleOrDefaultAsync(token);
         }
     }
 }
