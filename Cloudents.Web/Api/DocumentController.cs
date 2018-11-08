@@ -97,7 +97,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Course, universityId, model.Query, country,
+            var query = new DocumentQuery(model.Course, universityId, model.Term, country,
                 model.Page.GetValueOrDefault(), model.Source);
 
             var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);

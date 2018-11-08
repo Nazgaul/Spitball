@@ -66,14 +66,14 @@ const assaignCourse = (arrCourses) => {
 }
 
 const getProfileUniversity = () => {
-    return connectivityModule.http.get("Profile/university").then(({data})=> {
+    return connectivityModule.http.get("account/university").then(({data})=> {
         let result = new University(data); 
         return result;
     })
 }
 
 const getProfileCourses = () => {
-    return connectivityModule.http.get("Profile/courses").then(({data})=> {
+    return connectivityModule.http.get("account/courses").then(({data})=> {
         let result = [];
         if(!!data && data.length > 0){
             data.forEach((course)=>{
