@@ -37,13 +37,13 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildDocumentEndPoint
-            (long id, object parameters = null)
-        {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{id}" };
-            builder.AddQuery(parameters);
-            return builder.ToString();
-        }
+        //public string BuildDocumentEndPoint
+        //    (long id, object parameters = null)
+        //{
+        //    var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{id}" };
+        //    builder.AddQuery(parameters);
+        //    return builder.ToString();
+        //}
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {
@@ -75,74 +75,70 @@ namespace Cloudents.Core
             return uri.ToString();
         }
 
-        //public string WalletEndPoint => _webSiteEndPoint + "wallet";
+        //public static string NameToQueryString(string name)
+        //{
+        //    if (string.IsNullOrEmpty(name))
+        //    {
+        //        return name;
+        //    }
+        //    var previousChar = '\0';
+        //    var sb = new StringBuilder();
 
-        public static string NameToQueryString(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                return name;
-            }
-            var previousChar = '\0';
-            var sb = new StringBuilder();
-            // name = name.Replace(Convert.ToChar(160), ' ');
-            //name = name.Replace("\n", string.Empty);
+        //    foreach (var character in name)
+        //    {
+        //        if (!char.IsLetterOrDigit(character) && !char.IsWhiteSpace(character) && !char.IsPunctuation(character))
+        //            continue;
+        //        switch (character)
+        //        {
+        //            case (char)160:
+        //            case '\n':
+        //            case '<':
+        //            case '>':
+        //            case '*':
+        //            case '%':
+        //            case '&':
+        //            case ':':
+        //            case '\\':
+        //            case '/':
+        //            case ';':
+        //            case '?':
+        //            case '@':
+        //            case '=':
+        //            case '+':
+        //            case '$':
+        //            case ',':
+        //            case '{':
+        //            case '}':
+        //            case '|':
+        //            case '^':
+        //            case '[':
+        //            case ']':
+        //            case '`':
+        //            case '"':
+        //            case '#':
+        //            case '\'':
+        //            case '(':
+        //            case ')':
+        //                continue;
+        //            case ' ':
+        //            case '_':
+        //            case '-':
+        //            case (char)65288:
+        //            case (char)65289:
+        //                if (previousChar != '-')
+        //                {
+        //                    sb.Append('-');
+        //                }
+        //                previousChar = '-';
 
-            foreach (var character in name)
-            {
-                if (!char.IsLetterOrDigit(character) && !char.IsWhiteSpace(character) && !char.IsPunctuation(character))
-                    continue;
-                switch (character)
-                {
-                    case (char)160:
-                    case '\n':
-                    case '<':
-                    case '>':
-                    case '*':
-                    case '%':
-                    case '&':
-                    case ':':
-                    case '\\':
-                    case '/':
-                    case ';':
-                    case '?':
-                    case '@':
-                    case '=':
-                    case '+':
-                    case '$':
-                    case ',':
-                    case '{':
-                    case '}':
-                    case '|':
-                    case '^':
-                    case '[':
-                    case ']':
-                    case '`':
-                    case '"':
-                    case '#':
-                    case '\'':
-                    case '(':
-                    case ')':
-                        continue;
-                    case ' ':
-                    case '_':
-                    case '-':
-                    case (char)65288:
-                    case (char)65289:
-                        if (previousChar != '-')
-                        {
-                            sb.Append('-');
-                        }
-                        previousChar = '-';
-
-                        break;
-                    default:
-                        previousChar = character;
-                        sb.Append(character);
-                        break;
-                }
-            }
-            return sb.ToString().ToLowerInvariant();
-        }
+        //                break;
+        //            default:
+        //                previousChar = character;
+        //                sb.Append(character);
+        //                break;
+        //        }
+        //    }
+        //    return sb.ToString().ToLowerInvariant();
+        //}
     }
 }

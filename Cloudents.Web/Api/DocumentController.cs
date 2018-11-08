@@ -112,9 +112,9 @@ namespace Cloudents.Web.Api
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
             await Task.WhenAll(coursesTask, resultTask);
             var result = resultTask.Result;
-            var p = result.Result?.ToList();
+            var p = result.Result?.ToList() ?? new List<DocumentFeedDto>();
             string nextPageLink = null;
-            if (p?.Any() == true)
+            if (p.Count > 0)
             {
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
@@ -137,7 +137,17 @@ namespace Cloudents.Web.Api
             }
             return new WebResponseWithFacet<DocumentFeedDto>
             {
-                Result = p,
+                Result = p.Select(s =>
+                {
+                    s.Url = Url.RouteUrl(SeoTypeString.Document, new
+                    {
+                        universityName = s.University,
+                        courseName = s.Course,
+                        id = s.Id,
+                        name = s.Title
+                    });
+                    return s;
+                }),
                 Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = filters,
                 NextPageLink = nextPageLink

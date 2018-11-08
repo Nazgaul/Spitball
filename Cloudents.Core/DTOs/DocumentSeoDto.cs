@@ -2,14 +2,20 @@
 {
     public class DocumentSeoDto
     {
-        public string Name { get; set; }
-        public string CourseName { get; set; }
-        public string Description { get; set; }
+        public DocumentSeoDto(string name, string courseName,   string country, string universityName)
+        {
+            Name = name;
+            CourseName = courseName;
+            Country = country;
+            UniversityName = universityName;
+        }
 
-        //public string Discriminator { get; set; }
+        public string Name { get; }
+        public string CourseName { get;  }
 
-        //public string ImageUrl { get; set; }
 
-        public string Country { get; set; }
+        public string UniversityName { get;}
+
+        public string Country { get; }
     }
 }

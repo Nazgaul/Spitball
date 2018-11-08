@@ -31,6 +31,11 @@ namespace Cloudents.Infrastructure.Search.Document
             return _client.ItemContentAsync(itemId, cancelToken);
         }
 
+        public Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
+        {
+            return _client.ItemMetaContentAsync(itemId, cancelToken);
+        }
+
         public async Task<ResultWithFacetDto2<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken token)
         {
@@ -65,7 +70,7 @@ namespace Cloudents.Infrastructure.Search.Document
                 {
                     p.Snippet = p.Snippet;
                     p.Source = "Cloudents";
-                    p.Url = _urlBuilder.BuildDocumentEndPoint(p.Id);
+                    //p.Url = _urlBuilder.BuildDocumentEndPoint(p.Id);
                     retVal.Result.Add(p);
                 }
 

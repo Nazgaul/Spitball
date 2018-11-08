@@ -21,7 +21,7 @@ namespace Cloudents.Core.Storage
         string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes,
             string contentDisposition);
 
-        Task<bool> ExistsAsync(string blobName, CancellationToken token);
+       // Task<bool> ExistsAsync(string blobName, CancellationToken token);
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
@@ -29,7 +29,7 @@ namespace Cloudents.Core.Storage
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
-        Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token);
+        //Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token);
         //Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token);
         //Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token);
     }

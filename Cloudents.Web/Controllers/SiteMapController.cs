@@ -75,22 +75,22 @@ namespace Cloudents.Web.Controllers
             var iterator = 0;
             foreach (var entity in _seoRepositories[type].Get(query))
             {
-                iterator++;
-                var url = Url.RouteUrl(routeName, new
-                {
-                    universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
-                    boxId = entity.BoxId,
-                    boxName = UrlConst.NameToQueryString(entity.BoxName),
-                    id = entity.Id,
-                    name = UrlConst.NameToQueryString(entity.Name)
-                }, Request.GetUri().Scheme);
+                //iterator++;
+                //var url = Url.RouteUrl(routeName, new
+                //{
+                //    universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
+                //    boxId = entity.BoxId,
+                //    boxName = UrlConst.NameToQueryString(entity.BoxName),
+                //    id = entity.Id,
+                //    name = UrlConst.NameToQueryString(entity.Name)
+                //}, Request.GetUri().Scheme);
 
-                await WriteTagAsync("1", "Daily", url, writer).ConfigureAwait(false);
-                if (iterator == 100)
-                {
-                    await writer.FlushAsync().ConfigureAwait(false);
-                    iterator = 0;
-                }
+                //await WriteTagAsync("1", "Daily", url, writer).ConfigureAwait(false);
+                //if (iterator == 100)
+                //{
+                //    await writer.FlushAsync().ConfigureAwait(false);
+                //    iterator = 0;
+                //}
             }
             await writer.WriteEndElementAsync().ConfigureAwait(false);
             await writer.WriteEndDocumentAsync().ConfigureAwait(false);

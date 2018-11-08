@@ -39,6 +39,27 @@ namespace Cloudents.Infrastructure.Search.Document
             }
         }
 
+
+        public async Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
+        {
+            try
+            {
+                var item =
+                    await
+                        _client.Documents.GetAsync<Core.Entities.Search.Document>
+                            (itemId.ToString(CultureInfo.InvariantCulture),
+                                new[] {nameof(Core.Entities.Search.Document.MetaContent)},
+                                cancellationToken: cancelToken)
+                            .ConfigureAwait(false);
+                return item.MetaContent;
+            }
+            //item may not exists in the search....
+            catch (CloudException)
+            {
+                return null;
+            }
+        }
+
         public async Task<DocumentSearchResult<Core.Entities.Search.Document>> SearchAsync(DocumentQuery query, CancellationToken token)
         {
             var filters = new List<string>
