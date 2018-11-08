@@ -22,27 +22,20 @@
     .upload-wrap {
       &.floating-upload {
         border-radius: 0%;
-        .static-center {
-          visibility: hidden;
-          .transition (all 3s ease-in-out);
-        }
         //height: 5px;
         //width: 5px;
         background-color: transparent;
       }
     .static-center {
       background-color: @color-AB-test-background;
-      padding: 10px 0;
+      padding: 16px 0;
       visibility: visible;
-      //animation-delay: 0.2s;
-      //.transition (all 3s ease-in-out);
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-around;
       @media (max-width: @screen-xs) {
         flex-direction: column;
-        padding: 16px 0;
       }
       .upload-text {
         color: @color-blue-new;
@@ -67,7 +60,7 @@
         background: @color-blue-new;
         color: @color-white;
         height: 48px;
-        border-radius: 24px;
+        border-radius: 30px;
         box-shadow: 0 3px 8px 0 @color-blue-new;
         font-size: 20px;
         line-height: 1.25;
@@ -91,8 +84,8 @@
           right: 25px;
           top: 25px;
           background-color: @color-blue-new;
-          height: 48px;
-          width: 48px;
+          height: 56px;
+          width: 56px;
           display: flex;
           justify-content: space-around;
           align-items: center;
@@ -103,7 +96,6 @@
             color: @color-white;
             height: 22px;
             font-size: 20px;
-            transition: all 600ms linear;
             opacity: 1;
           }
           .btn-text {
