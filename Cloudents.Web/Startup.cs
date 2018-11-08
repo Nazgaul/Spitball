@@ -31,9 +31,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Request;
+using Cloudents.Infrastructure.Data;
 using Microsoft.AspNetCore.HttpOverrides;
+using SimpleMvcSitemap;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -211,6 +217,14 @@ namespace Cloudents.Web
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
+
+
+            //containerBuilder.RegisterType<DocumentSiteMapIndexConfiguration>()
+            //    .As<ISitemapIndexConfiguration<DocumentSeoDto>>();
+            containerBuilder.RegisterType<SeoDocumentRepository>()
+                .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>().WithParameter("query", SeoDbQuery.Flashcard);
+            //containerBuilder.RegisterType<SeoDocumentRepository>()
+            //    .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item).WithParameter("query", SeoDbQuery.Document);
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();

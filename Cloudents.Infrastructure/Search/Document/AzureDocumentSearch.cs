@@ -69,23 +69,30 @@ namespace Cloudents.Infrastructure.Search.Document
             if (query.Course != null)
             {
                 var filterStr = string.Join(" or ", query.Course.Select(s =>
-                    $"{nameof(Core.Entities.Search.Document.Course)} eq 's'"));
+                    $"{nameof(Core.Entities.Search.Document.Course)} eq '{s}'"));
 
-                filters.Add($"({filterStr})");
+                if (!string.IsNullOrWhiteSpace(filterStr))
+                {
+                    filters.Add($"({filterStr})");
+                }
             }
 
-            //if (query.Filters != null)
-            //{
-            //    var filterStr = string.Join(" or ", query.Filters.Select(s =>
-            //         $"{nameof(Document.State)} eq {(int)s}"));
-            //    filters.Add($"({filterStr})");
-            //}
+            if (query.Filters != null)
+            {
+                var filterStr = string.Join(" or ", query.Filters.Select(s =>
+                     $"{nameof(Core.Entities.Search.Document.Type)} eq {(int)s}"));
+                if (!string.IsNullOrWhiteSpace(filterStr))
+                {
+                    filters.Add($"({filterStr})");
+                }
+            }
             var searchParameter = new SearchParameters
             {
                 //Facets = new[] { nameof(Document.Subject),
                 //    nameof(Document.State) },
                 Filter = string.Join(" and ", filters),
-                Select = new[] { nameof(Core.Entities.Search.Document.Id),nameof(Core.Entities.Search.Document.MetaContent) },
+                Select = new[] { nameof(Core.Entities.Search.Document.Id),
+                    nameof(Core.Entities.Search.Document.MetaContent) },
                 Top = 50,
                 Skip = query.Page * 50,
                 OrderBy = new List<string> { "search.score() desc", $"{nameof(Core.Entities.Search.Document.DateTime)} desc" },

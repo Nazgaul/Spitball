@@ -71,7 +71,7 @@ export default {
     },
     watch:{
         search: debounce(function(){
-            if(!!this.search && this.search.length >= 3 ){
+            if(!!this.search && this.search.length >= 1 ){
                 this.updateUniversities(this.search);                
             }else if(!!this.search && this.search.length === 0 ){
                 this.clearUniversityList();

@@ -1,9 +1,11 @@
-﻿using Cloudents.Core.Command;
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Binders;
@@ -19,7 +21,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message.System;
 
 namespace Cloudents.Web.Api
 {
@@ -97,8 +98,8 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Course, universityId, model.Query, country,
-                model.Page.GetValueOrDefault(), model.Source);
+            var query = new DocumentQuery(model.Course, universityId, model.Term, country,
+                model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
 
             var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);
             if (_signInManager.IsSignedIn(User))
@@ -112,7 +113,7 @@ namespace Cloudents.Web.Api
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
             await Task.WhenAll(coursesTask, resultTask);
             var result = resultTask.Result;
-            var p = result.Result?.ToList() ?? new List<DocumentFeedDto>();
+            var p = result;
             string nextPageLink = null;
             if (p.Count > 0)
             {
@@ -120,14 +121,15 @@ namespace Cloudents.Web.Api
             }
             var filters = new List<IFilters>();
 
-            if (result.Facet != null)
-            {
-                filters.Add(
+            //if (result.Facet != null)
+            //{
 
-                    new Filters<string>(nameof(DocumentRequest.Source), _localizer["Sources"],
-                        result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
-                );
-            }
+            filters.Add(
+                new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+                    EnumExtension.GetValues<DocumentType>().Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
+                        .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
+            );
+            // }
 
             if (coursesTask.Result != null)
             {
@@ -139,16 +141,20 @@ namespace Cloudents.Web.Api
             {
                 Result = p.Select(s =>
                 {
-                    s.Url = Url.RouteUrl(SeoTypeString.Document, new
+                    if (s.Url == null)
                     {
-                        universityName = s.University,
-                        courseName = s.Course,
-                        id = s.Id,
-                        name = s.Title
-                    });
+                        s.Url = Url.RouteUrl(SeoTypeString.Document, new
+                        {
+                            universityName = s.University,
+                            courseName = s.Course,
+                            id = s.Id,
+                            name = s.Title
+                        });
+                    }
+
                     return s;
                 }),
-                Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
+                //Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = filters,
                 NextPageLink = nextPageLink
             };

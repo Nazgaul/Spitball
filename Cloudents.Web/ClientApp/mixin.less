@@ -88,12 +88,21 @@
 @textColor: rgba(0, 0, 0, 0.87);
 @colorInputFocus: rgba(0, 0, 0, 0.38);
 @colorInputNotFocused:  #d0d0d0;
-
+@colorWhiteBlured: rgba(255, 255, 255, 0.54);
 .inTheMiddle() {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+
+.dashed-spaced{
+    background-image: linear-gradient(to right, #333 10%, rgba(255, 255, 255, 0) 30%);
+    background-position: top;
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+}
+
 
 //updated version TODO rework and remove previous
 .giveEllipsisUpdated(@fontSize, @lineHeigh, @lines, @maxHeight: 96px){

@@ -1,20 +1,20 @@
 <template>
-    <div class="suspend-container">
+    <form class="suspend-container">
         <h1>Suspend User</h1>
         <div class="suspend-input-container">
-            <input type="number" class="user-id-input" placeholder="Insert user id..." v-model.number="userId"/>
+            <input type="text" class="user-id-input" placeholder="Insert user id..." v-model="userIds"/>
         </div>
         <div class="suspend-checkbox-container">
             <input type="checkbox" v-model="deleteUserQuestions"> Remove Question 
         </div>
         <div class="suspend-button-container">
-            <button @click="banUser">Suspend</button>
+            <button @click.prevent="banUser" :class="{'lock': lock}">Suspend</button>
         </div>
 
         <div v-if="showSuspendedDetails" class="suspended-user-container">
             <h3>Email: {{suspendedMail}}</h3>
         </div>
-    </div>
+    </form>
 </template>
 
 <script>
@@ -22,25 +22,37 @@ import {suspendUser} from './suspendUserService'
 export default {
     data(){
         return{
-            userId: null,
+            userIds: null,
+            serverIds: [],
             deleteUserQuestions:false,
             showSuspendedDetails: false,
-            suspendedMail: null
+            suspendedMail: null,
+            lock: false
         }
     },
     methods:{
         banUser:function(){
-            if(!this.userId){
+            if(!this.userIds){
                 this.$toaster.error("Please Insert A user ID")
                 return;
             }
-            suspendUser(this.userId, this.deleteUserQuestions).then((email)=>{
+            this.userIds.split(',').forEach(id=>{
+                let num = parseInt(id.trim());
+                if(!!num){
+                    return this.serverIds.push(num);
+                }  
+            });
+            
+            this.lock = true;
+            suspendUser(this.serverIds, this.deleteUserQuestions).then((email)=>{
                 this.$toaster.success(`userId ${this.userId} got suspended, email is: ${email}`)
                 this.showSuspendedDetails = true;
                 this.suspendedMail = email;
             }, (err)=>{
                 this.$toaster.error(`ERROR: failed to suspend user`);
                 console.log(err)
+            }).finally(()=>{
+                this.lock = false;
             })
         }
     }
@@ -75,6 +87,11 @@ export default {
                 width: 80px;
                 color: #810000;
                 font-weight: 600;
+                &.lock{
+                    background-color: #d1d1d1;
+                    color: #a19d9d;         
+                    pointer-events: none;
+                }
             }
         }
 }

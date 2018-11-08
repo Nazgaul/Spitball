@@ -25,15 +25,14 @@
                                     v-model="stepsProgress"
                                     class="sb-steps-progress ma-0"
                                     :active="true">
-
                             </v-progress-linear>
-                            <div class="step-controls">
+                            <div :class="['step-controls', isLastStepAndMobile ? 'mobile-controls-last' : '' ]">
                                 <div class="upload upload-result-file">
                                     <div class="file-item">
                                         <v-icon v-if="!progressShow">sbf-terms</v-icon>
                                         <div v-else class="dot-flashing" ></div>
                                         <span class="upload-file-name ml-3 mr-3">{{getFileData.name}}</span>
-                                        <v-icon class="sb-close">sbf-close</v-icon>
+                                        <!--<v-icon class="sb-close">sbf-close</v-icon>-->
                                     </div>
                                 </div>
                                 <v-btn round v-if="currentStep > 2 && currentStep !==7" flat class="sb-back-flat-btn" @click="previousStep(step)">
@@ -49,11 +48,14 @@
 
                                     <v-icon right class="credit-card">sbf-credit-card</v-icon>
                                 </v-btn>
-                                <v-btn v-show="currentStep ===7" flat class="sb-back-flat-btn" @click="closeDialog()">
+                                <v-btn v-show="currentStep ===7" flat :class="['sb-back-flat-btn', $vuetify.breakpoint.smAndDown ? 'sb-close-mobile' : '']"
+                                       @click="closeDialog()">
                                     <span v-language:inner>upload_files_btn_close</span>
                                 </v-btn>
                                 <v-btn v-show="currentStep ===7" round outline class="another-doc" @click="changeStep(1)">
-                                    <span v-language:inner>upload_files_btn_anotherUpload</span>
+                                    <span v-show="$vuetify.breakpoint.smAndDown" v-language:inner>upload_files_btn_anotherUpload_mobile</span>
+                                    <span v-show="$vuetify.breakpoint.smAndUp" v-language:inner>upload_files_btn_anotherUpload</span>
+
                                     <v-icon right class="cloud-upload">sbf-upload-cloud</v-icon>
                                 </v-btn>
                             </div>

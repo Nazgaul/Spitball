@@ -33,6 +33,7 @@ namespace Cloudents.Core.Entities.Db
             Transactions = new List<Transaction>();
             UserLogins = new List<UserLogin>();
             Courses = new HashSet<Course>();
+            Tags = new HashSet<Tag>();
             Events = new List<IEvent>();
             //Languages = new HashSet<CultureInfo>();
         }
@@ -83,8 +84,6 @@ namespace Cloudents.Core.Entities.Db
             AddTransaction(t);
         }
 
-  
-
         public virtual decimal Balance { get; set; }
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
@@ -96,6 +95,7 @@ namespace Cloudents.Core.Entities.Db
 
 
         protected internal virtual ISet<Course> Courses { get; protected set; }
+        protected internal virtual ISet<Tag> Tags { get; protected set; }
 
 
         public virtual DateTime Created { get; protected set; }
@@ -118,11 +118,6 @@ namespace Cloudents.Core.Entities.Db
 
         [CanBeNull] public virtual CultureInfo Culture { get; set; }
         
-
-        //[CanBeNull]
-        //public virtual ISet<CultureInfo> Languages { get; protected set; }
-
-
         public virtual string Country { get; set; }
         
     }

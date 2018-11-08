@@ -39,7 +39,7 @@ export default {
                 return;
             }
             grantTokens(this.userId, this.tokens, this.tokenType).then(()=>{
-                this.$toaster.error(`user id ${this.userId} recived ${this.tokens} tokens`)
+                this.$toaster.success(`user id ${this.userId} recived ${this.tokens} tokens`)
                 this.userId= null;
                 this.tokens= null;
             },(err)=>{
