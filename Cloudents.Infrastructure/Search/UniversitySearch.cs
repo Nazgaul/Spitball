@@ -30,24 +30,20 @@ namespace Cloudents.Infrastructure.Search
         }
 
 
-        private static readonly string[] StopWordsList = { "university","university of",
-            "college",
-            "school",
-            "Community",
-            "High",
-            "Uni",
-            "State",
-            "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
-        };
+        //private static readonly string[] StopWordsList = { "university","university of",
+        //    "college",
+        //    "school",
+        //    "Community",
+        //    "High",
+        //    "Uni",
+        //    "State",
+        //    "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
+        //};
 
 
         public async Task<UniversitySearchDto> SearchAsync(string term, string country,
             CancellationToken token)
         {
-            if (StopWordsList.Any(a=> string.Equals(a, term, StringComparison.OrdinalIgnoreCase)))
-            {
-                return UniversitySearchDto.StopWordResponse();
-            }
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,
