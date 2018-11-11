@@ -25,6 +25,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Models;
+using NHibernate.Linq;
+using NHibernate;
 
 namespace ConsoleApp
 {
@@ -614,6 +616,7 @@ namespace ConsoleApp
         public static async Task TransferDocumants()
         {
             var d = _container.Resolve<DapperRepository>();
+           
 
             var key = ConfigurationManager.AppSettings["OldStrageConnectionString"];
             var productionOldstorageAccount = CloudStorageAccount.Parse(key);
@@ -647,7 +650,7 @@ namespace ConsoleApp
             {
 
                 return await f.QueryAsync(
-                    @"select top 1 I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views],
+                    @"select top 1 I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views], I.CreationTime,
 			            STRING_AGG((T.Name), ',') as Tags
                         FROM [Zbox].[Item] I
                         join zbox.Box B
@@ -663,9 +666,9 @@ namespace ConsoleApp
                         where I.Discriminator = 'File'
 	                        and I.IsDeleted = 0 
 							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
-							and len(BoxName) between 4 and 150
+							and len(BoxName) <= 150
 							and SUBSTRING (I.Name,CHARINDEX ('.',I.Name), 5) in ('.doc', '.docx', '.xls', '.xlsx', '.PDF', '.png', '.jpg', '.ppt', '.ppt', '.jpg', '.png', '.gif', '.jpeg', '.bmp' )
-                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads
+                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
                         order by I.ItemId desc;
                 ");
             }, default);
@@ -676,76 +679,74 @@ namespace ConsoleApp
 
             using (var child = _container.BeginLifetimeScope())
             {
-                using (var unitOfWork = child.Resolve<IUnitOfWork>())
-                {
+                
                     var commandBus = child.Resolve<ICommandBus>();
-                    //var repository = child.Resolve<IRepository<Document>>();
-                    //var blb = child.Resolve<IBlobProvider<DocumentContainer>>();
-                    //var userRep = child.Resolve<IRepository<User>>();
-                    //var Course = child.Resolve<ICourseRepository>();
-                    //var Tag = child.Resolve<ITagRepository>();
-                    //var ch = new CreateDocumentCommandHandler(blb, userRep, repository, Course, Tag);
+                    var session = child.Resolve<IStatelessSession>();
+
 
                     foreach (var pair in z)
                     {
 
 
 
-                        string[] blobName = pair.BlobName.Split('.');
-                        CloudBlockBlob blobDestination = container.GetBlockBlobReference($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}");
+                    string[] blobName = pair.BlobName.Split('.');
+                    CloudBlockBlob blobDestination = container.GetBlockBlobReference($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}");
 
-                        CloudBlockBlob srcBlob = oldContainer.GetBlockBlobReference(pair.BlobName);
+                    CloudBlockBlob srcBlob = oldContainer.GetBlockBlobReference(pair.BlobName);
 
-                        var sharedAccessUri = GetShareAccessUri(pair.BlobName, 360, oldContainer);
+                    var sharedAccessUri = GetShareAccessUri(pair.BlobName, 360, oldContainer);
 
-                        var blobUri = new Uri(sharedAccessUri);
-
-
-                        if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
-                        {
-                            continue;
-                        }
+                    var blobUri = new Uri(sharedAccessUri);
 
 
-                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
-                        while (blobDestination.CopyState.Status != CopyStatus.Success)
-                        {
-                            Console.WriteLine(blobDestination.CopyState.Status);
-                            await Task.Delay(TimeSpan.FromSeconds(1));
-                            await blobDestination.ExistsAsync();
-                        }
-
-
-                        string[] words;
-                        if (pair.Tags != null)
-                        {
-                            words = pair.Tags.Split(',');
-                        }
-                        else { words = null; }
-                        DocumentType type;
-
-                        if (DocType.ContainsKey(pair.DocType))
-                        {
-                            DocType.TryGetValue(pair.DocType, out type);
-                        }
-                        else { type = DocumentType.None; }
-
-
-
-                        var command = new CreateDocumentCommand($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
-                            pair.Name,
-                        type, pair.BoxName, words, pair.Id, pair.ProfessorName/*, (long)pair.ItemId*/);
-
-                        await commandBus.DispatchAsync(command, default);
-
-                        /*TODO: need to put
-                         1 - old id
-                         2- number of views
-                         3- created time / updated time
-                         */
-                        //command.Id;
-
+                    if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
+                    {
+                        continue;
                     }
+
+
+                    await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+                    while (blobDestination.CopyState.Status != CopyStatus.Success)
+                    {
+                        Console.WriteLine(blobDestination.CopyState.Status);
+                        await Task.Delay(TimeSpan.FromSeconds(1));
+                        await blobDestination.ExistsAsync();
+                    }
+
+
+                    string[] words;
+                    if (pair.Tags != null)
+                    {
+                        words = pair.Tags.Split(',');
+                    }
+                    else { words = null; }
+                    DocumentType type;
+
+                    if (DocType.ContainsKey(pair.DocType))
+                    {
+                        DocType.TryGetValue(pair.DocType, out type);
+                    }
+                    else { type = DocumentType.None; }
+
+
+
+                    var command = new CreateDocumentCommand($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
+                        pair.Name,
+                    type, pair.BoxName, words, pair.Id, pair.ProfessorName);
+
+                    await commandBus.DispatchAsync(command, default);
+
+                    int views = pair.Views;
+                    long? itemId = pair.ItemId;
+                    DateTime updateTime = pair.CreationTime;
+
+                    var doc = session.Query<Document>().Where(w => w.Id == command.Id)
+                            .UpdateBuilder()
+                            .Set(x => x.Views, x => views)
+                            .Set(x => x.OldId, x => itemId)
+                            .Set(x => x.TimeStamp.UpdateTime, x => updateTime)
+                            .Update();
+             
                 }
 
             }

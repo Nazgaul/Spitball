@@ -129,4 +129,16 @@
   <data name="itemActions_title" xml:space="preserve">
     <value>Print</value>
   </data>
+  <data name="item_by" xml:space="preserve">
+    <value>By</value>
+  </data>
+  <data name="item_class" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="item_prof" xml:space="preserve">
+    <value>Prof.</value>
+  </data>
+  <data name="item_school" xml:space="preserve">
+    <value>School</value>
+  </data>
 </root>

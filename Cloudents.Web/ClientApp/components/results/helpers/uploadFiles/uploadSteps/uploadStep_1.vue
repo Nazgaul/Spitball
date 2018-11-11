@@ -21,7 +21,6 @@
                     <v-icon>sbf-upload-dropbox</v-icon>
                 </v-btn>
                 <span class="btn-label" v-language:inner>upload_files_btn_dropBox</span>
-
             </div>
             <div class="btn-holder">
                 <v-btn fab class="upload-option-btn">
