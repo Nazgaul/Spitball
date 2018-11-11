@@ -4,6 +4,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,11 +14,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -113,20 +114,21 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Perform course search per user
         /// </summary>
+        /// <param name="universityId"></param>
         /// <param name="token"></param>
         /// <returns>list of courses for a user</returns>
-        [Route("courses")]
-        [HttpGet]
-        public async Task<IEnumerable<CourseDto>> GetCourses(CancellationToken token)
+        [HttpGet("courses")]
+        public async Task<IEnumerable<CourseDto>> GetCourses(
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new CoursesQuery(userId);
+            var query = new UserWithUniversityQuery(userId, universityId);
             var t = await _queryBus.QueryAsync(query, token);
-            return t;
+            return t.Courses.Select(s => new CourseDto(s));
         }
 
-        [Route("University")]
-        [HttpGet]
+        [HttpGet("University")]
         public async Task<UniversityDto> GetUniversityAsync(
             [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
@@ -135,6 +137,7 @@ namespace Cloudents.Web.Api
             {
                 return null;
             }
+            //TODO - should be user profile query
             var query = new UniversityQuery(universityId.Value);
             return await _queryBus.QueryAsync(query, token);
         }

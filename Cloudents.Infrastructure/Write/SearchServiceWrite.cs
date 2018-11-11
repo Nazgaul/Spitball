@@ -12,7 +12,7 @@ namespace Cloudents.Infrastructure.Write
 {
     public abstract class SearchServiceWrite<T> :  ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
-        protected readonly SearchServiceClient _client;
+        private readonly SearchServiceClient _client;
         protected readonly ISearchIndexClient IndexClient;
 
         private readonly ILogger _logger;

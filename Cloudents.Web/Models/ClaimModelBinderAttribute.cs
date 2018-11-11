@@ -6,14 +6,19 @@ namespace Cloudents.Web.Models
     //TODO: should not be in this folder
     public class ClaimModelBinderAttribute : ModelBinderAttribute
     {
-        public ClaimModelBinderAttribute(string claim/*, string errorResource*/)
+        public ClaimModelBinderAttribute(string claim)
         {
-            //Claim = claim;
-            //ErrorResource = errorResource;
             BinderType = typeof(ClaimModelBinder);
             Name = claim;
         }
+    }
 
-       // public string Name { get; } => "Ram";
+    public class ProfileModelBinderAttribute : ModelBinderAttribute
+    {
+        public ProfileModelBinderAttribute(ProfileServiceQuery claim)
+        {
+            BinderType = typeof(ProfileModelBinder);
+            Name = claim.ToString("G");
+        }
     }
 }

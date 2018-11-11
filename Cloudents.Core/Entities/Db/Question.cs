@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;

@@ -10,6 +10,7 @@ using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message.System;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Web.Api
 {
@@ -32,28 +31,28 @@ namespace Cloudents.Web.Api
     public class QuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;
-        private readonly IQueueProvider _queueProvider;
+        private readonly IProfileUpdater _profileUpdater;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
 
         public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager,
-            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch, IQueueProvider queueProvider, SignInManager<User> signInManager)
+            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch,
+            IProfileUpdater profileUpdater)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _localizer = localizer;
             _questionSearch = questionSearch;
-            _queueProvider = queueProvider;
-            _signInManager = signInManager;
+            _profileUpdater = profileUpdater;
         }
 
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<CreateQuestionResponse>> CreateQuestionAsync([FromBody]CreateQuestionRequest model,
-            [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
+            [Required(ErrorMessage = "NeedCountry"), 
+            ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
             CancellationToken token)
         {
 
@@ -146,15 +145,7 @@ namespace Cloudents.Web.Api
                 country);
 
 
-            var queueTask = Task.CompletedTask;
-            if (_signInManager.IsSignedIn(User))
-            {
-                var userId = _userManager.GetLongUserId(User);
-                if (!string.IsNullOrEmpty(model.Term))
-                {
-                    queueTask = _queueProvider.InsertMessageAsync(new AddUserTagMessage(userId, model.Term), token);
-                }
-            }
+            var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
 
             var result = await _questionSearch.SearchAsync(query, token);
             string nextPageLink = null;

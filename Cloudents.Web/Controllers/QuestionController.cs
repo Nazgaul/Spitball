@@ -4,7 +4,6 @@ using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Cloudents.Web.Binders;
 using EmailAnswerCreated = Cloudents.Web.EventHandler.EmailAnswerCreated;
 
 namespace Cloudents.Web.Controllers
@@ -30,10 +29,10 @@ namespace Cloudents.Web.Controllers
         }
         // GET
         [Route("[controller]/{id:long}")]
-        public async Task<IActionResult> Index(string code,
-            [ModelBinder(typeof(CountryModelBinder))] string country)
+        public async Task<IActionResult> Index(string code
+            /*[ModelBinder(typeof(CountryModelBinder))] string country*/)
         {
-            ViewBag.country = country ?? "us";
+            //ViewBag.country = country ?? "us";
             if (string.IsNullOrEmpty(code))
             {
                 return View();

@@ -6,7 +6,6 @@ using NHibernate;
 using NHibernate.Linq;
 using SimpleMvcSitemap;
 using SimpleMvcSitemap.StyleSheets;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

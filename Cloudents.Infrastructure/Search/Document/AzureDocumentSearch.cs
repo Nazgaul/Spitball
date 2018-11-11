@@ -64,7 +64,7 @@ namespace Cloudents.Infrastructure.Search.Document
         {
             var filters = new List<string>
             {
-                $"({nameof(Core.Entities.Search.Document.Country)} eq '{query.Country}' or {nameof(Core.Entities.Search.Document.Language)} eq 'en')"
+                $"({nameof(Core.Entities.Search.Document.Country)} eq '{query.Profile.Country}' or {nameof(Core.Entities.Search.Document.Language)} eq 'en')"
             };
             if (query.Course != null)
             {
@@ -99,7 +99,7 @@ namespace Cloudents.Infrastructure.Search.Document
                 ScoringProfile = DocumentSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {
-                                 new ScoringParameter(DocumentSearchWrite.TagsUniversityParameter, new[] {query.University.ToString()}),
+                                 new ScoringParameter(DocumentSearchWrite.TagsUniversityParameter, new[] {query.Profile.University?.Id.ToString()}),
                                  new ScoringParameter(DocumentSearchWrite.TagsTagsParameter, new string[] {null}),
                                  new ScoringParameter(DocumentSearchWrite.TagsCourseParameter, new string[] {null}),
                 }

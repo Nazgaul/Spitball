@@ -4,7 +4,6 @@ namespace Cloudents.Core
 {
     public class ConfigurationKeys : IConfigurationKeys
     {
-        private string _prodStorage;
         public ConfigurationKeys(string siteEndPoint)
         {
             SiteEndPoint = siteEndPoint;

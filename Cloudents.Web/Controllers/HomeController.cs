@@ -1,11 +1,9 @@
 ﻿using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Extension;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Controllers
 {
@@ -19,7 +17,7 @@ namespace Cloudents.Web.Controllers
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index(
-            [ModelBinder(typeof(CountryModelBinder))] string country,
+           // [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral
             )
@@ -34,7 +32,7 @@ namespace Cloudents.Web.Controllers
                 ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
             }
 
-            ViewBag.country = country ?? "us";
+            //ViewBag.country = country ?? "us";
            
             return View();
         }

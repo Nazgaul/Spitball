@@ -1,7 +1,4 @@
-﻿using System;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
