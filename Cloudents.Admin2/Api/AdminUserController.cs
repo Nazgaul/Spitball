@@ -67,12 +67,15 @@ namespace Cloudents.Admin2.Api
             [FromServices] ICommandBus commandBus,
             CancellationToken token)
         {
-            var userDataByIdQuery = new UserDataByIdQuery(model.Id);
+            List<string> emailList = new List<string>();
+            foreach (var id in model.Id)
+            { 
+            var userDataByIdQuery = new UserDataByIdQuery(id);
             var userDataTask = _queryBus.QueryAsync<User>(userDataByIdQuery, token);
             if (model.DeleteUserQuestions)
             {
 
-                var answersQuery = new UserDataByIdQuery(model.Id);
+                var answersQuery = new UserDataByIdQuery(id);
                 var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
 
                 foreach (var question in answersInfo.Questions)
@@ -88,10 +91,12 @@ namespace Cloudents.Admin2.Api
                 }
 
             }
-            var command = new SuspendUserCommand(model.Id);
+            var command = new SuspendUserCommand(id);
             await commandBus.DispatchAsync(command, token);
             var userData = await userDataTask;
-            return new SuspendUserResponse() { Email = userData.Email };
+            emailList.Add(userData.Email);
+            }
+            return new SuspendUserResponse() { Email = emailList };
         }
     }
 }

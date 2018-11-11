@@ -42,9 +42,9 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
            // qb.Select<Document>(x => x.TimeStamp.CreationTime, nameof(DocumentSearchDto.DateTime));
             qb.Select(
                 $" (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where {qb.ColumnAlias<Document>(x => x.Id)} = dt.DocumentId) AS {nameof(DocumentSearchDto.Tags)}");
-            qb.LeftJoin<Document, User>(q => q.User, u => u.Id);
+            qb.LeftJoin<Document, University>(q => q.University.Id, u => u.Id);
 
-            qb.Select<User>(x => x.Country, nameof(DocumentSearchDto.Country));
+            qb.Select<University>(x => x.Country, nameof(DocumentSearchDto.Country));
             qb.Select("c.*")
                 .AddOrder<Document>(q => q.Id)
                 .Paging("PageSize", "PageNumber");
