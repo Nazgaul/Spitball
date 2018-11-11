@@ -561,7 +561,7 @@ namespace ConsoleApp
             {
 
                 return await f.QueryAsync(
-                    @"select top 100 I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0) as DocType,
+                    @"select top 1 I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views],
 			            STRING_AGG((T.Name), ',') as Tags
                         FROM [Zbox].[Item] I
                         join zbox.Box B
@@ -577,8 +577,9 @@ namespace ConsoleApp
                         where I.Discriminator = 'File'
 	                        and I.IsDeleted = 0 
 							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
+							and len(BoxName) between 4 and 150
 							and SUBSTRING (I.Name,CHARINDEX ('.',I.Name), 5) in ('.doc', '.docx', '.xls', '.xlsx', '.PDF', '.png', '.jpg', '.ppt', '.ppt', '.jpg', '.png', '.gif', '.jpeg', '.bmp' )
-                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0)
+                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads
                         order by I.ItemId desc;
                 ");
             }, default);
@@ -645,7 +646,7 @@ namespace ConsoleApp
 
 
                         var document = new CreateDocumentCommand($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}", pair.Name,
-                        type, pair.BoxName, words, pair.Id, pair.ProfessorName, (long)pair.ItemId);
+                        type, pair.BoxName, words, pair.Id, pair.ProfessorName, (long)pair.ItemId, pair.Views);
 
                         await ch.ExecuteAsync(document, default);
 

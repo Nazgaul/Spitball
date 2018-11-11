@@ -7,21 +7,23 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message.Email;
+using Cloudents.Core.EventHandler;
 
 namespace Cloudents.Web.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
-    public class EmailMarkAnswerAsCorrect : IEventHandler<MarkAsCorrectEvent>
+    public class EmailMarkAnswerAsCorrect : EmailEventHandler, IEventHandler<MarkAsCorrectEvent>
     {
         public const string ProtectPurpose = "MarkAnswerAsCorrect";
-        private readonly IQueueProvider _serviceBusProvider;
+        
         private readonly IDataProtect _dataProtect;
         private readonly IUrlBuilder _urlBuilder;
 
 
         public EmailMarkAnswerAsCorrect(IQueueProvider serviceBusProvider, IDataProtect dataProtect, IUrlBuilder urlBuilder)
+            :base(serviceBusProvider)
         {
-            _serviceBusProvider = serviceBusProvider;
+            
             _dataProtect = dataProtect;
             _urlBuilder = urlBuilder;
         }
@@ -34,10 +36,10 @@ namespace Cloudents.Web.EventHandler
             var code = _dataProtect.Protect(ProtectPurpose, answer.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(5));
             var link = _urlBuilder.BuildWalletEndPoint(new { code });
-            await _serviceBusProvider.InsertMessageAsync(
+            await SendEmail(
                 new AnswerCorrectEmail(answer.User.Email, answer.Question.Text,
                     answer.Text, link,
-                    answer.Question.Price, answer.User.Culture), token).ConfigureAwait(false);
+                    answer.Question.Price, answer.User.Culture), answer.User, token).ConfigureAwait(false);
         }
     }
 }
