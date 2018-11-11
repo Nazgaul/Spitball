@@ -31,7 +31,7 @@
                        :popUpType="'uploadDialog'"
                        :fullWidth="true"
                        :onclosefn="setUploadDialogState"
-                       :activateOverlay="!isUploadAbsoluteMobile"
+                       :activateOverlay="isUploadAbsoluteMobile"
                        :isPersistent="$vuetify.breakpoint.smAndUp"
                        :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'">
                 <upload-files v-if="getDialogState"></upload-files>
