@@ -22,7 +22,7 @@ namespace Cloudents.Functions
             [Blob("spitball-files/files/{id}")]CloudBlobDirectory directory,
             TraceWriter log, CancellationToken token)
         {
-
+            log.Info($"Going to process - {id}");
             var mimeTypeConvert = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
                 [".jpg"] = "image/jpeg",
@@ -48,7 +48,7 @@ namespace Cloudents.Functions
                         {
                             log.Warning("no mime type");
                         }
-
+                        log.Info($"uploading to {id} preview-{previewName}");
                         return blob.UploadFromStreamAsync(stream, token);
                     }, s =>
                     {
@@ -56,6 +56,8 @@ namespace Cloudents.Functions
                         blob.Properties.ContentType = "text/plain";
                         s = StripUnwantedChars(s);
                         //s = Regex.Replace(s, @"\s+", " ", RegexOptions.Multiline);
+
+                        log.Info($"uploading to {id} text.txt");
                         return blob.UploadTextAsync(s, token);
                     }, pageCount =>
                     {

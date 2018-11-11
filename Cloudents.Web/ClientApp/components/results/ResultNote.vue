@@ -7,22 +7,22 @@
             <v-flex class="wrapper">
                 <v-flex grow class="top-row">
                     <div class="type-wrap">
-
                         <v-icon :class="['type-'+typeID]">{{type ? type.icon : ''}}</v-icon>
                         <span :class="[ 'doc-type-text', 'ml-2', 'type-'+typeID]">{{typeTitle}}</span>
                     </div>
                 </v-flex>
-                <v-flex grow class="details-row">
-                    <div class="details-wrap">
-                        <span class="aligned">{{item.university}}
-                        <v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>
-                        </span>
-                        <span class="aligned">{{item.course}}
-                        <v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>
-                        </span>
-                        <span class="aligned">{{item.professor}}</span>
-                    </div>
-                </v-flex>
+                <document-details :item="item"></document-details>
+                <!--<v-flex grow class="details-row">-->
+                    <!--<div class="details-wrap">-->
+                        <!--<span class="aligned">{{item.university}}-->
+                        <!--<v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>-->
+                        <!--</span>-->
+                        <!--<span class="aligned">{{item.course}}-->
+                        <!--<v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>-->
+                        <!--</span>-->
+                        <!--<span class="aligned">{{item.professor}}</span>-->
+                    <!--</div>-->
+                <!--</v-flex>-->
                 <v-flex grow class="data-row">
                     <div class="upvotes-counter">
                         <!--will follow-->
@@ -59,9 +59,10 @@
     import AskDefault from '../helpers/img/ask.svg';
     import NoteDefault from '../helpers/img/document.svg';
     import { documentTypes } from "./helpers/uploadFiles/consts.js"
+    import documentDetails from "./helpers/documentDetails/documentDetails.vue"
 
     export default {
-        components: {AskDefault, NoteDefault, FlashcardDefault},
+        components: {AskDefault, NoteDefault, FlashcardDefault, documentDetails},
 
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {

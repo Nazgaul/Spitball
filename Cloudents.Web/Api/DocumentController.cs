@@ -36,6 +36,7 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IQueueProvider _queueProvider;
 
+
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<User> userManager,
             IBlobProvider<DocumentContainer> blobProvider,
@@ -101,17 +102,25 @@ namespace Cloudents.Web.Api
             var query = new DocumentQuery(model.Course, universityId, model.Term, country,
                 model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
 
+           
             var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);
+            var queueTask = Task.CompletedTask;
             if (_signInManager.IsSignedIn(User))
             {
-                //TODO: we have too much queries in here - need to fix that
                 var userId = _signInManager.UserManager.GetLongUserId(User);
+                if (!string.IsNullOrEmpty(model.Term))
+                {
+                    queueTask = _queueProvider.InsertMessageAsync(new AddUserTagMessage(userId, model.Term), token);
+                }
+
+                //TODO: we have too much queries in here - need to fix that
+                
                 var dbQuery = new CoursesQuery(userId);
                 coursesTask = _queryBus.QueryAsync(dbQuery, token);
             }
 
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
-            await Task.WhenAll(coursesTask, resultTask);
+            await Task.WhenAll(coursesTask, resultTask, queueTask);
             var result = resultTask.Result;
             var p = result;
             string nextPageLink = null;

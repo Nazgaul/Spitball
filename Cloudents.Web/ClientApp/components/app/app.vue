@@ -26,7 +26,6 @@
                 <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
             </sb-dialog>
             <!--upload dilaog-->
-
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                        :popUpType="'uploadDialog'"
@@ -68,7 +67,19 @@
             }
         },
         computed: {
-            ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner", "loginDialogState", "newQuestionDialogSate", "getShowSelectUniPopUpInterface", "getShowSelectUniInterface", "getDialogState", "getUploadFullMobile"]),
+            ...mapGetters([
+                "getIsLoading",
+                "accountUser",
+                "showRegistrationBanner",
+                "loginDialogState",
+                "newQuestionDialogSate",
+                "getShowSelectUniPopUpInterface",
+                "getShowSelectUniInterface",
+                "getDialogState",
+                "getUploadFullMobile",
+                "confirmationDialog"
+
+            ]),
             cookiesShow(){
                 return this.acceptedCookies
             },

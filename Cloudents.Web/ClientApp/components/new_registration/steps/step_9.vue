@@ -13,12 +13,12 @@
                 <sb-input :class="['phone-field', 'pass-field', hintClass]"  :errorMessage="errorMessage.password" :bottomError="true"
                           :hint="passZxcvbn"
                           v-model="password" placeholder="login_placeholder_enter_new_password" name="password"
-                          type="password"
+                          :type="'password'"
                           :autofocus="true" @keyup.enter.native="" minlength="4" v-language:placeholder></sb-input>
                 <sb-input class="phone-field " :errorMessage="errorMessage.confirmPassword" :bottomError="true"
                           v-model="confirmPassword" placeholder="login_placeholder_confirm_password"
                           name="confirmPassword"
-                          type="password"
+                          :type="'password'"
                           :autofocus="true" @keyup.enter.native="" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn"
                        value="Password"

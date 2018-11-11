@@ -43,10 +43,12 @@ namespace Cloudents.Core.CommandHandler
             }
 
             var document = new Document(message.Name, message.BlobName, user.University, 
-                course, message.Type, tags, user, message.Professor, message.OldId);
+                course, message.Type, tags, user, message.Professor);
             await _documentRepository.AddAsync(document, token).ConfigureAwait(true);
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);
+
+            message.Id = id;
         }
     }
 }

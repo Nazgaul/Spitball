@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Web.Api
@@ -33,17 +34,19 @@ namespace Cloudents.Web.Api
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly IQueueProvider _queueProvider;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
 
         public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager,
-            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch, IQueueProvider queueProvider)
+            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch, IQueueProvider queueProvider, SignInManager<User> signInManager)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _localizer = localizer;
             _questionSearch = questionSearch;
             _queueProvider = queueProvider;
+            _signInManager = signInManager;
         }
 
         [HttpPost]
@@ -141,6 +144,18 @@ namespace Cloudents.Web.Api
                 model.Page.GetValueOrDefault(),
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value),
                 country);
+
+
+            var queueTask = Task.CompletedTask;
+            if (_signInManager.IsSignedIn(User))
+            {
+                var userId = _userManager.GetLongUserId(User);
+                if (!string.IsNullOrEmpty(model.Term))
+                {
+                    queueTask = _queueProvider.InsertMessageAsync(new AddUserTagMessage(userId, model.Term), token);
+                }
+            }
+
             var result = await _questionSearch.SearchAsync(query, token);
             string nextPageLink = null;
             if (result.Result.Count > 0)
@@ -148,6 +163,7 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
+            await queueTask;
             return new WebResponseWithFacet<QuestionFeedDto>
             {
                 Result = result.Result,
