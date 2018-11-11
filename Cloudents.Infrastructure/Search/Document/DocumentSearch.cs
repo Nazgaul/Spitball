@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Search.Document
             //need to bring university Name , need to use sources
             if (!query.Filters.Any())
             {
-                var webQuery = SearchQuery.Document(query.Term, query.University, query.Course, query.Page);
+                var webQuery = SearchQuery.Document(query.Term, query.Profile.University?.ExtraName, query.Course, query.Page);
                 taskWebResult =
                     _documentSearch.SearchWithUniversityAndCoursesAsync(webQuery, HighlightTextFormat.None, token);
             }
@@ -60,7 +60,7 @@ namespace Cloudents.Infrastructure.Search.Document
             var addedBing = false;
             foreach (var resultResult in searchResult.Results)
             {
-                if (resultResult.Score - 1 < 0)
+                if (resultResult.Score - 1 < 0 && !addedBing)
                 {
                     addedBing = true;
                     if (webResult != null)

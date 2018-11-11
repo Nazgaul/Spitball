@@ -31,7 +31,7 @@
                        :popUpType="'uploadDialog'"
                        :fullWidth="true"
                        :onclosefn="setUploadDialogState"
-                       :fullScreen="!isUploadAbsoluteMobile"
+                       :activateOverlay="!isUploadAbsoluteMobile"
                        :isPersistent="$vuetify.breakpoint.smAndUp"
                        :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'">
                 <upload-files v-if="getDialogState"></upload-files>
@@ -93,7 +93,7 @@
                 return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile
             },
             newIsraeliUser(){
-                return !this.accountUser && global.country.toLowerCase() === "us" && !this.acceptIsraeli;
+                return !this.accountUser && global.country.toLowerCase() === "il" && !this.acceptIsraeli;
             }
         },
         updated: function () {

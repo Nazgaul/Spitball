@@ -18,11 +18,11 @@ namespace Cloudents.Infrastructure.Search.Question
             _client = client.GetClient(QuestionSearchWrite.IndexName);
         }
 
-        public async Task GetById(string id)
-        {
-            var t = await _client.Documents.GetAsync<Core.Entities.Search.Question>(id);
-            var t2 = await _client.Documents.GetAsync(id);
-        }
+        //public async Task GetById(string id)
+        //{
+        //    var t = await _client.Documents.GetAsync<Core.Entities.Search.Question>(id);
+        //    var t2 = await _client.Documents.GetAsync(id);
+        //}
 
         public async Task<DocumentSearchResult<Core.Entities.Search.Question>> SearchAsync(QuestionsQuery query, CancellationToken token)
         {

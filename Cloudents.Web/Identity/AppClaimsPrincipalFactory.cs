@@ -12,7 +12,6 @@ namespace Cloudents.Web.Identity
     {
         internal const string Country = "country";
         internal const string University = "university";
-        internal const string Languages = "languages";
 
         public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager,
             IOptions<IdentityOptions> options) :
@@ -31,16 +30,9 @@ namespace Cloudents.Web.Identity
                 p.AddClaim(new Claim(University, user.University.Id.ToString()));
             }
 
-            //if (user.Languages != null)
-            //{
-            //    p.AddClaim(new Claim(Languages, string.Join(",", user.Languages)));
-            //    //foreach (var language in user.Languages)
-            //    //{
-            //    //    p.AddClaim(new Claim(Languages, language.ToString()));
-
-            //    //}
-            //}
             return p;
         }
     }
+
+    
 }

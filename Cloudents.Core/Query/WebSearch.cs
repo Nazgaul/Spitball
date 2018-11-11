@@ -14,22 +14,22 @@ namespace Cloudents.Core.Query
     public class WebSearch : IWebDocumentSearch, IWebFlashcardSearch
     {
         private readonly ISearch _search;
-        private readonly IQueryBus _queryBus;
         private readonly CustomApiKey _api;
 
-        public WebSearch(ISearch search,  CustomApiKey api, IQueryBus queryBus)
+        public WebSearch(ISearch search,  CustomApiKey api)
         {
             _search = search;
             _api = api;
-            _queryBus = queryBus;
         }
 
-        public async Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token)
+        public async Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model,
+            HighlightTextFormat format, CancellationToken token)
         {
-            var queryDb = new UniversityCoursesSynonymQuery(model.University, model.Courses);
-            var resultDb = await _queryBus.QueryAsync(queryDb, token);
+            //var queryDb = new UniversityCoursesSynonymQuery(model.University, model.Courses);
+            //var resultDb = await _queryBus.QueryAsync(queryDb, token);
 
-            var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, resultDb.Courses, resultDb.University);
+            var cseModel = new SearchModel(model.Query, BuildSources(model.Source),
+                _api, model.Courses, model.University);
             var result = await _search.SearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
             var facets = _api.Priority.Select(s => s.Key).OrderBy(s => s);
             return new ResultWithFacetDto<SearchResult>

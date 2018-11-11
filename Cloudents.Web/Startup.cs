@@ -35,11 +35,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure.Data;
 using Microsoft.AspNetCore.HttpOverrides;
-using SimpleMvcSitemap;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -189,6 +187,8 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
+            services.AddTransient<IProfileUpdater, QueueProfileUpdater>();
+            services.AddTransient<ICountryProvider, CountryProvider>();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Storage"),

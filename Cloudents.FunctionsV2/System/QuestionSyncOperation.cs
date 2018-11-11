@@ -2,7 +2,6 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Microsoft.Azure.WebJobs;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 

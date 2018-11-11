@@ -2,11 +2,12 @@
 using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.CommandHandler;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
@@ -23,6 +24,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
 using NHibernate.Linq;
 using NHibernate;
 
@@ -89,7 +91,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await ReduProcessing();
+
             //blobClient.ListBlobsSegmentedAsync("")
             //await _bus.UpdateNumberOfViews(1, default);
             //var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
@@ -102,6 +104,8 @@ namespace ConsoleApp
             //    return Task.CompletedTask;
             //}, i => Task.CompletedTask, token);
 
+            var _bus = _container.Resolve<IQueryBus>();
+            var t = await _bus.QueryAsync<UserProfile>(new UserWithUniversityQuery(638, null), default);
             //_bus.ProcessFilesAsync()
             //var query = new SyncAzureQuery(1, 0);
 
@@ -182,7 +186,7 @@ namespace ConsoleApp
                     {
                         await blob.FetchAttributesAsync();
                         int v = 0;
-                        if (blob.Metadata.TryGetValue("process", out var p) && int.TryParse(p,out v))
+                        if (blob.Metadata.TryGetValue("process", out var p) && int.TryParse(p, out v))
                         {
                             v += 1;
                         }

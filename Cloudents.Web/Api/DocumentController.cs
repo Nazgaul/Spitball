@@ -10,17 +10,17 @@ using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Web.Api
 {
@@ -34,13 +34,15 @@ namespace Cloudents.Web.Api
         private readonly SignInManager<User> _signInManager;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
-        private readonly IQueueProvider _queueProvider;
+        private readonly IProfileUpdater _profileUpdater;
+
 
 
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<User> userManager,
             IBlobProvider<DocumentContainer> blobProvider,
-            SignInManager<User> signInManager, IStringLocalizer<DocumentController> localizer, IQueueProvider queueProvider)
+            SignInManager<User> signInManager, IStringLocalizer<DocumentController> localizer,
+            IProfileUpdater profileUpdater)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -48,17 +50,19 @@ namespace Cloudents.Web.Api
             _blobProvider = blobProvider;
             _signInManager = signInManager;
             _localizer = localizer;
-            _queueProvider = queueProvider;
+            _profileUpdater = profileUpdater;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id, CancellationToken token)
+        public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
+            [FromServices] IQueueProvider queueProvider,
+            CancellationToken token)
         {
             var query = new DocumentById(id);
             var tModel = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
             var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
 
-            var tQueue = _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
+            var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
             await Task.WhenAll(tModel, filesTask, tQueue);
 
             var model = tModel.Result;
@@ -93,34 +97,20 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet(Name = "DocumentSearch")]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
-            [ModelBinder(typeof(CountryModelBinder))] string country,
+            [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             [FromServices] IDocumentSearch ilSearchProvider,
             CancellationToken token)
         {
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Course, universityId, model.Term, country,
+            var query = new DocumentQuery(model.Course, profile, model.Term, 
                 model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
 
-           
-            var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);
-            var queueTask = Task.CompletedTask;
-            if (_signInManager.IsSignedIn(User))
-            {
-                var userId = _signInManager.UserManager.GetLongUserId(User);
-                if (!string.IsNullOrEmpty(model.Term))
-                {
-                    queueTask = _queueProvider.InsertMessageAsync(new AddUserTagMessage(userId, model.Term), token);
-                }
 
-                //TODO: we have too much queries in here - need to fix that
-                
-                var dbQuery = new CoursesQuery(userId);
-                coursesTask = _queryBus.QueryAsync(dbQuery, token);
-            }
+            var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
+           
 
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
-            await Task.WhenAll(coursesTask, resultTask, queueTask);
+            await Task.WhenAll( resultTask, queueTask);
             var result = resultTask.Result;
             var p = result;
             string nextPageLink = null;
@@ -140,11 +130,11 @@ namespace Cloudents.Web.Api
             );
             // }
 
-            if (coursesTask.Result != null)
+            if (profile.Courses != null)
             {
                 filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
                     _localizer["CoursesFilterTitle"],
-                    coursesTask.Result.Select(s => new KeyValuePair<string, string>(s.Name, s.Name))));
+                    profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
             }
             return new WebResponseWithFacet<DocumentFeedDto>
             {

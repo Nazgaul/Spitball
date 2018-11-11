@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Test.Database
     {
         enum ResultEnum
         {
-            Test1,
+            //Test1,
             Test2
         }
 
