@@ -100,8 +100,8 @@ namespace Cloudents.Infrastructure.Search.Document
                 ScoringParameters = new[]
                              {
                                  new ScoringParameter(DocumentSearchWrite.TagsUniversityParameter, new[] {query.Profile.University?.Id.ToString()}),
-                                 new ScoringParameter(DocumentSearchWrite.TagsTagsParameter, new string[] {null}),
-                                 new ScoringParameter(DocumentSearchWrite.TagsCourseParameter, new string[] {null}),
+                                 new ScoringParameter(DocumentSearchWrite.TagsTagsParameter, query.Profile.Courses ?? new string[] {null}),
+                                 new ScoringParameter(DocumentSearchWrite.TagsCourseParameter, query.Profile.Tags ?? new string[] {null}),
                 }
 
             };
