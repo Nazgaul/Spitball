@@ -674,12 +674,13 @@ namespace ConsoleApp
             {
                 using (var unitOfWork = child.Resolve<IUnitOfWork>())
                 {
-                    var repository = child.Resolve<IRepository<Document>>();
-                    var blb = child.Resolve<IBlobProvider<DocumentContainer>>();
-                    var userRep = child.Resolve<IRepository<User>>();
-                    var Course = child.Resolve<ICourseRepository>();
-                    var Tag = child.Resolve<ITagRepository>();
-                    var ch = new CreateDocumentCommandHandler(blb, userRep, repository, Course, Tag);
+                    var commandBus = child.Resolve<ICommandBus>();
+                    //var repository = child.Resolve<IRepository<Document>>();
+                    //var blb = child.Resolve<IBlobProvider<DocumentContainer>>();
+                    //var userRep = child.Resolve<IRepository<User>>();
+                    //var Course = child.Resolve<ICourseRepository>();
+                    //var Tag = child.Resolve<ITagRepository>();
+                    //var ch = new CreateDocumentCommandHandler(blb, userRep, repository, Course, Tag);
 
                     foreach (var pair in z)
                     {
@@ -727,15 +728,20 @@ namespace ConsoleApp
 
 
 
-                        var document = new CreateDocumentCommand($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}", pair.Name,
-                        type, pair.BoxName, words, pair.Id, pair.ProfessorName, (long)pair.ItemId, pair.Views);
+                        var command = new CreateDocumentCommand($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
+                            pair.Name,
+                        type, pair.BoxName, words, pair.Id, pair.ProfessorName/*, (long)pair.ItemId*/);
 
-                        await ch.ExecuteAsync(document, default);
+                        await commandBus.DispatchAsync(command, default);
 
+                        /*TODO: need to put
+                         1 - old id
+                         2- number of views
+                         3- created time / updated time
+                         */
+                        //command.Id;
 
                     }
-
-                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
                 }
 
             }
