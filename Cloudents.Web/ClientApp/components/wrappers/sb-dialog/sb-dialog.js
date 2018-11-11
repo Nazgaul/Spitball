@@ -20,11 +20,6 @@ export default {
             required: false,
             default: false
         },
-        fullScreen: {
-            type: Boolean,
-            default: false,
-            required: false
-        },
         activateOverlay: {
             type: Boolean,
             required: false,

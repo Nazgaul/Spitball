@@ -8,6 +8,9 @@
     box-shadow: none;
     color:white;
     position:relative;
+    @media(max-width: @screen-xs){
+        width: 100%;
+    }
     &.rtl{
         direction: ltr !important;
     }
@@ -142,7 +145,7 @@
             width: fit-content;
             @media(max-width: @screen-xs){
                 text-align: center;
-                margin: 0 auto;
+                margin: 20px auto;
             }
             &.rtl{
                 margin-left: 5px;
