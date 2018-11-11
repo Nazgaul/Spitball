@@ -10,25 +10,6 @@ namespace Cloudents.FunctionsV2
 {
     public static class Test
     {
-        [FunctionName("Test")]
-        public static async Task Run(
-            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo timer,
-            [Inject] ILifetimeScope lifetimeScope
-            )
-        {
-            var command = new QuestionSearchMessage(true, null);
-
-
-            var handlerType =
-                typeof(ISystemOperation<>).MakeGenericType(command.GetType());
-
-            dynamic operation = lifetimeScope.Resolve(handlerType);
-
-            await operation.DoOperationAsync((dynamic)command, null, CancellationToken.None);
-            //var operation = lifetimeScope.ResolveNamed<ISystemOperation>("ram");
-        }
-
-
         //[FunctionName("RemoveDuplicatePendingQuestion"),Disb]
         //public static async Task Run(
         //    [TimerTrigger("0 */20 * * * *", RunOnStartup = true)]TimerInfo timer,

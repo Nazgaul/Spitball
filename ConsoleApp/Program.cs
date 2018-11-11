@@ -9,7 +9,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
-using Cloudents.Infrastructure.Search.Question;
+using Cloudents.Infrastructure.Storage;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -46,7 +46,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
-               // ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
+                // ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545"
             };
@@ -87,9 +87,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
-            var _bus = _container.Resolve<IDocumentRepository>();
-            await _bus.UpdateNumberOfViews(1, default);
+            await ReduProcessing();
+            //blobClient.ListBlobsSegmentedAsync("")
+            //await _bus.UpdateNumberOfViews(1, default);
             //var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
 
             //var ms = File.OpenRead(@"C:\Users\Ram\Downloads\file-b198fed1-4b9e-483e-b742-600d8f58ed84-601.docx");
@@ -111,6 +111,88 @@ namespace ConsoleApp
 
             //(object update, object delete, object version) =
             //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+        }
+
+        private static async Task DoStuffToFiles(CloudBlobDirectory dir, Func<CloudBlockBlob, Task> func)
+        {
+            BlobContinuationToken blobToken = null;
+            do
+            {
+                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
+                    new BlobRequestOptions(),
+                    new OperationContext(), default);
+
+                Console.WriteLine("Receiving a new batch of blobs");
+                foreach (IListBlobItem blob in result.Results)
+                {
+                    var blobToDelete = (CloudBlockBlob)blob;
+                    await func(blobToDelete);
+
+                    //foreach (var extension in WordProcessor.WordExtensions)
+                    //{
+                    //    //if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+                    //    //{
+                    //    //    var blobToDelete = (CloudBlockBlob)blob;
+
+                    //    //    await func(blobToDelete);
+                    //    //    //Console.WriteLine("Deleting" + blobToDelete.Name);
+                    //    //    //await blobToDelete.DeleteAsync();
+                    //    //}
+                    //}
+                }
+
+                blobToken = result.ContinuationToken;
+            } while (blobToken != null);
+        }
+
+        private static async Task ReduProcessing()
+        {
+            var _bus = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = _bus.GetBlobClient();
+            var container = blobClient.GetContainerReference("azure-webjobs-hosts");
+            //azure-webjobs-hosts/blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/
+
+            var dir = container.GetDirectoryReference(
+                "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
+
+            //await DoStuffToFiles(dir, async blob =>
+            //{
+            //    foreach (var extension in WordProcessor.WordExtensions)
+            //    {
+            //        if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+            //        {
+            //            await blob.DeleteAsync();
+            //        }
+            //    }
+            //});
+            container = blobClient.GetContainerReference("spitball-files");
+            dir = container.GetDirectoryReference("files");
+
+            await DoStuffToFiles(dir, async blob =>
+            {
+                if (blob.Uri.Segments.Length != 5)
+                {
+                    return;
+                }
+                foreach (var extension in WordProcessor.WordExtensions)
+                {
+                    if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+                    {
+                        await blob.FetchAttributesAsync();
+                        int v = 0;
+                        if (blob.Metadata.TryGetValue("process", out var p) && int.TryParse(p,out v))
+                        {
+                            v += 1;
+                        }
+
+                        blob.Metadata["process"] = v.ToString();
+                        await blob.SetMetadataAsync();
+                        //await blob.DeleteAsync();
+                    }
+                }
+            });
+
+
         }
 
 
