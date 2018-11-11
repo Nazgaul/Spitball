@@ -22,6 +22,9 @@
             <sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">
                 <new-question></new-question>
             </sb-dialog>
+            <sb-dialog :showDialog="newIsraeliUser" :popUpType="'newIsraeliUserDialog'" :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
+                <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
+            </sb-dialog>
             <!--upload dilaog-->
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
@@ -45,6 +48,7 @@
     import {GetDictionary} from '../../services/language/languageService';
     import uniSelectPop from '../helpers/uni-select/uniSelectPop.vue';
     import uniSelect from '../helpers/uni-select/uniSelect.vue';
+    import newIsraeliPop from '../dialogs/israeli-pop/newIsraeliPop.vue';
     export default {
         components: {
             NewQuestion,
@@ -52,11 +56,14 @@
             loginToAnswer,
             uniSelectPop,
             uniSelect,
-            uploadFiles
+            uploadFiles,
+            newIsraeliPop
         },
         data(){
             return {
                 acceptedCookies: false,
+                acceptIsraeli: true,
+                isRtl: global.isRtl
             }
         },
         computed: {
@@ -84,6 +91,9 @@
             },
             isUploadAbsoluteMobile(){
                 return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile
+            },
+            newIsraeliUser(){
+                return !this.accountUser && global.country.toLowerCase() === "us" && !this.acceptIsraeli;
             }
         },
         updated: function () {
@@ -109,8 +119,13 @@
             closeUniPopDialog(){
                 this.changeSelectPopUpUniState(false);
             },
+            
             setUploadDialogState(){
                 this.updateDialogState(false)
+            },
+            closeNewIsraeli(){
+                //the set to the local storage happens in the component itself
+                this.acceptIsraeli = true;
             }
 
         },
@@ -124,8 +139,14 @@
                     this.updateLoginDialogState(false)
                 }
             });
+           
            this.acceptedCookies = (global.localStorage.getItem("sb-acceptedCookies") === 'true');
-
+           this.$nextTick(()=>{
+               setTimeout(()=>{
+                this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
+               }, 130)
+           })
+           
         }
     }
 </script>
