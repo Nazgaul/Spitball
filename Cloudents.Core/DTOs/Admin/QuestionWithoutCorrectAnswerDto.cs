@@ -17,6 +17,7 @@ namespace Cloudents.Core.DTOs.Admin
         public bool IsFictive { get; set; }
 
         public IEnumerable<AnswerOfQuestionWithoutCorrectAnswer> Answers { get; set; }
+        public static int page { get; set; }
     }
 
     [DataContract]
