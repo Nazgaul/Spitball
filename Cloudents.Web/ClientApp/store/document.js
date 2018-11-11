@@ -7,6 +7,9 @@ const state = {
 const mutations = {
     [PREVIEW.UPDATE_ITEM_PREVIEW](state, payload) {
         state.item = payload;
+    },
+    clearDocPreviewItem(state){
+        state.item = {};
     }
 };
 const getters = {
@@ -19,9 +22,6 @@ const actions = {
        return documentService.getDocument(id)
             .then(({data}) => {
                 let item = {details: data.details, preview: data.preview};
-                // let item = {};
-                // item.details = data.details;
-                // item.preview = data.preview;
                 let postfix = item.preview[0].split('?')[0].split('.');
                 item.contentType = postfix[postfix.length - 1];
                 item.details =  documentService.createDocumentItem(item.details);
@@ -29,6 +29,9 @@ const actions = {
 
             })
     },
+    clearDocPreview({commit}){
+        commit('clearDocPreviewItem');
+    }
 };
 export default {
     actions,

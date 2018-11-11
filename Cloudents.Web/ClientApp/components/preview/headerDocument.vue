@@ -3,7 +3,7 @@
         <nav class="item-header doc-header  mt-2" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between>
-                    <h1 class="item-name">{{item.name}}</h1>
+                    <h1 class="item-name">{{item ? item.name : ''}}</h1>
                     <div class="doc-details">
                         <div class="author">
                         <span class="upload-by">
@@ -25,18 +25,18 @@
                 <div class="doc-type pr-2">
 
                     <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
-                    <span class="doc-type-text">{{doc.title}}</span>
+                    <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
                 </div>
                 <div class="details">
                     <div class="school detail-cell">
                         <v-icon class="scool-icon icon mr-2">sbf-university</v-icon>
                         <span class="detail-name mr-2">School</span>
-                        <span class="detail-title">{{item.university}}</span>
+                        <span class="detail-title">{{item ? item.university: ''}}</span>
                     </div>
                     <div class="class detail-cell">
                         <v-icon class="class-icon icon mr-2">sbf-classes-new</v-icon>
                         <span class="detail-name mr-3">Class</span>
-                        <span class="detail-title">{{item.course}}</span>
+                        <span class="detail-title">{{item ? item.course: ''}}</span>
 
                     </div>
                     <div class="prof detail-cell">
