@@ -80,7 +80,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("approve")]
-        public async Task<ActionResult> ApproveQuestionAsync([FromBody]ApproveRequest model, CancellationToken token)
+        public async Task<ActionResult> ApproveQuestionAsync([FromBody]ApproveQuestionRequest model, CancellationToken token)
         {
             //foreach (var id in model.Ids)
             // {

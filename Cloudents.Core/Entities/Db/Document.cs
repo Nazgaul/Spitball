@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities.Db
     {
         public Document([NotNull] string name, [NotNull] string blobName, [NotNull] University university,
             [NotNull] Course course, DocumentType type,
-            [NotNull] IEnumerable<Tag> tags, User user, string professor, long? oldId = null)
+            [NotNull] IEnumerable<Tag> tags, User user, string professor)
         : this()
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
@@ -23,7 +23,6 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Views = 0;
             Professor = professor;
-            OldId = oldId;
         }
 
         protected Document()
