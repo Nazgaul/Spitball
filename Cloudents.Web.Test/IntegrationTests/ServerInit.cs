@@ -1,10 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
-using Microsoft.AspNetCore.Hosting;
+﻿using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -15,9 +10,9 @@ namespace Cloudents.Web.Test.IntegrationTests
 
         static ServerInit()
         {
-            WebApplicationFactory<Cloudents.Web.Startup> _factory = new WebApplicationFactory<Startup>();
+            WebApplicationFactory<Startup> factory = new WebApplicationFactory<Startup>();
 
-            Client = _factory.CreateClient();
+            Client = factory.CreateClient();
             //Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", Startup.IntegrationTestEnvironmentName);
 
             ////var x = Program.BuildWebHost(null);

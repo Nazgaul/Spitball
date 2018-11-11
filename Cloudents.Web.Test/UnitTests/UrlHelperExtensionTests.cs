@@ -1,8 +1,3 @@
-using System.Collections.Specialized;
-using System.Linq;
-using System.Reflection;
-using Cloudents.Web.Extensions;
-using Cloudents.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Web.Test.UnitTests

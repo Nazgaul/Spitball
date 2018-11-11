@@ -9,12 +9,11 @@ namespace Cloudents.Web.Binders
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
-            var claim = bindingContext.ModelName;// claimAttr?.Claim;
+            var claim = bindingContext.ModelName;;
             if (claim == null)
             {
                 bindingContext.Result = ModelBindingResult.Failed();
                 return Task.CompletedTask;
-
             }
 
             var result = bindingContext.HttpContext.User.Claims.FirstOrDefault(f =>

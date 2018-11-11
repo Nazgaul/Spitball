@@ -1,14 +1,14 @@
 ﻿<template>
     <div class="header-wrap">
-        <nav class="item-header doc-header  mt-2" slot="extraHeader">
+        <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
-                <v-layout row align-center justify-space-between>
+                <v-layout row align-center justify-space-between class="wrap-doc-name">
                     <h1 class="item-name">{{item ? item.name : ''}}</h1>
                     <div class="doc-details">
                         <div class="author">
                         <span class="upload-by">
-                            <v-icon class="sb-person mr-2">sbf-person</v-icon>
-                            <span class="mr-2" v-language:inner>item_by</span>
+                            <v-icon class="sb-person mr-2" v-if="$vuetify.breakpoint.smAndUp">sbf-person</v-icon>
+                            <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2" v-language:inner>headerDocument_item_by</span>
                             <span class="name mr-2">{{uploaderName}},</span>
                         </span>
                         </div>
@@ -29,23 +29,20 @@
                 <div class="details" v-if="$vuetify.breakpoint.smAndUp">
                     <div class="school detail-cell">
                         <v-icon class="scool-icon icon mr-2">sbf-university</v-icon>
-                        <span class="detail-name mr-2" v-language:inner>item_school</span>
+                        <span class="detail-name mr-2" v-language:inner>headerDocument_item_school</span>
                         <span class="detail-title">{{item ? item.university: ''}}</span>
                     </div>
                     <div class="class detail-cell">
                         <v-icon class="class-icon icon mr-2">sbf-classes-new</v-icon>
-                        <span class="detail-name mr-3" v-language:inner>item_class</span>
+                        <span class="detail-name mr-3" v-language:inner>headerDocument_item_class</span>
                         <span class="detail-title">{{item ? item.course: ''}}</span>
 
                     </div>
-                    <div class="prof detail-cell">
+                    <div class="prof detail-cell" v-show="item.professor">
                         <v-icon class="prof-icon icon mr-2">sbf-professor</v-icon>
-                        <span class="detail-name mr-3" v-language:inner>item_prof</span>
+                        <span class="detail-name mr-3" v-language:inner>headerDocument_item_prof</span>
                         <span class="detail-title">{{item.professor}}</span>
                     </div>
-                </div>
-                <div class="details mobile" v-else>
-                    <document-details :item="item"></document-details>
                 </div>
                 <div class="views details">
                     <div class="detail-cell views-cell">
@@ -60,8 +57,10 @@
 
                     </div>
                 </div>
-
             </v-layout>
+            <div class="details mobile px-2" v-if="!$vuetify.breakpoint.smAndUp">
+                <document-details :item="item"></document-details>
+            </div>
         </div>
 
     </div>

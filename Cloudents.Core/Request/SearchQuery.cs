@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Request
 {
     public sealed class SearchQuery
     {
-        public static SearchQuery Document(string query, Guid? university,
+        public static SearchQuery Document(string query, IEnumerable<string> university,
             IList<string> courses, /*IEnumerable<string> sources,*/
             int page)
         {
@@ -22,7 +20,7 @@ namespace Cloudents.Core.Request
             };
         }
 
-        public static SearchQuery Flashcard(string query, Guid? university,
+        public static SearchQuery Flashcard(string query, IEnumerable<string> university,
             IList<string> courses, IEnumerable<string> sources, int page)
         {
             return new SearchQuery
@@ -46,7 +44,7 @@ namespace Cloudents.Core.Request
         public string Query { get; private set; }
         public int Page { get; private set; }
 
-        public Guid? University { get; private set; }
+        public IEnumerable<string> University { get; private set; }
         [CanBeNull] public IList<string> Courses { get; private set; }
 
        // public GeoPoint Point { get; private set; }

@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Core.Query
 {
     public class DocumentQuery
     {
-        public DocumentQuery(string[] course, Guid? university, string term, string country, int page, IEnumerable<DocumentType> filters)
+        public DocumentQuery(string[] course, UserProfile profile, string term, int page, IEnumerable<DocumentType> filters)
         {
             Course = course;
-            University = university;
             Term = term;
-            Country = country;
             Page = page;
             Filters = filters ?? Enumerable.Empty<DocumentType>();
+            Profile = profile;
         }
         public string[] Course { get; set; }
-        public Guid? University { get; set; }
 
 
         public string Term { get; }
-        public string Country { get; }
+        public UserProfile Profile { get; }
 
 
 

@@ -4,6 +4,9 @@
         <div class="newIsraeli-spitball">Spitball</div>
         <div class="newIsraeli-title">הדרך לפתור שיעורי בית השתדרגה</div>
         <div class="newIsraeli-explain">הנקודת שלכם שוות Gift Cards</div>
+        <div class="newIsraeli-buy-thumb">
+            <img src="./img/buymethumb.png" alt="">
+        </div>
         <div class="newIsraeli-take-me" @click.prevent="letGo()"><span>קחו אותי לאתר החדש</span></div>
         <div class="newIsraeli-leave-me" @click.prevent="goToHebSite()" :class="{'rtl': isRtl}">חזרה לאתר הישן <v-icon :class="{'rtl': isRtl}">sbf-full-arrow</v-icon> </div>
         <div class="newIsraeli-stats" :class="{'rtl': isRtl}">

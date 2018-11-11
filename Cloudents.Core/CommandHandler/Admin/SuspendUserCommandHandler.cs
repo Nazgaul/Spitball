@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System;

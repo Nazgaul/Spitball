@@ -51,7 +51,8 @@ namespace Cloudents.Web.Api
         /// <returns>list of universities</returns>
         [HttpGet]
         public async Task<UniversitySearchDto> GetAsync([FromQuery] UniversityRequest model,
-            [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
+            [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)]
+            string country,
             CancellationToken token)
         {
             var result = await _universityProvider.SearchAsync(model.Term,

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Core.DTOs.Admin
+﻿namespace Cloudents.Core.DTOs.Admin
 {
     public class PendingQuestionDto
     {

@@ -104,15 +104,16 @@
 
 
    
-    <script>
+<script>
     window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(4)';
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @isAuth.ToString().ToLower();
     window.talkJsId = '@Configuration["TalkJs"]';
-    window.country = '@ViewBag.country';
+
+   
     @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@
     </script>
-
+@await Component.InvokeAsync("Country")
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 
 

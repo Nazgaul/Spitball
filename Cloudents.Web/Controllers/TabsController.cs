@@ -13,7 +13,6 @@ namespace Cloudents.Web.Controllers
         [Route("tutor")]
         [Route("book")]
         [Route("job")]
-        [Route("note")]
         [Route("flashcard")]
         public IActionResult Index(
             [ModelBinder(typeof(CountryModelBinder))] string country)
@@ -22,7 +21,7 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.country = country ?? "us";
+            //ViewBag.country = country ?? "us";
             return View();
         }
     }

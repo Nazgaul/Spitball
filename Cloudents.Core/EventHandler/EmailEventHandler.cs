@@ -2,8 +2,6 @@
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
