@@ -5,7 +5,7 @@
                         <v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>
                         </span>
             <span class="aligned">{{item.course}}
-                        <v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>
+                        <v-icon class="sb-icon-arrow" v-show="item.professor">sbf-nav-arrow-right</v-icon>
                         </span>
             <span class="aligned">{{item.professor}}</span>
         </div>

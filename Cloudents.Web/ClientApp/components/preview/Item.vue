@@ -13,6 +13,8 @@
                     <div class="download-action-container">
                         <div class="text-wrap">
                             <span class="download-text" v-language:inner>preview_itemActions_download</span>
+                            <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.smAndDown">sbf-download-cloud</v-icon>
+
                         </div>
                         <div class="btn-wrap">
                             <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
@@ -63,7 +65,6 @@
             ]),
 
             buildChat() {
-
                 if (this.talkSession && this.item) {
                     const otherUserID = this.item.details.user.id;
                     var other1 = new Talk.User(otherUserID);
@@ -136,7 +137,10 @@
             let self = this;
             this.setDocumentPreview({type: 'item', id: this.id})
                 .then((response) => {
-                    self.buildChat();
+                    if(this.$vuetify.breakpoint.smAndUp){
+                        self.buildChat();
+                    }
+
 
                 });
         },
