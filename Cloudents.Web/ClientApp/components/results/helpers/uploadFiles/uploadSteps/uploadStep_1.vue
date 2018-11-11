@@ -1,5 +1,15 @@
 <template>
     <v-card class="sb-step-card">
+        <div class="error-block" v-show="extensionErrror || uploadError">
+            <div class="error-container">
+            <h3 class="error-title" v-show="extensionErrror" v-language:inner>upload_error_extension_title</h3>
+                <h3 class="error-title" v-show="uploadError">{{errorText}}</h3>
+                <div class="supported-extensions" v-show="extensionErrror">
+                <span v-language:inner>upload_error_extensions_support</span>
+                <span class="extension" v-for="extension in supportedExtensions">{{extension}}, </span>
+            </div>
+            </div>
+        </div>
         <div class="upload-row-1">
             <v-icon>sbf-upload-cloud</v-icon>
             <h3 class="text-blue upload-cloud-text" v-language:inner>upload_files_uploadDoc</h3>
@@ -10,34 +20,38 @@
                        :disabled="!dbReady">
                     <v-icon>sbf-upload-dropbox</v-icon>
                 </v-btn>
-                <span  class="btn-label" v-language:inner>upload_files_btn_dropBox</span>
+                <span class="btn-label" v-language:inner>upload_files_btn_dropBox</span>
 
             </div>
             <div class="btn-holder">
                 <v-btn fab class="upload-option-btn">
                     <v-icon>sbf-upload-desktop</v-icon>
 
-                </v-btn>
-                <file-upload
-                        id="upload-input"
-                        class="upload-input"
-                        ref="upload"
-                        :drop="true"
-                        v-model="files"
-                        :post-action=uploadUrl
-                        chunk-enabled
-                        :extensions="['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx']"
-                        :maximum="1"
-                        @input-file="inputFile"
-                        @input-filter="inputFilter"
-                        :chunk="{
+
+                    <file-upload
+                            style="top: unset;"
+                            id="upload-input"
+                            class="upload-input"
+                            ref="upload"
+                            :drop="true"
+                            v-model="files"
+                            :post-action=uploadUrl
+                            chunk-enabled
+                            :extensions="supportedExtensions"
+                            :maximum="1"
+                            @input-file="inputFile"
+                            @input-filter="inputFilter"
+                            :chunk="{
                               action: uploadUrl,
                               minSize: 2,
                               maxActive: 3,
                               maxRetries: 5,}">
-                </file-upload>
-                <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label" v-language:inner>upload_files_btn_phone</span>
-                <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label" v-language:inner>upload_files_btn_desktop</span>
+                    </file-upload>
+                </v-btn>
+                <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label"
+                      v-language:inner>upload_files_btn_phone</span>
+                <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label"
+                      v-language:inner>upload_files_btn_desktop</span>
             </div>
         </div>
         <div class="upload-row-3">
@@ -54,6 +68,7 @@
     import uploadService from "../../../../../services/uploadService";
     import Vue from 'vue';
     import FileUpload from 'vue-upload-component/src';
+    import { LanguageService } from "../../../../../services/language/languageService";
 
     Vue.component('file-upload', FileUpload);
 
@@ -66,6 +81,11 @@
                 files: [],
                 filesUploaded: [],
                 generatedFileName: '',
+                supportedExtensions: ['doc', 'pdf', 'png',  'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx'],
+                DBsupportedExtensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg', '.pptx'],
+                extensionErrror: false,
+                uploadError: false,
+                errorText: ''
             }
         },
         props: {
@@ -135,12 +155,12 @@
                                     console.log('error drop box api call', error)
                                 })
                     },
-                    cancel: function () {
-                        //optional
+                    cancel: function (error) {
+                        console.log('canceled!!!', error)
                     },
                     linkType: "direct", // "preview" or "direct"
                     multiselect: false, // true or false
-                    extensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg', 'pptx'],
+                    extensions: this.DBsupportedExtensions,
                 };
                 global.Dropbox.choose(options);
             },
@@ -175,6 +195,11 @@
                 }
                 // Upload error
                 if (newFile && oldFile && newFile.error !== oldFile.error) {
+                    this.errorText = newFile.response.Name ?  newFile.response.Name["0"] : LanguageService.getValueByKey("upload_error_upload_something_wrong");
+                    this.uploadError = true;
+                    this.callBackmethods.stopProgress(true);
+                    this.callBackmethods.changeStep(1);
+
                     console.log('error', newFile.error, newFile)
                 }
                 // Get response data
@@ -205,12 +230,19 @@
             },
             inputFilter(newFile, oldFile, prevent) {
                 if (newFile && !oldFile) {
+                    this.extensionErrror= false;
                     // Add file
-                    // Filter non-image file remove for docs
                     // Will not be added to files
-                    if (/\.(js|html|php|exe)$/i.test(newFile.name)) {
+                    let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+                    let ext = (`${newFile.name}`).match(patt1)[1];
+                    let isSupported = this.supportedExtensions.includes(ext);
+                    if (!isSupported) {
+                        this.extensionErrror = true;
                         return prevent()
                     }
+                    // if (/\.(js|html|php|exe)$/i.test(newFile.name)) {
+                    //     return prevent()
+                    // }
                 }
             },
         },

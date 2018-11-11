@@ -18,7 +18,7 @@
                     </option>
                 </select>
                 <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone" :bottomError="true"
-                          v-model="phone.phoneNum" placeholder="login_placeholder_enter_phone" name="email" type="tel"
+                          v-model="phone.phoneNum" placeholder="login_placeholder_enter_phone" name="phone" :type="'number'"
                           :autofocus="true" @keyup.enter.native="sendCode()" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn"
                        value="Login"

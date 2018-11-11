@@ -31,7 +31,7 @@
                                     <div class="file-item">
                                         <v-icon v-if="!progressShow">sbf-terms</v-icon>
                                         <div v-else class="dot-flashing" ></div>
-                                        <span class="upload-file-name ml-3 mr-3">{{getFileData.name}}</span>
+                                        <span class="upload-file-name ml-4 mr-3">{{getFileData.name}}</span>
                                         <!--<v-icon class="sb-close">sbf-close</v-icon>-->
                                     </div>
                                 </div>

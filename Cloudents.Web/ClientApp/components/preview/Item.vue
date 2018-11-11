@@ -9,15 +9,16 @@
                 </div>
             </div>
             <v-flex v-if="accountUser" class="doc-chat-wrapper">
-                <div  class="download-action-container">
-                    <div class="text-wrap" >
-                        <span class="download-text">Download</span>
+                <a target="_blank" :href="$route.path+'/download'">
+                    <div class="download-action-container">
+                        <div class="text-wrap">
+                            <span class="download-text">Download</span>
+                        </div>
+                        <div class="btn-wrap">
+                            <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
+                        </div>
                     </div>
-                    <div class="btn-wrap">
-                        <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
-                    </div>
-
-                </div>
+                </a>
                 <div v-show="chatReady" class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>
                 <div ref="chat-area" class="chat-container"></div>
             </v-flex>
@@ -58,11 +59,12 @@
         methods: {
             ...mapActions([
                 'setDocumentPreview',
+                'clearDocPreview'
             ]),
 
             buildChat() {
+
                 if (this.talkSession && this.item) {
-                    console.log(this.item)
                     const otherUserID = this.item.details.user.id;
                     var other1 = new Talk.User(otherUserID);
                     var conversation = this.talkSession.getOrCreateConversation(
@@ -75,7 +77,7 @@
                     conversation.setAttributes({
                         photoUrl: `${location.origin}/images/conversation.png`,
                         subject: `<${location.href}|${subject}>`
-                    })
+                    });
                     var chatbox = this.talkSession.createChatbox(conversation, {
                         showChatHeader: false
                     });
@@ -83,12 +85,26 @@
                         conversation.setParticipant(this.chatAccount, {notify: true})
                     });
                     this.$nextTick(() => {
-                        chatbox.mount(this.$refs["chat-area"]);
-                        this.chatReady= true;
+                        console.log(this.talkSession);
+                        chatbox.mount(this.$refs["chat-area"])
+                        //doesnt work TODO find a way to handle this error
+                            // .then((succ) => {
+                            //         if (!!conversation.participants[1].user.__sync) {
+                            //             console.log('error')
+                            //         } else {
+                            //             console.log('good')
+                            //         }
+                            //
+                            //     }, (err) => {
+                            //         console.log(err)
+                            //
+                            //     }
+                            // )
+
                     });
                 }
             }
-            },
+        },
 
         computed: {
             ...mapGetters(["talkSession", "accountUser", "chatAccount", "getDocumentItem"]),
@@ -98,11 +114,11 @@
                     if (['link', 'text'].find((x) => x == type.toLowerCase())) return 'iframe'
                 }
             },
-            item(){
+            item() {
                 return this.getDocumentItem;
             },
-            preview(){
-                if(!!this.item && !!this.item.preview){
+            preview() {
+                if (!!this.item && !!this.item.preview) {
                     return this.item.preview
                 }
 
@@ -117,13 +133,18 @@
             },
         },
         created() {
-          let self = this;
-          this.setDocumentPreview({type: 'item', id: this.id})
-               .then((response) =>{
-                   self.buildChat();
+            let self = this;
+            this.setDocumentPreview({type: 'item', id: this.id})
+                .then((response) => {
+                    self.buildChat();
 
-               });
+                });
         },
+        //clean store document item on destroy component
+        beforeDestroy() {
+            console.log('DESTROYYYY!!!');
+            this.clearDocPreview();
+        }
     }
 </script>
 <style src="./item.less" lang="less"></style>

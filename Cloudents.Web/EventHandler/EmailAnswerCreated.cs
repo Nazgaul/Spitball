@@ -7,23 +7,24 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message.Email;
+using Cloudents.Core.EventHandler;
 
 namespace Cloudents.Web.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
-    public class EmailAnswerCreated : IEventHandler<AnswerCreatedEvent>
+    public class EmailAnswerCreated : EmailEventHandler, IEventHandler<AnswerCreatedEvent>
     {
         public const string CreateAnswer = "CreateAnswer";
-        private readonly IQueueProvider _serviceBusProvider;
+       
         private readonly IDataProtect _dataProtect;
         private readonly IUrlBuilder _urlBuilder;
 
 
         public EmailAnswerCreated(IQueueProvider serviceBusProvider,
              IDataProtect dataProtect,
-             IUrlBuilder urlBuilder)
+             IUrlBuilder urlBuilder) 
+                : base(serviceBusProvider)
         {
-            _serviceBusProvider = serviceBusProvider;
             _dataProtect = dataProtect;
             _urlBuilder = urlBuilder;
         }
@@ -40,8 +41,10 @@ namespace Cloudents.Web.EventHandler
             var code = _dataProtect.Protect(CreateAnswer, question.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(2));
             var link = _urlBuilder.BuildQuestionEndPoint(question.Id, new { code });
-            await _serviceBusProvider.InsertMessageAsync(
-                   new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link, question.User.Culture), token);
+            await SendEmail(
+                   new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link, question.User.Culture)
+                   , eventMessage.Answer.Question.User
+                   , token);
         }
     }
 }

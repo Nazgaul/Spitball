@@ -9,21 +9,19 @@ using System.Threading.Tasks;
 namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
-    public class EmailTransactionReferredEventHandler : IEventHandler<TransactionReferredEvent>
+    public class EmailTransactionReferredEventHandler : EmailEventHandler, IEventHandler<TransactionReferredEvent>
     {
 
-        private readonly IQueueProvider _serviceBusProvider;
 
-
-        public EmailTransactionReferredEventHandler(IQueueProvider serviceBusProvider)
+        public EmailTransactionReferredEventHandler(IQueueProvider serviceBusProvider): base(serviceBusProvider)
         {
-            _serviceBusProvider = serviceBusProvider;
         }
 
         public async Task HandleAsync(TransactionReferredEvent eventMessage, CancellationToken token)
         {
-            await _serviceBusProvider.InsertMessageAsync(
-                  new ReferralBonusEmail(eventMessage.Transaction.User.Email, eventMessage.Transaction.User.Culture), token);
+            await SendEmail(
+                  new ReferralBonusEmail(eventMessage.Transaction.User.Email, eventMessage.Transaction.User.Culture)
+                  , eventMessage.Transaction.User, token);
         }
     }
 }
