@@ -120,6 +120,15 @@
   <data name="btn_open" xml:space="preserve">
     <value>Upload Documents</value>
   </data>
+  <data name="error_extensions_support" xml:space="preserve">
+    <value>supported files:</value>
+  </data>
+  <data name="error_extension_title" xml:space="preserve">
+    <value>Oops! this file type is not supported</value>
+  </data>
+  <data name="error_upload_something_wrong" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
   <data name="files_btn_anotherUpload" xml:space="preserve">
     <value>Upload another document</value>
   </data>
