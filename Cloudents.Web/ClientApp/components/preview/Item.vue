@@ -65,7 +65,6 @@
             buildChat() {
 
                 if (this.talkSession && this.item) {
-                    console.log(this.item)
                     const otherUserID = this.item.details.user.id;
                     var other1 = new Talk.User(otherUserID);
                     var conversation = this.talkSession.getOrCreateConversation(
@@ -86,16 +85,21 @@
                         conversation.setParticipant(this.chatAccount, {notify: true})
                     });
                     this.$nextTick(() => {
+                        console.log(this.talkSession);
                         chatbox.mount(this.$refs["chat-area"])
-                            .then(
-                                (success) => {
-                                    console.log('success mount', success);
-                                    this.chatReady = true;
-                                },
-                                (error) => {
-                                    console.log('error mount', error);
-                                    this.chatReady = false;
-                                })
+                        //doesnt work TODO find a way to handle this error
+                            // .then((succ) => {
+                            //         if (!!conversation.participants[1].user.__sync) {
+                            //             console.log('error')
+                            //         } else {
+                            //             console.log('good')
+                            //         }
+                            //
+                            //     }, (err) => {
+                            //         console.log(err)
+                            //
+                            //     }
+                            // )
 
                     });
                 }

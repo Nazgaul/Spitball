@@ -17,8 +17,9 @@
                 <v-btn fab class="upload-option-btn">
                     <v-icon>sbf-upload-desktop</v-icon>
 
-                </v-btn>
+
                 <file-upload
+                        style="top: unset;"
                         id="upload-input"
                         class="upload-input"
                         ref="upload"
@@ -36,6 +37,7 @@
                               maxActive: 3,
                               maxRetries: 5,}">
                 </file-upload>
+                </v-btn>
                 <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label" v-language:inner>upload_files_btn_phone</span>
                 <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label" v-language:inner>upload_files_btn_desktop</span>
             </div>

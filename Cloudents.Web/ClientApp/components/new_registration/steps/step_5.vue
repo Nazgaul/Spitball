@@ -18,7 +18,7 @@
                                              v-language:inner>login_Change</span></p>
                 <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" :bottomError="true"
                           v-model="confirmationCode" placeholder="login_placeholder_enter_confirmation_code"
-                          type="number"
+                          :type="'number'"
                           :autofocus="true" @keyup.enter.native="smsCodeVerify()" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn submit-code"
                        value="Login"

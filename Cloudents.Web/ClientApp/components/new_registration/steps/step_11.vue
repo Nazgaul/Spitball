@@ -10,7 +10,7 @@
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
                 <form @submit.prevent="emailValidate()" class="form-one">
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.forgotPass" :bottomError="true"
-                              placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
+                              placeholder="login_placeholder_email" v-model="userEmail" name="email" :type="'email'"
                               :autofocus="true" v-language:placeholder></sb-input>
                     <div class="recaptcha-wrapper">
                     </div>

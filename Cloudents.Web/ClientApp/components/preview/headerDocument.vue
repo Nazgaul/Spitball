@@ -92,7 +92,7 @@
                 }
             },
             uploaderName() {
-                if (this.item.user && this.item.user.name)
+                if (this.item && this.item.user && this.item.user.name)
                     return this.item.user.name
             },
 
