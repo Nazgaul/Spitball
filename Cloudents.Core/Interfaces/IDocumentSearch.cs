@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -11,7 +12,10 @@ namespace Cloudents.Core.Interfaces
     {
         Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
 
-        Task<ResultWithFacetDto2<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
+
+        Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
+
+        Task<IList<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken cancelToken);
     }
 

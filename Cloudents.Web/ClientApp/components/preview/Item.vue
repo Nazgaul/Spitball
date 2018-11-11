@@ -102,7 +102,7 @@
                 return this.getDocumentItem;
             },
             preview(){
-                if(this.item && this.item.preview){
+                if(!!this.item && !!this.item.preview){
                     return this.item.preview
                 }
 

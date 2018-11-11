@@ -26,7 +26,11 @@ namespace Cloudents.Core.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
         {
-            var question = await _questionRepository.LoadAsync(message.QuestionId, token);
+            var question = await _questionRepository.GetAsync(message.QuestionId, token);
+            if (question == null)
+            {
+                return;
+            }
             foreach (var transaction in question.Transactions)
             {
                 await _transactionRepository.DeleteAsync(transaction, token);

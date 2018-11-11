@@ -38,8 +38,8 @@ function createQuestionItem(objInit){
     return new QuestionItem(objInit);
 }
 
-const getAllQuesitons = function(){
-    let path = 'AdminMarkQuestion'
+const getAllQuesitons = function(page){
+    let path = `AdminMarkQuestion?page=${page}`;
     return connectivityModule.http.get(path).then((questions)=>{
         let arrQuestions = [];
         if(questions.length > 0){

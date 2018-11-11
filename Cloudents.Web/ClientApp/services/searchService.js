@@ -91,6 +91,18 @@ let transferResultNote = response => {
         sort: res.sort,
         filters: res.filters,
         data: result.map(val => {
+            return {...val, template: 'note'}
+        }), nextPage: res.nextPageLink
+    }
+};
+let transferResultFlashcard = response => {
+    let res = response.data;
+    let result = res ? res.result : [];
+    if (!res) return {data: []};
+    return {
+        sort: res.sort,
+        filters: res.filters,
+        data: result.map(val => {
             return {...val, template: 'item'}
         }), nextPage: res.nextPageLink
     }
@@ -153,7 +165,7 @@ let transferNextPage = (res) => {
 
 const transferMap = {
     ask: (res) => transferResultAsk(res),
-    flashcard: (res) => transferResultNote(res),
+    flashcard: (res) => transferResultFlashcard(res),
     note: (res) => transferResultNote(res),
     job: (res) => transferJob(res),
     tutor: (res) => transferResultTutor(res),
@@ -202,7 +214,7 @@ export default {
             return getDocument(params).then(transferResultNote);
         },
         flashcard(params) {
-            return getFlashcard(params).then(transferResultNote);
+            return getFlashcard(params).then(transferResultFlashcard);
         },
         tutor(params) {
             return getTutor(params).then(transferResultTutor);

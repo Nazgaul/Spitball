@@ -12,10 +12,12 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -28,16 +30,18 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
 
 
         public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager, IConfiguration configuration, ICommandBus commandBus)
+            SignInManager<User> signInManager, IConfiguration configuration, ICommandBus commandBus, IQueryBus queryBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _commandBus = commandBus;
+            _queryBus = queryBus;
         }
 
         // GET
@@ -103,6 +107,36 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();
+        }
+
+
+        /// <summary>
+        /// Perform course search per user
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns>list of courses for a user</returns>
+        [Route("courses")]
+        [HttpGet]
+        public async Task<IEnumerable<CourseDto>> GetCourses(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new CoursesQuery(userId);
+            var t = await _queryBus.QueryAsync(query, token);
+            return t;
+        }
+
+        [Route("University")]
+        [HttpGet]
+        public async Task<UniversityDto> GetUniversityAsync(
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            CancellationToken token)
+        {
+            if (!universityId.HasValue)
+            {
+                return null;
+            }
+            var query = new UniversityQuery(universityId.Value);
+            return await _queryBus.QueryAsync(query, token);
         }
 
 

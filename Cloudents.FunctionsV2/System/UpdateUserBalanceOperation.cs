@@ -7,7 +7,7 @@ using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.System
 {
-    public class UpdateUserBalanceOperation : ISystemOperation
+    public class UpdateUserBalanceOperation : ISystemOperation<UpdateUserBalanceMessage>
     {
         private readonly ICommandBus _commandBus;
 
@@ -16,9 +16,9 @@ namespace Cloudents.FunctionsV2.System
             _commandBus = commandBus;
         }
 
-        public async Task DoOperationAsync(BaseSystemMessage msg, IBinder binder, CancellationToken token)
+        public async Task DoOperationAsync(UpdateUserBalanceMessage msg, IBinder binder, CancellationToken token)
         {
-            var command = new UpdateUserBalanceCommand(msg.GetData());
+            var command = new UpdateUserBalanceCommand(msg.UserIds);
             await _commandBus.DispatchAsync(command, token);
         }
     }

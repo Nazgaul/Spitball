@@ -1,9 +1,11 @@
-﻿using Cloudents.Core.Command;
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Binders;
@@ -32,11 +34,12 @@ namespace Cloudents.Web.Api
         private readonly SignInManager<User> _signInManager;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
+        private readonly IQueueProvider _queueProvider;
 
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<User> userManager,
             IBlobProvider<DocumentContainer> blobProvider,
-            SignInManager<User> signInManager, IStringLocalizer<DocumentController> localizer)
+            SignInManager<User> signInManager, IStringLocalizer<DocumentController> localizer, IQueueProvider queueProvider)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -44,6 +47,7 @@ namespace Cloudents.Web.Api
             _blobProvider = blobProvider;
             _signInManager = signInManager;
             _localizer = localizer;
+            _queueProvider = queueProvider;
         }
 
         [HttpGet("{id}")]
@@ -53,7 +57,8 @@ namespace Cloudents.Web.Api
             var tModel = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
             var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
 
-            await Task.WhenAll(tModel, filesTask);
+            var tQueue = _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
+            await Task.WhenAll(tModel, filesTask, tQueue);
 
             var model = tModel.Result;
             var files = filesTask.Result;
@@ -93,8 +98,8 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Course, universityId, model.Query, country,
-                model.Page.GetValueOrDefault(), model.Source);
+            var query = new DocumentQuery(model.Course, universityId, model.Term, country,
+                model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
 
             var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);
             if (_signInManager.IsSignedIn(User))
@@ -108,22 +113,23 @@ namespace Cloudents.Web.Api
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
             await Task.WhenAll(coursesTask, resultTask);
             var result = resultTask.Result;
-            var p = result.Result?.ToList();
+            var p = result;
             string nextPageLink = null;
-            if (p?.Any() == true)
+            if (p.Count > 0)
             {
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
             var filters = new List<IFilters>();
 
-            if (result.Facet != null)
-            {
-                filters.Add(
+            //if (result.Facet != null)
+            //{
 
-                    new Filters<string>(nameof(DocumentRequest.Source), _localizer["Sources"],
-                        result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
-                );
-            }
+            filters.Add(
+                new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+                    EnumExtension.GetValues<DocumentType>().Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
+                        .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
+            );
+            // }
 
             if (coursesTask.Result != null)
             {
@@ -133,8 +139,22 @@ namespace Cloudents.Web.Api
             }
             return new WebResponseWithFacet<DocumentFeedDto>
             {
-                Result = p,
-                Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
+                Result = p.Select(s =>
+                {
+                    if (s.Url == null)
+                    {
+                        s.Url = Url.RouteUrl(SeoTypeString.Document, new
+                        {
+                            universityName = s.University,
+                            courseName = s.Course,
+                            id = s.Id,
+                            name = s.Title
+                        });
+                    }
+
+                    return s;
+                }),
+                //Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = filters,
                 NextPageLink = nextPageLink
             };

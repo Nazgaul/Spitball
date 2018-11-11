@@ -1,9 +1,9 @@
 ﻿using Cloudents.Core;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -21,7 +21,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Identity;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Web.Api
 {
@@ -31,17 +31,19 @@ namespace Cloudents.Web.Api
     public class QuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;
+        private readonly IQueueProvider _queueProvider;
         private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
 
         public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager,
-            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch)
+            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch, IQueueProvider queueProvider)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _localizer = localizer;
             _questionSearch = questionSearch;
+            _queueProvider = queueProvider;
         }
 
         [HttpPost]
@@ -51,27 +53,32 @@ namespace Cloudents.Web.Api
             [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
             CancellationToken token)
         {
+
+            Debug.Assert(model.SubjectId != null, "model.SubjectId != null");
+            var toasterMessage = _localizer["PostedQuestionToasterOk"];
             try
             {
-                Debug.Assert(model.SubjectId != null, "model.SubjectId != null");
-                
-
-                var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price, _userManager.GetLongUserId(User), model.Files, model.Color.GetValueOrDefault());
+                var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price,
+                    _userManager.GetLongUserId(User), model.Files, model.Color.GetValueOrDefault());
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
-
-                var toasterMessage = _localizer["PostedQuestionToasterOk"];
-                if (!Language.ListOfWhiteListCountries.Contains(country))
-                {
-                    toasterMessage = _localizer["PostedQuestionToasterPending"];
-                }
-
-                return new CreateQuestionResponse(toasterMessage);
             }
-            catch (InvalidOperationException)
+            catch (DuplicateRowException)
+            {
+                toasterMessage = _localizer["PostedQuestionToasterPending"];
+            }
+            catch (QuotaExceededException)
             {
                 ModelState.AddModelError(string.Empty, _localizer["QuestionFlood"]);
                 return BadRequest(ModelState);
             }
+            if (!Language.ListOfWhiteListCountries.Contains(country))
+            {
+                toasterMessage = _localizer["PostedQuestionToasterPending"];
+            }
+
+            return new CreateQuestionResponse(toasterMessage);
+
+
         }
 
         [HttpGet("subject")]
@@ -126,11 +133,11 @@ namespace Cloudents.Web.Api
 
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
-            [FromQuery]GetQuestionsRequest model,
+            [FromQuery]QuestionsRequest model,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
            CancellationToken token)
         {
-            var query = new QuestionsQuery(model.Term, model.Source, 
+            var query = new QuestionsQuery(model.Term, model.Source,
                 model.Page.GetValueOrDefault(),
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value),
                 country);
@@ -146,16 +153,16 @@ namespace Cloudents.Web.Api
                 Result = result.Result,
                 Filters = new IFilters[]
                 {
-                    new Filters<string>(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"],
+                    new Filters<string>(nameof(QuestionsRequest.Filter),_localizer["FilterTypeTitle"],
                         result.FacetState.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization()))),
 
-                    new Filters<string>(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"],
+                    new Filters<string>(nameof(QuestionsRequest.Source),_localizer["SubjectTypeTitle"],
                         result.FacetSubject
                             .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
                 },
                 NextPageLink = nextPageLink
             };
         }
-       
+
     }
 }

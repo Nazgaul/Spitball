@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
@@ -12,6 +9,11 @@ using Cloudents.FunctionsV2.System;
 using Cloudents.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2.Di
@@ -19,9 +21,13 @@ namespace Cloudents.FunctionsV2.Di
     public class AutofacServiceProviderBuilder : IServiceProviderBuilder
     {
         private readonly IConfiguration _configuration;
+        private readonly ILoggerFactory _loggerFactory;
 
-        public AutofacServiceProviderBuilder(IConfiguration configuration) =>
+        public AutofacServiceProviderBuilder(IConfiguration configuration, ILoggerFactory loggerFactory)
+        {
             _configuration = configuration;
+            _loggerFactory = loggerFactory;
+        }
 
         public IServiceProvider Build()
         {
@@ -30,7 +36,6 @@ namespace Cloudents.FunctionsV2.Di
 
             // ReSharper disable once CollectionNeverUpdated.Local - We need that because otherwise the inject fails
             var services = new ServiceCollection();
-           
 
             var builder = new ContainerBuilder();
 
@@ -62,14 +67,65 @@ namespace Cloudents.FunctionsV2.Di
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance();
 
+
+
+            builder.Register(c =>
+            {
+
+                // var factory = c.Resolve<ILoggerFactory>();
+                var logger = _loggerFactory.CreateLogger("logger");
+                return new Logger(logger);
+            }).As<Cloudents.Core.Interfaces.ILogger>();
+            //builder.RegisterType<Logger>().As<Cloudents.Core.Interfaces.ILogger>();
+
             builder.RegisterType<QuestionDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Question);
             builder.RegisterType<UniversityDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.University);
             builder.RegisterType<DocumentDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Document);
 
 
-            builder.RegisterType<SignalROperation>().Keyed<ISystemOperation>(SystemMessageType.SignalR);
-            builder.RegisterType<QuestionSyncOperation>().Keyed<ISystemOperation>(SystemMessageType.QuestionSearch);
-            builder.RegisterType<UpdateUserBalanceOperation>().Keyed<ISystemOperation>(SystemMessageType.QuestionSearch);
+
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ISystemOperation<>));
+            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            //    .AsClosedTypesOf(typeof(ISystemOperation<>))
+            //    .Named(i =>
+            //    {
+            //        return i.GetInterfaces()[0].GetGenericArguments()[0].Name;
+            //    },typeof(ISystemOperation<>));
+                    
+                //.Select(i => {
+                //    return new Autofac.Core.KeyedService(i.GetGenericArguments()[0].Name, i);
+                //}));
+
+
+
+            //builder.RegisterType<SignalROperation>().As<ISystemOperation>().WithMetadata()
+            //    .Keyed<ISystemOperation>(SystemMessageType.SignalR);
+            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            //    .Where(t => t.IsClosedTypeOf(typeof(ISystemOperation<>)))
+            //    .Select(s=> )
+
+            //    .Named(t => t.Name);
+            //.AsImplementedInterfaces();
+            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            //    .Where(w =>
+            //    {
+            //        return w.IsAssignableTo<ISystemOperation>();
+            //    })
+            //    .Keyed<SystemMessageType>(x =>
+            //    {
+            //        return x.GetProperty("Type").GetConstantValue();
+            //    });
+            //   // .AssignableTo<ISystemOperation>()
+
+            //   // .Keyed<SystemMessageType>(x =>
+            //   // {
+            //   //    var z = (ISystemOperation)x;
+            //   //    return z.Type;
+            //   //});
+            //builder.RegisterType<SignalROperation>().Keyed<ISystemOperation>(SystemMessageType.SignalR);
+            // builder.RegisterType<QuestionSyncOperation>().Keyed<ISystemOperation>(SystemMessageType.QuestionSearch);
+            // builder.RegisterType<UpdateUserBalanceOperation>().Keyed<ISystemOperation>(SystemMessageType.UpdateBalance);
 
             builder.Populate(services); // Populate is needed to have support for scopes.
             return new AutofacServiceProvider(builder.Build());

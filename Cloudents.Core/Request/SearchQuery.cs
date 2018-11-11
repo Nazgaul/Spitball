@@ -8,7 +8,7 @@ namespace Cloudents.Core.Request
     public sealed class SearchQuery
     {
         public static SearchQuery Document(string query, Guid? university,
-            IList<string> courses, IEnumerable<string> sources,
+            IList<string> courses, /*IEnumerable<string> sources,*/
             int page)
         {
             return new SearchQuery
@@ -16,7 +16,7 @@ namespace Cloudents.Core.Request
                 Query = query,
                 University = university,
                 Courses = courses,
-                Source = sources,
+                //Source = sources,
                 Page = page,
                 //Point = point
             };

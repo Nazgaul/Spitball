@@ -23,9 +23,15 @@
                 <new-question></new-question>
             </sb-dialog>
             <!--upload dilaog-->
-            <sb-dialog :showDialog="getDialogState" :transitionAnimation="'slide-y-transition'" :popUpType="'uploadDialog'" :fullWidth="true"
-                       :isPersistent="true"
-                       :content-class="'upload-dialog'">
+
+            <sb-dialog :showDialog="getDialogState"
+                       :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
+                       :popUpType="'uploadDialog'"
+                       :fullWidth="true"
+                       :onclosefn="setUploadDialogState"
+                       :fullScreen="!isUploadAbsoluteMobile"
+                       :isPersistent="$vuetify.breakpoint.smAndUp"
+                       :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'">
                 <upload-files v-if="getDialogState"></upload-files>
                 </sb-dialog>
         </v-content>
@@ -55,7 +61,7 @@
             }
         },
         computed: {
-            ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner", "loginDialogState", "newQuestionDialogSate", "getShowSelectUniPopUpInterface", "getShowSelectUniInterface", "getDialogState"]),
+            ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner", "loginDialogState", "newQuestionDialogSate", "getShowSelectUniPopUpInterface", "getShowSelectUniInterface", "getDialogState", "getUploadFullMobile"]),
             cookiesShow(){
                 return this.acceptedCookies
             },
@@ -64,6 +70,9 @@
             },
             showUniSelect(){
             return this.getShowSelectUniInterface;
+            },
+            isUploadAbsoluteMobile(){
+                return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile
             }
         },
         updated: function () {
@@ -81,14 +90,18 @@
             })
         },
         methods: {
-            ...mapActions([ 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState']),
+            ...mapActions([ 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState', 'updateDialogState']),
             removeCookiesPopup: function(){
                 global.localStorage.setItem("sb-acceptedCookies", true);
                 this.acceptedCookies = true;
             },
             closeUniPopDialog(){
                 this.changeSelectPopUpUniState(false);
+            },
+            setUploadDialogState(){
+                this.updateDialogState(false)
             }
+
         },
         created() {
             this.$root.$on('closePopUp', (name) => {

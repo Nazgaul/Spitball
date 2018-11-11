@@ -3,7 +3,9 @@ import { getAllQuesitons, acceptAnswer } from './markQuestionService'
 export default {
     data(){
         return {
-            questions:[]
+            questions:[],
+            page: 0,
+            scrollLock: false
         }
     },
     methods:{
@@ -20,13 +22,40 @@ export default {
                 }, ()=>{
                     this.$toaster.error(`ERROR FAILED TO ACCEPT question id: ${question.id} answer id: ${answer.id}`)
                 })
+            },
+            advancePage(){
+                this.page++
+            },
+            getQuestions(){
+                getAllQuesitons(this.page).then((questionsResponse) => {
+                    questionsResponse.forEach(question=>{
+                        this.questions.push(question);
+                    })
+                    this.advancePage();
+                    this.scrollLock = false;
+                })
+            },
+            handleScroll(event){
+                let offset = 2000;
+                if(event.target.scrollHeight - offset < event.target.scrollTop){
+                    if(!this.scrollLock){
+                        this.scrollLock = true;
+                        this.getQuestions();
+                    }
+                }
             }
-        
     },
     created(){
-        getAllQuesitons().then((questionsResponse) => {
-            this.questions = questionsResponse;
-            console.log(questionsResponse);
+        this.getQuestions();
+    },
+    beforeMount () {
+        this.$nextTick(function(){
+            let containerElm = document.getElementById('app-body');
+            containerElm.addEventListener('scroll', this.handleScroll);
         })
+      },
+    beforeDestroy () {
+      let containerElm = document.getElementById('app-body');
+      containerElm.removeEventListener('scroll', this.handleScroll);
     }
 }

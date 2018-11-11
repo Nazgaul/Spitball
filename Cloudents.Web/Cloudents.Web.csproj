@@ -4,22 +4,53 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>8.11.4.1</AssemblyVersion>
+    <AssemblyVersion>18.11.11.0</AssemblyVersion>
     <UserSecretsId>edbe3a22-9985-49e7-8ceb-7cd343f48247</UserSecretsId>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.None.Increment.IncrementOnDemand</AssemblyVersionSettings>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
     <LangVersion>latest</LangVersion>
-    <DocumentationFile>bin\Debug\net47\Cloudents.Web.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>ShortYearStamp.MonthStamp.DayStamp.IncrementOnDemand</AssemblyVersionSettings>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <LangVersion>latest</LangVersion>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <DocumentationFile>bin\Release\net47\Cloudents.Web.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>ShortYearStamp.MonthStamp.DayStamp.IncrementWithResetOnIncrease</AssemblyVersionSettings>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.None.NoneWithAutoReset.Increment</AssemblyVersionSettings>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,8 +78,11 @@
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />-->
     <PackageReference Include="Microsoft.Azure.SignalR" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureStorage" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.2.6" />
     <!--<PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.3" />-->
     <PackageReference Include="MimeTypes" Version="1.1.0" />
+    <PackageReference Include="SimpleMvcSitemap" Version="3.1.0" />
+    
     <!--<PackageReference Include="System.Data.SqlClient" Version="4.4.0" />-->
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Wangkanai.Detection.Device" Version="2.0.0-beta8" />
@@ -59,6 +93,11 @@
     <ProjectReference Include="..\Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
     <ProjectReference Include="..\Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

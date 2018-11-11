@@ -4,7 +4,7 @@
             <div class="explain-container" v-language:inner>uniSelect_set_school_class_explain</div>
             <div class="select-school-container">
                 <input type="text" style="padding-left:16px;" placeholder="uniSelect_select_school_placeholder" v-language:placeholder @click="inputClicked">  
-                <v-icon>sbf-arrow-right</v-icon>
+                <v-icon :class="{'rtl': isRtl}">sbf-arrow-right</v-icon>
             </div>
 
             <div class="skip-container">
@@ -16,6 +16,11 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 export default {
+    data(){
+        return{
+            isRtl: global.isRtl
+        }
+    },
     props:{
         fnMethods:{
             required:true,

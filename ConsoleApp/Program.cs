@@ -1,38 +1,28 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Command;
+using Cloudents.Core.CommandHandler;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Search.Question;
 using Dapper;
-using Nethereum.Web3.Accounts;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-using Cloudents.Core.CommandHandler;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Query;
-using Cloudents.Core.Query.Sync;
-using Cloudents.Infrastructure.Framework;
-using Question = Cloudents.Core.Entities.Search.Question;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Cloudents.Infrastructure;
 
 namespace ConsoleApp
 {
@@ -56,7 +46,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
-                ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
+               // ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545"
             };
@@ -71,8 +61,8 @@ namespace ConsoleApp
                 //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             builder.RegisterModule<ModuleFile>();
-        
-       
+
+
 
             _container = builder.Build();
 
@@ -97,17 +87,18 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            
-            var _bus = _container.Resolve<IFactoryProcessor>();
-            var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
 
-            var ms = File.OpenRead(@"C:\Users\Ram\Downloads\file-b198fed1-4b9e-483e-b742-600d8f58ed84-601.docx");
-            ms.Seek(0, SeekOrigin.Begin);
-            await z.ProcessFilesAsync(ms, (stream, s) => Task.CompletedTask, sssssss =>
-            {
-                Console.WriteLine(sssssss);
-                return Task.CompletedTask;
-            }, i => Task.CompletedTask, token);
+            var _bus = _container.Resolve<IDocumentRepository>();
+            await _bus.UpdateNumberOfViews(1, default);
+            //var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
+
+            //var ms = File.OpenRead(@"C:\Users\Ram\Downloads\file-b198fed1-4b9e-483e-b742-600d8f58ed84-601.docx");
+            //ms.Seek(0, SeekOrigin.Begin);
+            //await z.ProcessFilesAsync(ms, (stream, s) => Task.CompletedTask, sssssss =>
+            //{
+            //    Console.WriteLine(sssssss);
+            //    return Task.CompletedTask;
+            //}, i => Task.CompletedTask, token);
 
             //_bus.ProcessFilesAsync()
             //var query = new SyncAzureQuery(1, 0);
@@ -142,7 +133,7 @@ namespace ConsoleApp
             var z = Regex.Replace(input, "\\b(\\S)\\s+(?=\\S)", string.Empty);
 
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
-           var result = SpaceReg.Replace(z, " ");
+            var result = SpaceReg.Replace(z, " ");
             result = eightOrNineDigitsId.Replace(result, string.Empty);
             result = new string(result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray());
             //result = result.Replace("\0", string.Empty);
@@ -472,7 +463,7 @@ namespace ConsoleApp
 
 
         }
-        
+
         public static async Task TransferUsers()
         {
             var d = _container.Resolve<DapperRepository>();
@@ -538,11 +529,11 @@ namespace ConsoleApp
         {
             var d = _container.Resolve<DapperRepository>();
 
-            var key = _container.Resolve<IConfigurationKeys>().ProdStorage;
+            var key = ConfigurationManager.AppSettings["OldStrageConnectionString"];
             var productionOldstorageAccount = CloudStorageAccount.Parse(key);
             var oldBlobClient = productionOldstorageAccount.CreateCloudBlobClient();
             var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");
-            
+
 
 
             var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
@@ -610,32 +601,33 @@ namespace ConsoleApp
 
                     foreach (var pair in z)
                     {
-                     
+
 
 
                         string[] blobName = pair.BlobName.Split('.');
                         CloudBlockBlob blobDestination = container.GetBlockBlobReference($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}");
 
                         CloudBlockBlob srcBlob = oldContainer.GetBlockBlobReference(pair.BlobName);
-                        
+
                         var sharedAccessUri = GetShareAccessUri(pair.BlobName, 360, oldContainer);
-                        
+
                         var blobUri = new Uri(sharedAccessUri);
 
-                        
+
                         if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
                         {
                             continue;
                         }
 
-                        
+
                         await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
-                        while (blobDestination.CopyState.Status != CopyStatus.Success) {
+                        while (blobDestination.CopyState.Status != CopyStatus.Success)
+                        {
                             Console.WriteLine(blobDestination.CopyState.Status);
                             await Task.Delay(TimeSpan.FromSeconds(1));
                             await blobDestination.ExistsAsync();
                         }
-                       
+
 
                         string[] words;
                         if (pair.Tags != null)
@@ -651,14 +643,14 @@ namespace ConsoleApp
                         }
                         else { type = DocumentType.None; }
 
-                        
+
 
                         var document = new CreateDocumentCommand($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}", pair.Name,
                         type, pair.BoxName, words, pair.Id, pair.ProfessorName, (long)pair.ItemId, pair.Views);
-                       
+
                         await ch.ExecuteAsync(document, default);
-                        
-                        
+
+
                     }
 
                     await unitOfWork.CommitAsync(default).ConfigureAwait(false);

@@ -12,6 +12,7 @@
                 <v-flex style="width:inherit;" class="question-data">
                     
                     <question-thread v-if="questionData" :questionData="questionData"
+                                     :cardOwner="cardOwner"
                                      :showDialogSuggestQuestion="showDialogSuggestQuestion"
                                      :hasCorrectAnswer="getCorrectAnswer">
                         
@@ -61,7 +62,7 @@
 
                 <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12 class="question-data" >
-                            <question-thread v-if="questionData" :questionData="questionData"
+                            <question-thread v-if="questionData" :questionData="questionData" :cardOwner="cardOwner"
                                              :hasCorrectAnswer="getCorrectAnswer">
                                 <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">

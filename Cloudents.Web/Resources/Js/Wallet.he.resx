@@ -130,7 +130,7 @@
     <value>תמונת מצב</value>
   </data>
   <data name="Cash_Out" xml:space="preserve">
-    <value>טוקנים לפדיון</value>
+    <value>מימוש</value>
   </data>
   <data name="currency" xml:space="preserve">
     <value>$</value>

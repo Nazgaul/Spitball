@@ -9,16 +9,10 @@ namespace Cloudents.Web.Models
     }
 
 
-    public class CoursesResponse
-    {
-        public IEnumerable<CourseDto> Courses { get; set; }
-    }
-
-
-    public class CoursesCreateResponse
-    {
-        public long Id { get; set; }
-    }
+    //public class CoursesCreateResponse
+    //{
+    //    public long Id { get; set; }
+    //}
 
 
     public class CallingCallResponse

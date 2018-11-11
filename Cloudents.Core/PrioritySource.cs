@@ -49,7 +49,6 @@ namespace Cloudents.Core
         {
             new PrioritySource("CourseHero" , 1,new []{ "coursehero.com/file","www.coursehero.com/subjects", "www.coursehero.com/sitemap/schools"}),
             new PrioritySource("OneClass",  3, new []{"oneclass.com/note"}),
-            new PrioritySource(CloudentsSource,  3, new []{"spitball.co/item"}),
             new PrioritySource("StudySoup",  3 , new []{"studysoup.com/guide"}),
             new PrioritySource("Koofers",  10, new []{"koofers.com/files"})
 

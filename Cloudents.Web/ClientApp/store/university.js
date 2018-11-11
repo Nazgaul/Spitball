@@ -60,6 +60,8 @@ const actions = {
         if(!val) return;
         universityService.getUni(val).then(data=>{
             commit('setUniversities', data);
+        }, err=>{
+            commit('setUniversities', []);
         })
     },
     clearUniversityList({commit}){

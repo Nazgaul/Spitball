@@ -27,7 +27,7 @@ namespace Cloudents.Core.EventHandler
         {
             var dbQuestion = eventMessage.Question;
             var question = new Question(dbQuestion.Id, dbQuestion.Created, dbQuestion.Text, dbQuestion.User.Country,
-                dbQuestion.Language.TwoLetterISOLanguageName,
+                dbQuestion.Language?.TwoLetterISOLanguageName,
                 dbQuestion.Subject, QuestionFilter.Unanswered);
           
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);

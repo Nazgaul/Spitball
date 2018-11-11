@@ -8,6 +8,7 @@ function cashoutUser(objInit){
     this.fraudScore = objInit.fraudScore;
     this.userQueryRatio = objInit.userQueryRatio;
     this.isSuspect = objInit.isSuspect;
+    this.isIsrael = objInit.isIsrael;
 }
 
 function createCashoutItem(objInit){

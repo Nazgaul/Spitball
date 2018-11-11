@@ -68,7 +68,6 @@ namespace Cloudents.Admin2
             }
             var assembliesOfProgram = new[]
             {
-                Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Core"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),

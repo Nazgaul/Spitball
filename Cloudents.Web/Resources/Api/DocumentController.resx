@@ -120,7 +120,7 @@
   <data name="CoursesFilterTitle" xml:space="preserve">
     <value>Courses</value>
   </data>
-  <data name="Sources" xml:space="preserve">
-    <value>Sources</value>
+  <data name="TypeFilterTitle" xml:space="preserve">
+    <value>Type</value>
   </data>
 </root>

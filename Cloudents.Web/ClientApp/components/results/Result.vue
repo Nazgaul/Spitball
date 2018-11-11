@@ -6,10 +6,17 @@
             <abTestCard v-if="$route.path.slice(1)==='ask'" class="ab-test-card"
                         :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
             <!--end static cards AB test-->
+            <upload-files-btn class="upload-card hidden-md-and-up"  v-show="isNote"></upload-files-btn>
+
               <div class="d-flex mobile-filter">
                 <a v-if="$route.path.slice(1)==='ask' "
                    :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "
                    @click.prevent="goToAskQuestion()" v-language:inner>result_ask_question</a>
+
+                  <!--<a :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'upload-files','ask-question-mob', 'hidden-md-and-up'] "-->
+                     <!--v-show="$route.path.slice(1)==='note'"  @click="updateDialogState(true)" v-language:inner>upload_btn_open</a>-->
+
+
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
                        class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
@@ -83,7 +90,7 @@
                                             {{'result_answer'}}
                                         </div>
                                         <!-- not ask -->
-                                        <div class="show-btn" v-show="name !=='ask' || (name ==='ask' && item.hasCorrectAnswer) "
+   <div class="show-btn" v-show="name !=='ask' && name !=='note' || (name ==='ask' && item.hasCorrectAnswer || name ==='ask'  && accountUser &&  item && item.user && item.user.id && accountUser.id === item.user.id)"
                                              :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme
                                         </div>
                                     </div>

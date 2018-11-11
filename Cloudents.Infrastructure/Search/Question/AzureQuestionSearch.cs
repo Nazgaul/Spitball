@@ -18,6 +18,12 @@ namespace Cloudents.Infrastructure.Search.Question
             _client = client.GetClient(QuestionSearchWrite.IndexName);
         }
 
+        public async Task GetById(string id)
+        {
+            var t = await _client.Documents.GetAsync<Core.Entities.Search.Question>(id);
+            var t2 = await _client.Documents.GetAsync(id);
+        }
+
         public async Task<DocumentSearchResult<Core.Entities.Search.Question>> SearchAsync(QuestionsQuery query, CancellationToken token)
         {
             var filters = new List<string>
@@ -40,8 +46,6 @@ namespace Cloudents.Infrastructure.Search.Question
             }
             var searchParameter = new SearchParameters
             {
-                Facets = new[] { nameof(Core.Entities.Search.Question.Subject),
-                    nameof(Core.Entities.Search.Question.State) },
                 Filter = string.Join(" and ", filters),
                 Select = new [] {nameof(Core.Entities.Search.Question.Id)},
                 Top = 50,
@@ -56,6 +60,14 @@ namespace Cloudents.Infrastructure.Search.Question
                 }
 
             };
+            if (!string.IsNullOrEmpty(query.Term))
+            {
+                searchParameter.Facets = new[]
+                {
+                    nameof(Core.Entities.Search.Question.Subject),
+                    nameof(Core.Entities.Search.Question.State)
+                };
+            }
 
             var result = await
                 _client.Documents.SearchAsync<Core.Entities.Search.Question>(query.Term, searchParameter,
