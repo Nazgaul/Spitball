@@ -13,6 +13,48 @@
 @placeholderGrey: rgba(74, 74, 74, 0.25);
 @inputGreyBorder: #979797;
 @buttonHeigh: 41px;
+
+//error block
+.error-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .error-container {
+    border-radius: 4px;
+    background-color: @colorErrorBackground;
+    height: 74px;
+    width: 426px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: @screen-xs) {
+      width: 375px;
+      height: 144px;
+      margin-top: 16px;
+    }
+
+    .error-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.57;
+      letter-spacing: -0.3px;
+      color: @colorErrorText;
+    }
+    .supported-extensions {
+      span {
+        font-size: 12px;
+        line-height: 1.83;
+        letter-spacing: -0.2px;
+        color: @colorErrorText;
+      }
+    }
+  }
+}
+
+//END error block
+
 .paddingTopSm {
   padding-top: 44px;
   @media (max-width: @screen-xs) {
@@ -158,33 +200,33 @@
           flex-direction: column;
         }
 
-        &.mobile-controls-last{
+        &.mobile-controls-last {
           flex-direction: row;
           display: flex;
           flex-wrap: wrap;
           align-items: center;
           padding-top: 0px;
-          .upload-result-file{
+          .upload-result-file {
             flex: 0 0 100%;
             height: 64px;
           }
-          .sb-close-mobile{
+          .sb-close-mobile {
             position: relative;
             width: 50%;
             margin: 0;
             padding: 0;
             height: 56px;
-            border-top: 1px solid  @borderOpacityGrey;
+            border-top: 1px solid @borderOpacityGrey;
             border-right: 1px solid @borderOpacityGrey;
           }
-          .another-doc{
+          .another-doc {
             border: none;
             width: 50%;
             margin: 0;
             padding: 0;
             border-radius: 0;
             height: 56px;
-            border-top: 1px solid  @borderOpacityGrey;
+            border-top: 1px solid @borderOpacityGrey;
           }
         }
         .upload-result-file {
@@ -262,7 +304,7 @@
           color: @colorBlackNew;
           text-transform: capitalize;
           @media (max-width: @screen-xs) {
-           position: absolute;
+            position: absolute;
             top: 0;
             left: 0;
           }
@@ -418,7 +460,7 @@
                     .input-container {
                       width: 100%;
                       @media (max-width: @screen-xs) {
-                       margin-left: 0!important;
+                        margin-left: 0 !important;
                       }
                       .link-container {
                         width: 100%;
@@ -443,7 +485,7 @@
                         }
                       }
                     }
-                    .share-icon-container{
+                    .share-icon-container {
                       @media (max-width: @screen-xs) {
                         display: flex;
                         flex-direction: row;
@@ -774,7 +816,7 @@
                   flex-direction: column;
                   justify-content: center;
                   align-items: center;
-                  padding-top:64px;
+                  padding-top: 64px;
                 }
                 .sb-doc-type {
                   border: 1px solid @colorGreyLight;
@@ -927,7 +969,7 @@
                     overflow: hidden;
                     //scroll style
                     @media (max-width: @screen-xs) {
-                      margin-top:8px;
+                      margin-top: 8px;
 
                     }
                     &:hover {
