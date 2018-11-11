@@ -1,0 +1,136 @@
+.newIsraeliPop{
+    direction: rtl;
+    width:81%;
+    max-width: unset !important;
+    height: 100%;
+    box-shadow: none;
+    color:white;
+    position:relative;
+    &.rtl{
+        direction: ltr !important;
+    }
+    .newIsraeli-close{
+        position:absolute;
+        position: absolute;
+        right: 45px;
+        top: 25px;
+        cursor: pointer;
+        &.rtl{
+            left: 45px;
+        }
+        i{
+            font-size: 16px;
+            opacity: 0.54;
+            color:#FFF;
+        }
+    }
+    .splash{
+        width:100%;
+        background-image: url('./img/splash.png');
+        padding: 56px 85px;
+        .newIsraeli-spitball{
+            font-size: 40px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: -0.3px;
+            color: #ffffff;
+        }
+        .newIsraeli-title{
+            font-family: 'Assistant';
+            font-size: 44px;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.36;
+            letter-spacing: normal;
+            color: rgba(255, 255, 255, 0.87);
+            margin-top: 5%;
+        }
+        .newIsraeli-explain{
+            font-family: 'Assistant';
+            font-size: 28px;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.54;
+            letter-spacing: normal;
+            color: #ffca54;
+        }
+        .newIsraeli-take-me{
+            margin-top:13%;
+            width: 345px;
+            height: 48px;
+            border-radius: 24px;
+            box-shadow: 0 6px 13px 0 #228972;
+            background-color: #50e3c2;
+            display: flex;
+            cursor: pointer;
+            span{
+                font-family: 'Alef';
+                font-size: 24px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.04;
+                letter-spacing: -0.6px;
+                text-align: center;
+                color: rgba(0, 0, 0, 0.87);
+                margin: auto;
+            }
+        }
+        .newIsraeli-leave-me{
+            font-family: 'Alef';
+            font-size: 16px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.56;
+            letter-spacing: normal;
+            color: #50e3c2;
+            margin-top: 3%;
+            margin-right: 5px;
+            display: flex;
+            cursor: pointer;
+            width: fit-content;
+            &.rtl{
+                margin-left: 5px;
+            }
+            i{
+                color: #50e3c2;
+                font-size: 10px;
+                margin-right: 10px;
+                margin-top: 2px;
+                &.rtl{
+                    margin-left: 10px;
+                }
+            }
+        }
+        .newIsraeli-stats{
+            font-family: 'Assistant';
+            font-size: 24px;
+            font-weight: 300;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.04;
+            letter-spacing: normal;
+            color: #50e3c2;
+            display: flex;
+            width: 445px;
+            justify-content: space-between;
+            margin-top: 7%;
+            margin-right: 5px;
+            .border-sep{
+                border-left:1px solid rgba(255, 255, 255, 0.38);
+            }
+            &.rtl{
+                margin-left: 5px;
+            }
+            .stats-bold{
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+        }
+    }
+}
