@@ -84,7 +84,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("subject")]
-        [ResponseCache(Duration = TimeConst.Day)]
+        [ResponseCache(Duration = TimeConst.Day, VaryByQueryKeys = new[] { "*" })]
         public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
         {
             var values = QuestionSubjectMethod.GetValues();
