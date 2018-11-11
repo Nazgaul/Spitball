@@ -62,10 +62,8 @@
                 <document-details :item="item"></document-details>
             </div>
         </div>
-
     </div>
 </template>
-
 <script>
     import itemActions from './itemActions.vue';
     import mainHeader from '../helpers/header.vue';

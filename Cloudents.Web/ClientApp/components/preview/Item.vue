@@ -3,7 +3,15 @@
         <doc-header></doc-header>
         <div class="item document-wrap">
             <div class="item-content">
-                <div class="page text-xs-center" v-for="(page, index) in preview" :key="index">
+                <v-carousel hide-delimiters hide-controls v-if="$vuetify.breakpoint.smAndDown" style="max-height: 401px;">
+                    <v-carousel-item v-for="(page, index) in preview">
+                    <div class="page text-xs-center"  :key="index">
+                        <component class="page-content elevation-1" :is="currentComponent" :src="page"
+                                   :class="item.contentType+'-content'"></component>
+                    </div>
+                    </v-carousel-item>
+                </v-carousel>
+                <div class="page text-xs-center" v-else v-for="(page, index) in preview" :key="index">
                     <component class="page-content elevation-1" :is="currentComponent" :src="page"
                                :class="item.contentType+'-content'"></component>
                 </div>
