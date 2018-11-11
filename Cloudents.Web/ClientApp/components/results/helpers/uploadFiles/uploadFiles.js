@@ -25,7 +25,7 @@ export default {
     name: "uploadFiles",
     data() {
         return {
-
+            confirmationDialog: false,
             progressDone: false,
             steps: 7,
             currentStep: 1,
@@ -117,9 +117,14 @@ export default {
                     });
 
         },
-        closeDialog() {
+        confirmCloseOpen() {
+            this.confirmationDialog = true;
+
+        },
+        closeUpload(){
             this.resetFirstStepMobile();
-            this.updateDialogState(false)
+            this.updateDialogState(false);
+            this.confirmationDialog = false;
         },
         nextStep(step) {
             if (this.currentStep === this.steps) {

@@ -55,6 +55,76 @@
 
 //END error block
 
+//confirm close dialog
+.confirmation-dialog {
+  max-width: 426px !important;
+  @media (max-width: @screen-xs) {
+    max-width: 338px !important;
+  }
+  .confirm-card {
+    justify-content: center;
+    align-items: flex-start;
+    @media (max-width: @screen-xs) {
+      align-items: center;
+    }
+    .confirm-headline {
+      font-family: @fontFiraSans;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.56;
+      color: @textColor;
+      padding-bottom: 8px;
+      @media (max-width: @screen-xs) {
+        padding-top: 32px;
+        padding-bottom: 16px;
+      }
+      .warning-icon{
+        font-size: 18px;
+        color:  @textColor;
+      }
+    }
+    .confirm-text {
+      font-family: @fontFiraSans;
+      font-size: 14px;
+      line-height: 1.43;
+      color: @colorBlackNew;
+      text-align: left;
+      padding-top: 0;
+      padding-bottom: 32px;
+      @media (max-width: @screen-xs) {
+        text-align: center;
+      }
+
+    }
+    .card-actions {
+      background: @uploadGreyBackground;
+      width: 100%;
+      justify-content: center;
+      height: 78px;
+
+      button {
+        height: 32px;
+        background: transparent;
+        font-size: 14px;
+        box-shadow: none;
+        border-radius: 16px;
+        text-transform: none;
+        &.close-upload {
+          color: @colorBlackNew;
+          border: solid 1px @colorTypeDocDefault;
+        }
+        &.cancel {
+          color: @color-blue-new;
+          border: solid 1px @color-blue-new;
+        }
+      }
+
+    }
+  }
+}
+
+//end confirm dialog
+
 .paddingTopSm {
   padding-top: 44px;
   @media (max-width: @screen-xs) {

@@ -251,4 +251,16 @@
   <data name="files_uploadDoc" xml:space="preserve">
     <value>Upload a Document</value>
   </data>
+  <data name="confirm_btn_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="confirm_btn_close" xml:space="preserve">
+    <value>Close and stop upload</value>
+  </data>
+  <data name="confirm_stop_title" xml:space="preserve">
+    <value>Stop Uploading?</value>
+  </data>
+  <data name="confirm_text" xml:space="preserve">
+    <value>Closing this window will end the uploading process</value>
+  </data>
 </root>
