@@ -26,7 +26,7 @@
                         v-model="files"
                         :post-action=uploadUrl
                         chunk-enabled
-                        :extensions="['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg']"
+                        :extensions="['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx']"
                         :maximum="1"
                         @input-file="inputFile"
                         @input-filter="inputFilter"
@@ -140,7 +140,7 @@
                     },
                     linkType: "direct", // "preview" or "direct"
                     multiselect: false, // true or false
-                    extensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg'],
+                    extensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg', 'pptx'],
                 };
                 global.Dropbox.choose(options);
             },
@@ -208,7 +208,7 @@
                     // Add file
                     // Filter non-image file remove for docs
                     // Will not be added to files
-                    if (/\.(js|html|php|webp|exe)$/i.test(newFile.name)) {
+                    if (/\.(js|html|php|exe)$/i.test(newFile.name)) {
                         return prevent()
                     }
                 }

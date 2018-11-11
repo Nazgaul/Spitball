@@ -18,23 +18,18 @@
                     </div>
                     <item-actions></item-actions>
                 </v-layout>
-                <!--<v-flex class="item-meta mt-2">-->
-                    <!--<v-layout row align-center justify-space-between>-->
-                        <!--&lt;!&ndash;<div class="author">{{item.owner}}</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="date">{{item.date | mediumDate}}</div>&ndash;&gt;-->
-                    <!--</v-layout>-->
-                <!--</v-flex>-->
             </div>
         </nav>
         <div class="details-content">
             <v-layout class="details-wrap" row align-center justify-start>
                 <div class="doc-type pr-2">
-                    <v-icon class="doc-type-icon">sbf-textbook-note</v-icon>
-                    <span class="doc-type-text">{{item.docType}}</span>
+
+                    <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
+                    <span class="doc-type-text">{{doc.title}}</span>
                 </div>
-                <div class="details" >
+                <div class="details">
                     <div class="school detail-cell">
-                            <v-icon class="scool-icon icon mr-2">sbf-university</v-icon>
+                        <v-icon class="scool-icon icon mr-2">sbf-university</v-icon>
                         <span class="detail-name mr-2">School</span>
                         <span class="detail-title">{{item.university}}</span>
                     </div>
@@ -71,9 +66,10 @@
 </template>
 
 <script>
-    import itemActions from './itemActions.vue'
-    import mainHeader from '../helpers/header.vue'
-    import { mapGetters } from 'vuex'
+    import itemActions from './itemActions.vue';
+    import mainHeader from '../helpers/header.vue';
+    import { mapGetters } from 'vuex';
+    import { documentTypes } from '../results/helpers/uploadFiles/consts'
 
     export default {
         components: {
@@ -81,14 +77,24 @@
             itemActions
         },
         computed: {
-            ...mapGetters([ 'getDocumentDetails']),
-            item(){
+            ...mapGetters(['getDocumentDetails']),
+            item() {
                 return this.getDocumentDetails
             },
-            uploaderName(){
-                if(this.item.user &&  this.item.user.name)
-               return this.item.user.name
-            }
+            doc() {
+                let self = this;
+                if(self.item && self.item.docType) {
+                    return self.item.docType = documentTypes.find((singleType) => {
+                        if (singleType.id.toLowerCase() === self.item.docType.toLowerCase()) {
+                            return singleType
+                        }
+                    })
+                }
+            },
+            uploaderName() {
+                if (this.item.user && this.item.user.name)
+                    return this.item.user.name
+            },
 
         },
         filters: {
