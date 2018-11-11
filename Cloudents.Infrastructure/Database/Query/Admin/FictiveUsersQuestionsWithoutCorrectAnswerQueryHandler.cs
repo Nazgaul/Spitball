@@ -51,9 +51,10 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 )
                 .TransformUsing(Transformers.AliasToBean<QuestionWithoutCorrectAnswerDto>())
                 .OrderBy(o => o.Id).Asc
-                .Take(100)
+                .Take(100).Skip(100 * QuestionWithoutCorrectAnswerDto.page)
                 .ListAsync<QuestionWithoutCorrectAnswerDto>(token);
 
+            QuestionWithoutCorrectAnswerDto.page++;
             var answersResult = await _session.QueryOver<Answer>()
                 .Where(w=>w.Question.Id.IsIn(questions.Select(s=>s.Id).ToArray()))
                 .SelectList(
