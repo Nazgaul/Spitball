@@ -131,31 +131,39 @@ GO
 
 
 
-
-
-CREATE TABLE [sb].[UsersTags](
-	[User_id] [bigint] NOT NULL,
-	[Tag_id] nvarchar(255) NOT NULL
- PRIMARY KEY
- (
- [User_id], [Tag_id]
- )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
- ) ON [PRIMARY]
+/****** Object:  Table [sb].[UsersTags]    Script Date: 08/11/2018 17:22:35 ******/
+SET ANSI_NULLS ON
 GO
 
-ALTER TABLE [sb].[UsersTags]  WITH CHECK ADD  CONSTRAINT [Tags_User] FOREIGN KEY([Tag_id])
-REFERENCES [sb].[Department] ([Name])
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[UsersTags](
+	[UserId] [bigint] NOT NULL,
+	[TagId] [nvarchar](150) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[TagId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[UsersTags]  WITH CHECK ADD  CONSTRAINT [Tags_User] FOREIGN KEY([TagId])
+REFERENCES [sb].[Tag] ([Name])
 GO
 
 ALTER TABLE [sb].[UsersTags] CHECK CONSTRAINT [Tags_User]
 GO
 
-ALTER TABLE [sb].[UsersTags]  WITH CHECK ADD  CONSTRAINT [User_Tags] FOREIGN KEY([User_id])
+ALTER TABLE [sb].[UsersTags]  WITH CHECK ADD  CONSTRAINT [User_Tags] FOREIGN KEY([UserId])
 REFERENCES [sb].[User] ([Id])
 GO
 
 ALTER TABLE [sb].[UsersTags] CHECK CONSTRAINT [User_Tags]
 GO
+
+
 
 
 insert into sb.Tag
