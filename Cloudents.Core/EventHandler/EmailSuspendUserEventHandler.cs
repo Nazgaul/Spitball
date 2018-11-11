@@ -9,20 +9,19 @@ using System.Threading.Tasks;
 namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
-    public class EmailSuspendUserEventHandler : IEventHandler<UserSuspendEvent>
+    public class EmailSuspendUserEventHandler : EmailEventHandler, IEventHandler<UserSuspendEvent>
     {
-        private readonly IQueueProvider _serviceBusProvider;
+        
 
 
-        public EmailSuspendUserEventHandler(IQueueProvider serviceBusProvider)
+        public EmailSuspendUserEventHandler(IQueueProvider serviceBusProvider): base(serviceBusProvider)
         {
-            _serviceBusProvider = serviceBusProvider;
         }
 
         public async Task HandleAsync(UserSuspendEvent eventMessage, CancellationToken token)
         {
-            await _serviceBusProvider.InsertMessageAsync(
-                  new SuspendUserEmail(eventMessage.User.Email, eventMessage.User.Culture), token);
+            await SendEmail(
+                  new SuspendUserEmail(eventMessage.User.Email, eventMessage.User.Culture), eventMessage.User, token);
         }
     }
 }

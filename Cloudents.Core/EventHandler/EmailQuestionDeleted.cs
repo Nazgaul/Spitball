@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Event;
+﻿using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
@@ -13,34 +14,33 @@ using System.Threading.Tasks;
 namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
-    public class EmailQuestionDeleted : IEventHandler<QuestionDeletedEvent> ,IEventHandler<QuestionRejectEvent>
+    public class EmailQuestionDeleted : EmailEventHandler, IEventHandler<QuestionDeletedEvent> ,IEventHandler<QuestionRejectEvent>
     {
-        private readonly IQueueProvider _serviceBusProvider;
+        
         private readonly Random _random = new Random();
 
 
-        public EmailQuestionDeleted(IQueueProvider serviceBusProvider)
+        public EmailQuestionDeleted(IQueueProvider serviceBusProvider): base(serviceBusProvider)
         {
-            _serviceBusProvider = serviceBusProvider;
         }
 
         public Task HandleAsync(QuestionDeletedEvent eventMessage, CancellationToken token)
         {
-            return SendEmailAsync(eventMessage.Question.User.Email, eventMessage.Question.User.Culture, token);
+            return SendEmailAsync(eventMessage.Question.User, token);
             
         }
 
-        private Task SendEmailAsync(string email, CultureInfo info, CancellationToken token)
+        private Task SendEmailAsync(User user, CancellationToken token)
         {
             var invisibleTime = _random.Next(10, 20);
-            return _serviceBusProvider.InsertMessageAsync(
-                new QuestionDeletedEmail(email, info),
-                TimeSpan.FromMinutes(invisibleTime), token);
+            return SendEmail(
+                new QuestionDeletedEmail(user.Email, user.Culture),
+                TimeSpan.FromMinutes(invisibleTime), user, token);
         }
 
         public Task HandleAsync(QuestionRejectEvent eventMessage, CancellationToken token)
         {
-            return SendEmailAsync(eventMessage.User.Email, eventMessage.User.Culture, token);
+            return SendEmailAsync(eventMessage.User, token);
         }
     }
 }
