@@ -8,7 +8,7 @@
                         <div class="author">
                         <span class="upload-by">
                             <v-icon class="sb-person mr-2">sbf-person</v-icon>
-                            <span class="mr-2">By </span>
+                            <span class="mr-2" v-language:inner>headerDocument_item_by</span>
                             <span class="name mr-2">{{uploaderName}},</span>
                         </span>
                         </div>
@@ -23,27 +23,29 @@
         <div class="details-content">
             <v-layout class="details-wrap" row align-center justify-start>
                 <div class="doc-type pr-2">
-
                     <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
                     <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
                 </div>
-                <div class="details">
+                <div class="details" v-if="$vuetify.breakpoint.smAndUp">
                     <div class="school detail-cell">
                         <v-icon class="scool-icon icon mr-2">sbf-university</v-icon>
-                        <span class="detail-name mr-2">School</span>
+                        <span class="detail-name mr-2" v-language:inner>headerDocument_item_school</span>
                         <span class="detail-title">{{item ? item.university: ''}}</span>
                     </div>
                     <div class="class detail-cell">
                         <v-icon class="class-icon icon mr-2">sbf-classes-new</v-icon>
-                        <span class="detail-name mr-3">Class</span>
+                        <span class="detail-name mr-3" v-language:inner>headerDocument_item_class</span>
                         <span class="detail-title">{{item ? item.course: ''}}</span>
 
                     </div>
                     <div class="prof detail-cell">
                         <v-icon class="prof-icon icon mr-2">sbf-professor</v-icon>
-                        <span class="detail-name mr-3">Prof.</span>
-                        <span class="detail-title">{{item.course}}</span>
+                        <span class="detail-name mr-3" v-language:inner>headerDocument_item_prof</span>
+                        <span class="detail-title">{{item.professor}}</span>
                     </div>
+                </div>
+                <div class="details mobile" v-else>
+                    <document-details :item="item"></document-details>
                 </div>
                 <div class="views details">
                     <div class="detail-cell views-cell">
@@ -60,8 +62,8 @@
                 </div>
 
             </v-layout>
-
         </div>
+
     </div>
 </template>
 
@@ -69,12 +71,14 @@
     import itemActions from './itemActions.vue';
     import mainHeader from '../helpers/header.vue';
     import { mapGetters } from 'vuex';
-    import { documentTypes } from '../results/helpers/uploadFiles/consts'
+    import { documentTypes } from '../results/helpers/uploadFiles/consts';
+    import documentDetails from '../results/helpers/documentDetails/documentDetails.vue'
 
     export default {
         components: {
             mainHeader,
-            itemActions
+            itemActions,
+            documentDetails
         },
         computed: {
             ...mapGetters(['getDocumentDetails']),
