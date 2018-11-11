@@ -12,7 +12,7 @@
                 <a target="_blank" :href="$route.path+'/download'">
                     <div class="download-action-container">
                         <div class="text-wrap">
-                            <span class="download-text">Download</span>
+                            <span class="download-text" v-language:inner>preview_itemActions_download</span>
                         </div>
                         <div class="btn-wrap">
                             <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
