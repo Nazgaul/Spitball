@@ -9,10 +9,7 @@ namespace Cloudents.Admin2.Models
         [Required] public string Text { get; set; }
 
         [Required] public decimal Price { get; set; }
-    }
 
-    public class ApproveRequest
-    {
-        public long Id { get; set; }
+        [Required] public string Country { get; set; }
     }
 }
