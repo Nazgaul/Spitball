@@ -5,7 +5,9 @@ using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Linq;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -93,6 +95,20 @@ namespace Cloudents.Infrastructure.Database.Repositories
                   .Where(w => w.User.Id == userId)
                   .Where(w => w.Type == type)
                   .Select(Projections.Sum<Transaction>(x => x.Price));
+        }
+
+        public Task UpdateBalance(long id, CancellationToken token)
+        {
+            var test = Session.Query<Transaction>()
+                .Where(w => w.User.Id == id)
+                .Select(s => s.Price);
+            var sum = test.Aggregate((a, b) => a + b);
+
+            return Session.Query<User>().Where(w => w.Id == id).Where(w => w.Balance != sum)
+                  .UpdateBuilder()
+                  .Set(x => x.Balance, x => sum)
+                  .UpdateAsync(token);
+
         }
     }
 }

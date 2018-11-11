@@ -31,6 +31,7 @@ namespace Cloudents.Core.Interfaces
         
         Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
         Task<User> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
+        Task UpdateBalance(long id, CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>
