@@ -112,7 +112,9 @@ let routes2 = [
     //TODO doc previe refactoring header
     {
         //document/{universityName}/{courseName}/{id:long}/{name}
-        path: "/document/:universityName/:courseName/:id/:name", name: "item",
+        path: "/note/:universityName/:courseName/:id/:name",
+        alias: ['/document/:universityName/:courseName/:id/:name'],
+        name: "item",
         components: {
             default: showItem,
             header: pageHeader

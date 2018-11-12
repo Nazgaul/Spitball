@@ -22,7 +22,14 @@ const actions = {
        return documentService.getDocument(id)
             .then(({data}) => {
                 let item = {details: data.details, preview: data.preview};
-                let postfix = item.preview[0].split('?')[0].split('.');
+                let postfix;
+                if(!item.preview || item.preview.length === 0) {
+                    //need a test
+                    let location = `${global.location.origin}/images/doc-preview-empty.png`;
+                    item.preview.push(location)
+                }
+                    postfix = item.preview[0].split('?')[0].split('.');
+
                 item.contentType = postfix[postfix.length - 1];
                 item.details =  documentService.createDocumentItem(item.details);
                 context.commit(PREVIEW.UPDATE_ITEM_PREVIEW, item);

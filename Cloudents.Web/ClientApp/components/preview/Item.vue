@@ -38,6 +38,7 @@
 <script>
     import { mapActions, mapGetters } from 'vuex'
     import docHeader from "./headerDocument.vue"
+    import Talk from "talkjs";
 
     export default {
         components: {
@@ -140,7 +141,6 @@
         },
         //clean store document item on destroy component
         beforeDestroy() {
-            console.log('DESTROYYYY!!!');
             this.clearDocPreview();
         }
     }

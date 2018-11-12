@@ -45,7 +45,7 @@
         name: "uploadStep_5",
         data() {
             return {
-                placeholderTags: LanguageService.getValueByKey('upload_files_placeholder_tags')
+                placeholderTags: LanguageService.getValueByKey('upload_files_placeholder_tags'),
             }
         },
         computed: {
@@ -57,10 +57,12 @@
                     return this.getFileData.tags;
                 },
                 set (value) {
+
                     this.updateFile({'tags': value});
                 }
             }
         },
+
         methods: {
          ...mapActions(['updateFile']),
 
@@ -69,6 +71,7 @@
                 this.selectedTags = [...this.selectedTags];
                 this.updateFile({'tags' : this.selectedTags})
             },
+
         },
          created(){
             console.log('step 5 created')
