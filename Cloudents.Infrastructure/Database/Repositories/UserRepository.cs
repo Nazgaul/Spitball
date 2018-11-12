@@ -97,7 +97,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 
-        public Task UpdateUsersBalance(long id, CancellationToken token)
+        public Task UpdateBalance(long id, CancellationToken token)
         {
             var test = Session.Query<Transaction>()
                 .Where(w => w.User.Id == id)
