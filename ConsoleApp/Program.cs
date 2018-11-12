@@ -14,13 +14,13 @@ using Cloudents.Infrastructure.Storage;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
 using NHibernate;
 using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -91,7 +91,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
+            await ReduProcessing();
             //blobClient.ListBlobsSegmentedAsync("")
             //await _bus.UpdateNumberOfViews(1, default);
             //var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
@@ -104,8 +104,6 @@ namespace ConsoleApp
             //    return Task.CompletedTask;
             //}, i => Task.CompletedTask, token);
 
-            var _bus = _container.Resolve<IQueryBus>();
-            var t = await _bus.QueryAsync<UserProfile>(new UserWithUniversityQuery(638, null), default);
             //_bus.ProcessFilesAsync()
             //var query = new SyncAzureQuery(1, 0);
 
@@ -155,6 +153,7 @@ namespace ConsoleApp
         {
             var _bus = _container.Resolve<ICloudStorageProvider>();
             var blobClient = _bus.GetBlobClient();
+            var queueClient = _bus.GetQueueClient();
             var container = blobClient.GetContainerReference("azure-webjobs-hosts");
             //azure-webjobs-hosts/blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/
 
@@ -173,7 +172,7 @@ namespace ConsoleApp
             //});
             container = blobClient.GetContainerReference("spitball-files");
             dir = container.GetDirectoryReference("files");
-
+            var queue = queueClient.GetQueueReference("generate-blob-preview");
             await DoStuffToFiles(dir, async blob =>
             {
                 if (blob.Uri.Segments.Length != 5)
@@ -184,15 +183,20 @@ namespace ConsoleApp
                 {
                     if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
                     {
-                        await blob.FetchAttributesAsync();
-                        int v = 0;
-                        if (blob.Metadata.TryGetValue("process", out var p) && int.TryParse(p, out v))
-                        {
-                            v += 1;
-                        }
 
-                        blob.Metadata["process"] = v.ToString();
-                        await blob.SetMetadataAsync();
+                        var id = blob.Uri.Segments[3].TrimEnd('/');
+
+                        await queue.AddMessageAsync(new CloudQueueMessage(id));
+                        Console.WriteLine($"Send queue message {id}");
+                        //await blob.FetchAttributesAsync();
+                        //int v = 0;
+                        //if (blob.Metadata.TryGetValue("process", out var p) && int.TryParse(p, out v))
+                        //{
+                        //    v += 1;
+                        //}
+
+                        //blob.Metadata["process"] = v.ToString();
+                        //await blob.SetMetadataAsync();
                         //await blob.DeleteAsync();
                     }
                 }
@@ -700,7 +704,7 @@ namespace ConsoleApp
                     var blobUri = new Uri(sharedAccessUri);
 
 
-                   
+
 
 
                     await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
