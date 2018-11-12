@@ -28,6 +28,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace ConsoleApp
 {
     internal static class Program
@@ -245,7 +246,7 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
 
-            await TransferDocumants();
+            await TransferUsers();
             //var t = _container.Resolve<IBlockChainErc20Service>();
             //string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
@@ -598,7 +599,9 @@ namespace ConsoleApp
                         var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
                         var (privateKey, _) = erc.CreateAccount();
 
-                        var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, pair.Culture)
+                        CultureInfo cultur = new CultureInfo(pair.Culture);
+
+                        var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
                         {
                             // EmailConfirmed = true,
                             LockoutEnabled = true,

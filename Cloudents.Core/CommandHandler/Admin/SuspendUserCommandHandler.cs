@@ -23,6 +23,10 @@ namespace Cloudents.Core.CommandHandler.Admin
         public async Task ExecuteAsync(SuspendUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, false, token);
+            if (user.Fictive)
+            {
+                return;
+            }
             user.LockoutEnd = DateTimeOffset.MaxValue;
             user.Events.Add(new UserSuspendEvent(user));
             await _userRepository.UpdateAsync(user, token);
