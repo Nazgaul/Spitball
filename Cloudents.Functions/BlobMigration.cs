@@ -25,6 +25,27 @@ namespace Cloudents.Functions
             await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
         }
 
+
+        [FunctionName("BlobPreview-Queue")]
+        public static async Task BlobPreviewQueueRun([QueueTrigger("generate-blob-preview")] string id,
+            [Inject] IFactoryProcessor factory,
+            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
+            TraceWriter log, CancellationToken token)
+        {
+            var t = await directory.ListBlobsSegmentedAsync(null, token);
+            var myBlob = (CloudBlockBlob)t.Results.FirstOrDefault(f => f.Uri.Segments.Last().StartsWith("file-"));
+            var name = myBlob.Name.Split('-').Last();
+
+            await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
+        }
+
+        //[FunctionName("BlobPreview-TimerTemp")]
+        //[return: Queue("generate-blob-preview")]
+        //public static string BlobPreviewTimerTemp([TimerTrigger("0 */20 * * * *", RunOnStartup = true)]TimerInfo timer)
+        //{
+        //    return "13";
+        //}
+
         private static async Task ProcessBlobPreview(CloudBlockBlob myBlob, string id, string name, IFactoryProcessor factory,
             CloudBlobDirectory directory, TraceWriter log, CancellationToken token)
         {
@@ -95,7 +116,7 @@ namespace Cloudents.Functions
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
 
             result = eightOrNineDigitsId.Replace(result, string.Empty);
-            var sb = new StringBuilder(new string (result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray()));
+            var sb = new StringBuilder(new string(result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray()));
             sb.Replace(
               "אזהרההנך רשאי להשתמש  שימוש הוגן  ביצירה מוגנת למטרות שונותלרבות  לימוד עצמי  ואין לעשות שימוש בעל אופי מסחרי או מעיןמסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצהשעמל על הכנת ההרצאות והחומר לציבור התלמידים",
                 string.Empty);

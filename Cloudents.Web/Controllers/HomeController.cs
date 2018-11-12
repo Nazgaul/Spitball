@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Controllers
 {
@@ -16,6 +17,7 @@ namespace Cloudents.Web.Controllers
       
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        [ServiceFilter(typeof(RedirectToOldSiteFilterAttribute))]
         public IActionResult Index(
            // [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromHeader(Name = "User-Agent")] string userAgent,

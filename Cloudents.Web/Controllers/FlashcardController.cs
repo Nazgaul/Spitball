@@ -1,8 +1,10 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
@@ -28,6 +30,10 @@ namespace Cloudents.Web.Controllers
             if (model == null)
             {
                 return NotFound();
+            }
+            if (string.Equals(model.Country, "il", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return this.RedirectToOldSite();
             }
 
             if (string.IsNullOrEmpty(model.Country)) return View("Index");

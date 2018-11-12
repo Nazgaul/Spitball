@@ -28,7 +28,7 @@ namespace Cloudents.Web.Controllers
             _domainParser = domainParser;
         }
 
-        private static IList<string> _domains = PrioritySource.DocumentPriority.Values
+        private static readonly IList<string> _domains = PrioritySource.DocumentPriority.Values
             .Union(PrioritySource.FlashcardPriority.Values)
             .SelectMany(s => s.Domains).ToList();
 
