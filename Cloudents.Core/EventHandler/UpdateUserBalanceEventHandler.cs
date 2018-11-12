@@ -21,12 +21,12 @@ namespace Cloudents.Core.EventHandler
         public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
         {
             //var command = new UpdateUserBalanceCommand(eventMessage.UserIds);
-            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(eventMessage.UserIds), token);
+            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(), token);
         }
 
         public Task HandleAsync(AnswerDeletedAdminEvent answerEventMessage, CancellationToken token)
         {
-            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(answerEventMessage.UserIds), token);
+            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(), token);
         }
     }
 }

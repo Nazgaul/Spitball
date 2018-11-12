@@ -12,7 +12,7 @@ namespace Cloudents.Core.Test.CommandHandler.Admin
         [TestMethod]
         public async Task ExecuteAsync_NullUserInput_Ok()
         {
-            var command = new UpdateUserBalanceCommand(null);
+            var command = new UpdateUserBalanceCommand();
             using (var mock = AutoMock.GetLoose())
             {
                 var instance = mock.Create<UpdateUserBalanceCommandHandler>();
