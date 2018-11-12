@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,6 +36,8 @@ namespace Cloudents.Infrastructure.Storage
         //    _blobDirectory = storageProvider.GetBlobClient(container);
         //    _storageProvider = storageProvider;
         //}
+
+
 
         public Uri GetBlobUrl(string blobName, bool cdn = false)
         {
@@ -109,12 +112,12 @@ namespace Cloudents.Infrastructure.Storage
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
 
-        public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes)
-        {
-            return GenerateSharedAccessReadPermission(blobName, expirationTimeInMinutes, null);
-        }
+        //public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes)
+        //{
+        //    return GenerateSharedAccessReadPermission(blobName, expirationTimeInMinutes, null);
+        //}
 
-        public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes, string contentDisposition)
+        public string GenerateDownloadLink(string blobName, double expirationTimeInMinutes, string fileName)
         {
             var blob = GetBlob(blobName);
 
@@ -126,11 +129,12 @@ namespace Cloudents.Infrastructure.Storage
 
             }, new SharedAccessBlobHeaders
             {
-                ContentDisposition = contentDisposition ?? string.Empty
+                ContentDisposition = "attachment; filename=\"" + WebUtility.UrlEncode(fileName ?? blob.Name) + "\""
             });
             var url = new Uri(blob.Uri, signedUrl);
             return url.AbsoluteUri;
         }
+       
 
         public Task<bool> ExistsAsync(string blobName, CancellationToken token)
         {
@@ -147,7 +151,7 @@ namespace Cloudents.Infrastructure.Storage
             var destinationDirectory = _blobDirectory.GetDirectoryReference(destinationContainerName);
             var sourceBlob = GetBlob(blobName);
             var destinationBlob = destinationDirectory.GetBlockBlobReference(blobName);
-            await destinationBlob.StartCopyAsync(sourceBlob,AccessCondition.GenerateIfExistsCondition(),AccessCondition.GenerateEmptyCondition(),null,null,token);
+            await destinationBlob.StartCopyAsync(sourceBlob, AccessCondition.GenerateIfExistsCondition(), AccessCondition.GenerateEmptyCondition(), null, null, token);
             await sourceBlob.DeleteAsync().ConfigureAwait(false);
         }
 
@@ -161,13 +165,11 @@ namespace Cloudents.Infrastructure.Storage
         }
 
 
-        public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix,string directory, CancellationToken token)
+        public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token)
         {
             var path = $"{_container.Container.RelativePath}/{directory}/{prefix}";
             var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, BlobListingDetails.None, 1000, null, null, null, token);
-            
-            return result.Results.Select(s =>  s.Uri);
-
+            return result.Results.Select(s => s.Uri);
         }
 
         public async Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token)

@@ -56,6 +56,7 @@ namespace Cloudents.Web.Api
         [HttpGet("{id}")]
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
+            [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
             var query = new DocumentById(id);
@@ -66,7 +67,7 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(tModel, filesTask, tQueue);
 
             var model = tModel.Result;
-            var files = filesTask.Result;
+            var files = filesTask.Result.Select(s=> blobProvider.GeneratePreviewLink(s,20));
             if (model == null)
             {
                 return NotFound();

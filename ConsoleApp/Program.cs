@@ -14,6 +14,7 @@ using Cloudents.Infrastructure.Storage;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
 using NHibernate;
 using NHibernate.Linq;
 using System;
@@ -27,6 +28,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace ConsoleApp
 {
@@ -91,7 +93,11 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
+            var sr = File.OpenRead(@"C:\Users\Ram\Downloads\a.pdf");
+            var pdfProcessor = new PdfProcessor();
+           await pdfProcessor.ProcessFilesAsync(sr, (stream, s) => { return Task.CompletedTask; },
+               s => { return Task.CompletedTask;}, i => { return Task.CompletedTask;}, token);
+            //await ReduProcessing();
             //blobClient.ListBlobsSegmentedAsync("")
             //await _bus.UpdateNumberOfViews(1, default);
             //var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
@@ -104,8 +110,6 @@ namespace ConsoleApp
             //    return Task.CompletedTask;
             //}, i => Task.CompletedTask, token);
 
-            var _bus = _container.Resolve<IQueryBus>();
-            var t = await _bus.QueryAsync<UserProfile>(new UserWithUniversityQuery(638, null), default);
             //_bus.ProcessFilesAsync()
             //var query = new SyncAzureQuery(1, 0);
 
@@ -155,6 +159,7 @@ namespace ConsoleApp
         {
             var _bus = _container.Resolve<ICloudStorageProvider>();
             var blobClient = _bus.GetBlobClient();
+            var queueClient = _bus.GetQueueClient();
             var container = blobClient.GetContainerReference("azure-webjobs-hosts");
             //azure-webjobs-hosts/blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/
 
@@ -173,7 +178,7 @@ namespace ConsoleApp
             //});
             container = blobClient.GetContainerReference("spitball-files");
             dir = container.GetDirectoryReference("files");
-
+            var queue = queueClient.GetQueueReference("generate-blob-preview");
             await DoStuffToFiles(dir, async blob =>
             {
                 if (blob.Uri.Segments.Length != 5)
@@ -184,15 +189,20 @@ namespace ConsoleApp
                 {
                     if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
                     {
-                        await blob.FetchAttributesAsync();
-                        int v = 0;
-                        if (blob.Metadata.TryGetValue("process", out var p) && int.TryParse(p, out v))
-                        {
-                            v += 1;
-                        }
 
-                        blob.Metadata["process"] = v.ToString();
-                        await blob.SetMetadataAsync();
+                        var id = blob.Uri.Segments[3].TrimEnd('/');
+
+                        await queue.AddMessageAsync(new CloudQueueMessage(id));
+                        Console.WriteLine($"Send queue message {id}");
+                        //await blob.FetchAttributesAsync();
+                        //int v = 0;
+                        //if (blob.Metadata.TryGetValue("process", out var p) && int.TryParse(p, out v))
+                        //{
+                        //    v += 1;
+                        //}
+
+                        //blob.Metadata["process"] = v.ToString();
+                        //await blob.SetMetadataAsync();
                         //await blob.DeleteAsync();
                     }
                 }
@@ -241,7 +251,7 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
 
-            await TransferDocumants();
+            await TransferUsers();
             //var t = _container.Resolve<IBlockChainErc20Service>();
             //string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
@@ -594,7 +604,9 @@ namespace ConsoleApp
                         var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
                         var (privateKey, _) = erc.CreateAccount();
 
-                        var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, pair.Culture)
+                        CultureInfo cultur = new CultureInfo(pair.Culture);
+
+                        var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
                         {
                             // EmailConfirmed = true,
                             LockoutEnabled = true,
@@ -700,7 +712,7 @@ namespace ConsoleApp
                     var blobUri = new Uri(sharedAccessUri);
 
 
-                   
+
 
 
                     await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);

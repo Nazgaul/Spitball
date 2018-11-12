@@ -11,6 +11,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Web.Extensions;
 
 namespace Cloudents.Web.Controllers
 {
@@ -40,14 +41,15 @@ namespace Cloudents.Web.Controllers
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
         public IActionResult OldDocumentLinkRedirect(string universityName, string boxName, long id, string name)
         {
+            return this.RedirectToOldSite();
             //TODO: we need to put Permanent
-            return RedirectToAction("Index", new
-            {
-                universityName,
-                boxId = boxName,
-                id,
-                name
-            });
+            //return RedirectToAction("Index", new
+            //{
+            //    universityName,
+            //    boxId = boxName,
+            //    id,
+            //    name
+            //});
         }
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}", Name = SeoTypeString.Document)]
@@ -120,8 +122,7 @@ namespace Cloudents.Web.Controllers
             return View();
         }
 
-        [Route("Document/{id:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
-        [Route("D/{id:long:min(0)}", Name = "ItemDownload2")]
+        [Route("document/{universityName}/{courseName}/{id:long}/{name}/download", Name = "ItemDownload")]
         public async Task<ActionResult> DownloadAsync(long id, CancellationToken token)
         {
             var query = new DocumentById(id);
@@ -131,10 +132,9 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
             
-
             var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
             var extension = Path.GetExtension(item.Blob);
-            var url = _blobProvider.GenerateSharedAccessReadPermission(item.Blob, 30, nameToDownload + extension);
+            var url = _blobProvider.GenerateDownloadLink($"{id}/{item.Blob}", 30, nameToDownload + extension);
             return Redirect(url);
         }
     }

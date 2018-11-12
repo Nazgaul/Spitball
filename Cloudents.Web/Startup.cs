@@ -189,6 +189,7 @@ namespace Cloudents.Web
             services.AddTransient<ISmsSender, SmsSender>();
             services.AddTransient<IProfileUpdater, QueueProfileUpdater>();
             services.AddTransient<ICountryProvider, CountryProvider>();
+            services.AddScoped<RedirectToOldSiteFilterAttribute>();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
