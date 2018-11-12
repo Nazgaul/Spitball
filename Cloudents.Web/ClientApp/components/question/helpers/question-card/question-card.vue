@@ -19,9 +19,8 @@
                 </span></template>
                 </user-block>
                 <div v-if="cardData.price">
-                    <div class="q-price pr-3">
-                        <span v-show="isSold" style="min-width: 90px;">
-                            <!-- <span v-language:inner>questionCard_Earn</span>&nbsp; --> {{cardData.price}} SBL</span> 
+                    <div class="q-price pr-3" :class="{'rtl' : isRtl}">
+                        <span v-show="isSold" style="min-width: 90px;" v-html="$Ph('questionCard_Question_price', cardData.price)"></span>
                         <span v-show="!isSold" class="sold-badge">
                             <span style="margin: 0 auto;"> <span v-language:inner>questionCard_Sold</span>&nbsp; {{cardData.price}} SBL</span>
 
