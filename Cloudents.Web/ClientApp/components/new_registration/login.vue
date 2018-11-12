@@ -37,7 +37,7 @@
                 <v-card-text class="limited-width">
                     <h1 v-if="isMobile"><span v-language:inner>login_sure_exit1</span><br/><span v-language:inner>login_sure_exit2</span><br/><span v-language:inner>login_sure_exit3</span><br/><span v-language:inner>login_sure_exit4</span>&nbsp;<b><span v-language:inner>login_sure_exit5</span></b></h1>
                     <h1 v-else v-language:inner>login_are_you_sure_you_want_to_exit</h1>
-                    <p><span v-language:inner>login_exiting_information1</span><br/> <span v-language:inner>login_exiting_information2</span></p>
+                    <p><span v-language:inner>login_exiting_information1</span><br/></p>
 
                     <v-btn v-if="isMobile" class="continue-registr"
                            @click="showDialog = false"><span v-language:inner>login_continue_registration</span>

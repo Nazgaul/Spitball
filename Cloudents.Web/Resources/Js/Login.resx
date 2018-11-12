@@ -178,10 +178,7 @@
     <value>Exit</value>
   </data>
   <data name="exiting_information1" xml:space="preserve">
-    <value>Exiting from this process will delete all your</value>
-  </data>
-  <data name="exiting_information2" xml:space="preserve">
-    <value>progress and information</value>
+    <value>Exiting from this process will delete all your progress and information</value>
   </data>
   <data name="forgot_password_link" xml:space="preserve">
     <value>Forgot password?</value>

@@ -3,12 +3,13 @@
         <doc-header></doc-header>
         <div class="item document-wrap">
             <div class="item-content">
-                <v-carousel hide-delimiters hide-controls v-if="$vuetify.breakpoint.smAndDown" style="max-height: 401px;">
+                <v-carousel hide-delimiters hide-controls v-if="$vuetify.breakpoint.smAndDown"
+                            style="max-height: 401px;">
                     <v-carousel-item v-for="(page, index) in preview">
-                    <div class="page text-xs-center"  :key="index">
-                        <component class="page-content elevation-1" :is="currentComponent" :src="page"
-                                   :class="item.contentType+'-content'"></component>
-                    </div>
+                        <div class="page text-xs-center" :key="index">
+                            <component class="page-content elevation-1" :is="currentComponent" :src="page"
+                                       :class="item.contentType+'-content'"></component>
+                        </div>
                     </v-carousel-item>
                 </v-carousel>
                 <div class="page text-xs-center" v-else v-for="(page, index) in preview" :key="index">
@@ -16,12 +17,14 @@
                                :class="item.contentType+'-content'"></component>
                 </div>
             </div>
-            <v-flex v-if="accountUser" class="doc-chat-wrapper">
-                <a target="_blank" :href="$route.path+'/download'">
+            <v-flex class="doc-chat-wrapper">
+                <a target="_blank" @click="downloadDoc()">
                     <div class="download-action-container">
                         <div class="text-wrap">
                             <span class="download-text" v-language:inner>preview_itemActions_download</span>
-                            <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.smAndDown">sbf-download-cloud</v-icon>
+                            <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.smAndDown">
+                                sbf-download-cloud
+                            </v-icon>
 
                         </div>
                         <div class="btn-wrap">
@@ -70,9 +73,17 @@
         methods: {
             ...mapActions([
                 'setDocumentPreview',
-                'clearDocPreview'
+                'clearDocPreview',
+                'updateLoginDialogState'
             ]),
-
+            downloadDoc() {
+                let url = this.$route.path+'/download';
+                if(this.accountUser){
+                    global.location.href = url;
+                }else{
+                    this.updateLoginDialogState(true)
+                }
+            },
             buildChat() {
                 if (this.talkSession && this.item) {
                     const otherUserID = this.item.details.user.id;
@@ -132,7 +143,7 @@
             let self = this;
             this.setDocumentPreview({type: 'item', id: this.id})
                 .then((response) => {
-                    if(this.$vuetify.breakpoint.smAndUp){
+                    if (this.$vuetify.breakpoint.smAndUp) {
                         self.buildChat();
                     }
 
