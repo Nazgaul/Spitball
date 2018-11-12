@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Query;
+﻿using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Rest.Azure;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Search.Document
 {
@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure.Search.Document
                     await
                         _client.Documents.GetAsync<Core.Entities.Search.Document>
                             (itemId.ToString(CultureInfo.InvariantCulture),
-                                new[] {nameof(Core.Entities.Search.Document.MetaContent)},
+                                new[] { nameof(Core.Entities.Search.Document.MetaContent) },
                                 cancellationToken: cancelToken)
                             .ConfigureAwait(false);
                 return item.MetaContent;
@@ -100,8 +100,8 @@ namespace Cloudents.Infrastructure.Search.Document
                 ScoringParameters = new[]
                              {
                                  new ScoringParameter(DocumentSearchWrite.TagsUniversityParameter, new[] {query.Profile.University?.Id.ToString()}),
-                                 new ScoringParameter(DocumentSearchWrite.TagsTagsParameter, query.Profile.Courses ?? new string[] {null}),
-                                 new ScoringParameter(DocumentSearchWrite.TagsCourseParameter, query.Profile.Tags ?? new string[] {null}),
+                                 new ScoringParameter(DocumentSearchWrite.TagsTagsParameter,GenerateScoringParameterValues( query.Profile.Tags)),
+                                 new ScoringParameter(DocumentSearchWrite.TagsCourseParameter, GenerateScoringParameterValues( query.Profile.Courses )),
                 }
 
             };
@@ -111,6 +111,22 @@ namespace Cloudents.Infrastructure.Search.Document
                     cancellationToken: token).ConfigureAwait(false);
 
             return result;
+        }
+
+        public IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
+        {
+            if (input == null)
+            {
+                return new string[] { null };
+            }
+
+            var inputList = input.ToList();
+            if (!inputList.Any())
+            {
+                return new string[] { null };
+            }
+
+            return inputList;
         }
     }
 }

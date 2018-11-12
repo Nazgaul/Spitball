@@ -2,11 +2,11 @@
 using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.CommandHandler;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
@@ -14,19 +14,19 @@ using Cloudents.Infrastructure.Storage;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using NHibernate;
+using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Models;
-using NHibernate.Linq;
-using NHibernate;
 
 namespace ConsoleApp
 {
@@ -616,7 +616,7 @@ namespace ConsoleApp
         public static async Task TransferDocumants()
         {
             var d = _container.Resolve<DapperRepository>();
-           
+
 
             var key = ConfigurationManager.AppSettings["OldStrageConnectionString"];
             var productionOldstorageAccount = CloudStorageAccount.Parse(key);
@@ -679,17 +679,18 @@ namespace ConsoleApp
 
             using (var child = _container.BeginLifetimeScope())
             {
-                
-                    var commandBus = child.Resolve<ICommandBus>();
-                    var session = child.Resolve<IStatelessSession>();
+
+                var commandBus = child.Resolve<ICommandBus>();
+                var session = child.Resolve<IStatelessSession>();
 
 
-                    foreach (var pair in z)
-                    {
-
-
-
+                foreach (var pair in z)
+                {
                     string[] blobName = pair.BlobName.Split('.');
+                    if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
                     CloudBlockBlob blobDestination = container.GetBlockBlobReference($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}");
 
                     CloudBlockBlob srcBlob = oldContainer.GetBlockBlobReference(pair.BlobName);
@@ -699,10 +700,7 @@ namespace ConsoleApp
                     var blobUri = new Uri(sharedAccessUri);
 
 
-                    if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
-                    {
-                        continue;
-                    }
+                   
 
 
                     await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
@@ -746,7 +744,7 @@ namespace ConsoleApp
                             .Set(x => x.OldId, x => itemId)
                             .Set(x => x.TimeStamp.UpdateTime, x => updateTime)
                             .Update();
-             
+
                 }
 
             }

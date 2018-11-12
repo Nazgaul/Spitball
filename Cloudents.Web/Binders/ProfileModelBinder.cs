@@ -64,13 +64,17 @@ namespace Cloudents.Web.Binders
                 var uniId = GetUniversityClaimValue();
                 if (uniId.HasValue)
                 {
+                    if (profile.University == null)
+                    {
+                        profile.University = new UserUniversityQueryProfileDto();
+                    }
                     profile.University.Id = uniId.Value;
                 }
 
                 bindingContext.Result = ModelBindingResult.Success(profile);
             }
             var countryTask = Task.FromResult<string>(null);
-            if (v == ProfileServiceQuery.Country)
+            if (v.HasFlag(ProfileServiceQuery.Country))
             {
                 countryTask =  _countryProvider.GetUserCountryAsync(token);
             }

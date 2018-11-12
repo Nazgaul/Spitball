@@ -7,29 +7,27 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class EmailEventHandler
+    public abstract class EmailEventHandler
     {
         private readonly IQueueProvider _serviceBusProvider;
 
-        public EmailEventHandler(IQueueProvider serviceBusProvider)
+        protected EmailEventHandler(IQueueProvider serviceBusProvider)
         {
             _serviceBusProvider = serviceBusProvider;
         }
 
-        public async Task SendEmail(BaseEmail obj, User user, CancellationToken token)
+        protected Task SendEmail(BaseEmail obj, User user, CancellationToken token)
         {
-            if (EmailValidate(user))
-            {
-            await _serviceBusProvider.InsertMessageAsync(obj, token);
-            }
+            if (!EmailValidate(user)) return Task.CompletedTask;
+            return _serviceBusProvider.InsertMessageAsync(obj, token);
+
         }
 
-        public async Task SendEmail(BaseEmail obj, TimeSpan delay, User user, CancellationToken token)
+        protected Task SendEmail(BaseEmail obj, TimeSpan delay, User user, CancellationToken token)
         {
-            if (EmailValidate(user))
-            {
-                await _serviceBusProvider.InsertMessageAsync(obj, delay, token);
-            }
+            if (!EmailValidate(user)) return Task.CompletedTask;
+            return _serviceBusProvider.InsertMessageAsync(obj, delay, token);
+
         }
 
         private bool EmailValidate(User user)

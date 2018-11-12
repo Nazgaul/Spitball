@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Admin2.Models
@@ -9,7 +10,8 @@ namespace Cloudents.Admin2.Models
         /// The User Id
         /// </summary>
         [Required]
-        public IEnumerable<long> Id { get; set; }
+        [FromQuery(Name = "id")]
+        public IEnumerable<long> Ids { get; set; }
 
         /// <summary>
         /// If we want to delete all his questions

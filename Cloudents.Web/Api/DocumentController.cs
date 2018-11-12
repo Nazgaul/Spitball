@@ -97,7 +97,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet(Name = "DocumentSearch")]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country | ProfileServiceQuery.Course | ProfileServiceQuery.Tag)] UserProfile profile,
             [FromServices] IDocumentSearch ilSearchProvider,
             CancellationToken token)
         {
