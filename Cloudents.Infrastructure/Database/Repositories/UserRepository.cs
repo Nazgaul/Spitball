@@ -97,17 +97,21 @@ namespace Cloudents.Infrastructure.Database.Repositories
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 
-        public Task UpdateBalance(long id, CancellationToken token)
+        public Task UpdateUsersBalance(CancellationToken token)
         {
-            var test = Session.Query<Transaction>()
-                .Where(w => w.User.Id == id)
-                .Select(s => s.Price);
-            var sum = test.Aggregate((a, b) => a + b);
+            //TODO: need to make this query using Linq instead of sql
+            var updateQuery = Session.CreateSQLQuery(
+                @"update sb.[user] 
+                set balance = (Select sum(price) 
+                                from sb.[Transaction] 
+                                where User_id = sb.[User].id
+                                )
+                where balance != (Select sum(price) 
+                                    from sb.[Transaction] 
+                                    where User_id = sb.[User].id
+                                )");
 
-            return Session.Query<User>().Where(w => w.Id == id).Where(w => w.Balance != sum)
-                  .UpdateBuilder()
-                  .Set(x => x.Balance, x => sum)
-                  .UpdateAsync(token);
+            return Task.CompletedTask;
 
         }
     }
