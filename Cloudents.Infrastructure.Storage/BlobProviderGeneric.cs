@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -109,12 +110,12 @@ namespace Cloudents.Infrastructure.Storage
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
 
-        public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes)
-        {
-            return GenerateSharedAccessReadPermission(blobName, expirationTimeInMinutes, null);
-        }
+        //public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes)
+        //{
+        //    return GenerateSharedAccessReadPermission(blobName, expirationTimeInMinutes, null);
+        //}
 
-        public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes, string contentDisposition)
+        public string GenerateDownloadLink(string blobName, double expirationTimeInMinutes, string fileName)
         {
             var blob = GetBlob(blobName);
 
@@ -126,75 +127,75 @@ namespace Cloudents.Infrastructure.Storage
 
             }, new SharedAccessBlobHeaders
             {
-                ContentDisposition = contentDisposition ?? string.Empty
+                ContentDisposition = "attachment; filename=\"" + WebUtility.UrlEncode(fileName ?? blob.Name) + "\""
             });
             var url = new Uri(blob.Uri, signedUrl);
             return url.AbsoluteUri;
         }
 
-        public Task<bool> ExistsAsync(string blobName, CancellationToken token)
-        {
-            var blob = GetBlob(blobName);
-            return blob.ExistsAsync();
-        }
-
-        public async Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token)
-        {
-            if (string.IsNullOrEmpty(blobName))
-            {
-                throw new ArgumentException("message", nameof(blobName));
-            }
-            var destinationDirectory = _blobDirectory.GetDirectoryReference(destinationContainerName);
-            var sourceBlob = GetBlob(blobName);
-            var destinationBlob = destinationDirectory.GetBlockBlobReference(blobName);
-            await destinationBlob.StartCopyAsync(sourceBlob,AccessCondition.GenerateIfExistsCondition(),AccessCondition.GenerateEmptyCondition(),null,null,token);
-            await sourceBlob.DeleteAsync().ConfigureAwait(false);
-        }
-
-        public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token)
-        {
-            var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
-            var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
-                1000, null, null, null, token).ConfigureAwait(false);
-            return result.Results.Select(s => s.Uri);
-
-        }
-
-
-        public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix,string directory, CancellationToken token)
-        {
-            var path = $"{_container.Container.RelativePath}/{directory}/{prefix}";
-            var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, BlobListingDetails.None, 1000, null, null, null, token);
-            
-            return result.Results.Select(s =>  s.Uri);
-
-        }
-
-        public async Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token)
-        {
-            var blob = GetBlob(blobUrl);
-            var ms = new MemoryStream();
-            await blob.DownloadToStreamAsync(ms).ConfigureAwait(false);
-            ms.Seek(0, SeekOrigin.Begin);
-            return ms;
-        }
-
-        //public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token)
-        //{
-        //    var blob = GetBlob(blobUri);// GetFile(blobName);
-        //    await blob.FetchAttributesAsync().ConfigureAwait(false);
-        //    return blob.Metadata;
-        //}
-
-        //public Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token)
-        //{
-        //    if (metadata == null) throw new ArgumentNullException(nameof(metadata));
-        //    var blob = GetBlob(blobUri);
-        //    foreach (var item in metadata)
-        //    {
-        //        blob.Metadata[item.Key] = item.Value;
-        //    }
-        //    return blob.SetMetadataAsync();
-        //}
+    public Task<bool> ExistsAsync(string blobName, CancellationToken token)
+    {
+        var blob = GetBlob(blobName);
+        return blob.ExistsAsync();
     }
+
+    public async Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token)
+    {
+        if (string.IsNullOrEmpty(blobName))
+        {
+            throw new ArgumentException("message", nameof(blobName));
+        }
+        var destinationDirectory = _blobDirectory.GetDirectoryReference(destinationContainerName);
+        var sourceBlob = GetBlob(blobName);
+        var destinationBlob = destinationDirectory.GetBlockBlobReference(blobName);
+        await destinationBlob.StartCopyAsync(sourceBlob, AccessCondition.GenerateIfExistsCondition(), AccessCondition.GenerateEmptyCondition(), null, null, token);
+        await sourceBlob.DeleteAsync().ConfigureAwait(false);
+    }
+
+    public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token)
+    {
+        var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
+        var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
+            1000, null, null, null, token).ConfigureAwait(false);
+        return result.Results.Select(s => s.Uri);
+
+    }
+
+
+    public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token)
+    {
+        var path = $"{_container.Container.RelativePath}/{directory}/{prefix}";
+        var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, BlobListingDetails.None, 1000, null, null, null, token);
+
+        return result.Results.Select(s => s.Uri);
+
+    }
+
+    public async Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token)
+    {
+        var blob = GetBlob(blobUrl);
+        var ms = new MemoryStream();
+        await blob.DownloadToStreamAsync(ms).ConfigureAwait(false);
+        ms.Seek(0, SeekOrigin.Begin);
+        return ms;
+    }
+
+    //public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token)
+    //{
+    //    var blob = GetBlob(blobUri);// GetFile(blobName);
+    //    await blob.FetchAttributesAsync().ConfigureAwait(false);
+    //    return blob.Metadata;
+    //}
+
+    //public Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token)
+    //{
+    //    if (metadata == null) throw new ArgumentNullException(nameof(metadata));
+    //    var blob = GetBlob(blobUri);
+    //    foreach (var item in metadata)
+    //    {
+    //        blob.Metadata[item.Key] = item.Value;
+    //    }
+    //    return blob.SetMetadataAsync();
+    //}
+}
 }
