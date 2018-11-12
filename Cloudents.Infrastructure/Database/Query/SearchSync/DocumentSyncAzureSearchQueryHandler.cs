@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             qb.Select<Document>(x => x.Type, nameof(DocumentSearchDto.Type));
             //TODO - we do not implement component as expression
             qb.Select(
-                $"{qb.TableAlias<Document>()}.{nameof(Document.TimeStamp.CreationTime)} as {nameof(DocumentSearchDto.DateTime)}");
+                $"{qb.TableAlias<Document>()}.{nameof(Document.TimeStamp.UpdateTime)} as {nameof(DocumentSearchDto.DateTime)}");
            // qb.Select<Document>(x => x.TimeStamp.CreationTime, nameof(DocumentSearchDto.DateTime));
             qb.Select(
                 $" (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where {qb.ColumnAlias<Document>(x => x.Id)} = dt.DocumentId) AS {nameof(DocumentSearchDto.Tags)}");
