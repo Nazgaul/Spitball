@@ -6,6 +6,7 @@ using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,6 +34,15 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
         {
             var question = await _questionRepository.GetAsync(message.QuestionId, token).ConfigureAwait(false);
+            var nakeadstring = Regex.Replace(message.Text, @"[^0-9a-zA-Z]", "");
+            foreach (var t in question.Answers)
+            {
+                var check = Regex.Replace(t.Text, @"[^0-9a-zA-Z]", "");
+                if (nakeadstring == check)
+                {
+                    throw new DuplicateRowException("Duplicate answer");
+                }
+            }
             if (question == null)
             {
                 throw new ArgumentException("question doesn't exits");

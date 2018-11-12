@@ -6,11 +6,9 @@ namespace Cloudents.Core.Event
 {
     public class AnswerDeletedAdminEvent : IEvent
     {
-        public AnswerDeletedAdminEvent(IEnumerable<long> userIds)
+        public AnswerDeletedAdminEvent()
         {
-            UserIds = userIds;
         }
 
-        public IEnumerable<long> UserIds { get; }
     }
 }

@@ -171,7 +171,10 @@ namespace Cloudents.Web.Api
             var t1 = _commandBus.DispatchAsync(command2, token);
             var t2 =  _signInManager.SignInAsync(user, false);
             await Task.WhenAll(t1, t2);
-            return Ok();
+            return Ok(new
+            {
+                user.Id
+            });
         }
 
         [HttpPost("resend")]
