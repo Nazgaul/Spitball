@@ -96,20 +96,6 @@
                     this.$nextTick(() => {
                         console.log(this.talkSession);
                         chatbox.mount(this.$refs["chat-area"])
-                        //doesnt work TODO find a way to handle this error
-                            // .then((succ) => {
-                            //         if (!!conversation.participants[1].user.__sync) {
-                            //             console.log('error')
-                            //         } else {
-                            //             console.log('good')
-                            //         }
-                            //
-                            //     }, (err) => {
-                            //         console.log(err)
-                            //
-                            //     }
-                            // )
-
                     });
                 }
             }
@@ -120,7 +106,7 @@
             currentComponent() {
                 if (this.item && this.item.contentType) {
                     return this.item.contentType === "html" ? "iframe" : "img";
-                    if (['link', 'text'].find((x) => x == type.toLowerCase())) return 'iframe'
+                    if (['link', 'text'].find((x) => x === type.toLowerCase())) return 'iframe'
                 }
             },
             item() {

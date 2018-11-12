@@ -302,8 +302,6 @@ function checkUserStatus(to, next) {
 }
 
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
-global.country = 'US';
-
 initSignalRService();
 
 //app.$mount("#app");

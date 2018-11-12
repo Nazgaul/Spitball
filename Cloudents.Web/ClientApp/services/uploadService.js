@@ -14,7 +14,8 @@ function createFileData(ObjInit){
     return new FileData(ObjInit)
 }
 
+
 export default {
     uploadDropbox: (file) => connectivityModule.http.post("/upload/dropbox", file),
-    createFileData
+    createFileData,
 }

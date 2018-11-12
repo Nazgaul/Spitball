@@ -10,13 +10,12 @@
                     </template>
                 </v-stepper-header>
                 <v-stepper-items class="sb-stepper-item">
-
                     <v-stepper-content :class="['sb-stepper-content', `step-${n}`, n !==1 ? 'paddingTopSm': '']"
                                        v-for="n in steps"
                                        :key="`${n}-content`"
                                        :step="n">
                         <!--upload steps rendering-->
-                        <component :is="`upload-step_${n}`" :callBackmethods="callBackmethods"></component>
+                        <component :is="`upload-step_${n}`" :callBackmethods="callBackmethods" :clearData="clearChildrenData"></component>
                     </v-stepper-content>
                     <div class="bottom-upload-controls" v-show="currentStep > 1">
                         <v-progress-linear

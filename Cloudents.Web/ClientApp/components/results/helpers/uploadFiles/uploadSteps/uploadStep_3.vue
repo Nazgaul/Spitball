@@ -27,7 +27,23 @@
         data() {
             return {
                 documentTypes: documentTypes,
-                selectedDoctype: [],            }
+                selectedDoctype: [],
+            }
+        },
+        props: {
+            clearData: {
+                type: Boolean,
+                default: false,
+                required: false
+            },
+        },
+        watch: {
+            clearData(newValue) {
+                if(!!newValue){
+                    this.clearStepData();
+                }
+
+            }
         },
 
         methods: {
@@ -35,7 +51,9 @@
             updateDocumentType(docType) {
                 this.selectedDoctype = docType;
                 this.updateFile({'type': docType.id});
-
+            },
+            clearStepData(){
+                Object.assign(this.$data, this.$options.data())
             },
 
         },

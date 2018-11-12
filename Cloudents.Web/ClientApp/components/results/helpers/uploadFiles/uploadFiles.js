@@ -38,7 +38,9 @@ export default {
                 changeStep: this.changeStep,
                 stopProgress: this.stopProgress,
                 // closeAndOpenAsk: this.closeAndOpenAsk
-            }
+            },
+            clearChildrenData: false
+
         }
     },
     props: {},
@@ -97,7 +99,8 @@ export default {
             'updateNewQuestionDialogState',
             'changeSelectPopUpUniState',
             'updateUploadFullMobile',
-            'updateDialogState'
+            'updateDialogState',
+            'resetUploadData'
         ]),
 
         stopProgress(val) {
@@ -123,8 +126,10 @@ export default {
         },
         closeUpload(){
             this.resetFirstStepMobile();
+            this.resetUploadData({});
             this.updateDialogState(false);
             this.confirmationDialog = false;
+
         },
         nextStep(step) {
             if (this.currentStep === this.steps) {
@@ -154,7 +159,9 @@ export default {
         changeStep(step) {
             //clean up everytnig for new doc upload
             if (step === 1) {
-                this.resetFirstStepMobile()
+                this.resetUploadData({});
+                this.resetFirstStepMobile();
+                this.clearChildrenData = true;
             }
             this.currentStep = step;
         }

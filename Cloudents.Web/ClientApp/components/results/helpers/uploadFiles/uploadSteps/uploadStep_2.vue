@@ -71,6 +71,9 @@
                 this.selectedClass = singleClass;
             },
         },
+        beforeDestroy(){
+            console.log('step 2 destroyed')
+        },
         created(){
             console.log('step 2 creadted')
 
