@@ -42,12 +42,10 @@ namespace Cloudents.Core.CommandHandler.Admin
             }
 
             answer.Events.Add(new AnswerDeletedEvent(answer));
-            var userId = answer.User.Id;
-            List<long> users = new List<long> { userId, answer.Question.User.Id };
 
             answer.Question.CorrectAnswer = null;
             await _questionRepository.UpdateAsync(answer.Question, token);
-            answer.Events.Add(new AnswerDeletedAdminEvent(users));
+            answer.Events.Add(new AnswerDeletedAdminEvent());
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
         }
     }

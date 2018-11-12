@@ -5,11 +5,9 @@ namespace Cloudents.Core.Event
 {
     public class QuestionDeletedAdminEvent : IEvent
     {
-        public QuestionDeletedAdminEvent(IEnumerable<long> userIds)
+        public QuestionDeletedAdminEvent()
         {
-            UserIds = userIds;
         }
 
-        public IEnumerable<long> UserIds { get; }
     }
 }

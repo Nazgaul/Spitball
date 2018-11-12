@@ -4,15 +4,10 @@ namespace Cloudents.Core.Message.System
 {
     public class UpdateUserBalanceMessage: ISystemQueueMessage
     {
-        public UpdateUserBalanceMessage(IEnumerable<long> userIds)
+        public UpdateUserBalanceMessage()
         {
-            UserIds = userIds;
         }
 
-        protected UpdateUserBalanceMessage()
-        {
-            
-        }
-        public IEnumerable<long> UserIds { get; private set; }
+        
     }
 }
