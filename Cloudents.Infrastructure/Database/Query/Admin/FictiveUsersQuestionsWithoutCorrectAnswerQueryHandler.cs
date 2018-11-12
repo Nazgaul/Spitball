@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
+    public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
         private readonly ISession _session;
         private readonly IUrlBuilder _urlBuilder;
@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             _session = session.Session;
         }
 
-        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
+        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminPageQuery query, CancellationToken token)
         {
             
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
@@ -51,10 +51,10 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 )
                 .TransformUsing(Transformers.AliasToBean<QuestionWithoutCorrectAnswerDto>())
                 .OrderBy(o => o.Id).Asc
-                .Take(100).Skip(100 * QuestionWithoutCorrectAnswerDto.page)
+                .Take(100).Skip(100 * query.page)
                 .ListAsync<QuestionWithoutCorrectAnswerDto>(token);
 
-            QuestionWithoutCorrectAnswerDto.page++;
+          
             var answersResult = await _session.QueryOver<Answer>()
                 .Where(w=>w.Question.Id.IsIn(questions.Select(s=>s.Id).ToArray()))
                 .SelectList(
