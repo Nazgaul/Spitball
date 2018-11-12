@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using NHibernate.Event;
@@ -25,10 +26,13 @@ namespace Cloudents.Infrastructure.Database
         {
             if (entity is IEvents p)
             {
+                var tasks = new List<Task>();
                 foreach (var ev in p.Events)
                 {
-                    await _eventPublisher.PublishAsync(ev, cancellationToken).ConfigureAwait(false);
+                    tasks.Add( _eventPublisher.PublishAsync(ev, cancellationToken));
+                    
                 }
+                await Task.WhenAll(tasks);
             }
         }
 

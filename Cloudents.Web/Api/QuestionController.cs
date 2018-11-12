@@ -164,7 +164,7 @@ namespace Cloudents.Web.Api
                         result.FacetState.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization()))),
 
                     new Filters<string>(nameof(QuestionsRequest.Source),_localizer["SubjectTypeTitle"],
-                        result.FacetSubject
+                        QuestionSubjectMethod.GetValues(result.FacetSubject)
                             .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
                 },
                 NextPageLink = nextPageLink

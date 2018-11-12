@@ -68,33 +68,33 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
             List<string> emailList = new List<string>();
-            foreach (var id in model.Id)
-            { 
-            var userDataByIdQuery = new UserDataByIdQuery(id);
-            var userDataTask = _queryBus.QueryAsync<User>(userDataByIdQuery, token);
-            if (model.DeleteUserQuestions)
+            foreach (var id in model.Ids)
             {
-
-                var answersQuery = new UserDataByIdQuery(id);
-                var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
-
-                foreach (var question in answersInfo.Questions)
+                var userDataByIdQuery = new UserDataByIdQuery(id);
+                var userDataTask = _queryBus.QueryAsync<User>(userDataByIdQuery, token);
+                if (model.DeleteUserQuestions)
                 {
-                    var deleteQuestionCommand = new DeleteQuestionCommand(question);
-                    await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
-                }
 
-                foreach (var answer in answersInfo.Answers)
-                {
-                    var deleteAnswerCommand = new DeleteAnswerCommand(answer);
-                    await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
-                }
+                    var answersQuery = new UserDataByIdQuery(id);
+                    var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
 
-            }
-            var command = new SuspendUserCommand(id);
-            await commandBus.DispatchAsync(command, token);
-            var userData = await userDataTask;
-            emailList.Add(userData.Email);
+                    foreach (var question in answersInfo.Questions)
+                    {
+                        var deleteQuestionCommand = new DeleteQuestionCommand(question);
+                        await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
+                    }
+
+                    foreach (var answer in answersInfo.Answers)
+                    {
+                        var deleteAnswerCommand = new DeleteAnswerCommand(answer);
+                        await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
+                    }
+
+                }
+                var command = new SuspendUserCommand(id);
+                await commandBus.DispatchAsync(command, token);
+                var userData = await userDataTask;
+                emailList.Add(userData.Email);
             }
             return new SuspendUserResponse() { Email = emailList };
         }
