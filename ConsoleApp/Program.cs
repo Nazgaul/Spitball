@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -92,7 +93,11 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await ReduProcessing();
+            var sr = File.OpenRead(@"C:\Users\Ram\Downloads\a.pdf");
+            var pdfProcessor = new PdfProcessor();
+           await pdfProcessor.ProcessFilesAsync(sr, (stream, s) => { return Task.CompletedTask; },
+               s => { return Task.CompletedTask;}, i => { return Task.CompletedTask;}, token);
+            //await ReduProcessing();
             //blobClient.ListBlobsSegmentedAsync("")
             //await _bus.UpdateNumberOfViews(1, default);
             //var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
