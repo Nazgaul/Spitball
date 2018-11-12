@@ -40,9 +40,10 @@
         width:100%;
         background-image: url('./img/splash.png');
         padding: 56px 85px;
-        @media(max-width: @screen-xs){
+        @media(max-width: @screen-md-plus){
             box-shadow: 0 2px 3px 0 rgba(25, 37, 171, 0.96);
-            background-image: radial-gradient(circle at 60% 7%, #4b8ffe, #445dfc);
+            background-image: url('./img/splashMobile.jpg');
+            background-size: cover;
             padding:40px;
         }
         .newIsraeli-spitball{
