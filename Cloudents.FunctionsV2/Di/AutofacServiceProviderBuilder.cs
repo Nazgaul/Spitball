@@ -76,14 +76,18 @@ namespace Cloudents.FunctionsV2.Di
             }).As<Core.Interfaces.ILogger>();
             //builder.RegisterType<Logger>().As<Cloudents.Core.Interfaces.ILogger>();
 
-            builder.RegisterType<QuestionDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Question);
-            builder.RegisterType<UniversityDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.University);
-            builder.RegisterType<DocumentDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Document);
+            builder.RegisterType<QuestionDbToSearchSync>()
+                .Keyed<IDbToSearchSync>(SyncType.Question).SingleInstance();
+            builder.RegisterType<UniversityDbToSearchSync>()
+                .Keyed<IDbToSearchSync>(SyncType.University).SingleInstance();
+            builder.RegisterType<DocumentDbToSearchSync>()
+                .Keyed<IDbToSearchSync>(SyncType.Document).SingleInstance();
 
 
 
 
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ISystemOperation<>));
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .AsClosedTypesOf(typeof(ISystemOperation<>));
             //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
             //    .AsClosedTypesOf(typeof(ISystemOperation<>))
             //    .Named(i =>

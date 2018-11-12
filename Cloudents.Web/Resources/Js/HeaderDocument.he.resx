@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,28 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="flashcard_beginText_start" xml:space="preserve">
-    <value>התחל</value>
-  </data>
-  <data name="flashcard_beginText_start_over" xml:space="preserve">
-    <value>התחל מחדש</value>
-  </data>
-  <data name="itemActions_download" xml:space="preserve">
-    <value>הורד</value>
-  </data>
-  <data name="itemActions_title" xml:space="preserve">
-    <value>הדפס</value>
-  </data>
-  <data name="item_by" xml:space="preserve">
-    <value>על ידי</value>
-  </data>
-  <data name="item_class" xml:space="preserve">
-    <value>קורס</value>
-  </data>
-  <data name="item_prof" xml:space="preserve">
-    <value>מרצה</value>
-  </data>
-  <data name="item_school" xml:space="preserve">
-    <value>מוסד לימודים</value>
-  </data>
 </root>

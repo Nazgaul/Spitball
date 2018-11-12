@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Web.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Web.Controllers
 {
@@ -123,6 +124,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}/download", Name = "ItemDownload")]
+        [Authorize]
         public async Task<ActionResult> DownloadAsync(long id, CancellationToken token)
         {
             var query = new DocumentById(id);

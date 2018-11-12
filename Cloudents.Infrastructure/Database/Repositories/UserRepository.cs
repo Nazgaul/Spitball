@@ -97,7 +97,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 
-        public Task UpdateBalance(CancellationToken token)
+        public Task UpdateUsersBalance(CancellationToken token)
         {
             //TODO: need to make this query using Linq instead of sql
             var updateQuery = Session.CreateSQLQuery(

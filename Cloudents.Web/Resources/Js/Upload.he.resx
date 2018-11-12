@@ -124,10 +124,10 @@
     <value>קבצים נתמכים:</value>
   </data>
   <data name="error_extension_title" xml:space="preserve">
-    <value>Oops! this file type is not supported</value>
+    <value>אופס! הקובץ אינו נתמך</value>
   </data>
   <data name="error_upload_something_wrong" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>קרתה תקלה</value>
   </data>
   <data name="files_btn_anotherUpload" xml:space="preserve">
     <value>העלה מסמך נוסף</value>
@@ -189,7 +189,7 @@
     <value>בחר קורס רלוונטי</value>
   </data>
   <data name="files_label_document_title" xml:space="preserve">
-    <value>Document Title</value>
+    <value>כותרת מסמך</value>
   </data>
   <data name="files_label_legal" xml:space="preserve">
     <value>אני הבעלים הבלעדי של מסמך זה ושל כל זכויותיו המשפטיות</value>
@@ -228,7 +228,7 @@
     <value>הוסף כל תגית שלדעתך רלוונטית עבור מסמך זה</value>
   </data>
   <data name="files_step6_subtitle" xml:space="preserve">
-    <value>Please make sure all the details are just right </value>
+    <value>אנא בדוק שכל הפרטים נכונים</value>
   </data>
   <data name="files_step6_title" xml:space="preserve">
     <value>מעולה! סיימת ממש מהר!</value>
@@ -255,12 +255,12 @@
     <value>בטל</value>
   </data>
   <data name="confirm_btn_close" xml:space="preserve">
-    <value>Close and stop upload</value>
+    <value>סגור ועצור העלאת מסמך</value>
   </data>
   <data name="confirm_stop_title" xml:space="preserve">
-    <value>Stop Uploading?</value>
+    <value>עצור העלאת מסמך?</value>
   </data>
   <data name="confirm_text" xml:space="preserve">
-    <value>Closing this window will end the uploading process</value>
+    <value>סגירת החלון תעצור את העלאת המסמך</value>
   </data>
 </root>
