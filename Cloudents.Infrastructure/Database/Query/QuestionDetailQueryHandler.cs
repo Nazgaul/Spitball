@@ -20,11 +20,13 @@ namespace Cloudents.Infrastructure.Database.Query
     {
         private readonly ISession _session;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly IBlobProvider _blobProvider2;
 
-        public QuestionDetailQueryHandler(ReadonlySession session, IBlobProvider<QuestionAnswerContainer> blobProvider)
+        public QuestionDetailQueryHandler(ReadonlySession session, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider blobProvider2)
         {
             _session = session.Session;
             _blobProvider = blobProvider;
+            _blobProvider2 = blobProvider2;
         }
 
         private async Task<QuestionDetailDto> GetFromDbAsync(long id, CancellationToken token)
@@ -38,7 +40,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Id = s.User.Id,
                     Name = s.User.Name,
                     Image = s.User.Image
-                }, s.Id,s.Text,s.Price,s.Updated,s.CorrectAnswer.Id,s.Color,s.Subject,s.Language)
+                }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id, s.Color, s.Subject, s.Language)
                 ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
                 .Where(w => w.Question.Id == id)
@@ -74,7 +76,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
             await Task.WhenAll(dtoTask, filesTask).ConfigureAwait(false);
-            var files = filesTask.Result;
+            var files = filesTask.Result.Select(s => _blobProvider2.GeneratePreviewLink(s, 20));
             var dto = dtoTask.Result;
 
             if (dto == null)
