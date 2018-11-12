@@ -128,7 +128,7 @@
 .paddingTopSm {
   padding-top: 44px;
   @media (max-width: @screen-xs) {
-    padding-top: 64px;
+    padding-top: 7%;
   }
 }
 
@@ -248,7 +248,7 @@
     font-family: @fontFiraSans;
     padding: 12px 0 0 0;
     @media (max-width: @screen-xs) {
-      height: 100%;
+      //height: 100%;
       padding: 0;
     }
     .bottom-upload-controls {
@@ -475,6 +475,9 @@
             justify-content: flex-start;
             //align-items: center;
             box-shadow: none;
+            @media (max-width: @screen-xs) {
+              min-height:unset;
+            }
             .upload-row-1 {
               padding-top: 44px;
               display: flex;
@@ -482,6 +485,9 @@
               flex-direction: row;
               align-items: center;
               justify-content: center;
+              @media (max-width: @screen-xs) {
+                padding-top: 16px;
+              }
               &.referal-row-1 {
                 align-items: center;
                 justify-content: center;
@@ -509,6 +515,9 @@
               justify-content: center;
               align-items: flex-start;
               align-content: center;
+              @media (max-width: @screen-xs) {
+                padding-top: 16px;
+              }
               &.referral-row {
                 padding-top: 21px;
                 .v-card {
@@ -695,7 +704,7 @@
                 align-items: flex-start;
                 max-width: @maxWidthForm;
                 @media (max-width: @screen-xs) {
-                  padding-top: 44px;
+                  padding-top: 16px;
                 }
                 .sb-title {
                   font-size: 18px;
@@ -727,6 +736,9 @@
                 flex-direction: column;
                 flex-wrap: wrap;
                 align-content: center;
+                @media (max-width: @screen-xs) {
+                  padding-top: 16px;
+                }
                 .btn-holder {
                   display: flex;
                   flex-direction: column;
@@ -871,7 +883,7 @@
               .upload-row-1 {
                 padding-top: 0;
                 @media (max-width: @screen-xs) {
-                  padding-top: 44px;
+                  padding-top: 16px;
                 }
                 .sb-title {
                   font-weight: 600;
@@ -886,7 +898,7 @@
                   flex-direction: column;
                   justify-content: center;
                   align-items: center;
-                  padding-top: 64px;
+                  padding-top: 16px;
                 }
                 .sb-doc-type {
                   border: 1px solid @colorGreyLight;
@@ -1134,7 +1146,7 @@
                 align-items: flex-start;
                 max-width: @maxWidthForm;
                 @media (max-width: @screen-xs) {
-                  padding-top: 44px;
+                  padding-top: 16px;
                 }
                 &.referal-row-1 {
                   align-items: center;
