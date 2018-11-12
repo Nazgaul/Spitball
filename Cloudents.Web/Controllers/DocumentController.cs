@@ -122,8 +122,7 @@ namespace Cloudents.Web.Controllers
             return View();
         }
 
-        [Route("Document/{id:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
-        [Route("D/{id:long:min(0)}", Name = "ItemDownload2")]
+        [Route("document/{universityName}/{courseName}/{id:long}/{name}/download", Name = "ItemDownload")]
         public async Task<ActionResult> DownloadAsync(long id, CancellationToken token)
         {
             var query = new DocumentById(id);
@@ -133,10 +132,9 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
             
-
             var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
             var extension = Path.GetExtension(item.Blob);
-            var url = _blobProvider.GenerateSharedAccessReadPermission(item.Blob, 30, nameToDownload + extension);
+            var url = _blobProvider.GenerateDownloadLink($"{id}/{item.Blob}", 30, nameToDownload + extension);
             return Redirect(url);
         }
     }
