@@ -34,7 +34,7 @@ const nav = {
             filter: [ { id: "source", name: "sources" }],
             sort: [],
             icon: "sbf-note",
-            visible: global.country.toUpperCase() !== 'IL'
+            visible: true
         }
      },
     flashcard: {

@@ -172,7 +172,10 @@
       text-transform: capitalize;
       overflow:auto;
       .v-table__overflow{
-        width: intrinsic;
+        width: inherit;
+        @media (max-width: @screen-xs) {
+          width: intrinsic;
+        }
       }
       .v-table {
         thead {
