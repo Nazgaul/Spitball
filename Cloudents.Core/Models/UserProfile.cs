@@ -28,6 +28,10 @@ namespace Cloudents.Core.Models
 
     public class UserUniversityQueryProfileDto
     {
+        public UserUniversityQueryProfileDto()
+        {
+            
+        }
         public UserUniversityQueryProfileDto(Guid id, string extraName, string name)
         {
             Id = id;

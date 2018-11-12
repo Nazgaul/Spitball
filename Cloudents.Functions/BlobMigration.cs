@@ -22,6 +22,12 @@ namespace Cloudents.Functions
             [Blob("spitball-files/files/{id}")]CloudBlobDirectory directory,
             TraceWriter log, CancellationToken token)
         {
+            await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
+        }
+
+        private static async Task ProcessBlobPreview(CloudBlockBlob myBlob, string id, string name, IFactoryProcessor factory,
+            CloudBlobDirectory directory, TraceWriter log, CancellationToken token)
+        {
             log.Info($"Going to process - {id}");
             var mimeTypeConvert = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
@@ -35,12 +41,12 @@ namespace Cloudents.Functions
                 var f = factory.PreviewFactory(name);
                 if (f != null)
                 {
-
                     await f.ProcessFilesAsync(ms, (stream, previewName) =>
                     {
                         stream.Seek(0, SeekOrigin.Begin);
                         var blob = directory.GetBlockBlobReference($"preview-{previewName}");
-                        if (previewName != null && mimeTypeConvert.TryGetValue(Path.GetExtension(previewName), out var mimeValue))
+                        if (previewName != null &&
+                            mimeTypeConvert.TryGetValue(Path.GetExtension(previewName), out var mimeValue))
                         {
                             blob.Properties.ContentType = mimeValue;
                         }
@@ -48,6 +54,7 @@ namespace Cloudents.Functions
                         {
                             log.Warning("no mime type");
                         }
+
                         log.Info($"uploading to {id} preview-{previewName}");
                         return blob.UploadFromStreamAsync(stream, token);
                     }, s =>
@@ -70,12 +77,13 @@ namespace Cloudents.Functions
                 {
                     log.Warning($"did not process id:{id}");
                 }
+
                 log.Info("C# Blob trigger function Processed");
             }
         }
 
 
-       private static string StripUnwantedChars(string input)
+        private static string StripUnwantedChars(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
