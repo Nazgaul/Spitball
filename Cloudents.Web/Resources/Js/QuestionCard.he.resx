@@ -132,6 +132,9 @@
   <data name="Earn" xml:space="preserve">
     <value>קבל</value>
   </data>
+  <data name="Question_price" xml:space="preserve">
+    <value>{1} SBL</value>
+  </data>
   <data name="Sold" xml:space="preserve">
     <value>נמכר</value>
   </data>

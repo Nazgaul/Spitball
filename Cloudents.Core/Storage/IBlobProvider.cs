@@ -7,6 +7,11 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Core.Storage
 {
+
+    public interface IBlobProvider
+    {
+        Uri GeneratePreviewLink(Uri blobUrl, double expirationTimeInMinutes);
+    }
     public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
     {
         Task UploadStreamAsync(string blobName, Stream fileContent,
@@ -21,7 +26,7 @@ namespace Cloudents.Core.Storage
         string GenerateDownloadLink(string blobName, double expirationTimeInMinutes,
             string contentDisposition);
 
-       // Task<bool> ExistsAsync(string blobName, CancellationToken token);
+        // Task<bool> ExistsAsync(string blobName, CancellationToken token);
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
