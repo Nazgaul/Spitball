@@ -3,6 +3,7 @@
         <doc-header></doc-header>
         <div class="item document-wrap">
             <div class="item-content">
+                    <span class="img-placeholder-text" v-if="isPlaceholder">Preview will be avaliable soon</span>
                 <v-carousel hide-delimiters hide-controls v-if="$vuetify.breakpoint.smAndDown"
                             style="max-height: 401px;">
                     <v-carousel-item v-for="(page, index) in preview">
@@ -33,7 +34,7 @@
                     </div>
                 </a>
                 <div v-show="chatReady" class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>
-                <div ref="chat-area" class="chat-container"></div>
+                <div v-show="chatReady" ref="chat-area" class="chat-container"></div>
             </v-flex>
         </div>
     </div>
@@ -128,9 +129,13 @@
                 if (!!this.item && !!this.item.preview) {
                     return this.item.preview
                 }
+            },
+            isPlaceholder() {
+                if (!!this.item && !!this.item.details && this.item.details.isPlaceholder) {
+                    return this.item.details.isPlaceholder
+                }
 
-            }
-
+            },
         },
         watch: {
             talkSession: function (newVal, oldVal) {

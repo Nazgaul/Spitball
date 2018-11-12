@@ -26,7 +26,8 @@ const actions = {
                 if(!item.preview || item.preview.length === 0) {
                     //need a test
                     let location = `${global.location.origin}/images/doc-preview-empty.png`;
-                    item.preview.push(location)
+                    item.preview.push(location);
+                    item.details.isPlaceholder = true;
                 }
                     postfix = item.preview[0].split('?')[0].split('.');
 

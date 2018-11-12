@@ -11,6 +11,7 @@ function DocumentItem(ObjInit){
     this.pages = ObjInit.pages || '';
     this.extension = ObjInit.extension || '';
     this.docType = ObjInit.type || '';
+    this.isPlaceholder = ObjInit.isPlaceholder || false;
 };
 function createDocumentItem(ObjInit){
     return new DocumentItem(ObjInit)

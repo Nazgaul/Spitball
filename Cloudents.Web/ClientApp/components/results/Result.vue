@@ -1,6 +1,6 @@
 ﻿<template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
-        <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
+        <signup-banner  slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main">
             <!--static cards AB test-->
             <abTestCard v-if="$route.path.slice(1)==='ask'" class="ab-test-card"

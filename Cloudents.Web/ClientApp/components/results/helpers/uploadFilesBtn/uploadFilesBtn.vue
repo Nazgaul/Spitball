@@ -35,10 +35,16 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState']),
+            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState', 'showRegistrationBanner']),
 
             isFloatingBtn() {
-                return this.offsetTop2 >= 150 && (this.$vuetify.breakpoint.smAndDown)
+                let offHeight = 0;
+                if(this.showRegistrationBanner){
+                    offHeight = 150 + 285;
+                }else{
+                    offHeight = 150;
+                }
+                return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
             showUploadDialog() {
                 return this.getDialogState
