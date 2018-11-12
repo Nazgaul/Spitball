@@ -97,15 +97,21 @@
                 let self = this;
                 self.loading = true;
                 registrationService.smsCodeVerification(this.confirmationCode)
-                    .then(function () {
+                    .then(function (userId) {
                         //got to congratulations route if new user
                         if (self.isNewUser) {
                             self.$parent.$emit('changeStep', 'congrats');
                             analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
+                            if(!!userId){
+                                analyticsService.sb_unitedEvent('Registration', 'User Id', userId);
+                            }
                             self.loading = false;
                         } else {
                             self.loading = false;
                             analyticsService.sb_unitedEvent('Login', 'Phone Verified');
+                            if(!!userId){
+                                analyticsService.sb_unitedEvent('Registration', 'User Id', userId);
+                            }
                             let url = self.lastActiveRoute || defaultSubmitRoute;
                             window.isAuth = true;
                             self.$router.push({path: `${url.path }`});
