@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             <!--Do not remove pseudo el for bnt centering-->
-                            <div style="width: 96px; height: 36px; visibility: hidden; margin: 6px 8px;" v-if="currentStep === 2"></div>
+                            <div style="width: 96px; height: 36px; visibility: hidden; margin: 6px 8px;" v-if="currentStep === 2 && $vuetify.breakpoint.smAndUp"></div>
                             <v-btn round v-if="currentStep > 2 && currentStep !==7" flat class="sb-back-flat-btn"
                                    @click="previousStep(step)">
                                 <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
