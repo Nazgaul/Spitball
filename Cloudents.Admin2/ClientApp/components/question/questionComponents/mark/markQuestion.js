@@ -5,7 +5,8 @@ export default {
         return {
             questions:[],
             page: 0,
-            scrollLock: false
+            scrollLock: false,
+            loading:true
         }
     },
     methods:{
@@ -28,9 +29,11 @@ export default {
             },
             getQuestions(){
                 getAllQuesitons(this.page).then((questionsResponse) => {
+                    //this.questions = this.questions.concat(questionsResponse);
                     questionsResponse.forEach(question=>{
                         this.questions.push(question);
                     })
+                    this.loading = false;
                     this.advancePage();
                     this.scrollLock = false;
                 })
