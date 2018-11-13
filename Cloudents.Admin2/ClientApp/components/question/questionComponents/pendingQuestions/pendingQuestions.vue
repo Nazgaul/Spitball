@@ -2,25 +2,26 @@
     <div>
         <h1>Pending Questions</h1>
         <div class="page-container">
-        <div class="question-co">
-            <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
-                <div class="question-left-body">
-                    <div class="user-container">
-                        <div>User Id: {{question.user.id}}</div>
-                        <div>User Email: {{question.user.email}}</div>
+            <div class="question-co">
+                <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
+                    <div class="question-left-body">
+                        <div class="user-container">
+                            <div>User Id: {{question.user.id}}</div>
+                            <div>User Email: {{question.user.email}}</div>
+                        </div>
+                        <div class="question-container">
+                            <div class="bottom-border bold bottom-space">Question Id: {{question.id}}</div>
+                            <div>{{question.text}}</div>
+                        </div>
                     </div>
-                    <div class="question-container">
-                        <div class="bottom-border bold bottom-space">Question Id: {{question.id}}</div>
-                        <div>{{question.text}}</div>
+                    <div class="question-right-body">
+                        <button @click="aproveQ(question, index)">Aprove</button>
+                        <button class="decline" @click="declineQuestion(question, index)">Delete</button>
                     </div>
                 </div>
-                <div class="question-right-body">
-                    <button @click="aproveQ(question, index)">Aprove</button>
-                    <button class="decline" @click="declineQuestion(question, index)">Delete</button>
-                </div>
+                <div v-if="loading">Loading questions, please wait...</div>
+                <div v-show="questions.length === 0 && !loading">No more question to approve</div>
             </div>
-            <div v-show="questions.length === 0">Loading questions, please wait...</div>
-        </div>
         </div>
         
     </div>
