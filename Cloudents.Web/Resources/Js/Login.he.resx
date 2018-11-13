@@ -315,20 +315,9 @@
   <data name="sign_up_with_google" xml:space="preserve">
     <value>הירשם באמצעות גוגל</value>
   </data>
-  <data name="sure_exit1" xml:space="preserve">
-    <value>האם אתה</value>
-  </data>
-  <data name="sure_exit2" xml:space="preserve">
-    <value>בטוח ש</value>
-  </data>
-  <data name="sure_exit3" xml:space="preserve">
-    <value>ברצונך</value>
-  </data>
-  <data name="sure_exit4" xml:space="preserve">
-    <value>אל</value>
-  </data>
-  <data name="sure_exit5" xml:space="preserve">
-    <value>האם לצאת?</value>
+  <data name="sure_exit_mobile" xml:space="preserve">
+    <value>האם אתה
+בטוח שברצונך &lt;b&gt;לצאת&lt;b&gt;?</value>
   </data>
   <data name="terms_of_services" xml:space="preserve">
     <value>תנאי שירות</value>
