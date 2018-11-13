@@ -1,16 +1,16 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.Command;
-using Cloudents.Core.Enum;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
-using Cloudents.Core.Storage.Dto;
+using Cloudents.Core.Query.Admin;
 using Cloudents.FunctionsV2.Sync;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage.Queue;
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Command.Admin;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -40,32 +40,22 @@ namespace Cloudents.FunctionsV2
             await SyncFunc.StartSearchSync(starter, log, SyncType.Question);
         }
 
-       
+
 
         [FunctionName("QuestionPopulate")]
         public static async Task QuestionPopulateAsync([TimerTrigger("0 */15 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [Queue(QueueName.QuestionsQueueName)] CloudQueue queue,
             [Inject] ICommandBus commandBus,
+            [Inject] IQueryBus queryBus,
             ILogger log,
             CancellationToken token)
         {
             log.LogInformation("QuestionPopulate invoke");
-            var msg = await queue.GetMessageAsync();
-            if (msg == null)
+            var questions = await queryBus.QueryAsync<IList<FictivePendingQuestionDto>>(new AdminEmptyQuery(), token);
+            if (questions.Count > 0)
             {
-                return;
+                var command = new ApproveQuestionCommand(questions.Select(s => s.Id));
+                await commandBus.DispatchAsync(command, token);
             }
-
-            var answerMessage = JsonConvert.DeserializeObject<NewQuestionMessage>(msg.AsString);
-            var command = new CreateQuestionCommand(
-                answerMessage.SubjectId,
-                answerMessage.Text,
-                answerMessage.Price,
-                answerMessage.UserId, null, 
-                QuestionColor.Default);
-            await commandBus.DispatchAsync(command, token);
-            await queue.DeleteMessageAsync(msg);
-            log.LogInformation($"QuestionPopulate function executed at: {DateTime.Now}");
         }
 
     }

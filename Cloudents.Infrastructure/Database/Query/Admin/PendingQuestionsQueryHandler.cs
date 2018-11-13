@@ -9,6 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -16,10 +17,10 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
     internal class PendingQuestionsQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<PendingQuestionDto>>
     {
 
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
 
-        public PendingQuestionsQueryHandler(ReadonlySession session)
+        public PendingQuestionsQueryHandler(ReadonlyStatelessSession session)
         {
             _session = session.Session;
         }
@@ -28,7 +29,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         {
             return await _session.Query<Question>()
                 .Fetch(f => f.User)
-                .Where(w => !w.User.Fictive)
+                .Where(w => w.User.Fictive != true && w.State == QuestionState.Pending)
                 .Select(s => new PendingQuestionDto
                 {
                     Id = s.Id,

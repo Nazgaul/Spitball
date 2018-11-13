@@ -60,7 +60,7 @@ namespace Cloudents.Core.CommandHandler
             }
 
            
-            if (user.Fictive)
+            if (user.Fictive.GetValueOrDefault())
             {
                 throw new InvalidOperationException("fictive user");
             }

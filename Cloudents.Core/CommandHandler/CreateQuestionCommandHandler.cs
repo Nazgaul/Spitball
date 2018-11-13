@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
@@ -48,8 +50,8 @@ namespace Cloudents.Core.CommandHandler
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
 
             var question = new Question(message.SubjectId,
-                message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color);
-            question.SetLanguage(textLanguage);
+                message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color, textLanguage);
+            //question.SetLanguage(textLanguage);
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;
 
@@ -59,8 +61,11 @@ namespace Cloudents.Core.CommandHandler
                         Enumerable.Empty<Task>();
                 await Task.WhenAll(l).ConfigureAwait(true);
             }
-
-           // message.Id = id;
+            if (question.State.GetValueOrDefault() == QuestionState.Ok)
+            {
+                question.Events.Add(new QuestionCreatedEvent(question));
+            }
+            // message.Id = id;
         }
     }
 }

@@ -5,9 +5,5 @@ namespace Cloudents.Core.Command.Admin
 {
     public class UpdateUserBalanceCommand : ICommand
     {
-        public UpdateUserBalanceCommand()
-        {
-        }
-
     }
 }

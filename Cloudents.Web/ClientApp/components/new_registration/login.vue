@@ -18,8 +18,7 @@
                    :camefromCreate="camefromCreate"
                    :campaignData="campaignData"
                    :isSignIn="isSignInComputed"
-                   :isNewUser="isNewUser"
-        ></component>
+                   :isNewUser="isNewUser"></component>
         <div class="progress" v-if="isShowProgress">
             <div v-for="page in progressSteps" :class="{highlighted: page===stepNumber}"></div>
         </div>
@@ -35,12 +34,15 @@
                     <v-icon>sbf-close</v-icon>
                 </button>
                 <v-card-text class="limited-width">
-                    <h1 v-if="isMobile"><span v-language:inner>login_sure_exit1</span><br/><span v-language:inner>login_sure_exit2</span><br/><span v-language:inner>login_sure_exit3</span><br/><span v-language:inner>login_sure_exit4</span>&nbsp;<b><span v-language:inner>login_sure_exit5</span></b></h1>
+                    <h1 v-if="isMobile">
+                        <span v-html="resource.mobile"></span>
+                    </h1>
                     <h1 v-else v-language:inner>login_are_you_sure_you_want_to_exit</h1>
-                    <p><span class="pre-line" v-language:inner>login_exiting_information1</span><br/></p>
+                    <p><span class="pre-line" v-language:inner>login_exiting_information1</span><br /></p>
 
                     <v-btn v-if="isMobile" class="continue-registr"
-                           @click="showDialog = false"><span v-language:inner>login_continue_registration</span>
+                           @click="showDialog = false">
+                        <span v-language:inner>login_continue_registration</span>
                     </v-btn>
                     <button class="continue-btn" @click="$_back" v-language:inner>login_Exit</button>
                 </v-card-text>
@@ -52,5 +54,4 @@
 
 
 <style lang="less" src="./login.less">
-
 </style>

@@ -7,10 +7,6 @@
         </div>
         <div class="upload-row-2 final-row " style="padding-top: 32px;" @click="changeStep(2)">
             <div class="final-item school" >
-                <div class="edit">
-                    <v-icon class="edit-icon">sbf-edit-icon</v-icon>
-                    <span v-language:inner>upload_files_edit</span>
-                </div>
                 <div class="final-item-wrap">
                     <v-icon class="final-icon">sbf-university</v-icon>
                     <span class="item-name" v-language:inner>upload_files_label_school</span>

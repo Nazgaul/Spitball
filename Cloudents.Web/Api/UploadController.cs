@@ -82,10 +82,7 @@ namespace Cloudents.Web.Api
         {
             var tempData = TempData.Get<TempData>($"update-{model.session_id}");
 
-            await Task.Delay(TimeSpan.FromSeconds(5));
-            // tempData.Indexes = tempData.Indexes ?? new List<long>();
             var index = (int)(model.start_offset / UploadInnerResponse.BlockSize);
-            //tempData.Indexes.Add(model.start_offset);
             await _documentBlobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
                 index, token);
 
@@ -100,6 +97,7 @@ namespace Cloudents.Web.Api
            
             if (model.Phase == UploadPhase.Start)
             {
+                //we remove mime type check because if user doesn't have an application installed in the computer the mime type is empty
                 string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "ppt" };
 
                 var extension = Path.GetExtension(model.Name)?.TrimStart('.');
@@ -110,12 +108,7 @@ namespace Cloudents.Web.Api
                     return BadRequest(ModelState);
                 }
 
-                var test = MimeTypes.GetMimeType(model.Name);
-                if (model.MimeType != test)
-                {
-                    ModelState.AddModelError(nameof(model.Name), _localizer["Upload"]);
-                    return BadRequest(ModelState);
-                }
+               
                 var response = new UploadResponse(Guid.NewGuid());
 
                 var tempData = new TempData
