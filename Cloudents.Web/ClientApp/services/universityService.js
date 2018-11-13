@@ -1,9 +1,15 @@
 import { connectivityModule } from "./connectivity.module"
 
 function University(objInit){
-    this.id = objInit.id;
-    this.country = objInit.country;
-    this.text = objInit.name;
+    if(!objInit){
+        this.id = "";
+        this.country = "";
+        this.text = "";
+    }else{
+        this.id = objInit.id;
+        this.country = objInit.country;
+        this.text = objInit.name;
+    }
 }
 
 function Course(objInit){

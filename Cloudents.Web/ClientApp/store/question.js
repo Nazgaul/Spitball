@@ -54,7 +54,7 @@ const actions = {
         })
     },
     updateQuestionSignalR({commit, state}, question){
-        if(!!state.question && state.question.id === question.id){
+        if(!!state.question && state.question.id == question.id){
             // let res = searchService.createQuestionItem(question);
             // commit('updateQuestion', res);
 

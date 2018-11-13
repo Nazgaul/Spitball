@@ -10,7 +10,7 @@
             </div>
             <router-view v-else ref="mainPage"></router-view>
             <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
-              <span style="text-align:left;" v-language:inner>app_cookie_toaster_text</span> &nbsp;
+              <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
               <span class="cookie-approve"><button @click="removeCookiesPopup()" style="outline:none;" v-language:inner>app_cookie_toaster_action</button></span>
             </div>
             <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
