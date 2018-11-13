@@ -12,6 +12,7 @@ function DocumentItem(ObjInit){
     this.extension = ObjInit.extension || '';
     this.docType = ObjInit.type || '';
     this.isPlaceholder = ObjInit.isPlaceholder || false;
+    this.professor = ObjInit.professor || '';
 };
 function createDocumentItem(ObjInit){
     return new DocumentItem(ObjInit)
