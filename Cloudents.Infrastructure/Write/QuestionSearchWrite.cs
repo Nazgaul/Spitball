@@ -22,16 +22,24 @@ namespace Cloudents.Infrastructure.Write
 
         protected override Index GetIndexStructure(string indexName)
         {
-            //_fieldBuilder.Name(indexName)
-            //    .Fields().Map(x => x.Id).IsKey();
             var fieldBuilder = new FluentSearchFieldBuilder<Question>();
 
-            return new Index()
+            return new Index
             {
                 Name = indexName,
                 Fields = new List<Field>
                 {
-
+                    new Field("UserId",DataType.Int64)
+                    {
+                        IsFilterable = true
+                    },
+                    new Field("UserName",DataType.String),
+                    new Field("UserImage",DataType.String),
+                    new Field("AnswerCount",DataType.Int32),
+                    new Field("FilesCount",DataType.Int32),
+                    new Field("HasCorrectAnswer",DataType.Boolean),
+                    new Field("Price",DataType.Double),
+                    new Field("Color",DataType.Int32),
                    fieldBuilder.Map(x=>x.Id).IsKey(),
                    fieldBuilder.Map(x=>x.DateTime).IsSortable().IsFilterable(),
                    fieldBuilder.Map(x=>x.Text).IsSearchable(),
@@ -65,14 +73,14 @@ namespace Cloudents.Infrastructure.Write
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(Question.Text)] = 2,
-                            [nameof(Question.Prefix)] = 1,
+                            [nameof(Question.Text)] = 3,
+                            [nameof(Question.Prefix)] = 2,
                         }),
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new FreshnessScoringFunction(nameof(Question.DateTime),4,TimeSpan.FromHours(6)),
-                            new TagScoringFunction(nameof(Question.Country),4, new TagScoringParameters(TagsCountryParameter)),
+                            new FreshnessScoringFunction(nameof(Question.DateTime),1.5,TimeSpan.FromHours(6)),
+                            new TagScoringFunction(nameof(Question.Country),1.5, new TagScoringParameters(TagsCountryParameter)),
                         }
                     }
                 },

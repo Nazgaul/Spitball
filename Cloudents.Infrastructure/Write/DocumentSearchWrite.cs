@@ -50,16 +50,16 @@ namespace Cloudents.Infrastructure.Write
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(Document.Name)] = 3,
-                            [nameof(Document.Tags)] = 2,
-                            [nameof(Document.Content)] = 1,
+                            [nameof(Document.Name)] = 4,
+                            [nameof(Document.Tags)] = 3.5,
+                            [nameof(Document.Content)] = 3,
                         }),
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new TagScoringFunction(nameof(Document.Course),8, new TagScoringParameters(TagsCourseParameter)),
-                            new TagScoringFunction(nameof(Document.University),6, new TagScoringParameters(TagsUniversityParameter)),
-                            new TagScoringFunction(nameof(Document.Tags),4, new TagScoringParameters(TagsTagsParameter)),
+                            new TagScoringFunction(nameof(Document.Course),3, new TagScoringParameters(TagsCourseParameter)),
+                            new TagScoringFunction(nameof(Document.University),2, new TagScoringParameters(TagsUniversityParameter)),
+                            new TagScoringFunction(nameof(Document.Tags),1.5, new TagScoringParameters(TagsTagsParameter)),
                         }
                     }
                 },
