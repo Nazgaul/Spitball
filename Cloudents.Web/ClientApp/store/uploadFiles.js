@@ -67,7 +67,7 @@ const actions = {
         //and open new question
         setTimeout(()=>{
             dispatch('updateNewQuestionDialogState', true)
-        });
+        }, 300);
     },
     updateDialogState({commit}, val){
         commit('setDialogUploadState', val);

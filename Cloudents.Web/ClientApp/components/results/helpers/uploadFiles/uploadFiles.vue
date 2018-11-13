@@ -1,6 +1,6 @@
 <template>
     <v-flex xs12>
-        <v-icon class="close-upload-btn-icon" @click="confirmCloseOpen()">sbf-close</v-icon>
+            <v-icon class="close-upload-btn-icon" @click="confirmCloseOpen()">sbf-close</v-icon>
         <v-card :class="['sb-steps-wrap', isFirstStep ? 'px-2' : '0' ]">
             <v-stepper v-model="currentStep" class="sb-stepper">
                 <v-stepper-header class="sb-stepper-header" v-show="currentStep===1">

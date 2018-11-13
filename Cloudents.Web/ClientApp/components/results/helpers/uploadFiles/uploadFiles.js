@@ -95,7 +95,6 @@ export default {
     methods: {
         ...mapActions([
             'updateFile',
-            'updateLoginDialogState',
             'updateNewQuestionDialogState',
             'changeSelectPopUpUniState',
             'updateUploadFullMobile',
@@ -161,7 +160,6 @@ export default {
             if (step === 1) {
                 this.resetUploadData({});
                 this.resetFirstStepMobile();
-                this.clearChildrenData = true;
             }
             this.currentStep = step;
         }
