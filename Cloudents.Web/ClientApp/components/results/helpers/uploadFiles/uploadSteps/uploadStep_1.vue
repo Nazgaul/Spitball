@@ -98,7 +98,6 @@
             ...mapGetters({
                 getFileData: 'getFileData'
             }),
-
         },
         methods: {
             ...mapActions(['updateFile', 'updateUploadProgress', 'updateFileName', 'updateUploadFullMobile']),
@@ -114,7 +113,7 @@
                 let dbjs = document.createElement('script');
                 dbjs.id = "dropboxjs";
                 dbjs.async = false;
-                dbjs.setAttribute('data-app-key', 'mii3jtxg6616y9g');
+                dbjs.setAttribute('data-app-key', 'cfqlue614nyj8k2');
                 dbjs.src = "https://www.dropbox.com/static/api/1/dropins.js";
                 document.getElementsByTagName('head')[0].appendChild(dbjs);
                 dbjs.onload = () => {
