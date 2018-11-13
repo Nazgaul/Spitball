@@ -24,7 +24,6 @@ const actions = {
                 let item = {details: data.details, preview: data.preview};
                 let postfix;
                 if(!item.preview || item.preview.length === 0) {
-                    //need a test
                     let location = `${global.location.origin}/images/doc-preview-empty.png`;
                     item.preview.push(location);
                     item.details.isPlaceholder = true;
