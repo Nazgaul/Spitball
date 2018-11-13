@@ -105,7 +105,8 @@ export default {
             correctAnswer: 'correctAnswer',
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
-            updateQuestionSignalR: "updateQuestionSignalR"
+            updateQuestionSignalR: 'updateQuestionSignalR',
+            removeQuestionItemAction: 'removeQuestionItemAction'
         }),
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {
@@ -127,18 +128,19 @@ export default {
                             toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
                             showToaster: true,
                         });
+                        let objToDelete = {
+                            id: parseInt(this.$route.params.id)
+                        }
                         if (!this.typeAnswer) {
                             this.updateBalance(this.cardData.price);
                             this.$ga.event("Delete_question", "Homework help");
                             //ToDO change to router link use and not text URL
+                            this.removeQuestionItemAction(objToDelete)
                             this.$router.push('/ask')
                         } else {
                             //emit to root to update array of answers
                             this.$ga.event("Delete_answer", "Homework help");
-                            let obj = {
-                                id: this.$route.params.id
-                            }
-                            this.updateQuestionSignalR(obj);
+                            this.updateQuestionSignalR(objToDelete);
                             this.isDeleted = true
                         }
                     },
