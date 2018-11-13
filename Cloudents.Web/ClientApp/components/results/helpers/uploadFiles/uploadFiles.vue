@@ -70,6 +70,7 @@
         <sb-dialog :showDialog="confirmationDialog"
                    :popUpType="'confirmationDialog'"
                    :isPersistent="true"
+                   :activateOverlay="true"
                    :content-class="'confirmation-dialog'">
             <v-card class="confirm-card">
                 <v-card-title class="confirm-headline">

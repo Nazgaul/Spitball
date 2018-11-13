@@ -12,18 +12,7 @@
                     </div>
                 </v-flex>
                 <document-details :item="item"></document-details>
-                <!--<v-flex grow class="details-row">-->
-                    <!--<div class="details-wrap">-->
-                        <!--<span class="aligned">{{item.university}}-->
-                        <!--<v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>-->
-                        <!--</span>-->
-                        <!--<span class="aligned">{{item.course}}-->
-                        <!--<v-icon class="sb-icon-arrow">sbf-nav-arrow-right</v-icon>-->
-                        <!--</span>-->
-                        <!--<span class="aligned">{{item.professor}}</span>-->
-                    <!--</div>-->
-                <!--</v-flex>-->
-                <v-flex grow class="data-row">
+                   <v-flex grow class="data-row">
                     <div class="upvotes-counter">
                         <!--will follow-->
                     </div>
@@ -104,9 +93,10 @@
                   return this.item.views || 0
               }
             },
+            //TODO downloads for now is same as views till server will handle it
             docDownloads(){
                 if(this.item){
-                    return this.item.downloads || 0
+                    return this.item.views || 0
                 }
             },
 
