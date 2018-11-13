@@ -312,20 +312,10 @@
   <data name="sign_up_with_google" xml:space="preserve">
     <value>Sign Up with Google</value>
   </data>
-  <data name="sure_exit1" xml:space="preserve">
-    <value>Are you</value>
-  </data>
-  <data name="sure_exit2" xml:space="preserve">
-    <value>sure you</value>
-  </data>
-  <data name="sure_exit3" xml:space="preserve">
-    <value>you want</value>
-  </data>
-  <data name="sure_exit4" xml:space="preserve">
-    <value>to</value>
-  </data>
-  <data name="sure_exit5" xml:space="preserve">
-    <value>exit?</value>
+  <data name="sure_exit_mobile" xml:space="preserve">
+    <value>Are you sure 
+you want
+to &lt;b&gt;exit&lt;/b&gt;?</value>
   </data>
   <data name="terms_of_services" xml:space="preserve">
     <value>Terms of Services</value>
