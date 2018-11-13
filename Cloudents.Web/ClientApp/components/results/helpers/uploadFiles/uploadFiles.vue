@@ -15,7 +15,7 @@
                                        :key="`${n}-content`"
                                        :step="n">
                         <!--upload steps rendering-->
-                        <component :is="`upload-step_${n}`" :callBackmethods="callBackmethods" :clearData="clearChildrenData"></component>
+                        <component :is="`upload-step_${n}`" :curStep="n" :callBackmethods="callBackmethods"></component>
                     </v-stepper-content>
                     <div class="bottom-upload-controls" v-show="currentStep > 1">
                         <v-progress-linear
