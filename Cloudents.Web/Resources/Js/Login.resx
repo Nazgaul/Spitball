@@ -220,9 +220,6 @@
   <data name="need_account_text" xml:space="preserve">
     <value>Need an account?</value>
   </data>
-  <data name="need_an_account" xml:space="preserve">
-    <value>Need an account?</value>
-  </data>
   <data name="not_complete_registration" xml:space="preserve">
     <value>You didn't complete the registration process</value>
   </data>

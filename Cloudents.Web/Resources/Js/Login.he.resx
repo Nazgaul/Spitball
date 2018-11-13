@@ -214,10 +214,7 @@
     <value>הירשמו</value>
   </data>
   <data name="need_account_text" xml:space="preserve">
-    <value>זקוק לחשבון?</value>
-  </data>
-  <data name="need_an_account" xml:space="preserve">
-    <value>זקוק לחשבון?</value>
+    <value>עדיין אין לך חשבון?</value>
   </data>
   <data name="not_complete_registration" xml:space="preserve">
     <value>לא השלמת את תהליך ההרשמה</value>
