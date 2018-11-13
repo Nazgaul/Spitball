@@ -98,7 +98,7 @@ namespace Cloudents.Web.Api
             if (model.Phase == UploadPhase.Start)
             {
                 //we remove mime type check because if user doesn't have an application installed in the computer the mime type is empty
-                string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "ppt" };
+                string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "pptx" };
 
                 var extension = Path.GetExtension(model.Name)?.TrimStart('.');
 
