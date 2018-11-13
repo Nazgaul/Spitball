@@ -42,7 +42,7 @@
                     </v-list-tile> -->
                 </template>
                 <template slot="selection" slot-scope="{ item, parent, selected }">
-                   <v-chip class="chip-style" :class="{'dark-chip': !itemInList(item)}">
+                   <v-chip class="chip-style" :class="{'dark-chip': !itemInList(item), 'selected': selected}">
                        <span class="chip-button" @click="parent.selectItem(item)">
                            {{!!item.text ? item.text : item}} <v-icon class="chip-close">sbf-close</v-icon>
                        </span>
@@ -151,6 +151,11 @@ export default {
         background-color: rgba(68, 82, 252, 0.09);
         &.dark-chip{
             background-color: rgba(68, 82, 252, 0.27);
+        }
+        &.selected{
+            -webkit-box-shadow: 0px 2px 4px 0 rgba(0,0,0,.2);
+            -moz-box-shadow: 0px 2px 4px 0 rgba(0,0,0,.2);
+            box-shadow: 0px 2px 4px 0 rgba(0,0,0,.2);
         }
     }
     .chip-button{
