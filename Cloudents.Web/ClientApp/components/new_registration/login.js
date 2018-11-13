@@ -137,6 +137,8 @@ export default {
             }
         },
         '$route': function (form, to) {
+            //V8Fix - you should use $route.name and not path - what happen if we change the path?
+            //Also why not const and in one place
             if (this.$route.path === '/signin') {
                 return this.isSignIn = true;
             } else {
@@ -158,6 +160,11 @@ export default {
             return this.isSignIn
         },
         isShowProgress() {
+            //V8Fix  - look at the code below
+            //let steps = [7, 8, 9, 10];
+            //steps.indexOf(this.stepNumber) !== -1
+            //learn : https://frontstuff.io/a-better-way-to-perform-multiple-comparisons-in-javascript
+
             let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8 && this.stepNumber !== 9 && this.stepNumber !== 10;
             return filteredSteps
         },
@@ -227,6 +234,8 @@ export default {
         global.onpopstate = (event) => {
             this.goBackStep()
         };
+        //v8Fix -var self = this and use self. this way we mimify the code
+
         //event liseners for all steps
         this.$on('changeStep', (stepName) => {
             this.changeStepNumber(stepName);
@@ -250,6 +259,7 @@ export default {
         this.$on('updateCountryCodeList', (countryCodes) => {
             this.phone.countryCode = countryCodes;
         })
+        
         let path = this.$route.path.toLowerCase();
         //check if returnUrl exists
         if (!!this.$route.query.returnUrl) {
@@ -258,11 +268,15 @@ export default {
         if (this.$route.query && this.$route.query.step) {
             let step = this.$route.query.step;
             this.changeStepNumber(step);
+              //V8Fix - you should use $route.name and not path - what happen if we change the path?
+            //why noe use var in line 263?
         } else if (this.$route.path === '/signin') {
             this.isSignIn = true;
             this.changeStepNumber('termandstart', true);
-
+  //V8Fix - you should use $route.name and not path - what happen if we change the path?
         } else if (path === '/resetpassword') {
+
+            //v8Fix - please use js convension this.$route.query['id'] || ''
             this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
             this.ID = this.$route.query['Id'] ? this.$route.query['Id'] : '';
             this.changeStepNumber('createpassword', true);

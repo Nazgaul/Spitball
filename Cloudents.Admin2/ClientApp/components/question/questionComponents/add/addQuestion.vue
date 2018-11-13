@@ -29,7 +29,9 @@
                 <button class="btn-upload">Upload File</button>
             </file-upload>
             <ul>
-                <li v-for="(file, index) in files" :key="index">{{file.name}} - Error: {{file.error}}, Success: {{file.success}}</li>
+                <li style="list-style: none;" v-for="(file, index) in files" :key="index">
+                    {{file.name}} <span v-if="file.error">- Error: {{file.error}}</span> <span v-if="file.success">Success: {{file.success}}</span> 
+                </li>
             </ul>
         </div>
 
@@ -80,7 +82,15 @@ export default {
                 this.$toaster.error("Error: No Content");
                 return;
             }
-            addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country).then(()=>{
+            let uploads = [];
+            if(this.files.length > 0){
+                this.files.forEach(file=>{
+                    if(!!file.response.file){
+                        uploads.push(file.response.file)
+                    }
+                })
+            } 
+            addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, uploads).then(()=>{
                 this.$toaster.success("Success on Adding Question");
             }, (err)=>{
                 console.log(err);
@@ -94,14 +104,16 @@ export default {
                 this.$refs.upload.active = true
                 }
             }
-            // Upload error
-            if (newFile.error !== oldFile.error) {
-            console.log('error', newFile.error, newFile)
-            }
+            if(!!oldFile){
+                // Upload error
+                if (newFile.error !== oldFile.error) {
+                    console.log('error', newFile.error, newFile)
+                }
 
-            // Uploaded successfully
-            if (newFile.success !== oldFile.success) {
-            console.log('success', newFile.success, newFile)
+                // Uploaded successfully
+                if (newFile.success !== oldFile.success) {
+                    console.log('success', newFile.success, newFile)
+                }
             }
         },
         inputFilter: function (newFile, oldFile, prevent) {

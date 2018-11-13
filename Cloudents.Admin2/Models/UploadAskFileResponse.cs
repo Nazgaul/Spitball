@@ -4,11 +4,11 @@ namespace Cloudents.Admin2.Models
 {
     public class UploadAskFileResponse
     {
-        public UploadAskFileResponse(IEnumerable<string> files)
+        public UploadAskFileResponse(string file)
         {
-            Files = files;
+            File = file;
         }
 
-        public IEnumerable<string> Files { get; set; }
+        public string File { get; set; }
     }
 }
