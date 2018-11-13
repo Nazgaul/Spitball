@@ -104,7 +104,8 @@ export default {
             'delete': 'deleteQuestion',
             correctAnswer: 'correctAnswer',
             updateBalance: 'updateUserBalance',
-            updateToasterParams: 'updateToasterParams'
+            updateToasterParams: 'updateToasterParams',
+            updateQuestionSignalR: "updateQuestionSignalR"
         }),
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {
@@ -134,6 +135,10 @@ export default {
                         } else {
                             //emit to root to update array of answers
                             this.$ga.event("Delete_answer", "Homework help");
+                            let obj = {
+                                id: this.$route.params.id
+                            }
+                            this.updateQuestionSignalR(obj);
                             this.isDeleted = true
                         }
                     },
