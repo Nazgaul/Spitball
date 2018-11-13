@@ -110,7 +110,6 @@ namespace Cloudents.Admin2.Api
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
 
-            var fileNames = new List<string>();
             var formFile = model.File;
             //foreach (var formFile in model.File)
             //{
@@ -133,10 +132,10 @@ namespace Cloudents.Admin2.Api
                 await blobProvider
                     .UploadStreamAsync(fileName, sr, formFile.ContentType, false, 60 * 24, token);
 
-                fileNames.Add(fileName);
+                return new UploadAskFileResponse(fileName);
             }
             // }
-            return new UploadAskFileResponse(fileNames);
+           
         }
 
     }
