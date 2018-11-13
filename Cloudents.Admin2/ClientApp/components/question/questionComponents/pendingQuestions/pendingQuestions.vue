@@ -1,15 +1,7 @@
 <template>
     <div>
         <h1>Pending Questions</h1>
-        <h3>The emails of users that their question were deleted are on the left</h3>
-        <h3>after sending an email, refresh the page to clear the list</h3>
         <div class="page-container">
-            <div class="deleted-emails" v-show="deletedMails.length > 0">
-                <ul>
-                    <span class="bold">Deleted Emails</span> 
-                    <li v-for="(email, index) in deletedMails" :key="index">{{email}}</li>
-                </ul>
-            </div>
         <div class="question-co">
             <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
                 <div class="question-left-body">
