@@ -6,8 +6,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
-using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
@@ -21,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -93,10 +90,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var sr = File.OpenRead(@"C:\Users\Ram\Downloads\file-148a9417-be00-431a-a6da-4e970fd0639c-625549.pdf");
-            var pdfProcessor = new PdfProcessor();
-           await pdfProcessor.ProcessFilesAsync(sr, (stream, s) => { return Task.CompletedTask; },
-               s => { return Task.CompletedTask;}, i => { return Task.CompletedTask;}, token);
+            var _bus = _container.Resolve<ISearchServiceWrite<Cloudents.Core.Entities.Search.Document>>();
+            await _bus.CreateOrUpdateAsync(default);
+            // var sr = File.OpenRead(@"C:\Users\Ram\Downloads\file-148a9417-be00-431a-a6da-4e970fd0639c-625549.pdf");
+            // var pdfProcessor = new PdfProcessor();
+            //await pdfProcessor.ProcessFilesAsync(sr, (stream, s) => { return Task.CompletedTask; },
+            //    s => { return Task.CompletedTask;}, i => { return Task.CompletedTask;}, token);
             //await ReduProcessing();
             //blobClient.ListBlobsSegmentedAsync("")
             //await _bus.UpdateNumberOfViews(1, default);
