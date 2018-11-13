@@ -53,7 +53,7 @@
                             </v-btn>
                             <v-btn v-show="currentStep ===7" flat
                                    :class="['sb-back-flat-btn', $vuetify.breakpoint.smAndDown ? 'sb-close-mobile' : '']"
-                                   @click="closeDialog()">
+                                   @click="closeUpload()">
                                 <span v-language:inner>upload_files_btn_close</span>
                             </v-btn>
                             <v-btn v-show="currentStep ===7" round outline class="another-doc" @click="changeStep(1)">
