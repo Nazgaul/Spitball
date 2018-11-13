@@ -1,18 +1,20 @@
 <template>
     <div>
         <h1>Questions</h1>
-            <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
-                <div class="question-header">
-                    <span style="flex-grow:5;" title="Question Text">{{question.text}}</span>
-                    <span><button class="btn-mark" value="Open" @click="openQuestion(question.url)" title="Open Question">Open</button></span>
-                    <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
-                </div>
-                <div class="question-body" v-for="answer in question.answers" :key="answer.id">
-                    <span class="answer-text" title="Answer Text">{{answer.text}}</span>
-                    <span style="justify-content: right;text-align: right; min-width: 65px;"><button class="btn-mark" value="Open" @click="acceptQuestion(question, answer)" title="Accept answer">Accept</button></span>
-                </div>
+        <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
+            <div class="question-header">
+                <span style="flex-grow:5;" title="Question Text">{{question.text}}</span>
+                <span><button class="btn-mark" value="Open" @click="openQuestion(question.url)" title="Open Question">Open</button></span>
+                <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
             </div>
-            <div v-show="questions.length === 0">Loading question list, please wait...</div>
+            <div class="question-body" v-for="answer in question.answers" :key="answer.id">
+                <span class="answer-text" title="Answer Text">{{answer.text}}</span>
+                <span style="justify-content: right;text-align: right; min-width: 65px;"><button class="btn-mark" value="Open" @click="acceptQuestion(question, answer)" title="Accept answer">Accept</button></span>
+            </div>
+        </div>
+
+        <div v-show="questions.length === 0 && !loading">No question to mark as correct</div>
+        <div v-show="loading">Loading question list, please wait...</div>
     </div>
 </template>
 
