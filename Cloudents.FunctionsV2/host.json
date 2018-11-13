@@ -1,5 +1,5 @@
 {
   "version": "2.0",
-  //"functions": [ "SystemFunction" ]
+  "functions": [ "QuestionPopulate" ]
   //"functions": [ "QuestionSearchSync", "SearchSync", "SearchSyncCreateIndex", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }

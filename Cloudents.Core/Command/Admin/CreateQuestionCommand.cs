@@ -7,6 +7,15 @@ namespace Cloudents.Core.Command.Admin
 {
     public class CreateQuestionCommand : ICommand
     {
+        public CreateQuestionCommand(QuestionSubject subjectId, string text, decimal price, [CanBeNull] IEnumerable<string> files, string country)
+        {
+            SubjectId = subjectId;
+            Text = text;
+            Price = price;
+            Files = files;
+            Country = country;
+        }
+
         public QuestionSubject SubjectId { get; set; }
         public string Text { get; set; }
 
@@ -14,5 +23,7 @@ namespace Cloudents.Core.Command.Admin
 
         [CanBeNull]
         public IEnumerable<string> Files { get; set; }
+
+        public  string Country { get; set; }
     }
 }

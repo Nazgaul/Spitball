@@ -2,7 +2,6 @@
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
-using Cloudents.Core.Storage.Dto;
 using JetBrains.Annotations;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -21,18 +20,6 @@ namespace Cloudents.Infrastructure.Storage
         public QueueProvider(ICloudStorageProvider storageProvider)
         {
             _queueClient = storageProvider.GetQueueClient();
-
-        }
-
-        /// <summary>
-        /// Insert new question from admin to queue-  this is different because of the nature of the pool
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public Task InsertMessageAsync(NewQuestionMessage obj, CancellationToken token)
-        {
-            return InsertMessageAsync(obj, QueueName.QuestionQueue, token);
 
         }
 
