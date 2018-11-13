@@ -9,8 +9,8 @@
         <div class="text-area-container" v-if="showTextArea">
             <textarea v-model="subjectContent" placeholder="Content of text..." cols="30" rows="10"></textarea>    
         </div>
-        <div class="select-type-container">
-            <select class="select-type" v-model="tokenType">
+        <div class="select-type-container" v-if="showTextArea">
+            <select class="select-type" v-model="country">
                 <option value="Us">US</option>
                 <option value="Il">IL</option>
             </select>
@@ -39,8 +39,6 @@
                 <input class="question-price" type="number" v-model="questionPrice" min="1"/>
             </div>
         </div>
-        
-        
 
         <div class="add-container" v-if="showPriceSetter">
             <button class="btn-add" @click="addQ">Add</button>
@@ -61,7 +59,8 @@ export default {
             questionPrice: 1,
             showPriceSetter:false,
             files: [],
-            filesNames: []
+            filesNames: [],
+            country: "Us"
         }
     },
     methods:{
@@ -81,7 +80,7 @@ export default {
                 this.$toaster.error("Error: No Content");
                 return;
             }
-            addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice).then(()=>{
+            addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country).then(()=>{
                 this.$toaster.success("Success on Adding Question");
             }, (err)=>{
                 console.log(err);
@@ -201,6 +200,16 @@ export default {
             color: #eaf0e9;
         }
     }
-    
+    .select-type-container{
+        .select-type{
+            border: none;
+            border-radius: 25px;
+            height: 25px;
+            margin-top: 10px;
+            width: 90px;
+            padding: 5px;
+            outline: none;
+        }
+    }    
 }
 </style>
