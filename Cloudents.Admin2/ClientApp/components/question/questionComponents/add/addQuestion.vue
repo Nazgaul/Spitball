@@ -9,6 +9,12 @@
         <div class="text-area-container" v-if="showTextArea">
             <textarea v-model="subjectContent" placeholder="Content of text..." cols="30" rows="10"></textarea>    
         </div>
+        <div class="select-type-container">
+            <select class="select-type" v-model="tokenType">
+                <option value="Us">US</option>
+                <option value="Il">IL</option>
+            </select>
+        </div>
         <div class="upload-container" v-if="showTextArea">
             <file-upload
                 ref="upload"

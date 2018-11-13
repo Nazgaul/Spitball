@@ -7218,6 +7218,12 @@
       "integrity": "sha512-x3LV3wdmmERhVCYy3quqA57NJW7F3i6faas++pJQWtknWT+n7k30F4TVdHvCLn48peTJFRvCpxs3UuFPqgeELg==",
       "dev": true
     },
+    "vue-upload-component": {
+      "version": "2.8.15",
+      "resolved": "https://registry.npmjs.org/vue-upload-component/-/vue-upload-component-2.8.15.tgz",
+      "integrity": "sha512-H5qjFHlWa6I8d92Vx3f1vew6daNXL2OE6K/iSOUhlJzhC+iyEqt4fxWCeELh/WOfpcTNdujTUC6HVl/JoZI34g==",
+      "dev": true
+    },
     "vuex": {
       "version": "3.0.1",
       "resolved": "https://registry.npmjs.org/vuex/-/vuex-3.0.1.tgz",
