@@ -10,6 +10,8 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Domain;
 using Cloudents.Web.Models;
+using Cloudents.Core.Storage;
+using Cloudents.Core.Message.System;
 
 namespace Cloudents.Web.Controllers
 {
@@ -17,13 +19,14 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class UrlController : Controller
     {
-       // private readonly IServiceBusProvider _serviceBus;
+        private readonly IQueueProvider _queueProvider;
         private readonly ILogger _logger;
         private readonly IDomainParser _domainParser;
+       
 
-        public UrlController(/*IServiceBusProvider serviceBus,*/ ILogger logger, IDomainParser domainParser)
+        public UrlController(IQueueProvider queueProvider, ILogger logger, IDomainParser domainParser)
         {
-            //_serviceBus = serviceBus;
+            _queueProvider = queueProvider;
             _logger = logger;
             _domainParser = domainParser;
         }
@@ -63,8 +66,10 @@ namespace Cloudents.Web.Controllers
                     throw new ArgumentException("invalid url");
             }
          
-            var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());
-
+            //var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());
+            
+              
+            _queueProvider.InsertMessageAsync(new RedirectUserMessage(model.Host, model.Url, referer, model.Location, userIp.ToString()), token);
            // await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
 
             if (model.Url.Host.Contains("courseHero", StringComparison.OrdinalIgnoreCase))
