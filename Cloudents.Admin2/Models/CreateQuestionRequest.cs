@@ -22,6 +22,9 @@ namespace Cloudents.Admin2.Models
         /// the country of the question - can be us or il
         /// </summary>
         [Required] public Country Country { get; set; }
+
+        [MaxLength(4)]
+        public string[] Files { get; set; }
     }
 
     public enum Country
