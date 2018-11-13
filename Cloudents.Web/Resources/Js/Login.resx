@@ -168,6 +168,13 @@
   <data name="didnt_get_sms" xml:space="preserve">
     <value>Didn’t get an sms?</value>
   </data>
+  <data name="email_sent" xml:space="preserve">
+    <value>Email sent</value>
+  </data>
+  <data name="end_privacy_policy" xml:space="preserve">
+    <value></value>
+    <comment>do not translate to english</comment>
+  </data>
   <data name="enter_the_confirm_code" xml:space="preserve">
     <value>Enter the confirmation code</value>
   </data>
@@ -332,6 +339,9 @@ to &lt;b&gt;exit&lt;/b&gt;?</value>
   <data name="until_activate_account3" xml:space="preserve">
     <value>until you activate your account</value>
   </data>
+  <data name="verification_code_sent_to_phone" xml:space="preserve">
+    <value>A verification code was sent to your phone</value>
+  </data>
   <data name="welcome_back" xml:space="preserve">
     <value>Welcome back</value>
   </data>
@@ -346,11 +356,5 @@ to &lt;b&gt;exit&lt;/b&gt;?</value>
   </data>
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
     <value>You can spend them to get help with your</value>
-  </data>
-  <data name="email_sent" xml:space="preserve">
-    <value>Email sent</value>
-  </data>
-  <data name="verification_code_sent_to_phone" xml:space="preserve">
-    <value>A verification code was sent to your phone</value>
   </data>
 </root>
