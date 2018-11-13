@@ -4,7 +4,8 @@ import {deleteQuestion} from '../delete/deleteQuestionService'
 export default {
     data(){
         return {
-            questions:[],
+            questions: [],
+            loading: true
         }
     },
     methods:{     
@@ -30,6 +31,7 @@ export default {
     created(){
         getAllQuesitons().then((questionsResp)=>{
             this.questions = questionsResp;
+            this.loading = false;
         })
     }
 }
