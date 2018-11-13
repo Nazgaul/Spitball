@@ -108,7 +108,7 @@ let routes2 = [
         },
         props: bookDetailsProps
     },
-    //TODO doc preview refactoring header
+    //TODO doc preview refactoring header RAMRAM
     {
         //document/{universityName}/{courseName}/{id:long}/{name}
         path: "/note/:universityName/:courseName/:id/:name",
@@ -155,7 +155,6 @@ let routes2 = [
         components: {
             default: wallet,
             header: pageHeader
-            //header: previewHeader
         },
         name: "wallet",
         meta: {
