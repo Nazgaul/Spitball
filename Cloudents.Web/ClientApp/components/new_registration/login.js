@@ -19,8 +19,11 @@ import step_11 from "./steps/step_11.vue";
 
 import { LanguageService } from "../../services/language/languageService";
 
-const defaultSubmitRoute = {path: '/ask'};
+
+const defaultSubmitRoute = { path: '/ask' };
 const initialPointsNum = 100;
+
+
 var auth2;
 export default {
     components: {
@@ -44,25 +47,29 @@ export default {
     },
     data() {
         return {
+            resource: {
+                mobile: this.getKey("sure_exit_mobile")
+
+            },
             passScoreObj: {
                 0: {
-                    name: LanguageService.getValueByKey("login_password_indication_weak"),
+                    name: this.getKey("password_indication_weak"),
                     className: "bad"
                 },
                 1: {
-                    name: LanguageService.getValueByKey("login_password_indication_weak"),
+                    name: this.getKey("password_indication_weak"),
                     className: "bad"
                 },
                 2: {
-                    name: LanguageService.getValueByKey("login_password_indication_strong"),
+                    name: this.getKey("password_indication_strong"),
                     className: "good"
                 },
                 3: {
-                    name: LanguageService.getValueByKey("login_password_indication_strong"),
+                    name: this.getKey("password_indication_strong"),
                     className: "good"
                 },
                 4: {
-                    name: LanguageService.getValueByKey("login_password_indication_strongest"),
+                    name: this.getKey("password_indication_strongest"),
                     className: "best"
                 }
             },
@@ -114,7 +121,7 @@ export default {
                 "emailconfirmedpass": 8,
                 "createpassword": 9,
                 "emailpassword": 10,
-                "validateemail" : 11
+                "validateemail": 11
             }
         }
     },
@@ -130,6 +137,8 @@ export default {
             }
         },
         '$route': function (form, to) {
+            //V8Fix - you should use $route.name and not path - what happen if we change the path?
+            //Also why not const and in one place
             if (this.$route.path === '/signin') {
                 return this.isSignIn = true;
             } else {
@@ -151,6 +160,11 @@ export default {
             return this.isSignIn
         },
         isShowProgress() {
+            //V8Fix  - look at the code below
+            //let steps = [7, 8, 9, 10];
+            //steps.indexOf(this.stepNumber) !== -1
+            //learn : https://frontstuff.io/a-better-way-to-perform-multiple-comparisons-in-javascript
+
             let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8 && this.stepNumber !== 9 && this.stepNumber !== 10;
             return filteredSteps
         },
@@ -163,9 +177,11 @@ export default {
         }
     },
     methods: {
-        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
-        ...mapActions({updateToasterParams: 'updateToasterParams', updateCampaign: 'updateCampaign'}),
-
+        ...mapMutations({ updateLoading: "UPDATE_LOADING" }),
+        ...mapActions({ updateToasterParams: 'updateToasterParams', updateCampaign: 'updateCampaign' }),
+        getKey(s) {
+            return LanguageService.getValueByKey("login_" + s);
+        },
         //do not change step, only from here
         changeStepNumber(param, skipPushState) {
             let step = param.toLowerCase();
@@ -193,7 +209,7 @@ export default {
         },
         $_back() {
             let url = this.toUrl || defaultSubmitRoute;
-            this.$router.push({path: `${url.path }`});
+            this.$router.push({ path: `${url.path}` });
         },
         showDialogFunc() {
             this.showDialog = true
@@ -218,6 +234,8 @@ export default {
         global.onpopstate = (event) => {
             this.goBackStep()
         };
+        //v8Fix -var self = this and use self. this way we mimify the code
+
         //event liseners for all steps
         this.$on('changeStep', (stepName) => {
             this.changeStepNumber(stepName);
@@ -238,22 +256,27 @@ export default {
                 this.camefromCreate = false
             }
         });
-        this.$on('updateCountryCodeList', (countryCodes)=>{
+        this.$on('updateCountryCodeList', (countryCodes) => {
             this.phone.countryCode = countryCodes;
         })
+        
         let path = this.$route.path.toLowerCase();
         //check if returnUrl exists
         if (!!this.$route.query.returnUrl) {
-            this.toUrl = {path: `${this.$route.query.returnUrl}`, query: {term: ''}};
+            this.toUrl = { path: `${this.$route.query.returnUrl}`, query: { term: '' } };
         }
         if (this.$route.query && this.$route.query.step) {
             let step = this.$route.query.step;
             this.changeStepNumber(step);
+              //V8Fix - you should use $route.name and not path - what happen if we change the path?
+            //why noe use var in line 263?
         } else if (this.$route.path === '/signin') {
             this.isSignIn = true;
             this.changeStepNumber('termandstart', true);
-
+  //V8Fix - you should use $route.name and not path - what happen if we change the path?
         } else if (path === '/resetpassword') {
+
+            //v8Fix - please use js convension this.$route.query['id'] || ''
             this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
             this.ID = this.$route.query['Id'] ? this.$route.query['Id'] : '';
             this.changeStepNumber('createpassword', true);

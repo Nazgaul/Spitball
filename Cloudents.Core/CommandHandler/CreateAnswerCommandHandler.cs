@@ -34,15 +34,7 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
         {
             var question = await _questionRepository.GetAsync(message.QuestionId, token).ConfigureAwait(false);
-            var nakeadstring = Regex.Replace(message.Text, @"[^0-9a-zA-Z]", "");
-            foreach (var t in question.Answers)
-            {
-                var check = Regex.Replace(t.Text, @"[^0-9a-zA-Z]", "");
-                if (nakeadstring == check)
-                {
-                    throw new DuplicateRowException("Duplicate answer");
-                }
-            }
+           
             if (question == null)
             {
                 throw new ArgumentException("question doesn't exits");
@@ -85,11 +77,22 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("user cannot give more then one answer");
             }
 
-            if (question.Answers?.Any(a => string.Equals(a.Text, message.Text, StringComparison.OrdinalIgnoreCase)) ==
-                true)
+            var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
+            var nakeadstring = Regex.Replace(message.Text, regex.ToString(), "");
+            foreach (var t in question.Answers)
             {
-                throw new DuplicateRowException();
+                var check = Regex.Replace(t.Text, regex.ToString(), "");
+                if (nakeadstring == check)
+                {
+                    throw new DuplicateRowException("Duplicate answer");
+                }
             }
+
+            //if (question.Answers?.Any(a => string.Equals(a.Text, message.Text, StringComparison.OrdinalIgnoreCase)) ==
+            //    true)
+            //{
+            //    throw new DuplicateRowException();
+            //}
             var answer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
             var id = answer.Id;
