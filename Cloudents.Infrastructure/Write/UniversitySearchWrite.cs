@@ -118,15 +118,15 @@ namespace Cloudents.Infrastructure.Write
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
                             [nameof(Core.Entities.Search.University.Extra)] = 3,
-                            [nameof(Core.Entities.Search.University.Name)] = 2,
-                            [nameof(Core.Entities.Search.University.Prefix)] = 1,
+                            [nameof(Core.Entities.Search.University.Name)] = 2.5,
+                            [nameof(Core.Entities.Search.University.Prefix)] = 2,
 
                         }),
 
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new TagScoringFunction(nameof(Core.Entities.Search.University.Country),5, new TagScoringParameters(CountryTagScoringParameters))
+                            new TagScoringFunction(nameof(Core.Entities.Search.University.Country),1.5, new TagScoringParameters(CountryTagScoringParameters))
                         //    new DistanceScoringFunction(
                         //        nameof(Core.Entities.Search.University.GeographyPoint),
                         //        5,DistanceScoringParameter,10,ScoringFunctionInterpolation.Linear),
