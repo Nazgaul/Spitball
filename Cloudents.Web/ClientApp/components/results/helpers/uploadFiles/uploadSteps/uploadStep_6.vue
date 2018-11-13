@@ -12,7 +12,7 @@
                     <span class="item-name" v-language:inner>upload_files_label_school</span>
                 </div>
                 <div>
-                    <span class="school-name" v-line-clamp="2">{{getSchoolName}}</span>
+                    <span class="school-name" v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getSchoolName}}</span>
                 </div>
 
             </div>
@@ -25,7 +25,7 @@
                     <v-icon class="final-icon">sbf-classes-new</v-icon>
                     <span class="item-name"v-language:inner>upload_files_class</span>
                 </div>
-                <span class="class-name"  v-line-clamp="2">{{getFileData.course}}</span>
+                <span class="class-name"  v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getFileData.course}}</span>
             </div>
         </div>
         <div class="upload-row-3 final-row">

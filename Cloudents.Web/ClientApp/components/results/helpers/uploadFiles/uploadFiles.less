@@ -244,10 +244,11 @@
     font-size: 14px;
     cursor: pointer;
     @media (max-width: @screen-xs) {
-      top: 3px;
+      top: 0px;
       right: 3px;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
+      font-size: 12px;
     }
   }
   .sb-steps-wrap {
@@ -271,10 +272,11 @@
         justify-content: center;
         align-items: center;
         height: 100%;
-        padding-top: 6px;
+        //padding-top: 6px;
         background: @color-white;
         @media (max-width: @screen-xs) {
           flex-direction: column;
+
         }
 
         &.mobile-controls-last {
@@ -392,6 +394,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            padding-left: 0;
           }
           .arrow-back {
             font-size: 16px;
@@ -507,7 +510,7 @@
               align-items: center;
               justify-content: center;
               @media (max-width: @screen-xs) {
-                padding-top: 16px;
+                padding-top: 44px;
               }
               &.referal-row-1 {
                 align-items: center;
@@ -726,7 +729,7 @@
                 align-items: flex-start;
                 max-width: @maxWidthForm;
                 @media (max-width: @screen-xs) {
-                  padding-top: 16px;
+                  padding-top: 44px;
                 }
                 .sb-title {
                   font-size: 18px;
@@ -906,7 +909,7 @@
               .upload-row-1 {
                 padding-top: 0;
                 @media (max-width: @screen-xs) {
-                  padding-top: 16px;
+                  padding-top: 44px;
                 }
                 .sb-title {
                   font-weight: 600;
@@ -1120,6 +1123,8 @@
                 .final-item-wrap {
                   margin-bottom: 14px;
                   @media (max-width: @screen-xs) {
+                    width: 100%;
+                    max-width: 75px;
                     margin-bottom: 0;
                     margin-right: 16px;
 
@@ -1131,6 +1136,7 @@
                     align-items: center;
                     @media (max-width: @screen-xs) {
                       flex-direction: row;
+                      justify-content: end;
                     }
                   }
                   .final-icon {
@@ -1185,7 +1191,7 @@
                 align-items: flex-start;
                 max-width: @maxWidthForm;
                 @media (max-width: @screen-xs) {
-                  padding-top: 16px;
+                  padding-top: 44px;
                 }
                 &.referal-row-1 {
                   align-items: center;
