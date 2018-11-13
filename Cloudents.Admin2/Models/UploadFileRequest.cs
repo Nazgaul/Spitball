@@ -5,6 +5,6 @@ namespace Cloudents.Admin2.Models
 {
     public class UploadAskFileRequest
     {
-        public IEnumerable<IFormFile> File { get; set; }
+        public IFormFile File { get; set; }
     }
 }
