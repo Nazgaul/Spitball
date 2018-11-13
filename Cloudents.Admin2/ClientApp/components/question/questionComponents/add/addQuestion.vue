@@ -29,7 +29,7 @@
                 <button class="btn-upload">Upload File</button>
             </file-upload>
             <ul>
-                <li v-for="(file, index) in files" :key="index">
+                <li style="list-style: none;" v-for="(file, index) in files" :key="index">
                     {{file.name}} <span v-if="file.error">- Error: {{file.error}}</span> <span v-if="file.success">Success: {{file.success}}</span> 
                 </li>
             </ul>
@@ -104,14 +104,16 @@ export default {
                 this.$refs.upload.active = true
                 }
             }
-            // Upload error
-            if (newFile.error !== oldFile.error) {
-                console.log('error', newFile.error, newFile)
-            }
+            if(!!oldFile){
+                // Upload error
+                if (newFile.error !== oldFile.error) {
+                    console.log('error', newFile.error, newFile)
+                }
 
-            // Uploaded successfully
-            if (newFile.success !== oldFile.success) {
-                console.log('success', newFile.success, newFile)
+                // Uploaded successfully
+                if (newFile.success !== oldFile.success) {
+                    console.log('success', newFile.success, newFile)
+                }
             }
         },
         inputFilter: function (newFile, oldFile, prevent) {
