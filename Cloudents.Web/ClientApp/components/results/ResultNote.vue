@@ -21,14 +21,14 @@
                             <v-icon class="doc mr-2">sbf-document-note</v-icon>
                             <span class="doc-title" v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 1 ">{{item.title}}</span>
                         </div>
-                        <div class="content-text">
+                        <div class="content-text" v-show="item.snippet">
                             <span v-line-clamp="2">{{item.snippet}}</span>
                         </div>
                     </div>
                 </v-flex>
                 <v-flex grow class="doc-details">
                     <div class="author-info-date">
-                        <span class="autor">By {{authorName}}</span>
+                        <span class="autor" v-show="authorName"  v-language:inner>headerDocument_item_by</span>&nbsp; {{authorName}}
                         <span class="date"></span>
                     </div>
                     <div class="doc-actions-info">
