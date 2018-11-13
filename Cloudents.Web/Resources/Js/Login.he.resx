@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="agree" xml:space="preserve">
-    <value>אני מסכים לאמור ב-?? של ספיטבול</value>
+    <value>אני מסכים לאמור ב-</value>
   </data>
   <data name="already_have_account" xml:space="preserve">
     <value>האם כבר יש לך חשבון?</value>
@@ -351,5 +351,8 @@
   </data>
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
     <value>תוכל להשתמש בהם כדי לקבל עזרה לגבי</value>
+  </data>
+  <data name="end_privacy_policy" xml:space="preserve">
+    <value>של ספיטבול</value>
   </data>
 </root>

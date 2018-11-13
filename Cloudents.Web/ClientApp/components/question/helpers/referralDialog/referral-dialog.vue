@@ -15,7 +15,7 @@
                     </button>
                 </div>
             </div>
-            <div style="margin-bottom: 20px;">
+            <div class="text-style-wrap" style="margin-bottom: 20px;">
                 <span class="text-style" v-language:inner>referralDialog_share_with</span>
             </div>
             <div class="share-icon-container">
