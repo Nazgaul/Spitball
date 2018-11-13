@@ -30,11 +30,15 @@
                             <div class="upload upload-result-file">
                                 <div class="file-item">
                                     <v-icon v-if="!progressShow">sbf-terms</v-icon>
-                                    <div v-else class="dot-flashing"></div>
-                                    <span class="upload-file-name ml-4 mr-3">{{getFileData.name}}</span>
+                                    <div v-else class="load-container">
+                                        <div class="dot-flashing"></div>
+                                    </div>
+                                    <span class="upload-file-name mr-3">{{getFileData.name}}</span>
                                     <!--<v-icon class="sb-close">sbf-close</v-icon>-->
                                 </div>
                             </div>
+                            <!--Do not remove pseudo el for bnt centering-->
+                            <div style="width: 96px; height: 36px; visibility: hidden; margin: 6px 8px;" v-if="currentStep === 2"></div>
                             <v-btn round v-if="currentStep > 2 && currentStep !==7" flat class="sb-back-flat-btn"
                                    @click="previousStep(step)">
                                 <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>

@@ -241,7 +241,7 @@
     right: 16px;
     top: 21px;
     z-index: 99;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     @media (max-width: @screen-xs) {
       top: 3px;
@@ -329,6 +329,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            .load-container{
+              width: auto;
+              margin-right: 12px;
+            }
             .sbf {
               color: @labelColor;
               font-size: 22px;
@@ -338,6 +342,7 @@
               }
             }
             .upload-file-name {
+              margin-left: 12px;
               color: @colorBlackNew;
               font-size: 13px;
 
@@ -356,9 +361,12 @@
           height: @buttonHeigh;
           &[disabled] {
             color: @color-white !important;
+            .credit-card{
+              color: @color-white !important;
+            }
           }
           &.sell {
-            width: 202px;
+            width: 223px;
             padding: 0 16px;
             @media (max-width: @screen-xs) {
               width: 100%;
@@ -472,6 +480,11 @@
           }
           &.step-1 {
             margin-bottom: 12px;
+
+            .upload-row-2{
+              flex-grow: 1;
+            }
+
           }
           //background-color: @stepContentBackground;
           .sb-step-card {
@@ -487,7 +500,7 @@
               min-height:unset;
             }
             .upload-row-1 {
-              padding-top: 44px;
+              padding-top: 24px;
               display: flex;
               flex: 0 0 100%;
               flex-direction: row;
@@ -551,6 +564,7 @@
                       }
                       .link-container {
                         width: 100%;
+                        margin-top: 0;
                         .referral-input {
                           min-width: 320px;
                           @media (max-width: @screen-xs) {
@@ -581,7 +595,7 @@
                       }
 
                     }
-                    .text-style {
+                    .text-style-wrap {
                       display: none;
                     }
                   }
@@ -627,7 +641,7 @@
               &.referal-row-3 {
                 display: flex;
                 flex-direction: column;
-                padding-top: 48px;
+                padding-top: 72px;
                 @media (max-width: @screen-xs) {
                   padding-top: 64px;
 
@@ -869,6 +883,7 @@
                     margin-left: 0;
                     margin-right: 8px;
                     font-size: 12px;
+                    border-color: @colorInputNotFocused;
                     &.v-chip--selected {
                       color: @chipActiveColor;
                       background-color: @uploadGreyBackground;
@@ -919,6 +934,18 @@
                   align-items: center;
                   justify-content: space-around;
                   cursor: pointer;
+                  &:hover{
+                    animation: color_change_doc_type 0.7s ease-in-out;
+                    animation-iteration-count: 1;
+                    border: solid 1px @color-blue-new;
+                    background-color: @uploadGreyBackground;
+                    .sb-doc-title {
+                      color: @color-blue-new;
+                    }
+                    .sb-doc-icon {
+                      color: @color-blue-new;
+                    }
+                  }
                   @media (max-width: @screen-xs) {
                     width: 100%;
                     max-width: 254px;
@@ -1059,6 +1086,7 @@
                   }
                   .final-tags {
                     overflow: hidden;
+                    height: 100%;
                     //scroll style
                     @media (max-width: @screen-xs) {
                       margin-top: 8px;
@@ -1135,6 +1163,7 @@
                 .class-name {
                   color: @colorBlackNew;
                   font-size: 12px;
+                  line-height: 1.5;
 
                 }
                 .school-name {
@@ -1261,13 +1290,16 @@
                 width: 100%;
                 max-width: @maxWidthForm;
                 flex-wrap: wrap;
+                &:not(.referal-row-3){
                 padding-top: 32px;
+              }
+
                 justify-content: flex-start;
 
                 &.final-row {
                   flex-direction: row;
                   justify-content: space-around;
-                  padding-top: 16px;
+                  padding-top: 24px;
                   @media (max-width: @screen-xs) {
                     flex-direction: column;
                     justify-content: center;

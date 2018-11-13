@@ -76,10 +76,10 @@ export default {
             }
             else if (this.currentStep === 3 && Object.keys(this.getFileData.type).length === 0) {
                 return true
-            } else if (this.currentStep === 4 && (!this.getFileData.name || !this.getFileData.proffesorName)) {
+            } else if (this.currentStep === 4 && (!this.getFileData.name)) {
                 return true
-            } else if (this.currentStep === 5 && this.getFileData.tags.length < 1) {
-                return true
+            } else if (this.currentStep === 5 ) {
+                return false
             }
             // else if (this.currentStep === 6 && !this.uploadPrice) {
             //     return true
