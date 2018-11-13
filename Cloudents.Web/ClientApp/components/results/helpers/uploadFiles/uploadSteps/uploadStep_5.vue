@@ -22,8 +22,8 @@
                             solo
                             :allow-overflow="false">
                     <template slot="selection" slot-scope="data" class="sb-selection">
-                        <v-chip class="sb-chip-tag">
-                                                   <span class="chip-button px-2">
+                        <v-chip class="sb-chip-tag" v-if="data.item.length > 2">
+                                                   <span class="chip-button px-2" >
                                                        {{!!data.item ? data.item : ''}}
                                                    </span>
                             <v-icon class="chip-close ml-3" @click="removeTag(data.item)">
@@ -57,12 +57,16 @@
                     return this.getFileData.tags;
                 },
                 set (value) {
-
-                    this.updateFile({'tags': value});
+                    let arrValidData = [];
+                    if(value.length > 0){
+                        arrValidData = value.filter(tag=>{
+                            return tag.length > 2;
+                        })
+                    }
+                    this.updateFile({'tags': arrValidData});
                 }
             }
         },
-
         methods: {
          ...mapActions(['updateFile']),
 

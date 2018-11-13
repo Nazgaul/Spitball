@@ -11,7 +11,6 @@ const slimHeader = () => import("./components/helpers/slimHeader/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
-const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 // const newQuestion = () => import("./components/question/newQuestion/newQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
@@ -109,7 +108,7 @@ let routes2 = [
         },
         props: bookDetailsProps
     },
-    //TODO doc previe refactoring header
+    //TODO doc preview refactoring header
     {
         //document/{universityName}/{courseName}/{id:long}/{name}
         path: "/note/:universityName/:courseName/:id/:name",
@@ -118,8 +117,6 @@ let routes2 = [
         components: {
             default: showItem,
             header: pageHeader
-
-            // header: documentPreviewHeader
         },
         props: {default: (route) => ({id: route.params.id})}
     },

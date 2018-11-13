@@ -9,6 +9,23 @@
         <div class="text-area-container" v-if="showTextArea">
             <textarea v-model="subjectContent" placeholder="Content of text..." cols="30" rows="10"></textarea>    
         </div>
+        <div class="upload-container" v-if="showTextArea">
+            <file-upload
+                ref="upload"
+                v-model="files"
+                post-action="/api/AdminQuestion/upload"
+                @input-file="inputFile"
+                @input-filter="inputFilter"
+                :multiple="true"
+                :maximum="4"
+                :extensions="['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp']"
+            >
+                <button class="btn-upload">Upload File</button>
+            </file-upload>
+            <ul>
+                <li v-for="(file, index) in files" :key="index">{{file.name}} - Error: {{file.error}}, Success: {{file.success}}</li>
+            </ul>
+        </div>
 
         <div class="price-container" v-if="showTextArea">
             <button  v-if="!showPriceSetter" class="btn-price" @click="setPrice">Set A Price</button>
@@ -16,6 +33,8 @@
                 <input class="question-price" type="number" v-model="questionPrice" min="1"/>
             </div>
         </div>
+        
+        
 
         <div class="add-container" v-if="showPriceSetter">
             <button class="btn-add" @click="addQ">Add</button>
@@ -35,6 +54,8 @@ export default {
             showTextArea:false,
             questionPrice: 1,
             showPriceSetter:false,
+            files: [],
+            filesNames: []
         }
     },
     methods:{
@@ -60,7 +81,39 @@ export default {
                 console.log(err);
                 this.$toaster.error("Error: Failed to Add question");
             })
-        }
+        },
+        inputFile(newFile, oldFile) {
+            // Automatic upload
+            if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+                if (!this.$refs.upload.active) {
+                this.$refs.upload.active = true
+                }
+            }
+            // Upload error
+            if (newFile.error !== oldFile.error) {
+            console.log('error', newFile.error, newFile)
+            }
+
+            // Uploaded successfully
+            if (newFile.success !== oldFile.success) {
+            console.log('success', newFile.success, newFile)
+            }
+        },
+        inputFilter: function (newFile, oldFile, prevent) {
+            if (newFile && !oldFile) {
+                // Filter non-image file
+                if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+                return prevent()
+                }
+            }
+
+            // Create a blob field
+            newFile.blob = ''
+            let URL = window.URL || window.webkitURL
+            if (URL && URL.createObjectURL) {
+                newFile.blob = URL.createObjectURL(newFile.file)
+            }
+        },
     },
     created(){
         getSubjectList().then((responseSubjects)=>{
@@ -126,6 +179,19 @@ export default {
             cursor: pointer;
             height: 25px;
             width: 50px;
+            color: #eaf0e9;
+        }
+    }
+    .upload-container{
+        margin-top:10px;
+        .btn-upload{
+            background-color: #438a2b;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            height: 40px;
+            width: 85px;
             color: #eaf0e9;
         }
     }
