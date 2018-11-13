@@ -4,6 +4,8 @@ import App from './App.vue'
 import { routes } from './routes'
 import Toaster from 'v-toaster'
 import 'v-toaster/dist/v-toaster.css'
+const VueUploadComponent = require('vue-upload-component')
+Vue.component('file-upload', VueUploadComponent)
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
