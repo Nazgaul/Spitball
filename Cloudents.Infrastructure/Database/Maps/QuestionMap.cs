@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Database.Maps
@@ -17,7 +18,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
             Map(x => x.Color);
-            Map(x => x.State);
+            Map(x => x.State).CustomType<GenericEnumStringType<QuestionState>>();
             Map(x => x.Language);
             //References(x => x.Subject).ForeignKey("Question_AskQuestionSubject").Not.Nullable();
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();

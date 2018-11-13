@@ -5,8 +5,6 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
-using Cloudents.Core.Storage;
-using Cloudents.Core.Storage.Dto;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,18 +20,15 @@ namespace Cloudents.Admin2.Api
     {
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly IQueryBus _queryBus;
-        private readonly IQueueProvider _queueProvider;
 
-        public AdminQuestionController(Lazy<ICommandBus> commandBus, IQueryBus queryBus, IQueueProvider queueProvider)
+        public AdminQuestionController(Lazy<ICommandBus> commandBus, IQueryBus queryBus)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
-            _queueProvider = queueProvider;
         }
 
         /// <summary>
-        /// Get the ability to create a question
-        /// 
+        /// create a question for fictive user.
         /// </summary>
         /// <param name="model"></param>
         /// <param name="token"></param>
@@ -41,9 +36,12 @@ namespace Cloudents.Admin2.Api
         [HttpPost]
         public async Task<ActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
         {
-            var userId = await _queryBus.QueryAsync<long>(new AdminEmptyQuery(), token);
-            var message = new NewQuestionMessage(model.SubjectId, model.Text, model.Price, userId);
-            await _queueProvider.InsertMessageAsync(message, token);
+            // var userId = await _queryBus.QueryAsync<long>(new AdminEmptyQuery(), token);
+
+            var command = new CreateQuestionCommand(model.SubjectId, model.Text, model.Price, null, model.Country.ToString("G"));
+            await _commandBus.Value.DispatchAsync(command, token);
+            //var message = new NewQuestionMessage(model.SubjectId, model.Text, model.Price, userId);
+            //await _queueProvider.InsertMessageAsync(message, token);
             return Ok();
         }
 

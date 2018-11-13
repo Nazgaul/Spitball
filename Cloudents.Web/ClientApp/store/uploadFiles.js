@@ -62,12 +62,11 @@ const actions = {
         commit('setUploadProgress',val)
     },
     askQuestion({commit, dispatch}, val){
-        //close upload
         commit('setDialogUploadState', val);
         //and open new question
         setTimeout(()=>{
             dispatch('updateNewQuestionDialogState', true)
-        });
+        }, 300);
     },
     updateDialogState({commit}, val){
         commit('setDialogUploadState', val);
