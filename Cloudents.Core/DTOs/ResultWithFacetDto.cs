@@ -6,7 +6,8 @@ namespace Cloudents.Core.DTOs
 {
     public class ResultWithFacetDto<T>
     {
-        [ItemCanBeNull]
+       
+        [ItemCanBeNull,CanBeNull]
         public IEnumerable<T> Result { get; set; }
         public IEnumerable<string> Facet { get; set; }
     }

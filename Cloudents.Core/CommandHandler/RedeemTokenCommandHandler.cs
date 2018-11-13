@@ -31,7 +31,7 @@ namespace Cloudents.Core.CommandHandler
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            if (user.Fictive)
+            if (user.Fictive.GetValueOrDefault())
             {
                 throw new UnauthorizedAccessException("Fictive user");
             }

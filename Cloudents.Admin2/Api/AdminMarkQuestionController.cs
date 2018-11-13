@@ -31,7 +31,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
 
-        [HttpGet("{page}")]
+        [HttpGet]
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(int page, CancellationToken token)
         {
             var query = new AdminPageQuery(page);

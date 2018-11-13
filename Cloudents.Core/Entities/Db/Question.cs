@@ -18,7 +18,8 @@ namespace Cloudents.Core.Entities.Db
     public class Question : IEvents
     {
         
-        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user, QuestionColor color)
+        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user,
+            QuestionColor color, CultureInfo language)
         : this()
         {
             Subject = subject;
@@ -32,17 +33,14 @@ namespace Cloudents.Core.Entities.Db
                 Color = color;
             }
             State = QuestionState.Pending;
-            
-            if (Cloudents.Core.Language.ListOfWhiteListCountries.Contains(user.Country))
+            Language = language;
+            if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
             {
                 State = QuestionState.Ok;
             }
 
             QuestionCreateTransaction();
-            if (State.GetValueOrDefault() == QuestionState.Ok)
-            {
-                Events.Add(new QuestionCreatedEvent(this));
-            }
+           
 
 
         }
@@ -134,6 +132,8 @@ namespace Cloudents.Core.Entities.Db
         [CanBeNull]
         public virtual CultureInfo Language { get; protected set; }
 
+
+        //for dbi only
         public virtual void SetLanguage(CultureInfo info)
         {
             if (info.Equals(CultureInfo.InvariantCulture))
@@ -148,5 +148,6 @@ namespace Cloudents.Core.Entities.Db
 
             Language = info;
         }
+
     }
 }

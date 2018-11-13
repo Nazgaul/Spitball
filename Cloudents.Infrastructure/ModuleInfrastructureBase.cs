@@ -16,6 +16,7 @@ namespace Cloudents.Infrastructure
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Web)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
+    [ModuleRegistration(Core.Enum.System.Admin)]
     public class ModuleInfrastructureBase : Module
     {
        protected override void Load(ContainerBuilder builder)

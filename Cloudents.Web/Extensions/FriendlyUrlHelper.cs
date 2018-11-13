@@ -78,8 +78,9 @@ public static class FriendlyUrlHelper
                 stringBuilder.Append((char)(c | 32));
                 prevdash = false;
             }
+            //Remove + because of allowDoubleEscaping workaround
             else if ((c == ' ') || (c == ',') || (c == '.') || (c == '/') ||
-                (c == '\\') || (c == '-') || (c == '_') || (c == '='))
+                (c == '\\') || (c == '-') || (c == '_') || (c == '=') || c == '+')
             {
                 if (!prevdash && (stringBuilder.Length > 0))
                 {
@@ -204,7 +205,7 @@ public static class FriendlyUrlHelper
         }
     }
 
-    
+
 
     public static TitleCompareResult CompareTitle(string dbTitle, string title)
     {

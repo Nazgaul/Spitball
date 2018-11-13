@@ -63,7 +63,7 @@ namespace Cloudents.Infrastructure.Search.Document
                 if (resultResult.Score - 1 < 0 && !addedBing)
                 {
                     addedBing = true;
-                    if (webResult != null)
+                    if (webResult?.Result != null)
                     {
                         retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
                         {
@@ -86,7 +86,7 @@ namespace Cloudents.Infrastructure.Search.Document
 
             if (!addedBing)
             {
-                if (webResult != null)
+                if (webResult?.Result != null)
                 {
                     retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
                     {

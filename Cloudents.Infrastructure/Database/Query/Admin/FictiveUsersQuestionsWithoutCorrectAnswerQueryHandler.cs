@@ -40,7 +40,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 .WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
                     .Select(s => s.Id))
                 .And(Restrictions.Or(
-                    Restrictions.Where(() => userAlias.Fictive),
+                    Restrictions.Where(() => userAlias.Fictive == true),
                     Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))
                 ))
                 .SelectList(

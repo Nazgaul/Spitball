@@ -5,9 +5,7 @@ using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -60,6 +58,10 @@ namespace Cloudents.Infrastructure.Database.Repositories
         private static void CheckUserLockout([NotNull] User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
+            if (user.Fictive.GetValueOrDefault())
+            {
+                return;
+            }
             if (user.LockoutEnd.HasValue && DateTime.UtcNow < user.LockoutEnd.Value)
             {
                 throw new UserLockoutException();
@@ -72,9 +74,9 @@ namespace Cloudents.Infrastructure.Database.Repositories
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
-        public Task<User> GetRandomFictiveUserAsync(CancellationToken token)
+        public Task<User> GetRandomFictiveUserAsync(string country, CancellationToken token)
         {
-            return Session.QueryOver<User>().Where(w => w.Fictive)
+            return Session.QueryOver<User>().Where(w => w.Fictive == true && w.Country == country)
                    .OrderByRandom()
                    .Take(1)
                    .SingleOrDefaultAsync<User>(token);

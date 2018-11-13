@@ -25,6 +25,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Query.Admin;
 
 
 namespace ConsoleApp
@@ -90,8 +92,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var _bus = _container.Resolve<ISearchServiceWrite<Cloudents.Core.Entities.Search.Document>>();
-            await _bus.CreateOrUpdateAsync(default);
+            var _bus = _container.Resolve<IQueryBus>();
+
+
+            var questions = await _bus.QueryAsync<IList<FictivePendingQuestionDto>>(new AdminEmptyQuery(), token);
             // var sr = File.OpenRead(@"C:\Users\Ram\Downloads\file-148a9417-be00-431a-a6da-4e970fd0639c-625549.pdf");
             // var pdfProcessor = new PdfProcessor();
             //await pdfProcessor.ProcessFilesAsync(sr, (stream, s) => { return Task.CompletedTask; },
