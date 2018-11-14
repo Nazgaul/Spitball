@@ -121,9 +121,9 @@
     <value>הוסף שאלה</value>
   </data>
   <data name="askQuestion" xml:space="preserve">
-    <value>שאל שאלה...</value>
+    <value>שאל שאלה</value>
   </data>
   <data name="stuckWithHomework" xml:space="preserve">
-    <value>תקוע עם שיעורי הבית?</value>
+    <value>נתקעת עם שיעורי בית</value>
   </data>
 </root>

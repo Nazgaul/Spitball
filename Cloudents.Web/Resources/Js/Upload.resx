@@ -263,4 +263,7 @@
   <data name="confirm_text" xml:space="preserve">
     <value>Closing this window will end the uploading process</value>
   </data>
+  <data name="files_type_default" xml:space="preserve">
+    <value>Document</value>
+  </data>
 </root>

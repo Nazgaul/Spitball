@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cloudents.Core;
-using Cloudents.Core.Message;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Cloudents.Core.Extension;
@@ -31,7 +30,7 @@ namespace Cloudents.Web.Controllers
             _domainParser = domainParser;
         }
 
-        private static readonly IList<string> _domains = PrioritySource.DocumentPriority.Values
+        private static readonly IList<string> Domains = PrioritySource.DocumentPriority.Values
             .Union(PrioritySource.FlashcardPriority.Values)
             .SelectMany(s => s.Domains).ToList();
 
@@ -62,7 +61,7 @@ namespace Cloudents.Web.Controllers
             if (refererUri.PathAndQuery.Contains(new[] { "flashcard", "note" }, StringComparison.OrdinalIgnoreCase))
             {
                 var domain = _domainParser.GetDomain(model.Url.Host);
-                if (!_domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
+                if (!Domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
                     throw new ArgumentException("invalid url");
             }
          

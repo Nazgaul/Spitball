@@ -6,12 +6,12 @@ namespace Cloudents.Core.Query.Admin
 {
     public class AdminPageQuery : IQuery<IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
-        public AdminPageQuery(int _page)
+        public AdminPageQuery(int page)
         {
-            page = _page;
+            Page = page;
 
         }
 
-        public int page { get; set; }
+        public int Page { get; }
     }
 }

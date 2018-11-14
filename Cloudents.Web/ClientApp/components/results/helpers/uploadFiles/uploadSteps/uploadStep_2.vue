@@ -24,7 +24,6 @@
                 <span v-language:inner>upload_files_label_class</span>
             </label>
             <div class="chip-wrap">
-
                 <v-chip name="sbf-class-chip" class="sbf-class-chip mb-2" outline
                         v-for="(singleClass, index) in classesList"
                         @click="updateClass(singleClass.text)"
@@ -33,54 +32,58 @@
                 </v-chip>
             </div>
         </div>
-
     </v-card>
 </template>
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import sbInput from "../../../../question/helpers/sbInput/sbInput";
+
     export default {
         name: "uploadStep_2",
-        components:{sbInput},
+        components: {sbInput},
         data() {
             return {
-                selectedClass: ''
+                // selectedClass: '',
             }
         },
         computed: {
             ...mapGetters({
                 getSchoolName: 'getSchoolName',
                 getSelectedClasses: 'getSelectedClasses',
+                getFileData: 'getFileData'
             }),
             schoolName() {
                 return this.getSchoolName ? this.getSchoolName : ''
             },
-            isClassesSet(){
+            isClassesSet() {
                 return this.getSelectedClasses.length > 0
             },
             classesList() {
                 return this.isClassesSet ? this.getSelectedClasses : []
             },
+            selectedClass() {
+                return this.getFileData.course;
+            }
         },
+
         methods: {
-            ...mapActions([ 'updateFile']),
+            ...mapActions(['updateFile']),
             // update data methods
             updateClass(singleClass) {
                 this.updateFile({'course': singleClass});
-                this.selectedClass = singleClass;
             },
         },
-        beforeDestroy(){
+        beforeDestroy() {
             console.log('step 2 destroyed')
         },
-        created(){
+        created() {
             console.log('step 2 creadted')
 
         }
     }
 </script>
 
-<style >
+<style>
 
 </style>

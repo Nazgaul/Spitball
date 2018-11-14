@@ -29,8 +29,11 @@
                     <input type="checkbox" v-model="agreeTerms" id="agreeTermDesk"/>
                     <label for="agreeTermDesk"></label>
                     <span><span v-language:inner>login_agree</span>&nbsp;<router-link
-                            to="terms" v-language:inner>login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span>&nbsp;<router-link
-                            to="privacy" v-language:inner>login_privacy_policy</router-link></span>
+                            to="terms" v-language:inner>login_terms_of_services</router-link>&nbsp;
+                    <span v-language:inner>login_and</span>&nbsp;<router-link
+                            to="privacy" v-language:inner>login_privacy_policy</router-link>
+                    <span v-language:inner>login_end_privacy_policy</span>
+                    </span>
                 </div>
                 <div class="has-error" v-if="confirmCheckbox && !isMobile && !isSignIn"
                      style="background: white; display: block; color:red; text-align: center;">

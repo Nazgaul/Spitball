@@ -37,8 +37,8 @@ namespace Cloudents.Web.Api
         /// Search flashcard vertical result
         /// </summary>
         /// <param name="model">The model</param>
-        /// <param name="searchProvider"></param>
-        /// <param name="universityId">This params comes from claim and not from api - value is ignored</param>
+        /// <param name="profile">Profile - generated on server not to transfer</param>
+        /// <param name="searchProvider">DI</param>
         /// <param name="token"></param>
         /// <returns></returns>
         [Route("flashcards", Name = "FlashcardSearch"), HttpGet]
@@ -46,7 +46,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
             [FromServices] IWebFlashcardSearch searchProvider, CancellationToken token)
         {
-            var query = SearchQuery.Flashcard(model.Query, profile.University.ExtraName, model.Course, model.Source, model.Page.GetValueOrDefault());
+            var query = SearchQuery.Flashcard(model.Query, profile.University?.ExtraName, model.Course, model.Source, model.Page.GetValueOrDefault());
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;
             var p = result.Result?.ToList();

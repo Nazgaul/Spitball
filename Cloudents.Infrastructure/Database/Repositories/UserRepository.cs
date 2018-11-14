@@ -112,8 +112,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
                                     from sb.[Transaction] 
                                     where User_id = sb.[User].id
                                 )");
-
-            return Task.CompletedTask;
+            return updateQuery.ExecuteUpdateAsync(token);
 
         }
     }

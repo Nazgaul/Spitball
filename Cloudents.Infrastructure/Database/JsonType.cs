@@ -142,24 +142,24 @@ namespace Cloudents.Infrastructure.Database
     [Serializable]
     public class JsonType<TSerializable> : MutableType
     {
-        private readonly Type serializableClass;
-        private readonly StringClobType dbType;
+        private readonly Type _serializableClass;
+        private readonly StringClobType _dbType;
 
         public JsonType() : base(new StringClobSqlType())
         {
-            serializableClass = typeof(TSerializable);
-            dbType = NHibernateUtil.StringClob;
+            _serializableClass = typeof(TSerializable);
+            _dbType = NHibernateUtil.StringClob;
         }
 
 
         public override void Set(DbCommand cmd, object value, int index, ISessionImplementor session)
         {
-            dbType.Set(cmd, Serialize(value), index, session);
+            _dbType.Set(cmd, Serialize(value), index, session);
         }
 
         public override object Get(DbDataReader rs, int index, ISessionImplementor session)
         {
-            string dbValue = (string)dbType.Get(rs, index, session);
+            var dbValue = (string)_dbType.Get(rs, index, session);
             return string.IsNullOrEmpty(dbValue) ? null : Deserialize(dbValue);
         }
 
@@ -168,7 +168,7 @@ namespace Cloudents.Infrastructure.Database
             return Get(rs, rs.GetOrdinal(name), session);
         }
 
-        public override Type ReturnedClass => serializableClass;
+        public override Type ReturnedClass => _serializableClass;
 
         public override bool IsEqual(object x, object y)
         {
@@ -182,12 +182,12 @@ namespace Cloudents.Infrastructure.Database
                 return false;
             }
 
-            return x.Equals(y) | dbType.IsEqual(Serialize(x), Serialize(y));
+            return x.Equals(y) | _dbType.IsEqual(Serialize(x), Serialize(y));
         }
 
         public override int GetHashCode(object x, ISessionFactoryImplementor factory)
         {
-            return dbType.GetHashCode(x, factory);
+            return _dbType.GetHashCode(x, factory);
         }
        
 
@@ -198,10 +198,10 @@ namespace Cloudents.Infrastructure.Database
 
         public override object FromStringValue(string xml)
         {
-            return Deserialize((string)dbType.FromStringValue(xml));
+            return Deserialize((string)_dbType.FromStringValue(xml));
         }
 
-        public static string Alias => string.Concat("json_", typeof(TSerializable).Name);
+        private static string Alias => string.Concat("json_", typeof(TSerializable).Name);
 
         public override string Name => Alias;
 
@@ -226,7 +226,7 @@ namespace Cloudents.Infrastructure.Database
         {
             try
             {
-                return JsonConvert.DeserializeObject(dbValue, serializableClass);
+                return JsonConvert.DeserializeObject(dbValue, _serializableClass);
             }
             catch (Exception e)
             {

@@ -4,7 +4,9 @@
         <v-flex class="line" slot="extraHeader">
             <v-layout row>
               <!--keep this way for blog new tab open-->
-                <v-tabs :scrollable="false" centered >
+
+                <!--Need that due to case 11193-->
+                <v-tabs :scrollable="false" centered right dir="ltr" >
                     <v-tab router :to="verticals[0].name" :ripple="false" class="vertical">{{verticals[0].display}}</v-tab>
                     <v-tab router :to="verticals[1].name" :ripple="false" class="vertical">{{verticals[1].display}}</v-tab>
                     <!--special handler for blog open in new browser window-->

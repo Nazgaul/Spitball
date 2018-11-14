@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities.Db
             Price = price;
             Created = DateTime.UtcNow;
 
-           
+
         }
 
         [UsedImplicitly]
@@ -66,13 +66,13 @@ namespace Cloudents.Core.Entities.Db
 
         public static Transaction ReferringUserTransaction(User invitedUser)
         {
-            var Tx =  new Transaction(ActionType.ReferringUser, TransactionType.Earned, 10)
+            var tx = new Transaction(ActionType.ReferringUser, TransactionType.Earned, 10)
             {
                 InvitedUser = invitedUser
-                
-        };
-            Tx.Events.Add(new TransactionReferredEvent(Tx));
-            return Tx;
+
+            };
+            tx.Events.Add(new TransactionReferredEvent(tx));
+            return tx;
         }
 
         public static Transaction QuestionDelete(Question question)

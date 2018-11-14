@@ -46,17 +46,35 @@
                     </div>
                 </div>
                 <div class="views details">
-                    <div class="detail-cell views-cell">
-                        <div class="viewed">
-                            <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
-                            <span class="viewed-text">{{item.views}}</span>
-                        </div>
-                        <div class="ml-4 downloaded">
-                            <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
-                            <span class="downloaded-text">{{item.views}}</span>
-                        </div>
+                    <v-layout column  fill-height justify-space-between>
+                        <v-flex class="detail-cell views-cell">
+                            <div class="viewed">
+                                <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
+                                <span class="viewed-text">{{item.views}}</span>
+                            </div>
+                            <div class="ml-4 downloaded">
+                                <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
+                                <span class="downloaded-text">{{item.views}}</span>
+                            </div>
 
-                    </div>
+                        </v-flex>
+                        <v-flex>
+                            <a target="_blank" @click="downloadDoc()">
+                                <div class="download-action-container">
+                                    <div class="text-wrap">
+                                        <span class="download-text" v-language:inner>preview_itemActions_download</span>
+                                        <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.smAndDown">
+                                            sbf-download-cloud
+                                        </v-icon>
+
+                                    </div>
+                                    <div class="btn-wrap">
+                                        <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
+                                    </div>
+                                </div>
+                            </a>
+                        </v-flex>
+                    </v-layout>
                 </div>
             </v-layout>
             <div class="details mobile px-2" v-if="!$vuetify.breakpoint.smAndUp">
@@ -68,7 +86,7 @@
 <script>
     import itemActions from './itemActions.vue';
     import mainHeader from '../helpers/header.vue';
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import { documentTypes } from '../results/helpers/uploadFiles/consts';
     import documentDetails from '../results/helpers/documentDetails/documentDetails.vue'
 
@@ -77,6 +95,20 @@
             mainHeader,
             itemActions,
             documentDetails
+        },
+        methods: {
+            ...mapActions([
+                'updateLoginDialogState'
+            ]),
+            ...mapGetters(['accountUser']),
+            downloadDoc() {
+                let url = this.$route.path + '/download';
+                if (!!this.accountUser()) {
+                    global.location.href = url;
+                } else {
+                    this.updateLoginDialogState(true)
+                }
+            },
         },
         computed: {
             ...mapGetters(['getDocumentDetails']),

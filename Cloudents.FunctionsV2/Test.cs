@@ -1,11 +1,3 @@
-using Autofac;
-using Cloudents.Core.Message.System;
-using Cloudents.FunctionsV2.System;
-using Microsoft.Azure.WebJobs;
-using System.Threading;
-using System.Threading.Tasks;
-using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
-
 namespace Cloudents.FunctionsV2
 {
     public static class Test

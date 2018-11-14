@@ -1,5 +1,4 @@
-﻿using Autofac.Features.Indexed;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -23,12 +22,10 @@ namespace Cloudents.Web.Controllers
     public class SiteMapController : Controller
     {
         private readonly IQueryBus _queryBus;
-        private readonly IIndex<SeoType, IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>> _seoRepositories;
 
-        public SiteMapController(IQueryBus queryBus, IIndex<SeoType, IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>> seoRepositories)
+        public SiteMapController(IQueryBus queryBus)
         {
             _queryBus = queryBus;
-            _seoRepositories = seoRepositories;
         }
 
         [Route("sitemap.xml")]

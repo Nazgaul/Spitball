@@ -23,9 +23,18 @@ export default {
 
         next();
     },
+    methods:{
+        correctCurrentSelection(){
+            if(!!this.currentSelection) {
+                let documentPath = this.currentSelection.toLowerCase() === "document" ? "note" : this.currentSelection;
+
+                return documentPath;
+            }
+        }
+    },
     mounted() {
         let tabs = this.$el.querySelector('.v-tabs__wrapper');
-        let currentItem = this.$el.querySelector(`#${this.currentSelection}`);
+        let currentItem = this.$el.querySelector(`#${this.correctCurrentSelection()}`);
         if (currentItem && !global.isRtl){
             tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
         }else{

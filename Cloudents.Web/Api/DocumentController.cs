@@ -31,7 +31,6 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IProfileUpdater _profileUpdater;
@@ -41,14 +40,13 @@ namespace Cloudents.Web.Api
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<User> userManager,
             IBlobProvider<DocumentContainer> blobProvider,
-            SignInManager<User> signInManager, IStringLocalizer<DocumentController> localizer,
+            IStringLocalizer<DocumentController> localizer,
             IProfileUpdater profileUpdater)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
             _userManager = userManager;
             _blobProvider = blobProvider;
-            _signInManager = signInManager;
             _localizer = localizer;
             _profileUpdater = profileUpdater;
         }
@@ -91,10 +89,9 @@ namespace Cloudents.Web.Api
         /// Search document vertical result
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="profile">User profile - server generated</param>
         /// <param name="ilSearchProvider"></param>
         /// <param name="token"></param>
-        /// <param name="universityId">This params comes from claim and not from api - value is ignored</param>
-        /// <param name="country">This params comes from server internal process - value is ignored</param>
         /// <returns></returns>
         [HttpGet(Name = "DocumentSearch")]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
