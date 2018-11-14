@@ -120,6 +120,18 @@
   <data name="btn_open" xml:space="preserve">
     <value>העלה מסמכים</value>
   </data>
+  <data name="confirm_btn_cancel" xml:space="preserve">
+    <value>בטל</value>
+  </data>
+  <data name="confirm_btn_close" xml:space="preserve">
+    <value>סגור ועצור העלאת מסמך</value>
+  </data>
+  <data name="confirm_stop_title" xml:space="preserve">
+    <value>עצור העלאת מסמך?</value>
+  </data>
+  <data name="confirm_text" xml:space="preserve">
+    <value>סגירת החלון תעצור את העלאת המסמך</value>
+  </data>
   <data name="error_extensions_support" xml:space="preserve">
     <value>קבצים נתמכים:</value>
   </data>
@@ -239,6 +251,9 @@
   <data name="files_step7_title" xml:space="preserve">
     <value>הפץ את המסמך</value>
   </data>
+  <data name="files_type_default" xml:space="preserve">
+    <value>מסמך</value>
+  </data>
   <data name="files_type_exam" xml:space="preserve">
     <value>סיכום בחינה</value>
   </data>
@@ -250,17 +265,5 @@
   </data>
   <data name="files_uploadDoc" xml:space="preserve">
     <value>העלה מסמך</value>
-  </data>
-  <data name="confirm_btn_cancel" xml:space="preserve">
-    <value>בטל</value>
-  </data>
-  <data name="confirm_btn_close" xml:space="preserve">
-    <value>סגור ועצור העלאת מסמך</value>
-  </data>
-  <data name="confirm_stop_title" xml:space="preserve">
-    <value>עצור העלאת מסמך?</value>
-  </data>
-  <data name="confirm_text" xml:space="preserve">
-    <value>סגירת החלון תעצור את העלאת המסמך</value>
   </data>
 </root>
