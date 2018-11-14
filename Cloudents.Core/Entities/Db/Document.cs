@@ -1,11 +1,13 @@
 ﻿using System;
 using Cloudents.Core.Enum;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
     public class Document
     {
         public Document([NotNull] string name, [NotNull] string blobName, [NotNull] University university,

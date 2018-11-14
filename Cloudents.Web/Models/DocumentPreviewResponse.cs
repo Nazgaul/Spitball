@@ -23,8 +23,14 @@ namespace Cloudents.Web.Models
     {
         public int Compare(Uri s1, Uri s2)
         {
-            var z = Regex.Replace(s1.Segments.Last(), "[^\\d]", string.Empty);
-            var z2 = Regex.Replace(s2.Segments.Last(), "[^\\d]", string.Empty);
+
+            string GetNumberStr(Uri x)
+            {
+                return Regex.Replace(x?.Segments.Last() ?? string.Empty, "[^\\d]", string.Empty);
+            }
+
+            var z = GetNumberStr(s1);
+            var z2 = GetNumberStr(s2); 
 
             if (int.TryParse(z, out var i1) && int.TryParse(z2, out var i2))
             {

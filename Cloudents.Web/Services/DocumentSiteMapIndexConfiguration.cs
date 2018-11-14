@@ -8,6 +8,7 @@ using SimpleMvcSitemap;
 using SimpleMvcSitemap.StyleSheets;
 using System.Collections.Generic;
 using System.Linq;
+using Cloudents.Web.Extensions;
 
 namespace Cloudents.Web.Services
 {

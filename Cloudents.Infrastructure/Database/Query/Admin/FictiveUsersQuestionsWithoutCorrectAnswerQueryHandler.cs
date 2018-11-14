@@ -51,7 +51,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 )
                 .TransformUsing(Transformers.AliasToBean<QuestionWithoutCorrectAnswerDto>())
                 .OrderBy(o => o.Id).Asc
-                .Take(100).Skip(100 * query.page)
+                .Take(100).Skip(100 * query.Page)
                 .ListAsync<QuestionWithoutCorrectAnswerDto>(token);
 
           
