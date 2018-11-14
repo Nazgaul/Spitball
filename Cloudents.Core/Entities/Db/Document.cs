@@ -67,6 +67,6 @@ namespace Cloudents.Core.Entities.Db
 
 
         public virtual CultureInfo Language { get; set; }
-        public IList<IEvent> Events { get; }
+        public virtual IList<IEvent> Events { get; }
     }
 }
