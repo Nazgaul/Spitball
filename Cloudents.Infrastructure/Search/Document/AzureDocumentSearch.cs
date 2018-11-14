@@ -40,6 +40,26 @@ namespace Cloudents.Infrastructure.Search.Document
         }
 
 
+        // ReSharper disable once UnusedMember.Global - we used that for testing
+        public async Task<string> ItemAsync(long itemId, CancellationToken cancelToken)
+        {
+            try
+            {
+                var item =
+                    await
+                        _client.Documents.GetAsync<Core.Entities.Search.Document>
+                        (itemId.ToString(CultureInfo.InvariantCulture),
+                            cancellationToken: cancelToken).ConfigureAwait(false);
+                return item.Content;
+            }
+            //item may not exists in the search....
+            catch (CloudException)
+            {
+                return null;
+            }
+        }
+
+
         public async Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
         {
             try

@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Framework
 
 
 
-        public static readonly string[] PowerPoint2007Extensions =
+        public static readonly string[] Extensions =
         {
             ".ppt", ".pot", ".pps", ".pptx", ".potx", ".ppsx", ".odp", ".pptm"
         };
@@ -67,20 +67,16 @@ namespace Cloudents.Infrastructure.Framework
 
         public async Task ProcessFilesAsync(Stream stream,
             Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, Task> textCallback,
-            Func<int, Task> pageCountCallback,
+            Func<string, int, Task> metaCallback,
             CancellationToken token)
         {
             var pptx = new Presentation(stream);
 
             var t = ExtractStringFromPpt(pptx);
-            if (t != null)
+            var tasksList = new List<Task>()
             {
-                await textCallback(t);
-            }
-
-            var tasksList = new List<Task>();
-            await pageCountCallback(pptx.Slides.Count);
+                metaCallback(t, pptx.Slides.Count)
+            };
             for (int i = 0; i < pptx.Slides.Count; i++)
             {
                 using (var img = pptx.Slides[0].GetThumbnail(1, 1))
