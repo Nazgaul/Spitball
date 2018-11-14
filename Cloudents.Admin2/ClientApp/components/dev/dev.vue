@@ -1,9 +1,9 @@
 <template>
     <div>
             <div class="dev-content">
-                <form v-if="!show" @submit.prevent="tryYourLuck()" class="password-container" >
+                <form v-if="!isDev" @submit.prevent="tryYourLuck()" class="password-container" >
                 <h1>Developer Access Required to enter this Area</h1>
-                <div class="dev-error" v-if="wrongPass">Wrong Password</div>
+                <!-- <div class="dev-error" v-if="wrongPass">Wrong Password</div> -->
                 <input v-model="password" class="user-pass-input" type="password" placeholder="Password...">
             </form>
             <div v-else>
@@ -17,25 +17,26 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex';
+
 export default {
     data(){
         return{
             password: "",
-            show: false,
             wrongPass: false
         }
     },
+    computed:{
+        ...mapGetters(['devStore_getIsDev']),
+        isDev(){
+            return this.devStore_getIsDev;
+        }
+
+    },
     methods:{
+        ...mapActions(['devStore_updateIsDev']),
         tryYourLuck(){
-            if(MD5(this.password) === 'c583f119d2d547eaac531e64bba7e430'){
-                this.show = true;
-                this.wrongPass = false;
-                console.log("success");
-            } else{
-                this.password = "";
-                console.log("nice try")
-                this.wrongPass = true;
-            }
+            this.devStore_updateIsDev(this.password);
         }
     }
 }
