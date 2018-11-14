@@ -6,6 +6,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
+using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Binders;
@@ -20,7 +21,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Models;
 
 namespace Cloudents.Web.Api
 {
@@ -65,7 +65,7 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(tModel, filesTask, tQueue);
 
             var model = tModel.Result;
-            var files = filesTask.Result.Select(s=> blobProvider.GeneratePreviewLink(s,20));
+            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
             if (model == null)
             {
                 return NotFound();
@@ -74,14 +74,24 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost, Authorize]
-        public async Task<ActionResult> CreateDocumentAsync([FromBody]CreateDocumentRequest model, CancellationToken token)
+        public async Task<CreateDocumentResponse> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
+            [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
 
             var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
                 model.Course, model.Tags, userId, model.Professor);
             await _commandBus.DispatchAsync(command, token);
-            return Ok();
+
+            var url = Url.RouteUrl(SeoTypeString.Document, new
+            {
+                universityName = profile.University.Name,
+                courseName = model.Course,
+                id = command.Id,
+                name = model.Name
+            });
+            return new CreateDocumentResponse(url);
         }
 
 
@@ -100,15 +110,15 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Course, profile, model.Term, 
+            var query = new DocumentQuery(model.Course, profile, model.Term,
                 model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
 
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
-           
+
 
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
-            await Task.WhenAll( resultTask, queueTask);
+            await Task.WhenAll(resultTask, queueTask);
             var result = resultTask.Result;
             var p = result;
             string nextPageLink = null;
