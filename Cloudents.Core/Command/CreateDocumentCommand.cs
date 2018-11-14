@@ -30,6 +30,6 @@ namespace Cloudents.Core.Command
 
         public string Professor { get; set; }
 
-        public long Id { get; set; } //This is only for dbi
+        public long Id { get; set; } 
     }
 }
