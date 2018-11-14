@@ -98,5 +98,16 @@ namespace Cloudents.Admin2.Api
             }
             return new SuspendUserResponse() { Email = emailList };
         }
+
+        [HttpPost("Country")]
+        [ProducesResponseType(200)]
+        public async Task ChangeCountryAsync(ChangeCountryrequest model,
+            [FromServices] ICommandBus commandBus,
+            CancellationToken token)
+        {
+            
+            var command = new ChangeCountryCommand(model.Id, model.Country);
+            await commandBus.DispatchAsync(command, token);
+        }
     }
 }

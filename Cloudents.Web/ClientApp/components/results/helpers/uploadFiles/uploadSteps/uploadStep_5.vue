@@ -22,7 +22,7 @@
                             solo
                             :allow-overflow="false">
                     <template slot="selection" slot-scope="data" class="sb-selection">
-                        <v-chip class="sb-chip-tag" v-if="data.item.length > 2">
+                        <v-chip :class="{'selected': data.selected}"  class="sb-chip-tag" v-if="data.item.length > 2">
                                                    <span class="chip-button px-2" >
                                                        {{!!data.item ? data.item : ''}}
                                                    </span>

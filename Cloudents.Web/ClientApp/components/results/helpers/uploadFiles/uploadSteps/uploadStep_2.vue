@@ -38,12 +38,13 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import sbInput from "../../../../question/helpers/sbInput/sbInput";
+
     export default {
         name: "uploadStep_2",
-        components:{sbInput},
+        components: {sbInput},
         data() {
             return {
-                selectedClass: '',
+                // selectedClass: '',
             }
         },
         computed: {
@@ -55,32 +56,34 @@
             schoolName() {
                 return this.getSchoolName ? this.getSchoolName : ''
             },
-            isClassesSet(){
+            isClassesSet() {
                 return this.getSelectedClasses.length > 0
             },
             classesList() {
                 return this.isClassesSet ? this.getSelectedClasses : []
             },
+            selectedClass() {
+                return this.getFileData.course;
+            }
         },
 
         methods: {
-            ...mapActions([ 'updateFile']),
+            ...mapActions(['updateFile']),
             // update data methods
             updateClass(singleClass) {
                 this.updateFile({'course': singleClass});
-                this.selectedClass = this.getFileData.course;
             },
         },
-        beforeDestroy(){
+        beforeDestroy() {
             console.log('step 2 destroyed')
         },
-        created(){
+        created() {
             console.log('step 2 creadted')
 
         }
     }
 </script>
 
-<style >
+<style>
 
 </style>

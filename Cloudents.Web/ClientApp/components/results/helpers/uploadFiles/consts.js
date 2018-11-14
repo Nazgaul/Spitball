@@ -18,7 +18,7 @@ export let documentTypes = [
     },
     {
         id: 'none',
-        title: 'Document',
+        title: LanguageService.getValueByKey("upload_files_type_default"),
         icon:"sbf-document-note",
     },
 ];

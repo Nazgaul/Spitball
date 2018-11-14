@@ -3,16 +3,17 @@
         <div class="upload-row-1">
             <v-icon class="five">sbf-five</v-icon>
             <h3 class="sb-title" v-language:inner>upload_files_step6_title</h3>
-            <h4 class="sb-subtitle mt-2"v-language:inner>upload_files_step6_subtitle</h4>
+            <h4 class="sb-subtitle mt-2" v-language:inner>upload_files_step6_subtitle</h4>
         </div>
         <div class="upload-row-2 final-row " style="padding-top: 32px;" @click="changeStep(2)">
-            <div class="final-item school" >
+            <div class="final-item school">
                 <div class="final-item-wrap">
                     <v-icon class="final-icon">sbf-university</v-icon>
                     <span class="item-name" v-language:inner>upload_files_label_school</span>
                 </div>
                 <div>
-                    <span class="school-name" v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getSchoolName}}</span>
+                    <span class="school-name"
+                          v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getSchoolName}}</span>
                 </div>
 
             </div>
@@ -23,13 +24,14 @@
                 </div>
                 <div class="final-item-wrap">
                     <v-icon class="final-icon">sbf-classes-new</v-icon>
-                    <span class="item-name"v-language:inner>upload_files_class</span>
+                    <span class="item-name" v-language:inner>upload_files_class</span>
                 </div>
-                <span class="class-name"  v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getFileData.course}}</span>
+                <span class="class-name"
+                      v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getFileData.course}}</span>
             </div>
         </div>
         <div class="upload-row-3 final-row">
-            <div class="final-item doc-type-selected"  @click="changeStep(3)">
+            <div class="final-item doc-type-selected" @click="changeStep(3)">
                 <div class="edit">
                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                     <span v-language:inner>upload_files_edit</span>
@@ -47,7 +49,7 @@
                 </div>
                 <div class="final-item-wrap">
                     <v-icon class="final-icon tags">sbf-tag-icon</v-icon>
-                    <span class="item-name"  v-language:inner>upload_files_label_tags</span>
+                    <span class="item-name" v-language:inner>upload_files_label_tags</span>
 
                 </div>
                 <div class="sb-combo final-tags">
@@ -61,8 +63,10 @@
         </div>
         <div class="upload-row-4 final-row">
             <div class="legal-wrap">
-                <input type="checkbox" class="legal-input" id="legal-ownership" v-model="legalCheck" name="legalyOwn" @change="updateLegal()"/>
-                <label for="legal-ownership" class="ml-3 legal-ownership" v-language:inner>upload_files_label_legal</label>
+                <input type="checkbox" class="legal-input" id="legal-ownership" v-model="legalCheck" name="legalyOwn"
+                       @change="updateLegal()"/>
+                <label for="legal-ownership" class="ml-3 legal-ownership"
+                       v-language:inner>upload_files_label_legal</label>
             </div>
         </div>
     </v-card>
@@ -70,18 +74,18 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
-    import {documentTypes} from "../consts"
+    import { documentTypes } from "../consts"
+
     export default {
         name: "uploadStep_6",
         data() {
             return {
-                legalCheck: false,
-                selected: {}
-
+                selected: {},
+                checker: false
             }
         },
         props: {
-            callBackmethods:{
+            callBackmethods: {
                 type: Object,
                 default: {},
                 required: false
@@ -91,12 +95,23 @@
             ...mapGetters({
                 getLegal: 'getLegal',
                 getFileData: 'getFileData',
-                getSchoolName: 'getSchoolName'
+                getSchoolName: 'getSchoolName',
+
             }),
-            selectedType(){
-                if(this.getFileData.type){
-                  return this.selected = documentTypes.find((item)=>{
-                    return item.id === this.getFileData.type;
+            legalCheck:{
+                get(){
+                    return this.getLegal;
+                },
+                set(val){
+                    this.checker = val;
+                }
+
+            },
+
+            selectedType() {
+                if (this.getFileData.type) {
+                    return this.selected = documentTypes.find((item) => {
+                        return item.id === this.getFileData.type;
                     })
                 }
             }
@@ -104,17 +119,17 @@
         methods: {
             ...mapActions(['updateLegalAgreement']),
 
-            changeStep(step){
+            changeStep(step) {
                 this.callBackmethods.changeStep(step)
             },
             updateLegal() {
-                this.updateLegalAgreement(this.legalCheck);
+                this.updateLegalAgreement(this.checker);
             },
         },
 
     }
 </script>
 
-<style >
+<style>
 
 </style>
