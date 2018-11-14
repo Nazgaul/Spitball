@@ -4,6 +4,8 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Sync;
 using Microsoft.Azure.WebJobs;
+using Microsoft.WindowsAzure.Storage.Blob;
+using NHibernate;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +24,26 @@ namespace Cloudents.FunctionsV2
             [Inject] ITextAnalysis textAnalysis,
             ILogger log, CancellationToken token)
         {
+            await SyncBlobWithSearch(text, id, metadata, searchInstance, commandBus, textAnalysis, token);
+        }
+
+        [FunctionName("BlobFunctionTimer")]
+        public static async Task RunAsync2(
+            [TimerTrigger("0 */20 * * * *", RunOnStartup = true)]TimerInfo timer,
+            [Blob("spitball-files/files/1082/text.txt", Connection = "TempConnectionDev")] CloudBlockBlob blob,
+            [Inject] ISearchServiceWrite<Document> searchInstance,
+            [Inject] ICommandBus commandBus,
+            [Inject] ITextAnalysis textAnalysis,
+            ILogger log, CancellationToken token)
+        {
+            var text = await blob.DownloadTextAsync();
+            var metadata = blob.Metadata;
+            await SyncBlobWithSearch(text, 1082, metadata, searchInstance, commandBus, textAnalysis, token);
+        }
+
+        private static async Task SyncBlobWithSearch(string text, long id, IDictionary<string, string> metadata,
+            ISearchServiceWrite<Document> searchInstance, ICommandBus commandBus, ITextAnalysis textAnalysis, CancellationToken token)
+        {
             var lang = await textAnalysis.DetectLanguageAsync(text.Truncate(5000), token);
             int? pageCount = null;
             if (metadata.TryGetValue("PageCount", out var pageCountStr) &&
@@ -30,21 +52,27 @@ namespace Cloudents.FunctionsV2
                 pageCount = pageCount2;
             }
 
-            var command = new UpdateDocumentMetaCommand(id, lang, pageCount);
-            await commandBus.DispatchAsync(command, token);
+            try
+            {
+                var command = new UpdateDocumentMetaCommand(id, lang, pageCount);
+                await commandBus.DispatchAsync(command, token);
 
-            await searchInstance.UpdateDataAsync(new[]
-                 {
-                    new Document()
+                await searchInstance.UpdateDataAsync(new[]
                     {
-                        Id = id.ToString(),
-                        Content = text.Truncate(6000),
-                        Language = lang.TwoLetterISOLanguageName,
-                        MetaContent = text.Truncate(200, true)
-                    }
-                }, token
-             );
-            //log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+                        new Document()
+                        {
+                            Id = id.ToString(),
+                            Content = text.Truncate(6000),
+                            Language = lang.TwoLetterISOLanguageName,
+                            MetaContent = text.Truncate(200, true)
+                        }
+                    }, token
+                );
+            }
+            catch (ObjectNotFoundException)
+            {
+                await searchInstance.DeleteDataAsync(new[] { id.ToString() }, token);
+            }
         }
 
 

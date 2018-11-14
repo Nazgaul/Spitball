@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".odt" };
+        public static readonly string[] Extensions = { ".rtf", ".docx", ".doc", ".odt" };
         
 
         private static string ExtractDocumentText(Document doc)
@@ -38,15 +38,13 @@ namespace Cloudents.Infrastructure.Framework
 
         public async Task ProcessFilesAsync(Stream stream,
             Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, Task> textCallback,
-            Func<int, Task> pageCountCallback,
+            Func<string, int, Task> metaCallback,
             CancellationToken token)
         {
             var word = new Document(stream);
             var txt = ExtractDocumentText(word);
 
-            await textCallback(txt);
-            await pageCountCallback(word.PageCount);
+            await metaCallback(txt, word.PageCount);
 
             var t = new List<Task>();
             var svgOptions = new SvgSaveOptions
