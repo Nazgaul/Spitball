@@ -26,10 +26,10 @@ namespace Cloudents.Core.CommandHandler
                 await _decoratee.ExecuteAsync(message, token).ConfigureAwait(true);
                 await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await _unitOfWork.PublishEventsAsync(token);
-                throw ;
+                throw;
             }
         }
     }

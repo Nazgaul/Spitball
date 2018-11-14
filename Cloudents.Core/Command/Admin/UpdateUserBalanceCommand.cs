@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Command.Admin
 {

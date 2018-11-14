@@ -1,5 +1,4 @@
-﻿using System;
-using Cloudents.Core.Message.System;
+﻿using Cloudents.Core.Message.System;
 using Microsoft.Azure.WebJobs;
 using System.Threading;
 using System.Threading.Tasks;

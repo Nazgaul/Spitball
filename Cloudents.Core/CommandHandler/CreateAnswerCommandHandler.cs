@@ -66,36 +66,28 @@ namespace Cloudents.Core.CommandHandler
                     throw new QuotaExceededException();
                 }
             }
-            //if (!user.Country.Contains<string>(Language.ListOfWhiteListCountries, StringComparison.OrdinalIgnoreCase))
-            //{
-            //    //State = QuestionState.Ok;
-            //}
-            //doing that instead of repository because this will only go to db once to get the collection vs 2 separate api calls.
-            //I can argue about that - but for now it'll work
-            if (question.Answers?.Any(a => a.User.Id == user.Id) == true)
-            {
-                throw new InvalidOperationException("user cannot give more then one answer");
-            }
 
+            //TODO:
+            //we can check if we can create sql query to check answer with regular expression
+            //and we can create sql to check if its not the same user
             var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
-            var nakeadstring = Regex.Replace(message.Text, regex.ToString(), "");
-            foreach (var t in question.Answers)
-            {
-                var check = Regex.Replace(t.Text, regex.ToString(), "");
-                if (nakeadstring == check)
+            var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
+            if (question.Answers != null)
+                foreach (var answer in question.Answers)
                 {
-                    throw new DuplicateRowException("Duplicate answer");
+                    if (answer.User.Id == user.Id)
+                    {
+                        throw new InvalidOperationException("user cannot give more then one answer");
+                    }
+                    var check = Regex.Replace(answer.Text, regex.ToString(), "");
+                    if (nakedString == check)
+                    {
+                        throw new DuplicateRowException("Duplicate answer");
+                    }
                 }
-            }
-
-            //if (question.Answers?.Any(a => string.Equals(a.Text, message.Text, StringComparison.OrdinalIgnoreCase)) ==
-            //    true)
-            //{
-            //    throw new DuplicateRowException();
-            //}
-            var answer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
-            await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
-            var id = answer.Id;
+            var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
+            await _answerRepository.AddAsync(newAnswer, token).ConfigureAwait(false);
+            var id = newAnswer.Id;
 
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();

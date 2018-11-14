@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Cloudents.Admin2.Models
+﻿namespace Cloudents.Admin2.Models
 {
     public class UploadAskFileResponse
     {

@@ -1,10 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -14,12 +12,10 @@ namespace Cloudents.Web.Api
     public class ProfileController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
-        private readonly UserManager<User> _userManager;
 
-        public ProfileController(IQueryBus queryBus, UserManager<User> userManager)
+        public ProfileController(IQueryBus queryBus)
         {
             _queryBus = queryBus;
-            _userManager = userManager;
         }
 
         // GET

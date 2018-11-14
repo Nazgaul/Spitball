@@ -1,9 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Storage.Blob;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Storage

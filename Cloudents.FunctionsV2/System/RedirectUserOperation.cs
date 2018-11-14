@@ -3,8 +3,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Microsoft.Azure.WebJobs;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Framework
             {
                 return doc.ToString(SaveFormat.Text);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return string.Empty;
             }
