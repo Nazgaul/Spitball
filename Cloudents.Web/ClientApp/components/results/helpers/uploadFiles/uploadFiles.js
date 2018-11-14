@@ -120,7 +120,11 @@ export default {
 
         },
         confirmCloseOpen() {
-            this.confirmationDialog = true;
+            if(this.currentStep === this.steps){
+                this.closeUpload()
+            }else{
+                this.confirmationDialog = true;
+            }
 
         },
         closeUpload(){
