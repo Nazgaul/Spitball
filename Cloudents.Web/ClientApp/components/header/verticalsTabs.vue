@@ -3,7 +3,7 @@
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
             <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
-            <v-tabs class="verticals-bar" v-model="currentVertical" :value="currentSelection"   :scrollable="true">
+            <v-tabs class="verticals-bar" v-model="currentVertical" :value="currentSelection" :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
                                  :class="['spitball-text-'+tab.id,tab.id===currentSelection?'v-tabs__item--active':'']"

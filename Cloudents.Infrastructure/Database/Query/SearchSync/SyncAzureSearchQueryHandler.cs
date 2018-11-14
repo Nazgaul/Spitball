@@ -11,9 +11,9 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
     public abstract class SyncAzureSearchQueryHandler<T> where T : new()
     {
-        protected abstract FluentQueryBuilder VersionSql { get; }
+        protected abstract string VersionSql { get; }
 
-        protected abstract FluentQueryBuilder FirstQuery { get; }
+        protected abstract string FirstQuery { get; }
 
 
         private readonly IStatelessSession _session;
