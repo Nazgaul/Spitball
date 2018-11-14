@@ -172,7 +172,7 @@
     <value>Email sent</value>
   </data>
   <data name="end_privacy_policy" xml:space="preserve">
-    <value></value>
+    <value> </value>
     <comment>do not translate to english</comment>
   </data>
   <data name="enter_the_confirm_code" xml:space="preserve">
