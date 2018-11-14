@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Infrastructure
 {
@@ -24,6 +25,8 @@ namespace Cloudents.Infrastructure
             }
         }
 
+        
+
         /// <summary>
         /// Detect batch of sentences
         /// </summary>
@@ -38,7 +41,7 @@ namespace Cloudents.Infrastructure
                 Endpoint = "https://northeurope.api.cognitive.microsoft.com"
             };
 
-            var b = new BatchInput(texts.Select(s => new Input(s.Key.ToString(), s.Value))
+            var b = new BatchInput(texts.Where(w=>!string.IsNullOrEmpty(w.Value)).Select(s => new Input(s.Key.ToString(), s.Value))
                 .ToList());
             if (b.Documents.Count == 0)
             {
@@ -51,14 +54,8 @@ namespace Cloudents.Infrastructure
 
             return result.Documents.Select(x =>
              {
-                 var t = CultureInfo.InvariantCulture;
-
-                 if (x.DetectedLanguages[0].Score.GetValueOrDefault(0).Equals(0))
-                 {
-                     t = new CultureInfo("en");
-                     //x.DetectedLanguages[0] = new DetectedLanguage("English", "en", 1);
-                 }
-                 else if (x.DetectedLanguages[0].Score > 0)
+                 var t = Language.English.Culture;
+                 if (x.DetectedLanguages[0].Score > 0)
                  {
                      t = new CultureInfo(x.DetectedLanguages[0].Iso6391Name);
                  }
@@ -69,8 +66,12 @@ namespace Cloudents.Infrastructure
 
         public async Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return Language.English;
+            }
             var result = await DetectLanguageAsync(new[] { new KeyValuePair<string, string>("1", text) }, token);
-            return result.First().Value;
+            return result.FirstOrDefault().Value ?? Language.English;
         }
     }
 }

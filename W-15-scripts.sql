@@ -2,6 +2,7 @@
 -- need to create signalr service for production
 -- need to update application insight connection string
 -- need to update db connection string to support v2 functions
+-- need to change the app setting in production
 -- new azure function
 -- change blob storage to private
 

@@ -8,15 +8,16 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class ImageProcessor : IPreviewProvider2
     {
-        public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
+        public static readonly string[] Extensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
 
         public async Task ProcessFilesAsync(Stream stream, 
             Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, Task> textCallback, 
-            Func<int, Task> pageCountCallback,
+
+            Func<string, int, Task> metaCallback,
             CancellationToken token)
         {
-            await pageCountCallback(1);
+            //TODO: we can do it faster
+            await metaCallback(null, 1);
             using (var ms = new MemoryStream())
             {
                 var settings2 = new ResizeSettings

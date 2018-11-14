@@ -27,6 +27,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Query.Admin;
+using Cloudents.Infrastructure.Search.Document;
 
 
 namespace ConsoleApp
@@ -92,10 +93,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var _bus = _container.Resolve<IQueryBus>();
-
-
-            var questions = await _bus.QueryAsync<IList<FictivePendingQuestionDto>>(new AdminEmptyQuery(), token);
+            //await ReduProcessing();
+            var _bus = _container.Resolve<AzureDocumentSearch>();
+            var t = await _bus.ItemAsync(1082, default);
             // var sr = File.OpenRead(@"C:\Users\Ram\Downloads\file-148a9417-be00-431a-a6da-4e970fd0639c-625549.pdf");
             // var pdfProcessor = new PdfProcessor();
             //await pdfProcessor.ProcessFilesAsync(sr, (stream, s) => { return Task.CompletedTask; },
@@ -138,8 +138,16 @@ namespace ConsoleApp
                 Console.WriteLine("Receiving a new batch of blobs");
                 foreach (IListBlobItem blob in result.Results)
                 {
-                    var blobToDelete = (CloudBlockBlob)blob;
-                    await func(blobToDelete);
+
+                    var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri);
+                    
+
+
+                    if (fileNameWithoutDirectory.ToString().StartsWith("file-", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var blobToDelete = (CloudBlockBlob)blob;
+                        await func(blobToDelete);
+                    }
 
                     //foreach (var extension in WordProcessor.WordExtensions)
                     //{
@@ -188,7 +196,7 @@ namespace ConsoleApp
                 {
                     return;
                 }
-                foreach (var extension in WordProcessor.WordExtensions)
+                foreach (var extension in ImageProcessor.Extensions)
                 {
                     if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
                     {

@@ -26,18 +26,15 @@ namespace Cloudents.Infrastructure.Framework
 
         public async Task ProcessFilesAsync(Stream stream,
             Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, Task> textCallback,
-            Func<int, Task> pageCountCallback,
+            Func<string, int, Task> metaCallback,
             CancellationToken token)
         {
             var pdf = new Document(stream);
             var txt = ExtractPdfText(pdf);
 
-            await textCallback(txt);
+            await metaCallback(txt, pdf.Pages.Count - 1);
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
-
-            await pageCountCallback(pdf.Pages.Count - 1);
             var t = new List<Task>();
             for (var j = 1; j < pdf.Pages.Count; j++)
             {
@@ -74,7 +71,7 @@ namespace Cloudents.Infrastructure.Framework
 
         }
 
-        public static readonly string[] PdfExtensions = { ".pdf" };
+        public static readonly string[] Extensions = { ".pdf" };
 
     }
 }
