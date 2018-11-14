@@ -63,10 +63,14 @@
         </div>
         <div class="upload-row-4 final-row">
             <div class="legal-wrap">
-                <input type="checkbox" class="legal-input" id="legal-ownership" v-model="legalCheck" name="legalyOwn"
-                       @change="updateLegal()"/>
-                <label for="legal-ownership" class="ml-3 legal-ownership"
-                       v-language:inner>upload_files_label_legal</label>
+                <v-checkbox class="legal-ownership"
+                            :color="'#4452fc'"
+                            off-icon="sbf-checkboxOff"
+                            on-icon="sbf-checkboxActive"
+                            :label="CheckboxLabel"
+                            v-model="legalCheck"
+                            @change="updateLegal()"></v-checkbox>
+
             </div>
         </div>
     </v-card>
@@ -75,13 +79,15 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import { documentTypes } from "../consts"
+    import { LanguageService } from "../../../../../services/language/languageService";
 
     export default {
         name: "uploadStep_6",
         data() {
             return {
                 selected: {},
-                checker: false
+                checker: false,
+                CheckboxLabel: LanguageService.getValueByKey("upload_files_label_legal")
             }
         },
         props: {
