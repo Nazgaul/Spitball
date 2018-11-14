@@ -29,7 +29,7 @@
                         <div :class="['step-controls', isLastStepAndMobile ? 'mobile-controls-last' : '' ]">
                             <div class="upload upload-result-file">
                                 <div class="file-item">
-                                    <v-icon v-if="!progressShow">sbf-terms</v-icon>
+                                    <v-icon v-if="!progressShow">sbf-document-note</v-icon>
                                     <div v-else class="load-container">
                                         <div class="dot-flashing"></div>
                                     </div>
@@ -77,8 +77,9 @@
                    :activateOverlay="true"
                    :content-class="'confirmation-dialog'">
             <v-card class="confirm-card">
+                <span class="warning-icon">!</span>
                 <v-card-title class="confirm-headline">
-                    <v-icon class="warning-icon mr-2">sbf-warning</v-icon>
+                    <!--<v-icon class="warning-icon mr-2">sbf-warning</v-icon>-->
                     <span v-language:inner>upload_confirm_stop_title</span>
                 </v-card-title>
                 <v-card-text class="confirm-text"><span v-language:inner>upload_confirm_text</span></v-card-text>

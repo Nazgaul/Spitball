@@ -1,5 +1,5 @@
 <template>
-    <v-card class="sb-step-card">
+    <v-card :class="['sb-step-card', $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
         <div class="error-block" v-show="extensionErrror || uploadError">
             <div class="error-container">
             <h3 class="error-title" v-show="extensionErrror" v-language:inner>upload_error_extension_title</h3>
@@ -15,7 +15,7 @@
             <h3 class="text-blue upload-cloud-text" v-language:inner>upload_files_uploadDoc</h3>
         </div>
         <div class="upload-row-2 paddingTopSm">
-            <div class="btn-holder">
+            <div class="btn-holder" >
                 <v-btn fab class="upload-option-btn" @click="DbFilesList()"
                        :disabled="!dbReady">
                     <v-icon>sbf-upload-dropbox</v-icon>
@@ -23,9 +23,8 @@
                 <span class="btn-label" v-language:inner>upload_files_btn_dropBox</span>
             </div>
             <div class="btn-holder">
-                <v-btn fab class="upload-option-btn">
+                <div fab :class="['upload-option-btn', 'desktop-file']">
                     <v-icon>sbf-upload-desktop</v-icon>
-
 
                     <file-upload
                             style="top: unset;"
@@ -46,7 +45,7 @@
                               maxActive: 3,
                               maxRetries: 5,}">
                     </file-upload>
-                </v-btn>
+                </div>
                 <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label"
                       v-language:inner>upload_files_btn_phone</span>
                 <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label"
@@ -54,7 +53,7 @@
             </div>
         </div>
         <div class="upload-row-3">
-            <div :class="['btn-holder', $refs.upload && $refs.upload.dropActive ? 'drop-active' : '' ]">
+            <div  :class="['btn-holder', {isDropActive : 'drop-active'}]">
                 <!--<v-icon>sbf-upload-drag</v-icon>-->
                 <span class="btn-label" v-language:inner>upload_files_btn_drop</span>
             </div>
@@ -84,7 +83,8 @@
                 DBsupportedExtensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg', '.pptx'],
                 extensionErrror: false,
                 uploadError: false,
-                errorText: ''
+                errorText: '',
+                hovered: false
             }
         },
         props: {
@@ -98,6 +98,11 @@
             ...mapGetters({
                 getFileData: 'getFileData'
             }),
+            isDropActive(){
+                if(this.$refs){
+                    return this.$refs.upload && this.$refs.upload.dropActive
+                }
+            },
         },
         methods: {
             ...mapActions(['updateFile', 'updateUploadProgress', 'updateFileName', 'updateUploadFullMobile']),

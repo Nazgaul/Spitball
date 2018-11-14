@@ -46,7 +46,7 @@ namespace Cloudents.Functions
         //    return "13";
         //}
 
-        private static async Task ProcessBlobPreview(CloudBlockBlob myBlob, string id, string name, IFactoryProcessor factory,
+        private static async Task ProcessBlobPreview(CloudBlob myBlob, string id, string name, IFactoryProcessor factory,
             CloudBlobDirectory directory, TraceWriter log, CancellationToken token)
         {
             log.Info($"Going to process - {id}");
@@ -78,20 +78,13 @@ namespace Cloudents.Functions
 
                         log.Info($"uploading to {id} preview-{previewName}");
                         return blob.UploadFromStreamAsync(stream, token);
-                    }, s =>
+                    }, (text,pageCount) =>
                     {
                         var blob = directory.GetBlockBlobReference("text.txt");
                         blob.Properties.ContentType = "text/plain";
-                        s = StripUnwantedChars(s);
-                        //s = Regex.Replace(s, @"\s+", " ", RegexOptions.Multiline);
-
-                        log.Info($"uploading to {id} text.txt");
-                        return blob.UploadTextAsync(s, token);
-                    }, pageCount =>
-                    {
-                        var blob = directory.GetBlockBlobReference("text.txt");
+                        text = StripUnwantedChars(text);
                         blob.Metadata["PageCount"] = pageCount.ToString();
-                        return blob.SetMetadataAsync(token);
+                        return blob.UploadTextAsync(text ?? string.Empty, token);
                     }, token);
                 }
                 else
