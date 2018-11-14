@@ -86,7 +86,7 @@
         components: {SbInput},
         data() {
             return {
-                //userReferralLink:"http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral",
+
                 socialMedias: {
                     whatsApp: "whatsApp",
                     facebook: "facebook",
@@ -149,7 +149,7 @@
                 })
             },
             shareOnSocialMedia(socialMedia) {
-                let message = this.getReferallMessages(this.type, this.userReferralLink);
+                let message = getReferallMessages(this.type, this.userReferralLink);
                 switch (socialMedia) {
                     case this.socialMedias.whatsApp:
                         //https://api.whatsapp.com/send?text={{url  here}}

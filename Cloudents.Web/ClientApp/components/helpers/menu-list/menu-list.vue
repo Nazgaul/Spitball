@@ -118,7 +118,6 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <!-- start language swith-->
             <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name"
                          @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
@@ -128,7 +127,6 @@
                     <v-list-tile-title class="subheading">{{singleLang.title}}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <!-- end language swith-->
 
             <v-list-tile @click="startIntercom">
                 <v-list-tile-action>
@@ -196,7 +194,7 @@
 
         <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
                    :content-class="'login-popup'">
-            <referral-dialog :isTransparent="false" :showDialog="showReferral" :popUpType="'referralPop'"></referral-dialog>
+            <referral-dialog :isTransparent="false" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
         </sb-dialog>
     </div>
 
@@ -214,6 +212,7 @@
     import languagesLocales from '../../../services/language/localeLanguage'
     import { LanguageChange } from '../../../services/language/languageService'
     import { typesPersonalize } from "../../settings/consts.js";
+    import Base62 from "base62"
 
     export default {
         components: {userBlock, notLoggedIn, sbDialog, referralDialog},
@@ -224,7 +223,7 @@
                 showSettings: false,
                 showReferral: false,
                 languagesLocales,
-                languageChoisesAval: []
+                languageChoisesAval: [],
             }
         },
         props: {
@@ -248,6 +247,9 @@
             isLoggedIn() {
                 return !!this.accountUser
             },
+            userReferralLink(){
+                return "http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser.id) + "&promo=referral";
+            }
         },
         methods: {
             ...mapActions(['logout', 'updateLoginDialogState', 'changeSelectUniState', 'updateCurrentStep']),
