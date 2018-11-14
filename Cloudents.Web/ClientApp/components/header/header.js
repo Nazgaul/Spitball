@@ -25,8 +25,11 @@ export default {
     },
     methods:{
         correctCurrentSelection(){
-            let documentPath = this.currentSelection.toLowerCase() === "document" ? "note" : this.currentSelection;
-            return documentPath;
+            if(!!this.currentSelection) {
+                let documentPath = this.currentSelection.toLowerCase() === "document" ? "note" : this.currentSelection;
+
+                return documentPath;
+            }
         }
     },
     mounted() {
