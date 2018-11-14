@@ -6,7 +6,7 @@
             <h3 class="sb-title" v-language:inner>upload_files_step7_title</h3>
         </div>
         <div class="upload-row-2 referral-row">
-            <referral-dialog :userReferralLink="referalLink" :type="'uploadReffer'" :isTransparent="true" :popUpType="''"></referral-dialog>
+            <referral-dialog :userReferralLink="referalLink" :referralType="'uploadReffer'" :isTransparent="true" :popUpType="''"></referral-dialog>
         </div>
         <div class="upload-row-3 referal-row-3">
             <h3 class="sb-subtitle mb-3" v-language:inner>upload_files_step7_subtitle</h3>
