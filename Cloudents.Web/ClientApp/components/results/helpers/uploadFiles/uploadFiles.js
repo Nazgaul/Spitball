@@ -39,8 +39,8 @@ export default {
                 stopProgress: this.stopProgress,
                 // closeAndOpenAsk: this.closeAndOpenAsk
             },
-            clearChildrenData: false
-
+            clearChildrenData: false,
+            docReferral: ''
         }
     },
     props: {},
@@ -109,10 +109,14 @@ export default {
             let docData = this.getFileData;
             docData.name = this.getCustomFileName;
             //post all doc data
+            let self = this;
             documentService.sendDocumentData(docData)
                 .then((resp) => {
                         console.log('doc data success', resp);
-                        this.nextStep(step)
+                        if(resp.data.url){
+                            self.docReferral = resp.data.url
+                        }
+                        self.nextStep(step)
                     },
                     (error) => {
                         console.log('doc data error', error)

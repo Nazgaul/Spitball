@@ -6,7 +6,7 @@
             <h3 class="sb-title" v-language:inner>upload_files_step7_title</h3>
         </div>
         <div class="upload-row-2 referral-row">
-            <referral-dialog :isTransparent="true" :popUpType="''"></referral-dialog>
+            <referral-dialog :userReferralLink="referalLink" :type="'uploadReffer'" :isTransparent="true" :popUpType="''"></referral-dialog>
         </div>
         <div class="upload-row-3 referal-row-3">
             <h3 class="sb-subtitle mb-3" v-language:inner>upload_files_step7_subtitle</h3>
@@ -26,23 +26,40 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
+    import Base62 from "base62"
     import referralDialog from "../../../../question/helpers/referralDialog/referral-dialog.vue";
 
     export default {
         name: "uploadStep_7",
         components: { referralDialog },
         data() {
-            return {}
-        },
+            return {
 
+            }
+        },
+        props: {
+            docReferral: {
+                type: String,
+                default: '',
+                required: false
+            },
+
+        },
         computed: {
             ...mapGetters({
                 getLegal: 'getLegal',
                 getFileData: 'getFileData',
-                getSchoolName: 'getSchoolName'
+                getSchoolName: 'getSchoolName',
             }),
+            referalLink(){
+              return  "http://www.spitball.co"+ this.docReferral +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral";
+            },
         },
         methods: {
+            ...mapGetters({
+                accountUser: 'accountUser'
+
+            }),
             ...mapActions(['updateLegalAgreement', 'askQuestion', 'updateDialogState']),
             closeAndGoTo() {
                 this.askQuestion(false)
