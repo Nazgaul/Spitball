@@ -78,9 +78,9 @@
         padding-top: 32px;
         padding-bottom: 16px;
       }
-      .warning-icon{
+      .warning-icon {
         font-size: 18px;
-        color:  @textColor;
+        color: @textColor;
       }
     }
     .confirm-text {
@@ -143,12 +143,22 @@
 
 #upload-input {
   position: absolute;
-  height: 221px;
-  width: 165px;
+  //height: 221px;
+  //width: 165px;
+  height: 50px;
+  width: 50px;
   transform: rotate(0deg);
+  cursor: pointer;
+  label{
+    display: none;
+  }
   input {
-    height: 221px;
-    width: 165px;
+    position: relative;
+    height: 50px;
+    width: 50px;
+    //height: 221px;
+    //width: 165px;
+    cursor: pointer;
   }
 }
 
@@ -331,7 +341,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            .load-container{
+            .load-container {
               width: auto;
               margin-right: 12px;
             }
@@ -363,7 +373,7 @@
           height: @buttonHeigh;
           &[disabled] {
             color: @color-white !important;
-            .credit-card{
+            .credit-card {
               color: @color-white !important;
             }
           }
@@ -484,7 +494,7 @@
           &.step-1 {
             margin-bottom: 12px;
 
-            .upload-row-2{
+            .upload-row-2 {
               flex-grow: 1;
             }
 
@@ -499,8 +509,13 @@
             justify-content: flex-start;
             //align-items: center;
             box-shadow: none;
+            &.drop-card {
+              //background-color: rgba(0, 0, 0, 0.1);
+              transform: scale(1.02);
+              z-index: 2
+            }
             @media (max-width: @screen-xs) {
-              min-height:unset;
+              min-height: unset;
             }
             .upload-row-1 {
               padding-top: 24px;
@@ -618,9 +633,30 @@
                   box-shadow: none;
                   border: 1px solid @uploadGrey;
                   background-color: transparent;
+                  align-items: center;
+                  border-radius: 50%;
+                  display: inline-flex;
+                  flex: 0 0 auto;
+                  font-size: 14px;
+                  font-weight: 500;
+                  justify-content: center;
+                  margin: 6px 8px;
+                  min-width: 48px;
+                  outline: 0;
+                  text-transform: uppercase;
+                  text-decoration: none;
+                  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1), color 1ms;
+                  position: relative;
+                  vertical-align: middle;
+                  user-select: none;
+                  &:hover{
+                    background-color: #E2E2E5;
+                    cursor: pointer;
 
+                  }
                   .sbf {
                     font-size: 18px;
+                    color: @color-black;
                   }
                   //sbf
                 }
@@ -937,7 +973,7 @@
                   align-items: center;
                   justify-content: space-around;
                   cursor: pointer;
-                  &:hover{
+                  &:hover {
                     animation: color_change_doc_type 0.7s ease-in-out;
                     animation-iteration-count: 1;
                     border: solid 1px @color-blue-new;
@@ -997,10 +1033,10 @@
                 border: none;
                 .sb-chip-tag {
                   background-color: @uploadGreyBackground;
-                  &.selected{
-                    -webkit-box-shadow: 0px 2px 4px 0 rgba(0,0,0,.2);
-                    -moz-box-shadow: 0px 2px 4px 0 rgba(0,0,0,.2);
-                    box-shadow: 0px 2px 4px 0 rgba(0,0,0,.2);
+                  &.selected {
+                    -webkit-box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, .2);
+                    -moz-box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, .2);
+                    box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, .2);
                   }
                   .chip-button {
                     color: @chipActiveColor;
@@ -1301,9 +1337,9 @@
                 width: 100%;
                 max-width: @maxWidthForm;
                 flex-wrap: wrap;
-                &:not(.referal-row-3){
-                padding-top: 32px;
-              }
+                &:not(.referal-row-3) {
+                  padding-top: 32px;
+                }
 
                 justify-content: flex-start;
 
