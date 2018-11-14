@@ -118,7 +118,6 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <!-- start language swith-->
             <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name"
                          @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
@@ -128,7 +127,6 @@
                     <v-list-tile-title class="subheading">{{singleLang.title}}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <!-- end language swith-->
 
             <v-list-tile @click="startIntercom">
                 <v-list-tile-action>
