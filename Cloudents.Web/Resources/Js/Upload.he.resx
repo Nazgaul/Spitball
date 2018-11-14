@@ -136,7 +136,7 @@
     <value>קבצים נתמכים:</value>
   </data>
   <data name="error_extension_title" xml:space="preserve">
-    <value>אופס! הקובץ אינו נתמך</value>
+    <value>אופס! קובץ זה אינו נתמך</value>
   </data>
   <data name="error_upload_something_wrong" xml:space="preserve">
     <value>קרתה תקלה</value>
@@ -198,7 +198,7 @@
     <value>היכון, הכן, צא!</value>
   </data>
   <data name="files_label_class" xml:space="preserve">
-    <value>בחר קורס רלוונטי</value>
+    <value>נא לבחור קורס רלוונטי</value>
   </data>
   <data name="files_label_document_title" xml:space="preserve">
     <value>כותרת מסמך</value>
@@ -249,7 +249,7 @@
     <value>עזור לאחרים בזמן שאתה מחכה</value>
   </data>
   <data name="files_step7_title" xml:space="preserve">
-    <value>הפץ את המסמך</value>
+    <value>הפץ את המסמך בערוצים נוספים</value>
   </data>
   <data name="files_type_default" xml:space="preserve">
     <value>מסמך</value>
