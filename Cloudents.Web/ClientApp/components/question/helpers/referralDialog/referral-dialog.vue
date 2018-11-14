@@ -149,7 +149,7 @@
                 })
             },
             shareOnSocialMedia(socialMedia) {
-                let message = getReferallMessages(this.type, this.userReferralLink);
+                let message = getReferallMessages(this.referralType, this.userReferralLink);
                 switch (socialMedia) {
                     case this.socialMedias.whatsApp:
                         //https://api.whatsapp.com/send?text={{url  here}}
