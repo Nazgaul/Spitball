@@ -56,10 +56,9 @@ namespace Cloudents.FunctionsV2
             {
                 var command = new UpdateDocumentMetaCommand(id, lang, pageCount);
                 await commandBus.DispatchAsync(command, token);
-
                 await searchInstance.UpdateDataAsync(new[]
                     {
-                        new Document()
+                        new Document
                         {
                             Id = id.ToString(),
                             Content = text.Truncate(6000),
