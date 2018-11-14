@@ -80,12 +80,12 @@
     import { mapGetters } from "vuex"
     import Base62 from "base62"
     import { LanguageService } from '../../../../services/language/languageService'
+    import {getReferallMessages}  from "./consts.js";
 
     export default {
         components: {SbInput},
         data() {
             return {
-                userReferralLink: global.location.origin + "/?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral",
                 //userReferralLink:"http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral",
                 socialMedias: {
                     whatsApp: "whatsApp",
@@ -103,6 +103,16 @@
             }
         },
         props: {
+            referralType:{
+                type:String,
+                default: 'menu',
+                required: false
+            },
+            userReferralLink:{
+                type: String,
+                default: "http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral",
+                required: false
+            },
             popUpType: {
                 type: String,
                 required: true
@@ -138,14 +148,7 @@
                 })
             },
             shareOnSocialMedia(socialMedia) {
-                let message = {
-                    url: this.userReferralLink,
-                    encodedUrl: encodeURIComponent(this.userReferralLink),
-                    title: LanguageService.getValueByKey("referralDialog_join_me"),
-                    text: LanguageService.getValueByKey("referralDialog_get_your_homework") + " " + encodeURIComponent(this.userReferralLink),
-                    twitterText: LanguageService.getValueByKey("referralDialog_join_me") + " " + LanguageService.getValueByKey("referralDialog_get_your_homework_twitter"),
-                    whatsAppText: LanguageService.getValueByKey("referralDialog_join_me") + " " + LanguageService.getValueByKey("referralDialog_get_your_homework") + " " + encodeURIComponent(this.userReferralLink),
-                };
+                let message = this.getReferallMessages(this.type, this.userReferralLink);
                 switch (socialMedia) {
                     case this.socialMedias.whatsApp:
                         //https://api.whatsapp.com/send?text={{url  here}}
