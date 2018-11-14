@@ -5,7 +5,7 @@ global.lang = document.getElementsByTagName("html")[0].getAttribute("lang");
 global.mainCdn = true;
 GetDictionary().then(()=>{
     function getComponent() {
-        return import("./main").catch(error => 'An error occurred while loading the component');
+        return import("./main").catch(error => error);
       }
 
       // dynamic import the main component

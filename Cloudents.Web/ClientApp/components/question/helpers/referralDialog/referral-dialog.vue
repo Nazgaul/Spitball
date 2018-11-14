@@ -110,7 +110,8 @@
             },
             userReferralLink:{
                 type: String,
-                default: "http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral",
+                // http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral
+                default: "",
                 required: false
             },
             popUpType: {
