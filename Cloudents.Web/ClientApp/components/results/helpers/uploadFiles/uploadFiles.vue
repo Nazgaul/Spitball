@@ -29,7 +29,7 @@
                         <div :class="['step-controls', isLastStepAndMobile ? 'mobile-controls-last' : '' ]">
                             <div class="upload upload-result-file">
                                 <div class="file-item">
-                                    <v-icon v-if="!progressShow">sbf-terms</v-icon>
+                                    <v-icon v-if="!progressShow">sbf-document-note</v-icon>
                                     <div v-else class="load-container">
                                         <div class="dot-flashing"></div>
                                     </div>
