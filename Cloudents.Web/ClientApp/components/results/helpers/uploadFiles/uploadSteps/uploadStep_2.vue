@@ -24,7 +24,6 @@
                 <span v-language:inner>upload_files_label_class</span>
             </label>
             <div class="chip-wrap">
-
                 <v-chip name="sbf-class-chip" class="sbf-class-chip mb-2" outline
                         v-for="(singleClass, index) in classesList"
                         @click="updateClass(singleClass.text)"
@@ -33,7 +32,6 @@
                 </v-chip>
             </div>
         </div>
-
     </v-card>
 </template>
 
@@ -45,13 +43,14 @@
         components:{sbInput},
         data() {
             return {
-                selectedClass: ''
+                selectedClass: '',
             }
         },
         computed: {
             ...mapGetters({
                 getSchoolName: 'getSchoolName',
                 getSelectedClasses: 'getSelectedClasses',
+                getFileData: 'getFileData'
             }),
             schoolName() {
                 return this.getSchoolName ? this.getSchoolName : ''
@@ -63,12 +62,13 @@
                 return this.isClassesSet ? this.getSelectedClasses : []
             },
         },
+
         methods: {
             ...mapActions([ 'updateFile']),
             // update data methods
             updateClass(singleClass) {
                 this.updateFile({'course': singleClass});
-                this.selectedClass = singleClass;
+                this.selectedClass = this.getFileData.course;
             },
         },
         beforeDestroy(){
