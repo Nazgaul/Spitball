@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
-    class ChangeCountryCommandHandler : ICommandHandler<ChangeCountryCommand>
+    public class ChangeCountryCommandHandler : ICommandHandler<ChangeCountryCommand>
     {
         private readonly IUserRepository _userRepository;
 

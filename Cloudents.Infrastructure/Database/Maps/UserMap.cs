@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();
-            Map(e => e.Fictive).ReadOnly();
+            Map(e => e.Fictive).Update();
             Map(e => e.FraudScore);
 
             Map(e => e.PasswordHash).Nullable();
