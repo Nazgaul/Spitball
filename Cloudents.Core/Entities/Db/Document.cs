@@ -1,14 +1,16 @@
-﻿using System;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
-    public class Document
+    public class Document : IEvents
     {
         public Document([NotNull] string name, [NotNull] string blobName, [NotNull] University university,
             [NotNull] Course course, DocumentType type,
@@ -25,6 +27,7 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Views = 0;
             Professor = professor;
+            Events.Add(new DocumentCreatedEvent(this));
         }
 
         protected Document()
@@ -32,6 +35,7 @@ namespace Cloudents.Core.Entities.Db
             TimeStamp = new DomainTimeStamp();
             //Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
+            Events = new List<IEvent>();
         }
 
         public virtual long Id { get; set; }
@@ -61,7 +65,8 @@ namespace Cloudents.Core.Entities.Db
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }
 
-    
+
         public virtual CultureInfo Language { get; set; }
+        public IList<IEvent> Events { get; }
     }
 }

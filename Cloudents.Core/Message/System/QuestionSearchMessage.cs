@@ -16,10 +16,16 @@ namespace Cloudents.Core.Message.System
             ShouldInsert = shouldInsert;
             Question = question;
         }
+       
+    }
 
-        //protected QuestionSearchMessage()
-        //{
-            
-        //}
+    public class DocumentSearchMessage : ISystemQueueMessage
+    {
+        public DocumentSearchMessage(Document document)
+        {
+            Document = document;
+        }
+
+        public Document Document { get; private set; }
     }
 }
