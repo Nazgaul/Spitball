@@ -111,7 +111,6 @@
                 set(val){
                     this.checker = val;
                 }
-
             },
 
             selectedType() {
