@@ -5,7 +5,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -27,14 +26,14 @@ namespace Cloudents.FunctionsV2
         {
             var model = new SearchSyncInput(syncType);
             var existingInstance = await starter.GetStatusAsync(model.InstanceId);
-            var startNewInstanceEnum = new[]
-            {
-                OrchestrationRuntimeStatus.Canceled,
-                OrchestrationRuntimeStatus.Completed,
-                OrchestrationRuntimeStatus.Failed,
-                OrchestrationRuntimeStatus.Terminated
-            };
-           
+            //var startNewInstanceEnum = new[]
+            //{
+            //    OrchestrationRuntimeStatus.Canceled,
+            //    OrchestrationRuntimeStatus.Completed,
+            //    OrchestrationRuntimeStatus.Failed,
+            //    OrchestrationRuntimeStatus.Terminated
+            //};
+
             if (existingInstance == null)
             {
                 log.LogInformation($"start new instance of {syncType}");
@@ -42,30 +41,48 @@ namespace Cloudents.FunctionsV2
                 return;
 
             }
-            if (startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
+            if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Failed)
             {
-                log.LogInformation($"existing instance is in status:{existingInstance.RuntimeStatus} reason {existingInstance.CustomStatus}");
-                if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Failed)
-                {
-                    log.LogInformation($"terminate existing instance");
-                    await starter.TerminateAsync(model.InstanceId, "the status failed");
-                }
+                log.LogInformation($"terminate existing instance");
+                await starter.TerminateAsync(model.InstanceId, "the status failed");
+            }
 
+            if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Running)
+            {
                 if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-5))
                 {
                     log.LogError($"issue with {syncType}");
                     await starter.TerminateAsync(model.InstanceId, $"issue with {syncType}");
                 }
-
-                log.LogInformation($"started {model.InstanceId}");
-
-                await starter.StartNewAsync(SearchSyncName, model.InstanceId, model);
+                else
+                {
+                    log.LogInformation($"{model.InstanceId} is in status {existingInstance.RuntimeStatus}");
+                    return;
+                }
             }
-            else
-            {
-                log.LogInformation($"{model.InstanceId} is in status {existingInstance.RuntimeStatus}");
+            await starter.StartNewAsync(SearchSyncName, model.InstanceId, model);
 
-            }
+            //if (startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
+            //{
+            //    log.LogInformation($"existing instance is in status:{existingInstance.RuntimeStatus} reason {existingInstance.CustomStatus}");
+
+
+            //    if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-5) &&
+            //        existingInstance.RuntimeStatus != OrchestrationRuntimeStatus.Completed)
+            //    {
+            //        log.LogError($"issue with {syncType}");
+            //        await starter.TerminateAsync(model.InstanceId, $"issue with {syncType}");
+            //    }
+
+            //    log.LogInformation($"started {model.InstanceId}");
+
+            //    await starter.StartNewAsync(SearchSyncName, model.InstanceId, model);
+            //}
+            //else
+            //{
+            //    log.LogInformation($"{model.InstanceId} is in status {existingInstance.RuntimeStatus}");
+
+            //}
         }
 
         [FunctionName(SearchSyncName)]
@@ -74,12 +91,12 @@ namespace Cloudents.FunctionsV2
             ILogger log)
         {
             var input = context.GetInput<SearchSyncInput>();
-            
+
             var query = await context.CallActivityAsync<SyncAzureQuery>(GetSyncStatusFunctionName, input.BlobName);
 
             if (query.Version == 0 && query.Page == 0)
             {
-                
+
                 await context.CallActivityAsync(CreateIndexFunctionName, input);
             }
             input.SyncAzureQuery = query;
@@ -99,7 +116,7 @@ namespace Cloudents.FunctionsV2
             {
                 nextVersion++;
             }
-            input.SyncAzureQuery = new SyncAzureQuery(nextVersion, 0);
+            input.SyncAzureQuery = new SyncAzureQuery(Math.Max(nextVersion, input.SyncAzureQuery.Version), 0);
             await context.CallActivityAsync(SetSyncStatusFunctionName, input);
             log.LogInformation($"finish syncing {input.SyncType:G} with version {input.SyncAzureQuery.Version} page {input.SyncAzureQuery.Page}");
 

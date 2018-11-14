@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             _queryBuilder = queryBuilder;
         }
 
-        protected override FluentQueryBuilder VersionSql
+        protected override string VersionSql
         {
             get
             {
@@ -38,21 +38,15 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         private void SimilarQuery(FluentQueryBuilder qb)
         {
             qb.LeftJoin<Question, User>(q => q.User, u => u.Id)
-            //qb.Select<User>(x => x.Id, nameof(QuestionSearchDto.UserId))
-             //   .Select<User>(x => x.Name, nameof(QuestionSearchDto.UserName))
-             //   .Select<User>(x => x.Image, nameof(QuestionSearchDto.UserImage))
                 .Select<Question>(x => x.Id, nameof(QuestionSearchDto.QuestionId))
                 .Select<Question>(x => x.Language, nameof(QuestionSearchDto.Language))
                 .Select<User>(x => x.Country, nameof(QuestionSearchDto.Country))
                 .Select(
                     $"(select count(*) from {qb.Table<Answer>()} where {qb.Column<Answer>(x => x.Question)} = {qb.ColumnAlias<Question>(x => x.Id)}) {nameof(QuestionSearchDto.AnswerCount)}")
                 .Select<Question>(x => x.Updated, nameof(QuestionSearchDto.DateTime))
-               // .Select<Question>(x => x.Attachments, nameof(QuestionSearchDto.FilesCount))
                 .Select(
                     $"CASE when {qb.ColumnAlias<Question>(x => x.CorrectAnswer)} IS null Then 0 else 1  END {nameof(QuestionSearchDto.HasCorrectAnswer)}")
-                //.Select<Question>(x => x.Price, nameof(QuestionSearchDto.Price))
                 .Select<Question>(x => x.Text, nameof(QuestionSearchDto.Text))
-                //.Select<Question>(x => x.Color, nameof(QuestionSearchDto.Color))
                 .Select<Question>(x => x.State, nameof(QuestionSearchDto.State))
                 .Select<Question>(x => x.Subject, nameof(QuestionSearchDto.Subject))
                 .Select("c.*")
@@ -60,7 +54,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
                 .Paging("PageSize", "PageNumber");
         }
 
-        protected override FluentQueryBuilder FirstQuery
+        protected override string FirstQuery
         {
             get
             {
