@@ -100,9 +100,10 @@
             ...mapActions([
                 'updateLoginDialogState'
             ]),
+            ...mapGetters(['accountUser']),
             downloadDoc() {
                 let url = this.$route.path + '/download';
-                if (this.accountUser) {
+                if (!!this.accountUser()) {
                     global.location.href = url;
                 } else {
                     this.updateLoginDialogState(true)
