@@ -74,7 +74,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost, Authorize]
-        public async Task<DocumentFeedDto> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
+        public async Task<CreateDocumentResponse> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
             CancellationToken token)
         {
@@ -84,20 +84,14 @@ namespace Cloudents.Web.Api
                 model.Course, model.Tags, userId, model.Professor);
             await _commandBus.DispatchAsync(command, token);
 
-
-            var queryDb = new IdsQuery<long>(new[] { command.Id });
-            var dbResult = await _queryBus.QueryAsync<IList<DocumentFeedDto>>(queryDb, token);
-
-            var retVal = dbResult.First();
-
-            retVal.Url = Url.RouteUrl(SeoTypeString.Document, new
+            var url = Url.RouteUrl(SeoTypeString.Document, new
             {
                 universityName = profile.University.Name,
                 courseName = model.Course,
                 id = command.Id,
                 name = model.Name
             });
-            return retVal;
+            return new CreateDocumentResponse(url);
         }
 
 
