@@ -21,7 +21,6 @@
 <script>
     import { documentTypes } from "../consts";
     import { mapGetters, mapActions } from 'vuex';
-
     export default {
         name: "uploadStep_3",
         data() {
