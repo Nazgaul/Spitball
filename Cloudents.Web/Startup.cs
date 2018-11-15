@@ -16,7 +16,6 @@ using JetBrains.Annotations;
 using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.ApplicationInsights.AspNetCore;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -62,10 +61,6 @@ namespace Cloudents.Web
         [UsedImplicitly]
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Configure SnapshotCollector from application settings
-            services.Configure<SnapshotCollectorConfiguration>(Configuration.GetSection(nameof(SnapshotCollectorConfiguration)));
-            // Add SnapshotCollector telemetry processor.
-            services.AddSingleton<ITelemetryProcessorFactory>(sp => new SnapshotCollectorTelemetryProcessorFactory(sp));
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
 
@@ -214,12 +209,8 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
 
 
-            //containerBuilder.RegisterType<DocumentSiteMapIndexConfiguration>()
-            //    .As<ISitemapIndexConfiguration<DocumentSeoDto>>();
             containerBuilder.RegisterType<SeoDocumentRepository>()
                 .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>().WithParameter("query", SeoDbQuery.Flashcard);
-            //containerBuilder.RegisterType<SeoDocumentRepository>()
-            //    .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item).WithParameter("query", SeoDbQuery.Document);
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
@@ -242,11 +233,7 @@ namespace Cloudents.Web
                 {
                     HotModuleReplacement = true
                 });
-                //var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-
-                //configuration.DisableTelemetry = true;
                 app.UseDeveloperExceptionPage();
-                
 
             }
             else
