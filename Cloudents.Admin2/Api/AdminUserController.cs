@@ -110,13 +110,13 @@ namespace Cloudents.Admin2.Api
             await commandBus.DispatchAsync(command, token);
         }
 
-        [HttpPost("delete")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(200)]
-        public async Task DeleteUseryAsync(DeleteUserRequest model,
+        public async Task DeleteUseryAsync(long id,
             [FromServices] ICommandBus commandBus,
             CancellationToken token)
         {
-            var command = new DeleteUserCommand(model.Id);
+            var command = new DeleteUserCommand(id);
             await commandBus.DispatchAsync(command, token);
         }
             
