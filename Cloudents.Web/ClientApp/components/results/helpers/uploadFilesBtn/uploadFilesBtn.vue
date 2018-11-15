@@ -57,10 +57,12 @@
                 'updateDialogState',
                 'changeSelectPopUpUniState',
             ]),
+            ...mapGetters(['getSchoolName']),
             openUploaderDialog() {
+                let schoolName = this.getSchoolName();
                 if (this.accountUser == null) {
                     this.updateLoginDialogState(true);
-                } else if (this.accountUser.universityExists && this.getSelectedClasses.length > 0) {
+                } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
                     this.updateDialogState(true);
                 } else {
                     this.changeSelectPopUpUniState(true)
