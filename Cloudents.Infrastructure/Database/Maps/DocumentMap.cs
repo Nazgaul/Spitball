@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Purchased).Not.Nullable();
             Map(x => x.OldId).Nullable();
   
-            SchemaAction.Update();
+            SchemaAction.None();
         }
     }
 }
