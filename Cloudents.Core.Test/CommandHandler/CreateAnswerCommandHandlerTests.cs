@@ -31,7 +31,7 @@ namespace Cloudents.Core.Test.CommandHandler
             using (var mock = AutoMock.GetLoose())
             {
                 mock.Mock<IRepository<User>>().Setup(s => s.LoadAsync(userId, default)).ReturnsAsync(user);
-                mock.Mock<IRepository<Question>>().Setup(s => s.LoadAsync(questionId, default)).ReturnsAsync(question);
+                mock.Mock<IRepository<Question>>().Setup(s => s.GetAsync(questionId, default)).ReturnsAsync(question);
                 var instance = mock.Create<CreateAnswerCommandHandler>();
 
                 var command = new CreateAnswerCommand(questionId, "someText", userId, null);
