@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
     {
         private readonly ISession _session;
 
-        public SuspendUserQueryHandler(ReadonlySession session)
+        public SuspendUserQueryHandler(QuerySession session)
         {
             _session = session.Session;
         }

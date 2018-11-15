@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
@@ -21,28 +22,28 @@ namespace Cloudents.Infrastructure.Database
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UnitOfWorkFactorySpitball>().SingleInstance();
-
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<ReadonlySession>().InstancePerLifetimeScope();
-            builder.RegisterType<ReadonlyStatelessSession>().InstancePerLifetimeScope();
+                .InstancePerLifetimeScope().OnRelease(x =>
+                {
+                    Console.WriteLine("ss");
+                });
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
-                .InstancePerLifetimeScope();
+                .InstancePerLifetimeScope().OnRelease(x =>
+                {
+                    Console.WriteLine("xxx");
+                });
 
+
+            builder.RegisterType<QuerySession>().InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
-
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
-
-            
 
             var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf()
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             builder.RegisterType<QueryBuilder>().AsSelf();
             builder.RegisterType<FluentQueryBuilder>().AsSelf();
 

@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
     {
         private readonly ISession _session;
 
-        public FictivePendingQuestionQueryHandler(ReadonlySession session)
+        public FictivePendingQuestionQueryHandler(QuerySession session)
         {
             _session = session.Session;
         }

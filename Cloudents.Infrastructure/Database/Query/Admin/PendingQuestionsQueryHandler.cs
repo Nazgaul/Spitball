@@ -20,9 +20,9 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         private readonly IStatelessSession _session;
 
 
-        public PendingQuestionsQueryHandler(ReadonlyStatelessSession session)
+        public PendingQuestionsQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<IEnumerable<PendingQuestionDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)

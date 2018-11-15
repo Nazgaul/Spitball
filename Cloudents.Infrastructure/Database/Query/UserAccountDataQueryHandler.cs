@@ -16,9 +16,9 @@ namespace Cloudents.Infrastructure.Database.Query
     {
         private readonly IStatelessSession _session;
 
-        public UserAccountDataQueryHandler(ReadonlyStatelessSession readonlySession)
+        public UserAccountDataQueryHandler(QuerySession readonlySession)
         {
-            _session = readonlySession.Session;
+            _session = readonlySession.StatelessSession;
         }
 
         //[Cache(TimeConst.Minute * 15, "UserAccount", true)]

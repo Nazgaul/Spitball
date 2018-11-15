@@ -31,7 +31,7 @@ namespace Cloudents.Core
                 .Named<ICommandHandler<UpdateMailGunCommand>>("mailGun");
 
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
-            builder.RegisterType<QueryBus>().As<IQueryBus>();
+            builder.RegisterType<QueryBus>().As<IQueryBus>().InstancePerLifetimeScope();
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
             builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
