@@ -62,7 +62,7 @@ export default {
             cursor: pointer;
             border:none;
             outline: none;
-            background-color: #78c967;
+            background-color: #c96767;
             border-radius: 25px;
             height:25px;
             width: 75px;
