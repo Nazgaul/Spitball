@@ -83,7 +83,7 @@ export default {
     },
         watch:{
         search(val){
-            if(val.length >= 3){
+            if(!!val && val.length >= 3){
                 this.updateClasses(val);
             }
         }

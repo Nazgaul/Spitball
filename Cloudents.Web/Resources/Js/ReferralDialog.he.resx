@@ -123,6 +123,9 @@
   <data name="dialog_title_invite" xml:space="preserve">
     <value>&lt;b&gt;הזמינו חבר&lt;/b&gt; ו&lt;b&gt;הרוויחו&lt;/b&gt; &lt;b&gt;10 נקודות SBL&lt;/b&gt; עבור כל הפניה.</value>
   </data>
+  <data name="get_document_text" xml:space="preserve">
+    <value>! לחץ על הלינק הזה כדי להעיף מבט, אני בטוח שזה יחסוך לך זמן ויעזור לך בלימודים</value>
+  </data>
   <data name="get_your_homework" xml:space="preserve">
     <value>קבל תשובות לשאלות שיעורי הבית תוך דקות והרווח כסף בלענות לשאלות של סטודנטים אחרים. קבל 100 SBL בחינם אם תירשם באמצעות קישור זה:</value>
   </data>
@@ -134,5 +137,8 @@
   </data>
   <data name="share_with" xml:space="preserve">
     <value>או שתף עם</value>
+  </data>
+  <data name="title_document" xml:space="preserve">
+    <value>.הרגע העליתי חלק מהסיכומים האקדמיים שלי לספיטבול</value>
   </data>
 </root>
