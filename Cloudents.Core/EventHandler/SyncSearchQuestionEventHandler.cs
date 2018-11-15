@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class SyncSearchQuestionCreatedEventHandler : 
+    public class SyncSearchQuestionEventHandler : 
         IEventHandler<MarkAsCorrectEvent>,
         IEventHandler<QuestionCreatedEvent>,
         IEventHandler<QuestionDeletedEvent>,
@@ -18,7 +18,7 @@ namespace Cloudents.Core.EventHandler
     {
         private readonly IQueueProvider _queueProvider;
 
-        public SyncSearchQuestionCreatedEventHandler(IQueueProvider queueProvider)
+        public SyncSearchQuestionEventHandler(IQueueProvider queueProvider)
         {
             _queueProvider = queueProvider;
         }

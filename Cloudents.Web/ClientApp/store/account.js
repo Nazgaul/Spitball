@@ -89,7 +89,10 @@ const getters = {
     isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
-    accountUser: state => state.user,
+    accountUser: (state) => {
+        console.log("user");
+        return state.user
+    },
     lastActiveRoute: state => state.lastActiveRoute,
     getProfileData: state => state.profileData,
     getUniversity: state => {

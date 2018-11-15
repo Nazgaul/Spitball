@@ -50,7 +50,8 @@ const vuetifyComponents = {
     VPagination,
     VDataTable,
     VStepper,
-    VCombobox
+    VCombobox,
+    VCheckbox
 
 };
 import {
@@ -83,7 +84,8 @@ import {
     VPagination,
     VDataTable,
     VStepper,
-    VCombobox
+    VCombobox,
+    VCheckbox
 
 } from "vuetify";
 import * as route from "./routes";

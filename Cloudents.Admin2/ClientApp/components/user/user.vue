@@ -5,6 +5,7 @@
             <router-link to="/user/token">Send Tokens</router-link> 
             <router-link to="/user/cashout">Cashout List</router-link>
             <router-link to="/user/suspend">Suspend User</router-link>
+            <router-link to="/user/change-country">Change User Country</router-link>
         </nav> 
         <div class="user-content">
             <router-view></router-view>

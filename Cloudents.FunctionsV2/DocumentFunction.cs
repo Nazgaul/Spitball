@@ -27,19 +27,19 @@ namespace Cloudents.FunctionsV2
             await SyncBlobWithSearch(text, id, metadata, searchInstance, commandBus, textAnalysis, token);
         }
 
-        [FunctionName("BlobFunctionTimer")]
-        public static async Task RunAsync2(
-            [TimerTrigger("0 */20 * * * *", RunOnStartup = true)]TimerInfo timer,
-            [Blob("spitball-files/files/1082/text.txt", Connection = "TempConnectionDev")] CloudBlockBlob blob,
-            [Inject] ISearchServiceWrite<Document> searchInstance,
-            [Inject] ICommandBus commandBus,
-            [Inject] ITextAnalysis textAnalysis,
-            ILogger log, CancellationToken token)
-        {
-            var text = await blob.DownloadTextAsync();
-            var metadata = blob.Metadata;
-            await SyncBlobWithSearch(text, 1082, metadata, searchInstance, commandBus, textAnalysis, token);
-        }
+        //[FunctionName("BlobFunctionTimer")]
+        //public static async Task RunAsync2(
+        //    [TimerTrigger("0 */20 * * * *", RunOnStartup = true)]TimerInfo timer,
+        //    [Blob("spitball-files/files/1082/text.txt", Connection = "TempConnectionDev")] CloudBlockBlob blob,
+        //    [Inject] ISearchServiceWrite<Document> searchInstance,
+        //    [Inject] ICommandBus commandBus,
+        //    [Inject] ITextAnalysis textAnalysis,
+        //    ILogger log, CancellationToken token)
+        //{
+        //    var text = await blob.DownloadTextAsync();
+        //    var metadata = blob.Metadata;
+        //    await SyncBlobWithSearch(text, 1082, metadata, searchInstance, commandBus, textAnalysis, token);
+        //}
 
         private static async Task SyncBlobWithSearch(string text, long id, IDictionary<string, string> metadata,
             ISearchServiceWrite<Document> searchInstance, ICommandBus commandBus, ITextAnalysis textAnalysis, CancellationToken token)
@@ -56,10 +56,9 @@ namespace Cloudents.FunctionsV2
             {
                 var command = new UpdateDocumentMetaCommand(id, lang, pageCount);
                 await commandBus.DispatchAsync(command, token);
-
                 await searchInstance.UpdateDataAsync(new[]
                     {
-                        new Document()
+                        new Document
                         {
                             Id = id.ToString(),
                             Content = text.Truncate(6000),

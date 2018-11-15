@@ -237,7 +237,7 @@
                     // Add file
                     // Will not be added to files
                     let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-                    let ext = (`${newFile.name}`).match(patt1)[1];
+                    let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
                     let isSupported = this.supportedExtensions.includes(ext);
                     if (!isSupported) {
                         this.extensionErrror = true;

@@ -15,7 +15,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             _queryBuilder = queryBuilder;
         }
 
-        protected override FluentQueryBuilder VersionSql
+        protected override string VersionSql
         {
             get
             {
@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             }
         }
 
-        protected override FluentQueryBuilder FirstQuery
+        protected override string FirstQuery
         {
             get
             {

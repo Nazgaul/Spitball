@@ -93,9 +93,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            //await ReduProcessing();
+           // await ReduProcessing();
             var _bus = _container.Resolve<AzureDocumentSearch>();
-            var t = await _bus.ItemAsync(1082, default);
+            var t = await _bus.ItemAsync(5896, default);
             // var sr = File.OpenRead(@"C:\Users\Ram\Downloads\file-148a9417-be00-431a-a6da-4e970fd0639c-625549.pdf");
             // var pdfProcessor = new PdfProcessor();
             //await pdfProcessor.ProcessFilesAsync(sr, (stream, s) => { return Task.CompletedTask; },
@@ -190,13 +190,14 @@ namespace ConsoleApp
             container = blobClient.GetContainerReference("spitball-files");
             dir = container.GetDirectoryReference("files");
             var queue = queueClient.GetQueueReference("generate-blob-preview");
+            var extensions = ImageProcessor.Extensions.Union(ExcelProcessor.Extensions);
             await DoStuffToFiles(dir, async blob =>
             {
                 if (blob.Uri.Segments.Length != 5)
                 {
                     return;
                 }
-                foreach (var extension in ImageProcessor.Extensions)
+                foreach (var extension in extensions)
                 {
                     if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
                     {

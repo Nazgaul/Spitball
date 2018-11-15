@@ -118,7 +118,10 @@ let routes2 = [
             default: showItem,
             header: pageHeader
         },
-        props: {default: (route) => ({id: route.params.id})}
+        props: {
+            default: (route) => ({id: route.params.id}),
+            header: ()=>({currentSelection: "note"})
+        }
     },
     {
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
