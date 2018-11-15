@@ -48,12 +48,6 @@ namespace Cloudents.Web
         public const string IntegrationTestEnvironmentName = "Integration-Test";
         internal const int PasswordRequiredLength = 8;
 
-        //public static readonly IList<CultureInfo> SupportedCultures = new {
-
-        //    Language.English.Culture,
-        //    Language.Hebrew.Culture
-        //};
-
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
