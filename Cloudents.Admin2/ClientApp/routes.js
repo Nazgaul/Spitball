@@ -100,6 +100,10 @@ export const routes = [
       component: Dev,
       children: [
         {
+          path: '',
+          redirect: 'change-country',
+        },
+        {
           path:'change-country',
           component: UChangeCountry
         },
@@ -108,7 +112,7 @@ export const routes = [
           component: UDelete
         },
         {
-          path: '',
+          path: '*',
           redirect: 'change-country',
         },
       ]
