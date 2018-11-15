@@ -29,6 +29,7 @@ export default {
     },
     methods:{
         change(){
+            if(this.userId === "") return;
             this.lock = true;
             let senObj = {
                 id: this.userId,
