@@ -1,42 +1,46 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
-    public class JobApiTests : ServerInit
+    public class JobApiTests :  IClassFixture<WebApplicationFactory<Startup>>
     {
-        [TestMethod]
-        public async Task Search_SomeQuery_ReturnResult()
+
+        private readonly WebApplicationFactory<Startup> _factory;
+
+        public JobApiTests(WebApplicationFactory<Startup> factory)
         {
-            var response = await Client.GetAsync("/api/Job?Term=Android&Location.Point.Longitude=40.0&Location.Point.Latitude=-51.&Highlight=true&Page=0").ConfigureAwait(false);
+            _factory = factory;
+        }
+
+        [Theory]
+        [InlineData("/api/Job?Term=Android&Location.Point.Longitude=40.0&Location.Point.Latitude=-51.&Highlight=true&Page=0")]
+        [InlineData("/api/Job?Location.Point.Latitude=33.71&Location.Point.Longitude=-117.9478&Facet=Part+Time%2CInternship&Page=1")]
+        [InlineData("api/job?term=")]
+        [InlineData("api/job?location.Point.latitude=40.712&location.Point.longitude=-74.005&term=")]
+        public async Task Search_ReturnResult(string url)
+        {
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
 
-        [TestMethod]
-        public async Task Search_SomeQuery2_ReturnResult()
-        {
-            var response = await Client.GetAsync("/api/Job?Location.Point.Latitude=33.71&Location.Point.Longitude=-117.9478&Facet=Part+Time%2CInternship&Page=1").ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
-        }
+        
 
-        [TestMethod]
-        public async Task Search_OnlyLocationILEmptyTerm_ReturnResult()
-        {
-            var response =
-                await Client.GetAsync("api/job?term=");
-            response.EnsureSuccessStatusCode();
-        }
 
-        [TestMethod]
+        [Fact]
         public async Task Search_OnlyLocationUSEmptyTerm_ReturnResult()
         {
-            var response =
-                await Client.GetAsync("api/job?location.Point.latitude=40.712&location.Point.longitude=-74.005&term=");
-            response.EnsureSuccessStatusCode();
+            var client = _factory.CreateClient();
 
+            // Act
+            var response = await client.GetAsync("api/job?location.Point.latitude=40.712&location.Point.longitude=-74.005&term=");
+            response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsStringAsync();
             var d = JObject.Parse(result);
             var p = d["result"]["result"].Values();

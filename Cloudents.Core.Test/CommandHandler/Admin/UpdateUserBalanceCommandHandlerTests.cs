@@ -2,14 +2,13 @@
 using Autofac.Extras.Moq;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.CommandHandler.Admin;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Core.Test.CommandHandler.Admin
 {
-    [TestClass]
     public class UpdateUserBalanceCommandHandlerTests
     {
-        [TestMethod]
+        [Fact]
         public async Task ExecuteAsync_NullUserInput_Ok()
         {
             var command = new UpdateUserBalanceCommand();

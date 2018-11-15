@@ -3,55 +3,34 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Web.Models;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
-    public class SearchApiTests : ServerInit
+    public class SearchApiTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        [TestMethod]
-        public async Task SearchDocumentAsync_OnlyFormat_Ok()
+        private readonly WebApplicationFactory<Startup> _factory;
+
+        public SearchApiTests(WebApplicationFactory<Startup> factory)
         {
-            var response = await Client.GetAsync("/api/Search/documents?Format=none").ConfigureAwait(false);
+            _factory = factory;
+        }
+
+        [Theory]
+        [InlineData("/api/Search/documents?Format=none")]
+        [InlineData("/api/search/documents")]
+        [InlineData("/api/search/flashcards")]
+        [InlineData("api/search/documents?query=>\"'><script>alert(72)<%2Fscript>&university=>\"'><script>alert(72)<%2Fscript>")]
+        public async Task SearchDocumentAsync_Ok(string url)
+        {
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
-
-        [TestMethod]
-        public async Task SearchDocumentAsync_Empty_Ok()
-        {
-            var response = await Client.GetAsync("api/search/documents").ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
-
-            var result = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonConvert.DeserializeObject<WebResponseWithFacet<SearchResult>>(result);
-            obj.Result.Should().HaveCountGreaterOrEqualTo(1);
-        }
-
-        [TestMethod]
-        public async Task SearchFlashcardAsync_Empty_Ok()
-        {
-            var response = await Client.GetAsync("api/search/flashcards").ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonConvert.DeserializeObject<WebResponseWithFacet<SearchResult>>(result);
-            obj.Result.Should().HaveCountGreaterOrEqualTo(1);
-        }
-
-        [TestMethod]
-        public async Task SearchDocumentAsync_HackQuery_Ok()
-        {
-            var url =
-                "api/search/documents?query=>\"'><script>alert(72)<%2Fscript>&university=>\"'><script>alert(72)<%2Fscript>";
-            var response = await Client.GetAsync(url).ConfigureAwait(false);
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        }
-
-
-        
 
         //[TestMethod]
         //public async Task SearchDocumentAsync_CheckCorsLocalHost_Ok()

@@ -4,14 +4,13 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Search.Job;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test
 {
-    [TestClass]
     public class Jobs2CareersProviderTests
     {
-        [TestMethod]
+        [Fact]
         public async Task SearchAsync_LocationNonUs_ReturnNull()
         {
             using (var mock = AutoMock.GetLoose())

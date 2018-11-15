@@ -3,12 +3,13 @@ using System.Reflection;
 using Autofac.Extras.Moq;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
+using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Search.Tutor;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test
 {
-    [TestClass]
     public class TutorAzureSearchTests
     {
         //private readonly Mock<IMapper> _searchMapper = new Mock<IMapper>();
@@ -21,7 +22,7 @@ namespace Cloudents.Infrastructure.Test
 
 
         //TODO: build failed because get client change to extension method. need to fix that.
-        [TestMethod]
+        [Fact]
         public void ApplyFilter_filterNone_NoFilter()
         {
             using (var mock = AutoMock.GetLoose())
@@ -35,7 +36,7 @@ namespace Cloudents.Infrastructure.Test
                 var result = obj.Invoke("ApplyFilter", BindingFlags.Static | BindingFlags.NonPublic, argument, location);
                 var resultCast = result as List<string>;
 
-                CollectionAssert.AreEqual(resultCast, new List<string>());
+                resultCast.Should().BeEmpty();
             }
 
             //var tutorSearch = new TutorAzureSearch(_searchIndexMock.Object, _searchMapper.Object);

@@ -2,16 +2,16 @@
 using System.Reflection;
 using Autofac.Extras.Moq;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Search.Job;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test
 {
-    [TestClass]
     public class AzureJobSearchTests
     {
-        [TestMethod]
+        [Fact]
         public void BuildFilter_EmptyEnumerableFilter_ReturnEmpty()
         {
             using (var mock = AutoMock.GetLoose())

@@ -3,14 +3,13 @@ using Autofac;
 using Autofac.Extras.Moq;
 using Cloudents.Core.Query;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Core.Test
 {
-    [TestClass]
     public class WebSearchTests
     {
-        [TestMethod]
+        [Fact]
         public void BuildSources_ExistingSource_RightDomain()
         {
             using (var mock = AutoMock.GetLoose())

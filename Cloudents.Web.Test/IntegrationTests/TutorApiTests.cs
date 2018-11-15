@@ -1,32 +1,31 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
-    public class TutorApiTests : ServerInit
+    
+    public class TutorApiTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        [TestMethod]
-        public async Task Search_QueryWithoutFilter_ReturnResult()
+        private readonly WebApplicationFactory<Startup> _factory;
+
+        public TutorApiTests(WebApplicationFactory<Startup> factory)
         {
-            var response = await Client.GetAsync("/api/Tutor?term=ajax&sort=null&page=0&location.latitude=31.9155609&location.longitude=34.8049517").ConfigureAwait(false);
-            if (!response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                Assert.Fail(content);
-            }
+            _factory = factory;
         }
 
-
-        [TestMethod]
-        public async Task Search_QueryWithValidSort_ReturnResult()
+        [Theory]
+        [InlineData("/api/Tutor?term=ajax&sort=null&page=0&location.latitude=31.9155609&location.longitude=34.8049517")]
+        [InlineData("/api/Tutor?term=ajax&sort=price&page=0&location.latitude=31.9155609&location.longitude=34.8049517")]
+        public async Task Search_ReturnResult(string url)
         {
-            var response = await Client.GetAsync("/api/Tutor?term=ajax&sort=price&page=0&location.latitude=31.9155609&location.longitude=34.8049517").ConfigureAwait(false);
-            if (!response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                Assert.Fail(content);
-            }
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+          
         }
     }
 }

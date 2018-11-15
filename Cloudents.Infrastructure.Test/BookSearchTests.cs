@@ -1,20 +1,16 @@
 ﻿using System.Reflection;
 using Autofac.Extras.Moq;
+using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Search.Book;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test
 {
-    [TestClass]
     public class BookSearchTests
     {
-        [TestInitialize]
-        public void Setup()
-        {
+      
 
-        }
-
-        [TestMethod]
+        [Fact]
         public void ValidateSearchResult_NullInput_ReturnFalse()
         {
             using (var mock = AutoMock.GetLoose())
@@ -25,11 +21,11 @@ namespace Cloudents.Infrastructure.Test
                 var sut = mock.Create<BookSearch>();
                 var privateObj = new PrivateObject(sut);
                 var result = (bool)privateObj.Invoke("ValidateSearchResult", BindingFlags.Static | BindingFlags.NonPublic, 0, null);
-                Assert.IsFalse(result);
+                Assert.False(result);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ValidateSearchResult_InputWithNullBook_ReturnFalse()
         {
             using (var mock = AutoMock.GetLoose())
@@ -50,7 +46,7 @@ namespace Cloudents.Infrastructure.Test
                     }
                 };
                 var result = (bool)privateObj.Invoke("ValidateSearchResult", BindingFlags.Static | BindingFlags.NonPublic, 0, input);
-                Assert.IsFalse(result);
+                Assert.False(result);
             }
         }
     }

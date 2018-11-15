@@ -1,59 +1,60 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using Autofac.Extras.Moq;
+﻿using Autofac.Extras.Moq;
 using Cloudents.Infrastructure.Search;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Reflection;
+using Cloudents.Core.Test;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test
 {
-    [TestClass]
     public class BingSearchTests
     {
-        [TestMethod]
+        [Fact]
         public void BuildQuery_Nothing_ReturnDefaultTerm()
         {
             using (var mock = AutoMock.GetLoose())
             {
                 var sut = mock.Create<BingSearch>();
+
                 var privateObj = new PrivateObject(sut);
-                var result =  privateObj.Invoke("BuildQuery",
+                var result = privateObj.Invoke("BuildQuery",
                     BindingFlags.Static | BindingFlags.NonPublic, null, null, null, "hi");
 
-                Assert.AreEqual("hi", result);
+                Assert.Equal("hi", result);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildQuery_OnlyUniversity_ReturnWhatNeeded()
         {
             using (var mock = AutoMock.GetLoose())
             {
                 var sut = mock.Create<BingSearch>();
                 var privateObj = new PrivateObject(sut);
-                var university = new[] {"uni1", "uni2"};
+                var university = new[] { "uni1", "uni2" };
                 var result = privateObj.Invoke("BuildQuery",
                     BindingFlags.Static | BindingFlags.NonPublic, university, null, null, "hi");
 
-                Assert.AreEqual(@"(""uni1"" OR ""uni2"")", result);
+                Assert.Equal(@"(""uni1"" OR ""uni2"")", result);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildQuery_OnlyCourse_ReturnWhatNeeded()
         {
             using (var mock = AutoMock.GetLoose())
             {
                 var sut = mock.Create<BingSearch>();
                 var privateObj = new PrivateObject(sut);
-                var courses = new[] {"course1", "course2"};
+                var courses = new[] { "course1", "course2" };
                 var result = privateObj.Invoke("BuildQuery",
-                    BindingFlags.Static | BindingFlags.NonPublic, null, courses,  null, "hi");
-                Assert.AreEqual("(course1) AND (course2)", result);
+                    BindingFlags.Static | BindingFlags.NonPublic, null, courses, null, "hi");
+                Assert.Equal("(course1) AND (course2)", result);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildQuery_OnlyTerm_ReturnWhatNeeded()
         {
             using (var mock = AutoMock.GetLoose())
@@ -62,30 +63,30 @@ namespace Cloudents.Infrastructure.Test
                 var privateObj = new PrivateObject(sut);
                 var subject = "sub1";
                 var result = privateObj.Invoke("BuildQuery",
-                    BindingFlags.Static | BindingFlags.NonPublic, null, null, subject,  "hi");
-                Assert.AreEqual("(sub1)", result);
+                    BindingFlags.Static | BindingFlags.NonPublic, null, null, subject, "hi");
+                Assert.Equal("(sub1)", result);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildQuery_AllParams_ReturnWhatNeeded()
         {
             using (var mock = AutoMock.GetLoose())
             {
                 var sut = mock.Create<BingSearch>();
                 var privateObj = new PrivateObject(sut);
-                var university = new[] {"uni1", "uni2"};
-                var courses = new[] {"course1", "course2"};
+                var university = new[] { "uni1", "uni2" };
+                var courses = new[] { "course1", "course2" };
                 var subject = "sub1";
                 var result = privateObj.Invoke("BuildQuery",
                     BindingFlags.Static | BindingFlags.NonPublic, university, courses, subject, "hi");
 
-                Assert.AreEqual(@"(""uni1"" OR ""uni2"") AND (course1) AND (course2) AND (sub1)",
+                Assert.Equal(@"(""uni1"" OR ""uni2"") AND (course1) AND (course2) AND (sub1)",
                     result);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void BuildQuery_TermWithNull_ReturnDefaultValue()
         {
             using (var mock = AutoMock.GetLoose())
@@ -95,12 +96,12 @@ namespace Cloudents.Infrastructure.Test
                 var result = privateObj.Invoke("BuildQuery",
                     BindingFlags.Static | BindingFlags.NonPublic, null, null, null, "hi");
 
-                Assert.AreEqual("hi", result);
+                Assert.Equal("hi", result);
             }
         }
 
 
-        [TestMethod]
+        [Fact]
         public void BuildSources_SomeSource_sitePrefix()
         {
             using (var mock = AutoMock.GetLoose())
@@ -116,7 +117,7 @@ namespace Cloudents.Infrastructure.Test
         }
 
 
-        [TestMethod]
+        [Fact]
         public void BuildSources_EmptyLink_EmptyString()
         {
             using (var mock = AutoMock.GetLoose())
@@ -132,7 +133,7 @@ namespace Cloudents.Infrastructure.Test
         }
 
 
-        [TestMethod]
+        [Fact]
         public void BuildSources_SomeInput_RightInput()
         {
             using (var mock = AutoMock.GetLoose())

@@ -6,19 +6,19 @@ using Autofac.Extras.Moq;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Search.Tutor;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test
 {
-    [TestClass]
     public class TutorMeSearchTests
     {
         private const string Term = "Some term";
         private const int Page = 0;
 
-        [TestMethod]
+        [Fact]
         public async Task SearchAsync_InPersonFilter_NullAsync()
         {
             using (var mock = AutoMock.GetLoose())
@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Test
             }
         }
 
-        [TestMethod]
+        [Fact]
         public async Task SearchAsync_SeveralFilter_ResultAsync()
         {
             using (var mock = AutoMock.GetLoose())
@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Test
             }
         }
 
-        [TestMethod]
+        [Fact]
         public async Task SearchAsync_NoFilter_ResultAsync()
         {
             using (var mock = AutoMock.GetLoose())

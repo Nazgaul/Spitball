@@ -1,13 +1,12 @@
 ﻿using Cloudents.Core.Query.Sync;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Core.Test
 {
-    [TestClass]
     public class SyncAzureQueryTests
     {
-        [TestMethod]
+        [Fact]
         public void ConvertFromString_Null_Init()
         {
             var result = SyncAzureQuery.ConvertFromString(null);
@@ -16,7 +15,7 @@ namespace Cloudents.Core.Test
             //Assert.AreEqual(result,expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertFromString_EmptyString_Init()
         {
             var result = SyncAzureQuery.ConvertFromString(string.Empty);
@@ -24,7 +23,7 @@ namespace Cloudents.Core.Test
             result.Should().BeEquivalentTo(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertFromString_SomeValue_Init()
         {
             var input = "2|4";
@@ -33,7 +32,7 @@ namespace Cloudents.Core.Test
             result.Should().BeEquivalentTo(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertFromString_FullCycle_Init()
         {
             var expected = new SyncAzureQuery(2, 4);
@@ -41,7 +40,7 @@ namespace Cloudents.Core.Test
             result.Should().BeEquivalentTo(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertFromString_InvalidInput_Init()
         {
             var input = "2|4|2";
@@ -50,7 +49,7 @@ namespace Cloudents.Core.Test
             result.Should().BeEquivalentTo(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertFromString_InvalidInput2_Init()
         {
             var input = "2&4";

@@ -4,19 +4,17 @@ using Cloudents.Core.CommandHandler;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Cloudents.Core.Test.CommandHandler
 {
-    [TestClass]
     public class CreateAnswerCommandHandlerTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public async Task ExecuteAsync_QuestionWithAlreadyUserAnswer_Error()
         {
             long questionId = 1, userId = 1;
@@ -38,12 +36,11 @@ namespace Cloudents.Core.Test.CommandHandler
 
                 var command = new CreateAnswerCommand(questionId, "someText", userId, null);
 
-
-                await instance.ExecuteAsync(command, default);
+                await Assert.ThrowsAsync<InvalidOperationException>(()=> instance.ExecuteAsync(command, default));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public async Task ExecuteAsync_DefaultProcess_Ok()
         {
             long questionId = 1, userId = 1;
@@ -59,7 +56,7 @@ namespace Cloudents.Core.Test.CommandHandler
             using (var mock = AutoMock.GetLoose())
             {
                 mock.Mock<IRepository<User>>().Setup(s => s.LoadAsync(userId, default)).ReturnsAsync(user);
-                mock.Mock<IRepository<Question>>().Setup(s => s.LoadAsync(questionId, default)).ReturnsAsync(question);
+                mock.Mock<IRepository<Question>>().Setup(s => s.GetAsync(questionId, default)).ReturnsAsync(question);
                 var instance = mock.Create<CreateAnswerCommandHandler>();
                 var command = new CreateAnswerCommand(questionId, "someText", userId, null);
                 await instance.ExecuteAsync(command, default);

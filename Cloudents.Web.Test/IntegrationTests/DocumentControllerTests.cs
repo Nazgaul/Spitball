@@ -1,17 +1,28 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
-    public class DocumentControllerTests : ServerInit
+    public class DocumentControllerTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        [TestMethod]
-        public async Task LinkToHeb_RedirectResult()
+        private readonly WebApplicationFactory<Startup> _factory;
+
+        public DocumentControllerTests(WebApplicationFactory<Startup> factory)
         {
-            var response = await Client.GetAsync("/item/המרכז-האקדמי-לב-מכון-טל/25405/סימולציה/401065/consoleapplication1.xml").ConfigureAwait(false);
+            _factory = factory;
+        }
+
+        [Theory]
+        [InlineData("/item/המרכז-האקדמי-לב-מכון-טל/25405/סימולציה/401065/consoleapplication1.xml")]
+        public async Task LinkToHeb_RedirectResult(string url)
+        {
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
             var p = response.Headers.Location;
-            Assert.IsTrue(p.AbsolutePath.EndsWith("/"));
+            Assert.EndsWith("/", p.AbsolutePath);
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using Autofac.Extras.Moq;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Search.Book;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test
 {
-    [TestClass]
     public class BookDetailConverterTests
     {
-        [TestMethod]
+        [Fact]
         public void ChangeUrlIfNeeded_ValorBooks_ChangeUrl_Ok()
         {
             using (var mock = AutoMock.GetLoose())
@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Test
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ChangeUrlIfNeeded_ValorRental_ChangeUrl_Ok()
         {
             using (var mock = AutoMock.GetLoose())
@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Test
         }
 
 
-        [TestMethod]
+        [Fact]
         public void ChangeUrlIfNeeded_CheggRental_ChangeUrl_Ok()
         {
             using (var mock = AutoMock.GetLoose())
@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Test
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ChangeUrlIfNeeded_NoAffiliate_ChangeUrl_Ok()
         {
             using (var mock = AutoMock.GetLoose())

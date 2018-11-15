@@ -1,14 +1,27 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
-    public class CourseApiTests : ServerInit
+    public class CourseApiTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        public async Task Get_SomeCourse_ReturnResult()
+        private readonly WebApplicationFactory<Startup> _factory;
+
+        public CourseApiTests(WebApplicationFactory<Startup> factory)
         {
-            var response = await Client.GetAsync("api/course/search");
+            _factory = factory;
+        }
+
+        [Theory]
+        [InlineData("api/course/search")]
+        public async Task Get_SomeCourse_ReturnResult(string url)
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
 
