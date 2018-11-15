@@ -9,6 +9,7 @@
             <div v-else>
                 <nav class="dev-nav">
                     <router-link to="/dev/change-country">Change User Country</router-link>
+                    <router-link to="/dev/delete-user">Delete User</router-link>
                 </nav> 
                 <router-view></router-view>
             </div>

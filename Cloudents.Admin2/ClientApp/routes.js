@@ -16,6 +16,7 @@ import USuspend from './components/user/suspend/suspendUser.vue'
 
 import Dev from './components/dev/dev.vue'
 import UChangeCountry from './components/dev/changeCountry/changeCountry.vue'
+import UDelete from './components/dev/deleteUser/deleteUser.vue'
 
 export const routes = [
     {
@@ -101,6 +102,10 @@ export const routes = [
         {
           path:'change-country',
           component: UChangeCountry
+        },
+        {
+          path:'delete-user',
+          component: UDelete
         },
         {
           path: '',
