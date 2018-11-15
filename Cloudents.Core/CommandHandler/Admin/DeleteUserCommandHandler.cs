@@ -27,7 +27,8 @@ namespace Cloudents.Core.CommandHandler.Admin
             user.NormalizedEmail = email.ToUpper();
             user.PhoneNumber = null;
             user.Fictive = true;
-            
+            user.UserLogins.Clear();
+
             await _userRepository.UpdateAsync(user, token);
             
         }
