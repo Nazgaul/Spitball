@@ -2,10 +2,10 @@
     <v-flex grow class="details-row" v-show="item.university || item.course || item.professor">
         <div class="details-wrap">
                         <span class="aligned">{{item.university}}
-                        <v-icon class="sb-icon-arrow" v-show="item.university && item.course">sbf-nav-arrow-right</v-icon>
+                        <v-icon :class="{'swap': isRtl}" class="sb-icon-arrow" v-show="item.university && item.course">sbf-nav-arrow-right</v-icon>
                         </span>
             <span class="aligned">{{item.course}}
-                        <v-icon class="sb-icon-arrow" v-show="item.professor">sbf-nav-arrow-right</v-icon>
+                        <v-icon :class="{'swap': isRtl}" class="sb-icon-arrow" v-show="item.professor">sbf-nav-arrow-right</v-icon>
                         </span>
             <span class="aligned">{{item.professor}}</span>
         </div>
@@ -17,7 +17,8 @@
         name: "documentDetails",
         data() {
             return {
-            }
+                isRtl: global.isRtl
+            }    
         },
         props: {
             item: {
