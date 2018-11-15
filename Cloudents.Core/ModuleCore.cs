@@ -23,7 +23,7 @@ namespace Cloudents.Core
         protected override void Load(ContainerBuilder builder)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterType<CommandBus>().As<ICommandBus>();
+            builder.RegisterType<CommandBus>().As<ICommandBus>().InstancePerLifetimeScope();
 
 
 
