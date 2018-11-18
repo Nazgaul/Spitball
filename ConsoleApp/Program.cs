@@ -477,20 +477,6 @@ namespace ConsoleApp
             }
         }
 
-        //private static async Task PopulateSheetOfQuestion()
-        //{
-        //    string spreadsheetId = "1A2O_jASZuWlI_jIX8a1eiZb61C5RDF9KQ2i7CQzGU30";
-        //    string range = "All!B:D";
-
-
-        //    //var subjectList = new List<CreateQuestionCommand>();
-        //    var subjectList = GoogleSheets.GetData(spreadsheetId, range);
-        //    foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
-        //    {
-        //        var commandBus = _container.Resolve<ICommandBus>();
-        //        // await commandBus.DispatchAsync(question, default);
-        //    }
-        //}
 
 
         /// <summary>
@@ -793,11 +779,7 @@ namespace ConsoleApp
             return blob.Uri.AbsoluteUri + sas;
         }
 
-        //private static int GenerateRandomNumber()
-        //{
-        //    var rdm = new Random();
-        //    return rdm.Next(1000, 9999);
-        //}
+       
 
         public static async Task MigrateUniversity()
         {
@@ -846,24 +828,5 @@ namespace ConsoleApp
         }
 
 
-        //public class PPP : IDataProtect
-        //{
-        //    public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    public string Unprotect(string purpose, string protectedData)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
-
-
-
     }
-
-
-
 }
