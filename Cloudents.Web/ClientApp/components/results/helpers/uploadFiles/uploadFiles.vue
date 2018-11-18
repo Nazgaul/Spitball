@@ -42,7 +42,7 @@
                             <v-btn round v-if="currentStep > 2 && currentStep !==7" flat class="sb-back-flat-btn"
                                    @click="previousStep(step)">
                                 <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
-                                <span>Back</span>
+                                <span v-language:inner>upload_files_btn_back</span>
                             </v-btn>
                             <v-btn v-show="currentStep !==6 && currentStep !==7" round class="next-btn"
                                    @click="nextStep(step)" :disabled="isDisabled">
