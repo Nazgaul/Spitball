@@ -6,40 +6,9 @@
 -- new azure function
 -- change blob storage to private
 
-CREATE TABLE [sb].[Course](
-	[Name] [nvarchar](255) NOT NULL,
-	[Count] [int] NOT NULL
-	
-PRIMARY KEY CLUSTERED 
-(
-	[Name] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 ALTER TABLE sb.course
 ENABLE CHANGE_TRACKING  
 WITH (TRACK_COLUMNS_UPDATED = ON)  
-
-CREATE TABLE [sb].[UsersCourses](
-	[User_id] [bigint] NOT NULL,
-	[Course_id] [nvarchar](255) NOT NULL
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [sb].[UsersCourses]  WITH CHECK ADD  CONSTRAINT [Courses_User] FOREIGN KEY([Course_id])
-REFERENCES [sb].[Course] ([Name])
-GO
-
-ALTER TABLE [sb].[UsersCourses] CHECK CONSTRAINT [Courses_User]
-GO
-
-ALTER TABLE [sb].[UsersCourses]  WITH CHECK ADD  CONSTRAINT [User_Courses] FOREIGN KEY([User_id])
-REFERENCES [sb].[User] ([Id])
-GO
-
-ALTER TABLE [sb].[UsersCourses] CHECK CONSTRAINT [User_Courses]
-GO
 
 --populate courses tags
 insert into sb.Course(Name,Count)
@@ -60,46 +29,8 @@ except
 select Name,0 from sb.Course
 
 
-ALTER TABLE sb.question
-ADD Language NVARCHAR(5);
 
 --run update in program.cs - to update question language UpdateLanguageAsync
-
-
-/****** Object:  Table [sb].[University]    Script Date: 23/10/2018 16:24:30 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [sb].[University](
-	[Id] [uniqueidentifier] NOT NULL,
-	[Name] [nvarchar](255) NULL,
-	[Extra] [nvarchar](255) NULL,
-	[Country] [nvarchar](2) NOT NULL,
-	[CreationTime] [datetime2](7) NULL,
-	[UpdateTime] [datetime2](7) NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY],
-UNIQUE NONCLUSTERED 
-(
-	[Name] ASC,
-	[Country] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-
-
-ALTER TABLE sb.[user]
-ADD [UniversityId2] [uniqueidentifier] NULL;
-ALTER TABLE [sb].[User]  WITH CHECK ADD  CONSTRAINT [User_University2] FOREIGN KEY([UniversityId2])
-REFERENCES [sb].[University] ([Id])
-
-
 
 ALTER TABLE sb.[University]
 ENABLE CHANGE_TRACKING  
@@ -107,139 +38,16 @@ WITH (TRACK_COLUMNS_UPDATED = ON)
 --Run TransferUniversities
 
 
-
-
---Hadar's Tables
-
-
-
-/****** Object:  Table [sb].[Tag]    Script Date: 06/11/2018 13:51:19 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [sb].[Tag](
-	[Name] [nvarchar](150) NOT NULL,
-	[Count] [int] NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Name] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-
-
-/****** Object:  Table [sb].[UsersTags]    Script Date: 08/11/2018 17:22:35 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [sb].[UsersTags](
-	[UserId] [bigint] NOT NULL,
-	[TagId] [nvarchar](150) NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[UserId] ASC,
-	[TagId] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [sb].[UsersTags]  WITH CHECK ADD  CONSTRAINT [Tags_User] FOREIGN KEY([TagId])
-REFERENCES [sb].[Tag] ([Name])
-GO
-
-ALTER TABLE [sb].[UsersTags] CHECK CONSTRAINT [Tags_User]
-GO
-
-ALTER TABLE [sb].[UsersTags]  WITH CHECK ADD  CONSTRAINT [User_Tags] FOREIGN KEY([UserId])
-REFERENCES [sb].[User] ([Id])
-GO
-
-ALTER TABLE [sb].[UsersTags] CHECK CONSTRAINT [User_Tags]
-GO
-
-
-
-
 insert into sb.Tag
 select DISTINCT [Name], 0 
 from Zbox.Tag
 where len(Name) >= 4
 
-
-ALTER TABLE sb.[User]
-  ADD OldUser bit;
-
-
-/****** Object:  Table [sb].[Document]    Script Date: 06/11/2018 13:51:48 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [sb].[Document](
-	[Id] [bigint] NOT NULL,
-	[Name] [nvarchar](150) NOT NULL,
-	[BlobName] [nvarchar](255) NOT NULL,
-	[Type] [nvarchar](255) NOT NULL,
-	[Views] [int] NOT NULL,
-	[UniversityId] [uniqueidentifier] NULL,
-	[UserId] [bigint] NOT NULL,
-	[CreationTime] [datetime2](7) NULL,
-	[UpdateTime] [datetime2](7) NULL,
-	[Professor] [nvarchar](255) NULL,
-	[PageCount] [int] NULL,
-	[Purchased] [int] NULL,
-	[CourseName] [nvarchar](150) NULL,
-	[Language] [nvarchar](5) NULL,
-	[OldId] [bigint] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [sb].[Document]  WITH CHECK ADD  CONSTRAINT [Document_course] FOREIGN KEY([CourseName])
-REFERENCES [sb].[Course] ([Name])
-GO
-
-ALTER TABLE [sb].[Document] CHECK CONSTRAINT [Document_course]
-GO
-
-ALTER TABLE [sb].[Document]  WITH CHECK ADD  CONSTRAINT [Document_University] FOREIGN KEY([UniversityId])
-REFERENCES [sb].[University] ([Id])
-GO
-
-ALTER TABLE [sb].[Document] CHECK CONSTRAINT [Document_University]
-GO
-
-ALTER TABLE [sb].[Document]  WITH CHECK ADD  CONSTRAINT [Document_User] FOREIGN KEY([UserId])
-REFERENCES [sb].[User] ([Id])
-GO
-
-ALTER TABLE [sb].[Document] CHECK CONSTRAINT [Document_User]
-GO
-
-
-  ALTER TABLE sb.[Document]
+ALTER TABLE sb.[Document]
 ENABLE CHANGE_TRACKING  
 WITH (TRACK_COLUMNS_UPDATED = ON)  
 
-  insert into sb.HiLoGenerator values('Document',0);
-
-
-
-begin tran
-ALTER TABLE sb.Document ADD OldId Bigint NULL
-COMMIT
+insert into sb.HiLoGenerator values('Document',0);
 
 -- after user and university population
 update sb.[user]
