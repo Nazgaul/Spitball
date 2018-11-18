@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Database.Query
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly IBlobProvider _blobProvider2;
 
-        public QuestionDetailQueryHandler(ReadonlySession session, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider blobProvider2)
+        public QuestionDetailQueryHandler(QuerySession session, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider blobProvider2)
         {
             _session = session.Session;
             _blobProvider = blobProvider;

@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Database.Query
     {
         private readonly ISession _session;
 
-        public UserProfileQueryHandler(ReadonlySession session)
+        public UserProfileQueryHandler(QuerySession session)
         {
             _session = session.Session;
         }

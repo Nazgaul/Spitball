@@ -72,7 +72,7 @@ namespace Cloudents.Infrastructure.Database.Maps
 
 
 
-            SchemaAction.Update();
+            SchemaAction.None();
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)

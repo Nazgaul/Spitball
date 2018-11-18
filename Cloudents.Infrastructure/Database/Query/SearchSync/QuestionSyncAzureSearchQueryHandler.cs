@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         private readonly FluentQueryBuilder _queryBuilder;
 
         public QuestionSyncAzureSearchQueryHandler(
-            ReadonlyStatelessSession session, FluentQueryBuilder queryBuilder) :
+            QuerySession session, FluentQueryBuilder queryBuilder) :
             base(session)
         {
             _queryBuilder = queryBuilder;

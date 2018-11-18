@@ -14,7 +14,7 @@ namespace Cloudents.Infrastructure.Database.Query
     {
         private readonly ISession _session;
 
-        public SeoItemCountQueryHandler(ReadonlySession session)
+        public SeoItemCountQueryHandler(QuerySession session)
         {
             _session = session.Session;
         }

@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         private readonly ISession _session;
         private readonly IUrlBuilder _urlBuilder;
 
-        public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(ReadonlySession session, IUrlBuilder urlBuilder)
+        public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
         {
             _urlBuilder = urlBuilder;
             _session = session.Session;

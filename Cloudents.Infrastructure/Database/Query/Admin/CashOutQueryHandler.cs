@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             public bool IsIsrael { get; set; }
         }
 
-        public CashOutQueryHandler(ReadonlySession session)
+        public CashOutQueryHandler(QuerySession session)
         {
             _session = session.Session;
         }
@@ -44,7 +44,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         public async Task<IEnumerable<CashOutDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
 
-            TimeSpan twoWeeks = new TimeSpan(14, 0, 0, 0);
+            var twoWeeks = TimeSpan.FromDays(14);
 
             var sqlQuery = _session.CreateSQLQuery(@"select A.UserId as UserId
                                                         ,cast(count(distinct Q.UserId) as decimal) / count(distinct Q.id) as userQueryRatio 

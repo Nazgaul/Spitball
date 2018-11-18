@@ -15,9 +15,9 @@ namespace Cloudents.Infrastructure.Database.Query
 
         private readonly IStatelessSession _session;
 
-        public UniversityQueryHandler(ReadonlyStatelessSession session)
+        public UniversityQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
 

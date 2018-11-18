@@ -16,9 +16,9 @@ namespace Cloudents.Infrastructure.Database.Query
     {
         private readonly IStatelessSession _session;
 
-        public DocumentByIdQueryHandler(ReadonlyStatelessSession session)
+        public DocumentByIdQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
         public Task<DocumentDetailDto> GetAsync(DocumentById query, CancellationToken token)
         {
