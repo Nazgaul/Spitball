@@ -61,7 +61,7 @@
                                                   v-language:placeholder></v-text-field>
                                 </v-flex> -->
 
-                                <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
+                                <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component v-if="item.template !== 'ask' " :is="'result-'+item.template"
                                                :item="item" :key="index" :index="index" class="cell"></component>
@@ -96,7 +96,7 @@
                                     </div>
                                 </v-flex>
                                 <router-link tag="v-flex"
-                                             class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
+                                             class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 "
                                              :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
                                     <!--:to="{path:'/'+currentSuggest,query:{q:this.userText}}">-->
                                     <suggest-card :name="currentSuggest"></suggest-card>
@@ -106,7 +106,7 @@
                     </v-container>
                 </scroll-list>
                 <div v-else-if="!items.length && $route.path.slice(1)==='ask' ">
-                    <div class="result-cell elevation-1 mb-3 empty-state tri-right right-in" xs-12>
+                    <div class="result-cell elevation-1 mb-2 empty-state tri-right right-in" xs-12>
                         <v-layout row class="pa-3">
                             <v-flex>
                                 <p class="empty-state" v-language:inner>result_answer_not_found</p>
@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <div v-else>
-                    <div class="result-cell elevation-1 mb-3 empty-state" xs-12>
+                    <div class="result-cell elevation-1 mb-2 empty-state" xs-12>
                         <v-layout row class="pa-3">
                             <v-flex>
                                 <h6 class="mb-3"><span v-language:inner>result_your_search</span> - <span

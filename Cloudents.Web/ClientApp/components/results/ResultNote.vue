@@ -18,8 +18,9 @@
                     </div>
                     <div class="content-wrap">
                         <div class="title-wrap">
-                            <v-icon class="doc mr-2">sbf-document-note</v-icon>
-                            <span class="doc-title" v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 1 ">{{item.title}}</span>
+                            <p class="doc-title" v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 ">
+                                <v-icon class="doc mr-2">sbf-document-note</v-icon>{{item.title}}
+                            </p>
                         </div>
                         <div class="content-text" v-show="item.snippet">
                             <span v-line-clamp="2">{{item.snippet}}</span>
@@ -29,7 +30,7 @@
                 <v-flex grow class="doc-details">
                     <div class="author-info-date">
                         <span class="autor" v-show="authorName"  v-language:inner>headerDocument_item_by</span>&nbsp; {{authorName}}
-                        <span class="date"></span>
+                        <span class="date"v-show="uploadDate">{{uploadDate}}</span>
                     </div>
                     <div class="doc-actions-info">
                         <v-icon class="sb-doc-icon mr-1">sbf-views</v-icon>
@@ -98,6 +99,11 @@
                 if(this.item){
                     return this.item.views || 0
                 }
+            },
+            uploadDate(){
+              if(this.item && this.item.date){
+                  return this.item.date
+              }
             },
 
             isOurs() {
