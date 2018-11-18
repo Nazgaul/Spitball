@@ -35,6 +35,7 @@ namespace Cloudents.Infrastructure.Database.Query
                         Name = s.User.Name,
                         Image = s.User.Image
                     },
+                    DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Name,
                     TypeStr = s.Type,
                     Professor = s.Professor,

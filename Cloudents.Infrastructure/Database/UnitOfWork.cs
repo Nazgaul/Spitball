@@ -42,9 +42,10 @@ namespace Cloudents.Infrastructure.Database
                 {
                     throw new InvalidOperationException("No active transaction");
                 }
+
                 await _transaction.CommitAsync(token).ConfigureAwait(false);
             }
-            catch (GenericADOException ex) when (ex.InnerException is SqlException sql && sql.Number == 2601)
+            catch (GenericADOException ex) when (ex.InnerException is SqlException sql && (sql.Number == 2601 || sql.Number == 2627))
             {
                 //if (ex.InnerException is SqlException sql && sql.Number == 2601)
                 //{
@@ -52,6 +53,7 @@ namespace Cloudents.Infrastructure.Database
                 //}
                 //throw;
             }
+            
             //await PublishEventsAsync(token).ConfigureAwait(false);
         }
 

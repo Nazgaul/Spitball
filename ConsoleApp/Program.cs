@@ -25,9 +25,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Query.Admin;
-using Cloudents.Infrastructure.Search.Document;
+using Cloudents.Core.Exceptions;
 
 
 namespace ConsoleApp
@@ -44,7 +42,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -93,37 +91,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-           // await ReduProcessing();
-            var _bus = _container.Resolve<AzureDocumentSearch>();
-            var t = await _bus.ItemAsync(5896, default);
-            // var sr = File.OpenRead(@"C:\Users\Ram\Downloads\file-148a9417-be00-431a-a6da-4e970fd0639c-625549.pdf");
-            // var pdfProcessor = new PdfProcessor();
-            //await pdfProcessor.ProcessFilesAsync(sr, (stream, s) => { return Task.CompletedTask; },
-            //    s => { return Task.CompletedTask;}, i => { return Task.CompletedTask;}, token);
-            //await ReduProcessing();
-            //blobClient.ListBlobsSegmentedAsync("")
-            //await _bus.UpdateNumberOfViews(1, default);
-            //var z = _bus.PreviewFactory("dfjkhsfkjas.docx");
-
-            //var ms = File.OpenRead(@"C:\Users\Ram\Downloads\file-b198fed1-4b9e-483e-b742-600d8f58ed84-601.docx");
-            //ms.Seek(0, SeekOrigin.Begin);
-            //await z.ProcessFilesAsync(ms, (stream, s) => Task.CompletedTask, sssssss =>
-            //{
-            //    Console.WriteLine(sssssss);
-            //    return Task.CompletedTask;
-            //}, i => Task.CompletedTask, token);
-
-            //_bus.ProcessFilesAsync()
-            //var query = new SyncAzureQuery(1, 0);
-
-            //var (update, delete, version) =
-            //    await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
-
-
-            // await _bus.QueryAsync(query, token);
-
-            //(object update, object delete, object version) =
-            //    await _bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query, token);
+            //  await UpdateLanguageAsync();
+            //await TransferUniversities();
+            await TransferUsers();
         }
 
         private static async Task DoStuffToFiles(CloudBlobDirectory dir, Func<CloudBlockBlob, Task> func)
@@ -140,7 +110,7 @@ namespace ConsoleApp
                 {
 
                     var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri);
-                    
+
 
 
                     if (fileNameWithoutDirectory.ToString().StartsWith("file-", StringComparison.OrdinalIgnoreCase))
@@ -499,6 +469,10 @@ namespace ConsoleApp
                         var repository = child.Resolve<IQuestionRepository>();
                         var questions = await repository.GetAllQuestionsAsync(i).ConfigureAwait(false);
                         continueLoop = questions.Count > 0;
+                        if (!continueLoop)
+                        {
+                            break;
+                        }
                         var result = await t.DetectLanguageAsync(
                             questions.Where(w => w.Language == null)
                                 .Select(s => new KeyValuePair<long, string>(s.Id, s.Text)), default);
@@ -517,7 +491,7 @@ namespace ConsoleApp
 
                 }
 
-                i++;
+                //i++;
             } while (continueLoop);
 
         }
@@ -563,16 +537,16 @@ namespace ConsoleApp
         public static async Task TransferUsers()
         {
             var d = _container.Resolve<DapperRepository>();
+            var erc = _container.Resolve<IBlockChainErc20Service>();
 
 
-            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+            do
             {
-
-                return await f.QueryAsync(
-                    @"select top 500 UserId
+                var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+                {
+                    return await f.QueryAsync(
+                        @"select top 100 UserId
 		                    ,ZU.Email
-		                    --,U.[UniversityName]
-							--,u.[Country]
 		                    ,ZU.Culture
                       from zbox.Users ZU
 					  join [Zbox].[University] U
@@ -581,46 +555,56 @@ namespace ConsoleApp
 	                    and ZU.Email not in (select Email from sb.[User] where Email = ZU.Email)
 	                    and Email like '%@%'
 	                    and ZU.Email not like '%facebook.com'
-						and IsEmailVerified = 1; 
+						and IsEmailVerified = 1;  
                 ");
-            }, default);
+                }, default);
 
-            if (z.Count() == 0)
-            { return; }
-
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                if (z.Count() == 0)
                 {
-                    var repository = child.Resolve<IUserRepository>();
-                    var erc = _container.Resolve<IBlockChainErc20Service>();
-
-
-                    foreach (var pair in z)
-                    {
-
-                        var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
-                        var (privateKey, _) = erc.CreateAccount();
-
-                        CultureInfo cultur = new CultureInfo(pair.Culture);
-
-                        var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
-                        {
-                            // EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = pair.Email.ToUpper(),
-                            OldUser = true
-                        };
-                        user.NormalizedName = user.Name.ToUpper();
-                        await repository.AddAsync(user, default);
-                    }
-
-                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-
+                    break;
+                    //return;
                 }
 
-            }
-            await TransferUsers();
+                using (var child = _container.BeginLifetimeScope())
+                {
+                    try
+                    {
+                        using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                        {
+                            var repository = child.Resolve<IUserRepository>();
+
+
+
+                            foreach (var pair in z)
+                            {
+                                Console.WriteLine($"Processing id {pair.UserId}");
+                                var name = pair.Email.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
+                                var (privateKey, _) = erc.CreateAccount();
+
+                                CultureInfo cultur = new CultureInfo(pair.Culture);
+
+                                var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
+                                {
+                                    // EmailConfirmed = true,
+                                    LockoutEnabled = true,
+                                    NormalizedEmail = pair.Email.ToUpper(),
+                                    OldUser = true
+                                };
+                                user.NormalizedName = user.Name.ToUpper();
+                                await repository.AddAsync(user, default);
+                            }
+
+                            await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                            await Task.Delay(TimeSpan.FromSeconds(1));
+                        }
+                    }
+                    catch (DuplicateRowException)
+                    {
+                        //Do nothing
+                    }
+
+                }
+            } while (true);
         }
 
         public static async Task TransferDocumants()
@@ -779,7 +763,7 @@ namespace ConsoleApp
             return blob.Uri.AbsoluteUri + sas;
         }
 
-       
+
 
         public static async Task MigrateUniversity()
         {
