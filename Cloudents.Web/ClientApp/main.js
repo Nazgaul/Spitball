@@ -208,6 +208,7 @@ Vue.filter('dollarVal', function (value) {
     return parseFloat(value / 40).toFixed(2);
 });
 
+// 10/12/2018
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
     //return load if no data
@@ -216,6 +217,19 @@ Vue.filter('dateFromISO', function (value) {
     }
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
+
+// Nov 14, 2018 :: MDN Global_Objects/Date/toLocaleDateString
+Vue.filter('fullMonthDate', function (value) {
+    let date = new Date(value);
+    //return load if no data
+    if (!value) {
+        return ''
+    }
+// request a weekday along with a long month
+    let options = {  year: 'numeric', month: 'short', day: '2-digit' };
+    return date.toLocaleDateString('en-US', options);
+});
+
 
 
 Vue.prototype.$Ph = function (key, placeholders) {

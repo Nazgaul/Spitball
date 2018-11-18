@@ -1,7 +1,6 @@
 <template>
     <a :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'"
        @click="(isOurs ? $_spitball($event):'')" :href="url" :class="['d-block', 'note-block',  'type-'+typeID]">
-
         <v-container class="pa-0"
                      @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-flex class="wrapper">
@@ -60,9 +59,9 @@
             //change when server will return id of document type and not title of type
             type() {
                 let self = this;
-                if (!!self.item.documentType) {
+                if (!!self.item.type) {
                     return documentTypes.find((single) => {
-                        if (single.title.toLowerCase() === self.item.documentType.toLowerCase()) {
+                        if (single.id.toLowerCase() === self.item.type.toLowerCase()) {
                             return single
                         }
                     })
@@ -101,8 +100,10 @@
                 }
             },
             uploadDate(){
-              if(this.item && this.item.date){
-                  return this.item.date
+              if(this.item && this.item.dateTime){
+                 return this.$options.filters.fullMonthDate(this.item.dateTime);
+              }else{
+                  return ''
               }
             },
 
