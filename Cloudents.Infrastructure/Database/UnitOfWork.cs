@@ -2,6 +2,7 @@
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
+using NHibernate.Engine;
 using NHibernate.Exceptions;
 using System;
 using System.Data;
@@ -9,7 +10,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using NHibernate.Engine;
 
 namespace Cloudents.Infrastructure.Database
 {
@@ -45,15 +45,13 @@ namespace Cloudents.Infrastructure.Database
 
                 await _transaction.CommitAsync(token).ConfigureAwait(false);
             }
+            /*SELECT * FROM sys.messages
+WHERE text like '%duplicate%' and text like '%key%' and language_id = 1033*/
             catch (GenericADOException ex) when (ex.InnerException is SqlException sql && (sql.Number == 2601 || sql.Number == 2627))
             {
-                //if (ex.InnerException is SqlException sql && sql.Number == 2601)
-                //{
                 throw new DuplicateRowException("Duplicate row", sql);
-                //}
-                //throw;
             }
-            
+
             //await PublishEventsAsync(token).ConfigureAwait(false);
         }
 
