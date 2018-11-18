@@ -41,6 +41,7 @@ div.question-suggest {
     .v-carousel {
       height: auto;
       min-height: 274px;
+      max-height: 274px;
       .v-responsive__content{
         max-width: 100%;
       }
@@ -48,11 +49,19 @@ div.question-suggest {
       .v-carousel__controls {
         .v-btn--icon.v-btn--small {
           width: 20px;
+          &.v-btn--active{
+            .v-icon {
+              font-size: 16px !important;
+              color: @color-main-purple;
+              opacity: 1;
+            }
+          }
         }
         .v-icon {
           font-size: 12px !important;
         }
         background-color: transparent;
+
       }
       .v-carousel__prev, .v-carousel__next {
         .v-btn__content{
