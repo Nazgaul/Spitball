@@ -168,9 +168,11 @@ namespace Cloudents.Web.Api
             TempData.Clear();
 
             var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
+            var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
             var t1 = _commandBus.DispatchAsync(command2, token);
             var t2 =  _signInManager.SignInAsync(user, false);
-            await Task.WhenAll(t1, t2);
+            var t3 = _commandBus.DispatchAsync(registrationBonusCommand, token);
+            await Task.WhenAll(t1, t2, t3);
             return Ok(new
             {
                 user.Id

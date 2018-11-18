@@ -20,7 +20,6 @@ namespace Cloudents.Core.Entities.Db
             TwoFactorEnabled = true;
             Culture = culture;
             PrivateKey = privateKey;
-            UserCreateTransaction();
             Created = DateTime.UtcNow;
             Fictive = false;
 
@@ -76,12 +75,6 @@ namespace Cloudents.Core.Entities.Db
             Transactions.Add(t);
         }
 
-
-        protected virtual void UserCreateTransaction()
-        {
-            var t = Transaction.UserCreate();
-            AddTransaction(t);
-        }
 
         public virtual decimal Balance { get; set; }
 
