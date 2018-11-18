@@ -32,7 +32,7 @@
 </script>
 
 <style lang="less">
-    @import "../../../../mixin.less";
+    @import "../../../../styles/mixin.less";
 
     .ask-question{
         border-radius: 4px;
