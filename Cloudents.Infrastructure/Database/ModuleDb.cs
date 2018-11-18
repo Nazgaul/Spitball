@@ -23,32 +23,14 @@ namespace Cloudents.Infrastructure.Database
         {
             builder.RegisterType<UnitOfWorkFactorySpitball>().SingleInstance();
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
-                .InstancePerLifetimeScope()
-                .OnActivated(x =>
-                {
-                    Console.WriteLine("ss");
-
-                })
-                .OnRelease(x =>
-                {
-                    Console.WriteLine("ss");
-                });
+                .InstancePerLifetimeScope();
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
-                .InstancePerLifetimeScope()
-                .OnActivated(x =>
-                {
-                    Console.WriteLine("ss");
-
-                })
-                .OnRelease(x =>
-                {
-                    Console.WriteLine("xxx");
-                });
+                .InstancePerLifetimeScope();
 
 
             builder.RegisterType<QuerySession>().InstancePerLifetimeScope();
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerDependency();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 

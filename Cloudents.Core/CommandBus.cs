@@ -19,11 +19,11 @@ namespace Cloudents.Core
 
         public async Task DispatchAsync<TCommand>(TCommand command, CancellationToken token) where TCommand : ICommand
         {
-            //using (var child = _container.BeginLifetimeScope())
-            //{
-                var obj = _container.Resolve<ICommandHandler<TCommand>>();
+            using (var child = _container.BeginLifetimeScope())
+            {
+                var obj = child.Resolve<ICommandHandler<TCommand>>();
                 await obj.ExecuteAsync(command, token).ConfigureAwait(true);
-            //}
+            }
         }
 
         public void Dispose()

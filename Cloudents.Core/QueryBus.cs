@@ -19,15 +19,15 @@ namespace Cloudents.Core
 
         public async Task<TQueryResult> QueryAsync<TQueryResult>(IQuery<TQueryResult> query, CancellationToken token)
         {
-            //using (var child = _container.BeginLifetimeScope())
-            //{
+            using (var child = _container.BeginLifetimeScope())
+            {
                 var handlerType =
                     typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TQueryResult));
 
-                dynamic handler = _container.Resolve(handlerType);
+                dynamic handler = child.Resolve(handlerType);
                 var t = handler.GetAsync((dynamic)query, token);
                 return await t;
-           // }
+            }
         }
 
         public void Dispose()

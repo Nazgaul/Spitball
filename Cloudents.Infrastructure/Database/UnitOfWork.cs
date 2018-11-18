@@ -30,6 +30,7 @@ namespace Cloudents.Infrastructure.Database
         public void Dispose()
         {
             _transaction.Dispose();
+            _session.Dispose();
         }
 
         public async Task CommitAsync(CancellationToken token)

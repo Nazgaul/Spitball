@@ -23,7 +23,7 @@ namespace Cloudents.Core
         protected override void Load(ContainerBuilder builder)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterType<CommandBus>().As<ICommandBus>().InstancePerLifetimeScope();
+            builder.RegisterType<CommandBus>().As<ICommandBus>();//.InstancePerLifetimeScope();
 
 
 
@@ -31,7 +31,7 @@ namespace Cloudents.Core
                 .Named<ICommandHandler<UpdateMailGunCommand>>("mailGun");
 
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
-            builder.RegisterType<QueryBus>().As<IQueryBus>().InstancePerLifetimeScope();
+            builder.RegisterType<QueryBus>().As<IQueryBus>();//.InstancePerLifetimeScope();
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
             builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
