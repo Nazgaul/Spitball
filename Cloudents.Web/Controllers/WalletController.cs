@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Controllers
 {
@@ -30,23 +29,26 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        public async Task<IActionResult> Index(string code,
-            [ModelBinder(typeof(CountryModelBinder))] string country)
+        public async Task<IActionResult> Index(string code)
         {
-            ViewBag.country = country ?? "us";
+            //ViewBag.country = country ?? "us";
             if (string.IsNullOrEmpty(code))
             {
                 return View();
             }
 
 
-            await SignInUserAsync(code, EmailMarkAnswerAsCorrect.ProtectPurpose, _dataProtect, _userManager, _logger, _signInManager);
+            var retVal = await SignInUserAsync(code, EmailMarkAnswerAsCorrect.ProtectPurpose, _dataProtect, _userManager, _logger, _signInManager);
+            if (retVal)
+            {
+                ViewBag.Auth = true;
+            }
 
 
             return View();
         }
 
-        public static async Task SignInUserAsync(string code, string purpose, IDataProtect dataProtector, UserManager<User> userManager,
+        public static async Task<bool> SignInUserAsync(string code, string purpose, IDataProtect dataProtector, UserManager<User> userManager,
             ILogger logger, SignInManager<User> signInManager)
         {
             try
@@ -57,7 +59,9 @@ namespace Cloudents.Web.Controllers
                 if (user != null)
                 {
                     await signInManager.SignInAsync(user, false);
+                    return true;
                 }
+                
             }
             catch (CryptographicException ex)
             {
@@ -65,6 +69,7 @@ namespace Cloudents.Web.Controllers
                 //If we see this persist then maybe we need to increase the amount of time
                 logger.Exception(ex);
             }
+            return false;
         }
     }
 }

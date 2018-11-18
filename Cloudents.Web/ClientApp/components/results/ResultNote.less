@@ -1,0 +1,203 @@
+@import "../../mixin.less";
+@colorUploadDate: rgba( 0,0,0,0.38);
+.note-block {
+  //min-height: 223px;
+  min-height: auto;
+  //max-height: 223px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+  &.cell {
+    //will remove important after refactor of result WAF styles
+    padding: 8px 16px !important;
+  }
+
+  &.type-lecture {
+    border-left: 2px solid @colorTypeLecture;
+  }
+  &.type-textbook {
+    border-left: 2px solid @color-blue-new;
+
+  }
+  &.type-exam {
+    border-left: 2px solid @colorTypeExam;
+  }
+  &.type-document {
+    border-left: 3px solid @colorTypeDocDefault;
+  }
+  .wrapper {
+    .top-row {
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      border-bottom: 1px solid rgba(151, 151, 151, 0.21);
+      //margin: 0 16px;
+      .type-wrap {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        .doc-type-text {
+          font-size: 13px;
+          font-weight: 500;
+          font-family: @fontFiraSans;
+        }
+        i {
+          font-size: 16px;
+        }
+        i, .doc-type-text {
+          &.type-lecture {
+            color: @colorTypeLecture;
+          }
+          &.type-textbook {
+            color: @color-blue-new;
+          }
+          &.type-exam {
+            color: @colorTypeExam;
+          }
+          &.type-document {
+            color: @colorTypeDocThirdParty;
+          }
+
+        }
+
+      }
+    }
+    .details-row {
+      .details-wrap {
+        padding-top: 5px;
+        .aligned {
+          font-size: 12px;
+          color: @colorBlackNew;
+          display: inline-flex;
+          justify-content: flex-start;
+          align-items: flex-end;
+          .sb-icon-arrow {
+            font-size: 24px;
+            height: 16px;
+            width: 16px;
+            color: @colorGreyLight;
+          }
+        }
+      }
+    }
+
+    .data-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100%;
+      max-height: 81px;
+      margin: 5% 0;
+      .upvotes-counter {
+
+      }
+      .content-wrap {
+        padding: 9px 8px;
+        background: @colorContentBackground;
+        display: flex;
+        flex-direction: column;
+        //max-height: 81px;
+        //height: 81px;
+        width: 100%;
+        height: auto;
+        //max-height: 81px;
+        //@media (max-width: @screen-xs) {
+        //  height: auto;
+        //  max-height: unset;
+        //}
+        .title-wrap {
+          //padding-bottom: 9px;
+          display: flex;
+          align-items: center;
+
+          i.doc {
+            color: @colorGreyLight;
+            font-size: 14px;
+          }
+          .doc-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: @textColor;
+            margin-bottom: 0;
+            @media (max-width: @screen-xs) {
+             line-height: 20px;
+            }
+          }
+        }
+        .content-text {
+          padding-top: 9px;
+          span {
+            color: @colorBlackNew;
+            font-size: 13px;
+            line-height: 1.46;
+            letter-spacing: -0.2px;
+          }
+        }
+      }
+    }
+    .doc-details {
+      display: flex;
+      flex-direction: row;
+      .author-info-date {
+        color: @colorGreyLight;
+        flex-grow: 1;
+        font-size: 11px;
+
+        .date{
+          color: @colorUploadDate;
+        }
+      }
+      .doc-actions-info {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+
+        .sb-doc-icon {
+          color: @colorGreyLight;
+          font-size: 12px;
+
+        }
+        .sb-doc-info {
+          color: @colorBlackNew;
+          font-size: 11px;
+          opacity: 0.9;
+          font-family: @fontFiraSans;
+          &.views{
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+    .loading-skeleton {
+      .img-wrap {
+        background: @Site-Background !important;
+        box-shadow: none;
+
+        svg {
+          display: none;
+        }
+      }
+
+      .cell-title, .snippet, .bottom {
+        background: @Site-Background;
+        color: transparent;
+      }
+
+      .cell-title {
+        font-size: 12px;
+        line-height: 0;
+        display: inline;
+      }
+
+      .snippet {
+        font-size: 7px;
+        line-height: 0;
+      }
+
+      .bottom {
+        font-size: 7px;
+        line-height: 0;
+      }
+    }
+  }
+}

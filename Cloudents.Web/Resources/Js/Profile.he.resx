@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Answers" xml:space="preserve">
-    <value>תשובות</value>
+    <value>התשובות שלי</value>
   </data>
   <data name="emptyState_answers_btnText" xml:space="preserve">
-    <value>תשובה</value>
+    <value>ענה על שאלות</value>
   </data>
   <data name="emptyState_answers_text" xml:space="preserve">
-    <value>סייע לתלמידים אחרים להרוויח כסף על ידי העלאת תשובות על שאלות.</value>
+    <value>רוצה להרוויח קצת כסף? עזור לאחרים על ידי מענה על שאלות משיעורי הבית שלהם.</value>
   </data>
   <data name="emptyState_questions_boldText" xml:space="preserve">
     <value>שאל שאלה</value>
@@ -136,6 +136,6 @@
     <value>יש לך שאלה לגבי שיעורי הבית?</value>
   </data>
   <data name="Questions" xml:space="preserve">
-    <value>שאלות</value>
+    <value>השאלות שלי</value>
   </data>
 </root>

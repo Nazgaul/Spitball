@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.Enum;
+﻿using System.Globalization;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
@@ -18,7 +18,8 @@ namespace Cloudents.Core.Entities.Db
     public class Question : IEvents
     {
         
-        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user, QuestionColor color)
+        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user,
+            QuestionColor color, CultureInfo language)
         : this()
         {
             Subject = subject;
@@ -32,17 +33,14 @@ namespace Cloudents.Core.Entities.Db
                 Color = color;
             }
             State = QuestionState.Pending;
-            
-            if (Language.ListOfWhiteListCountries.Contains(user.Country))
+            Language = language;
+            if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
             {
                 State = QuestionState.Ok;
             }
 
             QuestionCreateTransaction();
-            if (State.GetValueOrDefault() == QuestionState.Ok)
-            {
-                Events.Add(new QuestionCreatedEvent(this));
-            }
+           
 
 
         }
@@ -130,5 +128,26 @@ namespace Cloudents.Core.Entities.Db
 
 
         public virtual IList<IEvent> Events { get; protected set; }
+
+        [CanBeNull]
+        public virtual CultureInfo Language { get; protected set; }
+
+
+        //for dbi only
+        public virtual void SetLanguage(CultureInfo info)
+        {
+            if (info.Equals(CultureInfo.InvariantCulture))
+            {
+                return;
+            }
+
+            if (Language != null)
+            {
+                throw new InvalidOperationException("Cannot change language of question");
+            }
+
+            Language = info;
+        }
+
     }
 }

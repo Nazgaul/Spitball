@@ -8,7 +8,8 @@ namespace Cloudents.Core.Extension
     {
         public static string GetName<TSource, TField>(this Expression<Func<TSource, TField>> field)
         {
-            return GetMemberInfo(field).Name;
+            var memberInfo = GetMemberInfo(field);
+            return memberInfo.Name;
         }
 
         public static MemberInfo GetMemberInfo<TSource, TField>(this Expression<Func<TSource, TField>> field)

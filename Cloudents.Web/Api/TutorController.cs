@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
 {
@@ -24,6 +25,7 @@ namespace Cloudents.Web.Api
     {
         private readonly ITutorSearch _tutorSearch;
         private readonly IStringLocalizer<TutorController> _localizer;
+        private readonly IDevice _device;
 
         /// <inheritdoc />
         /// <summary>
@@ -31,10 +33,12 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="tutorSearch"></param>
         /// <param name="localizer"></param>
-        public TutorController(ITutorSearch tutorSearch, IStringLocalizer<TutorController> localizer)
+        /// <param name="deviceResolver"></param>
+        public TutorController(ITutorSearch tutorSearch, IStringLocalizer<TutorController> localizer, IDeviceResolver deviceResolver)
         {
             _tutorSearch = tutorSearch;
             _localizer = localizer;
+            _device = deviceResolver.Device;
         }
 
         /// <summary>
@@ -46,8 +50,7 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<WebResponseWithFacet<TutorDto>> GetAsync([FromQuery]TutorRequest model, CancellationToken token)
         {
-            var t = Request.GetCapabilities();
-            var isMobile = t?.IsMobileDevice ?? true;
+            var isMobile = _device.Type == DeviceType.Mobile;
             var result = (await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Relevance),

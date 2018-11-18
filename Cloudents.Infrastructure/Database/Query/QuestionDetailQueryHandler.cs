@@ -20,11 +20,13 @@ namespace Cloudents.Infrastructure.Database.Query
     {
         private readonly ISession _session;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly IBlobProvider _blobProvider2;
 
-        public QuestionDetailQueryHandler(ReadonlySession session, IBlobProvider<QuestionAnswerContainer> blobProvider)
+        public QuestionDetailQueryHandler(ReadonlySession session, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider blobProvider2)
         {
             _session = session.Session;
             _blobProvider = blobProvider;
+            _blobProvider2 = blobProvider2;
         }
 
         private async Task<QuestionDetailDto> GetFromDbAsync(long id, CancellationToken token)
@@ -33,22 +35,13 @@ namespace Cloudents.Infrastructure.Database.Query
             var questionFuture = _session.Query<Question>().Where(w => w.Id == id)
                 .Fetch(f => f.User)
                 .Where(w => w.State == null || w.State == QuestionState.Ok)
-                .Select(s => new QuestionDetailDto
+                .Select(s => new QuestionDetailDto(new UserDto
                 {
-                    User = new UserDto
-                    {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Image = s.User.Image
-                    },
-                    Id = s.Id,
-                    Create = s.Updated,
-                    Price = s.Price,
-                    Subject = s.Subject,
-                    Text = s.Text,
-                    Color = s.Color,
-                    CorrectAnswerId = s.CorrectAnswer.Id
-                }).ToFutureValue();
+                    Id = s.User.Id,
+                    Name = s.User.Name,
+                    Image = s.User.Image
+                }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id, s.Color, s.Subject, s.Language)
+                ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
                 .Where(w => w.Question.Id == id)
                 .Fetch(f => f.User)
@@ -81,9 +74,9 @@ namespace Cloudents.Infrastructure.Database.Query
 
             //TODO: this is left join query need to fix that
 
-            var filesTask = _blobProvider.FilesInDirectoryAsync($"question/{query.Id}", token);
+            var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
             await Task.WhenAll(dtoTask, filesTask).ConfigureAwait(false);
-            var files = filesTask.Result;
+            var files = filesTask.Result.Select(s => _blobProvider2.GeneratePreviewLink(s, 20));
             var dto = dtoTask.Result;
 
             if (dto == null)

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -26,23 +27,37 @@ namespace Cloudents.Core.Interfaces
     {
         Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
 
-        Task<User> GetRandomFictiveUserAsync(CancellationToken token);
+        Task<User> GetRandomFictiveUserAsync(string country, CancellationToken token);
         
         Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
         Task<User> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
-    }
-
-    public interface IQuestionRepository : IRepository<Question>
-    {
-        Task<IList<Question>> GetAllQuestionsAsync();
-        Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
-        Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
+        Task UpdateUsersBalance(CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>
     {
-        Task<Course> GetCourseAsync(long universityId, string courseName, CancellationToken token);
+        Task<Course> GetOrAddAsync(string name, CancellationToken token);
     }
+
+    public interface ITagRepository : IRepository<Tag>
+    {
+        Task<Tag> GetOrAddAsync(string name, CancellationToken token);
+    }
+
+    public interface IDocumentRepository : IRepository<Document>
+    {
+        Task UpdateNumberOfViews(long id, CancellationToken token);
+    }
+
+    public interface IQuestionRepository : IRepository<Question>
+    {
+        Task<IList<Question>> GetAllQuestionsAsync(int page);
+        Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
+        Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
+        Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
+    }
+
+   
 
     public interface IAnswerRepository : IRepository<Answer>
     {
@@ -51,7 +66,8 @@ namespace Cloudents.Core.Interfaces
 
     public interface IUniversityRepository : IRepository<University>
     {
-        Task<IList<University>> GetUniversityByNameAsync(string name, 
+        [ItemCanBeNull]
+        Task<University> GetUniversityByNameAsync(string name, 
             string country,
             CancellationToken token);
 

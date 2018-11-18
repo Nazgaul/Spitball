@@ -144,4 +144,7 @@
   <data name="question_dash" xml:space="preserve">
     <value>/  Questions  /</value>
   </data>
+  <data name="error_duplicated" xml:space="preserve">
+    <value>This answer is copy pasted, please submit a genuine answer.</value>
+  </data>
 </root>

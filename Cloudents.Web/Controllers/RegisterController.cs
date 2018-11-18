@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +23,10 @@ namespace Cloudents.Web.Controllers
         // GET
         [Route("register", Name = RegisterRouteName)]
         [Route("signin", Name = Signin)]
-        public async Task<IActionResult> Index(NextStep? step,
-            [ModelBinder(typeof(CountryModelBinder))] string country)
+        public async Task<IActionResult> Index(NextStep? step
+            /*[ModelBinder(typeof(CountryModelBinder))] string country*/)
         {
-            ViewBag.country = country ?? "us";
+            //ViewBag.country = country ?? "us";
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");

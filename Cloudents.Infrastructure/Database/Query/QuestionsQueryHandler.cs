@@ -1,10 +1,9 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
-using NHibernate.Criterion;
+using NHibernate.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,83 +12,38 @@ using System.Threading.Tasks;
 namespace Cloudents.Infrastructure.Database.Query
 {
 
-    public class QuestionsQueryHandler : IQueryHandler<QuestionsQuery, IEnumerable<QuestionDto>>
+    public class QuestionsQueryHandler : IQueryHandler<IdsQuery<long>, IList<QuestionFeedDto>>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
-        public QuestionsQueryHandler(ReadonlySession session)
+        public QuestionsQueryHandler(ReadonlyStatelessSession session)
         {
             _session = session.Session;
         }
 
-        // [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
-        public async Task<IEnumerable<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
+        public async Task<IList<QuestionFeedDto>> GetAsync(IdsQuery<long> query, CancellationToken token)
         {
-            QuestionDto dto = null;
-            //QuestionSubject commentAlias = null;
-            Question questionAlias = null;
-            User userAlias = null;
+            var ids = query.QuestionIds.ToList();
+            
+            return await _session.Query<Question>()
+                 .Fetch(f => f.User)
+                 .Where(w => ids.Contains(w.Id))
+                 .Select(s => new QuestionFeedDto(s.Id,
+                    s.Subject,
+                    s.Price,
+                    s.Text,
+                    s.Attachments,
+                    s.Answers.Count,
+                    new UserDto()
+                    {
+                        Id = s.User.Id,
+                        Name = s.User.Name,
+                        Image = s.User.Image
+                    }, s.Updated,
+                    s.Color, s.CorrectAnswer.Id != null, s.Language)
+                 )
+                .ToListAsync(token);
 
-            var queryOverObj = _session.QueryOver(() => questionAlias)
-                //.JoinAlias(x => x.Subject, () => commentAlias)
-                .JoinAlias(x => x.User, () => userAlias)
-                .Where(w => w.State == null || w.State == QuestionState.Ok)
-                .SelectList(l => l
-                    //.Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
-                    .Select(s => s.Subject).WithAlias(() => dto.Subject)
-                    .Select(s => s.Id).WithAlias(() => dto.Id)
-                    .Select(s => s.Text).WithAlias(() => dto.Text)
-                    .Select(s => s.Price).WithAlias(() => dto.Price)
-                    .Select(s => s.Attachments).WithAlias(() => dto.Files)
-                    .Select(s => s.Updated).WithAlias(() => dto.DateTime)
-                    .Select(s => s.Color).WithAlias(() => dto.Color)
-                    .Select(Projections.Conditional(
-                        Restrictions.Where(() => questionAlias.CorrectAnswer != null),
-                                Projections.Constant(true), Projections.Constant(false))).WithAlias(() => dto.HasCorrectAnswer)
-                    .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
-                    .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
-                    .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
-                    .SelectSubQuery(QueryOver.Of<Answer>()
-                        .Where(w => w.Question.Id == questionAlias.Id).ToRowCountQuery()).WithAlias(() => dto.Answers)
-
-                )
-                //.Where(w => w.CorrectAnswer == null)
-                .TransformUsing(new DeepTransformer<QuestionDto>());
-            if (query.Source != null)
-            {
-                queryOverObj.WhereRestrictionOn(() => questionAlias.Subject).IsIn(query.Source);
-            }
-
-            if (!string.IsNullOrEmpty(query.Term))
-            {
-                queryOverObj.Where(new FullTextCriterion(Projections.Property<Question>(x => x.Text),
-                    query.Term));
-            }
-
-
-            switch (query.Filters.FirstOrDefault())
-            {
-                case QuestionFilter.Unanswered:
-                    queryOverObj.WithSubquery.WhereNotExists(QueryOver.Of<Answer>()
-                        .Where(tx => tx.Question.Id == questionAlias.Id).Select(x => x.Id));
-                    break;
-                case QuestionFilter.Answered:
-                    queryOverObj.WithSubquery.WhereExists(QueryOver.Of<Answer>()
-                            .Where(tx => tx.Question.Id == questionAlias.Id).Select(x => x.Id))
-                        .And(t => t.CorrectAnswer == null);
-                    break;
-                case QuestionFilter.Sold:
-                    queryOverObj.Where(w => w.CorrectAnswer != null);
-                    break;
-            }
-
-            queryOverObj.OrderBy(o => o.Updated).Desc
-                .Skip(query.Page * 50)
-                .Take(50);
-
-
-            return await queryOverObj.ListAsync<QuestionDto>(token);
         }
     }
-
 }

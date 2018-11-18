@@ -1,34 +1,27 @@
 <template>
     <div>
         <h1>Pending Questions</h1>
-        <h3>The emails of users that their question were deleted are on the left</h3>
-        <h3>after sending an email, refresh the page to clear the list</h3>
         <div class="page-container">
-            <div class="deleted-emails" v-show="deletedMails.length > 0">
-                <ul>
-                    <span class="bold">Deleted Emails</span> 
-                    <li v-for="(email, index) in deletedMails" :key="index">{{email}}</li>
-                </ul>
-            </div>
-        <div class="question-co">
-            <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
-                <div class="question-left-body">
-                    <div class="user-container">
-                        <div>User Id: {{question.user.id}}</div>
-                        <div>User Email: {{question.user.email}}</div>
+            <div class="question-co">
+                <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
+                    <div class="question-left-body">
+                        <div class="user-container">
+                            <div>User Id: {{question.user.id}}</div>
+                            <div>User Email: {{question.user.email}}</div>
+                        </div>
+                        <div class="question-container">
+                            <div class="bottom-border bold bottom-space">Question Id: {{question.id}}</div>
+                            <div>{{question.text}}</div>
+                        </div>
                     </div>
-                    <div class="question-container">
-                        <div class="bottom-border bold bottom-space">Question Id: {{question.id}}</div>
-                        <div>{{question.text}}</div>
+                    <div class="question-right-body">
+                        <button @click="aproveQ(question, index)">Aprove</button>
+                        <button class="decline" @click="declineQuestion(question, index)">Delete</button>
                     </div>
                 </div>
-                <div class="question-right-body">
-                    <button @click="aproveQ(question, index)">Aprove</button>
-                    <button class="decline" @click="declineQuestion(question, index)">Delete</button>
-                </div>
+                <div v-if="loading">Loading questions, please wait...</div>
+                <div v-show="questions.length === 0 && !loading">No more question to approve</div>
             </div>
-            <div v-show="questions.length === 0">Loading questions, please wait...</div>
-        </div>
         </div>
         
     </div>

@@ -24,13 +24,13 @@
                     >
                     </extended-text-area>
 
-                    <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
+                    <v-flex xs8 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
                         <select v-model="subject">
                             <option value="" disabled hidden v-language:inner>newQuestion_Pick_a_subject</option>
                             <option v-for="item in subjectList" :value="item">{{item.subject}}</option>
                         </select>
                     </v-flex>
-                    <v-flex xs6 v-if="!subject" class="input-error">
+                    <v-flex xs4 v-if="!subject" class="input-error">
                         <span>{{errorMessageSubject}}</span>
                     </v-flex>
 

@@ -27,12 +27,14 @@ namespace Cloudents.Admin2.Api
         /// <summary>
         /// Get a list of question without correct answer
         /// </summary>
+        /// <param name="page"></param>
         /// <param name="token"></param>
         /// <returns></returns>
+
         [HttpGet]
-        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(CancellationToken token)
+        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(int page, CancellationToken token)
         {
-            var query = new AdminEmptyQuery();
+            var query = new AdminPageQuery(page);
             return await _queryBus.QueryAsync<IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, token);
         }
 

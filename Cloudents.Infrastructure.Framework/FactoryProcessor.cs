@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Autofac.Features.Metadata;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
     public class FileFactoryProcessor : IFactoryProcessor
     {
 
-        private readonly IEnumerable<Meta<Func<string, IPreviewProvider>>> _providers;
+        private readonly IEnumerable<Meta<Func<string, IPreviewProvider2>>> _providers;
 
         public FileFactoryProcessor(
-            IEnumerable<Meta<Func<string, IPreviewProvider>>> providers)
+            IEnumerable<Meta<Func<string, IPreviewProvider2>>> providers)
         {
             _providers = providers;
         }
 
-        public IPreviewProvider PreviewFactory(string blobName)
+        public IPreviewProvider2 PreviewFactory(string blobName)
         {
             //if (!Uri.TryCreate(blobName, UriKind.Absolute, out var uri))
             //{

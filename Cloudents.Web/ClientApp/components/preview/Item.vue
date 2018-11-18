@@ -1,50 +1,143 @@
 ﻿<template>
-    <div class="item">
-        <div class="item-content">
-            <div class="page text-xs-center" v-for="(page,index) in item.preview" :key="index">
-                <component class="page-content elevation-1" :is="currentComponent" :src="page" :class="item.type+'-content'"></component>
+    <div>
+        <doc-header></doc-header>
+        <div class="item document-wrap">
+            <div class="item-content">
+                <span class="img-placeholder-text" v-if="isPlaceholder">Preview will be avaliable soon</span>
+                <!--<v-carousel hide-delimiters hide-controls v-if="$vuetify.breakpoint.smAndDown"-->
+                <!--style="max-height: 401px;">-->
+                <!--<v-carousel-item v-for="(page, index) in preview">-->
+                <!--<div class="page text-xs-center" :key="index">-->
+                <!--<component class="page-content elevation-1" :is="currentComponent" :src="page"-->
+                <!--:class="item.contentType+'-content'"></component>-->
+                <!--</div>-->
+                <!--</v-carousel-item>-->
+                <!--</v-carousel>-->
+                <div class="page text-xs-center" v-for="(page, index) in preview" :key="index">
+                    <component class="page-content elevation-1" :is="currentComponent" :src="page"
+                               :class="item.contentType+'-content'"></component>
+                </div>
             </div>
+            <!-- <v-flex class="doc-chat-wrapper">
+
+    <div v-show="chatReady" class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>
+    <div v-show="chatReady" ref="chat-area" class="chat-container"></div>
+       </v-flex>-->
         </div>
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex'
+    import { mapActions, mapGetters } from 'vuex'
+    import docHeader from "./headerDocument.vue"
+    import Talk from "talkjs";
+
     export default {
+        components: {
+            docHeader: docHeader
+        },
         data() {
             var actions = [
-                { id: 'info',
-                click: function () {}
-                },
-                { id: 'download' },
-                { id: 'print' },
-                { id: 'more' },
-                { id: 'close' }
-                ];
+                // {
+                //     id: 'info',
+                //     click: function () {
+                //     }
+                // },
+                // {id: 'download'},
+                // {id: 'print'},
+                // {id: 'more'},
+                {id: 'close'}
+            ];
             return {
-                item: {},
-                actions
+                actions,
+                chatReady: false
+            }
+        },
+        props: {
+            id: {
+                type: String
             }
         },
 
         methods: {
-            ...mapActions(['getPreview','updateItemDetails'])
+            ...mapActions([
+                'setDocumentPreview',
+                'clearDocPreview',
+                'updateLoginDialogState'
+            ]),
+           
+            //buildChat() {
+            //    if (this.talkSession && this.item) {
+            //        const otherUserID = this.item.details.user.id;
+            //        var other1 = new Talk.User(otherUserID);
+            //        var conversation = this.talkSession.getOrCreateConversation(
+            //            `document_${this.id}`
+            //        );
+            //        //conversation
+            //        let subject = this.item.details.name.replace(/\r?\n|\r/g, '');
+            //        conversation.setParticipant(this.chatAccount, {notify: false});
+            //        conversation.setParticipant(other1);
+            //        conversation.setAttributes({
+            //            photoUrl: `${location.origin}/images/conversation.png`,
+            //            subject: `<${location.href}|${subject}>`
+            //        });
+            //        var chatbox = this.talkSession.createChatbox(conversation, {
+            //            showChatHeader: false
+            //        });
+            //        chatbox.on("sendMessage", (t) => {
+            //            conversation.setParticipant(this.chatAccount, {notify: true})
+            //        });
+            //        this.$nextTick(() => {
+            //            console.log(this.talkSession);
+            //            chatbox.mount(this.$refs["chat-area"])
+            //        });
+            //    }
+            //}
         },
-
-        created() {
-            this.getPreview({ type: 'item', id: this.id }).then(({ data: body }) => {
-                this.item = { ...body.details, preview: body.preview };
-                this.updateItemDetails({ details: body.details});
-                let postfix = this.item.preview[0].split('?')[0].split('.');
-                this.item.type = postfix[postfix.length - 1];
-            })
-        },
-        props: { id: { type: String } },
 
         computed: {
+            ...mapGetters(["talkSession", "accountUser", "chatAccount", "getDocumentItem"]),
             currentComponent() {
-                return this.item.type==="html"? "iframe":"img";
-                if (['link', 'text'].find((x) => x == type.toLowerCase()))return 'iframe'
-            }
+                if (this.item && this.item.contentType) {
+                    return this.item.contentType === "html" ? "iframe" : "img";
+                    if (['link', 'text'].find((x) => x === type.toLowerCase())) return 'iframe'
+                }
+            },
+            item() {
+                return this.getDocumentItem;
+            },
+            preview() {
+                if (!!this.item && !!this.item.preview) {
+                    return this.item.preview
+                }
+            },
+            isPlaceholder() {
+                if (!!this.item && !!this.item.details && this.item.details.isPlaceholder) {
+                    return this.item.details.isPlaceholder
+                }
+
+            },
+        },
+        watch: {
+            talkSession: function (newVal, oldVal) {
+                if (newVal) {
+                    //this.buildChat();
+                }
+            },
+        },
+        created() {
+            let self = this;
+            this.setDocumentPreview({type: 'item', id: this.id})
+                .then((response) => {
+                    //if (this.$vuetify.breakpoint.smAndUp) {
+                    //    self.buildChat();
+                    //}
+
+
+                });
+        },
+        //clean store document item on destroy component
+        beforeDestroy() {
+            this.clearDocPreview();
         }
     }
 </script>

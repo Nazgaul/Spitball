@@ -56,8 +56,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getAutocmplete']),
+        ...mapActions(['getAutocmplete', 'changeSelectPopUpUniState', 'setUniversityPopStorage_session']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
+        ...mapGetters(['getUniversityPopStorage', 'accountUser']),
         selectos({item, index}) {
             this.msg = item.text;
             this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
@@ -79,7 +80,31 @@ export default {
                 this.$el.querySelector('input').blur();
             });
         },
+        openUniPop(){
+            console.log("uni select pop")
+            this.changeSelectPopUpUniState(true);
+
+        },
+        showUniPop(){
+            let user = this.accountUser();
+            if(!!user && !user.universityExists){
+                console.log("select uni pop up check");
+                let uniStoragePop = this.getUniversityPopStorage();
+                if(uniStoragePop.local < 3 && !uniStoragePop.session){
+                    this.openUniPop();
+                    this.setUniversityPopStorage_session();
+                    return true;
+                }
+                return false;
+            }else{
+                return false;
+            }
+        },
         openSuggestions() {
+            //if user with no university pop it, up to 3 times in seperated seassons
+            if(this.showUniPop()){
+                return;
+            }
             this.showSuggestions = true;
             if (this.$root.$el.querySelector('.box-search')) { // Limit height Only in home page
                 var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();

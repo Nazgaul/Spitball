@@ -12,9 +12,12 @@ import Toaster from "./Toaster";
 import MarketingCampaign from './marketingCampaigns'
 import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
+import document from './document'
 //TODO: server side fix
 import createPersistedState from "vuex-persistedstate"
 import notification from "./notification";
+import uploadFiles from  "./uploadFiles";
+import University from "./university"
 
 function canWriteStorage(storage) {
     try {
@@ -64,7 +67,10 @@ const store = new Vuex.Store({
         MarketingCampaign,
         loginDialog,
         newQuestionDialog,
-        notification
+        notification,
+        University,
+        uploadFiles,
+        document
     },
     //plugins: plugins
 });

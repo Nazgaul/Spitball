@@ -1,5 +1,13 @@
 @import "../../../../mixin.less";
 
+.align-switch-r{
+  text-align: right !important;
+  direction: rtl;
+}
+.align-switch-l{
+  text-align: left !important;
+  direction: ltr;
+}
 .question-card {
   &.sbf-card-undefined {
     background-color: #fff;
@@ -43,6 +51,9 @@
     text-align: center;
     padding-left: 26px;
     display: inline-block;
+    &.rtl{
+      direction:rtl;
+    }
     @media (max-width: @screen-xs ) {
       padding-left: 16px;
       padding-right: 6px !important;
@@ -51,9 +62,8 @@
       line-height: 40px;
       @media (max-width: @screen-xs ) {
         line-height: 2;
-        display: flex;
         height: 100%;
-        text-align: left;
+        white-space: nowrap;
       }
       display: inline-block;
       letter-spacing: -0.4px;

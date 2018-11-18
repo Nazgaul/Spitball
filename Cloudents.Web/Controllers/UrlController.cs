@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Domain;
 using Cloudents.Web.Models;
+using Cloudents.Core.Storage;
+using Cloudents.Core.Message.System;
 
 namespace Cloudents.Web.Controllers
 {
@@ -19,22 +18,23 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class UrlController : Controller
     {
-        private readonly IServiceBusProvider _serviceBus;
+        private readonly IQueueProvider _queueProvider;
         private readonly ILogger _logger;
         private readonly IDomainParser _domainParser;
+       
 
-        public UrlController(IServiceBusProvider serviceBus, ILogger logger, IDomainParser domainParser)
+        public UrlController(IQueueProvider queueProvider, ILogger logger, IDomainParser domainParser)
         {
-            _serviceBus = serviceBus;
+            _queueProvider = queueProvider;
             _logger = logger;
             _domainParser = domainParser;
         }
 
-        private static IList<string> _domains = PrioritySource.DocumentPriority.Values
+        private static readonly IList<string> Domains = PrioritySource.DocumentPriority.Values
             .Union(PrioritySource.FlashcardPriority.Values)
             .SelectMany(s => s.Domains).ToList();
 
-        public async Task<IActionResult> Index([FromQuery]UrlRequest model,
+        public IActionResult Index([FromQuery]UrlRequest model,
             CancellationToken token)
         {
             if (!ModelState.IsValid)
@@ -61,13 +61,15 @@ namespace Cloudents.Web.Controllers
             if (refererUri.PathAndQuery.Contains(new[] { "flashcard", "note" }, StringComparison.OrdinalIgnoreCase))
             {
                 var domain = _domainParser.GetDomain(model.Url.Host);
-                if (!_domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
+                if (!Domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
                     throw new ArgumentException("invalid url");
             }
          
-            var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());
-
-            await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
+            //var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());
+            
+              
+            _queueProvider.InsertMessageAsync(new RedirectUserMessage(model.Host, model.Url, referer, model.Location, userIp.ToString()), token);
+           // await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
 
             if (model.Url.Host.Contains("courseHero", StringComparison.OrdinalIgnoreCase))
             {

@@ -1,15 +1,22 @@
 ﻿<template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
-        <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
+        <signup-banner  slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main">
             <!--static cards AB test-->
             <abTestCard v-if="$route.path.slice(1)==='ask'" class="ab-test-card"
                         :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
             <!--end static cards AB test-->
+            <upload-files-btn class="upload-card hidden-md-and-up"  v-show="isNote"></upload-files-btn>
+
               <div class="d-flex mobile-filter">
                 <a v-if="$route.path.slice(1)==='ask' "
                    :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "
                    @click.prevent="goToAskQuestion()" v-language:inner>result_ask_question</a>
+
+                  <!--<a :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'upload-files','ask-question-mob', 'hidden-md-and-up'] "-->
+                     <!--v-show="$route.path.slice(1)==='note'"  @click="updateDialogState(true)" v-language:inner>upload_btn_open</a>-->
+
+
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
                        class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
@@ -46,14 +53,15 @@
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading"
+                                <!-- Deprecated -->
+                                <!-- <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading"
                                         class="personalize-wrapper pa-3 mb-3 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo flat
                                                   :placeholder="placeholder.whereSchool" @click="$_openPersonalize"
                                                   v-language:placeholder></v-text-field>
-                                </v-flex>
+                                </v-flex> -->
 
-                                <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
+                                <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component v-if="item.template !== 'ask' " :is="'result-'+item.template"
                                                :item="item" :key="index" :index="index" class="cell"></component>
@@ -64,8 +72,7 @@
                                     <div>
                                         <span class="question-viewer"
                                               v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow === 1 && item.watchingNow !== 0"
-                                              :style="watchinNowStyle(item)">{{item.watchingNow}} <span
-                                                v-language:inner>result_user_answering</span></span>
+                                              :style="watchinNowStyle(item)"><span v-html="$Ph('result_user_answering', item.watchingNow)"></span></span>
                                         <span class="question-viewer"
                                               v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0"
                                               :style="watchinNowStyle(item)">{{item.watchingNow}} <span
@@ -83,13 +90,13 @@
                                             {{'result_answer'}}
                                         </div>
                                         <!-- not ask -->
-                                        <div class="show-btn" v-show="name !=='ask' || (name ==='ask' && item.hasCorrectAnswer) "
+   <div class="show-btn" v-show="name !=='ask' && name !=='note' || (name ==='ask' && item.hasCorrectAnswer || name ==='ask'  && accountUser &&  item && item.user && item.user.id && accountUser.id === item.user.id)"
                                              :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme
                                         </div>
                                     </div>
                                 </v-flex>
                                 <router-link tag="v-flex"
-                                             class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
+                                             class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 "
                                              :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
                                     <!--:to="{path:'/'+currentSuggest,query:{q:this.userText}}">-->
                                     <suggest-card :name="currentSuggest"></suggest-card>
@@ -99,7 +106,7 @@
                     </v-container>
                 </scroll-list>
                 <div v-else-if="!items.length && $route.path.slice(1)==='ask' ">
-                    <div class="result-cell elevation-1 mb-3 empty-state tri-right right-in" xs-12>
+                    <div class="result-cell elevation-1 mb-2 empty-state tri-right right-in" xs-12>
                         <v-layout row class="pa-3">
                             <v-flex>
                                 <p class="empty-state" v-language:inner>result_answer_not_found</p>
@@ -108,7 +115,7 @@
                     </div>
                 </div>
                 <div v-else>
-                    <div class="result-cell elevation-1 mb-3 empty-state" xs-12>
+                    <div class="result-cell elevation-1 mb-2 empty-state" xs-12>
                         <v-layout row class="pa-3">
                             <v-flex>
                                 <h6 class="mb-3"><span v-language:inner>result_your_search</span> - <span
@@ -140,7 +147,7 @@
 
         <template slot="rightSide">
             <slot name="rightSide">
-                <faq-block :isAsk="name==='ask'" :name="currentSuggest" :text="userText"></faq-block>
+                <faq-block :isAsk="name==='ask'" :isNotes="name ==='note'" :name="currentSuggest" :text="userText"></faq-block>
                 <!--<notificationCenter v-else :isAsk="name==='ask'"></notificationCenter>-->
             </slot>
 

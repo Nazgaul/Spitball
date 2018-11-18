@@ -37,6 +37,33 @@ namespace Cloudents.Core.Extension
             return x.GetString(val.ResourceName, CultureInfo.CurrentUICulture);
         }
 
+        public static IEnumerable<string> GetEnumLocalizationAllValues(this System.Enum value)
+        {
+            if (value == null) throw new ArgumentNullException(nameof(value));
+
+            var val = GetAttributeValue<ResourceDescriptionAttribute>(value);
+            if (val == null)
+            {
+                yield return value.ToString("G");
+               
+            }
+            else
+            {
+                if (val.ResourceType == null)
+                {
+                    yield return val.Description;
+                }
+                else
+                {
+                    var x = new System.Resources.ResourceManager(val.ResourceType);
+                    foreach (var cultureInfo in Language.SystemSupportLanguage)
+                    {
+                        yield return x.GetString(val.ResourceName, cultureInfo);
+                    }
+                }
+            }
+        }
+
         public static T GetAttributeValue<T>(this System.Enum value) where T : Attribute
         {
             if (value == null) throw new ArgumentNullException(nameof(value));
@@ -44,20 +71,20 @@ namespace Cloudents.Core.Extension
             return fi.GetCustomAttribute<T>();
         }
 
-        public static IEnumerable<string> GetPublicEnumNames(this Type value)
-        {
-            var memberInfos = value.GetFields(BindingFlags.Public | BindingFlags.Static);
+        //public static IEnumerable<string> GetPublicEnumNames(this Type value)
+        //{
+        //    var memberInfos = value.GetFields(BindingFlags.Public | BindingFlags.Static);
 
 
-            foreach (var memberInfo in memberInfos)
-            {
-                if (memberInfo.GetCustomAttribute<PublicValueAttribute>() != null)
-                {
-                    yield return memberInfo.Name;
+        //    foreach (var memberInfo in memberInfos)
+        //    {
+        //        if (memberInfo.GetCustomAttribute<PublicValueAttribute>() != null)
+        //        {
+        //            yield return memberInfo.Name;
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
         public static IEnumerable<T> GetValues<T>() where T : System.Enum
         {

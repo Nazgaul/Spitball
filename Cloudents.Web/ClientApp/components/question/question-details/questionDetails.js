@@ -23,8 +23,9 @@ export default {
             textAreaValue: "",
             errorTextArea: {},
             errorHasAnswer: '',
+            errorDuplicatedAnswer:'',
             answerFiles: [],
-            questionData: null,
+            //questionData: null,
             cardList: [],
             showForm: false,
             showDialogSuggestQuestion: false,
@@ -37,8 +38,9 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState", 'updateUserProfileData']),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState", 'updateUserProfileData', 'setQuestion']),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapGetters(["getQuestion"]),
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorTextArea = {
@@ -49,6 +51,13 @@ export default {
             }
             this.updateLoading(true);
             var self = this;
+            if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
+                console.log("duplicated answer detected");
+                this.errorDuplicatedAnswer = LanguageService.getValueByKey("questionDetails_error_duplicated");
+                return
+            }else{
+                this.errorDuplicatedAnswer = '';
+            };
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 self.textAreaValue = self.textAreaValue.trim();
@@ -69,6 +78,12 @@ export default {
                     })
             }
         },
+        hasDuplicatiedAnswer(currentText, answers){  
+            let duplicated = answers.filter(answer=>{
+                return answer.text.indexOf(currentText) > -1;
+            })
+            return duplicated.length > 0;
+        },
 
         addFile(filename) {
             this.answerFiles.push(...filename.split(','));
@@ -80,27 +95,12 @@ export default {
             let updateViewer = skipViewerUpdate ? false : true;
             //enable submit btn
             this.$data.submitted = false;
-            questionService.getQuestion(this.id)
-                .then((response) => {
-                    this.questionData = response;
-
-                    if (updateViewer) {
-                        sendEventList.question.addViewr(this.questionData);
-                    }
-
-                    if (this.accountUser) {
-                        this.questionData.cardOwner = this.accountUser.id === response.user.id;
-                    } else {
-                        this.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
-                    }
-                    this.buildChat();
-                }, (error) => {
-                    if (error.response.status === 404) {
-                        window.location = "/error/notfound";
-                        return;
-                    }
-                    console.error(error);
-                });
+            this.setQuestion(this.id).then(()=>{
+                if (updateViewer) {
+                    sendEventList.question.addViewr(this.questionData);
+                }
+                this.buildChat();
+            })
         },
 
         buildChat() {
@@ -112,12 +112,14 @@ export default {
                 );
                 //conversation
                 let subject = this.questionData.text.replace(/\r?\n|\r/g, '');
+                subject = subject.substr(0, 2000);
+                subject = subject + '...';
                 conversation.setParticipant(this.chatAccount, {notify: false});
                 conversation.setParticipant(other1);
                 conversation.setAttributes({
                     photoUrl: `${location.origin}/images/conversation.png`,
                     subject: `<${location.href}|${subject}>`
-                })
+                });
                     var chatbox = this.talkSession.createChatbox(conversation, {
                     showChatHeader: false
                     });
@@ -135,7 +137,7 @@ export default {
             }
             else {
                 this.updateUserProfileData('profileMakeMoney');
-                this.dialogType = ''
+                this.dialogType = '';
                 this.updateLoginDialogState(true);
             }
         },
@@ -151,15 +153,20 @@ export default {
         '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState"]),
-
+        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
+        questionData(){
+            return this.getQuestion();
+        },
+        cardOwner(){
+            return this.isCardOwner
+        },
         userNotAnswered() {
             this.isDeletedAnswer ? this.submitForm(false) : "";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
         },
         enableAnswer() {
             let hasCorrectAnswer = !!this.questionData.correctAnswerId;
-            let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered) && !hasCorrectAnswer;
+            let val = !this.cardOwner && (!this.accountUser || this.userNotAnswered) && !hasCorrectAnswer;
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
@@ -170,13 +177,11 @@ export default {
     },
     created() {
         global.addEventListener('beforeunload', () => {
-            this.removeViewer();
+            if(!!this.removeViewer){
+                this.removeViewer();
+            }
         });
         this.getData();
-        // to do may be to consider change to State Store VueX
-        this.$root.$on('deleteAnswer', (id) => {
-            this.questionData.answers = this.questionData.answers.filter(item => item.id !== id)
-        });
         this.$root.$on('closePopUp', (name) => {
             if (name === 'suggestions') {
                 this.showDialogSuggestQuestion = false;

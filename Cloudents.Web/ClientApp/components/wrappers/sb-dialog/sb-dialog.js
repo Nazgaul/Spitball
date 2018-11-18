@@ -1,4 +1,5 @@
-import {mapGetters, mapActions} from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
     props: {
         showDialog: {
@@ -14,17 +15,21 @@ export default {
             type: String,
             required: false
         },
-        isFullScreen: {
+        fullWidth: {
             type: Boolean,
-            default: false,
+            required: false,
+            default: false
+        },
+        activateOverlay: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        onclosefn: {
             required: false
         },
-        fullWidth:{
-            type: Boolean,
-            default: false,
-            required: false
-        }
-
+        isPersistent: false,
+        transitionAnimation: ''
     },
     data: function () {
         return {
@@ -35,22 +40,37 @@ export default {
         ...mapGetters({
             loginDialogState: 'loginDialogState',
         }),
+        OverlayActive() {
+            if (this.$vuetify.breakpoint.xs) {
+                if (this.activateOverlay) {
+                    return false
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
     },
     watch: {
         //changed from parent only!!!
-        showDialog(){
-            if(!!this.showDialog){
-                document.getElementsByTagName("body")[0].className="noscroll";
+        showDialog() {
+            if (!!this.showDialog) {
+                if (this.$vuetify.breakpoint.xs) {
+                    document.getElementsByTagName("body")[0].className = "noscroll";
+                }
                 this.show = true;
-                console.log('width', this.fullWidth)
-            }else{
-                document.body.removeAttribute("class","noscroll");
+            } else {
+                document.body.removeAttribute("class", "noscroll");
                 this.show = false;
             }
         },
         //changed locally
-        show(){
-            if(!this.show){
+        show() {
+            if (!this.show) {
+                if (!!this.onclosefn) {
+                    this.onclosefn();
+                }
                 this.updateLoginDialogState(false);
                 this.updateNewQuestionDialogState(false);
                 this.$root.$emit('closePopUp', this.popUpType);

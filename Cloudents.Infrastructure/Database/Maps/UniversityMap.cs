@@ -8,19 +8,14 @@ namespace Cloudents.Infrastructure.Database.Maps
     {
         public UniversityMap()
         {
-            Id(x => x.Id).GeneratedBy.HiLo($"sb.{nameof(HiLoGenerator)}", nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(University)}'");
-                //.GeneratedBy.Assigned();
-            Map(x => x.IsDeleted);
-            Map(x => x.Name).Column("UniversityName");
+            Id(x => x.Id).GeneratedBy.GuidComb();
+            Map(x => x.Name).UniqueKey("uq_UniversityNameCountry");
             Map(x => x.Extra);
-            Map(x => x.ExtraSearch);
-            Map(x => x.Country).Not.Nullable().Length(2);
-            Map(x => x.Pending);
+            Map(x => x.Country).Not.Nullable().Length(2).UniqueKey("uq_UniversityNameCountry");
             Component(x => x.RowDetail);
 
-            Schema("Zbox");
+            SchemaAction.Update();
 
-            
         }
     }
 }

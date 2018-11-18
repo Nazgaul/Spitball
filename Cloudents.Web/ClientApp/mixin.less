@@ -1,4 +1,9 @@
-﻿@color-blue: #3293f6;
+﻿@fontFiraSans: "Fira Sans", sans-serif;
+@fontAssistant: "Assistant", sans-serif;
+@fontAlef: "Alef", sans-serif;
+
+//color variables global
+@color-blue: #3293f6;
 @color-dark-blue: #0455a8;
 @color-white: #fff;
 @color-grey: #4a4a4a;
@@ -17,23 +22,29 @@
 @color-red-heavy: #d0021b;
 @color-grey-icon-static: #888b8e;
 @color-AB-test-background : #E7E8F7;
-@color-AB-test-text: #4452fc;
-@uploadHeaderBackground: #4452fc;
+@color-blue-new: #4452fc;
+@colorContentBackground: #f8f8f8;
 
-/*
-@color-pink-gradient: fade(#f14d4d, 15%);
-@color-purple-gradient: fade(@color-purple, 15%);
-@color-green-gradient: fade(@color-green, 15%);
-@color-orange-gradient: fade(@color-orange, 15%);
+//color variables for documents types
+@colorTypeLecture: #50e3c2;
+@colorTypeExam: #d056ff;
+@colorTypeDocDefault: rgba(0, 0, 0, 0.25);
+@colorTypeDocThirdParty: rgba(0, 0, 0, 0.54);
 
-.gradient (@startColor: @color-white, @endColor: @color-purple) {
-    background-color: @startColor;
-    background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
-    background: -webkit-linear-gradient(top, @startColor, @endColor);
-    background: -moz-linear-gradient(top, @startColor, @endColor);
-    background: -ms-linear-gradient(top, @startColor, @endColor);
-    background: -o-linear-gradient(top, @startColor, @endColor);
-}*/
+  /*
+  @color-pink-gradient: fade(#f14d4d, 15%);
+  @color-purple-gradient: fade(@color-purple, 15%);
+  @color-green-gradient: fade(@color-green, 15%);
+  @color-orange-gradient: fade(@color-orange, 15%);
+
+  .gradient (@startColor: @color-white, @endColor: @color-purple) {
+      background-color: @startColor;
+      background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+      background: -webkit-linear-gradient(top, @startColor, @endColor);
+      background: -moz-linear-gradient(top, @startColor, @endColor);
+      background: -ms-linear-gradient(top, @startColor, @endColor);
+      background: -o-linear-gradient(top, @startColor, @endColor);
+  }*/
 
 @Ask-a-Question: #0455a8;
 @Class-Material: #320161;
@@ -67,20 +78,39 @@
 @Selected-Vertical: #2a7bcf;
 @Feed-Date: #888b8e;
 @Question-Answer-Bg: #f6f6f6;
-
+@labelColor: rgba(68, 82, 252, 0.38);
+@labelColorMobile: rgba(68, 82, 252, 0.54);
+@colorBlackNew: rgba(0, 0, 0, 0.54);
+@colorGreyLight: rgba(0, 0, 0, 0.25);
 @Pass-Weak-Color:#ff6f00;
 @Pass-Strong-Color: #7ed321;
 @Pass-Strongest-Color: #7ed321;
+@textColor: rgba(0, 0, 0, 0.87);
+@colorInputFocus: rgba(0, 0, 0, 0.38);
+@colorInputNotFocused:  #d0d0d0;
+@colorWhiteBlured: rgba(255, 255, 255, 0.54);
+@colorErrorText: #e43e52;
+@colorErrorBackground: rgba(255, 47, 73, 0.07);
+
 .inTheMiddle() {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+
+.dashed-spaced{
+    background-image: linear-gradient(to right, #333 10%, rgba(255, 255, 255, 0) 30%);
+    background-position: top;
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+}
+
+
 //updated version TODO rework and remove previous
 .giveEllipsisUpdated(@fontSize, @lineHeigh, @lines, @maxHeight: 96px){
-  display: block; /* Fallback for non-webkit */
   display: -webkit-box;
+  // display: block; /* Fallback for non-webkit */
   max-height: @maxHeight; /* Fallback for non-webkit */
   font-size: @fontSize;
   line-height: @lineHeigh;
@@ -91,6 +121,7 @@
   white-space: normal;
   -o-text-overflow: ellipsis;	/* required for Opera */
   -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
+  // white-space: nowrap;
 }
 
 .widthMinMax(@width, @minWidth: @width, @maxWidth: @width){
@@ -133,7 +164,7 @@
     }
   }
 }
-// generate classes for question card  based on user selced color, background and font color
+// generate classes for question card  based on user selected color, background and font color
 @colors: #ffffff, #6bc248, #a757db, #e5455d, #edaf2e, #7472ff, #3bbda4, #53a0fd, #a09c9c, #abb55e, #d251ae;
 @names: default, green, purple, red, yellow, blue, turquoise, lightblue, grey, olive, pink;
 @fontColors: #000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
@@ -209,7 +240,7 @@
 .cellActionViewerMixin(){
   position: absolute;
   .transition(all .2s ease-in-out);
-  .responsive-property(bottom, 50px, null, 8px);
+  .responsive-property(bottom, 44px, null, 8px);
   .responsive-property(right, 16px, null, 8px);
   //padding: 0px 100px 3px 0px;
   color: #707070;
@@ -365,3 +396,4 @@
   0%   { opacity: 0; }
   100% { opacity: 1; }
 }
+

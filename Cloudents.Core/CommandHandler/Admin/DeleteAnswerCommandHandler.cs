@@ -3,9 +3,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
@@ -43,12 +41,10 @@ namespace Cloudents.Core.CommandHandler.Admin
             }
 
             answer.Events.Add(new AnswerDeletedEvent(answer));
-            var userId = answer.User.Id;
-            List<long> users = new List<long> { userId, answer.Question.User.Id };
 
             answer.Question.CorrectAnswer = null;
             await _questionRepository.UpdateAsync(answer.Question, token);
-            answer.Events.Add(new AnswerDeletedAdminEvent(users));
+            answer.Events.Add(new AnswerDeletedAdminEvent());
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
         }
     }

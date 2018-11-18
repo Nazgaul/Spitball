@@ -104,7 +104,9 @@ export default {
             'delete': 'deleteQuestion',
             correctAnswer: 'correctAnswer',
             updateBalance: 'updateUserBalance',
-            updateToasterParams: 'updateToasterParams'
+            updateToasterParams: 'updateToasterParams',
+            updateQuestionSignalR: 'updateQuestionSignalR',
+            removeQuestionItemAction: 'removeQuestionItemAction'
         }),
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {
@@ -126,15 +128,19 @@ export default {
                             toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
                             showToaster: true,
                         });
+                        let objToDelete = {
+                            id: parseInt(this.$route.params.id)
+                        }
                         if (!this.typeAnswer) {
                             this.updateBalance(this.cardData.price);
                             this.$ga.event("Delete_question", "Homework help");
                             //ToDO change to router link use and not text URL
+                            this.removeQuestionItemAction(objToDelete)
                             this.$router.push('/ask')
                         } else {
                             //emit to root to update array of answers
                             this.$ga.event("Delete_answer", "Homework help");
-                            this.$root.$emit('deleteAnswer', this.cardData.id);
+                            this.updateQuestionSignalR(objToDelete);
                             this.isDeleted = true
                         }
                     },
@@ -164,7 +170,7 @@ export default {
             };
             timeago.register('he', hebrewLang);
             let timeAgoRef = timeago();
-            let locale = (global.isRtl && (global.country.toLowerCase() === 'il')) ? 'he' : '';
+            let locale = global.country.toLowerCase() === 'il';
             timeAgoRef.render(document.querySelectorAll(className), locale);
         }
     },

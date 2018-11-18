@@ -1,12 +1,6 @@
 <template>
-    <v-dialog
-              transition="scale-transition"
-              v-model="show"
-              :full-width="fullWidth"
-              :fullscreen="$vuetify.breakpoint.xs"
-              :max-width="!fullWidth ? '720px' : '1280px'"
-               scrollable
-              :content-class="contentClass">
+    <v-dialog  :origin ="'bottom center'" :transition="transitionAnimation" v-model="show" :fullscreen="OverlayActive"
+               :full-width="fullWidth" :max-width="fullWidth ? '1280px' : '720px'" scrollable :content-class="contentClass" :persistent="isPersistent">
      <slot></slot>
     </v-dialog>
 </template>

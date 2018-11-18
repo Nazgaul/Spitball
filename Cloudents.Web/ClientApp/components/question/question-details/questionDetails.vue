@@ -3,7 +3,7 @@
     <div class="answer-question" v-if="questionData">
         <!-- Web version -->
         <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
-             :class="{'my-question': questionData.cardOwner}">
+             :class="{'my-question': cardOwner}">
             <v-flex xs12 class="breadcrumbs">
                 <router-link  to="/ask" v-language:inner>questionDetails_Ask_question</router-link>
                 <span class="question-category"> <span v-language:inner>questionDetails_question_dash</span>{{questionData.subject}}</span>
@@ -12,6 +12,7 @@
                 <v-flex style="width:inherit;" class="question-data">
                     
                     <question-thread v-if="questionData" :questionData="questionData"
+                                     :cardOwner="cardOwner"
                                      :showDialogSuggestQuestion="showDialogSuggestQuestion"
                                      :hasCorrectAnswer="getCorrectAnswer">
                         
@@ -24,6 +25,7 @@
                                                     @removeFile="removeFile"></extended-text-area>
                                 <div class="has-answer-error-wrapper">
                                     <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
+                                    <span v-if="errorDuplicatedAnswer.length" class="error-message  has-answer-error">{{errorDuplicatedAnswer}}</span>
                                 </div>
                                 <v-btn block color="primary"
                                        @click="submitAnswer()"
@@ -60,7 +62,7 @@
 
                 <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12 class="question-data" >
-                            <question-thread v-if="questionData" :questionData="questionData"
+                            <question-thread v-if="questionData" :questionData="questionData" :cardOwner="cardOwner"
                                              :hasCorrectAnswer="getCorrectAnswer">
                                 <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">

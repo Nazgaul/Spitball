@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="agree" xml:space="preserve">
-    <value>אני מסכים לאמור ב-?? של ספיטבול</value>
+    <value>אני מסכים לאמור ב-</value>
   </data>
   <data name="already_have_account" xml:space="preserve">
     <value>האם כבר יש לך חשבון?</value>
@@ -181,10 +181,7 @@
     <value>יציאה</value>
   </data>
   <data name="exiting_information1" xml:space="preserve">
-    <value>יציאה מהתהליך תגרום למחיקת כל</value>
-  </data>
-  <data name="exiting_information2" xml:space="preserve">
-    <value>התקדמות ומידע</value>
+    <value>יציאה מהתהליך תגרום למחיקת ההתקדמות והמידע</value>
   </data>
   <data name="forgot_password_link" xml:space="preserve">
     <value>שכחת סיסמה?</value>
@@ -214,13 +211,10 @@
     <value>עד שתפעיל את חשבונך</value>
   </data>
   <data name="need_account_link" xml:space="preserve">
-    <value>הירשמו</value>
+    <value>הרשמה</value>
   </data>
   <data name="need_account_text" xml:space="preserve">
-    <value>זקוק לחשבון?</value>
-  </data>
-  <data name="need_an_account" xml:space="preserve">
-    <value>זקוק לחשבון?</value>
+    <value>עדיין אין לך חשבון?</value>
   </data>
   <data name="not_complete_registration" xml:space="preserve">
     <value>לא השלמת את תהליך ההרשמה</value>
@@ -318,20 +312,9 @@
   <data name="sign_up_with_google" xml:space="preserve">
     <value>הירשם באמצעות גוגל</value>
   </data>
-  <data name="sure_exit1" xml:space="preserve">
-    <value>האם אתה</value>
-  </data>
-  <data name="sure_exit2" xml:space="preserve">
-    <value>בטוח ש</value>
-  </data>
-  <data name="sure_exit3" xml:space="preserve">
-    <value>ברצונך</value>
-  </data>
-  <data name="sure_exit4" xml:space="preserve">
-    <value>אל</value>
-  </data>
-  <data name="sure_exit5" xml:space="preserve">
-    <value>האם לצאת?</value>
+  <data name="sure_exit_mobile" xml:space="preserve">
+    <value>האם אתה
+בטוח שברצונך &lt;b&gt;לצאת&lt;b&gt;?</value>
   </data>
   <data name="terms_of_services" xml:space="preserve">
     <value>תנאי שירות</value>
@@ -365,5 +348,8 @@
   </data>
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
     <value>תוכל להשתמש בהם כדי לקבל עזרה לגבי</value>
+  </data>
+  <data name="end_privacy_policy" xml:space="preserve">
+    <value> של ספיטבול</value>
   </data>
 </root>

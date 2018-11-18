@@ -31,9 +31,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Request;
+using Cloudents.Infrastructure.Data;
 using Microsoft.AspNetCore.HttpOverrides;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -45,11 +48,11 @@ namespace Cloudents.Web
         public const string IntegrationTestEnvironmentName = "Integration-Test";
         internal const int PasswordRequiredLength = 8;
 
-        public static readonly CultureInfo[] SupportedCultures = {
+        //public static readonly IList<CultureInfo> SupportedCultures = new {
 
-            Language.English.Culture,
-            Language.Hebrew.Culture
-        };
+        //    Language.English.Culture,
+        //    Language.Hebrew.Culture
+        //};
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
@@ -125,7 +128,7 @@ namespace Cloudents.Web
                 Swagger.Startup.SwaggerInitial(services);
             }
 
-            services.AddSignalR().AddRedis(Configuration["Redis"]).AddJsonProtocol(o =>
+            services.AddSignalR().AddAzureSignalR().AddJsonProtocol(o =>
                 {
                     o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
@@ -137,6 +140,7 @@ namespace Cloudents.Web
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
+            services.AddDetectionCore().AddDevice();
             services.AddScoped<SignInManager<User>, SbSignInManager>();
             services.AddIdentity<User, ApplicationRole>(options =>
             {
@@ -183,9 +187,11 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
+            services.AddTransient<IProfileUpdater, QueueProfileUpdater>();
+            services.AddTransient<ICountryProvider, CountryProvider>();
+            services.AddScoped<RedirectToOldSiteFilterAttribute>();
             var assembliesOfProgram = new[]
             {
-                Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
@@ -203,9 +209,7 @@ namespace Cloudents.Web
                     !HostingEnvironment.IsProduction()
                     ),
                 Storage = Configuration["Storage"],
-                ProdStorage = Configuration["ProdStorage"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
-                ServiceBus = Configuration["ServiceBus"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
@@ -214,6 +218,14 @@ namespace Cloudents.Web
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
+
+
+            //containerBuilder.RegisterType<DocumentSiteMapIndexConfiguration>()
+            //    .As<ISitemapIndexConfiguration<DocumentSeoDto>>();
+            containerBuilder.RegisterType<SeoDocumentRepository>()
+                .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>().WithParameter("query", SeoDbQuery.Flashcard);
+            //containerBuilder.RegisterType<SeoDocumentRepository>()
+            //    .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item).WithParameter("query", SeoDbQuery.Document);
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
@@ -236,9 +248,9 @@ namespace Cloudents.Web
                 {
                     HotModuleReplacement = true
                 });
-                var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+                //var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
 
-                configuration.DisableTelemetry = true;
+                //configuration.DisableTelemetry = true;
                 app.UseDeveloperExceptionPage();
                 
 
@@ -273,11 +285,11 @@ namespace Cloudents.Web
             app.UseRequestLocalization(o =>
             {
 
-                o.DefaultRequestCulture = new RequestCulture(SupportedCultures[0]);
+                o.DefaultRequestCulture = new RequestCulture(Language.English);
                 // Formatting numbers, dates, etc.
-                o.SupportedCultures = SupportedCultures;
+                o.SupportedCultures = Language.SystemSupportLanguage;// SupportedCultures;
                 // UI strings that we have localized.
-                o.SupportedUICultures = SupportedCultures;
+                o.SupportedUICultures = Language.SystemSupportLanguage;
                 o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
 
             });
@@ -300,7 +312,7 @@ namespace Cloudents.Web
 
             app.UseAuthentication();
             
-            app.UseSignalR(routes =>
+            app.UseAzureSignalR(routes =>
             {
                 routes.MapHub<SbHub>("/SbHub");
             });
@@ -327,127 +339,127 @@ namespace Cloudents.Web
             });
         }
 
-        private static void BuildCsp(IApplicationBuilder app)
-        {
-            app.UseCsp(csp =>
-            {
-                // If nothing is mentioned for a resource class, allow from this domain
-                csp.ByDefaultAllow
-                    .FromSelf();
+        //private static void BuildCsp(IApplicationBuilder app)
+        //{
+        //    app.UseCsp(csp =>
+        //    {
+        //        // If nothing is mentioned for a resource class, allow from this domain
+        //        csp.ByDefaultAllow
+        //            .FromSelf();
 
 
-                // Allow JavaScript from:
-                csp.AllowScripts.FromSelf().AllowUnsafeEval().AllowUnsafeInline()
-                    .From("https://app.intercom.io")
-                    .From("https://widget.intercom.io")
-                    .From("https://js.intercomcdn.com")
-                    .From("https://www.google-analytics.com/")
-                    .From("https://www.googletagmanager.com/")
-                    .From("https://googleads.g.doubleclick.net")
-                    .From("https://bid.g.doubleclick.net")
-                    .From("https://www.googleadservices.com")
-                    .From("*.google.com")
-                    .From("https://www.gstatic.com/")
-                    .From("*.inspectlet.com")
-                    .From("*.talkjs.com")
-                    .From("https://connect.facebook.net/en_US/fbevents.js")
-                    .From("https://connect.facebook.net/signals/config/1770276176567240");
+        //        // Allow JavaScript from:
+        //        csp.AllowScripts.FromSelf().AllowUnsafeEval().AllowUnsafeInline()
+        //            .From("https://app.intercom.io")
+        //            .From("https://widget.intercom.io")
+        //            .From("https://js.intercomcdn.com")
+        //            .From("https://www.google-analytics.com/")
+        //            .From("https://www.googletagmanager.com/")
+        //            .From("https://googleads.g.doubleclick.net")
+        //            .From("https://bid.g.doubleclick.net")
+        //            .From("https://www.googleadservices.com")
+        //            .From("*.google.com")
+        //            .From("https://www.gstatic.com/")
+        //            .From("*.inspectlet.com")
+        //            .From("*.talkjs.com")
+        //            .From("https://connect.facebook.net/en_US/fbevents.js")
+        //            .From("https://connect.facebook.net/signals/config/1770276176567240");
 
 
-                //csp.AllowScripts.FromSelf().AllowUnsafeInline().AllowUnsafeEval()
-                //    .From("www.google-analytics.com")
-                //    .From("*.google.com").From("*.googletagmanager.com")
-                //    .From("*.gstatic.com").From("*.talkjs.com");
+        //        //csp.AllowScripts.FromSelf().AllowUnsafeInline().AllowUnsafeEval()
+        //        //    .From("www.google-analytics.com")
+        //        //    .From("*.google.com").From("*.googletagmanager.com")
+        //        //    .From("*.gstatic.com").From("*.talkjs.com");
 
-                // CSS allowed from:
-                csp.AllowStyles.FromSelf().AllowUnsafeInline()
-                    .From("https://fonts.googleapis.com");
+        //        // CSS allowed from:
+        //        csp.AllowStyles.FromSelf().AllowUnsafeInline()
+        //            .From("https://fonts.googleapis.com");
 
-                //image files
-                csp.AllowImages.FromSelf()
-                    .From("data:")
-                    .From("https://js.intercomcdn.com")
-                    .From("https://static.intercomassets.com")
-                    .From("https://downloads.intercomcdn.com")
-                    .From("https://uploads.intercomusercontent.com")
-                    .From("https://gifs.intercomcdn.com")
-                    .From("https://www.google-analytics.com/")
-                    .From("*.talkjs.com")
-                    .From("https://www.googletagmanager.com")
-                    .From("https://www.facebook.com/tr/")
-                    .From("https://stats.g.doubleclick.net/r/collect")
-                    .From("https://www.google.com/ads/ga-audiences")
-                    .From("https://www.google.co.il/ads/ga-audiences");
+        //        //image files
+        //        csp.AllowImages.FromSelf()
+        //            .From("data:")
+        //            .From("https://js.intercomcdn.com")
+        //            .From("https://static.intercomassets.com")
+        //            .From("https://downloads.intercomcdn.com")
+        //            .From("https://uploads.intercomusercontent.com")
+        //            .From("https://gifs.intercomcdn.com")
+        //            .From("https://www.google-analytics.com/")
+        //            .From("*.talkjs.com")
+        //            .From("https://www.googletagmanager.com")
+        //            .From("https://www.facebook.com/tr/")
+        //            .From("https://stats.g.doubleclick.net/r/collect")
+        //            .From("https://www.google.com/ads/ga-audiences")
+        //            .From("https://www.google.co.il/ads/ga-audiences");
 
-                // Contained iframes can be sourced from:
-                csp.AllowFrames
-                    .From("https://share.intercom.io")
-                    .From("https://intercom-sheets.com")
-                    .From("https://www.youtube.com")
-                    .From("https://player.vimeo.com")
-                    .From("https://fast.wistia.net")
-                    .From("https://www.googletagmanager.com/ns.html")
-                    .From("https://www.google.com/recaptcha/")
-                    .From("*.inspectlet.com");
-
-
-                csp.AllowWorkers
-                    .From("https://share.intercom.io")
-                    .From("https://intercom-sheets.com")
-                    .From("https://www.youtube.com")
-                    .From("https://player.vimeo.com")
-                    .From("https://fast.wistia.net")
-                    .From("*.inspectlet.com")
-                    .From("*.talkjs.com");
-
-                //media files
-                csp.AllowAudioAndVideo.From("https://js.intercomcdn.com")
-                    .From("*.inspectlet.com")
-                    .From("*.talkjs.com");
+        //        // Contained iframes can be sourced from:
+        //        csp.AllowFrames
+        //            .From("https://share.intercom.io")
+        //            .From("https://intercom-sheets.com")
+        //            .From("https://www.youtube.com")
+        //            .From("https://player.vimeo.com")
+        //            .From("https://fast.wistia.net")
+        //            .From("https://www.googletagmanager.com/ns.html")
+        //            .From("https://www.google.com/recaptcha/")
+        //            .From("*.inspectlet.com");
 
 
-                // Allow AJAX, WebSocket and EventSource connections to:
-                csp.AllowConnections.ToSelf()
-                    .To("https://api.intercom.io")
-                    .To("https://api-iam.intercom.io")
-                    .To("https://api-ping.intercom.io")
-                    .To("https://nexus-websocket-a.intercom.io")
-                    .To("https://nexus-websocket-b.intercom.io")
-                    .To("https://nexus-long-poller-a.intercom.io")
-                    .To("https://nexus-long-poller-b.intercom.io")
-                    .To("wss://nexus-websocket-a.intercom.io")
-                    .To("wss://nexus-websocket-b.intercom.io")
-                    .To("https://uploads.intercomcdn.com")
-                    .To("https://uploads.intercomusercontent.com")
-                    .To("https://app.getsentry.com")
-                    .To("https://www.google-analytics.com/")
-                    .To("*.inspectlet.com")
-                    .To("*.talkjs.com");
+        //        csp.AllowWorkers
+        //            .From("https://share.intercom.io")
+        //            .From("https://intercom-sheets.com")
+        //            .From("https://www.youtube.com")
+        //            .From("https://player.vimeo.com")
+        //            .From("https://fast.wistia.net")
+        //            .From("*.inspectlet.com")
+        //            .From("*.talkjs.com");
+
+        //        //media files
+        //        csp.AllowAudioAndVideo.From("https://js.intercomcdn.com")
+        //            .From("*.inspectlet.com")
+        //            .From("*.talkjs.com");
 
 
-                // Allow fonts to be downloaded from:
-                csp.AllowFonts.FromSelf()
-                    .From("data:")
-                    .From("https://fonts.gstatic.com")
-                    .From("https://js.intercomcdn.com");
+        //        // Allow AJAX, WebSocket and EventSource connections to:
+        //        csp.AllowConnections.ToSelf()
+        //            .To("https://api.intercom.io")
+        //            .To("https://api-iam.intercom.io")
+        //            .To("https://api-ping.intercom.io")
+        //            .To("https://nexus-websocket-a.intercom.io")
+        //            .To("https://nexus-websocket-b.intercom.io")
+        //            .To("https://nexus-long-poller-a.intercom.io")
+        //            .To("https://nexus-long-poller-b.intercom.io")
+        //            .To("wss://nexus-websocket-a.intercom.io")
+        //            .To("wss://nexus-websocket-b.intercom.io")
+        //            .To("https://uploads.intercomcdn.com")
+        //            .To("https://uploads.intercomusercontent.com")
+        //            .To("https://app.getsentry.com")
+        //            .To("https://www.google-analytics.com/")
+        //            .To("*.inspectlet.com")
+        //            .To("*.talkjs.com");
 
-                // Allow object, embed, and applet sources from:
-                csp.ByDefaultAllow.FromNowhere();
 
-                // Allow other sites to put this in an iframe?
-                csp.AllowFraming
-                    .FromNowhere(); // Block framing on other sites, equivalent to X-Frame-Options: DENY
+        //        // Allow fonts to be downloaded from:
+        //        csp.AllowFonts.FromSelf()
+        //            .From("data:")
+        //            .From("https://fonts.gstatic.com")
+        //            .From("https://js.intercomcdn.com");
 
-                csp.SetReportOnly();
-                csp.ReportViolationsTo("api/report/csp");
+        //        // Allow object, embed, and applet sources from:
+        //        csp.ByDefaultAllow.FromNowhere();
 
-                // Do not include the CSP header for requests to the /api endpoints
-                csp.OnSendingHeader = context =>
-                {
-                    context.ShouldNotSend = context.HttpContext.Request.Path.StartsWithSegments("/api");
-                    return Task.CompletedTask;
-                };
-            });
-        }
+        //        // Allow other sites to put this in an iframe?
+        //        csp.AllowFraming
+        //            .FromNowhere(); // Block framing on other sites, equivalent to X-Frame-Options: DENY
+
+        //        csp.SetReportOnly();
+        //        csp.ReportViolationsTo("api/report/csp");
+
+        //        // Do not include the CSP header for requests to the /api endpoints
+        //        csp.OnSendingHeader = context =>
+        //        {
+        //            context.ShouldNotSend = context.HttpContext.Request.Path.StartsWithSegments("/api");
+        //            return Task.CompletedTask;
+        //        };
+        //    });
+        //}
     }
 }

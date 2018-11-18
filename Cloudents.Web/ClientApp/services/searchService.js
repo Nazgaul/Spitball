@@ -8,7 +8,7 @@ const getQuestions = (params) => {
 }
 
 const getDocument = (params) => {
-    return connectivityModule.http.get("search/documents", {params});
+    return connectivityModule.http.get("/Document", {params});
 }
 
 const getFlashcard = (params) => {
@@ -55,10 +55,12 @@ function QuestionItem(objInit) {
     this.dateTime = objInit.dateTime;
     this.color = !!objInit.color ? objInit.color.toLowerCase() : undefined;
     this.hasCorrectAnswer = objInit.hasCorrectAnswer;
+    this.correctAnswerId = objInit.correctAnswerId;
     this.template = objInit.template;
     this.template = "ask";
     this.filesNum = this.files;
     this.answersNum = this.answers;
+    this.isRtl = objInit.isRtl;
     // if the question is younger then 1 minute then watching now will be 0
     //if question is older then threshold, watching now also gonna be 0 other wise random between 0 to 1
     let questionOlderTheOneMinute = (new Date().getTime() - new Date(this.dateTime).getTime()) > oneMinute;
@@ -82,6 +84,18 @@ let transferResultAsk = response => {
 };
 
 let transferResultNote = response => {
+    let res = response.data;
+    let result = res ? res.result : [];
+    if (!res) return {data: []};
+    return {
+        sort: res.sort,
+        filters: res.filters,
+        data: result.map(val => {
+            return {...val, template: 'note'}
+        }), nextPage: res.nextPageLink
+    }
+};
+let transferResultFlashcard = response => {
     let res = response.data;
     let result = res ? res.result : [];
     if (!res) return {data: []};
@@ -151,7 +165,7 @@ let transferNextPage = (res) => {
 
 const transferMap = {
     ask: (res) => transferResultAsk(res),
-    flashcard: (res) => transferResultNote(res),
+    flashcard: (res) => transferResultFlashcard(res),
     note: (res) => transferResultNote(res),
     job: (res) => transferJob(res),
     tutor: (res) => transferResultTutor(res),
@@ -200,7 +214,7 @@ export default {
             return getDocument(params).then(transferResultNote);
         },
         flashcard(params) {
-            return getFlashcard(params).then(transferResultNote);
+            return getFlashcard(params).then(transferResultFlashcard);
         },
         tutor(params) {
             return getTutor(params).then(transferResultTutor);

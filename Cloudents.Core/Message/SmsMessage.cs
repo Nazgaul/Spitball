@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace Cloudents.Core.Message
+﻿namespace Cloudents.Core.Message
 {
-    [Serializable]
     public class SmsMessage2
     {
         public SmsMessage2(string phoneNumber, string code)
@@ -14,7 +11,5 @@ namespace Cloudents.Core.Message
         public string PhoneNumber { get; set; }
 
         public string Message { get; set; }
-      
-
     }
 }

@@ -90,12 +90,13 @@ const getters = {
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
     accountUser: (state) => {
+        console.log("user");
         return state.user
     },
     lastActiveRoute: state => state.lastActiveRoute,
     getProfileData: state => state.profileData,
     getUniversity: state => {
-        if(!!state.user && !!state.user.universityId){
+        if(!!state.user && !!state.user.universityExists){
             return true;
         }else{
             return false;
@@ -104,9 +105,6 @@ const getters = {
 };
 
 const actions = {
-    getAccount(state){
-                return state.user
-    },
     updateUserProfileData(context, name){
         let currentProfile = profileService.getProfileData(name);
         context.commit("UPDATE_PROFILE_DATA", currentProfile );
@@ -127,12 +125,13 @@ const actions = {
             return Promise.resolve();
         }
         if (global.isAuth) {
-            return accountService.getAccount().then(({data}) => {
-                setIntercomeData(data)
+            return accountService.getAccount().then((UserAccount) => {
+                setIntercomeData(UserAccount)
                 commit("changeLoginStatus", true);
-                commit("updateUser", data);
+                commit("updateUser", UserAccount);
                 dispatch("connectToChat");
-                analyticsService.sb_setUserId(data.id);
+                dispatch("syncUniData");
+                analyticsService.sb_setUserId(UserAccount.id);
             }).catch(_ => {
                 setIntercomeData()
                 isRequire ? commit("updateFromPath", to) : '';

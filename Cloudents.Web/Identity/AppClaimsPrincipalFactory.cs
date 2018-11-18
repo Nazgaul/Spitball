@@ -1,9 +1,9 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Identity
 {
@@ -13,7 +13,7 @@ namespace Cloudents.Web.Identity
         internal const string Country = "country";
         internal const string University = "university";
 
-        public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager, 
+        public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager,
             IOptions<IdentityOptions> options) :
             base(userManager, roleManager, options)
         {
@@ -23,15 +23,16 @@ namespace Cloudents.Web.Identity
         {
             var p = await base.GenerateClaimsAsync(user).ConfigureAwait(false);
 
-            if (user.EmailConfirmed && user.PhoneNumberConfirmed)
+            if (!user.EmailConfirmed || !user.PhoneNumberConfirmed) return p;
+            p.AddClaim(new Claim(Country, user.Country));
+            if (user.University?.Id != null)
             {
-                p.AddClaim(new Claim(Country, user.Country));
-                if (user.University?.Id != null)
-                {
-                    p.AddClaim(new Claim(University, user.University.Id.ToString()));
-                }
+                p.AddClaim(new Claim(University, user.University.Id.ToString()));
             }
+
             return p;
         }
     }
+
+    
 }

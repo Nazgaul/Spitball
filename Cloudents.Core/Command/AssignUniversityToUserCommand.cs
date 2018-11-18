@@ -4,13 +4,16 @@ namespace Cloudents.Core.Command
 {
     public class AssignUniversityToUserCommand : ICommand
     {
-        public AssignUniversityToUserCommand(long userId, long universityId)
+        public AssignUniversityToUserCommand(long userId, string universityName, string country)
         {
             UserId = userId;
-            UniversityId = universityId;
+            UniversityName = universityName;
+            Country = country;
         }
 
-        public long UserId { get; private set; }
-        public long UniversityId { get; private set; }
+        public long UserId { get; }
+        public string UniversityName { get; }
+
+        public string Country { get;  }
     }
 }

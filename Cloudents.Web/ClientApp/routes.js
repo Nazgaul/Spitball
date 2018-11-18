@@ -11,7 +11,6 @@ const slimHeader = () => import("./components/helpers/slimHeader/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
-const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 // const newQuestion = () => import("./components/question/newQuestion/newQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
@@ -109,10 +108,20 @@ let routes2 = [
         },
         props: bookDetailsProps
     },
+    //TODO doc preview refactoring header RAMRAM
     {
-        path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",
-        components: {default: showItem, header: documentPreviewHeader},
-        props: {default: (route) => ({id: route.params.id})}
+        //document/{universityName}/{courseName}/{id:long}/{name}
+        path: "/note/:universityName/:courseName/:id/:name",
+        alias: ['/document/:universityName/:courseName/:id/:name'],
+        name: "item",
+        components: {
+            default: showItem,
+            header: pageHeader
+        },
+        props: {
+            default: (route) => ({id: route.params.id}),
+            header: ()=>({submitRoute: '/note', currentSelection: "note"})
+        }
     },
     {
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
@@ -148,7 +157,7 @@ let routes2 = [
         path: "/wallet",
         components: {
             default: wallet,
-            header: previewHeader
+            header: pageHeader
         },
         name: "wallet",
         meta: {
@@ -177,7 +186,7 @@ let routes2 = [
         name: "conversations",
         components: {
             default: () => import("./components/conversations/conversations.vue"),
-            header: slimHeader
+            header: pageHeader
         },
         meta: {
             requiresAuth: true

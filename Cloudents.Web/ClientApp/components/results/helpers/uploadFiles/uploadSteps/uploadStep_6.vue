@@ -1,0 +1,140 @@
+<template>
+    <v-card class="mb-5 sb-step-card">
+        <div class="upload-row-1">
+            <v-icon class="five">sbf-five</v-icon>
+            <h3 class="sb-title" v-language:inner>upload_files_step6_title</h3>
+            <h4 class="sb-subtitle mt-2" v-language:inner>upload_files_step6_subtitle</h4>
+        </div>
+        <div class="upload-row-2 final-row " style="padding-top: 32px;" @click="changeStep(2)">
+            <div class="final-item school">
+                <div class="final-item-wrap">
+                    <v-icon class="final-icon">sbf-university</v-icon>
+                    <span class="item-name" v-language:inner>upload_files_label_school</span>
+                </div>
+                <div>
+                    <span class="school-name"
+                          v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getSchoolName}}</span>
+                </div>
+
+            </div>
+            <div class="final-item class-selected">
+                <div class="edit">
+                    <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                    <span v-language:inner>upload_files_edit</span>
+                </div>
+                <div class="final-item-wrap">
+                    <v-icon class="final-icon">sbf-classes-new</v-icon>
+                    <span class="item-name" v-language:inner>upload_files_class</span>
+                </div>
+                <span class="class-name"
+                      v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getFileData.course}}</span>
+            </div>
+        </div>
+        <div class="upload-row-3 final-row">
+            <div class="final-item doc-type-selected" @click="changeStep(3)">
+                <div class="edit">
+                    <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                    <span v-language:inner>upload_files_edit</span>
+                </div>
+                <div class="final-item-wrap doc-type-wrap">
+                    <v-icon class="final-icon doc-type">sbf-{{selectedType ? selectedType.id : ''}}-note</v-icon>
+                    <span class="item-name doc-type-name">{{selectedType ? selectedType.title : ''}}</span>
+                </div>
+
+            </div>
+            <div class="final-item tags-selected" @click="changeStep(5)">
+                <div class="edit">
+                    <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                    <span v-language:inner>upload_files_edit</span>
+                </div>
+                <div class="final-item-wrap">
+                    <v-icon class="final-icon tags">sbf-tag-icon</v-icon>
+                    <span class="item-name" v-language:inner>upload_files_label_tags</span>
+
+                </div>
+                <div class="sb-combo final-tags">
+                    <v-chip class="sb-chip-tag" v-for="tag in getFileData.tags">
+                                                   <span class="chip-button px-1">
+                                                       {{tag}}
+                                                   </span>
+                    </v-chip>
+                </div>
+            </div>
+        </div>
+        <div class="upload-row-4 final-row">
+            <div class="legal-wrap">
+                <v-checkbox class="legal-ownership"
+                            :color="'#4452fc'"
+                            off-icon="sbf-checkboxOff"
+                            on-icon="sbf-checkboxActive"
+                            :label="CheckboxLabel"
+                            v-model="legalCheck"
+                            @change="updateLegal()"></v-checkbox>
+
+            </div>
+        </div>
+    </v-card>
+</template>
+
+<script>
+    import { mapGetters, mapActions } from 'vuex';
+    import { documentTypes } from "../consts"
+    import { LanguageService } from "../../../../../services/language/languageService";
+
+    export default {
+        name: "uploadStep_6",
+        data() {
+            return {
+                selected: {},
+                checker: false,
+                CheckboxLabel: LanguageService.getValueByKey("upload_files_label_legal")
+            }
+        },
+        props: {
+            callBackmethods: {
+                type: Object,
+                default: {},
+                required: false
+            }
+        },
+        computed: {
+            ...mapGetters({
+                getLegal: 'getLegal',
+                getFileData: 'getFileData',
+                getSchoolName: 'getSchoolName',
+
+            }),
+            legalCheck:{
+                get(){
+                    return this.getLegal;
+                },
+                set(val){
+                    this.checker = val;
+                }
+            },
+
+            selectedType() {
+                if (this.getFileData.type) {
+                    return this.selected = documentTypes.find((item) => {
+                        return item.id === this.getFileData.type;
+                    })
+                }
+            }
+        },
+        methods: {
+            ...mapActions(['updateLegalAgreement']),
+
+            changeStep(step) {
+                this.callBackmethods.changeStep(step)
+            },
+            updateLegal() {
+                this.updateLegalAgreement(this.checker);
+            },
+        },
+
+    }
+</script>
+
+<style>
+
+</style>

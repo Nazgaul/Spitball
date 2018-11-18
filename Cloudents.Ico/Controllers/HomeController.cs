@@ -8,16 +8,17 @@ using Microsoft.AspNetCore.Mvc;
 using Cloudents.Ico.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using Cloudents.Core.Message.Email;
 
 namespace Cloudents.Ico.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Lazy<IServiceBusProvider> _serviceBus;
+        private readonly Lazy<IQueueProvider> _queueProvider;
 
-        public HomeController(Lazy<IServiceBusProvider> serviceBus)
+        public HomeController(Lazy<IQueueProvider> queueProvider)
         {
-            _serviceBus = serviceBus;
+            _queueProvider = queueProvider;
         }
 
         public IActionResult Index()
@@ -33,7 +34,7 @@ namespace Cloudents.Ico.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _serviceBus.Value.InsertMessageAsync(new ContactUsEmail(model.Name, model.Email, model.Text), token);
+            await _queueProvider.Value.InsertMessageAsync(new ContactUsEmail(model.Name, model.Email, model.Text), token);
             return Ok();
         }
 
@@ -44,7 +45,7 @@ namespace Cloudents.Ico.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await _serviceBus.Value.InsertMessageAsync(new ContactUsEmail(model.Email), token);
+            await _queueProvider.Value.InsertMessageAsync(new ContactUsEmail(model.Email), token);
             return Ok();
         }
 

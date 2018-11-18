@@ -1,0 +1,22 @@
+
+@import "../../../../mixin.less";
+.details-row {
+  .details-wrap {
+    padding-top: 5px;
+    .aligned {
+      font-size: 11px;
+      color: @colorBlackNew;
+      display: inline-flex;
+      justify-content: flex-start;
+      .sb-icon-arrow {
+        font-size: 24px;
+        height: 16px;
+        width: 16px;
+        color: @colorGreyLight;
+        &.swap{
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}

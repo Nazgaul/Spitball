@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -15,10 +14,10 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
         }
 
-        public async Task<IList<University>> GetUniversityByNameAsync(string name,string country, CancellationToken token)
+        public async Task<University> GetUniversityByNameAsync(string name,string country, CancellationToken token)
         {
-            return await Session.Query<University>().Where(w => w.Name == name && !w.IsDeleted && w.Country == country)
-                .ToListAsync(token);
+            return await Session.Query<University>().Where(w => w.Name == name && w.Country == country)
+                .SingleOrDefaultAsync(token);
         }
     }
 }

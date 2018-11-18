@@ -1,8 +1,24 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.Command;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Models;
 using Cloudents.Core.Query;
+using Cloudents.Core.Storage;
+using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
+using Cloudents.Web.Models;
+using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,42 +29,146 @@ namespace Cloudents.Web.Api
     public class DocumentController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
-        private readonly Lazy<IDocumentSearch> _documentSearch;
-        private readonly IFactoryProcessor _factoryProcessor;
+        private readonly ICommandBus _commandBus;
+        private readonly UserManager<User> _userManager;
+        private readonly IBlobProvider<DocumentContainer> _blobProvider;
+        private readonly IStringLocalizer<DocumentController> _localizer;
+        private readonly IProfileUpdater _profileUpdater;
+
+
 
         public DocumentController(IQueryBus queryBus,
-            Lazy<IDocumentSearch> documentSearch,
-            IFactoryProcessor factoryProcessor)
+             ICommandBus commandBus, UserManager<User> userManager,
+            IBlobProvider<DocumentContainer> blobProvider,
+            IStringLocalizer<DocumentController> localizer,
+            IProfileUpdater profileUpdater)
         {
             _queryBus = queryBus;
-            _documentSearch = documentSearch;
-            _factoryProcessor = factoryProcessor;
+            _commandBus = commandBus;
+            _userManager = userManager;
+            _blobProvider = blobProvider;
+            _localizer = localizer;
+            _profileUpdater = profileUpdater;
         }
 
-        //TODO we need to fix that
-        [HttpGet]
-        public async Task<IActionResult> GetAsync(long id, bool? firstTime, CancellationToken token)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
+            [FromServices] IQueueProvider queueProvider,
+            [FromServices] IBlobProvider blobProvider,
+            CancellationToken token)
         {
             var query = new DocumentById(id);
-            var tModel = _queryBus.QueryAsync<DocumentDto>(query, token);
-            var tContent = firstTime.GetValueOrDefault() ?
-                _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
-            await Task.WhenAll(tModel, tContent).ConfigureAwait(false);
+            var tModel = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
+            var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
+
+            var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
+            await Task.WhenAll(tModel, filesTask, tQueue);
+
             var model = tModel.Result;
+            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
             if (model == null)
             {
                 return NotFound();
             }
-            var preview = _factoryProcessor.PreviewFactory(model.Blob);
-            var result = await preview.ConvertFileToWebsitePreviewAsync(0, token).ConfigureAwait(false);
-            
-            return Ok(
-                new
+            return new DocumentPreviewResponse(model, files);
+        }
+
+        [HttpPost, Authorize]
+        public async Task<CreateDocumentResponse> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
+            [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+
+            var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
+                model.Course, model.Tags, userId, model.Professor);
+            await _commandBus.DispatchAsync(command, token);
+
+            var url = Url.RouteUrl(SeoTypeString.Document, new
+            {
+                universityName = profile.University.Name,
+                courseName = model.Course,
+                id = command.Id,
+                name = model.Name
+            });
+            return new CreateDocumentResponse(url);
+        }
+
+
+        /// <summary>
+        /// Search document vertical result
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="profile">User profile - server generated</param>
+        /// <param name="ilSearchProvider"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet(Name = "DocumentSearch")]
+        public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
+            [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country | ProfileServiceQuery.Course | ProfileServiceQuery.Tag)] UserProfile profile,
+            [FromServices] IDocumentSearch ilSearchProvider,
+            CancellationToken token)
+        {
+            model = model ?? new DocumentRequest();
+            var query = new DocumentQuery(model.Course, profile, model.Term,
+                model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
+
+
+            var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
+
+
+            var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
+            await Task.WhenAll(resultTask, queueTask);
+            var result = resultTask.Result;
+            var p = result;
+            string nextPageLink = null;
+            if (p.Count > 0)
+            {
+                nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+            }
+            var filters = new List<IFilters>();
+
+            //if (result.Facet != null)
+            //{
+
+            filters.Add(
+                new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+                    EnumExtension.GetValues<DocumentType>().Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
+                        .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
+            );
+            // }
+
+            if (profile.Courses != null)
+            {
+                filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
+                    _localizer["CoursesFilterTitle"],
+                    profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
+            }
+            return new WebResponseWithFacet<DocumentFeedDto>
+            {
+                Result = p.Select(s =>
                 {
-                    details = model,
-                    content = tContent.Result,
-                    preview = result
-                });
+                    if (s.Url == null)
+                    {
+                        s.Url = Url.RouteUrl(SeoTypeString.Document, new
+                        {
+                            universityName = s.University,
+                            courseName = s.Course,
+                            id = s.Id,
+                            name = s.Title
+                        });
+                    }
+
+                    return s;
+                }),
+                //Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
+                Filters = filters,
+                NextPageLink = nextPageLink
+            };
+
+
+
+
         }
     }
 }

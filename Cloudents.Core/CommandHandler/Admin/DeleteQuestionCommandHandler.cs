@@ -3,9 +3,7 @@ using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,21 +25,19 @@ namespace Cloudents.Core.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
         {
-            var question = await _questionRepository.LoadAsync(message.QuestionId, token);
+            var question = await _questionRepository.GetAsync(message.QuestionId, token);
+            if (question == null)
+            {
+                return;
+            }
             foreach (var transaction in question.Transactions)
             {
                 await _transactionRepository.DeleteAsync(transaction, token);
             }
 
             question.Events.Add(new QuestionDeletedEvent(question));
-            var userId = question.User.Id;
-            var correctAnswerUserId = question.CorrectAnswer?.User.Id;
-            var users = new List<long> { userId };
-            if (correctAnswerUserId != null)
-            {
-                users.Add(correctAnswerUserId.Value);
-            }
-            question.Events.Add(new QuestionDeletedAdminEvent(users));
+           
+            question.Events.Add(new QuestionDeletedAdminEvent());
             await _questionRepository.DeleteAsync(question, token);
         }
     }

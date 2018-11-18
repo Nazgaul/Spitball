@@ -11,6 +11,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Aspose.Total.lic" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Aspose.Total.lic">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="8.5.0" />
     <PackageReference Include="Aspose.Imaging" Version="3.0.0" />
@@ -18,16 +28,8 @@
     <PackageReference Include="Aspose.Slides.NET" Version="15.5.0" />
     <PackageReference Include="Aspose.Words" Version="15.6.0" />
     <PackageReference Include="Autofac" Version="4.6.1" />
+    <PackageReference Include="ImageResizer" Version="4.2.5" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
-    <PackageReference Include="WindowsAzure.ServiceBus" Version="5.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Aspose.Total.lic">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

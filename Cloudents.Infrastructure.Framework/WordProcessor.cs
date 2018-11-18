@@ -1,137 +1,69 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Aspose.Words;
 using Aspose.Words.Saving;
-using Cloudents.Core;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class WordProcessor : Processor, IPreviewProvider
+    public class WordProcessor : IPreviewProvider2
     {
-        private const string CacheVersion = CacheVersionPrefix + "6";
-
-        public WordProcessor(
-                string blobUri,
-                IBlobProvider<OldSbFilesContainerName> blobProvider,
-                IBlobProvider<OldCacheContainer> blobProviderCache)
-            : base(blobProvider, blobProviderCache, blobUri)
+        public WordProcessor()
         {
-            SetLicense();
-        }
-
-        private static void SetLicense()
-        {
-            var license = new License();
-            license.SetLicense("Aspose.Total.lic");
-        }
-
-        public Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(
-            int indexNum,
-            CancellationToken cancelToken)
-        {
-           // var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
-
-            var word = new AsyncLazy<Document>(async () =>
+            using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
             {
-                SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(BlobUri, cancelToken).ConfigureAwait(false))
-                {
-                    return new Document(sr);
-                }
-            });
-
-            var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
-            return UploadPreviewCacheToAzureAsync(indexNum,
-                i => CreateCacheFileName(BlobUri, i),
-                async z =>
-                {
-                    svgOptions.PageIndex = z;
-                    var ms = new MemoryStream();
-                    var w = await word;
-                    w.Save(ms, svgOptions);
-                    return ms;
-                }, CacheVersion, "image/svg+xml", cancelToken
-            );
+                var license = new License();
+                license.SetLicense(sr);
+            }
         }
 
-        protected static string CreateCacheFileName(string blobName, int index)
+        public static readonly string[] Extensions = { ".rtf", ".docx", ".doc", ".odt" };
+        
+
+        private static string ExtractDocumentText(Document doc)
         {
-            return
-                $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.svg";
+            try
+            {
+                return doc.ToString(SaveFormat.Text);
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
         }
 
-        public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".odt" };
-        //public static bool CanProcessFile(Uri blobName)
-        //{
-        //    return WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-        //}
 
-        //public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,
-        //    CancellationToken cancelToken = default(CancellationToken))
-        //{
-        //    try
-        //    {
-        //        var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
-        //        SetLicense();
-        //        var word = new Document(path);
+        public async Task ProcessFilesAsync(Stream stream,
+            Func<Stream, string, Task> pagePreviewCallback,
+            Func<string, int, Task> metaCallback,
+            CancellationToken token)
+        {
+            var word = new Document(stream);
+            var txt = ExtractDocumentText(word);
 
-        //        return await ProcessFileAsync(blobUri, () =>
-        //        {
-        //            var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
-        //            {
-        //                JpegQuality = 80,
-        //                Resolution = 150
-        //            };
+            await metaCallback(txt, word.PageCount);
 
-        //            var ms = new MemoryStream();
-        //            word.Save(ms, imgOptions);
-        //            ms.Seek(0, SeekOrigin.Begin);
-        //            return ms;
-        //        }, () => word.PageCount, CacheVersion, cancelToken).ConfigureAwait(false);
-        //    }
-        //    catch (UnsupportedFileFormatException)
-        //    {
-        //        return null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        m_Logger.Exception(ex);
-        //        return null;
-        //    }
-        //}
+            var t = new List<Task>();
+            var svgOptions = new SvgSaveOptions
+            {
+                ShowPageBorder = false,
+                FitToViewPort = true,
+                JpegQuality = 85,
+                ExportEmbeddedImages = true,
+                PageCount = 1
+            };
+            for (var i = 0; i < word.PageCount; i++)
+            {
+                var ms = new MemoryStream();
+                word.Save(ms, svgOptions);
+                ms.Seek(0, SeekOrigin.Begin);
+                t.Add(pagePreviewCallback(ms, $"{i}.svg").ContinueWith(_=> ms.Dispose(), token));
+            }
+            await Task.WhenAll(t);
 
-        //private string ExtractDocumentText(Document doc)
-        //{
-        //    try
-        //    {
-        //        var str = doc.ToString(SaveFormat.Text);
-        //        return StripUnwantedChars(str);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        m_Logger.Exception(ex);
-        //        return string.Empty;
-        //    }
-        //}
-
-        //public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
-        //{
-        //    SetLicense();
-        //    using (var stream = await BlobProvider.OpenBlobStreamAsync(blobUri, cancelToken).ConfigureAwait(false))
-        //    {
-        //        try
-        //        {
-        //            var word = new Document(stream);
-        //            return ExtractDocumentText(word);
-        //        }
-        //        catch (UnsupportedFileFormatException)
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //}
+        }
     }
 }

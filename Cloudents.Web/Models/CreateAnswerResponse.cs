@@ -5,20 +5,14 @@ namespace Cloudents.Web.Models
 {
     public class CreateAnswerResponse
     {
-        public IEnumerable<QuestionDto> NextQuestions { get; set; }
+        public IEnumerable<QuestionFeedDto> NextQuestions { get; set; }
     }
 
 
-    public class CoursesResponse
-    {
-        public IEnumerable<CourseDto> Courses { get; set; }
-    }
-
-
-    public class CoursesCreateResponse
-    {
-        public long Id { get; set; }
-    }
+    //public class CoursesCreateResponse
+    //{
+    //    public long Id { get; set; }
+    //}
 
 
     public class CallingCallResponse
@@ -37,6 +31,7 @@ namespace Cloudents.Web.Models
         VerifyPhone,
         EnterPhone,
         EmailPassword,
+        ExpiredStep,
         // ReSharper disable once IdentifierTypo - this is because client sucks
         Loginstep
     }

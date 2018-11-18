@@ -1,10 +1,10 @@
 ﻿<template>
-    <main-header ref="mainHeader"
-                 :toolbarHeight="$vuetify.breakpoint.smAndUp ? 108 : 104">
+    <main-header ref="mainHeader" :toolbarHeight="$vuetify.breakpoint.smAndUp ? 108 : 104">
         <v-flex class="line" slot="extraHeader">
             <v-layout row>
               <!--keep this way for blog new tab open-->
-                <v-tabs :scrollable="false" centered >
+                <!--RTL bug fix in hebrew mobile-->
+                <v-tabs :scrollable="false" centered :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : ''">
                     <v-tab router :to="verticals[0].name" :ripple="false" class="vertical">{{verticals[0].display}}</v-tab>
                     <v-tab router :to="verticals[1].name" :ripple="false" class="vertical">{{verticals[1].display}}</v-tab>
                     <!--special handler for blog open in new browser window-->
@@ -33,6 +33,7 @@
         data() {
             return {
                 verticals: staticRoutes,
+                isRtl: global.isRtl
             }
         },
         methods:{

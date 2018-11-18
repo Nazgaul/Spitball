@@ -4,7 +4,6 @@ using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Cloudents.Web.Binders;
 using EmailAnswerCreated = Cloudents.Web.EventHandler.EmailAnswerCreated;
 
 namespace Cloudents.Web.Controllers
@@ -30,15 +29,19 @@ namespace Cloudents.Web.Controllers
         }
         // GET
         [Route("[controller]/{id:long}")]
-        public async Task<IActionResult> Index(string code,
-            [ModelBinder(typeof(CountryModelBinder))] string country)
+        public async Task<IActionResult> Index(string code
+            /*[ModelBinder(typeof(CountryModelBinder))] string country*/)
         {
-            ViewBag.country = country ?? "us";
+            //ViewBag.country = country ?? "us";
             if (string.IsNullOrEmpty(code))
             {
                 return View();
             }
-            await WalletController.SignInUserAsync(code, EmailAnswerCreated.CreateAnswer, _dataProtect, _userManager, _logger, _signInManager);
+            var retVal = await WalletController.SignInUserAsync(code, EmailAnswerCreated.CreateAnswer, _dataProtect, _userManager, _logger, _signInManager);
+            if (retVal)
+            {
+                ViewBag.Auth = true;
+            }
             return View();
         }
     }

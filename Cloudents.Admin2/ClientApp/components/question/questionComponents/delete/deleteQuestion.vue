@@ -34,7 +34,11 @@ export default {
                     this.questionsIds = this.questionsIdString.split(',');
                     let numberArr= [];
                     this.questionsIds.forEach(id=>{
-                        return numberArr.push(parseInt(id.trim()));
+                        let num = parseInt(id.trim());
+                        if(!!num){
+                            return numberArr.push(num);
+                        }
+                        
                     })
                     deleteQuestion(numberArr)
                     .then(resp=>{

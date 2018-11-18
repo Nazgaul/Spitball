@@ -1,12 +1,12 @@
 ﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Exceptions;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,6 +34,7 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
         {
             var question = await _questionRepository.GetAsync(message.QuestionId, token).ConfigureAwait(false);
+           
             if (question == null)
             {
                 throw new ArgumentException("question doesn't exits");
@@ -51,7 +52,7 @@ namespace Cloudents.Core.CommandHandler
             }
 
            
-            if (user.Fictive)
+            if (user.Fictive.GetValueOrDefault())
             {
                 throw new InvalidOperationException("fictive user");
             }
@@ -62,35 +63,34 @@ namespace Cloudents.Core.CommandHandler
                 var pendingAnswerAfterThisInsert = pendingAnswers + 1;
                 if (pendingAnswerAfterThisInsert > 5)
                 {
-                    throw new QuotaExceedException();
+                    throw new QuotaExceededException();
                 }
             }
-            //if (!user.Country.Contains<string>(Language.ListOfWhiteListCountries, StringComparison.OrdinalIgnoreCase))
-            //{
-            //    //State = QuestionState.Ok;
-            //}
-            //doing that instead of repository because this will only go to db once to get the collection vs 2 separate api calls.
-            //I can argue about that - but for now it'll work
-            if (question.Answers?.Any(a => a.User.Id == user.Id) == true)
-            {
-                throw new InvalidOperationException("user cannot give more the one answer");
-            }
 
-            if (question.Answers?.Any(a => string.Equals(a.Text, message.Text, StringComparison.OrdinalIgnoreCase)) ==
-                true)
-            {
-                throw new DuplicateRowException();
-            }
-            var answer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
-            //var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
-            await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
+            //TODO:
+            //we can check if we can create sql query to check answer with regular expression
+            //and we can create sql to check if its not the same user
+            var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
+            var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
+            if (question.Answers != null)
+                foreach (var answer in question.Answers)
+                {
+                    if (answer.User.Id == user.Id)
+                    {
+                        throw new InvalidOperationException("user cannot give more then one answer");
+                    }
+                    var check = Regex.Replace(answer.Text, regex.ToString(), "");
+                    if (nakedString == check)
+                    {
+                        throw new DuplicateRowException("Duplicate answer");
+                    }
+                }
+            var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
+            await _answerRepository.AddAsync(newAnswer, token).ConfigureAwait(false);
+            var id = newAnswer.Id;
 
-            var id = answer.Id;
 
-
-
-
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
             await Task.WhenAll(l/*.Union(new[] { t })*/).ConfigureAwait(true);
         }

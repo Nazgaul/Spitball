@@ -9,6 +9,31 @@
         <div class="text-area-container" v-if="showTextArea">
             <textarea v-model="subjectContent" placeholder="Content of text..." cols="30" rows="10"></textarea>    
         </div>
+        <div class="select-type-container" v-if="showTextArea">
+            <select class="select-type" v-model="country">
+                <option value="Us">US</option>
+                <option value="Il">IL</option>
+            </select>
+        </div>
+        <div class="upload-container" v-if="showTextArea">
+            <file-upload
+                ref="upload"
+                v-model="files"
+                post-action="/api/AdminQuestion/upload"
+                @input-file="inputFile"
+                @input-filter="inputFilter"
+                :multiple="true"
+                :maximum="4"
+                :extensions="['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp']"
+            >
+                <button class="btn-upload">Upload File</button>
+            </file-upload>
+            <ul>
+                <li style="list-style: none;" v-for="(file, index) in files" :key="index">
+                    {{file.name}} <span v-if="file.error">- Error: {{file.error}}</span> <span v-if="file.success">Success: {{file.success}}</span> 
+                </li>
+            </ul>
+        </div>
 
         <div class="price-container" v-if="showTextArea">
             <button  v-if="!showPriceSetter" class="btn-price" @click="setPrice">Set A Price</button>
@@ -35,6 +60,9 @@ export default {
             showTextArea:false,
             questionPrice: 1,
             showPriceSetter:false,
+            files: [],
+            filesNames: [],
+            country: "Us"
         }
     },
     methods:{
@@ -54,13 +82,55 @@ export default {
                 this.$toaster.error("Error: No Content");
                 return;
             }
-            addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice).then(()=>{
+            let uploads = [];
+            if(this.files.length > 0){
+                this.files.forEach(file=>{
+                    if(!!file.response.file){
+                        uploads.push(file.response.file)
+                    }
+                })
+            } 
+            addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, uploads).then(()=>{
                 this.$toaster.success("Success on Adding Question");
             }, (err)=>{
                 console.log(err);
                 this.$toaster.error("Error: Failed to Add question");
             })
-        }
+        },
+        inputFile(newFile, oldFile) {
+            // Automatic upload
+            if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+                if (!this.$refs.upload.active) {
+                this.$refs.upload.active = true
+                }
+            }
+            if(!!oldFile){
+                // Upload error
+                if (newFile.error !== oldFile.error) {
+                    console.log('error', newFile.error, newFile)
+                }
+
+                // Uploaded successfully
+                if (newFile.success !== oldFile.success) {
+                    console.log('success', newFile.success, newFile)
+                }
+            }
+        },
+        inputFilter: function (newFile, oldFile, prevent) {
+            if (newFile && !oldFile) {
+                // Filter non-image file
+                if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+                return prevent()
+                }
+            }
+
+            // Create a blob field
+            newFile.blob = ''
+            let URL = window.URL || window.webkitURL
+            if (URL && URL.createObjectURL) {
+                newFile.blob = URL.createObjectURL(newFile.file)
+            }
+        },
     },
     created(){
         getSubjectList().then((responseSubjects)=>{
@@ -129,6 +199,29 @@ export default {
             color: #eaf0e9;
         }
     }
-    
+    .upload-container{
+        margin-top:10px;
+        .btn-upload{
+            background-color: #438a2b;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            height: 40px;
+            width: 85px;
+            color: #eaf0e9;
+        }
+    }
+    .select-type-container{
+        .select-type{
+            border: none;
+            border-radius: 25px;
+            height: 25px;
+            margin-top: 10px;
+            width: 90px;
+            padding: 5px;
+            outline: none;
+        }
+    }    
 }
 </style>

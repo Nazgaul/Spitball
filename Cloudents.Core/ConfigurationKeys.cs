@@ -4,7 +4,6 @@ namespace Cloudents.Core
 {
     public class ConfigurationKeys : IConfigurationKeys
     {
-        private string _prodStorage;
         public ConfigurationKeys(string siteEndPoint)
         {
             SiteEndPoint = siteEndPoint;
@@ -17,19 +16,19 @@ namespace Cloudents.Core
         public string Redis { get; set; }
         public string Storage { get; set; }
 
-        public string ProdStorage
-        {
-            get
-            {
-                if (_prodStorage != null)
-                {
-                    return _prodStorage;
-                }
+        //public string ProdStorage
+        //{
+        //    get
+        //    {
+        //        if (_prodStorage != null)
+        //        {
+        //            return _prodStorage;
+        //        }
 
-                return Storage;
-            }
-            set => _prodStorage = value;
-        }
+        //        return Storage;
+        //    }
+        //    set => _prodStorage = value;
+        //}
         //public string SystemUrl { get; set; }
 
         public LocalStorageData LocalStorageData { get; set; }
@@ -37,7 +36,6 @@ namespace Cloudents.Core
 
         public string BlockChainNetwork { get; set; }
 
-        public string ServiceBus { get; set; }
         public string SiteEndPoint { get; }
     }
 

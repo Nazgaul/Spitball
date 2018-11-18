@@ -20,6 +20,7 @@
 
   position: relative;
   height: 340px;
+  display: flex;
 
   @media ( max-width: 600px) {
     height: 280px;
@@ -367,32 +368,24 @@
 
   .text-block {
     .limited-width();
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    max-width: 850px;
     margin: 0 auto;
     font-size: 18px;
     color: @color-white;
-    top: 25%;
-    position: absolute;
     z-index: 100;
     text-align: center;
-    left: 0;
-    right: 0;
-    //
-    @media (max-width: @screen-md-plus) {
-      top: 22%;
-    }
+    height: 340px;
 
     @media (min-width: @screen-sm) and (max-width: @screen-md) {
-      max-width: 960px;
       width: 560px;
-      height: 147px;
       font-size: 40px;
       font-weight: bold;
       line-height: 1.23;
       letter-spacing: -0.3px;
-      top: 19%;
-      z-index: 100;
     }
 
     @media (max-width: @screen-sm) {
@@ -406,8 +399,7 @@
 
     @media (max-width: @screen-xs) {
       width: 362px;
-      margin: 0 0 0 8px;
-      top: 11%;
+      height: 280px;
     }
 
     .title-wrap {
@@ -430,16 +422,14 @@
 
       @media ( max-width: 600px) {
         margin: 16px 0;
+        
         width: 240px;
       }
 
       @media (max-width: @screen-xs) {
         margin: 16px 0;
+        padding-right: 30px;
         width: 240px;
-      }
-
-      @media ( max-width: @screen-xss) {
-        margin: 16px 0;
       }
     }
 
@@ -491,6 +481,10 @@
         font-size: 18px;
         text-align: left;
       }
+      @media (min-width: 760px) and (max-width: 770px){
+        //Ipad
+        padding-right: 100px;
+      }
     }
 
     .small {
@@ -502,12 +496,13 @@
     }
 
     .small, .medium {
-      margin-right: 8px;
+      margin-right: 30px;
     }
   }
 
   .overlay-bubble {
-    position: relative;
+    // position: relative;
+    position: absolute;
     top: 0;
     left: 0;
     height: 100%;

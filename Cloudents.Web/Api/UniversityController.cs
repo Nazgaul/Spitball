@@ -1,16 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Interfaces;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Command;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
+using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -24,9 +24,7 @@ namespace Cloudents.Web.Api
         private readonly IUniversitySearch _universityProvider;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
         private readonly ICommandBus _commandBus;
-
 
         /// <inheritdoc />
         /// <summary>
@@ -53,7 +51,8 @@ namespace Cloudents.Web.Api
         /// <returns>list of universities</returns>
         [HttpGet]
         public async Task<UniversitySearchDto> GetAsync([FromQuery] UniversityRequest model,
-            [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
+            [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)]
+            string country,
             CancellationToken token)
         {
             var result = await _universityProvider.SearchAsync(model.Term,
@@ -61,35 +60,22 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        /// <summary>
-        /// Create new university and assign the user to that university
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateUniversityRequest model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new CreateUniversityCommand(model.Name, userId);
-            await _commandBus.DispatchAsync(command, token);
-            var user = await _userManager.GetUserAsync(User);
-
-            await _signInManager.RefreshSignInAsync(user);
-            return Ok();
-        }
+        
 
         [HttpPost("assign")]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AssignUniversityToUserCommand(userId, model.UniversityId);
+            var command = new AssignUniversityToUserCommand(userId, model.Name, model.Country);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             var user = await _userManager.GetUserAsync(User);
 
             await _signInManager.RefreshSignInAsync(user);
             return Ok();
         }
+
+
+
 
     }
 }

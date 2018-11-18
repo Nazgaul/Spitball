@@ -11,9 +11,9 @@ namespace Cloudents.Core.CommandHandler
     public class AssignUniversityToUserCommandHandler : ICommandHandler<AssignUniversityToUserCommand>
     {
         private readonly IRepository<User> _userRepository;
-        private readonly IRepository<University> _universityRepository;
+        private readonly IUniversityRepository _universityRepository;
 
-        public AssignUniversityToUserCommandHandler(IRepository<User> userRepository, IRepository<University> universityRepository)
+        public AssignUniversityToUserCommandHandler(IRepository<User> userRepository, IUniversityRepository universityRepository)
         {
             _userRepository = userRepository;
             _universityRepository = universityRepository;
@@ -22,7 +22,13 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(AssignUniversityToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            var university = await _universityRepository.LoadAsync(message.UniversityId, token).ConfigureAwait(false);
+            var country = message.Country ?? user.Country;
+            var university = await _universityRepository.GetUniversityByNameAsync(message.UniversityName, country, token);
+            if (university == null)
+            {
+                university = new University(message.UniversityName, user.Country);
+                await _universityRepository.AddAsync(university, token);
+            }
 
             user.University = university;
             await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);

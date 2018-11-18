@@ -15,7 +15,15 @@
               { removeDoctype: true },
               { removeComments: true },
               { removeTitle: true },
-              { cleanupIDs: true }
+              { cleanupIDs: true },
+              {convertPathData: true},
+              {removeMetadata: true},
+                {cleanupAttrs: true},
+                {removeEditorsNSData: true},
+                {removeEmptyAttrs: true },
+                {convertTransform: true},
+                {removeUnusedNS: true},
+                {mergePaths: true}
             ]
           }
         }

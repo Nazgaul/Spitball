@@ -1,24 +1,25 @@
-﻿using System.Threading;
-using Aspose.Cells;
+﻿using Aspose.Cells;
 using Aspose.Cells.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class ExcelProcessor : Processor, IPreviewProvider
+    public class ExcelProcessor : IPreviewProvider2
     {
-        private const string CacheVersion = CacheVersionPrefix + "5";
-        public ExcelProcessor(string blobUri,
-            IBlobProvider<OldSbFilesContainerName> blobProvider,
-            IBlobProvider<OldCacheContainer> blobProviderCache)
-            : base(blobProvider, blobProviderCache, blobUri)
+        public ExcelProcessor()
+
         {
-            SetLicense();
+            using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
+            {
+                var license = new License();
+                license.SetLicense(sr);
+            }
         }
 
         private static void ScalePageSetupToFitPage(Worksheet workSheet)
@@ -29,48 +30,41 @@ namespace Cloudents.Infrastructure.Framework
             workSheet.PageSetup.PaperSize = PaperSizeType.PaperA4;
         }
 
-        private static void SetLicense()
+
+        public static readonly string[] Extensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
+        public async Task ProcessFilesAsync(Stream stream,
+            Func<Stream, string, Task> pagePreviewCallback,
+            Func<string, int, Task> metaCallback,
+            CancellationToken token)
         {
-            var license = new License();
-            license.SetLicense("Aspose.Total.lic");
-        }
-
-        public Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum, CancellationToken cancelToken)
-        {
-            //var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
-
-            var excel = new AsyncLazy<Workbook>(async () =>
-            {
-                using (var sr = await BlobProvider.DownloadFileAsync(BlobUri, cancelToken).ConfigureAwait(false))
-                {
-                    return new Workbook(sr);
-                }
-            });
-
+            var excel = new Workbook(stream);
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-            return UploadPreviewCacheToAzureAsync(indexNum,
-                i => CreateCacheFileName(BlobUri, i),
-               async z =>
-               {
-                   var p = await excel;
-                   var workSheet = p.Worksheets[z];
-                   ScalePageSetupToFitPage(workSheet);
 
-                   var sr = new SheetRender(workSheet, imgOptions);
-                   //Render the image for the sheet
-                   var ms = new MemoryStream();
+            var t = new List<Task>
+            {
+                metaCallback(null, excel.Worksheets.Count)
+            };
 
-                   sr.ToImage(0, ms);
-                   return ms;
-               }, CacheVersion, "image/jpg", cancelToken
-            );
+            for (int i = 0; i < excel.Worksheets.Count; i++)
+            {
+                var wb = excel.Worksheets[i];
+                ScalePageSetupToFitPage(wb);
+                var sr = new SheetRender(wb, imgOptions);
+                using (var img = sr.ToImage(0))
+                {
+                    if (img == null)
+                    {
+                        continue;
+                    }
+
+                    var ms = new MemoryStream();
+                    img.Save(ms, ImageFormat.Jpeg);
+                    t.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
+
+                }
+            }
+
+            await Task.WhenAll(t);
         }
-
-        private static string CreateCacheFileName(string blobName, int index)
-        {
-            return $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.jpg";
-        }
-
-        public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
     }
 }

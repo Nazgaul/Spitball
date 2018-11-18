@@ -12,7 +12,7 @@ using NHibernate.Criterion;
 namespace Cloudents.Infrastructure.Database.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class NextQuestionsQueryHandler : IQueryHandler<NextQuestionQuery, IEnumerable<QuestionDto>>
+    public class NextQuestionsQueryHandler : IQueryHandler<NextQuestionQuery, IEnumerable<QuestionFeedDto>>
     {
         private readonly IStatelessSession _session;
 
@@ -21,9 +21,9 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-        public async Task<IEnumerable<QuestionDto>> GetAsync(NextQuestionQuery query, CancellationToken token)
+        public async Task<IEnumerable<QuestionFeedDto>> GetAsync(NextQuestionQuery query, CancellationToken token)
         {
-            QuestionDto dto = null;
+            QuestionFeedDto dto = null;
           //  QuestionSubject commentAlias = null;
             Question questionAlias = null;
             User userAlias = null;
@@ -60,13 +60,13 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Where(w => w.User.Id != query.UserId)
                 .Where(w => w.Id != query.QuestionId)
                 .WithSubquery.WhereProperty(x => x.Id).NotIn(QueryOver.Of<Answer>().Where(w => w.User.Id == query.UserId).Select(s => s.Question.Id))
-                .TransformUsing(new DeepTransformer<QuestionDto>())
+                .TransformUsing(new DeepTransformer<QuestionFeedDto>())
                 .OrderBy(Projections.Conditional(
                     Subqueries.PropertyEq(nameof(Question.Subject), detachedQuery.DetachedCriteria)
                     , Projections.Constant(0), Projections.Constant(1)
                     )).Asc
                 .ThenBy(Projections.SqlFunction(SbDialect.RandomOrder, NHibernateUtil.Guid)).Asc
-                .Take(3).ListAsync<QuestionDto>(token).ConfigureAwait(false);
+                .Take(3).ListAsync<QuestionFeedDto>(token).ConfigureAwait(false);
         }
     }
 }

@@ -1,7 +1,10 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities.Search
 {
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "json.net need public set")]
+    [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global", Justification = "json.net need public set")]
     public class University : ISearchObject
     {
         public string Id { get; set; }

@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
@@ -17,6 +16,7 @@ using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message.Email;
 
 namespace Cloudents.Web.Api
 {
@@ -27,7 +27,7 @@ namespace Cloudents.Web.Api
         private readonly SbSignInManager _signInManager;
 
         private readonly IBlockChainErc20Service _blockChainErc20Service;
-        private readonly IServiceBusProvider _queueProvider;
+        private readonly IQueueProvider _queueProvider;
         private readonly ISmsSender _client;
         private readonly IStringLocalizer<RegisterController> _localizer;
         private readonly IStringLocalizer<LogInController> _loginLocalizer;
@@ -35,7 +35,8 @@ namespace Cloudents.Web.Api
         internal const string Email = "email2";
 
 
-        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer)
+        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, 
+            IBlockChainErc20Service blockChainErc20Service, IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -165,7 +166,7 @@ namespace Cloudents.Web.Api
                 name = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             }
             var (privateKey, _) = _blockChainErc20Service.CreateAccount();
-            return new User(email, $"{name}.{GenerateRandomNumber()}", privateKey);
+            return new User(email, $"{name}.{GenerateRandomNumber()}", privateKey, CultureInfo.CurrentCulture);
         }
 
         private static int GenerateRandomNumber()
@@ -176,6 +177,10 @@ namespace Cloudents.Web.Api
 
         private async Task GenerateEmailAsync(User user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
+            if (user.OldUser && user.SecurityStamp == null) 
+            {
+                await _userManager.UpdateSecurityStampAsync(user);
+            }
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
             code = UrlEncoder.Default.Encode(code);
             var url = returnUrl?.Url;
@@ -183,7 +188,7 @@ namespace Cloudents.Web.Api
             {
                 url = null;
             }
-
+           
             var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url, referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link),CultureInfo.CurrentUICulture);

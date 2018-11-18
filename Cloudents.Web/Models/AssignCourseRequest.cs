@@ -2,9 +2,10 @@
 
 namespace Cloudents.Web.Models
 {
-    public class AssignCourseRequest
+    public class SetCourseRequest
     {
         [Required(ErrorMessage = "Required")]
-        public long CourseId { get; set; }
+        [StringLength(150, MinimumLength = 4, ErrorMessage = "StringLength")]
+        public string Name { get; set; }
     }
 }

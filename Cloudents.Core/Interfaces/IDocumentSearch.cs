@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Query;
 using Cloudents.Core.Request;
 
 namespace Cloudents.Core.Interfaces
@@ -10,7 +12,10 @@ namespace Cloudents.Core.Interfaces
     {
         Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
 
-        Task<ResultWithFacetDto<SearchResult>> SearchDocumentsAsync(SearchQuery query,
+
+        Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
+
+        Task<IList<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken cancelToken);
     }
 

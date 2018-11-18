@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
@@ -10,14 +11,14 @@ namespace Cloudents.Infrastructure.Write
     [UsedImplicitly]
     public class UniversitySearchWrite : SearchServiceWrite<Core.Entities.Search.University>
     {
-        public const string IndexName = "universities4";
+        public const string IndexName = "universities5";
         public const string ScoringProfile = "university-default";
 
         public const string CountryTagScoringParameters = "country";
         //public const string DistanceScoringParameter = "currentLocation";
 
-        public UniversitySearchWrite(SearchService client)
-            : base(client, client.GetClient(IndexName))
+        public UniversitySearchWrite(SearchService client, ILogger logger)
+            : base(client, client.GetClient(IndexName),logger)
         {
         }
 
@@ -117,15 +118,15 @@ namespace Cloudents.Infrastructure.Write
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
                             [nameof(Core.Entities.Search.University.Extra)] = 3,
-                            [nameof(Core.Entities.Search.University.Name)] = 2,
-                            [nameof(Core.Entities.Search.University.Prefix)] = 1,
+                            [nameof(Core.Entities.Search.University.Name)] = 2.5,
+                            [nameof(Core.Entities.Search.University.Prefix)] = 2,
 
                         }),
 
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new TagScoringFunction(nameof(Core.Entities.Search.University.Country),5, new TagScoringParameters(CountryTagScoringParameters))
+                            new TagScoringFunction(nameof(Core.Entities.Search.University.Country),1.5, new TagScoringParameters(CountryTagScoringParameters))
                         //    new DistanceScoringFunction(
                         //        nameof(Core.Entities.Search.University.GeographyPoint),
                         //        5,DistanceScoringParameter,10,ScoringFunctionInterpolation.Linear),

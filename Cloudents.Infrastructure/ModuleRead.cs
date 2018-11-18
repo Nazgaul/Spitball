@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
@@ -15,6 +13,9 @@ using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Question;
 using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+using Cloudents.Infrastructure.Search.Document;
 using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
 using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
 using Module = Autofac.Module;
@@ -45,10 +46,11 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<WebSearch>();
 
+            builder.RegisterType<AzureQuestionSearch>().AsSelf();//
+            builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
 
-            builder.RegisterType<CourseSearch>().As<ICourseSearch>();
-            builder.RegisterType<AzureQuestionSearch>().AsSelf();
-            //builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
+            builder.RegisterType<AzureDocumentSearch>().AsSelf();//
+            builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
 
             #region Tutor
 
@@ -75,10 +77,10 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
-            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>().EnableInterfaceInterceptors().InterceptedBy(typeof(LogInterceptor));
+            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
-            builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
+            //builder.RegisterType<DocumentSearch>().AsImplementedInterfaces();
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
         }

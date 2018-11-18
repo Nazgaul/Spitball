@@ -12,6 +12,12 @@ import User from './components/user/user.vue'
 import UToken from './components/user/token/tokenUser.vue'
 import UCashout from './components/user/cashout/cashoutUser.vue'
 import USuspend from './components/user/suspend/suspendUser.vue'
+
+
+import Dev from './components/dev/dev.vue'
+import UChangeCountry from './components/dev/changeCountry/changeCountry.vue'
+import UDelete from './components/dev/deleteUser/deleteUser.vue'
+
 export const routes = [
     {
        path: '/home',
@@ -88,6 +94,29 @@ export const routes = [
           },
         ]
      },
+     {
+      path: '/dev',
+      name: 'dev',
+      component: Dev,
+      children: [
+        {
+          path: '',
+          redirect: 'change-country',
+        },
+        {
+          path:'change-country',
+          component: UChangeCountry
+        },
+        {
+          path:'delete-user',
+          component: UDelete
+        },
+        {
+          path: '*',
+          redirect: 'change-country',
+        },
+      ]
+    },
     {
          path: '/*',
          redirect: '/home',

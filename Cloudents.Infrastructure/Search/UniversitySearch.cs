@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write;
 using JetBrains.Annotations;
@@ -22,6 +21,7 @@ namespace Cloudents.Infrastructure.Search
         private readonly string[] _listOfSelectParams = {
             nameof(University.Id),
             nameof(University.DisplayName),
+            nameof(University.Country)
         };
 
         public UniversitySearch(ISearchService client)
@@ -30,27 +30,20 @@ namespace Cloudents.Infrastructure.Search
         }
 
 
-        private static readonly string[] StopWordsList = { "university","university of",
-            //"of",
-            "college",
-            "school",
-            // "the",
-            // "a",
-            "Community",
-            "High",
-            "Uni",
-            "State",
-            "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
-        };
+        //private static readonly string[] StopWordsList = { "university","university of",
+        //    "college",
+        //    "school",
+        //    "Community",
+        //    "High",
+        //    "Uni",
+        //    "State",
+        //    "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
+        //};
 
 
         public async Task<UniversitySearchDto> SearchAsync(string term, string country,
             CancellationToken token)
         {
-            if (term.Contains(StopWordsList, StringComparison.InvariantCultureIgnoreCase))
-            {
-                return UniversitySearchDto.StopWordResponse();
-            }
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,
@@ -66,11 +59,12 @@ namespace Cloudents.Infrastructure.Search
                 }
             };
 
-            term = term.Replace("\"", "\\");
+            term = term?.Replace("\"", "\\");
             var result = await
-                _client.Documents.SearchAsync<University>(term/*+"~"*/, searchParameter,
+                _client.Documents.SearchAsync<University>(term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
-            return new UniversitySearchDto(result.Results.Select(s => new UniversityDto(long.Parse(s.Document.Id), s.Document.DisplayName)));
+            return new UniversitySearchDto(result.Results.Select(s =>
+                new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName, s.Document.Country)));
         }
     }
 }

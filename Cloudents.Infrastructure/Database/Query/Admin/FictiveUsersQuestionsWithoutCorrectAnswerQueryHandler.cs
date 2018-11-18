@@ -4,11 +4,9 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
@@ -17,7 +15,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
+    public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
         private readonly ISession _session;
         private readonly IUrlBuilder _urlBuilder;
@@ -28,7 +26,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             _session = session.Session;
         }
 
-        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
+        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminPageQuery query, CancellationToken token)
         {
             
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
@@ -42,7 +40,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 .WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
                     .Select(s => s.Id))
                 .And(Restrictions.Or(
-                    Restrictions.Where(() => userAlias.Fictive),
+                    Restrictions.Where(() => userAlias.Fictive == true),
                     Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))
                 ))
                 .SelectList(
@@ -53,9 +51,10 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 )
                 .TransformUsing(Transformers.AliasToBean<QuestionWithoutCorrectAnswerDto>())
                 .OrderBy(o => o.Id).Asc
-                .Take(100)
+                .Take(100).Skip(100 * query.Page)
                 .ListAsync<QuestionWithoutCorrectAnswerDto>(token);
 
+          
             var answersResult = await _session.QueryOver<Answer>()
                 .Where(w=>w.Question.Id.IsIn(questions.Select(s=>s.Id).ToArray()))
                 .SelectList(

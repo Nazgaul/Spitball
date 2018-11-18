@@ -49,6 +49,9 @@ const allModules = [
     "vuetify/es5/components/VAvatar",
     "vuetify/es5/components/VPagination",
     "vuetify/es5/components/VDataTable",
+    "vuetify/es5/components/VStepper",
+    "vuetify/es5/components/VCombobox",
+    "vuetify/es5/components/VCheckbox",
     "webfontloader",
    
 

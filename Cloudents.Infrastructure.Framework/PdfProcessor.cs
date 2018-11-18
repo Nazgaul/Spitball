@@ -1,80 +1,77 @@
-﻿using System.Collections.Generic;
+﻿using Aspose.Pdf;
+using Aspose.Pdf.Devices;
+using Aspose.Pdf.Text;
+using Aspose.Pdf.Text.TextOptions;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Aspose.Pdf;
-using Aspose.Pdf.Devices;
-using Cloudents.Core;
-using Cloudents.Core.Storage;
-using Path = System.IO.Path;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PdfProcessor : Processor, IPreviewProvider
+    public class PdfProcessor : IPreviewProvider2 //: Processor, IPreviewProvider
     {
-        private const string CacheVersion = CacheVersionPrefix + "4";
 
-        public PdfProcessor(
-            string blobUri,
-            IBlobProvider<OldSbFilesContainerName> blobProvider,
-            IBlobProvider<OldCacheContainer> blobProviderCache)
-            : base(blobProvider,  blobProviderCache, blobUri)
+        public PdfProcessor()
         {
-            SetLicense();
+            using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
+            {
+                var license = new License();
+                license.SetLicense(sr);
+            }
         }
 
-        private static void SetLicense()
-        {
-            var license = new License();
-            license.SetLicense("Aspose.Total.lic");
-        }
 
-        public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public async Task ProcessFilesAsync(Stream stream,
+            Func<Stream, string, Task> pagePreviewCallback,
+            Func<string, int, Task> metaCallback,
+            CancellationToken token)
         {
-            //var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
+            var pdf = new Document(stream);
+            var txt = ExtractPdfText(pdf);
 
+            await metaCallback(txt, pdf.Pages.Count - 1);
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
-            Stream blobSr = null;
-
-            var pdf = new AsyncLazy<Document>(async () =>
+            var t = new List<Task>();
+            for (var j = 1; j < pdf.Pages.Count; j++)
             {
-                SetLicense();
-                blobSr = await BlobProvider.DownloadFileAsync(BlobUri, cancelToken).ConfigureAwait(false);
-                return new Document(blobSr);
-            });
+                var page = pdf.Pages[j];
+                var ms = new MemoryStream();
+                jpegDevice.Process(page, ms);
+                t.Add(pagePreviewCallback(ms, $"{j - 1}.jpg").ContinueWith(_ => ms.Dispose(), token));
 
-            var retVal = await UploadPreviewCacheToAzureAsync(
-                indexNum,
-                i => CreateCacheFileName(BlobUri, i),
-                async z =>
-                {
-                    var ms = new MemoryStream();
-                    var p = await pdf;
-                    jpegDevice.Process(p.Pages[z + 1], ms);
-                    return ms;
-                }, CacheVersion, "image/jpg", cancelToken).ConfigureAwait(false);
-            
-            if (pdf.Instance.IsValueCreated && blobSr != null)
-            {
-                blobSr.Dispose();
-                pdf.Instance.Value.Dispose();
             }
-            return retVal;
+            await Task.WhenAll(t);
         }
 
-        protected static string CreateCacheFileName(string blobName, int index)
+        private static string ExtractPdfText(Document doc)
         {
-            return
-                $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.jpg";
+            var textAbsorber = new TextAbsorber
+            {
+                ExtractionOptions = new TextExtractionOptions(TextExtractionOptions.TextFormattingMode.Pure)
+            };
+            for (var i = 1; i <= Math.Min(doc.Pages.Count, 20); i++)
+            {
+                try
+                {
+                    doc.Pages[i].Accept(textAbsorber);
+                }
+                catch (ArgumentException)
+                {
+                }
+                catch (EndOfStreamException)
+                {
+                    break;
+                }
+            }
+            return textAbsorber.Text;
+
         }
 
-        public static readonly string[] PdfExtensions = { ".pdf" };
-
-        //public static bool CanProcessFile(Uri blobName)
-        //{
-        //        return PdfExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-        //}
+        public static readonly string[] Extensions = { ".pdf" };
 
     }
 }

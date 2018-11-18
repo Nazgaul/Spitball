@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {
@@ -18,17 +18,20 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
         }
 
-        public async Task<IList<Question>> GetAllQuestionsAsync()
+        public async Task<IList<Question>> GetAllQuestionsAsync(int page)
         {
-            var t = await Session.Query<Question>().ToListAsync();
-            return t;
+            return await Session.Query<Question>()
+                .Where(w => w.Language == null)
+                .Take(100).OrderBy(o => o.Id).ToListAsync();
         }
+
+
 
         public async Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token)
         {
-          //TODO: we can do this better maybe
+            //TODO: we can do this better maybe
             return await Session.Query<Question>().Where(w => w.Updated < DateTime.UtcNow.AddDays(4))
-                .Where(w=> Session.Query<Answer>().Where(x => x.Question.Id == w.Id).FirstOrDefault() == null)
+                .Where(w => Session.Query<Answer>().FirstOrDefault(x => x.Question.Id == w.Id) == null)
                 .ToListAsync(token).ConfigureAwait(false);
         }
 
@@ -36,6 +39,13 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
             return Session.Query<Question>().Where(w => w.User.Id == userId).OrderByDescending(o => o.Id).Take(1)
                 .SingleOrDefaultAsync(cancellationToken: token);
+        }
+
+
+        public Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token)
+        {
+            return Session.Query<Question>().Where(w => w.Text == text.Trim())
+                .AnyAsync(token);
         }
     }
 }

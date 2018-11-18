@@ -10,23 +10,26 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Write
 {
-    public abstract class SearchServiceWrite<T> : IDisposable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
+    public abstract class SearchServiceWrite<T> :  ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
-        protected readonly SearchServiceClient Client;
+        private readonly SearchServiceClient _client;
         protected readonly ISearchIndexClient IndexClient;
-       // private readonly string _indexName;
 
-        protected SearchServiceWrite(SearchService client, string indexName) 
-            :this(client, client.GetOldClient(indexName))
+        private readonly ILogger _logger;
+        // private readonly string _indexName;
+
+        protected SearchServiceWrite(SearchService client, string indexName, ILogger logger)
+            : this(client, client.GetOldClient(indexName), logger)
 
         {
-           
+
         }
 
-        protected SearchServiceWrite(SearchService client, ISearchIndexClient indexClient)
+        protected SearchServiceWrite(SearchService client, ISearchIndexClient indexClient, ILogger logger)
         {
-            Client = client.Client;
+            _client = client.Client;
             IndexClient = indexClient;
+            _logger = logger;
         }
 
 
@@ -35,6 +38,10 @@ namespace Cloudents.Infrastructure.Write
             if (items == null) throw new ArgumentNullException(nameof(items));
             var batch = IndexBatch.MergeOrUpload(items);
             var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            foreach (var errorResult in result.Results.Where(w => !w.Succeeded))
+            {
+                _logger.Error($"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {IndexClient.IndexName} ");
+            }
             return result.Results.Count > 0;
         }
 
@@ -45,12 +52,17 @@ namespace Cloudents.Infrastructure.Write
             {
                 Id = s
             }));
-            var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token); 
+            var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            foreach (var errorResult in result.Results.Where(w => !w.Succeeded))
+            {
+                _logger.Error($"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {IndexClient.IndexName} ");
+            }
             return result.Results.Count > 0;
         }
 
         public async Task<bool> UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token)
         {
+            _logger.Info("processing");
             if (items == null && ids == null) throw new ArgumentNullException();
             if (ids == null)
             {
@@ -70,36 +82,37 @@ namespace Cloudents.Infrastructure.Write
             if (actions.Count <= 0) return false;
             var batch = IndexBatch.New(actions);
             var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            foreach (var errorResult in result.Results.Where(w=>!w.Succeeded))
+            {
+                _logger.Error($"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {IndexClient.IndexName} ");
+            }
+
             return result.Results.Count > 0;
         }
 
-        public virtual Task CreateOrUpdateAsync(CancellationToken token)
+        public virtual async Task CreateOrUpdateAsync(CancellationToken token)
         {
-            var index = GetIndexStructure(IndexClient.IndexName);
-            return Client.Indexes.CreateOrUpdateAsync(index, cancellationToken: token);
+            //var t = await _client.Indexes.GetAsync(IndexClient.IndexName, cancellationToken: token);
+            //if (t == null)
+            //{
+            try
+            {
+                var index = GetIndexStructure(IndexClient.IndexName);
+                await _client.Indexes.CreateAsync(index, cancellationToken: token);
+            }
+            catch (Microsoft.Rest.Azure.CloudException)
+            {
+
+            }
+
+            //}
         }
 
         protected abstract Index GetIndexStructure(string indexName);
 
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+       
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Client?.Dispose();
-            }
-        }
-
-        ~SearchServiceWrite()
-        {
-            // Finalizer calls Dispose(false)  
-            Dispose(false);
-        }
+       
     }
 }

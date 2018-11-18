@@ -124,19 +124,28 @@
     <value>פדיון</value>
   </data>
   <data name="ActionTypeDeleteQuestion" xml:space="preserve">
-    <value>מחק שאלה</value>
+    <value>מחיקת שאלה</value>
   </data>
   <data name="ActionTypeNone" xml:space="preserve">
     <value>ללא</value>
   </data>
   <data name="ActionTypeQuestion" xml:space="preserve">
-    <value>שאלה</value>
+    <value>שאילת שאלה</value>
   </data>
   <data name="ActionTypeReferringUser" xml:space="preserve">
     <value>הפניית משתמש</value>
   </data>
   <data name="ActionTypeSignUp" xml:space="preserve">
-    <value>הירשמו</value>
+    <value>הרשמה</value>
+  </data>
+  <data name="DocumentTypeExam" xml:space="preserve">
+    <value>סיכום בחינה</value>
+  </data>
+  <data name="DocumentTypeLecture" xml:space="preserve">
+    <value>סיכום שיעור</value>
+  </data>
+  <data name="DocumentTypeTextbook" xml:space="preserve">
+    <value>סיכום ספר לימוד</value>
   </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>שאלות שנענו</value>
@@ -154,16 +163,16 @@
     <value>רלוונטיות</value>
   </data>
   <data name="TransactionTypeAwarded" xml:space="preserve">
-    <value>הוענק</value>
+    <value>הענקה</value>
   </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
-    <value>הורווח</value>
+    <value>הכנסה</value>
   </data>
   <data name="TransactionTypeSpent" xml:space="preserve">
-    <value>הוצא</value>
+    <value>הוצאה</value>
   </data>
   <data name="TransactionTypeStake" xml:space="preserve">
-    <value>מוצע</value>
+    <value>במשמורת</value>
   </data>
   <data name="TutorFilterInPerson" xml:space="preserve">
     <value>אחד על אחד</value>

@@ -1,0 +1,113 @@
+@import "../../../../mixin.less";
+
+.upload-files-action-card {
+  right: 0;
+  top: 0;
+  border: dashed 1px rgba(68, 82, 252, 0.43);
+  z-index: 999;
+  border-radius: 4px;
+  &.floatingcard {
+    right: 0px;
+    top: 25px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 0;
+  }
+  @media (max-width: @screen-xs) {
+    z-index: 9;
+    width: 100%;
+    right: 0;
+    top: 16px;
+  }
+    .upload-wrap {
+      &.floating-upload {
+        border-radius: 0%;
+        background-color: transparent;
+      }
+    .static-center {
+      background-color: @color-AB-test-background;
+      padding: 16px 0;
+      visibility: visible;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      @media (max-width: @screen-xs) {
+        flex-direction: column;
+      }
+      .upload-text {
+        color: @color-blue-new;
+        font-family: @fontFiraSans;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 0;
+        text-transform: capitalize;
+        &.hidden-text {
+          //visibility: hidden;
+        }
+        @media (max-width: @screen-xs) {
+          font-size: 26px;
+          font-weight: 600;
+          margin-bottom: 14px;
+          text-transform: none;
+        }
+
+      }
+      .upload-btn {
+        transition: all .2s linear;
+        background: @color-blue-new;
+        color: @color-white;
+        height: 48px;
+        border-radius: 30px;
+        box-shadow: 0 3px 8px 0 @color-blue-new;
+        font-size: 20px;
+        line-height: 1.25;
+        letter-spacing: -0.5px;
+        text-transform: initial;
+        width: 192px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: baseline;
+        .sb-cloud-upload-icon {
+          color: @colorWhiteBlured;
+          font-size: 16px;
+          margin-top: 0px;
+        }
+        &.rounded-floating-button {
+          opacity: 1;
+          transition: all 200ms linear;
+          box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.36);
+          position: fixed;
+          right: 25px;
+          top: 25px;
+          background-color: @color-blue-new;
+          height: 56px;
+          width: 56px;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          padding: 0 12px;
+          letter-spacing: -0.4px;
+          color: rgba(255, 255, 255, 0.81);
+          .v-icon {
+            color: @color-white;
+            height: 22px;
+            font-size: 20px;
+            opacity: 1;
+          }
+          .btn-text {
+            transition: all 100ms linear;
+            opacity: 0;
+            position: absolute;
+            font-size: 0px;
+            visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+  }
+
+
+

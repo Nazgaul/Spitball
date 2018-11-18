@@ -19,9 +19,8 @@
                 </span></template>
                 </user-block>
                 <div v-if="cardData.price">
-                    <div class="q-price pr-3">
-                        <span v-show="isSold" style="display:flex;min-width: 90px;">
-                            <span v-language:inner>questionCard_Earn</span>&nbsp; {{cardData.price}} SBL</span>
+                    <div class="q-price pr-3" :class="{'rtl' : isRtl}">
+                        <span v-show="isSold" style="min-width: 90px;" v-html="$Ph('questionCard_Question_price', cardData.price)"></span>
                         <span v-show="!isSold" class="sold-badge">
                             <span style="margin: 0 auto;"> <span v-language:inner>questionCard_Sold</span>&nbsp; {{cardData.price}} SBL</span>
 
@@ -30,9 +29,10 @@
                     <!-- <p class="q-category">{{cardData.subject}}</p> -->
                 </div>
             </div>
-            <p class="q-text"
-               :class="[`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`, { 'answer': typeAnswer, 'ellipsis': fromCarousel || !detailedView}]">
-                {{cardData.text | ellipsis(150, detailedView)}}</p>
+            <p class="q-text"  
+               :class="[`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`, `align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'answer': typeAnswer, 'ellipsis': fromCarousel || !detailedView}]">
+                {{cardData.text | ellipsis(150, detailedView)}}
+                </p>
             <!-- v-if="cardData.files.length" -->
             <div class="gallery" v-if="gallery&&gallery.length">
                 <v-carousel
@@ -107,7 +107,7 @@
                                 </span>
                             </div>
 
-                            <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
+                            <p class="q-text" :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'answer': typeAnswer}]">{{cardData.text}}</p>
                         </div>
                     </div>
                     <div class="gallery fixed-margin" v-if="gallery && gallery.length">

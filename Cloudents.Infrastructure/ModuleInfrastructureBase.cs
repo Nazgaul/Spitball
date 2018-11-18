@@ -16,6 +16,7 @@ namespace Cloudents.Infrastructure
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Web)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
+    [ModuleRegistration(Core.Enum.System.Admin)]
     public class ModuleInfrastructureBase : Module
     {
        protected override void Load(ContainerBuilder builder)
@@ -40,6 +41,9 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(LogInterceptor));
+
+
+            builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>();
 
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(ITypeConverter<,>));

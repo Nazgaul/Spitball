@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message.Email;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
@@ -20,12 +20,12 @@ namespace Cloudents.Web.Api
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IServiceBusProvider _queueProvider;
+        private readonly IQueueProvider _queueProvider;
         private const string EmailTempDictionaryKey = "EmailForgotPassword";
         private readonly IStringLocalizer<ForgotPasswordController> _localizer;
 
         public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager,
-            IServiceBusProvider queueProvider, IStringLocalizer<ForgotPasswordController> localizer)
+            IQueueProvider queueProvider, IStringLocalizer<ForgotPasswordController> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;

@@ -4,6 +4,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,8 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -28,16 +31,18 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
 
 
         public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager, IConfiguration configuration, ICommandBus commandBus)
+            SignInManager<User> signInManager, IConfiguration configuration, ICommandBus commandBus, IQueryBus queryBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _commandBus = commandBus;
+            _queryBus = queryBus;
         }
 
         // GET
@@ -103,6 +108,38 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();
+        }
+
+
+        /// <summary>
+        /// Perform course search per user
+        /// </summary>
+        /// <param name="universityId"></param>
+        /// <param name="token"></param>
+        /// <returns>list of courses for a user</returns>
+        [HttpGet("courses")]
+        public async Task<IEnumerable<CourseDto>> GetCourses(
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserWithUniversityQuery(userId, universityId);
+            var t = await _queryBus.QueryAsync(query, token);
+            return t.Courses.Select(s => new CourseDto(s));
+        }
+
+        [HttpGet("University")]
+        public async Task<UniversityDto> GetUniversityAsync(
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            CancellationToken token)
+        {
+            if (!universityId.HasValue)
+            {
+                return null;
+            }
+            //TODO - should be user profile query
+            var query = new UniversityQuery(universityId.Value);
+            return await _queryBus.QueryAsync(query, token);
         }
 
 

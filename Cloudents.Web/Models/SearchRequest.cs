@@ -15,7 +15,7 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// User courses id
         /// </summary>
-        public long[] Course { get; set; }
+        public string[] Course { get; set; }
 
         /// <summary>
         /// Format of result
@@ -48,5 +48,30 @@ namespace Cloudents.Web.Models
         [DisplayFormat(HtmlEncode = true)]
         public string[] Source { get; set; }
       
+    }
+
+    public class DocumentRequest : IPaging
+    {
+       // public string[] Source { get; set; }
+
+        /// <summary>
+        /// User courses id
+        /// </summary>
+        public string[] Course { get; set; }
+
+        public DocumentType?[] Filter { get; set; }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Page for paging
+        /// </summary>
+        public int? Page { get; set; }
+
+        /// <summary>
+        /// The term of search
+        /// </summary>
+        // [DisplayFormat(HtmlEncode = true)]
+        public string Term { get; set; }
+
     }
 }

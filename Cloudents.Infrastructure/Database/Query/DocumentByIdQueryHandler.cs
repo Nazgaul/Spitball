@@ -5,12 +5,14 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    public class DocumentByIdQueryHandler : IQueryHandler<DocumentById, DocumentDto>
+    [UsedImplicitly]
+    public class DocumentByIdQueryHandler : IQueryHandler<DocumentById, DocumentDetailDto>
     {
         private readonly IStatelessSession _session;
 
@@ -18,18 +20,31 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             _session = session.Session;
         }
-        public Task<DocumentDto> GetAsync(DocumentById query, CancellationToken token)
+        public Task<DocumentDetailDto> GetAsync(DocumentById query, CancellationToken token)
         {
             return _session.Query<Document>()
-                .Where(w => w.Id == query.Id && !w.IsDeleted)
-                .Select(s => new DocumentDto
+                .Fetch(f=>f.University)
+                .Fetch(f=>f.User)
+                .Where(w => w.Id == query.Id)
+                .Select(s => new DocumentDetailDto
                 {
                     Name = s.Name,
-                    Type = s.Discriminator,
-                    Date = s.RowDetail.CreationTime,
-                    Blob = s.BlobName
-                   
-                }).SingleOrDefaultAsync(token);
+                    Date = s.TimeStamp.UpdateTime,
+                    Blob = s.BlobName,
+                    University = s.University.Name,
+                    TypeStr =  s.Type,
+                    Pages = s.PageCount.GetValueOrDefault(),
+                    Professor = s.Professor,
+                    Views = s.Views,
+                    User = new UserDto
+                    {
+                        Id = s.User.Id,
+                        Name = s.User.Name,
+                        Image = s.User.Image
+                    },
+                    Course = s.Course.Name
+                })
+                .SingleOrDefaultAsync(token);
         }
     }
 }

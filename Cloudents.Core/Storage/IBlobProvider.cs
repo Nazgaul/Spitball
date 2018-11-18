@@ -7,31 +7,37 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Core.Storage
 {
+
+    public interface IBlobProvider
+    {
+        Uri GeneratePreviewLink(Uri blobUrl, double expirationTimeInMinutes);
+    }
     public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
     {
         Task UploadStreamAsync(string blobName, Stream fileContent,
-            string mimeType, bool fileGziped, int cacheControlMinutes, CancellationToken token);
+            string mimeType = null, bool fileGziped = false, int? cacheControlSeconds = null, CancellationToken token = default);
 
-        string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes);
+        Task UploadBlockFileAsync(string blobName, Stream fileContent, int index, CancellationToken token);
+       // Task CommitBlockListAsync(string blobName, IList<int> indexes, CancellationToken token);
+        Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
 
-        string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes,
+        //string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes);
+
+        string GenerateDownloadLink(string blobName, double expirationTimeInMinutes,
             string contentDisposition);
 
-        Task<bool> ExistsAsync(string blobName, CancellationToken token);
+        // Task<bool> ExistsAsync(string blobName, CancellationToken token);
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
 
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
+        Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
-        Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token);
-        Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token);
-       // string GetBlobNameFromUri(Uri uri);
-        Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token);
+        //Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token);
+        //Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token);
+        //Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token);
     }
 
-    //public interface IBlobProvider
-    //{
-        
-    //}
+    
 }

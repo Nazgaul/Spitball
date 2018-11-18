@@ -104,7 +104,7 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <v-list-tile v-if="!!user.universityId" @click="openPersonalizeCourse()">
+            <v-list-tile v-if="!!user.universityExists" @click="openPersonalizeCourse()">
                 <v-list-tile-action>
                     <v-icon>sbf-classes</v-icon>
                 </v-list-tile-action>
@@ -118,7 +118,6 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <!-- start language swith-->
             <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name"
                          @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
@@ -128,7 +127,6 @@
                     <v-list-tile-title class="subheading">{{singleLang.title}}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <!-- end language swith-->
 
             <v-list-tile @click="startIntercom">
                 <v-list-tile-action>
@@ -196,7 +194,7 @@
 
         <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
                    :content-class="'login-popup'">
-            <referral-dialog :showDialog="showReferral" :popUpType="'referralPop'"></referral-dialog>
+            <referral-dialog :isTransparent="false" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
         </sb-dialog>
     </div>
 
@@ -214,6 +212,7 @@
     import languagesLocales from '../../../services/language/localeLanguage'
     import { LanguageChange } from '../../../services/language/languageService'
     import { typesPersonalize } from "../../settings/consts.js";
+    import Base62 from "base62"
 
     export default {
         components: {userBlock, notLoggedIn, sbDialog, referralDialog},
@@ -224,7 +223,7 @@
                 showSettings: false,
                 showReferral: false,
                 languagesLocales,
-                languageChoisesAval: []
+                languageChoisesAval: [],
             }
         },
         props: {
@@ -238,19 +237,23 @@
             }
         },
         computed: {
-            ...mapGetters(['unreadMessages', 'accountUser', 'getUniversityName']),
+            ...mapGetters(['unreadMessages', 'accountUser']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
             user() {
-                return {...this.accountUser, universityName: this.getUniversityName}
+                return {...this.accountUser}
             },
             isLoggedIn() {
                 return !!this.accountUser
             },
+            userReferralLink(){
+                return "http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser.id) + "&promo=referral";
+            }
         },
         methods: {
-            ...mapActions(['logout', 'updateLoginDialogState']),
+            ...mapActions(['logout', 'updateLoginDialogState', 'changeSelectUniState', 'updateCurrentStep']),
+            ...mapGetters(['getAllSteps']),
             currentTemplate(val) {
                 return val ? 'router-link' : 'v-list-tile';
             },
@@ -276,14 +279,21 @@
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
                 } else {
-                    this.$root.$emit("personalize", typesPersonalize.university);
+                    let steps = this.getAllSteps();
+                    this.updateCurrentStep(steps.set_school_landing);
+                    this.changeSelectUniState(true);
+                    this.$root.$emit("closeDrawer");
+                    // this.$root.$emit("personalize", typesPersonalize.university);
                 }
             },
             openPersonalizeCourse() {
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
                 } else {
-                    this.$root.$emit("personalize", typesPersonalize.course,);
+                    let steps = this.getAllSteps();
+                    this.updateCurrentStep(steps.set_class);
+                    this.changeSelectUniState(true);
+                    this.$root.$emit("closeDrawer");
                 }
             }
         },

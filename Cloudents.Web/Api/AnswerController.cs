@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Exceptions;
@@ -53,7 +52,7 @@ namespace Cloudents.Web.Api
                     NextQuestions = t2.Result
                 };
             }
-            catch (QuotaExceedException)
+            catch (QuotaExceededException)
             {
                 ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
                 return BadRequest(ModelState);

@@ -38,8 +38,7 @@ namespace Cloudents.Web.Controllers
 
             if (string.IsNullOrEmpty(model.Country)) return View("Index");
 
-            //TODO: need to add specific culture base on country - culture not working
-            //SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
+            //TODO: Localize
             ViewBag.title =
                 $"Flashcard - {model.Name} - {model.BoxName} | Spitball";
 

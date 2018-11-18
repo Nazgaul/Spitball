@@ -58,6 +58,10 @@ namespace Cloudents.Infrastructure.Database.Repositories
         private static void CheckUserLockout([NotNull] User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
+            if (user.Fictive.GetValueOrDefault())
+            {
+                return;
+            }
             if (user.LockoutEnd.HasValue && DateTime.UtcNow < user.LockoutEnd.Value)
             {
                 throw new UserLockoutException();
@@ -70,9 +74,9 @@ namespace Cloudents.Infrastructure.Database.Repositories
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
-        public Task<User> GetRandomFictiveUserAsync(CancellationToken token)
+        public Task<User> GetRandomFictiveUserAsync(string country, CancellationToken token)
         {
-            return Session.QueryOver<User>().Where(w => w.Fictive)
+            return Session.QueryOver<User>().Where(w => w.Fictive == true && w.Country == country)
                    .OrderByRandom()
                    .Take(1)
                    .SingleOrDefaultAsync<User>(token);
@@ -93,6 +97,23 @@ namespace Cloudents.Infrastructure.Database.Repositories
                   .Where(w => w.User.Id == userId)
                   .Where(w => w.Type == type)
                   .Select(Projections.Sum<Transaction>(x => x.Price));
+        }
+
+        public Task UpdateUsersBalance(CancellationToken token)
+        {
+            //TODO: need to make this query using Linq instead of sql
+            var updateQuery = Session.CreateSQLQuery(
+                @"update sb.[user] 
+                set balance = (Select sum(price) 
+                                from sb.[Transaction] 
+                                where User_id = sb.[User].id
+                                )
+                where balance != (Select sum(price) 
+                                    from sb.[Transaction] 
+                                    where User_id = sb.[User].id
+                                )");
+            return updateQuery.ExecuteUpdateAsync(token);
+
         }
     }
 }

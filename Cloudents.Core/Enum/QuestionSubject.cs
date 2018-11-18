@@ -66,6 +66,11 @@ namespace Cloudents.Core.Enum
         public static IEnumerable<QuestionSubject> GetValues()
         {
             var values = EnumExtension.GetValues<QuestionSubject>();
+            return GetValues(values);
+        }
+        public static IEnumerable<QuestionSubject> GetValues(IEnumerable<QuestionSubject> values)
+        {
+            //var values = EnumExtension.GetValues<QuestionSubject>();
             return values.OrderBy(o => o.GetAttributeValue<OrderValueAttribute>()?.Order ?? 0)
                 .ThenBy(o => o.GetEnumLocalization());
         }

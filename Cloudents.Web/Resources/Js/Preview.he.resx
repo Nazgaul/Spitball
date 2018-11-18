@@ -129,4 +129,16 @@
   <data name="itemActions_title" xml:space="preserve">
     <value>הדפס</value>
   </data>
+  <data name="item_by" xml:space="preserve">
+    <value>מאת:</value>
+  </data>
+  <data name="item_class" xml:space="preserve">
+    <value>קורס</value>
+  </data>
+  <data name="item_prof" xml:space="preserve">
+    <value>מרצה</value>
+  </data>
+  <data name="item_school" xml:space="preserve">
+    <value>מוסד לימודים</value>
+  </data>
 </root>

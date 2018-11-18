@@ -26,15 +26,16 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();
-            Map(e => e.Fictive).ReadOnly();
+            Map(e => e.Fictive).Update();
             Map(e => e.FraudScore);
 
             Map(e => e.PasswordHash).Nullable();
             Map(e => e.LockoutEnd).Nullable();
             Map(e => e.AccessFailedCount);
             Map(e => e.LockoutEnabled);
+            Map(e => e.OldUser).Nullable();
 
-            References(x => x.University).ForeignKey("User_University").Nullable();
+            References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
             Map(x => x.Balance).CustomSqlType("smallmoney");
 
             HasMany(x => x.Transactions)
@@ -53,6 +54,25 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
+            //Map(x => x.Languages).CustomType<JsonType<ISet<CultureInfo>>>();
+
+
+            HasManyToMany(x => x.Courses)
+                .ParentKeyColumn("UserId")
+                .ChildKeyColumn("CourseId")
+                .ForeignKeyConstraintNames("User_Courses","Courses_User")
+                .Table("UsersCourses").AsSet();
+
+
+            HasManyToMany(x => x.Tags)
+                .ParentKeyColumn("UserId")
+                .ChildKeyColumn("TagId")
+                .ForeignKeyConstraintNames("User_Tags", "Tags_User")
+                .Table("UsersTags").AsSet();
+
+
+
+            SchemaAction.Update();
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)

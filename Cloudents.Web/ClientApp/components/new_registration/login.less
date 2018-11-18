@@ -593,11 +593,11 @@
           background: @color-main-purple;
           color: @color-white;
         }
-        @media (max-width: @screen-xs) {
-          width: 312px;
-          max-width: 312px;
-          min-width: 312px;
-        }
+        // @media (max-width: @screen-xs) {
+        //   width: 312px;
+        //   max-width: 312px;
+        //   min-width: 312px;
+        // }
       }
       .google-signin {
         background: @google-btn-bg;
@@ -606,7 +606,7 @@
         text-align: center;
         color: #ffffff;
         width: 100%;
-        min-width: 400px;
+        //min-width: 400px;
         height: @registrationFieldHeight;
         margin-top: 40px;
         &:hover {
@@ -620,10 +620,10 @@
         .transition (all .2s ease-in-out);
         @media (max-width: @screen-xs) {
           margin: 0 auto;
-          width: 312px;
-          max-width: 312px;
-          min-width: 312px;
-
+         // width: 312px;
+          // max-width: 312px;
+          // min-width: 312px;
+          width:100%;
         }
       }
       .seperator-text {
@@ -1075,6 +1075,9 @@
 
 //dialog modal
 .registration-dialog {
+  .pre-line{
+    white-space: pre-line;
+  }
   text-align: center;
   color: @color-white;
   .v-card {
@@ -1161,10 +1164,10 @@
     &:hover {
       background: lighten(@color-main-purple, 10%);
     }
-    @media (max-width: @screen-xs) {
-      width: 312px;
-      max-width: 312px;
-    }
+    // @media (max-width: @screen-xs) {
+    //   width: 312px;
+    //   max-width: 312px;
+    // }
     margin-top: 28px;
   }
   .limited-width {

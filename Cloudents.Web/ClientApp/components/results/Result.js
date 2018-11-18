@@ -1,4 +1,5 @@
 ﻿import ResultItem from './ResultItem.vue';
+import ResultNote from "./ResultNote.vue"
 import questionCard from './../question/helpers/question-card/question-card.vue';
 import { page, verticalsName } from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
@@ -21,10 +22,29 @@ const ResultJob = () => import('./ResultJob.vue');
 //ab testing
 import abTestCard from './helpers/abTestCards/abTestCard.vue'
 
+import uploadFilesBtn from "./helpers/uploadFilesBtn/uploadFilesBtn.vue"
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
 //The vue functionality for result page
 export default {
+    components: {
+        abTestCard,
+        emptyState,
+        ResultItem,
+        ResultNote,
+        SuggestCard,
+        ResultTutor,
+        ResultJob,
+        ResultBook,
+        questionCard,
+        faqBlock,
+        signupBanner,
+        QuestionCard,
+        sbDialog,
+        loginToAnswer,
+        notificationCenter,
+        uploadFilesBtn
+    },
     data() {
         return {
             pageData: '',
@@ -37,26 +57,10 @@ export default {
             showDialog: false,
             placeholder:{
                 whereSchool: LanguageService.getValueByKey("result_where_school")
-            }
+            }            
         };
     },
 
-    components: {
-        abTestCard,
-        emptyState,
-        ResultItem,
-        SuggestCard,
-        ResultTutor,
-        ResultJob,
-        ResultBook,
-        questionCard,
-        faqBlock,
-        signupBanner,
-        QuestionCard,
-        sbDialog,
-        loginToAnswer,
-        notificationCenter
-    },
 
     //use basic sort and filter functionality( same for book details and result page)
     mixins: [sortAndFilterMixin],
@@ -76,9 +80,12 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
 
+        isNote(){
+            return  this.$route.path.slice(1)==='note'
+        },
         //not interesting
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)
@@ -157,15 +164,15 @@ export default {
             'updateFilters',
             'updateLoginDialogState',
             'updateUserProfileData',
-            'updateNewQuestionDialogState'
+            'updateNewQuestionDialogState',
+            'updateDialogState'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
 
         loadNewQuestions(){
             this.INJECT_QUESTION();
             console.log("new question loading");
-        },
-
+        },        
         goToAskQuestion(){
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);
@@ -255,9 +262,13 @@ export default {
             if(!!item.user){
                 sameUser = userId === item.user.id;
             }
+            if(!item.color){
+                //if item color is undefined set it to default so the color wont be white
+                item.color = "default";
+            }
         return {
             'color': item.color !== 'default' ? 'white' : '',
-            'bottom' : sameUser ? '15px' : ''
+            //'bottom' : sameUser ? '15px' : ''
             }
         },
     },

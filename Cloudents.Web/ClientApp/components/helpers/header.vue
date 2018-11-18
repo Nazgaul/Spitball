@@ -30,7 +30,7 @@
                                         <span>${{accountUser.balance | dollarVal}}</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
-                                        <v-menu bottom left offset-y>
+                                        <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
                                                          :user-name="accountUser.name"/>
 
@@ -41,9 +41,9 @@
                                     </div>
 
                                     <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
-                                    <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
+                                    <router-link v-if="!loggedIn" class="header-login" :to="{ path: '/signin', query:{returnUrl : $route.path} }" v-language:inner>header_login</router-link>
 
-                                    <v-menu bottom left offset-y class="gamburger"
+                                    <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'" class="gamburger"
                                             v-if="!loggedIn">
                                         <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
@@ -74,7 +74,7 @@
             <v-snackbar absolute :timeout="toasterTimeout" :value="getShowToaster">
                 <div class="text-wrap" v-html="getToasterText"></div>
             </v-snackbar>
-            <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
+            
         </v-toolbar>
 
         <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
@@ -94,12 +94,10 @@
     import {mapActions, mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
-    const PersonalizeDialog = () => import('./ResultPersonalize.vue');
     import {LanguageService } from "../../services/language/languageService";
 
     export default {
         components: {
-            PersonalizeDialog,
             AppLogo,
             SearchInput,
             UserAvatar,
@@ -118,7 +116,7 @@
                 settingMenu,
                 notRegMenu,
                 clickOnce: false,
-                drawer: null,
+                drawer: false,
                 toasterTimeout: 5000,
                 showDialogLogin: false,
                 isRtl: global.isRtl
@@ -135,7 +133,7 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
+            ...mapGetters(['accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
 
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
@@ -158,6 +156,15 @@
                             showToaster: false
                         })
                     }, this.toasterTimeout)
+                }
+            },
+            drawer(val){
+                if(!!val && this.$vuetify.breakpoint.xsOnly){
+                    document.getElementsByTagName("body")[0].className="noscroll";
+                    console.log("drawer open")
+                }else{
+                    document.body.removeAttribute("class","noscroll");
+                    console.log("drawer closed")
                 }
             }
 
@@ -204,9 +211,17 @@
                     this.resetData();
                     this.$router.push('/');
                 }
+            },
+            closeDrawer(){
+                this.drawer = !this.drawer;
             }
         },
         created() {
+            this.$root.$on("closeDrawer", ()=>{
+                this.$nextTick(() => {
+                    this.closeDrawer();
+                })
+            })
             this.$root.$on("personalize",
                 (type) => {
                     this.clickOnce = true;
@@ -219,7 +234,9 @@
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
         },
-
+        beforeDestroy(){
+             document.body.removeAttribute("class","noscroll");
+        }
     }
 </script>
 <style src="./header.less" lang="less"></style>

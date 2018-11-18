@@ -139,7 +139,7 @@
     <value>כניסה</value>
   </data>
   <data name="login_l" xml:space="preserve">
-    <value>כניסה</value>
+    <value>היכנס</value>
   </data>
   <data name="logout" xml:space="preserve">
     <value>התנתק מהמערכת</value>
@@ -169,7 +169,7 @@
     <value>הרשמה</value>
   </data>
   <data name="sign_up_l" xml:space="preserve">
-    <value>הרשמה</value>
+    <value>הרשם</value>
   </data>
   <data name="terms_of_service" xml:space="preserve">
     <value>תנאי שירות</value>

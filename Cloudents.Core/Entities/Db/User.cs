@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
@@ -10,13 +11,14 @@ namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-    public class User
+    public class User : IEvents
     {
-        public User(string email, string name, string privateKey) : this()
+        public User(string email, string name, string privateKey, CultureInfo culture) : this()
         {
             Email = email;
             Name = name;
             TwoFactorEnabled = true;
+            Culture = culture;
             PrivateKey = privateKey;
             UserCreateTransaction();
             Created = DateTime.UtcNow;
@@ -29,6 +31,10 @@ namespace Cloudents.Core.Entities.Db
         {
             Transactions = new List<Transaction>();
             UserLogins = new List<UserLogin>();
+            Courses = new HashSet<Course>();
+            Tags = new HashSet<Tag>();
+            Events = new List<IEvent>();
+            //Languages = new HashSet<CultureInfo>();
         }
 
         public virtual long Id { get; set; }
@@ -53,10 +59,11 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual string PrivateKey { get; set; }
         public virtual int FraudScore { get; set; }
+        public virtual bool OldUser { get; set; }
 
         public virtual void AddTransaction(Transaction t)
         {
-            if (Fictive)
+            if (Fictive.GetValueOrDefault())
             {
                 return;
             }
@@ -83,6 +90,12 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Question> Questions { get; protected set; }
         protected internal virtual IList<Answer> Answers { get; protected set; }
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
+        public virtual IList<IEvent> Events { get; }
+
+
+        protected internal virtual ISet<Course> Courses { get; protected set; }
+        protected internal virtual ISet<Tag> Tags { get; protected set; }
+
 
         public virtual DateTime Created { get; protected set; }
 
@@ -91,7 +104,7 @@ namespace Cloudents.Core.Entities.Db
             return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
         }
 
-        public virtual bool Fictive { get; protected set; }
+        public virtual bool? Fictive { get; set; }
 
         public virtual string PasswordHash { get; set; }
         public virtual DateTimeOffset? LockoutEnd { get; set; }
@@ -100,8 +113,11 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual bool LockoutEnabled { get; set; }
 
-        [CanBeNull] public virtual CultureInfo Culture { get; set; }
-        public virtual string Country { get; set; }
 
+
+        [CanBeNull] public virtual CultureInfo Culture { get; set; }
+        
+        public virtual string Country { get; set; }
+        
     }
 }

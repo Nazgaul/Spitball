@@ -67,31 +67,58 @@ namespace Cloudents.Admin2.Api
             [FromServices] ICommandBus commandBus,
             CancellationToken token)
         {
-            var userDataByIdQuery = new UserDataByIdQuery(model.Id);
-            var userDataTask = _queryBus.QueryAsync<User>(userDataByIdQuery, token);
-            if (model.DeleteUserQuestions)
+            List<string> emailList = new List<string>();
+            foreach (var id in model.Ids)
             {
-
-                var answersQuery = new UserDataByIdQuery(model.Id);
-                var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
-
-                foreach (var question in answersInfo.Questions)
+                var userDataByIdQuery = new UserDataByIdQuery(id);
+                var userDataTask = _queryBus.QueryAsync<User>(userDataByIdQuery, token);
+                if (model.DeleteUserQuestions)
                 {
-                    var deleteQuestionCommand = new DeleteQuestionCommand(question);
-                    await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
-                }
 
-                foreach (var answer in answersInfo.Answers)
-                {
-                    var deleteAnswerCommand = new DeleteAnswerCommand(answer);
-                    await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
-                }
+                    var answersQuery = new UserDataByIdQuery(id);
+                    var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
 
+                    foreach (var question in answersInfo.Questions)
+                    {
+                        var deleteQuestionCommand = new DeleteQuestionCommand(question);
+                        await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
+                    }
+
+                    foreach (var answer in answersInfo.Answers)
+                    {
+                        var deleteAnswerCommand = new DeleteAnswerCommand(answer);
+                        await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
+                    }
+
+                }
+                var command = new SuspendUserCommand(id);
+                await commandBus.DispatchAsync(command, token);
+                var userData = await userDataTask;
+                emailList.Add(userData.Email);
             }
-            var command = new SuspendUserCommand(model.Id);
-            await commandBus.DispatchAsync(command, token);
-            var userData = await userDataTask;
-            return new SuspendUserResponse() { Email = userData.Email };
+            return new SuspendUserResponse() { Email = emailList };
         }
+
+        [HttpPost("country")]
+        [ProducesResponseType(200)]
+        public async Task ChangeCountryAsync(ChangeCountryRequest model,
+            [FromServices] ICommandBus commandBus,
+            CancellationToken token)
+        {
+            
+            var command = new ChangeCountryCommand(model.Id, model.Country);
+            await commandBus.DispatchAsync(command, token);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        public async Task DeleteUseryAsync(long id,
+            [FromServices] ICommandBus commandBus,
+            CancellationToken token)
+        {
+            var command = new DeleteUserCommand(id);
+            await commandBus.DispatchAsync(command, token);
+        }
+            
     }
 }

@@ -130,7 +130,7 @@
     <value>Login</value>
   </data>
   <data name="login_l" xml:space="preserve">
-    <value>login</value>
+    <value>Login</value>
   </data>
   <data name="logout" xml:space="preserve">
     <value>Logout</value>

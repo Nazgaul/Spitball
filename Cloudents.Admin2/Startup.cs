@@ -68,7 +68,6 @@ namespace Cloudents.Admin2
             }
             var assembliesOfProgram = new[]
             {
-                Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Core"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
@@ -80,7 +79,6 @@ namespace Cloudents.Admin2
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
-                ServiceBus = Configuration["ServiceBus"],
                 Storage = Configuration["Storage"],
                 Redis = Configuration["Redis"]
             };

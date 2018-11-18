@@ -1,21 +1,32 @@
 ﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "nHibernate Proxy")]
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nHibernate Proxy")]
-    public class Transaction
+    public class Transaction : IEvents
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-        private Transaction(ActionType action, TransactionType type, decimal price)
+        private Transaction(ActionType action, TransactionType type, decimal price) : this()
         {
             Action = action;
             Type = type;
             Price = price;
             Created = DateTime.UtcNow;
+
+
+        }
+
+        [UsedImplicitly]
+        protected Transaction()
+        {
+            Events = new List<IEvent>();
         }
 
         public static Transaction CorrectAnswer(TransactionType type, Question question,
@@ -55,10 +66,13 @@ namespace Cloudents.Core.Entities.Db
 
         public static Transaction ReferringUserTransaction(User invitedUser)
         {
-            return new Transaction(ActionType.ReferringUser, TransactionType.Earned, 10)
+            var tx = new Transaction(ActionType.ReferringUser, TransactionType.Earned, 10)
             {
                 InvitedUser = invitedUser
+
             };
+            tx.Events.Add(new TransactionReferredEvent(tx));
+            return tx;
         }
 
         public static Transaction QuestionDelete(Question question)
@@ -77,11 +91,11 @@ namespace Cloudents.Core.Entities.Db
             return new Transaction(ActionType.CashOut, TransactionType.Earned, price);
         }
 
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Nhibernate proxy")]
-        protected Transaction()
-        {
+        //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Nhibernate proxy")]
+        //protected Transaction()
+        //{
 
-        }
+        //}
 
         public virtual Guid Id { get; protected set; }
         public virtual User User { get; set; }
@@ -95,5 +109,6 @@ namespace Cloudents.Core.Entities.Db
         [CanBeNull] public virtual Question Question { get; set; }
         [CanBeNull] public virtual Answer Answer { get; protected set; }
         [CanBeNull] public virtual User InvitedUser { get; protected set; }
+        public virtual IList<IEvent> Events { get; }
     }
 }
