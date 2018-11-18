@@ -4,7 +4,7 @@
         <div class="flex data-section">
             <div class="header ">
                 <span class="header-title" v-language:inner>wallet_My_Wallet</span>
-                <button class="back-button wallet" @click=" $router.go(-1)">
+                <button class="back-button wallet" @click="$router.go(-1)">
                     <v-icon right>sbf-close</v-icon>
                 </button>
             </div>

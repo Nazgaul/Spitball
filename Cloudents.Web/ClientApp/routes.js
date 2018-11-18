@@ -162,7 +162,11 @@ let routes2 = [
         name: "wallet",
         meta: {
             requiresAuth: true
-        }
+        },
+        props: {
+            // default: (route) => ({id: route.params.id}),
+            header: ()=>({currentSelection: "ask"})
+        },
     },
 
     {
