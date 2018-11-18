@@ -108,7 +108,6 @@ let routes2 = [
         },
         props: bookDetailsProps
     },
-    //TODO doc preview refactoring header RAMRAM
     {
         //document/{universityName}/{courseName}/{id:long}/{name}
         path: "/note/:universityName/:courseName/:id/:name",
