@@ -20,8 +20,12 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public async Task<IList<Question>> GetAllQuestionsAsync(int page)
         {
-            return await Session.Query<Question>().Take(100).Skip(100 * page).OrderBy(o => o.Id).ToListAsync();
+            return await Session.Query<Question>()
+                .Where(w => w.Language == null)
+                .Take(100).OrderBy(o => o.Id).ToListAsync();
         }
+
+
 
         public async Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token)
         {
