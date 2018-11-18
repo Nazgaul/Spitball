@@ -1,4 +1,4 @@
-﻿import Vue from "vue";
+import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective";
@@ -104,7 +104,6 @@ WebFont.load({
 //    preLoad: 1.8,
 //    attempt: 1
 //});
-//Vue.use(vueSmoothScroll);
 
 Vue.use(VueRouter);
 Vue.use(Vuetify, {

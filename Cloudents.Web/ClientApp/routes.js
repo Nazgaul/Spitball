@@ -194,6 +194,10 @@ let routes2 = [
         meta: {
             requiresAuth: true
         },
+        props: {
+
+            header: ()=>({currentSelection: "ask"})
+        },
     }
 
 ];
