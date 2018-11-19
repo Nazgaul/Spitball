@@ -45,7 +45,6 @@
                 default: '',
                 required: false
             },
-
         },
         computed: {
             ...mapGetters({
@@ -54,7 +53,7 @@
                 getSchoolName: 'getSchoolName',
             }),
             referalLink(){
-              return  "http://www.spitball.co"+ this.docReferral +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral";
+              return  `${global.location.origin}`+ this.docReferral +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral";
             },
         },
         methods: {

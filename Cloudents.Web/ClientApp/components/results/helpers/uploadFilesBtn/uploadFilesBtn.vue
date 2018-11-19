@@ -3,7 +3,7 @@
         <a class="mb-5 upload-link" @click="openUploaderDialog()">
             <div :class="['upload-wrap', isFloatingBtn ? 'floating-upload' : '']">
                 <div class="static-center">
-                    <p :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>
+                    <p v-show="$vuetify.breakpoint.smAndUp"  :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>
                         upload_files_component_share_study
                     </p>
                     <button round :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '']">
@@ -40,7 +40,9 @@
             isFloatingBtn() {
                 let offHeight = 0;
                 if(this.showRegistrationBanner){
-                    offHeight = 150 + 285;
+                    //TODO Why signUp banner returns true for loged in user ?
+                    // offHeight = 150 + 285; // header + signUpBanner height
+                    offHeight = 250;
                 }else{
                     offHeight = 150;
                 }
@@ -50,6 +52,7 @@
                 return this.getDialogState
             },
         },
+
         methods: {
             ...mapActions([
                 "updateLoginDialogState",

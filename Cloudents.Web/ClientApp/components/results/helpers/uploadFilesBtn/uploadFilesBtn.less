@@ -1,5 +1,55 @@
 @import "../../../../styles/mixin.less";
+@-webkit-keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100% {opacity: 1}
+}
 
+@-moz-keyframes fade{
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100%{opacity: 1}
+}
+@-o-keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100%{opacity: 1}
+
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@-moz-keyframes fadeIn{
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+@-o-keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+
+}
 .upload-files-action-card {
   right: 0;
   top: 0;
@@ -54,7 +104,6 @@
 
       }
       .upload-btn {
-        transition: all .2s linear;
         background: @color-blue-new;
         color: @color-white;
         height: 48px;
@@ -68,19 +117,27 @@
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        align-items: baseline;
+        align-items: center;
         .sb-cloud-upload-icon {
           color: @colorWhiteBlured;
           font-size: 16px;
           margin-top: 4px;
         }
+        &:not(.rounded-floating-button){
+          -webkit-animation: fadeIn 0.8s;
+          animation: fadeIn 0.8s;
+          -moz-animation: fadeIn 0.8s;
+          -o-animation: fadeIn 0.8s;
+        }
         &.rounded-floating-button {
-          opacity: 1;
-          transition: all 200ms linear;
+          -webkit-animation: fade 0.8s;
+          animation: fade 0.8s;
+          -moz-animation: fade 0.8s;
+          -o-animation: fade 0.8s;
           box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.36);
           position: fixed;
           right: 25px;
-          top: 25px;
+          bottom: 25px;
           background-color: @color-blue-new;
           height: 56px;
           width: 56px;
@@ -95,10 +152,10 @@
             height: 22px;
             font-size: 20px;
             opacity: 1;
+            transition: font-size 0.2s linear;
+
           }
           .btn-text {
-            transition: all 100ms linear;
-            opacity: 0;
             position: absolute;
             font-size: 0px;
             visibility: hidden;
