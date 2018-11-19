@@ -148,10 +148,10 @@
     <value>אעשה זאת אחר כך</value>
   </data>
   <data name="pop_setting_up_explain" xml:space="preserve">
-    <value>בעזרת מידע זה נמצא לך את השאלות הכי טובות וחומרי הלימוד המתאימים למוסד הלימודים והקורסים שבחרת</value>
+    <value>על ידי הגדרות אלו, יוצגו השאלות הרלוונטיות ביותר וחומרי הלימוד המתאימים ביותר למוסד הלימודים והקורסים שלך</value>
   </data>
   <data name="pop_set_school" xml:space="preserve">
-    <value>בחר מוסד לימודים וקורסים</value>
+    <value>הגדר את מוסד הלימודים והקורסים שלך</value>
   </data>
   <data name="school_desc" xml:space="preserve">
     <value>
