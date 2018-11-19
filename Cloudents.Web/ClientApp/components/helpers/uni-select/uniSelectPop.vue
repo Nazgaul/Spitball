@@ -6,7 +6,7 @@
        <div class="title-text" v-language:inner>uniSelect_pop_set_school</div>
        <div class="explain-text" v-language:inner>uniSelect_pop_setting_up_explain</div>
        <div class="input-container">
-           <input type="text" class="input-area" @click="openUniInterface()" v-language:placeholder :placeholder="`select_school_placeholder`">
+           <input type="text" class="input-area" @click="openUniInterface()" v-language:placeholder placeholder="uniSelect_select_school_placeholder">
        </div>
        <div class="skip-text" @click="closePopup" v-language:inner>uniSelect_pop_later</div>
     </div>
