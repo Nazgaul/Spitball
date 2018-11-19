@@ -236,7 +236,7 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
 
-            await TransferUsers();
+            await MigrateUniversity();
             //var t = _container.Resolve<IBlockChainErc20Service>();
             //string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
