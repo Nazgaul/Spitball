@@ -111,7 +111,6 @@ export default {
             let docDataCopy = JSON.parse(JSON.stringify(docData));
             //send copy
             docDataCopy.name = this.getCustomFileName;
-            //post all doc data
             let self = this;
             documentService.sendDocumentData(docDataCopy)
                 .then((resp) => {
