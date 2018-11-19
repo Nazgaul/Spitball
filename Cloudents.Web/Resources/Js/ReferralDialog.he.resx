@@ -121,7 +121,7 @@
     <value>העתק</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
-    <value>&lt;b&gt;הזמינו חבר&lt;/b&gt; ו&lt;b&gt;הרוויחו&lt;/b&gt; &lt;b&gt;10 נקודות SBL&lt;/b&gt; עבור כל הפניה.</value>
+    <value>&lt;b&gt;הזמינו חברים&lt;/b&gt; ו&lt;b&gt;הרוויחו&lt;/b&gt; &lt;b&gt;10 נקודות SBL&lt;/b&gt; עבור כל הפניה.</value>
   </data>
   <data name="get_document_text" xml:space="preserve">
     <value>! לחץ על הלינק הזה כדי להעיף מבט, אני בטוח שזה יחסוך לך זמן ויעזור לך בלימודים</value>
