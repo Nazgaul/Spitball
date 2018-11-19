@@ -21,7 +21,9 @@ namespace Cloudents.Core.Entities.Search
         public string Country { get;  set; }
         public string Language { get;  set; }
         public string University { get;  set; }
-        public DateTime DateTime { get; set; }
+
+
+        public DateTimeOffset? DateTime { get; set; }
 
         public DocumentType Type { get; set; }
 
