@@ -57,4 +57,49 @@ where OldUser = 1
 --need to remove cloudents from bing custom search
 
 
+--Users - Courses migration
+
+insert into [sb].[UsersCourses]
+select U.Id, B.BoxName
+from sb.[User] U
+join Zbox.Users ZU
+	on U.Email = ZU.Email
+join [Zbox].[UserBoxRel] UB
+	on ZU.UserId = UB.UserId
+join Zbox.Box B
+	on UB.BoxId = B.BoxId
+where isdeleted = 0
+and CourseCode is not null
+and discriminator in (2,3)
+union
+select U.Id, B.CourseCode
+from sb.[User] U
+join Zbox.Users ZU
+	on U.Email = ZU.Email
+join [Zbox].[UserBoxRel] UB
+	on ZU.UserId = UB.UserId
+join Zbox.Box B
+	on UB.BoxId = B.BoxId
+where isdeleted = 0
+and CourseCode is not null
+and discriminator in (2,3)
+
+
+
+begin tran
+declare @tmp table (CourseId nvarchar(300), userCounter int)
+insert into @tmp 
+select CourseId, count(1)
+from sb.[UsersCourses]
+group by CourseId
+
+update [sb].[Course]
+set [Count] = t.userCounter
+from sb.[Course] c
+join  @tmp t
+	on c.[Name] = t.CourseId
+
+commit
+
+
 
