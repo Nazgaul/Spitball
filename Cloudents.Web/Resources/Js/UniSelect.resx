@@ -144,6 +144,15 @@
   <data name="no_worries" xml:space="preserve">
     <value>:)  No Worries</value>
   </data>
+  <data name="pop_later" xml:space="preserve">
+    <value>I’ll do it Later</value>
+  </data>
+  <data name="pop_setting_up_explain" xml:space="preserve">
+    <value>By setting this up you will get the best questions &amp; study info fit for your shool &amp; classes</value>
+  </data>
+  <data name="pop_set_school" xml:space="preserve">
+    <value>Set your school &amp; classes</value>
+  </data>
   <data name="school_desc" xml:space="preserve">
     <value>
 and all of the selected classes
