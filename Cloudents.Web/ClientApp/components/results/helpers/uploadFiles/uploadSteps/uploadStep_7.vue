@@ -45,7 +45,6 @@
                 default: '',
                 required: false
             },
-
         },
         computed: {
             ...mapGetters({
