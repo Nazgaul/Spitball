@@ -4,6 +4,7 @@ using Cloudents.Core.Command;
 using Cloudents.Core.CommandHandler;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Data;
@@ -25,7 +26,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
 
 
 namespace ConsoleApp
@@ -91,9 +91,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            // var q = _container.Resolve<IQuestionSearch>();
+            // var z = await q.SearchAsync(new QuestionsQuery(null, null, 0, null, "us"), default);
             //  await UpdateLanguageAsync();
             //await TransferUniversities();
-            await TransferUsers();
+            //await TransferUsers();
+            await MigrateUniversity();
         }
 
         private static async Task DoStuffToFiles(CloudBlobDirectory dir, Func<CloudBlockBlob, Task> func)
@@ -545,7 +548,7 @@ namespace ConsoleApp
                 var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
                 {
                     return await f.QueryAsync(
-                        @"select top 100 UserId
+                        @"select top 200 UserId
 		                    ,ZU.Email
 		                    ,ZU.Culture
                       from zbox.Users ZU
@@ -578,7 +581,7 @@ namespace ConsoleApp
                             foreach (var pair in z)
                             {
                                 Console.WriteLine($"Processing id {pair.UserId}");
-                                var name = pair.Email.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
+                                var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
                                 var (privateKey, _) = erc.CreateAccount();
 
                                 CultureInfo cultur = new CultureInfo(pair.Culture);
@@ -595,7 +598,7 @@ namespace ConsoleApp
                             }
 
                             await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-                            await Task.Delay(TimeSpan.FromSeconds(1));
+                            await Task.Delay(TimeSpan.FromSeconds(0.5));
                         }
                     }
                     catch (DuplicateRowException)
@@ -774,16 +777,15 @@ namespace ConsoleApp
 
                 return await f.QueryAsync(
                     @"
-                  select top 1000 U.Id, Un.UniversityName, Un.Country
+                  select top 100 U.Id, Un.UniversityName, Un.Country
                         from sb.[User] U
 						join zbox.Users ZU
 							on U.Email = ZU.Email
                         join [Zbox].[University] Un
                             on Un.Id = ZU.UniversityId
-                        where LastAccessTime > DATEADD(YEAR,-2,GETDATE())  
-                            and U.Email like '%@%'
-                            and ZU.Email not like '%facebook.com'
-                            and IsEmailVerified = 1 and U.UniversityId2 is null
+                          where u.OldUser = 1
+                            and IsEmailVerified = 1 
+							and U.UniversityId2 is null
                             and Un.isdeleted = 0; 
                   ");
             }, default);
@@ -798,13 +800,14 @@ namespace ConsoleApp
                 using (var unitOfWork = child.Resolve<IUnitOfWork>())
                 {
                     var ch = new AssignUniversityToUserCommandHandler(repository, uni);
-                    List<Task> taskes = new List<Task>();
+                    // List<Task> taskes = new List<Task>();
                     foreach (var pair in z)
                     {
-                        var t = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
-                        taskes.Add(ch.ExecuteAsync(t, default));
+                        var command =  new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
+                        await ch.ExecuteAsync(command, default);
+                        // taskes.Add(ch.ExecuteAsync(t, default));
                     }
-                    await Task.WhenAll(taskes);
+                    //await Task.WhenAll(taskes);
                     await unitOfWork.CommitAsync(default).ConfigureAwait(false);
                 }
             }
