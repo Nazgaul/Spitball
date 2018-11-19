@@ -4,10 +4,10 @@
             <div :class="['ask-wrap', isFloatingBtn ? 'floating-ask' : '']">
                 <div class="static-center">
                     <p v-show="$vuetify.breakpoint.smAndUp" :class="['ask-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>
-                        abTest_askQuestion
+                        faqBlock_ask
                     </p>
                     <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '']">
-                        <span class="btn-text" v-language:inner>abTest_addQuestion</span>
+                        <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
                         <v-icon class="sb-edit-icon" right>sbf-edit-icon</v-icon>
                     </button>
                 </div>
@@ -241,7 +241,6 @@
                             opacity: 1;
                         }
                         .btn-text {
-                            /*transition: all 100ms linear;*/
                             opacity: 0;
                             position: absolute;
                             font-size: 0px;
