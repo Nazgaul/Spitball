@@ -9,9 +9,15 @@
             <upload-files-btn class="upload-card hidden-md-and-up"  v-show="isNote"></upload-files-btn>
 
               <div class="d-flex mobile-filter">
-                <a v-if="$route.path.slice(1)==='ask' "
-                   :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "
-                   @click.prevent="goToAskQuestion()" v-language:inner>result_ask_question</a>
+                  <askQuestionBtn v-if="$route.path.slice(1)==='ask'"
+
+                           :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] ">
+
+                  </askQuestionBtn>
+
+                  <!--<a v-if="$route.path.slice(1)==='ask' "-->
+                   <!--:class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "-->
+                   <!--@click.prevent="goToAskQuestion()" v-language:inner>result_ask_question</a>-->
 
                   <!--<a :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'upload-files','ask-question-mob', 'hidden-md-and-up'] "-->
                      <!--v-show="$route.path.slice(1)==='note'"  @click="updateDialogState(true)" v-language:inner>upload_btn_open</a>-->
