@@ -8,7 +8,7 @@ const LanguageService = {
     getValueByKey: (key) => {
         if(!key) return key;
 
-        if(!locale[key]){
+        if(!locale.hasOwnProperty(key)){
             console.error("dictionary couldnot find key: " + key);
             return `###${key}`;
         }

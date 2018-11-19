@@ -87,7 +87,7 @@
 </template>
 
 <script>
-    import {settingMenu, notRegMenu} from '../settings/consts';
+    import {notRegMenu} from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
@@ -113,7 +113,6 @@
         },
         data() {
             return {
-                settingMenu,
                 notRegMenu,
                 clickOnce: false,
                 drawer: false,

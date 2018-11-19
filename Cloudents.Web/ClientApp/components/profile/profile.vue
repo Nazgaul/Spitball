@@ -12,20 +12,20 @@
                         <div class="menu">
                             <ul class="tabs" v-if="!isMobile" xs3>
                                 <li :class="{'active': activeTab === 1}" @click="changeActiveTab(1)">
-                                    <span v-if="isMyProfile">My&nbsp;</span><span v-language:inner>profile_Questions</span> 
+                                    <span v-if="isMyProfile"></span><span v-language:inner>profile_Questions</span> 
                                 </li>
                                 <li :class="{'active': activeTab === 2}" @click="changeActiveTab(2)">
-                                    <span v-if="isMyProfile">My&nbsp;</span><span v-language:inner>profile_Answers</span> 
+                                    <span v-if="isMyProfile"></span><span v-language:inner>profile_Answers</span> 
                                 </li>
                             </ul>
 
                             <v-tabs v-else grow class="tab-padding" xs12>
                                 <v-tabs-slider color="blue"></v-tabs-slider>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
-                                        v-if="isMyProfile">My&nbsp;</span><span v-language:inner>profile_Questions</span>
+                                        v-if="isMyProfile"></span><span v-language:inner>profile_Questions</span>
                                 </v-tab>
                                 <v-tab @click="activeTab = 2" :href="'#tab-2'" :key="2"><span
-                                        v-if="isMyProfile">My&nbsp;</span><span v-language:inner>profile_Answers</span>
+                                        v-if="isMyProfile"></span><span v-language:inner>profile_Answers</span>
                                 </v-tab>
                             </v-tabs>
                         </div>

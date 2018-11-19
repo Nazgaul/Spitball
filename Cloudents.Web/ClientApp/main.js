@@ -224,7 +224,6 @@ Vue.prototype.$Ph = function (key, placeholders) {
         //console.error(`${key} have no placeholders to replace`)
         return rawKey
     }
-    ;
 
     let argumentsToSend = [];
     //placeholders must be an array
