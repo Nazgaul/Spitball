@@ -108,7 +108,6 @@ let routes2 = [
         },
         props: bookDetailsProps
     },
-    //TODO doc preview refactoring header RAMRAM
     {
         //document/{universityName}/{courseName}/{id:long}/{name}
         path: "/note/:universityName/:courseName/:id/:name",
@@ -162,7 +161,11 @@ let routes2 = [
         name: "wallet",
         meta: {
             requiresAuth: true
-        }
+        },
+        props: {
+            // default: (route) => ({id: route.params.id}),
+            header: ()=>({currentSelection: "ask"})
+        },
     },
 
     {
@@ -190,6 +193,10 @@ let routes2 = [
         },
         meta: {
             requiresAuth: true
+        },
+        props: {
+
+            header: ()=>({currentSelection: "ask"})
         },
     }
 

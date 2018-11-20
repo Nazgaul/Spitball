@@ -17,12 +17,10 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                                    <!--TODO AB-Test-->
-                                    <!--<div class="ab-test static-card-what-is-hw-question hidden-sm-and-down" v-show="loggedIn && $route.path.slice(1) === 'ask'">-->
-                                    <div class="ab-test static-card-what-is-hw-question hidden-sm-and-down">
-                                    <button class="ab-test-button" @click="openNewQuestionDialog()">
+                                    <div class="header-ask-btn hidden-sm-and-down">
+                                    <button class="ask-question-button" @click="openNewQuestionDialog()">
                                         <v-icon class="edit-icon">sbf-edit-icon</v-icon>
-                                        <span v-language:inner>abTest_addQuestion</span>
+                                        <span v-language:inner>faqBlock_add_question_btn</span>
                                     </button>
                                     </div>
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
@@ -87,7 +85,7 @@
 </template>
 
 <script>
-    import {settingMenu, notRegMenu} from '../settings/consts';
+    import {notRegMenu} from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
@@ -113,7 +111,6 @@
         },
         data() {
             return {
-                settingMenu,
                 notRegMenu,
                 clickOnce: false,
                 drawer: false,

@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="less">
-    @import "../../../../../mixin.less";
+    @import "../../../../../styles/mixin.less";
     .changing-school-container{
         display: none;
         width: 297px;

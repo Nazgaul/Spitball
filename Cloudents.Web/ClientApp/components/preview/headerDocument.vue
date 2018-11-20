@@ -39,9 +39,9 @@
                         <span class="detail-title">{{item ? item.course: ''}}</span>
 
                     </div>
-                    <div class="prof detail-cell" v-show="item.professor">
-                        <v-icon class="prof-icon icon mr-2">sbf-professor</v-icon>
-                        <span class="detail-name mr-3" v-language:inner>headerDocument_item_prof</span>
+                    <div class="prof detail-cell">
+                        <v-icon class="prof-icon icon mr-2" v-show="item.professor">sbf-professor</v-icon>
+                        <span v-show="item.professor" class="detail-name mr-3" v-language:inner>headerDocument_item_prof</span>
                         <span class="detail-title">{{item.professor ?  item.professor : ''}}</span>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-﻿@import "../../mixin.less";
+﻿@import "../../styles/mixin.less";
 
 .book-cell {
     display: block;
@@ -8,35 +8,14 @@
     @media(max-width: @screen-xs) {
         min-height: 192px;
     }
-    /*.btn {
-        > div {
-            letter-spacing: -0.3px;
-            text-transform: capitalize;
-        }
-    }*/
-    /*.buy {
-        > div {
-            background: @Spitball-Text;
-            color: #fff;
-        }
-    }
-
-    .sell {
-        > div {
-            background: @Chat-Suggestion-Icon-Background;
-            color: @Settings;
-        }
-    }*/
     .details {
         font-size: 14px;
         font-weight: 600;
-        //line-height: 1.14;
         letter-spacing: -0.3px;
         color: @Book-Info;
     }
 
     .cell-title {
-        //TODO ui changes
         color: @color-main-purple;
         margin-bottom: 6px;
         .giveEllipsisUpdated(2,19px, 2);
@@ -47,7 +26,6 @@
         letter-spacing: -0.5px;
 
         &.author {
-           // .giveMeEllipsis(2,19px);
             .giveEllipsisUpdated(2,19px, 2);
 
         }

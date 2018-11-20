@@ -36,7 +36,7 @@
      }
 </script>
 <style lang="less">
-    @import "../../mixin.less";
+    @import "../../styles/mixin.less";
     .contact {
         @media(max-width: @screen-xs) {
         margin-top: 50px;

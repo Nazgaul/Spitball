@@ -139,13 +139,13 @@
     <value>הרשמה</value>
   </data>
   <data name="DocumentTypeExam" xml:space="preserve">
-    <value>סיכום בחינה</value>
+    <value>בחינות</value>
   </data>
   <data name="DocumentTypeLecture" xml:space="preserve">
-    <value>סיכום שיעור</value>
+    <value>קורסים</value>
   </data>
   <data name="DocumentTypeTextbook" xml:space="preserve">
-    <value>סיכום ספר לימוד</value>
+    <value>ספרי לימוד</value>
   </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>שאלות שנענו</value>
