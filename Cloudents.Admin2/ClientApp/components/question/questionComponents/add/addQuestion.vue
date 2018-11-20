@@ -1,227 +1,213 @@
 <template>
     <div class="add-question-container">
         <h1>Add A question</h1>
+        <v-form  ref="form">
+<span class="select-subject">First <b>Select</b> A subject:</span>
 
-        First <b>Select</b> A subject: <select class="select-subject" name="subject"  @change="optionChanegd" v-model="selectedSubject">
-            <option value="" disabled="true">Select...</option>
-            <option v-for="subject in subjects" :value="subject.id" :key="subject.id">{{subject.subject}}</option>
-        </select>
-        <div class="text-area-container" v-if="showTextArea">
-            <textarea v-model="subjectContent" placeholder="Content of text..." cols="30" rows="10"></textarea>    
-        </div>
-        <div class="select-type-container" v-if="showTextArea">
-            <select class="select-type" v-model="country">
-                <option value="Us">US</option>
-                <option value="Il">IL</option>
-            </select>
+        <div class="inputs-wrap">
+            <v-select attach=""
+                      @change="optionChanegd"
+                      v-model="selectedSubject"
+                      class="select-subject-input"
+                      solo
+                      :items="subjects"
+                      item-value="id"
+                      item-text="subject"
+                      label="Select Subject"
+
+            ></v-select>
+            <div class="text-area-container" v-if="showTextArea">
+                <v-textarea solo v-model="subjectContent" placeholder="Content of text..." cols="30" rows="10"></v-textarea>
+            </div>
+            <div class="select-type-container" v-if="showTextArea">
+                <v-select attach=""
+                          class="select-country-input"
+                          solo
+                          v-model="country"
+                          :items="countryList"
+                          :item-value="country"
+                          label="Select country"
+                ></v-select>
+            </div>
         </div>
         <div class="upload-container" v-if="showTextArea">
             <file-upload
-                ref="upload"
-                v-model="files"
-                post-action="/api/AdminQuestion/upload"
-                @input-file="inputFile"
-                @input-filter="inputFilter"
-                :multiple="true"
-                :maximum="4"
-                :extensions="['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp']"
+                    ref="upload"
+                    v-model="files"
+                    post-action="/api/AdminQuestion/upload"
+                    @input-file="inputFile"
+                    @input-filter="inputFilter"
+                    :multiple="true"
+                    :maximum="4"
+                    :extensions="['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp']"
             >
-                <button class="btn-upload">Upload File</button>
+                <v-btn color="#438a2b" round class="btn-upload">Upload File</v-btn>
             </file-upload>
             <ul>
                 <li style="list-style: none;" v-for="(file, index) in files" :key="index">
-                    {{file.name}} <span v-if="file.error">- Error: {{file.error}}</span> <span v-if="file.success">Success: {{file.success}}</span> 
+                    {{file.name}} <span v-if="file.error">- Error: {{file.error}}</span>
+                    <span v-if="file.success">Success: {{file.success}}</span>
                 </li>
             </ul>
         </div>
-
         <div class="price-container" v-if="showTextArea">
-            <button  v-if="!showPriceSetter" class="btn-price" @click="setPrice">Set A Price</button>
+            <v-btn color="#438a2b" round v-if="!showPriceSetter"  @click="setPrice">Set A Price</v-btn>
             <div v-if="showPriceSetter">
-                <input class="question-price" type="number" v-model="questionPrice" min="1"/>
+                <v-text-field solo class="question-price" type="number" v-model="questionPrice" min="1"/>
             </div>
         </div>
 
         <div class="add-container" v-if="showPriceSetter">
-            <button class="btn-add" @click="addQ">Add</button>
+            <v-btn round color="#438a2b" class="btn-add" @click="addQ">Add</v-btn>
+            <v-btn flat  @click="$refs.form.reset()">Clear</v-btn>
         </div>
+        </v-form>
     </div>
 </template>
 
 <script>
-import { getSubjectList, addQuestion } from './addQuestionService'
+    import { getSubjectList, addQuestion } from './addQuestionService'
 
-export default {
-    data(){
-        return{
-            subjects: [],
-            selectedSubject: '',
-            subjectContent: '',
-            showTextArea:false,
-            questionPrice: 1,
-            showPriceSetter:false,
-            files: [],
-            filesNames: [],
-            country: "Us"
-        }
-    },
-    methods:{
-        optionChanegd: function(){
-            this.showTextArea = true;
-            console.log(this.selectedSubject)
-        },
-        setPrice:function(){
-            this.showPriceSetter = true;
-        },
-        addQ: function(){
-            if(this.questionPrice < 1){
-                this.$toaster.error("Error: Price must be above 1");
-                return;
+    export default {
+        data() {
+            return {
+                subjects: [],
+                selectedSubject: '',
+                subjectContent: '',
+                showTextArea: false,
+                questionPrice: 1,
+                showPriceSetter: false,
+                files: [],
+                filesNames: [],
+                country: "Us",
+                countryList: ['Us', 'Il']
             }
-            if(this.subjectContent === ''){
-                this.$toaster.error("Error: No Content");
-                return;
-            }
-            let uploads = [];
-            if(this.files.length > 0){
-                this.files.forEach(file=>{
-                    if(!!file.response.file){
-                        uploads.push(file.response.file)
-                    }
+        },
+        methods: {
+            optionChanegd: function () {
+                this.showTextArea = true;
+                console.log(this.selectedSubject)
+            },
+            setPrice: function () {
+                this.showPriceSetter = true;
+            },
+            addQ: function () {
+                if (this.questionPrice < 1) {
+                    this.$toaster.error("Error: Price must be above 1");
+                    return;
+                }
+                if (this.subjectContent === '') {
+                    this.$toaster.error("Error: No Content");
+                    return;
+                }
+                let uploads = [];
+                if (this.files.length > 0) {
+                    this.files.forEach(file => {
+                        if (!!file.response.file) {
+                            uploads.push(file.response.file)
+                        }
+                    })
+                }
+                addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, uploads).then(() => {
+                    this.$toaster.success("Success on Adding Question");
+                }, (err) => {
+                    console.log(err);
+                    this.$toaster.error("Error: Failed to Add question");
                 })
-            } 
-            addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, uploads).then(()=>{
-                this.$toaster.success("Success on Adding Question");
-            }, (err)=>{
-                console.log(err);
-                this.$toaster.error("Error: Failed to Add question");
+            },
+            inputFile(newFile, oldFile) {
+                // Automatic upload
+                if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+                    if (!this.$refs.upload.active) {
+                        this.$refs.upload.active = true
+                    }
+                }
+                if (!!oldFile) {
+                    // Upload error
+                    if (newFile.error !== oldFile.error) {
+                        console.log('error', newFile.error, newFile)
+                    }
+
+                    // Uploaded successfully
+                    if (newFile.success !== oldFile.success) {
+                        console.log('success', newFile.success, newFile)
+                    }
+                }
+            },
+            inputFilter: function (newFile, oldFile, prevent) {
+                if (newFile && !oldFile) {
+                    // Filter non-image file
+                    if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+                        return prevent()
+                    }
+                }
+
+                // Create a blob field
+                newFile.blob = ''
+                let URL = window.URL || window.webkitURL
+                if (URL && URL.createObjectURL) {
+                    newFile.blob = URL.createObjectURL(newFile.file)
+                }
+            },
+        },
+        created() {
+            getSubjectList().then((responseSubjects) => {
+                this.subjects = responseSubjects
             })
-        },
-        inputFile(newFile, oldFile) {
-            // Automatic upload
-            if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
-                if (!this.$refs.upload.active) {
-                this.$refs.upload.active = true
-                }
-            }
-            if(!!oldFile){
-                // Upload error
-                if (newFile.error !== oldFile.error) {
-                    console.log('error', newFile.error, newFile)
-                }
-
-                // Uploaded successfully
-                if (newFile.success !== oldFile.success) {
-                    console.log('success', newFile.success, newFile)
-                }
-            }
-        },
-        inputFilter: function (newFile, oldFile, prevent) {
-            if (newFile && !oldFile) {
-                // Filter non-image file
-                if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
-                return prevent()
-                }
-            }
-
-            // Create a blob field
-            newFile.blob = ''
-            let URL = window.URL || window.webkitURL
-            if (URL && URL.createObjectURL) {
-                newFile.blob = URL.createObjectURL(newFile.file)
-            }
-        },
-    },
-    created(){
-        getSubjectList().then((responseSubjects)=>{
-            this.subjects = responseSubjects
-        })
+        }
     }
-}
 </script>
 
 <style lang="scss" scoped>
-.add-question-container{
-    .select-subject{
-            border: none;
-            background-color: #b4e0a5;
-            height: 25px;
-            color: #5d5d5d;
-            outline: none;
-            border-radius: 25px;
-        }
-    .text-area-container{
-        textarea{
+    .add-question-container {
+        span.select-subject{
+            font-size: 16px;
             margin-top: 25px;
-            border: none;
-            background-color: rgb(180, 224, 165);
-            color: rgb(124, 121, 121);
-            outline: none;
-            width: 500px;
-            height: 150px;
-            padding:10px;
+            display: block;
+        }
+        .inputs-wrap {
+            padding-top: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .select-subject-input, select-country-input {
+            width: 345px;
+        }
+        .text-area-container, .select-type-container {
+            width: 345px;
+            textarea {
+                margin-top: 25px;
+                border: none;
+                background-color: rgb(180, 224, 165);
+                color: rgb(124, 121, 121);
+                outline: none;
+                width: 500px;
+                height: 150px;
+                padding: 10px;
+            }
+        }
+        .price-container, .add-container, .upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 25px;
+            .question-price {
+            width: 345px;
+            }
+        }
+        .select-type-container {
+            .select-type {
+                border: none;
+                border-radius: 25px;
+                height: 25px;
+                margin-top: 10px;
+                width: 90px;
+                padding: 5px;
+                outline: none;
+            }
         }
     }
-    .price-container{
-        margin-top:25px;
-        .btn-price{
-            cursor: pointer;
-            background-color: #b6b6b6;
-            border-radius: 25px;
-            border: none;
-            outline: none;
-            cursor:pointer;
-            height: 25px;
-            color: #5d5d5d;
-        }
-        .question-price{
-            margin-top:10px;
-            padding:0 5px 0 5px;
-            border: none;
-            background-color: #b4e0a5;
-            height: 25px;
-            color: #5d5d5d;
-            outline: none;
-            border-radius: 25px;
-        }
-    }
-
-    .add-container{
-        margin-top:20px;
-        .btn-add{
-            background-color: #438a2b;
-            border-radius: 15px;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            height: 25px;
-            width: 50px;
-            color: #eaf0e9;
-        }
-    }
-    .upload-container{
-        margin-top:10px;
-        .btn-upload{
-            background-color: #438a2b;
-            border-radius: 15px;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            height: 40px;
-            width: 85px;
-            color: #eaf0e9;
-        }
-    }
-    .select-type-container{
-        .select-type{
-            border: none;
-            border-radius: 25px;
-            height: 25px;
-            margin-top: 10px;
-            width: 90px;
-            padding: 5px;
-            outline: none;
-        }
-    }    
-}
 </style>
