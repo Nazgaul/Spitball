@@ -66,8 +66,9 @@
                         <search-input :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]"
                                       :submit-route="submitRoute"></search-input>
                     </v-flex>
+                    <slot name="extraHeader"></slot>
                 </div>
-                <slot name="extraHeader"></slot>
+                
             </v-layout>
             <v-snackbar absolute :timeout="toasterTimeout" :value="getShowToaster">
                 <div class="text-wrap" v-html="getToasterText"></div>
