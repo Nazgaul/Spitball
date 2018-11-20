@@ -1411,6 +1411,19 @@
                     .legal-ownership {
                       color: @colorBlackNew;
                       font-size: 18px;
+                      height: 24px;
+                      width: 24px;
+                      .v-input--selection-controls__ripple{
+                        border-radius: 50%;
+                        cursor: pointer;
+                        height: 24px;
+                        position: absolute;
+                        transition: inherit;
+                        width: 24px;
+                        left: -6px;
+                        top:  ~"calc(50% - 20px)";
+                        margin: 7px;
+                      }
                       .sbf {
                         font-size: 22px;
                         color: @labelColor;
