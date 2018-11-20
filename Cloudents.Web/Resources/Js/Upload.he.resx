@@ -153,6 +153,9 @@
   <data name="files_btn_askQuestion" xml:space="preserve">
     <value>שאל שאלה</value>
   </data>
+  <data name="files_btn_back" xml:space="preserve">
+    <value>חזור</value>
+  </data>
   <data name="files_btn_close" xml:space="preserve">
     <value>סגור</value>
   </data>

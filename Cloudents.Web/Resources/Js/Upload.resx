@@ -257,6 +257,9 @@
   <data name="confirm_btn_close" xml:space="preserve">
     <value>Close and stop upload</value>
   </data>
+  <data name="files_btn_back" xml:space="preserve">
+      <value>Back</value>
+    </data>
   <data name="confirm_stop_title" xml:space="preserve">
     <value>Stop Uploading?</value>
   </data>

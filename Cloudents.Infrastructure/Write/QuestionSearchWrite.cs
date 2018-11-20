@@ -79,7 +79,7 @@ namespace Cloudents.Infrastructure.Write
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new FreshnessScoringFunction(nameof(Question.DateTime),1.5,TimeSpan.FromHours(6)),
+                            new FreshnessScoringFunction(nameof(Question.DateTime),1.6,TimeSpan.FromHours(6)),
                             new TagScoringFunction(nameof(Question.Country),1.5, new TagScoringParameters(TagsCountryParameter)),
                         }
                     }

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="accepts_your_answer" xml:space="preserve">
-    <value>to see if accepts your answer.</value>
+    <value>to see if your answer is accepted.</value>
   </data>
   <data name="below_question_should_help" xml:space="preserve">
     <value>In the meantime, below is another question that you should be able to help with.</value>

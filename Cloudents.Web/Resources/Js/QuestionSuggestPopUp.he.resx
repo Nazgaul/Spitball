@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="accepts_your_answer" xml:space="preserve">
-    <value>כדי לברר אם התשובה שלך מקובלת.</value>
+    <value>כדי לדעת אם התשובה שלך התקבלה</value>
   </data>
   <data name="below_question_should_help" xml:space="preserve">
     <value>בינתיים, הנה שאלה נוספת שאולי תוכל לסייע להשיב עליה.</value>

@@ -15,7 +15,7 @@ namespace Cloudents.Core.Query
             )
         {
             Term = term;
-            Country = country;
+            Country = country?.ToUpperInvariant();
             Source = source;
             Page = page;
             Filters = filters;

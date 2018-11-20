@@ -1,7 +1,6 @@
 <template>
     <a :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'"
        @click="(isOurs ? $_spitball($event):'')" :href="url" :class="['d-block', 'note-block',  'type-'+typeID]">
-
         <v-container class="pa-0"
                      @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-flex class="wrapper">
@@ -18,8 +17,9 @@
                     </div>
                     <div class="content-wrap">
                         <div class="title-wrap">
-                            <v-icon class="doc mr-2">sbf-document-note</v-icon>
-                            <span class="doc-title" v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 1 ">{{item.title}}</span>
+                            <p class="doc-title" v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 ">
+                                <v-icon class="doc mr-2">sbf-document-note</v-icon>{{item.title}}
+                            </p>
                         </div>
                         <div class="content-text" v-show="item.snippet">
                             <span v-line-clamp="2">{{item.snippet}}</span>
@@ -29,7 +29,7 @@
                 <v-flex grow class="doc-details">
                     <div class="author-info-date">
                         <span class="autor" v-show="authorName"  v-language:inner>headerDocument_item_by</span>&nbsp; {{authorName}}
-                        <span class="date"></span>
+                        <span class="date"v-show="uploadDate">{{uploadDate}}</span>
                     </div>
                     <div class="doc-actions-info">
                         <v-icon class="sb-doc-icon mr-1">sbf-views</v-icon>
@@ -59,9 +59,9 @@
             //change when server will return id of document type and not title of type
             type() {
                 let self = this;
-                if (!!self.item.documentType) {
+                if (!!self.item.type) {
                     return documentTypes.find((single) => {
-                        if (single.title.toLowerCase() === self.item.documentType.toLowerCase()) {
+                        if (single.id.toLowerCase() === self.item.type.toLowerCase()) {
                             return single
                         }
                     })
@@ -98,6 +98,13 @@
                 if(this.item){
                     return this.item.views || 0
                 }
+            },
+            uploadDate(){
+              if(this.item && this.item.dateTime){
+                 return this.$options.filters.fullMonthDate(this.item.dateTime);
+              }else{
+                  return ''
+              }
             },
 
             isOurs() {
