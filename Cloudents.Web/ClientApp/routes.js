@@ -119,7 +119,7 @@ let routes2 = [
         },
         props: {
             default: (route) => ({id: route.params.id}),
-            header: ()=>({currentSelection: "note"})
+            header: ()=>({submitRoute: '/note', currentSelection: "note"})
         }
     },
     {

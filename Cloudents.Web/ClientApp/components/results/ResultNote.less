@@ -1,5 +1,5 @@
 @import "../../styles/mixin.less";
-
+@colorUploadDate: rgba( 0,0,0,0.38);
 .note-block {
   //min-height: 223px;
   min-height: auto;
@@ -55,7 +55,7 @@
             color: @colorTypeExam;
           }
           &.type-document {
-            color: @colorTypeDocDefault;
+            color: @colorTypeDocThirdParty;
           }
 
         }
@@ -100,7 +100,7 @@
         //height: 81px;
         width: 100%;
         height: auto;
-        max-height: 81px;
+        //max-height: 81px;
         //@media (max-width: @screen-xs) {
         //  height: auto;
         //  max-height: unset;
@@ -118,6 +118,10 @@
             font-size: 13px;
             font-weight: 600;
             color: @textColor;
+            margin-bottom: 0;
+            @media (max-width: @screen-xs) {
+             line-height: 20px;
+            }
           }
         }
         .content-text {
@@ -139,6 +143,9 @@
         flex-grow: 1;
         font-size: 11px;
 
+        .date{
+          color: @colorUploadDate;
+        }
       }
       .doc-actions-info {
         display: flex;

@@ -144,6 +144,15 @@
   <data name="no_worries" xml:space="preserve">
     <value>אל דאגה :)</value>
   </data>
+  <data name="pop_later" xml:space="preserve">
+    <value>אעשה זאת אחר כך</value>
+  </data>
+  <data name="pop_setting_up_explain" xml:space="preserve">
+    <value>על ידי הגדרות אלו, יוצגו השאלות הרלוונטיות ביותר וחומרי הלימוד המתאימים ביותר למוסד הלימודים והקורסים שלך</value>
+  </data>
+  <data name="pop_set_school" xml:space="preserve">
+    <value>הגדר את מוסד הלימודים והקורסים שלך</value>
+  </data>
   <data name="school_desc" xml:space="preserve">
     <value>
 וכל הקורסים שבחרת יימחקו</value>

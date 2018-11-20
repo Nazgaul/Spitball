@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Select(s => new DocumentDetailDto
                 {
                     Name = s.Name,
-                    Date = s.TimeStamp.CreationTime,
+                    Date = s.TimeStamp.UpdateTime,
                     Blob = s.BlobName,
                     University = s.University.Name,
                     TypeStr =  s.Type,
