@@ -32,10 +32,14 @@ export default {
                     //this.questions = this.questions.concat(questionsResponse);
                     questionsResponse.forEach(question=>{
                         this.questions.push(question);
-                    })
+                    });
                     this.loading = false;
-                    this.advancePage();
+                    if(questionsResponse && questionsResponse.length > 0){
+                        this.advancePage();
+                    }
+
                     this.scrollLock = false;
+                    console.log('page', this.page)
                 })
             },
             handleScroll(event){
