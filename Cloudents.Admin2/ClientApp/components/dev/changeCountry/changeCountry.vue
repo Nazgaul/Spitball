@@ -2,16 +2,20 @@
     <div class="change-country-container">
         <h1>Change User Country</h1>
         <div class="user-inputs-container">
-            <input class="user-input-text" placeholder="User Id..." type="text" v-model="userId"/>
+            <v-text-field solo class="user-input-text" placeholder="User Id..." type="text" v-model="userId"/>
         </div>
         <div class="select-type-container">
-            <select class="select-type" v-model="userCountry">
-                <option value="Us">Us</option>
-                <option value="Il">Il</option>
-            </select>
+            <v-select attach=""
+                      class="select-type-input"
+                      solo
+                      v-model="userCountry"
+                      :items="countryList"
+                      label="Select country"
+            ></v-select>
+
         </div>
         <div class="change-container">
-            <button class="change-button" :class="{'disabled': lock}" @click="change()">Change</button>
+            <v-btn round color="#78c967" class="change-button" :class="{'disabled': lock}" @click="change()">Change</v-btn>
         </div>
     </div>
 </template>
@@ -24,7 +28,8 @@ export default {
         return {
             userCountry: "Us",
             userId: "",
-            lock: false
+            lock: false,
+            countryList: ['Us', 'Il']
         }
     },
     methods:{
@@ -54,22 +59,20 @@ export default {
 .change-country-container{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 350px;
     .user-inputs-container{
-            margin:0 auto;
             display:flex;
             flex-direction: column;
             justify-content: center;
             .user-input-text{
-                border:none;
-                outline: none;
-                border-radius: 25px;
-                height: 15px;
-                margin-top: 5px;
-                padding:10px;
-                width: 200px;
+                width: 345px;
             }
         }
     .select-type-container{
+        width: 345px;
             .select-type{
                 border: none;
                 border-radius: 25px;
@@ -83,13 +86,13 @@ export default {
         .change-container{
             margin-top: 15px;
             .change-button{
-                cursor: pointer;
-                border:none;
-                outline: none;
-                background-color: #78c967;
-                border-radius: 25px;
-                height:25px;
-                width: 75px;
+                /*cursor: pointer;*/
+                /*border:none;*/
+                /*outline: none;*/
+                /*background-color: #78c967;*/
+                /*border-radius: 25px;*/
+                /*height:25px;*/
+                /*width: 75px;*/
                 &.disabled{
                     background-color: #aeabab;
                     pointer-events: none;

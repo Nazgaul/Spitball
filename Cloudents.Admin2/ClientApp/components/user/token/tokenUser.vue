@@ -6,10 +6,14 @@
            <v-text-field solo class="user-input-text" type="text" v-model.number="tokens" placeholder="Set amount of tokens to apply..."/>
         </div>
         <div class="select-type-container">
-            <select class="select-type" v-model="tokenType">
-                <option value="Earned">Earned</option>
-                <option value="Awarded">Awarded</option>
-            </select>
+            <v-select attach=""
+                      class="select-type-input"
+                      solo
+                    v-model="tokenType"
+                    :items="types"
+                     :item-value="tokenType"
+                    label="Select type"
+            ></v-select>
         </div>
         <div class="grant-token-container">
             <v-btn round color="#78c967" @click="sendTokens">Send</v-btn>
@@ -27,7 +31,6 @@ export default {
             tokens: null,
             tokenType: 'Earned',
             types: ['Earned', 'Awarded'],
-            select: null
 
         }
     },
@@ -57,16 +60,15 @@ export default {
 
 <style lang="scss" scoped>
 .user-tokens-container{
-    .user-inputs-container{
+    .user-inputs-container, .select-type-container{
         display:flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        .user-input-text{
+        .user-input-text, .select-type-input{
             border:none;
             outline: none;
             border-radius: 25px;
-            /*height: 15px;*/
             margin-top: 5px;
             padding:10px;
             width: 345px;
@@ -84,17 +86,7 @@ export default {
             width: 50px;
         }
     }
-    .select-type-container{
-        .select-type{
-            border: none;
-            border-radius: 25px;
-            height: 25px;
-            margin-top: 10px;
-            width: 90px;
-            padding: 5px;
-            outline: none;
-        }
-    }
+
 }
 
 </style>
