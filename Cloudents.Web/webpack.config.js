@@ -10,9 +10,8 @@ var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 var t = require("./webpack.global.js");
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const { UnusedFilesWebpackPlugin } = require("unused-files-webpack-plugin");
+const {UnusedFilesWebpackPlugin} = require("unused-files-webpack-plugin");
 const WebpackRTLPlugin = require("webpack-rtl-plugin");
-
 
 
 module.exports = (env) => {
@@ -38,7 +37,15 @@ module.exports = (env) => {
                                 { removeDoctype: true },
                                 { removeComments: true },
                                 { removeTitle: true },
-                                { cleanupIDs: true }
+                                { cleanupIDs: true },
+                                {convertPathData: false},
+                                {removeMetadata: true},
+                                {cleanupAttrs: true},
+                                {removeEditorsNSData: true},
+                                {removeEmptyAttrs: true },
+                                {convertTransform: false},
+                                {removeUnusedNS: true},
+
                             ]
                         }
                     }
@@ -99,17 +106,17 @@ module.exports = (env) => {
 
                             //RTL support
                             css: ExtractTextPlugin.extract({
-                                    use: "css-loader?minimize",
-                                    fallback: "vue-style-loader"
-                                }),
+                                use: "css-loader?minimize",
+                                fallback: "vue-style-loader"
+                            }),
                             less: ExtractTextPlugin.extract({
-                                    use: "css-loader?minimize!less-loader",
-                                    fallback: "vue-style-loader"
-                                }),
+                                use: "css-loader?minimize!less-loader",
+                                fallback: "vue-style-loader"
+                            }),
                             scss: ExtractTextPlugin.extract({
-                                    use: "css-loader?minimize!sass-loader",
-                                    fallback: "vue-style-loader"
-                                })
+                                use: "css-loader?minimize!sass-loader",
+                                fallback: "vue-style-loader"
+                            })
                         }
                     }
                 },
@@ -117,7 +124,7 @@ module.exports = (env) => {
                     test: /\.css$/,
                     use: isDevBuild
                         ? ["style-loader", "css-loader"]
-                        : ExtractTextPlugin.extract({ use: "css-loader?minimize" })
+                        : ExtractTextPlugin.extract({use: "css-loader?minimize"})
                 }
             ]
         },
@@ -129,21 +136,21 @@ module.exports = (env) => {
             })
         ].concat(isDevBuild
             ? [
-                new ExtractTextPlugin({ filename: "site.[contenthash].css", allChunks: true }),
+                new ExtractTextPlugin({filename: "site.[contenthash].css", allChunks: true}),
                 new WebpackRTLPlugin({
                     filename: '[name].[contenthash].rtl.css'
                 })
             ]
             : [
                 // Plugins that apply in production builds only
-                new ExtractTextPlugin({ filename: "site.[contenthash].css", allChunks: true }),
+                new ExtractTextPlugin({filename: "site.[contenthash].css", allChunks: true}),
                 new WebpackRTLPlugin({
                     filename: '[name].[contenthash].rtl.css'
                 }),
                 new OptimizeCssAssetsPlugin({
                     assetNameRegExp: /\.optimize\.css$/g,
                     cssProcessor: require("cssnano"),
-                    cssProcessorOptions: { discardComments: { removeAll: true } },
+                    cssProcessorOptions: {discardComments: {removeAll: true}},
                     canPrint: true
                 }),
                 //new PurifyCSSPlugin({
@@ -158,7 +165,7 @@ module.exports = (env) => {
     });
 
     const clientBundleConfig = merge(sharedConfig(), {
-        entry: { 'main': './ClientApp/client.js' },
+        entry: {'main': './ClientApp/client.js'},
         output: {
             path: path.join(__dirname, bundleOutputDir),
             filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
@@ -177,15 +184,15 @@ module.exports = (env) => {
             })
         ].concat(isDevBuild
             ? [
-                
+
                 new Visualizer({
                     filename: "./statistics.html"
                 }),
                 new webpack.SourceMapDevToolPlugin({
-                filename: "[file].map", // Remove this line if you prefer inline source maps
-                moduleFilenameTemplate:
-                    path.relative(bundleOutputDir,
-                        "[resourcePath]") // Point sourcemap entries to the original file locations on disk
+                    filename: "[file].map", // Remove this line if you prefer inline source maps
+                    moduleFilenameTemplate:
+                        path.relative(bundleOutputDir,
+                            "[resourcePath]") // Point sourcemap entries to the original file locations on disk
                 }),
                 //new UnusedFilesWebpackPlugin({
                 //    patterns: "./ClientApp/**/*.*"

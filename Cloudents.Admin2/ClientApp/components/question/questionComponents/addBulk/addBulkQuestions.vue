@@ -24,7 +24,7 @@
             </div>
 
             <div class="add-container">
-                <button class="btn-add" :class="{'disabled': addDisabled}" @click="addQuestions">Add</button>
+                <v-btn round  :class="{'disabled': addDisabled}" @click="addQuestions">Add</v-btn>
             </div>
 
             <div class="added-questions-legend" v-if="addedQuestions > 0">

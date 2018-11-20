@@ -1,11 +1,19 @@
 <template>
     <div>
-        <nav class="user-nav">
-            <span></span>
-            <router-link to="/user/token">Send Tokens</router-link> 
-            <router-link to="/user/cashout">Cashout List</router-link>
-            <router-link to="/user/suspend">Suspend User</router-link>
-        </nav> 
+        <v-tabs centered   color="transparent">
+            <v-tabs-slider color="#3532d5"></v-tabs-slider>
+            <v-tab to="/user/token">User token</v-tab>
+            <v-tab to="/user/cashout">Cashout List</v-tab>
+            <v-tab to="/user/suspend">Suspend User</v-tab>
+
+        </v-tabs>
+
+        <!--<nav class="user-nav">-->
+            <!--<span></span>-->
+            <!--<router-link to="/user/token">Send Tokens</router-link> -->
+            <!--<router-link to="/user/cashout">Cashout List</router-link>-->
+            <!--<router-link to="/user/suspend">Suspend User</router-link>-->
+        <!--</nav> -->
         <div class="user-content">
             <router-view></router-view>
         </div>

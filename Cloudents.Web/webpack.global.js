@@ -16,14 +16,14 @@
               { removeComments: true },
               { removeTitle: true },
               { cleanupIDs: true },
-              {convertPathData: true},
+              {convertPathData: false},
               {removeMetadata: true},
                 {cleanupAttrs: true},
                 {removeEditorsNSData: true},
                 {removeEmptyAttrs: true },
                 {convertTransform: true},
                 {removeUnusedNS: true},
-                {mergePaths: true}
+
             ]
           }
         }

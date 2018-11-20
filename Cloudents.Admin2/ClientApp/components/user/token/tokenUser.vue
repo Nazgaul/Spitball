@@ -2,8 +2,8 @@
     <div class="user-tokens-container">
         <h1>Send Tokens To User</h1>
         <div class="user-inputs-container">
-            <span><input class="user-input-text" type="text" v-model.number="userId" placeholder="Insert user id..."/></span>
-            <span><input class="user-input-text" type="text" v-model.number="tokens" placeholder="Set amount of tokens to apply..."/></span>
+           <v-text-field   solo class="user-input-text" type="text" v-model.number="userId" placeholder="Insert user id..."/>
+           <v-text-field solo class="user-input-text" type="text" v-model.number="tokens" placeholder="Set amount of tokens to apply..."/>
         </div>
         <div class="select-type-container">
             <select class="select-type" v-model="tokenType">
@@ -12,7 +12,7 @@
             </select>
         </div>
         <div class="grant-token-container">
-            <button class="grant-token-button" @click="sendTokens">Send</button>
+            <v-btn round color="#78c967" @click="sendTokens">Send</v-btn>
         </div>
     </div>
     
@@ -25,7 +25,10 @@ export default {
         return {
             userId: null,
             tokens: null,
-            tokenType: "Earned"
+            tokenType: 'Earned',
+            types: ['Earned', 'Awarded'],
+            select: null
+
         }
     },
     methods:{
@@ -58,14 +61,15 @@ export default {
         display:flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         .user-input-text{
             border:none;
             outline: none;
             border-radius: 25px;
-            height: 15px;
+            /*height: 15px;*/
             margin-top: 5px;
             padding:10px;
-            width: 200px;
+            width: 345px;
         }
     }
     .grant-token-container{
