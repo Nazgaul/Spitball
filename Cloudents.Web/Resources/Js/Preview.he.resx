@@ -130,7 +130,7 @@
     <value>הדפס</value>
   </data>
   <data name="item_by" xml:space="preserve">
-    <value>על ידי</value>
+    <value>מאת:</value>
   </data>
   <data name="item_class" xml:space="preserve">
     <value>קורס</value>

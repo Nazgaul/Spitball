@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -32,5 +33,8 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public string Source { get; set; }
+
+        [DataMember]
+        public DateTime DateTime { get; set; }
     }
 }

@@ -28,9 +28,11 @@ namespace Cloudents.FunctionsV2
 
             var handlerType =
                 typeof(ISystemOperation<>).MakeGenericType(message.GetType());
-
-            dynamic operation = lifetimeScope.Resolve(handlerType);
-            await operation.DoOperationAsync((dynamic)message, binder, token);
+            using (var child = lifetimeScope.BeginLifetimeScope())
+            {
+                dynamic operation = child.Resolve(handlerType);
+                await operation.DoOperationAsync((dynamic) message, binder, token);
+            }
         }
     }
 }
