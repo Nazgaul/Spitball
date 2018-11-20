@@ -84,7 +84,10 @@ namespace Cloudents.Web.Filters
                 context.Result = new RedirectResult(uriBuilder.ToString());
                // return this.RedirectToOldSite();
             }
-            await next();
+            else
+            {
+                await next();
+            }
         }
     }
 }
