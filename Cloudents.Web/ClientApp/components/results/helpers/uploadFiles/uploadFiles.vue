@@ -17,7 +17,7 @@
                         <!--upload steps rendering-->
                         <component :is="`upload-step_${n}`" :docReferral="docReferral" :curStep="n" :callBackmethods="callBackmethods"></component>
                     </v-stepper-content>
-                    <div class="bottom-upload-controls" v-show="currentStep > 1">
+                    <div class="bottom-upload-controls" v-show="currentStep > 1 && currentStep !==7">
                         <v-progress-linear
                                 :height="'3px'"
                                 v-show="currentStep >1"

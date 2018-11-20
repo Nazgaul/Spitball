@@ -7,21 +7,21 @@
         <div class="upload-row-2 referral-row">
             <referral-dialog :userReferralLink="referalLink" :referralType="'uploadReffer'" :isTransparent="true" :popUpType="''"></referral-dialog>
         </div>
-        <div class="upload-row-3 referal-row-3">
-            <!--<h3 class="sb-subtitle mb-3" v-language:inner>upload_files_step7_subtitle</h3>-->
-            <h3 class="sb-subtitle mb-3" v-language:inner>upload_files_proccesing</h3>
+        <!--<div class="upload-row-3 referal-row-3">-->
+            <!--&lt;!&ndash;<h3 class="sb-subtitle mb-3" v-language:inner>upload_files_step7_subtitle</h3>&ndash;&gt;-->
+            <!--<h3 class="sb-subtitle mb-3" v-language:inner>upload_files_proccesing</h3>-->
 
-            <div class="referal-btns-wrap">
-                <v-btn round class="referal-ask" @click="closeAndGoTo()">
-                    <span v-language:inner>upload_files_btn_askQuestion</span>
-                    <v-icon right class="referal-edit-icon ml-3">sbf-edit-icon</v-icon>
+            <!--<div class="referal-btns-wrap">-->
+                <!--<v-btn round class="referal-ask" @click="closeAndGoTo()">-->
+                    <!--<span v-language:inner>upload_files_btn_askQuestion</span>-->
+                    <!--<v-icon right class="referal-edit-icon ml-3">sbf-edit-icon</v-icon>-->
 
-                </v-btn>
-                <v-btn round outline class="sb-back-flat-btn referal-answer" @click="goToaskQuestion()">
-                    <span v-language:inner>upload_files_btn_answer</span>
-                </v-btn>
-            </div>
-        </div>
+                <!--</v-btn>-->
+                <!--<v-btn round outline class="sb-back-flat-btn referal-answer" @click="goToaskQuestion()">-->
+                    <!--<span v-language:inner>upload_files_btn_answer</span>-->
+                <!--</v-btn>-->
+            <!--</div>-->
+        <!--</div>-->
     </v-card>
 </template>
 
