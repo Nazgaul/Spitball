@@ -41,9 +41,9 @@
                 let offHeight = 0;
                 if(this.showRegistrationBanner){
                     // offHeight = 150 + 285; // header + signUpBanner height
-                    offHeight = 150 + 285;
+                    offHeight = 200 + 285;
                 }else{
-                    offHeight = 150;
+                    offHeight = 200;
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
