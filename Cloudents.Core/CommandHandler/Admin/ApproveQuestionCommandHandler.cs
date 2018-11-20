@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Entities.Db;
@@ -23,6 +24,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 var question = await _questionRepository.LoadAsync(questionId, token);
                 question.State = QuestionState.Ok;
+                question.Updated = DateTime.UtcNow;
 
                 question.Events.Add(new QuestionCreatedEvent(question));
                 await _questionRepository.UpdateAsync(question, token);
