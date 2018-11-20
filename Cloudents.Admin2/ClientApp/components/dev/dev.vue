@@ -4,13 +4,15 @@
                 <form v-if="!isDev" @submit.prevent="tryYourLuck()" class="password-container" >
                 <h1>Developer Access Required to enter this Area</h1>
                 <!-- <div class="dev-error" v-if="wrongPass">Wrong Password</div> -->
-                <input v-model="password" class="user-pass-input" type="password" placeholder="Password...">
+                    <v-text-field   solo v-model="password" class="user-pass-input" type="password" placeholder="Password..."/>
             </form>
             <div v-else>
-                <nav class="dev-nav">
-                    <router-link to="/dev/change-country">Change User Country</router-link>
-                    <router-link to="/dev/delete-user">Delete User</router-link>
-                </nav> 
+                <v-tabs centered  class="dev-nav"  color="transparent">
+                    <v-tabs-slider color="#3532d5"></v-tabs-slider>
+
+                    <v-tab to="/dev/change-country">Change User Country</v-tab>
+                    <v-tab to="/dev/delete-user">Delete User</v-tab>
+                </v-tabs>
                 <router-view></router-view>
             </div>
         </div>
@@ -67,6 +69,10 @@ export default {
         padding: 5px;
     }
     .password-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         .user-pass-input{
             border: none;
             outline: none;
@@ -74,7 +80,7 @@ export default {
             height: 15px;
             margin-top: 5px;
             padding: 10px;
-            width: 200px;
+            width: 345px;
         }
         .dev-error{
             margin-top:5px;

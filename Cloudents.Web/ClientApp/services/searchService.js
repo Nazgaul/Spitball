@@ -52,7 +52,7 @@ function QuestionItem(objInit) {
     this.files = objInit.files;
     this.answers = objInit.answers;
     this.user = objInit.user;
-    this.dateTime = objInit.dateTime;
+    this.dateTime = objInit.dateTime || objInit.create;
     this.color = !!objInit.color ? objInit.color.toLowerCase() : undefined;
     this.hasCorrectAnswer = objInit.hasCorrectAnswer;
     this.correctAnswerId = objInit.correctAnswerId;

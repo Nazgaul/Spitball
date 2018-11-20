@@ -17,7 +17,7 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                                    <div class="header-ask-btn hidden-sm-and-down">
+                                    <div class="header-ask-btn hidden-sm-and-down mr-2">
                                     <button class="ask-question-button" @click="openNewQuestionDialog()">
                                         <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                                         <span v-language:inner>faqBlock_add_question_btn</span>
@@ -66,8 +66,9 @@
                         <search-input :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]"
                                       :submit-route="submitRoute"></search-input>
                     </v-flex>
+                    <slot name="extraHeader"></slot>
                 </div>
-                <slot name="extraHeader"></slot>
+                
             </v-layout>
             <v-snackbar absolute :timeout="toasterTimeout" :value="getShowToaster">
                 <div class="text-wrap" v-html="getToasterText"></div>

@@ -22,6 +22,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
@@ -136,13 +138,14 @@ namespace Cloudents.Web.Api
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
             [FromQuery]QuestionsRequest model,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
+             //[ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
            CancellationToken token)
         {
             var query = new QuestionsQuery(model.Term, model.Source,
                 model.Page.GetValueOrDefault(),
                 model.Filter?.Where(w => w.HasValue).Select(s => s.Value),
-                country);
+                profile.Country);
 
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
