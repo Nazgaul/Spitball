@@ -17,7 +17,7 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                                    <div class="header-ask-btn hidden-sm-and-down">
+                                    <div class="header-ask-btn hidden-sm-and-down mr-2">
                                     <button class="ask-question-button" @click="openNewQuestionDialog()">
                                         <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                                         <span v-language:inner>faqBlock_add_question_btn</span>
