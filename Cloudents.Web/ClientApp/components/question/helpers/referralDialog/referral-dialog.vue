@@ -26,7 +26,7 @@
                     <v-icon class="referral-facebook-icon">sbf-facebook-share</v-icon>
                 </span>
                 <span @click="shareOnSocialMedia(socialMedias.linkedin)">
-                    <v-icon class="referral-linkedin-icon">sbf-linkedin-share</v-icon>
+                    <v-icon  class="referral-linkedin-icon">sbf-linkedin-share</v-icon>
 
                 </span>
                 <span @click="shareOnSocialMedia(socialMedias.twitter)">
