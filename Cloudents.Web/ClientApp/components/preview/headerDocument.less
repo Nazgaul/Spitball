@@ -41,7 +41,12 @@
                     align-items: baseline;
                     padding: 0 8px
                 }
-
+                .doc-extension{
+                    color: @colorBlackNew;
+                    font-weight: normal;
+                    text-transform: uppercase;
+                    font-size: 14px;
+                    }
                 .doc-details {
                     display: flex;
                     flex-direction: row;
@@ -49,7 +54,7 @@
                     align-items: start;
 
                     .upload-by {
-                        color: @labelColor;
+                        color: @color-blue-new;
                         font-size: 13px;
                         line-height: 1;
                         vertical-align: middle;
@@ -65,7 +70,7 @@
                     }
 
                     .date {
-                        color: @colorGreyLight;
+                        color: @colorInputFocus;
                     }
                 }
 
@@ -208,7 +213,6 @@
                 .detail-cell {
                     display: flex;
                     flex-direction: row;
-
                     margin-bottom:4px;
                     //justify-content: space-between;
                     &.views-cell {
