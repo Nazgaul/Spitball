@@ -26,7 +26,7 @@ namespace Cloudents.Core.EventHandler
         public Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
             var dbQuestion = eventMessage.Question;
-            var question = new Question(dbQuestion.Id, dbQuestion.Created, dbQuestion.Text, dbQuestion.User.Country,
+            var question = new Question(dbQuestion.Id, dbQuestion.Updated, dbQuestion.Text, dbQuestion.User.Country,
                 dbQuestion.Language?.TwoLetterISOLanguageName,
                 dbQuestion.Subject, QuestionFilter.Unanswered);
           
