@@ -1,17 +1,18 @@
 @import "../../../../styles/mixin.less";
 
-.align-switch-r{
+.align-switch-r {
   text-align: right !important;
   direction: rtl;
 }
-.align-switch-l{
+
+.align-switch-l {
   text-align: left !important;
   direction: ltr;
 }
+
 .question-card {
   &.sbf-card-undefined {
-    background-color: #fff;
-  }
+    background-color: #fff;  }
   border-radius: 4px;
   min-height: 100px;
   height: 100%;
@@ -22,7 +23,6 @@
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     border-radius: 4px;
   }
-
   .zoom-image {
     overflow-y: hidden;
   }
@@ -30,12 +30,19 @@
     display: flex;
     align-items: start;
     justify-content: space-between;
+    .q-user-block{
+      @media (max-width: @screen-xs) {
+        padding-left: 8px;
+        padding-top: 28px;
+      }
+    }
   }
   p {
     padding: 16px 16px 16px 16px;
     margin: 16px 16px 16px 16px;
     @media (max-width: @screen-xs) {
-      margin: 16px 16px 6px 8px;
+      margin: 4px 16px 6px 8px;
+      padding: 8px 16px 16px 8px;
     }
   }
 
@@ -47,22 +54,26 @@
     border-top: 0;
     border-left: 0;
     font-size: 18px;
-    color: @color-main-purple;
+    color: @color-blue-new;
     text-align: center;
     padding-left: 26px;
     display: inline-block;
-    &.rtl{
-      direction:rtl;
+    &.rtl {
+      direction: rtl;
     }
     @media (max-width: @screen-xs ) {
       padding-left: 16px;
       padding-right: 6px !important;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     span {
       line-height: 40px;
       @media (max-width: @screen-xs ) {
-        line-height: 2;
-        height: 100%;
+        line-height: 14px;
         white-space: nowrap;
       }
       display: inline-block;
@@ -72,9 +83,11 @@
       min-width: 84px;
       color: @color-red-heavy;
       font-size: 18px;
-      //font-weight: 600;
       letter-spacing: -0.4px;
       text-transform: uppercase;
+      @media (max-width: @screen-xs ) {
+        font-size: 14px;
+      }
     }
   }
 
@@ -82,7 +95,6 @@
     justify-content: space-between;
     padding: 16px;
     line-height: 32px;
-
     .accept-btn {
       width: 88px;
       line-height: 32px;
@@ -167,16 +179,19 @@
     word-wrap: break-word;
     letter-spacing: -0.3px;
     text-align: left;
-    color: @color-grey;
-    //white-space: pre-wrap;
+    color: @textColor;
     font-size: 16px;
     //TODO encoding error prevent overlap
     overflow-y: hidden;
   }
 
   .ellipsis {
-    .giveEllipsisUpdated(16px, 1.75, 3);
-
+    .giveEllipsisUpdated(16px, 1.35, 3);
+  }
+  @media (max-width: @screen-xs) {
+    .ellipsis {
+      .giveEllipsisUpdated(20px, 1.35, 3);
+    }
   }
 
   .gallery {
@@ -240,7 +255,11 @@
     justify-content: space-between;
   }
 
-  .bottom-section .card-info {
+  .bottom-section{
+    @media (max-width: @screen-xs) {
+      padding-bottom: 16px;
+    }
+    .card-info {
     display: flex;
     justify-content: space-between;
     padding: 0px 16px 10px 16px;
@@ -248,7 +267,7 @@
     min-height: 46px;
     align-items: flex-end;
     @media (max-width: @screen-xs) {
-      padding: 0px 8px 4px 8px;
+      padding: 0px 8px 4px 16px;
     }
 
     .new-block {
@@ -265,34 +284,37 @@
 
       .sbf-attach {
         transform: rotate(260deg);
+        color: @colorBlackNew;
         &::before {
           transform: scale(1, -1);
           font-size: 12px;
-          // color: @color-grey;
         }
       }
       span {
         color: @color-grey;
         margin-left: 4px;
         font-size: 16px;
-        // letter-spacing: -0.3px;
       }
 
     }
     .users {
       .avatar {
-        background: @color-grey;
-        width: 36px;
-        height: 36px;
+        background: @colorContentBackground;
+        width: 24px;
+        height: 24px;
         float: right;
-        margin-right: -10px;
-        border: 2px solid @color-white;
+        margin-right: -7px;
+        border: 1px solid @colorGreyNew;
         border-radius: 50%;
         margin-left: -2px;
         text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         i {
-          font-size: 10px;
-          color: white;
+          font-size: 8px;
+          color: @colorInputFocus;
           margin: 3px auto;
         }
       }
@@ -300,7 +322,7 @@
 
     .user-counter {
       font-size: 16px;
-      color: @color-grey;
+      color: @colorInputFocus;
       line-height: 32px;
       letter-spacing: -0.3px;
       margin-left: 11px;
@@ -317,7 +339,7 @@
         padding: 0px 20px;
       }
     }
-
+  }
   }
 
   .delete-btn {

@@ -81,9 +81,19 @@
   }
 }
 // generate classes for question card  based on user selected color, background and font color
-@colors: #ffffff, #6bc248, #a757db, #e5455d, #edaf2e, #7472ff, #3bbda4, #53a0fd, #a09c9c, #abb55e, #d251ae;
+@colors: #ffffff,
+#6bc248,
+#a757db,
+#e5455d,
+#edaf2e,
+#7472ff,
+#3bbda4,
+#53a0fd,
+#a09c9c,
+#abb55e,
+#d251ae;
 @names: default, green, purple, red, yellow, blue, turquoise, lightblue, grey, olive, pink;
-@fontColors: #000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
+@fontColors: rgba(0, 0, 0, 0.87), #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
 @length: length(@colors);
 .user-question-style(@names; @colors; @fontColors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
   .user-question-style(@names; @colors; @fontColors; (@index - 1)); // decrement.
@@ -145,12 +155,18 @@
 
 .cellActionBtnMixin(){
   position: absolute;
-  .responsive-property(bottom, 16px, null, 8px);
+  .responsive-property(bottom, 16px, null, 16px);
   .responsive-property(right, 16px, null, 8px);
   padding: 3px 20px;
   color: white;
-  border-radius: 4px;
+  border-radius: 12px;
   font-size: 14px;
+  // TODO to remove when we have final color sets for all verticals,
+  // and change in glabal less for each vertical, color-ask, color-note, and etc
+  background-color: @color-blue-new!important;
+  border-color: @color-blue-new !important;
+  font-family: @fontFiraSans;
+
 }
 
 .cellActionViewerMixin(){

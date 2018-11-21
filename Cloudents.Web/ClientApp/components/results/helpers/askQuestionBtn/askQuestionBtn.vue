@@ -1,5 +1,5 @@
 <template>
-    <v-flex :class="['result-cell', 'mb-3', 'ask-action-card', 'xs-12', isFloatingBtn ? 'floatingcard' : 'regularCard']">
+    <v-flex :class="['result-cell', $vuetify.breakpoint.smAndUp ? 'mb-3': '', 'ask-action-card', 'xs-12', isFloatingBtn ? 'floatingcard' : 'regularCard']">
         <a class="mb-5 ask-link" @click="goToAskQuestion()">
             <div :class="['ask-wrap', isFloatingBtn ? 'floating-ask' : '']">
                 <div class="static-center">
@@ -7,8 +7,8 @@
                         faqBlock_ask
                     </p>
                     <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '']">
-                        <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
                         <v-icon class="sb-edit-icon" right>sbf-edit-icon</v-icon>
+                        <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
                     </button>
                 </div>
             </div>
@@ -151,7 +151,8 @@
             z-index: 4;
             width: 100%;
             right: 0;
-            top: 16px;
+            border: none;
+            order: 2;
         }
         .ask-wrap {
             &.floating-ask {
@@ -168,6 +169,8 @@
                 justify-content: space-around;
                 @media (max-width: @screen-xs) {
                     flex-direction: column;
+                    background-color: transparent;
+                    padding:  0;
                 }
                 .ask-text {
                     color: @color-blue-new;
@@ -187,29 +190,16 @@
 
                 }
                 .ask-btn {
-                    background: @color-blue-new;
-                    color: @color-white;
+                    .sb-rounded-btn(@color-blue-new, @colorWhiteBlured, @color-white);
                     height: 48px;
-                    border-radius: 30px;
-                    box-shadow: 0 3px 8px 0 @color-blue-new;
                     font-size: 20px;
-                    line-height: 1.25;
-                    letter-spacing: -0.5px;
-                    text-transform: initial;
-                    width: 192px;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-evenly;
-                    align-items: center;
                     @media (max-width: @screen-xs) {
                         margin-top: 0;
                         margin-bottom: 0;
-                    }
-                    .sb-edit-icon {
-                        color: @colorWhiteBlured;
+                        height: unset;
                         font-size: 16px;
-                        margin-top: 4px;
                     }
+
                     &:not(.rounded-floating-button){
                         -webkit-animation: fadeIn 0.8s;
                         animation: fadeIn 0.8s;
@@ -226,16 +216,18 @@
                         right: 25px;
                         bottom: 25px;
                         background-color: @color-blue-new;
+                        border-radius: 50%;
                         height: 56px;
                         width: 56px;
                         display: flex;
-                        justify-content: space-around;
+                        justify-content: center;
                         align-items: center;
                         padding: 0 12px;
                         letter-spacing: -0.4px;
                         color: rgba(255, 255, 255, 0.81);
                         .v-icon {
                             color: @color-white;
+                            margin-right: 0;
                             height: 22px;
                             font-size: 20px;
                             opacity: 1;

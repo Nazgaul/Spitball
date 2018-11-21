@@ -1,17 +1,18 @@
-@import "./colors.less";
-.sb-rounded-btn(@sbBtncolor: @color-blue-new, @sbBtnIconColor: @color-white) {
+@import "./mixin.less";
+.sb-rounded-btn(@sb-BtnColor: @color-blue-new, @sb-BtnIconColor: @color-white, @sb-BtnTextColor: @color-white) {
+  font-family: @fontFiraSans;
   display: flex;
   align-items: center;
   padding: 8px 20px 8px 12px;
   border-radius: 24px;
-  background-color: #4452fc;
+  background-color: @sb-BtnColor;
   box-shadow: 0 2px 9px 0 rgba(0,0,0,.35);
   font-size: 16px;
   font-weight: 400;
-  color:@sbBtncolor;
+  color: @sb-BtnTextColor;
   outline: none;
-  .sb-icon{
-    color: @sbBtnIconColor;
+  .sbf{
+    color: @sb-BtnIconColor;
     font-size: 14px;
     margin-right: 12px;
   }
@@ -19,6 +20,6 @@
     line-height: 16px;
   }
   &:hover {
-    background: lighten(@sbBtncolor, 5%);
+    background: lighten(@sb-BtnColor, 5%);
   }
 }
