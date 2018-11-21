@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Write
     {
         internal const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
-        internal const string ScoringProfile = "ScoringProfile";
+        internal const string ScoringProfile = "ScoringProfile2";
 
 
         public QuestionSearchWrite(SearchService client, ILogger logger) : base(client, client.GetClient(IndexName), logger)
@@ -69,18 +69,32 @@ namespace Cloudents.Infrastructure.Write
                 },
                 ScoringProfiles = new List<ScoringProfile>
                 {
-                    new ScoringProfile(ScoringProfile)
+                    new ScoringProfile("ScoringProfile")
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
                             [nameof(Question.Text)] = 3,
                             [nameof(Question.Prefix)] = 2,
                         }),
+                        FunctionAggregation = ScoringFunctionAggregation.Maximum,
+                        Functions = new List<ScoringFunction>
+                        {
+                            new FreshnessScoringFunction(nameof(Question.DateTime),1.6,TimeSpan.FromDays(365)),
+                            new TagScoringFunction(nameof(Question.Country),1.5, new TagScoringParameters(TagsCountryParameter)),
+                        }
+                    },
+                    new ScoringProfile("ScoringProfile2")
+                    {
+                        TextWeights = new TextWeights(new Dictionary<string, double>
+                        {
+                            [nameof(Question.Text)] = 185,
+                            [nameof(Question.Prefix)] = 180,
+                        }),
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new FreshnessScoringFunction(nameof(Question.DateTime),1.6,TimeSpan.FromHours(6)),
-                            new TagScoringFunction(nameof(Question.Country),1.5, new TagScoringParameters(TagsCountryParameter)),
+                            new FreshnessScoringFunction(nameof(Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
+                            new TagScoringFunction(nameof(Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
                         }
                     }
                 },

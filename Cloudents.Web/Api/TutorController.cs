@@ -6,7 +6,6 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -65,7 +64,7 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<TutorDto>
             {
                 Result = result,
-                Sort = Enum.GetNames(typeof(TutorRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
+                Sort = EnumExtension.GetValues<TutorRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = new IFilters[]
                 {
                     new Filters<string>(nameof(TutorRequest.Filter),_localizer["StatusFilter"],

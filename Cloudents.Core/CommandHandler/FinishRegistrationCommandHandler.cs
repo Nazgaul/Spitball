@@ -1,9 +1,6 @@
 ﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
@@ -23,7 +20,7 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(FinishRegistrationCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, token);
-            if (!user.Transactions.Any(a => a.Action == ActionType.SignUp))
+            if (user.Transactions.All(a => a.Action != ActionType.SignUp))
             {
                 var t = Transaction.UserCreate();
                 user.AddTransaction(t);
