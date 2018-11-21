@@ -60,7 +60,20 @@
                 return this.getSelectedClasses.length > 0
             },
             classesList() {
-                return this.isClassesSet ? this.getSelectedClasses : []
+                let result = []
+                if(this.isClassesSet){
+                    this.getSelectedClasses.forEach(chip=>{
+                        if(chip.text){
+                            result.push(chip)
+                        }else{
+                            let newChip = {
+                                text: chip
+                            }
+                            result.push(newChip)
+                        } 
+                    })
+                }
+                return result;
             },
             selectedClass() {
                 return this.getFileData.course;
