@@ -155,8 +155,7 @@
   </data>
   <data name="school_desc" xml:space="preserve">
     <value>
-and all of the selected classes
- will be deleted</value>
+and all of the selected classes will be deleted</value>
     <comment>pay attention to the line breaks ("ENTER button"  before the first line)</comment>
   </data>
   <data name="select_class" xml:space="preserve">
