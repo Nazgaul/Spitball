@@ -39,9 +39,9 @@
             isFloatingBtn() {
                 let offHeight = 0;
                 if(!!this.showRegistrationBanner){
-                    offHeight = 150; // header + banner + mobile filter btn
+                    offHeight = 200 + 285; // header + banner + mobile filter btn
                 }else{
-                    offHeight = 150; //  header + mobile filter btn
+                    offHeight = 200; //  header + mobile filter btn
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
@@ -148,7 +148,7 @@
             border: 0;
         }
         @media (max-width: @screen-xs) {
-            z-index: 9;
+            z-index: 4;
             width: 100%;
             right: 0;
             top: 16px;

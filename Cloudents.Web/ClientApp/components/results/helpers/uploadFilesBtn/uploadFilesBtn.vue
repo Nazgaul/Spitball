@@ -40,11 +40,10 @@
             isFloatingBtn() {
                 let offHeight = 0;
                 if(this.showRegistrationBanner){
-                    //TODO Why signUp banner returns true for loged in user ?
                     // offHeight = 150 + 285; // header + signUpBanner height
-                    offHeight = 250;
+                    offHeight = 200 + 285;
                 }else{
-                    offHeight = 150;
+                    offHeight = 200;
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },

@@ -2,7 +2,7 @@
     <form class="suspend-container">
         <h1>Suspend User</h1>
         <div class="suspend-input-container">
-            <v-text-field outline type="text" class="user-id-input" placeholder="Insert user id..." v-model="userIds"/>
+            <v-text-field solo type="text" class="user-id-input" placeholder="Insert user id..." v-model="userIds"/>
         </div>
         <div class="suspend-checkbox-container">
             <input type="checkbox" v-model="deleteUserQuestions"> Remove Question 

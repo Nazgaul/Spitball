@@ -280,7 +280,7 @@
                     this.updateLoginDialogState(true);
                 } else {
                     let steps = this.getAllSteps();
-                    this.updateCurrentStep(steps.set_school_landing);
+                    this.updateCurrentStep(steps.set_school);
                     this.changeSelectUniState(true);
                     this.$root.$emit("closeDrawer");
                     // this.$root.$emit("personalize", typesPersonalize.university);
