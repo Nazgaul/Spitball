@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="{'hide-header': hideHeader}">
         <!--TODO check if worsk well-->
         <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header">
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
@@ -131,7 +131,7 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
+            ...mapGetters(['accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'getShowSelectUniInterface']),
 
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
@@ -139,6 +139,9 @@
             loggedIn() {
                 return this.accountUser !== null
             },
+            hideHeader(){
+                return this.getShowSelectUniInterface && this.$vuetify.breakpoint.xsOnly;
+            }
             //myMoney(){return this.accountUser.balance / 40}
 
         },
