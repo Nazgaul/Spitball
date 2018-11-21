@@ -11,8 +11,7 @@ function FileData(ObjInit){
 }
 
 function createFileData(ObjInit){
-    return new FileData(ObjInit)
-}
+    return new FileData(ObjInit)}
 
 
 export default {

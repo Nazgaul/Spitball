@@ -128,28 +128,8 @@
     .header-ask-btn{
       flex-grow: 1;
       .ask-question-button {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0 8px;
-        max-width: 180px;
-        width: 180px;
-        height: 32px;
-        border-radius: 24px;
-        background-color: @color-blue-new;
-        box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.36);
-        font-size: 18px;
-        font-weight: 500;
-        letter-spacing: -0.4px;
-        color: rgba(255, 255, 255, 0.81);
-        outline: none;
-        .edit-icon {
-          color: @color-white;
-          font-size: 14px;
-        }
-        &:hover {
-          background: lighten(@color-blue-new, 5%);
-        }
+        .sb-rounded-btn(@color-blue-new, @color-white);
+
       }
     }
     flex: 1 0 auto;
