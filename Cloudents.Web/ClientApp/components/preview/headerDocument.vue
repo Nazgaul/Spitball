@@ -4,7 +4,7 @@
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <h1 class="item-name">{{item ? item.name : ''}}</h1>
+                    <h1 class="item-name">{{itemName}} <span class="doc-extension">({{item ? item.extension : ''}})</span></h1>
                     <div class="doc-details">
                         <div class="author">
                         <span class="upload-by">
@@ -115,6 +115,11 @@
             item() {
                 return this.getDocumentDetails
             },
+            itemName(){
+                if(this.item && this.item.name)
+                return this.item.name.replace(/\.[^/.]+$/, "")
+            },
+
             doc() {
                 let self = this;
                 if(self.item && self.item.docType) {
