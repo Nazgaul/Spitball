@@ -138,7 +138,7 @@ namespace Cloudents.Web.Api
             );
             // }
 
-            if (profile.Courses != null)
+            if (profile.Courses != null && profile.Courses.Any())
             {
                 filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
                     _localizer["CoursesFilterTitle"],

@@ -138,15 +138,6 @@
   <data name="ActionTypeSignUp" xml:space="preserve">
     <value>הרשמה</value>
   </data>
-  <data name="DocumentTypeExam" xml:space="preserve">
-    <value>בחינות</value>
-  </data>
-  <data name="DocumentTypeLecture" xml:space="preserve">
-    <value>קורסים</value>
-  </data>
-  <data name="DocumentTypeTextbook" xml:space="preserve">
-    <value>ספרי לימוד</value>
-  </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>שאלות שנענו</value>
   </data>
