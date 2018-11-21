@@ -138,15 +138,6 @@
   <data name="ActionTypeSignUp" xml:space="preserve">
     <value>Sign up</value>
   </data>
-  <data name="DocumentTypeExam" xml:space="preserve">
-    <value>Exam note</value>
-  </data>
-  <data name="DocumentTypeLecture" xml:space="preserve">
-    <value>Lecture note</value>
-  </data>
-  <data name="DocumentTypeTextbook" xml:space="preserve">
-    <value>Textbook note</value>
-  </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>Answered</value>
   </data>

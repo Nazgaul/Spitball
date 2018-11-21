@@ -31,7 +31,7 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Extension => Path.GetExtension(Blob)?.TrimStart('.');
 
-        [DataMember]
+        //[DataMember]
         public DocumentType? TypeStr { get; set; }
 
         [DataMember]

@@ -18,7 +18,7 @@ namespace Cloudents.Core.DTOs
         public string Title { get; set; }
         [DataMember]
         public string Professor { get; set; }
-        [DataMember]
+        //[DataMember]
         public DocumentType? TypeStr { get; set; }
 
         [DataMember]
