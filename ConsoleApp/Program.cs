@@ -7,6 +7,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
@@ -14,6 +15,7 @@ using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
+using Newtonsoft.Json;
 using NHibernate;
 using NHibernate.Linq;
 using System;
@@ -26,7 +28,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Question = Cloudents.Core.Entities.Search.Question;
 
 
 namespace ConsoleApp
@@ -43,7 +45,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -93,14 +95,18 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             //await CheckSync();
-            // var q = _container.Resolve<IQuestionSearch>();
-            // var z = await q.SearchAsync(new QuestionsQuery(null, null, 0, null, "us"), default);
+            var q = _container.Resolve<ISearchServiceWrite<Question>>();
+            await q.CreateOrUpdateAsync(default);
+
+            var q2 = _container.Resolve<IQuestionSearch>();
+            
+            var z = await q2.SearchAsync(new QuestionsQuery(null, null, 0, null, "fr"), default);
             // await UpdateLanguageAsync();
             //await TransferUniversities();
             //await TransferUsers();
             //await MigrateUniversity();
             //await DeleteOldFiles();
-            await TransferDocumants();
+            // await TransferDocumants();
         }
 
         private static async Task DoStuffToFiles(CloudBlobDirectory dir, Func<CloudBlockBlob, Task> func)
@@ -148,7 +154,7 @@ namespace ConsoleApp
             var _bus = _container.Resolve<ICloudStorageProvider>();
             var blobClient = _bus.GetBlobClient();
             var container = blobClient.GetContainerReference("spitball-files");
-            foreach (var blob in container.ListBlobs(null,false))
+            foreach (var blob in container.ListBlobs(null, false))
             {
                 if (blob is CloudBlobDirectory)
                 {
@@ -170,7 +176,7 @@ namespace ConsoleApp
                     Console.WriteLine(b.Uri);
                     await b.DeleteAsync();
                 }
-               // await blob.DeleteAsync();
+                // await blob.DeleteAsync();
             }
         }
 
@@ -244,7 +250,7 @@ namespace ConsoleApp
             val.Document.Type = DocumentType.Lecture;
             var elem = _container.Resolve<ISearchServiceWrite<Cloudents.Core.Entities.Search.Document>>();
 
-            await elem.UpdateDataAsync(new[] {val.Document}, default);
+            await elem.UpdateDataAsync(new[] { val.Document }, default);
         }
 
 
@@ -869,7 +875,7 @@ namespace ConsoleApp
                     // List<Task> taskes = new List<Task>();
                     foreach (var pair in z)
                     {
-                        var command =  new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
+                        var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
                         await ch.ExecuteAsync(command, default);
                         // taskes.Add(ch.ExecuteAsync(t, default));
                     }
