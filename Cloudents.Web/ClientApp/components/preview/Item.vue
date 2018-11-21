@@ -1,5 +1,5 @@
 ﻿<template>
-    <div>
+    <div class="doc-preview-container">
         <doc-header></doc-header>
         <div class="item document-wrap">
             <div class="item-content">
