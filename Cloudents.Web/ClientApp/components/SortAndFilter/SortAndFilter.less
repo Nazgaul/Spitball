@@ -12,7 +12,7 @@
 
     h3 {
         font-size: 16px;
-        color: @color-blue;
+        color: rgba(99, 73, 235, 0.54);
         font-weight: bold;
         margin-bottom: 8px;
         line-height: normal;
@@ -124,7 +124,7 @@
         border-left: 0;
         border-right: 0;
         box-shadow: none;
-        border-top: 1px solid @color-grey;
+        //border-top: 1px solid @color-grey;
 
         .v-expansion-panel__container {
             background-color: transparent;
@@ -134,7 +134,7 @@
             .v-expansion-panel__header {
                 padding: 7px 3px 7px 2px;
                 font-weight: bold;
-                border-bottom: 1px solid @color-grey;
+                border-bottom: 1px solid #D8D8D8;
                 border-top: 0;
                 border-left: 0;
                 border-right: 0;
@@ -144,7 +144,7 @@
 
                 i.v-icon {
                     font-size: 24px;
-                    color: @color-blue;
+                    color: rgba(0,0,0,0.25) !important;
                     margin-right: 4px;
                 }
             }
@@ -161,13 +161,14 @@
                     max-width: 180px;
                     //padding-left: 6px;
                     cursor: pointer;
+                    opacity: .87;
                 }
 
                 input {
                     display: none;
 
                     &:checked ~ .checkmark {
-                        background: @color-blue;
+                        background: @color-blue-new;
                         opacity: 1;
 
                         &:after {
@@ -176,7 +177,7 @@
                     }
 
                     &:checked ~ .title-label {
-                        color: @color-blue;
+                        color: @color-blue-new;
                     }
                 }
 
@@ -226,7 +227,6 @@
                 .sort-filter {
                     padding: 4px 0;
                     margin: 4px 0;
-                    border-bottom: 1px solid @color-grey;
                     border-top: 0;
                     border-left: 0;
                     border-right: 0;
