@@ -181,7 +181,6 @@
     text-align: left;
     color: @textColor;
     font-size: 16px;
-    //TODO encoding error prevent overlap
     overflow-y: hidden;
   }
 
@@ -227,15 +226,8 @@
             margin-left: 4px;
           }
         }
-
       }
-      //TODO background image changed to contain in order to fit and not be cutted, this cause small image to be blured
       .v-carousel__item {
-        //background-size: contain;
-        // -webkit-background-size: auto 100%;
-        // -moz-background-size: auto 100%;
-        //  -o-background-size: auto 100%;
-        //   background-size: auto 100%;
         .v-image__image--cover {
           background-size: contain;
         }
