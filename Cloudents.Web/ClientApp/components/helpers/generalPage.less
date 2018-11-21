@@ -139,8 +139,8 @@
     }
 
     .mobile-filter {
-        //flex-direction: row;
-        flex-direction: column;
+        // TODO FILTER UPDATE flex-direction: column;
+         flex-direction: row;
         .v-btn__content {
             flex-direction: row-reverse;
             .counter {
@@ -167,7 +167,11 @@
 
         button {
             @media(max-width: @screen-xs) {
-                margin: 10px 8px 10px 0;
+                margin: 10px 8px 10px -8px;
+                background: #fff;
+                border-radius: 0 4px 4px 0;
+                height: 46px;
+                box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31)!important;
                 .sbf-filter{
                     font-size: 19px;
                     //color: @color-main-purple;

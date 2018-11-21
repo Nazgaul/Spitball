@@ -22,7 +22,7 @@
             <label :for="'school'" class="steps-form-label school mb-2">
                 <span v-language:inner>upload_files_label_proff_name</span></label>
             <sb-input :bottomError="true"
-                      v-model="proffesorName" placeholder="upload_files_placeholder_proff_name" name="proffesor"
+                      v-model="professor" placeholder="upload_files_placeholder_proff_name" name="professor"
                       type="text"
                       :autofocus="true">
             </sb-input>
@@ -56,12 +56,12 @@
                     this.updateFileName(value)
                 }
             },
-            proffesorName:{
+            professor:{
                 get () {
-                    return this.getFileData.proffesorName;
+                    return this.getFileData.professor;
                 },
                 set (profName) {
-                    this.updateFile({'proffesorName': profName});
+                    this.updateFile({'professor': profName});
                 }
             }
         },

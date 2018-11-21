@@ -7,7 +7,7 @@ function FileData(ObjInit){
         this.type= ObjInit.type || '';
         this.course= ObjInit.course || '';
         this.tags = ObjInit.tags || [];
-        this.proffesorName= ObjInit.proffesorName || '';
+        this.professor= ObjInit.professor || '';
 }
 
 function createFileData(ObjInit){

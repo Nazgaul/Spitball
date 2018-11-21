@@ -30,7 +30,7 @@
 <script>
     import { mapActions, mapGetters } from 'vuex'
     import docHeader from "./headerDocument.vue"
-    import Talk from "talkjs";
+    // import Talk from "talkjs";
 
     export default {
         components: {
