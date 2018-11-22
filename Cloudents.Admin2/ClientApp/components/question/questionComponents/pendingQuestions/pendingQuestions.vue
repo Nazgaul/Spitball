@@ -7,6 +7,7 @@
                     <div class="question-left-body">
                         <div class="user-container">
                             <div>User Id: {{question.user.id}}</div>
+                            <div title="Number of Attachments">Attachments: (<b>{{question.imagesCount}}</b>)</div>
                             <div>User Email: {{question.user.email}}</div>
                         </div>
                         <div class="question-container">
