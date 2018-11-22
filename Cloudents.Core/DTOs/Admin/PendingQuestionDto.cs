@@ -8,15 +8,6 @@
         public string Text { get; set; }
         public string Email { get; set; }
 
-        public PendingQuestionDto(long id, long userId, string text, string email, int imagesCount)
-        {
-            Id = id;
-            UserId = userId;
-            Text = text;
-            Email = email;
-            ImagesCount = imagesCount;
-        }
-
         public int ImagesCount { get; set; }
     }
 
