@@ -1012,18 +1012,21 @@
                   align-items: center;
                   justify-content: space-around;
                   cursor: pointer;
-                  &:hover {
-                    animation: color_change_doc_type 0.7s ease-in-out;
-                    animation-iteration-count: 1;
-                    border: solid 1px @color-blue-new;
-                    background-color: @uploadGreyBackground;
-                    .sb-doc-title {
-                      color: @color-blue-new;
-                    }
-                    .sb-doc-icon {
-                      color: @color-blue-new;
+                  @media (min-width: @screen-xs){
+                    &:hover {
+                      animation: color_change_doc_type 0.7s ease-in-out;
+                      animation-iteration-count: 1;
+                      border: solid 1px @color-blue-new;
+                      background-color: @uploadGreyBackground;
+                      .sb-doc-title {
+                        color: @color-blue-new;
+                      }
+                      .sb-doc-icon {
+                        color: @color-blue-new;
+                      }
                     }
                   }
+
                   @media (max-width: @screen-xs) {
                     width: 100%;
                     max-width: 254px;
