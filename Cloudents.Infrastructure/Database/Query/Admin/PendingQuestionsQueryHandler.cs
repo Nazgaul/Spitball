@@ -30,13 +30,8 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             return await _session.Query<Question>()
                 .Fetch(f => f.User)
                 .Where(w => w.User.Fictive != true && w.State == QuestionState.Pending)
-                .Select(s => new PendingQuestionDto
-                {
-                    Id = s.Id,
-                    Text = s.Text,
-                    Email = s.User.Email,
-                    UserId = s.User.Id
-                }).OrderBy(o => o.Id).ToListAsync(token);
+                .Select(s => new PendingQuestionDto(s.Id,s.User.Id,s.Text,s.User.Email,s.Attachments))
+                .OrderBy(o => o.Id).ToListAsync(token);
         }
     }
 }

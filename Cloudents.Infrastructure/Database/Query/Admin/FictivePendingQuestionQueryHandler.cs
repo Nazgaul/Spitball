@@ -24,15 +24,8 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         {
             var counties = new[] { "us", "il" };
 
-            //var z2222 = _session.Query<Question>()
-            //    .Fetch(f => f.User)
-            //    .Where(w => w.User.Fictive && w.User.Country == "us")
-            //    .OrderBy(o => o.Id)
-            //    .Take(1)
-            //    .Select(s => s.Id);
-
-
             var list = new List<IFutureValue<long>>();
+            // ReSharper disable once LoopCanBeConvertedToQuery - nhibernate doesn't response well for this
             foreach (var county in counties)
             {
                 var future = _session.Query<Question>()
@@ -41,19 +34,9 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                       .OrderBy(o => o.Id)
                       .Take(1)
                       .Select(s => s.Id)
-                      //.Select(s =>  new FictivePendingQuestionDto(s.Id))
                       .ToFutureValue();
                 list.Add(future);
             }
-            //var list = counties.Select(county => _session.Query<Question>()
-            //        .Fetch(f => f.User)
-            //        .Where(w => w.User.Fictive && w.User.Country == county)
-            //        .OrderBy(o => o.Id)
-            //        .Take(1)
-            //        .Select(s => s.Id)
-            //        //.Select(s =>  new FictivePendingQuestionDto(s.Id))
-            //        .ToFuture())
-            //    .ToList();
 
             var retVal = new List<FictivePendingQuestionDto>();
 

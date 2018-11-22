@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.DTOs.Admin
 {
+    [UsedImplicitly]
     public class QuestionWithoutCorrectAnswerDto
     {
 
@@ -15,6 +17,9 @@ namespace Cloudents.Core.DTOs.Admin
         public string Url { get; set; }
 
         public bool IsFictive { get; set; }
+
+        public int ImagesCount { get; set; }
+
 
         public IEnumerable<AnswerOfQuestionWithoutCorrectAnswer> Answers { get; set; }
     }
@@ -28,6 +33,9 @@ namespace Cloudents.Core.DTOs.Admin
         public string Text { get; set; }
 
         public long QuestionId { get; set; }
+
+        [DataMember]
+        public int ImagesCount { get; set; }
 
     }
 }
