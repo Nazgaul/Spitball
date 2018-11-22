@@ -1,6 +1,6 @@
 <template>
     <div class="splash">
-        <div class="newIsraeli-close" :class="{'rtl': isRtl}" @click.prevent="closeDialog()"><v-icon>sbf-close</v-icon></div>
+        <div class="newIsraeli-close" :class="{'rtl': isRtl}" @click.prevent="letGo()"><v-icon>sbf-close</v-icon></div>
         <div class="newIsraeli-spitball"><v-icon>sbf-spitball</v-icon></div>
         <div class="newIsraeli-title">הדרך לפתור שיעורי בית השתדרגה</div>
         <div class="newIsraeli-explain">הנקודת שלכם שוות Gift Cards</div>
