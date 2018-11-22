@@ -4,7 +4,7 @@
         <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
             <div class="top-block">
-                <user-block :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' }`" :cardData="cardData" :user="cardData.user"
+                <user-block :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' } q-user-block`" :cardData="cardData" :user="cardData.user"
                             v-if="cardData.user" :name="cardData.subject">
                     <template> · <span class="timeago" :datetime="cardTime"></span><span
                             v-if="typeAnswer"
@@ -21,7 +21,7 @@
                 <div v-if="cardData.price">
                     <div class="q-price pr-3" :class="{'rtl' : isRtl}">
                         <span v-show="isSold" style="min-width: 90px;" v-html="$Ph('questionCard_Question_price', cardData.price)"></span>
-                        <span v-show="!isSold" class="sold-badge">
+                        <span v-show="!isSold" class="sold-badge" :dir="isRtl ? `rtl` : ''">
                             <span style="margin: 0 auto;"> <span v-language:inner>questionCard_Sold</span>&nbsp; {{cardData.price}} SBL</span>
 
                         </span>
@@ -86,14 +86,15 @@
         <div v-else class="question-card-answer transparent">
             <!-- answer Card -->
             <div class="full-width-flex">
-                <user-block :cardData="cardData" :user="cardData.user"></user-block>
+                <user-block class="q-user-block" :cardData="cardData" :user="cardData.user"></user-block>
                 <div class="full-width-flex" :class="{'column-direction': gallery && gallery.length}">
                     <div class="full-width-flex calc-Margin answer-block">
                         <div class="triangle"></div>
                         <div class="text-container">
                             <div class="text">
                                 <span class="user-date" v-language:inner>questionCard_Answer_dot</span>
-                                <span class="timeago" :datetime="cardData.dateTime||cardData.create" ></span><span
+                                <span class="timeago"
+                                      :datetime="cardData.dateTime||cardData.create" ></span><span
                                     v-if="typeAnswer"
                                     class="q-answer">
                                 <button class="accept-btn right" @click="markAsCorrect"

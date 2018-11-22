@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_question_btn" xml:space="preserve">
-    <value>Add Question</value>
+    <value>Add a Question</value>
   </data>
   <data name="ask" xml:space="preserve">
     <value>Ask Your Question</value>
