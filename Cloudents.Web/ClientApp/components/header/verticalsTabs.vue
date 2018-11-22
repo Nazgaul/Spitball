@@ -67,8 +67,10 @@
                 //if same tab do not do UPDATE_SEARCH_LOADING
                 if(this.$route.path !== `/${result}`){
                     this.UPDATE_SEARCH_LOADING(true);
+                }else{
+                    query = this.$route.query;
                 }
-                this.$router.push({path: '/' + result, query: {}});
+                this.$router.push({path: '/' + result, query: query});
                 // this.$router.push({path: '/' + result, query: {...query, q: text, course}});
             },
         }
