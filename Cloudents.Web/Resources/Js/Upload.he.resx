@@ -124,7 +124,7 @@
     <value>בטל</value>
   </data>
   <data name="confirm_btn_close" xml:space="preserve">
-    <value>סגור ועצור העלאת מסמך</value>
+    <value>סגור חלון</value>
   </data>
   <data name="confirm_stop_title" xml:space="preserve">
     <value>עצור העלאת מסמך?</value>
