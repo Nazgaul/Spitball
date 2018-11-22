@@ -20,12 +20,12 @@
                        :disabled="!dbReady">
                     <v-icon>sbf-upload-dropbox</v-icon>
                 </v-btn>
-                <span class="btn-label" v-language:inner>upload_files_btn_dropBox</span>
+                <span :class="['btn-label', $vuetify.breakpoint.xsOnly ? 'mobile-text' : '' ] " v-language:inner>upload_files_btn_dropBox</span>
             </div>
             <div class="btn-holder">
                 <div fab :class="['upload-option-btn', 'desktop-file']">
-                    <v-icon>sbf-upload-desktop</v-icon>
-
+                    <v-icon v-if="$vuetify.breakpoint.smAndUp">sbf-upload-desktop</v-icon>
+                    <v-icon v-else>sbf-phone</v-icon>
                     <file-upload
                             style="top: unset;"
                             id="upload-input"
@@ -46,7 +46,7 @@
                               maxRetries: 5,}">
                     </file-upload>
                 </div>
-                <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label"
+                <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label mobile-text"
                       v-language:inner>upload_files_btn_phone</span>
                 <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label"
                       v-language:inner>upload_files_btn_desktop</span>

@@ -1,6 +1,7 @@
 <template>
     <v-flex v-if="cardData && !isDeleted " class="question-card"
             :class="[`sbf-card-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' }`, {'highlight':flaggedAsCorrect}]">
+
         <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
             <div class="top-block">

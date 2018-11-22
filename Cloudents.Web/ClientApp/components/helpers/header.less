@@ -128,15 +128,10 @@
   }
 
   .settings-wrapper {
-    .header-ask-btn{
-      flex-grow: 1;
-      .ask-question-button {
-        .sb-rounded-btn(@color-blue-new, @colorWhiteBlured, @color-white);
-      }
-    }
     flex: 1 0 auto;
     line-height: 32px;
     display: flex;
+    max-width: 360px;
     @media (max-width: @screen-xs) {
       flex: 0 auto;
     }
@@ -286,6 +281,8 @@
 .header-wallet, .header-comments, .header-rocket {
   display: flex;
   align-items: center;
+  align-items: flex-end;
+  padding-right: 16px;
   position: relative;
 }
 
@@ -342,11 +339,11 @@
 
 .header-rocket {
   height: 34px;
-  //padding-left: 24px;
+  padding-left: 24px;
   border-left: 1px solid #dddddd;
  // margin-left: 20px;
   justify-content: flex-end;
-  max-width: 50px;
+  max-width: 60px;
   @media (max-width: @screen-xs) {
     padding-left: 24px;
   }
@@ -437,8 +434,6 @@
 }
 
 .v-snack__content {
-  // Vuetify 1.1.1
-  //margin-top: 24px;
   width: 616px;
   height: 48px;
   background-color: @color-blue;
