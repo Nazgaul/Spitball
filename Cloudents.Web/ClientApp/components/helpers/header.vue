@@ -17,12 +17,12 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                                    <div class="header-ask-btn hidden-sm-and-down mr-2">
-                                    <button class="ask-question-button" @click="openNewQuestionDialog()">
-                                        <v-icon class="sb-icon edit-icon">sbf-edit-icon</v-icon>
-                                        <span class="sb-btn-text" v-language:inner>faqBlock_add_question_btn</span>
-                                    </button>
-                                    </div>
+                                    <!--<div class="header-ask-btn hidden-sm-and-down mr-2">-->
+                                    <!--<button class="ask-question-button" @click="openNewQuestionDialog()">-->
+                                        <!--<v-icon class="sb-icon edit-icon">sbf-edit-icon</v-icon>-->
+                                        <!--<span class="sb-btn-text" v-language:inner>faqBlock_add_question_btn</span>-->
+                                    <!--</button>-->
+                                    <!--</div>-->
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
                                         <span class="bold" style="direction:ltr;">{{accountUser.balance | currencyLocalyFilter}}</span>
                                         <span>${{accountUser.balance | dollarVal}}</span>

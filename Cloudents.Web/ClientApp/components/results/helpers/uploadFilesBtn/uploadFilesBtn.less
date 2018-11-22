@@ -1,59 +1,9 @@
 @import "../../../../styles/mixin.less";
-@-webkit-keyframes fade {
-  0% {opacity: 0.25}
-  25% {opacity: 0.5}
-  50% {opacity: 0.75}
-  100% {opacity: 1}
-}
 
-@-moz-keyframes fade{
-  0% {opacity: 0.25}
-  25% {opacity: 0.5}
-  50% {opacity: 0.75}
-  100% {opacity:1}
-}
-
-@keyframes fade {
-  0% {opacity: 0.25}
-  25% {opacity: 0.5}
-  50% {opacity: 0.75}
-  100%{opacity: 1}
-}
-@-o-keyframes fade {
-  0% {opacity: 0.25}
-  25% {opacity: 0.5}
-  50% {opacity: 0.75}
-  100%{opacity: 1}
-
-}
-
-@-webkit-keyframes fadeIn {
-  0% {opacity: 0.2}
-  50% {opacity: 0.75}
-  100% {opacity:1}
-}
-
-@-moz-keyframes fadeIn{
-  0% {opacity: 0.2}
-  50% {opacity: 0.75}
-  100% {opacity:1}
-}
-
-@keyframes fadeIn {
-  0% {opacity: 0.2}
-  50% {opacity: 0.75}
-  100% {opacity:1}
-}
-@-o-keyframes fadeIn {
-  0% {opacity: 0.2}
-  50% {opacity: 0.75}
-  100% {opacity:1}
-
-}
 .upload-files-action-card {
   right: 0;
   top: 0;
-  border: dashed 1px rgba(68, 82, 252, 0.43);
+  //border: dashed 1px rgba(68, 82, 252, 0.43);
   z-index: 999;
   border-radius: 4px;
   &.floatingcard {
@@ -71,15 +21,14 @@
     order: 2;
   }
 
-
     .upload-wrap {
       &.floating-upload {
         border-radius: 0%;
         background-color: transparent;
       }
     .static-center {
-      background-color: @color-AB-test-background;
-      padding: 16px 0;
+      //background-color: @color-AB-test-background;
+      padding: 0 0 8px 0;
       visibility: visible;
       display: flex;
       flex-direction: row;
@@ -107,23 +56,12 @@
 
       }
       .upload-btn {
-        .sb-rounded-btn(@color-blue-new, @colorWhiteBlured, @color-white);
-        height: 48px;
-        font-size: 20px;
-        .btn-text{
-          padding-left: 8px;
-        }
-        .sbf{
-          margin-left: 12px;
-          margin-right: 0;
-        }
+        .sb-rounded-medium-btn(@color-blue-new, @colorWhiteBlured, @color-white);
         @media (max-width: @screen-xs) {
+          .sb-rounded-btn(@color-blue-new, @colorWhiteBlured, @color-white);
           margin-top: 0;
           margin-bottom: 0;
-          height: unset;
-          font-size: 16px;
         }
-
         &:not(.rounded-floating-button){
           -webkit-animation: fadeIn 0.8s;
           animation: fadeIn 0.8s;

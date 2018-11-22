@@ -3,12 +3,12 @@
         <a class="mb-5 upload-link">
             <div :class="['upload-wrap', isFloatingBtn ? 'floating-upload' : '']">
                 <div class="static-center">
-                    <p v-show="$vuetify.breakpoint.smAndUp"  :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>
-                        upload_files_component_share_study
-                    </p>
+                    <!--<p v-show="$vuetify.breakpoint.smAndUp"  :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
+                        <!--upload_files_component_share_study-->
+                    <!--</p>-->
                     <button round :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '']" @click="openUploaderDialog()">
-                        <span class="btn-text" v-language:inner>upload_files_file_upload</span>
                         <v-icon class="sb-cloud-upload-icon" right>sbf-upload-cloud</v-icon>
+                        <span class="btn-text" v-language:inner>upload_files_file_upload</span>
                     </button>
                 </div>
             </div>
