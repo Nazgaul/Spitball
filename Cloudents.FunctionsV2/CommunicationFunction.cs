@@ -61,7 +61,7 @@ namespace Cloudents.FunctionsV2
         {
             var message = new SendGridMessage
             {
-                TrackingSettings = new TrackingSettings { Ganalytics = new Ganalytics() }
+                
             };
            
             var personalization = new Personalization();
@@ -79,9 +79,15 @@ namespace Cloudents.FunctionsV2
                 if (topicMessage.Campaign != null)
                 {
                     message.AddCategory(topicMessage.Campaign);
-                    message.TrackingSettings.Ganalytics.UtmCampaign = topicMessage.Campaign;
-                    message.TrackingSettings.Ganalytics.UtmSource = "SendGrid";
-                    message.TrackingSettings.Ganalytics.UtmMedium = "Email";
+                    message.TrackingSettings = new TrackingSettings
+                    {
+                        Ganalytics = new Ganalytics
+                        {
+                            UtmCampaign = topicMessage.Campaign,
+                            UtmSource = "SendGrid",
+                            UtmMedium = "Email"
+                        }
+                    };
                     message.TrackingSettings.Ganalytics.Enable = true;
                 }
 
