@@ -11,8 +11,8 @@ namespace Cloudents.Core.Query
         IQuery<UserAccountDto>,
         IQuery<IEnumerable<BalanceDto>>,
         IQuery<IEnumerable<TransactionDto>>, 
-        IQuery<ProfileDto>,
-        IQuery<SuspendUserDto>
+        IQuery<ProfileDto>
+        //IQuery<SuspendUserDto>
         
     {
         public UserDataByIdQuery(long id)

@@ -30,13 +30,17 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 return;
             }
+            await DeleteQuestionAsync(question, token);
+        }
+
+        internal async Task DeleteQuestionAsync(Question question, CancellationToken token)
+        {
             foreach (var transaction in question.Transactions)
             {
                 await _transactionRepository.DeleteAsync(transaction, token);
             }
 
             question.Events.Add(new QuestionDeletedEvent(question));
-           
             question.Events.Add(new QuestionDeletedAdminEvent());
             await _questionRepository.DeleteAsync(question, token);
         }

@@ -1,6 +1,5 @@
 ﻿@import "./colors.less";
 @import "./sb-buttons";
-
 @fontFiraSans: "Fira Sans", sans-serif;
 @fontAssistant: "Assistant", sans-serif;
 @fontAlef: "Alef", sans-serif;
@@ -161,12 +160,7 @@
   color: white;
   border-radius: 12px;
   font-size: 14px;
-  // TODO to remove when we have final color sets for all verticals,
-  // and change in glabal less for each vertical, color-ask, color-note, and etc
-  background-color: @color-blue-new!important;
-  border-color: @color-blue-new !important;
   font-family: @fontFiraSans;
-
 }
 
 .cellActionViewerMixin(){
@@ -186,11 +180,12 @@
 .cellActionBtnMixinAnswer(){
   position: absolute;
   .responsive-property(bottom, 8px, null, 8px);
-  .responsive-property(right, 25px, null, 33px);
+  .responsive-property(right, 30px, null, 33px);
   padding: 3px 20px;
   color: white;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-family: @fontFiraSans;
 }
 
 .flexSameSize() {
