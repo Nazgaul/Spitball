@@ -18,7 +18,7 @@ namespace Cloudents.Core
     //    NamingStrategyType = typeof(CamelCaseNamingStrategy)
         
     //)]
-    [JsonConverter(typeof(SignalRTransportTypeConverter))]
+    //[JsonConverter(typeof(SignalRTransportTypeConverter))]
     public class SignalRTransportType
     {
         public SignalRTransportType(SignalRType type, SignalRAction action, IEnumerable data)
@@ -35,9 +35,9 @@ namespace Cloudents.Core
             Data = new[] { data };
         }
 
-        [JsonConverter(typeof(StringEnumConverter), true)]
+        //[JsonConverter(typeof(StringEnumConverter), true)]
         public SignalRType Type { get; }
-        [JsonConverter(typeof(StringEnumConverter), true)]
+        //[JsonConverter(typeof(StringEnumConverter), true)]
         public SignalRAction Action { get; set; }
 
         public IEnumerable Data { get; }
