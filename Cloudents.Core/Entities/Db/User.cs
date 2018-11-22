@@ -88,7 +88,7 @@ namespace Cloudents.Core.Entities.Db
 
 
         protected internal virtual ISet<Course> Courses { get; protected set; }
-        protected internal virtual ISet<Tag> Tags { get; protected set; }
+        public virtual ISet<Tag> Tags { get; protected set; }
 
 
         public virtual DateTime Created { get; protected set; }

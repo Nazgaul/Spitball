@@ -24,11 +24,16 @@ namespace Cloudents.Web.Services
 
         public Task AddTagToUser(string tag, ClaimsPrincipal user, CancellationToken token)
         {
-            if (string.IsNullOrEmpty(tag)) return Task.CompletedTask;
             if (!_signInManager.IsSignedIn(user)) return Task.CompletedTask;
-            var userId = _signInManager.UserManager.GetLongUserId(user);
+            if (Tag.ValidateTag(tag))
+            {
 
-            return _queueProvider.InsertMessageAsync(new AddUserTagMessage(userId, tag), token);
+                var userId = _signInManager.UserManager.GetLongUserId(user);
+
+                return _queueProvider.InsertMessageAsync(new AddUserTagMessage(userId, tag), token);
+            }
+
+            return Task.CompletedTask;
         }
     }
 
