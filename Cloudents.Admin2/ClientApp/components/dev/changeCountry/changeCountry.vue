@@ -29,7 +29,7 @@ export default {
             userCountry: "Us",
             userId: "",
             lock: false,
-            countryList: ['Us', 'Il']
+            countryList: ['Us', 'Il', 'In']
         }
     },
     methods:{
