@@ -4,6 +4,7 @@ import {connectivityModule} from '../../../../services/connectivity.module'
 function PendingQuestionItem(objInit){
     this.id = objInit.id;
     this.text = objInit.text;
+    this.imagesCount = objInit.imagesCount;
     this.user = {
         id: objInit.userId,
         email: objInit.email

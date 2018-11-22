@@ -25,7 +25,7 @@ export default {
         },
         goToSignIn(){
             this.requestDialogClose();
-            this.$router.push({path: '/signin', query: {term: ''}});
+            this.$router.push({path: '/signin', query:{returnUrl : this.$route.path}});
 
         },
     },
