@@ -88,6 +88,16 @@
                 this.showTextArea = true;
                 console.log(this.selectedSubject)
             },
+            resetData(){
+                this.selectedSubject= '';
+                this.subjectContent= '';
+                this.showTextArea= false;
+                this.questionPrice= 1;
+                this.showPriceSetter= false;
+                this.files= [];
+                this.filesNames= [];
+                this.country= "Us";
+            },
             setPrice: function () {
                 this.showPriceSetter = true;
             },
@@ -109,6 +119,7 @@
                     })
                 }
                 addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, uploads).then(() => {
+                    this.resetData();
                     this.$toaster.success("Success on Adding Question");
                 }, (err) => {
                     console.log(err);
