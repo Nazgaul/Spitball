@@ -70,6 +70,11 @@ namespace Cloudents.Web.Api
             {
                 toasterMessage = _localizer["PostedQuestionToasterPending"];
             }
+            catch (InsufficientFundException)
+            {
+                ModelState.AddModelError(string.Empty, _localizer["InSufficientFunds"]);
+                return BadRequest(ModelState);
+            }
             catch (QuotaExceededException)
             {
                 ModelState.AddModelError(string.Empty, _localizer["QuestionFlood"]);

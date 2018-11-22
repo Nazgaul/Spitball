@@ -120,6 +120,9 @@
   <data name="FilterTypeTitle" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="InSufficientFunds" xml:space="preserve">
+    <value>You do not have sufficient SBL, Earn more SBL by answering questions</value>
+  </data>
   <data name="PostedQuestionToasterOk" xml:space="preserve">
     <value>The best brains are working on it right now</value>
   </data>

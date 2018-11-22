@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Exceptions;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -78,7 +79,14 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual void QuestionCreateTransaction()
         {
-            var t = Transaction.QuestionCreate(this);// new Transaction(ActionType.Question, TransactionType.Stake, -Price);
+            var t = Transaction.QuestionCreate(this);
+            var amountForAskingQuestion = User.Balance * 30 / 100;
+
+            if (amountForAskingQuestion < t.Price)
+            {
+                throw new InsufficientFundException();
+            }
+
             User.AddTransaction(t);
         }
 
