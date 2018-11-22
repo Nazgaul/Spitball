@@ -162,8 +162,6 @@
 
 #upload-input {
   position: absolute;
-  //height: 221px;
-  //width: 165px;
   height: 50px;
   width: 50px;
   transform: rotate(0deg);
@@ -175,8 +173,6 @@
     position: relative;
     height: 50px;
     width: 50px;
-    //height: 221px;
-    //width: 165px;
     cursor: pointer;
   }
 }
@@ -301,7 +297,6 @@
         justify-content: center;
         align-items: center;
         height: 96%;
-        //padding-top: 6px;
         background: @color-white;
         @media (max-width: @screen-xs) {
           flex-direction: column;
@@ -342,7 +337,6 @@
         .upload-result-file {
           display: flex;
           align-items: center;
-          // color: @labelColor;
           position: absolute;
           left: 0;
           height: 82px;
@@ -562,6 +556,10 @@
               .sbf-upload-cloud {
                 font-size: 24px;
                 color: @color-blue-new;
+                @media (max-width: @screen-xs) {
+                  color: @colorInputFocus;
+                  font-size: 18px;
+                }
               }
               .upload-cloud-text {
                 font-size: 22px;
@@ -569,6 +567,10 @@
                 margin-left: 12px;
                 &.text-blue {
                   color: @color-blue-new;
+                  @media (max-width: @screen-xs) {
+                    color: @colorInputFocus;
+                    font-size: 16px;
+                  }
                 }
                 //text-blue
               }
@@ -664,6 +666,10 @@
                   position: relative;
                   vertical-align: middle;
                   user-select: none;
+                  @media (max-width: @screen-xs) {
+                    border: none;
+                    background-color: @uploadGreyBackground;
+                  }
                   &:hover{
                     background-color: #E2E2E5;
                     cursor: pointer;
@@ -672,6 +678,9 @@
                   .sbf {
                     font-size: 18px;
                     color: @color-black;
+                    @media (max-width: @screen-xs) {
+                      color: @color-blue-new;
+                    }
                   }
                   //sbf
                 }
@@ -680,6 +689,9 @@
                   padding-top: 10px;
                   font-size: 14px;
                   color: @textColor;
+                  &.mobile-text{
+                    color: @color-blue-new;
+                  }
                 }
                 //btn-label
               }
