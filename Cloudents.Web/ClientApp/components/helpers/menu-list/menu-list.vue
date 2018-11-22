@@ -104,7 +104,7 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <v-list-tile v-if="!!user.universityExists" @click="openPersonalizeCourse()">
+            <v-list-tile v-show="showClassesProp" @click="openPersonalizeCourse()">
                 <v-list-tile-action>
                     <v-icon>sbf-classes</v-icon>
                 </v-list-tile-action>
@@ -237,7 +237,7 @@
             }
         },
         computed: {
-            ...mapGetters(['unreadMessages', 'accountUser']),
+            ...mapGetters(['unreadMessages', 'accountUser', 'getSchoolName']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -249,6 +249,10 @@
             },
             userReferralLink(){
                 return "http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser.id) + "&promo=referral";
+            },
+            showClassesProp(){
+                let schoolName = this.getSchoolName;
+                return schoolName.length > 0;
             }
         },
         methods: {
