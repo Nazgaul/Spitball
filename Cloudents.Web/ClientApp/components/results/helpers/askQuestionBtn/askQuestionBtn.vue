@@ -3,9 +3,9 @@
         <a class="mb-5 ask-link">
             <div :class="['ask-wrap', isFloatingBtn ? 'floating-ask' : '']">
                 <div class="static-center">
-                    <p v-show="$vuetify.breakpoint.smAndUp" :class="['ask-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>
-                        faqBlock_ask
-                    </p>
+                    <!--<p v-show="$vuetify.breakpoint.smAndUp" :class="['ask-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
+                        <!--faqBlock_ask-->
+                    <!--</p>-->
                     <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '']" @click="goToAskQuestion()">
                         <v-icon class="sb-edit-icon" right>sbf-edit-icon</v-icon>
                         <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
@@ -82,66 +82,13 @@
 
 <style lang="less">
     @import "../../../../styles/mixin.less";
-
     .ask-action-card{
-        @-webkit-keyframes fade {
-            0% {opacity: 0.25}
-            25% {opacity: 0.5}
-            50% {opacity: 0.75}
-            100% {opacity: 1}
-        }
-
-        @-moz-keyframes fade{
-            0% {opacity: 0.25}
-            25% {opacity: 0.5}
-            50% {opacity: 0.75}
-            100% {opacity:1}
-        }
-
-        @keyframes fade {
-            0% {opacity: 0.25}
-            25% {opacity: 0.5}
-            50% {opacity: 0.75}
-            100%{opacity: 1}
-        }
-        @-o-keyframes fade {
-            0% {opacity: 0.25}
-            25% {opacity: 0.5}
-            50% {opacity: 0.75}
-            100%{opacity: 1}
-
-        }
-
-        @-webkit-keyframes fadeIn {
-            0% {opacity: 0.2}
-            50% {opacity: 0.75}
-            100% {opacity:1}
-        }
-
-        @-moz-keyframes fadeIn{
-            0% {opacity: 0.2}
-            50% {opacity: 0.75}
-            100% {opacity:1}
-        }
-
-        @keyframes fadeIn {
-            0% {opacity: 0.2}
-            50% {opacity: 0.75}
-            100% {opacity:1}
-        }
-        @-o-keyframes fadeIn {
-            0% {opacity: 0.2}
-            50% {opacity: 0.75}
-            100% {opacity:1}
-
-        }
         right: 0;
         top: 0;
-        border: dashed 1px rgba(68, 82, 252, 0.43);
         z-index: 999;
         border-radius: 4px;
         &.floatingcard {
-            right: 0px;
+            right: 0;
             top: 25px;
             border-radius: 50%;
             background-color: transparent;
@@ -156,12 +103,11 @@
         }
         .ask-wrap {
             &.floating-ask {
-                border-radius: 0%;
+                border-radius: 0;
                 background-color: transparent;
             }
             .static-center {
-                background-color: @color-AB-test-background;
-                padding: 16px 0;
+                padding: 0 0 8px 0;
                 visibility: visible;
                 display: flex;
                 flex-direction: row;
@@ -187,17 +133,15 @@
                         margin-bottom: 14px;
                         text-transform: none;
                     }
-
                 }
                 .ask-btn {
-                    .sb-rounded-btn(@color-blue-new, @colorWhiteBlured, @color-white);
-                    height: 48px;
-                    font-size: 20px;
+                    .sb-rounded-medium-btn(@color-blue-new, @colorWhiteBlured, @color-white);
                     @media (max-width: @screen-xs) {
+                        .sb-rounded-btn(@color-blue-new, @colorWhiteBlured, @color-white);
                         margin-top: 0;
                         margin-bottom: 0;
-                        height: unset;
-                        font-size: 16px;
+                        /*height: unset;*/
+                        /*font-size: 16px;*/
                     }
 
                     &:not(.rounded-floating-button){
