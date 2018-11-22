@@ -6,7 +6,7 @@
             <abTestCard v-if="$route.path.slice(1)==='ask'" class="ab-test-card"
                         :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
             <!--end static cards AB test-->
-            <upload-files-btn class="upload-card hidden-md-and-up"  v-show="isNote"></upload-files-btn>
+
 
               <div class="d-flex mobile-filter">
                   <askQuestionBtn v-if="$route.path.slice(1)==='ask'"
@@ -14,6 +14,8 @@
                            :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] ">
 
                   </askQuestionBtn>
+
+                  <upload-files-btn class="upload-card hidden-md-and-up"  v-show="isNote"></upload-files-btn>
 
                   <!--<a v-if="$route.path.slice(1)==='ask' "-->
                    <!--:class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "-->
@@ -24,7 +26,7 @@
 
 
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
-                       class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
+                       class="mobile-filter-icon-btn text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter fixedLocation color-'+$route.path.slice(1)"
                          v-if="this.filterSelection.length">{{this.filterSelection.length}}

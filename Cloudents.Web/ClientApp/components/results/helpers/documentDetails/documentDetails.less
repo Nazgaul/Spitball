@@ -8,11 +8,19 @@
       color: @colorBlackNew;
       display: inline-flex;
       justify-content: flex-start;
+        @media (max-width: @screen-xs) {
+          font-size: 12px;
+          height: 12px;
+          align-items: center;
+        }
       .sb-icon-arrow {
         font-size: 24px;
         height: 16px;
         width: 16px;
         color: @colorGreyLight;
+        @media (max-width: @screen-xs) {
+          height: 12px;
+        }
         &.swap{
           transform: rotate(180deg);
         }

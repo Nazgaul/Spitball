@@ -133,7 +133,7 @@
 
             doc() {
                 let self = this;
-                if(self.item && self.item.docType) {
+                if(self.item && self.item.docType && documentTypes) {
                     return self.item.docType = documentTypes.find((singleType) => {
                         if (singleType.id.toLowerCase() === self.item.docType.toLowerCase()) {
                             return singleType
