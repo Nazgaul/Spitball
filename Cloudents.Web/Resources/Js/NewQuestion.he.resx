@@ -150,4 +150,10 @@
   <data name="You_have" xml:space="preserve">
     <value>יש לך</value>
   </data>
+  <data name="max_percent_SBL" xml:space="preserve">
+    <value>אין לך מספיק SBL,  קבל עוד SBL על ידי מתן תשובות לשאלות.</value>
+  </data>
+  <data name="sbl_calc" xml:space="preserve">
+    <value>יש לך SBL {1} , אתה יכול להציע עד SBL {2}  לשאלה זו</value>
+  </data>
 </root>
