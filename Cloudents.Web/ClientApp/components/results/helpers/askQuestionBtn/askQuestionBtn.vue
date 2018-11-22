@@ -4,9 +4,10 @@
             <div :class="['ask-wrap', isFloatingBtn ? 'floating-ask' : '']">
                 <div class="static-center">
                     <!--<p v-show="$vuetify.breakpoint.smAndUp" :class="['ask-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
-                        <!--faqBlock_ask-->
+                    <!--faqBlock_ask-->
                     <!--</p>-->
-                    <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '']" @click="goToAskQuestion()">
+                    <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '']"
+                            @click="goToAskQuestion()">
                         <v-icon class="sb-edit-icon" right>sbf-edit-icon</v-icon>
                         <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
                     </button>
@@ -20,7 +21,7 @@
     import { mapActions, mapGetters } from 'vuex';
 
     export default {
-         data() {
+        data() {
             return {
                 offsetTop: 0,
                 offsetTop2: 0,
@@ -34,13 +35,13 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState',  'showRegistrationBanner']),
+            ...mapGetters(['accountUser', 'loginDialogState', 'showRegistrationBanner']),
 
             isFloatingBtn() {
                 let offHeight = 0;
-                if(!!this.showRegistrationBanner){
+                if (!!this.showRegistrationBanner) {
                     offHeight = 200 + 285; // header + banner + mobile filter btn
-                }else{
+                } else {
                     offHeight = 200; //  header + mobile filter btn
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
@@ -52,12 +53,12 @@
                 'updateNewQuestionDialogState',
                 'updateUserProfileData'
             ]),
-            goToAskQuestion(){
-                if(this.accountUser == null){
+            goToAskQuestion() {
+                if (this.accountUser == null) {
                     this.updateLoginDialogState(true);
                     //set user profile
                     this.updateUserProfileData('profileHWH')
-                }else{
+                } else {
                     //ab test original do not delete
                     this.updateNewQuestionDialogState(true)
                 }
@@ -82,7 +83,9 @@
 
 <style lang="less">
     @import "../../../../styles/mixin.less";
-    .ask-action-card{
+    @import "../../../../styles/animation.less";
+
+    .ask-action-card {
         right: 0;
         top: 0;
         z-index: 999;
@@ -116,7 +119,7 @@
                 @media (max-width: @screen-xs) {
                     flex-direction: column;
                     background-color: transparent;
-                    padding:  0;
+                    padding: 0;
                 }
                 .ask-text {
                     color: @color-blue-new;
@@ -140,21 +143,21 @@
                         .sb-rounded-btn(@color-blue-new, @colorWhiteBlured, @color-white);
                         margin-top: 0;
                         margin-bottom: 0;
-                        /*height: unset;*/
-                        /*font-size: 16px;*/
                     }
 
-                    &:not(.rounded-floating-button){
+                    &:not(.rounded-floating-button) {
                         -webkit-animation: fadeIn 0.8s;
                         animation: fadeIn 0.8s;
                         -moz-animation: fadeIn 0.8s;
                         -o-animation: fadeIn 0.8s;
                     }
                     &.rounded-floating-button {
-                        -webkit-animation: fade 0.8s;
-                        animation: fade 0.8s;
-                        -moz-animation: fade 0.8s;
-                        -o-animation: fade 0.8s;
+                        animation: sb_bounce_animation 1000ms linear both;
+
+                        /*-webkit-animation: fade 0.8s;*/
+                        /*animation: fade 0.8s;*/
+                        /*-moz-animation: fade 0.8s;*/
+                        /*-o-animation: fade 0.8s;*/
                         box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.36);
                         position: fixed;
                         right: 25px;
