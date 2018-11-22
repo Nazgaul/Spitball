@@ -66,6 +66,5 @@ export default {
     #app-body{
         flex-grow: 1;
         padding: 2px;
-        overflow: auto;
     }
 </style>

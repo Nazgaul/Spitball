@@ -11,11 +11,13 @@
                     </v-btn>
                 </span>
                 <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
+                <span title="Number of Attchments">(<b>{{question.imagesCount}}</b>)</span>
                 </div>
             </div>
             <div class="question-body" v-for="answer in question.answers" :key="answer.id">
                 <span class="answer-text" title="Answer Text">{{answer.text}}</span>
                 <span style="justify-content: right;text-align: right; min-width: 65px;">
+                    <span title="Number of Attchments">(<b>{{answer.imagesCount}}</b>)</span>
                     <v-btn  round color="#97ed82"  value="Open" @click="acceptQuestion(question, answer)" title="Accept answer">
                         Accept
                      <v-icon light right>check</v-icon>
