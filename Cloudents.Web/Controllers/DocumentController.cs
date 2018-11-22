@@ -61,7 +61,6 @@ namespace Cloudents.Web.Controllers
         {
             var query = new DocumentById(id);
 
-            var metaContentTask = _documentSearch.ItemMetaContentAsync(id, token);
             var model = await _queryBus.QueryAsync<DocumentSeoDto>(query, token);
             if (model == null)
             {
@@ -97,17 +96,7 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-
-
-            var metaContent = await metaContentTask;
-
-            //if (!model.Discriminator.Equals("file", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    return View();
-            //}
-            //ViewBag.imageSrc = ViewBag.fbImage = "https://az779114.vo.msecnd.net/preview/" + model.ImageUrl +
-            //                                     ".jpg?width=1200&height=630&mode=crop";
-            //ViewBag.country = country ?? "us";
+            var metaContent = await _documentSearch.ItemMetaContentAsync(id, token);
             if (string.IsNullOrEmpty(model.Country)) return View();
 
             //TODO: need to be university culture

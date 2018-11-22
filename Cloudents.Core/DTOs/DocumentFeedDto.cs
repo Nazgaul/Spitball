@@ -35,6 +35,6 @@ namespace Cloudents.Core.DTOs
         public string Source { get; set; }
 
         [DataMember]
-        public DateTime DateTime { get; set; }
+        public DateTime? DateTime { get; set; }
     }
 }

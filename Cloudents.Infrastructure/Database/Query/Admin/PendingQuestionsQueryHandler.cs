@@ -35,7 +35,8 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                     Id = s.Id,
                     Text = s.Text,
                     Email = s.User.Email,
-                    UserId = s.User.Id
+                    UserId = s.User.Id,
+                    ImagesCount = s.Attachments
                 }).OrderBy(o => o.Id).ToListAsync(token);
         }
     }

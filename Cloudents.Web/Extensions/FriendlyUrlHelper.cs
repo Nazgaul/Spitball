@@ -211,12 +211,17 @@ namespace Cloudents.Web.Extensions
 
         public static TitleCompareResult CompareTitle(string dbTitle, string title)
         {
+            var friendly = GetFriendlyTitle(dbTitle);
+            if (friendly.Equals(dbTitle, StringComparison.OrdinalIgnoreCase))
+            {
+                return TitleCompareResult.Equal;
+            }
             if (dbTitle.Equals(title, StringComparison.OrdinalIgnoreCase))
             {
                 return TitleCompareResult.EqualNotFriendly;
             }
 
-            var friendly = GetFriendlyTitle(dbTitle);
+            //var friendly = GetFriendlyTitle(dbTitle);
             if (friendly.Equals(title, StringComparison.OrdinalIgnoreCase))
             {
                 return TitleCompareResult.Equal;

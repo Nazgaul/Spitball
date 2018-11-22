@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -70,7 +71,7 @@ namespace Cloudents.Core.Entities.Db
             Balance += t.Price;
             if (Balance < 0)
             {
-                throw new InvalidOperationException("not enough tokens");
+                throw new InsufficientFundException("not enough tokens");
             }
             Transactions.Add(t);
         }
