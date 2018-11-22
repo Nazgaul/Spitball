@@ -6,10 +6,9 @@
             </button>
             <div class="ml-1 wrap-text input-container">
                 <h2 class="text-md-left" v-html="text.dialog.title"></h2>
-                <div class="wrapper-body-text link-container">
+                <div class="link-container">
                     <sb-input id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink"
-                              name="referralLink" type="text"></sb-input>
-                    &nbsp;
+                              name="referralLink" type="text" :prependInnerIcon="'sbf-share-icon'"></sb-input>                    &nbsp;
                     <button class="referral-btn" :class="{'copied': isCopied}" @click="doCopy" v-language:inner>
                         referralDialog_copy
                     </button>

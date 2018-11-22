@@ -403,7 +403,6 @@
             padding: 0 16px;
             @media (max-width: @screen-xs) {
               width: 100%;
-
             }
             .credit-card {
               font-size: 18px;
@@ -415,7 +414,14 @@
             width: 100%;
             border-radius: 0;
             margin: 0;
-
+            position: fixed;
+            height: @buttonHeigh;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            &[disabled] {
+              background-color: @disabledBtnColor!important;
+            }
           }
         }
         .sb-back-flat-btn {
@@ -490,7 +496,6 @@
           overflow-y: scroll;
           flex-direction: column;
         }
-
         input[type="text"] {
           font-size: 13px;
         }
@@ -500,9 +505,11 @@
             .placeholder-color(@colorGreyLight);
             font-size: 13px;
             padding: 12px;
-            border: solid 1px @colorInputNotFocused;
-            &:focus {
-              border: solid 1px @colorInputFocus;
+            &:not(.inputPrepIcon){
+              border: solid 1px @colorInputNotFocused;
+              &:focus {
+                border: solid 1px @colorInputFocus;
+              }
             }
           }
         }
@@ -609,19 +616,6 @@
                           @media (max-width: @screen-xs) {
                             min-width: unset;
                           }
-                          .input-field {
-                            border-radius: 4px 0 0 4px;
-                            border-color: @colorGreyLight;
-                            border-right: none;
-                            font-size: 12px;
-                            color: @textColor;
-                          }
-                        }
-                        .referral-btn {
-                          width: 106px;
-                          background-color: @color-blue-new;
-                          border-radius: 0 4px 4px 0;
-                          margin-left: -4px;
                         }
                       }
                     }
