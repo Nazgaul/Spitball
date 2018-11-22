@@ -162,8 +162,6 @@
 
 #upload-input {
   position: absolute;
-  //height: 221px;
-  //width: 165px;
   height: 50px;
   width: 50px;
   transform: rotate(0deg);
@@ -175,8 +173,6 @@
     position: relative;
     height: 50px;
     width: 50px;
-    //height: 221px;
-    //width: 165px;
     cursor: pointer;
   }
 }
@@ -301,7 +297,6 @@
         justify-content: center;
         align-items: center;
         height: 96%;
-        //padding-top: 6px;
         background: @color-white;
         @media (max-width: @screen-xs) {
           flex-direction: column;
@@ -342,7 +337,6 @@
         .upload-result-file {
           display: flex;
           align-items: center;
-          // color: @labelColor;
           position: absolute;
           left: 0;
           height: 82px;
@@ -403,7 +397,6 @@
             padding: 0 16px;
             @media (max-width: @screen-xs) {
               width: 100%;
-
             }
             .credit-card {
               font-size: 18px;
@@ -415,7 +408,14 @@
             width: 100%;
             border-radius: 0;
             margin: 0;
-
+            position: fixed;
+            height: @buttonHeigh;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            &[disabled] {
+              background-color: @disabledBtnColor!important;
+            }
           }
         }
         .sb-back-flat-btn {
@@ -490,7 +490,6 @@
           overflow-y: scroll;
           flex-direction: column;
         }
-
         input[type="text"] {
           font-size: 13px;
         }
@@ -500,9 +499,11 @@
             .placeholder-color(@colorGreyLight);
             font-size: 13px;
             padding: 12px;
-            border: solid 1px @colorInputNotFocused;
-            &:focus {
-              border: solid 1px @colorInputFocus;
+            &:not(.inputPrepIcon){
+              border: solid 1px @colorInputNotFocused;
+              &:focus {
+                border: solid 1px @colorInputFocus;
+              }
             }
           }
         }
@@ -555,6 +556,10 @@
               .sbf-upload-cloud {
                 font-size: 24px;
                 color: @color-blue-new;
+                @media (max-width: @screen-xs) {
+                  color: @colorInputFocus;
+                  font-size: 18px;
+                }
               }
               .upload-cloud-text {
                 font-size: 22px;
@@ -562,6 +567,10 @@
                 margin-left: 12px;
                 &.text-blue {
                   color: @color-blue-new;
+                  @media (max-width: @screen-xs) {
+                    color: @colorInputFocus;
+                    font-size: 16px;
+                  }
                 }
                 //text-blue
               }
@@ -609,19 +618,6 @@
                           @media (max-width: @screen-xs) {
                             min-width: unset;
                           }
-                          .input-field {
-                            border-radius: 4px 0 0 4px;
-                            border-color: @colorGreyLight;
-                            border-right: none;
-                            font-size: 12px;
-                            color: @textColor;
-                          }
-                        }
-                        .referral-btn {
-                          width: 106px;
-                          background-color: @color-blue-new;
-                          border-radius: 0 4px 4px 0;
-                          margin-left: -4px;
                         }
                       }
                     }
@@ -670,6 +666,10 @@
                   position: relative;
                   vertical-align: middle;
                   user-select: none;
+                  @media (max-width: @screen-xs) {
+                    border: none;
+                    background-color: @uploadGreyBackground;
+                  }
                   &:hover{
                     background-color: #E2E2E5;
                     cursor: pointer;
@@ -678,6 +678,9 @@
                   .sbf {
                     font-size: 18px;
                     color: @color-black;
+                    @media (max-width: @screen-xs) {
+                      color: @color-blue-new;
+                    }
                   }
                   //sbf
                 }
@@ -686,6 +689,9 @@
                   padding-top: 10px;
                   font-size: 14px;
                   color: @textColor;
+                  &.mobile-text{
+                    color: @color-blue-new;
+                  }
                 }
                 //btn-label
               }
@@ -1012,18 +1018,21 @@
                   align-items: center;
                   justify-content: space-around;
                   cursor: pointer;
-                  &:hover {
-                    animation: color_change_doc_type 0.7s ease-in-out;
-                    animation-iteration-count: 1;
-                    border: solid 1px @color-blue-new;
-                    background-color: @uploadGreyBackground;
-                    .sb-doc-title {
-                      color: @color-blue-new;
-                    }
-                    .sb-doc-icon {
-                      color: @color-blue-new;
+                  @media (min-width: @screen-xs){
+                    &:hover {
+                      animation: color_change_doc_type 0.7s ease-in-out;
+                      animation-iteration-count: 1;
+                      border: solid 1px @color-blue-new;
+                      background-color: @uploadGreyBackground;
+                      .sb-doc-title {
+                        color: @color-blue-new;
+                      }
+                      .sb-doc-icon {
+                        color: @color-blue-new;
+                      }
                     }
                   }
+
                   @media (max-width: @screen-xs) {
                     width: 100%;
                     max-width: 254px;

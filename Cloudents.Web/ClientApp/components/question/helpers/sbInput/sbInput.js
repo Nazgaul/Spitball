@@ -2,7 +2,12 @@ export default {
     props: {
         value: {type: String},
         icon: {
-            type: String
+            type: String,
+            default: ''
+        },
+        prependInnerIcon:{
+            type: String,
+            default: ''
         },
         errorMessage: {
             type: String
