@@ -9,7 +9,6 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
     <PackageReference Include="Autofac" Version="4.6.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Enum\Resources\EnumResources.resx">

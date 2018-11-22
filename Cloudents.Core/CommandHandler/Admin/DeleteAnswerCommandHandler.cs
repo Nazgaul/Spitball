@@ -34,9 +34,13 @@ namespace Cloudents.Core.CommandHandler.Admin
                 throw new ArgumentException("answer doesn't exits");
             }
 
+            await DeleteAnswerAsync(answer, token);
+        }
+
+        internal async Task DeleteAnswerAsync(Answer answer, CancellationToken token)
+        {
             foreach (var transaction in answer.Transactions)
             {
-               
                 await _transactionRepository.DeleteAsync(transaction, token);
             }
 
