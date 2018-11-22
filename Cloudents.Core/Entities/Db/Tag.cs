@@ -7,7 +7,7 @@ namespace Cloudents.Core.Entities.Db
 
     public class Tag
     {
-        public const int MinLength = 3;
+        public const int MinLength = 2;
         public const int MaxLength = 150;
         protected Tag()
         {
