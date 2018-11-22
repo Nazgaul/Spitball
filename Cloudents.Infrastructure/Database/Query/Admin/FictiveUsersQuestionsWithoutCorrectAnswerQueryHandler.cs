@@ -17,6 +17,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
+        private const int PageSize = 100;
         private readonly ISession _session;
         private readonly IUrlBuilder _urlBuilder;
 
@@ -28,7 +29,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminPageQuery query, CancellationToken token)
         {
-            
+
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
             AnswerOfQuestionWithoutCorrectAnswer dtoAnswerAlias = null;
             Question questionAlias = null;
@@ -47,21 +48,23 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                     l =>
                         l.Select(p => p.Id).WithAlias(() => dtoAlias.Id)
                             .Select(p => p.Text).WithAlias(() => dtoAlias.Text)
+                            .Select(p => p.Attachments).WithAlias(() => dtoAlias.ImagesCount)
                             .Select(_ => userAlias.Fictive).WithAlias(() => dtoAlias.IsFictive)
                 )
                 .TransformUsing(Transformers.AliasToBean<QuestionWithoutCorrectAnswerDto>())
                 .OrderBy(o => o.Id).Asc
-                .Take(100).Skip(100 * query.Page)
+                .Take(PageSize).Skip(PageSize * query.Page)
                 .ListAsync<QuestionWithoutCorrectAnswerDto>(token);
 
-          
+
             var answersResult = await _session.QueryOver<Answer>()
-                .Where(w=>w.Question.Id.IsIn(questions.Select(s=>s.Id).ToArray()))
+                .Where(w => w.Question.Id.IsIn(questions.Select(s => s.Id).ToArray()))
                 .SelectList(
                             l =>
                                 l.Select(s => s.Id).WithAlias(() => dtoAnswerAlias.Id)
                                     .Select(s => s.Text).WithAlias(() => dtoAnswerAlias.Text)
-                            .Select(s => s.Question.Id).WithAlias(() => dtoAnswerAlias.QuestionId))
+                            .Select(s => s.Question.Id).WithAlias(() => dtoAnswerAlias.QuestionId)
+                            .Select(p => p.Attachments).WithAlias(() => dtoAnswerAlias.ImagesCount))
                 .TransformUsing(Transformers.AliasToBean<AnswerOfQuestionWithoutCorrectAnswer>())
                 .OrderBy(x => x.Id).Asc
                 .ListAsync<AnswerOfQuestionWithoutCorrectAnswer>(token);
