@@ -16,6 +16,7 @@ module.exports = (env) => {
                 'vue',
                 'vue-router',
                 'vuex',
+                "vuetify"
 
             ],
         },
