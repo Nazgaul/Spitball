@@ -1,7 +1,6 @@
 @import "../../../../styles/mixin.less";
-@import "style-helpers/dotsanimate.less";
 @import "style-helpers/scroll-bar.less";
-@import "style-helpers/docType-animate.less";
+@import "style-helpers/uploadAnimation.less";
 
 @uploadGreyBackground: rgba(68, 82, 252, 0.09);
 @uploadGrey: #D1D1D1;
@@ -1324,6 +1323,7 @@
                   font-size: 36px;
                   margin-bottom: 24px;
                   color: @textColor;
+                  min-width: 50px;
                   @media (max-width: @screen-xs) {
                     margin-bottom: 12px;
                     font-size: 33px;
