@@ -18,19 +18,19 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
 
-            builder.Register(c => CacheFactory.Build(settings =>
-            {
-                var key = c.Resolve<IConfigurationKeys>().Redis;
-                settings
-                    .WithRedisConfiguration("redis", key)
-                    .WithJsonSerializer()
-                    .WithMaxRetries(1000)
-                    .WithRetryTimeout(100)
-                    .WithRedisBackplane("redis")
-                    .WithRedisCacheHandle("redis");
-            })).AsSelf().SingleInstance().AsImplementedInterfaces();
+            //builder.Register(c => CacheFactory.Build(settings =>
+            //{
+            //    var key = c.Resolve<IConfigurationKeys>().Redis;
+            //    settings
+            //        .WithRedisConfiguration("redis", key)
+            //        .WithJsonSerializer()
+            //        .WithMaxRetries(1000)
+            //        .WithRetryTimeout(100)
+            //        .WithRedisBackplane("redis")
+            //        .WithRedisCacheHandle("redis");
+            //})).AsSelf().SingleInstance().AsImplementedInterfaces();
 
-            builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
+            builder.RegisterType<CacheProvider>().AsSelf().SingleInstance().AsImplementedInterfaces();
         }
     }
 }
