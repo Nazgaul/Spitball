@@ -93,7 +93,7 @@
                 return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile
             },
             newIsraeliUser(){
-                return !this.accountUser && global.country.toLowerCase() === "il" && !this.acceptIsraeli;
+                return !this.accountUser && global.country.toLowerCase() === "il" && !this.acceptIsraeli && (this.$route.path.indexOf("ask") > -1 || this.$route.path.indexOf("note") > -1);
             }
         },
         updated: function () {
