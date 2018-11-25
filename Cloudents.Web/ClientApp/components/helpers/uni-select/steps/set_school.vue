@@ -1,12 +1,14 @@
 <template>
-        <div class="select-university-container set-school" :class="{'selected': (!!search && search.length > 10)}">
-                <div class="title-container">
-                    <span v-language:inner>uniSelect_select_school</span> 
-                    <a v-show="showNext" class="next-container" @click="checkBeforeNextStep()" v-language:inner>uniSelect_next</a>  
-                    
-                </div>
-                <div class="select-school-container">
-                    <v-combobox
+    <!--<div class="select-university-container set-school" :class="{'selected': (!!search && search.length > 10)}">-->
+    <div class="" :class="{'selected': (!!search && search.length > 10)}">
+        <div class="title-container">
+            <span v-language:inner>uniSelect_select_school</span>
+            <a v-show="showNext" class="next-container" @click="checkBeforeNextStep()"
+               v-language:inner>uniSelect_next</a>
+
+        </div>
+        <div class="select-school-container">
+            <v-combobox
                     class="hello-gaby"
                         v-model="university"
                         :items="universities"
@@ -42,7 +44,7 @@
                     <a @click="skipUniSelect()" v-language:inner>uniSelect_skip_for_now</a> 
                 </div>
 
-            </div>        
+    </div>
 </template>
 
 <script>
@@ -71,10 +73,11 @@ export default {
     },
     watch:{
         search: debounce(function(){
-            if(!!this.search && this.search.length >= 1 ){
-                this.updateUniversities(this.search);                
-            }else if(!!this.search && this.search.length === 0 ){
-                this.clearUniversityList();
+            if(!!this.search && this.search.length > 2 ){
+                this.updateUniversities(this.search);
+            }
+            if(this.search === ""){
+                this.clearData();
             }
         }, 250)
     },
@@ -120,65 +123,69 @@ export default {
                     };
                    this.updateSchoolName(schoolName).then(()=>{
                         this.fnMethods.changeStep(this.enumSteps.set_class);
-                });
-            }
-        },
-        checkBeforeNextStep(){
-            let user = this.accountUser();
-            if(!!user && user.universityExists){
-                //compare previous and current school name, if different show popup
-                let previousSchoolName = this.getSchoolName();
-                let currentSchoolName = this.getCurrentSchoolName();
-                if(previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase()){
-                    this.fnMethods.openAreYouSurePopup(this.nextStep);
-                }else{
-                    //if the same university is presented then skip the set on the server
-                    this.nextStep(true);
+                    });
                 }
-            }else{
-                this.nextStep();
-            }
-        },
-        getCurrentSchoolName(){
-            //!!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
-            if(!!this.universityModel){
-                if(!!this.universityModel.text){
-                    return this.universityModel.text;
-                }else{
-                    return this.universityModel;
-                }
-            }else if(!!this.search){
-                return this.search;
-            }else{
-                return this.university;
-            }
-        }
-    },
-    computed:{
-        showBox(){
-            return this.search.length > 0;
-        },
-        showNext(){
-           return this.search.length > 10
-        },
-        universities(){
-            return this.getUniversities();
-        },
-        university:{
-            get: function(){
-                let schoolNameFromStore = this.getSchoolName();
-                return schoolNameFromStore || this.universityModel
             },
-            set: function(newValue){
-                this.universityModel = newValue
+            checkBeforeNextStep() {
+                let user = this.accountUser();
+                if (!!user && user.universityExists) {
+                    //compare previous and current school name, if different show popup
+                    let previousSchoolName = this.getSchoolName();
+                    let currentSchoolName = this.getCurrentSchoolName();
+                    if (previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase()) {
+                        this.fnMethods.openAreYouSurePopup(this.nextStep);
+                    } else {
+                        //if the same university is presented then skip the set on the server
+                        this.nextStep(true);
+                    }
+                } else {
+                    this.nextStep();
+                }
+            },
+            getCurrentSchoolName() {
+                //!!this.universityModel.text ? this.universityModel.text : !!this.universityModel ? this.universityModel : !!this.search ? this.search : this.university;
+                if (!!this.universityModel) {
+                    if (!!this.universityModel.text) {
+                        return this.universityModel.text;
+                    } else {
+                        return this.universityModel;
+                    }
+                } else if (!!this.search) {
+                    return this.search;
+                } else {
+                    return this.university;
+                }
+            }
+        },
+        computed: {
+            showBox() {
+                if (this.search && this.search > 0) {
+                    return true
+                }
+            },
+            showNext() {
+                if (this.search && this.search.length > 10) {
+                    return true
+                }
+            },
+            universities() {
+                return this.getUniversities();
+            },
+            university: {
+                get: function () {
+                    let schoolNameFromStore = this.getSchoolName();
+                    return schoolNameFromStore || this.universityModel
+                },
+                set: function (newValue) {
+                    this.universityModel = newValue
+                }
             }
         }
     }
-}
 </script>
 
 <style lang="less" scoped>
-    .subheading{
+    .subheading {
         font-size: 16px;
         font-weight: normal;
         font-style: normal;
@@ -186,8 +193,8 @@ export default {
         line-height: normal;
         letter-spacing: normal;
         color: rgba(0, 0, 0, 0.38);
-        &.dark{
-            font-size:13px!important;
+        &.dark {
+            font-size: 13px !important;
             color: rgba(0, 0, 0, 0.54);
         }
     }

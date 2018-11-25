@@ -1,4 +1,7 @@
 @import '../../../styles/mixin.less';
+
+
+
 .v-select-list{
     opacity: 0.9;
     margin-top: -4px;
@@ -12,7 +15,7 @@
         }
     }
 }
-.uni-select-component{   
+.uni-select-component{
     position: relative;
     width: 100%;
     display: flex;
@@ -52,7 +55,7 @@
                 opacity: 0.45;
             }
         }
-    
+
     .select-university-container{
             width: 499px;
             height: 516px;
@@ -73,8 +76,8 @@
                 color: #ffffff;
                 margin-top: 32px;
                 line-height: 55px;
-                font-family: 'Fira Sans', sans-serif;                
-            }            
+                font-family: 'Fira Sans', sans-serif;
+            }
             .explain-container{
                 width: 100%;
                 max-height: 90px;
@@ -89,6 +92,7 @@
                 color: #ffffff;
             }
             .select-school-container{
+                .animation(fadeIn 0.25s linear);
                 margin-top:20px;
                 position:relative;
                 input{
@@ -128,11 +132,13 @@
             }
             //select school page
             &.set-school{
-                &.selected{
+              //transition: height 0.8s linear;
+              .transition (height .25s linear);
+                .selected{
                     height: 120px;
+                    .transition (height .25s linear);
                 }
                 height: 120px;
-                //animation: changeMinHeight 0.25s ease-in;
                 .title-container{
                     font-size: 28px;
                     font-weight: normal;
@@ -153,6 +159,7 @@
                     font-weight: 300;
                 }
                 .select-school-container{
+                    .animation(fadeIn 0.25s linear);
                     margin-top:-70px;
                     i{
                         position: unset;
@@ -162,22 +169,14 @@
                             font-size: 25px;
                         }
                     }
-                    
-                }
 
-                @keyframes changeMinHeight{
-                        from {
-                            height: 300px;
-                        }
-                        to {
-                            height: 120px;
-                        }
-                    }
+                }
                 }
                 //select class page
                 &.set-class{
                     height: 185px;
-                    //animation: changeMedHeight 0.25s ease-in;
+                     //transition: height 0.8s linear;
+                  .transition (height .25s linear);
                     .title-container{
                         display: flex;
                         flex-direction: column;
@@ -220,10 +219,13 @@
                         font-weight: 300;
                     }
                     .select-school-container{
+                        .animation(fadeIn 0.25s linear);
                         margin-top: 0;
                         .v-input__slot{
                             padding-top: 16px;
                             padding-bottom: 16px;
+                            //TODO awhile animation done request
+                            max-height: 48px;
                         }
                         i{
                             position: unset;
@@ -233,17 +235,9 @@
                                 font-size: 25px;
                             }
                         }
-                        
+
                     }
-    
-                    @keyframes changeMedHeight{
-                            from {
-                                height: 120px;
-                            }
-                            to {
-                                height: 185px;
-                            }
-                        }
+
                     }
                 }
 
@@ -267,7 +261,7 @@
                             font-stretch: normal;
                             line-height: 1.43;
                             letter-spacing: normal;
-                        }  
+                        }
                         .explain-container{
                             margin-top: 93px;
                             font-size: 14px;
@@ -285,7 +279,7 @@
                             &.set-school{
                             height: 100%;
                             animation: unset;
-                            &.selected{
+                            .selected{
                                 height: 100%;
                             }
                             .title-container{
@@ -294,11 +288,12 @@
                                 font-weight: 300;
                                 line-height: 2;
                                 color: #fff;
-                            } 
+                            }
                             .next-container{
                                 top: -25px;
                             }
                             .select-school-container{
+
                                 margin-top: 0;
                                 box-shadow: none;
                             }
@@ -315,8 +310,9 @@
                                 .select-class-string{
                                     margin-top:20px;
                                 }
-                            } 
+                            }
                             .select-school-container{
+
                                 margin-top: 53px;
                                 box-shadow: none;
                             }

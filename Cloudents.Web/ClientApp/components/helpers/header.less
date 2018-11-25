@@ -133,6 +133,7 @@
     display: flex;
     max-width: 276px;
     @media (max-width: @screen-xs) {
+      width: 55%;
       flex: 0 auto;
     }
     .v-btn--icon {
@@ -284,6 +285,9 @@
   align-items: flex-end;
   padding-right: 16px;
   position: relative;
+  @media (max-width: @screen-xs) {
+    padding-right: 0;
+  }
 }
 
 .header-comments {
@@ -345,7 +349,7 @@
   justify-content: flex-end;
   max-width: 60px;
   @media (max-width: @screen-xs) {
-    padding-left: 24px;
+    padding-left: 0;
   }
   img {
     height: 32px;
