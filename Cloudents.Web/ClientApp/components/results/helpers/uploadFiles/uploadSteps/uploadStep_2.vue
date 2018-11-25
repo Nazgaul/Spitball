@@ -1,7 +1,9 @@
 <template>
     <v-card class="mb-5 sb-step-card">
         <div class="upload-row-1">
-            <h3 class="upload-cloud-text sb-title" v-language:inner>upload_files_step2_title </h3>
+            <h3 class="upload-cloud-text sb-title" ><span v-language:inner>upload_first_step2_title_partOne</span><br/>
+            <span v-language:inner>upload_first_step2_title_partTwo</span>
+            </h3>
             <h4 class="sb-subtitle mt-2" v-language:inner>upload_files_step2_subtitle</h4>
         </div>
         <div class="upload-row-2 paddingTopSm">
