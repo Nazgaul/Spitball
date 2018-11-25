@@ -71,10 +71,11 @@ export default {
     },
     watch:{
         search: debounce(function(){
-            if(!!this.search && this.search.length >= 1 ){
+            if(!!this.search && this.search.length > 2 ){
                 this.updateUniversities(this.search);                
-            }else if(!!this.search && this.search.length === 0 ){
-                this.clearUniversityList();
+            }
+            if(this.search === ""){
+                this.clearData();
             }
         }, 250)
     },
