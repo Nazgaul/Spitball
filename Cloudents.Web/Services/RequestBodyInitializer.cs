@@ -1,15 +1,17 @@
-﻿using System.IO;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Web.Identity;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.AspNetCore.Identity;
+using System.IO;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Cloudents.Web.Services
 {
-    public class RequestBodyInitializer :  ITelemetryInitializer
+    public class RequestBodyInitializer : ITelemetryInitializer
     {
         readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -40,29 +42,6 @@ namespace Cloudents.Web.Services
             //Reset the stream so data is not lost
             _httpContextAccessor.HttpContext.Request.Body.Position = 0;
             requestTelemetry.Properties.Add(jsonBody, body);
-        }
-    }
-
-    public class UserIdInitializer : ITelemetryInitializer
-    {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly UserManager<User> _userManager;
-
-        public UserIdInitializer(IHttpContextAccessor httpContextAccessor, UserManager<User> userManager)
-        {
-            _httpContextAccessor = httpContextAccessor;
-            _userManager = userManager;
-        }
-
-        public void Initialize(ITelemetry telemetry)
-        {
-            if (telemetry is RequestTelemetry)
-            {
-                if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
-                {
-                    telemetry.Context.User.Id = _userManager.GetUserId(_httpContextAccessor.HttpContext.User);
-                }
-            }
         }
     }
 }

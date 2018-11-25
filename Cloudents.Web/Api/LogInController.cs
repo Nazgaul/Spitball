@@ -9,6 +9,7 @@ using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Cloudents.Web.Api
@@ -17,11 +18,11 @@ namespace Cloudents.Web.Api
     public class LogInController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly SbSignInManager _signInManager;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<LogInController> _localizer;
 
-        public LogInController(UserManager<User> userManager, SignInManager<User> signInManager,
+        public LogInController(UserManager<User> userManager, SbSignInManager signInManager,
             IStringLocalizer<LogInController> localizer, ICommandBus commandBus)
         {
             _userManager = userManager;
@@ -92,6 +93,15 @@ namespace Cloudents.Web.Api
             }
 
             return new CheckUserStatusResponse(NextStep.Loginstep);
+        }
+
+
+        [HttpPost("Test")]
+        public async Task<ActionResult<CheckUserStatusResponse>> T222([FromBody] EmailValidateRequest model)
+        {
+            var user = await _userManager.FindByEmailAsync("yaari.ram@gmail.com");
+            await _signInManager.TempSignIn(user);
+            return Ok();
         }
     }
 }

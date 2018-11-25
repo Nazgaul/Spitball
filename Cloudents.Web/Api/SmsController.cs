@@ -15,6 +15,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Web.Api
 {
@@ -140,12 +141,12 @@ namespace Cloudents.Web.Api
             }
 
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);
-
             if (v.Succeeded)
             {
                 //This is the last step of the registration.
                 return await FinishRegistrationAsync(token, user, country);
             }
+            _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
         }
@@ -156,8 +157,15 @@ namespace Cloudents.Web.Api
             {
                 if (Base62.TryParse(TempData[HomeController.Referral].ToString(), out var base62))
                 {
-                    var command = new ReferringUserCommand(base62.Value, user.Id);
-                    await _commandBus.DispatchAsync(command, token);
+                    try
+                    {
+                        var command = new ReferringUserCommand(base62.Value, user.Id);
+                        await _commandBus.DispatchAsync(command, token);
+                    }
+                    catch (UserLockoutException)
+                    {
+                        _logger.Warning($"{user.Id} got locked referring user {TempData[HomeController.Referral]}");
+                    }
                 }
                 else
                 {
@@ -180,7 +188,12 @@ namespace Cloudents.Web.Api
         [HttpPost("resend")]
         public async Task<IActionResult> ResendAsync(CancellationToken token)
         {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
+            if (User.Identity.IsAuthenticated)
+            {
+                _logger.Error("Set User Phone number User is already sign in");
+                return Unauthorized();
+            }
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
