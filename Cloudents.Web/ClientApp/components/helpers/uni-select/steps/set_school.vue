@@ -10,120 +10,118 @@
         <div class="select-school-container">
             <v-combobox
                     class="hello-gaby"
-                    v-model="university"
-                    :items="universities"
-                    :label="schoolNamePlaceholder"
-                    :placeholder="schoolNamePlaceholder"
-                    clearable
-                    solo
-                    :search-input.sync="search"
-                    :append-icon="''"
-                    :clear-icon="'sbf-close'"
-                    @click:clear="clearData(search, university)"
-                    autofocus
-                    no-filter
-                    :color="`gray`"
-            >
-                <template slot="no-data">
-                    <v-list-tile v-show="showBox">
-                        <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
-                    </v-list-tile>
-                    <v-list-tile>
-                        <div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark"
-                             v-language:inner>uniSelect_show_all_schools
-                        </div>
-                    </v-list-tile>
-                </template>
-                <template slot="item" slot-scope="{ index, item, parent }">
-                    <v-list-tile-content style="max-width:385px;">
-                        <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span>
-                    </v-list-tile-content>
-                </template>
-            </v-combobox>
-        </div>
+                        v-model="university"
+                        :items="universities"
+                        :label="schoolNamePlaceholder"
+                        :placeholder="schoolNamePlaceholder"
+                        clearable
+                        solo
+                        :search-input.sync="search"
+                        :append-icon="''"
+                        :clear-icon="'sbf-close'"
+                        @click:clear="clearData(search, university)"
+                        autofocus
+                        no-filter
+                        :color="`gray`"
+                    >
+                    <template slot="no-data">
+                        <v-list-tile v-show="showBox">
+                            <div class="subheading" v-language:inner>uniSelect_keep_typing</div> 
+                        </v-list-tile>
+                        <v-list-tile>
+                            <div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark" v-language:inner>uniSelect_show_all_schools</div>
+                        </v-list-tile>
+                    </template>
+                    <template slot="item" slot-scope="{ index, item, parent }">
+                        <v-list-tile-content style="max-width:385px;">
+                        <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span> 
+                        </v-list-tile-content>
+                    </template>
+                    </v-combobox>
+                </div>
 
-        <div class="skip-container" v-if="$vuetify.breakpoint.xsOnly">
-            <a @click="skipUniSelect()" v-language:inner>uniSelect_skip_for_now</a>
-        </div>
+                <div class="skip-container" v-if="$vuetify.breakpoint.xsOnly">
+                    <a @click="skipUniSelect()" v-language:inner>uniSelect_skip_for_now</a> 
+                </div>
 
     </div>
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
-    import debounce from "lodash/debounce";
-    import { LanguageService } from "../../../../services/language/languageService";
+import { mapGetters, mapActions } from 'vuex';
+import debounce from "lodash/debounce";
+import { LanguageService } from "../../../../services/language/languageService";
 
 
-    export default {
-        props: {
-            fnMethods: {
-                required: true,
-                type: Object
-            },
-            enumSteps: {
-                required: true,
-                type: Object
+export default {
+    props:{
+        fnMethods:{
+            required:true,
+            type:Object
+        },
+        enumSteps:{
+            required:true,
+            type:Object
+        }
+    },
+    data(){
+        return{
+            universityModel: '',
+            search: '',
+            schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
+        }
+    },
+    watch:{
+        search: debounce(function(){
+            if(!!this.search && this.search.length > 2 ){
+                this.updateUniversities(this.search);
             }
-        },
-        data() {
-            return {
-                universityModel: '',
-                search: '',
-                schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
+            if(this.search === ""){
+                this.clearData();
             }
-        },
-        watch: {
-            search: debounce(function () {
-                if (!!this.search && this.search.length >= 1) {
-                    this.updateUniversities(this.search);
-                } else if (!!this.search && this.search.length === 0) {
-                    this.clearUniversityList();
-                }
-            }, 250)
-        },
-        filters: {
-            boldText(value, search) {
-                //mark the text bold according to the search value
-                if (!value) return '';
-                let match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
-                if (match) {
-                    let startIndex = value.toLowerCase().indexOf(search.toLowerCase())
-                    let endIndex = search.length;
-                    let word = value.substr(startIndex, endIndex)
-                    return value.replace(word, '<b>' + word + '</b>')
-                } else {
-                    return value;
-                }
-
+        }, 250)
+    },
+    filters:{
+        boldText(value, search){
+            //mark the text bold according to the search value
+            if (!value) return '';
+            let match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
+            if(match){
+                let startIndex = value.toLowerCase().indexOf(search.toLowerCase())
+                let endIndex = search.length;
+                let word = value.substr(startIndex, endIndex)
+                return value.replace(word, '<b>' + word + '</b>')
+            }else{
+                return value;
             }
+            
+        }
+    },
+    methods:{
+        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "changeSelectUniState", "setUniversityPopStorage_session"]),
+        ...mapGetters(["getUniversities", "getSchoolName", "accountUser"]),
+        clearData(search, university){
+            search = '';
+            university = undefined;
+            this.clearUniversityList();
         },
-        methods: {
-            ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "changeSelectUniState", "setUniversityPopStorage_session"]),
-            ...mapGetters(["getUniversities", "getSchoolName", "accountUser"]),
-            clearData(search, university) {
-                search = '';
-                university = undefined;
-                this.clearUniversityList();
-            },
-            getAllUniversities() {
-                //leave space
-                this.updateUniversities(' ');
-            },
-            skipUniSelect() {
-                this.fnMethods.openNoWorriesPopup();
-            },
-            nextStep(dontChangeUniversity) {
-                if (dontChangeUniversity) {
-                    this.fnMethods.changeStep(this.enumSteps.set_class)
-                } else {
-                    let schoolName = this.getCurrentSchoolName();
-                    if (!schoolName) {
-                        console.log("No university name found")
-                        return;
-                    }
-                    ;
-                    this.updateSchoolName(schoolName).then(() => {
+        getAllUniversities(){
+            //leave space
+            this.updateUniversities(' ');   
+        },
+        skipUniSelect(){
+            this.fnMethods.openNoWorriesPopup();
+        },
+        nextStep(dontChangeUniversity){
+            if(dontChangeUniversity) {
+                this.fnMethods.changeStep(this.enumSteps.set_class)
+            }else{
+                let schoolName = this.getCurrentSchoolName();
+                   if(!schoolName) {
+                       console.log("No university name found")
+                       return;
+                    };
+                   this.updateSchoolName(schoolName).then(()=>{
                         this.fnMethods.changeStep(this.enumSteps.set_class);
                     });
                 }
