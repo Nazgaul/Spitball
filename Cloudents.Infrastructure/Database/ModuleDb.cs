@@ -64,20 +64,7 @@ namespace Cloudents.Infrastructure.Database
             builder.Register(c => c.Resolve<UnitOfWorkFactoryMailGun>().OpenSession()).InstancePerLifetimeScope();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
-
-            //builder.Register(c =>
-            //    {
-            //        var session = c.ResolveKeyed<ISession>(Core.Enum.Database.MailGun);
-            //        return new UnitOfWork(session);
-            //    })
-            //    .As<IUnitOfWork>().InstancePerLifetimeScope();
-
             builder.RegisterType<MailGunStudentRepository>().AsImplementedInterfaces();
-            //builder.Register(c =>
-            //{
-            //    var session = c.ResolveKeyed<ISession>(Core.Enum.Database.MailGun);
-            //    return new MailGunStudentRepository(session);
-            //}).AsImplementedInterfaces();
         }
     }
 }

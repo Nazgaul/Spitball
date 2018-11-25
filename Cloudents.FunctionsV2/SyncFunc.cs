@@ -26,14 +26,6 @@ namespace Cloudents.FunctionsV2
         {
             var model = new SearchSyncInput(syncType);
             var existingInstance = await starter.GetStatusAsync(model.InstanceId);
-            //var startNewInstanceEnum = new[]
-            //{
-            //    OrchestrationRuntimeStatus.Canceled,
-            //    OrchestrationRuntimeStatus.Completed,
-            //    OrchestrationRuntimeStatus.Failed,
-            //    OrchestrationRuntimeStatus.Terminated
-            //};
-
             if (existingInstance == null)
             {
                 log.LogInformation($"start new instance of {syncType}");
@@ -61,28 +53,6 @@ namespace Cloudents.FunctionsV2
                 }
             }
             await starter.StartNewAsync(SearchSyncName, model.InstanceId, model);
-
-            //if (startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
-            //{
-            //    log.LogInformation($"existing instance is in status:{existingInstance.RuntimeStatus} reason {existingInstance.CustomStatus}");
-
-
-            //    if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-5) &&
-            //        existingInstance.RuntimeStatus != OrchestrationRuntimeStatus.Completed)
-            //    {
-            //        log.LogError($"issue with {syncType}");
-            //        await starter.TerminateAsync(model.InstanceId, $"issue with {syncType}");
-            //    }
-
-            //    log.LogInformation($"started {model.InstanceId}");
-
-            //    await starter.StartNewAsync(SearchSyncName, model.InstanceId, model);
-            //}
-            //else
-            //{
-            //    log.LogInformation($"{model.InstanceId} is in status {existingInstance.RuntimeStatus}");
-
-            //}
         }
 
         [FunctionName(SearchSyncName)]

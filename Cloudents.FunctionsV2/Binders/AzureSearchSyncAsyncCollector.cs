@@ -1,11 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
+using Microsoft.Azure.WebJobs;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.Binders
 {
@@ -30,8 +29,8 @@ namespace Cloudents.FunctionsV2.Binders
 
         public async Task FlushAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            var uploadAction = _messages.Where(w => w.Insert).Select(s=>IndexAction.MergeOrUpload(s.Item));
-            var deleteAction = _messages.Where(w => !w.Insert).Select(s=>IndexAction.Delete(s.Item));
+            var uploadAction = _messages.Where(w => w.Insert).Select(s => IndexAction.MergeOrUpload(s.Item));
+            var deleteAction = _messages.Where(w => !w.Insert).Select(s => IndexAction.Delete(s.Item));
 
             var batch = IndexBatch.New(uploadAction.Union(deleteAction));
 

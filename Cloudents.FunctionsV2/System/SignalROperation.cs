@@ -12,7 +12,8 @@ namespace Cloudents.FunctionsV2.System
 {
     public class SignalROperation : ISystemOperation<Core.Message.System.SignalRMessage>
     {
-        public async Task DoOperationAsync(Core.Message.System.SignalRMessage msg, IBinder binder, CancellationToken token)
+        public async Task DoOperationAsync(Core.Message.System.SignalRMessage msg,
+            IBinder binder, CancellationToken token)
         {
 
             var signalRMessages = await binder.BindAsync<IAsyncCollector<JObject>>(new SignalRAttribute()

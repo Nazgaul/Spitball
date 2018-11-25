@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Write
     [UsedImplicitly]
     public class QuestionSearchWrite : SearchServiceWrite<Question>
     {
-        internal const string IndexName = "question2";
+        public const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
         internal const string ScoringProfile = "ScoringProfile";
 
