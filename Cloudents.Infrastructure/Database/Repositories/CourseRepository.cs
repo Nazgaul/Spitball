@@ -14,6 +14,11 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public async Task<Course> GetOrAddAsync(string name, CancellationToken token)
         {
+            if (name == null)
+            {
+                throw new System.ArgumentNullException(nameof(name));
+            }
+            name = name.Trim();
             var course = await GetAsync(name, token);
 
             if (course == null)

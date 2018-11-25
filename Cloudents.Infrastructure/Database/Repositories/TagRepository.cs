@@ -14,6 +14,11 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public async Task<Tag> GetOrAddAsync(string name, CancellationToken token)
         {
+            if (name == null)
+            {
+                throw new System.ArgumentNullException(nameof(name));
+            }
+            name = name.Trim();
             var tag = await GetAsync(name, token);
 
             if (tag == null)
