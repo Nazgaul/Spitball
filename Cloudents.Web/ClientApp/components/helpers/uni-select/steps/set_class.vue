@@ -1,6 +1,7 @@
 <template>
-    <div class="select-university-container set-class">
-            <div class="title-container">
+    <!--<div class="select-university-container set-class">-->
+    <div class="">
+    <div class="title-container">
                 <div class="first-container">
                     <div><v-icon @click="lastStep()" :class="{'rtl': isRtl}">sbf-arrow-back</v-icon></div>
                     <div><a class="next-container" @click="nextStep()" v-language:inner>uniSelect_done</a> </div>
@@ -94,7 +95,8 @@ export default {
             return this.getSchoolName()
         },
         showBox(){
-            return this.search.length > 0;
+           return !!this.search && this.search.length > 0
+
         },
         classes(){
             return this.getClasses()

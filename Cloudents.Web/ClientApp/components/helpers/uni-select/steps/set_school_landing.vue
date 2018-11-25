@@ -1,8 +1,10 @@
 <template>
-        <div class="select-university-container">
+        <!--<div class="select-university-container">-->
+    <div>
             <div class="title-container" v-language:inner>uniSelect_set_school_class</div>
             <div class="explain-container" v-language:inner>uniSelect_set_school_class_explain</div>
             <div class="select-school-container">
+
                 <input type="text" style="padding-left:16px;" placeholder="uniSelect_select_school_placeholder" v-language:placeholder @click="inputClicked">  
                 <v-icon :class="{'rtl': isRtl}">sbf-arrow-right</v-icon>
             </div>

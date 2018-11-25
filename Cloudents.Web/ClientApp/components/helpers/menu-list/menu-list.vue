@@ -284,7 +284,9 @@
                     this.updateLoginDialogState(true);
                 } else {
                     let steps = this.getAllSteps();
-                    this.updateCurrentStep(steps.set_school);
+                    // this.updateCurrentStep(steps.set_school);
+                    //TODO set-school animation return as was before
+                    this.updateCurrentStep(steps.set_school_landing);
                     this.changeSelectUniState(true);
                     this.$root.$emit("closeDrawer");
                     // this.$root.$emit("personalize", typesPersonalize.university);
