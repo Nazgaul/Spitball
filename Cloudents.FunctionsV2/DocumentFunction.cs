@@ -22,7 +22,7 @@ namespace Cloudents.FunctionsV2
             [Inject] ISearchServiceWrite<Document> searchInstance,
             [Inject] ICommandBus commandBus,
             [Inject] ITextAnalysis textAnalysis,
-            ILogger log, CancellationToken token)
+            CancellationToken token)
         {
             await SyncBlobWithSearch(text, id, metadata, searchInstance, commandBus, textAnalysis, token);
         }

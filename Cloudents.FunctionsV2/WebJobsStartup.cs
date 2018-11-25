@@ -1,4 +1,5 @@
 ﻿using Cloudents.FunctionsV2;
+using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Hosting;
@@ -12,9 +13,12 @@ namespace Cloudents.FunctionsV2
     {
         internal class Startup : IWebJobsStartup
         {
-            public void Configure(IWebJobsBuilder builder) =>
+            public void Configure(IWebJobsBuilder builder)
+            {
 
+                builder.AddExtension<AzureSearchSyncProvider>();
                 builder.AddDependencyInjection<AutofacServiceProviderBuilder>();
+            }
 
             private void ConfigureServices(IServiceCollection services)
             {

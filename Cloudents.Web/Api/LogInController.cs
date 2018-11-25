@@ -94,14 +94,5 @@ namespace Cloudents.Web.Api
 
             return new CheckUserStatusResponse(NextStep.Loginstep);
         }
-
-
-        [HttpPost("Test")]
-        public async Task<ActionResult<CheckUserStatusResponse>> T222([FromBody] EmailValidateRequest model)
-        {
-            var user = await _userManager.FindByEmailAsync("yaari.ram@gmail.com");
-            await _signInManager.TempSignIn(user);
-            return Ok();
-        }
     }
 }
