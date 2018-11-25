@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Controllers
 {
@@ -10,10 +12,12 @@ namespace Cloudents.Web.Controllers
     public class RegisterController : Controller
     {
         private readonly SignInManager<User> _signInManager;
+        private readonly ISmsSender _client;
 
-        public RegisterController(SignInManager<User> signInManager)
+        public RegisterController(SignInManager<User> signInManager, ISmsSender client)
         {
             _signInManager = signInManager;
+            _client = client;
         }
 
         internal const string RegisterRouteName = "Register";
@@ -23,10 +27,10 @@ namespace Cloudents.Web.Controllers
         // GET
         [Route("register", Name = RegisterRouteName)]
         [Route("signin", Name = Signin)]
-        public async Task<IActionResult> Index(NextStep? step
-            /*[ModelBinder(typeof(CountryModelBinder))] string country*/)
+        public async Task<IActionResult> Index(NextStep? step, CancellationToken token)
         {
-            //ViewBag.country = country ?? "us";
+
+
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
@@ -43,11 +47,26 @@ namespace Cloudents.Web.Controllers
                     }
                     break;
                 case NextStep.VerifyPhone:
+                    var userVerified = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+                    if (userVerified == null)
+                    {
+                        return RedirectToRoute(RegisterRouteName);
+                    }
+
+                    
+
+                    break;
                 case NextStep.EnterPhone:
                     var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
                     if (user == null)
                     {
                         return RedirectToRoute(RegisterRouteName);
+                    }
+
+                    if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
+                    {
+                        await _client.SendSmsAsync(user, token);
+                        return RedirectToRoute(RegisterRouteName, new { step = NextStep.VerifyPhone });
                     }
 
                     break;
