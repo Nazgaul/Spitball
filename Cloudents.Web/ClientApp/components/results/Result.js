@@ -19,8 +19,6 @@ const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
 
-//ab testing
-import abTestCard from './helpers/abTestCards/abTestCard.vue'
 import askQuestionBtn from './helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "./helpers/uploadFilesBtn/uploadFilesBtn.vue"
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
@@ -28,7 +26,6 @@ const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 //The vue functionality for result page
 export default {
     components: {
-        abTestCard,
         emptyState,
         ResultItem,
         ResultNote,
