@@ -268,6 +268,7 @@ Vue.filter('commasFilter', function (value) {
 
 router.beforeEach((to, from, next) => {
     store.dispatch('changeSelectUniState', false)
+    store.dispatch('setCurrentVertical', to.path.slice(1))
     if (!!to.query && Object.keys(to.query).length > 0) {
         for (let prop in to.query) {
             if (constants.regExXSSCheck.test(to.query[prop])) {

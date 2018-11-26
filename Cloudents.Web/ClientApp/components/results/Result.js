@@ -169,6 +169,7 @@ export default {
             'updateDialogState'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
+        ...mapGetters(["getCurrentVertical"]),
 
         loadNewQuestions(){
             this.INJECT_QUESTION();
@@ -278,18 +279,19 @@ export default {
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
+        let currentVertical = this.getCurrentVertical();
         //fetch data with the params
-        this.fetchingData({
-            name: this.name,
-            params: {...this.query, ...this.params, term: this.userText},
-            skipLoad: this.$route.path.indexOf("question") > -1
-        }).then((data) => {
-            this.updateData.call(this, {...data, vertical: this.name})
-        }).catch(reason => {
-            console.error(reason);
-            //when error from fetching data remove the loader
-            this.UPDATE_LOADING(false);
-        });
+            this.fetchingData({
+                name: currentVertical,
+                params: {...this.query, ...this.params, term: this.userText},
+                skipLoad: this.$route.path.indexOf("question") > -1
+            }).then((data) => {
+                this.updateData.call(this, {...data, vertical: this.name})
+            }).catch(reason => {
+                console.error(reason);
+                //when error from fetching data remove the loader
+                this.UPDATE_LOADING(false);
+            });
     },
 
 };
