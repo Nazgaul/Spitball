@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             //keep this as model for expand panel, to keep it always open
-            panelList: [true, true]
+            //panelList: [[true], [true]]
         }
     },
     props: {
@@ -22,7 +22,10 @@ export default {
         },
         sortOptions() {
             return this.getSort;
-        }
+        },
+        panelList(){
+            return [[true], [true]]
+        } 
     },
     methods: {
         ...mapActions(['setFilteredCourses', 'updateCurrentStep', 'changeSelectUniState']),

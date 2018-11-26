@@ -20,8 +20,9 @@
             <div class="filter-switch">
 
                 <!-- <v-expansion-panel expand v-model="panelList"> -->
-                <v-expansion-panel expand readonly v-model="panelList">
-                    <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index" expand-icon="">
+                <v-expansion-panel expand readonly v-for="(singleFilter, index) in filterList" :key="index" 
+                     v-model="panelList[index]">
+                    <v-expansion-panel-content expand expand-icon="">
                         <!-- <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon> -->
 
                         <template slot="header">

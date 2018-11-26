@@ -5,10 +5,10 @@
             <div class="loader" v-show="getIsLoading">
                 <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
             </div>
-            <div v-if="showUniSelect" style="height: 100%;">
+            <div v-show="showUniSelect" style="height: 100%;">
                 <uni-select></uni-select>
             </div>
-            <router-view v-else ref="mainPage"></router-view>
+            <router-view v-show="!showUniSelect" ref="mainPage"></router-view>
             <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
               <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
               <span class="cookie-approve"><button @click="removeCookiesPopup()" style="outline:none;" v-language:inner>app_cookie_toaster_action</button></span>

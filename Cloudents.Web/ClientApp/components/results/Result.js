@@ -276,10 +276,9 @@ export default {
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
-        let currentVertical = this.getCurrentVertical();
         //fetch data with the params
             this.fetchingData({
-                name: currentVertical,
+                name: this.name,
                 params: {...this.query, ...this.params, term: this.userText},
                 skipLoad: this.$route.path.indexOf("question") > -1
             }).then((data) => {
