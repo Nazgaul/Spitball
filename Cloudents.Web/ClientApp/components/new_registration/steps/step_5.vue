@@ -103,14 +103,14 @@
                             self.$parent.$emit('changeStep', 'congrats');
                             analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
                             if(!!userId){
-                                analyticsService.sb_unitedEvent('Registration', 'User Id', userId);
+                                analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
                             }
                             self.loading = false;
                         } else {
                             self.loading = false;
                             analyticsService.sb_unitedEvent('Login', 'Phone Verified');
                             if(!!userId){
-                                analyticsService.sb_unitedEvent('Registration', 'User Id', userId);
+                                analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
                             }
                             let url = self.lastActiveRoute || defaultSubmitRoute;
                             window.isAuth = true;
