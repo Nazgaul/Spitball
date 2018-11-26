@@ -284,9 +284,7 @@
                     this.updateLoginDialogState(true);
                 } else {
                     let steps = this.getAllSteps();
-                     // this.updateCurrentStep(steps.set_school);
-                    //TODO set for step landing to see first step animation
-                    this.updateCurrentStep(steps.set_school_landing);
+                    this.updateCurrentStep(steps.set_school);
                     this.changeSelectUniState(true);
                     this.$root.$emit("closeDrawer");
                     // this.$root.$emit("personalize", typesPersonalize.university);

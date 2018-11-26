@@ -25,8 +25,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setFilteredCourses']),
+        ...mapActions(['setFilteredCourses', 'updateCurrentStep', 'changeSelectUniState']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
+        ...mapGetters(['getAllSteps']),
         updateSort(val) {
             this.UPDATE_SEARCH_LOADING(true);
             this.$router.push({query: {...this.$route.query, sort: val}});
@@ -40,6 +41,11 @@ export default {
               return item.filterType === singleFilter.id && filterId === keyString;
 
             });
+        },
+        openEditClass(){
+            let steps = this.getAllSteps();
+            this.updateCurrentStep(steps.set_class);
+            this.changeSelectUniState(true);
         },
         updateFilter({id, val, name, event}) {
             this.UPDATE_SEARCH_LOADING(true);
