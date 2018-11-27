@@ -277,6 +277,12 @@
     <value>Awesome!</value>
   </data>
   <data name="first_step2_title_partTwo" xml:space="preserve">
-    <value>Get your document ready for upload</value>
+    <value>To what class this Document reffers to?</value>
+  </data>
+  <data name="files_dopHere" xml:space="preserve">
+    <value>Drop your file here</value>
+  </data>
+  <data name="files_options_text" xml:space="preserve">
+    <value>or upload from</value>
   </data>
 </root>

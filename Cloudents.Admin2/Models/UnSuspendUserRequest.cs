@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Models
 {
-    public class SuspendUserRequest
+    public class UnSuspendUserRequest
     {
         /// <summary>
         /// The User Id
@@ -14,20 +16,10 @@ namespace Cloudents.Admin2.Models
         [FromQuery(Name = "id")]
         public IEnumerable<long> Ids { get; set; }
 
-        /// <summary>
-        /// If we want to delete all his questions
-        /// </summary>
-        [Required]
-        public bool DeleteUserQuestions { get; set; }
-
-        /// <summary>
-        /// If we want to delete all his questions
-        /// </summary>
-        public DateTimeOffset? LockoutEnd { get; set; }
     }
 
 
-    public class SuspendUserResponse
+    public class UnSuspendUserResponse
     {
         /// <summary>
         /// The User Email
@@ -35,3 +27,4 @@ namespace Cloudents.Admin2.Models
         public IEnumerable<string> Email { get; set; }
     }
 }
+

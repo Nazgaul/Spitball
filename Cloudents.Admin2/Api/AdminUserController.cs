@@ -8,6 +8,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Core.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -87,10 +88,54 @@ namespace Cloudents.Admin2.Api
                 //    }
 
                 //}
-                var command = new SuspendUserCommand(id, model.DeleteUserQuestions);
+                DateTimeOffset? LockoutEnd;
+                if (model.LockoutEnd != null)
+                {
+                    LockoutEnd = model.LockoutEnd;
+                }
+                else
+                {
+                    LockoutEnd = DateTimeOffset.MaxValue;
+                }
+                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, LockoutEnd);
                 await commandBus.DispatchAsync(command, token);
             }
             return new SuspendUserResponse();
+        }
+
+        /// <summary>
+        /// Get a list of user that have been suspended
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns>list of user that have been suspended</returns>
+        [HttpGet("suspended")]
+        public async Task<IEnumerable<SuspendedUsersDto>> GetSuspended(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            return await _queryBus.QueryAsync<IEnumerable<SuspendedUsersDto>>(query, token);
+        }
+
+        /// <summary>
+        /// UnSuspend a user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="commandBus"></param>
+        /// <param name="token"></param>
+        /// <response code="200">The User email</response>
+        /// <returns>the user email to show on the ui</returns>
+        [HttpPost("unSuspend")]
+        [ProducesResponseType(200)]
+        public async Task<UnSuspendUserResponse> UnSuspendUserAsync(UnSuspendUserRequest model,
+            [FromServices] ICommandBus commandBus,
+            CancellationToken token)
+        {
+            foreach (var id in model.Ids)
+            {
+               
+                var command = new UnSuspendUserCommand(id);
+                await commandBus.DispatchAsync(command, token);
+            }
+            return new UnSuspendUserResponse();
         }
 
         [HttpPost("country")]
