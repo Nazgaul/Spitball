@@ -65,7 +65,7 @@
                     <div class="cash-out-wrapper">
                         <div class="text-wrap">
                             <div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div>
-                            <div class="points-text"><span v-language:inner>wallet_You_have</span>&nbsp;<span>{{ earnedPoints.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0' }}</span>&nbsp;<span v-language:inner>wallet_redeemable_SBL</span>
+                            <div class="points-text"><span v-language:inner>wallet_You_have</span>&nbsp;<span>{{ calculatedEarnedPoints.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0' }}</span>&nbsp;<span v-language:inner>wallet_redeemable_SBL</span>
                             </div>
                         </div>
                         <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions"
