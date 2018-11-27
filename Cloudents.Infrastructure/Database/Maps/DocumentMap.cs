@@ -31,8 +31,9 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Language).Nullable();
             Map(x => x.Purchased).Not.Nullable();
             Map(x => x.OldId).Nullable();
-  
-            SchemaAction.None();
+            Map(x => x.State).Nullable();
+            
+            SchemaAction.Update();
         }
     }
 }

@@ -272,4 +272,10 @@
   <data name="files_uploadDoc" xml:space="preserve">
     <value>העלה מסמך</value>
   </data>
+  <data name="first_step2_title_partOne" xml:space="preserve">
+    <value>נהדר!</value>
+  </data>
+  <data name="first_step2_title_partTwo" xml:space="preserve">
+    <value>הכן את המסמך שלך</value>
+  </data>
 </root>

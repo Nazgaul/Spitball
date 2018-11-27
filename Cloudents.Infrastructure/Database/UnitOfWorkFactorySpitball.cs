@@ -97,6 +97,9 @@ namespace Cloudents.Infrastructure.Database
             config.SetListener(ListenerType.PostCommitDelete, eventPublisherListener);
             config.SetListener(ListenerType.PostInsert, eventPublisherListener);
             config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
+
+            //config.LinqToHqlGeneratorsRegistry<MyLinqToHqlGeneratorsRegistry>();
+
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
             //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
             //config.Properties.Add("cache.use_sliding_expiration",bool.TrueString.ToLowerInvariant());

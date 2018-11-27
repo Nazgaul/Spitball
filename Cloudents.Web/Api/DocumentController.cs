@@ -138,12 +138,11 @@ namespace Cloudents.Web.Api
             );
             // }
 
-            if (profile.Courses != null && profile.Courses.Any())
-            {
-                filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
-                    _localizer["CoursesFilterTitle"],
-                    profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
-            }
+
+            filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
+                _localizer["CoursesFilterTitle"],
+                profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
+
             return new WebResponseWithFacet<DocumentFeedDto>
             {
                 Result = p.Select(s =>
