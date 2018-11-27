@@ -12,6 +12,7 @@
 
 <script>
     import { currencyValidator } from "./consts";
+    import { mapActions } from 'vuex';
     export default {
         props: {
             value: {
@@ -28,12 +29,16 @@
         //this.formatValue()
     },
     methods: {
+        ...mapActions(['updateFile']),
+
         updateValue: function (value) {
             var result = currencyValidator.parse(value, this.value);
             if (result.warning) {
                 this.$refs.input.value = result.value;
             }
-            this.$emit('input', result.value )
+            this.$emit('input', result.value);
+            //update document obj in store
+            this.updateFile({'price': result.value});
         },
         formatValue: function () {
             this.$refs.input.value = currencyValidator.format(this.value);

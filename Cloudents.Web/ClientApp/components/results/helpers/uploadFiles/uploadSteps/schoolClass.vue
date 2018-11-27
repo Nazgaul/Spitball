@@ -6,20 +6,20 @@
             </h3>
             <h4 class="sb-subtitle mt-2" v-language:inner>upload_files_step2_subtitle</h4>
         </div>
-        <div class="upload-row-2 paddingTopSm">
-            <div class="btn-holder">
-                <label :for="'school'" class="steps-form-label school mb-2">
-                    <v-icon class="mr-1">sbf-university</v-icon>
-                    <span v-language:inner>upload_files_label_school</span></label>
-                <sb-input :bottomError="true"
-                          v-model="schoolName" placeholder="Your School" name="school"
-                          type="text" :disabled="true"
-                          :autofocus="true" @keyup.enter.native="">
-                </sb-input>
-            </div>
-            <div class="btn-holder">
-            </div>
-        </div>
+        <!--<div class="upload-row-2 paddingTopSm">-->
+            <!--<div class="btn-holder">-->
+                <!--<label :for="'school'" class="steps-form-label school mb-2">-->
+                    <!--<v-icon class="mr-1">sbf-university</v-icon>-->
+                    <!--<span v-language:inner>upload_files_label_school</span></label>-->
+                <!--<sb-input :bottomError="true"-->
+                          <!--v-model="schoolName" placeholder="Your School" name="school"-->
+                          <!--type="text" :disabled="true"-->
+                          <!--:autofocus="true" @keyup.enter.native="">-->
+                <!--</sb-input>-->
+            <!--</div>-->
+            <!--<div class="btn-holder">-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="upload-row-3 chip-classes-row">
             <label :for="'class-chip'" class="steps-form-label mb-2">
                 <v-icon class="mr-1">sbf-classes</v-icon>

@@ -228,6 +228,7 @@
                 .upload-row-1 {
                   padding: 36px 0;
                 }
+
                 .upload-row-2 {
                   border-top: solid 1px rgba(0, 0, 0, 0.11);
                   padding: 0;
@@ -363,7 +364,7 @@
               margin-right: 12px;
             }
             .sbf {
-              color: @labelColor;
+              color: @labelColorMobile;
               font-size: 22px;
               &.sb-close {
                 font-size: 8px;
@@ -519,24 +520,27 @@
           }
           &.step-1 {
             margin-bottom: 12px;
-
+            .or-upload{
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+              padding-top: 44px;
+            }
             .upload-row-2 {
               flex-grow: 1;
             }
 
           }
-          //background-color: @stepContentBackground;
           .sb-step-card {
-            //background-color: @stepContentBackground;
             background-color: transparent;
-            min-height: 367px;
+            //min-height: 367px;
+            min-height: 275px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            //align-items: center;
             box-shadow: none;
             &.drop-card {
-              //background-color: rgba(0, 0, 0, 0.1);
               transform: scale(1.02);
               z-index: 2
             }
@@ -558,7 +562,7 @@
                 justify-content: center;
               }
               .sbf-upload-cloud {
-                font-size: 24px;
+                font-size: 18px;
                 color: @color-blue-new;
                 @media (max-width: @screen-xs) {
                   color: @colorInputFocus;
@@ -566,7 +570,7 @@
                 }
               }
               .upload-cloud-text {
-                font-size: 22px;
+                font-size: 18px;
                 font-weight: normal;
                 margin-left: 12px;
                 &.text-blue {
@@ -652,8 +656,8 @@
                   height: 48px;
                   width: 48px;
                   box-shadow: none;
-                  border: 1px solid @uploadGrey;
-                  background-color: transparent;
+                  border: none;
+                  background-color: @uploadGreyBackground;
                   align-items: center;
                   border-radius: 50%;
                   display: inline-flex;
@@ -670,10 +674,6 @@
                   position: relative;
                   vertical-align: middle;
                   user-select: none;
-                  @media (max-width: @screen-xs) {
-                    border: none;
-                    background-color: @uploadGreyBackground;
-                  }
                   &:hover{
                     background-color: #E2E2E5;
                     cursor: pointer;
@@ -681,10 +681,7 @@
                   }
                   .sbf {
                     font-size: 18px;
-                    color: @color-black;
-                    @media (max-width: @screen-xs) {
-                      color: @color-blue-new;
-                    }
+                    color: @color-blue-new;
                   }
                   //sbf
                 }
@@ -692,10 +689,7 @@
                 .btn-label {
                   padding-top: 10px;
                   font-size: 14px;
-                  color: @textColor;
-                  &.mobile-text{
-                    color: @color-blue-new;
-                  }
+                  color: @color-blue-new;
                 }
                 //btn-label
               }
@@ -856,7 +850,7 @@
                         position: absolute;
                         bottom: -20px;
                         left: 0;
-                        color: @labelColor;
+                        color: @labelColorMobile;
                         font-size: 12px;
 
                       }
@@ -896,7 +890,7 @@
 
                     .sb-wallet-icon {
                       font-size: 26px;
-                      color: @labelColor;
+                      color: @labelColorMobile;
                     }
                     .sb-account-amount {
                       color: @color-grey;
@@ -914,26 +908,19 @@
                   }
                   .steps-form-label {
                     font-family: 'Open Sans', sans-serif;
-                    font-size: 12px;
-                    color: @labelColor;
+                    color: @labelColorMobile;
                     display: flex;
                     justify-content: flex-start;
                     align-items: baseline;
-                    @media (max-width: @screen-xs) {
-                      font-size: 13px;
-                      color: @labelColorMobile;
-                    }
+                    .responsive-property(font-size, 12px, null, 13px);
                   }
                   .sbf {
                     font-size: 12px;
-                    color: @labelColor;
+                    color: @labelColorMobile;
                     @media (max-width: @screen-xs) {
                       font-size: 13px;
-                      color: @labelColorMobile;
-
                     }
                   }
-
                 }
               }
               //upload-row-2
@@ -947,23 +934,15 @@
                 }
                 .steps-form-label {
                   font-family: 'Open Sans', sans-serif;
-                  font-size: 12px;
-                  color: @labelColor;
+                  .responsive-property(font-size, 12px, null, 13px);
+                  color: @labelColorMobile;
                   width: 100%;
                   display: flex;
                   justify-content: flex-start;
-                  @media (max-width: @screen-xs) {
-                    font-size: 13px;
-                    color: @labelColorMobile;
-
-                  }
                 }
                 .sbf {
                   font-size: 14px;
-                  color: @labelColor;
-                  @media (max-width: @screen-xs) {
-                    color: @labelColorMobile;
-                  }
+                  color: @labelColorMobile;
                 }
                 .chip-wrap {
                   .sbf-class-chip {
@@ -1088,9 +1067,10 @@
 
           }
           //step-three end
-          &.step-4, &.step-5, &.step-6, &.step-7 {
+          &.step-4, &.step-5, &.step-6, &.step-7, &.step-8 {
             //&.step-4, &.step-5, &.step-7, &.step-8{
             border: 1px solid transparent;
+
             .sb-step-card {
               align-items: center;
               .v-input__slot {
@@ -1372,22 +1352,15 @@
                   }
                   .steps-form-label {
                     font-family: 'Open Sans', sans-serif;
-                    font-size: 12px;
-                    color: @labelColor;
+                    color: @labelColorMobile;
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
-                    @media (max-width: @screen-xs) {
-                      font-size: 13px;
-                      color: @labelColorMobile
-                    }
+                    .responsive-property(font-size, 12px, null, 13px);
                   }
                   .sbf {
                     font-size: 14px;
-                    color: @labelColor;
-                    @media (max-width: @screen-xs) {
-                      color: @labelColorMobile
-                    }
+                    color: @labelColorMobile;
                   }
                   .sb-combo {
                     //height: 48px;
@@ -1452,7 +1425,7 @@
                       }
                       .sbf {
                         font-size: 22px;
-                        color: @labelColor;
+                        color: @labelColorMobile;
 
                       }
                       label{
@@ -1469,22 +1442,16 @@
                 }
                 .steps-form-label {
                   font-family: 'Open Sans', sans-serif;
-                  font-size: 12px;
-                  color: @labelColor;
+                  color: @labelColorMobile;
                   width: 100%;
                   display: flex;
                   justify-content: flex-start;
-                  @media (max-width: @screen-xs) {
-                    font-size: 13px;
-                    color: @labelColorMobile;
-                  }
+                  .responsive-property(font-size, 12px, null, 13px);
+
                 }
                 .sbf {
                   font-size: 14px;
-                  color: @labelColor;
-                  @media (max-width: @screen-xs) {
-                    color: @labelColorMobile
-                  }
+                  color: @labelColorMobile;
                 }
                 .chip-wrap {
                   .sbf-class-chip {

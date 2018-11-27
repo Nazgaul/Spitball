@@ -12,8 +12,11 @@
         </div>
         <div class="upload-row-1">
             <v-icon>sbf-upload-cloud</v-icon>
-            <h3 class="text-blue upload-cloud-text" v-language:inner>upload_files_uploadDoc</h3>
+            <h3 v-show="$vuetify.breakpoint.smAndUp" class="text-blue upload-cloud-text" v-language:inner>upload_files_dopHere</h3>
+            <h3 v-show="$vuetify.breakpoint.xsOnly" class="text-blue upload-cloud-text" v-language:inner>upload_files_uploadDoc</h3>
+
         </div>
+        <div class="or-upload"> <span class="options-upload-from" v-language:inner>upload_files_options_text</span></div>
         <div class="upload-row-2 paddingTopSm">
             <div class="btn-holder" >
                 <v-btn fab class="upload-option-btn" @click="DbFilesList()"
@@ -52,12 +55,11 @@
                       v-language:inner>upload_files_btn_desktop</span>
             </div>
         </div>
-        <div class="upload-row-3">
-            <div  :class="['btn-holder', {isDropActive : 'drop-active'}]">
-                <!--<v-icon>sbf-upload-drag</v-icon>-->
-                <span class="btn-label" v-language:inner>upload_files_btn_drop</span>
-            </div>
-        </div>
+        <!--<div class="upload-row-3">-->
+            <!--<div  :class="['btn-holder', {isDropActive : 'drop-active'}]">-->
+                <!--<span class="btn-label" v-language:inner>upload_files_btn_drop</span>-->
+            <!--</div>-->
+        <!--</div>-->
     </v-card>
 </template>
 

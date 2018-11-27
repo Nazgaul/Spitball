@@ -2,13 +2,15 @@ import { mapGetters, mapActions } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 
 import documentService from "../../../../services/documentService";
-import uploadStep_1 from "./uploadSteps/uploadStep_1.vue";
-import uploadStep_2 from "./uploadSteps/uploadStep_2.vue";
-import uploadStep_3 from "./uploadSteps/uploadStep_3.vue";
-import uploadStep_4 from "./uploadSteps/uploadStep_4.vue";
-import uploadStep_5 from "./uploadSteps/uploadStep_5.vue";
-import uploadStep_6 from "./uploadSteps/uploadStep_6.vue";
-import uploadStep_7 from "./uploadSteps/uploadStep_7.vue";
+import uploadStep_1 from "./uploadSteps/uploadFileStart.vue";
+import uploadStep_2 from "./uploadSteps/schoolClass.vue";
+import uploadStep_3 from "./uploadSteps/documentType.vue";
+import uploadStep_4 from "./uploadSteps/documTitleProfessor.vue";
+import uploadStep_5 from "./uploadSteps/documentTags.vue";
+import uploadStep_6 from "./uploadSteps/documentPrice.vue";
+import uploadStep_7 from "./uploadSteps/finalDocumentScreen.vue";
+import uploadStep_8 from "./uploadSteps/documentReferral.vue";
+
 
 
 export default {
@@ -20,6 +22,7 @@ export default {
         uploadStep_5,
         uploadStep_6,
         uploadStep_7,
+        uploadStep_8,
         sbDialog,
     },
     name: "uploadFiles",
@@ -27,10 +30,10 @@ export default {
         return {
             confirmationDialog: false,
             progressDone: false,
-            steps: 7,
+            steps: 8,
             currentStep: 1,
             step: 1,
-            stepsProgress: 100 / 6,
+            stepsProgress: 100 / 7,
             gotoAsk: false,
             transitionAnimation: 'slide-y-transition',
             callBackmethods: {
@@ -66,8 +69,8 @@ export default {
         isFirstStep() {
             return this.currentStep === 1
         },
-        isLastStepAndMobile(){
-          return   this.$vuetify.breakpoint.smAndDown && this.currentStep === this.steps;
+        isLastStepAndMobile() {
+            return this.$vuetify.breakpoint.smAndDown && this.currentStep === this.steps;
         },
         // button disabled for each step and enabled once everything filled
         isDisabled() {
@@ -78,13 +81,13 @@ export default {
                 return true
             } else if (this.currentStep === 4 && (!this.getFileData.name)) {
                 return true
-            } else if (this.currentStep === 5 ) {
+            } else if (this.currentStep === 5) {
                 return false
             }
-            // else if (this.currentStep === 6 && !this.uploadPrice) {
-            //     return true
-            // }
-            else if (this.currentStep === 6 && !this.getLegal) {
+            else if (this.currentStep === 6 && !this.getFileData.price) {
+                return true
+            }
+            else if (this.currentStep === 7 && !this.getLegal) {
                 return true
             } else {
                 return false
@@ -108,14 +111,14 @@ export default {
         sendDocumentData(step) {
             let docData = this.getFileData;
             // create Immutable copy, to prevent file name update in UI
-             let docDataCopy = Object.assign({}, docData);
+            let docDataCopy = Object.assign({}, docData);
             // let docDataCopy = JSON.parse(JSON.stringify(docData));
             //send copy
             docDataCopy.name = this.getCustomFileName;
             let self = this;
             documentService.sendDocumentData(docDataCopy)
                 .then((resp) => {
-                        if(resp.data.url){
+                        if (resp.data.url) {
                             self.docReferral = resp.data.url
                         }
                         self.nextStep(step)
@@ -126,14 +129,14 @@ export default {
 
         },
         confirmCloseOpen() {
-            if(this.currentStep === this.steps){
+            if (this.currentStep === this.steps) {
                 this.closeUpload()
-            }else{
+            } else {
                 this.confirmationDialog = true;
             }
 
         },
-        closeUpload(){
+        closeUpload() {
             this.resetFirstStepMobile();
             this.resetUploadData({});
             this.updateDialogState(false);
@@ -145,7 +148,7 @@ export default {
                 this.currentStep = 1
             } else {
                 this.currentStep = this.currentStep + 1;
-                this.stepsProgress = ((100 / 6) * this.currentStep);
+                this.stepsProgress = ((100 / 7) * this.currentStep);
             }
             console.log('step', this.stepsProgress, this.currentStep);
 
@@ -155,13 +158,13 @@ export default {
                 return this.currentStep = 1;
             } else {
                 this.currentStep = this.currentStep - 1;
-                this.stepsProgress = ((100 / 6) * this.currentStep);
+                this.stepsProgress = ((100 / 7) * this.currentStep);
             }
 
         },
         //resets mobile first step to mobile design
-        resetFirstStepMobile(){
-            if(this.$vuetify.breakpoint.smAndDown){
+        resetFirstStepMobile() {
+            if (this.$vuetify.breakpoint.smAndDown) {
                 this.updateUploadFullMobile(true);
             }
         },
