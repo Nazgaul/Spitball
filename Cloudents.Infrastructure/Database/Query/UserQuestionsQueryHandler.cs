@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             var futureQuestions = _session.Query<Question>()
                 .Where(w => w.User.Id == query.Id)
-                .Where(w => w.State == null || w.State == QuestionState.Ok)
+                .Where(w => w.State == null || w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new QuestionFeedDto(s.Id,
                     s.Subject,
@@ -38,9 +38,9 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Color, s.CorrectAnswer.Id != null, s.Language)
                 )
                 .Take(50).Skip(query.Page * 50)
-                .ToFuture();
+                .ToList();
  
-            return futureQuestions.GetEnumerable();
+            return futureQuestions;
         }
     }
 }
