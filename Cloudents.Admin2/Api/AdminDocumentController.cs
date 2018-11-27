@@ -1,4 +1,5 @@
-﻿using Cloudents.Admin2.Models;
+﻿using System;
+using Cloudents.Admin2.Models;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
@@ -21,12 +22,14 @@ namespace Cloudents.Admin2.Api
         private readonly IQueryBus _queryBus;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly ICommandBus _commandBus;
+        private readonly IQueueProvider _queueProvider;
 
-        public AdminDocumentController(IQueryBus queryBus, IBlobProvider<DocumentContainer> blobProvider, ICommandBus commandBus)
+        public AdminDocumentController(IQueryBus queryBus, IBlobProvider<DocumentContainer> blobProvider, ICommandBus commandBus, IQueueProvider queueProvider)
         {
             _queryBus = queryBus;
             _blobProvider = blobProvider;
             _commandBus = commandBus;
+            _queueProvider = queueProvider;
         }
 
         // GET: api/<controller>
@@ -37,6 +40,7 @@ namespace Cloudents.Admin2.Api
         {
             var query = new AdminEmptyQuery();
             var retVal = await _queryBus.QueryAsync<IList<PendingDocumentDto>>(query, token);
+            var tasks = new Lazy<List<Task>>();
             foreach (var id in retVal)
             {
                 var files = await _blobProvider.FilesInDirectoryAsync("preview-", id.Id.ToString(), token);
@@ -45,9 +49,21 @@ namespace Cloudents.Admin2.Api
                 {
                     id.Preview =
                         blobProvider.GeneratePreviewLink(file,
-                            20); // filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
+                            20); 
+                }
+                else
+                {
+
+                    var t =  _queueProvider.InsertBlobReprocessAsync(id.Id);
+                    tasks.Value.Add(t);
                 }
             }
+
+            if (tasks.IsValueCreated)
+            {
+                await Task.WhenAll(tasks.Value);
+            }
+
             return retVal.Where(w => w.Preview != null);
         }
 
