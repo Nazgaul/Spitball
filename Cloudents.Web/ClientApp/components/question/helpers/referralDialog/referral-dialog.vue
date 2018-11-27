@@ -9,8 +9,11 @@
                 <div class="link-container">
                     <sb-input id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink"
                               name="referralLink" type="text" :prependInnerIcon="'sbf-share-icon'"></sb-input>                    &nbsp;
-                    <button class="referral-btn" :class="{'copied': isCopied}" @click="doCopy" v-language:inner>
-                        referralDialog_copy
+                    <button class="referral-btn" :class="{'copied': isCopied}" @click="doCopy">
+                        <v-icon class="copy-check-icon" transition="fade-transition"
+                                v-show="isCopied">sbf-checkmark</v-icon>
+                       <span v-show="!isCopied" v-language:inner>referralDialog_copy</span>
+                        <span v-show="isCopied" v-language:inner>referralDialog_copied</span>
                     </button>
                 </div>
             </div>

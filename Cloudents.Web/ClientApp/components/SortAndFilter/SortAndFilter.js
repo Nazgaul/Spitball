@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             //keep this as model for expand panel, to keep it always open
-            panelList: [true, true]
+            //panelList: [[true], [true]]
         }
     },
     props: {
@@ -22,11 +22,15 @@ export default {
         },
         sortOptions() {
             return this.getSort;
-        }
+        },
+        panelList(){
+            return [[true], [true]]
+        } 
     },
     methods: {
-        ...mapActions(['setFilteredCourses']),
+        ...mapActions(['setFilteredCourses', 'updateCurrentStep', 'changeSelectUniState']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
+        ...mapGetters(['getAllSteps']),
         updateSort(val) {
             this.UPDATE_SEARCH_LOADING(true);
             this.$router.push({query: {...this.$route.query, sort: val}});
@@ -40,6 +44,11 @@ export default {
               return item.filterType === singleFilter.id && filterId === keyString;
 
             });
+        },
+        openEditClass(){
+            let steps = this.getAllSteps();
+            this.updateCurrentStep(steps.set_class);
+            this.changeSelectUniState(true);
         },
         updateFilter({id, val, name, event}) {
             this.UPDATE_SEARCH_LOADING(true);

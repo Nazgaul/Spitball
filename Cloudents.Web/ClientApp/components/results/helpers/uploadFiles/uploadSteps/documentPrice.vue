@@ -12,12 +12,11 @@
                     <span>Price</span></label>
                 <div class="wrap-row-price">
                     <div class="price-wrap">
+                        <!--updating document obj inside this component-->
                         <sbl-currency v-model="uploadPrice"
                                       class="sb-input-upload-price">
                         </sbl-currency>
-
                         <div class="sbl-suffix">SBL</div>
-
                         <span class="balance-label" v-show="uploadPrice">Equals to {{uploadPrice | dollarVal}}$</span>
 
                     </div>
@@ -38,45 +37,30 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import sblCurrency from "../sbl-currency.vue"
-    import {  currencyValidator } from "../consts";
+    import { currencyValidator } from "../consts";
 
     export default {
         name: "uploadStep_6",
         components: {sblCurrency},
         data() {
             return {
-           uploadPrice: null,
-
-            }
-        },
-        props: {
-            callBackmethods: {
-                type: Object,
-                default: {},
-                required: false
+                uploadPrice: null,
             }
         },
         computed: {
             ...mapGetters({
-                getLegal: 'getLegal',
-                getFileData: 'getFileData',
-                getSchoolName: 'getSchoolName'
+                accountUser: 'accountUser'
             }),
         },
-        methods: {
-            ...mapActions(['updateLegalAgreement']),
 
-            changeStep(step) {
-                this.callBackmethods.nextStep(step)
-            },
-            updateLegal() {
-                this.updateLegalAgreement(this.legalCheck);
-            },
+        methods: {
+            ...mapActions(['updateFile']),
+
         },
 
     }
 </script>
 
-<style >
+<style>
 
 </style>
