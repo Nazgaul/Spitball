@@ -137,9 +137,11 @@
   </data>
   <data name="Login" xml:space="preserve">
     <value>כניסה</value>
+    <comment>צריך להיות התחבר</comment>
   </data>
   <data name="login_l" xml:space="preserve">
     <value>היכנס</value>
+    <comment>צריך להיות התחבר</comment>
   </data>
   <data name="logout" xml:space="preserve">
     <value>התנתק מהמערכת</value>
