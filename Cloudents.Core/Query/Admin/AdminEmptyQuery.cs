@@ -9,8 +9,9 @@ namespace Cloudents.Core.Query.Admin
         IQuery<IEnumerable<DTOs.QuestionFeedDto>>,
         IQuery<IEnumerable<CashOutDto>>,
         IQuery<IEnumerable<PendingQuestionDto>>,
+            IQuery<IList<FictivePendingQuestionDto>>,
         IQuery<IEnumerable<SuspendedUsersDto>>,
-        IQuery<IList<FictivePendingQuestionDto>>
+        IQuery<IList<PendingDocumentDto>>
         
     {
 

@@ -3,10 +3,10 @@
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
             <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
-            <v-tabs class="verticals-bar" v-model="currentVertical" :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : ''" :value="currentSelection" :scrollable="true">
+            <v-tabs class="verticals-bar" v-model="currentVertical" :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : ''" :value="currentVertical" :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
-                                 :class="['spitball-text-'+tab.id,tab.id===currentSelection?'v-tabs__item--active':'']"
+                                 :class="['spitball-text-'+tab.id,tab.id===currentVertical?'v-tabs__item--active header-tab-active':'']"
                                  class="mr-4 vertical">
                         {{tab.name}}
                     </v-tab>
@@ -30,7 +30,10 @@
             return {
                 verticals,
                 currentVertical: this.currentSelection,
-                isRtl: global.isRtl
+                isRtl: global.isRtl,
+                supressVerticalDesign:{
+                    wallet: true
+                }
             }
         },
         computed: {
@@ -42,11 +45,40 @@
         watch: {
             currentSelection(val) {
                 this.currentVertical = val;
+            },
+            '$route'(val){
+                this.$nextTick(function(){
+                    if(this.supressVerticalDesign[val.name]){
+                        this.cleanVerticalDesign();
+                    }else{
+                        this.restoreVerticalDesign();
+                    }
+                })
             }
         },
         methods: {
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState']),
+            cleanVerticalDesign(){
+                //remove selected tab design
+                let elmActiveParent = document.getElementsByClassName('header-tab-active')[0];
+                elmActiveParent.firstChild.classList.remove('v-tabs__item--active');
+
+                //slider remove
+                let elmContainer = elmActiveParent.parentElement;
+                let sliderContainer = elmContainer.firstChild;
+                sliderContainer.firstChild.classList.remove('v-tabs__slider');
+            },
+            restoreVerticalDesign(){
+                //remove selected tab design
+                let elmActiveParent = document.getElementsByClassName('header-tab-active')[0];
+                elmActiveParent.firstChild.classList.add('v-tabs__item--active');
+
+                //slider remove
+                let elmContainer = elmActiveParent.parentElement;
+                let sliderContainer = elmContainer.firstChild;
+                sliderContainer.firstChild.classList.add('v-tabs__slider');
+            },
             $_updateType(result) {
                 this.currentVertical = result;
                 this.$ga.event("Vertical_Tab", result);
@@ -73,6 +105,13 @@
                 this.$router.push({path: '/' + result, query: query});
                 // this.$router.push({path: '/' + result, query: {...query, q: text, course}});
             },
+        },
+        mounted(){
+            if(this.supressVerticalDesign[this.$route.name]){
+                this.$nextTick(function(){
+                    this.cleanVerticalDesign();
+                })
+            }
         }
     }
 </script>

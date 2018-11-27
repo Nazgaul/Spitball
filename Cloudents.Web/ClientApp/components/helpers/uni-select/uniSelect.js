@@ -62,6 +62,7 @@ export default {
             }
         },
         closeInterface(){
+            this.closeNoWorriesPopup();
             this.setUniversityPopStorage_session();
             this.changeSelectUniState(false);
         },

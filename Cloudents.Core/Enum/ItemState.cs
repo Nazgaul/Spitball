@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Core.Enum
 {
-    public enum QuestionState
+    public enum ItemState
     {
         Ok,
         Suspended,

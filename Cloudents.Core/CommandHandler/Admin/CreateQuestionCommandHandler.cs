@@ -41,7 +41,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             var question = new Question(message.SubjectId, message.Text, message.Price, message.Files?.Count() ?? 0, user,
                 QuestionColor.Default, textLanguage)
             {
-                State = QuestionState.Pending
+                State = ItemState.Pending
             };
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;

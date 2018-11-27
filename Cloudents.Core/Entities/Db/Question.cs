@@ -33,11 +33,11 @@ namespace Cloudents.Core.Entities.Db
             {
                 Color = color;
             }
-            State = QuestionState.Pending;
+            State = ItemState.Pending;
             Language = language;
             if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
             {
-                State = QuestionState.Ok;
+                State = ItemState.Ok;
             }
 
             QuestionCreateTransaction();
@@ -74,7 +74,7 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual QuestionColor? Color { get; set; }
-        public virtual QuestionState? State { get; set; }
+        public virtual ItemState? State { get; set; }
 
 
         public virtual void QuestionCreateTransaction()
