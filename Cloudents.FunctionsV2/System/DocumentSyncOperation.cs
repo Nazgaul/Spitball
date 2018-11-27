@@ -18,7 +18,11 @@ namespace Cloudents.FunctionsV2.System
 
         public Task DoOperationAsync(DocumentSearchMessage msg, IBinder binder, CancellationToken token)
         {
-            return _documentServiceWrite.UpdateDataAsync(new[] { msg.Document }, token);
+            if (msg.ShouldInsert)
+            {
+                return _documentServiceWrite.UpdateDataAsync(new[] { msg.Document }, token);
+            }
+            return _documentServiceWrite.DeleteDataAsync(new[] { msg.Document.Id }, token);
         }
     }
 }

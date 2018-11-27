@@ -33,7 +33,6 @@ namespace Cloudents.Core.Entities.Db
         protected Document()
         {
             TimeStamp = new DomainTimeStamp();
-            //Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
             Events = new List<IEvent>();
         }
@@ -64,6 +63,8 @@ namespace Cloudents.Core.Entities.Db
         public virtual int Purchased { get; set; }
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }
+
+        public virtual ItemState? State { get; set; }
 
 
         public virtual CultureInfo Language { get; set; }
