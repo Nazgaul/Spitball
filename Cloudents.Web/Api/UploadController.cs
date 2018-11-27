@@ -115,7 +115,7 @@ namespace Cloudents.Web.Api
                 {
                     Name = model.Name,
                     Size = model.Size,
-                    BlobName = BlobFileName(response.Data.SessionId,model.Name)",
+                    BlobName = BlobFileName(response.Data.SessionId,model.Name),
                     MimeType = model.MimeType
                 };
                 TempData.Put($"update-{response.Data.SessionId}", tempData);
