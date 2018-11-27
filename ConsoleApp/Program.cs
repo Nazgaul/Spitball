@@ -50,7 +50,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 // ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545"
@@ -92,7 +92,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            //await CheckSync();
+            await FixFilesAsync();
             //var q = _container.Resolve<ISearchServiceWrite<Question>>();
             //await q.CreateOrUpdateAsync(default);
 
@@ -101,7 +101,7 @@ namespace ConsoleApp
             //var z = await q2.SearchAsync(new QuestionsQuery(null, null, 0, null, "fr"), default);
             //293005, Geography
             var _commandBus = _container.Resolve<IUserRepository>();
-            var z = await _commandBus.LoadAsync(1014L,default);
+            var z = await _commandBus.LoadAsync(1014L, default);
 
 
             //var command = new AddUserTagCommand(293005L, "Geography");
@@ -204,35 +204,35 @@ namespace ConsoleApp
             } while (blobToken != null);
         }
 
-        private static async Task DeleteOldFiles()
+        private static async Task FixFilesAsync()
         {
+            var d = _container.Resolve<DapperRepository>();
+
+
+
+            IEnumerable<dynamic> result = await d.WithConnectionAsync(async f =>
+            {
+                return await f.QueryAsync(
+                    @"select  id,blobname from  sb.document 
+where left(blobName ,4) != 'file'");
+            }, default);
+
             var _bus = _container.Resolve<ICloudStorageProvider>();
             var blobClient = _bus.GetBlobClient();
             var container = blobClient.GetContainerReference("spitball-files");
-            foreach (var blob in container.ListBlobs(null, false))
+            var dir = container.GetDirectoryReference("files");
+            foreach (var item in result)
             {
-                if (blob is CloudBlobDirectory)
-                {
-                    continue;
-                }
+                CloudBlobDirectory itemDir = dir.GetDirectoryReference(item.id.ToString());
+                CloudBlockBlob blob = itemDir.GetBlockBlobReference(item.blobname);
+                var blobCopy = itemDir.GetBlockBlobReference($"file-{item.blobname}");
 
-                if (blob is CloudBlockBlob b)
-                {
-                    if (b.Properties.Created > DateTime.UtcNow.AddDays(-7))
-                    {
-                        continue;
-                    }
-
-                    if (b.Uri.Segments.Length != 3)
-                    {
-                        continue;
-                    }
-
-                    Console.WriteLine(b.Uri);
-                    await b.DeleteAsync();
-                }
-                // await blob.DeleteAsync();
+                await blobCopy.StartCopyAsync(blob);
+                await blob.DeleteIfExistsAsync();
             }
+
+
+
         }
 
         private static async Task ReduProcessing()
