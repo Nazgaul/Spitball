@@ -136,7 +136,10 @@ let routes2 = [
         },
         name: "question",
         props: {
-            header: {submitRoute: '/ask'},
+            header: {
+                submitRoute: '/ask',
+                currentSelection: "ask"
+            },
             default: (route) => ({id: route.params.id}),
         },
     },

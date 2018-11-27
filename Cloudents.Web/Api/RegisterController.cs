@@ -31,12 +31,13 @@ namespace Cloudents.Web.Api
         private readonly ISmsSender _client;
         private readonly IStringLocalizer<RegisterController> _localizer;
         private readonly IStringLocalizer<LogInController> _loginLocalizer;
+        private readonly ILogger _logger;
 
         internal const string Email = "email2";
 
 
         public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, 
-            IBlockChainErc20Service blockChainErc20Service, IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer)
+            IBlockChainErc20Service blockChainErc20Service, IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -45,6 +46,7 @@ namespace Cloudents.Web.Api
             _client = client;
             _localizer = localizer;
             _loginLocalizer = loginLocalizer;
+            _logger = logger;
         }
 
         [HttpPost, ValidateRecaptcha, ValidateEmail]
@@ -102,6 +104,7 @@ namespace Cloudents.Web.Api
         {
 
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
+            _logger.Info($"received google user {result}");
             if (result == null)
             {
                 ModelState.AddModelError("Google", _localizer["GoogleNoResponse"]);
@@ -138,8 +141,13 @@ namespace Cloudents.Web.Api
             }
             else
             {
+                if (user.OldUser.GetValueOrDefault() && user.SecurityStamp == null)
+                {
+                    await _userManager.UpdateSecurityStampAsync(user);
+                }
                 if (!user.EmailConfirmed)
                 {
+
                     user.EmailConfirmed = true;
                     await _userManager.UpdateAsync(user);
                 }

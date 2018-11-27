@@ -1,5 +1,6 @@
 <template>
     <div class="search-input">
+        {{suggestionVertical}}
         <div class="search-b-wrapper">
         <!--<div class="search-b-wrapper" v-scroll="onScroll">-->
             <v-text-field class="search-b" type="search" solo

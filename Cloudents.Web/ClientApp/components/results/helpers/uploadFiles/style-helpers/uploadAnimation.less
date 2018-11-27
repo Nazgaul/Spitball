@@ -1,3 +1,66 @@
+
+// start spread loud svg animation
+@SpreadColor: #4452fc;
+@keyframes spread-loud {
+ from{
+    transform: translate(0px, 0px); fill: lighten(@SpreadColor, 100%)
+  }
+  to{
+    transform: translate(4px, 0px ); fill: lighten(@SpreadColor, 0%)
+  }
+}
+
+.spread {
+  animation: spread-loud 0.8s steps(5) infinite alternate;
+  animation-timing-function: ease-in-out;
+}
+// end spread loud svg animation
+
+@-webkit-keyframes color_change_doc_type {
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
+}
+
+@-moz-keyframes color_change_doc_type {
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
+}
+
+@-ms-keyframes color_change_doc_type {
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
+}
+
+@-o-keyframes color_change_doc_type {
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
+}
+
+@keyframes color_change_doc_type {
+  from {
+    background-color: transparent
+  }
+  to {
+    background-color: @uploadGreyBackground;
+  }
+}
+
 /**
 * ==============================================
 * Dot Flashing

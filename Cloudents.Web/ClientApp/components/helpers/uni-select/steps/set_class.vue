@@ -1,6 +1,6 @@
 <template>
     <!--<div class="select-university-container set-class">-->
-    <div class="">
+    <div>
     <div class="title-container">
                 <div class="first-container">
                     <div><v-icon @click="lastStep()" :class="{'rtl': isRtl}">sbf-arrow-back</v-icon></div>
