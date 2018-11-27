@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Select(s => new DocumentFeedDto
                 {
                     Id = s.Id,
-                    User = new UserDto()
+                    User = new UserDto
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,

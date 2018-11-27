@@ -1,15 +1,16 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Search;
+﻿using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class SyncSearchDocumentEventHandler : IEventHandler<DocumentCreatedEvent>
+    public class SyncSearchDocumentEventHandler : IEventHandler<DocumentCreatedEvent>,
+        IEventHandler<DocumentDeletedEvent>
     {
         private readonly IQueueProvider _queueProvider;
 
@@ -31,7 +32,16 @@ namespace Cloudents.Core.EventHandler
                 Tags = eventMessage.Document.Tags.Select(s => s.Name).ToArray(),
                 Type = eventMessage.Document.Type
             };
-            return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc), token);
+            return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
+        }
+
+        public Task HandleAsync(DocumentDeletedEvent eventMessage, CancellationToken token)
+        {
+            var doc = new Document()
+            {
+                Id = eventMessage.Document.Id.ToString()
+            };
+            return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, false), token);
         }
     }
 }
