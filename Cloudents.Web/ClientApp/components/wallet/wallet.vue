@@ -73,7 +73,7 @@
                                        :points-for-dollar="cashOutOption.pointsForDollar"
                                        :cost="cashOutOption.cost"
                                        :image="cashOutOption.image"
-                                       :available="earnedPoints >= cashOutOption.cost">
+                                       :available="calculatedEarnedPoints >= cashOutOption.cost">
                         </cash-out-card>
                     </div>
                 </v-tab-item>
