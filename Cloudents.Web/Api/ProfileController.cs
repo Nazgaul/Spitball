@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
@@ -23,10 +24,10 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
         
-        public async Task<ActionResult<ProfileDto>> GetAsync(long id, CancellationToken token)
+        public async Task<ActionResult<UserProfileDto>> GetAsync(long id, CancellationToken token)
         {
             var query = new UserDataByIdQuery(id);
-            var retVal = await _queryBus.QueryAsync<ProfileDto>(query, token).ConfigureAwait(false);
+            var retVal = await _queryBus.QueryAsync<UserProfileDto>(query, token).ConfigureAwait(false);
             if (retVal == null)
             {
                 return NotFound();
@@ -34,6 +35,38 @@ namespace Cloudents.Web.Api
             return retVal;
         }
 
-       
+        // GET
+        [HttpGet("questions/{id}")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(200)]
+
+        public async Task<ActionResult<IEnumerable<QuestionFeedDto>>> GetQuestionsAsync(long id, int page, CancellationToken token)
+        {
+            var query = new UserQuestionsByIdQuery(id, page);
+            var retVal = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token).ConfigureAwait(false);
+            if (retVal == null)
+            {
+
+               return NotFound();
+            }
+            return new ActionResult<IEnumerable<QuestionFeedDto>>(retVal);
+        }
+
+        // GET
+        [HttpGet("answers/{id}")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(200)]
+
+        public async Task<ActionResult<IEnumerable<QuestionFeedDto>>> GetAnswersAsync(long id, int page, CancellationToken token)
+        {
+            var query = new UserAnswersByIdQuery(id, page);
+            var retVal = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token).ConfigureAwait(false);
+            if (retVal == null)
+            {
+
+                return NotFound();
+            }
+            return new ActionResult<IEnumerable<QuestionFeedDto>>(retVal);
+        }
     }
 }
