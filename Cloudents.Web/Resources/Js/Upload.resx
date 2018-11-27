@@ -247,6 +247,7 @@
   </data>
   <data name="files_type_textbook" xml:space="preserve">
     <value>Textbook note</value>
+    <comment>Ram Change</comment>
   </data>
   <data name="files_uploadDoc" xml:space="preserve">
     <value>Upload a Document</value>

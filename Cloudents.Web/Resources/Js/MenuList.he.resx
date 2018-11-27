@@ -121,7 +121,7 @@
     <value>אודות ספיטבול</value>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>שנה/החלף</value>
+    <value>ערוך</value>
   </data>
   <data name="changeCourse" xml:space="preserve">
     <value>כיתות</value>
@@ -137,9 +137,11 @@
   </data>
   <data name="Login" xml:space="preserve">
     <value>כניסה</value>
+    <comment>צריך להיות התחבר</comment>
   </data>
   <data name="login_l" xml:space="preserve">
     <value>היכנס</value>
+    <comment>צריך להיות התחבר</comment>
   </data>
   <data name="logout" xml:space="preserve">
     <value>התנתק מהמערכת</value>

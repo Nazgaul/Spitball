@@ -7,10 +7,13 @@ namespace Cloudents.Core.Enum
     {
         None,
         [PublicValue]
+        [ResourceDescription(typeof(EnumResources), "DocumentTypeLecture")]
         Lecture,
         [PublicValue]
+        [ResourceDescription(typeof(EnumResources), "DocumentTypeExam")]
         Textbook,
         [PublicValue]
+        [ResourceDescription(typeof(EnumResources), "DocumentTypeExam")]
         Exam
     }
 }
