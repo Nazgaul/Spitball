@@ -1,6 +1,14 @@
-﻿using NHibernate;
+﻿using System;
+using System.Linq.Expressions;
+using System.Reflection;
+using Cloudents.Core.Entities.Db;
+using NHibernate;
 using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
+using NHibernate.Hql.Ast;
+using NHibernate.Linq;
+using NHibernate.Linq.Functions;
+using NHibernate.Linq.Visitors;
 
 namespace Cloudents.Infrastructure.Database
 {
@@ -17,6 +25,8 @@ namespace Cloudents.Infrastructure.Database
             //RegisterFunction("NEWID()", new StandardSQLFunction("NEWID()", NHibernateUtil.Guid));
 
         }
+
+        
     }
 
     public class MySqliteDialect : SQLiteDialect
@@ -27,6 +37,33 @@ namespace Cloudents.Infrastructure.Database
             RegisterFunction(SbDialect.RandomOrder, new StandardSQLFunction("random", NHibernateUtil.Guid));
         }
     }
+
+    //public class MyLinqToHqlGeneratorsRegistry : DefaultLinqToHqlGeneratorsRegistry
+    //{
+    //    public MyLinqToHqlGeneratorsRegistry()
+    //        : base()
+    //    {
+
+    //        CalculatedPropertyGenerator<User, decimal>.Register(this, x => x.Fee, User.CalculateBalanceExpression);
+    //    }
+    //}
+
+    //public class CalculatedPropertyGenerator<T, TResult> : BaseHqlGeneratorForProperty
+    //{
+    //    public static void Register(ILinqToHqlGeneratorsRegistry registry, Expression<Func<T, TResult>> property, Expression<Func<T, TResult>> calculationExp)
+    //    {
+    //        registry.RegisterGenerator(NHibernate.Util.ReflectHelper.GetProperty(property), new CalculatedPropertyGenerator<T, TResult> { _calculationExp = calculationExp });
+    //    }
+
+    //    private CalculatedPropertyGenerator() { }
+
+    //    private Expression<Func<T, TResult>> _calculationExp;
+
+    //    public override HqlTreeNode BuildHql(MemberInfo member, Expression expression, HqlTreeBuilder treeBuilder, IHqlExpressionVisitor visitor)
+    //    {
+    //        return visitor.Visit(_calculationExp);
+    //    }
+    //}
 
     //public class SqlFunctions
     //{

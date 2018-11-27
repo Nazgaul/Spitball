@@ -40,7 +40,7 @@ namespace Cloudents.Infrastructure.Database.Query
                  .ToFutureValue();
             var futureQuestions = _session.Query<Question>()
                 .Where(w => w.User.Id == query.Id)
-                .Where(w => w.State == null || w.State == QuestionState.Ok)
+                .Where(w => w.State == null || w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new QuestionFeedDto(s.Id,
                     s.Subject,
