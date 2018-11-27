@@ -233,7 +233,7 @@
     <value>חדש</value>
   </data>
   <data name="nav_bookDetails_filter_rental" xml:space="preserve">
-    <value>להשכרה</value>
+    <value>השכרה</value>
   </data>
   <data name="nav_bookDetails_filter_used" xml:space="preserve">
     <value>משומש</value>
