@@ -2,28 +2,12 @@
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <signup-banner  slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main">
-            <!--static cards AB test-->
-            <abTestCard v-if="$route.path.slice(1)==='ask'" class="ab-test-card"
-                        :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
-            <!--end static cards AB test-->
-
-
               <div class="d-flex mobile-filter">
                   <askQuestionBtn v-if="$route.path.slice(1)==='ask'"
-
                            :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] ">
-
                   </askQuestionBtn>
 
                   <upload-files-btn class="upload-card hidden-md-and-up"  v-show="isNote"></upload-files-btn>
-
-                  <!--<a v-if="$route.path.slice(1)==='ask' "-->
-                   <!--:class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "-->
-                   <!--@click.prevent="goToAskQuestion()" v-language:inner>result_ask_question</a>-->
-
-                  <!--<a :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'upload-files','ask-question-mob', 'hidden-md-and-up'] "-->
-                     <!--v-show="$route.path.slice(1)==='note'"  @click="updateDialogState(true)" v-language:inner>upload_btn_open</a>-->
-
 
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
                        class="mobile-filter-icon-btn text-xs-right hidden-sm-and-up" v-if="filterCondition">
@@ -34,7 +18,6 @@
                 </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
-
                 <template v-for="(item, index) in filterSelection">
                     <v-chip label class="filter-chip elevation-1" :key="index">
                       {{item.name | capitalize }}
@@ -147,7 +130,7 @@
                        :sortOptions="page.sort"
                        :sortVal="sort"
                        v-model="showFilters"
-                       :filterOptions="filterObject"
+                       :filterOptions="getFilters"
                        :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
             </component>

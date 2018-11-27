@@ -62,6 +62,7 @@ export default {
             }
         },
         closeInterface(){
+            this.closeNoWorriesPopup();
             this.setUniversityPopStorage_session();
             this.changeSelectUniState(false);
         },
@@ -81,5 +82,6 @@ export default {
         }
     },
     created(){
+        console.log(this.$route)
     }
 }

@@ -72,5 +72,12 @@ namespace Cloudents.Infrastructure.Storage
             token.ThrowIfCancellationRequested();
             return queue.AddMessageAsync(cloudMessage);
         }
+
+
+        public async Task InsertBlobReprocessAsync(long id)
+        {
+            var queue = _queueClient.GetQueueReference("generate-blob-preview");
+            await queue.AddMessageAsync(new CloudQueueMessage(id.ToString()));
+        }
     }
 }

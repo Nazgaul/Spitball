@@ -17,9 +17,10 @@ namespace Cloudents.FunctionsV2.System
 
             var output = new AzureSearchSyncOutput
             {
-                Item = msg.Document,
-                Insert = true
+                Insert = msg.ShouldInsert,
+                Item = msg.Document
             };
+           
             await syncService.AddAsync(output, token);
         }
     }

@@ -19,9 +19,11 @@
             <h3 v-language:inner>sortAndFilter_filter</h3>
             <div class="filter-switch">
 
-                <v-expansion-panel expand v-model="panelList">
-                    <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index">
-                        <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
+                <!-- <v-expansion-panel expand v-model="panelList"> -->
+                <v-expansion-panel expand readonly v-for="(singleFilter, index) in filterList" :key="index" 
+                     v-model="panelList[index]">
+                    <v-expansion-panel-content expand expand-icon="">
+                        <!-- <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon> -->
 
                         <template slot="header">
                             <div class="icon-wrapper">
@@ -29,7 +31,7 @@
                             </div>
 
                             <slot name="headerTitle" :title="singleFilter.title">
-                                <div>{{singleFilter.title}}</div>
+                                <div>{{singleFilter.title}} <span class="change-course-container" @click="openEditClass()" v-if="singleFilter.id.toLowerCase() === 'course'"><span class="edit-after-icon" v-language:inner>menuList_Change</span><v-icon class="edit-after-icon">sbf-edit-icon</v-icon></span></div>
                             </slot>
                         </template>
                         <div :class="['sort-filter']">

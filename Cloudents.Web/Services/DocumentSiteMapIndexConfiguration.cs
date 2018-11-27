@@ -14,15 +14,12 @@ namespace Cloudents.Web.Services
 {
     public class DocumentSiteMapIndexConfiguration : ISitemapIndexConfiguration<DocumentSeoDto>
     {
-        //private readonly IStatelessSession _statelessSession;
         private readonly IUrlHelper _urlHelper;
         public DocumentSiteMapIndexConfiguration(int? currentPage, IStatelessSession statelessSession,
             IUrlHelper urlHelper)
         {
             CurrentPage = currentPage;
-            //_statelessSession = statelessSession;
             _urlHelper = urlHelper;
-
             DataSource = statelessSession.Query<Document>()
                 .Fetch(f => f.University)
                 .Select(s => new DocumentSeoDto(s.Name, s.Course.Name, s.University.Country, s.University.Name, s.Id));

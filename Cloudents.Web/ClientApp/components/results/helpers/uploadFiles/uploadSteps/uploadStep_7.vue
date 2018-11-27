@@ -1,7 +1,10 @@
 <template>
     <v-card class="mb-3 sb-step-card">
         <div class="upload-row-1 referal-row-1">
-            <v-icon class="five">sbf-spread-loud</v-icon>
+            <!--<v-icon class="five">sbf-spread-loud</v-icon>-->
+            <i class="five">
+                <spreadOutLoudIcon style="width: 50px"></spreadOutLoudIcon>
+            </i>
             <h3 class="sb-title" v-language:inner>upload_files_step7_title</h3>
         </div>
         <div class="upload-row-2 referral-row">
@@ -29,11 +32,11 @@
     import { mapGetters, mapActions } from 'vuex';
     import Base62 from "base62"
     import referralDialog from "../../../../question/helpers/referralDialog/referral-dialog.vue";
-
+    import spreadOutLoudIcon from '../../../../../font-icon/spread-loud.svg';
     export default {
 
         name: "uploadStep_7",
-        components: { referralDialog },
+        components: { referralDialog, spreadOutLoudIcon },
         data() {
             return {
 

@@ -247,6 +247,7 @@
   </data>
   <data name="files_type_textbook" xml:space="preserve">
     <value>Textbook note</value>
+    <comment>Ram Change</comment>
   </data>
   <data name="files_uploadDoc" xml:space="preserve">
     <value>Upload a Document</value>
@@ -258,8 +259,8 @@
     <value>Close and stop upload</value>
   </data>
   <data name="files_btn_back" xml:space="preserve">
-      <value>Back</value>
-    </data>
+    <value>Back</value>
+  </data>
   <data name="confirm_stop_title" xml:space="preserve">
     <value>Stop Uploading?</value>
   </data>
@@ -271,5 +272,11 @@
   </data>
   <data name="files_proccesing" xml:space="preserve">
     <value>We are proccesing your document, you will be able to see it soon.</value>
+  </data>
+  <data name="first_step2_title_partOne" xml:space="preserve">
+    <value>Awesome!</value>
+  </data>
+  <data name="first_step2_title_partTwo" xml:space="preserve">
+    <value>Get your document ready for upload</value>
   </data>
 </root>

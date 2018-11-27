@@ -60,7 +60,7 @@ namespace Cloudents.Core.CommandHandler
             {
                 question.User.LockoutEnd = DateTimeOffset.MaxValue;
                 answer.User.LockoutEnd = DateTimeOffset.MaxValue;
-                question.State = QuestionState.Suspended;
+                question.State = ItemState.Suspended;
                 await _userRepository.UpdateAsync(question.User, token);
                 await _userRepository.UpdateAsync(answer.User, token);
 

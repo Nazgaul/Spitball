@@ -21,9 +21,11 @@ namespace Cloudents.Core.Message.System
 
     public class DocumentSearchMessage : ISystemQueueMessage
     {
-        public DocumentSearchMessage(Document document)
+        public bool ShouldInsert { get; private set; }
+        public DocumentSearchMessage(Document document , bool shouldInsert)
         {
             Document = document;
+            ShouldInsert = shouldInsert;
         }
 
         public Document Document { get; private set; }

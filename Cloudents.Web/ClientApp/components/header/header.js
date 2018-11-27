@@ -6,9 +6,10 @@ export default {
     },
     computed:{
         hideHeaderMobile(){
-            let path = this.$route.name;
-            let isMobile = this.$vuetify.breakpoint.xsOnly;
-            return path === 'question' && isMobile;
+            return false;
+            // let path = this.$route.name;
+            // let isMobile = this.$vuetify.breakpoint.xsOnly;
+            // return path === 'question' && isMobile;
         }
     },
     beforeRouteUpdate(to, from, next) {

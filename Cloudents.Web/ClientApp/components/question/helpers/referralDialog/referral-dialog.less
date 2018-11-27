@@ -36,6 +36,7 @@
           flex-grow: 1;
           font-size: 12px;
           color: @textColor;
+          padding-left: 10px;
         }
       }
     }
@@ -81,7 +82,7 @@
     border-radius: 0 4px 4px 0;
     margin-left: -5px;
     color: @color-white;
-    -webkit-transition: all 0.2s ease-in-out;
+    .transition(all 0.2s ease-in-out);
     font-family: @fontFiraSans;
     font-size: 14px;
     font-weight: 500;
@@ -89,7 +90,11 @@
   }
 
   .copied {
-    background-color: #4caf50
+    background-color: #4caf50;
+    .copy-check-icon{
+      color: @color-white;
+    }
+
   }
   .referral-input {
     min-width: 265px;

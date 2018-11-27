@@ -60,7 +60,7 @@ namespace Cloudents.Core.CommandHandler
                         Enumerable.Empty<Task>();
                 await Task.WhenAll(l).ConfigureAwait(true);
             }
-            if (question.State.GetValueOrDefault() == QuestionState.Ok)
+            if (question.State.GetValueOrDefault() == ItemState.Ok)
             {
                 question.Events.Add(new QuestionCreatedEvent(question));
             }
