@@ -150,6 +150,15 @@
   <data name="BookConditionUsed" xml:space="preserve">
     <value>משומש</value>
   </data>
+  <data name="DocumentTypeExam" xml:space="preserve">
+    <value>מדריך לימוד</value>
+  </data>
+  <data name="DocumentTypeLecture" xml:space="preserve">
+    <value>סיכום שיעור</value>
+  </data>
+  <data name="DocumentTypeTextbook" xml:space="preserve">
+    <value>סיכום ספר לימוד</value>
+  </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>שאלות שנענו</value>
   </data>
