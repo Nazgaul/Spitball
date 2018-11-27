@@ -43,7 +43,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -100,12 +100,14 @@ namespace ConsoleApp
 
             //var z = await q2.SearchAsync(new QuestionsQuery(null, null, 0, null, "fr"), default);
             //293005, Geography
-            var _commandBus = _container.Resolve<ICommandBus>();
+            var _commandBus = _container.Resolve<IUserRepository>();
+            var z = await _commandBus.LoadAsync(1014L,default);
 
-            var command = new AddUserTagCommand(293005L, "Geography");
-            await _commandBus.DispatchAsync(command, token);
 
-            await FixPoisonBackground(_commandBus);
+            //var command = new AddUserTagCommand(293005L, "Geography");
+            //await _commandBus.DispatchAsync(command, token);
+
+            //await FixPoisonBackground(_commandBus);
 
             // await UpdateLanguageAsync();
             //await TransferUniversities();

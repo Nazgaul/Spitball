@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Attributes;
+﻿using System;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
@@ -74,12 +75,16 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost, Authorize]
-        public async Task<CreateDocumentResponse> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
+        public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-
+            if (!model.BlobName.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
+            {
+                ModelState.AddModelError(nameof(model.Name),"Invalid file name");
+                return BadRequest(ModelState);
+            }
             var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
                 model.Course, model.Tags, userId, model.Professor);
             await _commandBus.DispatchAsync(command, token);
@@ -138,12 +143,11 @@ namespace Cloudents.Web.Api
             );
             // }
 
-            if (profile.Courses != null && profile.Courses.Any())
-            {
-                filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
-                    _localizer["CoursesFilterTitle"],
-                    profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
-            }
+
+            filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
+                _localizer["CoursesFilterTitle"],
+                profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
+
             return new WebResponseWithFacet<DocumentFeedDto>
             {
                 Result = p.Select(s =>

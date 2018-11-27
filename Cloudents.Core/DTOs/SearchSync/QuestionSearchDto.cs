@@ -27,7 +27,7 @@ namespace Cloudents.Core.DTOs.SearchSync
        // public QuestionColor Color { get; set; }
 
         public QuestionSubject Subject { get; set; } // facetable
-        public QuestionState? State { get; set; }
+        public ItemState? State { get; set; }
 
         public Question ToQuestion()
         {

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
@@ -75,6 +77,19 @@ namespace Cloudents.Core.Entities.Db
             }
             Transactions.Add(t);
         }
+
+        /// <summary>
+        /// To be reused for (NHibernate) Linq generator
+        /// </summary>
+        //public static readonly Expression<Func<User, decimal>> CalculateBalanceExpression = x =>
+        //    x.Transactions.Count();
+
+        //private static readonly Func<User, decimal> CalculateBalance = CalculateBalanceExpression.Compile();
+
+        //public virtual decimal Fee
+        //{
+        //    get { return CalculateBalance(this); }
+        //}
 
 
         public virtual decimal Balance { get; set; }

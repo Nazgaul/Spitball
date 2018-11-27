@@ -19,9 +19,7 @@ namespace Cloudents.Core
             Data = new[] { data };
         }
 
-        //[JsonConverter(typeof(StringEnumConverter), true)]
         public SignalRType Type { get; }
-        //[JsonConverter(typeof(StringEnumConverter), true)]
         public SignalRAction Action { get; set; }
 
         public IEnumerable Data { get; }
