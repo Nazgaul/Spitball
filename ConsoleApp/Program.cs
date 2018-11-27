@@ -103,8 +103,6 @@ namespace ConsoleApp
             var _commandBus = _container.Resolve<IUserRepository>();
             var z = await _commandBus.LoadAsync(1014L,default);
 
-            Console.WriteLine(z.Balance);
-            Console.WriteLine(z.Fee);
 
             //var command = new AddUserTagCommand(293005L, "Geography");
             //await _commandBus.DispatchAsync(command, token);

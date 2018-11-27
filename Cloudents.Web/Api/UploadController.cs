@@ -115,7 +115,7 @@ namespace Cloudents.Web.Api
                 {
                     Name = model.Name,
                     Size = model.Size,
-                    BlobName = $"file-{response.Data.SessionId}-{model.Name}",
+                    BlobName = BlobFileName(response.Data.SessionId,model.Name)",
                     MimeType = model.MimeType
                 };
                 TempData.Put($"update-{response.Data.SessionId}", tempData);
@@ -134,6 +134,11 @@ namespace Cloudents.Web.Api
             return new UploadResponse(tempData2.BlobName);
         }
 
+        private static string BlobFileName(Guid sessionId, string name)
+        {
+            return $"file-{sessionId}-{name}";
+        }
+
 
         [HttpPost("dropbox")]
         public async Task<UploadResponse> UploadDropBox([FromBody] DropBoxRequest model,
@@ -141,7 +146,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var (stream, _) = await client.DownloadStreamAsync(model.Link, token);
-            var blobName = $"{Guid.NewGuid()}-{model.Name}";
+            var blobName = BlobFileName(Guid.NewGuid(),model.Name);
             await _documentBlobProvider.UploadStreamAsync(blobName, stream, token: token);
 
             return new UploadResponse(blobName);
