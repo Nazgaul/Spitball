@@ -159,7 +159,7 @@ export default {
             let earned = 0;
             this.items.forEach((item) => {
                 typesDictionary[item.type] = item.points;
-            })
+            });
             let reduce = typesDictionary["Stake"] + typesDictionary["Spent"] + typesDictionary["Awarded"];
             if(reduce < 0){
                 earned = typesDictionary["Earned"] + reduce;
