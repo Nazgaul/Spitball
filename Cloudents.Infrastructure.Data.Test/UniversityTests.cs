@@ -1,13 +1,12 @@
 ﻿using Cloudents.Core.Entities.Db;
 using FluentNHibernate.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test
 {
-    [TestClass]
     public class UniversityTests : InMemoryDatabaseTest
     {
-        [TestMethod]
+        [Fact]
         public void CanCorrectlyMapUniversity()
         {
             new PersistenceSpecification<University>(Session)

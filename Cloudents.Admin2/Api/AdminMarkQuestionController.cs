@@ -35,7 +35,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(int page, CancellationToken token)
         {
             var query = new AdminPageQuery(page);
-            return await _queryBus.QueryAsync<IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, token);
+            return await _queryBus.QueryAsync(query, token);
         }
 
         /// <summary>

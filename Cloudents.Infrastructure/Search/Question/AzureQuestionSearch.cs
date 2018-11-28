@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.Search.Question
                 Select = new [] {nameof(Core.Entities.Search.Question.Id)},
                 Top = 50,
                 Skip = query.Page * 50,
-                OrderBy = new List<string> { "search.score() desc", $"{nameof(Core.Entities.Search.Question.DateTime)} desc"  },
+                //OrderBy = new List<string> { "search.score() desc", $"{nameof(Core.Entities.Search.Question.DateTime)} desc"  },
                 ScoringProfile = QuestionSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {

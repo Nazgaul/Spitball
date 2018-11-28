@@ -104,7 +104,7 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <v-list-tile v-if="!!user.universityExists" @click="openPersonalizeCourse()">
+            <v-list-tile v-show="showClassesProp" @click="openPersonalizeCourse()">
                 <v-list-tile-action>
                     <v-icon>sbf-classes</v-icon>
                 </v-list-tile-action>
@@ -237,7 +237,7 @@
             }
         },
         computed: {
-            ...mapGetters(['unreadMessages', 'accountUser']),
+            ...mapGetters(['unreadMessages', 'accountUser', 'getSchoolName']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -249,6 +249,10 @@
             },
             userReferralLink(){
                 return "http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser.id) + "&promo=referral";
+            },
+            showClassesProp(){
+                let schoolName = this.getSchoolName;
+                return schoolName.length > 0;
             }
         },
         methods: {
@@ -280,7 +284,7 @@
                     this.updateLoginDialogState(true);
                 } else {
                     let steps = this.getAllSteps();
-                    this.updateCurrentStep(steps.set_school_landing);
+                    this.updateCurrentStep(steps.set_school);
                     this.changeSelectUniState(true);
                     this.$root.$emit("closeDrawer");
                     // this.$root.$emit("personalize", typesPersonalize.university);

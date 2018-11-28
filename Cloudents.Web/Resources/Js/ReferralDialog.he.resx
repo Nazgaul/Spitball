@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="copied" xml:space="preserve">
+    <value>הועתק</value>
+  </data>
   <data name="copy" xml:space="preserve">
     <value>העתק</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
-    <value>&lt;b&gt;הזמינו חבר&lt;/b&gt; ו&lt;b&gt;הרוויחו&lt;/b&gt; &lt;b&gt;10 נקודות SBL&lt;/b&gt; עבור כל הפניה.</value>
+    <value>&lt;b&gt;הזמינו חברים&lt;/b&gt; ו&lt;b&gt;הרוויחו&lt;/b&gt; &lt;b&gt;10 נקודות SBL&lt;/b&gt; עבור כל הפניה.</value>
   </data>
   <data name="get_document_text" xml:space="preserve">
     <value>! לחץ על הלינק הזה כדי להעיף מבט, אני בטוח שזה יחסוך לך זמן ויעזור לך בלימודים</value>

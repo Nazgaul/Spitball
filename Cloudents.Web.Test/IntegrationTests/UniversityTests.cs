@@ -1,17 +1,26 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
-    public class UniversityTests : ServerInit
+    public class UniversityTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        [TestMethod]
-        public async Task GetAsync_Empty_OK()
+        private readonly WebApplicationFactory<Startup> _factory;
+
+        public UniversityTests(WebApplicationFactory<Startup> factory)
         {
-            var response =
-                await Client.GetAsync(
-                    "/api/university");
+            _factory = factory;
+        }
+        [Theory]
+        [InlineData("/api/university")]
+        public async Task GetAsync_OK(string url)
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
 

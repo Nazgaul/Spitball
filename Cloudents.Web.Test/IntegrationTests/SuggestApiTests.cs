@@ -1,29 +1,30 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
-    public class SuggestApiTests :ServerInit
+    public class SuggestApiTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        [TestMethod]
-        public async Task GetAsync_NoVertical_Ok()
+        private readonly WebApplicationFactory<Startup> _factory;
+
+        public SuggestApiTests(WebApplicationFactory<Startup> factory)
         {
-           var response = await Client.GetAsync("api/Suggest?sentence=hi");
-            response.EnsureSuccessStatusCode();
+            _factory = factory;
         }
 
-        [TestMethod]
-        public async Task GetAsync_SomeVertical_Ok()
+        [Theory]
+        [InlineData("api/Suggest?sentence=hi")]
+        [InlineData("api/Suggest?sentence=hi&vertical=job")]
+        [InlineData("api/Suggest?sentence=aj&vertical=tutor")]
+        [InlineData("/api/suggest")]
+        public async Task GetAsync_Ok(string url)
         {
-            var response = await Client.GetAsync("api/Suggest?sentence=hi&vertical=job");
-            response.EnsureSuccessStatusCode();
-        }
+            // Arrange
+            var client = _factory.CreateClient();
 
-        [TestMethod]
-        public async Task GetAsync_TutorVertical_Ok()
-        {
-            var response = await Client.GetAsync("api/Suggest?sentence=aj&vertical=tutor");
+            // Act
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
     }

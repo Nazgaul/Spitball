@@ -1,4 +1,4 @@
-﻿@import "../../mixin.less";
+﻿@import "../../styles/mixin.less";
 @import "../../animations/pageTransitions.less";
 
 .right-in {
@@ -293,7 +293,7 @@
 .question-toaster{
   margin-top: 130px;
   cursor: pointer;
-
+  z-index:122;
   .v-snack__wrapper{
     box-shadow: none;
     background-color: transparent;
@@ -320,6 +320,7 @@
 
   @media (max-width: @screen-xs) {
     margin-top: 25px;
+    
   }
 }
 

@@ -2,17 +2,21 @@
     <div class="user-tokens-container">
         <h1>Send Tokens To User</h1>
         <div class="user-inputs-container">
-            <span><input class="user-input-text" type="text" v-model.number="userId" placeholder="Insert user id..."/></span>
-            <span><input class="user-input-text" type="text" v-model.number="tokens" placeholder="Set amount of tokens to apply..."/></span>
+           <v-text-field   solo class="user-input-text" type="text" v-model.number="userId" placeholder="Insert user id..."/>
+           <v-text-field solo class="user-input-text" type="text" v-model.number="tokens" placeholder="Set amount of tokens to apply..."/>
         </div>
         <div class="select-type-container">
-            <select class="select-type" v-model="tokenType">
-                <option value="Earned">Earned</option>
-                <option value="Awarded">Awarded</option>
-            </select>
+            <v-select attach=""
+                      class="select-type-input"
+                      solo
+                    v-model="tokenType"
+                    :items="types"
+                     :item-value="tokenType"
+                    label="Select type"
+            ></v-select>
         </div>
         <div class="grant-token-container">
-            <button class="grant-token-button" @click="sendTokens">Send</button>
+            <v-btn round color="#78c967" @click="sendTokens">Send</v-btn>
         </div>
     </div>
     
@@ -25,7 +29,9 @@ export default {
         return {
             userId: null,
             tokens: null,
-            tokenType: "Earned"
+            tokenType: 'Earned',
+            types: ['Earned', 'Awarded'],
+
         }
     },
     methods:{
@@ -54,18 +60,18 @@ export default {
 
 <style lang="scss" scoped>
 .user-tokens-container{
-    .user-inputs-container{
+    .user-inputs-container, .select-type-container{
         display:flex;
         flex-direction: column;
         justify-content: center;
-        .user-input-text{
+        align-items: center;
+        .user-input-text, .select-type-input{
             border:none;
             outline: none;
             border-radius: 25px;
-            height: 15px;
             margin-top: 5px;
             padding:10px;
-            width: 200px;
+            width: 345px;
         }
     }
     .grant-token-container{
@@ -80,17 +86,7 @@ export default {
             width: 50px;
         }
     }
-    .select-type-container{
-        .select-type{
-            border: none;
-            border-radius: 25px;
-            height: 25px;
-            margin-top: 10px;
-            width: 90px;
-            padding: 5px;
-            outline: none;
-        }
-    }
+
 }
 
 </style>

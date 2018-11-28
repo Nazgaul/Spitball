@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Id(e => e.Name).GeneratedBy.Assigned().Length(150);
             Map(x => x.Count).Not.Nullable();
 
-            SchemaAction.Update();
+            SchemaAction.None();
         }
     }
 }

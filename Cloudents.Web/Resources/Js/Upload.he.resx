@@ -121,10 +121,10 @@
     <value>העלה מסמכים</value>
   </data>
   <data name="confirm_btn_cancel" xml:space="preserve">
-    <value>בטל</value>
+    <value>חזור</value>
   </data>
   <data name="confirm_btn_close" xml:space="preserve">
-    <value>סגור ועצור העלאת מסמך</value>
+    <value>עצור העלאת מסמך</value>
   </data>
   <data name="confirm_stop_title" xml:space="preserve">
     <value>עצור העלאת מסמך?</value>
@@ -224,6 +224,9 @@
   <data name="files_placeholder_tags" xml:space="preserve">
     <value>הכנס תגיות</value>
   </data>
+  <data name="files_proccesing" xml:space="preserve">
+    <value>אנו מעבדים את המסמך ובקרוב הוא יעלה לאתר.</value>
+  </data>
   <data name="files_step2_subtitle" xml:space="preserve">
     <value>מלא פרטים על המסמך והגדל את הסיכויים שלו להימצא</value>
   </data>
@@ -258,15 +261,21 @@
     <value>מסמך</value>
   </data>
   <data name="files_type_exam" xml:space="preserve">
-    <value>סיכום בחינה</value>
+    <value>מדריך לימוד</value>
   </data>
   <data name="files_type_lecture" xml:space="preserve">
     <value>סיכום שיעור</value>
   </data>
   <data name="files_type_textbook" xml:space="preserve">
-    <value>סיכום ספר לימוד</value>
+    <value>סיכום ספר</value>
   </data>
   <data name="files_uploadDoc" xml:space="preserve">
     <value>העלה מסמך</value>
+  </data>
+  <data name="first_step2_title_partOne" xml:space="preserve">
+    <value>נהדר!</value>
+  </data>
+  <data name="first_step2_title_partTwo" xml:space="preserve">
+    <value>הכן את המסמך שלך</value>
   </data>
 </root>

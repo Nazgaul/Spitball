@@ -1,6 +1,23 @@
-@import "../../../../mixin.less";
+@import "../../../../styles/mixin.less";
 
 .input-wrapper {
+
+  //with prepend icon, we need focus for wraper and not input
+  &.input-wrapper-bordered{
+    border-radius: 4px;
+    border: solid 1px #979797;
+    &:focus-within{
+      border: solid 1px @colorInputFocus;
+
+    }
+    .prepend-icon{
+      padding-left: 12px;
+      font-size: 18px;
+      color: @colorTypeDocDefault;
+    }
+  }
+
+
   &.bad {
     .input-hint {
       color: @Pass-Weak-Color;
@@ -43,7 +60,9 @@
     font-size: 18px;
     letter-spacing: -0.5px;
     padding: 10px;
-
+    &.inputPrepIcon{
+      border: none;
+    }
     &:focus {
       outline: none;
     }

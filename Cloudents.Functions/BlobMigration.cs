@@ -39,13 +39,6 @@ namespace Cloudents.Functions
             await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
         }
 
-        //[FunctionName("BlobPreview-TimerTemp")]
-        //[return: Queue("generate-blob-preview")]
-        //public static string BlobPreviewTimerTemp([TimerTrigger("0 */20 * * * *", RunOnStartup = true)]TimerInfo timer)
-        //{
-        //    return "13";
-        //}
-
         private static async Task ProcessBlobPreview(CloudBlob myBlob, string id, string name, IFactoryProcessor factory,
             CloudBlobDirectory directory, TraceWriter log, CancellationToken token)
         {

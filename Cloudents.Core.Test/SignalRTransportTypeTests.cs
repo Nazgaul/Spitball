@@ -1,13 +1,12 @@
 ﻿using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Xunit;
 
 namespace Cloudents.Core.Test
 {
-    [TestClass]
     public class SignalRTransportTypeTests
     {
-        [TestMethod]
+        [Fact]
         public void Serialize_SignalRTransportType_RightJson()
         {
             var elem = new SignalRTransportType(SignalRType.Question,SignalRAction.Add,null);

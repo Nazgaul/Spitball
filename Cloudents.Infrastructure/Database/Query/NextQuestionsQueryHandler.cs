@@ -16,9 +16,9 @@ namespace Cloudents.Infrastructure.Database.Query
     {
         private readonly IStatelessSession _session;
 
-        public NextQuestionsQueryHandler(ReadonlyStatelessSession session)
+        public NextQuestionsQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<IEnumerable<QuestionFeedDto>> GetAsync(NextQuestionQuery query, CancellationToken token)

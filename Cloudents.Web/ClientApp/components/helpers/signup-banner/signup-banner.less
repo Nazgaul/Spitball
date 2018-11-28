@@ -1,4 +1,4 @@
-@import "../../../mixin.less";
+@import "../../../styles/mixin.less";
 
 .banner-wrap {
   #particles-js {
@@ -63,6 +63,7 @@
     z-index: 100;
     padding: 24px 0;
     box-shadow: -8px 16px 56px -20px #000;
+    display: flex;
     @media  only screen and (min-width:1281px) and (max-width:1366px) {
       left: 74%;
     }
@@ -115,6 +116,7 @@
       line-height: 1.11;
       letter-spacing: -0.5px;
       color: @color-main-purple;
+      margin: auto;
 
       @media (max-width: @screen-sm-960) {
         font-size: 18px;
@@ -368,7 +370,7 @@
 
   .text-block {
     .limited-width();
-    align-items: center;
+    //align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
@@ -400,12 +402,15 @@
     @media (max-width: @screen-xs) {
       width: 362px;
       height: 280px;
+      padding-left: 40px;
     }
 
     .title-wrap {
+      margin: 0 auto;
       max-width: 850px;
 
       @media (max-width: 600px) {
+        margin: unset;
         width: 300px;
       }
     }

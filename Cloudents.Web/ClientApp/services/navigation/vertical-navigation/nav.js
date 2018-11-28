@@ -84,16 +84,21 @@ const nav = {
     }
 };
 
+let strNew = LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new");
+let strRental = LanguageService.getValueByKey("navigation_nav_bookDetails_filter_rental");
+let strUsed = LanguageService.getValueByKey("navigation_nav_bookDetails_filter_used");
+let strBuy = LanguageService.getValueByKey("book_sort_buy");
+let strSell = LanguageService.getValueByKey("book_sort_sell");
 export let details = {
     bookDetails: {
         filter: [
-            {key: 'new', value: LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new")},
-            {key: 'rental', value: LanguageService.getValueByKey("navigation_nav_bookDetails_filter_rental")},
-            {key: 'used', value:LanguageService.getValueByKey("navigation_nav_bookDetails_filter_used")}
+            {key: strNew, value: strNew},
+            {key: strRental, value: strRental},
+            {key: strUsed, value:strUsed}
     ],
         sort: [
-            {key: "buy", value: LanguageService.getValueByKey("book_sort_buy")},
-            {key: "sell",value: LanguageService.getValueByKey("book_sort_sell")}
+            {key: strBuy, value: strBuy},
+            {key: strSell,value: strSell}
         ]
     }
 };

@@ -2,11 +2,10 @@
 using System.Linq;
 using System.Reflection;
 using Cloudents.Web.Api;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests
 {
-    [TestClass]
     public class HelpControllerTests
     {
         private static Stream InitializeXmlFile()
@@ -17,7 +16,7 @@ namespace Cloudents.Web.Test.UnitTests
             return asm.GetManifestResourceStream(resource);
         }
 
-        [TestMethod]
+        [Fact]
         public void ParseXmlDocument_ReturnFirstQuestion()
         {
            // var controller = new HelpController(_mock.Object);
@@ -28,7 +27,7 @@ namespace Cloudents.Web.Test.UnitTests
 
                 var firstResult = result.First();
 
-                Assert.AreEqual(firstResult.Question, "What happened to the old Spitball and where did all my documents go?");
+                Assert.Equal("What happened to the old Spitball and where did all my documents go?", firstResult.Question);
             }
         }
     }

@@ -8,8 +8,8 @@
         <h4 v-else-if="infoError">{{infoError}}</h4>
     </div>
     <div class="input-wrap">
-        <input class="id-input" type="text" v-model="questionsIdString" placeholder="example: 1245">
-        <button @click="acceptByIds" class="btn-accept">Accept</button>
+        <v-text-field height="36" solo class="id-input" type="text" v-model="questionsIdString" placeholder="example: 1245"/>
+        <v-btn color="#97ed82" @click="acceptByIds" >Accept</v-btn>
     </div>
 </div>
 </div>  
@@ -54,26 +54,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.id-input{
-      width: 400px;
-    height: 25px;
-    border-radius: 25px;
-    background: #fff;
-    border: none;
-    outline: none;
-    padding: 3px;
-    padding-left: 10px;
-}
-
-.btn-accept { 
-    cursor: pointer;
-    background-color: #55ec51;
-    border-radius: 25px;
-    border: none;
-    outline: none;
-    cursor:pointer;
-    height: 25px;
-        
-} 
+    .wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .input-wrap {
+            padding-top: 16px;
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            justify-content: center;
+            .id-input {
+                width: 345px;
+                height: 36px;
+                border-radius: 25px;
+                padding-left: 10px;
+            }
+        }
+    }
 
 </style>

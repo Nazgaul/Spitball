@@ -22,7 +22,15 @@ namespace Cloudents.Core
                 .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) && i.GetCustomAttribute<AdminCommandHandler>() != null)
                 .Select(i => new KeyedService("handler", i)));
 
-            builder.RegisterType<CommandHandler.MarkAnswerAsCorrectCommandHandler>().As<ICommandHandler<Command.MarkAnswerAsCorrectCommand>>();
+            builder.RegisterType<CommandHandler.MarkAnswerAsCorrectCommandHandler>()
+                .As<ICommandHandler<Command.MarkAnswerAsCorrectCommand>>();
+
+
+            builder.RegisterType<CommandHandler.Admin.DeleteAnswerCommandHandler>().AsSelf();
+                //.Named<ICommandHandler<Command.Admin.DeleteAnswerCommand>>("withoutDecorator");
+
+            builder.RegisterType<CommandHandler.Admin.DeleteQuestionCommandHandler>().AsSelf();
+            //.Named<ICommandHandler<Command.Admin.DeleteQuestionCommand>>("withoutDecorator");
         }
     }
 }

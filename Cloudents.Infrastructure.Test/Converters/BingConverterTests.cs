@@ -6,12 +6,11 @@ using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Search;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test.Converters
 {
-    [TestClass]
     public class BingConverterTests
     {
         //private readonly Mock<IKeyGenerator> _keyGenerator = new Mock<IKeyGenerator>();
@@ -23,8 +22,7 @@ namespace Cloudents.Infrastructure.Test.Converters
 
         //private readonly Mock<ReplaceImageProvider> _replaceImageMock = new Mock<ReplaceImageProvider>(new Mock<IBlobProvider<SpitballContainer>>().Object);
 
-        [TestInitialize]
-        public void Setup()
+        public BingConverterTests()
         {
             using (var autofackMock = AutoMock.GetLoose())
             {
@@ -47,7 +45,7 @@ namespace Cloudents.Infrastructure.Test.Converters
 
        
 
-        [TestMethod]
+        [Fact]
         public void ConvertToResult_CourseHeroWebPage_ShareSaleUrl()
         {
             const string courseHeroLink =
@@ -62,7 +60,7 @@ namespace Cloudents.Infrastructure.Test.Converters
             result.Source.Should().BeEquivalentTo("coursehero");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertToResult_RegularWebPage_RegularUrl()
         {
             const string someDomainUrl = "https://www.someUrl.com";
@@ -72,12 +70,12 @@ namespace Cloudents.Infrastructure.Test.Converters
 
             };
             var result = _bingConverter.Convert(argument, null, _context);
-            Assert.AreEqual(result.Url, someDomainUrl);
+            Assert.Equal(result.Url, someDomainUrl);
             result.Source.Should().BeEquivalentTo("someurl");
         }
 
 
-        [TestMethod]
+        [Fact]
         public void ConvertToResult_SpitballWebPage_CloudentsSource()
         {
             const string spitballDomainUrl = "https://www.spitball.co";
@@ -87,12 +85,12 @@ namespace Cloudents.Infrastructure.Test.Converters
 
             };
             var result = _bingConverter.Convert(argument, null, _context);
-            Assert.AreEqual(result.Url, spitballDomainUrl);
+            Assert.Equal(result.Url, spitballDomainUrl);
             result.Source.Should().BeEquivalentTo("cloudents");
             //Assert.AreEqual(result.Source, "cloudents");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertToResult_SomeWebPageWithNullDomain_HasPriority()
         {
             var argument = new BingWebPage
@@ -105,7 +103,7 @@ namespace Cloudents.Infrastructure.Test.Converters
         }
 
 
-        [TestMethod]
+        [Fact]
         public void ConvertToResult_SomeWebPage_HasPriority()
         {
             var argument = new BingWebPage

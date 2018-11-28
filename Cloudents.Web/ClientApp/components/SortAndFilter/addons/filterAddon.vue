@@ -1,0 +1,23 @@
+<template>
+    <span class="change-course-container" @click="openEditClass()" v-if="singleFilter.id.toLowerCase() === 'course'"><span class="edit-after-icon" v-language:inner>menuList_Change</span><v-icon class="edit-after-icon">sbf-edit-icon</v-icon></span>
+</template>
+
+<script>
+import { mapActions, mapMutations, mapGetters } from 'vuex'
+export default {
+    methods:{
+        ...mapActions(['updateCurrentStep', 'changeSelectUniState']),
+        ...mapGetters(['getAllSteps']),
+        openEditClass(){
+            let steps = this.getAllSteps();
+            this.updateCurrentStep(steps.set_class);
+            this.changeSelectUniState(true);
+        },
+        
+    }
+}
+</script>
+
+<style>
+
+</style>

@@ -86,10 +86,14 @@ const getters = {
             return { latitude, longitude }
         } else { return location }
     },
-    pinnedCards:
-        state => state.user.pinnedCards,
-    showRegistrationBanner:
-        state => state.user.showRegistrationBanner,
+    pinnedCards: state => state.user.pinnedCards,
+    showRegistrationBanner (state, {accountUser}){
+        if(!!accountUser){
+            return false;
+        }else{
+            return state.user.showRegistrationBanner;
+        }
+    },
     // getRegistrationStep:
     //     state => state.user.registrationStep,
     // getUniversity: state => {

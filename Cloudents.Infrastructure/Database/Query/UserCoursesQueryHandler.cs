@@ -14,7 +14,7 @@ namespace Cloudents.Infrastructure.Database.Query
     {
         private readonly ISession _session;
 
-        public UserCoursesQueryHandler(ReadonlySession session)
+        public UserCoursesQueryHandler(QuerySession session)
         {
             _session = session.Session;
         }
@@ -61,6 +61,7 @@ where UserId = :id");
                     .Select(s => new UserUniversityQueryProfileDto(s.Id, s.Extra, s.Name)).ToFutureValue();
 
             }
+            
 
             var courses = await coursesFuture.GetEnumerableAsync(token);
             var tags = await tagsFuture.GetEnumerableAsync(token);
@@ -69,7 +70,7 @@ where UserId = :id");
             return new UserProfile
             {
                 University = university,
-                Courses = courses,
+                Courses = courses?.ToList(),
                 Tags = tags
             };
         }

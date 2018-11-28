@@ -15,36 +15,36 @@ export const typesPersonalize = {
     hebrew: "hebrew"
 
 };
-export let searchObjects = {
-    course: {
-        id: typesPersonalize.course,
-        placeholder: LanguageService.getValueByKey('searchitem_class_selection'),
-        closeText: "done",
-        searchApi: "getCourses",
-        defaultFilter: 'all',
-        filters: [{id: 'all', name: 'ALL COURSES'}, {id: 'myCourses', name: 'MY COURSES'}],
-        click: function () {
-            this.val = "";
-            this.$refs.searchText.focus();
-        },
-        action: "add"
-    }, 
-    university: {
-        id: typesPersonalize.university,
-        searchApi: "getUniversities",
-        placeholder: LanguageService.getValueByKey('result_where_school'),
-        closeText: "X",
-        click: function (keep = true) {
-            if (!keep) {
-                this.$parent.$parent.showDialog = false
-            } else {
-                this.currentType = "course";
-            }
-        },
-        defaultFilter: '',
-        filters: []
-    }
-};
+// export let searchObjects = {
+//     course: {
+//         id: typesPersonalize.course,
+//         placeholder: LanguageService.getValueByKey('searchitem_class_selection'),
+//         closeText: "done",
+//         searchApi: "getCourses",
+//         defaultFilter: 'all',
+//         filters: [{id: 'all', name: 'ALL COURSES'}, {id: 'myCourses', name: 'MY COURSES'}],
+//         click: function () {
+//             this.val = "";
+//             this.$refs.searchText.focus();
+//         },
+//         action: "add"
+//     }, 
+//     university: {
+//         id: typesPersonalize.university,
+//         searchApi: "getUniversities",
+//         placeholder: LanguageService.getValueByKey('result_where_school'),
+//         closeText: "X",
+//         click: function (keep = true) {
+//             if (!keep) {
+//                 this.$parent.$parent.showDialog = false
+//             } else {
+//                 this.currentType = "course";
+//             }
+//         },
+//         defaultFilter: '',
+//         filters: []
+//     }
+// };
 
 export let settingMenu = [
     {

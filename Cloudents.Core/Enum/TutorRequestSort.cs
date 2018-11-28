@@ -10,6 +10,5 @@ namespace Cloudents.Core.Enum
         Relevance,
         [ResourceDescription(typeof(EnumResources), "TutorSortPrice")]
         Price,
-        //Distance
     }
 }

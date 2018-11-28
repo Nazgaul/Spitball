@@ -15,9 +15,9 @@ namespace Cloudents.Infrastructure.Database.Query
     {
         private readonly IStatelessSession _session;
 
-        public DocumentsQueryHandler(ReadonlyStatelessSession session)
+        public DocumentsQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<IList<DocumentFeedDto>> GetAsync(IdsQuery<long> query, CancellationToken token)
@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Select(s => new DocumentFeedDto
                 {
                     Id = s.Id,
-                    User = new UserDto()
+                    User = new UserDto
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,

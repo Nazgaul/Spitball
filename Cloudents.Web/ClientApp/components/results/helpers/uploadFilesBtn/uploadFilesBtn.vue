@@ -1,14 +1,14 @@
 <template>
-    <v-flex :class="['result-cell', 'mb-3', 'upload-files-action-card', 'xs-12', isFloatingBtn ? 'floatingcard' : 'regularCard']">
-        <a class="mb-5 upload-link" @click="openUploaderDialog()">
+    <v-flex :class="['result-cell', $vuetify.breakpoint.smAndUp ? 'mb-3': '', 'upload-files-action-card', 'xs-12', isFloatingBtn ? 'floatingcard' : 'regularCard']">
+        <a class="mb-5 upload-link">
             <div :class="['upload-wrap', isFloatingBtn ? 'floating-upload' : '']">
                 <div class="static-center">
-                    <p :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>
-                        upload_files_component_share_study
-                    </p>
-                    <button round :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '']">
-                        <span class="btn-text" v-language:inner>upload_files_file_upload</span>
+                    <!--<p v-show="$vuetify.breakpoint.smAndUp"  :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
+                        <!--upload_files_component_share_study-->
+                    <!--</p>-->
+                    <button round :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '']" @click="openUploaderDialog()">
                         <v-icon class="sb-cloud-upload-icon" right>sbf-upload-cloud</v-icon>
+                        <span class="btn-text" v-language:inner>upload_files_file_upload</span>
                     </button>
                 </div>
             </div>
@@ -40,9 +40,10 @@
             isFloatingBtn() {
                 let offHeight = 0;
                 if(this.showRegistrationBanner){
-                    offHeight = 150 + 285;
+                    // offHeight = 150 + 285; // header + signUpBanner height
+                    offHeight = 200 + 285;
                 }else{
-                    offHeight = 150;
+                    offHeight = 200;
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
@@ -50,6 +51,7 @@
                 return this.getDialogState
             },
         },
+
         methods: {
             ...mapActions([
                 "updateLoginDialogState",

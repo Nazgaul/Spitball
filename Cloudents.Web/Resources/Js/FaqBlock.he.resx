@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="add_question_btn" xml:space="preserve">
+    <value>הוסף שאלה</value>
+  </data>
   <data name="ask" xml:space="preserve">
     <value>שאל שאלה</value>
   </data>
@@ -124,7 +127,7 @@
     <value>ספיטבול – שאלות נפוצות</value>
   </data>
   <data name="more" xml:space="preserve">
-    <value>כנס</value>
+    <value>הראה לי</value>
   </data>
   <data name="show_me" xml:space="preserve">
     <value>הראה לי</value>

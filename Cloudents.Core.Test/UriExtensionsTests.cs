@@ -1,19 +1,18 @@
 ﻿using System;
 using Cloudents.Core.Extension;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Core.Test
 {
-    [TestClass]
     public class UriExtensionsTests
     {
-        [TestMethod]
+        [Fact]
         public void GetUriDomain_SomeUri_ActualDomain()
         {
             var uri = new Uri("https://www.coursehero.com/assets/img/coursehero_logo.png");
             var domain = uri.GetUriDomain();
 
-            Assert.AreEqual("courseHero.com", domain, true);
+            Assert.Equal("courseHero.com", domain, true);
         }
     }
 }

@@ -6,14 +6,14 @@ namespace Cloudents.Core.Enum
     public enum DocumentType
     {
         None,
+        [PublicValue]
         [ResourceDescription(typeof(EnumResources), "DocumentTypeLecture")]
-        [PublicValue]
         Lecture,
+        [PublicValue]
         [ResourceDescription(typeof(EnumResources), "DocumentTypeTextbook")]
-        [PublicValue]
         Textbook,
-        [ResourceDescription(typeof(EnumResources), "DocumentTypeExam")]
         [PublicValue]
+        [ResourceDescription(typeof(EnumResources), "DocumentTypeExam")]
         Exam
     }
 }

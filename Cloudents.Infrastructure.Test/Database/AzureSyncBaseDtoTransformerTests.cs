@@ -2,11 +2,10 @@
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Infrastructure.Database;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test.Database
 {
-    [TestClass]
     public class AzureSyncBaseDtoTransformerTests
     {
         enum ResultEnum
@@ -23,7 +22,7 @@ namespace Cloudents.Infrastructure.Test.Database
             public ResultEnum? NullableEnum { get; set; }
 
         }
-        [TestMethod]
+        [Fact]
         public void TransformTuple_GuidCheck_ReturnGuidString()
         {
             var x = new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<ResultTest>, ResultTest>();
@@ -48,7 +47,7 @@ namespace Cloudents.Infrastructure.Test.Database
 
 
      
-        [TestMethod]
+        [Fact]
         public void TransformTuple_LongCheck_ReturnLongString()
         {
             var x = new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<ResultTest>, ResultTest>();
@@ -71,7 +70,7 @@ namespace Cloudents.Infrastructure.Test.Database
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TransformTuple_NullableLongCheck_ReturnLongString()
         {
             var x = new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<ResultTest>, ResultTest>();
@@ -92,7 +91,7 @@ namespace Cloudents.Infrastructure.Test.Database
             result.SYS_CHANGE_VERSION.Should().BeNull();
         }
 
-        [TestMethod]
+        [Fact]
         public void TransformTuple_IntToEnum_ReturnEnum()
         {
             var x = new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<ResultTest>, ResultTest>();
@@ -114,7 +113,7 @@ namespace Cloudents.Infrastructure.Test.Database
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TransformTuple_StringToNullableEnum_ReturnEnum()
         {
             var x = new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<ResultTest>, ResultTest>();

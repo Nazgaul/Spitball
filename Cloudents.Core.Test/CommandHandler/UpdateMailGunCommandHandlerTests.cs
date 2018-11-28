@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Reflection;
 using Cloudents.Core.CommandHandler;
+using Cloudents.Core.Test;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Core.Test.CommandHandler
 {
-    [TestClass]
     public class UpdateMailGunCommandHandlerTests
     {
-        [TestMethod]
+        [Fact]
         public void ConvertDateTimeToString_SpecificDate_ConvertCorrectly()
         {
             var dateTime = new DateTime(2017, 10, 2, 15, 1, 0);
@@ -20,7 +20,7 @@ namespace Cloudents.Core.Test.CommandHandler
             result.Should().BeEquivalentTo("Oct  2 2017  3:01PM");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertDateTimeToString_SpecificDate2_ConvertCorrectly()
         {
             var dateTime = new DateTime(2018, 2, 21, 19, 1, 0);
@@ -30,7 +30,7 @@ namespace Cloudents.Core.Test.CommandHandler
             result.Should().BeEquivalentTo("Feb 21 2018  7:01PM");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertDateTimeToString_SpecificDate3_ConvertCorrectly()
         {
             var dateTime = new DateTime(2018, 3, 1, 20, 2, 0);
@@ -40,4 +40,6 @@ namespace Cloudents.Core.Test.CommandHandler
             result.Should().BeEquivalentTo("Mar  1 2018  8:02PM");
         }
     }
+
+    
 }

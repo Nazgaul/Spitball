@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Exceptions;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -32,11 +33,11 @@ namespace Cloudents.Core.Entities.Db
             {
                 Color = color;
             }
-            State = QuestionState.Pending;
+            State = ItemState.Pending;
             Language = language;
             if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
             {
-                State = QuestionState.Ok;
+                State = ItemState.Ok;
             }
 
             QuestionCreateTransaction();
@@ -73,12 +74,19 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual QuestionColor? Color { get; set; }
-        public virtual QuestionState? State { get; set; }
+        public virtual ItemState? State { get; set; }
 
 
         public virtual void QuestionCreateTransaction()
         {
-            var t = Transaction.QuestionCreate(this);// new Transaction(ActionType.Question, TransactionType.Stake, -Price);
+            var t = Transaction.QuestionCreate(this);
+            var amountForAskingQuestion = User.Balance * 30 / 100;
+
+            if (amountForAskingQuestion < t.Price)
+            {
+                throw new InsufficientFundException();
+            }
+
             User.AddTransaction(t);
         }
 

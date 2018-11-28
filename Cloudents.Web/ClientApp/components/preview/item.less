@@ -1,4 +1,4 @@
-﻿@import "../../mixin.less";
+﻿@import "../../styles/mixin.less";
 
 @itemToolbarHeight: 80px;
 
@@ -19,65 +19,63 @@
     max-width: 760px;
     width: 100%;
 }
+.doc-preview-container {
 
-.item {
-    
+    .item {
 
-    &.document-wrap {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        //width: 100%;
-        max-width: 880px;
-        //width:880px;
-        padding-right: 24px;
-        //padding-left: 24px;
-        margin: 0 auto;
-
-        @media (max-width: @screen-xs) {
-            flex-direction: column;
-        }
-
-        .doc-chat-wrapper {
-            max-width: 302px;
-            margin: 10px 0 0 28px;
-
-
-
-            .chat-title {
-                border-radius: 4px;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
-                color: @color-blue-new;
-                font-size: 16px;
-                font-weight: 600;
-            }
-        }
-
-        .item-content {
-            //max-width: 532px;
-            width: 100%;
-            position: relative;
-
-            .img-placeholder-text {
-                color: @colorBlackNew;
-                position: absolute;
-                top: 7%;
-                left: 50%;
-                right: 0;
-                margin: 0 auto;
-                transform: translate(-50%, -50%);
-                display: inline;
-                width: 250px;
+        &.document-wrap {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            max-width: 880px;
+            margin: 0 auto;
+            z-index: -1;
+            @media (max-width: @screen-xs) {
+                flex-direction: column;
+                padding: 0 8px;
             }
 
-            .page-content {
-                background: @color-white;
-                //remove for carousel
-                margin-bottom: 10px;
+            .doc-chat-wrapper {
+                max-width: 302px;
+                margin: 10px 0 0 28px;
 
-                @media (max-width: @screen-xs) {
-                    width: 100%;
-                    max-height: 401px;
+                .chat-title {
+                    border-radius: 4px;
+                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+                    color: @color-blue-new;
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+            }
+
+            .item-content {
+                //max-width: 532px;
+                width: 100%;
+                position: relative;
+                .mobile-docs-carousel{
+                    box-shadow: none;
+                }
+                .img-placeholder-text {
+                    color: @colorBlackNew;
+                    position: absolute;
+                    top: 7%;
+                    left: 50%;
+                    right: 0;
+                    margin: 0 auto;
+                    transform: translate(-50%, -50%);
+                    display: inline;
+                    width: 250px;
+                }
+
+                .page-content {
+                    background: @color-white;
+                    //remove for carousel
+                    margin-bottom: 10px;
+                    margin-top: 12px;
+                    @media (max-width: @screen-xs) {
+                        width: 100%;
+                        max-height: 401px;
+                    }
                 }
             }
         }

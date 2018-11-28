@@ -17,10 +17,10 @@ namespace Cloudents.Infrastructure.Database.Query
         private readonly IStatelessSession _session;
         private readonly QueryBuilder _queryBuilder;
 
-        public UserTransactionQueryHandler(ReadonlyStatelessSession session, QueryBuilder queryBuilder)
+        public UserTransactionQueryHandler(QuerySession session, QueryBuilder queryBuilder)
         {
             _queryBuilder = queryBuilder;
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<IEnumerable<TransactionDto>> GetAsync(UserDataByIdQuery query, CancellationToken token)

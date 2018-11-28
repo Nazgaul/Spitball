@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -20,7 +23,6 @@ namespace Cloudents.Core.Entities.Db
             TwoFactorEnabled = true;
             Culture = culture;
             PrivateKey = privateKey;
-            UserCreateTransaction();
             Created = DateTime.UtcNow;
             Fictive = false;
 
@@ -71,17 +73,24 @@ namespace Cloudents.Core.Entities.Db
             Balance += t.Price;
             if (Balance < 0)
             {
-                throw new InvalidOperationException("not enough tokens");
+                throw new InsufficientFundException("not enough tokens");
             }
             Transactions.Add(t);
         }
 
+        /// <summary>
+        /// To be reused for (NHibernate) Linq generator
+        /// </summary>
+        //public static readonly Expression<Func<User, decimal>> CalculateBalanceExpression = x =>
+        //    x.Transactions.Count();
 
-        protected virtual void UserCreateTransaction()
-        {
-            var t = Transaction.UserCreate();
-            AddTransaction(t);
-        }
+        //private static readonly Func<User, decimal> CalculateBalance = CalculateBalanceExpression.Compile();
+
+        //public virtual decimal Fee
+        //{
+        //    get { return CalculateBalance(this); }
+        //}
+
 
         public virtual decimal Balance { get; set; }
 
@@ -94,7 +103,7 @@ namespace Cloudents.Core.Entities.Db
 
 
         protected internal virtual ISet<Course> Courses { get; protected set; }
-        protected internal virtual ISet<Tag> Tags { get; protected set; }
+        public virtual ISet<Tag> Tags { get; protected set; }
 
 
         public virtual DateTime Created { get; protected set; }

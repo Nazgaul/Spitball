@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
     IQueryHandler<SyncAzureQuery, (IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>
     {
         private readonly FluentQueryBuilder _queryBuilder;
-        public DocumentSyncAzureSearchQueryHandler(ReadonlyStatelessSession session, FluentQueryBuilder queryBuilder) : base(session)
+        public DocumentSyncAzureSearchQueryHandler(QuerySession session, FluentQueryBuilder queryBuilder) : base(session)
         {
             _queryBuilder = queryBuilder;
         }

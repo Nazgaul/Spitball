@@ -1,37 +1,33 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
-    public class BookApiTests : ServerInit
+    public class BookApiTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        [TestMethod]
-        public async Task Search_Gibrish_ReturnResult()
+
+        private readonly WebApplicationFactory<Startup> _factory;
+
+        public BookApiTests(WebApplicationFactory<Startup> factory)
         {
-            var response = await Client.GetAsync("api/book/search?term=kjhgfd").ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
+            _factory = factory;
         }
 
-        [TestMethod]
-        public async Task Search_Gibrish2_ReturnResult()
+        [Theory]
+        [InlineData("api/book/search?term=kjhgfd")]
+        [InlineData("api/book/search?term=%2Cmnhbg")]
+        [InlineData("/api/book/search?page=2&term=super mario 64 ds")]
+        [InlineData("/api/book/buy?isbn13=9781292099170")]
+        public async Task Search_ReturnResult(string url)
         {
-            var response = await Client.GetAsync("api/book/search?term=%2Cmnhbg").ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
-        }
+            var client = _factory.CreateClient();
 
-        [TestMethod]
-        public async Task Search_WithSpacePage_ReturnResult()
-        {
-            var response = await Client.GetAsync("/api/book/search?page=2&term=super mario 64 ds").ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
-        }
+            // Act
+            var response = await client.GetAsync(url);
 
-        [TestMethod]
-        public async Task Buy_SomeIsbn_ReturnResult()
-        {
-            var response = await Client.GetAsync("/api/book/buy?isbn13=9781292099170").ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
+            // Assert
+            response.EnsureSuccessStatusCode(); // Status Code 200-299
         }
     }
 }

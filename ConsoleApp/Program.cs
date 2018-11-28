@@ -14,6 +14,7 @@ using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
+using Newtonsoft.Json;
 using NHibernate;
 using NHibernate.Linq;
 using System;
@@ -26,7 +27,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 
 namespace ConsoleApp
@@ -43,14 +43,14 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 // ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545"
@@ -92,15 +92,76 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            //await CheckSync();
-            // var q = _container.Resolve<IQuestionSearch>();
-            // var z = await q.SearchAsync(new QuestionsQuery(null, null, 0, null, "us"), default);
+            await FixFilesAsync();
+            //var q = _container.Resolve<ISearchServiceWrite<Question>>();
+            //await q.CreateOrUpdateAsync(default);
+
+            //var q2 = _container.Resolve<IQuestionSearch>();
+
+            //var z = await q2.SearchAsync(new QuestionsQuery(null, null, 0, null, "fr"), default);
+            //293005, Geography
+            var _commandBus = _container.Resolve<IUserRepository>();
+            var z = await _commandBus.LoadAsync(1014L, default);
+
+
+            //var command = new AddUserTagCommand(293005L, "Geography");
+            //await _commandBus.DispatchAsync(command, token);
+
+            //await FixPoisonBackground(_commandBus);
+
             // await UpdateLanguageAsync();
             //await TransferUniversities();
             //await TransferUsers();
             //await MigrateUniversity();
             //await DeleteOldFiles();
-            await TransferDocumants();
+            // await TransferDocumants();
+        }
+
+        private static async Task FixPoisonBackground(ICommandBus _commandBus)
+        {
+            var storage = _container.Resolve<ICloudStorageProvider>();
+            var queueClient = storage.GetQueueClient();
+            var queue = queueClient.GetQueueReference("background-poison");
+
+            do
+            {
+                var msg = queue.GetMessage();
+                if (msg == null)
+                {
+                    break;
+                }
+
+                if (msg.AsString.Contains("Cloudents.Core.Message.System.AddUserTagMessage, Cloudents.Core"))
+                {
+                    try
+                    {
+                        var sMsg =
+                            JsonConvert
+                                .DeserializeObject<Cloudents.Core.Message.System.AddUserTagMessage>(msg.AsString);
+                        if (!Tag.ValidateTag(sMsg.Tag))
+                        {
+                            queue.DeleteMessage(msg);
+                            continue;
+                        }
+
+                        var command2 = new AddUserTagCommand(sMsg.UserId, sMsg.Tag);
+                        await _commandBus.DispatchAsync(command2, token);
+                        queue.DeleteMessage(msg);
+                    }
+                    catch (ArgumentException)
+                    {
+                        queue.DeleteMessage(msg);
+                    }
+                    catch (UserLockoutException)
+                    {
+                        queue.DeleteMessage(msg);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("different msg");
+                }
+            } while (true);
         }
 
         private static async Task DoStuffToFiles(CloudBlobDirectory dir, Func<CloudBlockBlob, Task> func)
@@ -143,35 +204,35 @@ namespace ConsoleApp
             } while (blobToken != null);
         }
 
-        private static async Task DeleteOldFiles()
+        private static async Task FixFilesAsync()
         {
+            var d = _container.Resolve<DapperRepository>();
+
+
+
+            IEnumerable<dynamic> result = await d.WithConnectionAsync(async f =>
+            {
+                return await f.QueryAsync(
+                    @"select  id,blobname from  sb.document 
+where left(blobName ,4) != 'file'");
+            }, default);
+
             var _bus = _container.Resolve<ICloudStorageProvider>();
             var blobClient = _bus.GetBlobClient();
             var container = blobClient.GetContainerReference("spitball-files");
-            foreach (var blob in container.ListBlobs(null,false))
+            var dir = container.GetDirectoryReference("files");
+            foreach (var item in result)
             {
-                if (blob is CloudBlobDirectory)
-                {
-                    continue;
-                }
+                CloudBlobDirectory itemDir = dir.GetDirectoryReference(item.id.ToString());
+                CloudBlockBlob blob = itemDir.GetBlockBlobReference(item.blobname);
+                var blobCopy = itemDir.GetBlockBlobReference($"file-{item.blobname}");
 
-                if (blob is CloudBlockBlob b)
-                {
-                    if (b.Properties.Created > DateTime.UtcNow.AddDays(-7))
-                    {
-                        continue;
-                    }
-
-                    if (b.Uri.Segments.Length != 3)
-                    {
-                        continue;
-                    }
-
-                    Console.WriteLine(b.Uri);
-                    await b.DeleteAsync();
-                }
-               // await blob.DeleteAsync();
+                await blobCopy.StartCopyAsync(blob);
+                await blob.DeleteIfExistsAsync();
             }
+
+
+
         }
 
         private static async Task ReduProcessing()
@@ -244,7 +305,7 @@ namespace ConsoleApp
             val.Document.Type = DocumentType.Lecture;
             var elem = _container.Resolve<ISearchServiceWrite<Cloudents.Core.Entities.Search.Document>>();
 
-            await elem.UpdateDataAsync(new[] {val.Document}, default);
+            await elem.UpdateDataAsync(new[] { val.Document }, default);
         }
 
 
@@ -869,7 +930,7 @@ namespace ConsoleApp
                     // List<Task> taskes = new List<Task>();
                     foreach (var pair in z)
                     {
-                        var command =  new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
+                        var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
                         await ch.ExecuteAsync(command, default);
                         // taskes.Add(ch.ExecuteAsync(t, default));
                     }

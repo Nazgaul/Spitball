@@ -1,4 +1,4 @@
-@import "../../mixin.less";
+@import "../../styles/mixin.less";
 @colorUploadDate: rgba( 0,0,0,0.38);
 .note-block {
   //min-height: 223px;
@@ -139,9 +139,13 @@
       display: flex;
       flex-direction: row;
       .author-info-date {
-        color: @colorGreyLight;
         flex-grow: 1;
         font-size: 11px;
+        .autor{
+          color: @colorBlackNew;
+          font-weight: 600;
+          display: inline-flex;
+        }
 
         .date{
           color: @colorUploadDate;
@@ -150,7 +154,7 @@
       .doc-actions-info {
         display: flex;
         flex-direction: row;
-        align-items: baseline;
+        align-items: center;
 
         .sb-doc-icon {
           color: @colorGreyLight;

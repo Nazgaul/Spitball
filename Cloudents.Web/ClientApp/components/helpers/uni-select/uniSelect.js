@@ -37,7 +37,17 @@ export default {
     computed:{
         currentStep: function(){
             return this.getCurrentStep();
+        },
+        currentStepCssClass(){
+            let className = '';
+            if(this.currentStep  && this.currentStep.toLowerCase() === 'setschool'){
+                className = 'set-school'
+            }else if(this.currentStep && this.currentStep.toLowerCase()  === 'setclass'){
+                className = 'set-class'
+            }
+            return className
         }
+
     },
 
     methods:{
@@ -47,11 +57,12 @@ export default {
             if(step === this.enumSteps.done){
                 this.changeSelectUniState(false);
             }else{
-                console.log(`step changed to ${step}`)
+                console.log(`step changed to ${step}`);
                 this.updateCurrentStep(step);
             }
         },
         closeInterface(){
+            this.closeNoWorriesPopup();
             this.setUniversityPopStorage_session();
             this.changeSelectUniState(false);
         },
@@ -71,5 +82,6 @@ export default {
         }
     },
     created(){
+        console.log(this.$route)
     }
 }

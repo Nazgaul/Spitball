@@ -5,14 +5,15 @@ import { routes } from './routes'
 import Toaster from 'v-toaster'
 import 'v-toaster/dist/v-toaster.css'
 import store from "./store";
-
-
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 const VueUploadComponent = require('vue-upload-component')
 Vue.component('file-upload', VueUploadComponent)
 
-Vue.config.productionTip = false
-Vue.use(VueRouter)
-Vue.use(Toaster, {timeout: 5000})
+Vue.config.productionTip = false;
+Vue.use(VueRouter);
+Vue.use(Toaster, {timeout: 5000});
+Vue.use(Vuetify);
 console.log(routes);
 
 const router = new VueRouter({

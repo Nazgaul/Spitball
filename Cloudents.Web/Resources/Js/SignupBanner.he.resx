@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="free" xml:space="preserve">
-    <value>חינמי</value>
-  </data>
-  <data name="service" xml:space="preserve">
-    <value>לגמרי.</value>
-  </data>
-  <data name="spitball_is_a_completely" xml:space="preserve">
-    <value>Spitball הוא שירות</value>
+  <data name="free_sign_up" xml:space="preserve">
+    <value>הרשמה חינם!</value>
   </data>
 </root>

@@ -98,6 +98,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Upload" xml:space="preserve">
-    <value>מסמך לא נתמך</value>
+    <value>אופס !  קובץ זה אינו נתמך. קבצים נתמכים: doc, docx, xls, xlsx, PDF, png, jpg, ppt, pptx</value>
   </data>
 </root>

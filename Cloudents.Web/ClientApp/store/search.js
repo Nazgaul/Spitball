@@ -49,6 +49,19 @@ const mutations = {
         state.itemsPerVertical[verticalObj.verticalName].data = state.itemsPerVertical[verticalObj.verticalName].data.concat(verticalObj.verticalData.data)
         state.itemsPerVertical[verticalObj.verticalName].nextPage = verticalObj.verticalData.nextPage
     },
+    [SEARCH.RESETQUE](state){
+        //check if ask Tab was loaded at least once
+        for(let verticalName in state.queItemsPerVertical){
+            state.queItemsPerVertical[verticalName] = [];
+        }
+    },
+    [SEARCH.RESET_DATA](state){
+        for(let prop in state.itemsPerVertical){
+            state.itemsPerVertical[prop].data = [];
+        }
+    },
+
+    //Question Area
     [SEARCH.ADD_QUESTION](state, questionObj){
         //check if ask Tab was loaded at least once
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
@@ -79,12 +92,6 @@ const mutations = {
                 })
                 state.queItemsPerVertical[verticalName] = [];
             }
-        }
-    },
-    [SEARCH.RESETQUE](state){
-        //check if ask Tab was loaded at least once
-        for(let verticalName in state.queItemsPerVertical){
-            state.queItemsPerVertical[verticalName] = [];
         }
     },
     [SEARCH.REMOVE_QUESTION](state, questionToRemove){
@@ -137,9 +144,21 @@ const mutations = {
             });
         }
     },
-    [SEARCH.RESET_DATA](state){
-        for(let prop in state.itemsPerVertical){
-            state.itemsPerVertical[prop].data = [];
+    
+    //Note Area
+    [SEARCH.UPDATE_COURSES_FILTERS](state, MutationObj){
+        if(!!state.itemsPerVertical.note && !!state.itemsPerVertical.note.filters){
+            let coursesFiltersIndex = null;
+            state.itemsPerVertical.note.filters.forEach((item, index) => {
+                if(item.id === "Course"){
+                    coursesFiltersIndex = index;
+                }
+            });
+            if(coursesFiltersIndex !== null){
+                state.itemsPerVertical.note.filters[coursesFiltersIndex].data = MutationObj.courses;
+                let filters = searchService.createFilters(state.itemsPerVertical.note.filters);
+                MutationObj.fnUpdateCourses(filters)
+            }
         }
     }
 };
@@ -286,6 +305,32 @@ const actions = {
     removeQuestionViewer({ commit }, notificationQuestionObject){
         let questionObj = notificationQuestionObject;
         commit(SEARCH.REMOVE_QUESTION_VIEWER, questionObj);
+    },
+    updateCoursesFilters({ commit, getters, dispatch }, arrCourses){
+        let VerticalName = getters.getCurrentVertical;
+        if(VerticalName.toLowerCase() !== "note") return;
+        
+        let courses = arrCourses.map(item => {
+            let currVal = "";
+            if(typeof item === "string"){
+                currVal = item
+            }else{
+                currVal = item.text
+            }
+            return {
+                key:currVal,
+                value: currVal
+            }
+        })
+
+        let MutationObj = {
+            courses,
+            fnUpdateCourses: (filtersData)=>{
+                dispatch('updateFilters', filtersData);
+            }
+        };
+        commit(SEARCH.UPDATE_COURSES_FILTERS, MutationObj);
+            
     },
     resetData({commit}){
         commit(SEARCH.RESET_DATA)

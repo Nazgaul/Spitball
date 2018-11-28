@@ -36,6 +36,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.OldUser).Nullable();
 
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
+
             Map(x => x.Balance).CustomSqlType("smallmoney");
 
             HasMany(x => x.Transactions)
@@ -72,7 +73,7 @@ namespace Cloudents.Infrastructure.Database.Maps
 
 
 
-            SchemaAction.Update();
+            SchemaAction.None();
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)

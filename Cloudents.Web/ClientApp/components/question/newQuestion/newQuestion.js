@@ -74,7 +74,9 @@ export default {
             if (!this.selectedPrice && this.price < 1 && !this.selectedPrice || this.price > 100) {
                 readyToSend = false
             }
-            //if
+            if (this.price > this.thirtyPercent) {
+                readyToSend = false
+            }
             if (this.currentSum < 0) {
                 readyToSend = false
             }
@@ -154,10 +156,15 @@ export default {
         ...mapGetters(['accountUser', 'newQuestionDialogSate']),
         currentSum() {
             if (this.accountUser) {
-                let val = this.selectedPrice || this.price || 0;
-                this.selectedPrice ? this.price = null : "";
-                return this.accountUser.balance - val;
+                // Gaby - Deprecated!
+                // let val = this.selectedPrice || this.price || 0;
+                // this.selectedPrice ? this.price = null : "";
+                // return this.accountUser.balance - val;
+                return this.accountUser.balance;
             }
+        },
+        thirtyPercent(){
+            return this.currentSum * 30 / 100;
         },
         validForm() {
             return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);

@@ -1,4 +1,4 @@
-@import "../../../../../mixin.less";
+@import "../../../../../styles/mixin.less";
 
 .noWorries-Container{
     position: relative;
@@ -51,31 +51,33 @@
         font-family: @fontFiraSans;
     }
     .img-container{
-        width: 220px;
-        height: 220px;
-        background-image: url('./img/desktop.png');
+        width: 290px;
+        height: 270px;
         background-repeat: no-repeat;
+        background-image: url('./img/desktop.png');
         margin: 0 auto;
-        margin-top: 27px;
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+        margin-top: 0px;
+        background-size: 290px;
     }
     .footer-container{
         display: flex;
         height: 50px;
         margin-bottom: 20px;
-        margin-top: 25px;
+        margin-top: 0;
         justify-content: center;
         span{
             cursor: pointer;
             width: 162px;
             height: 48px;
             border-radius: 4px;
-            background-color: rgba(68, 82, 252, 0.09);
             font-size: 14px;
             margin: 8px;
             font-family: @fontFiraSans;
             border-radius: 25px;
             line-height: 48px;
+            outline: none;
+            background-color: #4452fc;
+            color: #fff;
             &.bold-text{
                 font-weight: 500;
             }
@@ -83,6 +85,7 @@
                 background-color: transparent;
                 border: solid 1px #d6d6d6;
                 font-weight: 300;
+                color: #6a6a6a;
             }
         }
     }
@@ -90,9 +93,27 @@
     @media(max-width: 599px) {
         height:100%;
         margin-top: 0;
+        .gray-overlay{
+            height: 50.5%;
+        }
         .img-container{
             background-image: url('./img/mobile.png');
-            height: 330px;
+            height: 445px;
+            margin: auto;
+            position: absolute;
+            top: 50px;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            background-size: 290px;
+            right: 0;
+        }
+        .footer-container{
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            justify-content: space-evenly;
         }
     }
 }

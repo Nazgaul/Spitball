@@ -16,7 +16,7 @@ namespace Cloudents.Core.Models
         //    University = university;
         //}
 
-        public IEnumerable<string> Courses { get; set; }
+        public IList<string> Courses { get; set; }
         public IEnumerable<string> Tags { get; set; }
 
         [CanBeNull]

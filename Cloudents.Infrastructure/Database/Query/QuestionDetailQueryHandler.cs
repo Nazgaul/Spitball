@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Database.Query
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly IBlobProvider _blobProvider2;
 
-        public QuestionDetailQueryHandler(ReadonlySession session, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider blobProvider2)
+        public QuestionDetailQueryHandler(QuerySession session, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider blobProvider2)
         {
             _session = session.Session;
             _blobProvider = blobProvider;
@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Database.Query
             //TODO: this is left join query need to fix that
             var questionFuture = _session.Query<Question>().Where(w => w.Id == id)
                 .Fetch(f => f.User)
-                .Where(w => w.State == null || w.State == QuestionState.Ok)
+                .Where(w => w.State == null || w.State == ItemState.Ok)
                 .Select(s => new QuestionDetailDto(new UserDto
                 {
                     Id = s.User.Id,

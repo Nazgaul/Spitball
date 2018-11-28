@@ -19,16 +19,13 @@ const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
 
-//ab testing
-import abTestCard from './helpers/abTestCards/abTestCard.vue'
-
+import askQuestionBtn from './helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "./helpers/uploadFilesBtn/uploadFilesBtn.vue"
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
 //The vue functionality for result page
 export default {
     components: {
-        abTestCard,
         emptyState,
         ResultItem,
         ResultNote,
@@ -43,7 +40,8 @@ export default {
         sbDialog,
         loginToAnswer,
         notificationCenter,
-        uploadFilesBtn
+        uploadFilesBtn,
+        askQuestionBtn
     },
     data() {
         return {
@@ -168,6 +166,7 @@ export default {
             'updateDialogState'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
+        ...mapGetters(["getCurrentVertical"]),
 
         loadNewQuestions(){
             this.INJECT_QUESTION();
@@ -278,17 +277,17 @@ export default {
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
         //fetch data with the params
-        this.fetchingData({
-            name: this.name,
-            params: {...this.query, ...this.params, term: this.userText},
-            skipLoad: this.$route.path.indexOf("question") > -1
-        }).then((data) => {
-            this.updateData.call(this, {...data, vertical: this.name})
-        }).catch(reason => {
-            console.error(reason);
-            //when error from fetching data remove the loader
-            this.UPDATE_LOADING(false);
-        });
+            this.fetchingData({
+                name: this.name,
+                params: {...this.query, ...this.params, term: this.userText},
+                skipLoad: this.$route.path.indexOf("question") > -1
+            }).then((data) => {
+                this.updateData.call(this, {...data, vertical: this.name})
+            }).catch(reason => {
+                console.error(reason);
+                //when error from fetching data remove the loader
+                this.UPDATE_LOADING(false);
+            });
     },
 
 };

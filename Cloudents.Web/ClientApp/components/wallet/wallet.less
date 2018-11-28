@@ -1,4 +1,4 @@
-@import "../../mixin.less";
+@import "../../styles/mixin.less";
 
 @table-width: 846px;
 .wallet-page {
@@ -11,7 +11,6 @@
     background-color: @color-white;
   }
   .data-section {
-    //min-height: 512px;
     background-color: @color-white;
 
     @media (min-width: @screen-xs) {
@@ -38,7 +37,6 @@
         text-align: center;
         color: #ffffff;
         margin-left: 16px;
-        //.responsive-property(margin-left, 16px, null, 16px);
 
       }
 
@@ -61,9 +59,7 @@
     .tabs-wrapper, v-tabs__wrapper {
       background-color: @color-main-purple;
       color: @color-white;
-      //padding: 24px 13px 0 15px;
       margin-bottom: 11px;
-     // padding-left: 16px;
       @media (max-width: @screen-xs) {
         padding-left: 0;
       }
@@ -108,11 +104,8 @@
     .custom-table {
       width: 100%;
       font-size: 16px;
-      // line-height: 1.56;
       letter-spacing: -0.4px;
       border: none;
-
-
       thead {
         background-color: #f3f3ff;
       }
@@ -174,7 +167,7 @@
       .v-table__overflow{
         width: inherit;
         @media (max-width: @screen-xs) {
-          width: intrinsic;
+          width: inherit;
         }
       }
       .v-table {
@@ -345,8 +338,6 @@
   .cash-out {
     white-space: nowrap;
     .responsive-property(width, 456px, null, 350px);
-    //position: absolute;
-    //bottom: 26px;
     right: 0;
     margin-left: auto;
     margin-top: 16px;
@@ -364,11 +355,8 @@
     font-size: 20px;
     letter-spacing: -0.5px;
     @media (max-width: @screen-xs) {
-      //position: absolute;
-      //bottom: 26px;
     }
     .btn-wrap {
-      //padding-right: 185px;
       .responsive-property(width, @table-width * 0.4, null, 100%);
       text-align: right;
       display: flex;
@@ -386,7 +374,6 @@
           background: #fff;
           color: @color-main-purple;
           font-size: 16px;
-          //font-weight: bold;
           letter-spacing: -0.3px;
           text-align: center;
         }

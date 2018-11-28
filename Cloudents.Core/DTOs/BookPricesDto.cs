@@ -16,7 +16,7 @@ namespace Cloudents.Core.DTOs
         public string Link { get; set; }
 
         [DataMember]
-        public BookCondition Condition { get; set; } // on ios is enum - no need here i think
+        public BookCondition Condition { get; set; } 
 
         [DataMember]
         public double Price { get; set; }

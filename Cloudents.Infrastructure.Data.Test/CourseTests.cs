@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+﻿
 namespace Cloudents.Infrastructure.Data.Test
 {
-    [TestClass]
     public class CourseTests : InMemoryDatabaseTest
     {
         //TODO need to figure out how to do this

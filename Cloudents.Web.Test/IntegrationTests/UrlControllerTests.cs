@@ -1,22 +1,33 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
-    public class UrlControllerTests : ServerInit
+    public class UrlControllerTests : IClassFixture<WebApplicationFactory<Startup>>
     {
-        [TestMethod]
+        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly HttpClient Client;
+
+
+        public UrlControllerTests(WebApplicationFactory<Startup> factory)
+        {
+            _factory = factory;
+            Client = _factory.CreateClient();
+        }
+
+        [Fact]
         public async Task GetAsync_NoQueryString_RedirectHomePage()
         {
             var response = await Client.GetAsync("/url").ConfigureAwait(false);
             var p = response.Headers.Location;
-            Assert.IsTrue(p.OriginalString == "/");
+            Assert.True(p.OriginalString == "/");
         }
 
 
-        [TestMethod]
+        [Fact]
         public async Task GetAsync_CramHost_RedirectToCram()
         {
             var url = "https%3A%2F%2Fwww.cram.com%2Fflashcards%2Faccounting-2491586";
@@ -24,10 +35,10 @@ namespace Cloudents.Web.Test.IntegrationTests
             var p = response.Headers.Location;
 
             var decode = System.Net.WebUtility.UrlDecode(url);
-            Assert.IsTrue(p.OriginalString == decode);
+            Assert.True(p.OriginalString == decode);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetAsync_SomeGibrishUrl_HomePage()
         {
             var url =
@@ -35,36 +46,39 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var response = await Client.GetAsync(url).ConfigureAwait(false);
             var p = response.Headers.Location;
-            Assert.IsTrue(p.OriginalString == "/");
+            Assert.True(p.OriginalString == "/");
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
+        //[ExpectedException(typeof(ArgumentException))]
         public async Task GetAsync_NoWhiteList_500Page()
         {
             var url =
                 "/url?url=https:%2F%2Fwww.google.com&host=google&location=23";
 
-            await Client.GetAsync(url).ConfigureAwait(false);
+            //await Client.GetAsync(url).ConfigureAwait(false);
+
+            
+            await Assert.ThrowsAsync<ArgumentException>(() => Client.GetAsync(url));
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetAsync_SomeGibrishUrl2_HomePage()
         {
 
             var url = "/url?url=https:%2f%2fwww.google.com%00fasvp\"><a>q2ifd&host=google&location=23";
             var response = await Client.GetAsync(url).ConfigureAwait(false);
             var p = response.Headers.Location;
-            Assert.IsTrue(p.OriginalString == "/");
+            Assert.True(p.OriginalString == "/");
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetAsync_NotValidUrl_HomePage()
         {
             var url = "url?url=%2fetc%2fpasswd&host=google&location=23";
             var response = await Client.GetAsync(url).ConfigureAwait(false);
             var p = response.Headers.Location;
-            Assert.IsTrue(p.OriginalString == "/");
+            Assert.True(p.OriginalString == "/");
         }
     }
 }

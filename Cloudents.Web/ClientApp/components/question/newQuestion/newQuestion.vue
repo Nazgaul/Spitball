@@ -35,12 +35,15 @@
                     </v-flex>
 
                     <v-flex xs12 v-if="currentSum"
-                            :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']"><span
-                            v-language:inner>newQuestion_You_have</span>
-                        {{currentSum | fixedPoints}} <span v-language:inner>newQuestion_SBL</span>
+                            :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">
+                            <!-- <span v-language:inner>newQuestion_You_have</span> {{currentSum | fixedPoints}} <span v-language:inner>newQuestion_SBL</span> -->
+                            <span v-html="$Ph('newQuestion_sbl_calc', [currentSum, thirtyPercent])">newQuestion_You_have</span>
                     </v-flex>
                     <v-flex xs12 v-if="(price > 100)" :class="[price < 100 ? 'text-blue' : 'text-red']" v-language:inner>
                         newQuestion_max_SBL
+                    </v-flex>
+                    <v-flex xs12 v-else-if="(price < 100 && price > thirtyPercent)" class="text-red" v-language:inner>
+                        newQuestion_max_percent_SBL
                     </v-flex>
                     <v-flex xs12 v-else-if="price < 1 && price" :class="[price > 1 ? 'text-blue' : 'text-red']"
                             v-language:inner>
@@ -51,17 +54,17 @@
                     <v-flex xs12 class="mb-0">
                         <div class="points-list">
                             <div class="points-line">
-                                <div class="point-btn" :class="`pts-${pricey}`" v-for="(pricey,index) in pricesList"
+                                <div class="point-btn" :class="[`pts-${pricey}`, {'dis':pricey > thirtyPercent}]" v-for="(pricey,index) in pricesList"
                                      v-if="index<3" :key="index">
-                                    <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
+                                    <input :disabled="pricey > thirtyPercent" :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
                                            :value="pricey" v-model="selectedPrice">
                                     <label :for="`${pricey}pts`">{{pricey}} SBL</label>
                                 </div>
                             </div>
                             <div class="points-line">
-                                <div class="point-btn" :class="`pts-${pricey}`" v-for="(pricey,index) in pricesList"
+                                <div class="point-btn" :class="[`pts-${pricey}`, {'dis':pricey > thirtyPercent}]" v-for="(pricey,index) in pricesList"
                                      v-if="index>=3" :key="index">
-                                    <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
+                                    <input :disabled="pricey > thirtyPercent" :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
                                            :value="pricey" v-model="selectedPrice">
                                     <label :for="`${pricey}pts`">{{pricey}} <span
                                             v-language:inner>newQuestion_SBL</span></label>

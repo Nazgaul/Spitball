@@ -7,7 +7,9 @@
     <div v-show="!beforeLeave" class="close-container" @click="openNoWorriesPopup">
         <v-icon>sbf-close</v-icon>
     </div>
-        <component v-show="!beforeLeave" :is="currentStep" :fnMethods="fnMethods" :enumSteps="enumSteps" style="z-index:1;"></component>        
+    <div v-show="!beforeLeave" class="select-university-container"  :class="[`${currentStepCssClass}`]">
+        <component :is="currentStep" :fnMethods="fnMethods" :enumSteps="enumSteps" style="z-index:1;"></component>
+    </div>
 </div>
 </template>
 

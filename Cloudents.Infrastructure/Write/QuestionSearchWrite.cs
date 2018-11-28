@@ -69,18 +69,32 @@ namespace Cloudents.Infrastructure.Write
                 },
                 ScoringProfiles = new List<ScoringProfile>
                 {
+                    //new ScoringProfile("ScoringProfile")
+                    //{
+                    //    TextWeights = new TextWeights(new Dictionary<string, double>
+                    //    {
+                    //        [nameof(Question.Text)] = 185,
+                    //        [nameof(Question.Prefix)] = 180,
+                    //    }),
+                    //    FunctionAggregation = ScoringFunctionAggregation.Maximum,
+                    //    Functions = new List<ScoringFunction>
+                    //    {
+                    //        new FreshnessScoringFunction(nameof(Question.DateTime),1.6,TimeSpan.FromDays(365)),
+                    //        new TagScoringFunction(nameof(Question.Country),1.5, new TagScoringParameters(TagsCountryParameter)),
+                    //    }
+                    //},
                     new ScoringProfile(ScoringProfile)
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(Question.Text)] = 3,
-                            [nameof(Question.Prefix)] = 2,
+                            [nameof(Question.Text)] = 185,
+                            [nameof(Question.Prefix)] = 180,
                         }),
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new FreshnessScoringFunction(nameof(Question.DateTime),1.6,TimeSpan.FromHours(6)),
-                            new TagScoringFunction(nameof(Question.Country),1.5, new TagScoringParameters(TagsCountryParameter)),
+                            new FreshnessScoringFunction(nameof(Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
+                            new TagScoringFunction(nameof(Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
                         }
                     }
                 },

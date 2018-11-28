@@ -3,9 +3,10 @@ import ResultBook from './bookCell.vue';
 import TabsSort from "./bookDetailsSort"
 import { details } from "../../services/navigation/vertical-navigation/nav";
 import SearchService from '../../services/searchService'
+import { LanguageService } from "../../services/language/languageService";
 
 const sortOptions = {title: "Sort", id: "sort", data: details.bookDetails.sort};
-const filters = SearchService.createFilters([{title: "Book Type", id: "filter", data: details.bookDetails.filter}]);
+const filters = SearchService.createFilters([{title: LanguageService.getValueByKey("book_filter_type"), id: "filter", data: details.bookDetails.filter}]);
 //const FILTER_LIST = details.bookDetails.filter;
 export default {
     mixins: [sortAndFilterMixin, TabsSort],

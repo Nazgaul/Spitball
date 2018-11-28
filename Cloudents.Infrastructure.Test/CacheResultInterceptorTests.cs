@@ -3,16 +3,16 @@ using System.Threading;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
+using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Job;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Infrastructure.Test
 {
-    [TestClass]
     public class CacheResultInterceptorTests
     {
-        [TestMethod]
+        [Fact]
         public void GetInvocationSignature_BookDetailPaging_Works()
         {
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
@@ -22,10 +22,10 @@ namespace Cloudents.Infrastructure.Test
             var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
             var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
 
-            Assert.AreNotEqual(result1, result2);
+            Assert.NotEqual(result1, result2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetInvocationSignature_BingDifferentTerm_Works()
         {
             var searchModel1 = new SearchModel("biology", null,
@@ -39,10 +39,10 @@ namespace Cloudents.Infrastructure.Test
             var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
             var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
 
-            Assert.AreNotEqual(result1, result2);
+            Assert.NotEqual(result1, result2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetInvocationSignature_DifferentArrayOrder_SameResultWorks()
         {
             var searchModel1 = new SearchModel("Linear Algebra", new[] { "spitball", "koofers" },
@@ -56,10 +56,10 @@ namespace Cloudents.Infrastructure.Test
             var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
             var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
 
-            Assert.AreEqual(result1, result2);
+            Assert.NotEqual(result1, result2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetInvocationSignature_BingDifferentKey_Works()
         {
             var searchModel1 = new SearchModel ("biology" , null,
@@ -72,10 +72,10 @@ namespace Cloudents.Infrastructure.Test
             var type = new PrivateType(typeof(CacheResultInterceptor));
             var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
             var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
-            Assert.AreNotEqual(result1, result2);
+            Assert.NotEqual(result1, result2);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetInvocationSignature_DifferentLocation_DifferentResult()
         {
             var location = new Location(new GeoPoint(41.878f, -87.629f), new Address("Chicago", "IL", "US"), "31.154.39.170", "972");
@@ -90,7 +90,7 @@ namespace Cloudents.Infrastructure.Test
             var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
             var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
 
-            Assert.AreNotEqual(result1, result2);
+            Assert.NotEqual(result1, result2);
         }
     }
 }

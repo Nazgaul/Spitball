@@ -20,22 +20,23 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         private readonly IStatelessSession _session;
 
 
-        public PendingQuestionsQueryHandler(ReadonlyStatelessSession session)
+        public PendingQuestionsQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<IEnumerable<PendingQuestionDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
             return await _session.Query<Question>()
                 .Fetch(f => f.User)
-                .Where(w => w.User.Fictive != true && w.State == QuestionState.Pending)
+                .Where(w => w.User.Fictive != true && w.State == ItemState.Pending)
                 .Select(s => new PendingQuestionDto
                 {
                     Id = s.Id,
                     Text = s.Text,
                     Email = s.User.Email,
-                    UserId = s.User.Id
+                    UserId = s.User.Id,
+                    ImagesCount = s.Attachments
                 }).OrderBy(o => o.Id).ToListAsync(token);
         }
     }

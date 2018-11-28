@@ -1,18 +1,18 @@
-@import "../../../../mixin.less";
-@import "style-helpers/dotsanimate.less";
+@import "../../../../styles/mixin.less";
 @import "style-helpers/scroll-bar.less";
-@import "style-helpers/docType-animate.less";
+@import "style-helpers/uploadAnimation.less";
 
 @uploadGreyBackground: rgba(68, 82, 252, 0.09);
 @uploadGrey: #D1D1D1;
 @stepContentBackground: rgba(68, 82, 252, 0.02);
 @maxWidthForm: 430px;
 @borderOpacityGrey: rgba(151, 151, 151, 0.18);
-@chipActiveColor: rgba(68, 82, 252, 0.87);
+@chipActiveColor: #4452FC;
 @colorPrice: rgba(74, 74, 74, 0.87);
 @placeholderGrey: rgba(74, 74, 74, 0.25);
 @inputGreyBorder: #979797;
-@buttonHeigh: 41px;
+@buttonHeigh: 48px;
+@rowMobileTopPadding: 32px;
 
 //error block
 .error-block {
@@ -162,8 +162,6 @@
 
 #upload-input {
   position: absolute;
-  //height: 221px;
-  //width: 165px;
   height: 50px;
   width: 50px;
   transform: rotate(0deg);
@@ -175,8 +173,6 @@
     position: relative;
     height: 50px;
     width: 50px;
-    //height: 221px;
-    //width: 165px;
     cursor: pointer;
   }
 }
@@ -301,11 +297,11 @@
         justify-content: center;
         align-items: center;
         height: 96%;
-        //padding-top: 6px;
         background: @color-white;
         @media (max-width: @screen-xs) {
           flex-direction: column;
           height: 100%;
+          justify-content: flex-start;
 
 
         }
@@ -342,7 +338,6 @@
         .upload-result-file {
           display: flex;
           align-items: center;
-          // color: @labelColor;
           position: absolute;
           left: 0;
           height: 82px;
@@ -351,9 +346,10 @@
           padding: 0 32px;
           border-right: 1px solid @borderOpacityGrey;
           @media (max-width: @screen-xs) {
-            flex: 1;
-            position: relative;
+            align-items: center;
             justify-content: center;
+            position: relative;
+            height: 64px;
             padding: 0;
             width: 100%;
             border-right: none;
@@ -403,7 +399,6 @@
             padding: 0 16px;
             @media (max-width: @screen-xs) {
               width: 100%;
-
             }
             .credit-card {
               font-size: 18px;
@@ -415,7 +410,16 @@
             width: 100%;
             border-radius: 0;
             margin: 0;
-
+            position: fixed;
+            height: @buttonHeigh;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            &[disabled] {
+              background-color:@colorDisbaled!important;
+              z-index: 9;
+              //height: 51px;
+            }
           }
         }
         .sb-back-flat-btn {
@@ -490,7 +494,6 @@
           overflow-y: scroll;
           flex-direction: column;
         }
-
         input[type="text"] {
           font-size: 13px;
         }
@@ -500,9 +503,11 @@
             .placeholder-color(@colorGreyLight);
             font-size: 13px;
             padding: 12px;
-            border: solid 1px @colorInputNotFocused;
-            &:focus {
-              border: solid 1px @colorInputFocus;
+            &:not(.inputPrepIcon){
+              border: solid 1px @colorInputNotFocused;
+              &:focus {
+                border: solid 1px @colorInputFocus;
+              }
             }
           }
         }
@@ -555,6 +560,10 @@
               .sbf-upload-cloud {
                 font-size: 24px;
                 color: @color-blue-new;
+                @media (max-width: @screen-xs) {
+                  color: @colorInputFocus;
+                  font-size: 18px;
+                }
               }
               .upload-cloud-text {
                 font-size: 22px;
@@ -562,6 +571,10 @@
                 margin-left: 12px;
                 &.text-blue {
                   color: @color-blue-new;
+                  @media (max-width: @screen-xs) {
+                    color: @colorInputFocus;
+                    font-size: 16px;
+                  }
                 }
                 //text-blue
               }
@@ -576,7 +589,7 @@
               align-items: flex-start;
               align-content: center;
               @media (max-width: @screen-xs) {
-                padding-top: 16px;
+                padding-top: @rowMobileTopPadding;
               }
               &.referral-row {
                 padding-top: 21px;
@@ -609,19 +622,6 @@
                           @media (max-width: @screen-xs) {
                             min-width: unset;
                           }
-                          .input-field {
-                            border-radius: 4px 0 0 4px;
-                            border-color: @colorGreyLight;
-                            border-right: none;
-                            font-size: 12px;
-                            color: @colorGreyLight;
-                          }
-                        }
-                        .referral-btn {
-                          width: 106px;
-                          background-color: @color-blue-new;
-                          border-radius: 0 4px 4px 0;
-                          margin-left: -4px;
                         }
                       }
                     }
@@ -670,6 +670,10 @@
                   position: relative;
                   vertical-align: middle;
                   user-select: none;
+                  @media (max-width: @screen-xs) {
+                    border: none;
+                    background-color: @uploadGreyBackground;
+                  }
                   &:hover{
                     background-color: #E2E2E5;
                     cursor: pointer;
@@ -678,6 +682,9 @@
                   .sbf {
                     font-size: 18px;
                     color: @color-black;
+                    @media (max-width: @screen-xs) {
+                      color: @color-blue-new;
+                    }
                   }
                   //sbf
                 }
@@ -686,6 +693,9 @@
                   padding-top: 10px;
                   font-size: 14px;
                   color: @textColor;
+                  &.mobile-text{
+                    color: @color-blue-new;
+                  }
                 }
                 //btn-label
               }
@@ -819,7 +829,7 @@
                 flex-wrap: wrap;
                 align-content: center;
                 @media (max-width: @screen-xs) {
-                  padding-top: 16px;
+                  padding-top: @rowMobileTopPadding;
                 }
                 .btn-holder {
                   display: flex;
@@ -959,8 +969,24 @@
                   .sbf-class-chip {
                     margin-left: 0;
                     margin-right: 8px;
-                    font-size: 12px;
+                    font-size: 13px;
                     border-color: @colorInputNotFocused;
+                    color: @colorBlackNew;
+                    &.v-chip{
+                      .v-chip__content{
+                        //ellipsis for too long class chip
+                        @media (max-width: @screen-xs) {
+                          max-width: 300px;
+                          min-width: 0;
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          display: block;
+                          line-height: 32px;
+                        }
+
+                      }
+                    }
                     &.v-chip--selected {
                       color: @chipActiveColor;
                       background-color: @uploadGreyBackground;
@@ -998,7 +1024,7 @@
                   flex-direction: column;
                   justify-content: center;
                   align-items: center;
-                  padding-top: 16px;
+                  padding-top: @rowMobileTopPadding;
                 }
                 .sb-doc-type {
                   border: 1px solid @colorGreyLight;
@@ -1011,25 +1037,26 @@
                   align-items: center;
                   justify-content: space-around;
                   cursor: pointer;
-                  &:hover {
-                    animation: color_change_doc_type 0.7s ease-in-out;
-                    animation-iteration-count: 1;
-                    border: solid 1px @color-blue-new;
-                    background-color: @uploadGreyBackground;
-                    .sb-doc-title {
-                      color: @color-blue-new;
-                    }
-                    .sb-doc-icon {
-                      color: @color-blue-new;
-                    }
-                  }
-                  @media (max-width: @screen-xs) {
+                  @media (max-width: @screen-xs){
                     width: 100%;
                     max-width: 254px;
                     margin-bottom: 16px;
-                    height: 100%;
+                    height: 90px;
                     max-height: 91px;
+                    &:hover {
+                      animation: color_change_doc_type 0.7s ease-in-out;
+                      animation-iteration-count: 1;
+                      border: solid 1px @color-blue-new;
+                      background-color: @uploadGreyBackground;
+                      .sb-doc-title {
+                        color: @color-blue-new;
+                      }
+                      .sb-doc-icon {
+                        color: @color-blue-new;
+                      }
+                    }
                   }
+
                   .sb-doc-icon {
                     font-size: 35px;
                     color: @colorGreyLight;
@@ -1136,12 +1163,14 @@
                 }
                 &.class-selected {
                   width: 205px;
+                  cursor: pointer;
                   @media (max-width: @screen-xs) {
                     flex-direction: row;
                     width: 100%;
                     margin: 0 0 16px 0;
                     height: 48px;
                   }
+
                 }
                 &.doc-type-selected {
                   width: 94px;
@@ -1151,15 +1180,19 @@
                   text-overflow: ellipsis;
                   display: flex;
                   flex-direction: column;
+                  cursor: pointer;
+                  padding-top: 16px;
                   @media (max-width: @screen-xs) {
                     flex-direction: row;
                     width: 100%;
                     margin: 0 0 16px 0;
                     height: 48px;
+                    padding-top: 12px;
                   }
                 }
                 &.tags-selected {
                   width: 313px;
+                  cursor: pointer;
                   @media (max-width: @screen-xs) {
                     flex-direction: column;
                     width: 100%;
@@ -1296,6 +1329,7 @@
                   font-size: 36px;
                   margin-bottom: 24px;
                   color: @textColor;
+                  min-width: 50px;
                   @media (max-width: @screen-xs) {
                     margin-bottom: 12px;
                     font-size: 33px;
@@ -1406,10 +1440,22 @@
                     @media (max-width: @screen-xs) {
                       padding-top: 32px;
                     }
-
                     .legal-ownership {
                       color: @colorBlackNew;
                       font-size: 18px;
+                      height: 24px;
+                      width: 24px;
+                      .v-input--selection-controls__ripple{
+                        border-radius: 50%;
+                        cursor: pointer;
+                        height: 24px;
+                        position: absolute;
+                        transition: inherit;
+                        width: 24px;
+                        left: -6px;
+                        top:  ~"calc(50% - 20px)";
+                        margin: 7px;
+                      }
                       .sbf {
                         font-size: 22px;
                         color: @labelColor;
@@ -1451,6 +1497,22 @@
                     margin-left: 0;
                     margin-right: 8px;
                     font-size: 12px;
+                    &.v-chip{
+                      .v-chip__content{
+                        //ellipsis for too long class chip
+                        @media (max-width: @screen-xs) {
+                          max-width: 300px;
+                          min-width: 0;
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          display: block;
+                          line-height: 32px;
+                        }
+
+                      }
+                    }
+
                     &.v-chip--selected {
                       color: @chipActiveColor;
                       background-color: @uploadGreyBackground;

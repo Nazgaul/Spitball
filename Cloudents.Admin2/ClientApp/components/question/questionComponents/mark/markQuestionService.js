@@ -3,6 +3,7 @@ import {connectivityModule} from '../../../../services/connectivity.module'
 function Answer(objInit){
     this.id = objInit.id;
     this.text = objInit.text;
+    this.imagesCount = objInit.imagesCount;
 }
 
 function createAnswers(arrobjInit){
@@ -24,6 +25,7 @@ function QuestionItem(objInit){
     this.answers = createAnswers(objInit.answers);
     this.url = objInit.url;
     this.isFictive = objInit.isFictive;
+    this.imagesCount = objInit.imagesCount;
 }
 
 QuestionItem.prototype.toServer = function(answerId){

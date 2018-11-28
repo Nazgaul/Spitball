@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Core.DTOs.Admin
+﻿using System;
+
+namespace Cloudents.Core.DTOs.Admin
 {
     public class PendingQuestionDto
     {
@@ -7,6 +9,14 @@
         public long UserId { get; set; }
         public string Text { get; set; }
         public string Email { get; set; }
+
+        public int ImagesCount { get; set; }
+    }
+
+    public class PendingDocumentDto
+    {
+        public long Id { get; set; }
+        public Uri Preview { get; set; }
     }
 
     public class FictivePendingQuestionDto

@@ -17,8 +17,8 @@
                 <span>{{schoolDesc}}</span>
             </div>
             <div class="buttons-container">
-                <button @click="revertAction()" v-language:inner>uniSelect_keep_school</button>
                 <button class="transparent" @click="continueAction()" v-language:inner>uniSelect_yes_change</button>
+                <button @click="revertAction()" v-language:inner>uniSelect_keep_school</button>
             </div>
         </div>
     </div>
@@ -60,17 +60,17 @@ export default {
 </script>
 
 <style lang="less">
-    @import "../../../../../mixin.less";
+    @import "../../../../../styles/mixin.less";
     .changing-school-container{
         display: none;
-        width: 297px;
         height: 338px;
         border-radius: 4px;
         box-shadow: 0 1px 17px 0 rgba(0, 0, 0, 0.39);
         background-color: #ffffff;
         z-index: 15;
         position: absolute;
-        top: 38px;
+        .responsive-property(width, 469px, null, 96%);
+        .responsive-property(top, 38px, null, 0);
         &.active{
             display: block;
         }
@@ -90,11 +90,11 @@ export default {
                 width: 0;
                 height: 0;
                 border-style: solid;
-                border-width: 0 46px 43px 0;
+                border-width: 0 55px 55px 0;
                 border-color: transparent #ffeb3b transparent transparent !important;
                 span{
                     position: absolute;
-                    right: -37px;
+                    right: -40px;
                     top: 4px;
                     font-weight: 600;
                     font-family: @fontFiraSans;
@@ -147,7 +147,8 @@ export default {
             .description{
                 height:66px;
                 white-space: pre-wrap;
-                margin-top: 10px;
+                margin-top: 36px;
+                line-height: 1.57;
                 .blueText{
                     color: #4452fc;
                     font-weight: 600;
@@ -155,15 +156,17 @@ export default {
             }
             .buttons-container{
                 display: flex;
-                flex-direction: column;
-                margin-top: 10px;
+                flex-direction: row;
+                justify-content: space-evenly;
+                margin: 27px auto 37px;
+                .responsive-property(width, 80%, null, 100%);
                 button{
                     width: 162px;
                     height: 48px;
-                    margin: 4px auto;
-                    background-color: rgba(68, 82, 252, 0.09);
-                    border-radius: 4px;
                     outline: none;
+                    border-radius: 24px;
+                    background-color: #4452fc;
+                    color:#FFF;
                     &.transparent{
                         background-color: transparent !important;
                         border: solid 1px #d8d6d6 !important;

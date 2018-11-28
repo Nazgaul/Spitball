@@ -67,36 +67,30 @@ namespace Cloudents.Admin2.Api
             [FromServices] ICommandBus commandBus,
             CancellationToken token)
         {
-            List<string> emailList = new List<string>();
             foreach (var id in model.Ids)
             {
-                var userDataByIdQuery = new UserDataByIdQuery(id);
-                var userDataTask = _queryBus.QueryAsync<User>(userDataByIdQuery, token);
-                if (model.DeleteUserQuestions)
-                {
+                //if (model.DeleteUserQuestions)
+                //{
+                //    var answersQuery = new UserDataByIdQuery(id);
+                //    var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
 
-                    var answersQuery = new UserDataByIdQuery(id);
-                    var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
+                //    foreach (var question in answersInfo.Questions)
+                //    {
+                //        var deleteQuestionCommand = new DeleteQuestionCommand(question);
+                //        await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
+                //    }
 
-                    foreach (var question in answersInfo.Questions)
-                    {
-                        var deleteQuestionCommand = new DeleteQuestionCommand(question);
-                        await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
-                    }
+                //    foreach (var answer in answersInfo.Answers)
+                //    {
+                //        var deleteAnswerCommand = new DeleteAnswerCommand(answer);
+                //        await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
+                //    }
 
-                    foreach (var answer in answersInfo.Answers)
-                    {
-                        var deleteAnswerCommand = new DeleteAnswerCommand(answer);
-                        await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
-                    }
-
-                }
-                var command = new SuspendUserCommand(id);
+                //}
+                var command = new SuspendUserCommand(id, model.DeleteUserQuestions);
                 await commandBus.DispatchAsync(command, token);
-                var userData = await userDataTask;
-                emailList.Add(userData.Email);
             }
-            return new SuspendUserResponse() { Email = emailList };
+            return new SuspendUserResponse();
         }
 
         [HttpPost("country")]

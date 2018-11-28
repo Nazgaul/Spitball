@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Cloudents.Core.Test
 {
-    [TestClass]
     public class ShuffleTests
     {
 
@@ -33,7 +32,7 @@ namespace Cloudents.Core.Test
             public int Order { get; set; }
         }
 
-        [TestMethod]
+        [Fact]
         public void DoShuffle_Array_RightResult()
         {
             var list = new List<ShuffleTestModel>
@@ -65,7 +64,7 @@ namespace Cloudents.Core.Test
             //CollectionAssert.AreEqual(result, expectedList);
         }
 
-        [TestMethod]
+        [Fact]
         public void DoShuffle_Array2_RightResult()
         {
             var list = new List<ShuffleTestModel>

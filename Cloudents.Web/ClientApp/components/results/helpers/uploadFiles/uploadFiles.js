@@ -107,12 +107,14 @@ export default {
         },
         sendDocumentData(step) {
             let docData = this.getFileData;
-            docData.name = this.getCustomFileName;
-            //post all doc data
+            // create Immutable copy, to prevent file name update in UI
+             let docDataCopy = Object.assign({}, docData);
+            // let docDataCopy = JSON.parse(JSON.stringify(docData));
+            //send copy
+            docDataCopy.name = this.getCustomFileName;
             let self = this;
-            documentService.sendDocumentData(docData)
+            documentService.sendDocumentData(docDataCopy)
                 .then((resp) => {
-                        console.log('doc data success', resp);
                         if(resp.data.url){
                             self.docReferral = resp.data.url
                         }
@@ -172,8 +174,4 @@ export default {
             this.currentStep = step;
         }
     },
-
-    created() {
-    }
-
 }

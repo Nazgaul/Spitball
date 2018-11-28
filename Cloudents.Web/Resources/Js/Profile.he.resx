@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Answers" xml:space="preserve">
-    <value>התשובות שלי</value>
+    <value>תשובות</value>
   </data>
   <data name="emptyState_answers_btnText" xml:space="preserve">
     <value>ענה על שאלות</value>
@@ -136,6 +136,6 @@
     <value>יש לך שאלה לגבי שיעורי הבית?</value>
   </data>
   <data name="Questions" xml:space="preserve">
-    <value>השאלות שלי</value>
+    <value>שאלות</value>
   </data>
 </root>

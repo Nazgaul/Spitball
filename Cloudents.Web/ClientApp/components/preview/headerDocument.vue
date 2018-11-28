@@ -4,11 +4,11 @@
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <h1 class="item-name">{{item ? item.name : ''}}</h1>
+                    <h1 class="item-name">{{itemName}} <span class="doc-extension">({{item ? item.extension : ''}})</span></h1>
                     <div class="doc-details">
                         <div class="author">
                         <span class="upload-by">
-                            <v-icon class="sb-person mr-2" v-if="$vuetify.breakpoint.smAndUp">sbf-person</v-icon>
+                            <v-icon class="sb-person mr-1" v-if="$vuetify.breakpoint.smAndUp">sbf-person</v-icon>
                             <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2" v-language:inner>headerDocument_item_by</span>
                             <span class="name mr-2">{{uploaderName}},</span>
                         </span>
@@ -27,6 +27,16 @@
                     <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
                     <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
                 </div>
+                <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.smAndDown">
+                    <div class="viewed">
+                        <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
+                        <span class="viewed-text">{{item.views}}</span>
+                    </div>
+                    <div class="ml-4 downloaded">
+                        <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
+                        <span class="downloaded-text">{{item.views}}</span>
+                    </div>
+                </div>
                 <div class="details" v-if="$vuetify.breakpoint.smAndUp">
                     <div class="school detail-cell">
                         <v-icon class="scool-icon icon mr-2">sbf-university</v-icon>
@@ -39,31 +49,20 @@
                         <span class="detail-title">{{item ? item.course: ''}}</span>
 
                     </div>
-                    <div class="prof detail-cell" v-show="item.professor">
-                        <v-icon class="prof-icon icon mr-2">sbf-professor</v-icon>
-                        <span class="detail-name mr-3" v-language:inner>headerDocument_item_prof</span>
-                        <span class="detail-title">{{item.professor ?  item.professor : ''}}</span>
+                    <div class="prof detail-cell">
+                        <v-icon class="prof-icon icon mr-2" v-show="item.professor">sbf-professor</v-icon>
+                        <span v-show="item.professor" class="detail-name mr-3" v-language:inner>headerDocument_item_prof</span>
+                        <span class="detail-title">{{item ?  item.professor : ''}}</span>
                     </div>
                 </div>
                 <div class="views details">
                     <v-layout column  fill-height justify-space-between>
-                        <v-flex class="detail-cell views-cell">
-                            <div class="viewed">
-                                <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
-                                <span class="viewed-text">{{item.views}}</span>
-                            </div>
-                            <div class="ml-4 downloaded">
-                                <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
-                                <span class="downloaded-text">{{item.views}}</span>
-                            </div>
-
-                        </v-flex>
                         <v-flex>
                             <a target="_blank" @click="downloadDoc()">
                                 <div class="download-action-container">
                                     <div class="text-wrap">
                                         <span class="download-text" v-language:inner>preview_itemActions_download</span>
-                                        <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.smAndDown">
+                                        <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.xsOnly">
                                             sbf-download-cloud
                                         </v-icon>
 
@@ -77,7 +76,19 @@
                     </v-layout>
                 </div>
             </v-layout>
-            <div class="details mobile px-2" v-if="!$vuetify.breakpoint.smAndUp">
+            <v-layout row  fill-height justify-end>
+            <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.smAndUp">
+                <div class="viewed">
+                    <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
+                    <span class="viewed-text">{{item.views}}</span>
+                </div>
+                <div class="ml-4 downloaded">
+                    <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
+                    <span class="downloaded-text">{{item.views}}</span>
+                </div>
+            </div>
+            </v-layout>
+            <div class="details mobile" v-if="!$vuetify.breakpoint.smAndUp">
                 <document-details :item="item"></document-details>
             </div>
         </div>
@@ -115,9 +126,14 @@
             item() {
                 return this.getDocumentDetails
             },
+            itemName(){
+                if(this.item && this.item.name)
+                return this.item.name.replace(/\.[^/.]+$/, "")
+            },
+
             doc() {
                 let self = this;
-                if(self.item && self.item.docType) {
+                if(self.item && self.item.docType && documentTypes) {
                     return self.item.docType = documentTypes.find((singleType) => {
                         if (singleType.id.toLowerCase() === self.item.docType.toLowerCase()) {
                             return singleType

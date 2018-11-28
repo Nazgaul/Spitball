@@ -1,3 +1,4 @@
+using System;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Extension;
@@ -9,6 +10,8 @@ using NHibernate;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -81,6 +84,50 @@ namespace Cloudents.FunctionsV2
             ILogger log)
         {
             await SyncFunc.StartSearchSync(starter, log, SyncType.Document);
+        }
+
+
+        [FunctionName("DocumentDeleteOld")]
+        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *", RunOnStartup = true)] TimerInfo myTimer,
+            [Blob("spitball-files/files")]CloudBlobDirectory directory,
+            ILogger log,
+            CancellationToken token)
+        {
+            BlobContinuationToken blobToken = null;
+            do
+            {
+                
+                var files = await directory.ListBlobsSegmentedAsync(false, BlobListingDetails.None, null, blobToken,
+                    new BlobRequestOptions(),
+                    new OperationContext(), token);
+                log.LogInformation("Going to delete items");
+                blobToken = files.ContinuationToken;
+                foreach (var blob in files.Results)
+                {
+                    if (blob is CloudBlobDirectory)
+                    {
+                        continue;
+                    }
+
+                    if (blob is CloudBlockBlob b)
+                    {
+                        if (b.Properties.Created > DateTime.UtcNow.AddDays(-7))
+                        {
+                            continue;
+                        }
+
+                        if (b.Uri.Segments.Length != 4)
+                        {
+                            continue;
+                        }
+                        log.LogInformation($"Delete {b.Uri}");
+                        await b.DeleteAsync();
+                    }
+
+                    // await blob.DeleteAsync();
+                }
+            } while (blobToken != null);
+            log.LogInformation("Finish delete items");
         }
 
     }

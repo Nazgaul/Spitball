@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="{'hide-header': hideHeader}">
         <!--TODO check if worsk well-->
         <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header">
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
@@ -17,14 +17,12 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                                    <!--TODO AB-Test-->
-                                    <!--<div class="ab-test static-card-what-is-hw-question hidden-sm-and-down" v-show="loggedIn && $route.path.slice(1) === 'ask'">-->
-                                    <div class="ab-test static-card-what-is-hw-question hidden-sm-and-down">
-                                    <button class="ab-test-button" @click="openNewQuestionDialog()">
-                                        <v-icon class="edit-icon">sbf-edit-icon</v-icon>
-                                        <span v-language:inner>abTest_addQuestion</span>
-                                    </button>
-                                    </div>
+                                    <!--<div class="header-ask-btn hidden-sm-and-down mr-2">-->
+                                    <!--<button class="ask-question-button" @click="openNewQuestionDialog()">-->
+                                        <!--<v-icon class="sb-icon edit-icon">sbf-edit-icon</v-icon>-->
+                                        <!--<span class="sb-btn-text" v-language:inner>faqBlock_add_question_btn</span>-->
+                                    <!--</button>-->
+                                    <!--</div>-->
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
                                         <span class="bold" style="direction:ltr;">{{accountUser.balance | currencyLocalyFilter}}</span>
                                         <span>${{accountUser.balance | dollarVal}}</span>
@@ -68,8 +66,9 @@
                         <search-input :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]"
                                       :submit-route="submitRoute"></search-input>
                     </v-flex>
+                    <slot name="extraHeader"></slot>
                 </div>
-                <slot name="extraHeader"></slot>
+                
             </v-layout>
             <v-snackbar absolute :timeout="toasterTimeout" :value="getShowToaster">
                 <div class="text-wrap" v-html="getToasterText"></div>
@@ -87,7 +86,7 @@
 </template>
 
 <script>
-    import {settingMenu, notRegMenu} from '../settings/consts';
+    import {notRegMenu} from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
@@ -113,7 +112,6 @@
         },
         data() {
             return {
-                settingMenu,
                 notRegMenu,
                 clickOnce: false,
                 drawer: false,
@@ -133,7 +131,7 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
+            ...mapGetters(['accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'getShowSelectUniInterface']),
 
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
@@ -141,6 +139,9 @@
             loggedIn() {
                 return this.accountUser !== null
             },
+            hideHeader(){
+                return this.getShowSelectUniInterface && this.$vuetify.breakpoint.xsOnly;
+            }
             //myMoney(){return this.accountUser.balance / 40}
 
         },

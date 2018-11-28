@@ -150,4 +150,10 @@
   <data name="otherAmount_placeholder" xml:space="preserve">
     <value>Other amount</value>
   </data>
+  <data name="max_percent_SBL" xml:space="preserve">
+    <value>You do not have sufficient SBL, Earn more SBL by answering questions</value>
+  </data>
+  <data name="sbl_calc" xml:space="preserve">
+    <value>You have {1} SBL, you can offer up to {2} SBL for your question</value>
+  </data>
 </root>
