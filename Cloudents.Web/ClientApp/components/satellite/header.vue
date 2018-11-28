@@ -5,15 +5,15 @@
               <!--keep this way for blog new tab open-->
                 <!--RTL bug fix in hebrew mobile-->
                 <v-tabs :scrollable="false" centered :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : ''">
-                    <v-tab router :to="verticals[0].name" :ripple="false" class="vertical">{{verticals[0].display}}</v-tab>
-                    <v-tab router :to="verticals[1].name" :ripple="false" class="vertical">{{verticals[1].display}}</v-tab>
+                    <v-tab router :to="verticals[0].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[0].display}}</v-tab>
+                    <v-tab router :to="verticals[1].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[1].display}}</v-tab>
                     <!--special handler for blog open in new browser window-->
-                    <v-tab :ripple="false" class="vertical" @click="openBlog()">{{verticals[2].display}}</v-tab>
-                    <v-tab router :to="verticals[3].name" :ripple="false" class="vertical">{{verticals[3].display}}</v-tab>
-                    <v-tab router :to="verticals[4].name" :ripple="false" class="vertical">{{verticals[4].display}}</v-tab>
-                    <v-tab router :to="verticals[5].name" :ripple="false" class="vertical">{{verticals[5].display}}</v-tab>
-                    <v-tab router :to="verticals[6].name" :ripple="false" class="vertical">{{verticals[6].display}}</v-tab>
-                    <v-tab router :to="verticals[7].name" :ripple="false" class="vertical">{{verticals[7].display}}</v-tab>
+                    <v-tab :ripple="false" class="vertical sattelite-vertical" @click="openBlog()">{{verticals[2].display}}</v-tab>
+                    <v-tab router :to="verticals[3].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[3].display}}</v-tab>
+                    <v-tab router :to="verticals[4].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[4].display}}</v-tab>
+                    <v-tab router :to="verticals[5].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[5].display}}</v-tab>
+                    <v-tab router :to="verticals[6].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[6].display}}</v-tab>
+                    <v-tab router :to="verticals[7].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[7].display}}</v-tab>
                     <v-tabs-slider color="color-dark-blue"></v-tabs-slider>
             </v-tabs>
             </v-layout>
