@@ -166,8 +166,8 @@ let routes2 = [
             requiresAuth: true
         },
         props: {
-          default: (route) => ({id: route.params.id}),
-          header: ()=>({currentSelection: ""})
+         // default: (route) => ({id: route.params.id}),
+          header: ()=>({currentSelection: "ask"})
         },
     },
 

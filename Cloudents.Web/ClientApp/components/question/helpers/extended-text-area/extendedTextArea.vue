@@ -4,7 +4,7 @@
             <div class="text-block" :class="`sbf-card-${activeColor.name}`">
                 <span class="error-message" v-if="error.errorClass &&  value.length < 15" :error="errorTextArea">{{error.errorText}}</span>
                 <textarea rows="9"  required
-                          :class="[`sbf-font-${activeColor.name}`, { active: activeColor.id !== 0 }]"
+                          :class="[`sbf-font-${activeColor.name}`, { active: activeColor.id !== 0 }, isFirefox ? 'firefox-text-area' : '']"
                           @input="updateValue($event.target.value)"
                           :value="value" autofocus="isFocused"
                           :placeholder="`extendedTextArea_type_your_${actionType}`" v-language:placeholder></textarea>
