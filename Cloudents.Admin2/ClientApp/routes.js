@@ -13,7 +13,8 @@ import UToken from './components/user/token/tokenUser.vue'
 import UCashout from './components/user/cashout/cashoutUser.vue'
 import USuspend from './components/user/suspend/suspendUser.vue'
 
-
+import Document from './components/document/document.vue'
+import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue'
 import Dev from './components/dev/dev.vue'
 import UChangeCountry from './components/dev/changeCountry/changeCountry.vue'
 import UDelete from './components/dev/deleteUser/deleteUser.vue'
@@ -84,6 +85,7 @@ export const routes = [
             path:'cashout',
             component: UCashout
           },
+
           {
             path:'suspend',
             component: USuspend
@@ -94,6 +96,26 @@ export const routes = [
           },
         ]
      },
+    {
+        path: '/document',
+        name: 'document',
+        component: Document,
+        children: [
+            {
+                path: '',
+                redirect: 'approveDelete',
+            },
+
+            {
+                path:'approveDelete',
+                component: approveDelete
+            },
+            {
+                path: '*',
+                redirect: 'approveDelete',
+            },
+        ]
+    },
      {
       path: '/dev',
       name: 'dev',

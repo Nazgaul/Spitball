@@ -4,6 +4,7 @@
             <router-link to="/home">Home</router-link> 
             <router-link to="/question">Question</router-link>
             <router-link to="/user">User</router-link>
+            <router-link to="/document">Document</router-link>
             <router-link to="/dev">Dev Only</router-link>
         </nav>
         <div id="app-body">
@@ -20,8 +21,8 @@ export default {
 <style lang="scss">
    html,body {
         height: 100%;
-        margin: 0px;
-        padding: 0px; 
+        margin: 0;
+        padding: 0;
         background-color: #e0e0e0;
     }
     #template-app {
