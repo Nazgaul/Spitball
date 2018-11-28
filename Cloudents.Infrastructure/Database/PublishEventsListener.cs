@@ -26,13 +26,12 @@ namespace Cloudents.Infrastructure.Database
         {
             if (entity is IEvents p)
             {
-                var tasks = new List<Task>();
                 foreach (var ev in p.Events)
                 {
-                    tasks.Add( _eventPublisher.PublishAsync(ev, cancellationToken));
-                    
+                    //Nhibernate doesn't support multiple async
+                    await _eventPublisher.PublishAsync(ev, cancellationToken);
+
                 }
-                await Task.WhenAll(tasks);
             }
         }
 

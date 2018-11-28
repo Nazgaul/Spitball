@@ -26,12 +26,40 @@
                 <span v-language:inner>upload_files_label_class</span>
             </label>
             <div class="chip-wrap">
-                <v-chip name="sbf-class-chip" class="sbf-class-chip mb-2" outline
-                        v-for="(singleClass, index) in classesList"
-                        @click="updateClass(singleClass.text)"
-                        :selected="selectedClass ===singleClass.text"
-                        :key="index">{{singleClass.text}}
-                </v-chip>
+                <v-combobox
+                        class="hello-gaby"
+                        v-model="selectedClass"
+                        :items="classesList"
+                        :label="classNamePlaceholder"
+                        :placeholder="classNamePlaceholder"
+                        clearable
+                        solo
+                        :append-icon="''"
+                        :clear-icon="'sbf-close'"
+                        autofocus
+                        no-filter
+                        :color="`gray`"
+                >
+                    <template slot="no-data">
+                        <v-list-tile>
+                            <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <!--<div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark" v-language:inner>uniSelect_show_all_schools</div>-->
+                        </v-list-tile>
+                    </template>
+                    <template slot="item" slot-scope="{ index, item, parent }">
+                        <v-list-tile-content style="max-width:385px;">
+                            <span>{{ item.text }}</span>
+                        </v-list-tile-content>
+                    </template>
+                </v-combobox>
+                <!--<v-chip name="sbf-class-chip" class="sbf-class-chip mb-2" outline-->
+                        <!--v-for="(singleClass, index) in classesList"-->
+                        <!--@click="updateClass(singleClass.text)"-->
+                        <!--:selected="selectedClass ===singleClass.text"-->
+                        <!--:key="index">{{singleClass.text}}-->
+                <!--</v-chip>-->
             </div>
         </div>
     </v-card>
@@ -46,23 +74,27 @@
         components: {sbInput},
         data() {
             return {
-                // selectedClass: '',
+                docClass: '',
+                classNamePlaceholder: 'Select or Type a class name',
+
             }
         },
+
+
         computed: {
             ...mapGetters({
                 getSchoolName: 'getSchoolName',
                 getSelectedClasses: 'getSelectedClasses',
                 getFileData: 'getFileData'
             }),
-            schoolName() {
-                return this.getSchoolName ? this.getSchoolName : ''
-            },
+            // schoolName() {
+            //     return this.getSchoolName ? this.getSchoolName : ''
+            // },
             isClassesSet() {
                 return this.getSelectedClasses.length > 0
             },
             classesList() {
-                let result = []
+                let result = [];
                 if(this.isClassesSet){
                     this.getSelectedClasses.forEach(chip=>{
                         if(chip.text){
@@ -77,17 +109,23 @@
                 }
                 return result;
             },
-            selectedClass() {
-                return this.getFileData.course;
+            selectedClass: {
+                get(){
+                    this.docClass
+                },
+                set(val){
+                    this.updateFile({'course': val});
+                }
+
             }
         },
 
         methods: {
             ...mapActions(['updateFile']),
             // update data methods
-            updateClass(singleClass) {
-                this.updateFile({'course': singleClass});
-            },
+            // updateClass(singleClass) {
+            //     this.updateFile({'course': singleClass});
+            // },
         },
         beforeDestroy() {
             console.log('step 2 destroyed')

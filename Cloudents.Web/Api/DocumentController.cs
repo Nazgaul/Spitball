@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -74,12 +75,16 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost, Authorize]
-        public async Task<CreateDocumentResponse> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
+        public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-
+            if (!model.BlobName.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
+            {
+                ModelState.AddModelError(nameof(model.Name), "Invalid file name");
+                return BadRequest(ModelState);
+            }
             var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
                 model.Course, model.Tags, userId, model.Professor);
             await _commandBus.DispatchAsync(command, token);
@@ -105,7 +110,9 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet(Name = "DocumentSearch")]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country | ProfileServiceQuery.Course | ProfileServiceQuery.Tag)] UserProfile profile,
+            [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
+                                ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
+            UserProfile profile,
             [FromServices] IDocumentSearch ilSearchProvider,
             CancellationToken token)
         {
@@ -126,6 +133,7 @@ namespace Cloudents.Web.Api
             {
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
+
             var filters = new List<IFilters>();
 
             //if (result.Facet != null)
@@ -133,17 +141,19 @@ namespace Cloudents.Web.Api
 
             filters.Add(
                 new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
-                    EnumExtension.GetValues<DocumentType>().Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
+                    EnumExtension.GetValues<DocumentType>()
+                        .Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
                         .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
             );
             // }
 
-            if (profile.Courses != null && profile.Courses.Any())
+            if (profile.Courses != null)
             {
                 filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
                     _localizer["CoursesFilterTitle"],
                     profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
             }
+
             return new WebResponseWithFacet<DocumentFeedDto>
             {
                 Result = p.Select(s =>

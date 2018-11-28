@@ -130,7 +130,7 @@
                        :sortOptions="page.sort"
                        :sortVal="sort"
                        v-model="showFilters"
-                       :filterOptions="filterObject"
+                       :filterOptions="getFilters"
                        :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
             </component>

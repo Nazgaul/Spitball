@@ -133,7 +133,6 @@
     display: flex;
     max-width: 276px;
     @media (max-width: @screen-xs) {
-      width: 55%;
       flex: 0 auto;
     }
     .v-btn--icon {
@@ -231,6 +230,7 @@
         min-width: 24px;
         width: 24px;
         .sbf-search {
+          height: 21px;
           min-width: 34px;
           font-size: 18px;
           opacity: 0.25;
@@ -350,6 +350,10 @@
   max-width: 60px;
   @media (max-width: @screen-xs) {
     padding-left: 0;
+    margin-left: 10px;
+    .v-menu--inline{
+      margin-left: 10px;
+    }
   }
   img {
     height: 32px;

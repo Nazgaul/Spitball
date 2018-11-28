@@ -153,6 +153,20 @@ export default {
         },
         pages() {
             return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0
+        },
+        calculatedEarnedPoints(){
+            let typesDictionary = {};
+            let earned = 0;
+            this.items.forEach((item) => {
+                typesDictionary[item.type] = item.points;
+            });
+            let reduce = typesDictionary["Stake"] + typesDictionary["Spent"] + typesDictionary["Awarded"];
+            if(reduce < 0){
+                earned = typesDictionary["Earned"] + reduce;
+            }else{
+                earned = typesDictionary["Earned"]
+            }
+            return earned;
         }
     },
     created() {

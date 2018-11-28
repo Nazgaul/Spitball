@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -28,13 +29,14 @@ namespace Cloudents.Infrastructure.Database.Query
             return await _session.Query<Question>()
                  .Fetch(f => f.User)
                  .Where(w => ids.Contains(w.Id))
+                 .Where(w => w.State == null || w.State == ItemState.Ok)
                  .Select(s => new QuestionFeedDto(s.Id,
                     s.Subject,
                     s.Price,
                     s.Text,
                     s.Attachments,
                     s.Answers.Count,
-                    new UserDto()
+                    new UserDto
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,

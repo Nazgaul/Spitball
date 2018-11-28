@@ -78,8 +78,10 @@ const actions = {
     updateSelectedClasses({commit}, val){
         commit('setSelectedClasses', val);
     },
-    assignClasses({state}){
+    assignClasses({state, dispatch}){
         universityService.assaignCourse(state.selectedClasses).then(()=>{
+            //Update Filters in note page
+            dispatch("updateCoursesFilters", state.selectedClasses);
             Promise.resolve(true);
         })
     },

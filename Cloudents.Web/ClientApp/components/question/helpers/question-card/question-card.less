@@ -253,12 +253,12 @@
     .card-info {
     display: flex;
     justify-content: space-between;
-    padding: 0px 16px 10px 16px;
+    padding: 0px 16px 16px 16px;
     line-height: 32px;
     min-height: 46px;
     align-items: flex-end;
     @media (max-width: @screen-xs) {
-      padding: 0px 8px 4px 16px;
+      padding: 0px 8px 0px 16px;
     }
 
     .new-block {
@@ -267,9 +267,8 @@
     }
     .files {
       width: 30px;
-      margin-right: 16px;
+      margin-right: 5px;
       height: 32px;
-      padding-top: 4px;
       display: flex;
       flex-direction: row;
 
@@ -290,12 +289,12 @@
     }
     .users {
       .avatar {
-        background: @colorContentBackground;
-        width: 24px;
-        height: 24px;
+        background: #e8e8e8;
+        width: 32px;
+        height: 32px;
         float: right;
-        margin-right: -7px;
-        border: 1px solid @colorGreyNew;
+        margin-right: -12px;
+        //border: 1px solid @colorGreyNew;
         border-radius: 50%;
         margin-left: -2px;
         text-align: center;
@@ -303,9 +302,10 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        border: 2px solid #fff;
         i {
-          font-size: 8px;
-          color: @colorInputFocus;
+          font-size: 14px;
+          color: gray;
           margin: 3px auto;
         }
       }
@@ -314,7 +314,7 @@
     .user-counter {
       font-size: 16px;
       color: @colorInputFocus;
-      line-height: 32px;
+      line-height: 28px;
       letter-spacing: -0.3px;
       margin-left: 11px;
     }

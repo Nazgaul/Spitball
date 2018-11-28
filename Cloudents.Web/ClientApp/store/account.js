@@ -8,7 +8,7 @@ import profileService from "../services/profile/profileService"
 
 function setIntercomSettings(data){
     let app_id = "njmpgayv";
-    let hide_default_launcher = intercomSettings.hide_default_launcher;
+    let hide_default_launcher = global.innerWidth < 600 ? true : intercomSettings.hide_default_launcher;
     let user_id = null;
     let user_name = null;
     let user_email = null;
@@ -34,9 +34,10 @@ function removeIntercomeData(){
 
 function setIntercomeData(data){
     //do not set intercome setting for mobile because no intercome should be on mobile case 10850
-    if(global.innerWidth > 600){
-        setIntercomSettings(data)
-    }
+    // if(global.innerWidth > 600){
+    //     setIntercomSettings(data)
+    // }
+    setIntercomSettings(data)
 }
 
 

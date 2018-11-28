@@ -27,6 +27,16 @@ export default {
             return [[true], [true]]
         } 
     },
+    watch:{
+        filterList(){
+            setTimeout(()=>{
+                let expandedElms = document.getElementsByClassName('v-expansion-panel__body');
+                Array.prototype.forEach.call(expandedElms, function(expandElm){
+                    expandElm.style.display = ""
+                })
+            }, 300)
+        }
+    },
     methods: {
         ...mapActions(['setFilteredCourses', 'updateCurrentStep', 'changeSelectUniState']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
@@ -74,5 +84,5 @@ export default {
            return this.sortVal ? this.sortVal === singleSort.key : index===0
         },
 
-    },
+    }
 }
