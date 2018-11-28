@@ -22,7 +22,9 @@ export default {
             },
             counter: 0,
             uploadLimit: 4,
+            isFirefox : global.isFirefox
             }
+
     },
     watch:{
         value(newVal,oldVal){
