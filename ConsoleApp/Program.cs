@@ -20,6 +20,7 @@ using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
@@ -27,6 +28,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command.Admin;
 
 
 namespace ConsoleApp
@@ -43,14 +45,14 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
+                Storage = ConfigurationManager.AppSettings["OldStorageConnectionString"],
                 // ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545"
@@ -92,7 +94,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await FixFilesAsync();
+
+            var _commandBus = _container.Resolve<ICommandBus>();
+            await FixPoisonBackground(_commandBus);
             //var q = _container.Resolve<ISearchServiceWrite<Question>>();
             //await q.CreateOrUpdateAsync(default);
 
@@ -100,8 +104,6 @@ namespace ConsoleApp
 
             //var z = await q2.SearchAsync(new QuestionsQuery(null, null, 0, null, "fr"), default);
             //293005, Geography
-            var _commandBus = _container.Resolve<IUserRepository>();
-            var z = await _commandBus.LoadAsync(1014L, default);
 
 
             //var command = new AddUserTagCommand(293005L, "Geography");
@@ -156,6 +158,11 @@ namespace ConsoleApp
                     {
                         queue.DeleteMessage(msg);
                     }
+                }
+
+                if (msg.AsString.Contains("Cloudents.Core.Message.System.UpdateUserBalanceMessage"))
+                {
+                    queue.DeleteMessage(msg);
                 }
                 else
                 {
