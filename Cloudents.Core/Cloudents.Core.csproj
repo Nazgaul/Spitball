@@ -18,7 +18,4 @@
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Storage\Dto\" />
-  </ItemGroup>
 </Project>
