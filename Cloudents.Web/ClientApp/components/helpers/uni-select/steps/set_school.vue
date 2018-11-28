@@ -22,7 +22,8 @@
                         @click:clear="clearData(search, university)"
                         autofocus
                         no-filter
-                        :color="`gray`"
+
+                        :background-color="'rgba( 255, 255, 255, 1)'"
                     >
                     <template slot="no-data">
                         <v-list-tile v-show="showBox">
