@@ -162,7 +162,7 @@ export default {
     }
     .chip-button{
         cursor: pointer;
-        max-width: 350px;
+        max-width: 150px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;

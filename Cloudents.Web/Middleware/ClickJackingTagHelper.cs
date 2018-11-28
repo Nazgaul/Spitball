@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 
-namespace Cloudents.Web.Extensions
+namespace Cloudents.Web.Middleware
 {
     public static class ClickJackingTagHelper
     {
