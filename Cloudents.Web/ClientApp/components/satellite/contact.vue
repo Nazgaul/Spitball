@@ -3,8 +3,8 @@
     <general-page header="contact-header.png" icon="contact-icon.png">
             <a href="mailto:support@spitball.co" class="d-block">support@spitball.co</a>
             <span class="d-block" v-language:inner>contant_address</span>
-            <v-layout row class="mt-3 mb-3">
-                <v-flex v-for="(bIcon,index) in bottomIcons" :key="index" align-start justify-start class="social-btns mr-4">
+            <v-layout row class="mt-3 mb-3 spread-images">
+                <v-flex v-for="(bIcon,index) in bottomIcons" :key="index" align-start justify-start class="social-btns">
                     <a :href="bIcon.link" target="_blank">
                         <component class="icons" :is="'svg-' + bIcon.img"></component>
                     </a>
@@ -38,10 +38,23 @@
 <style lang="less">
     @import "../../styles/mixin.less";
     .contact {
+
+        .spread-images{
+            display: flex;
+            justify-content: space-around;
+            width: 300px;
+            @media(max-width: @screen-xs) {
+                width: unset;
+                justify-content: space-between;
+            }
+        }
+
         @media(max-width: @screen-xs) {
         margin-top: 50px;
         padding: 0 8px;
     }
+
+    
         
         .icons {
         fill: #3293f6;
@@ -52,7 +65,8 @@
     .map {
         border: solid 2px #3293f6;
         max-width: 100%;
-    }}
+    }
+}
     
 </style>
 
