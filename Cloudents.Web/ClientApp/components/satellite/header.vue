@@ -1,6 +1,6 @@
 ﻿<template>
-    <main-header ref="mainHeader" :toolbarHeight="$vuetify.breakpoint.smAndUp ? 108 : 104">
-        <v-flex class="line" slot="extraHeader">
+    <main-header ref="mainHeader" :toolbarHeight="$vuetify.breakpoint.smAndUp ? 104 : 144">
+        <v-flex class="line sat-header-container" slot="extraHeader">
             <v-layout row>
               <!--keep this way for blog new tab open-->
                 <!--RTL bug fix in hebrew mobile-->
