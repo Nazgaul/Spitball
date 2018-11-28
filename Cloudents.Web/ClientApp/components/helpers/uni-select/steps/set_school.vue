@@ -86,7 +86,7 @@ export default {
             let match;
             //mark the text bold according to the search value
             if (!value) return '';
-            if(search) {
+            if(!!search) {
                  match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
             }
             if(match){
