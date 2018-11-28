@@ -11,7 +11,7 @@ namespace Cloudents.Core.Query
         IQuery<UserAccountDto>,
         IQuery<IEnumerable<BalanceDto>>,
         IQuery<IEnumerable<TransactionDto>>, 
-        IQuery<ProfileDto>
+        IQuery<UserProfileDto>
         //IQuery<SuspendUserDto>
         
     {

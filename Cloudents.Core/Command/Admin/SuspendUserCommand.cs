@@ -1,13 +1,15 @@
 ﻿using Cloudents.Core.Interfaces;
+using System;
 
 namespace Cloudents.Core.Command.Admin
 {
     public class SuspendUserCommand : ICommand
     {
-        public SuspendUserCommand(long id, bool shouldDeleteData)
+        public SuspendUserCommand(long id, bool shouldDeleteData, DateTimeOffset? lockoutEnd)
         {
             Id = id;
             ShouldDeleteData = shouldDeleteData;
+            LockoutEnd = lockoutEnd;
         }
         //public string Email{ get; set; }
 
@@ -15,6 +17,7 @@ namespace Cloudents.Core.Command.Admin
 
 
         public bool ShouldDeleteData { get; private set; }
+        public DateTimeOffset? LockoutEnd { get; set; }
 
     }
 }
