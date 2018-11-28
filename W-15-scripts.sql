@@ -8,8 +8,8 @@ add state nvarchar(255) null
 
 
 	--need to run FixFilesAsync in console app on production
---remove from sb.transaction the fat generated from migrate the old users
+
 begin tran
 delete from sb.[Transaction]
-where [User_id] in (select Id from sb.[User] where OldUser = 1 and PhoneNumberConfirmed = 0)
+where [User_id] in (select Id from sb.[User] where EmailConfirmed = 0 and PhoneNumberConfirmed = 0)
 commit

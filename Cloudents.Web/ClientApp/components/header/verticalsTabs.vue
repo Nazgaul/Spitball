@@ -47,13 +47,13 @@
                 this.currentVertical = val;
             },
             '$route'(val){
-                this.$nextTick(function(){
+                setTimeout(()=>{
                     if(this.supressVerticalDesign[val.name]){
                         this.cleanVerticalDesign();
                     }else{
                         this.restoreVerticalDesign();
                     }
-                })
+                }, 300)
             }
         },
         methods: {
@@ -108,9 +108,9 @@
         },
         mounted(){
             if(this.supressVerticalDesign[this.$route.name]){
-                this.$nextTick(function(){
+                setTimeout(()=>{
                     this.cleanVerticalDesign();
-                })
+                }, 300)
             }
         }
     }
