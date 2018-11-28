@@ -8,7 +8,7 @@
         <div class="upload-row-2 paddingTopSm">
             <div class="btn-holder">
                 <label :for="'school'" class="steps-form-label school mb-2">
-                    <v-icon class="mr-1">sbf-tag-icon</v-icon>
+                    <v-icon >sbf-tag-icon</v-icon>
                     <span>Price</span></label>
                 <div class="wrap-row-price">
                     <div class="price-wrap">

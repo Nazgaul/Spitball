@@ -22,19 +22,20 @@
         <!--</div>-->
         <div class="upload-row-3 chip-classes-row">
             <label :for="'class-chip'" class="steps-form-label mb-2">
-                <v-icon class="mr-1">sbf-classes</v-icon>
+                <v-icon>sbf-classes-new</v-icon>
                 <span v-language:inner>upload_files_label_class</span>
             </label>
             <div class="chip-wrap">
                 <v-combobox
-                        class="hello-gaby"
+                        class="combo-class"
                         v-model="selectedClass"
                         :items="classesList"
+                        allow-overflow
                         :label="classNamePlaceholder"
                         :placeholder="classNamePlaceholder"
                         clearable
                         solo
-                        :append-icon="''"
+                        :append-icon="'sbf-expand-bottom'"
                         :clear-icon="'sbf-close'"
                         autofocus
                         no-filter
@@ -114,7 +115,7 @@
                     this.docClass
                 },
                 set(val){
-                    this.updateFile({'course': val});
+                    this.updateFile({'course': val.text});
                 }
 
             }

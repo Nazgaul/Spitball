@@ -17,7 +17,7 @@
                         <!--upload steps rendering-->
                         <component :is="`upload-step_${n}`" :docReferral="docReferral" :curStep="n" :callBackmethods="callBackmethods"></component>
                     </v-stepper-content>
-                    <div class="bottom-upload-controls" v-show="currentStep > 1 && currentStep !==8">
+                    <div class="bottom-upload-controls" v-show="currentStep > 1 && currentStep !==7">
                         <v-progress-linear
                                 :height="'3px'"
                                 v-show="currentStep >1"
@@ -44,23 +44,23 @@
                                 <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
                                 <span v-language:inner>upload_files_btn_back</span>
                             </v-btn>
-                            <v-btn v-show="currentStep !==7 && currentStep !==8" round class="next-btn"
+                            <v-btn v-show="currentStep !==6 && currentStep !==7" round class="next-btn"
                                    @click="nextStep(step)" :disabled="isDisabled">
                                 <span v-language:inner>upload_files_btn_next</span>
                             </v-btn>
 
-                            <v-btn v-show="currentStep ===7" round class="next-btn sell"
-                                   @click="sendDocumentData(8)" :disabled="isDisabled">
+                            <v-btn v-show="currentStep ===6" round class="next-btn sell"
+                                   @click="sendDocumentData(7)" :disabled="isDisabled">
                                 <span v-language:inner>upload_files_btn_sell</span>
 
                                 <v-icon right class="credit-card">sbf-credit-card</v-icon>
                             </v-btn>
-                            <v-btn v-show="currentStep ===8" flat
+                            <v-btn v-show="currentStep ===7" flat
                                    :class="['sb-back-flat-btn', $vuetify.breakpoint.smAndDown ? 'sb-close-mobile' : '']"
                                    @click="closeUpload()">
                                 <span v-language:inner>upload_files_btn_close</span>
                             </v-btn>
-                            <v-btn v-show="currentStep ===8" round outline class="another-doc" @click="changeStep(1)">
+                            <v-btn v-show="currentStep ===7" round outline class="another-doc" @click="changeStep(1)">
                                 <span v-show="$vuetify.breakpoint.smAndDown" v-language:inner>upload_files_btn_anotherUpload_mobile</span>
                                 <span v-show="$vuetify.breakpoint.smAndUp" v-language:inner>upload_files_btn_anotherUpload</span>
 
