@@ -83,9 +83,12 @@ export default {
     },
     filters:{
         boldText(value, search){
+            let match;
             //mark the text bold according to the search value
             if (!value) return '';
-            let match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
+            if(search) {
+                 match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
+            }
             if(match){
                 let startIndex = value.toLowerCase().indexOf(search.toLowerCase())
                 let endIndex = search.length;
