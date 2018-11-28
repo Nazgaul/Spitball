@@ -20,6 +20,7 @@ using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
@@ -27,6 +28,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command.Admin;
 
 
 namespace ConsoleApp
@@ -92,8 +94,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var _commandBus = _container.Resolve<ICommandBus>();
 
+            var _commandBus = _container.Resolve<ICommandBus>();
             await FixPoisonBackground(_commandBus);
             //var q = _container.Resolve<ISearchServiceWrite<Question>>();
             //await q.CreateOrUpdateAsync(default);
@@ -156,6 +158,11 @@ namespace ConsoleApp
                     {
                         queue.DeleteMessage(msg);
                     }
+                }
+
+                if (msg.AsString.Contains("Cloudents.Core.Message.System.UpdateUserBalanceMessage"))
+                {
+                    queue.DeleteMessage(msg);
                 }
                 else
                 {
