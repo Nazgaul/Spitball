@@ -11,15 +11,9 @@
                     <!--</v-btn>-->
                 </v-toolbar>
                 <v-card>
-                    <v-container
-                            fluid
-                            grid-list-md
-                    >
+                    <v-container fluid grid-list-md>
                         <v-layout row wrap>
-                            <v-flex
-                                    v-for="(document, index) in documentsList"
-                                    :key="document.id"
-                            >
+                            <v-flex v-for="(document, index) in documentsList" :key="document.id" >
                                 <v-card>
                                     <v-img :class="[ 'document-preview', proccessedDocuments.includes(document.id) ? 'blured' : '']"
                                            :src="document.preview"
