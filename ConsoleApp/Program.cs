@@ -807,11 +807,14 @@ and I.ItemId not in @ItemsAlreadyProcessed
 
                     foreach (var pair in z)
                     {
+                        Console.WriteLine($"processing {pair.ItemId}");
+
                         string[] blobName = pair.BlobName.Split('.');
                         if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine($"{pair.ItemId} not blob support");
-
+                            Console.ResetColor();
                             itemsAlreadyProcessed.Add(pair.ItemId);
                             continue;
                         }
@@ -826,8 +829,9 @@ and I.ItemId not in @ItemsAlreadyProcessed
                         if (userId == null)
                         {
                             itemsAlreadyProcessed.Add(pair.ItemId);
-
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine($"{pair.ItemId} doesn't have userid to assign");
+                            Console.ResetColor();
                             continue;
                         }
 
@@ -835,8 +839,9 @@ and I.ItemId not in @ItemsAlreadyProcessed
                         if (uniId == null)
                         {
                             itemsAlreadyProcessed.Add(pair.ItemId);
-
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine($"{pair.ItemId} doesn't have uniId to assign");
+                            Console.ResetColor();
                             continue;
                         }
 
