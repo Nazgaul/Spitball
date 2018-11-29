@@ -1,0 +1,399 @@
+﻿@import "./colors.less";
+@import "./sb-buttons";
+
+
+@fontFiraSans: "Fira Sans", sans-serif;
+@fontAssistant: "Assistant", sans-serif;
+@fontAlef: "Alef", sans-serif;
+
+@colorTypeDocThirdParty: rgba(0, 0, 0, 0.54);
+
+.inTheMiddle() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.glowingBorder(){
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  border: 1px solid  @colorInputNotFocused;
+}
+.glowingBorderFocused(@color: @colorInputFocused){
+  box-shadow: 0 0 5px @colorInputFocused;
+  border: 1px solid @colorInputFocused;
+}
+.dashed-spaced{
+    background-image: linear-gradient(to right, #333 10%, rgba(255, 255, 255, 0) 30%);
+    background-position: top;
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+}
+
+
+
+//updated version TODO rework and remove previous
+.giveEllipsisUpdated(@fontSize, @lineHeigh, @lines, @maxHeight: 96px){
+  display: -webkit-box;
+  // display: block; /* Fallback for non-webkit */
+  max-height: @maxHeight; /* Fallback for non-webkit */
+  font-size: @fontSize;
+  line-height: @lineHeigh;
+  -webkit-line-clamp: @lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -o-text-overflow: ellipsis;	/* required for Opera */
+  -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
+  // white-space: nowrap;
+}
+
+.widthMinMax(@width, @minWidth: @width, @maxWidth: @width){
+  width: @width;
+  min-width: @minWidth;
+  max-width: @maxWidth;
+}
+
+
+.giveMeEllipsis(@lines, @line-height) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @lines; /* number of lines to show */
+  line-height: @line-height; /* fallback */
+  max-height: (@lines*@line-height); /* fallback */
+}
+
+.giveMeEllipsisOne() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+// animation end
+.imageWrapper(@width,@height,@svgSize: 100%) {
+  .img-wrap {
+    width: @width;
+    height: @height;
+    .inTheMiddle();
+
+    > img, .defaultImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    svg.defaultImage {
+      height: @svgSize;
+    }
+  }
+}
+// generate classes for question card  based on user selected color, background and font color
+@colors: #ffffff,
+#6bc248,
+#a757db,
+#e5455d,
+#edaf2e,
+#7472ff,
+#3bbda4,
+#53a0fd,
+#a09c9c,
+#abb55e,
+#d251ae;
+@names: default, green, purple, red, yellow, blue, turquoise, lightblue, grey, olive, pink;
+@fontColors: rgba(0, 0, 0, 0.87), #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
+@length: length(@colors);
+.user-question-style(@names; @colors; @fontColors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
+  .user-question-style(@names; @colors; @fontColors; (@index - 1)); // decrement.
+
+  @name: extract(@names, @index);
+  @color: extract(@colors, @index);
+  @fontColor: extract(@fontColors, @index);
+
+  .sbf-card-@{name} {
+    background-color: @color;
+  }
+
+  .sbf-font-@{name} {
+    color: @fontColor!important;
+  }
+}
+.user-question-style(@names, @colors, @fontColors, @length );
+//end function
+
+.placeholder-color(@color, @opacity:1 ) {
+
+  &::-webkit-input-placeholder {
+    color: @color !important;
+    opacity: @opacity!important;
+  }
+
+  &::-moz-placeholder {
+    color: @color !important;
+    opacity: @opacity!important;
+  }
+
+  &:-ms-input-placeholder {
+    color: @color !important;
+    opacity: @opacity!important;
+  }
+
+  &:-moz-placeholder {
+    color: @color !important;
+    opacity: @opacity!important;
+  }
+}
+
+.responsive-property(@property, @desktop, @tablet: null, @mobile: null) {
+    @{property}: @desktop;
+
+  & when (ispixel(@tablet)) or (iscolor(@tablet)) or (ispercentage(@tablet)) or (isnumber(@tablet)) or (iscolor(@tablet)) {
+    @media (max-width: @screen-sm) {
+        @{property}: @tablet;
+    }
+  }
+
+  & when (ispixel( @mobile )) or (iscolor(@mobile)) or (ispercentage(@mobile)) or (isnumber(@mobile)) or (iscolor(@mobile)) {
+
+    @media (max-width: @screen-xs) {
+        @{property}: @mobile;
+    }
+  }
+}
+
+.cellActionBtnMixin(){
+  position: absolute;
+  .responsive-property(bottom, 16px, null, 16px);
+  .responsive-property(right, 16px, null, 8px);
+  //padding: 3px 20px;
+  padding: 3px 20px;
+  color: white;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: @fontFiraSans;
+}
+
+.cellActionViewerMixin(){
+  position: absolute;
+  .transition(all .2s ease-in-out);
+  .responsive-property(bottom, 44px, null, 8px);
+  .responsive-property(right, 16px, null, 8px);
+  //padding: 0px 100px 3px 0px;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  color: #8888d5;
+}
+
+.cellActionBtnMixinAnswer(){
+  position: absolute;
+  .responsive-property(bottom, 8px, null, 8px);
+  .responsive-property(right, 30px, null, 33px);
+  padding: 3px 20px;
+  color: white;
+  border-radius: 10px;
+  font-size: 12px;
+  font-family: @fontFiraSans;
+}
+
+.flexSameSize() {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.postitionSticky() {
+  position: -webkit-sticky; // safari
+  position: sticky;
+}
+//transition mixin
+.transition (@transition) {
+  -webkit-transition: @transition;
+  -moz-transition:    @transition;
+  -ms-transition:     @transition;
+  -o-transition:      @transition;
+}
+.animation (@animation) {
+  -webkit-animation: @animation;
+  -moz-animation:    @animation;
+  -ms-animation:     @animation;
+  -o-animation:      @animation;
+}
+
+
+.flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover, @frontText,@height: 0.88*@width) {
+  //@height: 0.88*@width;
+  position: relative;
+  width: @width;
+  height: @height;
+
+  &:before, &:after {
+    display: block;
+    width: 0.8*@width;
+    height: 0.72*@height;
+    border-radius: @height/6;
+    border: 0.048*@width solid @borderColor;
+    position: absolute;
+  }
+
+  &:before {
+    content: '';
+    bottom: 0;
+    left: @width/4;
+    background: @backColor;
+  }
+
+  &:after {
+    content: @frontText;
+    text-align: center;
+    line-height: 0.62*@height;
+    color: @backColor;
+    transform: rotate(-20deg);
+    bottom: @height/4;
+    left: 0;
+    background: @frontColor;
+  }
+
+  &:hover {
+    &:before {
+      background: @backHover;
+    }
+
+    &:after {
+      background: @frontHover;
+    }
+  }
+}
+
+.item-page-width() {
+  max-width: 756px;
+  width: 100%;
+  padding: 0 8px;
+  margin: 0 auto !important;
+}
+
+.clear-field-btn() { // Note: this is not supported by Firefox yet.
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+  }
+  &::-ms-clear {
+    display: block;
+  }
+}
+
+.general-cell {
+  background: #fff;
+  border-radius: 4px;
+  width: 100%;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.limited-width(){
+  width: 100%;
+  @contentWidth: 1280px;
+  @desktopPadding: 24px;
+  @tabletPadding: 16px;
+  @mobilePadding: 8px;
+  .responsive-property(max-width,@contentWidth + @desktopPadding, @contentWidth + @tabletPadding, @contentWidth + @mobilePadding);
+  .responsive-property(padding-right, @desktopPadding, @tabletPadding, @mobilePadding);
+  .responsive-property(padding-left, @desktopPadding, @tabletPadding, @mobilePadding);
+  //max-width: 1328px;
+  margin: 0 auto;
+  //padding: 0 24px;
+}
+
+// Size constants
+@btnHeight : 40px;
+@navBarHeightMdAndUp: 104px;
+@mainNavHeightXsOnly: 120px;
+@mainNavHeightSmAndUp: 60px;
+//@navBarHeightMobile: 96px;
+@resultsFilterWidth: 192px;
+//@resultsTabsHeight: 52px;
+@registrationFieldHeight: 48px;
+@screen-xs: 599px;
+@screen-sm: 959px;
+@screen-sm-960: 960px;
+@screen-xss: 375px;
+@screen-md: 1263px;
+@screen-md-plus: 1280px;
+@screen-lg: 1904px;
+@logoWidth: 192px;
+@cellWidth: 500px;
+
+
+@-webkit-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+//fab animation
+@-webkit-keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100% {opacity: 1}
+}
+
+@-moz-keyframes fade{
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100%{opacity: 1}
+}
+@-o-keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100%{opacity: 1}
+
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@-moz-keyframes fadeIn{
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+@-o-keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+
+}
