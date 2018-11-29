@@ -7,7 +7,7 @@
         <div class="upload-row-2 paddingTopSm">
             <div class="btn-holder">
                 <label :for="'school'" class="steps-form-label school mb-2">
-                    <v-icon class="mr-1">sbf-tag-icon</v-icon>
+                    <v-icon>sbf-tag-icon</v-icon>
                     <span v-language:inner>upload_files_label_tags</span></label>
                 <v-combobox class="sb-combo"
                             v-language:placeholder

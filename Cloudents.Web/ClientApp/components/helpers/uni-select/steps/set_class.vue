@@ -44,9 +44,10 @@
                 </template>
                 <template slot="selection" slot-scope="{ item, parent, selected }">
                    <v-chip class="chip-style" :class="{'dark-chip': !itemInList(item), 'selected': selected}">
-                       <span class="chip-button" @click="parent.selectItem(item)">
-                           {{!!item.text ? item.text : item}} <v-icon class="chip-close">sbf-close</v-icon>
+                       <span class="chip-button">
+                           {{!!item.text ? item.text : item}}
                        </span>
+                       <v-icon class="chip-close" @click="parent.selectItem(item)">sbf-close</v-icon>
                     </v-chip> 
                 </template>
                 <template slot="item" slot-scope="{ index, item, parent }">
@@ -166,11 +167,12 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        .sbf-close{
-            font-size: 8px !important;
-            margin-bottom: 3px;
-            margin-left: 8px;
-        }
+
+    }
+    .sbf-close{
+        font-size: 8px !important;
+        margin-bottom: 3px;
+        margin-left: 8px;
     }
     .subheading{
         font-size: 16px;

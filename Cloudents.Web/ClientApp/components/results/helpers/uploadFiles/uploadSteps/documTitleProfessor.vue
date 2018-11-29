@@ -6,12 +6,14 @@
         <div class="upload-row-2 paddingTopSm">
             <div class="btn-holder">
                 <label :for="'school'" class="steps-form-label school mb-2">
-                    <!--<v-icon class="mr-1">sbf-university</v-icon>-->
+                    <v-icon>sbf-document-note</v-icon>
                     <span v-language:inner>upload_files_label_document_title</span></label>
                 <sb-input :bottomError="true"
                           v-model="documentTitle" placeholder="upload_files_label_document_title" name="document title"
-                          type="text"
-                          :autofocus="true">
+                          :type="'text'"
+                          :autofocus="true"
+                          :focus="true"
+                        >
                 </sb-input>
             </div>
             <div class="btn-holder ml-0 ">
@@ -20,11 +22,12 @@
         </div>
         <div class="upload-row-3">
             <label :for="'school'" class="steps-form-label school mb-2">
+                <v-icon >sbf-professor</v-icon>
                 <span v-language:inner>upload_files_label_proff_name</span></label>
             <sb-input :bottomError="true"
                       v-model="professor" placeholder="upload_files_placeholder_proff_name" name="professor"
-                      type="text"
-                      :autofocus="true">
+                      :type="'text'"
+                      >
             </sb-input>
         </div>
     </v-card>
@@ -67,9 +70,8 @@
         },
         methods: {
             ...mapActions(['updateFileName', 'updateFile']),
-
         },
-    }
+      }
 </script>
 
 <style >

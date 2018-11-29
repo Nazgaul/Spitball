@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -49,7 +50,7 @@ namespace Cloudents.Web.Api
 
                return NotFound();
             }
-            return new ActionResult<IEnumerable<QuestionFeedDto>>(retVal);
+            return retVal.ToList();
         }
 
         // GET
@@ -63,10 +64,9 @@ namespace Cloudents.Web.Api
             var retVal = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token).ConfigureAwait(false);
             if (retVal == null)
             {
-
                 return NotFound();
             }
-            return new ActionResult<IEnumerable<QuestionFeedDto>>(retVal);
+            return retVal.ToList();
         }
     }
 }
