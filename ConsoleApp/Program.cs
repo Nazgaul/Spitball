@@ -871,14 +871,18 @@ and I.ItemId not in @ItemsAlreadyProcessed
                         {
                             DocType.TryGetValue(pair.DocType, out type);
                         }
-                      
 
+                        string courseName = pair.BoxName;
+                        while (courseName.Length < Course.MinLength)
+                        {
+                            courseName += "-";
+                        }
 
 
 
                         CreateDocumentCommand command =  CreateDocumentCommand.DbiOnly($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
                             pair.Name,
-                            type, pair.BoxName, words, userId.Value, pair.ProfessorName, uniId.Value);
+                            type, courseName, words, userId.Value, pair.ProfessorName, uniId.Value);
 
                         await commandBus.DispatchAsync(command, default);
 
