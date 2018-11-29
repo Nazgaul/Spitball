@@ -32,7 +32,8 @@
                 </div>
             </v-snackbar>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
-                <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical">
+                <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
+                <!-- <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <!-- <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>

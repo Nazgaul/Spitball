@@ -17,7 +17,7 @@
                 </div>
 
             </div>
-            <div class="final-item class-selected">
+            <div class="final-item class-selected"  @click="changeStep(2)">
                 <div class="edit">
                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                     <span v-language:inner>upload_files_edit</span>

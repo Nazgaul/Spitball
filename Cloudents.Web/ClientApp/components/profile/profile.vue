@@ -48,12 +48,12 @@
                     </div>
                     <div v-show="activeTab === 1">
                         <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
-                                     v-for="(questionData,index) in questions" :key="index">
+                                     v-for="(questionData,index) in profileData.questions" :key="index">
                             <question-card :cardData="questionData"></question-card>
                         </router-link>
                     </div>
                     <div v-show="activeTab === 2">
-                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="(answerData,index) in myAnswers"
+                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="(answerData,index) in profileData.answers"
                                      :key="index" class="mb-3">
                             <question-card :cardData="answerData" class="mb-3"></question-card>
                         </router-link>
