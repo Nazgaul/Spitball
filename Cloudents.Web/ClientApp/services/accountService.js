@@ -10,6 +10,25 @@ function AccountUser(ObjInit){
     this.universityExists= ObjInit.universityExists
 }
 
+function ProfileData(arrInit){
+    this.user= arrInit[0].data;
+    this.questions = arrInit[1].data.map(item => {
+        return {
+            ...item,
+            user: arrInit[0].data,
+            answersNum: item.answers,
+            filesNum: item.files,
+        }
+    }) || [];
+    this.answers= arrInit[2].data.map(i => {
+        return {
+            ...i,
+            answersNum: i.answers,
+            filesNum: i.files,
+        }
+    }) || [];
+}
+
 export default {
     getAccount:() => {
        return connectivityModule.http.get("/Account").then(({data})=>{
@@ -28,7 +47,16 @@ export default {
     getProfile:(id) => {
         return connectivityModule.http.get("/Profile/" + id)
     },
+    getProfileQuestions:(id) => {
+        return connectivityModule.http.get("Profile/questions/" + id)
+    },
+    getProfileAnswers:(id) => {
+        return connectivityModule.http.get("/Profile/answers/" + id)
+    },
     calculateDollar:(balance)=> {
         return dollarCalculate(balance).toFixed(2)
+    },
+    createProfileData: (arrInit)=>{
+        return new ProfileData(arrInit);
     }
 }
