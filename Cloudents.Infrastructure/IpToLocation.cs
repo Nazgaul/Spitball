@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure
             _restClient = restClient;
         }
 
-        [Cache(TimeConst.Month, nameof(IpToLocation) + "2", true),Log]
+        [Cache(TimeConst.Month, nameof(IpToLocation) + "3", true),Log]
         public async Task<Location> GetAsync(IPAddress ipAddress, CancellationToken token)
         {
             var uri = new Uri($"http://api.ipstack.com/{ipAddress}?access_key=0b561be1266ad6b1d01f2daedc4703cd");
@@ -30,7 +30,12 @@ namespace Cloudents.Infrastructure
             {
                 return null;
             }
-            var point = new GeoPoint(ipDto.Longitude, ipDto.Latitude);
+
+            if (ipDto.Latitude == null && ipDto.Longitude == null)
+            {
+                return null;
+            }
+            var point = new GeoPoint(ipDto.Longitude.GetValueOrDefault(), ipDto.Latitude.GetValueOrDefault());
             var address = new Address(ipDto.City, ipDto.RegionCode, ipDto.CountryCode);
             return new Location(point, address, ipAddress.ToString(), ipDto.Location?.CallingCode);
         }
@@ -43,8 +48,8 @@ namespace Cloudents.Infrastructure
             public string CountryCode { get; set; }
             public string RegionCode { get; set; }
             public string City { get; set; }
-            public float Latitude { get; set; }
-            public float Longitude { get; set; }
+            public float? Latitude { get; set; }
+            public float? Longitude { get; set; }
             public IpLocation Location { get; set; }
         }
 
