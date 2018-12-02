@@ -13,10 +13,21 @@ export default {
     data() {
         return {
             activeTab: 1,
+            itemsPerTab: 50,
+            answers:{
+                isLoading: false,
+                isComplete: false,
+                page: 1,
+            },
+            questions:{
+                isLoading: false,
+                isComplete: false,
+                page: 1,
+            },
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState', 'syncProfile']),
+        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions']),
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
@@ -24,6 +35,47 @@ export default {
         },
         fetchData() {
             this.syncProfile(this.id);
+        },
+        loadAnswers(){
+            if(this.profileData.answers < this.itemsPerTab) {
+                this.answers.isComplete = true;
+                return;
+            }
+            this.answers.isLoading = true;
+            let AnswersInfo = {
+                id: this.id,
+                page: this.answers.page
+            }
+            this.getAnswers(AnswersInfo).then((hasData)=>{
+                if(!hasData) {
+                    this.answers.isComplete = true;
+                }
+                this.answers.isLoading = false;
+                this.answers.page++;
+            },(err)=>{
+                this.answers.isComplete = true;
+            })
+        },
+        loadQuestions(){
+            if(this.profileData.questions < this.itemsPerTab) {
+                this.questions.isComplete = true;
+                return;
+            }
+            this.questions.isLoading = true;
+            let QuestionsInfo = {
+                id: this.id,
+                page: this.questions.page,
+                user: this.profileData.user
+            }
+            this.getQuestions(QuestionsInfo).then((hasData)=>{
+                if(!hasData) {
+                    this.questions.isComplete = true;
+                }
+                this.questions.isLoading = false;
+                this.questions.page++;
+            },(err)=>{
+                this.questions.isComplete = true;
+            })
         }
     },
     computed: {
