@@ -58,10 +58,14 @@ namespace Cloudents.Infrastructure.Database.Repositories
         private static void CheckUserLockout([NotNull] User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
-            if (user.Fictive.GetValueOrDefault())
+            if (!user.LockoutEnabled)
             {
                 return;
             }
+            //if (user.Fictive.GetValueOrDefault())
+            //{
+            //    return;
+            //}
             if (user.LockoutEnd.HasValue && DateTime.UtcNow < user.LockoutEnd.Value)
             {
                 throw new UserLockoutException();
