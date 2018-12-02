@@ -55,9 +55,11 @@ export default {
             showDialog: false,
             placeholder:{
                 whereSchool: LanguageService.getValueByKey("result_where_school")
-            },
-            isEdge: global.isEdge
-
+            },    
+            scrollBehaviour:{
+                isLoading: false,
+                isComplete: false
+            }        
         };
     },
 
@@ -165,7 +167,8 @@ export default {
             'updateLoginDialogState',
             'updateUserProfileData',
             'updateNewQuestionDialogState',
-            'updateDialogState'
+            'updateDialogState',
+            'nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
         ...mapGetters(["getCurrentVertical"]),
@@ -183,6 +186,19 @@ export default {
                 //ab test original do not delete
                  this.updateNewQuestionDialogState(true);
             }
+        },
+        scrollFunc(){
+            this.scrollBehaviour.isLoading = true;
+            this.nextPage({vertical: this.pageData.vertical, url: this.pageData.nextPage})
+                .then((res) => {
+                    if (res.data && res.data.length) {
+                        this.scrollBehaviour.isLoading = false;
+                    } else {
+                        this.scrollBehaviour.isComplete = true;
+                    }
+                }).catch(reason => {
+                this.scrollBehaviour.isComplete = true;
+            })
         },
         //   2-%%%
         updatePageData(to, from, next) {

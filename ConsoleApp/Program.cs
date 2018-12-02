@@ -18,9 +18,9 @@ using Newtonsoft.Json;
 using NHibernate;
 using NHibernate.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
@@ -28,7 +28,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command.Admin;
 
 
 namespace ConsoleApp
@@ -52,8 +51,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["OldStorageConnectionString"],
-                // ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545"
             };
@@ -94,9 +92,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
-            var _commandBus = _container.Resolve<ICommandBus>();
-            await FixPoisonBackground(_commandBus);
+            await TransferDocuments();
+            //var _commandBus = _container.Resolve<ICommandBus>();
+            //await FixPoisonBackground(_commandBus);
             //var q = _container.Resolve<ISearchServiceWrite<Question>>();
             //await q.CreateOrUpdateAsync(default);
 
@@ -124,6 +122,7 @@ namespace ConsoleApp
             var storage = _container.Resolve<ICloudStorageProvider>();
             var queueClient = storage.GetQueueClient();
             var queue = queueClient.GetQueueReference("background-poison");
+            var newQueue = queueClient.GetQueueReference("background");
 
             do
             {
@@ -166,7 +165,8 @@ namespace ConsoleApp
                 }
                 else
                 {
-                    Console.WriteLine("different msg");
+                    newQueue.AddMessage(new CloudQueueMessage(msg.AsString));
+                    queue.DeleteMessage(msg);
                 }
             } while (true);
         }
@@ -729,14 +729,14 @@ where left(blobName ,4) != 'file'");
             } while (true);
         }
 
-        public static async Task TransferDocumants()
+        public static async Task TransferDocuments()
         {
             var d = _container.Resolve<DapperRepository>();
 
 
-            var key = ConfigurationManager.AppSettings["OldStrageConnectionString"];
-            var productionOldstorageAccount = CloudStorageAccount.Parse(key);
-            var oldBlobClient = productionOldstorageAccount.CreateCloudBlobClient();
+            var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+            var oldBlobClient = productionOldStorageAccount.CreateCloudBlobClient();
             var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");
 
 
@@ -761,23 +761,23 @@ where left(blobName ,4) != 'file'");
 
             string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "pptx", "jpg", "png", "gif", "jpeg", "bmp" };
 
+            var cacheUsers = new ConcurrentDictionary<string, long?>();
             List<dynamic> z = new List<dynamic>();
-
+            List<long> itemsAlreadyProcessed = new List<long>();
             do
             {
                 z = await d.WithConnectionAsync(async f =>
                 {
                     return (await f.QueryAsync(
-                        @"select top 10 I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views], I.CreationTime,
+                        @"select top 10 I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName, ZUNI.Country,  B.ProfessorName, 
+ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views], I.CreationTime,
 			            STRING_AGG((T.Name), ',') as Tags
                         FROM [Zbox].[Item] I
                         join zbox.Box B
 	                        on I.BoxId = B.BoxId and b.discriminator in (2,3)
                         join Zbox.Users ZU
 	                        on I.UserId = ZU.UserId
-                        join sb.[User] U
-	                        on ZU.Email = U.Email
-                        and U.universityid2 is not null
+                       join Zbox.University ZUNI on zu.UniversityId = ZUNI.Id
 						left join zbox.ItemTag IT
 							on IT.ItemId = I.ItemId
 						left join zbox.Tag T
@@ -785,10 +785,11 @@ where left(blobName ,4) != 'file'");
                         where I.Discriminator = 'File'
 	                        and I.IsDeleted = 0 
 							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
+and I.ItemId not in @ItemsAlreadyProcessed
 							and SUBSTRING (I.Name,CHARINDEX ('.',I.Name), 5) in ('.doc', '.docx', '.xls', '.xlsx', '.PDF', '.png', '.jpg', '.ppt', '.pptx', '.jpg', '.png', '.gif', '.jpeg', '.bmp' )
-                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
-                       -- order by I.ItemId asc;
-                ")).ToList();
+                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
+						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
+                ",new { ItemsAlreadyProcessed = itemsAlreadyProcessed })).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -806,24 +807,49 @@ where left(blobName ,4) != 'file'");
 
                     foreach (var pair in z)
                     {
+                        Console.WriteLine($"processing {pair.ItemId}");
+
                         string[] blobName = pair.BlobName.Split('.');
                         if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{pair.ItemId} not blob support");
+                            Console.ResetColor();
+                            itemsAlreadyProcessed.Add(pair.ItemId);
+                            continue;
+                        }
+
+                        string country = pair.Country, email = pair.Email;
+
+                        var userId = cacheUsers.GetOrAdd(email, x =>
+                        {
+                            long? id = GetUserId(x, country);
+                            return id;
+                        });
+                        if (userId == null)
+                        {
+                            itemsAlreadyProcessed.Add(pair.ItemId);
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{pair.ItemId} doesn't have userid to assign");
+                            Console.ResetColor();
+                            continue;
+                        }
+
+                        Guid? uniId = GetUniversityId(pair.UniversityName, country);
+                        if (uniId == null)
+                        {
+                            itemsAlreadyProcessed.Add(pair.ItemId);
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{pair.ItemId} doesn't have uniId to assign");
+                            Console.ResetColor();
                             continue;
                         }
 
                         CloudBlockBlob blobDestination =
                             container.GetBlockBlobReference($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}");
 
-                        CloudBlockBlob srcBlob = oldContainer.GetBlockBlobReference(pair.BlobName);
-
                         var sharedAccessUri = GetShareAccessUri(pair.BlobName, 360, oldContainer);
-
                         var blobUri = new Uri(sharedAccessUri);
-
-
-
-
 
                         await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
                         while (blobDestination.CopyState.Status != CopyStatus.Success)
@@ -834,32 +860,29 @@ where left(blobName ,4) != 'file'");
                         }
 
 
-                        string[] words;
+                        string[] words = null;
                         if (pair.Tags != null)
                         {
                             words = pair.Tags.Split(',');
                         }
-                        else
-                        {
-                            words = null;
-                        }
-
-                        DocumentType type;
+                        DocumentType type = DocumentType.None;
 
                         if (DocType.ContainsKey(pair.DocType))
                         {
                             DocType.TryGetValue(pair.DocType, out type);
                         }
-                        else
+
+                        string courseName = pair.BoxName;
+                        while (courseName.Length < Course.MinLength)
                         {
-                            type = DocumentType.None;
+                            courseName += "-";
                         }
 
 
 
-                        var command = new CreateDocumentCommand($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
+                        CreateDocumentCommand command =  CreateDocumentCommand.DbiOnly($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
                             pair.Name,
-                            type, pair.BoxName, words, pair.Id, pair.ProfessorName);
+                            type, courseName, words, userId.Value, pair.ProfessorName, uniId.Value);
 
                         await commandBus.DispatchAsync(command, default);
 
@@ -880,6 +903,53 @@ where left(blobName ,4) != 'file'");
             } while (z.Count > 0);
 
             //await TransferDocumants();
+        }
+
+        private static long? GetUserId(string email, string country)
+        {
+            var d = _container.Resolve<DapperRepository>();
+            return d.WithConnection<long?>(connection =>
+            {
+                const string sql = @"select id from sb.[user] where email = @email;
+select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
+                using (var multi = connection.QueryMultiple(sql, new { email = email, country = country }))
+                {
+                    var val = multi.ReadFirstOrDefault<long?>();
+                    if (val.HasValue)
+                    {
+                        return val.Value;
+                    }
+
+                    val = multi.ReadFirstOrDefault<long?>();
+                    if (val.HasValue)
+                    {
+                        return val.Value;
+                    }
+                    return null;
+                }
+
+
+
+            });
+        }
+
+        private static Guid? GetUniversityId(string name, string country)
+        {
+            //select id from sb.University where Name = N'המכללה האקדמית בית ברל' and country = 'IL'
+            var d = _container.Resolve<DapperRepository>();
+            return d.WithConnection<Guid?>(connection =>
+            {
+                const string sql = @"select id from sb.University where Name = @Name and country = @country";
+                using (var multi = connection.QueryMultiple(sql, new { Name = name, country = country }))
+                {
+                    var val = multi.ReadFirstOrDefault<Guid?>();
+                    if (val.HasValue)
+                    {
+                        return val.Value;
+                    }
+                    return null;
+                }
+            });
         }
 
         private static string GetShareAccessUri(string blobname,

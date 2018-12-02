@@ -32,6 +32,7 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
 
+        public const string smsTime = "SmsTime";
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
             ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
@@ -105,6 +106,7 @@ namespace Cloudents.Web.Api
             }
             if (retVal.Succeeded)
             {
+                TempData[smsTime] = DateTime.UtcNow.ToString();
                 await _client.SendSmsAsync(user, token);
                 return Ok();
             }
@@ -122,7 +124,7 @@ namespace Cloudents.Web.Api
 
             return BadRequest(ModelState);
         }
-
+        
 
         [HttpPost("verify")]
         public async Task<IActionResult> VerifySmsAsync(
@@ -144,6 +146,7 @@ namespace Cloudents.Web.Api
             if (v.Succeeded)
             {
                 //This is the last step of the registration.
+               
                 return await FinishRegistrationAsync(token, user, country);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
@@ -190,6 +193,13 @@ namespace Cloudents.Web.Api
         [HttpPost("resend")]
         public async Task<IActionResult> ResendAsync(CancellationToken token)
         {
+            var temp = DateTime.Parse(TempData.Peek(smsTime).ToString());
+            
+            if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+            {
+                return Ok();
+            }
+
             if (User.Identity.IsAuthenticated)
             {
                 _logger.Error("Set User Phone number User is already sign in");
@@ -202,6 +212,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
+            TempData[smsTime] = DateTime.UtcNow.ToString();
             await _client.SendSmsAsync(user, token).ConfigureAwait(false);
             return Ok();
         }
