@@ -161,7 +161,7 @@ export default {
                 // let val = this.selectedPrice || this.price || 0;
                 // this.selectedPrice ? this.price = null : "";
                 // return this.accountUser.balance - val;
-                return this.accountUser.balance;
+                return this.accountUser.balance.toFixed(2);
             }
         },
         thirtyPercent(){
