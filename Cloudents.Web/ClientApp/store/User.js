@@ -13,6 +13,7 @@ const state = {
         showRegistrationBanner: true,
 
     },
+    cookieAccepted: global.localStorage.getItem("sb-acceptedCookies") === 'true',
     filters: "",
     sort: "",
     historyTermSet: [],
@@ -69,6 +70,9 @@ const mutations = {
     },
     [USER.HIDE_REGISTRATION_BANNER](state) {
         state.user.showRegistrationBanner = false;
+    }, 
+    [USER.ACCEPTED_COOKIE](state){
+        state.cookieAccepted = true;
     }
 };
 const getters = {
@@ -94,6 +98,7 @@ const getters = {
             return state.user.showRegistrationBanner;
         }
     },
+    getCookieAccepted: state => state.cookieAccepted,
     // getRegistrationStep:
     //     state => state.user.registrationStep,
     // getUniversity: state => {
@@ -118,6 +123,10 @@ const getters = {
     }
 };
 const actions = {
+    setCookieAccepted({ commit }){
+        global.localStorage.setItem("sb-acceptedCookies", true)
+        commit(USER.ACCEPTED_COOKIE)
+    },
     updateHistorySet({ commit }, term) {
         commit(USER.UPDATE_SEARCH_SET, term);
     },

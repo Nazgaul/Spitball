@@ -61,7 +61,6 @@
         },
         data(){
             return {
-                acceptedCookies: false,
                 acceptIsraeli: true,
                 isRtl: global.isRtl
             }
@@ -78,10 +77,9 @@
                 "getDialogState",
                 "getUploadFullMobile",
                 "confirmationDialog"
-
             ]),
             cookiesShow(){
-                return this.acceptedCookies
+                return this.getCookieAccepted()
             },
             universitySelectPopup(){
                 return this.getShowSelectUniPopUpInterface;
@@ -111,10 +109,10 @@
             })
         },
         methods: {
-            ...mapActions([ 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState', 'updateDialogState']),
+            ...mapActions([ 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState', 'updateDialogState', 'setCookieAccepted']),
+            ...mapGetters(['getCookieAccepted']),
             removeCookiesPopup: function(){
-                global.localStorage.setItem("sb-acceptedCookies", true);
-                this.acceptedCookies = true;
+                this.setCookieAccepted();
             },
             closeUniPopDialog(){
                 this.changeSelectPopUpUniState(false);
@@ -140,7 +138,7 @@
                 }
             });
            
-           this.acceptedCookies = (global.localStorage.getItem("sb-acceptedCookies") === 'true');
+           this.acceptedCookies = this.getCookieAccepted();
            this.$nextTick(()=>{
                setTimeout(()=>{
                 this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
