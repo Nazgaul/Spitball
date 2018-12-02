@@ -11,10 +11,23 @@
                 <div class="action-holder">
                     <ul class="actions_text files-actions">
                         <li>
-                            <label for="file-input" class="attach-file" v-show="previewList.length < uploadLimit">
-                                <v-icon style="cursor: pointer;" :class="`sbf-font-${activeColor.name}`">sbf-attach</v-icon>
-                            </label>
-                            <input id="file-input" type="file" multiple accept="image/*"/>
+                            <v-icon style="cursor: pointer; font-size: 18px; position: absolute; top: 4px;" :class="`sbf-font-${activeColor.name}`">sbf-attach</v-icon>
+                                <file-upload
+                                        id="file-input"
+                                        ref="upload"
+                                        :drop="false"
+                                        v-model="files"
+                                        :post-action=uploadUrl
+                                        chunk-enabled
+                                        :extensions="['doc', 'pdf', 'png',  'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx']"
+                                        :maximum="4"
+                                        @input-file="inputFile"
+                                        @input-filter="inputFilter"
+                                >
+                                </file-upload>
+
+                            <!--<input id="file-input" type="file" multiple accept="image/*"/>-->
+
                         </li>
                     </ul>
                     <v-divider v-if="actionType ==='question'" vertical></v-divider>

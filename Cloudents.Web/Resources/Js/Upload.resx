@@ -285,4 +285,7 @@
   <data name="files_options_text" xml:space="preserve">
     <value>or upload from</value>
   </data>
+  <data name="class_input_placeholder" xml:space="preserve">
+    <value>Select or Type a class name</value>
+  </data>
 </root>
