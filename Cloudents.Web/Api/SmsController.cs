@@ -47,6 +47,8 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("code")]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client)]
+
         public async Task<CallingCallResponse> GetCountryCallingCodeAsync(
 
             [FromServices] IIpToLocation service, CancellationToken token)

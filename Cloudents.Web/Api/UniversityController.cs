@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Api
 {
@@ -50,6 +51,8 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(UniversityRequest.Term) })]
+
         public async Task<UniversitySearchDto> GetAsync([FromQuery] UniversityRequest model,
             [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)]
             string country,
