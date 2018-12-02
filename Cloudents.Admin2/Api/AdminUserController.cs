@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 
 namespace Cloudents.Admin2.Api
@@ -70,34 +71,26 @@ namespace Cloudents.Admin2.Api
         {
             foreach (var id in model.Ids)
             {
-                //if (model.DeleteUserQuestions)
-                //{
-                //    var answersQuery = new UserDataByIdQuery(id);
-                //    var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
-
-                //    foreach (var question in answersInfo.Questions)
-                //    {
-                //        var deleteQuestionCommand = new DeleteQuestionCommand(question);
-                //        await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
-                //    }
-
-                //    foreach (var answer in answersInfo.Answers)
-                //    {
-                //        var deleteAnswerCommand = new DeleteAnswerCommand(answer);
-                //        await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
-                //    }
-
-                //}
-                DateTimeOffset? LockoutEnd;
-                if (model.LockoutEnd != null)
+                TimeSpan lockout;
+                switch (model.SuspendTime)
                 {
-                    LockoutEnd = model.LockoutEnd;
+                    case SuspendTime.Day:
+                        lockout = TimeSpan.FromSeconds(TimeConst.Day);
+                        break;
+                    case SuspendTime.Week:
+                        lockout = TimeSpan.FromSeconds(TimeConst.Day * 7);
+                        break;
+                    case SuspendTime.Undecided:
+                        lockout = TimeSpan.MaxValue;
+                        break;
+                    case null:
+                        lockout = TimeSpan.MaxValue;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
-                else
-                {
-                    LockoutEnd = DateTimeOffset.MaxValue;
-                }
-                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, LockoutEnd);
+                
+                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, new DateTimeOffset(DateTime.UtcNow, lockout));
                 await commandBus.DispatchAsync(command, token);
             }
             return new SuspendUserResponse();
@@ -126,14 +119,13 @@ namespace Cloudents.Admin2.Api
         [HttpPost("unSuspend")]
         [ProducesResponseType(200)]
         public async Task<UnSuspendUserResponse> UnSuspendUserAsync(UnSuspendUserRequest model,
-            [FromServices] ICommandBus commandBus,
             CancellationToken token)
         {
             foreach (var id in model.Ids)
             {
                
                 var command = new UnSuspendUserCommand(id);
-                await commandBus.DispatchAsync(command, token);
+                await _commandBus.DispatchAsync(command, token);
             }
             return new UnSuspendUserResponse();
         }
@@ -141,22 +133,20 @@ namespace Cloudents.Admin2.Api
         [HttpPost("country")]
         [ProducesResponseType(200)]
         public async Task ChangeCountryAsync(ChangeCountryRequest model,
-            [FromServices] ICommandBus commandBus,
             CancellationToken token)
         {
             
             var command = new ChangeCountryCommand(model.Id, model.Country);
-            await commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
-        public async Task DeleteUseryAsync(long id,
-            [FromServices] ICommandBus commandBus,
+        public async Task DeleteUserAsync(long id,
             CancellationToken token)
         {
             var command = new DeleteUserCommand(id);
-            await commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
         }
             
     }

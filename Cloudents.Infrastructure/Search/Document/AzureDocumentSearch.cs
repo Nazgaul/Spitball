@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Search.Document
 
 
         // ReSharper disable once UnusedMember.Global - we used that for testing
-        public async Task<string> ItemAsync(long itemId, CancellationToken cancelToken)
+        public async Task<Core.Entities.Search.Document> ItemAsync(long itemId, CancellationToken cancelToken)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.Search.Document
                         _client.Documents.GetAsync<Core.Entities.Search.Document>
                         (itemId.ToString(CultureInfo.InvariantCulture),
                             cancellationToken: cancelToken).ConfigureAwait(false);
-                return item.Content;
+                return item;
             }
             //item may not exists in the search....
             catch (CloudException)
@@ -84,7 +84,8 @@ namespace Cloudents.Infrastructure.Search.Document
         {
             var filters = new List<string>
             {
-                $"({nameof(Core.Entities.Search.Document.Country)} eq '{query.Profile.Country}' or {nameof(Core.Entities.Search.Document.Language)} eq 'en')"
+                $"({nameof(Core.Entities.Search.Document.Country)} eq '{query.Profile.Country}')" 
+               // $" or {nameof(Core.Entities.Search.Document.Language)} eq 'en')"
             };
             if (query.Course != null)
             {
@@ -108,8 +109,6 @@ namespace Cloudents.Infrastructure.Search.Document
             }
             var searchParameter = new SearchParameters
             {
-                //Facets = new[] { nameof(Document.Subject),
-                //    nameof(Document.State) },
                 Filter = string.Join(" and ", filters),
                 Select = new[] { nameof(Core.Entities.Search.Document.Id),
                     nameof(Core.Entities.Search.Document.MetaContent) },

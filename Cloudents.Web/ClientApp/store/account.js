@@ -123,6 +123,52 @@ const actions = {
         context.commit('setProfile', profileData)
        });       
     },
+    getAnswers(context, answersInfo){
+        let id = answersInfo.id
+        let page = answersInfo.page;
+        return accountService.getProfileAnswers(id, page).then(({data})=>{
+            let maximumElementsRecivedFromServer = 50;
+            if(data.length > 0){
+               data.forEach(answer=>{
+                   //create answer Object and push it to the state
+                    let answerToPush = {
+                        ...answer,
+                        answersNum: answer.answers,
+                        filesNum: answer.files,
+                    }
+                    context.state.profile.answers.push(answerToPush);
+               }) 
+            }
+            //return true if we can call to the server
+            return data.length === maximumElementsRecivedFromServer;
+        }, (err)=>{
+            return false;
+        });
+    },
+    getQuestions(context, questionsInfo){
+        let id = questionsInfo.id
+        let page = questionsInfo.page;
+        let user = questionsInfo.user;
+        return accountService.getProfileQuestions(id, page).then(({data})=>{
+            let maximumElementsRecivedFromServer = 50;
+            if(data.length > 0){
+               data.forEach(question=>{
+                   //create answer Object and push it to the state
+                    let questionToPush = {
+                        ...question,
+                        user: user,
+                        answersNum: question.answers,
+                        filesNum: question.files,
+                    }
+                    context.state.profile.questions.push(questionToPush);
+               }) 
+            }
+            //return true if we can call to the server
+            return data.length === maximumElementsRecivedFromServer;
+        }, (err)=>{
+            return false;
+        });
+    },
     updateUserProfileData(context, name){
         let currentProfile = profileService.getProfileData(name);
         context.commit("UPDATE_PROFILE_DATA", currentProfile );

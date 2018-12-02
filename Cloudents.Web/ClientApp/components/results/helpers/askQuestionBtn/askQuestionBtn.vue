@@ -88,7 +88,7 @@
     .ask-action-card {
         right: 0;
         top: 0;
-        z-index: 999;
+        //z-index: 999; @gaby: why do we need z-index here??? (button appears above the menu is small screens)
         border-radius: 4px;
         &.floatingcard {
             right: 0;

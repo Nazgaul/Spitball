@@ -10,8 +10,7 @@ function createDocumentItem(ObjInit){
 }
 
 export default {
-
-    getDocument: (ids) => {
+    getDocuments: () => {
         return connectivityModule.http.get(`${url}`)
             .then((resp) => {
                 console.log(resp, 'success get 20 docs');
@@ -35,8 +34,8 @@ export default {
             })
     },
 
-    approveDocument: (id) =>{
-        return connectivityModule.http.post(`${url}`, {id})
+    approveDocument: (arrIds) =>{
+        return connectivityModule.http.post(`${url}`, {"id": arrIds})
             .then((resp) => {
                 console.log(resp, 'post doc success');
                 return Promise.resolve(resp)

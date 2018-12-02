@@ -6,7 +6,7 @@
             <v-text-field class="search-b" type="search" solo
                           @keyup.enter="search()" autocomplete="off" @keyup.down="arrowNavigation(1)"
                           @keyup.up="arrowNavigation(-1)"
-                          required name="q"
+                           name="q"
                           id="transcript"
                           v-model="msg" @input="changeMsg" :placeholder="placeholder"
                           prepend-icon="sbf-search"
