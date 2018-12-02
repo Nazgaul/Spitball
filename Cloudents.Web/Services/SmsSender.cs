@@ -25,9 +25,7 @@ namespace Cloudents.Web.Services
 
         private async Task SendSmsAsync(string phoneNumber,string code, CancellationToken token)
         {
-            //var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber).ConfigureAwait(false);
             var message = new SmsMessage2(phoneNumber, code);
-
             await _serviceBusProvider.InsertMessageAsync(message, token);
         }
 

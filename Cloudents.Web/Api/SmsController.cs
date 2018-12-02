@@ -95,17 +95,21 @@ namespace Cloudents.Web.Api
 
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 
-            if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
+            if (country != null)
             {
-                var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
-                var t1 = _commandBus.DispatchAsync(command2, token);
-                await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
-                ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["PhoneNumberNotSameCountry"]);
-                var t2 =  _signInManager.SignOutAsync();
-                await Task.WhenAll(t1, t2);
-                return BadRequest(ModelState);
+                if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
+                {
+                    var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
+                    var t1 = _commandBus.DispatchAsync(command2, token);
+                    await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
+                    ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["PhoneNumberNotSameCountry"]);
+                    var t2 = _signInManager.SignOutAsync();
+                    await Task.WhenAll(t1, t2);
+                    return BadRequest(ModelState);
 
+                }
             }
+
             if (retVal.Succeeded)
             {
                 TempData[smsTime] = DateTime.UtcNow.ToString();
@@ -139,9 +143,6 @@ namespace Cloudents.Web.Api
             {
                 _logger.Error("VerifySmsAsync We can't identify the user");
                 return Unauthorized();
-                //var ex = new ArgumentNullException(nameof(user));
-                //ex.Data.Add("model", model.ToString());
-                //throw ex;
             }
 
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);
