@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Query;
 using System.Linq;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Api
 {
@@ -49,6 +50,7 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
+        [ResponseCache(Duration = TimeConst.Hour,Location = ResponseCacheLocation.Any,VaryByQueryKeys = new []{nameof(CourseRequest.Term) })]
         public async Task<CoursesResponse> GetAsync([FromQuery]CourseRequest model,
             CancellationToken token)
         {

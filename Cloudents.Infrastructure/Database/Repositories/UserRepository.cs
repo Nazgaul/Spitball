@@ -38,10 +38,6 @@ namespace Cloudents.Infrastructure.Database.Repositories
         public override Task<User> LoadAsync(object id, CancellationToken token)
         {
             return LoadAsync(id, true, token);
-            //var user = await base.LoadAsync(id, token);
-            //CheckUserLockout(user);
-
-            //return user;
         }
 
         public async Task<User> LoadAsync(object id, bool checkUserLocked, CancellationToken token)
@@ -58,7 +54,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
         private static void CheckUserLockout([NotNull] User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
-            if (user.Fictive.GetValueOrDefault())
+            if (!user.LockoutEnabled)
             {
                 return;
             }

@@ -46,18 +46,18 @@
                         </div>
                         <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">{{emptyStateData.btnText}}</router-link>
                     </div>
-                    <div v-show="activeTab === 1">
-                        <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
-                                     v-for="(questionData,index) in profileData.questions" :key="index">
-                            <question-card :cardData="questionData"></question-card>
-                        </router-link>
-                    </div>
-                    <div v-show="activeTab === 2">
-                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="(answerData,index) in profileData.answers"
-                                     :key="index" class="mb-3">
-                            <question-card :cardData="answerData" class="mb-3"></question-card>
-                        </router-link>
-                    </div>
+                        <scroll-list v-show="activeTab === 1" :scrollFunc="loadQuestions" :isLoading="questions.isLoading" :isComplete="questions.isComplete">
+                            <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
+                                        v-for="(questionData,index) in profileData.questions" :key="index">
+                                <question-card :cardData="questionData"></question-card>
+                            </router-link>
+                        </scroll-list>
+                        <scroll-list v-show="activeTab === 2" :scrollFunc="loadAnswers" :isLoading="answers.isLoading" :isComplete="answers.isComplete">
+                            <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="(answerData,index) in profileData.answers"
+                                        :key="index" class="mb-3">
+                                <question-card :cardData="answerData" class="mb-3"></question-card>
+                            </router-link>
+                        </scroll-list>
                 </v-flex>
 
             </v-layout>
