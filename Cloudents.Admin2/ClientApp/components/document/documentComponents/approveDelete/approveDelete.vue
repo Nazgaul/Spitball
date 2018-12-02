@@ -13,7 +13,7 @@
                 <v-card>
                     <v-container fluid grid-list-md>
                         <v-layout row wrap>
-                            <v-flex v-for="(document, index) in documentsList" :key="document.id" >
+                            <v-flex v-for="(document, index) in documentsList" :key="document.id">
                                 <v-card>
                                     <v-img :class="[ 'document-preview', proccessedDocuments.includes(document.id) ? 'blured' : '']"
                                            :src="document.preview"
@@ -31,7 +31,7 @@
                                             </v-layout>
                                         </v-container>
                                     </v-img>
-                                    <v-card-actions >
+                                    <v-card-actions>
                                         <v-btn flat
                                                @click="approveDocument(document)"
                                                :disabled="proccessedDocuments.includes(document.id)">Approve
@@ -58,18 +58,18 @@
                 :value="true"
                 color="white"
         >
-            <v-btn  color="teal" flat value="recent" @click="getDocumentsList()">
+            <v-btn color="teal" flat value="recent" @click="getDocumentsList()">
                 <span>Get another 20</span>
                 <v-icon>refresh</v-icon>
             </v-btn>
             <!--<v-btn color="teal" flat value="favorites">-->
-                <!--<span>Favorites</span>-->
-                <!--<v-icon>favorite</v-icon>-->
+            <!--<span>Favorites</span>-->
+            <!--<v-icon>favorite</v-icon>-->
             <!--</v-btn>-->
 
             <!--<v-btn color="teal" flat value="nearby">-->
-                <!--<span>Nearby</span>-->
-                <!--<v-icon>place</v-icon>-->
+            <!--<span>Nearby</span>-->
+            <!--<v-icon>place</v-icon>-->
             <!--</v-btn>-->
         </v-bottom-nav>
     </div>
@@ -87,20 +87,27 @@
                     type: Array,
                     default: []
                 },
+                arrayOfIds: [],
                 proccessedDocuments: [],
                 bottomNav: 'recent'
 
             }
         },
         methods: {
-            markAsProccessed(document) {
-                return this.proccessedDocuments.push(document.id)
+            markAsProccessed(arrIds) {
+                for (let i = 0; i < arrIds.length; i++) {
+                    this.proccessedDocuments.push(arrIds[i])
+                }
+                return this.proccessedDocuments
             },
 
             getDocumentsList() {
-                approveDeleteService.getDocument()
+                approveDeleteService.getDocuments()
                     .then(resp => {
                             this.documentsList = resp;
+                            this.arrayOfIds = this.documentsList.map(item => {
+                                return item.id
+                            });
                             console.log('docs!', resp)
                         },
                         (error) => {
@@ -122,11 +129,16 @@
                         })
             },
             approveDocument(document) {
-                approveDeleteService.approveDocument(document.id)
+
+                let arrIds = [];
+                arrIds = this.arrayOfIds.filter((singleID) => {
+                    return !this.proccessedDocuments.includes(singleID);
+                });
+                approveDeleteService.approveDocument(arrIds)
                     .then(resp => {
-                            this.$toaster.error(`Document ${document.id} approved`);
+                            this.$toaster.error(`Document ${arrIds} approved`);
                             console.log('docs!', resp)
-                            this.markAsProccessed(document)
+                            this.markAsProccessed(arrIds)
                         },
                         (error) => {
                             this.$toaster.error('Something went wrong');
