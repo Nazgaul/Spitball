@@ -9,15 +9,15 @@ export default {
     props: {
         value: {type: String},
         error: {},
-        actionType:{type:String, default:'answer'},
+        actionType: {type: String, default: 'answer'},
         isFocused: false,
         uploadUrl: {type: String}
     },
     data() {
         return {
             previewList: [],
-            fullPreview:false,
-            errorTextArea :{},
+            fullPreview: false,
+            errorTextArea: {},
             colorsSet: colorsSet,
             activeColor: {
                 name: 'default',
@@ -25,57 +25,77 @@ export default {
             },
             counter: 0,
             uploadLimit: 4,
-            isFirefox : global.isFirefox,
-            files: []
-            }
+            isFirefox: global.isFirefox,
+            files: [],
+            uploadedFiles: []
+        }
 
 
     },
-    watch:{
-        value(newVal,oldVal){
-            //clean preview list when text is empty
-            //if(!newVal){this.previewList=[];}
+    watch: {
+        files(newVal, oldVal) {
+         console.log('files',this.files)
         }
     },
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
         },
-        togglePreview: function(){
+        togglePreview: function () {
             this.fullPreview = !this.fullPreview
         },
-        deletePreview: function(index){
-            this.counter = this.counter -1;
+        deletePreview: function (index) {
+            this.counter = this.counter - 1;
             this.previewList.splice(index, 1);
             this.$emit('removeFile', index);
         },
-        updateColor(color){
-           this.activeColor = color || colorsSet[0];
-           this.$parent.$emit('colorSelected', this.activeColor);
+        updateColor(color) {
+            this.activeColor = color || colorsSet[0];
+            this.$parent.$emit('colorSelected', this.activeColor);
         },
-        /**
-         * Has changed
-         * @param  Object|undefined   newFile   Read only
-         * @param  Object|undefined   oldFile   Read only
-         * @return undefined
-         */
+
         inputFile: function (newFile, oldFile) {
+            let self= this;
+            if (newFile && newFile.progress) {
+                console.log('progress', newFile.progress, newFile)
+            }
+            // Upload error
+            if (newFile && oldFile && newFile.error !== oldFile.error) {
+
+                console.log('error', newFile.error, newFile)
+            }
+            // Get response data
             if (newFile && oldFile && !newFile.active && oldFile.active) {
                 // Get response data
-                console.log('response', newFile.response)
+                console.log('response', newFile.response);
                 if (newFile.xhr) {
                     //  Get the response status code
                     console.log('status', newFile.xhr.status)
+                    if (newFile.xhr.status === 200) {
+                        console.log('Succesfully uploadede')
+                        if(newFile.response && newFile.response.files){
+                            this.uploadedFiles = this.uploadedFiles.concat(newFile.response.files);
+                            if(this.uploadedFiles.length  <= 4){
+                                self.$emit('addFile', newFile.response.files);
+                            }
+
+                        }
+
+                    } else {
+                        console.log('error, not uploaded')
+                    }
+                }
+                if (newFile && newFile.response && newFile.response.status === 'success') {
+                    //generated blob name from server after successful upload
+                }
+            }
+            if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+                if (!this.$refs.upload.active) {
+                    this.$refs.upload.active = true
                 }
             }
         },
-        /**
-         * Pretreatment
-         * @param  Object|undefined   newFile   Read and write
-         * @param  Object|undefined   oldFile   Read only
-         * @param  Function           prevent   Prevent changing
-         * @return undefined
-         */
+
         inputFilter: function (newFile, oldFile, prevent) {
             if (newFile && !oldFile) {
                 // Filter non-image file
@@ -83,14 +103,27 @@ export default {
                     return prevent()
                 }
             }
-
-            // Create a blob field
-            newFile.blob = ''
-            let URL = window.URL || window.webkitURL
-            if (URL && URL.createObjectURL) {
-                newFile.blob = URL.createObjectURL(newFile.file)
+            if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+                // Create a blob field
+                // 创建 blob 字段
+                newFile.blob = ''
+                let URL = window.URL || window.webkitURL;
+                if (URL && URL.createObjectURL) {
+                    newFile.blob = URL.createObjectURL(newFile.file);
+                    if(this.previewList.length >= 4)return;
+                    this.previewList.push(newFile.blob)
+                }
+                // Thumbnails
+                // 缩略图
+                newFile.thumb = ''
+                if (newFile.blob && newFile.type.substr(0, 6) === 'image/') {
+                    newFile.thumb = newFile.blob
+                }
             }
-        }
+
+
+
+}
 
     },
     mounted() {

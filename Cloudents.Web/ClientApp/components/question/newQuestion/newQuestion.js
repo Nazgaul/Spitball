@@ -133,7 +133,7 @@ export default {
             }
         },
         addFile(filename) {
-            this.files.push(...filename.split(','));
+            this.files = this.files.concat(filename);
         },
         removeFile(index) {
             this.files.splice(index, 1);

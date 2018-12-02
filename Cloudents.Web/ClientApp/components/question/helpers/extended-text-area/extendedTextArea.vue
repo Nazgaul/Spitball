@@ -3,7 +3,7 @@
         <div class="textarea">
             <div class="text-block" :class="`sbf-card-${activeColor.name}`">
                 <span class="error-message" v-if="error.errorClass &&  value.length < 15" :error="errorTextArea">{{error.errorText}}</span>
-                <textarea rows="9"  required
+                <textarea rows="9" required
                           :class="[`sbf-font-${activeColor.name}`, { active: activeColor.id !== 0 }, isFirefox ? 'firefox-text-area' : '']"
                           @input="updateValue($event.target.value)"
                           :value="value" autofocus="isFocused"
@@ -11,21 +11,22 @@
                 <div class="action-holder">
                     <ul class="actions_text files-actions">
                         <li>
-                            <v-icon style="cursor: pointer; font-size: 18px; position: absolute; top: 4px;" :class="`sbf-font-${activeColor.name}`">sbf-attach</v-icon>
-                                <file-upload
-                                        id="file-input"
-                                        ref="upload"
-                                        :drop="false"
-                                        v-model="files"
-                                        :post-action=uploadUrl
-                                        chunk-enabled
-                                        :extensions="['doc', 'pdf', 'png',  'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx']"
-                                        :maximum="4"
-                                        @input-file="inputFile"
-                                        @input-filter="inputFilter"
-                                >
-                                </file-upload>
+                            <v-icon style="cursor: pointer; font-size: 18px; position: absolute; top: 4px;"
+                                    :class="`sbf-font-${activeColor.name}`">sbf-attach
+                            </v-icon>
+                            <file-upload
+                                    id="file-input"
+                                    ref="upload"
+                                    :drop="false"
+                                    v-model="files"
+                                    :multiple="true"
+                                    :post-action=uploadUrl
+                                    :extensions="['doc', 'pdf', 'png',  'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx']"
+                                    @input-file="inputFile"
+                                    @input-filter="inputFilter"
+                                     >
 
+                            </file-upload>
                             <!--<input id="file-input" type="file" multiple accept="image/*"/>-->
 
                         </li>
@@ -50,9 +51,9 @@
                         <img :src="image"/>
                     </li>
                     <!--<li class="add-file" v-show="previewList.length < uploadLimit">-->
-                        <!--<label for="file-input">-->
-                            <!--<v-icon>sbf-close</v-icon>-->
-                        <!--</label>-->
+                    <!--<label for="file-input">-->
+                    <!--<v-icon>sbf-close</v-icon>-->
+                    <!--</label>-->
                     <!--</li>-->
                 </ul>
             </div>
