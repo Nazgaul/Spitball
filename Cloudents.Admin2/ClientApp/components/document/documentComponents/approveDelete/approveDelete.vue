@@ -13,7 +13,8 @@
                 <v-card>
                     <v-container fluid grid-list-md>
                         <v-layout row wrap>
-                            <v-flex v-for="(document, index) in documentsList" :key="document.id">
+                            <h3 v-if="!documentsList.length">No documents to display</h3>
+                            <v-flex v-else v-for="(document, index) in documentsList" :key="document.id">
                                 <v-card>
                                     <v-img :class="[ 'document-preview', proccessedDocuments.includes(document.id) ? 'blured' : '']"
                                            :src="document.preview"
@@ -26,14 +27,14 @@
                                         >
                                             <v-layout fill-height>
                                                 <v-flex xs12 align-end flexbox>
-                                                    <span class="headline white--text" v-text="document.id"></span>
+                                                    <span class="headline" v-text="document.id"></span>
                                                 </v-flex>
                                             </v-layout>
                                         </v-container>
                                     </v-img>
                                     <v-card-actions>
                                         <v-btn flat
-                                               @click="approveDocument(document)"
+                                               @click="approveSingleDocument(document)"
                                                :disabled="proccessedDocuments.includes(document.id)">Approve
                                             <v-icon>check</v-icon>
                                         </v-btn>
@@ -56,21 +57,16 @@
                 shift
                 :active.sync="bottomNav"
                 :value="true"
-                color="white"
+                color="#3f51b5"
         >
-            <v-btn color="teal" flat value="recent" @click="getDocumentsList()">
-                <span>Get another 20</span>
+            <v-btn class="bottom-nav-btn" dark  value="refresh" @click="getDocumentsList()">
+                <span class="btn-text">Get another 20</span>
                 <v-icon>refresh</v-icon>
             </v-btn>
-            <!--<v-btn color="teal" flat value="favorites">-->
-            <!--<span>Favorites</span>-->
-            <!--<v-icon>favorite</v-icon>-->
-            <!--</v-btn>-->
-
-            <!--<v-btn color="teal" flat value="nearby">-->
-            <!--<span>Nearby</span>-->
-            <!--<v-icon>place</v-icon>-->
-            <!--</v-btn>-->
+            <v-btn class="bottom-nav-btn" dark value="approve" @click="approveDocuments()">
+            <span class="btn-text">Approve All</span>
+            <v-icon>check</v-icon>
+            </v-btn>
         </v-bottom-nav>
     </div>
 </template>
@@ -89,7 +85,7 @@
                 },
                 arrayOfIds: [],
                 proccessedDocuments: [],
-                bottomNav: 'recent'
+                bottomNav: 'refresh'
 
             }
         },
@@ -102,43 +98,64 @@
             },
 
             getDocumentsList() {
+                let self = this;
+                //clear proccessed array
+                self.proccessedDocuments = [];
+                self.arrayOfIds = [];
                 approveDeleteService.getDocuments()
                     .then(resp => {
-                            this.documentsList = resp;
-                            this.arrayOfIds = this.documentsList.map(item => {
+                            self.documentsList = resp;
+                            self.arrayOfIds = self.documentsList.map(item => {
                                 return item.id
                             });
                             console.log('docs!', resp)
                         },
                         (error) => {
-                            this.$toaster.error('Something went wrong');
+                            self.$toaster.error('Something went wrong');
                             console.log('component accept error', error)
                         })
 
             },
             deleteDocument(document) {
+                let singleIdArr = [];
                 approveDeleteService.deleteDocument(document.id)
                     .then(resp => {
-                            this.$toaster.error(`Document ${document.id} successfully deleted`);
-                            console.log('docs!', resp)
-                            this.markAsProccessed(document)
+                            this.$toaster.success(`Document ${document.id} successfully deleted`);
+                            singleIdArr.push(document.id);
+                             // receives arr with id :: [12]
+                            this.markAsProccessed(singleIdArr)
                         },
                         (error) => {
                             this.$toaster.error('Something went wrong');
                             console.log('component accept error', error)
                         })
             },
-            approveDocument(document) {
-
+            //always one el array
+            approveSingleDocument(document) {
+               let arrSingleId = [];
+               arrSingleId.push(document.id);
+                approveDeleteService.approveDocument(arrSingleId)
+                    .then(resp => {
+                            this.$toaster.success(`Document ${arrSingleId} approved`);
+                            console.log('docs!', resp);
+                            this.markAsProccessed(arrSingleId)
+                        },
+                        (error) => {
+                            this.$toaster.error('Something went wrong');
+                            console.log('component accept error', error)
+                        })
+            },
+            approveDocuments() {
                 let arrIds = [];
+                //filter already deleted or approved, in order to prevent second processing attempt on server
                 arrIds = this.arrayOfIds.filter((singleID) => {
                     return !this.proccessedDocuments.includes(singleID);
                 });
                 approveDeleteService.approveDocument(arrIds)
                     .then(resp => {
-                            this.$toaster.error(`Document ${arrIds} approved`);
+                            this.$toaster.success(`All Documents ${arrIds} approved`);
+                            this.getDocumentsList();
                             console.log('docs!', resp)
-                            this.markAsProccessed(arrIds)
                         },
                         (error) => {
                             this.$toaster.error('Something went wrong');
@@ -161,6 +178,15 @@
                 filter: grayscale(100%);
             }
         }
+        .bottom-nav-btn{
+            opacity: 1!important;
+            .btn-text{
+                color: #ffffff!important;
+                font-size: 16px;
+                font-weight: 400;
+            }
+        }
+
 
     }
 

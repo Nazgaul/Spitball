@@ -35,7 +35,7 @@ export default {
     },
 
     approveDocument: (arrIds) =>{
-        return connectivityModule.http.post(`${url}`, arrIds)
+        return connectivityModule.http.post(`${url}`, {"id": arrIds})
             .then((resp) => {
                 console.log(resp, 'post doc success');
                 return Promise.resolve(resp)
