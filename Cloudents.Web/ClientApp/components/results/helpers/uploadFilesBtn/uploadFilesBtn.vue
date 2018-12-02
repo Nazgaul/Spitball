@@ -6,7 +6,7 @@
                     <!--<p v-show="$vuetify.breakpoint.smAndUp"  :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
                         <!--upload_files_component_share_study-->
                     <!--</p>-->
-                    <button round :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '']" @click="openUploaderDialog()">
+                    <button round :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]" @click="openUploaderDialog()">
                         <v-icon class="sb-cloud-upload-icon" right>sbf-upload-cloud</v-icon>
                         <span class="btn-text" v-language:inner>upload_files_file_upload</span>
                     </button>
@@ -35,7 +35,7 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState', 'showRegistrationBanner']),
+            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState', 'showRegistrationBanner', 'getCookieAccepted']),
 
             isFloatingBtn() {
                 let offHeight = 0;
@@ -46,6 +46,9 @@
                     offHeight = 200;
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
+            },
+            raiseFloatingButtonPosition(){
+                return !this.getCookieAccepted
             },
             showUploadDialog() {
                 return this.getDialogState

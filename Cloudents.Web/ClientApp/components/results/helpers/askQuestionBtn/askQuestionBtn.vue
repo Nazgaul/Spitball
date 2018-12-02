@@ -6,7 +6,7 @@
                     <!--<p v-show="$vuetify.breakpoint.smAndUp" :class="['ask-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
                     <!--faqBlock_ask-->
                     <!--</p>-->
-                    <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '']"
+                    <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]"
                             @click="goToAskQuestion()">
                         <v-icon class="sb-edit-icon" right>sbf-edit-icon</v-icon>
                         <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
@@ -35,7 +35,7 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState', 'showRegistrationBanner']),
+            ...mapGetters(['accountUser', 'loginDialogState', 'showRegistrationBanner', 'getCookieAccepted']),
 
             isFloatingBtn() {
                 let offHeight = 0;
@@ -46,6 +46,9 @@
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
+            raiseFloatingButtonPosition(){
+                return !this.getCookieAccepted
+            }
         },
         methods: {
             ...mapActions([
@@ -88,7 +91,7 @@
     .ask-action-card {
         right: 0;
         top: 0;
-        z-index: 999;
+        //z-index: 999; @gaby: why do we need z-index here??? (button appears above the menu is small screens)
         border-radius: 4px;
         &.floatingcard {
             right: 0;
@@ -184,6 +187,9 @@
                             position: absolute;
                             font-size: 0px;
                             visibility: hidden;
+                        }
+                        &.raised{
+                            bottom: 65px;
                         }
                     }
                 }
