@@ -272,7 +272,6 @@
                         }
                     )
             },
-
             startIntercom() {
                 Intercom('showNewMessage')
             },
