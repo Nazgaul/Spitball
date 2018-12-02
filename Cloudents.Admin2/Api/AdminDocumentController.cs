@@ -41,6 +41,7 @@ namespace Cloudents.Admin2.Api
             var query = new AdminEmptyQuery();
             var retVal = await _queryBus.QueryAsync<IList<PendingDocumentDto>>(query, token);
             var tasks = new Lazy<List<Task>>();
+            var counter = 0;
             foreach (var id in retVal)
             {
                 var files = await _blobProvider.FilesInDirectoryAsync("preview-", id.Id.ToString(), token);
@@ -49,13 +50,19 @@ namespace Cloudents.Admin2.Api
                 {
                     id.Preview =
                         blobProvider.GeneratePreviewLink(file,
-                            20); 
+                            20);
+                    counter++;
                 }
                 else
                 {
 
                     var t =  _queueProvider.InsertBlobReprocessAsync(id.Id);
                     tasks.Value.Add(t);
+                }
+
+                if (counter >= 20)
+                {
+                    break;
                 }
             }
 
