@@ -134,7 +134,7 @@ export default {
 
         },
         confirmCloseOpen() {
-            if (this.currentStep === this.steps) {
+            if (this.currentStep === this.steps || this.isFirstStep) {
                 this.closeUpload()
             } else {
                 this.confirmationDialog = true;

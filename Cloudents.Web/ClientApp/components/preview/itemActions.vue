@@ -43,12 +43,12 @@
         },
         methods: {
             $_back() {
-                this.$router.go(-1);
+                this.$router.push({path: '/note'});
             }
         },
         computed: {
             showActions() {
-                return this.$route.name === 'item'
+                return this.$route.name === 'document'
             }
         }
     }

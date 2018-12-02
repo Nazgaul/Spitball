@@ -112,7 +112,7 @@ let routes2 = [
         //document/{universityName}/{courseName}/{id:long}/{name}
         path: "/note/:universityName/:courseName/:id/:name",
         alias: ['/document/:universityName/:courseName/:id/:name'],
-        name: "item",
+        name: "document",
         components: {
             default: showItem,
             header: pageHeader
