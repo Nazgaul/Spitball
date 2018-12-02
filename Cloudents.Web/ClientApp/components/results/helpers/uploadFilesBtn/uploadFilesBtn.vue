@@ -58,16 +58,23 @@
                 'updateNewQuestionDialogState',
                 'updateDialogState',
                 'changeSelectPopUpUniState',
+                'updateCurrentStep',
+                'changeSelectUniState'
             ]),
-            ...mapGetters(['getSchoolName']),
+            ...mapGetters(['getSchoolName', 'getAllSteps']),
             openUploaderDialog() {
                 let schoolName = this.getSchoolName();
+                let steps = this.getAllSteps();
                 if (this.accountUser == null) {
                     this.updateLoginDialogState(true);
-                } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
+                } else if(!schoolName.length){
+                    this.updateCurrentStep(steps.set_school);
+                    this.changeSelectUniState(true);
+                }else if(!this.getSelectedClasses.length){
+                    this.updateCurrentStep(steps.set_class);
+                    this.changeSelectUniState(true);
+                }else if(schoolName.length > 0 && this.getSelectedClasses.length > 0){
                     this.updateDialogState(true);
-                } else {
-                    this.changeSelectPopUpUniState(true)
                 }
             },
             transformToBtn() {
