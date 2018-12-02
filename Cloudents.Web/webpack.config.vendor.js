@@ -19,7 +19,6 @@ const allModules = [
     "./ClientApp/main.styl",
     "./wwwroot/content/main.less",
     "./ClientApp/myFont.font.js",
-    "vuex-persistedstate",
     "vuetify/es5/components/Vuetify",
     "vuetify/es5/components/VApp",
     "vuetify/es5/components/VGrid",
