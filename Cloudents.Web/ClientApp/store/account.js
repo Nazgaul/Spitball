@@ -12,6 +12,7 @@ function setIntercomSettings(data){
     let user_id = null;
     let user_name = null;
     let user_email = null;
+    
     if(!!data){
         user_id = "Sb_" + data.id;
         user_name = data.name;
@@ -49,9 +50,13 @@ const state = {
     unreadMessages: 0,
     fromPath: null,
     lastActiveRoute: null,
-    profileData: profileService.getProfileData('profileGeneral')
+    profileData: profileService.getProfileData('profileGeneral'),
+    profile: null
 }
 const mutations = {
+    setProfile(state, val){
+        state.profile = val;
+    },
     changeLoginStatus(state, val) {
         state.login = val;
     },
@@ -84,6 +89,7 @@ const mutations = {
 };
 
 const getters = {
+    getProfile: state => state.profile,
     fromPath: state => state.fromPath,
     unreadMessages: state => state.unreadMessages,
     loginStatus: state => state.login,
@@ -106,6 +112,17 @@ const getters = {
 };
 
 const actions = {
+    syncProfile(context, id){
+        //fetch all the data before returning the value to the component
+       let p1 = accountService.getProfile(id);
+       let p2 = accountService.getProfileQuestions(id);
+       let p3 = accountService.getProfileAnswers(id);
+       Promise.all([p1,p2,p3]).then((vals)=>{
+        console.log(vals)
+        let profileData = accountService.createProfileData(vals);
+        context.commit('setProfile', profileData)
+       });       
+    },
     updateUserProfileData(context, name){
         let currentProfile = profileService.getProfileData(name);
         context.commit("UPDATE_PROFILE_DATA", currentProfile );

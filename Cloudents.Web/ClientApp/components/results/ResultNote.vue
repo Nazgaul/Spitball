@@ -17,7 +17,7 @@
                     </div>
                     <div class="content-wrap">
                         <div class="title-wrap">
-                            <p class="doc-title" v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 ">
+                            <p :class="['doc-title', isFirefox ? 'foxLineClamp' : '']" v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 ">
                                 <v-icon class="doc mr-2">sbf-document-note</v-icon>{{item.title}}
                             </p>
                         </div>
@@ -56,7 +56,11 @@
 
     export default {
         components: {AskDefault, NoteDefault, FlashcardDefault, documentDetails},
-
+        data() {
+            return {
+                isFirefox: global.isFirefox
+            }
+        },
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
 

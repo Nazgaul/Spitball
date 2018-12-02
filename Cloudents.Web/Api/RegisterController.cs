@@ -34,7 +34,7 @@ namespace Cloudents.Web.Api
         private readonly ILogger _logger;
 
         internal const string Email = "email2";
-
+        public const string emailTime = "EmailTime";
 
         public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
             IBlockChainErc20Service blockChainErc20Service, IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger)
@@ -64,6 +64,7 @@ namespace Cloudents.Web.Api
                 }
                 catch (ArgumentException)
                 {
+                   
 
                 }
 
@@ -95,6 +96,7 @@ namespace Cloudents.Web.Api
             var p = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
             if (p.Succeeded)
             {
+                TempData[emailTime] = DateTime.UtcNow.ToString();
                 await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
                 return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
             }
@@ -265,6 +267,13 @@ namespace Cloudents.Web.Api
             ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
+            var temp = DateTime.Parse(TempData.Peek(emailTime).ToString());
+
+            if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+            {
+                return Ok();
+            }
+
             var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");
             if (email == null)
             {
@@ -278,6 +287,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
+            TempData[emailTime] = DateTime.UtcNow.ToString();
             await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
             return Ok();
         }

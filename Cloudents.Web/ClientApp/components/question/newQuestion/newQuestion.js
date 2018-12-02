@@ -30,6 +30,7 @@ export default {
     },
     watch: {
         price(val) {
+            if(!val)return;
             let splitLength = val.toString().split('.');
             if (splitLength.length === 2 && splitLength[1].length >= 3) {
                 this.price = parseFloat(val).toFixed(2)

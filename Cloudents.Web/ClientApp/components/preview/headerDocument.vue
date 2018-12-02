@@ -50,8 +50,8 @@
 
                     </div>
                     <div class="prof detail-cell">
-                        <v-icon class="prof-icon icon mr-2" v-show="item.professor">sbf-professor</v-icon>
-                        <span v-show="item.professor" class="detail-name mr-3" v-language:inner>headerDocument_item_prof</span>
+                        <v-icon class="prof-icon icon mr-2" v-show=" item && item.professor">sbf-professor</v-icon>
+                        <span v-show="item && item.professor" class="detail-name mr-3" v-language:inner>headerDocument_item_prof</span>
                         <span class="detail-title">{{item ?  item.professor : ''}}</span>
                     </div>
                 </div>

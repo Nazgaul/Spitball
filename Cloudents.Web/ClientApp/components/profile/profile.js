@@ -13,49 +13,26 @@ export default {
     data() {
         return {
             activeTab: 1,
-            profileData: null,
-
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState']),
+        ...mapActions(['updateNewQuestionDialogState', 'syncProfile']),
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
             this.$router.meta = {previous : tabId}
         },
         fetchData() {
-            accountService.getProfile(this.id).then(({ data }) => {
-                this.profileData = data;
-            }, error => {
-                window.location = "/error/notfound";
-            })
+            this.syncProfile(this.id);
         }
     },
     computed: {
-        ...mapGetters(["accountUser"]),
+        ...mapGetters(["accountUser", "getProfile"]),
+        profileData(){
+            return this.getProfile;
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
-        },
-        myAnswers() {
-            return this.profileData.answers ? this.profileData.answers.map(i => {
-                return {
-                    ...i,
-                    //user: this.profileData.user,
-                    answersNum: i.answers,
-                    filesNum: i.files,
-                }
-            }) : []
-        },
-        questions() {
-            return this.profileData.questions ? this.profileData.questions.map(item => {
-                return {
-                    ...item,
-                    user: this.profileData.user,
-                    answersNum: item.answers,
-                    filesNum: item.files,
-                }
-            }) : []
         },
         isMyProfile() {
             return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
@@ -92,6 +69,5 @@ export default {
         }else{
             this.activeTab = 1
         }
-
     }
 }
