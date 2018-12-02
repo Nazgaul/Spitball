@@ -84,7 +84,8 @@ namespace Cloudents.Infrastructure.Search.Document
         {
             var filters = new List<string>
             {
-                $"({nameof(Core.Entities.Search.Document.Country)} eq '{query.Profile.Country}' or {nameof(Core.Entities.Search.Document.Language)} eq 'en')"
+                $"({nameof(Core.Entities.Search.Document.Country)} eq '{query.Profile.Country}'" 
+               // $" or {nameof(Core.Entities.Search.Document.Language)} eq 'en')"
             };
             if (query.Course != null)
             {
