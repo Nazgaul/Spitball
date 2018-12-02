@@ -55,7 +55,9 @@ export default {
             showDialog: false,
             placeholder:{
                 whereSchool: LanguageService.getValueByKey("result_where_school")
-            }            
+            },
+            isEdge: global.isEdge
+
         };
     },
 

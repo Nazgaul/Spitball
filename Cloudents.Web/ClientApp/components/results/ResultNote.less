@@ -1,9 +1,7 @@
 @import "../../styles/mixin.less";
 @colorUploadDate: rgba( 0,0,0,0.38);
 .note-block {
-  //min-height: 223px;
   min-height: auto;
-  //max-height: 223px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
   &.cell {
     //will remove important after refactor of result WAF styles
@@ -30,7 +28,6 @@
       flex-direction: row;
       align-items: center;
       border-bottom: 1px solid rgba(151, 151, 151, 0.21);
-      //margin: 0 16px;
       .type-wrap {
         flex-grow: 1;
         display: flex;
@@ -96,17 +93,9 @@
         background: @colorContentBackground;
         display: flex;
         flex-direction: column;
-        //max-height: 81px;
-        //height: 81px;
         width: 100%;
         height: auto;
-        //max-height: 81px;
-        //@media (max-width: @screen-xs) {
-        //  height: auto;
-        //  max-height: unset;
-        //}
         .title-wrap {
-          //padding-bottom: 9px;
           display: flex;
           align-items: center;
 
@@ -119,6 +108,11 @@
             font-weight: 600;
             color: @textColor;
             margin-bottom: 0;
+            //firefox fix for line clamp, needs specific max-height
+            &.foxLineClamp{
+              max-height: 30px!important;
+              display: block!important;
+            }
             @media (max-width: @screen-xs) {
              line-height: 20px;
             }
