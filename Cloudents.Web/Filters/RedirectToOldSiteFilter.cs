@@ -1,46 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using Cloudents.Web.Extensions;
+﻿using Cloudents.Web.Extensions;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Configuration;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Filters
 {
     public class RedirectToOldSiteFilterAttribute : ActionFilterAttribute
     {
         private readonly IHostingEnvironment _environment;
-        private readonly List<IPAddress> _officeIps = new List<IPAddress>();
+        private readonly IPAddress _officeIp = IPAddress.Parse("31.154.39.170");
         private readonly ICountryProvider _countryProvider;
 
-        public RedirectToOldSiteFilterAttribute(IHostingEnvironment environment, IConfiguration configuration, ICountryProvider countryProvider)
+        public RedirectToOldSiteFilterAttribute(IHostingEnvironment environment, ICountryProvider countryProvider)
         {
             _environment = environment;
             _countryProvider = countryProvider;
-
-            var ipsStr = configuration["Ips"];
-
-            if (ipsStr == null) return;
-            foreach (var ipStr in ipsStr.Split(','))
-            {
-                if (IPAddress.TryParse(ipStr, out var ip))
-                {
-                    _officeIps.Add(ip);
-                }
-            }
         }
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             if (_environment.IsDevelopment())
             {
-               await next();
+                await next();
                 return;
-                
+
             }
 
             if (_environment.IsStaging())
@@ -64,7 +51,7 @@ namespace Cloudents.Web.Filters
 
             var requestIp = context.HttpContext.Connection.GetIpAddress();//.MapToIPv4().;
 
-            if (_officeIps.Contains(requestIp))
+            if (Equals(_officeIp, requestIp))
             {
                 await next();
                 return;
@@ -82,7 +69,6 @@ namespace Cloudents.Web.Filters
                     Query = context.HttpContext.Request.QueryString.Value
                 };
                 context.Result = new RedirectResult(uriBuilder.ToString());
-               // return this.RedirectToOldSite();
             }
             else
             {

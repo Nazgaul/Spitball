@@ -18,9 +18,13 @@ namespace Cloudents.Core.CommandHandler.Admin
 
         public async Task ExecuteAsync(ApproveDocumentCommand message, CancellationToken token)
         {
-            var document = await _documentRepository.LoadAsync(message.Id, token);
-            document.State = ItemState.Ok;
-            await _documentRepository.UpdateAsync(document, token);
+            foreach (var id in message.Id)
+            {
+                var document = await _documentRepository.LoadAsync(id, token);
+                document.State = ItemState.Ok;
+                await _documentRepository.UpdateAsync(document, token);
+            }
+           
         }
     }
 }

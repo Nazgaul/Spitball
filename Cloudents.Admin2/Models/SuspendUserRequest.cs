@@ -23,7 +23,14 @@ namespace Cloudents.Admin2.Models
         /// <summary>
         /// If we want to delete all his questions
         /// </summary>
-        public DateTimeOffset? LockoutEnd { get; set; }
+        public SuspendTime? SuspendTime { get; set; }
+    }
+
+    public enum SuspendTime
+    {
+        Day,
+        Week,
+        Undecided
     }
 
 
