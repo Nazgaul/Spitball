@@ -47,11 +47,13 @@ export default {
     getProfile:(id) => {
         return connectivityModule.http.get("/Profile/" + id)
     },
-    getProfileQuestions:(id) => {
-        return connectivityModule.http.get("Profile/questions/" + id)
+    getProfileQuestions:(id, page) => {
+        let strPage = page ? `?page=${page}` : ""
+        return connectivityModule.http.get("Profile/questions/" + id + strPage)
     },
-    getProfileAnswers:(id) => {
-        return connectivityModule.http.get("/Profile/answers/" + id)
+    getProfileAnswers:(id, page) => {
+        let strPage = page ? `?page=${page}` : ""
+        return connectivityModule.http.get("/Profile/answers/" + id + strPage)
     },
     calculateDollar:(balance)=> {
         return dollarCalculate(balance).toFixed(2)
