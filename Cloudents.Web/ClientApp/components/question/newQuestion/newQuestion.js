@@ -165,7 +165,8 @@ export default {
             }
         },
         thirtyPercent(){
-            return this.currentSum * 30 / 100;
+            let notRounded = this.currentSum * 30 / 100;
+            return notRounded.toFixed(2);
         },
         validForm() {
             return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);
