@@ -13,5 +13,5 @@ join (select U2.Id, d.Id
 		join Zbox.University u
 			on b.University = u.Id
 		join sb.University u2
-			on u.UniversityName = u2.Name) t (University, tId) on t.tId = D.Id
+			on u.UniversityName = u2.Name and u.Country = u2.Country) t (University, tId) on t.tId = D.Id
 commit
