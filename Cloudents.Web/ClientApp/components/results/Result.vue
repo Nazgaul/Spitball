@@ -1,5 +1,5 @@
 ﻿<template>
-    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :isEdge="isEdge" :name="name">
+    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <signup-banner  slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main">
               <div class="d-flex mobile-filter">

@@ -178,10 +178,10 @@ Vue.filter('capitalize',
 global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 //check if Edge (using to fix position sticky bugs)
-if (document.documentMode || /Edge/.test(navigator.userAgent)) {
-    global.isEdge = true
-    console.log('isEdge??', global.isEdge);
-}
+// if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+//     global.isEdge = true
+//     console.log('isEdge??', global.isEdge);
+// }
 
 Vue.filter('ellipsis',
     function (value, characters, datailedView) {
