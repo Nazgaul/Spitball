@@ -1,14 +1,17 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System.Collections.Generic;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Command.Admin
 {
     public class ApproveDocumentCommand : ICommand
     {
-        public ApproveDocumentCommand(long id)
+        public ApproveDocumentCommand(IEnumerable<long> id)
         {
             Id = id;
         }
 
-        public long Id { get;private set; }
+
+
+        public IEnumerable<long> Id { get;private set; }
     }
 }
