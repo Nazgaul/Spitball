@@ -13,11 +13,13 @@ namespace Cloudents.Web.Services
     {
         private readonly IIpToLocation _ipToLocation;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly ILogger _logger;
 
-        public CountryProvider(IIpToLocation ipToLocation, IHttpContextAccessor httpContext)
+        public CountryProvider(IIpToLocation ipToLocation, IHttpContextAccessor httpContext, ILogger logger)
         {
             _ipToLocation = ipToLocation;
             _httpContext = httpContext;
+            _logger = logger;
         }
 
         public async Task<string> GetUserCountryAsync(CancellationToken token)
@@ -45,7 +47,7 @@ namespace Cloudents.Web.Services
 
                 if (cookieValue == null)
                 {
-                    
+                    _logger.Error("failed to extract country code");
                     return null;
                 }
                 _httpContext.HttpContext.Response.Cookies.Append("country", cookieValue);

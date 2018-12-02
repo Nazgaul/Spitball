@@ -23,23 +23,23 @@ namespace Cloudents.Web.Filters
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            //if (_environment.IsDevelopment())
-            //{
-            //    await next();
-            //    return;
+            if (_environment.IsDevelopment())
+            {
+                await next();
+                return;
 
-            //}
+            }
 
-            //if (_environment.IsStaging())
-            //{
-            //    await next();
-            //    return;
-            //}
-            //if (context.HttpContext.User.Identity.IsAuthenticated)
-            //{
-            //    await next();
-            //    return;
-            //}
+            if (_environment.IsStaging())
+            {
+                await next();
+                return;
+            }
+            if (context.HttpContext.User.Identity.IsAuthenticated)
+            {
+                await next();
+                return;
+            }
 
             var query = context.HttpContext.Request.Query["isNew"];
             bool.TryParse(query.ToString(), out var isNew);
@@ -69,7 +69,6 @@ namespace Cloudents.Web.Filters
                     Query = context.HttpContext.Request.QueryString.Value
                 };
                 context.Result = new RedirectResult(uriBuilder.ToString());
-                // return this.RedirectToOldSite();
             }
             else
             {
