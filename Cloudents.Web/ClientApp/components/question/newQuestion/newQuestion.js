@@ -172,6 +172,9 @@ export default {
         },
         thirtyPercent(){
             let notRounded = this.currentSum * 30 / 100;
+            if(notRounded > 100){
+                notRounded = 100;
+            }
             return notRounded.toFixed(2);
         },
         validForm() {
