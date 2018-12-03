@@ -11,6 +11,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Message.System;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
 
@@ -24,6 +25,8 @@ namespace Cloudents.Web.Controllers
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IQueryBus _queryBus;
         private readonly IDocumentSearch _documentSearch;
+        private readonly IQueueProvider _queueProvider;
+
 
 
         public DocumentController(
@@ -122,7 +125,8 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            
+
+            await _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);
             var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
             var extension = Path.GetExtension(item.Blob);
             var url = _blobProvider.GenerateDownloadLink($"{id}/{item.Blob}", 30, nameToDownload + extension);

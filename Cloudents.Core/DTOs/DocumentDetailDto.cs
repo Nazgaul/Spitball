@@ -24,6 +24,8 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Professor { get; set; }
 
+       
+
 
         [DataMember]
         public UserDto User { get; set; }
@@ -42,6 +44,9 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public int Views { get; set; }
+
+        [DataMember]
+        public int Downloads { get; set; }
 
 
         //[DataMember]
