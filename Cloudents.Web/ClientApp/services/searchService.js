@@ -82,7 +82,10 @@ function DocumentItem(objInit) {
     this.user = objInit.user;
     this.views = objInit.views;
     this.template = 'note';
+}
 
+function createDocumentItem(objInit){
+    return new DocumentItem(objInit)
 }
 
 let transferResultAsk = response => {
@@ -260,7 +263,8 @@ export default {
        return new Filters(objInit)
     },
 
-    createDocumentItem: (objInit) => {
-        return new DocumentItem(objInit)
+    createDocumentItem: (objInit)=>{
+        return createDocumentItem(objInit)
     }
+    
 }
