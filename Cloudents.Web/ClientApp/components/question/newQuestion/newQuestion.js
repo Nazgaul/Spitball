@@ -30,12 +30,20 @@ export default {
     },
     watch: {
         price(val) {
-            if(!val)return;
+            console.log('price', val)
+            if (!val) return;
             let splitLength = val.toString().split('.');
             if (splitLength.length === 2 && splitLength[1].length >= 3) {
                 this.price = parseFloat(val).toFixed(2)
             }
 
+
+        },
+        //watch selected to clear custom price field
+        selectedPrice(val) {
+            if (val && val > 0) {
+                return this.price = null
+            }
         },
         // if question dialog state is false reset question form data to default
         newQuestionDialogSate() {
@@ -113,8 +121,8 @@ export default {
                             self.requestNewQuestionDialogClose(false);
                             self.$router.push({path: '/ask', query: {term: ''}});
                             self.updateLoading(false);
-                        self.updateToasterParams({
-                            toasterText: response.data.toasterText, // LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
+                            self.updateToasterParams({
+                                toasterText: response.data.toasterText, // LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
                                 showToaster: true,
                             });
                             self.submitForm(false);
@@ -123,7 +131,7 @@ export default {
                             self.updateLoading(false);
                             console.error(error);
                             let errorMessage = 'Something went wrong, try again.';
-                            if(error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]){
+                            if (error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]) {
                                 errorMessage = error.response.data[""][0];
                             }
                             self.errorWaitTime = `${errorMessage}` || '';
@@ -135,10 +143,10 @@ export default {
         },
         addFile(filename) {
             //if max reached replace
-            if( this.files &&  this.files.length > 4){
+            if (this.files && this.files.length > 4) {
                 this.files.splice(-1, 1, filename);
-             //add
-            }else{
+                //add
+            } else {
                 this.files = this.files.concat(filename);
             }
         },
@@ -171,12 +179,12 @@ export default {
                 return this.accountUser.balance.toFixed(2);
             }
         },
-        thirtyPercent(){
+        thirtyPercent() {
             let notRounded = this.currentSum * 30 / 100;
-            if(notRounded > 100){
+            if (notRounded > 100) {
                 notRounded = 100;
             }
-            return notRounded.toFixed(2);
+            return parseInt(notRounded.toFixed(2));
         },
         validForm() {
             return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);

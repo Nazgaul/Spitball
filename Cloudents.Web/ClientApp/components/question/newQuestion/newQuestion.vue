@@ -74,7 +74,7 @@
                                            v-language:placeholder
                                            @focus="selectOtherAmount()" step="1"
                                            min="1" max="100"
-                                           :class="[price ? 'has-value' : '']"
+                                           :class="[price && !selectedPrice? 'has-value' : '']"
                                            v-model="price"/>
                                     <v-icon right>sbf-hand-coin</v-icon>
                                 </div>
