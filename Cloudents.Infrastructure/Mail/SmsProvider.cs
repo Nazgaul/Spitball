@@ -43,9 +43,11 @@ namespace Cloudents.Infrastructure.Mail
 
             var byteArray = Encoding.ASCII.GetBytes($"{AccountSid}:{AuthToken}");
             var authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-            var headers = new List<KeyValuePair<string, string>>();
+            var headers = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("Authorization", authorization.ToString())
+            };
 
-            headers.Add(new KeyValuePair<string, string>("Authorization", authorization.ToString()));
 
             var result = await _restClient.GetAsync<PhoneValidator>(uri, null, headers, token);
 
@@ -55,14 +57,14 @@ namespace Cloudents.Infrastructure.Mail
             }
             var carrier = result.Carrier;
 
-
-
-            if (!string.Equals(carrier.Type, "mobile", StringComparison.OrdinalIgnoreCase))
+            //https://support.twilio.com/hc/en-us/articles/360004563433-Twilio-Lookups-API-is-Not-Returning-Carrier-Data-for-Canadian-Phone-Numbers
+            if (carrier.Type != null)
             {
-                return null;
+                if (!string.Equals(carrier.Type, "mobile", StringComparison.OrdinalIgnoreCase))
+                {
+                    return null;
+                }
             }
-
-
 
             if (_badProviders.Contains(carrier.Name, StringComparer.OrdinalIgnoreCase))
             {
@@ -70,10 +72,6 @@ namespace Cloudents.Infrastructure.Mail
             }
 
             return result.PhoneNumber;
-           
-
-
-            // return result?.PhoneNumber;
         }
 
 

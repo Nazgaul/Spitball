@@ -18,8 +18,8 @@ namespace Cloudents.Core.Entities.Search
             DateTime = dateTime;
             Text = text;
             Prefix = new[] { text }.Union(subject.GetEnumLocalizationAllValues()).ToArray();
-            Country = country;
-            Language = language;
+            Country = country.ToUpperInvariant();
+            Language = language.ToLowerInvariant();
             Subject = subject;
             State = state;
         }
@@ -31,7 +31,7 @@ namespace Cloudents.Core.Entities.Search
 
         public string Id { get; set; } //key readonly
 
-        public DateTime DateTime { get;  set; } //readonly
+        public DateTime? DateTime { get;  set; } //readonly
         public string Text { get;  set; } //search readonly
 
         public string[] Prefix { get;  set; } //search

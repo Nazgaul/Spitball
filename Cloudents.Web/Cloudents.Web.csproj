@@ -76,7 +76,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />-->
-    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureStorage" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.2.6" />
     <!--<PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.3" />-->

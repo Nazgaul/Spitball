@@ -12,11 +12,11 @@ namespace Cloudents.Web.Services
     [UsedImplicitly]
     public class SmsSender : ISmsSender
     {
-        private readonly IQueueProvider _serviceBusProvider;
+        private readonly IServiceBusProvider _serviceBusProvider;
         private readonly UserManager<User> _userManager;
         private readonly ISmsProvider _smsProvider;
 
-        public SmsSender(UserManager<User> userManager, IQueueProvider serviceBusProvider, ISmsProvider smsProvider)
+        public SmsSender(UserManager<User> userManager, IServiceBusProvider serviceBusProvider, ISmsProvider smsProvider)
         {
             _userManager = userManager;
             _serviceBusProvider = serviceBusProvider;
@@ -25,9 +25,7 @@ namespace Cloudents.Web.Services
 
         private async Task SendSmsAsync(string phoneNumber,string code, CancellationToken token)
         {
-            //var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber).ConfigureAwait(false);
             var message = new SmsMessage2(phoneNumber, code);
-
             await _serviceBusProvider.InsertMessageAsync(message, token);
         }
 
