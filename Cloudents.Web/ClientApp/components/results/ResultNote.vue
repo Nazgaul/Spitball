@@ -65,7 +65,6 @@
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
 
-            //change when server will return id of document type and not title of type
             type() {
                 let self = this;
                 if (!!self.item.type) {
@@ -132,9 +131,21 @@
         methods: {
             $_spitball(event) {
                 event.preventDefault();
-                this.$router.push(this.url)
+                this.$router.push(this.url);
+                setTimeout(()=>{
+                    if(this.item && this.item.views){
+                        this.item.views =  this.item.views + 1;
+                    }
+                }, 100)
+
+
+
+
             }
         },
+        created(){
+
+        }
     }
 </script>
 <style src="./ResultNote.less" lang="less"></style>

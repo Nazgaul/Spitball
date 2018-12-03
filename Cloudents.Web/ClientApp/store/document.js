@@ -10,7 +10,8 @@ const mutations = {
     },
     clearDocPreviewItem(state){
         state.item = {};
-    }
+    },
+
 };
 const getters = {
     getDocumentDetails: state => state.item.details,
@@ -37,7 +38,8 @@ const actions = {
     },
     clearDocPreview({commit}){
         commit('clearDocPreviewItem');
-    }
+    },
+
 };
 export default {
     actions,
