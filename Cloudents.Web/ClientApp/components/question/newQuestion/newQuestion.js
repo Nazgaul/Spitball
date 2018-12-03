@@ -35,6 +35,7 @@ export default {
             if (splitLength.length === 2 && splitLength[1].length >= 3) {
                 this.price = parseFloat(val).toFixed(2)
             }
+
         },
         // if question dialog state is false reset question form data to default
         newQuestionDialogSate() {
