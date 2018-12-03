@@ -1,10 +1,4 @@
-﻿--need to add connection string to service bus , in azure function
-
-
---add queue name sms production
-az servicebus queue create --name sms --namespace-name spitball-dev --resource-group zbox-dev --default-message-time-to-live PT30M
-
-
+﻿
 --Update document university
 BEGIN tran
 update D

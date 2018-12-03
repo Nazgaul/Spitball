@@ -131,7 +131,7 @@ const profileData = {
                 createbtn: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_createbtn"),
                 createtxt: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_createtxt"),
                 resetbtn: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_resetbtn"),
-                resettxt: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_resettxt")
+                resettxt: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_heading")
 
             },
             11: {

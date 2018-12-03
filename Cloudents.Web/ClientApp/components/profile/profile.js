@@ -92,7 +92,7 @@ export default {
         emptyStateData() {
             var questions = {
                 text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
-                boldText: LanguageService.getValueByKey("profile_emptyState_questions_boldText"),
+                boldText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
                 btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
                 btnUrl:  ()=> {
                     let Obj = {

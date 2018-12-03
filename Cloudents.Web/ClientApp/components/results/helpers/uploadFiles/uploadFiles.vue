@@ -6,7 +6,7 @@
                 <v-stepper-header class="sb-stepper-header" v-show="currentStep===1">
                     <template>
                         <h2 class="sb-step-title" v-language:inner>upload_files_header_title</h2>
-                        <h4 class="sb-step-subtitle" v-language:inner>upload_files_header_subtitle</h4>
+                        <!--<h4 class="sb-step-subtitle" v-language:inner>upload_files_header_subtitle</h4>-->
                     </template>
                 </v-stepper-header>
                 <v-stepper-items class="sb-stepper-item">

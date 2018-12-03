@@ -6,7 +6,7 @@
                     <!--<p v-show="$vuetify.breakpoint.smAndUp"  :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
                         <!--upload_files_component_share_study-->
                     <!--</p>-->
-                    <button round :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '']" @click="openUploaderDialog()">
+                    <button round :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]" @click="openUploaderDialog()">
                         <v-icon class="sb-cloud-upload-icon" right>sbf-upload-cloud</v-icon>
                         <span class="btn-text" v-language:inner>upload_files_file_upload</span>
                     </button>
@@ -35,7 +35,7 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState', 'showRegistrationBanner']),
+            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState', 'showRegistrationBanner', 'getCookieAccepted']),
 
             isFloatingBtn() {
                 let offHeight = 0;
@@ -46,6 +46,9 @@
                     offHeight = 200;
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
+            },
+            raiseFloatingButtonPosition(){
+                return !this.getCookieAccepted
             },
             showUploadDialog() {
                 return this.getDialogState
@@ -58,16 +61,23 @@
                 'updateNewQuestionDialogState',
                 'updateDialogState',
                 'changeSelectPopUpUniState',
+                'updateCurrentStep',
+                'changeSelectUniState'
             ]),
-            ...mapGetters(['getSchoolName']),
+            ...mapGetters(['getSchoolName', 'getAllSteps']),
             openUploaderDialog() {
                 let schoolName = this.getSchoolName();
+                let steps = this.getAllSteps();
                 if (this.accountUser == null) {
                     this.updateLoginDialogState(true);
-                } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
+                } else if(!schoolName.length){
+                    this.updateCurrentStep(steps.set_school);
+                    this.changeSelectUniState(true);
+                }else if(!this.getSelectedClasses.length){
+                    this.updateCurrentStep(steps.set_class);
+                    this.changeSelectUniState(true);
+                }else if(schoolName.length > 0 && this.getSelectedClasses.length > 0){
                     this.updateDialogState(true);
-                } else {
-                    this.changeSelectPopUpUniState(true)
                 }
             },
             transformToBtn() {

@@ -161,11 +161,12 @@ export default {
                 // let val = this.selectedPrice || this.price || 0;
                 // this.selectedPrice ? this.price = null : "";
                 // return this.accountUser.balance - val;
-                return this.accountUser.balance;
+                return this.accountUser.balance.toFixed(2);
             }
         },
         thirtyPercent(){
-            return this.currentSum * 30 / 100;
+            let notRounded = this.currentSum * 30 / 100;
+            return notRounded.toFixed(2);
         },
         validForm() {
             return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);
