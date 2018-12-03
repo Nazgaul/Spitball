@@ -5,7 +5,8 @@
             <v-text-field solo type="text" class="user-id-input" placeholder="Insert user id..." v-model="userIds"/>
         </div>
         <div class="suspend-checkbox-container">
-            <input type="checkbox" v-model="deleteUserQuestions"> Remove Question 
+            <input type="checkbox" id="removeQuestion" v-model="deleteUserQuestions"> 
+            <label for="removeQuestion">Remove Question </label>
         </div>
         <div class="suspend-button-container">
             <v-btn round color="red" @click.prevent="actionUser(false)" :class="{'lock': lock}">Suspend</v-btn>

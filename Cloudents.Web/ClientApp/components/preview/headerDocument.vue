@@ -84,7 +84,7 @@
                 </div>
                 <div class="ml-4 downloaded">
                     <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
-                    <span class="downloaded-text">{{item.views}}</span>
+                    <span class="downloaded-text">{{item.downloads}}</span>
                 </div>
             </div>
             </v-layout>
