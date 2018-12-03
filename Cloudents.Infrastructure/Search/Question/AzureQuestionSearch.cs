@@ -26,7 +26,6 @@ namespace Cloudents.Infrastructure.Search.Question
 
         public async Task<DocumentSearchResult<Core.Entities.Search.Question>> SearchAsync(QuestionsQuery query, CancellationToken token)
         {
-            var t = await _client.Documents.GetAsync<Core.Entities.Search.Question>(6545.ToString());
             var filters = new List<string>
             {
                 $"({nameof(Core.Entities.Search.Question.Country)} eq '{query.Country.ToUpperInvariant()}' or {nameof(Core.Entities.Search.Question.Language)} eq 'en')"
