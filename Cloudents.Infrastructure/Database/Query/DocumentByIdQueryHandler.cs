@@ -36,6 +36,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Pages = s.PageCount.GetValueOrDefault(),
                     Professor = s.Professor,
                     Views = s.Views,
+                    Downloads = s.Downloads,
                     User = new UserDto
                     {
                         Id = s.User.Id,
