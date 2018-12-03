@@ -41,6 +41,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Professor = s.Professor,
                     Title = s.Name,
                     Views = s.Views,
+                    Downloads = s.Downloads,
                     University = s.University.Name
                 })
                 .ToListAsync(token);
