@@ -3,6 +3,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -50,7 +51,12 @@ namespace Cloudents.Core.CommandHandler
                 university = await _universityRepository.LoadAsync(message.UniversityId.Value, token);
             }
 
-            var document = new Document(message.Name, message.BlobName, university, 
+            var itemName = message.Name;
+            if (Path.GetExtension(itemName) != Path.GetExtension(message.BlobName))
+            {
+                itemName += message.BlobName;
+            }
+            var document = new Document(itemName, /*message.BlobName,*/ university, 
                 course, message.Type, tags, user, message.Professor);
             await _documentRepository.AddAsync(document, token).ConfigureAwait(true);
             var id = document.Id;

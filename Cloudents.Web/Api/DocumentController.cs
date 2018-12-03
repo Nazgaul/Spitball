@@ -91,10 +91,10 @@ namespace Cloudents.Web.Api
 
             var url = Url.RouteUrl(SeoTypeString.Document, new
             {
-                universityName = profile.University.Name,
-                courseName = model.Course,
+                universityName = profile.University.Name.Replace("+",string.Empty),
+                courseName = model.Course.Replace("+", string.Empty),
                 id = command.Id,
-                name = model.Name
+                name = model.Name.Replace("+", string.Empty)
             });
             return new CreateDocumentResponse(url);
         }

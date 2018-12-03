@@ -25,4 +25,11 @@ commit
 
 
 alter table sb.document
-add  Downloads int  null
+add  Downloads int  null;
+
+UPDATE sb.Document
+SET Name = REPLACE(Name, '+', '');
+UPDATE sb.Course
+SET Name = REPLACE(Name, '+', '');
+UPDATE sb.University
+SET Name = REPLACE(Name, '+', '');
