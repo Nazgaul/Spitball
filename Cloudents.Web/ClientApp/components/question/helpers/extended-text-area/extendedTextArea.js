@@ -1,7 +1,7 @@
 import colorsSet from '../colorsSet';
 import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
-
+//docs here https://lian-yue.github.io/vue-upload-component   --vue-upload-component--
 Vue.component('file-upload', FileUpload);
 export default {
 
