@@ -235,9 +235,6 @@ reset instructions.</value>
     <value>Enter the confirmation code
  We sent the code to you by SMS</value>
   </data>
-  <data name="HHP_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>Enter your phone number</value>
-  </data>
   <data name="HHP_register_stepFour_heading" xml:space="preserve">
     <value>Enter your phone number
  We need to send you a confirmation code</value>
@@ -301,9 +298,6 @@ reset instructions.</value>
   <data name="HHP_register_stepTwo_heading" xml:space="preserve">
     <value>We need to know how to contact you</value>
   </data>
-  <data name="HHP_register_stepTwo_text" xml:space="preserve">
-    <value>We need to know how to contact you</value>
-  </data>
   <data name="makeMoneyProfile_modal_heading" xml:space="preserve">
     <value>Please sign up or
  login to continue.</value>
@@ -324,9 +318,6 @@ reset instructions.</value>
   <data name="makeMoneyProfile_register_stepFive_heading" xml:space="preserve">
     <value>Enter the confirmation code
  We sent the code to you by SMS</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>Enter your phone number</value>
   </data>
   <data name="makeMoneyProfile_register_stepFour_heading" xml:space="preserve">
     <value>Enter your phone number
@@ -384,9 +375,6 @@ reset instructions.</value>
   <data name="makeMoneyProfile_register_stepTen_resetbtn" xml:space="preserve">
     <value>Reset password</value>
   </data>
-  <data name="makeMoneyProfile_register_stepTen_resettxt" xml:space="preserve">
-    <value>Reset your &lt;b&gt;password&lt;/b&gt;</value>
-  </data>
   <data name="makeMoneyProfile_register_stepThree_boldTextOne" xml:space="preserve">
     <value>activate your account</value>
   </data>
@@ -397,9 +385,6 @@ reset instructions.</value>
     <value>contact you.</value>
   </data>
   <data name="makeMoneyProfile_register_stepTwo_heading" xml:space="preserve">
-    <value>We need to know how to contact you</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepTwo_text" xml:space="preserve">
     <value>We need to know how to contact you</value>
   </data>
 </root>
