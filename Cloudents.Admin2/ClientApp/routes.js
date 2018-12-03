@@ -15,6 +15,8 @@ import USuspend from './components/user/suspend/suspendUser.vue'
 
 import Document from './components/document/document.vue'
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue'
+import documentDelete from './components/document/documentComponents/documentDelete/documentDelete.vue'
+
 import Dev from './components/dev/dev.vue'
 import UChangeCountry from './components/dev/changeCountry/changeCountry.vue'
 import UDelete from './components/dev/deleteUser/deleteUser.vue'
@@ -105,10 +107,13 @@ export const routes = [
                 path: '',
                 redirect: 'approveDelete',
             },
-
             {
                 path:'approveDelete',
                 component: approveDelete
+            },
+            {
+                path:'documentDelete',
+                component: documentDelete
             },
             {
                 path: '*',

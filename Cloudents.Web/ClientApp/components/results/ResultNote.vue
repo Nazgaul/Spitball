@@ -25,7 +25,8 @@
                             <span v-line-clamp="2">{{item.snippet}}</span>
                         </div>
                     </div>
-                </v-flex>
+                   </v-flex>
+
                 <v-flex grow class="doc-details">
                     <div class="author-info-date">
                         <div class="autor">
