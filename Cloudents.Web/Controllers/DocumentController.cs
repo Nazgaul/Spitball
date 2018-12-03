@@ -33,13 +33,14 @@ namespace Cloudents.Web.Controllers
             IBlobProvider<DocumentContainer> blobProvider,
             IStringLocalizer<SharedResource> sharedLocalizer,
             IStringLocalizer<DocumentController> localizer,
-            IQueryBus queryBus, IDocumentSearch documentSearch)
+            IQueryBus queryBus, IDocumentSearch documentSearch, IQueueProvider queueProvider)
         {
             _blobProvider = blobProvider;
             _sharedLocalizer = sharedLocalizer;
             _localizer = localizer;
             _queryBus = queryBus;
             _documentSearch = documentSearch;
+            _queueProvider = queueProvider;
         }
 
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
@@ -59,7 +60,6 @@ namespace Cloudents.Web.Controllers
         [Route("document/{universityName}/{courseName}/{id:long}/{name}", Name = SeoTypeString.Document)]
         [ActionName("Index")]
         public async Task<IActionResult> IndexAsync(long id, string courseName, string name, string universityName,
-            //[ModelBinder(typeof(CountryModelBinder))] string country,
             CancellationToken token)
         {
             var query = new DocumentById(id);

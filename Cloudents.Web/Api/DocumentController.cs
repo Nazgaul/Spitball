@@ -162,10 +162,10 @@ namespace Cloudents.Web.Api
                     {
                         s.Url = Url.RouteUrl(SeoTypeString.Document, new
                         {
-                            universityName = s.University,
-                            courseName = s.Course,
+                            universityName = s.University.Replace("+", string.Empty),
+                            courseName = s.Course.Replace("+", string.Empty),
                             id = s.Id,
-                            name = s.Title
+                            name = s.Title.Replace("+",string.Empty)
                         });
                     }
 
