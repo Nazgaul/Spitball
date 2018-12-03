@@ -13,6 +13,7 @@
                           :type="'text'"
                           :autofocus="true"
                           :focus="true"
+                          :required="true"
                         >
                 </sb-input>
             </div>
