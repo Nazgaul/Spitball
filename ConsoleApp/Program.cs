@@ -7,6 +7,8 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
@@ -28,6 +30,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Query;
+using Cloudents.Infrastructure.Search.Question;
 
 
 namespace ConsoleApp
@@ -53,7 +57,8 @@ namespace ConsoleApp
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://localhost:8545"
+                BlockChainNetwork = "http://localhost:8545",
+                ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
@@ -92,7 +97,13 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await TransferDocuments();
+            var z = _container.Resolve<AzureQuestionSearch>();
+            var zz = z.GetById("6545");
+
+            var p = await z.SearchAsync(new QuestionsQuery(null, null, 0, null, "us"), default);
+            //await z.InsertMessageAsync(new SmsMessage2("+972542642202", "1111"), token);
+            //CreateServiceBus.Create();
+            // await TransferDocuments();
             //var _commandBus = _container.Resolve<ICommandBus>();
             //await FixPoisonBackground(_commandBus);
             //var q = _container.Resolve<ISearchServiceWrite<Question>>();
@@ -789,7 +800,7 @@ and I.ItemId not in @ItemsAlreadyProcessed
 							and SUBSTRING (I.Name,CHARINDEX ('.',I.Name), 5) in ('.doc', '.docx', '.xls', '.xlsx', '.PDF', '.png', '.jpg', '.ppt', '.pptx', '.jpg', '.png', '.gif', '.jpeg', '.bmp' )
                         group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
 						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
-                ",new { ItemsAlreadyProcessed = itemsAlreadyProcessed })).ToList();
+                ", new { ItemsAlreadyProcessed = itemsAlreadyProcessed })).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -880,7 +891,7 @@ and I.ItemId not in @ItemsAlreadyProcessed
 
 
 
-                        CreateDocumentCommand command =  CreateDocumentCommand.DbiOnly($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
+                        CreateDocumentCommand command = CreateDocumentCommand.DbiOnly($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
                             pair.Name,
                             type, courseName, words, userId.Value, pair.ProfessorName, uniId.Value);
 

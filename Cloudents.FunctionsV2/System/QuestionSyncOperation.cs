@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.System;
+﻿using Cloudents.Core.Message.System;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.WebJobs;

@@ -118,9 +118,9 @@ namespace Cloudents.FunctionsV2
 
 
 
-        //From = "Spitball"
+        //TODO: remove this on v10
         [FunctionName("FunctionSms")]
-        public static async Task SmsServiceBusAsync(
+        public static async Task SmsStorageQueueAsync(
             [QueueTrigger(QueueName.SmsQueueName)] SmsMessage2 msg,
             DateTimeOffset insertionTime,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
@@ -134,6 +134,24 @@ namespace Cloudents.FunctionsV2
                 return;
             }
 
+            await ProcessSmsMessageAsync(msg, options, log, token);
+        }
+
+
+        [FunctionName("FunctionSmsServiceBus")]
+        public static async Task SmsServiceBusAsync(
+            [ServiceBusTrigger("sms",Connection = "AzureWebJobsServiceBus")] SmsMessage2 msg,
+            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
+            ILogger log,
+            CancellationToken token
+        )
+        {
+            await ProcessSmsMessageAsync(msg, options, log, token);
+        }
+
+        private static async Task ProcessSmsMessageAsync(SmsMessage2 msg, IAsyncCollector<CreateMessageOptions> options, ILogger log,
+            CancellationToken token)
+        {
             if (msg.Message == null)
             {
                 log.LogError("message is null");
@@ -145,6 +163,7 @@ namespace Cloudents.FunctionsV2
                 log.LogError("no phone number");
                 return;
             }
+
             await options.AddAsync(new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
                 Body = "Your code to enter into Spitball is: " + msg.Message

@@ -69,6 +69,7 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import sbInput from "../../../../question/helpers/sbInput/sbInput";
+    import { LanguageService } from "../../../../../services/language/languageService";
 
     export default {
         name: "uploadStep_2",
@@ -76,7 +77,7 @@
         data() {
             return {
                 docClass: '',
-                classNamePlaceholder: 'Select or Type a class name',
+                classNamePlaceholder: LanguageService.getValueByKey("upload_class_input_placeholder")
 
             }
         },

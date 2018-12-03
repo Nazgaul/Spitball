@@ -133,7 +133,13 @@ export default {
             }
         },
         addFile(filename) {
-            this.files.push(...filename.split(','));
+            //if max reached replace
+            if( this.files &&  this.files.length > 4){
+                this.files.splice(-1, 1, filename);
+             //add
+            }else{
+                this.files = this.files.concat(filename);
+            }
         },
         removeFile(index) {
             this.files.splice(index, 1);

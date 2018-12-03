@@ -24,12 +24,12 @@ namespace Cloudents.Core.EventHandler
             var doc = new Document()
             {
                 University = eventMessage.Document.University.Id.ToString(),
-                Country = eventMessage.Document.University.Country,
-                Course = eventMessage.Document.Course.Name,
+                Country = eventMessage.Document.University.Country.ToUpperInvariant(),
+                Course = eventMessage.Document.Course.Name.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
                 Id = eventMessage.Document.Id.ToString(),
                 Name = eventMessage.Document.Name,
-                Tags = eventMessage.Document.Tags.Select(s => s.Name).ToArray(),
+                Tags = eventMessage.Document.Tags.Select(s => s.Name.ToUpperInvariant()).ToArray(),
                 Type = eventMessage.Document.Type
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);

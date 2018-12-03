@@ -16,6 +16,7 @@
     "TwilioSid": "AC1796f09281da07ec03149db53b55db8d",
     "TwilioToken": "c4cdf14c4f6ca25c345c3600a72e8b49",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "AzureSignalRConnectionString": "Endpoint=https://spitball-dev.service.signalr.net;AccessKey=dLvXKNqY9g4zunBuSCQvo1xTz4EotBnDoA7YwwXY0gw=;Version=1.0;"
+    "AzureSignalRConnectionString": "Endpoint=https://spitball-dev.service.signalr.net;AccessKey=dLvXKNqY9g4zunBuSCQvo1xTz4EotBnDoA7YwwXY0gw=;Version=1.0;",
+    "AzureWebJobsServiceBus": "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA="
   }
 }

@@ -1,11 +1,8 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Core.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -112,7 +109,6 @@ namespace Cloudents.Admin2.Api
         /// UnSuspend a user
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="commandBus"></param>
         /// <param name="token"></param>
         /// <response code="200">The User email</response>
         /// <returns>the user email to show on the ui</returns>

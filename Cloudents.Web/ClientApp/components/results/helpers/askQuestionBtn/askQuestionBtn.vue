@@ -153,6 +153,7 @@
                         animation: fadeIn 0.8s;
                         -moz-animation: fadeIn 0.8s;
                         -o-animation: fadeIn 0.8s;
+                        margin-right: 30px;
                     }
                     &.rounded-floating-button {
                         animation: sb_bounce_animation 1000ms linear both;

@@ -16,20 +16,7 @@ namespace Cloudents.Core
         public string Redis { get; set; }
         public string Storage { get; set; }
 
-        //public string ProdStorage
-        //{
-        //    get
-        //    {
-        //        if (_prodStorage != null)
-        //        {
-        //            return _prodStorage;
-        //        }
-
-        //        return Storage;
-        //    }
-        //    set => _prodStorage = value;
-        //}
-        //public string SystemUrl { get; set; }
+      
 
         public LocalStorageData LocalStorageData { get; set; }
         //public string FunctionEndpoint { get; set; }
@@ -37,6 +24,7 @@ namespace Cloudents.Core
         public string BlockChainNetwork { get; set; }
 
         public string SiteEndPoint { get; }
+        public string ServiceBus { get; set; }
     }
 
     public class SearchServiceCredentials

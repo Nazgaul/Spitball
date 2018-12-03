@@ -1,0 +1,24 @@
+﻿--need to add connection string to service bus , in azure function
+
+
+--add queue name sms production
+az servicebus queue create --name sms --namespace-name spitball-dev --resource-group zbox-dev --default-message-time-to-live PT30M
+az servicebus topic create --name background2 --namespace-name spitball-dev --resource-group zbox-dev --default-message-time-to-live P14D --max-size  5120
+az servicebus topic subscription create --name default --namespace-name spitball-dev --resource-group zbox-dev --topic-name background2
+
+--Update document university
+BEGIN tran
+update D
+set UniversityId = t.University
+from sb.Document D
+join (select U2.Id, d.Id
+		from sb.Document d 
+		join zbox.Item i 
+			on d.OldId = i.ItemId
+		join zbox.Box b 
+			on i.BoxId = b.BoxId
+		join Zbox.University u
+			on b.University = u.Id
+		join sb.University u2
+			on u.UniversityName = u2.Name and u.Country = u2.Country) t (University, tId) on t.tId = D.Id
+commit
