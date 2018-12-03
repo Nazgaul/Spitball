@@ -1,7 +1,7 @@
 ﻿import ResultItem from './ResultItem.vue';
 import ResultNote from "./ResultNote.vue"
 import questionCard from './../question/helpers/question-card/question-card.vue';
-import { page, verticalsName } from "../../services/navigation/vertical-navigation/nav";
+import { verticalsNavbar, verticalsName } from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import { typesPersonalize } from "../settings/consts.js";
@@ -12,6 +12,7 @@ import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue';
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin';
 import {LanguageService} from '../../services/language/languageService'
+import soonComponent from './helpers/soon/soon.vue'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 import notificationCenter from '../notificationCenter/notificationCenter.vue'
@@ -41,7 +42,8 @@ export default {
         loginToAnswer,
         notificationCenter,
         uploadFilesBtn,
-        askQuestionBtn
+        askQuestionBtn,
+        soonComponent
     },
     data() {
         return {
@@ -136,6 +138,11 @@ export default {
         },
         currentSuggest() {
             return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
+        },
+        currentNavData(){
+            return verticalsNavbar.filter((navItem) => {
+                return navItem.id === this.name;
+            })[0]
         },
         userText() {
             return this.query.term
