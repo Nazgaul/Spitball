@@ -68,26 +68,27 @@ namespace Cloudents.Admin2.Api
         {
             foreach (var id in model.Ids)
             {
-                TimeSpan lockout;
+                DateTimeOffset lockout;
                 switch (model.SuspendTime)
                 {
                     case SuspendTime.Day:
-                        lockout = TimeSpan.FromSeconds(TimeConst.Day);
+                        
+                        lockout = DateTimeOffset.Now.AddSeconds(TimeConst.Day);
                         break;
                     case SuspendTime.Week:
-                        lockout = TimeSpan.FromSeconds(TimeConst.Day * 7);
+                        lockout = DateTimeOffset.Now.AddSeconds(TimeConst.Day * 7);
                         break;
                     case SuspendTime.Undecided:
-                        lockout = TimeSpan.MaxValue;
+                        lockout = DateTimeOffset.MaxValue;
                         break;
                     case null:
-                        lockout = TimeSpan.MaxValue;
+                        lockout = DateTimeOffset.MaxValue;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                
-                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, new DateTimeOffset(DateTime.UtcNow, lockout));
+
+                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, lockout);
                 await commandBus.DispatchAsync(command, token);
             }
             return new SuspendUserResponse();
