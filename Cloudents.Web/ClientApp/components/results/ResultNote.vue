@@ -65,7 +65,6 @@
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
 
-            //change when server will return id of document type and not title of type
             type() {
                 let self = this;
                 if (!!self.item.type) {
@@ -102,10 +101,9 @@
                   return this.item.views || 0
               }
             },
-            //TODO downloads for now is same as views till server will handle it
             docDownloads(){
                 if(this.item){
-                    return this.item.views || 0
+                    return this.item.downloads || 0
                 }
             },
             uploadDate(){
@@ -133,9 +131,21 @@
         methods: {
             $_spitball(event) {
                 event.preventDefault();
-                this.$router.push(this.url)
+                this.$router.push(this.url);
+                setTimeout(()=>{
+                    if(this.item && this.item.views){
+                        this.item.views =  this.item.views + 1;
+                    }
+                }, 100)
+
+
+
+
             }
         },
+        created(){
+
+        }
     }
 </script>
 <style src="./ResultNote.less" lang="less"></style>

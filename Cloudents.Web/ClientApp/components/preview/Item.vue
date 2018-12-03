@@ -88,6 +88,7 @@
             let self = this;
             this.setDocumentPreview({type: 'item', id: this.id})
                 .then((response) => {
+
                 });
         },
         //clean store document item on destroy component

@@ -108,7 +108,8 @@ export default {
             'changeSelectPopUpUniState',
             'updateUploadFullMobile',
             'updateDialogState',
-            'resetUploadData'
+            'resetUploadData',
+            'setReturnToUpload'
         ]),
 
         stopProgress(val) {
@@ -145,6 +146,9 @@ export default {
         closeUpload() {
             this.resetFirstStepMobile();
             this.resetUploadData({});
+            //reset return to upload
+            this.setReturnToUpload(false);
+            //close
             this.updateDialogState(false);
             this.confirmationDialog = false;
 

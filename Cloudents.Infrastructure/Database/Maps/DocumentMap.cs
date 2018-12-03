@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 $"{nameof(HiLoGenerator.TableName)}='{nameof(Document)}'");
 
             Map(x => x.Name).Length(150).Not.Nullable();
-            Map(x => x.BlobName).Not.Nullable();
+           // Map(x => x.BlobName).Not.Nullable();
             References(x => x.University).Column("UniversityId").ForeignKey("Document_University");
            
             Map(x => x.Type).Not.Nullable();

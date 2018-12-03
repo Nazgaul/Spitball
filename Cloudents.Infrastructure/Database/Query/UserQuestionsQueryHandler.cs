@@ -5,16 +5,14 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    public class UserQuestionsQueryHandler : IQueryHandler<UserQuestionsByIdQuery, IEnumerable<QuestionFeedDto>>
+    public class UserQuestionsQueryHandler : IQueryHandler<UserDataPagingByIdQuery, IEnumerable<QuestionFeedDto>>
     {
         private readonly ISession _session;
 
@@ -22,9 +20,9 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             _session = session.Session;
         }
-        public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserQuestionsByIdQuery query, CancellationToken token)
+        public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
         {
-            var futureQuestions = _session.Query<Question>()
+            return await _session.Query<Question>()
                 .Where(w => w.User.Id == query.Id)
                 .Where(w => w.State == null || w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
@@ -38,9 +36,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Color, s.CorrectAnswer.Id != null, s.Language)
                 )
                 .Take(50).Skip(query.Page * 50)
-                .ToList();
- 
-            return futureQuestions;
+                .ToListAsync(cancellationToken: token);
         }
     }
 }

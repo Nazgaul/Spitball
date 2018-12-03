@@ -31,7 +31,7 @@ namespace Cloudents.Core.DTOs
         public UserDto User { get; set; }
 
         [DataMember]
-        public string Extension => Path.GetExtension(Blob)?.TrimStart('.');
+        public string Extension => Path.GetExtension(Name)?.TrimStart('.');
 
         //[DataMember]
         public DocumentType? TypeStr { get; set; }
@@ -50,7 +50,7 @@ namespace Cloudents.Core.DTOs
 
 
         //[DataMember]
-        public string Blob { get; set; }
+        //public string Blob { get; set; }
 
         //public string Type { get; set; }
     }

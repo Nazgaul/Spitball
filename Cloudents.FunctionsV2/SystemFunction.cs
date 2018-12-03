@@ -52,15 +52,8 @@ namespace Cloudents.FunctionsV2
                 Type.GetType(receivedMessage.UserProperties["messageType"].ToString());
             var json = Encoding.UTF8.GetString(receivedMessage.Body);
             var message = JsonConvert.DeserializeObject(json, messageBodyType);
-
-            //log.LogInformation($"Got message {queueMsg}");
-            //var message = JsonConvert.DeserializeObject<ISystemQueueMessage>(queueMsg, new JsonSerializerSettings()
-            //{
-            //    TypeNameHandling = TypeNameHandling.All
-            //});
-
             var handlerType =
-                typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+               typeof(ISystemOperation<>).MakeGenericType(message.GetType());
             using (var child = lifetimeScope.BeginLifetimeScope())
             {
                 dynamic operation = child.Resolve(handlerType);
