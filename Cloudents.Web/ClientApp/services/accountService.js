@@ -45,15 +45,15 @@ export default {
         return connectivityModule.http.get("/Account/userName")
     },
     getProfile:(id) => {
-        return connectivityModule.http.get("/Profile/" + id)
+        return connectivityModule.http.get(`/Profile/${id}`)
     },
     getProfileQuestions:(id, page) => {
         let strPage = page ? `?page=${page}` : ""
-        return connectivityModule.http.get("Profile/questions/" + id + strPage)
+        return connectivityModule.http.get(`Profile/${id}/questions/${strPage}`)
     },
     getProfileAnswers:(id, page) => {
         let strPage = page ? `?page=${page}` : ""
-        return connectivityModule.http.get("/Profile/answers/" + id + strPage)
+        return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`)
     },
     calculateDollar:(balance)=> {
         return dollarCalculate(balance).toFixed(2)
