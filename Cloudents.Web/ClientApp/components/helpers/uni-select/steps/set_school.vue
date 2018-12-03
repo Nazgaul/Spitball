@@ -184,7 +184,8 @@ export default {
                     this.universityModel = newValue
                 }
             }
-        }
+        },
+
     }
 </script>
 

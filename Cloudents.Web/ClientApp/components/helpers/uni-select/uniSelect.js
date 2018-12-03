@@ -51,11 +51,18 @@ export default {
     },
 
     methods:{
-        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setUniversityPopStorage_session']),
-        ...mapGetters(['getAllSteps','getCurrentStep']),
+        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setUniversityPopStorage_session', 'updateDialogState']),
+        ...mapGetters(['getAllSteps','getCurrentStep', 'getReturnToUpload', 'getSelectedClasses']),
         changeStep(step){
             if(step === this.enumSteps.done){
                 this.changeSelectUniState(false);
+                let isReturnToUpload = this.getReturnToUpload();
+                let isClasses = this.getSelectedClasses();
+                //if class was set and return to upload is true, open upload component
+                if(isReturnToUpload && isClasses.length > 0){
+                    this.updateDialogState(true);
+                }
+
             }else{
                 console.log(`step changed to ${step}`);
                 this.updateCurrentStep(step);
@@ -83,5 +90,6 @@ export default {
     },
     created(){
         console.log(this.$route)
-    }
+    },
+
 }

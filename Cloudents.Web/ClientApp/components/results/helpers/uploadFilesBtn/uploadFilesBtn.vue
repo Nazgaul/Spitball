@@ -62,7 +62,8 @@
                 'updateDialogState',
                 'changeSelectPopUpUniState',
                 'updateCurrentStep',
-                'changeSelectUniState'
+                'changeSelectUniState',
+                'setReturnToUpload'
             ]),
             ...mapGetters(['getSchoolName', 'getAllSteps']),
             openUploaderDialog() {
@@ -73,11 +74,14 @@
                 } else if(!schoolName.length){
                     this.updateCurrentStep(steps.set_school);
                     this.changeSelectUniState(true);
+                    this.setReturnToUpload(true);
                 }else if(!this.getSelectedClasses.length){
                     this.updateCurrentStep(steps.set_class);
                     this.changeSelectUniState(true);
+                    this.setReturnToUpload(true);
                 }else if(schoolName.length > 0 && this.getSelectedClasses.length > 0){
                     this.updateDialogState(true);
+                    this.setReturnToUpload(false);
                 }
             },
             transformToBtn() {
