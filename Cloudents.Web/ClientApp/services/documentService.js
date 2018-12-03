@@ -8,6 +8,7 @@ function DocumentItem(ObjInit){
     this.university= ObjInit.university || '';
     this.user = ObjInit.user || {};
     this.views = ObjInit.views || 0;
+    this.downloads = ObjInit.downloads || 0;
     this.pages = ObjInit.pages || '';
     this.extension = ObjInit.extension || '';
     this.docType = ObjInit.type || '';

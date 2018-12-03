@@ -102,10 +102,9 @@
                   return this.item.views || 0
               }
             },
-            //TODO downloads for now is same as views till server will handle it
             docDownloads(){
                 if(this.item){
-                    return this.item.views || 0
+                    return this.item.downloads || 0
                 }
             },
             uploadDate(){
