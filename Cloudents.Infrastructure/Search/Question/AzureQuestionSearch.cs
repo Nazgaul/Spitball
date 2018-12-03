@@ -18,17 +18,18 @@ namespace Cloudents.Infrastructure.Search.Question
             _client = client.GetClient(QuestionSearchWrite.IndexName);
         }
 
-        //public async Task GetById(string id)
-        //{
-        //    var t = await _client.Documents.GetAsync<Core.Entities.Search.Question>(id);
-        //    var t2 = await _client.Documents.GetAsync(id);
-        //}
+        public async Task GetById(string id)
+        {
+            var t = await _client.Documents.GetAsync<Core.Entities.Search.Question>(id);
+            
+        }
 
         public async Task<DocumentSearchResult<Core.Entities.Search.Question>> SearchAsync(QuestionsQuery query, CancellationToken token)
         {
+            var t = await _client.Documents.GetAsync<Core.Entities.Search.Question>(6545.ToString());
             var filters = new List<string>
             {
-                $"({nameof(Core.Entities.Search.Question.Country)} eq '{query.Country}' or {nameof(Core.Entities.Search.Question.Language)} eq 'en')"
+                $"({nameof(Core.Entities.Search.Question.Country)} eq '{query.Country.ToUpperInvariant()}' or {nameof(Core.Entities.Search.Question.Language)} eq 'en')"
             };
             if (query.Source != null)
             {
@@ -50,7 +51,6 @@ namespace Cloudents.Infrastructure.Search.Question
                 Select = new [] {nameof(Core.Entities.Search.Question.Id)},
                 Top = 50,
                 Skip = query.Page * 50,
-                //OrderBy = new List<string> { "search.score() desc", $"{nameof(Core.Entities.Search.Question.DateTime)} desc"  },
                 ScoringProfile = QuestionSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {

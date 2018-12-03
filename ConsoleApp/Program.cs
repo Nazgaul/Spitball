@@ -30,6 +30,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Query;
+using Cloudents.Infrastructure.Search.Question;
 
 
 namespace ConsoleApp
@@ -95,8 +97,11 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var z = _container.Resolve<IServiceBusProvider>();
-            await z.InsertMessageAsync(new SmsMessage2("+972542642202", "1111"), token);
+            var z = _container.Resolve<AzureQuestionSearch>();
+            var zz = z.GetById("6545");
+
+            var p = await z.SearchAsync(new QuestionsQuery(null, null, 0, null, "us"), default);
+            //await z.InsertMessageAsync(new SmsMessage2("+972542642202", "1111"), token);
             //CreateServiceBus.Create();
             // await TransferDocuments();
             //var _commandBus = _container.Resolve<ICommandBus>();

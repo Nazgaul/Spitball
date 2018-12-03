@@ -17,7 +17,6 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string Language { get; set; }
 
         public DocumentType Type { get; set; }
-        //public string Country { get; set; }
 
         public Document ToDocument()
         {
@@ -25,11 +24,11 @@ namespace Cloudents.Core.DTOs.SearchSync
             {
                 University = University.ToString(),
                 DateTime = DateTime,
-                Country = Country,
-                Course = Course,
+                Country = Country.ToUpperInvariant(),
+                Course = Course.ToUpperInvariant(),
                 Id = ItemId.ToString(),
                 Name = Name,
-                Language = Language,
+                Language = Language.ToLowerInvariant(),
                 Type = Type,
                 Tags = Tags?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
             };
