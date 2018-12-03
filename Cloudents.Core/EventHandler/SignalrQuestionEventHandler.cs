@@ -16,9 +16,9 @@ namespace Cloudents.Core.EventHandler
             IEventHandler<MarkAsCorrectEvent>,
             IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>
     {
-        private readonly IQueueProvider _queueProvider;
+        private readonly IServiceBusProvider _queueProvider;
 
-        public SignalrQuestionEventHandler(IQueueProvider queueProvider)
+        public SignalrQuestionEventHandler(IServiceBusProvider queueProvider)
         {
             _queueProvider = queueProvider;
         }

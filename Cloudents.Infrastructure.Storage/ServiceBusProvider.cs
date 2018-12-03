@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
+using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
@@ -23,16 +24,23 @@ namespace Cloudents.Infrastructure.Storage
 
         }
 
-        private Task InsertTopicMessageAsync(string topic)
+        private Task InsertTopicMessageAsync(string topic, object obj, CancellationToken token)
         {
             var topicClient = _topicClients.GetOrAdd(topic, x => new TopicClient(_connectionString, x));
-            return topicClient.SendAsync(new Message()
+
+            //For now
+            var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
-                Label = "ram",
-                CorrelationId = "ram",
-                Body = Encoding.UTF8.GetBytes("this is ram")
+                TypeNameHandling = TypeNameHandling.All
             });
 
+            token.ThrowIfCancellationRequested();
+            return topicClient.SendAsync(new Message()
+            {
+                Body = Encoding.UTF8.GetBytes(json),
+                ContentType = "application/json",
+                UserProperties = { ["messageType"] = obj.GetType().AssemblyQualifiedName }
+            });
         }
 
         private Task InsertQueueMessageAsync(string queue, object obj, CancellationToken token)
@@ -45,28 +53,21 @@ namespace Cloudents.Infrastructure.Storage
             return queueClient.SendAsync(new Message()
             {
                 Body = Encoding.UTF8.GetBytes(json),
-                ContentType = "application/json"
+                ContentType = "application/json",
+                UserProperties = { ["messageType"] = obj.GetType().AssemblyQualifiedName }
+
             });
         }
 
         public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
         {
-            return InsertQueueMessageAsync("sms", message,  token);
+            return InsertQueueMessageAsync("sms", message, token);
         }
 
-        //public async Task SendCustomMessageAsync()
-        //{
+        public Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token)
+        {
+            return InsertTopicMessageAsync("background2", obj, token);
+        }
 
-        //    var topic = new Microsoft.Azure.ServiceBus.TopicClient("Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=", "topic1");
-
-        //    await topic.SendAsync(new Message()
-        //    {
-        //        Label = "ram",
-        //        CorrelationId = "ram",
-        //        Body = Encoding.UTF8.GetBytes("this is ram")
-        //    });
-
-
-        //}
     }
 }
