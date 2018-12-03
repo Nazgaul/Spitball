@@ -107,13 +107,24 @@ export default {
                 return this.getSelectedClasses;
             },
             set(val){
-                this.updateSelectedClasses(val);
+                let arrValidData = [];
+                if(val.length > 0){
+                    arrValidData = val.filter(singleClass=>{
+                        if(singleClass.text){
+                                return singleClass.text.length > 3
+                        }else {
+                          return  singleClass.length > 3
+                        }
+                    })
+                }
+                this.updateSelectedClasses(arrValidData);
             }
         }
     },
     filters:{
         boldText(value, search){
            if (!value) return '';
+           if(!search)return;
             let match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
             if(match){
                 let startIndex = value.toLowerCase().indexOf(search.toLowerCase())
