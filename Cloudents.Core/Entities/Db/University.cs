@@ -1,6 +1,6 @@
+using JetBrains.Annotations;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
 {
@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities.Db
     {
         public University(string name, string country) : this()
         {
-            Name = name.Replace("+","");
+            Name = name.Replace("+", "");
             Country = country;
             RowDetail = new DomainTimeStamp();
         }
@@ -30,8 +30,8 @@ namespace Cloudents.Core.Entities.Db
         /// Used as extra synonym to add to university search
         /// </summary>
         public virtual string Extra { get; set; }
-        
-        public virtual  string Country { get; protected set; }
+
+        public virtual string Country { get; protected set; }
 
         public virtual DomainTimeStamp RowDetail { get; protected set; }
     }
