@@ -15,7 +15,7 @@ namespace Cloudents.FunctionsV2
     {
 
         private const string SearchSyncName = "SearchSync";
-        private const string CreateIndexFunctionName = "SearchSyncCreateIndex";
+        //private const string CreateIndexFunctionName = "SearchSyncCreateIndex";
         private const string DoSyncFunctionName = "SearchSyncSync";
         private const string GetSyncStatusFunctionName = "SearchSyncGetProgress";
         private const string SetSyncStatusFunctionName = "SearchSyncSetProgress";
@@ -64,11 +64,11 @@ namespace Cloudents.FunctionsV2
 
             var query = await context.CallActivityAsync<SyncAzureQuery>(GetSyncStatusFunctionName, input.BlobName);
 
-            if (query.Version == 0 && query.Page == 0)
-            {
+            //if (query.Version == 0 && query.Page == 0)
+            //{
 
-                await context.CallActivityAsync(CreateIndexFunctionName, input);
-            }
+            //    await context.CallActivityAsync(CreateIndexFunctionName, input);
+            //}
             input.SyncAzureQuery = query;
 
             bool needContinue;
@@ -93,16 +93,16 @@ namespace Cloudents.FunctionsV2
 
         }
 
-        [FunctionName(CreateIndexFunctionName)]
-        public static async Task CreateSearchIndex(
-            [ActivityTrigger] SearchSyncInput input,
-            [Inject] ILifetimeScope lifetimeScope,
-            CancellationToken token)
-        {
+        //[FunctionName(CreateIndexFunctionName)]
+        //public static async Task CreateSearchIndex(
+        //    [ActivityTrigger] SearchSyncInput input,
+        //    [Inject] ILifetimeScope lifetimeScope,
+        //    CancellationToken token)
+        //{
 
-            var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
-            await syncObject.CreateIndexAsync(token);
-        }
+        //    var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
+        //    await syncObject.CreateIndexAsync(token);
+        //}
 
         [FunctionName(DoSyncFunctionName)]
         public static async Task<SyncResponse> DoSearchSync(
