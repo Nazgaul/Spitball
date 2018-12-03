@@ -31,7 +31,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             }
             user.LockoutEnd = DateTimeOffset.MaxValue;
             user.Events.Add(new UserSuspendEvent(user));
-            await _userRepository.UpdateAsync(user, token);
+            //await _userRepository.UpdateAsync(user, token);
 
 
             if (message.ShouldDeleteData)
@@ -44,12 +44,16 @@ namespace Cloudents.Core.CommandHandler.Admin
                     await deleteQuestionCommandHandler.DeleteQuestionAsync(question, token);
                 }
 
+
                 var deleteAnswerCommandHandler = _lifetimeScope.Resolve<DeleteAnswerCommandHandler>();
                 foreach (var answer in user.Answers)
                 {
                     await deleteAnswerCommandHandler.DeleteAnswerAsync(answer, token);
                 }
             }
+            user.Questions.Clear();
+            user.Answers.Clear();
+            await _userRepository.UpdateAsync(user, token);
         }
     }
 }
