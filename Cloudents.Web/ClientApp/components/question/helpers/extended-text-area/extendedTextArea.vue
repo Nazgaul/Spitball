@@ -20,11 +20,11 @@
                                     :drop="false"
                                     v-model="files"
                                     :multiple="true"
+                                    :maximum="4"
                                     :post-action=uploadUrl
-                                    :extensions="['doc', 'pdf', 'png',  'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx']"
+                                    :extensions="['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp']"
                                     @input-file="inputFile"
-                                    @input-filter="inputFilter"
-                                     >
+                                    @input-filter="inputFilter">
 
                             </file-upload>
                             <!--<input id="file-input" type="file" multiple accept="image/*"/>-->
@@ -42,13 +42,13 @@
             </div>
         </div>
         <transition name="slide-fade">
-            <div class="files pt-3 pb-2" v-if="previewList.length">
-                <ul class="preview-list" v-if="previewList.length">
-                    <li v-if="previewList.length" v-for="(image,index) in previewList" :key="index">
-                        <button class="hover-trash" @click="deletePreview(index)">
+            <div class="files pt-3 pb-2" v-if="files.length" >
+                <ul class="preview-list" v-if="files.length">
+                    <li v-if="files.length" v-for="(file, index) in files" :key="index">
+                        <button class="hover-trash" @click="deletePreview(file, index)">
                             <v-icon>sbf-close</v-icon>
                         </button>
-                        <img :src="image"/>
+                        <img :src="file.blob"/>
                     </li>
                     <!--<li class="add-file" v-show="previewList.length < uploadLimit">-->
                     <!--<label for="file-input">-->

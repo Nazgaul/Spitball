@@ -1,5 +1,4 @@
 import colorsSet from '../colorsSet';
-// var Uploader = require('html5-uploader');
 import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
 
@@ -15,7 +14,6 @@ export default {
     },
     data() {
         return {
-            previewList: [],
             fullPreview: false,
             errorTextArea: {},
             colorsSet: colorsSet,
@@ -23,19 +21,12 @@ export default {
                 name: 'default',
                 id: 0
             },
-            counter: 0,
-            uploadLimit: 4,
             isFirefox: global.isFirefox,
             files: [],
-            uploadedFiles: []
+            extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp', 'bmp']
         }
 
 
-    },
-    watch: {
-        files(newVal, oldVal) {
-         console.log('files',this.files)
-        }
     },
     methods: {
         updateValue: function (value) {
@@ -44,45 +35,47 @@ export default {
         togglePreview: function () {
             this.fullPreview = !this.fullPreview
         },
-        deletePreview: function (index) {
-            this.counter = this.counter - 1;
-            this.previewList.splice(index, 1);
-            this.$emit('removeFile', index);
+        //will remove from files[]
+        remove(file) {
+            this.$refs.upload.remove(file)
         },
-        updateColor(color) {
+        deletePreview: function (file, index) {
+            this.remove(file); //remove from files[]
+            this.$emit('removeFile', index); // remove from files list in parent newQuesiton component
+        },
+          updateColor(color) {
             this.activeColor = color || colorsSet[0];
             this.$parent.$emit('colorSelected', this.activeColor);
         },
 
         inputFile: function (newFile, oldFile) {
             let self= this;
+            if(self.files && self.files.length > 4){
+                return
+            }
             if (newFile && newFile.progress) {
-                console.log('progress', newFile.progress, newFile)
+                // console.log('progress', newFile.progress, newFile)
             }
             // Upload error
             if (newFile && oldFile && newFile.error !== oldFile.error) {
-
-                console.log('error', newFile.error, newFile)
+                // console.log('error', newFile.error, newFile)
             }
             // Get response data
             if (newFile && oldFile && !newFile.active && oldFile.active) {
                 // Get response data
-                console.log('response', newFile.response);
+                // console.log('response', newFile.response);
                 if (newFile.xhr) {
                     //  Get the response status code
-                    console.log('status', newFile.xhr.status)
+                    // console.log('status', newFile.xhr.status)
                     if (newFile.xhr.status === 200) {
-                        console.log('Succesfully uploadede')
+                        // console.log('Succesfully uploadede')
+                        //on after successful loading done, emit to parent to add to list
                         if(newFile.response && newFile.response.files){
-                            this.uploadedFiles = this.uploadedFiles.concat(newFile.response.files);
-                            if(this.uploadedFiles.length  <= 4){
                                 self.$emit('addFile', newFile.response.files);
-                            }
-
                         }
 
                     } else {
-                        console.log('error, not uploaded')
+                        // console.log('error, not uploaded')
                     }
                 }
                 if (newFile && newFile.response && newFile.response.status === 'success') {
@@ -98,69 +91,30 @@ export default {
 
         inputFilter: function (newFile, oldFile, prevent) {
             if (newFile && !oldFile) {
-                // Filter non-image file
-                if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+                //prevent adding new files if maximum reached
+                if(this.files.length >= 4){
+                    return prevent()
+                }
+                // Filter non-supported extensions  both lower and upper case
+                let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+                let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
+                let isSupported = this.extensions.includes(ext);
+                if (!isSupported) {
                     return prevent()
                 }
             }
             if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
                 // Create a blob field
-                // 创建 blob 字段
-                newFile.blob = ''
+                newFile.blob = '';
                 let URL = window.URL || window.webkitURL;
                 if (URL && URL.createObjectURL) {
                     newFile.blob = URL.createObjectURL(newFile.file);
-                    if(this.previewList.length >= 4)return;
-                    this.previewList.push(newFile.blob)
-                }
-                // Thumbnails
-                // 缩略图
-                newFile.thumb = ''
-                if (newFile.blob && newFile.type.substr(0, 6) === 'image/') {
-                    newFile.thumb = newFile.blob
                 }
             }
-
-
-
 }
 
     },
     mounted() {
-        //Used html5-uploader, examples here: http://mpangrazzi.github.io/
-        // var self = this;
-        // var multiple = new Uploader({
-        //     el: '#file-input',
-        //     url: this.uploadUrl
-        // });
-        //
-        // multiple.on('files:added', function (val) {
-        //     self.errorTextArea.errorText = '4 files only';
-        //     if(val.length <= self.uploadLimit){
-        //     this.files=val.filter(i=>i.type.indexOf("image")>-1);
-        //      this.upload()
-        //     }
-        // });
-        //
-        // multiple.on('file:preview', function (file, $img) {
-        //     let files = this.getFiles();
-        //     if ($img && files.length < self.uploadLimit) {
-        //         self.counter = self.counter + 1;
-        //         // self.previewList.push($img.outerHTML);
-        //         if(self.counter <= self.uploadLimit){
-        //             self.previewList.push($img.src);
-        //         }
-        //
-        //     }
-        // });
-
-        // multiple.on('upload:done', function (response) {
-        //     self.$emit('addFile', JSON.parse(response).files.toString());
-        // });
-        // multiple.on('upload:progress', function (progress) {
-        //     console.log('progress: %s', progress);
-        // });
-
         this.$root.$on('colorReset', () => {
            return self.activeColor = {
                 name: 'default',
@@ -168,7 +122,7 @@ export default {
             }
         });
         this.$root.$on('previewClean', () => {
-           return this.previewList = [];
+           return this.files = [];
         });
 
     },
