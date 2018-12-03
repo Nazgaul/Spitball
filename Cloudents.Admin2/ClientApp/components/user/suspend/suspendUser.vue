@@ -8,7 +8,8 @@
             <input type="checkbox" v-model="deleteUserQuestions"> Remove Question 
         </div>
         <div class="suspend-button-container">
-            <v-btn round color="red" @click.prevent="banUser" :class="{'lock': lock}">Suspend</v-btn>
+            <v-btn round color="red" @click.prevent="actionUser(false)" :class="{'lock': lock}">Suspend</v-btn>
+            <v-btn round color="green" @click.prevent="actionUser(true)" :class="{'lock': lock}">Release</v-btn>
         </div>
 
         <div v-if="showSuspendedDetails" class="suspended-user-container">
@@ -18,7 +19,7 @@
 </template>
 
 <script>
-import {suspendUser} from './suspendUserService'
+import {suspendUser, releaseUser} from './suspendUserService'
 export default {
     data(){
         return{
@@ -31,7 +32,7 @@ export default {
         }
     },
     methods:{
-        banUser:function(){
+        actionUser:function(unsuspendUser){
             if(!this.userIds){
                 this.$toaster.error("Please Insert A user ID")
                 return;
@@ -44,16 +45,32 @@ export default {
             });
             
             this.lock = true;
-            suspendUser(this.serverIds, this.deleteUserQuestions).then((email)=>{
-                this.$toaster.success(`userId ${this.userId} got suspended, email is: ${email}`)
-                this.showSuspendedDetails = true;
-                this.suspendedMail = email;
-            }, (err)=>{
-                this.$toaster.error(`ERROR: failed to suspend user`);
-                console.log(err)
-            }).finally(()=>{
-                this.lock = false;
-            })
+            if(!!unsuspendUser){
+                releaseUser(this.serverIds).then((email)=>{
+                    this.$toaster.success(`user got released`); 
+                    this.userIds = null;
+                }, (err)=>{
+                    this.$toaster.error(`ERROR: failed to realse user`);
+                    console.log(err)
+                }).finally(()=>{
+                    this.lock = false;
+                    
+                })
+            }else{
+                suspendUser(this.serverIds, this.deleteUserQuestions).then((email)=>{
+                    this.$toaster.success(`user got suspended, email is: ${email}`)
+                    this.showSuspendedDetails = true;
+                    this.suspendedMail = email;
+                    this.userIds = null;
+                }, (err)=>{
+                    this.$toaster.error(`ERROR: failed to suspend user`);
+                    console.log(err)
+                }).finally(()=>{
+                    this.lock = false;
+                    
+                })
+            }
+            
         }
     }
 }
