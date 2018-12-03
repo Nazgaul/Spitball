@@ -25,6 +25,7 @@ namespace Cloudents.Infrastructure.Database.Query
             var ids = query.QuestionIds.ToList();
             return await _session.Query<Document>()
                 .Fetch(f => f.User)
+                .Fetch(f=>f.University)
                 .Where(w => ids.Contains(w.Id))
                 .Select(s => new DocumentFeedDto
                 {

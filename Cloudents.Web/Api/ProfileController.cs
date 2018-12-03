@@ -37,36 +37,36 @@ namespace Cloudents.Web.Api
         }
 
         // GET
-        [HttpGet("questions/{id}")]
-        [ProducesResponseType(404)]
+        [HttpGet("{id}/questions")]
         [ProducesResponseType(200)]
 
-        public async Task<ActionResult<IEnumerable<QuestionFeedDto>>> GetQuestionsAsync(long id, int page, CancellationToken token)
+        public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
-            var query = new UserQuestionsByIdQuery(id, page);
+            var query = new UserDataPagingByIdQuery(id, page);
             var retVal = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token).ConfigureAwait(false);
-            if (retVal == null)
-            {
-
-               return NotFound();
-            }
-            return retVal.ToList();
+            
+            return retVal;
         }
 
         // GET
-        [HttpGet("answers/{id}")]
-        [ProducesResponseType(404)]
+        [HttpGet("{id}/answers")]
         [ProducesResponseType(200)]
 
-        public async Task<ActionResult<IEnumerable<QuestionFeedDto>>> GetAnswersAsync(long id, int page, CancellationToken token)
+        public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
         {
             var query = new UserAnswersByIdQuery(id, page);
             var retVal = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token).ConfigureAwait(false);
-            if (retVal == null)
-            {
-                return NotFound();
-            }
-            return retVal.ToList();
+            return retVal;
+        }
+
+        [HttpGet("{id}/documents")]
+        [ProducesResponseType(200)]
+
+        public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(long id, int page, CancellationToken token)
+        {
+            var query = new UserDataPagingByIdQuery(id, page);
+            var retVal = await _queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, token).ConfigureAwait(false);
+            return retVal;
         }
     }
 }
