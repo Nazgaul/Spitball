@@ -80,7 +80,8 @@ export default {
             }
             else if (this.currentStep === 3 && Object.keys(this.getFileData.type).length === 0) {
                 return true
-            } else if (this.currentStep === 4 && (!this.getFileData.name)) {
+            } else if (this.currentStep === 4 && (!this.getFileData.name || this.getCustomFileName.length === 0)) {
+                console.log('title',this.getFileData.name)
                 return true
             }
             else if (this.currentStep === 5) {
