@@ -11,10 +11,15 @@ namespace Cloudents.Core.Storage
     {
         Task InsertMessageAsync(BaseEmail obj, CancellationToken token);
         Task InsertMessageAsync(BaseEmail obj,TimeSpan delay, CancellationToken token);
-        Task InsertMessageAsync(SmsMessage2 obj, CancellationToken token);
+        //Task InsertMessageAsync(SmsMessage2 obj, CancellationToken token);
 
         Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token);
 
         Task InsertBlobReprocessAsync(long id);
+    }
+
+    public interface IServiceBusProvider
+    {
+        Task InsertMessageAsync(SmsMessage2 obj, CancellationToken token);
     }
 }
