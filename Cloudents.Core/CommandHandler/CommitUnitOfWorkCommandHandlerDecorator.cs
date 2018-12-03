@@ -21,37 +21,16 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(TCommand message, CancellationToken token)
         {
-            try
-            {
+            //try
+           // {
                 await _decoratee.ExecuteAsync(message, token).ConfigureAwait(true);
                 await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
-            }
-            catch (Exception)
-            {
-                await _unitOfWork.PublishEventsAsync(token);
-                throw;
-            }
+           // }
+            //catch (Exception)
+            //{
+            //   // await _unitOfWork.PublishEventsAsync(token);
+            //    throw;
+            //}
         }
     }
-
-    //public class EventPublisherCommandHandlerDecorator<TCommand>
-    //    : ICommandHandler<TCommand> where TCommand : ICommand
-    //{
-    //    private readonly IUnitOfWork _unitOfWork;
-    //    private readonly ICommandHandler<TCommand> _decoratee;
-
-    //    public EventPublisherCommandHandlerDecorator(
-    //        IUnitOfWork unitOfWork,
-    //        ICommandHandler<TCommand> decoratee)
-    //    {
-    //        _unitOfWork = unitOfWork;
-    //        _decoratee = decoratee;
-    //    }
-
-    //    public async Task ExecuteAsync(TCommand message, CancellationToken token)
-    //    {
-    //        await _decoratee.ExecuteAsync(message, token).ConfigureAwait(true);
-    //        await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
-    //    }
-    //}
 }
