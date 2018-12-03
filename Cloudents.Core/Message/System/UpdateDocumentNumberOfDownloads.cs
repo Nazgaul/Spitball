@@ -1,9 +1,8 @@
 ﻿namespace Cloudents.Core.Message.System
 {
-    public class UpdateDocumentNumberOfViews : ISystemQueueMessage
+    public class UpdateDocumentNumberOfDownloads : ISystemQueueMessage
     {
-
-        public UpdateDocumentNumberOfViews(long id)
+        public UpdateDocumentNumberOfDownloads(long id)
         {
             Id = id;
         }

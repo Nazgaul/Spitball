@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities.Db
     {
         public University(string name, string country) : this()
         {
-            Name = name;
+            Name = name.Replace("+","");
             Country = country;
             RowDetail = new DomainTimeStamp();
         }

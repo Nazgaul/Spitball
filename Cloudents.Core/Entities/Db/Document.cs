@@ -19,7 +19,8 @@ namespace Cloudents.Core.Entities.Db
         : this()
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
+            Name = name.Replace("+", string.Empty);
             BlobName = blobName ?? throw new ArgumentNullException(nameof(blobName));
             University = university ?? throw new ArgumentNullException(nameof(university));
             Course = course ?? throw new ArgumentNullException(nameof(course));
