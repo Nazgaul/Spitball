@@ -116,7 +116,7 @@ export default {
     },
     mounted() {
         this.$root.$on('colorReset', () => {
-           return self.activeColor = {
+           return this.activeColor = {
                 name: 'default',
                 id: 0
             }
