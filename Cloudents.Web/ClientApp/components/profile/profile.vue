@@ -17,15 +17,20 @@
                                 <li :class="{'active': activeTab === 2}" @click="changeActiveTab(2)">
                                     <span v-if="isMyProfile"></span><span v-language:inner>profile_Answers</span> 
                                 </li>
+                                <li :class="{'active': activeTab === 3}" @click="changeActiveTab(3)">
+                                    <span v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
+                                </li>
                             </ul>
-
                             <v-tabs v-else grow class="tab-padding" xs12>
                                 <v-tabs-slider color="blue"></v-tabs-slider>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
                                         v-if="isMyProfile"></span><span v-language:inner>profile_Questions</span>
                                 </v-tab>
                                 <v-tab @click="activeTab = 2" :href="'#tab-2'" :key="2"><span
-                                        v-if="isMyProfile"></span><span v-language:inner>profile_Answers</span>
+                                        v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
+                                </v-tab>
+                                <v-tab @click="activeTab = 3" :href="'#tab-3'" :key="3"><span
+                                        v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
                                 </v-tab>
                             </v-tabs>
                         </div>
@@ -58,6 +63,12 @@
                                 <question-card :cardData="answerData" class="mb-3"></question-card>
                             </router-link>
                         </scroll-list>
+                    <scroll-list v-show="activeTab === 3" :scrollFunc="loadAnswers" :isLoading="answers.isLoading" :isComplete="answers.isComplete">
+                        <router-link :to="{name:'document',params:{id:document.id}}" v-for="(document ,index) in profileData.documents"
+                                     :key="index" class="mb-3">
+                            <result-note :item="document" class="mb-3"></result-note>
+                        </router-link>
+                    </scroll-list>
                 </v-flex>
 
             </v-layout>

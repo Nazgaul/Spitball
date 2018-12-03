@@ -135,4 +135,7 @@
   <data name="emptyState_questions_text" xml:space="preserve">
     <value>Have a question on your homework?</value>
   </data>
+  <data name="documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
 </root>

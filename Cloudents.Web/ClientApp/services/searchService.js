@@ -68,6 +68,22 @@ function QuestionItem(objInit) {
     this.watchingNow = questionOlderTheOneMinute ? (questionYoungerThenThreshHold ? ((Math.random() * 2) | 0) : 0) : 0; //Todo get value from server
 }
 
+function DocumentItem(objInit) {
+    this.course = objInit.course;
+    this.dateTime = objInit.dateTime;
+    this.downloads= objInit.downloads;
+    this.professor = objInit.professor;
+    this.snippet = objInit.snippet;
+    this.source = objInit.source;
+    this.title = objInit.title;
+    this.type = objInit.type;
+    this.university = objInit.university;
+    this.url = objInit.url;
+    this.user = objInit.user;
+    this.views = objInit.views;
+    this.template = 'note';
+
+}
 
 let transferResultAsk = response => {
     let res = response.data;
@@ -90,9 +106,8 @@ let transferResultNote = response => {
     return {
         sort: res.sort,
         filters: res.filters,
-        data: result.map(val => {
-            return {...val, template: 'note'}
-        }), nextPage: res.nextPageLink
+        data: result.map(createDocumentItem),
+        nextPage: res.nextPageLink
     }
 };
 let transferResultFlashcard = response => {
@@ -243,5 +258,9 @@ export default {
 
     createFilters: (objInit)=>{
        return new Filters(objInit)
+    },
+
+    createDocumentItem: (objInit) => {
+        return new DocumentItem(objInit)
     }
 }

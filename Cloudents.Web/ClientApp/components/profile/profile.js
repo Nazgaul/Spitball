@@ -1,4 +1,5 @@
 import questionCard from "../question/helpers/question-card/question-card.vue";
+import resultNote from "../results/ResultNote.vue"
 import userBlock from '../helpers/user-block/user-block.vue';
 import {dollarCalculate} from "../../store/constants";
 import accountService from '../../services/accountService';
@@ -6,7 +7,7 @@ import {mapGetters, mapActions} from 'vuex'
 import { LanguageService } from "../../services/language/languageService";
 
 export default {
-    components: {questionCard, userBlock},
+    components: {questionCard, userBlock, resultNote},
     props: {
         id: {Number}
     },

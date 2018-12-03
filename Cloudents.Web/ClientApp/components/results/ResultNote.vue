@@ -115,6 +115,7 @@
             },
 
             isOurs() {
+                if(this.item && this.item.source)
                 return this.item.source.includes('Cloudents') || this.item.source.includes('Spitball')
             },
             isCloudents() {
@@ -137,15 +138,9 @@
                         this.item.views =  this.item.views + 1;
                     }
                 }, 100)
-
-
-
-
             }
         },
-        created(){
 
-        }
     }
 </script>
 <style src="./ResultNote.less" lang="less"></style>
