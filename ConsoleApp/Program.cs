@@ -98,6 +98,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var t = _container.Resolve<IUnitOfWork>();
             var user = new UserDto
             {
                 Id = 1,

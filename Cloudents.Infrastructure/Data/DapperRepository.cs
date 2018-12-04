@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Data
 {
@@ -11,18 +12,11 @@ namespace Cloudents.Infrastructure.Data
     {
         private readonly string _connectionString;
 
-        public delegate DapperRepository Factory(Core.Enum.Database db);
-
-        public DapperRepository(Core.Enum.Database db, DbConnectionStringProvider provider)
+        public DapperRepository(IConfigurationKeys  provider)
         {
-            _connectionString = provider.GetConnectionString(db);
+            _connectionString = provider.Db.Db;
         }
-
-        public DapperRepository(DbConnectionStringProvider provider) :
-            this(Core.Enum.Database.System,provider)
-        {
-
-        }
+       
 
         public async Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token)
         {

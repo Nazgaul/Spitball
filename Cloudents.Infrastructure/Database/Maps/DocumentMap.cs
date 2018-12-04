@@ -1,8 +1,9 @@
 ﻿using Cloudents.Core.Entities.Db;
+using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
-    public class DocumentMap : SpitballClassMap<Document>
+    public class DocumentMap : ClassMap<Document>
     {
         public DocumentMap()
         {
