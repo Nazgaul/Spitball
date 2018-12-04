@@ -31,6 +31,10 @@ function messageHandler(message){
     console.log(message);
 
     //Todo fire signlaREvents correct event
+    if(!signlaREvents[notificationObj.type]){
+        console.error(`Event Type - ${notificationObj.type}, Action - ${notificationObj.action} is not exist `);
+        return;
+    }
     signlaREvents[notificationObj.type][notificationObj.action](notificationObj.data);
 }
 

@@ -106,17 +106,31 @@ const mutations = {
             }
         }
     },
-    [SEARCH.UPDATE_QUESTION](state, questionToUpdate){
+    [SEARCH.UPDATE_QUESTION_CORRECT](state, questionToCorrect){
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
             for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; questionIndex++ ){
                 let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
-                if(currentQuestion.id === questionToUpdate.id){
+                if(currentQuestion.id === questionToCorrect.questionId){
                     //replace the question from the list
-                    state.itemsPerVertical.ask.data[questionIndex].answers = questionToUpdate.answers;
-                    state.itemsPerVertical.ask.data[questionIndex].hasCorrectAnswer = questionToUpdate.hasCorrectAnswer;
-                    state.itemsPerVertical.ask.data[questionIndex].files = questionToUpdate.files;
-                    state.itemsPerVertical.ask.data[questionIndex].answersNum = questionToUpdate.answers;
-                    state.itemsPerVertical.ask.data[questionIndex].filesNum = questionToUpdate.files;
+                    state.itemsPerVertical.ask.data[questionIndex].hasCorrectAnswer = true;
+                    state.itemsPerVertical.ask.data[questionIndex].correctAnswerId = questionToCorrect.answerId;
+                    return;
+                }
+            }
+        }
+    },
+    [SEARCH.UPDATE_QUESTION_ANSWERS_COUNTER](state, actionObj){
+        let questionId = actionObj.questionId
+        let addAnswersCounter = actionObj.addCounter
+        if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
+            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; questionIndex++ ){
+                let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
+                if(currentQuestion.id === questionId){
+                    if(addAnswersCounter){
+                        state.itemsPerVertical.ask.data[questionIndex].answers += 1;
+                    }else{
+                        state.itemsPerVertical.ask.data[questionIndex].answers -= 1;
+                    }
                     return;
                 }
             }
@@ -294,9 +308,15 @@ const actions = {
        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
        commit(SEARCH.REMOVE_QUESTION, questionObj);
     },
-    updateQuestionItem({ commit }, notificationQuestionObject){
-        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
-        commit(SEARCH.UPDATE_QUESTION, questionObj);
+    updateQuestionCorrect({ commit }, notificationQuestionObject){
+        let questionObj = {
+            questionId: notificationQuestionObject.questionId,
+            answerId: notificationQuestionObject.answerId
+        };
+        commit(SEARCH.UPDATE_QUESTION_CORRECT, questionObj);
+    },
+    updateQuestionCounter({ commit }, actionObj){
+        commit(SEARCH.UPDATE_QUESTION_ANSWERS_COUNTER, actionObj)
     },
     addQuestionViewer({ commit }, notificationQuestionObject){
         let questionObj = notificationQuestionObject;
