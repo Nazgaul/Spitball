@@ -23,7 +23,7 @@ export const signlaREvents = {
             };  
             arrEventObj.forEach((action)=>{
                 if(!questionActions[action.type]){
-                    console.error(`Action type ${action.type} was not defined in questionActions`)
+                    console.error(`Action type ${action.type} was not defined in Question questionActions`)
                 }
                 questionActions[action.type](action.data)
             })          
@@ -71,6 +71,19 @@ export const signlaREvents = {
                 }
             })
             
+        },
+        action: function(arrEventObj){
+            let userActions = {
+                logout: function(data){
+                    store.dispatch("logout", data)
+                }
+            };  
+            arrEventObj.forEach((action)=>{
+                if(!userActions[action.type]){
+                    console.error(`Action type ${action.type} was not defined in User userActions`)
+                }
+                userActions[action.type](action.data)
+            }) 
         }
     },
     notification: {
