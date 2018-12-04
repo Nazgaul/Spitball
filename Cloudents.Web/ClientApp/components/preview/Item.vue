@@ -13,7 +13,7 @@
                 <!--</div>-->
                 <!--</v-carousel-item>-->
                 <!--</v-carousel>-->
-               <!--<div v-else class="page text-xs-center" v-for="(page, index) in preview" :key="index">-->
+                <!--<div v-else class="page text-xs-center" v-for="(page, index) in preview" :key="index">-->
                 <div class="page text-xs-center" v-for="(page, index) in preview" :key="index">
                     <component class="page-content elevation-1" :is="currentComponent" :src="page"
                                :class="item.contentType+'-content'"></component>
@@ -25,6 +25,7 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import docHeader from "./headerDocument.vue";
+
     export default {
         components: {
             docHeader: docHeader

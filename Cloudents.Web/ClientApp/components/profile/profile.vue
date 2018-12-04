@@ -51,6 +51,13 @@
                         </div>
                         <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">{{emptyStateData.btnText}}</router-link>
                     </div>
+                    <div class="empty-state" v-if="activeTab === 3 && !profileData.documents.length">
+                        <div class="text-block">
+                            <p v-html="emptyStateData.text"></p>
+                            <b>{{emptyStateData.boldText}}</b>
+                        </div>
+                        <a class="ask-question" @click="emptyStateData.btnUrl()">{{emptyStateData.btnText}}</a>
+                    </div>
                         <scroll-list v-show="activeTab === 1" :scrollFunc="loadQuestions" :isLoading="questions.isLoading" :isComplete="questions.isComplete">
                             <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
                                         v-for="(questionData,index) in profileData.questions" :key="index">
@@ -63,7 +70,7 @@
                                 <question-card :cardData="answerData" class="mb-3"></question-card>
                             </router-link>
                         </scroll-list>
-                    <scroll-list v-show="activeTab === 3" :scrollFunc="loadAnswers" :isLoading="answers.isLoading" :isComplete="answers.isComplete">
+                    <scroll-list v-show="activeTab === 3" :scrollFunc="loadDocuments" :isLoading="documents.isLoading" :isComplete="documents.isComplete">
                         <router-link :to="{name:'document',params:{id:document.id}}" v-for="(document ,index) in profileData.documents"
                                      :key="index" class="mb-3">
                             <result-note :item="document" class="mb-3"></result-note>

@@ -29,8 +29,8 @@
 
                 <v-flex grow class="doc-details">
                     <div class="author-info-date">
-                        <div class="autor">
-                            <span v-show="authorName"  v-language:inner>headerDocument_item_by</span>
+                        <div class="autor" v-show="authorName">
+                            <span  v-language:inner>headerDocument_item_by</span>
                             <span>&nbsp;{{authorName}},&nbsp;</span>
                             </div>
 
