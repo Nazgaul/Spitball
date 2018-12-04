@@ -18,14 +18,8 @@ namespace Cloudents.Infrastructure.Database.Repositories
             Session = session;
         }
 
-        //public Task<T> LoadAsync(object id, CancellationToken token)
-        //{
-        //    return Session.LoadAsync<T>(id, token);
-        //}
-
         public virtual Task<object> AddAsync(T entity, CancellationToken token)
         {
-            // _unitOfWork.FlagCommit();
             return Session.SaveAsync(entity, token);
         }
 

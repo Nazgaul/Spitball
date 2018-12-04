@@ -19,6 +19,8 @@ namespace Cloudents.Core.Message.System
 
         public object Data { get; }
 
+        public long? UserId { get; set; }
+
         //new SignalRTransportType<QuestionDto>(SignalRType.Question, SignalRAction.Add, dto)
 
         public dynamic GetData()

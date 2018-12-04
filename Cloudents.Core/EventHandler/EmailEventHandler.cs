@@ -30,7 +30,7 @@ namespace Cloudents.Core.EventHandler
 
         }
 
-        private bool EmailValidate(User user)
+        private static bool EmailValidate(User user)
         {
             if (!user.EmailConfirmed || user.Fictive.GetValueOrDefault())
             {

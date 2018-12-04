@@ -30,6 +30,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Search.Question;
 
@@ -48,14 +49,14 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
@@ -97,10 +98,30 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var z = _container.Resolve<AzureQuestionSearch>();
-            var zz = z.GetById("6545");
+            var user = new UserDto
+            {
+                Id = 1,
+                Name = "Some Name",
+                Image = null
+            };
+            var dto = new QuestionFeedDto(1,
+                QuestionSubject.Accounting,
+                100,
+                "Signalr test",
+                0,
+                0,
+                user,
+                DateTime.UtcNow,
+                QuestionColor.Blue,
+                false,
+                CultureInfo.CurrentCulture);
 
-            var p = await z.SearchAsync(new QuestionsQuery(null, null, 0, null, "us"), default);
+            var signalrMessage = new Cloudents.Core.Message.System.SignalRMessage(SignalRType.Question,
+                SignalRAction.Add, dto);
+
+
+            var z = _container.Resolve<IQueueProvider>();
+            await z.InsertMessageAsync(signalrMessage, token);
             //await z.InsertMessageAsync(new SmsMessage2("+972542642202", "1111"), token);
             //CreateServiceBus.Create();
             // await TransferDocuments();
