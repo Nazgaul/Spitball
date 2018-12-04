@@ -20,11 +20,9 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Color);
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             Map(x => x.Language).Length(5);
-            //References(x => x.Subject).ForeignKey("Question_AskQuestionSubject").Not.Nullable();
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
 
             References(x => x.User).Column("UserId").ForeignKey("Question_User").Not.Nullable();
-            //HasOne(x => x.CorrectAnswer).Not.ForeignKey();
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
             HasMany(x => x.Answers)
                 .Inverse()
