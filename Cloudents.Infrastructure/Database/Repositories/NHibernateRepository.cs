@@ -48,7 +48,6 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public Task DeleteAsync(T entity, CancellationToken token)
         {
-            //_unitOfWork.FlagCommit();
             return Session.DeleteAsync(entity, token);
         }
 
@@ -56,10 +55,5 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
             return Session.UpdateAsync(entity, token);
         }
-
-        //public Task FlushAsync(CancellationToken token)
-        //{
-        //    return Session.FlushAsync(token);
-        //}
     }
 }

@@ -1,10 +1,11 @@
 ﻿using Cloudents.Core.Entities.Db;
+using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
-    public class UrlStatsMap : SpitballClassMap<UrlStats>
+    public class UrlStatsMap : ClassMap<UrlStats>
     {
         public UrlStatsMap()
         {

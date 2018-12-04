@@ -1,8 +1,9 @@
 ﻿using Cloudents.Core.Entities.Db;
+using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
-    internal class UserLocationMap : SpitballClassMap<UserLocation>
+    internal class UserLocationMap : ClassMap<UserLocation>
     {
         public UserLocationMap()
         {
