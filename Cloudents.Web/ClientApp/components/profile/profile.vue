@@ -27,7 +27,7 @@
                                         v-if="isMyProfile"></span><span v-language:inner>profile_Questions</span>
                                 </v-tab>
                                 <v-tab @click="activeTab = 2" :href="'#tab-2'" :key="2"><span
-                                        v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
+                                        v-if="isMyProfile"></span><span v-language:inner>profile_Answers</span>
                                 </v-tab>
                                 <v-tab @click="activeTab = 3" :href="'#tab-3'" :key="3"><span
                                         v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
