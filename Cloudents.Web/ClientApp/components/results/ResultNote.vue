@@ -31,10 +31,10 @@
                     <div class="author-info-date">
                         <div class="autor">
                             <span v-show="authorName"  v-language:inner>headerDocument_item_by</span>
-                            <span>&nbsp;{{authorName}},&nbsp;</span>
+                            <span>&nbsp;{{authorName}}&nbsp;</span>
                             </div>
 
-                        <span class="date"v-show="uploadDate">{{uploadDate}}</span>
+                        <span class="date"v-show="uploadDate">,{{uploadDate}}</span>
                     </div>
                     <div class="doc-actions-info">
                         <v-icon class="sb-doc-icon mr-1">sbf-views</v-icon>
