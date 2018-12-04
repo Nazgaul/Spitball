@@ -117,7 +117,8 @@ const actions = {
        let p1 = accountService.getProfile(id);
        let p2 = accountService.getProfileQuestions(id);
        let p3 = accountService.getProfileAnswers(id);
-       Promise.all([p1,p2,p3]).then((vals)=>{
+       let p4 = accountService.getProfileDocuments(id);
+       Promise.all([p1,p2,p3, p4]).then((vals)=>{
         console.log(vals)
         let profileData = accountService.createProfileData(vals);
         context.commit('setProfile', profileData)

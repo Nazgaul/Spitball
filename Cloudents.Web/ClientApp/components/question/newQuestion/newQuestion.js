@@ -184,7 +184,7 @@ export default {
             if (notRounded > 100) {
                 notRounded = 100;
             }
-            return parseInt(notRounded.toFixed(2));
+            return parseFloat(notRounded.toFixed(2));
         },
         validForm() {
             return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);

@@ -29,8 +29,8 @@
 
                 <v-flex grow class="doc-details">
                     <div class="author-info-date">
-                        <div class="autor">
-                            <span v-show="authorName"  v-language:inner>headerDocument_item_by</span>
+                        <div class="autor" v-show="authorName">
+                            <span  v-language:inner>headerDocument_item_by</span>
                             <span>&nbsp;{{authorName}},&nbsp;</span>
                             </div>
 
@@ -115,6 +115,7 @@
             },
 
             isOurs() {
+                if(this.item && this.item.source)
                 return this.item.source.includes('Cloudents') || this.item.source.includes('Spitball')
             },
             isCloudents() {
@@ -137,15 +138,9 @@
                         this.item.views =  this.item.views + 1;
                     }
                 }, 100)
-
-
-
-
             }
         },
-        created(){
 
-        }
     }
 </script>
 <style src="./ResultNote.less" lang="less"></style>
