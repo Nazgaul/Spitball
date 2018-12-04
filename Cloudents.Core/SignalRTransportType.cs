@@ -31,11 +31,14 @@ namespace Cloudents.Core
     {
         Add,
         Delete,
-        Update
+        Update,
+        Action
     }
 
     public enum SignalRType
     {
-        Question
+        Question,
+        Answer,
+        Document
     }
 }
