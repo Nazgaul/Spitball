@@ -14,7 +14,9 @@
 </template>
 <script>
     import { LanguageService } from "../../services/language/languageService";
-    import closeIcon from './svg/close-icon.svg'
+    import closeIcon from './svg/close-icon.svg';
+    import { mapGetters, mapActions } from 'vuex'
+
     // import downloadIcon from './svg/download-icon.svg'
     // import infoIcon from './svg/info-icon.svg'
     // import printIcon from './svg/print-icon.svg'
@@ -43,10 +45,16 @@
         },
         methods: {
             $_back() {
-              this.$router.go(-1);
+                if(!this.lastActiveRoute.name){
+                    this.$router.push({path: '/note'});
+                }else{
+                    this.$router.go(-1);
+                }
+
             }
         },
         computed: {
+            ...mapGetters(['lastActiveRoute']),
             showActions() {
                 return this.$route.name === 'document'
             }
