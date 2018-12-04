@@ -63,6 +63,16 @@ export const signlaREvents = {
             })
         }
     },
+    user:{
+        update:function(arrEventObj){
+            arrEventObj.forEach((user)=>{
+                if(typeof user.balance !== undefined){
+                    store.dispatch('signalR_SetBalance', user.balance);
+                }
+            })
+            
+        }
+    },
     notification: {
         add: function(arrEventObj){
             arrEventObj.forEach((notificationToAdd)=>{
