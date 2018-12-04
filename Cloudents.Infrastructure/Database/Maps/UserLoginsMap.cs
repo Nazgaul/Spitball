@@ -1,10 +1,11 @@
 ﻿using Cloudents.Core.Entities.Db;
+using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
-    internal class UserLoginsMap : SpitballClassMap<UserLogin>
+    internal class UserLoginsMap : ClassMap<UserLogin>
     {
         public UserLoginsMap()
         {

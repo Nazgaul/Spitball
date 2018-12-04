@@ -4,15 +4,13 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Fluent nhibernate")]
-    public class RowDetailMap : ComponentMap<RowDetail>
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Fluent nhibernate")]
+    public class DomainTimeStampMap : ComponentMap<DomainTimeStamp>
     {
-        public RowDetailMap()
+        public DomainTimeStampMap()
         {
-            Map(m => m.CreatedUser).Insert().Not.Update();
             Map(m => m.CreationTime).Insert().Not.Update();
             Map(m => m.UpdateTime).Insert();
-            Map(m => m.UpdatedUser).Insert();
         }
     }
 }

@@ -31,7 +31,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions']),
+        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions', 'getDocuments']),
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
@@ -92,7 +92,7 @@ export default {
                 page: this.documents.page,
                 user: this.profileData.user
             }
-            this.getQuestions(DocumentsInfo).then((hasData) => {
+            this.getDocuments(DocumentsInfo).then((hasData) => {
                 if (!hasData) {
                     this.documents.isComplete = true;
                 }
