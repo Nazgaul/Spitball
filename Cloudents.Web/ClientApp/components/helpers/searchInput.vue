@@ -3,12 +3,15 @@
         {{suggestionVertical}}
         <div class="search-b-wrapper">
         <!--<div class="search-b-wrapper" v-scroll="onScroll">-->
-            <v-text-field class="search-b" type="search" solo
+            <v-text-field class="search-b" type="text" solo
                           @keyup.enter="search()" autocomplete="off" @keyup.down="arrowNavigation(1)"
                           @keyup.up="arrowNavigation(-1)"
-                           name="q"
+                          name="q"
                           id="transcript"
-                          v-model="msg" @input="changeMsg" :placeholder="placeholder"
+                          clearable
+                          clear-icon="sbf-close"
+                          v-model="msg" @input="changeMsg"
+                          :placeholder="placeholder"
                           prepend-icon="sbf-search"
                           :hide-on-scroll="isHome?hideOnScroll:false" @click="openSuggestions"></v-text-field>
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
