@@ -12,6 +12,25 @@ const mutations = {
     },
     updateQuestion(state, data){
         state.question = data;
+    },
+    addAnswer(state, answer){
+        state.question.answers.push(answer);
+    },
+    removeAnswer(state, answerId){
+        let answerIndex = -1;
+        state.question.answers.forEach((answer, index) => {
+            if(answer.id === answerId){
+                answerIndex = index;
+                return;
+            }
+        })
+        if(answerIndex > -1){
+            state.question.answers.splice(answerIndex, 1);
+        }
+    },
+    markAsCorrect(state, answerId){
+        state.question.hasCorrectAnswer = true;
+        state.question.correctAnswerId = answerId;
     }
 };
 const getters = {
@@ -54,6 +73,7 @@ const actions = {
         })
     },
     updateQuestionSignalR({commit, state}, question){
+        return;
         if(!!state.question && state.question.id == question.id){
             // let res = searchService.createQuestionItem(question);
             // commit('updateQuestion', res);
@@ -63,7 +83,27 @@ const actions = {
                 commit('updateQuestion', res);
             })
         }
-        
+    },
+    updateQuestionItemCorrect({commit, state}, question){
+        if(!!state.question && state.question.id == question.questionId){
+            commit('markAsCorrect', question.answerId);
+        }
+    },
+    answerAdded({commit, state, dispatch}, notifyObj){
+        let questionId = notifyObj.questionId;
+        let answerObj = questionService.createAnswerItem(notifyObj.answer);
+        //update question in case user is in the question page
+        if(!!state.question && state.question.id === questionId){
+           commit('addAnswer', answerObj);
+        }
+    },
+    answerRemoved({dispatch, commit}, notifyObj){
+        let questionId = notifyObj.questionId;
+        let answerId = notifyObj.answer.id;
+        //update question in case user is in the question page
+        if(!!state.question && state.question.id === questionId){
+            commit('removeAnswer', answerId);
+         }         
     }
 };
 export default {

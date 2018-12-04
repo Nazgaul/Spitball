@@ -16,14 +16,12 @@ function ProfileData(arrInit){
         return {
             ...item,
             user: arrInit[0].data,
-            answersNum: item.answers,
             filesNum: item.files,
         }
     }) || [];
     this.answers= arrInit[2].data.map(i => {
         return {
             ...i,
-            answersNum: i.answers,
             filesNum: i.files,
         }
     }) || [];

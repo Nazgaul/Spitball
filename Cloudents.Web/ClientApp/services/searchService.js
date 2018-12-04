@@ -59,7 +59,6 @@ function QuestionItem(objInit) {
     this.template = objInit.template;
     this.template = "ask";
     this.filesNum = this.files;
-    this.answersNum = this.answers;
     this.isRtl = objInit.isRtl;
     // if the question is younger then 1 minute then watching now will be 0
     //if question is older then threshold, watching now also gonna be 0 other wise random between 0 to 1

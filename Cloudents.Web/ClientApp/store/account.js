@@ -134,7 +134,6 @@ const actions = {
                    //create answer Object and push it to the state
                     let answerToPush = {
                         ...answer,
-                        answersNum: answer.answers,
                         filesNum: answer.files,
                     }
                     context.state.profile.answers.push(answerToPush);
@@ -158,7 +157,6 @@ const actions = {
                     let questionToPush = {
                         ...question,
                         user: user,
-                        answersNum: question.answers,
                         filesNum: question.files,
                     }
                     context.state.profile.questions.push(questionToPush);

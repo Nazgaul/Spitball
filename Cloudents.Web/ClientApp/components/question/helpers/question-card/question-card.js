@@ -105,8 +105,8 @@ export default {
             correctAnswer: 'correctAnswer',
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
-            updateQuestionSignalR: 'updateQuestionSignalR',
-            removeQuestionItemAction: 'removeQuestionItemAction'
+            removeQuestionItemAction: 'removeQuestionItemAction',
+            manualAnswerRemove: 'answerRemoved'
         }),
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {
@@ -128,10 +128,10 @@ export default {
                             toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
                             showToaster: true,
                         });
-                        let objToDelete = {
-                            id: parseInt(this.$route.params.id)
-                        }
                         if (!this.typeAnswer) {
+                            let objToDelete = {
+                                id: parseInt(this.$route.params.id)
+                            }
                             this.updateBalance(this.cardData.price);
                             this.$ga.event("Delete_question", "Homework help");
                             //ToDO change to router link use and not text URL
@@ -140,7 +140,14 @@ export default {
                         } else {
                             //emit to root to update array of answers
                             this.$ga.event("Delete_answer", "Homework help");
-                            this.updateQuestionSignalR(objToDelete);
+
+                            //delete object Manually
+                            let answerToRemove = {
+                                questionId: parseInt(this.$route.params.id),
+                                answer: {
+                                    id: this.cardData.id}
+                            }
+                            this.manualAnswerRemove(answerToRemove);
                             this.isDeleted = true
                         }
                     },
