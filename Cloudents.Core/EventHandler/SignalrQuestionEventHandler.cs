@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
@@ -14,7 +13,8 @@ namespace Cloudents.Core.EventHandler
         : IEventHandler<QuestionCreatedEvent>,
             IEventHandler<QuestionDeletedEvent>,
             IEventHandler<MarkAsCorrectEvent>,
-            IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>
+            IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>,
+            IEventHandler<TransactionEvent>
     {
         private readonly IServiceBusProvider _queueProvider;
 
@@ -117,6 +117,17 @@ namespace Cloudents.Core.EventHandler
             };
 
             return _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Answer, SignalRAction.Delete, dto), token);
+        }
+
+        public Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
+        {
+            var message = new SignalRMessage(SignalRType.User,
+                SignalRAction.Update, new {balance = eventMessage.Transaction.User.Balance})
+            {
+                UserId = eventMessage.Transaction.User.Id
+            };
+            return _queueProvider.InsertMessageAsync
+                (message, token);
         }
     }
 }

@@ -32,9 +32,13 @@ namespace Cloudents.FunctionsV2.System
             var p = new SignalRMessage
             {
                 Target = "Message",
-                Arguments = new object[] {msg.GetData()}
+                Arguments = new object[] {msg.GetData()},
+                
             };
-
+            if (msg.UserId.HasValue)
+            {
+                p.UserId = msg.UserId.Value.ToString();
+            }
             var settings = new JsonSerializerSettings()
             {
                 NullValueHandling = NullValueHandling.Ignore,
