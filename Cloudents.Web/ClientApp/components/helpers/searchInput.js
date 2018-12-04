@@ -134,7 +134,7 @@ export default {
         closeSuggestions() {
             this.$el.querySelector('.search-b input').blur();
             this.focusedIndex = -1;
-            this.msg = this.originalMsg;
+            //this.msg = this.originalMsg;
             if (this.showSuggestions) {
                 this.showSuggestions = false;
                 this.$el.querySelector('.search-menu').scrollTop = 0;
