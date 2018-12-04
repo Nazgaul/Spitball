@@ -170,6 +170,28 @@ const actions = {
             return false;
         });
     },
+    getDocuments(context, DocumentsInfo){
+        let id = DocumentsInfo.id;
+        let page = DocumentsInfo.page;
+        let user = DocumentsInfo.user;
+        return accountService.getProfileDocuments(id, page).then(({data})=>{
+            let maximumElementsRecivedFromServer = 50;
+            if(data.length > 0){
+                data.forEach(document=>{
+                    //create answer Object and push it to the state
+                    let documentToPush = {
+                        ...document,
+                        user: user,
+                    };
+                    context.state.profile.documents.push(documentToPush);
+                })
+            }
+            //return true if we can call to the server
+            return data.length === maximumElementsRecivedFromServer;
+        }, (err)=>{
+            return false;
+        });
+    },
     updateUserProfileData(context, name){
         let currentProfile = profileService.getProfileData(name);
         context.commit("UPDATE_PROFILE_DATA", currentProfile );

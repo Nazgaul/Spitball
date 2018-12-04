@@ -43,7 +43,7 @@
         },
         methods: {
             $_back() {
-                this.$router.push({path: '/note'});
+                this.$router.go(-1);
             }
         },
         computed: {
