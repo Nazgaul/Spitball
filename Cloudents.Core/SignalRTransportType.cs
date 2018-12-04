@@ -39,6 +39,7 @@ namespace Cloudents.Core
     {
         Question,
         Answer,
-        Document
+        Document,
+        User
     }
 }
