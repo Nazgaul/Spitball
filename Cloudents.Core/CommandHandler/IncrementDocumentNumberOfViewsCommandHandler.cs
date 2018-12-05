@@ -19,4 +19,19 @@ namespace Cloudents.Core.CommandHandler
             await _documentRepository.UpdateNumberOfViews(message.Id, token);
         }
     }
+
+    public class IncrementDocumentNumberOfDownloadsCommandHandler : ICommandHandler<IncrementDocumentNumberOfDownloadsCommand>
+    {
+        private readonly IDocumentRepository _documentRepository;
+
+        public IncrementDocumentNumberOfDownloadsCommandHandler(IDocumentRepository documentRepository)
+        {
+            _documentRepository = documentRepository;
+        }
+
+        public async Task ExecuteAsync(IncrementDocumentNumberOfDownloadsCommand message, CancellationToken token)
+        {
+            await _documentRepository.UpdateNumberOfDownloads(message.Id, token);
+        }
+    }
 }

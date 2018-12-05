@@ -1,11 +1,9 @@
 ﻿using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
-using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -25,13 +23,14 @@ namespace Cloudents.Core.CommandHandler.Admin
         public async Task ExecuteAsync(SuspendUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, false, token);
-            if (user.Fictive.GetValueOrDefault())
+
+            if (!user.LockoutEnabled)
             {
                 return;
             }
             user.LockoutEnd = message.LockoutEnd;
             user.Events.Add(new UserSuspendEvent(user));
-            await _userRepository.UpdateAsync(user, token);
+            //await _userRepository.UpdateAsync(user, token);
 
 
             if (message.ShouldDeleteData)
@@ -44,12 +43,16 @@ namespace Cloudents.Core.CommandHandler.Admin
                     await deleteQuestionCommandHandler.DeleteQuestionAsync(question, token);
                 }
 
+
                 var deleteAnswerCommandHandler = _lifetimeScope.Resolve<DeleteAnswerCommandHandler>();
                 foreach (var answer in user.Answers)
                 {
                     await deleteAnswerCommandHandler.DeleteAnswerAsync(answer, token);
                 }
             }
+            user.Questions.Clear();
+            user.Answers.Clear();
+            await _userRepository.UpdateAsync(user, token);
         }
     }
 }

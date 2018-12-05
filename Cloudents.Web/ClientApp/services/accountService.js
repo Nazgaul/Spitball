@@ -1,6 +1,5 @@
 import { connectivityModule } from "./connectivity.module"
-import {dollarCalculate} from "../store/constants";
-
+import searchService from "../services/searchService.js"
 function AccountUser(ObjInit){
     this.balance= ObjInit.balance
     this.email= ObjInit.email
@@ -16,17 +15,16 @@ function ProfileData(arrInit){
         return {
             ...item,
             user: arrInit[0].data,
-            answersNum: item.answers,
             filesNum: item.files,
         }
     }) || [];
     this.answers= arrInit[2].data.map(i => {
         return {
             ...i,
-            answersNum: i.answers,
             filesNum: i.files,
         }
     }) || [];
+    this.documents= arrInit[3].data.map(searchService.createDocumentItem) || [];
 }
 
 export default {
@@ -45,18 +43,19 @@ export default {
         return connectivityModule.http.get("/Account/userName")
     },
     getProfile:(id) => {
-        return connectivityModule.http.get("/Profile/" + id)
+        return connectivityModule.http.get(`/Profile/${id}`)
     },
     getProfileQuestions:(id, page) => {
         let strPage = page ? `?page=${page}` : ""
-        return connectivityModule.http.get("Profile/questions/" + id + strPage)
+        return connectivityModule.http.get(`Profile/${id}/questions/${strPage}`)
     },
     getProfileAnswers:(id, page) => {
         let strPage = page ? `?page=${page}` : ""
-        return connectivityModule.http.get("/Profile/answers/" + id + strPage)
+        return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`)
     },
-    calculateDollar:(balance)=> {
-        return dollarCalculate(balance).toFixed(2)
+    getProfileDocuments:(id, page) => {
+        let strPage = page ? `?page=${page}` : ""
+        return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`)
     },
     createProfileData: (arrInit)=>{
         return new ProfileData(arrInit);

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
@@ -96,8 +94,8 @@ namespace Cloudents.Core.Entities.Db
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; protected set; }
-        protected internal virtual IList<Question> Questions { get; protected set; }
-        protected internal virtual IList<Answer> Answers { get; protected set; }
+        protected internal virtual IList<Question> Questions { get;  set; }
+        protected internal virtual IList<Answer> Answers { get;  set; }
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
         public virtual IList<IEvent> Events { get; }
 

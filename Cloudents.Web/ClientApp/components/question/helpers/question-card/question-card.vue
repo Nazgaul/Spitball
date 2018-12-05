@@ -5,7 +5,9 @@
         <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
             <div class="top-block">
-                <user-block :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' } q-user-block`" :cardData="cardData" :user="cardData.user"
+                <user-block :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' } q-user-block`"
+                            :cardData="cardData"
+                            :user="cardData.user"
                             v-if="cardData.user" :name="cardData.subject">
                     <template> · <span class="timeago" :datetime="cardTime"></span><span
                             v-if="typeAnswer"
@@ -31,7 +33,7 @@
                 </div>
             </div>
             <p class="q-text"  
-               :class="[`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`, `align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'answer': typeAnswer, 'ellipsis': fromCarousel || !detailedView}]">
+               :class="[`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`, `align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'answer': typeAnswer, 'ellipsis': fromCarousel || !detailedView}]"  v-line-clamp:20="!detailedView ? 3 : 0">
                 {{cardData.text | ellipsis(150, detailedView)}}
                 </p>
             <!-- v-if="cardData.files.length" -->

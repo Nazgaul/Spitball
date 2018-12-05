@@ -7,6 +7,8 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
@@ -28,6 +30,9 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Query;
+using Cloudents.Infrastructure.Search.Question;
 
 
 namespace ConsoleApp
@@ -44,16 +49,17 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://localhost:8545"
+                BlockChainNetwork = "http://localhost:8545",
+                ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
@@ -92,7 +98,34 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await TransferDocuments();
+            var t = _container.Resolve<IUnitOfWork>();
+            var user = new UserDto
+            {
+                Id = 1,
+                Name = "Some Name",
+                Image = null
+            };
+            var dto = new QuestionFeedDto(1,
+                QuestionSubject.Accounting,
+                100,
+                "Signalr test",
+                0,
+                0,
+                user,
+                DateTime.UtcNow,
+                QuestionColor.Blue,
+                false,
+                CultureInfo.CurrentCulture);
+
+            var signalrMessage = new Cloudents.Core.Message.System.SignalRMessage(SignalRType.Question,
+                SignalRAction.Add, dto);
+
+
+            var z = _container.Resolve<IQueueProvider>();
+            await z.InsertMessageAsync(signalrMessage, token);
+            //await z.InsertMessageAsync(new SmsMessage2("+972542642202", "1111"), token);
+            //CreateServiceBus.Create();
+            // await TransferDocuments();
             //var _commandBus = _container.Resolve<ICommandBus>();
             //await FixPoisonBackground(_commandBus);
             //var q = _container.Resolve<ISearchServiceWrite<Question>>();
@@ -789,7 +822,7 @@ and I.ItemId not in @ItemsAlreadyProcessed
 							and SUBSTRING (I.Name,CHARINDEX ('.',I.Name), 5) in ('.doc', '.docx', '.xls', '.xlsx', '.PDF', '.png', '.jpg', '.ppt', '.pptx', '.jpg', '.png', '.gif', '.jpeg', '.bmp' )
                         group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
 						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
-                ",new { ItemsAlreadyProcessed = itemsAlreadyProcessed })).ToList();
+                ", new { ItemsAlreadyProcessed = itemsAlreadyProcessed })).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -880,7 +913,7 @@ and I.ItemId not in @ItemsAlreadyProcessed
 
 
 
-                        CreateDocumentCommand command =  CreateDocumentCommand.DbiOnly($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
+                        CreateDocumentCommand command = CreateDocumentCommand.DbiOnly($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
                             pair.Name,
                             type, courseName, words, userId.Value, pair.ProfessorName, uniId.Value);
 

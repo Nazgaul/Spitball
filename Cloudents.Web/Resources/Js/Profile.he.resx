@@ -126,9 +126,6 @@
   <data name="emptyState_answers_text" xml:space="preserve">
     <value>רוצה להרוויח קצת כסף? עזור לאחרים על ידי מענה על שאלות משיעורי הבית שלהם.</value>
   </data>
-  <data name="emptyState_questions_boldText" xml:space="preserve">
-    <value>שאל שאלה</value>
-  </data>
   <data name="emptyState_questions_btnText" xml:space="preserve">
     <value>שאל שאלה</value>
   </data>

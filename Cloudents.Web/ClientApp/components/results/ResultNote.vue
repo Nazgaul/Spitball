@@ -25,11 +25,12 @@
                             <span v-line-clamp="2">{{item.snippet}}</span>
                         </div>
                     </div>
-                </v-flex>
+                   </v-flex>
+
                 <v-flex grow class="doc-details">
                     <div class="author-info-date">
-                        <div class="autor">
-                            <span v-show="authorName"  v-language:inner>headerDocument_item_by</span>
+                        <div class="autor" v-show="authorName">
+                            <span  v-language:inner>headerDocument_item_by</span>
                             <span>&nbsp;{{authorName}},&nbsp;</span>
                             </div>
 
@@ -64,7 +65,6 @@
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
 
-            //change when server will return id of document type and not title of type
             type() {
                 let self = this;
                 if (!!self.item.type) {
@@ -101,10 +101,9 @@
                   return this.item.views || 0
               }
             },
-            //TODO downloads for now is same as views till server will handle it
             docDownloads(){
                 if(this.item){
-                    return this.item.views || 0
+                    return this.item.downloads || 0
                 }
             },
             uploadDate(){
@@ -116,6 +115,7 @@
             },
 
             isOurs() {
+                if(this.item && this.item.source)
                 return this.item.source.includes('Cloudents') || this.item.source.includes('Spitball')
             },
             isCloudents() {
@@ -132,9 +132,15 @@
         methods: {
             $_spitball(event) {
                 event.preventDefault();
-                this.$router.push(this.url)
+                this.$router.push(this.url);
+                setTimeout(()=>{
+                    if(this.item && this.item.views){
+                        this.item.views =  this.item.views + 1;
+                    }
+                }, 100)
             }
         },
+
     }
 </script>
 <style src="./ResultNote.less" lang="less"></style>

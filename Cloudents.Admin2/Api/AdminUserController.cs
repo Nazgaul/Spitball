@@ -1,11 +1,8 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Core.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -71,26 +68,27 @@ namespace Cloudents.Admin2.Api
         {
             foreach (var id in model.Ids)
             {
-                TimeSpan lockout;
+                DateTimeOffset lockout;
                 switch (model.SuspendTime)
                 {
                     case SuspendTime.Day:
-                        lockout = TimeSpan.FromSeconds(TimeConst.Day);
+                        
+                        lockout = DateTimeOffset.Now.AddSeconds(TimeConst.Day);
                         break;
                     case SuspendTime.Week:
-                        lockout = TimeSpan.FromSeconds(TimeConst.Day * 7);
+                        lockout = DateTimeOffset.Now.AddSeconds(TimeConst.Day * 7);
                         break;
                     case SuspendTime.Undecided:
-                        lockout = TimeSpan.MaxValue;
+                        lockout = DateTimeOffset.MaxValue;
                         break;
                     case null:
-                        lockout = TimeSpan.MaxValue;
+                        lockout = DateTimeOffset.MaxValue;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                
-                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, new DateTimeOffset(DateTime.UtcNow, lockout));
+
+                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, lockout);
                 await commandBus.DispatchAsync(command, token);
             }
             return new SuspendUserResponse();
@@ -112,7 +110,6 @@ namespace Cloudents.Admin2.Api
         /// UnSuspend a user
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="commandBus"></param>
         /// <param name="token"></param>
         /// <response code="200">The User email</response>
         /// <returns>the user email to show on the ui</returns>

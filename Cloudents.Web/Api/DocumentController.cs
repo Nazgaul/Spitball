@@ -89,13 +89,7 @@ namespace Cloudents.Web.Api
                 model.Course, model.Tags, userId, model.Professor);
             await _commandBus.DispatchAsync(command, token);
 
-            var url = Url.RouteUrl(SeoTypeString.Document, new
-            {
-                universityName = profile.University.Name,
-                courseName = model.Course,
-                id = command.Id,
-                name = model.Name
-            });
+            var url = Url.DocumentUrl(profile.University.Name, model.Course, command.Id, model.Name);
             return new CreateDocumentResponse(url);
         }
 
@@ -160,18 +154,10 @@ namespace Cloudents.Web.Api
                 {
                     if (s.Url == null)
                     {
-                        s.Url = Url.RouteUrl(SeoTypeString.Document, new
-                        {
-                            universityName = s.University,
-                            courseName = s.Course,
-                            id = s.Id,
-                            name = s.Title
-                        });
+                        s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
                     }
-
                     return s;
                 }),
-                //Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = filters,
                 NextPageLink = nextPageLink
             };

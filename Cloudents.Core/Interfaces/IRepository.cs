@@ -47,6 +47,7 @@ namespace Cloudents.Core.Interfaces
     public interface IDocumentRepository : IRepository<Document>
     {
         Task UpdateNumberOfViews(long id, CancellationToken token);
+        Task UpdateNumberOfDownloads(long id, CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>
@@ -73,7 +74,5 @@ namespace Cloudents.Core.Interfaces
 
     }
 
-    public interface IMailGunStudentRepository : IRepository<MailGunStudent>
-    {
-    }
+   
 }

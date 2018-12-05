@@ -26,10 +26,6 @@ namespace Cloudents.Core
             builder.RegisterType<CommandBus>().As<ICommandBus>();//.InstancePerLifetimeScope();
 
 
-
-            builder.RegisterType<UpdateMailGunCommandHandler>()
-                .Named<ICommandHandler<UpdateMailGunCommand>>("mailGun");
-
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             builder.RegisterType<QueryBus>().As<IQueryBus>();//.InstancePerLifetimeScope();
 
@@ -40,7 +36,7 @@ namespace Cloudents.Core
             builder.RegisterType<WebSearch>().As<IWebDocumentSearch>().WithParameter("api", CustomApiKey.Documents);
             builder.RegisterType<WebSearch>().As<IWebFlashcardSearch>().WithParameter("api", CustomApiKey.Flashcard);
 
-            builder.RegisterType<DbConnectionStringProvider>().AsSelf();
+            //builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
             builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
                 .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) 

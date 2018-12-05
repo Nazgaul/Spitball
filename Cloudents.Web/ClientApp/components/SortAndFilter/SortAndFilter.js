@@ -18,7 +18,11 @@ export default {
     computed: {
         ...mapGetters(['getSort']),
         filterList() {
-            return this.filterOptions.filterChunkList;
+            let result = [];
+            if(!!this.filterOptions){
+                result = this.filterOptions.filterChunkList
+            }
+            return result;
         },
         sortOptions() {
             return this.getSort;

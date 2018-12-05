@@ -29,6 +29,9 @@ namespace Cloudents.Core.DTOs
         public int? Views { get; set; }
 
         [DataMember]
+        public int? Downloads { get; set; }
+
+        [DataMember]
         public string Url { get; set; }
 
         [DataMember]

@@ -18,14 +18,8 @@ namespace Cloudents.Infrastructure.Database.Repositories
             Session = session;
         }
 
-        //public Task<T> LoadAsync(object id, CancellationToken token)
-        //{
-        //    return Session.LoadAsync<T>(id, token);
-        //}
-
         public virtual Task<object> AddAsync(T entity, CancellationToken token)
         {
-            // _unitOfWork.FlagCommit();
             return Session.SaveAsync(entity, token);
         }
 
@@ -54,7 +48,6 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public Task DeleteAsync(T entity, CancellationToken token)
         {
-            //_unitOfWork.FlagCommit();
             return Session.DeleteAsync(entity, token);
         }
 
@@ -62,10 +55,5 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
             return Session.UpdateAsync(entity, token);
         }
-
-        //public Task FlushAsync(CancellationToken token)
-        //{
-        //    return Session.FlushAsync(token);
-        //}
     }
 }

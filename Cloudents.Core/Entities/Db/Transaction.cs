@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities.Db
             Price = price;
             Created = DateTime.UtcNow;
 
-
+            Events.Add(new TransactionEvent(this));
         }
 
         [UsedImplicitly]
@@ -71,7 +71,7 @@ namespace Cloudents.Core.Entities.Db
                 InvitedUser = invitedUser
 
             };
-            tx.Events.Add(new TransactionReferredEvent(tx));
+           
             return tx;
         }
 

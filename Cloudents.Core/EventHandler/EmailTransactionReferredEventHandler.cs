@@ -5,11 +5,12 @@ using Cloudents.Core.Storage;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
-    public class EmailTransactionReferredEventHandler : EmailEventHandler, IEventHandler<TransactionReferredEvent>
+    public class EmailTransactionReferredEventHandler : EmailEventHandler, IEventHandler<TransactionEvent>
     {
 
 
@@ -17,11 +18,16 @@ namespace Cloudents.Core.EventHandler
         {
         }
 
-        public async Task HandleAsync(TransactionReferredEvent eventMessage, CancellationToken token)
+        public  Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
         {
-            await SendEmail(
-                  new ReferralBonusEmail(eventMessage.Transaction.User.Email, eventMessage.Transaction.User.Culture)
-                  , eventMessage.Transaction.User, token);
+            if (eventMessage.Transaction.Action == ActionType.ReferringUser)
+            {
+                return SendEmail(
+                    new ReferralBonusEmail(eventMessage.Transaction.User.Email, eventMessage.Transaction.User.Culture)
+                    , eventMessage.Transaction.User, token);
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

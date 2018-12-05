@@ -233,9 +233,6 @@
     <value>הזן את קוד האישור
  שלחנו לך את הקוד בסמס</value>
   </data>
-  <data name="HHP_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>הזן מספר טלפון</value>
-  </data>
   <data name="HHP_register_stepFour_heading" xml:space="preserve">
     <value>הזן מספר טלפון
  עלינו לשלוח אליך קוד אישור</value>
@@ -299,9 +296,6 @@
   <data name="HHP_register_stepTwo_heading" xml:space="preserve">
     <value>אנחנו צריכים לדעת איך ליצור קשר</value>
   </data>
-  <data name="HHP_register_stepTwo_text" xml:space="preserve">
-    <value>אנחנו צריכים לדעת איך ליצור קשר</value>
-  </data>
   <data name="makeMoneyProfile_modal_heading" xml:space="preserve">
     <value>כדי להמשיך, הירשם או
  התחבר למערכת.</value>
@@ -322,9 +316,6 @@
   <data name="makeMoneyProfile_register_stepFive_heading" xml:space="preserve">
     <value>הזן את קוד האישור
  שלחנו לך את הקוד בסמס</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>הזן מספר טלפון</value>
   </data>
   <data name="makeMoneyProfile_register_stepFour_heading" xml:space="preserve">
     <value>הזן מספר טלפון
@@ -379,9 +370,6 @@
   <data name="makeMoneyProfile_register_stepTen_resetbtn" xml:space="preserve">
     <value>אפס סיסמה</value>
   </data>
-  <data name="makeMoneyProfile_register_stepTen_resettxt" xml:space="preserve">
-    <value>אפס את &lt;b&gt;הסיסמה&lt;/b&gt; שלך</value>
-  </data>
   <data name="makeMoneyProfile_register_stepThree_boldTextOne" xml:space="preserve">
     <value>הפעל את חשבונך</value>
   </data>
@@ -392,9 +380,6 @@
     <value>ליצור איתך קשר.</value>
   </data>
   <data name="makeMoneyProfile_register_stepTwo_heading" xml:space="preserve">
-    <value>אנחנו צריכים לדעת איך ליצור קשר</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepTwo_text" xml:space="preserve">
     <value>אנחנו צריכים לדעת איך ליצור קשר</value>
   </data>
 </root>

@@ -1,12 +1,11 @@
 import questionCard from "../question/helpers/question-card/question-card.vue";
+import resultNote from "../results/ResultNote.vue"
 import userBlock from '../helpers/user-block/user-block.vue';
-import {dollarCalculate} from "../../store/constants";
-import accountService from '../../services/accountService';
-import {mapGetters, mapActions} from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { LanguageService } from "../../services/language/languageService";
 
 export default {
-    components: {questionCard, userBlock},
+    components: {questionCard, userBlock, resultNote},
     props: {
         id: {Number}
     },
@@ -14,30 +13,35 @@ export default {
         return {
             activeTab: 1,
             itemsPerTab: 50,
-            answers:{
+            answers: {
                 isLoading: false,
                 isComplete: false,
                 page: 1,
             },
-            questions:{
+            questions: {
                 isLoading: false,
                 isComplete: false,
                 page: 1,
             },
+            documents: {
+                isLoading: false,
+                isComplete: false,
+                page: 1
+            }
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions']),
+        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions', 'getDocuments']),
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
-            this.$router.meta = {previous : tabId}
+            this.$router.meta = {previous: tabId}
         },
         fetchData() {
             this.syncProfile(this.id);
         },
-        loadAnswers(){
-            if(this.profileData.answers < this.itemsPerTab) {
+        loadAnswers() {
+            if (this.profileData.answers.length < this.itemsPerTab) {
                 this.answers.isComplete = true;
                 return;
             }
@@ -46,18 +50,18 @@ export default {
                 id: this.id,
                 page: this.answers.page
             }
-            this.getAnswers(AnswersInfo).then((hasData)=>{
-                if(!hasData) {
+            this.getAnswers(AnswersInfo).then((hasData) => {
+                if (!hasData) {
                     this.answers.isComplete = true;
                 }
                 this.answers.isLoading = false;
                 this.answers.page++;
-            },(err)=>{
+            }, (err) => {
                 this.answers.isComplete = true;
             })
         },
-        loadQuestions(){
-            if(this.profileData.questions < this.itemsPerTab) {
+        loadQuestions() {
+            if (this.profileData.questions.length < this.itemsPerTab) {
                 this.questions.isComplete = true;
                 return;
             }
@@ -67,20 +71,41 @@ export default {
                 page: this.questions.page,
                 user: this.profileData.user
             }
-            this.getQuestions(QuestionsInfo).then((hasData)=>{
-                if(!hasData) {
+            this.getQuestions(QuestionsInfo).then((hasData) => {
+                if (!hasData) {
                     this.questions.isComplete = true;
                 }
                 this.questions.isLoading = false;
                 this.questions.page++;
-            },(err)=>{
+            }, (err) => {
                 this.questions.isComplete = true;
+            })
+        },
+        loadDocuments() {
+            if (this.profileData.documents.length < this.itemsPerTab) {
+                this.documents.isComplete = true;
+                return;
+            }
+            this.documents.isLoading = true;
+            let DocumentsInfo = {
+                id: this.id,
+                page: this.documents.page,
+                user: this.profileData.user
+            }
+            this.getDocuments(DocumentsInfo).then((hasData) => {
+                if (!hasData) {
+                    this.documents.isComplete = true;
+                }
+                this.documents.isLoading = false;
+                this.documents.page++;
+            }, (err) => {
+                this.documents.isComplete = true;
             })
         }
     },
     computed: {
         ...mapGetters(["accountUser", "getProfile"]),
-        profileData(){
+        profileData() {
             return this.getProfile;
         },
         isMobile() {
@@ -90,25 +115,35 @@ export default {
             return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
         },
         emptyStateData() {
-            var questions = {
+            let questions = {
                 text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
-                boldText: LanguageService.getValueByKey("profile_emptyState_questions_boldText"),
+                boldText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
                 btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
-                btnUrl:  ()=> {
+                btnUrl: () => {
                     let Obj = {
-                        status:true,
+                        status: true,
                         from: 5
-                    }
+                    };
                     this.updateNewQuestionDialogState(Obj)
                 }
             };
-            var answers = {
+            let answers = {
                 text: LanguageService.getValueByKey("profile_emptyState_answers_text"),
                 btnText: LanguageService.getValueByKey("profile_emptyState_answers_btnText"),
                 btnUrl: 'home'
             };
-            return this.activeTab === 1 ? questions : answers;
-
+            let documents = {
+                text: LanguageService.getValueByKey("profile_emptyState_documents_text"),
+                btnText: LanguageService.getValueByKey("profile_emptyState_documents_btnText"),
+                btnUrl: 'note'
+            };
+            if (this.activeTab === 1) {
+                return questions
+            } else if (this.activeTab === 2) {
+                return answers
+            } else if (this.activeTab === 3) {
+                return documents
+            }
         }
     },
     watch: {
@@ -116,9 +151,9 @@ export default {
     },
     created() {
         this.fetchData();
-        if(this.$router.meta && this.$router.meta.previous ){
+        if (this.$router.meta && this.$router.meta.previous) {
             this.activeTab = this.$router.meta.previous
-        }else{
+        } else {
             this.activeTab = 1
         }
     }

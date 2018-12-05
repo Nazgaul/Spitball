@@ -1,95 +1,128 @@
 import colorsSet from '../colorsSet';
-var Uploader = require('html5-uploader');
-
+import Vue from 'vue';
+import FileUpload from 'vue-upload-component/src';
+//docs here https://lian-yue.github.io/vue-upload-component   --vue-upload-component--
+Vue.component('file-upload', FileUpload);
 export default {
 
     props: {
         value: {type: String},
         error: {},
-        actionType:{type:String, default:'answer'},
+        actionType: {type: String, default: 'answer'},
         isFocused: false,
         uploadUrl: {type: String}
     },
     data() {
         return {
-            previewList: [],
-            fullPreview:false,
-            errorTextArea :{},
+            fullPreview: false,
+            errorTextArea: {},
             colorsSet: colorsSet,
             activeColor: {
                 name: 'default',
                 id: 0
             },
-            counter: 0,
-            uploadLimit: 4,
-            isFirefox : global.isFirefox
-            }
-
-    },
-    watch:{
-        value(newVal,oldVal){
-            //clean preview list when text is empty
-            //if(!newVal){this.previewList=[];}
+            isFirefox: global.isFirefox,
+            files: [],
+            extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp', 'bmp']
         }
+
+
     },
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
         },
-        togglePreview: function(){this.fullPreview = !this.fullPreview},
-        deletePreview: function(index){
-            this.counter = this.counter -1;
-            this.previewList.splice(index, 1);
-            this.$emit('removeFile', index);
+        togglePreview: function () {
+            this.fullPreview = !this.fullPreview
         },
-        updateColor(color){
-           this.activeColor = color || colorsSet[0];
-           this.$parent.$emit('colorSelected', this.activeColor);
-        }
+        //will remove from files[]
+        remove(file) {
+            this.$refs.upload.remove(file)
+        },
+        deletePreview: function (file, index) {
+            this.remove(file); //remove from files[]
+            this.$emit('removeFile', index); // remove from files list in parent newQuesiton component
+        },
+          updateColor(color) {
+            this.activeColor = color || colorsSet[0];
+            this.$parent.$emit('colorSelected', this.activeColor);
+        },
+
+        inputFile: function (newFile, oldFile) {
+            let self= this;
+            if(self.files && self.files.length > 4){
+                return
+            }
+            if (newFile && newFile.progress) {
+                // console.log('progress', newFile.progress, newFile)
+            }
+            // Upload error
+            if (newFile && oldFile && newFile.error !== oldFile.error) {
+                // console.log('error', newFile.error, newFile)
+            }
+            // Get response data
+            if (newFile && oldFile && !newFile.active && oldFile.active) {
+                // Get response data
+                // console.log('response', newFile.response);
+                if (newFile.xhr) {
+                    //  Get the response status code
+                    // console.log('status', newFile.xhr.status)
+                    if (newFile.xhr.status === 200) {
+                        // console.log('Succesfully uploadede')
+                        //on after successful loading done, emit to parent to add to list
+                        if(newFile.response && newFile.response.files){
+                                self.$emit('addFile', newFile.response.files);
+                        }
+
+                    } else {
+                        // console.log('error, not uploaded')
+                    }
+                }
+                if (newFile && newFile.response && newFile.response.status === 'success') {
+                    //generated blob name from server after successful upload
+                }
+            }
+            if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+                if (!this.$refs.upload.active) {
+                    this.$refs.upload.active = true
+                }
+            }
+        },
+
+        inputFilter: function (newFile, oldFile, prevent) {
+            if (newFile && !oldFile) {
+                //prevent adding new files if maximum reached
+                if(this.files.length >= 4){
+                    return prevent()
+                }
+                // Filter non-supported extensions  both lower and upper case
+                let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+                let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
+                let isSupported = this.extensions.includes(ext);
+                if (!isSupported) {
+                    return prevent()
+                }
+            }
+            if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+                // Create a blob field
+                newFile.blob = '';
+                let URL = window.URL || window.webkitURL;
+                if (URL && URL.createObjectURL) {
+                    newFile.blob = URL.createObjectURL(newFile.file);
+                }
+            }
+}
+
     },
     mounted() {
-        //Used html5-uploader, examples here: http://mpangrazzi.github.io/
-        var self = this;
-        var multiple = new Uploader({
-            el: '#file-input',
-            url: this.uploadUrl
-        });
-
-        multiple.on('files:added', function (val) {
-            self.errorTextArea.errorText = '4 files only';
-            if(val.length <= self.uploadLimit){
-            this.files=val.filter(i=>i.type.indexOf("image")>-1);
-             this.upload()
-            }
-        });
-
-        multiple.on('file:preview', function (file, $img) {
-             let files = this.getFiles();
-            if ($img && files.length < self.uploadLimit) {
-                self.counter = self.counter + 1;
-                // self.previewList.push($img.outerHTML);
-                if(self.counter <= self.uploadLimit){
-                    self.previewList.push($img.src);
-                }
-
-            }
-        });
-
-        multiple.on('upload:done', function (response) {
-            self.$emit('addFile', JSON.parse(response).files.toString());
-        });
-        multiple.on('upload:progress', function (progress) {
-            console.log('progress: %s', progress);
-        });
-
         this.$root.$on('colorReset', () => {
-           return self.activeColor = {
+           return this.activeColor = {
                 name: 'default',
                 id: 0
             }
         });
         this.$root.$on('previewClean', () => {
-           return this.previewList = [];
+           return this.files = [];
         });
 
     },

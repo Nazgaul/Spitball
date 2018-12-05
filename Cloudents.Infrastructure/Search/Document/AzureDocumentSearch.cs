@@ -84,13 +84,13 @@ namespace Cloudents.Infrastructure.Search.Document
         {
             var filters = new List<string>
             {
-                $"({nameof(Core.Entities.Search.Document.Country)} eq '{query.Profile.Country}')" 
+                $"({nameof(Core.Entities.Search.Document.Country)} eq '{query.Profile.Country.ToUpperInvariant()}')" 
                // $" or {nameof(Core.Entities.Search.Document.Language)} eq 'en')"
             };
             if (query.Course != null)
             {
                 var filterStr = string.Join(" or ", query.Course.Select(s =>
-                    $"{nameof(Core.Entities.Search.Document.Course)} eq '{s}'"));
+                    $"{nameof(Core.Entities.Search.Document.Course)} eq '{s.ToUpperInvariant()}'"));
 
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
@@ -132,7 +132,7 @@ namespace Cloudents.Infrastructure.Search.Document
             return result;
         }
 
-        public IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
+        public static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
         {
             if (input == null)
             {
@@ -145,7 +145,7 @@ namespace Cloudents.Infrastructure.Search.Document
                 return new string[] { null };
             }
 
-            return inputList;
+            return inputList.Select(w => w.ToUpperInvariant());
         }
     }
 }

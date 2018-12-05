@@ -1,7 +1,5 @@
 ﻿using Autofac;
-using CacheManager.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Cache;
 
 namespace Cloudents.Infrastructure

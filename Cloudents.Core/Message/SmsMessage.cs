@@ -8,6 +8,12 @@
             Message = code;
         }
 
+        
+        protected SmsMessage2()
+        {
+
+        }
+
         public string PhoneNumber { get; set; }
 
         public string Message { get; set; }

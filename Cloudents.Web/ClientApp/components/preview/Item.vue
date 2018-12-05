@@ -13,8 +13,8 @@
                 <!--</div>-->
                 <!--</v-carousel-item>-->
                 <!--</v-carousel>-->
-               <!--<div v-else class="page text-xs-center" v-for="(page, index) in preview" :key="index">-->
-                <div v- class="page text-xs-center" v-for="(page, index) in preview" :key="index">
+                <!--<div v-else class="page text-xs-center" v-for="(page, index) in preview" :key="index">-->
+                <div class="page text-xs-center" v-for="(page, index) in preview" :key="index">
                     <component class="page-content elevation-1" :is="currentComponent" :src="page"
                                :class="item.contentType+'-content'"></component>
                 </div>
@@ -23,8 +23,9 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapGetters } from 'vuex'
-    import docHeader from "./headerDocument.vue"
+    import { mapActions, mapGetters } from 'vuex';
+    import docHeader from "./headerDocument.vue";
+
     export default {
         components: {
             docHeader: docHeader
@@ -65,7 +66,7 @@
             currentComponent() {
                 if (this.item && this.item.contentType) {
                     return this.item.contentType === "html" ? "iframe" : "img";
-                    if (['link', 'text'].find((x) => x === type.toLowerCase())) return 'iframe'
+                    // if (['link', 'text'].find((x) => x === type.toLowerCase())) return 'iframe'
                 }
             },
             item() {
@@ -85,9 +86,9 @@
         },
 
         created() {
-            let self = this;
             this.setDocumentPreview({type: 'item', id: this.id})
                 .then((response) => {
+
                 });
         },
         //clean store document item on destroy component

@@ -7,10 +7,12 @@ using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Message.System;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
 
@@ -24,19 +26,22 @@ namespace Cloudents.Web.Controllers
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IQueryBus _queryBus;
         private readonly IDocumentSearch _documentSearch;
+        private readonly IQueueProvider _queueProvider;
+
 
 
         public DocumentController(
             IBlobProvider<DocumentContainer> blobProvider,
             IStringLocalizer<SharedResource> sharedLocalizer,
             IStringLocalizer<DocumentController> localizer,
-            IQueryBus queryBus, IDocumentSearch documentSearch)
+            IQueryBus queryBus, IDocumentSearch documentSearch, IQueueProvider queueProvider)
         {
             _blobProvider = blobProvider;
             _sharedLocalizer = sharedLocalizer;
             _localizer = localizer;
             _queryBus = queryBus;
             _documentSearch = documentSearch;
+            _queueProvider = queueProvider;
         }
 
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
@@ -56,7 +61,6 @@ namespace Cloudents.Web.Controllers
         [Route("document/{universityName}/{courseName}/{id:long}/{name}", Name = SeoTypeString.Document)]
         [ActionName("Index")]
         public async Task<IActionResult> IndexAsync(long id, string courseName, string name, string universityName,
-            //[ModelBinder(typeof(CountryModelBinder))] string country,
             CancellationToken token)
         {
             var query = new DocumentById(id);
@@ -116,16 +120,27 @@ namespace Cloudents.Web.Controllers
         [Authorize]
         public async Task<ActionResult> DownloadAsync(long id, CancellationToken token)
         {
+            
             var query = new DocumentById(id);
-            var item = await _queryBus.QueryAsync<DocumentDetailDto>(query, token);
+            var tItem = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
+            var tFiles = _blobProvider.FilesInDirectoryAsync("file-", id.ToString(), token);
+            await Task.WhenAll(tItem, tFiles);
+
+            var item = tItem.Result;
             if (item == null)
             {
                 return NotFound();
             }
-            
+
+            var files = tFiles.Result;
+            var file = files.First().Segments.Last();
+
+            //blob.core.windows.net/spitball-files/files/6160/file-82925b5c-e3ba-4f88-962c-db3244eaf2b2-advanced-linux-programming.pdf
+
+            await _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);
             var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
-            var extension = Path.GetExtension(item.Blob);
-            var url = _blobProvider.GenerateDownloadLink($"{id}/{item.Blob}", 30, nameToDownload + extension);
+            var extension = Path.GetExtension(file);
+            var url = _blobProvider.GenerateDownloadLink($"{id}/{file}", 30, nameToDownload + extension);
             return Redirect(url);
         }
     }

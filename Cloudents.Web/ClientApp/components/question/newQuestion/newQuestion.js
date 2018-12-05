@@ -30,10 +30,19 @@ export default {
     },
     watch: {
         price(val) {
-            if(!val)return;
+            console.log('price', val)
+            if (!val) return;
             let splitLength = val.toString().split('.');
             if (splitLength.length === 2 && splitLength[1].length >= 3) {
                 this.price = parseFloat(val).toFixed(2)
+            }
+
+
+        },
+        //watch selected to clear custom price field
+        selectedPrice(val) {
+            if (val && val > 0) {
+                return this.price = null
             }
         },
         // if question dialog state is false reset question form data to default
@@ -112,8 +121,8 @@ export default {
                             self.requestNewQuestionDialogClose(false);
                             self.$router.push({path: '/ask', query: {term: ''}});
                             self.updateLoading(false);
-                        self.updateToasterParams({
-                            toasterText: response.data.toasterText, // LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
+                            self.updateToasterParams({
+                                toasterText: response.data.toasterText, // LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
                                 showToaster: true,
                             });
                             self.submitForm(false);
@@ -122,7 +131,7 @@ export default {
                             self.updateLoading(false);
                             console.error(error);
                             let errorMessage = 'Something went wrong, try again.';
-                            if(error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]){
+                            if (error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]) {
                                 errorMessage = error.response.data[""][0];
                             }
                             self.errorWaitTime = `${errorMessage}` || '';
@@ -133,7 +142,13 @@ export default {
             }
         },
         addFile(filename) {
-            this.files.push(...filename.split(','));
+            //if max reached replace
+            if (this.files && this.files.length > 4) {
+                this.files.splice(-1, 1, filename);
+                //add
+            } else {
+                this.files = this.files.concat(filename);
+            }
         },
         removeFile(index) {
             this.files.splice(index, 1);
@@ -161,12 +176,15 @@ export default {
                 // let val = this.selectedPrice || this.price || 0;
                 // this.selectedPrice ? this.price = null : "";
                 // return this.accountUser.balance - val;
-                return this.accountUser.balance;
+                return this.accountUser.balance.toFixed(2);
             }
         },
-        thirtyPercent(){
+        thirtyPercent() {
             let notRounded = this.currentSum * 30 / 100;
-            return notRounded.toFixed(2);
+            if (notRounded > 100) {
+                notRounded = 100;
+            }
+            return parseFloat(notRounded.toFixed(2));
         },
         validForm() {
             return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);

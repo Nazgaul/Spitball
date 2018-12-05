@@ -4,7 +4,7 @@
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <h1 class="item-name">{{itemName}} <span class="doc-extension">({{item ? item.extension : ''}})</span></h1>
+                    <h1 class="item-name">{{itemName}} <span class="doc-extension" v-show="item.extension">({{item ? item.extension : ''}})</span></h1>
                     <div class="doc-details">
                         <div class="author">
                         <span class="upload-by">
@@ -80,11 +80,11 @@
             <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.smAndUp">
                 <div class="viewed">
                     <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
-                    <span class="viewed-text">{{item.views}}</span>
+                    <span class="viewed-text">{{item  ? item.views : ''}}</span>
                 </div>
                 <div class="ml-4 downloaded">
                     <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
-                    <span class="downloaded-text">{{item.views}}</span>
+                    <span class="downloaded-text">{{item? item.downloads: ''}}</span>
                 </div>
             </div>
             </v-layout>
@@ -109,7 +109,7 @@
         },
         methods: {
             ...mapActions([
-                'updateLoginDialogState'
+                'updateLoginDialogState',
             ]),
             ...mapGetters(['accountUser']),
             downloadDoc() {
@@ -147,6 +147,7 @@
             },
 
         },
+
         filters: {
             mediumDate: function (value) {
                 if (!value) return '';
@@ -154,6 +155,7 @@
                 return date.toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric'});
             }
         },
+
 
     }
 </script>

@@ -30,12 +30,13 @@ namespace Cloudents.Infrastructure.Database.Query
                 {
                     Name = s.Name,
                     Date = s.TimeStamp.UpdateTime,
-                    Blob = s.BlobName,
+                   // Blob = s.BlobName,
                     University = s.University.Name,
                     TypeStr =  s.Type,
                     Pages = s.PageCount.GetValueOrDefault(),
                     Professor = s.Professor,
                     Views = s.Views,
+                    Downloads = s.Downloads,
                     User = new UserDto
                     {
                         Id = s.User.Id,

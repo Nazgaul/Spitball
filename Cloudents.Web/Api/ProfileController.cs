@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -37,36 +38,41 @@ namespace Cloudents.Web.Api
         }
 
         // GET
-        [HttpGet("questions/{id}")]
-        [ProducesResponseType(404)]
+        [HttpGet("{id}/questions")]
         [ProducesResponseType(200)]
 
-        public async Task<ActionResult<IEnumerable<QuestionFeedDto>>> GetQuestionsAsync(long id, int page, CancellationToken token)
+        public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
-            var query = new UserQuestionsByIdQuery(id, page);
+            var query = new UserDataPagingByIdQuery(id, page);
             var retVal = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token).ConfigureAwait(false);
-            if (retVal == null)
-            {
-
-               return NotFound();
-            }
-            return retVal.ToList();
+            
+            return retVal;
         }
 
         // GET
-        [HttpGet("answers/{id}")]
-        [ProducesResponseType(404)]
+        [HttpGet("{id}/answers")]
         [ProducesResponseType(200)]
 
-        public async Task<ActionResult<IEnumerable<QuestionFeedDto>>> GetAnswersAsync(long id, int page, CancellationToken token)
+        public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
         {
             var query = new UserAnswersByIdQuery(id, page);
             var retVal = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token).ConfigureAwait(false);
-            if (retVal == null)
+            return retVal;
+        }
+
+        [HttpGet("{id}/documents")]
+        [ProducesResponseType(200)]
+
+        public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(long id, int page, CancellationToken token)
+        {
+            var query = new UserDataPagingByIdQuery(id, page);
+            var retVal = await _queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, token);
+
+            return retVal.Select(s =>
             {
-                return NotFound();
-            }
-            return retVal.ToList();
+                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                return s;
+            });
         }
     }
 }

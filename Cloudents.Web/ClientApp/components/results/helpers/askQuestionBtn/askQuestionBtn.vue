@@ -6,7 +6,7 @@
                     <!--<p v-show="$vuetify.breakpoint.smAndUp" :class="['ask-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
                     <!--faqBlock_ask-->
                     <!--</p>-->
-                    <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '']"
+                    <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]"
                             @click="goToAskQuestion()">
                         <v-icon class="sb-edit-icon" right>sbf-edit-icon</v-icon>
                         <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
@@ -35,7 +35,7 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState', 'showRegistrationBanner']),
+            ...mapGetters(['accountUser', 'loginDialogState', 'showRegistrationBanner', 'getCookieAccepted']),
 
             isFloatingBtn() {
                 let offHeight = 0;
@@ -46,6 +46,9 @@
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
+            raiseFloatingButtonPosition(){
+                return !this.getCookieAccepted
+            }
         },
         methods: {
             ...mapActions([
@@ -150,6 +153,7 @@
                         animation: fadeIn 0.8s;
                         -moz-animation: fadeIn 0.8s;
                         -o-animation: fadeIn 0.8s;
+                        margin-right: 30px;
                     }
                     &.rounded-floating-button {
                         animation: sb_bounce_animation 1000ms linear both;
@@ -184,6 +188,9 @@
                             position: absolute;
                             font-size: 0px;
                             visibility: hidden;
+                        }
+                        &.raised{
+                            bottom: 65px;
                         }
                     }
                 }

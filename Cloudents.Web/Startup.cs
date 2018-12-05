@@ -191,6 +191,7 @@ namespace Cloudents.Web
                     ),
                 Storage = Configuration["Storage"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
+                ServiceBus = Configuration["ServiceBus"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();

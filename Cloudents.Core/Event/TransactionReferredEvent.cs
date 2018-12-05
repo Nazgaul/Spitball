@@ -3,9 +3,9 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {
-    public class TransactionReferredEvent : IEvent
+    public class TransactionEvent : IEvent
     {
-        public TransactionReferredEvent(Transaction tx)
+        public TransactionEvent(Transaction tx)
         {
             Transaction = tx;
         }

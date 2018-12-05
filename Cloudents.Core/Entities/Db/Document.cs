@@ -10,16 +10,20 @@ using System.Globalization;
 namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
+
     public class Document : IEvents
     {
-        public Document([NotNull] string name, [NotNull] string blobName, [NotNull] University university,
+        public Document([NotNull] string name,
+            /*[NotNull] string blobName,*/
+            [NotNull] University university,
             [NotNull] Course course, DocumentType type,
             [NotNull] IEnumerable<Tag> tags, User user, string professor)
         : this()
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            BlobName = blobName ?? throw new ArgumentNullException(nameof(blobName));
+            if (name == null) throw new ArgumentNullException(nameof(name));
+            Name = name.Replace("+", string.Empty);
+            //BlobName = blobName ?? throw new ArgumentNullException(nameof(blobName));
             University = university ?? throw new ArgumentNullException(nameof(university));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             Type = type;
@@ -30,6 +34,7 @@ namespace Cloudents.Core.Entities.Db
             Events.Add(new DocumentCreatedEvent(this));
         }
 
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected Document()
         {
             TimeStamp = new DomainTimeStamp();
@@ -42,7 +47,7 @@ namespace Cloudents.Core.Entities.Db
 
 
         //public virtual RowDetail RowDetail { get; protected set; }
-        public virtual string BlobName { get; protected set; }
+      //  public virtual string BlobName { get; protected set; }
 
         public virtual University University { get; set; }
 
@@ -60,6 +65,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual string Professor { get; set; }
 
         public virtual int Views { get; set; }
+        public virtual int Downloads { get; set; }
         public virtual int Purchased { get; set; }
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }

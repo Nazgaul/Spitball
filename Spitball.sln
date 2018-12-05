@@ -34,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Pass.txt = Pass.txt
 		Queries.sql = Queries.sql
 		README.md = README.md
-		W-15-scripts.sql = W-15-scripts.sql
+		W-15-scripts.txt = W-15-scripts.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Data.Test", "Cloudents.Infrastructure.Data.Test\Cloudents.Infrastructure.Data.Test.csproj", "{0F4CDB18-8825-4D7B-A42C-B87C67813C48}"
@@ -137,10 +137,10 @@ Global
 		{F833BC6D-A4E8-4A35-BC80-852165F0C995} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ConfirmAddLanguageFile = False
-		RESX_AutoCreateNewLanguageFiles = True
-		RESX_SortFileContentOnSave = True
-		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
 		RESX_PrefixTranslations = False
+		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
+		RESX_SortFileContentOnSave = True
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_ConfirmAddLanguageFile = False
 	EndGlobalSection
 EndGlobal

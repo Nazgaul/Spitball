@@ -1,8 +1,9 @@
 ﻿using Cloudents.Core.Entities.Db;
+using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
-    public class DocumentMap : SpitballClassMap<Document>
+    public class DocumentMap : ClassMap<Document>
     {
         public DocumentMap()
         {
@@ -10,7 +11,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 $"{nameof(HiLoGenerator.TableName)}='{nameof(Document)}'");
 
             Map(x => x.Name).Length(150).Not.Nullable();
-            Map(x => x.BlobName).Not.Nullable();
+           // Map(x => x.BlobName).Not.Nullable();
             References(x => x.University).Column("UniversityId").ForeignKey("Document_University");
            
             Map(x => x.Type).Not.Nullable();
@@ -26,6 +27,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
+            Map(x => x.Downloads).Not.Nullable();
             Map(x => x.Professor).Nullable();
             Map(x => x.PageCount).Nullable();
             Map(x => x.Language).Nullable();
