@@ -14,4 +14,19 @@ join (select U2.Id, d.Id
 			on b.University = u.Id
 		join sb.University u2
 			on u.UniversityName = u2.Name and u.Country = u2.Country) t (University, tId) on t.tId = D.Id
+COMMIT
+
+
+
+
+
+--remove + car from course name
+begin tran
+insert into sb.Course select REPLACE(Name, '+', '-'),0 from sb.Course where [Name] like '%+%' order by 1
+
+update sb.Document
+set CourseName = REPLACE(CourseName, '+', '-')
+where CourseName like '%+%'
+
+delete from sb.Course where name like '%+%'
 commit
