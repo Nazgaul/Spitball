@@ -5,6 +5,7 @@ namespace Cloudents.Core.Event
 {
     public class QuestionDeletedEvent : IEvent
     {
+
         public QuestionDeletedEvent(Question question)
         {
             Question = question;
