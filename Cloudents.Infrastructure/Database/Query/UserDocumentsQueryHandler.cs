@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     }
                 )
                 .Take(50).Skip(query.Page * 50)
-                .ToListAsync(cancellationToken: token);
+                .ToListAsync(token);
         }
     }
 }
