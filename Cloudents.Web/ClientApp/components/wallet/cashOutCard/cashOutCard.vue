@@ -30,6 +30,9 @@
             },
             available: {
                 type: Boolean
+            },
+            updatePoint:{
+                type: Function
             }
         },
         methods: {
@@ -47,7 +50,7 @@
                          });
                          //update user balance
                          this.updateBalance(-amount);
-                         this.$parent.$emit('updateEarnedPoints', amount);
+                         this.updatePoint();
                      },
                      error => {
                          console.error('error getting transactions:', error)

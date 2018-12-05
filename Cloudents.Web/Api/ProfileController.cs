@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -65,8 +66,13 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(long id, int page, CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);
-            var retVal = await _queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, token).ConfigureAwait(false);
-            return retVal;
+            var retVal = await _queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, token);
+
+            return retVal.Select(s =>
+            {
+                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                return s;
+            });
         }
     }
 }
