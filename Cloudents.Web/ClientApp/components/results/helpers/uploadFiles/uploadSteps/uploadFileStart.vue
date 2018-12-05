@@ -6,7 +6,7 @@
                 <h3 class="error-title" v-show="uploadError">{{errorText}}</h3>
                 <div class="supported-extensions" v-show="extensionErrror">
                 <span v-language:inner>upload_error_extensions_support</span>
-                <span class="extension" v-for="extension in supportedExtensions">{{extension}}, </span>
+                <span class="extension" v-for="extension in supportedExtensions" :key="extension">{{extension}}, </span>
             </div>
             </div>
         </div>
