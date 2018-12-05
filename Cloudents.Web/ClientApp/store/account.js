@@ -134,7 +134,6 @@ const actions = {
                    //create answer Object and push it to the state
                     let answerToPush = {
                         ...answer,
-                        answersNum: answer.answers,
                         filesNum: answer.files,
                     }
                     context.state.profile.answers.push(answerToPush);
@@ -158,11 +157,32 @@ const actions = {
                     let questionToPush = {
                         ...question,
                         user: user,
-                        answersNum: question.answers,
                         filesNum: question.files,
                     }
                     context.state.profile.questions.push(questionToPush);
                }) 
+            }
+            //return true if we can call to the server
+            return data.length === maximumElementsRecivedFromServer;
+        }, (err)=>{
+            return false;
+        });
+    },
+    getDocuments(context, DocumentsInfo){
+        let id = DocumentsInfo.id;
+        let page = DocumentsInfo.page;
+        let user = DocumentsInfo.user;
+        return accountService.getProfileDocuments(id, page).then(({data})=>{
+            let maximumElementsRecivedFromServer = 50;
+            if(data.length > 0){
+                data.forEach(document=>{
+                    //create answer Object and push it to the state
+                    let documentToPush = {
+                        ...document,
+                        user: user,
+                    };
+                    context.state.profile.documents.push(documentToPush);
+                })
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
@@ -247,8 +267,13 @@ const actions = {
         }
     },
     updateUserBalance({commit, state}, payload) {
+        return;
         let newBalance = state.user.balance + payload;
         // debugger
+        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
+    },
+    
+    signalR_SetBalance({commit, state}, newBalance){
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
     }
 };

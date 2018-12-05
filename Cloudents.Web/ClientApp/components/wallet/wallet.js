@@ -144,6 +144,10 @@ export default {
                 error => {
                     console.error('error getting transactions:', error)
                 })
+        },
+        recalculate(){
+            this.getBalances();
+            this.cashOut = false;
         }
     },
     computed: {
@@ -173,13 +177,5 @@ export default {
         this.getBalances();
         this.headers.transactions = this.$vuetify.breakpoint.xsOnly ? this.allTransactionsHeaders.filter(header => header.showOnMobile === true) : this.allTransactionsHeaders;
         this.headers.balances = this.$vuetify.breakpoint.xsOnly ? this.allBalanceHeaders.filter(header => header.showOnMobile === true) : this.allBalanceHeaders;
-        // geo to balances tab and get updated user balance
-        this.$on('updateEarnedPoints', () => {
-            this.getBalances();
-            this.cashOut = false;
-
-
-        })
-
     }
 }

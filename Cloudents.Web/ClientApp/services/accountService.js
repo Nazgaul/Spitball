@@ -1,5 +1,4 @@
 import { connectivityModule } from "./connectivity.module"
-import {dollarCalculate} from "../store/constants";
 import searchService from "../services/searchService.js"
 function AccountUser(ObjInit){
     this.balance= ObjInit.balance
@@ -16,14 +15,12 @@ function ProfileData(arrInit){
         return {
             ...item,
             user: arrInit[0].data,
-            answersNum: item.answers,
             filesNum: item.files,
         }
     }) || [];
     this.answers= arrInit[2].data.map(i => {
         return {
             ...i,
-            answersNum: i.answers,
             filesNum: i.files,
         }
     }) || [];
@@ -59,9 +56,6 @@ export default {
     getProfileDocuments:(id, page) => {
         let strPage = page ? `?page=${page}` : ""
         return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`)
-    },
-    calculateDollar:(balance)=> {
-        return dollarCalculate(balance).toFixed(2)
     },
     createProfileData: (arrInit)=>{
         return new ProfileData(arrInit);

@@ -10,12 +10,8 @@ import initSignalRService from './services/signalR/signalrEventService'
 import VueClipboard from 'vue-clipboard2'
 import lineClamp from 'vue-line-clamp'
 import Scroll from "vuetify/es5/directives/scroll";
-
-const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
-
-
-const GeneralPage = () =>
-    import("./components/helpers/generalPage.vue");
+import scrollComponent from './components/helpers/infinateScroll.vue';
+import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
