@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IList<DocumentFeedDto>> GetAsync(IdsQuery<long> query, CancellationToken token)
         {
             var ids = query.QuestionIds.ToList();
-            return await _session.Query<Document>()
+            return await _session.Query<DocumentApproved>()
                 .Fetch(f => f.User)
                 .Fetch(f=>f.University)
                 .Where(w => ids.Contains(w.Id))

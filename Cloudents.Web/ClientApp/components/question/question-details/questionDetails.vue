@@ -21,8 +21,10 @@
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
                                                     :error="errorTextArea"
-                                                    :isFocused="showForm" @addFile="addFile"
-                                                    @removeFile="removeFile"></extended-text-area>
+                                                    :isFocused="showForm"
+                                                    @addFile="addFile"
+                                                    @removeFile="removeFile">
+                                </extended-text-area>
                                 <div class="has-answer-error-wrapper">
                                     <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
                                     <span v-if="errorDuplicatedAnswer.length" class="error-message  has-answer-error">{{errorDuplicatedAnswer}}</span>
@@ -69,7 +71,8 @@
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                             v-model="textAreaValue"
                                                             :error="errorTextArea"
-                                                            :isFocused="showForm" @addFile="addFile"
+                                                            :isFocused="showForm" 
+                                                            @addFile="addFile"
                                                             @removeFile="removeFile"></extended-text-area>
                                         <div class="has-answer-error-wrapper">
                                             <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>

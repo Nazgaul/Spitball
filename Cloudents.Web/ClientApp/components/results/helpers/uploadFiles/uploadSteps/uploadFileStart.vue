@@ -70,7 +70,7 @@
     import FileUpload from 'vue-upload-component/src';
     import { LanguageService } from "../../../../../services/language/languageService";
 
-    Vue.component('file-upload', FileUpload);
+    //Vue.component('file-upload', FileUpload);
 
     export default {
         name: "upload-step-1",
@@ -88,6 +88,9 @@
                 errorText: '',
                 hovered: false
             }
+        },
+        components: {
+            FileUpload
         },
         props: {
             callBackmethods: {

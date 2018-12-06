@@ -178,7 +178,7 @@ export default {
             'nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
-        ...mapGetters(["getCurrentVertical"]),
+        ...mapGetters(["getCurrentVertical", "getNextPageUrl"]),
 
         loadNewQuestions(){
             this.INJECT_QUESTION();
@@ -196,7 +196,9 @@ export default {
         },
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
-            this.nextPage({vertical: this.pageData.vertical, url: this.pageData.nextPage})
+            let nextPageUrl = this.getNextPageUrl();
+            if(this.name !== this.pageData.vertical) return;
+            this.nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
                     if (res.data && res.data.length) {
                         this.scrollBehaviour.isLoading = false;
@@ -214,6 +216,7 @@ export default {
         },
         //    3-%%%   fetching data and calling updateData func
         updateContentOfPage(to, from, next) {
+            this.scrollBehaviour.isComplete = true;
             const toName = to.path.slice(1);
             let params=  {...to.query, ...to.params, term: to.query.term};
             this.fetchingData({name: toName, params}, true)
@@ -236,6 +239,9 @@ export default {
                     this.isLoad = false;
                     next();
                 }
+            }).finally(()=>{
+                this.scrollBehaviour.isLoading = false;
+                this.scrollBehaviour.isComplete = false;
             });
         },
 

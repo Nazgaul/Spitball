@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
             AnswerOfQuestionWithoutCorrectAnswer dtoAnswerAlias = null;
-            Question questionAlias = null;
+            QuestionApproved questionAlias = null;
             User userAlias = null;
 
             var questions = await _session.QueryOver(() => questionAlias)
@@ -57,7 +57,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 .ListAsync<QuestionWithoutCorrectAnswerDto>(token);
 
 
-            var answersResult = await _session.QueryOver<Answer>()
+            var answersResult = await _session.QueryOver<AnswerApproved>()
                 .Where(w => w.Question.Id.IsIn(questions.Select(s => s.Id).ToArray()))
                 .SelectList(
                             l =>

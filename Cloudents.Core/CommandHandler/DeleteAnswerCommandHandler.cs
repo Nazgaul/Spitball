@@ -12,9 +12,9 @@ namespace Cloudents.Core.CommandHandler
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class DeleteAnswerCommandHandler : ICommandHandler<DeleteAnswerCommand>
     {
-        private readonly IRepository<Answer> _repository;
+        private readonly IRepository<AnswerApproved> _repository;
 
-        public DeleteAnswerCommandHandler(IRepository<Answer> repository)
+        public DeleteAnswerCommandHandler(IRepository<AnswerApproved> repository)
         {
             _repository = repository;
         }

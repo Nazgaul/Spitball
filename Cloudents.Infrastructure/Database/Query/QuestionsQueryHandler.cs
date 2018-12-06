@@ -26,10 +26,9 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             var ids = query.QuestionIds.ToList();
             
-            return await _session.Query<Question>()
+            return await _session.Query<QuestionApproved>()
                  .Fetch(f => f.User)
                  .Where(w => ids.Contains(w.Id))
-                 .Where(w => w.State == null || w.State == ItemState.Ok)
                  .Select(s => new QuestionFeedDto(s.Id,
                     s.Subject,
                     s.Price,

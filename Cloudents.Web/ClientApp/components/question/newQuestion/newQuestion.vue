@@ -19,9 +19,7 @@
                                         @addFile="addFile"
                                         :actionType="actionType"
                                         :error="errorTextArea"
-                                        @removeFile="removeFile"
-
-                    >
+                                        @removeFile="removeFile">
                     </extended-text-area>
 
                     <v-flex xs8 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">

@@ -74,7 +74,7 @@ export const signlaREvents = {
         },
         action: function(arrEventObj){
             let userActions = {
-                logout: function(data){
+                Logout: function(data){
                     store.dispatch("logout", data)
                 }
             };  

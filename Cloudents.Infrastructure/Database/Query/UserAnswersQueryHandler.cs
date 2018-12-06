@@ -22,12 +22,12 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserAnswersByIdQuery query, CancellationToken token)
         {
 
-            var answerQuery = _session.Query<Answer>()
+            var answerQuery = _session.Query<AnswerApproved>()
                 .Fetch(f => f.Question);
 
             answerQuery.ThenFetch(f => f.User);
 
-            var futureAnswers = answerQuery.Where(w => w.User.Id == query.Id)
+            return await answerQuery.Where(w => w.User.Id == query.Id)
                 .OrderByDescending(o => o.Question.Id)
                 .Select(s => new QuestionFeedDto(s.Question.Id,
                     s.Question.Subject,
@@ -42,10 +42,7 @@ namespace Cloudents.Infrastructure.Database.Query
                         Image = s.Question.User.Image
                     }, s.Question.Updated,
                     s.Question.Color, s.Question.CorrectAnswer.Id != null, s.Question.Language))
-                    .Take(50).Skip(query.Page*50)
-                    .ToFuture();
-
-            return futureAnswers.GetEnumerable();
+                .Take(50).Skip(query.Page * 50).ToListAsync(token);
         }
     }
 }

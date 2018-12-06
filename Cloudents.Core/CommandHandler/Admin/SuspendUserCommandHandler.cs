@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Command.Admin;
+﻿using System.Linq;
+using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System.Threading;
