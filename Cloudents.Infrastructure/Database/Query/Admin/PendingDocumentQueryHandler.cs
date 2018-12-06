@@ -23,8 +23,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
         public async Task<IList<PendingDocumentDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            return await _session.Query<Document>()
-                .Where(w => w.State == null)
+            return await _session.Query<DocumentPending>()
                 .OrderBy(w=>w.Id)
                 .Take(100)
                 .Select(s => new PendingDocumentDto

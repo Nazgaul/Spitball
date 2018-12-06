@@ -14,7 +14,6 @@ namespace Cloudents.Core.Entities.Db
     public class Document : IEvents
     {
         public Document([NotNull] string name,
-            /*[NotNull] string blobName,*/
             [NotNull] University university,
             [NotNull] Course course, DocumentType type,
             [NotNull] IEnumerable<Tag> tags, User user, string professor)
@@ -70,10 +69,32 @@ namespace Cloudents.Core.Entities.Db
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }
 
-        public virtual ItemState? State { get; set; }
+        public virtual ItemState State { get; set; }
 
 
         public virtual CultureInfo Language { get; set; }
         public virtual IList<IEvent> Events { get; }
+    }
+
+
+    public class DocumentApproved : Document, ISoftDelete
+    {
+        //public void DeleteAssociation()
+        //{
+        //    throw new NotImplementedException();
+        //}
+    }
+
+    public class DocumentPending : Document, ISoftDelete
+    {
+        //public void DeleteAssociation()
+        //{
+        //    throw new NotImplementedException();
+        //}
+    }
+
+    public class DocumentDeleted : Document
+    {
+
     }
 }

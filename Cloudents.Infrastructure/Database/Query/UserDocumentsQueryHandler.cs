@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Database.Query
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
         {
-            return await _session.Query<Document>()
+            return await _session.Query<DocumentApproved>()
                 .Fetch(f => f.University)
                 .Fetch(f => f.User)
                 .Where(w => w.User.Id == query.Id)
