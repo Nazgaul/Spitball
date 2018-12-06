@@ -2,6 +2,7 @@ import * as RouteTypes from "./routeTypes";
 
 import resultContent from './components/results/Result.vue';
 import pageHeader from './components/header/header.vue';
+import landingPage from './components/landingPage/landingPage.vue';
 import {
     staticRoutes
 } from "./components/satellite/satellite-routes";
@@ -65,10 +66,13 @@ const bookDetailsProps = {
         currentPath: "bookDetails"
     })
 };
-let routes2 = [{
+let routes2 = [
+    {
         path: "/",
-        name: "home",
-        redirect: `/${RouteTypes.questionRoute}`
+        name: "main",
+        components: {
+            default: landingPage,
+        },
     },
 
     {
