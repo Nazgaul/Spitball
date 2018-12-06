@@ -12,10 +12,10 @@ namespace Cloudents.Core.CommandHandler
     [UsedImplicitly]
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
-        private readonly IRepository<Question> _repository;
+        private readonly IRepository<QuestionApproved> _repository;
         private readonly IRepository<Transaction> _transactionRepository;
 
-        public DeleteQuestionCommandHandler(IRepository<Question> repository, IRepository<Transaction> transactionRepository)
+        public DeleteQuestionCommandHandler(IRepository<QuestionApproved> repository, IRepository<Transaction> transactionRepository)
         {
             _repository = repository;
             _transactionRepository = transactionRepository;
