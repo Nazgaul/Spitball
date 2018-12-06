@@ -237,6 +237,7 @@ export default {
                     next();
                 }
             }).finally(()=>{
+                this.scrollBehaviour.isLoading = false;
                 this.scrollBehaviour.isComplete = false;
             });
         },
