@@ -53,7 +53,7 @@
 
                 </div>
                 <div class="sb-combo final-tags">
-                    <v-chip class="sb-chip-tag" v-for="tag in getFileData.tags">
+                    <v-chip class="sb-chip-tag" v-for="tag in getFileData.tags" :key="tag">
                                                    <span class="chip-button px-1">
                                                        {{tag}}
                                                    </span>

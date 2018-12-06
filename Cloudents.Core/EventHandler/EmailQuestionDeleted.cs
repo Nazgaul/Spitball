@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
-    public class EmailQuestionDeleted : EmailEventHandler, IEventHandler<QuestionDeletedEvent> ,IEventHandler<QuestionRejectEvent>
+    public class EmailQuestionDeleted : EmailEventHandler, IEventHandler<QuestionDeletedAdminEvent> ,IEventHandler<QuestionRejectEvent>
     {
         
         private readonly Random _random = new Random();
@@ -21,7 +21,7 @@ namespace Cloudents.Core.EventHandler
         {
         }
 
-        public Task HandleAsync(QuestionDeletedEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
         {
             return SendEmailAsync(eventMessage.Question.User, token);
             

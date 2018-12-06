@@ -41,7 +41,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             }
 
             question.Events.Add(new QuestionDeletedEvent(question));
-            question.Events.Add(new QuestionDeletedAdminEvent());
+            question.Events.Add(new QuestionDeletedAdminEvent(question));
             await _questionRepository.DeleteAsync(question, token);
         }
     }

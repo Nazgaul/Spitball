@@ -68,7 +68,7 @@ const bookDetailsProps = {
 let routes2 = [{
         path: "/",
         name: "home",
-        redirect: "/ask"
+        redirect: `/${RouteTypes.questionRoute}`
     },
 
     {
