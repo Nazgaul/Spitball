@@ -1,5 +1,4 @@
 {
   "version": "2.0",
-  "functions": [ "SignalRMessage" ]
   //"functions": [ "UniversitySearchSync", "SearchSync", "SearchSyncCreateIndex", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }
