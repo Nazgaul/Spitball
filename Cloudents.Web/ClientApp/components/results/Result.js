@@ -236,6 +236,8 @@ export default {
                     this.isLoad = false;
                     next();
                 }
+            }).finally(()=>{
+                this.scrollBehaviour.isComplete = false;
             });
         },
 
