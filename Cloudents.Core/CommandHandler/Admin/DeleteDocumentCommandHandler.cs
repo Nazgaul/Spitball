@@ -18,11 +18,17 @@ namespace Cloudents.Core.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteDocumentCommand message, CancellationToken token)
         {
-            var document = await _documentRepository.LoadAsync(message.Id, token);
-            document.Events.Add(new DocumentDeletedEvent(document));
-            await _documentRepository.DeleteAsync(document, token);
-
-
+            var document = await _documentRepository.GetAsync(message.Id, token);
+            switch (document)
+            {
+                case null:
+                case DocumentDeleted _:
+                    return;
+                default:
+                    document.Events.Add(new DocumentDeletedEvent(document));
+                    await _documentRepository.DeleteAsync(document, token);
+                    break;
+            }
         }
     }
 }

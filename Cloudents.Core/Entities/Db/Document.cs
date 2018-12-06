@@ -30,7 +30,13 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Views = 0;
             Professor = professor;
-            Events.Add(new DocumentCreatedEvent(this));
+            State = ItemState.Pending;
+            if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
+            {
+                Events.Add(new DocumentCreatedEvent(this));
+                State = ItemState.Ok;
+            }
+            
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
@@ -74,6 +80,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual CultureInfo Language { get; set; }
         public virtual IList<IEvent> Events { get; }
+
     }
 
 
