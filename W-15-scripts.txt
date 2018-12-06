@@ -33,3 +33,15 @@ UPDATE sb.Course
 SET Name = REPLACE(Name, '+', '');
 UPDATE sb.University
 SET Name = REPLACE(Name, '+', '');
+
+
+--remove + char from course name
+begin tran
+insert into sb.Course select REPLACE(Name, '+', '-'),0 from sb.Course where [Name] like '%+%' order by 1
+
+update sb.Document
+set CourseName = REPLACE(CourseName, '+', '-')
+where CourseName like '%+%'
+
+delete from sb.Course where name like '%+%'
+commit
