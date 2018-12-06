@@ -98,6 +98,26 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var json = @"{
+  ""type"": 2,
+  ""action"": 0,
+  ""data"": [
+    {
+      ""questionId"": 6732,
+      ""answer"": {
+        ""id"": ""2be97ebf-4658-4c29-b324-a9ae00a2a5d0"",
+        ""text"": ""Some more answer to test the signalr"",
+        ""user"": {
+          ""id"": 638,
+          ""name"": ""yaari.9181""
+        },
+        ""create"": ""2018-12-06T09:52:10.9157648Z""
+      }
+    }
+  ]
+}";
+            
+            var result = JsonConvert.DeserializeObject<SignalRTransportType>(json);
             //await z.InsertMessageAsync(new SmsMessage2("+972542642202", "1111"), token);
             //CreateServiceBus.Create();
             // await TransferDocuments();
