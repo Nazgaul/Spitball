@@ -3,6 +3,7 @@
 
 --add queue name sms production
 az servicebus queue create --name sms --namespace-name spitball-dev --resource-group zbox-dev --default-message-time-to-live PT30M
+az servicebus queue create --name signalr --namespace-name spitball-dev --resource-group zbox-dev --default-message-time-to-live PT30M
 az servicebus topic create --name background2 --namespace-name spitball-dev --resource-group zbox-dev --default-message-time-to-live P14D --max-size  5120
 az servicebus topic subscription create --name default --namespace-name spitball-dev --resource-group zbox-dev --topic-name background2
 

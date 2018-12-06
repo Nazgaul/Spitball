@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using JetBrains.Annotations;
@@ -8,8 +9,6 @@ using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Message.System;
 
 namespace Cloudents.Web.Controllers
 {
@@ -46,7 +45,8 @@ namespace Cloudents.Web.Controllers
             await signInManager.SignOutAsync().ConfigureAwait(false);
             TempData.Clear();
 
-            var message = new SignalRTransportType(SignalRType.User, SignalRAction.Action, new[] {"logout"});
+            var message = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
+                new object());
             await hubContext.Clients.User(signInManager.UserManager.GetUserId(User)).SendCoreAsync("Message", new object[]
                         {
                             message

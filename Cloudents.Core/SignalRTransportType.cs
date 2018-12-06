@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core
 {
     public class SignalRTransportType
     {
-        public SignalRTransportType(SignalRType type, SignalRAction action, IEnumerable data)
+        public SignalRTransportType(SignalRType type, SignalRAction action, object[] data)
         {
             Type = type;
             Action = action;
@@ -19,10 +20,33 @@ namespace Cloudents.Core
             Data = new[] { data };
         }
 
+        public SignalRTransportType(SignalRType type, SignalREventAction action, object data)
+        {
+            Type = type;
+            Action = SignalRAction.Action;
+
+            Data = new[]
+            {
+                new
+                {
+                    type = action,
+                    data = data
+                }
+            };
+        }
+        
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Need for serialzation")]
+        protected SignalRTransportType()
+        {
+            
+        }
+
+       
+
         public SignalRType Type { get; }
         public SignalRAction Action { get; set; }
 
-        public IEnumerable Data { get; }
+        public object[] Data { get; }
     }
 
 
@@ -33,6 +57,12 @@ namespace Cloudents.Core
         Delete,
         Update,
         Action
+    }
+
+    public enum SignalREventAction
+    {
+        Logout,
+        MarkAsCorrect
     }
 
     public enum SignalRType
