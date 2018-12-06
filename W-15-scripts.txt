@@ -33,3 +33,5 @@ UPDATE sb.Course
 SET Name = REPLACE(Name, '+', '');
 UPDATE sb.University
 SET Name = REPLACE(Name, '+', '');
+
+ALTER TABLE sb.document ALTER COLUMN BlobName nvarchar(255) null;
