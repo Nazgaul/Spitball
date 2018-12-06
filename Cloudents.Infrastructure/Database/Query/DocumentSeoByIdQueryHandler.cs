@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Database.Query
         }
         public Task<DocumentSeoDto> GetAsync(DocumentById query, CancellationToken token)
         {
-            return _session.Query<Document>()
+            return _session.Query<DocumentApproved>()
                 .Fetch(f => f.University)
                  .Where(w => w.Id == query.Id)
 

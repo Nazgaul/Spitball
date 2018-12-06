@@ -32,9 +32,9 @@ namespace Cloudents.Infrastructure.Database.Query
         private async Task<QuestionDetailDto> GetFromDbAsync(long id, CancellationToken token)
         {
             //TODO: this is left join query need to fix that
-            var questionFuture = _session.Query<Question>().Where(w => w.Id == id)
+            var questionFuture = _session.Query<QuestionApproved>()
+                .Where(w => w.Id == id)
                 .Fetch(f => f.User)
-                .Where(w => w.State == null || w.State == ItemState.Ok)
                 .Select(s => new QuestionDetailDto(new UserDto
                 {
                     Id = s.User.Id,
@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Image = s.User.Image
                 }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id, s.Color, s.Subject, s.Language)
                 ).ToFutureValue();
-            var answersFuture = _session.Query<Answer>()
+            var answersFuture = _session.Query<AnswerApproved>()
                 .Where(w => w.Question.Id == id)
                 .Fetch(f => f.User)
                 .Select(s => new QuestionDetailAnswerDto

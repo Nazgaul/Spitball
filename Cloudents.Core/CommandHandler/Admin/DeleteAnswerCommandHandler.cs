@@ -28,8 +28,13 @@ namespace Cloudents.Core.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
         {
-            var answer = await _repository.GetAsync(message.Id, token).ConfigureAwait(false); //no point in load since next line will do query
+            var answer = await _repository.GetAsync(message.Id, token); //no point in load since next line will do query
             if (answer == null)
+            {
+                throw new ArgumentException("answer doesn't exits");
+            }
+
+            if (answer is AnswerDeleted)
             {
                 throw new ArgumentException("answer doesn't exits");
             }

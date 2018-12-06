@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 
@@ -14,6 +15,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Text).Length(8000);
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
+            Map(x => x.State).Not.Nullable();
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
 
@@ -24,7 +26,35 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse();
 
             SchemaAction.None();
-            
+            DiscriminateSubClassesOnColumn("State");
+        }
+
+        
+    }
+
+    public class AnswerDeletedMap : SubclassMap<AnswerDeleted>
+    {
+        public AnswerDeletedMap()
+        {
+
+            DiscriminatorValue(ItemState.Deleted);
+        }
+    }
+
+    public class AnswerPendingMap : SubclassMap<AnswerPending>
+    {
+        public AnswerPendingMap()
+        {
+
+            DiscriminatorValue(ItemState.Pending);
+        }
+    }
+
+    public class AnswerApprovedMap : SubclassMap<AnswerApproved>
+    {
+        public AnswerApprovedMap()
+        {
+            DiscriminatorValue(ItemState.Ok);
         }
     }
 }

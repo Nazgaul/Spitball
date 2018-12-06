@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Autofac;
+﻿using Autofac;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Database.Maps;
 using FluentNHibernate.Cfg;
@@ -10,7 +8,13 @@ using NHibernate;
 using NHibernate.Caches.CoreDistributedCache;
 using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
+using NHibernate.Engine;
 using NHibernate.Event;
+using NHibernate.Event.Default;
+using NHibernate.Persister.Entity;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database
 {
@@ -18,7 +22,7 @@ namespace Cloudents.Infrastructure.Database
     {
         private readonly ILifetimeScope _lifetimeScope;
         private readonly ISessionFactory _factory;
-        
+
 
         //private static IEnumerable<Type> GetAllTypesImplementingOpenGenericType(Type openGenericType, Assembly assembly)
         //{
@@ -95,6 +99,8 @@ namespace Cloudents.Infrastructure.Database
 #endif
             var eventPublisherListener = new PublishEventsListener(_lifetimeScope.Resolve<IEventPublisher>());
             config.SetListener(ListenerType.PostCommitDelete, eventPublisherListener);
+            config.SetListener(ListenerType.Delete, new SoftDeleteEventListener());
+
             config.SetListener(ListenerType.PostInsert, eventPublisherListener);
             config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
 
@@ -106,5 +112,45 @@ namespace Cloudents.Infrastructure.Database
             config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
         }
     }
+
+    internal class SoftDeleteEventListener : DefaultDeleteEventListener
+    {
+        protected override void DeleteEntity(IEventSource session, object entity, EntityEntry entityEntry, bool isCascadeDeleteEnabled,
+            IEntityPersister persister, ISet<object> transientEntities)
+        {
+            if (entity is ISoftDelete deletable)
+            {
+                //deletable.DeleteAssociation();
+                deletable.State = ItemState.Deleted;
+
+                CascadeBeforeDelete(session, persister, deletable, entityEntry, transientEntities);
+                CascadeAfterDelete(session, persister, deletable, transientEntities);
+            }
+            else
+            {
+                base.DeleteEntity(session, entity, entityEntry, isCascadeDeleteEnabled,
+                    persister, transientEntities);
+            }
+        }
+
+        protected override async Task DeleteEntityAsync(IEventSource session, object entity, EntityEntry entityEntry, bool isCascadeDeleteEnabled,
+            IEntityPersister persister, ISet<object> transientEntities, CancellationToken cancellationToken)
+        {
+            if (entity is ISoftDelete deletable)
+            {
+                //deletable.DeleteAssociation();
+                deletable.State = ItemState.Deleted;
+
+                await CascadeBeforeDeleteAsync(session, persister, deletable, entityEntry, transientEntities, cancellationToken);
+                await CascadeAfterDeleteAsync(session, persister, deletable, transientEntities, cancellationToken);
+            }
+            else
+            {
+                await base.DeleteEntityAsync(session, entity, entityEntry, isCascadeDeleteEnabled,
+                    persister, transientEntities, cancellationToken);
+            }
+        }
+
+
+    }
 }
-  
