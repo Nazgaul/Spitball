@@ -57,3 +57,9 @@ set state = 'Deleted'
 where state = 'Suspended'
 
 ALTER TABLE sb.question ALTER COLUMN State nvarchar(255) not null;
+
+alter table sb.answer
+add  State nvarchar(255) null
+update sb.Answer
+set state = 'Ok'
+ALTER TABLE sb.Answer ALTER COLUMN State nvarchar(255) not null;

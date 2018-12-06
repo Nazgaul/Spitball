@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IEnumerable<QuestionFeedDto>> GetAsync(NextQuestionQuery query, CancellationToken token)
         {
             QuestionFeedDto dto = null;
-            Question questionAlias = null;
+            QuestionApproved questionAlias = null;
             User userAlias = null;
 
 
@@ -49,14 +49,14 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
-                    .SelectSubQuery(QueryOver.Of<Answer>()
+                    .SelectSubQuery(QueryOver.Of<AnswerApproved>()
                         .Where(w => w.Question.Id == questionAlias.Id).ToRowCountQuery()).WithAlias(() => dto.Answers)
 
                 )
                 .Where(w => w.CorrectAnswer == null)
                 .Where(w => w.User.Id != query.UserId)
                 .Where(w => w.Id != query.QuestionId)
-                .WithSubquery.WhereProperty(x => x.Id).NotIn(QueryOver.Of<Answer>().Where(w => w.User.Id == query.UserId).Select(s => s.Question.Id))
+                .WithSubquery.WhereProperty(x => x.Id).NotIn(QueryOver.Of<AnswerApproved>().Where(w => w.User.Id == query.UserId).Select(s => s.Question.Id))
                 .TransformUsing(new DeepTransformer<QuestionFeedDto>())
                 .OrderBy(Projections.Conditional(
                     Subqueries.PropertyEq(nameof(Question.Subject), detachedQuery.DetachedCriteria)

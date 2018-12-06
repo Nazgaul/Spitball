@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Image = s.User.Image
                 }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id, s.Color, s.Subject, s.Language)
                 ).ToFutureValue();
-            var answersFuture = _session.Query<Answer>()
+            var answersFuture = _session.Query<AnswerApproved>()
                 .Where(w => w.Question.Id == id)
                 .Fetch(f => f.User)
                 .Select(s => new QuestionDetailAnswerDto
