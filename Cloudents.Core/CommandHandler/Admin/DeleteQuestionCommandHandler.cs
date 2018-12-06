@@ -30,6 +30,10 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 return;
             }
+            if (question is QuestionDeleted)
+            {
+                return;
+            }
             await DeleteQuestionAsync(question, token);
         }
 

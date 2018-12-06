@@ -10,10 +10,10 @@ namespace Cloudents.Core.CommandHandler.Admin
     [AdminCommandHandler]
     public class MarkAnswerAsCorrectCommandHandler : ICommandHandler<Command.Admin.MarkAnswerAsCorrectCommand>
     {
-        private readonly IRepository<Question> _questionRepository;
+        private readonly IRepository<QuestionApproved> _questionRepository;
         private readonly ICommandHandler<MarkAnswerAsCorrectCommand> _commandHandler;
 
-        public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
+        public MarkAnswerAsCorrectCommandHandler(IRepository<QuestionApproved> questionRepository,
             ICommandHandler<MarkAnswerAsCorrectCommand> commandHandler)
         {
             _questionRepository = questionRepository;

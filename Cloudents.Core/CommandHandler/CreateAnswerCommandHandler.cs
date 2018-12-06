@@ -15,13 +15,13 @@ namespace Cloudents.Core.CommandHandler
     [UsedImplicitly]
     public class CreateAnswerCommandHandler : ICommandHandler<CreateAnswerCommand>
     {
-        private readonly IRepository<Question> _questionRepository;
+        private readonly IRepository<QuestionApproved> _questionRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
 
-        public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
+        public CreateAnswerCommandHandler(IRepository<QuestionApproved> questionRepository,
             IAnswerRepository answerRepository, IRepository<User> userRepository,
             IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
