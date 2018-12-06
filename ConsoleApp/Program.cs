@@ -98,31 +98,6 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var t = _container.Resolve<IUnitOfWork>();
-            var user = new UserDto
-            {
-                Id = 1,
-                Name = "Some Name",
-                Image = null
-            };
-            var dto = new QuestionFeedDto(1,
-                QuestionSubject.Accounting,
-                100,
-                "Signalr test",
-                0,
-                0,
-                user,
-                DateTime.UtcNow,
-                QuestionColor.Blue,
-                false,
-                CultureInfo.CurrentCulture);
-
-            var signalrMessage = new Cloudents.Core.Message.System.SignalRMessage(SignalRType.Question,
-                SignalRAction.Add, dto);
-
-
-            var z = _container.Resolve<IQueueProvider>();
-            await z.InsertMessageAsync(signalrMessage, token);
             //await z.InsertMessageAsync(new SmsMessage2("+972542642202", "1111"), token);
             //CreateServiceBus.Create();
             // await TransferDocuments();
