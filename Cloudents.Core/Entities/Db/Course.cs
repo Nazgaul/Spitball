@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities.Db
 
         public Course(string name)
         {
-            Name = name.Trim().Replace("+", string.Empty);
+            Name = name.Trim();//.Replace("+", string.Empty);
             if (Name.Length > MaxLength || Name.Length < MinLength)
             {
                 throw new ArgumentException();
