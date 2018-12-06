@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
             AnswerOfQuestionWithoutCorrectAnswer dtoAnswerAlias = null;
-            Question questionAlias = null;
+            QuestionApproved questionAlias = null;
             User userAlias = null;
 
             var questions = await _session.QueryOver(() => questionAlias)

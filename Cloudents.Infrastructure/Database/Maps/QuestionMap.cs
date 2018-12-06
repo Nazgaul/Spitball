@@ -41,13 +41,38 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse();
 
             SchemaAction.None();
-
+            DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
+            
 
         }
     }
 
-    //public class QuestionDeleteMap : ClassMap<Question>
-    //{
+    public class QuestionDeleteMap : SubclassMap<QuestionDeleted>
+    {
+        public QuestionDeleteMap()
+        {
+            
+            DiscriminatorValue(ItemState.Deleted);
+        }
+    }
+
+    public class QuestionPendingMap : SubclassMap<QuestionPending>
+    {
+        public QuestionPendingMap()
+        {
+
+            DiscriminatorValue(ItemState.Pending);
+        }
+    }
+
+    public class QuestionApprovedMap : SubclassMap<QuestionApproved>
+    {
+        public QuestionApprovedMap()
+        {
+            DiscriminatorValue(null);
+            DiscriminatorValue(ItemState.Ok);
+        }
+    }
     //    public QuestionDeleteMap()
     //     : base()
     //    {
@@ -71,7 +96,7 @@ namespace Cloudents.Infrastructure.Database.Maps
 
     //        //References(x => x.User).Column("UserId").ForeignKey("Question_User").Not.Nullable();
     //        //References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
-           
+
 
     //        //SchemaAction.None();
 

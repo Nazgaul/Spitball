@@ -46,3 +46,14 @@ where CourseName like '%+%'
 
 delete from sb.Course where name like '%+%'
 commit
+
+--make sure state in question table is not null
+update sb.Question
+set state = 'Ok'
+where state is null
+
+update sb.Question
+set state = 'Deleted' 
+where state = 'Suspended'
+
+ALTER TABLE sb.question ALTER COLUMN State nvarchar(255) not null;

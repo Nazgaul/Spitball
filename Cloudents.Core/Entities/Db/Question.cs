@@ -74,7 +74,7 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual QuestionColor? Color { get; set; }
-        public virtual ItemState? State { get; set; }
+        public virtual ItemState State { get; set; }
 
 
         public virtual void QuestionCreateTransaction()
@@ -156,6 +156,21 @@ namespace Cloudents.Core.Entities.Db
 
             Language = info;
         }
+
+    }
+
+    public class QuestionApproved : Question
+    {
+
+    }
+
+    public class QuestionPending : Question
+    {
+
+    }
+
+    public class QuestionDeleted : Question
+    {
 
     }
 }

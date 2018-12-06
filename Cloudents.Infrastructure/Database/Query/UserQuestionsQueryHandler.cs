@@ -22,9 +22,8 @@ namespace Cloudents.Infrastructure.Database.Query
         }
         public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
         {
-            return await _session.Query<Question>()
+            return await _session.Query<QuestionApproved>()
                 .Where(w => w.User.Id == query.Id)
-                .Where(w => w.State == null || w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new QuestionFeedDto(s.Id,
                     s.Subject,

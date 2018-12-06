@@ -55,16 +55,17 @@ namespace Cloudents.Core.CommandHandler
             }
 
             //TODO: this is no good - we need to figure out how to change its location - this command handler should handle also user lock out
-            if (DateTime.UtcNow.Subtract(question.User.Created) < TimeSpan.FromMinutes(15) 
-                && question.Price == 100)
-            {
-                question.User.LockoutEnd = DateTimeOffset.MaxValue;
-                answer.User.LockoutEnd = DateTimeOffset.MaxValue;
-                question.State = ItemState.Suspended;
-                await _userRepository.UpdateAsync(question.User, token);
-                await _userRepository.UpdateAsync(answer.User, token);
+            //TODO: question now can't be 100
+            //if (DateTime.UtcNow.Subtract(question.User.Created) < TimeSpan.FromMinutes(15) 
+            //    && question.Price == 100)
+            //{
+            //    question.User.LockoutEnd = DateTimeOffset.MaxValue;
+            //    answer.User.LockoutEnd = DateTimeOffset.MaxValue;
+            //    question.State = ItemState.Suspended;
+            //    await _userRepository.UpdateAsync(question.User, token);
+            //    await _userRepository.UpdateAsync(answer.User, token);
 
-            }
+            //}
 
             await _questionRepository.UpdateAsync(question, token);
          
