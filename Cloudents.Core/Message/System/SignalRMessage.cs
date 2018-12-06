@@ -4,9 +4,9 @@
 namespace Cloudents.Core.Message.System
 {
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Json serialize")]
-    public class SignalRMessage : ISystemQueueMessage
+    public class SignalRMessageTransport : ISystemQueueMessage
     {
-        public SignalRMessage(SignalRType messageType, SignalRAction action, object data)
+        public SignalRMessageTransport(SignalRType messageType, SignalRAction action, object data)
         {
             Action = action;
             Data = data;
