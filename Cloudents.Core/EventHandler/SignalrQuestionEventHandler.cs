@@ -44,7 +44,7 @@ namespace Cloudents.Core.EventHandler
                 false,
                 eventMessage.Question.Language);
             
-            await _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Add, dto), token);
+            await _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Question, SignalRAction.Add, dto), token);
         }
 
 
@@ -55,7 +55,7 @@ namespace Cloudents.Core.EventHandler
                 id = eventMessage.Question.Id
             };
 
-            await _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Delete, dto), token);
+            await _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Question, SignalRAction.Delete, dto), token);
         }
 
         public Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
@@ -80,7 +80,7 @@ namespace Cloudents.Core.EventHandler
                 question.Language);
 
 
-            return _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Update, dto), token);
+            return _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Question, SignalRAction.Update, dto), token);
         }
 
         public Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
@@ -101,11 +101,11 @@ namespace Cloudents.Core.EventHandler
             };
             var dto = new
             {
-                questionId = eventMessage.Answer.Question.Id,
-                answer = answerDto
+                QuestionId = eventMessage.Answer.Question.Id,
+                Answer = answerDto
             };
 
-            return _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Answer, SignalRAction.Add, dto), token);
+            return _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Answer, SignalRAction.Add, dto), token);
         }
 
         public Task HandleAsync(AnswerDeletedEvent eventMessage, CancellationToken token)
@@ -116,12 +116,12 @@ namespace Cloudents.Core.EventHandler
                 answer = new { id = eventMessage.Answer.Id}
             };
 
-            return _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Answer, SignalRAction.Delete, dto), token);
+            return _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Answer, SignalRAction.Delete, dto), token);
         }
 
         public Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
         {
-            var message = new SignalRMessage(SignalRType.User,
+            var message = new SignalRMessageTransport(SignalRType.User,
                 SignalRAction.Update, new {balance = eventMessage.Transaction.User.Balance})
             {
                 UserId = eventMessage.Transaction.User.Id

@@ -11,7 +11,7 @@ using SignalRMessage = Microsoft.Azure.WebJobs.Extensions.SignalRService.SignalR
 
 namespace Cloudents.FunctionsV2.System
 {
-    public class SignalROperation : ISystemOperation<Core.Message.System.SignalRMessage>
+    public class SignalROperation : ISystemOperation<Core.Message.System.SignalRMessageTransport>
     {
         private readonly ILogger _logger;
 
@@ -20,7 +20,7 @@ namespace Cloudents.FunctionsV2.System
             _logger = logger;
         }
 
-        public async Task DoOperationAsync(Core.Message.System.SignalRMessage msg,
+        public async Task DoOperationAsync(Core.Message.System.SignalRMessageTransport msg,
             IBinder binder, CancellationToken token)
         {
 

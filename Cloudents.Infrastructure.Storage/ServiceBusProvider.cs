@@ -27,10 +27,10 @@ namespace Cloudents.Infrastructure.Storage
         private Task InsertTopicMessageAsync(string topic, object obj, CancellationToken token)
         {
             var topicClient = _topicClients.GetOrAdd(topic, x => new TopicClient(_connectionString, x));
-
-            //For now
             var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
+                NullValueHandling = NullValueHandling.Ignore,
+                //We need this for now because other wise inner mapping wont convert to object
                 TypeNameHandling = TypeNameHandling.All
             });
 
@@ -39,7 +39,7 @@ namespace Cloudents.Infrastructure.Storage
             {
                 Body = Encoding.UTF8.GetBytes(json),
                 ContentType = "application/json",
-                UserProperties = { ["messageType"] = obj.GetType().AssemblyQualifiedName }
+                UserProperties = { ["messageType"] = obj.GetType().FullName }
             });
         }
 
@@ -54,7 +54,7 @@ namespace Cloudents.Infrastructure.Storage
             {
                 Body = Encoding.UTF8.GetBytes(json),
                 ContentType = "application/json",
-                UserProperties = { ["messageType"] = obj.GetType().AssemblyQualifiedName }
+             //   UserProperties = { ["messageType"] = obj.GetType().AssemblyQualifiedName }
 
             });
         }
