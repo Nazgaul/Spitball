@@ -13,7 +13,22 @@
           <div class="sold-area" v-if="isSold">sold</div>
         </div>
         <div class="question-header-small-sagment">
-          <div class="price-area">{{cardData.price.toFixed(2)}} <span>SBL</span></div>
+          <div class="price-area">
+            {{cardData.price.toFixed(2)}}
+            <span>SBL</span>
+          </div>
+          <div class="menu-area">
+            <v-menu bottom left>
+              <v-btn :depressed="true" @click.prevent slot="activator" icon>
+                <v-icon>sbf-filter</v-icon>
+              </v-btn>
+              <v-list>
+                <v-list-tile v-for="(action, i) in actions" :key="i" @click>
+                  <v-list-tile-title>{{ action.title }}</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+          </div>
         </div>
       </div>
       <div class="question-body-container">
@@ -30,6 +45,11 @@
 import userAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import userRank from "../../../helpers/UserRank/UserRank.vue";
 export default {
+  data() {
+    return {
+      actions: [{ title: "Flag" }]
+    };
+  },
   props: {
     cardData: {
       required: true
@@ -82,16 +102,23 @@ export default {
         vertical-align: middle;
       }
     }
-    .question-header-small-sagment{
-        .price-area{
-            color: @color-blue-new;
-            font-family: @fontOpenSans;
-            font-size: 16px;
-            font-weight: 600;
-            span{
-                font-size: 10px;
-            }
+    .question-header-small-sagment {
+        display:flex;
+
+      .price-area {
+        color: @color-blue-new;
+        font-family: @fontOpenSans;
+        font-size: 16px;
+        font-weight: 600;
+        span {
+          font-size: 10px;
         }
+      }
+      .menu-area{
+          i{
+              font-size: 20px;
+          }
+      }
     }
   }
   .question-body-container {
