@@ -120,6 +120,9 @@
   <data name="btn_open" xml:space="preserve">
     <value>העלה מסמכים</value>
   </data>
+  <data name="class_input_placeholder" xml:space="preserve">
+    <value>בחר או הקלד את שם הקורס</value>
+  </data>
   <data name="confirm_btn_cancel" xml:space="preserve">
     <value>חזור</value>
   </data>
@@ -185,6 +188,9 @@
     <value>שתף סיכומים</value>
     <comment>שתף סיכומים</comment>
   </data>
+  <data name="files_dopHere" xml:space="preserve">
+    <value>גרור את הקובץ שלך לכאן</value>
+  </data>
   <data name="files_edit" xml:space="preserve">
     <value>ערוך</value>
     <comment>ערוך</comment>
@@ -217,6 +223,9 @@
   </data>
   <data name="files_label_tags" xml:space="preserve">
     <value>תגיות</value>
+  </data>
+  <data name="files_options_text" xml:space="preserve">
+    <value>או העלה קובץ מ</value>
   </data>
   <data name="files_placeholder_proff_name" xml:space="preserve">
     <value>הכנס את שם המרצה</value>
