@@ -4,13 +4,12 @@
     <AzureFunctionsVersion>v1</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.22" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="RestSharp" Version="106.5.4" />
     <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-    <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
