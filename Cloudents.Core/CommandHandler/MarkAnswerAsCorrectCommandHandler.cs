@@ -27,7 +27,12 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
-            var answer = await _answerRepository.LoadAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
+            var answer = await _answerRepository.LoadAsync(message.AnswerId, token); //false will raise an exception
+            if (answer.Question.State != ItemState.Ok)
+            {
+                throw new InvalidOperationException("only owner can perform this task");
+            }
+
             var question = answer.Question;
             if (question.User.Id != message.QuestionUserId)
             {
@@ -53,19 +58,6 @@ namespace Cloudents.Core.CommandHandler
                 await _userRepository.UpdateAsync(question.User, token);
                 await _userRepository.UpdateAsync(answer.User, token);
             }
-
-            //TODO: this is no good - we need to figure out how to change its location - this command handler should handle also user lock out
-            if (DateTime.UtcNow.Subtract(question.User.Created) < TimeSpan.FromMinutes(15) 
-                && question.Price == 100)
-            {
-                question.User.LockoutEnd = DateTimeOffset.MaxValue;
-                answer.User.LockoutEnd = DateTimeOffset.MaxValue;
-                question.State = ItemState.Suspended;
-                await _userRepository.UpdateAsync(question.User, token);
-                await _userRepository.UpdateAsync(answer.User, token);
-
-            }
-
             await _questionRepository.UpdateAsync(question, token);
          
         }

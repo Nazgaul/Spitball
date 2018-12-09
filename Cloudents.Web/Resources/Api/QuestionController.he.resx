@@ -120,6 +120,9 @@
   <data name="FilterTypeTitle" xml:space="preserve">
     <value>סוגי שאלות</value>
   </data>
+  <data name="InSufficientFunds" xml:space="preserve">
+    <value>אין לך מספיק SBL,  קבל עוד SBL על ידי מתן תשובות לשאלות.</value>
+  </data>
   <data name="PostedQuestionToasterOk" xml:space="preserve">
     <value>השאלה נשלחה ומיטב המוחות שוקדים עליה ברגע זה</value>
   </data>

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -36,6 +37,11 @@ namespace Cloudents.Core.CommandHandler
             var question = await _questionRepository.GetAsync(message.QuestionId, token).ConfigureAwait(false);
            
             if (question == null)
+            {
+                throw new ArgumentException("question doesn't exits");
+            }
+
+            if (question.State != ItemState.Ok)
             {
                 throw new ArgumentException("question doesn't exits");
             }

@@ -44,7 +44,7 @@ namespace Cloudents.Core.EventHandler
                 false,
                 eventMessage.Question.Language);
             
-            await _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Question, SignalRAction.Add, dto), token);
+            await _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), token);
         }
 
 
@@ -55,32 +55,40 @@ namespace Cloudents.Core.EventHandler
                 id = eventMessage.Question.Id
             };
 
-            await _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Question, SignalRAction.Delete, dto), token);
+            await _queueProvider.InsertMessageAsync(
+                new SignalRTransportType(SignalRType.Question, SignalRAction.Delete, dto), token);
         }
 
         public Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
         {
-            var question = eventMessage.Answer.Question;
-            var user = new UserDto
-            {
-                Id = question.User.Id,
-                Name = question.User.Name,
-                Image = question.User.Image
-            };
-            var dto = new QuestionFeedDto(question.Id,
-                question.Subject,
-                question.Price,
-                question.Text,
-                question.Attachments,
-                question.Answers.Count,
-                user,
-                question.Updated,
-                question.Color,
-                question.CorrectAnswer?.Id != null,
-                question.Language);
+            var message = new SignalRTransportType(SignalRType.Question, SignalREventAction.MarkAsCorrect,
+                new
+                {
+                    questionId = eventMessage.Answer.Question.Id,
+                    answerId = eventMessage.Answer.Id
+                });
+
+            //var question = eventMessage.Answer.Question;
+            //var user = new UserDto
+            //{
+            //    Id = question.User.Id,
+            //    Name = question.User.Name,
+            //    Image = question.User.Image
+            //};
+            //var dto = new QuestionFeedDto(question.Id,
+            //    question.Subject,
+            //    question.Price,
+            //    question.Text,
+            //    question.Attachments,
+            //    question.Answers.Count,
+            //    user,
+            //    question.Updated,
+            //    question.Color,
+            //    question.CorrectAnswer?.Id != null,
+            //    question.Language);
 
 
-            return _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Question, SignalRAction.Update, dto), token);
+            return _queueProvider.InsertMessageAsync(message, token);
         }
 
         public Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
@@ -105,7 +113,7 @@ namespace Cloudents.Core.EventHandler
                 Answer = answerDto
             };
 
-            return _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Answer, SignalRAction.Add, dto), token);
+            return _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Answer, SignalRAction.Add, dto), token);
         }
 
         public Task HandleAsync(AnswerDeletedEvent eventMessage, CancellationToken token)
@@ -116,18 +124,16 @@ namespace Cloudents.Core.EventHandler
                 answer = new { id = eventMessage.Answer.Id}
             };
 
-            return _queueProvider.InsertMessageAsync(new SignalRMessageTransport(SignalRType.Answer, SignalRAction.Delete, dto), token);
+            return _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Answer, SignalRAction.Delete, dto), token);
         }
 
         public Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
         {
-            var message = new SignalRMessageTransport(SignalRType.User,
-                SignalRAction.Update, new {balance = eventMessage.Transaction.User.Balance})
-            {
-                UserId = eventMessage.Transaction.User.Id
-            };
+            var message = new SignalRTransportType(SignalRType.User,
+                SignalRAction.Update, new {balance = eventMessage.Transaction.User.Balance});
+           
             return _queueProvider.InsertMessageAsync
-                (message, token);
+                (message, eventMessage.Transaction.User.Id, token);
         }
     }
 }

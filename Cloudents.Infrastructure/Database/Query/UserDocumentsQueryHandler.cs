@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
@@ -24,7 +25,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return await _session.Query<Document>()
                 .Fetch(f => f.University)
                 .Fetch(f => f.User)
-                .Where(w => w.User.Id == query.Id)
+                .Where(w => w.User.Id == query.Id && w.State == ItemState.Ok)
 
                 // .Where(w => w.State == null || w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)

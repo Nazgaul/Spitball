@@ -3,7 +3,7 @@
     public enum ItemState
     {
         Ok,
-        Suspended,
+        Deleted,
         Pending
     }
 }

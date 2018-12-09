@@ -6,6 +6,7 @@ using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -27,6 +28,10 @@ namespace Cloudents.Core.CommandHandler.Admin
         {
             var question = await _questionRepository.GetAsync(message.QuestionId, token);
             if (question == null)
+            {
+                return;
+            }
+            if (question.State == ItemState.Deleted)
             {
                 return;
             }

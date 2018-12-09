@@ -98,31 +98,6 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            //await z.InsertMessageAsync(new SmsMessage2("+972542642202", "1111"), token);
-            //CreateServiceBus.Create();
-            // await TransferDocuments();
-            //var _commandBus = _container.Resolve<ICommandBus>();
-            //await FixPoisonBackground(_commandBus);
-            //var q = _container.Resolve<ISearchServiceWrite<Question>>();
-            //await q.CreateOrUpdateAsync(default);
-
-            //var q2 = _container.Resolve<IQuestionSearch>();
-
-            //var z = await q2.SearchAsync(new QuestionsQuery(null, null, 0, null, "fr"), default);
-            //293005, Geography
-
-
-            //var command = new AddUserTagCommand(293005L, "Geography");
-            //await _commandBus.DispatchAsync(command, token);
-
-            //await FixPoisonBackground(_commandBus);
-
-            // await UpdateLanguageAsync();
-            //await TransferUniversities();
-            //await TransferUsers();
-            //await MigrateUniversity();
-            //await DeleteOldFiles();
-            // await TransferDocumants();
         }
 
         private static async Task FixPoisonBackground(ICommandBus _commandBus)

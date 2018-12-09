@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -27,7 +28,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             answerQuery.ThenFetch(f => f.User);
 
-            var futureAnswers = answerQuery.Where(w => w.User.Id == query.Id)
+            return await answerQuery.Where(w => w.User.Id == query.Id && w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Question.Id)
                 .Select(s => new QuestionFeedDto(s.Question.Id,
                     s.Question.Subject,
@@ -42,10 +43,7 @@ namespace Cloudents.Infrastructure.Database.Query
                         Image = s.Question.User.Image
                     }, s.Question.Updated,
                     s.Question.Color, s.Question.CorrectAnswer.Id != null, s.Question.Language))
-                    .Take(50).Skip(query.Page*50)
-                    .ToFuture();
-
-            return futureAnswers.GetEnumerable();
+                .Take(50).Skip(query.Page * 50).ToListAsync(token);
         }
     }
 }

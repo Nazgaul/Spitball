@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
@@ -46,5 +47,29 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual IList<IEvent> Events { get; }
+
+
+        public virtual ItemState State { get; set; }
     }
+
+    //public class AnswerApproved : Answer, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
+
+    //public class AnswerPending : Answer, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
+
+    //public class AnswerDeleted : Answer
+    //{
+
+    //}
 }

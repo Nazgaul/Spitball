@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
@@ -36,6 +37,34 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.State).Nullable();
             
             SchemaAction.Update();
+            //DiscriminateSubClassesOnColumn("State");
         }
     }
+
+
+    //public class DocumentDeletedMap : SubclassMap<DocumentDeleted>
+    //{
+    //    public DocumentDeletedMap()
+    //    {
+
+    //        DiscriminatorValue(ItemState.Deleted);
+    //    }
+    //}
+
+    //public class DocumentPendingMap : SubclassMap<DocumentPending>
+    //{
+    //    public DocumentPendingMap()
+    //    {
+
+    //        DiscriminatorValue(ItemState.Pending);
+    //    }
+    //}
+
+    //public class DocumentApprovedMap : SubclassMap<DocumentApproved>
+    //{
+    //    public DocumentApprovedMap()
+    //    {
+    //        DiscriminatorValue(ItemState.Ok);
+    //    }
+    //}
 }
