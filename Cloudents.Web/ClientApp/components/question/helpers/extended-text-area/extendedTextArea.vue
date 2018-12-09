@@ -16,6 +16,7 @@
                             </v-icon>
                             <file-upload
                                     id="file-input"
+                                    :input-id="componentUniqueId"
                                     ref="upload"
                                     :drop="false"
                                     v-model="files"
@@ -25,10 +26,8 @@
                                     :extensions="['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp']"
                                     @input-file="inputFile"
                                     @input-filter="inputFilter">
-
                             </file-upload>
                             <!--<input id="file-input" type="file" multiple accept="image/*"/>-->
-
                         </li>
                     </ul>
                     <v-divider v-if="actionType ==='question'" vertical></v-divider>

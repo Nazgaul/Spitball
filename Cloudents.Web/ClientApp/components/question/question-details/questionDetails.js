@@ -85,8 +85,9 @@ export default {
             return duplicated.length > 0;
         },
 
-        addFile(filename) {
-            this.answerFiles.push(...filename.split(','));
+        addFile(filenames) {
+            this.answerFiles = this.answerFiles.concat(filenames);
+            //this.answerFiles.push(...filename.split(','));
         },
         removeFile(index) {
             this.answerFiles.splice(index, 1);
