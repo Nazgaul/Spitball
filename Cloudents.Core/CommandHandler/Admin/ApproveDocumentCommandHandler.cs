@@ -10,9 +10,9 @@ namespace Cloudents.Core.CommandHandler.Admin
 {
     public class ApproveDocumentCommandHandler : ICommandHandler<ApproveDocumentCommand>
     {
-        private readonly IRepository<DocumentPending> _documentRepository;
+        private readonly IRepository<Document> _documentRepository;
 
-        public ApproveDocumentCommandHandler(IRepository<DocumentPending> documentRepository)
+        public ApproveDocumentCommandHandler(IRepository<Document> documentRepository)
         {
             _documentRepository = documentRepository;
         }

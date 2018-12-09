@@ -159,24 +159,24 @@ namespace Cloudents.Core.Entities.Db
 
     }
 
-    public class QuestionApproved : Question, ISoftDelete
-    {
-        //public void DeleteAssociation()
-        //{
-        //    throw new NotImplementedException();
-        //}
-    }
+    //public class QuestionApproved : Question, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
 
-    public class QuestionPending : Question, ISoftDelete
-    {
-        //public void DeleteAssociation()
-        //{
-        //    throw new NotImplementedException();
-        //}
-    }
+    //public class QuestionPending : Question, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
 
-    public class QuestionDeleted : Question
-    {
+    //public class QuestionDeleted : Question
+    //{
 
-    }
+    //}
 }

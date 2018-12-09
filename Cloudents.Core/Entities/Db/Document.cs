@@ -84,24 +84,24 @@ namespace Cloudents.Core.Entities.Db
     }
 
 
-    public class DocumentApproved : Document, ISoftDelete
-    {
-        //public void DeleteAssociation()
-        //{
-        //    throw new NotImplementedException();
-        //}
-    }
+    //public class DocumentApproved : Document, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
 
-    public class DocumentPending : Document, ISoftDelete
-    {
-        //public void DeleteAssociation()
-        //{
-        //    throw new NotImplementedException();
-        //}
-    }
+    //public class DocumentPending : Document, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
 
-    public class DocumentDeleted : Document
-    {
+    //public class DocumentDeleted : Document
+    //{
 
-    }
+    //}
 }

@@ -27,9 +27,9 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
         public async Task<IEnumerable<PendingQuestionDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            return await _session.Query<QuestionPending>()
+            return await _session.Query<Question>()
                 .Fetch(f => f.User)
-                .Where(w => w.User.Fictive != true)
+                .Where(w => w.User.Fictive != true && w.State == ItemState.Pending)
                 .Select(s => new PendingQuestionDto
                 {
                     Id = s.Id,

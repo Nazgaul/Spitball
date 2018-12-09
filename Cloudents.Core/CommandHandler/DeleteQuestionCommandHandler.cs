@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
@@ -12,10 +13,10 @@ namespace Cloudents.Core.CommandHandler
     [UsedImplicitly]
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
-        private readonly IRepository<QuestionApproved> _repository;
+        private readonly IRepository<Question> _repository;
         private readonly IRepository<Transaction> _transactionRepository;
 
-        public DeleteQuestionCommandHandler(IRepository<QuestionApproved> repository, IRepository<Transaction> transactionRepository)
+        public DeleteQuestionCommandHandler(IRepository<Question> repository, IRepository<Transaction> transactionRepository)
         {
             _repository = repository;
             _transactionRepository = transactionRepository;
@@ -27,6 +28,12 @@ namespace Cloudents.Core.CommandHandler
             if (question == null)
             {
                 throw new ArgumentException("question doesn't exists");
+            }
+
+            if (question.State != ItemState.Ok)
+            {
+                throw new ArgumentException("question doesn't exists");
+
             }
             if (question.User.Id != message.UserId)
             {

@@ -37,34 +37,34 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.State).Nullable();
             
             SchemaAction.Update();
-            DiscriminateSubClassesOnColumn("State");
+            //DiscriminateSubClassesOnColumn("State");
         }
     }
 
 
-    public class DocumentDeletedMap : SubclassMap<DocumentDeleted>
-    {
-        public DocumentDeletedMap()
-        {
+    //public class DocumentDeletedMap : SubclassMap<DocumentDeleted>
+    //{
+    //    public DocumentDeletedMap()
+    //    {
 
-            DiscriminatorValue(ItemState.Deleted);
-        }
-    }
+    //        DiscriminatorValue(ItemState.Deleted);
+    //    }
+    //}
 
-    public class DocumentPendingMap : SubclassMap<DocumentPending>
-    {
-        public DocumentPendingMap()
-        {
+    //public class DocumentPendingMap : SubclassMap<DocumentPending>
+    //{
+    //    public DocumentPendingMap()
+    //    {
 
-            DiscriminatorValue(ItemState.Pending);
-        }
-    }
+    //        DiscriminatorValue(ItemState.Pending);
+    //    }
+    //}
 
-    public class DocumentApprovedMap : SubclassMap<DocumentApproved>
-    {
-        public DocumentApprovedMap()
-        {
-            DiscriminatorValue(ItemState.Ok);
-        }
-    }
+    //public class DocumentApprovedMap : SubclassMap<DocumentApproved>
+    //{
+    //    public DocumentApprovedMap()
+    //    {
+    //        DiscriminatorValue(ItemState.Ok);
+    //    }
+    //}
 }

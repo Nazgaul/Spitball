@@ -26,35 +26,35 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse();
 
             SchemaAction.None();
-            DiscriminateSubClassesOnColumn("State");
+            //DiscriminateSubClassesOnColumn("State");
         }
 
         
     }
 
-    public class AnswerDeletedMap : SubclassMap<AnswerDeleted>
-    {
-        public AnswerDeletedMap()
-        {
+    //public class AnswerDeletedMap : SubclassMap<AnswerDeleted>
+    //{
+    //    public AnswerDeletedMap()
+    //    {
 
-            DiscriminatorValue(ItemState.Deleted);
-        }
-    }
+    //        DiscriminatorValue(ItemState.Deleted);
+    //    }
+    //}
 
-    public class AnswerPendingMap : SubclassMap<AnswerPending>
-    {
-        public AnswerPendingMap()
-        {
+    //public class AnswerPendingMap : SubclassMap<AnswerPending>
+    //{
+    //    public AnswerPendingMap()
+    //    {
 
-            DiscriminatorValue(ItemState.Pending);
-        }
-    }
+    //        DiscriminatorValue(ItemState.Pending);
+    //    }
+    //}
 
-    public class AnswerApprovedMap : SubclassMap<AnswerApproved>
-    {
-        public AnswerApprovedMap()
-        {
-            DiscriminatorValue(ItemState.Ok);
-        }
-    }
+    //public class AnswerApprovedMap : SubclassMap<AnswerApproved>
+    //{
+    //    public AnswerApprovedMap()
+    //    {
+    //        DiscriminatorValue(ItemState.Ok);
+    //    }
+    //}
 }

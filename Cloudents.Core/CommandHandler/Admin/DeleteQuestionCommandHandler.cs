@@ -6,6 +6,7 @@ using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -30,7 +31,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 return;
             }
-            if (question is QuestionDeleted)
+            if (question.State == ItemState.Deleted)
             {
                 return;
             }

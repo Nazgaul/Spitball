@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -34,7 +35,7 @@ namespace Cloudents.Core.CommandHandler.Admin
                 throw new ArgumentException("answer doesn't exits");
             }
 
-            if (answer is AnswerDeleted)
+            if (answer.State == ItemState.Deleted)
             {
                 throw new ArgumentException("answer doesn't exits");
             }

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 
@@ -12,9 +13,9 @@ namespace Cloudents.Core.CommandHandler
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class DeleteAnswerCommandHandler : ICommandHandler<DeleteAnswerCommand>
     {
-        private readonly IRepository<AnswerApproved> _repository;
+        private readonly IRepository<Answer> _repository;
 
-        public DeleteAnswerCommandHandler(IRepository<AnswerApproved> repository)
+        public DeleteAnswerCommandHandler(IRepository<Answer> repository)
         {
             _repository = repository;
         }
@@ -27,7 +28,13 @@ namespace Cloudents.Core.CommandHandler
                 throw new ArgumentException("answer doesn't exits");
             }
 
-          
+            if (answer.State != ItemState.Ok)
+            {
+                throw new ArgumentException("answer doesn't exits");
+
+            }
+
+
 
             if (answer.User.Id != message.UserId)
             {

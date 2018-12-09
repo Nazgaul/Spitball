@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -22,12 +23,12 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserAnswersByIdQuery query, CancellationToken token)
         {
 
-            var answerQuery = _session.Query<AnswerApproved>()
+            var answerQuery = _session.Query<Answer>()
                 .Fetch(f => f.Question);
 
             answerQuery.ThenFetch(f => f.User);
 
-            return await answerQuery.Where(w => w.User.Id == query.Id)
+            return await answerQuery.Where(w => w.User.Id == query.Id && w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Question.Id)
                 .Select(s => new QuestionFeedDto(s.Question.Id,
                     s.Question.Subject,

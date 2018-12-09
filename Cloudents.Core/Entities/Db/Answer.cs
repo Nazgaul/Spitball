@@ -52,24 +52,24 @@ namespace Cloudents.Core.Entities.Db
         public virtual ItemState State { get; set; }
     }
 
-    public class AnswerApproved : Answer, ISoftDelete
-    {
-        //public void DeleteAssociation()
-        //{
-        //    throw new NotImplementedException();
-        //}
-    }
+    //public class AnswerApproved : Answer, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
 
-    public class AnswerPending : Answer, ISoftDelete
-    {
-        //public void DeleteAssociation()
-        //{
-        //    throw new NotImplementedException();
-        //}
-    }
+    //public class AnswerPending : Answer, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
 
-    public class AnswerDeleted : Answer
-    {
+    //public class AnswerDeleted : Answer
+    //{
 
-    }
+    //}
 }

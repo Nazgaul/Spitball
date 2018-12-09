@@ -28,9 +28,10 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             // ReSharper disable once LoopCanBeConvertedToQuery - nhibernate doesn't response well for this
             foreach (var county in counties)
             {
-                var future = _session.Query<QuestionPending>()
+                var future = _session.Query<Question>()
+
                       .Fetch(f => f.User)
-                      .Where(w => w.User.Fictive == true && w.User.Country == county)
+                      .Where(w => w.User.Fictive == true && w.User.Country == county && w.State == ItemState.Pending)
                       .OrderBy(o => o.Id)
                       .Take(1)
                       .Select(s => s.Id)

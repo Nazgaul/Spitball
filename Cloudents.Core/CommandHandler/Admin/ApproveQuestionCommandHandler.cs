@@ -11,9 +11,9 @@ namespace Cloudents.Core.CommandHandler.Admin
 {
     public class ApproveQuestionCommandHandler : ICommandHandler<ApproveQuestionCommand>
     {
-        private readonly IRepository<QuestionPending> _questionRepository;
+        private readonly IRepository<Question> _questionRepository;
 
-        public ApproveQuestionCommandHandler(IRepository<QuestionPending> questionRepository)
+        public ApproveQuestionCommandHandler(IRepository<Question> questionRepository)
         {
             _questionRepository = questionRepository;
         }

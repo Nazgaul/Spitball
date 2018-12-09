@@ -9,19 +9,20 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
     public class CreateAnswerCommandHandler : ICommandHandler<CreateAnswerCommand>
     {
-        private readonly IRepository<QuestionApproved> _questionRepository;
+        private readonly IRepository<Question> _questionRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
 
-        public CreateAnswerCommandHandler(IRepository<QuestionApproved> questionRepository,
+        public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
             IAnswerRepository answerRepository, IRepository<User> userRepository,
             IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
@@ -36,6 +37,11 @@ namespace Cloudents.Core.CommandHandler
             var question = await _questionRepository.GetAsync(message.QuestionId, token).ConfigureAwait(false);
            
             if (question == null)
+            {
+                throw new ArgumentException("question doesn't exits");
+            }
+
+            if (question.State != ItemState.Ok)
             {
                 throw new ArgumentException("question doesn't exits");
             }

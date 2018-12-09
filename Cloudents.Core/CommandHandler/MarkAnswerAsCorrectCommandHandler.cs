@@ -12,13 +12,13 @@ namespace Cloudents.Core.CommandHandler
     [UsedImplicitly]
     public class MarkAnswerAsCorrectCommandHandler : ICommandHandler<MarkAnswerAsCorrectCommand>
     {
-        private readonly IRepository<QuestionApproved> _questionRepository;
-        private readonly IRepository<AnswerApproved> _answerRepository;
+        private readonly IRepository<Question> _questionRepository;
+        private readonly IRepository<Answer> _answerRepository;
         private readonly IRepository<User> _userRepository;
         
 
-        public MarkAnswerAsCorrectCommandHandler(IRepository<QuestionApproved> questionRepository,
-            IRepository<AnswerApproved> answerRepository, IRepository<User> userRepository)
+        public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
+            IRepository<Answer> answerRepository, IRepository<User> userRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
@@ -27,12 +27,13 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
-            var answer = await _answerRepository.LoadAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
-            if (!(answer.Question is QuestionApproved question))
+            var answer = await _answerRepository.LoadAsync(message.AnswerId, token); //false will raise an exception
+            if (answer.Question.State != ItemState.Ok)
             {
                 throw new InvalidOperationException("only owner can perform this task");
-
             }
+
+            var question = answer.Question;
             if (question.User.Id != message.QuestionUserId)
             {
                 throw new InvalidOperationException("only owner can perform this task");

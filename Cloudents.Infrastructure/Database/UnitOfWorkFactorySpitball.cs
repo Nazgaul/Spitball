@@ -120,7 +120,6 @@ namespace Cloudents.Infrastructure.Database
         {
             if (entity is ISoftDelete deletable)
             {
-                //deletable.DeleteAssociation();
                 deletable.State = ItemState.Deleted;
 
                 CascadeBeforeDelete(session, persister, deletable, entityEntry, transientEntities);
