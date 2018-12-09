@@ -56,13 +56,11 @@
 
                                 <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component v-if="item.template !== 'ask' " :is="'result-'+item.template"
+                                    <component :is="'result-'+item.template"
                                                :item="item" :key="index" :index="index" class="cell"></component>
 
-                                    <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
-                                        <question-card :cardData="item" :key="index"></question-card>
-                                    </router-link>
-                                    <div>
+                                    
+                                    <!-- <div>
                                         <span class="question-viewer"
                                               v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow === 1 && item.watchingNow !== 0"
                                               :style="watchinNowStyle(item)"><span v-html="$Ph('result_user_answering', item.watchingNow)"></span></span>
@@ -71,7 +69,6 @@
                                               :style="watchinNowStyle(item)">{{item.watchingNow}} <span
                                                 v-language:inner>result_users_answering</span></span>
 
-                                        <!-- ask only -->
                                         <div class="show-btn"
                                              v-show="accountUser && $route.path.slice(1) ==='ask' && !!item.user && accountUser.id !== item.user.id && !item.hasCorrectAnswer"
                                              :class="'color-'+$route.path.slice(1)" v-language:inner>result_answer
@@ -82,11 +79,10 @@
                                              :class="'color-'+$route.path.slice(1)" v-language:inner>
                                             {{'result_answer'}}
                                         </div>
-                                        <!-- not ask -->
    <div class="show-btn" v-show="name !=='ask' && name !=='note' || (name ==='ask' && item.hasCorrectAnswer || name ==='ask'  && accountUser &&  item && item.user && item.user.id && accountUser.id === item.user.id)"
                                              :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </v-flex>
                                 <router-link tag="v-flex"
                                              class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 "
