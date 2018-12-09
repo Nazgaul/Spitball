@@ -10,7 +10,8 @@ export default {
         error: {},
         actionType: {type: String, default: 'answer'},
         isFocused: false,
-        uploadUrl: {type: String}
+        uploadUrl: {type: String},
+        isAttachVisible:{type: Boolean, default: true, required: false}
     },
     data() {
         return {
