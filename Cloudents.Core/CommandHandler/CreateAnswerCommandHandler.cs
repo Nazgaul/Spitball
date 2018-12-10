@@ -63,15 +63,15 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("fictive user");
             }
 
-            if (!Language.ListOfWhiteListCountries.Contains(user.Country))
-            {
-                var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
-                var pendingAnswerAfterThisInsert = pendingAnswers + 1;
-                if (pendingAnswerAfterThisInsert > 5)
-                {
-                    throw new QuotaExceededException();
-                }
-            }
+            //if (!Language.ListOfWhiteListCountries.Contains(user.Country))
+            //{
+            //    var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
+            //    var pendingAnswerAfterThisInsert = pendingAnswers + 1;
+            //    if (pendingAnswerAfterThisInsert > 5)
+            //    {
+            //        throw new QuotaExceededException();
+            //    }
+            //}
 
             //TODO:
             //we can check if we can create sql query to check answer with regular expression

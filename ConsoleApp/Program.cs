@@ -54,7 +54,7 @@ namespace ConsoleApp
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"], true),
+                    ConfigurationManager.AppSettings["AzureSearchKey"], false),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
@@ -98,6 +98,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var z = _container.Resolve<AzureQuestionSearch>();
+            await z.GetById("43958");
+            //
         }
 
         private static async Task FixPoisonBackground(ICommandBus _commandBus)

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler
@@ -9,20 +10,24 @@ namespace Cloudents.Core.CommandHandler
     public class ReferringUserCommandHandler : ICommandHandler<ReferringUserCommand>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IRepository<Transaction> _transactionRepository;
 
-        public ReferringUserCommandHandler(IUserRepository userRepository)
+        public ReferringUserCommandHandler(IUserRepository userRepository, IRepository<Transaction> transactionRepository)
         {
             _userRepository = userRepository;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(ReferringUserCommand message, CancellationToken token)
         {
-            
             var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
+            var register = await _userRepository.LoadAsync(message.RegisteredUserId, token);
+            var tx = new Transaction(ActionType.ReferringUser, TransactionType.Earned, ReputationSystem.ReferringUser,user)
+            {
+                InvitedUser = register
 
-            var transaction = Transaction.ReferringUserTransaction(user);
-            user.AddTransaction(transaction);
-            await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);
+            };
+            await _transactionRepository.AddAsync(tx, default);
         }
     }
 }

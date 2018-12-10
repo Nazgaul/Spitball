@@ -63,3 +63,7 @@ add  State nvarchar(255) null
 update sb.Answer
 set state = 'Ok'
 ALTER TABLE sb.Answer ALTER COLUMN State nvarchar(255) not null;
+
+
+alter table sb.[user]
+add  Score int null

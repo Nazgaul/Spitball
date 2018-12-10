@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 namespace Cloudents.Core.Entities.Db
@@ -34,7 +35,6 @@ namespace Cloudents.Core.Entities.Db
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
             Events = new List<IEvent>();
-            //Languages = new HashSet<CultureInfo>();
         }
 
         public virtual long Id { get; set; }
@@ -61,20 +61,27 @@ namespace Cloudents.Core.Entities.Db
         public virtual int FraudScore { get; set; }
         public virtual bool? OldUser { get; set; }
 
-        public virtual void AddTransaction(Transaction t)
-        {
-            if (Fictive.GetValueOrDefault())
-            {
-                return;
-            }
-            t.User = this;
-            Balance += t.Price;
-            if (Balance < 0)
-            {
-                throw new InsufficientFundException("not enough tokens");
-            }
-            Transactions.Add(t);
-        }
+        public virtual int Score { get; set; }
+
+        //public virtual void AddTransaction(Transaction t)
+        //{
+        //    if (Fictive.GetValueOrDefault())
+        //    {
+        //        return;
+        //    }
+
+        //    t.User = this;
+        //    if (t.Type == TransactionType.Earned && t.Price > 0)
+        //    {
+        //        Score += (int)t.Price;
+        //    }
+        //    Balance += t.Price;
+        //    if (Balance < 0)
+        //    {
+        //        throw new InsufficientFundException("not enough tokens");
+        //    }
+        //    Transactions.Add(t);
+        //}
 
         /// <summary>
         /// To be reused for (NHibernate) Linq generator
@@ -94,8 +101,8 @@ namespace Cloudents.Core.Entities.Db
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; protected set; }
-        protected internal virtual IList<Question> Questions { get;  set; }
-        protected internal virtual IList<Answer> Answers { get;  set; }
+        protected internal virtual IList<Question> Questions { get; set; }
+        protected internal virtual IList<Answer> Answers { get; set; }
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
         public virtual IList<IEvent> Events { get; }
 
@@ -123,8 +130,20 @@ namespace Cloudents.Core.Entities.Db
 
 
         [CanBeNull] public virtual CultureInfo Culture { get; set; }
-        
+
         public virtual string Country { get; set; }
-        
+
     }
+
+
+    //public class FictiveUser : User
+    //{
+
+    //}
+
+
+    //public class User : User
+    //{
+
+    //}
 }

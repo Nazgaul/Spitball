@@ -12,6 +12,7 @@ namespace Cloudents.Web.Identity
     {
         internal const string Country = "country";
         internal const string University = "university";
+        internal const string Score = "score";
 
         public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager,
             IOptions<IdentityOptions> options) :
@@ -28,6 +29,7 @@ namespace Cloudents.Web.Identity
             if (user.University?.Id != null)
             {
                 p.AddClaim(new Claim(University, user.University.Id.ToString()));
+                p.AddClaim(new Claim(Score, user.Score.ToString()));
             }
 
             return p;

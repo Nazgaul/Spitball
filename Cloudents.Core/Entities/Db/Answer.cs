@@ -23,8 +23,11 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-
-            Events.Add(new AnswerCreatedEvent(this));
+            State = ReputationSystem.GetItemState(user.Score);
+            if (State == ItemState.Ok)
+            {
+                Events.Add(new AnswerCreatedEvent(this));
+            }
         }
 
         [UsedImplicitly]
@@ -42,8 +45,6 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; set; }
 
-        //protected internal virtual Question QuestionAnswerCorrect { get; set; }
-
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual IList<IEvent> Events { get; }
@@ -51,25 +52,5 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual ItemState State { get; set; }
     }
-
-    //public class AnswerApproved : Answer, ISoftDelete
-    //{
-    //    //public void DeleteAssociation()
-    //    //{
-    //    //    throw new NotImplementedException();
-    //    //}
-    //}
-
-    //public class AnswerPending : Answer, ISoftDelete
-    //{
-    //    //public void DeleteAssociation()
-    //    //{
-    //    //    throw new NotImplementedException();
-    //    //}
-    //}
-
-    //public class AnswerDeleted : Answer
-    //{
-
-    //}
+    
 }

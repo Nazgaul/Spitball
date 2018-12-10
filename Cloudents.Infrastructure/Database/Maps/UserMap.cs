@@ -36,6 +36,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.LockoutEnabled);
             Map(e => e.OldUser).Nullable();
 
+            Map(e => e.Score);
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
 
             Map(x => x.Balance).CustomSqlType("smallmoney");
