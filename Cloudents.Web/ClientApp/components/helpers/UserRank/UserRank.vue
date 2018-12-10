@@ -36,6 +36,9 @@ export default {
             letter-spacing: -0.2px;
             text-align: center;
             color: rgba(0, 0, 0, 0.54);
+            @media(max-width: @screen-xs) {
+                margin-top: unset;
+            }
         .level-0 {
             background-color: #ebebeb;
             border-radius: 8px;
