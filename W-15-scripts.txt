@@ -63,3 +63,22 @@ add  State nvarchar(255) null
 update sb.Answer
 set state = 'Ok'
 ALTER TABLE sb.Answer ALTER COLUMN State nvarchar(255) not null;
+
+
+begin tran
+update sb.[Transaction]
+set [Type] = 'Earned'
+where [Type] = 'Awarded'
+commit
+
+alter table sb.[user]
+add Score int null
+
+
+begin tran
+update U
+set Score =  U.Balance + (isnull(t.price, 0) * -1)
+from sb.[user] U 
+left join (select [User_Id], sum(price) as price from sb.[Transaction] where [Action] = 'CashOut' group by [User_Id]) as t
+	on U.Id = t.[User_id] 
+commit
