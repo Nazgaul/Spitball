@@ -23,6 +23,7 @@
                                     :multiple="true"
                                     :maximum="4"
                                     :post-action=uploadUrl
+                                     accept="image/*"
                                     :extensions="['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp']"
                                     @input-file="inputFile"
                                     @input-filter="inputFilter">

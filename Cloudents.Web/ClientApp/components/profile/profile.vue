@@ -51,12 +51,15 @@
                         </div>
                         <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">{{emptyStateData.btnText}}</router-link>
                     </div>
-                    <div class="empty-state" v-if="activeTab === 3 && !profileData.documents.length">
+                    <div class="empty-state doc-empty-state" v-if="activeTab === 3 && profileData.documents.length">
                         <div class="text-block">
                             <p v-html="emptyStateData.text"></p>
                             <b>{{emptyStateData.boldText}}</b>
-                        </div>
-                        <a class="ask-question" @click="emptyStateData.btnUrl()">{{emptyStateData.btnText}}</a>
+                        </div> 
+                        <div class="upload-btn-wrap">
+                              <upload-document-btn></upload-document-btn>  
+                        </div>               
+
                     </div>
                         <scroll-list v-show="activeTab === 1" :scrollFunc="loadQuestions" :isLoading="questions.isLoading" :isComplete="questions.isComplete">
                             <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
