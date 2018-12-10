@@ -64,9 +64,9 @@ namespace Cloudents.Infrastructure.Database.Repositories
             }
         }
 
-        public Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token)
+        public Task<decimal> UserCashableBalanceAsync(long userId, CancellationToken token)
         {
-            return UserBalanceByType(userId, TransactionType.Earned)
+            return UserAvailableBalance(userId)
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
@@ -88,10 +88,20 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
         {
+   
             return
               Session.QueryOver<Transaction>()
                   .Where(w => w.User.Id == userId)
                   .Where(w => w.Type == type)
+                  .Select(Projections.Sum<Transaction>(x => x.Price));
+        }
+
+        internal IQueryOver<Transaction, Transaction> UserAvailableBalance(long userId)
+        {
+            return
+              Session.QueryOver<Transaction>()
+                  .Where(w => w.User.Id == userId)
+                  .Where(w => w.Type == TransactionType.Earned || w.Type == TransactionType.Stake)
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 
