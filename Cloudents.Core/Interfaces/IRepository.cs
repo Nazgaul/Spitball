@@ -25,7 +25,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IUserRepository : IRepository<User>
     {
-        Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
+        Task<decimal> UserCashableBalanceAsync(long userId, CancellationToken token);
 
         Task<User> GetRandomFictiveUserAsync(string country, CancellationToken token);
         
