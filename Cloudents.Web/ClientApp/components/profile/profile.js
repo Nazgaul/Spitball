@@ -3,9 +3,9 @@ import resultNote from "../results/ResultNote.vue"
 import userBlock from '../helpers/user-block/user-block.vue';
 import { mapGetters, mapActions } from 'vuex'
 import { LanguageService } from "../../services/language/languageService";
-
+import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue"
 export default {
-    components: {questionCard, userBlock, resultNote},
+    components: {questionCard, userBlock, resultNote, uploadDocumentBtn},
     props: {
         id: {Number}
     },
@@ -134,6 +134,7 @@ export default {
             };
             let documents = {
                 text: LanguageService.getValueByKey("profile_emptyState_documents_text"),
+                //TODO feel free to remove this after redesign, will not be used, using reusable component instead
                 btnText: LanguageService.getValueByKey("profile_emptyState_documents_btnText"),
                 btnUrl: 'note'
             };
