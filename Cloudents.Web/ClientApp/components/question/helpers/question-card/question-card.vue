@@ -95,9 +95,10 @@
                         <div class="triangle"></div>
                         <div class="text-container">
                             <div class="text">
-                                <span class="user-date" v-language:inner>questionCard_Answer_dot</span>
+                                <span class="user-date" v-language:inner>questionCard_Answer</span>
+                                <span> · </span>
                                 <span class="timeago"
-                                      :datetime="cardData.dateTime||cardData.create" ></span><span
+                                      :datetime="cardData.dateTime||cardData.create"></span><span
                                     v-if="typeAnswer"
                                     class="q-answer">
                                 <button class="accept-btn right" @click="markAsCorrect"
