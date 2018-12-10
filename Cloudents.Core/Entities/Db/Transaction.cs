@@ -48,7 +48,7 @@ namespace Cloudents.Core.Entities.Db
 
         public static Transaction UserCreate()
         {
-            return new Transaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
+            return new Transaction(ActionType.SignUp, TransactionType.Earned, InitialBalance);
         }
 
         public static Transaction QuestionCreate(Question question)
