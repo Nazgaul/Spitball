@@ -39,7 +39,7 @@ namespace Cloudents.Web.Controllers
 
         [Route("logout")]
         public async Task<IActionResult> LogOutAsync(
-            [FromServices] SignInManager<User> signInManager,
+            [FromServices] SignInManager<RegularUser> signInManager,
             [FromServices] IHubContext<SbHub> hubContext, CancellationToken token)
         {
             await signInManager.SignOutAsync().ConfigureAwait(false);

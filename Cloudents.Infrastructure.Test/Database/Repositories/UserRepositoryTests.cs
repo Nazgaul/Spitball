@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Test.Database.Repositories
         {
             const long userId = 1L;
 
-            var user = new User("someEmail", "someName", "somePrivateKey", CultureInfo.InvariantCulture)
+            var user = new RegularUser("someEmail", "someName", "somePrivateKey", CultureInfo.InvariantCulture)
             {
                 LockoutEnd = DateTimeOffset.MaxValue,
                 LockoutEnabled = true
@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Test.Database.Repositories
             using (var mock = AutoMock.GetLoose())
             {
                 mock.Mock<ISession>().Setup(s => s.LoadAsync<User>(userId, default)).ReturnsAsync(user);
-                var instance = mock.Create<UserRepository>();
+                var instance = mock.Create<RegularUserRepository>();
 
                 var result = await instance.LoadAsync(userId, false, default);
 

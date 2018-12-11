@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
         // GET
         [HttpPost("ask")]
         public async Task<UploadAskFileResponse> UploadFileAsync(UploadAskFileRequest model,
-            [FromServices] UserManager<User> userManager,
+            [FromServices] UserManager<RegularUser> userManager,
             CancellationToken token)
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };

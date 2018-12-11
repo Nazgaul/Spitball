@@ -6,7 +6,8 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class UserLogin
     {
-        public UserLogin(string loginProvider, string providerKey, string providerDisplayName, User user)
+        public UserLogin(string loginProvider, string providerKey, string providerDisplayName,
+            RegularUser user)
         {
             LoginProvider = loginProvider;
             ProviderKey = providerKey;
@@ -22,7 +23,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual string LoginProvider { get; set; }
         public virtual string ProviderKey { get; set; }
         public virtual string ProviderDisplayName { get; set; }
-        public virtual User User { get; set; }
+        public virtual RegularUser User { get; set; }
 
         public override bool Equals(object obj)
         {

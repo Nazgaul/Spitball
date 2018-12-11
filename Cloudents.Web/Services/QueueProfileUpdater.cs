@@ -12,9 +12,9 @@ namespace Cloudents.Web.Services
     public class QueueProfileUpdater : IProfileUpdater
     {
         private readonly IQueueProvider _queueProvider;
-        private readonly SignInManager<User> _signInManager;
+        private readonly SignInManager<RegularUser> _signInManager;
 
-        public QueueProfileUpdater(IQueueProvider queueProvider, SignInManager<User> signInManager
+        public QueueProfileUpdater(IQueueProvider queueProvider, SignInManager<RegularUser> signInManager
             )
         {
             _queueProvider = queueProvider;

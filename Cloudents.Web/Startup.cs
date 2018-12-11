@@ -122,8 +122,8 @@ namespace Cloudents.Web
             services.AddSingleton(physicalProvider);
 
             services.AddDetectionCore().AddDevice();
-            services.AddScoped<SignInManager<User>, SbSignInManager>();
-            services.AddIdentity<User, ApplicationRole>(options =>
+            services.AddScoped<SignInManager<RegularUser>, SbSignInManager>();
+            services.AddIdentity<RegularUser, ApplicationRole>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = true;
@@ -164,8 +164,8 @@ namespace Cloudents.Web
             });
 
 
-            services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
-            services.AddTransient<IUserStore<User>, UserStore>();
+            services.AddScoped<IUserClaimsPrincipalFactory<RegularUser>, AppClaimsPrincipalFactory>();
+            services.AddTransient<IUserStore<RegularUser>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
             services.AddTransient<IProfileUpdater, QueueProfileUpdater>();

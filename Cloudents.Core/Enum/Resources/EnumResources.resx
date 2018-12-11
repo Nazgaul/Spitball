@@ -175,9 +175,6 @@
   <data name="SearchRequestSortRelevance" xml:space="preserve">
     <value>Relevance</value>
   </data>
-  <data name="TransactionTypeAwarded" xml:space="preserve">
-    <value>Awarded</value>
-  </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
     <value>Earned</value>
   </data>

@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<UserAccountDto> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
             //TODO check this query
-            return await _session.Query<User>()
+            return await _session.Query<RegularUser>()
                 .Where(w => w.Id == query.Id).Select(s => new UserAccountDto
                 {
                     Id = s.Id,

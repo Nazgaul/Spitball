@@ -9,21 +9,23 @@ namespace Cloudents.Core.CommandHandler.Admin
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UpdateUserBalanceCommandHandler : ICommandHandler<UpdateUserBalanceCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRegularUserRepository _userRepository;
         private readonly ITransactionRepository _transactionRepository;
 
-        public UpdateUserBalanceCommandHandler(IUserRepository UserRepository, ITransactionRepository transactionRepository)
+        public UpdateUserBalanceCommandHandler(IRegularUserRepository userRepository, ITransactionRepository transactionRepository)
         {
+            _userRepository = userRepository;
             _transactionRepository = transactionRepository;
-            _userRepository = UserRepository;
         }
+
 
         public async Task ExecuteAsync(UpdateUserBalanceCommand message, CancellationToken token)
         {
-            foreach (var Id in message.UsersIds)
+            foreach (var id in message.UsersIds)
             {
-                var user = await _userRepository.LoadAsync(Id, token);
-                user.Balance = await _transactionRepository.GetBalanceAsync(Id, token);
+                var user = await _userRepository.LoadAsync(id, token);
+                user.Balance = await _transactionRepository.GetBalanceAsync(id, token);
+                
                 await _userRepository.UpdateAsync(user, token);
             }
         }

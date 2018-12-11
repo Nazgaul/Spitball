@@ -1,20 +1,19 @@
-﻿using System.Linq;
+﻿using Autofac;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
     public class SuspendUserCommandHandler : ICommandHandler<SuspendUserCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRegularUserRepository _userRepository;
         private readonly ILifetimeScope _lifetimeScope;
 
 
-        public SuspendUserCommandHandler(IUserRepository userRepository, ILifetimeScope lifetimeScope)
+        public SuspendUserCommandHandler(IRegularUserRepository userRepository, ILifetimeScope lifetimeScope)
         {
             _userRepository = userRepository;
             _lifetimeScope = lifetimeScope;
@@ -24,7 +23,7 @@ namespace Cloudents.Core.CommandHandler.Admin
         public async Task ExecuteAsync(SuspendUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, false, token);
-
+            //TODO: why????
             if (!user.LockoutEnabled)
             {
                 return;
@@ -41,7 +40,7 @@ namespace Cloudents.Core.CommandHandler.Admin
 
                 foreach (var question in user.Questions)
                 {
-                    await deleteQuestionCommandHandler.DeleteQuestionAsync(question, token);
+                    await deleteQuestionCommandHandler.DeleteQuestionAsync(question, user, token);
                 }
 
 

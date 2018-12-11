@@ -11,9 +11,10 @@ namespace Cloudents.Core.CommandHandler
     public class AssignCoursesToUserCommandHandler : ICommandHandler<AssignCoursesToUserCommand>
     {
         private readonly ICourseRepository _courseRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<RegularUser> _userRepository;
 
-        public AssignCoursesToUserCommandHandler(ICourseRepository courseRepository, IRepository<User> userRepository)
+        public AssignCoursesToUserCommandHandler(ICourseRepository courseRepository, 
+            IRepository<RegularUser> userRepository)
         {
             _courseRepository = courseRepository;
             _userRepository = userRepository;
