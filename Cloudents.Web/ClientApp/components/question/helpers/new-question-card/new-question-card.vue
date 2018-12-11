@@ -15,7 +15,7 @@
 
           <div class="sold-area" v-if="isSold">
             <div class="sold-container">
-              <span>SOLD</span>
+              <span v-language:inner>questionCard_Sold</span>
               <v-icon>sbf-curved-arrow</v-icon>
             </div>
           </div>
@@ -23,7 +23,7 @@
         <div class="question-header-small-sagment">
           <div class="price-area" :class="{'sold': isSold}">
             {{cardPrice}}
-            <span>SBL</span>
+            <span v-language:inner>questionCard_Currency</span>
           </div>
           <div class="menu-area">
             <v-menu bottom left>
@@ -78,7 +78,7 @@
             class="answer-currently-watching-container"
             :class="{'space': answersNumber > 0}"
           >
-            <span>Someone is answering now…</span>
+            <span v-language:inner>questionCard_Someone_answering</span>
           </div>
         </div>
         <div class="answers-info-container">
@@ -94,7 +94,7 @@
       </div>
       <div v-if="!isSold" class="question-bottom-section">
         <div class="question-input-container">
-          <input class="question-input" placeholder="Answer..." type="text">
+          <input class="question-input" placeholder="questionCard_Answer_placeholder" v-language:placeholder type="text">
         </div>
       </div>
     </router-link>
