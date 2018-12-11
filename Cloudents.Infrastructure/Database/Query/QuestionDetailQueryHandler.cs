@@ -33,17 +33,18 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             //TODO: this is left join query need to fix that
             var questionFuture = _session.Query<Question>()
-                .Where(w => w.Id == id && w.State == ItemState.Ok)
+                .Where(w => w.Id == id && w.State.State == ItemState.Ok)
                 .Fetch(f => f.User)
                 .Select(s => new QuestionDetailDto(new UserDto
                 {
                     Id = s.User.Id,
                     Name = s.User.Name,
-                    Image = s.User.Image
+                    Image = s.User.Image,
+                    Score = s.User.Score
                 }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id, s.Color, s.Subject, s.Language)
                 ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
-                .Where(w => w.Question.Id == id && w.State == ItemState.Ok)
+                .Where(w => w.Question.Id == id && w.State.State == ItemState.Ok)
                 .Fetch(f => f.User)
                 .Select(s => new QuestionDetailAnswerDto
                 {
@@ -54,7 +55,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image
+                        Image = s.User.Image,
+                        Score = s.User.Score
                     }
                 }).ToFuture();
 

@@ -5,11 +5,11 @@ namespace Cloudents.Core.Command
 {
     public class UpdateUserCommand : ICommand
     {
-        public UpdateUserCommand(User user)
+        public UpdateUserCommand(RegularUser user)
         {
             User = user;
         }
 
-        public User User { get; private set; }
+        public RegularUser User { get; private set; }
     }
 }

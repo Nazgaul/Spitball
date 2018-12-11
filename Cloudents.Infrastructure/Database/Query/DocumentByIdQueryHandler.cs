@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 
                 .Fetch(f=>f.University)
                 .Fetch(f=>f.User)
-                .Where(w => w.Id == query.Id && w.State == ItemState.Ok)
+                .Where(w => w.Id == query.Id && w.State.State == ItemState.Ok)
                 .Select(s => new DocumentDetailDto
                 {
                     Name = s.Name,
@@ -43,7 +43,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image
+                        Image = s.User.Image,
+                        Score = s.User.Score
                     },
                     Course = s.Course.Name
                 })

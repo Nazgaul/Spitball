@@ -55,7 +55,6 @@ const resultProps = {
     header: headerResultPageFn
 };
 
-
 const bookDetailsProps = {
     default: dynamicDetailsPropsFn,
     header: (route) => ({
@@ -70,7 +69,6 @@ let routes2 = [{
         name: "home",
         redirect: `/${RouteTypes.questionRoute}`
     },
-
     {
         path: "/result",
         name: "result",

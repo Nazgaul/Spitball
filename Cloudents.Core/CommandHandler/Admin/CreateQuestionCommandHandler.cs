@@ -15,13 +15,13 @@ namespace Cloudents.Core.CommandHandler.Admin
     public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>
     {
 
-        private readonly IUserRepository _userRepository;
+        private readonly IFictiveUserRepository _userRepository;
         private readonly IRepository<Question> _questionRepository;
         private readonly ITextAnalysis _textAnalysis;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
 
-        public CreateQuestionCommandHandler(IUserRepository userRepository, IRepository<Question> questionRepository, ITextAnalysis textAnalysis, IBlobProvider<QuestionAnswerContainer> blobProvider)
+        public CreateQuestionCommandHandler(IFictiveUserRepository userRepository, IRepository<Question> questionRepository, ITextAnalysis textAnalysis, IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _userRepository = userRepository;
             _questionRepository = questionRepository;
@@ -38,11 +38,10 @@ namespace Cloudents.Core.CommandHandler.Admin
                 throw new InvalidOperationException("we don't have fictive user in that country");
             }
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
-            var question = new Question(message.SubjectId, message.Text, message.Price, message.Files?.Count() ?? 0, user,
-                QuestionColor.Default, textLanguage)
-            {
-                State = ItemState.Pending
-            };
+            var question = new Question(message.SubjectId, message.Text, message.Price, message.Files?.Count() ?? 0,
+                user,
+                QuestionColor.Default, textLanguage);
+           
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;
 

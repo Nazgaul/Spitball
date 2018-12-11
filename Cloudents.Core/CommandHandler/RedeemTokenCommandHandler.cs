@@ -1,43 +1,45 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Command;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class RedeemTokenCommandHandler : ICommandHandler<RedeemTokenCommand>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IQueueProvider _serviceBusProvider;
+        private readonly IRegularUserRepository _userRepository;
+        private readonly IRepository<Transaction> _transactionRepository;
 
-        public RedeemTokenCommandHandler(IUserRepository userRepository, IQueueProvider serviceBusProvider)
+
+        public RedeemTokenCommandHandler(IRegularUserRepository userRepository, IQueueProvider serviceBusProvider, IRepository<Transaction> transactionRepository)
         {
             _userRepository = userRepository;
-            _serviceBusProvider = serviceBusProvider;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(RedeemTokenCommand message, CancellationToken token)
         {
-            var balance = await _userRepository.UserEarnedBalanceAsync(message.UserId, token);
+            var balance = await _userRepository.UserCashableBalanceAsync(message.UserId, token);
             if (balance < message.Amount)
             {
                 throw new InvalidOperationException("user doesn't have enough money");
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            if (user.Fictive.GetValueOrDefault())
-            {
-                throw new UnauthorizedAccessException("Fictive user");
-            }
-            user.AddTransaction(Transaction.CashOut(message.Amount));
-            await _userRepository.UpdateAsync(user, token);
-            await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(message.Amount, user.Id), token);
+
+            var price = -Math.Abs(message.Amount);
+            var t = new Transaction(TransactionActionType.CashOut, TransactionType.Earned, price, user);
+
+            await _transactionRepository.AddAsync(t, token);
+            user.Events.Add(new RedeemEvent(message.UserId, message.Amount));
         }
     }
 }

@@ -28,15 +28,15 @@ namespace Cloudents.Web.Api
 
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<RegularUser> _userManager;
+        private readonly SignInManager<RegularUser> _signInManager;
         private readonly IConfiguration _configuration;
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
 
 
-        public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager, IConfiguration configuration, ICommandBus commandBus, IQueryBus queryBus)
+        public AccountController(UserManager<RegularUser> userManager,
+            SignInManager<RegularUser> signInManager, IConfiguration configuration, ICommandBus commandBus, IQueryBus queryBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;

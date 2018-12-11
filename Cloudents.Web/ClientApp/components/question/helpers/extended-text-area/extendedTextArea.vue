@@ -23,6 +23,7 @@
                                     :multiple="true"
                                     :maximum="4"
                                     :post-action=uploadUrl
+                                     accept="image/*"
                                     :extensions="['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp']"
                                     @input-file="inputFile"
                                     @input-filter="inputFilter">
@@ -30,8 +31,8 @@
                             <!--<input id="file-input" type="file" multiple accept="image/*"/>-->
                         </li>
                     </ul>
-                    <v-divider v-if="actionType ==='question'" vertical></v-divider>
-                    <ul class="actions_text colors-actions" v-if="actionType ==='question'">
+                    <!--<v-divider v-if="actionType ==='question'" vertical></v-divider>-->
+                    <ul class="actions_text colors-actions" v-if="actionType ==='question' && false">
                         <li v-for="color in colorsSet" :key="color.id">
                             <button :class="[`sbf-card-${color.name}`, { active: color.id === activeColor.id ||  color.id === 0 }]"
                                     @click="updateColor(color)"></button>

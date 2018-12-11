@@ -34,11 +34,11 @@ namespace Cloudents.Web.Api
     {
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly IProfileUpdater _profileUpdater;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
 
-        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager,
+        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<RegularUser> userManager,
             IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch,
             IProfileUpdater profileUpdater)
         {
@@ -53,8 +53,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<CreateQuestionResponse>> CreateQuestionAsync([FromBody]CreateQuestionRequest model,
-            [Required(ErrorMessage = "NeedCountry"), 
-            ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             CancellationToken token)
         {
 
@@ -80,7 +79,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, _localizer["QuestionFlood"]);
                 return BadRequest(ModelState);
             }
-            if (!Language.ListOfWhiteListCountries.Contains(country))
+            if (score < Privileges.Post)
             {
                 toasterMessage = _localizer["PostedQuestionToasterPending"];
             }

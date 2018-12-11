@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             answerQuery.ThenFetch(f => f.User);
 
-            return await answerQuery.Where(w => w.User.Id == query.Id && w.State == ItemState.Ok)
+            return await answerQuery.Where(w => w.User.Id == query.Id && w.State.State == ItemState.Ok)
                 .OrderByDescending(o => o.Question.Id)
                 .Select(s => new QuestionFeedDto(s.Question.Id,
                     s.Question.Subject,
@@ -40,7 +40,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     {
                         Id = s.Question.User.Id,
                         Name = s.Question.User.Name,
-                        Image = s.Question.User.Image
+                        Image = s.Question.User.Image,
+                        Score = s.Question.User.Score
                     }, s.Question.Updated,
                     s.Question.Color, s.Question.CorrectAnswer.Id != null, s.Question.Language))
                 .Take(50).Skip(query.Page * 50).ToListAsync(token);

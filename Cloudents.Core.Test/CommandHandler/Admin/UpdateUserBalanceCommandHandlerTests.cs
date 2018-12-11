@@ -8,16 +8,16 @@ namespace Cloudents.Core.Test.CommandHandler.Admin
 {
     public class UpdateUserBalanceCommandHandlerTests
     {
-        [Fact]
-        public async Task ExecuteAsync_NullUserInput_Ok()
-        {
-            var command = new UpdateUserBalanceCommand();
-            using (var mock = AutoMock.GetLoose())
-            {
-                var instance = mock.Create<UpdateUserBalanceCommandHandler>();
-                await instance.ExecuteAsync(command, default);
-            }
-        }
+        //[Fact]
+        //public async Task ExecuteAsync_NullUserInput_Ok()
+        //{
+        //    var command = new UpdateUserBalanceCommand();
+        //    using (var mock = AutoMock.GetLoose())
+        //    {
+        //        var instance = mock.Create<UpdateUserBalanceCommandHandler>();
+        //        await instance.ExecuteAsync(command, default);
+        //    }
+        //}
 
         //[TestMethod]
         //public async Task ExecuteAsync_UserLockedOut_Ok()

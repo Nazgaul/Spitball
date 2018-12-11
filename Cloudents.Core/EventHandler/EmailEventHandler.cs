@@ -16,23 +16,23 @@ namespace Cloudents.Core.EventHandler
             _serviceBusProvider = serviceBusProvider;
         }
 
-        protected Task SendEmail(BaseEmail obj, User user, CancellationToken token)
+        protected Task SendEmail(BaseEmail obj, RegularUser user, CancellationToken token)
         {
             if (!EmailValidate(user)) return Task.CompletedTask;
             return _serviceBusProvider.InsertMessageAsync(obj, token);
 
         }
 
-        protected Task SendEmail(BaseEmail obj, TimeSpan delay, User user, CancellationToken token)
+        protected Task SendEmail(BaseEmail obj, TimeSpan delay, RegularUser user, CancellationToken token)
         {
             if (!EmailValidate(user)) return Task.CompletedTask;
             return _serviceBusProvider.InsertMessageAsync(obj, delay, token);
 
         }
 
-        private static bool EmailValidate(User user)
+        private static bool EmailValidate(RegularUser user)
         {
-            if (!user.EmailConfirmed || user.Fictive.GetValueOrDefault())
+            if (!user.EmailConfirmed)
             {
                 return false;
             }

@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Database.Query
             
             return await _session.Query<Question>()
                  .Fetch(f => f.User)
-                 .Where(w => ids.Contains(w.Id) && w.State == ItemState.Ok)
+                 .Where(w => ids.Contains(w.Id) && w.State.State == ItemState.Ok)
                  .Select(s => new QuestionFeedDto(s.Id,
                     s.Subject,
                     s.Price,
@@ -39,7 +39,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image
+                        Image = s.User.Image,
+                        Score = s.User.Score
                     }, s.Updated,
                     s.Color, s.CorrectAnswer.Id != null, s.Language)
                  )

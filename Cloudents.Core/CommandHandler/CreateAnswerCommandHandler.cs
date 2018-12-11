@@ -18,12 +18,12 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IAnswerRepository _answerRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<RegularUser> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
-            IAnswerRepository answerRepository, IRepository<User> userRepository,
+            IAnswerRepository answerRepository, IRepository<RegularUser> userRepository,
             IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _questionRepository = questionRepository;
@@ -41,7 +41,7 @@ namespace Cloudents.Core.CommandHandler
                 throw new ArgumentException("question doesn't exits");
             }
 
-            if (question.State != ItemState.Ok)
+            if (question.State.State != ItemState.Ok)
             {
                 throw new ArgumentException("question doesn't exits");
             }
@@ -57,21 +57,15 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("user cannot answer himself");
             }
 
-           
-            if (user.Fictive.GetValueOrDefault())
-            {
-                throw new InvalidOperationException("fictive user");
-            }
-
-            if (!Language.ListOfWhiteListCountries.Contains(user.Country))
-            {
-                var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
-                var pendingAnswerAfterThisInsert = pendingAnswers + 1;
-                if (pendingAnswerAfterThisInsert > 5)
-                {
-                    throw new QuotaExceededException();
-                }
-            }
+            //if (!Language.ListOfWhiteListCountries.Contains(user.Country))
+            //{
+            //    var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
+            //    var pendingAnswerAfterThisInsert = pendingAnswers + 1;
+            //    if (pendingAnswerAfterThisInsert > 5)
+            //    {
+            //        throw new QuotaExceededException();
+            //    }
+            //}
 
             //TODO:
             //we can check if we can create sql query to check answer with regular expression

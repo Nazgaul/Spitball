@@ -54,7 +54,7 @@ namespace ConsoleApp
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"], true),
+                    ConfigurationManager.AppSettings["AzureSearchKey"], false),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
@@ -98,6 +98,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var z = _container.Resolve<AzureQuestionSearch>();
+            await z.GetById("43958");
+            //
         }
 
         private static async Task FixPoisonBackground(ICommandBus _commandBus)
@@ -338,7 +341,7 @@ where left(blobName ,4) != 'file'");
         private static async Task HadarMethod()
         {
 
-            await MigrateUniversity();
+            //await MigrateUniversity();
             //var t = _container.Resolve<IBlockChainErc20Service>();
             //string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
@@ -676,7 +679,7 @@ where left(blobName ,4) != 'file'");
                     {
                         using (var unitOfWork = child.Resolve<IUnitOfWork>())
                         {
-                            var repository = child.Resolve<IUserRepository>();
+                            var repository = child.Resolve<IRegularUserRepository>();
 
 
 
@@ -688,7 +691,7 @@ where left(blobName ,4) != 'file'");
 
                                 CultureInfo cultur = new CultureInfo(pair.Culture);
 
-                                var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
+                                var user = new RegularUser(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
                                 {
                                     // EmailConfirmed = true,
                                     LockoutEnabled = true,
@@ -955,51 +958,51 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 
 
 
-        public static async Task MigrateUniversity()
-        {
-            var d = _container.Resolve<DapperRepository>();
+      //  public static async Task MigrateUniversity()
+      //  {
+      //      var d = _container.Resolve<DapperRepository>();
 
-            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-            {
+      //      var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+      //      {
 
-                return await f.QueryAsync(
-                    @"
-                  select top 100 U.Id, Un.UniversityName, Un.Country
-                        from sb.[User] U
-						join zbox.Users ZU
-							on U.Email = ZU.Email
-                        join [Zbox].[University] Un
-                            on Un.Id = ZU.UniversityId
-                          where u.OldUser = 1
-                            and IsEmailVerified = 1 
-							and U.UniversityId2 is null
-                            and Un.isdeleted = 0; 
-                  ");
-            }, default);
+      //          return await f.QueryAsync(
+      //              @"
+      //            select top 100 U.Id, Un.UniversityName, Un.Country
+      //                  from sb.[User] U
+						//join zbox.Users ZU
+						//	on U.Email = ZU.Email
+      //                  join [Zbox].[University] Un
+      //                      on Un.Id = ZU.UniversityId
+      //                    where u.OldUser = 1
+      //                      and IsEmailVerified = 1 
+						//	and U.UniversityId2 is null
+      //                      and Un.isdeleted = 0; 
+      //            ");
+      //      }, default);
 
-            if (z.Count() == 0)
-            { return; }
+      //      if (z.Count() == 0)
+      //      { return; }
 
-            using (var child = _container.BeginLifetimeScope())
-            {
-                var repository = child.Resolve<IUserRepository>();
-                var uni = child.Resolve<IUniversityRepository>();
-                using (var unitOfWork = child.Resolve<IUnitOfWork>())
-                {
-                    var ch = new AssignUniversityToUserCommandHandler(repository, uni);
-                    // List<Task> taskes = new List<Task>();
-                    foreach (var pair in z)
-                    {
-                        var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
-                        await ch.ExecuteAsync(command, default);
-                        // taskes.Add(ch.ExecuteAsync(t, default));
-                    }
-                    //await Task.WhenAll(taskes);
-                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-                }
-            }
-            await MigrateUniversity();
-        }
+      //      using (var child = _container.BeginLifetimeScope())
+      //      {
+      //          var repository = child.Resolve<IRegularUserRepository>();
+      //          var uni = child.Resolve<IUniversityRepository>();
+      //          using (var unitOfWork = child.Resolve<IUnitOfWork>())
+      //          {
+      //              var ch = new AssignUniversityToUserCommandHandler(repository, uni);
+      //              // List<Task> taskes = new List<Task>();
+      //              foreach (var pair in z)
+      //              {
+      //                  var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
+      //                  await ch.ExecuteAsync(command, default);
+      //                  // taskes.Add(ch.ExecuteAsync(t, default));
+      //              }
+      //              //await Task.WhenAll(taskes);
+      //              await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+      //          }
+      //      }
+      //      await MigrateUniversity();
+      //  }
 
 
     }

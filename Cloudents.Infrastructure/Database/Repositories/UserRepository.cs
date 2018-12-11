@@ -11,15 +11,30 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {
-    [UsedImplicitly]
-    public class UserRepository : NHibernateRepository<User>, IUserRepository
+
+    public class FictiveUserRepository : NHibernateRepository<SystemUser>, IFictiveUserRepository
     {
-        public UserRepository(ISession session) : base(session)
+        public FictiveUserRepository(ISession session) : base(session)
+        {
+        }
+        public Task<SystemUser> GetRandomFictiveUserAsync(string country, CancellationToken token)
+        {
+            return Session.QueryOver<SystemUser>().Where(w => w.Country == country)
+                .OrderByRandom()
+                .Take(1)
+                .SingleOrDefaultAsync<SystemUser>(token);
+        }
+    }
+
+    [UsedImplicitly]
+    public class RegularUserRepository : NHibernateRepository<RegularUser>, IRegularUserRepository
+    {
+        public RegularUserRepository(ISession session) : base(session)
         {
         }
 
 
-        public override async Task<User> GetAsync(object id, CancellationToken token)
+        public override async Task<RegularUser> GetAsync(object id, CancellationToken token)
         {
             var user = await base.GetAsync(id, token);
             CheckUserLockout(user);
@@ -27,7 +42,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
             return user;
         }
 
-        public override User Load(object id)
+        public override RegularUser Load(object id)
         {
             var user = base.Load(id);
             CheckUserLockout(user);
@@ -35,12 +50,12 @@ namespace Cloudents.Infrastructure.Database.Repositories
             return user;
         }
 
-        public override Task<User> LoadAsync(object id, CancellationToken token)
+        public override Task<RegularUser> LoadAsync(object id, CancellationToken token)
         {
             return LoadAsync(id, true, token);
         }
 
-        public async Task<User> LoadAsync(object id, bool checkUserLocked, CancellationToken token)
+        public async Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token)
         {
             var user = await base.LoadAsync(id, token);
             if (checkUserLocked)
@@ -51,7 +66,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
             return user;
         }
 
-        private static void CheckUserLockout([NotNull] User user)
+        private static void CheckUserLockout([NotNull] RegularUser user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             if (!user.LockoutEnabled)
@@ -64,30 +79,25 @@ namespace Cloudents.Infrastructure.Database.Repositories
             }
         }
 
-        public Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token)
+        public Task<decimal> UserCashableBalanceAsync(long userId, CancellationToken token)
         {
-            return UserBalanceByType(userId, TransactionType.Earned)
+            return UserAvailableBalance(userId)
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
-        public Task<User> GetRandomFictiveUserAsync(string country, CancellationToken token)
-        {
-            return Session.QueryOver<User>().Where(w => w.Fictive == true && w.Country == country)
-                   .OrderByRandom()
-                   .Take(1)
-                   .SingleOrDefaultAsync<User>(token);
-        }
+       
 
-        public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
+      /*  public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
         {
             return
                 Session.QueryOver<Transaction>()
                     .Where(w => w.User.Id == userId)
                     .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
-        }
+        }*/
 
         internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
         {
+   
             return
               Session.QueryOver<Transaction>()
                   .Where(w => w.User.Id == userId)
@@ -95,7 +105,16 @@ namespace Cloudents.Infrastructure.Database.Repositories
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 
-        public Task UpdateUsersBalance(CancellationToken token)
+        internal IQueryOver<Transaction, Transaction> UserAvailableBalance(long userId)
+        {
+            return
+              Session.QueryOver<Transaction>()
+                  .Where(w => w.User.Id == userId)
+                  .Where(w => w.Type == TransactionType.Earned || w.Type == TransactionType.Stake)
+                  .Select(Projections.Sum<Transaction>(x => x.Price));
+        }
+
+       /* public Task UpdateUsersBalance(CancellationToken token)
         {
             //TODO: need to make this query using Linq instead of sql
             var updateQuery = Session.CreateSQLQuery(
@@ -110,6 +129,6 @@ namespace Cloudents.Infrastructure.Database.Repositories
                                 )");
             return updateQuery.ExecuteUpdateAsync(token);
 
-        }
+        }*/
     }
 }

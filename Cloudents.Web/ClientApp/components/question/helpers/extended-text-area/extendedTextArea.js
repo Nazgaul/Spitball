@@ -101,7 +101,10 @@ export default {
                 let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
                 let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
                 let isSupported = this.extensions.includes(ext);
-                if (!isSupported) {
+                if (!isSupported ) {
+                    return prevent()
+                }
+                if(newFile && newFile.size === 0){
                     return prevent()
                 }
             }

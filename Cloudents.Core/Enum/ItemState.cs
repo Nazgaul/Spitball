@@ -4,6 +4,7 @@
     {
         Ok,
         Deleted,
-        Pending
+        Pending,
+        Flagged
     }
 }

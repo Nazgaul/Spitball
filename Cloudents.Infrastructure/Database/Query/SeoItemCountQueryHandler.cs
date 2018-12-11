@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IEnumerable<SiteMapCountDto>> GetAsync(EmptyQuery query, CancellationToken token)
         {
             var documentCountFuture = _session.QueryOver<Document>()
-                .Where(w => w.State == ItemState.Ok)
+                .Where(w => w.State.State == ItemState.Ok)
                 .ToRowCountQuery().FutureValue<int>();
             var flashcardCountQueryFuture = _session.CreateSQLQuery(
                 @"select sum(b.FlashcardCount) as flashcardCount

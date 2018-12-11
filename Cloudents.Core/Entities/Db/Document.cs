@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
 
-    public class Document : IEvents
+    public class Document : DomainObject, ISoftDelete
     {
         public Document([NotNull] string name,
             [NotNull] University university,
@@ -30,12 +30,15 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Views = 0;
             Professor = professor;
-            State = ItemState.Pending;
-            if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
+
+            State.State = Privileges.GetItemState(user.Score);
+
+            if (State.State == ItemState.Ok)
             {
                 Events.Add(new DocumentCreatedEvent(this));
-                State = ItemState.Ok;
+
             }
+            
             
         }
 
@@ -44,7 +47,7 @@ namespace Cloudents.Core.Entities.Db
         {
             TimeStamp = new DomainTimeStamp();
             Tags = new HashSet<Tag>();
-            Events = new List<IEvent>();
+            State = new ItemComponent();
         }
 
         public virtual long Id { get; set; }
@@ -75,11 +78,11 @@ namespace Cloudents.Core.Entities.Db
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }
 
-        public virtual ItemState State { get; set; }
+        public virtual ItemComponent State { get; set; }
+
 
 
         public virtual CultureInfo Language { get; set; }
-        public virtual IList<IEvent> Events { get; }
 
     }
 

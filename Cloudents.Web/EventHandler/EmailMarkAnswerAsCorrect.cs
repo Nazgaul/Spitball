@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.EventHandler;
 
@@ -32,6 +33,12 @@ namespace Cloudents.Web.EventHandler
         public async Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
         {
             var answer = eventMessage.Answer;
+
+            //if (!(answer.User is RegularUser u))
+            //{
+            //    return;
+            //}
+
 
             var code = _dataProtect.Protect(ProtectPurpose, answer.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(5));

@@ -14,7 +14,7 @@
                         </span>
                         </div>
                         <div class="date">
-                            {{item ? item.date : '' | mediumDate}}
+                            {{uploadDate}}
                         </div>
                     </div>
                     <item-actions></item-actions>
@@ -144,6 +144,13 @@
             uploaderName() {
                 if (this.item && this.item.user && this.item.user.name)
                     return this.item.user.name
+            },
+             uploadDate(){
+              if(this.item && this.item.date){
+                 return this.$options.filters.fullMonthDate(this.item.date);
+              }else{
+                  return ''
+              }
             },
 
         },

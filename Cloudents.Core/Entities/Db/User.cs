@@ -1,30 +1,21 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-    public class User : IEvents
+    public abstract class User : DomainObject
     {
-        public User(string email, string name, string privateKey, CultureInfo culture) : this()
-        {
-            Email = email;
-            Name = name;
-            TwoFactorEnabled = true;
-            Culture = culture;
-            PrivateKey = privateKey;
-            Created = DateTime.UtcNow;
-            Fictive = false;
-
-        }
+        
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
@@ -33,8 +24,6 @@ namespace Cloudents.Core.Entities.Db
             UserLogins = new List<UserLogin>();
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
-            Events = new List<IEvent>();
-            //Languages = new HashSet<CultureInfo>();
         }
 
         public virtual long Id { get; set; }
@@ -61,20 +50,8 @@ namespace Cloudents.Core.Entities.Db
         public virtual int FraudScore { get; set; }
         public virtual bool? OldUser { get; set; }
 
-        public virtual void AddTransaction(Transaction t)
-        {
-            if (Fictive.GetValueOrDefault())
-            {
-                return;
-            }
-            t.User = this;
-            Balance += t.Price;
-            if (Balance < 0)
-            {
-                throw new InsufficientFundException("not enough tokens");
-            }
-            Transactions.Add(t);
-        }
+        public virtual int Score { get; set; }
+
 
         /// <summary>
         /// To be reused for (NHibernate) Linq generator
@@ -94,10 +71,9 @@ namespace Cloudents.Core.Entities.Db
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; protected set; }
-        protected internal virtual IList<Question> Questions { get;  set; }
-        protected internal virtual IList<Answer> Answers { get;  set; }
+        protected internal virtual IList<Question> Questions { get; set; }
+        protected internal virtual IList<Answer> Answers { get; set; }
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
-        public virtual IList<IEvent> Events { get; }
 
 
         protected internal virtual ISet<Course> Courses { get; protected set; }
@@ -111,7 +87,7 @@ namespace Cloudents.Core.Entities.Db
             return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
         }
 
-        public virtual bool? Fictive { get; set; }
+        public virtual bool Fictive { get; protected set; }
 
         public virtual string PasswordHash { get; set; }
         public virtual DateTimeOffset? LockoutEnd { get; set; }
@@ -123,8 +99,35 @@ namespace Cloudents.Core.Entities.Db
 
 
         [CanBeNull] public virtual CultureInfo Culture { get; set; }
-        
+
         public virtual string Country { get; set; }
-        
+
+    }
+
+
+    public class SystemUser : User
+    {
+
+    }
+
+
+    public class RegularUser : User
+    {
+        public RegularUser(string email, string name, string privateKey, CultureInfo culture)
+        {
+            Email = email;
+            Name = name;
+            TwoFactorEnabled = true;
+            Culture = culture;
+            PrivateKey = privateKey;
+            Created = DateTime.UtcNow;
+            //Fictive = false;
+
+        }
+
+        protected RegularUser()
+        {
+
+        }
     }
 }

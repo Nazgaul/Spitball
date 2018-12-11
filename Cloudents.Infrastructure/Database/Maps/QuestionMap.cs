@@ -20,7 +20,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
             Map(x => x.Color);
-            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
+            //Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
+            Component(x => x.State);
             Map(x => x.Language).Length(5);
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
 
@@ -40,7 +41,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .LazyLoad()
                 .Inverse();
 
-            SchemaAction.None();
+            SchemaAction.Update();
             //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
             
 

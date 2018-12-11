@@ -63,3 +63,64 @@ add  State nvarchar(255) null
 update sb.Answer
 set state = 'Ok'
 ALTER TABLE sb.Answer ALTER COLUMN State nvarchar(255) not null;
+
+
+begin tran
+update sb.[Transaction]
+
+alter table sb.[user]
+add  Score int null
+set [Type] = 'Earned'
+where [Type] = 'Awarded'
+commit
+
+alter table sb.[user]
+add Score int null
+
+
+begin tran
+update U
+set Score =  U.Balance + (isnull(t.price, 0) * -1)
+from sb.[user] U 
+left join (select [User_Id], sum(price) as price from sb.[Transaction] where [Action] = 'CashOut' group by [User_Id]) as t
+	on U.Id = t.[User_id] 
+commit
+
+
+
+update sb.[user]
+set fictive = 0s
+where fictive is null
+
+alter table sb.[user]
+ ALTER COLUMN fictive bit not null;
+
+
+
+
+--Case 11739
+
+begin tran
+update D
+set [Views] = NumberOfViews
+from sb.Document D
+join (select ItemId, NumberOfViews from zbox.Item) I
+on D.OldId = I.ItemId
+commit
+
+
+begin tran
+update D
+set Downloads = NumberOfDownloads
+from sb.Document D
+join (select ItemId, NumberOfDownloads from zbox.Item) I
+on D.OldId = I.ItemId
+commit
+
+
+--Case 11716
+begin tran
+update sb.[user]
+set SecurityStamp = ''
+where SecurityStamp is null and OldUser = 1
+commit
