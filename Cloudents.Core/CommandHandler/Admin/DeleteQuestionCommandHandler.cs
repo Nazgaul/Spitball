@@ -31,7 +31,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 return;
             }
-            if (question.State == ItemState.Deleted)
+            if (question.State.State == ItemState.Deleted)
             {
                 return;
             }

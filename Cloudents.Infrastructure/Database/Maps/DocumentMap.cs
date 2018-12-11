@@ -25,6 +25,7 @@ namespace Cloudents.Infrastructure.Database.Maps
 
             
             Component(x => x.TimeStamp);
+            Component(x => x.State);
             References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
@@ -34,7 +35,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Language).Nullable();
             Map(x => x.Purchased).Not.Nullable();
             Map(x => x.OldId).Nullable();
-            Map(x => x.State).Nullable();
+            //Map(x => x.State).Nullable();
             
             SchemaAction.Update();
             //DiscriminateSubClassesOnColumn("State");

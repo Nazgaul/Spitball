@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             var detachedQuery = QueryOver.Of<Question>()
                 .Select(s => s.Subject)
-                .Where(w => w.Id == query.QuestionId && w.State == ItemState.Ok)
+                .Where(w => w.Id == query.QuestionId && w.State.State == ItemState.Ok)
                 .Take(1);
 
             return await _session.QueryOver(() => questionAlias)
@@ -51,16 +51,16 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
                     .SelectSubQuery(QueryOver.Of<Answer>()
-                        .Where(w => w.Question.Id == questionAlias.Id && w.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
+                        .Where(w => w.Question.Id == questionAlias.Id && w.State.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
 
                 )
                 .Where(w => w.CorrectAnswer == null)
                 .Where(w => w.User.Id != query.UserId)
                 .Where(w => w.Id != query.QuestionId)
-                .Where(w => w.State == ItemState.Ok)
+                .Where(w => w.State.State == ItemState.Ok)
                 .WithSubquery.WhereProperty(x => x.Id)
                 .NotIn(QueryOver.Of<Answer>().
-                    Where(w => w.User.Id == query.UserId && w.State == ItemState.Ok).Select(s => s.Question.Id))
+                    Where(w => w.User.Id == query.UserId && w.State.State == ItemState.Ok).Select(s => s.Question.Id))
                 .TransformUsing(new DeepTransformer<QuestionFeedDto>())
                 .OrderBy(Projections.Conditional(
                     Subqueries.PropertyEq(nameof(Question.Subject), detachedQuery.DetachedCriteria)

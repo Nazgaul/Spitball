@@ -14,7 +14,7 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Answer : IEvents
+    public class Answer : DomainObject, ISoftDelete
     {
         public Answer(Question question, string text, int attachments, RegularUser user) : this()
         {
@@ -23,8 +23,8 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            State = Privileges.GetItemState(user.Score);
-            if (State == ItemState.Ok)
+            State.State = Privileges.GetItemState(user.Score);
+            if (State.State == ItemState.Ok)
             {
                 Events.Add(new AnswerCreatedEvent(this));
             }
@@ -33,7 +33,7 @@ namespace Cloudents.Core.Entities.Db
         [UsedImplicitly]
         protected Answer()
         {
-            Events = new List<IEvent>();
+            State = new ItemComponent();
         }
 
         public virtual Guid Id { get; set; }
@@ -47,10 +47,9 @@ namespace Cloudents.Core.Entities.Db
 
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
-        public virtual IList<IEvent> Events { get; }
 
-
-        public virtual ItemState State { get; set; }
+        public virtual ItemComponent State { get; set; }
+        //public virtual ItemState State { get; set; }
     }
     
 }

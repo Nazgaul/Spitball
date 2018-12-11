@@ -29,7 +29,7 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
             var answer = await _answerRepository.LoadAsync(message.AnswerId, token); //false will raise an exception
-            if (answer.Question.State != ItemState.Ok)
+            if (answer.Question.State.State != ItemState.Ok)
             {
                 throw new InvalidOperationException("only owner can perform this task");
             }
@@ -47,7 +47,6 @@ namespace Cloudents.Core.CommandHandler
             if (question.CorrectAnswer != null)
             {
                 throw new InvalidOperationException("Already have correct answer");
-
             }
 
             question.CorrectAnswer = answer;
