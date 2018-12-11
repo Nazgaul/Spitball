@@ -20,10 +20,11 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRegularUserRepository _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly ITextAnalysis _textAnalysis;
-        private readonly IRepository<Transaction> _transactionRepository;
+        private readonly ITransactionRepository _transactionRepository;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
-            IRegularUserRepository userRepository, ITextAnalysis textAnalysis, IRepository<Transaction> transactionRepository, IBlobProvider<QuestionAnswerContainer> blobProvider = null)
+            IRegularUserRepository userRepository, ITextAnalysis textAnalysis,
+            ITransactionRepository transactionRepository, IBlobProvider<QuestionAnswerContainer> blobProvider = null)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
@@ -49,7 +50,7 @@ namespace Cloudents.Core.CommandHandler
                 throw new DuplicateRowException();
             }
 
-            var currentBalance = await _userRepository.UserBalanceAsync(message.UserId, token);
+            var currentBalance = await _transactionRepository.GetBalanceAsync(message.UserId, token);
             var amountForAskingQuestion = currentBalance * 3 / 10;
             if (amountForAskingQuestion < message.Price)
             {
