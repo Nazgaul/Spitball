@@ -79,7 +79,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, _localizer["QuestionFlood"]);
                 return BadRequest(ModelState);
             }
-            if (score < Privileges.AutoPost)
+            if (score < Privileges.Post)
             {
                 toasterMessage = _localizer["PostedQuestionToasterPending"];
             }
