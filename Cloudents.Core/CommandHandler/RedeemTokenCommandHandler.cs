@@ -14,12 +14,12 @@ namespace Cloudents.Core.CommandHandler
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class RedeemTokenCommandHandler : ICommandHandler<RedeemTokenCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<Transaction> _transactionRepository;
 
         private readonly IQueueProvider _serviceBusProvider;
 
-        public RedeemTokenCommandHandler(IUserRepository userRepository, IQueueProvider serviceBusProvider, IRepository<Transaction> transactionRepository)
+        public RedeemTokenCommandHandler(IRegularUserRepository userRepository, IQueueProvider serviceBusProvider, IRepository<Transaction> transactionRepository)
         {
             _userRepository = userRepository;
             _serviceBusProvider = serviceBusProvider;
@@ -35,17 +35,12 @@ namespace Cloudents.Core.CommandHandler
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            if (user.Fictive.GetValueOrDefault())
-            {
-                throw new UnauthorizedAccessException("Fictive user");
-            }
 
             var price = -Math.Abs(message.Amount);
             var t = new Transaction(ActionType.CashOut, TransactionType.Earned, price, user);
 
             await _transactionRepository.AddAsync(t, token);
-           // user.AddTransaction(Transaction.CashOut(message.Amount));
-            //await _userRepository.UpdateAsync(user, token);
+            //TODO: need to be in event
             await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(message.Amount, user.Id), token);
         }
     }

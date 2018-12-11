@@ -17,13 +17,13 @@ namespace Cloudents.Core.CommandHandler
     public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>
     {
         private readonly IQuestionRepository _questionRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IRegularUserRepository _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly ITextAnalysis _textAnalysis;
         private readonly IRepository<Transaction> _transactionRepository;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
-            IUserRepository userRepository, ITextAnalysis textAnalysis, IRepository<Transaction> transactionRepository, IBlobProvider<QuestionAnswerContainer> blobProvider = null)
+            IRegularUserRepository userRepository, ITextAnalysis textAnalysis, IRepository<Transaction> transactionRepository, IBlobProvider<QuestionAnswerContainer> blobProvider = null)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
@@ -45,7 +45,7 @@ namespace Cloudents.Core.CommandHandler
             if (await _questionRepository.GetSimilarQuestionAsync(message.Text, token))
             {
                 //TODO: this will not work
-                user.Events.Add(new QuestionRejectEvent(user));
+                //user.Events.Add(new QuestionRejectEvent(user));
                 throw new DuplicateRowException();
             }
 

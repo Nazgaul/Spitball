@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Answer : IEvents
     {
-        public Answer(Question question, string text, int attachments, User user) : this()
+        public Answer(Question question, string text, int attachments, RegularUser user) : this()
         {
             Question = question;
             Text = text;

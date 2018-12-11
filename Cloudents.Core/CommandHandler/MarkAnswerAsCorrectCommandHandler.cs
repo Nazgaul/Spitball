@@ -15,16 +15,14 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
-        private readonly IRepository<User> _userRepository;
         private readonly IRepository<Transaction> _transactionRepository;
 
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository, IRepository<User> userRepository, IRepository<Transaction> transactionRepository)
+            IRepository<Answer> answerRepository,  IRepository<Transaction> transactionRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
-            _userRepository = userRepository;
             _transactionRepository = transactionRepository;
         }
 
@@ -51,29 +49,41 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("Already have correct answer");
 
             }
+
+
+            if (!(answer.User is RegularUser answerUser))
+            {
+                throw new InvalidOperationException("cannot delete fictive user");
+
+            }
+
             question.CorrectAnswer = answer;
 
-            var questionUser = question.User;
 
-            var t1 = CorrectAnswer(TransactionType.Stake, question, questionUser); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
-            var t2 = CorrectAnswer(TransactionType.Spent, question, questionUser);// new Transaction(ActionType.AnswerCorrect, TransactionType.Spent, -Price);
+            if (question.User is RegularUser questionUser) {
 
 
-            var answerUser = answer.User;
+                var t1 = CorrectAnswer(TransactionType.Stake, question,
+                    questionUser); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
+                var t2 = CorrectAnswer(TransactionType.Spent, question,
+                    questionUser); // new Transaction(ActionType.AnswerCorrect, TransactionType.Spent, -Price);
+                await _transactionRepository.AddAsync(new[] { t1, t2 }, token);
 
+            }
             var tAnswer = CorrectAnswer(TransactionType.Earned, question, answerUser);// new Transaction(ActionType.AnswerCorrect, TransactionType.Earned,
-            await _transactionRepository.AddAsync(new[] { t1, t2, tAnswer }, token);
+            await _transactionRepository.AddAsync(tAnswer, token);
 
             answer.Events.Add(new MarkAsCorrectEvent(answer));
 
-            await FraudDetectionAsync(question, answer, token);
+            //TODO: need to put it as event
+           // await FraudDetectionAsync(question, answer, token);
             await _questionRepository.UpdateAsync(question, token);
 
         }
 
 
-        public static Transaction CorrectAnswer(TransactionType type, Question question,
-          User user)
+        private static Transaction CorrectAnswer(TransactionType type, Question question,
+            RegularUser user)
         {
             var price = question.Price;
             if (type == TransactionType.Spent)
@@ -90,20 +100,20 @@ namespace Cloudents.Core.CommandHandler
 
         //TODO: this is no good - we need to figure out how to change its location - this command handler should handle the fraud score
 
-        private async Task FraudDetectionAsync(Question question, Answer answer, CancellationToken token)
-        {
-            float condition = Math.Max(DateTime.UtcNow.Subtract(answer.Created).Seconds, 1);
-            const int fraudTime = TimeConst.Minute * 8;
-            if (condition < fraudTime)
-            {
-                var factor = fraudTime / condition;
-                question.User.FraudScore += (int)factor * 5;
-                answer.User.FraudScore += (int)factor * 5;
+        //private async Task FraudDetectionAsync(Question question, Answer answer, CancellationToken token)
+        //{
+        //    float condition = Math.Max(DateTime.UtcNow.Subtract(answer.Created).Seconds, 1);
+        //    const int fraudTime = TimeConst.Minute * 8;
+        //    if (condition < fraudTime)
+        //    {
+        //        var factor = fraudTime / condition;
+        //        question.User.FraudScore += (int)factor * 5;
+        //        answer.User.FraudScore += (int)factor * 5;
 
-                await _userRepository.UpdateAsync(question.User, token);
-                await _userRepository.UpdateAsync(answer.User, token);
-            }
-        }
+        //        await _userRepository.UpdateAsync(question.User, token);
+        //        await _userRepository.UpdateAsync(answer.User, token);
+        //    }
+        //}
     }
 
 }

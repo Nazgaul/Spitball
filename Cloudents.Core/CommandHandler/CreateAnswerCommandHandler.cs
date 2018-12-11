@@ -18,12 +18,12 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IAnswerRepository _answerRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<RegularUser> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
-            IAnswerRepository answerRepository, IRepository<User> userRepository,
+            IAnswerRepository answerRepository, IRepository<RegularUser> userRepository,
             IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _questionRepository = questionRepository;
@@ -55,12 +55,6 @@ namespace Cloudents.Core.CommandHandler
             if (user.Id == question.User.Id)
             {
                 throw new InvalidOperationException("user cannot answer himself");
-            }
-
-           
-            if (user.Fictive.GetValueOrDefault())
-            {
-                throw new InvalidOperationException("fictive user");
             }
 
             //if (!Language.ListOfWhiteListCountries.Contains(user.Country))

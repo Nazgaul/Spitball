@@ -16,11 +16,12 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question : BaseDomain
+    public class Question : DomainObject
     {
         private ItemState _state;
 
-        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user,
+        public Question(QuestionSubject subject, string text, decimal price, int attachments,
+            RegularUser user,
             QuestionColor color, CultureInfo language)
         : this()
         {
@@ -36,7 +37,26 @@ namespace Cloudents.Core.Entities.Db
             }
             State = ReputationSystem.GetItemState(user.Score);
             Language = language;
-           // QuestionCreateTransaction();
+        }
+
+        public Question(QuestionSubject subject, string text, decimal price, int attachments,
+            SystemUser user,
+            QuestionColor color, CultureInfo language)
+            : this()
+        {
+            Subject = subject;
+            Text = text?.Trim();
+            Price = price;
+            Attachments = attachments;
+            User = user;
+            Updated = Created = DateTime.UtcNow;
+            if (color != QuestionColor.Default)
+            {
+                Color = color;
+            }
+
+            State = ItemState.Pending;
+            Language = language;
         }
 
         [UsedImplicitly]
@@ -81,18 +101,7 @@ namespace Cloudents.Core.Entities.Db
             //}
         }
 
-
-      
-
-        //public virtual void QuestionDeleteTransaction()
-        //{
-        //    var t = Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
-        //    User.AddTransaction(t);
-        //}
-
-        
-
-        public virtual Answer AddAnswer(string text, int attachments, User user)
+        public virtual Answer AddAnswer(string text, int attachments, RegularUser user)
         {
             var answer = new Answer(this, text, attachments, user);
             Answers.Add(answer);

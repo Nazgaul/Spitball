@@ -12,6 +12,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents;
+using User = Microsoft.Azure.Documents.User;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -34,7 +36,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
             AnswerOfQuestionWithoutCorrectAnswer dtoAnswerAlias = null;
             Question questionAlias = null;
-            User userAlias = null;
+            Core.Entities.Db.User userAlias = null;
 
             var questions = await _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.User, () => userAlias)

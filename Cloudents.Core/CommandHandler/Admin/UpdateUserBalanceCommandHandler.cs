@@ -9,9 +9,9 @@ namespace Cloudents.Core.CommandHandler.Admin
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UpdateUserBalanceCommandHandler : ICommandHandler<UpdateUserBalanceCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRegularUserRepository _userRepository;
 
-        public UpdateUserBalanceCommandHandler(IUserRepository userRepository)
+        public UpdateUserBalanceCommandHandler(IRegularUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

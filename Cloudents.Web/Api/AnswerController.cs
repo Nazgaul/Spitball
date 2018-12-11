@@ -23,9 +23,9 @@ namespace Cloudents.Web.Api
         //internal const string CreateAnswerPurpose = "CreateAnswer";
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<AnswerController> _localizer;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
 
-        public AnswerController(ICommandBus commandBus, UserManager<User> userManager, IStringLocalizer<AnswerController> localizer)
+        public AnswerController(ICommandBus commandBus, UserManager<RegularUser> userManager, IStringLocalizer<AnswerController> localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;

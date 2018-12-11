@@ -10,9 +10,9 @@ namespace Cloudents.Core.CommandHandler.Admin
 {
     public class ChangeCountryCommandHandler : ICommandHandler<ChangeCountryCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRegularUserRepository _userRepository;
 
-        public ChangeCountryCommandHandler(IUserRepository userRepository)
+        public ChangeCountryCommandHandler(IRegularUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

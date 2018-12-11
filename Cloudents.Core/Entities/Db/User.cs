@@ -13,19 +13,9 @@ namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-    public class User : IEvents
+    public abstract class User : DomainObject
     {
-        public User(string email, string name, string privateKey, CultureInfo culture) : this()
-        {
-            Email = email;
-            Name = name;
-            TwoFactorEnabled = true;
-            Culture = culture;
-            PrivateKey = privateKey;
-            Created = DateTime.UtcNow;
-            Fictive = false;
-
-        }
+        
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
@@ -34,7 +24,6 @@ namespace Cloudents.Core.Entities.Db
             UserLogins = new List<UserLogin>();
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
-            Events = new List<IEvent>();
         }
 
         public virtual long Id { get; set; }
@@ -104,7 +93,6 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Question> Questions { get; set; }
         protected internal virtual IList<Answer> Answers { get; set; }
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
-        public virtual IList<IEvent> Events { get; }
 
 
         protected internal virtual ISet<Course> Courses { get; protected set; }
@@ -118,7 +106,7 @@ namespace Cloudents.Core.Entities.Db
             return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
         }
 
-        public virtual bool? Fictive { get; set; }
+        public virtual bool? Fictive { get; protected set; }
 
         public virtual string PasswordHash { get; set; }
         public virtual DateTimeOffset? LockoutEnd { get; set; }
@@ -136,14 +124,29 @@ namespace Cloudents.Core.Entities.Db
     }
 
 
-    //public class FictiveUser : User
-    //{
+    public class SystemUser : User
+    {
 
-    //}
+    }
 
 
-    //public class User : User
-    //{
+    public class RegularUser : User
+    {
+        public RegularUser(string email, string name, string privateKey, CultureInfo culture)
+        {
+            Email = email;
+            Name = name;
+            TwoFactorEnabled = true;
+            Culture = culture;
+            PrivateKey = privateKey;
+            Created = DateTime.UtcNow;
+            //Fictive = false;
 
-    //}
+        }
+
+        protected RegularUser()
+        {
+
+        }
+    }
 }

@@ -679,7 +679,7 @@ where left(blobName ,4) != 'file'");
                     {
                         using (var unitOfWork = child.Resolve<IUnitOfWork>())
                         {
-                            var repository = child.Resolve<IUserRepository>();
+                            var repository = child.Resolve<IRegularUserRepository>();
 
 
 
@@ -691,7 +691,7 @@ where left(blobName ,4) != 'file'");
 
                                 CultureInfo cultur = new CultureInfo(pair.Culture);
 
-                                var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
+                                var user = new RegularUser(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
                                 {
                                     // EmailConfirmed = true,
                                     LockoutEnabled = true,
@@ -985,7 +985,7 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 
             using (var child = _container.BeginLifetimeScope())
             {
-                var repository = child.Resolve<IUserRepository>();
+                var repository = child.Resolve<IRegularUserRepository>();
                 var uni = child.Resolve<IUniversityRepository>();
                 using (var unitOfWork = child.Resolve<IUnitOfWork>())
                 {

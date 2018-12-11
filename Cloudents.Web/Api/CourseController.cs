@@ -24,7 +24,7 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
 
 
         /// <inheritdoc />
@@ -34,7 +34,7 @@ namespace Cloudents.Web.Api
         /// <param name="queryBus"></param>
         /// <param name="commandBus"></param>
         /// <param name="userManager"></param>
-        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<User> userManager)
+        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<RegularUser> userManager)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;

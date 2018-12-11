@@ -13,10 +13,10 @@ namespace Cloudents.Core.CommandHandler.Admin
     [AdminCommandHandler]
     public class DistributeTokensCommandHandler : ICommandHandler<DistributeTokensCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<RegularUser> _userRepository;
         private readonly IRepository<Transaction> _transactionRepository;
 
-        public DistributeTokensCommandHandler(IUserRepository userRepository, IRepository<Transaction> transactionRepository)
+        public DistributeTokensCommandHandler(IRepository<RegularUser> userRepository, IRepository<Transaction> transactionRepository)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;

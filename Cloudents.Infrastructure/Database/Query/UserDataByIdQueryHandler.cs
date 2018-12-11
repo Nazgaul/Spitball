@@ -9,7 +9,7 @@ using NHibernate;
 namespace Cloudents.Infrastructure.Database.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class UserDataByIdQueryHandler : IQueryHandler<UserDataByIdQuery, User>
+    public class UserDataByIdQueryHandler : IQueryHandler<UserDataByIdQuery, RegularUser>
     {
         private readonly IStatelessSession _session;
 
@@ -18,9 +18,9 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.StatelessSession;
         }
 
-        public Task<User> GetAsync(UserDataByIdQuery query, CancellationToken token)
+        public Task<RegularUser> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            return _session.GetAsync<User>(query.Id, token);
+            return _session.GetAsync<RegularUser>(query.Id, token);
         }
     }
 }

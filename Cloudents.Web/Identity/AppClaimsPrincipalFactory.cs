@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 namespace Cloudents.Web.Identity
 {
     [UsedImplicitly]
-    public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, ApplicationRole>
+    public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<RegularUser, ApplicationRole>
     {
         internal const string Country = "country";
         internal const string University = "university";
         internal const string Score = "score";
 
-        public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager,
+        public AppClaimsPrincipalFactory(UserManager<RegularUser> userManager, RoleManager<ApplicationRole> roleManager,
             IOptions<IdentityOptions> options) :
             base(userManager, roleManager, options)
         {
         }
 
-        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(User user)
+        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(RegularUser user)
         {
             var p = await base.GenerateClaimsAsync(user).ConfigureAwait(false);
 

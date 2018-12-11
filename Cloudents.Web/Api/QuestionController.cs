@@ -34,11 +34,11 @@ namespace Cloudents.Web.Api
     {
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly IProfileUpdater _profileUpdater;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
 
-        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager,
+        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<RegularUser> userManager,
             IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch,
             IProfileUpdater profileUpdater)
         {
