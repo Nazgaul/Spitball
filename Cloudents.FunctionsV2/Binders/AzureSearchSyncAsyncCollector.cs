@@ -16,7 +16,7 @@ namespace Cloudents.FunctionsV2.Binders
 
         public AzureSearchSyncAsyncCollector(ISearchIndexClient indexClient)
         {
-            this._indexClient = indexClient;
+            _indexClient = indexClient;
         }
 
         public Task AddAsync(AzureSearchSyncOutput item, CancellationToken cancellationToken = default(CancellationToken))

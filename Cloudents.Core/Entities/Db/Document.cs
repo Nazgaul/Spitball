@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;

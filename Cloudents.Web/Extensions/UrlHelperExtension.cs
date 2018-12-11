@@ -98,7 +98,7 @@ namespace Cloudents.Web.Extensions
                 universityName = university,//.Replace("+", string.Empty),
                 courseName = course, //.Replace("+", string.Empty),
                 id,
-                name = name//.Replace("+", string.Empty)
+                name//.Replace("+", string.Empty)
             });
         }
     }

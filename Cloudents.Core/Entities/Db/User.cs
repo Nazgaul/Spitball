@@ -1,7 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -111,6 +108,7 @@ namespace Cloudents.Core.Entities.Db
     }
 
 
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class RegularUser : User
     {
         public RegularUser(string email, string name, string privateKey, CultureInfo culture)

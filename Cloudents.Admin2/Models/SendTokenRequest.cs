@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Admin2.Models
 {

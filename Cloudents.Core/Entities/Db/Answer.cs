@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]

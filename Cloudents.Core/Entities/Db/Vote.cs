@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities.Db
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
+
     public class Vote
     {
         public Vote(RegularUser user, Document document, VoteType voteType) : this()

@@ -1,11 +1,13 @@
-﻿using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Entities.Db;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
+
     public class AnswerMap : ClassMap<Answer>
     {
         public AnswerMap()

@@ -1,6 +1,4 @@
-﻿using System;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Entities.Db;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 

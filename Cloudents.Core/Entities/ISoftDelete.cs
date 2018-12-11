@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
 {

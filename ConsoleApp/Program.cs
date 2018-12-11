@@ -1,14 +1,11 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Command;
-using Cloudents.Core.CommandHandler;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
@@ -30,11 +27,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Query;
 using Cloudents.Core.Votes.Commands.AddVoteAnswer;
-using Cloudents.Core.Votes.Commands.AddVoteQuestion;
-using Cloudents.Infrastructure.Search.Question;
 
 
 namespace ConsoleApp

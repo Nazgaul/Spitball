@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
             if (name == null)
             {
-                throw new System.ArgumentNullException(nameof(name));
+                throw new ArgumentNullException(nameof(name));
             }
             name = name.Trim();
             var course = await GetAsync(name, token);

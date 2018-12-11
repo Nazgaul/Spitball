@@ -12,8 +12,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
-using User = Microsoft.Azure.Documents.User;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -36,7 +34,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
             AnswerOfQuestionWithoutCorrectAnswer dtoAnswerAlias = null;
             Question questionAlias = null;
-            Core.Entities.Db.User userAlias = null;
+            User userAlias = null;
 
             var questions = await _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.User, () => userAlias)
@@ -45,7 +43,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 .WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
                     .Select(s => s.Id))
                 .And(Restrictions.Or(
-                    Restrictions.Where(() => userAlias.Fictive == true),
+                    Restrictions.Where(() => userAlias.Fictive),
                     Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))
                 ))
                 .SelectList(

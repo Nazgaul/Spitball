@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Cloudents.Core.Entities.Db
@@ -59,7 +59,7 @@ namespace Cloudents.Core.Entities.Db
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((Tag) obj);
         }
 
@@ -67,6 +67,7 @@ namespace Cloudents.Core.Entities.Db
         {
             return (Name != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Name.Trim()) : 0);
         }
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 
         public Tag(string name)
         {

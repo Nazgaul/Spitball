@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Cloudents.Admin.Test
 {
-    public class BasicTests : IClassFixture<WebApplicationFactory<Cloudents.Admin2.Startup>>
+    public class BasicTests : IClassFixture<WebApplicationFactory<Admin2.Startup>>
     {
         private readonly WebApplicationFactory<Admin2.Startup> _factory;
 

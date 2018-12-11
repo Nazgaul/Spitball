@@ -6,7 +6,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
