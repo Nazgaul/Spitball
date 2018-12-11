@@ -39,7 +39,8 @@ namespace Cloudents.Infrastructure.Database.Query
                 {
                     Id = s.User.Id,
                     Name = s.User.Name,
-                    Image = s.User.Image
+                    Image = s.User.Image,
+                    Score = s.User.Score
                 }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id, s.Color, s.Subject, s.Language)
                 ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
@@ -54,7 +55,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image
+                        Image = s.User.Image,
+                        Score = s.User.Score
                     }
                 }).ToFuture();
 

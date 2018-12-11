@@ -116,3 +116,11 @@ from sb.Document D
 join (select ItemId, NumberOfDownloads from zbox.Item) I
 on D.OldId = I.ItemId
 commit
+
+
+--Case 11716
+begin tran
+update sb.[user]
+set SecurityStamp = ''
+where SecurityStamp is null and OldUser = 1
+commit

@@ -137,10 +137,10 @@ namespace Cloudents.Web.Api
             }
 
 
-            if (user.OldUser.GetValueOrDefault() && user.SecurityStamp == null)
-            {
-                await _userManager.UpdateSecurityStampAsync(user);
-            }
+            //if (user.OldUser.GetValueOrDefault() && user.SecurityStamp == null)
+            //{
+            //    await _userManager.UpdateSecurityStampAsync(user);
+            //}
             await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
             return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
         }
