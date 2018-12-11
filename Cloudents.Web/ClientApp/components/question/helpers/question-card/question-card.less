@@ -97,7 +97,7 @@
     line-height: 32px;
     .accept-btn {
       width: 88px;
-      line-height: 32px;
+      line-height: 24px;
       border-radius: 4px;
       background-color: transparent;
       color: @Feed-Date;
@@ -108,13 +108,16 @@
       position: absolute;
       right: 34px;
       top: 23px;
-      border: 1px solid @Feed-Date;
+      border: 1px solid #b5b5b5;
       .sbf {
         color: @Feed-Date;
         font-size: 16px;
-        margin: 0px 4px 0px 8px;
+        margin: 0 -6px 0 10px;
         position: relative;
         top: -2px;
+      }
+      span{
+        margin-left: 5px;
       }
       @media (max-width: @screen-xs) {
         background: none;
@@ -389,6 +392,7 @@
         padding-right: 15px;
         padding-top: 8px;
         max-width: 430px;
+        border-radius: 6px;
         .text{
           display: flex;
           justify-content: space-between;
