@@ -47,7 +47,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
                 .Select(
                     $"CASE when {qb.ColumnAlias<Question>(x => x.CorrectAnswer)} IS null Then 0 else 1  END {nameof(QuestionSearchDto.HasCorrectAnswer)}")
                 .Select<Question>(x => x.Text, nameof(QuestionSearchDto.Text))
-                .Select<Question>(x => x.State, nameof(QuestionSearchDto.State))
+                .Select<Question>(x => x.Item, nameof(QuestionSearchDto.State))
                 .Select<Question>(x => x.Subject, nameof(QuestionSearchDto.Subject))
                 .Select("c.*")
                 .AddOrder<Question>(q => q.Id)

@@ -23,8 +23,8 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            State.State = Privileges.GetItemState(user.Score);
-            if (State.State == ItemState.Ok)
+            Item.State = Privileges.GetItemState(user.Score);
+            if (Item.State == ItemState.Ok)
             {
                 Events.Add(new AnswerCreatedEvent(this));
             }
@@ -33,7 +33,7 @@ namespace Cloudents.Core.Entities.Db
         [UsedImplicitly]
         protected Answer()
         {
-            State = new ItemComponent();
+            Item = new ItemComponent();
         }
 
         public virtual Guid Id { get; set; }
@@ -48,7 +48,7 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
 
-        public virtual ItemComponent State { get; set; }
+        public virtual ItemComponent Item { get; set; }
         //public virtual ItemState State { get; set; }
     }
     

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities.Db
@@ -36,8 +37,16 @@ namespace Cloudents.Core.Entities.Db
 
     public class ItemComponent
     {
+        public ItemComponent()
+        {
+            Votes = new List<Vote>();
+        }
         public virtual ItemState State { get; set; }
         public virtual DateTime? DeletedOn { get; set; }
         public virtual string FlagReason { get; set; }
+
+        public virtual ICollection<Vote> Votes { get; protected set; }
+
+        public virtual int VoteCount { get; set; }
     }
 }

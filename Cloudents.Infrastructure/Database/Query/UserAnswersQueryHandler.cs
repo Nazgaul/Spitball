@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             answerQuery.ThenFetch(f => f.User);
 
-            return await answerQuery.Where(w => w.User.Id == query.Id && w.State.State == ItemState.Ok)
+            return await answerQuery.Where(w => w.User.Id == query.Id && w.Item.State == ItemState.Ok)
                 .OrderByDescending(o => o.Question.Id)
                 .Select(s => new QuestionFeedDto(s.Question.Id,
                     s.Question.Subject,

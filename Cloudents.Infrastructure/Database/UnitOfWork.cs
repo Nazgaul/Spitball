@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Database
                     throw new InvalidOperationException("No active transaction");
                 }
 
-                await _transaction.CommitAsync(token).ConfigureAwait(false);
+                await _transaction.CommitAsync(token);
             }
             /*SELECT * FROM sys.messages
 WHERE text like '%duplicate%' and text like '%key%' and language_id = 1033*/

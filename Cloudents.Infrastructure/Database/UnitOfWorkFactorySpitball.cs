@@ -121,8 +121,8 @@ namespace Cloudents.Infrastructure.Database
         {
             if (entity is ISoftDelete deletable)
             {
-                deletable.State.State = ItemState.Deleted;
-                deletable.State.DeletedOn = DateTime.UtcNow;
+                deletable.Item.State = ItemState.Deleted;
+                deletable.Item.DeletedOn = DateTime.UtcNow;
                 
 
                 CascadeBeforeDelete(session, persister, deletable, entityEntry, transientEntities);
@@ -141,8 +141,8 @@ namespace Cloudents.Infrastructure.Database
             if (entity is ISoftDelete deletable)
             {
                 //deletable.DeleteAssociation();
-                deletable.State.State = ItemState.Deleted;
-                deletable.State.DeletedOn = DateTime.UtcNow;
+                deletable.Item.State = ItemState.Deleted;
+                deletable.Item.DeletedOn = DateTime.UtcNow;
 
 
                 await CascadeBeforeDeleteAsync(session, persister, deletable, entityEntry, transientEntities, cancellationToken);

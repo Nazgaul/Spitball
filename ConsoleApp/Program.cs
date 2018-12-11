@@ -32,6 +32,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Query;
+using Cloudents.Core.Votes.Commands.AddVoteAnswer;
+using Cloudents.Core.Votes.Commands.AddVoteQuestion;
 using Cloudents.Infrastructure.Search.Question;
 
 
@@ -98,8 +100,11 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var z = _container.Resolve<AzureQuestionSearch>();
-            await z.GetById("43958");
+            var t = _container.Resolve<IUnitOfWork>();
+            var z = _container.Resolve<ICommandBus>();
+            var command = new AddVoteAnswerCommand(638, Guid.Parse("befedd71-01dd-4d06-89b0-a9b100952703"), VoteType.Up);
+            await z.DispatchAsync(command, token);
+            //await z.GetById("43958");
             //
         }
 

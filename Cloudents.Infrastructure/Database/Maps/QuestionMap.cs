@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
             Map(x => x.Color);
-            Component(x => x.State);
+            Component(x => x.Item);
             Map(x => x.Language).Length(5);
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
 

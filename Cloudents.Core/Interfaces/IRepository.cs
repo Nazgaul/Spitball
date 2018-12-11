@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -42,6 +43,13 @@ namespace Cloudents.Core.Interfaces
     public interface ICourseRepository : IRepository<Course>
     {
         Task<Course> GetOrAddAsync(string name, CancellationToken token);
+    }
+
+    public interface IVoteRepository : IRepository<Vote>
+    {
+        Task<Vote> GetVoteQuestionAsync(long userId,long questionId,  CancellationToken token);
+        Task<Vote> GetVoteDocumentAsync(long userId,long documentId,  CancellationToken token);
+        Task<Vote> GetVoteAnswerAsync(long userId,Guid answerId,  CancellationToken token);
     }
 
     public interface ITagRepository : IRepository<Tag>

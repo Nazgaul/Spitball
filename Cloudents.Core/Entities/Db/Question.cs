@@ -1,13 +1,10 @@
 ﻿using System.Globalization;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Exceptions;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -33,7 +30,7 @@ namespace Cloudents.Core.Entities.Db
             {
                 Color = color;
             }
-            State.State = Privileges.GetItemState(user.Score);
+            Item.State = Privileges.GetItemState(user.Score);
             Language = language;
         }
 
@@ -53,7 +50,7 @@ namespace Cloudents.Core.Entities.Db
                 Color = color;
             }
 
-            State.State = ItemState.Pending;
+            Item.State = ItemState.Pending;
             Language = language;
         }
 
@@ -61,7 +58,7 @@ namespace Cloudents.Core.Entities.Db
         protected Question()
         {
             Answers = Answers ?? new List<Answer>();
-            State = new ItemComponent();
+            Item = new ItemComponent();
         }
 
         public virtual long Id { get; protected set; }
@@ -86,7 +83,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual QuestionColor? Color { get; set; }
 
-        public virtual ItemComponent State { get; set; }
+        public virtual ItemComponent Item { get; set; }
 
         
 

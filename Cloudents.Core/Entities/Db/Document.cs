@@ -31,9 +31,9 @@ namespace Cloudents.Core.Entities.Db
             Views = 0;
             Professor = professor;
 
-            State.State = Privileges.GetItemState(user.Score);
+            Item.State = Privileges.GetItemState(user.Score);
 
-            if (State.State == ItemState.Ok)
+            if (Item.State == ItemState.Ok)
             {
                 Events.Add(new DocumentCreatedEvent(this));
 
@@ -47,7 +47,7 @@ namespace Cloudents.Core.Entities.Db
         {
             TimeStamp = new DomainTimeStamp();
             Tags = new HashSet<Tag>();
-            State = new ItemComponent();
+            Item = new ItemComponent();
         }
 
         public virtual long Id { get; set; }
@@ -78,9 +78,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }
 
-        public virtual ItemComponent State { get; set; }
-
-
+        public virtual ItemComponent Item { get; set; }
 
         public virtual CultureInfo Language { get; set; }
 

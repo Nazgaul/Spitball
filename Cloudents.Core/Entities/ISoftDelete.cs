@@ -5,7 +5,7 @@ namespace Cloudents.Core.Entities
 {
     public interface ISoftDelete
     {
-        ItemComponent State { get; set; }
+        ItemComponent Item { get; set; }
         //void DeleteAssociation();
     }
 }

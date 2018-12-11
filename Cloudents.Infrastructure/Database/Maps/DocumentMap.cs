@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Database.Maps
 
             
             Component(x => x.TimeStamp);
-            Component(x => x.State);
+            Component(x => x.Item);
             References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();

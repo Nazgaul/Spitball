@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             qb.Select<Document>(x => x.Language, nameof(DocumentSearchDto.Language));
             qb.Select<Document>(x => x.University, nameof(DocumentSearchDto.University));
             qb.Select<Document>(x => x.Type, nameof(DocumentSearchDto.Type));
-            qb.Select<Document>(x => x.State, nameof(DocumentSearchDto.State));
+            qb.Select<Document>(x => x.Item, nameof(DocumentSearchDto.State));
 
             //TODO - we do not implement component as expression
             qb.Select(
