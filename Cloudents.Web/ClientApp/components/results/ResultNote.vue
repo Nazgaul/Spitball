@@ -1,7 +1,7 @@
 <template>
     <!--to apply border left, for cell based on type, add this to class---- 'type-'+typeID  -->
     <a :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'"
-       @click.prevent="(isOurs ? $_spitball($event):'')"
+       @click.native="(isOurs ? $_spitball($event):'')"
        :href="url"
        :class="['d-block', 'note-block']">
         <v-container class="pa-0"
@@ -47,11 +47,11 @@
                 <v-flex grow class="top-row">
                     <div class="upvotes-counter">
                           <span class="document-reputation upvote-arrow">
-                           <v-icon>sbf-arrow-right</v-icon>
+                           <v-icon>sbf-arrow-up</v-icon>
                           </span>
                         <span class="document-reputation document-score">{{documentUpvotes}}</span>
                         <span class="document-reputation downvote-arrow">
-                                 <v-icon>sbf-arrow-right</v-icon>
+                                 <v-icon>sbf-arrow-down</v-icon>
                         </span>
                     </div>
                     <div class="type-wrap">
