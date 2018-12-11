@@ -26,13 +26,13 @@
             <span v-language:inner>questionCard_Currency</span>
           </div>
           <div class="menu-area">
-            <v-menu bottom left>
+            <v-menu bottom left content-class="card-user-actions">
               <v-btn :depressed="true" @click.prevent slot="activator" icon>
                 <v-icon>sbf-3-dot</v-icon>
               </v-btn>
               <v-list>
-                <v-list-tile v-for="(action, i) in actions" :key="i">
-                  <v-list-tile-title @click="action.action()">{{ action.title }}</v-list-tile-title>
+                <v-list-tile :disabled="!item.isVisible" v-for="(item, i) in actions" :key="i">
+                  <v-list-tile-title  @click="item.action()">{{ item.title }}</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>

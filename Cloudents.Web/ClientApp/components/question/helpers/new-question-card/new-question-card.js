@@ -6,10 +6,14 @@ export default {
     data() {
         return {
             actions: [
-                {title: "Report this item"},
+                {
+                    title: LanguageService.getValueByKey("questionCard_Report"),
+                    action: this.reportItem,
+                    isVisible: !this.cardOwner()},
                 {
                     title: LanguageService.getValueByKey("questionCard_Delete"),
-                    action: this.delete()
+                    action: this.deleteQuestion,
+                    isVisible: this.canDelete()
                 }
             ],
             maximumAnswersToDisplay: 3,
@@ -31,7 +35,6 @@ export default {
         userRank
     },
     computed: {
-        ...mapGetters(['accountUser']),
         uploadDate() {
             if (this.cardData && this.cardData.dateTime) {
                 return this.$options.filters.fullMonthDate(this.cardData.dateTime);
@@ -44,17 +47,6 @@ export default {
         },
         isSold() {
             return this.cardData.hasCorrectAnswer;
-        },
-        cardOwner() {
-            if (this.accountUser && this.cardData.user) {
-                return this.accountUser.id === this.cardData.user.id; // will work once API call will also return userId
-            }
-        },
-        canDelete() {
-            if (!this.cardOwner) {
-                return false;
-            }
-            return  !this.isSold && !this.cardData.answers.length;
         },
         cardPrice() {
             if (!!this.cardData && !!this.cardData.price) {
@@ -95,11 +87,25 @@ export default {
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved'
         }),
+        ...mapGetters(['accountUser']),
+        cardOwner() {
+            let userAccount = this.accountUser();
+            if (userAccount && this.cardData.user) {
+                return userAccount.id === this.cardData.user.id; // will work once API call will also return userId
+            }
+        },
+        canDelete() {
+            let isOwner = this.cardOwner();
+            if (!isOwner) {
+                return false;
+            }
+            return  this.cardData.answers < 1 && !this.cardData.answers.length;
+        },
         deleteQuestion() {
             this.delete({id: this.cardData.id, type:  'Question'})
                 .then((success) => {
                         this.updateToasterParams({
-                            toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
+                            toasterText: LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
                             showToaster: true,
                         });
                         if (!this.typeAnswer) {
@@ -109,26 +115,25 @@ export default {
                             this.updateBalance(this.cardData.price);
                             this.$ga.event("Delete_question", "Homework help");
                             //ToDO change to router link use and not text URL
-                            this.removeQuestionItemAction(objToDelete)
+                            this.removeQuestionItemAction(objToDelete);
                             this.$router.push('/ask')
-                        } else {
-                            //emit to root to update array of answers
-                            this.$ga.event("Delete_answer", "Homework help");
-
-                            //delete object Manually
-                            let answerToRemove = {
-                                questionId: parseInt(this.$route.params.id),
-                                answer: {
-                                    id: this.cardData.id}
-                            }
-                            this.manualAnswerRemove(answerToRemove);
-                            this.isDeleted = true
                         }
                     },
                     (error) => {
                         console.error(error)
+                        this.updateToasterParams({
+                            toasterText: LanguageService.getValueByKey("questionCard_error_delete"),
+                            showToaster: true,
+                        });
                     }
                 );
         },
+        reportItem(){
+            console.log('reporting item', {id: this.cardData.id, type:  'Question'});
+            this.updateToasterParams({
+                toasterText: LanguageService.getValueByKey("questionCard_Report"),
+                showToaster: true,
+            });
+        }
     },
 };
