@@ -15,7 +15,7 @@ export default {
     },
     computed:{
         rankName(){
-            let rankNames = ['Begginer', 'Contributer', 'Pro']
+            let rankNames = ['Begginer', 'Contributor', 'Pro']
             return rankNames[this.rank];
         }
     }

@@ -46,48 +46,14 @@
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <!-- Deprecated -->
-                                <!-- <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading"
-                                        class="personalize-wrapper pa-3 mb-3 elevation-1">
-                                    <v-text-field class="elevation-0" type="search" solo flat
-                                                  :placeholder="placeholder.whereSchool" @click="$_openPersonalize"
-                                                  v-language:placeholder></v-text-field>
-                                </v-flex> -->
-
                                 <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component :is="'result-'+item.template"
                                                :item="item" :key="index" :index="index" class="cell"></component>
-
-                                    
-                                    <!-- <div>
-                                        <span class="question-viewer"
-                                              v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow === 1 && item.watchingNow !== 0"
-                                              :style="watchinNowStyle(item)"><span v-html="$Ph('result_user_answering', item.watchingNow)"></span></span>
-                                        <span class="question-viewer"
-                                              v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0"
-                                              :style="watchinNowStyle(item)">{{item.watchingNow}} <span
-                                                v-language:inner>result_users_answering</span></span>
-
-                                        <div class="show-btn"
-                                             v-show="accountUser && $route.path.slice(1) ==='ask' && !!item.user && accountUser.id !== item.user.id && !item.hasCorrectAnswer"
-                                             :class="'color-'+$route.path.slice(1)" v-language:inner>result_answer
-                                        </div>
-
-                                        <div class="show-btn"
-                                             v-show="!accountUser && item && item.user && name ==='ask'"
-                                             :class="'color-'+$route.path.slice(1)" v-language:inner>
-                                            {{'result_answer'}}
-                                        </div>
-   <div class="show-btn" v-show="name !=='ask' && name !=='note' || (name ==='ask' && item.hasCorrectAnswer || name ==='ask'  && accountUser &&  item && item.user && item.user.id && accountUser.id === item.user.id)"
-                                             :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme
-                                        </div>
-                                    </div> -->
                                 </v-flex>
                                 <router-link tag="v-flex"
                                              class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 "
                                              :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
-                                    <!--:to="{path:'/'+currentSuggest,query:{q:this.userText}}">-->
                                     <suggest-card :name="currentSuggest"></suggest-card>
                                 </router-link>
                             </slot>

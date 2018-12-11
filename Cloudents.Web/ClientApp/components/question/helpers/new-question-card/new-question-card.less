@@ -11,6 +11,14 @@
     .question-header-large-sagment {
       display: flex;
       width: 90%;
+      @media(max-width: @screen-xs) {
+        margin-top: -10px;
+      }
+      .avatar-area{
+        @media(max-width: @screen-xs) {
+            margin-top:10px;
+          }
+      }
       .rank-date-container {
         display: flex;
         @media(max-width: @screen-xs) {
@@ -27,6 +35,8 @@
           font-family: @fontOpenSans;
           font-size: 13px;
           width: 96px;
+          height: 30px;
+          letter-spacing: -1px;
           color: rgba(0, 0, 0, 0.38);
           vertical-align: middle;
         }
@@ -76,6 +86,10 @@
         i {
           font-size: 20px;
           color: rgba(0, 0, 0, 0.25);
+          @media(max-width: @screen-xs) {
+            font-size: 16px;
+          }
+          
         }
       }
     }
@@ -83,6 +97,9 @@
   .question-body-container {
     display: flex;
     padding: 8px;
+    @media(max-width: @screen-xs) {
+        padding-top: 16px;
+      }
     .question-left-body-container {
       display: flex;
       flex-direction: column;
@@ -189,20 +206,34 @@
       flex-direction: row;
       .answers-attachments-container {
         color: rgba(0, 0, 0, 0.54);
-        margin-right: 20px;
+        margin-right: 20px; 
         i {
           font-size: 18px;
+          @media(max-width: @screen-xs) {
+            font-size: 14px;
+          }
+        }
+        span{
+            @media(max-width: @screen-xs) {
+                font-size: 12px;
+              }
         }
       }
       .answers-viewers-container {
         i {
           color: rgba(0, 0, 0, 0.25);
           font-size: 18px;
+          @media(max-width: @screen-xs) {
+            font-size: 14px;
+          }
         }
         span {
           opacity: 0.9;
           font-family: @fontFiraSans;
           color: rgba(0, 0, 0, 0.54);
+          @media(max-width: @screen-xs) {
+            font-size: 12px;
+          }
         }
       }
     }

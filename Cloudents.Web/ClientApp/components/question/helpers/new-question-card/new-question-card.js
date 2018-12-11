@@ -3,7 +3,7 @@ import userRank from "../../../helpers/UserRank/UserRank.vue";
 export default {
   data() {
     return {
-      actions: [{ title: "Flag" }],
+      actions: [{ title: "Report this item" }],
       maximumAnswersToDisplay: 3,
       isRtl: global.isRtl
     };
