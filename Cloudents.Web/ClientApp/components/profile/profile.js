@@ -1,4 +1,4 @@
-import questionCard from "../question/helpers/question-card/question-card.vue";
+import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
 import resultNote from "../results/ResultNote.vue"
 import userBlock from '../helpers/user-block/user-block.vue';
 import { mapGetters, mapActions } from 'vuex'

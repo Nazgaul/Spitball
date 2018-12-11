@@ -1,46 +1,87 @@
 <template>
+    <!--to apply border left, for cell based on type, add this to class---- 'type-'+typeID  -->
     <a :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'"
-       @click="(isOurs ? $_spitball($event):'')" :href="url" :class="['d-block', 'note-block',  'type-'+typeID]">
+       @click.native="(isOurs ? $_spitball($event):'')"
+       :href="url"
+       :class="['d-block', 'note-block']">
         <v-container class="pa-0"
                      @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-flex class="wrapper">
+                <div class="document-header-container">
+                    <div class="document-header-large-sagment">
+                        <div class="avatar-area">
+                            <user-avatar v-if="authorName" :user-name="authorName" :user-id="authorId"/>
+                        </div>
+                        <div class="rank-date-container">
+                            <div class="rank-area">
+                                <user-rank  :rank="randomRank"></user-rank>
+                            </div>
+                            <div class="date-area">{{uploadDate}}</div>
+                        </div>
+                        <!--<div class="sold-area" v-if="isSold">-->
+                        <!--<div class="sold-container">-->
+                        <!--<span>SOLD</span>-->
+                        <!--<v-icon>sbf-curved-arrow</v-icon>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="document-header-small-sagment">
+                        <!--<div class="price-area" :class="{'sold': isSold}">-->
+                        <!--{{item.price.toFixed(2)}}-->
+                        <!--<span>SBL</span>-->
+                        <!--</div>-->
+                        <div class="menu-area">
+                            <v-menu bottom left>
+                                <v-btn :depressed="true" @click.prevent slot="activator" icon>
+                                    <v-icon>sbf-3-dot</v-icon>
+                                </v-btn>
+                                <v-list>
+                                    <v-list-tile v-for="(action, i) in actions" :key="i" @click>
+                                        <v-list-tile-title>{{ action.title }}</v-list-tile-title>
+                                    </v-list-tile>
+                                </v-list>
+                            </v-menu>
+                        </div>
+                    </div>
+                </div>
                 <v-flex grow class="top-row">
+                    <div class="upvotes-counter">
+                          <span class="document-reputation upvote-arrow">
+                           <v-icon>sbf-arrow-up</v-icon>
+                          </span>
+                        <span class="document-reputation document-score">{{documentUpvotes}}</span>
+                        <span class="document-reputation downvote-arrow">
+                                 <v-icon>sbf-arrow-down</v-icon>
+                        </span>
+                    </div>
                     <div class="type-wrap">
-                        <v-icon :class="['type-'+typeID]">{{type ? type.icon : ''}}</v-icon>
-                        <span :class="[ 'doc-type-text', 'ml-2', 'type-'+typeID]">{{typeTitle}}</span>
+                        <span :class="[ 'doc-type-text', 'type-'+typeID]">{{typeTitle}}</span>
+                        <document-details :item="item"></document-details>
+                        <v-flex grow class="data-row">
+                            <div :class="['content-wrap', 'type-'+typeID]">
+                                <div class="title-wrap">
+                                    <p :class="['doc-title', isFirefox ? 'foxLineClamp' : '']"
+                                       v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 ">
+                                        {{item.title}}
+                                    </p>
+                                    <v-icon class="doc mr-2">sbf-document-note</v-icon>
+                                </div>
+                                <div class="content-text" v-show="item.snippet">
+                                    <span v-line-clamp="2">{{item.snippet}}</span>
+                                </div>
+                            </div>
+                        </v-flex>
                     </div>
                 </v-flex>
-                <document-details :item="item"></document-details>
-                   <v-flex grow class="data-row">
-                    <div class="upvotes-counter">
-                        <!--will follow-->
-                    </div>
-                    <div class="content-wrap">
-                        <div class="title-wrap">
-                            <p :class="['doc-title', isFirefox ? 'foxLineClamp' : '']" v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 ">
-                                <v-icon class="doc mr-2">sbf-document-note</v-icon>{{item.title}}
-                            </p>
-                        </div>
-                        <div class="content-text" v-show="item.snippet">
-                            <span v-line-clamp="2">{{item.snippet}}</span>
-                        </div>
-                    </div>
-                   </v-flex>
+
+
 
                 <v-flex grow class="doc-details">
-                    <div class="author-info-date">
-                        <div class="autor" v-show="authorName">
-                            <span  v-language:inner>headerDocument_item_by</span>
-                            <span>&nbsp;{{authorName}},&nbsp;</span>
-                            </div>
-
-                        <span class="date" v-show="uploadDate">{{uploadDate}}</span>
-                    </div>
                     <div class="doc-actions-info">
+                        <v-icon class="sb-doc-icon  mr-1">sbf-download-cloud</v-icon>
+                        <span class="sb-doc-info downloads">{{docDownloads}}</span>
                         <v-icon class="sb-doc-icon mr-1">sbf-views</v-icon>
                         <span class="sb-doc-info views">{{docViews}}</span>
-                        <v-icon class="sb-doc-icon mr-1">sbf-download-cloud</v-icon>
-                        <span class="sb-doc-info">{{docDownloads}}</span>
                     </div>
                 </v-flex>
             </v-flex>
@@ -52,19 +93,35 @@
     import FlashcardDefault from '../helpers/img/flashcard.svg';
     import AskDefault from '../helpers/img/ask.svg';
     import NoteDefault from '../helpers/img/document.svg';
+    import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
+    import userRank from "../helpers/UserRank/UserRank.vue";
     import { documentTypes } from "./helpers/uploadFiles/consts.js"
     import documentDetails from "./helpers/documentDetails/documentDetails.vue"
 
     export default {
-        components: {AskDefault, NoteDefault, FlashcardDefault, documentDetails},
+        components: {
+            AskDefault,
+            NoteDefault,
+            FlashcardDefault,
+            documentDetails,
+            userAvatar,
+            userRank
+
+        },
         data() {
             return {
-                isFirefox: global.isFirefox
+                isFirefox: global.isFirefox,
+                actions: [{title: "Flag"}],
             }
         },
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
-
+            randomRank() {
+                return Math.floor(Math.random() * 3);
+            },
+            documentUpvotes() {
+                return Math.floor(Math.random() * 100);
+            },
             type() {
                 let self = this;
                 if (!!self.item.type) {
@@ -81,9 +138,14 @@
                     }
                 }
             },
-            authorName(){
-                if(!!this.item.user){
+            authorName() {
+                if (!!this.item.user) {
                     return this.item.user.name
+                }
+            },
+            authorId() {
+                if (!!this.item && !!this.item.user && !!this.item.user.id) {
+                    return this.item.user.id
                 }
             },
             typeID() {
@@ -96,27 +158,27 @@
                     return this.type.title || ''
                 }
             },
-            docViews(){
-              if(this.item){
-                  return this.item.views || 0
-              }
+            docViews() {
+                if (this.item) {
+                    return this.item.views || 0
+                }
             },
-            docDownloads(){
-                if(this.item){
+            docDownloads() {
+                if (this.item) {
                     return this.item.downloads || 0
                 }
             },
-            uploadDate(){
-              if(this.item && this.item.dateTime){
-                 return this.$options.filters.fullMonthDate(this.item.dateTime);
-              }else{
-                  return ''
-              }
+            uploadDate() {
+                if (this.item && this.item.dateTime) {
+                    return this.$options.filters.fullMonthDate(this.item.dateTime);
+                } else {
+                    return ''
+                }
             },
 
             isOurs() {
-                if(this.item && this.item.source)
-                return this.item.source.includes('Cloudents') || this.item.source.includes('Spitball')
+                if (this.item && this.item.source)
+                    return this.item.source.includes('Cloudents') || this.item.source.includes('Spitball')
             },
             isCloudents() {
                 return this.item.source.includes('Cloudents')
@@ -133,9 +195,9 @@
             $_spitball(event) {
                 event.preventDefault();
                 this.$router.push(this.url);
-                setTimeout(()=>{
-                    if(this.item && this.item.views){
-                        this.item.views =  this.item.views + 1;
+                setTimeout(() => {
+                    if (this.item && this.item.views) {
+                        this.item.views = this.item.views + 1;
                     }
                 }, 100)
             }

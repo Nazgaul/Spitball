@@ -1,12 +1,11 @@
 ﻿import ResultItem from './ResultItem.vue';
 import ResultNote from "./ResultNote.vue"
-import questionCard from './../question/helpers/question-card/question-card.vue';
+import ResultAsk from "./ResultAsk.vue"
 import { verticalsNavbar, verticalsName } from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import { typesPersonalize } from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
-import QuestionCard from "../question/helpers/question-card/question-card";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue';
@@ -34,16 +33,15 @@ export default {
         ResultTutor,
         ResultJob,
         ResultBook,
-        questionCard,
         faqBlock,
         signupBanner,
-        QuestionCard,
         sbDialog,
         loginToAnswer,
         notificationCenter,
         uploadFilesBtn,
         askQuestionBtn,
-        soonComponent
+        soonComponent,
+        ResultAsk
     },
     data() {
         return {

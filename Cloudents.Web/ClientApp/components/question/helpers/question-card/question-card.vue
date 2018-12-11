@@ -1,101 +1,30 @@
 <template>
-    <v-flex v-if="cardData && !isDeleted " class="question-card"
-            :class="[`sbf-card-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' }`, {'highlight':flaggedAsCorrect}]">
+<!-- ********************** THIS IS THE ANSWER CARD ********************** -->
+    <v-flex v-if="cardData && !isDeleted " class="question-card" :class="[`sbf-card-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' }`, {'highlight':flaggedAsCorrect}]">
 
-        <div v-if="!typeAnswer" class="box-stroke">
-            <!-- question Card -->
-            <div class="top-block">
-                <user-block :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : 'undefined' } q-user-block`"
-                            :cardData="cardData"
-                            :user="cardData.user"
-                            v-if="cardData.user" :name="cardData.subject">
-                    <template> · <span class="timeago" :datetime="cardTime"></span><span
-                            v-if="typeAnswer"
-                            class="q-answer">
-                    <button class="accept-btn right" @click="markAsCorrect"
-                            v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
-                        <v-icon>sbf-check-circle</v-icon>
-                        <span v-language:inner>questionCard_Accept</span>
-                    </button>
-                    <span class="choosen-answer right" v-if="flaggedAsCorrect">
-                        <v-icon>sbf-check-circle</v-icon></span>
-                </span></template>
-                </user-block>
-                <div v-if="cardData.price">
-                    <div class="q-price pr-3" :class="{'rtl' : isRtl}">
-                        <span v-show="isSold" style="min-width: 90px;" v-html="$Ph('questionCard_Question_price', cardData.price)"></span>
-                        <span v-show="!isSold" class="sold-badge" :dir="isRtl ? `rtl` : ''">
-                            <span style="margin: 0 auto;"> <span v-language:inner>questionCard_Sold</span>&nbsp; {{cardData.price}} SBL</span>
-
-                        </span>
-                    </div>
-                    <!-- <p class="q-category">{{cardData.subject}}</p> -->
-                </div>
-            </div>
-            <p class="q-text"  
-               :class="[`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`, `align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'answer': typeAnswer, 'ellipsis': fromCarousel || !detailedView}]"  v-line-clamp:20="!detailedView ? 3 : 0">
-                {{cardData.text | ellipsis(150, detailedView)}}
-                </p>
-            <!-- v-if="cardData.files.length" -->
-            <div class="gallery" v-if="gallery&&gallery.length">
-                <v-carousel
-                        :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
-                        :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right right'"
-
-                            interval="600000" cycle full-screen
-                            hide-delimiters :hide-controls="gallery.length===1">
-                    <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i"
-                                     @click.native="showBigImage(item)"></v-carousel-item>
-                </v-carousel>
-            </div>
-
-            <div class="bottom-section">
-                <div class="card-info general" v-if="!typeAnswer">
-                    <div class="new-block">
-                        <div class="files" v-if="cardData.filesNum">
-                            <template>
-                                <v-icon :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`">sbf-attach</v-icon>
-                                <span :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`">{{cardData.filesNum}}</span>
-                            </template>
-                        </div>
-                        <div class="users" v-if="!detailedView">
-                            <template v-for="(i, index) in limitedCardAnswers">
-                                <div class="avatar" :key="index">
-                                    <v-icon>sbf-comment-icon</v-icon>
-                                </div>
-                            </template>
-                        </div>
-                        <span class="user-counter" :class="`sbf-font-${!!cardData.color ? cardData.color.toLowerCase() : '' }`"
-                              v-show="!detailedView ? cardAnswers > 3 : ''">+{{cardAnswers-3}}</span>
-                    </div>
-                    <!--show only if in suggestion popup-->
-                    <div class="answer" v-if="suggestion">
-                        <button class="answer-btn" v-language:inner>questionCard_Answer</button>
-                    </div>
-                </div>
-            </div>
-            <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}"
-                    v-if="detailedView && canDelete" @click="deleteQuestion()" v-language:inner>questionCard_Delete
-            </button>
-
-            <v-dialog v-if="gallery&&gallery.length" v-model="showDialog" max-width="720px"
-                      transition="scale-transition" content-class="zoom-image">
-                <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
-            </v-dialog>
-
-        </div>
-
-
-        <div v-else class="question-card-answer transparent">
+        <div class="question-card-answer transparent">
             <!-- answer Card -->
             <div class="full-width-flex">
-                <user-block class="q-user-block" :cardData="cardData" :user="cardData.user"></user-block>
+                <div>
+                    <user-block class="q-user-block" :cardData="cardData" :user="cardData.user"></user-block>
+                    <div class="answer-body-container">
+                        <span class="answer-raputation upvote-arrow">
+                            <v-icon>sbf-arrow-up</v-icon>
+                        </span>
+                        <span class="answer-raputation answer-score">{{questionReputation}}</span>
+                        <span class="answer-raputation downvote-arrow">
+                            <v-icon>sbf-arrow-down</v-icon>
+                        </span>
+                    </div>
+                </div>
+                
                 <div class="full-width-flex" :class="{'column-direction': gallery && gallery.length}">
                     <div class="full-width-flex calc-Margin answer-block">
                         <div class="triangle"></div>
                         <div class="text-container">
                             <div class="text">
                                 <span class="user-date" v-language:inner>questionCard_Answer_dot</span>
+                                <user-rank style="margin-top: 1px;" :rank="randomRank"></user-rank>
                                 <span class="timeago"
                                       :datetime="cardData.dateTime||cardData.create" ></span><span
                                     v-if="typeAnswer"

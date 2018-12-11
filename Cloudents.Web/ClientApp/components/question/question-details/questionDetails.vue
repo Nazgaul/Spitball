@@ -10,13 +10,17 @@
             </v-flex>
             <v-layout row>
                 <v-flex style="width:inherit;" class="question-data">
-                    
                     <question-thread v-if="questionData" :questionData="questionData"
                                      :cardOwner="cardOwner"
                                      :showDialogSuggestQuestion="showDialogSuggestQuestion"
                                      :hasCorrectAnswer="getCorrectAnswer">
                         
-                        <div v-if="enableAnswer" slot="answer-form" class="mb-3" style="width:inherit;">
+                        
+                        <div slot="currently-watching">
+                            <!-- <div class="viewers-container">{{questionData}} watching now</div> -->
+                        </div>
+                    </question-thread>
+                    <div v-if="enableAnswer" slot="answer-form" class="mb-3" style="width:inherit;">
                             <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
@@ -40,10 +44,6 @@
                                 <div><b v-language:inner>questionDetails_Know_the_answer</b>&nbsp; <span v-language:inner>questionDetails_Add_it_here</span></div>
                             </div>
                         </div>
-                        <div slot="currently-watching">
-                            <!-- <div class="viewers-container">{{questionData}} watching now</div> -->
-                        </div>
-                    </question-thread>
                 </v-flex>
 
                 <v-flex v-if ="accountUser" class="chat-wrapper">
@@ -66,7 +66,9 @@
                         <v-flex xs12 class="question-data" >
                             <question-thread v-if="questionData" :questionData="questionData" :cardOwner="cardOwner"
                                              :hasCorrectAnswer="getCorrectAnswer">
-                                <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
+                                
+                            </question-thread>
+                            <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                             v-model="textAreaValue"
@@ -86,7 +88,6 @@
                                         <div><b v-language:inner>questionDetails_Know_the_answer</b>&nbsp;<span v-language:inner>questionDetails_Add_it_here</span></div>
                                     </div>
                                 </div>
-                            </question-thread>
                         </v-flex>
                 </v-tab-item>
                 <v-tab-item :key="'2'" :id="'tab-2'">
