@@ -25,7 +25,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 var user = await _userRepository.LoadAsync(id, token);
                 user.Balance = await _transactionRepository.GetBalanceAsync(id, token);
-                
+                user.Score = (int)await _transactionRepository.GetUserScoreAsync(id, token);
                 await _userRepository.UpdateAsync(user, token);
             }
         }

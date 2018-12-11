@@ -32,8 +32,8 @@ namespace Cloudents.Core.Interfaces
     public interface IRegularUserRepository : IRepository<RegularUser>
     {
         Task<decimal> UserCashableBalanceAsync(long userId, CancellationToken token);
-
         
+
         //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
         Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
        // Task UpdateUsersBalance(CancellationToken token);
@@ -80,6 +80,7 @@ namespace Cloudents.Core.Interfaces
     }
     public interface ITransactionRepository : IRepository<Transaction>
     {
+        Task<decimal> GetUserScoreAsync(long userId, CancellationToken token);
         Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
     }
 
