@@ -31,7 +31,7 @@
                 <v-icon>sbf-3-dot</v-icon>
               </v-btn>
               <v-list>
-                <v-list-tile v-for="(action, i) in actions" :key="i" @click>
+                <v-list-tile v-for="(action, i) in actions" :key="i">
                   <v-list-tile-title>{{ action.title }}</v-list-tile-title>
                 </v-list-tile>
               </v-list>
