@@ -106,7 +106,7 @@ namespace Cloudents.Core.Entities.Db
             return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
         }
 
-        public virtual bool? Fictive { get; protected set; }
+        public virtual bool Fictive { get; protected set; }
 
         public virtual string PasswordHash { get; set; }
         public virtual DateTimeOffset? LockoutEnd { get; set; }

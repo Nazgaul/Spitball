@@ -91,7 +91,7 @@ namespace Cloudents.Infrastructure.Database.Maps
         public RegularUserMap()
         {
 
-            DiscriminatorValue("null");
+            DiscriminatorValue("0");
         }
     }
 

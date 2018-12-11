@@ -85,3 +85,12 @@ from sb.[user] U
 left join (select [User_Id], sum(price) as price from sb.[Transaction] where [Action] = 'CashOut' group by [User_Id]) as t
 	on U.Id = t.[User_id] 
 commit
+
+
+
+update sb.[user]
+set fictive = 0s
+where fictive is null
+
+alter table sb.[user]
+ ALTER COLUMN fictive bit not null;
