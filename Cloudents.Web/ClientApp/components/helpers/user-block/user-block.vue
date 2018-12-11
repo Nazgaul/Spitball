@@ -14,6 +14,7 @@
                 <slot></slot>
                 </span>
                         <span class="name">{{user.name}}</span>
+                        <user-rank style="margin: 15px auto;" :score="user.score"></user-rank>
                         <p class="last-msg" v-if="text">{{text}}</p>
                         <p class="university" v-if="user.universityName">{{user.universityName}}</p>
                     </div>
@@ -25,7 +26,7 @@
             <div class="user-block" :class="classType">
                 <div style="margin-top:15px;">
                     <slot name="icon">
-                        <user-avatar class="avatar-circle" :user-name="user.name" :user-id="user.id"/>
+                        <user-avatar class="avatar-circle" :user-name="user.name" :user-id="user.id"/> 
                     </slot>
                 </div>
             </div>
