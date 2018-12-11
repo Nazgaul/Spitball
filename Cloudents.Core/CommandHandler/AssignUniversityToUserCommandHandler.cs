@@ -10,10 +10,10 @@ namespace Cloudents.Core.CommandHandler
     [UsedImplicitly]
     public class AssignUniversityToUserCommandHandler : ICommandHandler<AssignUniversityToUserCommand>
     {
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<RegularUser> _userRepository;
         private readonly IUniversityRepository _universityRepository;
 
-        public AssignUniversityToUserCommandHandler(IRepository<User> userRepository, IUniversityRepository universityRepository)
+        public AssignUniversityToUserCommandHandler(IRepository<RegularUser> userRepository, IUniversityRepository universityRepository)
         {
             _userRepository = userRepository;
             _universityRepository = universityRepository;

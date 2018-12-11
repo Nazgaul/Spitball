@@ -13,6 +13,7 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<MarkAsCorrectEvent>,
         IEventHandler<QuestionCreatedEvent>,
         IEventHandler<QuestionDeletedEvent>,
+        IEventHandler<QuestionDeletedAdminEvent>,
         IEventHandler<AnswerCreatedEvent>,
         IEventHandler<AnswerDeletedEvent>
     {
@@ -78,6 +79,15 @@ namespace Cloudents.Core.EventHandler
                 State = QuestionFilter.Unanswered
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
+        }
+
+        public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
+        {
+            var question = new Question
+            {
+                Id = eventMessage.Question.Id.ToString(),
+            };
+            return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(false, question), token);
         }
     }
 }

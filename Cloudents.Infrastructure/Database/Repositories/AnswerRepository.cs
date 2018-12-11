@@ -15,14 +15,14 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
         }
 
-        public Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token)
-        {
-            return Session.Query<Answer>()
-                 .Fetch(f => f.Question)
-                 .Where(w => w.User.Id == userId)
-                 .Where(w => w.Question.CorrectAnswer.Id == null && w.Question.Created > DateTime.UtcNow.AddDays(-7))
-                 .CountAsync(token);
+        //public Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token)
+        //{
+        //    return Session.Query<Answer>()
+        //         .Fetch(f => f.Question)
+        //         .Where(w => w.User.Id == userId)
+        //         .Where(w => w.Question.CorrectAnswer.Id == null && w.Question.Created > DateTime.UtcNow.AddDays(-7))
+        //         .CountAsync(token);
 
-        }
+        //}
     }
 }

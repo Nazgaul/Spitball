@@ -31,11 +31,23 @@ namespace Cloudents.Core.Entities.Db
             Views = 0;
             Professor = professor;
             State = ItemState.Pending;
-            if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
+
+            State = ReputationSystem.GetItemState(user.Score);
+
+            if (State == ItemState.Ok)
             {
                 Events.Add(new DocumentCreatedEvent(this));
-                State = ItemState.Ok;
+
             }
+            //if ( user.Score < ReputationSystem.AutoPostValue)
+            //{
+            //    toasterMessage = _localizer["PostedQuestionToasterPending"];
+            //}
+            //if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
+            //{
+            //    Events.Add(new DocumentCreatedEvent(this));
+            //    State = ItemState.Ok;
+            //}
             
         }
 

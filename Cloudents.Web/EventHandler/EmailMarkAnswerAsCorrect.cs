@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.EventHandler;
 
@@ -33,13 +34,19 @@ namespace Cloudents.Web.EventHandler
         {
             var answer = eventMessage.Answer;
 
+            if (!(answer.User is RegularUser u))
+            {
+                return;
+            }
+
+
             var code = _dataProtect.Protect(ProtectPurpose, answer.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(5));
             var link = _urlBuilder.BuildWalletEndPoint(new { code });
             await SendEmail(
                 new AnswerCorrectEmail(answer.User.Email, answer.Question.Text,
                     answer.Text, link,
-                    answer.Question.Price, answer.User.Culture), answer.User, token).ConfigureAwait(false);
+                    answer.Question.Price, answer.User.Culture), u, token).ConfigureAwait(false);
         }
     }
 }

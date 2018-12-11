@@ -16,9 +16,9 @@ namespace Cloudents.Infrastructure.Database.Query
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserBalanceDetailQueryHandler : IQueryHandler<UserDataByIdQuery, IEnumerable<BalanceDto>>
     {
-        private readonly UserRepository _userRepository;
+        private readonly RegularUserRepository _userRepository;
 
-        public UserBalanceDetailQueryHandler(/*ReadonlySession session,*/ UserRepository userRepository)
+        public UserBalanceDetailQueryHandler(/*ReadonlySession session,*/ RegularUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

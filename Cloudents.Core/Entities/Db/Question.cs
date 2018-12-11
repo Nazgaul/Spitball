@@ -16,10 +16,12 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question : IEvents
+    public class Question : DomainObject
     {
-        
-        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user,
+        private ItemState _state;
+
+        public Question(QuestionSubject subject, string text, decimal price, int attachments,
+            RegularUser user,
             QuestionColor color, CultureInfo language)
         : this()
         {
@@ -33,24 +35,34 @@ namespace Cloudents.Core.Entities.Db
             {
                 Color = color;
             }
-            State = ItemState.Pending;
+            State = ReputationSystem.GetItemState(user.Score);
             Language = language;
-            if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
+        }
+
+        public Question(QuestionSubject subject, string text, decimal price, int attachments,
+            SystemUser user,
+            QuestionColor color, CultureInfo language)
+            : this()
+        {
+            Subject = subject;
+            Text = text?.Trim();
+            Price = price;
+            Attachments = attachments;
+            User = user;
+            Updated = Created = DateTime.UtcNow;
+            if (color != QuestionColor.Default)
             {
-                State = ItemState.Ok;
+                Color = color;
             }
 
-            QuestionCreateTransaction();
-           
-
-
+            State = ItemState.Pending;
+            Language = language;
         }
 
         [UsedImplicitly]
         protected Question()
         {
             Answers = Answers ?? new List<Answer>();
-            Events = new List<IEvent>();
         }
 
         public virtual long Id { get; protected set; }
@@ -74,68 +86,28 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual QuestionColor? Color { get; set; }
-        public virtual ItemState State { get; set; }
 
-
-        public virtual void QuestionCreateTransaction()
+        public virtual ItemState State
         {
-            var t = Transaction.QuestionCreate(this);
-            var amountForAskingQuestion = User.Balance * 30 / 100;
-
-            if (amountForAskingQuestion < t.Price)
-            {
-                throw new InsufficientFundException();
-            }
-
-            User.AddTransaction(t);
+            get => _state;
+            set => _state = value;
+            //{
+            //    if (State == ItemState.Ok)
+            //    {
+            //        var t = Transaction.QuestionApproved(this);
+            //        User.AddTransaction(t);
+            //        _state = value;
+            //    }
+            //}
         }
 
-        public virtual void QuestionDeleteTransaction()
-        {
-            var t = Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
-            User.AddTransaction(t);
-        }
-
-        public virtual void MarkAnswerAsCorrect(Answer correctAnswer)
-        {
-            if (CorrectAnswer != null)
-            {
-                throw new InvalidOperationException("Already have correct answer");
-            }
-            CorrectAnswer = correctAnswer;
-
-            MarkCorrectTransaction(correctAnswer);
-
-            Events.Add(new MarkAsCorrectEvent(correctAnswer));
-        }
-
-        public virtual void MarkCorrectTransaction(Answer correctAnswer)
-        {
-            var questionUser = User;
-            var t1 = Transaction.CorrectAnswer(TransactionType.Stake, this, correctAnswer); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
-            var t2 = Transaction.CorrectAnswer(TransactionType.Spent, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Spent, -Price);
-            questionUser.AddTransaction(t1);
-            questionUser.AddTransaction(t2);
-
-            var answerUser = correctAnswer.User;
-
-
-            var tAnswer = Transaction.CorrectAnswer(TransactionType.Earned, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Earned,
-                                                                                                 //Price);
-            answerUser.AddTransaction(tAnswer);
-
-            //return new[] {t1, t2, tAnswer};
-        }
-
-        public virtual Answer AddAnswer(string text, int attachments, User user)
+        public virtual Answer AddAnswer(string text, int attachments, RegularUser user)
         {
             var answer = new Answer(this, text, attachments, user);
             Answers.Add(answer);
             return answer;
         }
 
-
-        public virtual IList<IEvent> Events { get; protected set; }
 
         [CanBeNull]
         public virtual CultureInfo Language { get; protected set; }

@@ -3,13 +3,13 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {
-    public class QuestionRejectEvent : IEvent
-    {
-        public QuestionRejectEvent(User user)
-        {
-            User = user;
-        }
+    //public class QuestionRejectEvent : IEvent
+    //{
+    //    public QuestionRejectEvent(RegularUser user)
+    //    {
+    //        User = user;
+    //    }
 
-        public User User { get; }
-    }
+    //    public RegularUser User { get; }
+    //}
 }

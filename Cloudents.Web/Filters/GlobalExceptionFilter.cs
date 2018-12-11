@@ -44,9 +44,9 @@ namespace Cloudents.Web.Filters
 
     public class UserLockedExceptionFilter : ExceptionFilterAttribute
     {
-        private readonly SignInManager<User> _signInManager;
+        private readonly SignInManager<RegularUser> _signInManager;
 
-        public UserLockedExceptionFilter(SignInManager<User> signInManager)
+        public UserLockedExceptionFilter(SignInManager<RegularUser> signInManager)
         {
             _signInManager = signInManager;
         }

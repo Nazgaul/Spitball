@@ -23,7 +23,7 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController]
     public class RegisterController : Controller
     {
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly SbSignInManager _signInManager;
 
         private readonly IBlockChainErc20Service _blockChainErc20Service;
@@ -36,7 +36,7 @@ namespace Cloudents.Web.Api
         internal const string Email = "email2";
         public const string emailTime = "EmailTime";
 
-        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
+        public RegisterController(UserManager<RegularUser> userManager, SbSignInManager signInManager,
             IBlockChainErc20Service blockChainErc20Service, IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger)
         {
             _userManager = userManager;
@@ -105,7 +105,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        private async Task<ReturnSignUserResponse> MakeDecision(User user,
+        private async Task<ReturnSignUserResponse> MakeDecision(RegularUser user,
             bool isExternal,
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
@@ -225,7 +225,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        private User CreateUser(string email, string name)
+        private RegularUser CreateUser(string email, string name)
         {
             if (email == null) throw new ArgumentNullException(nameof(email));
             if (string.IsNullOrEmpty(name))
@@ -233,7 +233,7 @@ namespace Cloudents.Web.Api
                 name = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             }
             var (privateKey, _) = _blockChainErc20Service.CreateAccount();
-            return new User(email, $"{name}.{GenerateRandomNumber()}", privateKey, CultureInfo.CurrentCulture);
+            return new RegularUser(email, $"{name}.{GenerateRandomNumber()}", privateKey, CultureInfo.CurrentCulture);
         }
 
         private static int GenerateRandomNumber()
@@ -242,7 +242,7 @@ namespace Cloudents.Web.Api
             return rdm.Next(1000, 9999);
         }
 
-        private async Task GenerateEmailAsync(User user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
+        private async Task GenerateEmailAsync(RegularUser user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
             //if (user.OldUser.GetValueOrDefault() && user.SecurityStamp == null)
             //{
