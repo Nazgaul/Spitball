@@ -31,7 +31,8 @@ namespace Cloudents.Infrastructure.Database.Query
                          Id = s.Id,
                          Image = s.Image,
                          Name = s.Name,
-                         UniversityName = s.University.Name
+                         UniversityName = s.University.Name,
+                         Score = s.Score
                  })
                  .SingleOrDefaultAsync(cancellationToken: token);
 
