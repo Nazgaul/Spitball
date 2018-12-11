@@ -29,9 +29,9 @@ namespace Cloudents.Core.Interfaces
 
         Task<User> GetRandomFictiveUserAsync(string country, CancellationToken token);
         
-        Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
+        //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
         Task<User> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
-        Task UpdateUsersBalance(CancellationToken token);
+       // Task UpdateUsersBalance(CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>
@@ -73,6 +73,9 @@ namespace Cloudents.Core.Interfaces
             CancellationToken token);
 
     }
+    public interface ITransactionRepository : IRepository<Transaction>
+    {
+        Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
+    }
 
-   
-}
+    }

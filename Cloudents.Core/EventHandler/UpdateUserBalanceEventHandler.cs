@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Event;
@@ -9,7 +10,7 @@ using Cloudents.Core.Storage;
 namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class UpdateUserBalanceEventHandler : IEventHandler<QuestionDeletedAdminEvent>, IEventHandler<AnswerDeletedAdminEvent>
+    public class UpdateUserBalanceEventHandler : IEventHandler<TransactionEvent>
     {
         private readonly IQueueProvider _queueProvider;
 
@@ -18,15 +19,10 @@ namespace Cloudents.Core.EventHandler
             _queueProvider = queueProvider;
         }
 
-        public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
+       
+        public Task HandleAsync(TransactionEvent transactionEventMessage, CancellationToken token)
         {
-            //var command = new UpdateUserBalanceCommand(eventMessage.UserIds);
-            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(), token);
-        }
-
-        public Task HandleAsync(AnswerDeletedAdminEvent answerEventMessage, CancellationToken token)
-        {
-            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(), token);
+            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(new List<long>() { transactionEventMessage.Transaction.User.Id }), token);
         }
     }
 }

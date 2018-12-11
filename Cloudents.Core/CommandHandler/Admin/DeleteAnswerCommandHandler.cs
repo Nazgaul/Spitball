@@ -54,7 +54,7 @@ namespace Cloudents.Core.CommandHandler.Admin
 
             answer.Question.CorrectAnswer = null;
             await _questionRepository.UpdateAsync(answer.Question, token);
-            answer.Events.Add(new AnswerDeletedAdminEvent());
+            answer.Events.Add(new AnswerDeletedAdminEvent(answer));
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
         }
     }

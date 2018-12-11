@@ -10,16 +10,22 @@ namespace Cloudents.Core.CommandHandler.Admin
     public class UpdateUserBalanceCommandHandler : ICommandHandler<UpdateUserBalanceCommand>
     {
         private readonly IUserRepository _userRepository;
+        private readonly ITransactionRepository _transactionRepository;
 
-        public UpdateUserBalanceCommandHandler(IUserRepository userRepository)
+        public UpdateUserBalanceCommandHandler(IUserRepository UserRepository, ITransactionRepository transactionRepository)
         {
-            _userRepository = userRepository;
+            _transactionRepository = transactionRepository;
+            _userRepository = UserRepository;
         }
 
         public async Task ExecuteAsync(UpdateUserBalanceCommand message, CancellationToken token)
         {
-            await _userRepository.UpdateUsersBalance(token);
-           
+            foreach (var Id in message.UsersIds)
+            {
+                var user = await _userRepository.LoadAsync(Id, token);
+                user.Balance = await _transactionRepository.GetBalanceAsync(Id, token);
+                await _userRepository.UpdateAsync(user, token);
+            }
         }
     }
 }

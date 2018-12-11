@@ -78,13 +78,13 @@ namespace Cloudents.Infrastructure.Database.Repositories
                    .SingleOrDefaultAsync<User>(token);
         }
 
-        public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
+      /*  public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
         {
             return
                 Session.QueryOver<Transaction>()
                     .Where(w => w.User.Id == userId)
                     .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
-        }
+        }*/
 
         internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
         {
@@ -105,7 +105,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 
-        public Task UpdateUsersBalance(CancellationToken token)
+       /* public Task UpdateUsersBalance(CancellationToken token)
         {
             //TODO: need to make this query using Linq instead of sql
             var updateQuery = Session.CreateSQLQuery(
@@ -120,6 +120,6 @@ namespace Cloudents.Infrastructure.Database.Repositories
                                 )");
             return updateQuery.ExecuteUpdateAsync(token);
 
-        }
+        }*/
     }
 }
