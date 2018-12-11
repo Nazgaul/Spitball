@@ -63,7 +63,7 @@ namespace Cloudents.Core.CommandHandler
                 message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color, textLanguage);
 
 
-            var transaction = new Transaction(ActionType.Question, TransactionType.Stake, -question.Price,user)
+            var transaction = new Transaction(TransactionActionType.Question, TransactionType.Stake, -question.Price,user)
             {
                 Question = question
             };

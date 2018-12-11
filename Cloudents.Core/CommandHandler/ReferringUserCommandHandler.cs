@@ -22,7 +22,7 @@ namespace Cloudents.Core.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
             var register = await _userRepository.LoadAsync(message.RegisteredUserId, token);
-            var tx = new Transaction(ActionType.ReferringUser, TransactionType.Earned, ReputationSystem.ReferringUser,user)
+            var tx = new Transaction(TransactionActionType.ReferringUser, TransactionType.Earned, ReputationSystem.ReferringUser,user)
             {
                 InvitedUser = register
 

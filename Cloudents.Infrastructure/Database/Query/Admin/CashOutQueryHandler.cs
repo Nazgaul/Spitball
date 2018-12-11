@@ -62,7 +62,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
             var futureDto = _session.Query<Transaction>()
                 .Fetch(f => f.User)
-                .Where(w => w.Action == ActionType.CashOut)
+                .Where(w => w.Action == TransactionActionType.CashOut)
                 .Where(w => w.Created > DateTime.Now - twoWeeks)
                 .Select(s => new SecondQuery
                 {

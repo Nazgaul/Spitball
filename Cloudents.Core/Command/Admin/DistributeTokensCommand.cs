@@ -5,7 +5,7 @@ namespace Cloudents.Core.Command.Admin
 {
     public class DistributeTokensCommand : ICommand
     {
-        public DistributeTokensCommand(long userId, decimal price, ActionType actionType)
+        public DistributeTokensCommand(long userId, decimal price, TransactionActionType actionType)
         {
             UserId = userId;
             Price = price;
@@ -16,6 +16,6 @@ namespace Cloudents.Core.Command.Admin
         public decimal Price { get; }
        
 
-        public ActionType ActionType { get; }
+        public TransactionActionType ActionType { get; }
     }
 }

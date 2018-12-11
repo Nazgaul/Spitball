@@ -60,7 +60,7 @@ namespace Cloudents.Core.CommandHandler
                 await _transactionRepository.UpdateAsync(transaction, token);
             }
 
-            var deleteQuestionTransaction = new Transaction(ActionType.DeleteQuestion,
+            var deleteQuestionTransaction = new Transaction(TransactionActionType.DeleteQuestion,
                 TransactionType.Stake, question.Price, user);
             await _transactionRepository.AddAsync(deleteQuestionTransaction, token);
 

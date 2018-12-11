@@ -90,7 +90,7 @@ namespace Cloudents.Core.CommandHandler
             {
                 price = -price;
             }
-            return new Transaction(ActionType.AnswerCorrect, type, price, user)
+            return new Transaction(TransactionActionType.AnswerCorrect, type, price, user)
             {
                 Question = question,
                 Answer = question.CorrectAnswer

@@ -6,7 +6,7 @@ namespace Cloudents.Core.DTOs
 {
     public class TransactionDto
     {
-        private ActionType _action;
+        private TransactionActionType _action;
         private TransactionType _type;
         public DateTime Date { get; set; }
 
@@ -15,7 +15,7 @@ namespace Cloudents.Core.DTOs
             get => _action.GetEnumLocalization();
             set
             {
-                if (System.Enum.TryParse(value, out ActionType p))
+                if (System.Enum.TryParse(value, out TransactionActionType p))
                 {
                     _action = p;
                 }

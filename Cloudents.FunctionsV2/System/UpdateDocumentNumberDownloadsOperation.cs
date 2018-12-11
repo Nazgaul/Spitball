@@ -7,18 +7,18 @@ using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.System
 {
-    public class UpdateDocumentNumberViewsOperation : ISystemOperation<UpdateDocumentNumberOfViews>
+    public class UpdateDocumentNumberDownloadsOperation : ISystemOperation<UpdateDocumentNumberOfDownloads>
     {
         private readonly ICommandBus _documentRepository;
 
-        public UpdateDocumentNumberViewsOperation(ICommandBus documentRepository)
+        public UpdateDocumentNumberDownloadsOperation(ICommandBus documentRepository)
         {
             _documentRepository = documentRepository;
         }
 
-        public async Task DoOperationAsync(UpdateDocumentNumberOfViews msg, IBinder binder, CancellationToken token)
+        public async Task DoOperationAsync(UpdateDocumentNumberOfDownloads msg, IBinder binder, CancellationToken token)
         {
-            var command = new IncrementDocumentNumberOfViewsCommand(msg.Id);
+            var command = new IncrementDocumentNumberOfDownloadsCommand(msg.Id);
             await _documentRepository.DispatchAsync(command, token);
         }
     }
