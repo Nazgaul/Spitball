@@ -174,9 +174,6 @@
   <data name="SearchRequestSortRelevance" xml:space="preserve">
     <value>רלוונטיות</value>
   </data>
-  <data name="TransactionTypeAwarded" xml:space="preserve">
-    <value>הענקה</value>
-  </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
     <value>הכנסה</value>
   </data>

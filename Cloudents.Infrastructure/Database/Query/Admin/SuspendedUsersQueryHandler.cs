@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    class SuspendedUsersQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<SuspendedUsersDto>>
+    public class SuspendedUsersQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<SuspendedUsersDto>>
     {
         private readonly ISession _session;
 
@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
         public async Task<IEnumerable<SuspendedUsersDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            var suspendDto = _session.Query<User>()
+            var suspendDto = _session.Query<RegularUser>()
                 .Where(w => w.LockoutEnd != null)
                 .Select(s => new SuspendedUsersDto
                 {
@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                     UserEmail = s.Email,
                     LockoutEnd = s.LockoutEnd
                 });
-            return await suspendDto.ToListAsync();
+            return await suspendDto.ToListAsync(cancellationToken: token);
         }
     }
 }

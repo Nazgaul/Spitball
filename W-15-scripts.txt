@@ -67,6 +67,9 @@ ALTER TABLE sb.Answer ALTER COLUMN State nvarchar(255) not null;
 
 begin tran
 update sb.[Transaction]
+
+alter table sb.[user]
+add  Score int null
 set [Type] = 'Earned'
 where [Type] = 'Awarded'
 commit

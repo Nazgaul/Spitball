@@ -12,14 +12,14 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class WalletController : Controller
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly UserManager<RegularUser> _userManager;
 
         private readonly IDataProtect _dataProtect;
         private readonly ILogger _logger;
 
 
-        public WalletController(SignInManager<User> signInManager, UserManager<User> userManager, ILogger logger, IDataProtect dataProtect)
+        public WalletController(SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager, ILogger logger, IDataProtect dataProtect)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -48,8 +48,8 @@ namespace Cloudents.Web.Controllers
             return View();
         }
 
-        public static async Task<bool> SignInUserAsync(string code, string purpose, IDataProtect dataProtector, UserManager<User> userManager,
-            ILogger logger, SignInManager<User> signInManager)
+        public static async Task<bool> SignInUserAsync(string code, string purpose, IDataProtect dataProtector, UserManager<RegularUser> userManager,
+            ILogger logger, SignInManager<RegularUser> signInManager)
         {
             try
             {

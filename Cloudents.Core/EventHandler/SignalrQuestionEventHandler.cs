@@ -12,6 +12,7 @@ namespace Cloudents.Core.EventHandler
     public class SignalrQuestionEventHandler 
         : IEventHandler<QuestionCreatedEvent>,
             IEventHandler<QuestionDeletedEvent>,
+            IEventHandler<QuestionDeletedAdminEvent>,
             IEventHandler<MarkAsCorrectEvent>,
             IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>,
             IEventHandler<TransactionEvent>
@@ -134,6 +135,17 @@ namespace Cloudents.Core.EventHandler
            
             return _queueProvider.InsertMessageAsync
                 (message, eventMessage.Transaction.User.Id, token);
+        }
+
+        public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
+        {
+            var dto = new
+            {
+                id = eventMessage.Question.Id
+            };
+
+            return _queueProvider.InsertMessageAsync(
+                new SignalRTransportType(SignalRType.Question, SignalRAction.Delete, dto), token);
         }
     }
 }

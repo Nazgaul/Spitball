@@ -5,10 +5,10 @@ namespace Cloudents.Core.Event
 {
     public class UserSuspendEvent : IEvent
     {
-        public UserSuspendEvent(User user)
+        public UserSuspendEvent(RegularUser user)
         {
             User = user;
         }
-        public User User { get; private set; }
+        public RegularUser User { get; private set; }
     }
 }

@@ -1,24 +1,28 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Command;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Event;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class RedeemTokenCommandHandler : ICommandHandler<RedeemTokenCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRegularUserRepository _userRepository;
+        private readonly IRepository<Transaction> _transactionRepository;
 
-        public RedeemTokenCommandHandler(IUserRepository userRepository)
+
+        public RedeemTokenCommandHandler(IRegularUserRepository userRepository, IQueueProvider serviceBusProvider, IRepository<Transaction> transactionRepository)
         {
             _userRepository = userRepository;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(RedeemTokenCommand message, CancellationToken token)
@@ -30,12 +34,11 @@ namespace Cloudents.Core.CommandHandler
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            if (user.Fictive.GetValueOrDefault())
-            {
-                throw new UnauthorizedAccessException("Fictive user");
-            }
-            user.AddTransaction(Transaction.CashOut(message.Amount));
-            await _userRepository.UpdateAsync(user, token);
+
+            var price = -Math.Abs(message.Amount);
+            var t = new Transaction(ActionType.CashOut, TransactionType.Earned, price, user);
+
+            await _transactionRepository.AddAsync(t, token);
             user.Events.Add(new RedeemEvent(message.UserId, message.Amount));
         }
     }

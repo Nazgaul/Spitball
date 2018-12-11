@@ -35,6 +35,7 @@ namespace Cloudents.Core.CommandHandler
                 throw new ArgumentException("question doesn't exists");
 
             }
+            
             if (question.User.Id != message.UserId)
             {
                 throw new InvalidOperationException("user is not the one who wrote the question");
@@ -45,13 +46,24 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("cannot delete question with answers");
             }
 
+            if (!(question.User is RegularUser user))
+            {
+                throw new InvalidOperationException("cannot delete fictive user");
+
+            }
+
+
             //question.Transactions = null;
             foreach (var transaction in question.Transactions)
             {
                 transaction.Question = null;
                 await _transactionRepository.UpdateAsync(transaction, token);
             }
-            question.QuestionDeleteTransaction();
+
+            var deleteQuestionTransaction = new Transaction(ActionType.DeleteQuestion,
+                TransactionType.Stake, question.Price, user);
+            await _transactionRepository.AddAsync(deleteQuestionTransaction, token);
+
             question.Events.Add(new QuestionDeletedEvent(question));
             await _repository.DeleteAsync(question, token).ConfigureAwait(false);
 
