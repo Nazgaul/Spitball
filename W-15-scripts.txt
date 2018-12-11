@@ -94,3 +94,25 @@ where fictive is null
 
 alter table sb.[user]
  ALTER COLUMN fictive bit not null;
+
+
+
+
+--Case 11739
+
+begin tran
+update D
+set [Views] = NumberOfViews
+from sb.Document D
+join (select ItemId, NumberOfViews from zbox.Item) I
+on D.OldId = I.ItemId
+commit
+
+
+begin tran
+update D
+set Downloads = NumberOfDownloads
+from sb.Document D
+join (select ItemId, NumberOfDownloads from zbox.Item) I
+on D.OldId = I.ItemId
+commit
