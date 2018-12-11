@@ -22,7 +22,7 @@
         </div>
         <div class="question-header-small-sagment">
           <div class="price-area" :class="{'sold': isSold}">
-            {{cardData.price.toFixed(2)}}
+            {{cardPrice}}
             <span>SBL</span>
           </div>
           <div class="menu-area">

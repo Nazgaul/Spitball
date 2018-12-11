@@ -28,6 +28,11 @@ export default {
     isSold() {
       return this.cardData.hasCorrectAnswer;
     },
+    cardPrice(){
+      if(!!this.cardData && !!this.cardData.price){
+        return this.cardData.price.toFixed(2);
+      }
+    },
     randomRank() {
       return Math.floor(Math.random() * 3);
     },
