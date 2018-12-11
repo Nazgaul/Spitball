@@ -42,11 +42,11 @@
       <div class="question-body-container">
         <div class="question-left-body-container">
           <span class="question-raputation upvote-arrow">
-            <v-icon>sbf-arrow-right</v-icon>
+            <v-icon>sbf-arrow-up</v-icon>
           </span>
           <span class="question-raputation question-score">{{questionReputation}}</span>
           <span class="question-raputation downvote-arrow">
-            <v-icon>sbf-arrow-right</v-icon>
+            <v-icon>sbf-arrow-down</v-icon>
           </span>
         </div>
         <div class="question-right-body-container">
