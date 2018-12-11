@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
@@ -14,12 +15,10 @@ namespace Cloudents.Core.CommandHandler
     public class RedeemTokenCommandHandler : ICommandHandler<RedeemTokenCommand>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IQueueProvider _serviceBusProvider;
 
-        public RedeemTokenCommandHandler(IUserRepository userRepository, IQueueProvider serviceBusProvider)
+        public RedeemTokenCommandHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _serviceBusProvider = serviceBusProvider;
         }
 
         public async Task ExecuteAsync(RedeemTokenCommand message, CancellationToken token)
@@ -37,7 +36,7 @@ namespace Cloudents.Core.CommandHandler
             }
             user.AddTransaction(Transaction.CashOut(message.Amount));
             await _userRepository.UpdateAsync(user, token);
-            await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(message.Amount, user.Id), token);
+            user.Events.Add(new RedeemEvent(message.UserId, message.Amount));
         }
     }
 }
