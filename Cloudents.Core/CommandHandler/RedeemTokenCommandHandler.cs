@@ -36,7 +36,7 @@ namespace Cloudents.Core.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
             var price = -Math.Abs(message.Amount);
-            var t = new Transaction(ActionType.CashOut, TransactionType.Earned, price, user);
+            var t = new Transaction(TransactionActionType.CashOut, TransactionType.Earned, price, user);
 
             await _transactionRepository.AddAsync(t, token);
             user.Events.Add(new RedeemEvent(message.UserId, message.Amount));

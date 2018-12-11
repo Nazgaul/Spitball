@@ -3,7 +3,7 @@ using Cloudents.Core.Enum.Resources;
 
 namespace Cloudents.Core.Enum
 {
-    public enum ActionType
+    public enum TransactionActionType
     {
         [ResourceDescription(typeof(EnumResources), "ActionTypeNone")]
         None,
@@ -18,6 +18,8 @@ namespace Cloudents.Core.Enum
         [ResourceDescription(typeof(EnumResources), "ActionTypeCashOut")]
         CashOut,
         [ResourceDescription(typeof(EnumResources), "ActionTypeReferringUser")]
-        ReferringUser
+        ReferringUser,
+        [ResourceDescription(typeof(EnumResources), "ActionTypeAwarded")]
+        Awarded,
     }
 }

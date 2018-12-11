@@ -35,7 +35,7 @@ namespace Cloudents.Core.Entities.Db
             {
                 Color = color;
             }
-            State = ReputationSystem.GetItemState(user.Score);
+            State = Privileges.GetItemState(user.Score);
             Language = language;
         }
 

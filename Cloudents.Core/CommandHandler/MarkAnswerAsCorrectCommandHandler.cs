@@ -19,7 +19,7 @@ namespace Cloudents.Core.CommandHandler
 
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository,  IRepository<Transaction> transactionRepository)
+            IRepository<Answer> answerRepository, IRepository<Transaction> transactionRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
@@ -50,36 +50,29 @@ namespace Cloudents.Core.CommandHandler
 
             }
 
-
-            if (!(answer.User is RegularUser answerUser))
-            {
-                throw new InvalidOperationException("cannot delete fictive user");
-
-            }
-
             question.CorrectAnswer = answer;
-
-
-            if (question.User is RegularUser questionUser) {
-
-
+            if (question.User is RegularUser questionUser)
+            {
                 var t1 = CorrectAnswer(TransactionType.Stake, question,
-                    questionUser); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
+                    questionUser);
                 var t2 = CorrectAnswer(TransactionType.Spent, question,
-                    questionUser); // new Transaction(ActionType.AnswerCorrect, TransactionType.Spent, -Price);
-                await _transactionRepository.AddAsync(new[] { t1, t2 }, token);
-
+                    questionUser);
+                var t3 = new Transaction(TransactionActionType.Awarded, TransactionType.Earned, ReputationAction.AcceptItemOwner, questionUser);
+                await _transactionRepository.AddAsync(new[] { t1, t2, t3 }, token);
             }
-            var tAnswer = CorrectAnswer(TransactionType.Earned, question, answerUser);// new Transaction(ActionType.AnswerCorrect, TransactionType.Earned,
-            await _transactionRepository.AddAsync(tAnswer, token);
+            var tAnswer = CorrectAnswer(TransactionType.Earned, question, answer.User);
+            var t4 = new Transaction(TransactionActionType.Awarded, TransactionType.Earned, ReputationAction.AcceptItemUser, answer.User);
+
+            await _transactionRepository.AddAsync(new[] { tAnswer, t4 }, token);
 
             answer.Events.Add(new MarkAsCorrectEvent(answer));
 
             //TODO: need to put it as event
-           // await FraudDetectionAsync(question, answer, token);
+            // await FraudDetectionAsync(question, answer, token);
             await _questionRepository.UpdateAsync(question, token);
-
         }
+
+
 
 
         private static Transaction CorrectAnswer(TransactionType type, Question question,
@@ -90,7 +83,7 @@ namespace Cloudents.Core.CommandHandler
             {
                 price = -price;
             }
-            return new Transaction(ActionType.AnswerCorrect, type, price, user)
+            return new Transaction(TransactionActionType.AnswerCorrect, type, price, user)
             {
                 Question = question,
                 Answer = question.CorrectAnswer

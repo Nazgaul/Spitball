@@ -14,7 +14,7 @@ namespace Cloudents.Core.Entities.Db
     public class Transaction : DomainObject
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-        public Transaction(ActionType action, TransactionType type, decimal price, RegularUser user) : base()
+        public Transaction(TransactionActionType action, TransactionType type, decimal price, RegularUser user) : base()
         {
             Action = action;
             Type = type;
@@ -22,7 +22,18 @@ namespace Cloudents.Core.Entities.Db
             Created = DateTime.UtcNow;
             User = user;
             Events.Add(new TransactionEvent(this));
-            //}
+            
+        }
+
+        public Transaction(TransactionActionType action, TransactionType type, ReputationAction price, RegularUser user) : base()
+        {
+            Action = action;
+            Type = type;
+            Price = price;
+            Created = DateTime.UtcNow;
+            User = user;
+            Events.Add(new TransactionEvent(this));
+
         }
 
         protected Transaction()
@@ -35,7 +46,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; protected set; }
 
-        public virtual ActionType Action { get; protected set; }
+        public virtual TransactionActionType Action { get; protected set; }
         public virtual TransactionType Type { get; protected set; }
         public virtual decimal Price { get; protected set; }
 

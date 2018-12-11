@@ -34,10 +34,10 @@ namespace Cloudents.Web.EventHandler
         {
             var answer = eventMessage.Answer;
 
-            if (!(answer.User is RegularUser u))
-            {
-                return;
-            }
+            //if (!(answer.User is RegularUser u))
+            //{
+            //    return;
+            //}
 
 
             var code = _dataProtect.Protect(ProtectPurpose, answer.User.Id.ToString(),
@@ -46,7 +46,7 @@ namespace Cloudents.Web.EventHandler
             await SendEmail(
                 new AnswerCorrectEmail(answer.User.Email, answer.Question.Text,
                     answer.Text, link,
-                    answer.Question.Price, answer.User.Culture), u, token).ConfigureAwait(false);
+                    answer.Question.Price, answer.User.Culture), answer.User, token).ConfigureAwait(false);
         }
     }
 }

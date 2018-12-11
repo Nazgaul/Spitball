@@ -32,22 +32,14 @@ namespace Cloudents.Core.Entities.Db
             Professor = professor;
             State = ItemState.Pending;
 
-            State = ReputationSystem.GetItemState(user.Score);
+            State = Privileges.GetItemState(user.Score);
 
             if (State == ItemState.Ok)
             {
                 Events.Add(new DocumentCreatedEvent(this));
 
             }
-            //if ( user.Score < ReputationSystem.AutoPostValue)
-            //{
-            //    toasterMessage = _localizer["PostedQuestionToasterPending"];
-            //}
-            //if (Core.Language.ListOfWhiteListCountries.Contains(user.Country))
-            //{
-            //    Events.Add(new DocumentCreatedEvent(this));
-            //    State = ItemState.Ok;
-            //}
+            
             
         }
 

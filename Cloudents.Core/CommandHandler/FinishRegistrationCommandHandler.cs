@@ -24,10 +24,10 @@ namespace Cloudents.Core.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.Id, token);
             //TODO: move to transaction repository
-            if (user.Transactions.All(a => a.Action != ActionType.SignUp))
+            if (user.Transactions.All(a => a.Action != TransactionActionType.SignUp))
             {
-                var balance = ReputationSystem.InitBalance(user.Country);
-                var t = new Transaction(ActionType.SignUp, TransactionType.Earned, balance, user);
+                var balance = ReputationAction.FinishRegister(user.Country);
+                var t = new Transaction(TransactionActionType.SignUp, TransactionType.Earned, balance, user);
                 await _transactionRepository.AddAsync(t, token);
             }
         }

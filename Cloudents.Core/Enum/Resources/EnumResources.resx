@@ -120,6 +120,9 @@
   <data name="ActionTypeAnswerCorrect" xml:space="preserve">
     <value>Answer correct</value>
   </data>
+  <data name="ActionTypeAwarded" xml:space="preserve">
+    <value>Awarded</value>
+  </data>
   <data name="ActionTypeCashOut" xml:space="preserve">
     <value>Cash out</value>
   </data>

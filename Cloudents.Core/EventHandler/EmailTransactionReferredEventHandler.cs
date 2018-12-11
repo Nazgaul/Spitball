@@ -20,7 +20,7 @@ namespace Cloudents.Core.EventHandler
 
         public  Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
         {
-            if (eventMessage.Transaction.Action == ActionType.ReferringUser)
+            if (eventMessage.Transaction.Action == TransactionActionType.ReferringUser)
             {
                 return SendEmail(
                     new ReferralBonusEmail(eventMessage.Transaction.User.Email, eventMessage.Transaction.User.Culture)
