@@ -8,7 +8,7 @@
           </div>
           <div class="rank-date-container">
             <div class="rank-area">
-              <user-rank :rank="randomRank"></user-rank>
+              <user-rank :score="cardData.user.score"></user-rank>
             </div>
             <div class="date-area">{{uploadDate}}</div>
           </div>

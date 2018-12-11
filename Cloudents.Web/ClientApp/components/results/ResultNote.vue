@@ -14,7 +14,7 @@
                         </div>
                         <div class="rank-date-container">
                             <div class="rank-area">
-                                <user-rank  :rank="randomRank"></user-rank>
+                                <user-rank :score="userRank"></user-rank>
                             </div>
                             <div class="date-area">{{uploadDate}}</div>
                         </div>
@@ -116,8 +116,10 @@
         },
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
-            randomRank() {
-                return Math.floor(Math.random() * 3);
+            userRank() {
+                if(!!this.item.user){
+                    return this.item.user.score
+                }
             },
             documentUpvotes() {
                 return Math.floor(Math.random() * 100);

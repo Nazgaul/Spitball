@@ -24,7 +24,7 @@
                         <div class="text-container">
                             <div class="text">
                                 <span class="user-date" v-language:inner>questionCard_Answer</span>
-                                <user-rank style="margin-top: 1px;" :rank="randomRank"></user-rank>
+                                <user-rank style="margin-top: 1px;" :score="cardData.user.score"></user-rank>
                                 <span class="timeago"
                                       :datetime="cardData.dateTime||cardData.create"></span><span
                                     v-if="typeAnswer"

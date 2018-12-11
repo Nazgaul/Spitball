@@ -26,15 +26,12 @@ export default {
       }
     },
     isSold() {
-      return this.cardData.hasCorrectAnswer;
+      return this.cardData.hasCorrectAnswer || !!this.cardData.correctAnswerId;
     },
     cardPrice(){
       if(!!this.cardData && !!this.cardData.price){
         return this.cardData.price.toFixed(2);
       }
-    },
-    randomRank() {
-      return Math.floor(Math.random() * 3);
     },
     answersNumber() {
       let answersNum = this.cardData.answers;

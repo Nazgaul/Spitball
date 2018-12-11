@@ -7,15 +7,19 @@
 </template>
 
 <script>
+import reputationService from '../../../services/reputationService.js'
 export default {
     props:{
-        rank:{
+        score:{
             required: true
         }
     },
     computed:{
+        rank(){
+            return reputationService.calculateRankByScore(this.score);
+        },
         rankName(){
-            let rankNames = ['Begginer', 'Contributor', 'Pro']
+            let rankNames = ['Beginner', 'Professional', 'World Class', 'Spitballer']
             return rankNames[this.rank];
         }
     }
@@ -53,6 +57,13 @@ export default {
             padding-top: 2px;
         }
         .level-2 {
+            background-color: #939393;
+            border-radius: 8px;
+            height: 16px;
+            color: #ffffff;
+            padding-top: 2px;
+        }
+        .level-3 {
             background-color: #5c5c5c;
             border-radius: 8px;
             height: 16px;

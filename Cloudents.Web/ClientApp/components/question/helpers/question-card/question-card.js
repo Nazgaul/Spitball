@@ -70,9 +70,6 @@ export default {
                 return this.accountUser.id === this.cardData.user.id; // will work once API call will also return userId
             }
         },
-        randomRank(){
-            return Math.floor(Math.random() * 3);
-        },
         canDelete() {
             if (!this.cardOwner) {
                 return false;

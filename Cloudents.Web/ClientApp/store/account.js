@@ -111,7 +111,7 @@ const getters = {
         }else{
             return false;
         }
-    },
+    }
 };
 
 const actions = {
