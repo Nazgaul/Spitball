@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
@@ -26,6 +27,10 @@ namespace Cloudents.Core.Votes.Commands.AddVoteQuestion
             //await _voteRepository.AddAsync(vote, token);
 
             var vote = await _voteRepository.GetVoteQuestionAsync(message.UserId, message.QuestionId, token);
+            if (vote == null && message.VoteType == VoteType.None)
+            {
+                throw new ArgumentException();
+            }
             if (vote == null)
             {
                 var user = await _userRepository.LoadAsync(message.UserId, token);

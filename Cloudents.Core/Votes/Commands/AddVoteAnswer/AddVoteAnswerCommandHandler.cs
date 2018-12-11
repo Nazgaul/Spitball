@@ -1,6 +1,6 @@
-﻿using System;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,8 +23,13 @@ namespace Cloudents.Core.Votes.Commands.AddVoteAnswer
         public async Task ExecuteAsync(AddVoteAnswerCommand message, CancellationToken token)
         {
             var vote = await _voteRepository.GetVoteAnswerAsync(message.UserId, message.AnswerId, token);
+            if (vote == null && message.VoteType == VoteType.None)
+            {
+                throw new ArgumentException();
+            }
             if (vote == null)
             {
+                //TODO : need to check
                 var user = await _userRepository.LoadAsync(message.UserId, token);
                 var answer = await _answerRepository.LoadAsync(message.AnswerId, token);
                 vote = new Vote(user, answer, message.VoteType);
