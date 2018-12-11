@@ -109,18 +109,19 @@
       height: 90px;
       padding-top: 3px;
       .question-raputation {
-        font-size: 15px;
+        font-size: 12px;
         font-weight: 600;
         font-family: @fontOpenSans;
         font-weight: bold;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .upvote-arrow {
         transform: rotate(270deg);
-        margin-right: 4px;
         i {
           color: @color-blue-new;
-          font-size: 15px;
+          font-size: 12px;
         }
       }
       .question-score {
@@ -128,10 +129,9 @@
       }
       .downvote-arrow {
         transform: rotate(90deg);
-        margin-right: -3px;
         i {
           color: @color-blue-new;
-          font-size: 15px;
+          font-size: 12px;
         }
       }
     }
@@ -171,7 +171,6 @@
     margin-top: 5px;
     justify-content: space-between;
     line-height: 30px;
-    padding-left: 2px;
     .answer-display-container {
       display: flex;
       flex-direction: row;
