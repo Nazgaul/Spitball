@@ -32,7 +32,7 @@
               </v-btn>
               <v-list>
                 <v-list-tile v-for="(action, i) in actions" :key="i">
-                  <v-list-tile-title>{{ action.title }}</v-list-tile-title>
+                  <v-list-tile-title @click="action.action()">{{ action.title }}</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -92,7 +92,7 @@
           </div>
         </div>
       </div>
-      <div v-if="!isSold" class="question-bottom-section">
+      <div v-if="!isSold && hideAnswerInput" class="question-bottom-section">
         <div class="question-input-container">
           <input class="question-input" placeholder="questionCard_Answer_placeholder" v-language:placeholder type="text">
         </div>
