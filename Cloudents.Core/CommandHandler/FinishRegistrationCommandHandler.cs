@@ -26,7 +26,7 @@ namespace Cloudents.Core.CommandHandler
             //TODO: move to transaction repository
             if (user.Transactions.All(a => a.Action != TransactionActionType.SignUp))
             {
-                var balance = ReputationSystem.InitBalance(user.Country);
+                var balance = ReputationAction.FinishRegister(user.Country);
                 var t = new Transaction(TransactionActionType.SignUp, TransactionType.Earned, balance, user);
                 await _transactionRepository.AddAsync(t, token);
             }

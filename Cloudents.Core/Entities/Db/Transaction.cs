@@ -22,7 +22,18 @@ namespace Cloudents.Core.Entities.Db
             Created = DateTime.UtcNow;
             User = user;
             Events.Add(new TransactionEvent(this));
-            //}
+            
+        }
+
+        public Transaction(TransactionActionType action, TransactionType type, ReputationAction price, RegularUser user) : base()
+        {
+            Action = action;
+            Type = type;
+            Price = price;
+            Created = DateTime.UtcNow;
+            User = user;
+            Events.Add(new TransactionEvent(this));
+
         }
 
         protected Transaction()

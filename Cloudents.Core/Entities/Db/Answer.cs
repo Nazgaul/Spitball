@@ -23,7 +23,7 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            State = ReputationSystem.GetItemState(user.Score);
+            State = Privileges.GetItemState(user.Score);
             if (State == ItemState.Ok)
             {
                 Events.Add(new AnswerCreatedEvent(this));
@@ -41,7 +41,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual string Text { get; set; }
         public virtual int Attachments { get; set; }
-        public virtual User User { get; set; }
+        public virtual RegularUser User { get; set; }
 
         public virtual DateTime Created { get; set; }
 

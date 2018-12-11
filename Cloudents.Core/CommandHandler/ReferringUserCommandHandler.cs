@@ -1,9 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Command;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -22,7 +22,7 @@ namespace Cloudents.Core.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
             var register = await _userRepository.LoadAsync(message.RegisteredUserId, token);
-            var tx = new Transaction(TransactionActionType.ReferringUser, TransactionType.Earned, ReputationSystem.ReferringUser,user)
+            var tx = new Transaction(TransactionActionType.ReferringUser, TransactionType.Earned, ReputationAction.ReferringUser, user)
             {
                 InvitedUser = register
 
