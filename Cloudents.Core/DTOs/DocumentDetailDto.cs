@@ -9,7 +9,6 @@ namespace Cloudents.Core.DTOs
     public class DocumentDetailDto
     {
         [DataMember]
-
         public string Name { get; set; }
 
         [DataMember]
