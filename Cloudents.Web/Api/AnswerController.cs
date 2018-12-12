@@ -6,6 +6,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Core.Votes.Commands.AddVoteAnswer;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -92,6 +93,17 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
         }
-        
+
+
+        [HttpPost("vote")]
+        public async Task<IActionResult> VoteAsync([FromBody] AddVoteAnswerRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AddVoteAnswerCommand(userId, model.Id, model.VoteType);
+
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
     }
 }

@@ -23,7 +23,7 @@ namespace Cloudents.Core.Votes.Commands.AddVoteQuestion
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            if (Privileges.CanFlag(user.Score, message.VoteType))
+            if (!Privileges.CanFlag(user.Score, message.VoteType))
             {
                 throw new UnauthorizedAccessException("not enough score");
             }
@@ -43,19 +43,25 @@ namespace Cloudents.Core.Votes.Commands.AddVoteQuestion
             if (vote == null)
             {
                 vote = new Vote(user, question, message.VoteType);
+                question.Item.VoteCount += (int)vote.VoteType;
                 await _voteRepository.AddAsync(vote, token);
                 return;
             }
 
             if (message.VoteType == VoteType.None)
             {
+                question.Item.VoteCount -= (int)vote.VoteType;
                 await _voteRepository.DeleteAsync(vote, token);
                 return;
             }
 
+            question.Item.VoteCount -= (int)vote.VoteType;
+            question.Item.VoteCount += (int)message.VoteType;
             vote.VoteType = message.VoteType;
 
             await _voteRepository.UpdateAsync(vote, token);
         }
+
+
     }
 }

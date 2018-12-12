@@ -22,6 +22,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Models;
+using Cloudents.Core.Votes.Commands.AddVoteQuestion;
 using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
@@ -175,6 +176,17 @@ namespace Cloudents.Web.Api
                 },
                 NextPageLink = nextPageLink
             };
+        }
+
+
+        [HttpPost("vote")]
+        public async Task<IActionResult> VoteAsync([FromBody] AddVoteQuestionRequest model,CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);
+
+            await _commandBus.Value.DispatchAsync(command, token);
+            return Ok();
         }
 
     }
