@@ -1,6 +1,8 @@
 ﻿import {SEARCH} from "./mutation-types"
 import {skeletonData} from '../components/results/consts'
 import searchService from "./../services/searchService"
+import reputationService from './../services/reputationService'
+
 const LOCATION_VERTICALS= new Map([["tutor",true],["job",true]]);
 const state = {
     loading: false,
@@ -158,6 +160,15 @@ const mutations = {
             });
         }
     },
+    [SEARCH.UPDATE_QUESTION_VOTE](state, {id, type}){
+        if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
+            state.itemsPerVertical.ask.data.forEach((question) => {
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            });
+        }
+    },  
     
     //Note Area
     [SEARCH.UPDATE_COURSES_FILTERS](state, MutationObj){
@@ -358,8 +369,10 @@ const actions = {
     resetData({commit}){
         commit(SEARCH.RESET_DATA)
     },
-    reportItemAction({commit}){
-        commit(SEARCH.RESET_DATA)
+    questionVote({commit}, data){
+        reputationService.voteQuestion(data.id, data.type).then(()=>{
+            commit(SEARCH.UPDATE_QUESTION_VOTE, data);
+        })
     }
 };
 

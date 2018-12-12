@@ -49,7 +49,7 @@
                           <span class="document-reputation upvote-arrow">
                            <v-icon>sbf-arrow-up</v-icon>
                           </span>
-                        <span class="document-reputation document-score">{{documentUpvotes}}</span>
+                        <span class="document-reputation document-score">{{item.votes}}</span>
                         <span class="document-reputation downvote-arrow">
                                  <v-icon>sbf-arrow-down</v-icon>
                         </span>

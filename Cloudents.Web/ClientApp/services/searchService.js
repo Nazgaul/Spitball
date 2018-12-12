@@ -60,6 +60,9 @@ function QuestionItem(objInit) {
     this.template = "ask";
     this.filesNum = this.files;
     this.isRtl = objInit.isRtl;
+    this.votes = objInit.votes;
+    this.upvoted = objInit.upvoted;
+    this.downvoted = objInit.downvoted;
     // if the question is younger then 1 minute then watching now will be 0
     //if question is older then threshold, watching now also gonna be 0 other wise random between 0 to 1
     let questionOlderTheOneMinute = (new Date().getTime() - new Date(this.dateTime).getTime()) > oneMinute;
@@ -81,6 +84,9 @@ function DocumentItem(objInit) {
     this.user = objInit.user;
     this.views = objInit.views;
     this.template = 'note';
+    this.votes = objInit.votes;
+    this.upvoted = objInit.upvoted;
+    this.downvoted = objInit.downvoted;
 }
 
 function createDocumentItem(objInit){
