@@ -48,7 +48,7 @@ namespace Cloudents.Core.DTOs
     public class VoteDto
     {
         public int Votes { get; set; }
-        public VoteType Vote { get; set; }
+        public VoteType? Vote { get; set; }
     }
 
     public abstract class UserVoteDto<T>

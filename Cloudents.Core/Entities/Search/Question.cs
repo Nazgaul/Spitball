@@ -42,8 +42,8 @@ namespace Cloudents.Core.Entities.Search
         public string Language { get;  set; }
 
 
-        public QuestionSubject Subject { get;  set; } // facetable readonly
-        public QuestionFilter State { get; set; }
+        public QuestionSubject? Subject { get;  set; } // facetable readonly
+        public QuestionFilter? State { get; set; }
 
 
     }
