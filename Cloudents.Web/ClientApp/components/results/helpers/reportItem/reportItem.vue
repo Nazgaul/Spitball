@@ -46,7 +46,7 @@
 
 <script>
     import cardActionService from "../../../../services/cardActionService";
-
+   import {mapActions} from 'vuex';
     export default {
         name: "reportItem",
         components: {},
@@ -72,6 +72,11 @@
             closeReport:{
                 required:true,
                 type: Function
+            },
+            itemType:{
+                type: String,
+                required: true,
+
             }
         },
         computed: {
@@ -80,6 +85,14 @@
             },
         },
         methods: {
+            ...mapActions(['reportQuestion', 'reportDocument']),
+            callRelevantAction(type, data){
+                let actions ={
+                    "ask": this.reportQuestion,
+                    "note" : this.reportDocument
+                };
+                return actions[type](data)
+            },
             isSelected(id){
                 return (this.preDefinedReason === id) && !this.isOtherInputVisible
             },
@@ -94,9 +107,14 @@
             },
             sendItemReport() {
                 let reasonToSend = this.preDefinedReason !== '' ? this.preDefinedReason : this.customReason;
-                console.log('reason:::', reasonToSend, 'ITEM ID::', this.itemId);
-                // cardActionService.reportItem(this.itemId, reasonToSend)
-                this.closeReportPop()
+                let data = {
+                    "id": this.itemId,
+                    "flagReason": reasonToSend
+                };
+                this.callRelevantAction(this.itemType, data).then(()=>{
+                    this.closeReportPop()
+                })
+
             },
             closeReportPop(){
                 this.closeReport();

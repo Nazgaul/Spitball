@@ -105,7 +105,7 @@
                 :maxWidth="'438px'"
                 :popUpType="'reportDialog'"
                 :content-class="`reportDialog ${isRtl? 'rtl': ''}` ">
-            <report-item  :closeReport="closeReportDialog" :itemId="itemId"></report-item>
+            <report-item  :closeReport="closeReportDialog" :itemType="cardData.template" :itemId="itemId"></report-item>
         </sb-dialog>
     </div>
 </template>
