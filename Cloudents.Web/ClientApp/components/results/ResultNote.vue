@@ -17,8 +17,9 @@
                             <user-avatar v-if="authorName" :user-name="authorName" :user-id="authorId"/>
                         </div>
                         <div class="rank-date-container">
-                            <div class="rank-area">
-                                <user-rank :score="userRank"></user-rank>
+                            <div :class="['rank-area', !isOurs ? 'thirdParty' : '']">
+                                <user-rank v-if="isOurs" :score="userRank"></user-rank>
+                                <span class="doc-type-text type-document" v-else>{{item.source}}</span>
                             </div>
                             <div class="date-area">{{uploadDate}}</div>
                         </div>
@@ -52,10 +53,10 @@
               <v-icon>sbf-arrow-down</v-icon>
             </span>
                     </div>
-                    <div class="type-wrap">
-                        <span :class="[ 'doc-type-text', 'type-'+typeID]">{{typeTitle}}</span>
-                        <document-details :item="item"></document-details>
-                        <v-flex grow class="data-row">
+                    <div :class="['type-wrap', !isOurs ? 'thirdPartyItem' : '']">
+                        <span v-if="isOurs" :class="[ 'doc-type-text', 'type-'+typeID]">{{typeTitle}}</span>
+                        <document-details  :item="item"></document-details>
+                        <v-flex grow :class="['data-row', !isOurs ? 'thirdParty' : '']">
                             <div :class="['content-wrap', 'type-'+typeID]">
                                 <div class="title-wrap">
                                     <p
@@ -202,8 +203,8 @@
             isOurs() {
                 if (this.item && this.item.source)
                     return (
-                        this.item.source.includes("Cloudents") ||
-                        this.item.source.includes("Spitball")
+                        this.item.source.toLowerCase().includes("cloudents") ||
+                        this.item.source.toLowerCase().includes("spitball")
                     );
             },
             isCloudents() {
