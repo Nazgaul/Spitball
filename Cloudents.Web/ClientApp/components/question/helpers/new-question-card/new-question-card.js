@@ -77,9 +77,6 @@ export default {
         randomViews() {
             return Math.floor(Math.random() * 1001);
         },
-        questionReputation() {
-            return Math.floor(Math.random() * 100);
-        },
 
     },
     methods: {
