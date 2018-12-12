@@ -71,6 +71,7 @@ function QuestionItem(objInit) {
 }
 
 function DocumentItem(objInit) {
+    this.id = objInit.id || 1;
     this.course = objInit.course;
     this.dateTime = objInit.dateTime;
     this.downloads= objInit.downloads;

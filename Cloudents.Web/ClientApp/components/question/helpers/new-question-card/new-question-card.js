@@ -158,7 +158,6 @@ export default {
                 );
         },
         reportItem() {
-
             this.itemId = this.cardData.id;
             this.showReportReasons = !this.showReportReasons;
             console.log('reporting item',this.itemId );
