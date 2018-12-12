@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -40,6 +41,33 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public DateTime? DateTime { get; set; }
 
-        [DataMember] public int Votes { get; set; }
+        [DataMember] public VoteDto Vote { get; set; }
+    }
+
+    public class VoteDto
+    {
+        public int Votes { get; set; }
+        public VoteType? Vote { get; set; }
+    }
+
+    public abstract class UserVoteDto<T>
+    {
+        public T Id { get; set; }
+        public VoteType Vote { get; set; }
+    }
+
+    public class UserVoteDocumentDto : UserVoteDto<long>
+    {
+     
+    }
+
+    public class UserVoteQuestionDto : UserVoteDto<long>
+    {
+
+    }
+
+    public class UserVoteAnswerDto : UserVoteDto<Guid>
+    {
+        public long QuestionId { get; set; }
     }
 }

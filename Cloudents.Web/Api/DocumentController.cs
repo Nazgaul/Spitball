@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Attributes;
+﻿using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
@@ -9,6 +10,7 @@ using Cloudents.Core.Message.System;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
+using Cloudents.Core.Votes.Commands.AddVoteDocument;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -22,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Votes.Commands.AddVoteDocument;
 using Cloudents.Core.Questions.Commands.FlagDocument;
 
 namespace Cloudents.Web.Api
@@ -104,7 +105,8 @@ namespace Cloudents.Web.Api
         /// <param name="ilSearchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet(Name = "DocumentSearch")]
+        [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
+        [ResponseCache(Duration = TimeConst.Minute, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
                                 ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
@@ -118,10 +120,24 @@ namespace Cloudents.Web.Api
 
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
-
-
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
-            await Task.WhenAll(resultTask, queueTask);
+
+            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var queryTags = new UserVotesByCategoryQuery(userId);
+                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
+                    .ContinueWith(
+                    t2 =>
+                    {
+                        return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
+                    }, token);
+
+            }
+
+            await Task.WhenAll(resultTask, queueTask, votesTask);
             var result = resultTask.Result;
             var p = result;
             string nextPageLink = null;
@@ -130,18 +146,14 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
 
-            var filters = new List<IFilters>();
-
-            //if (result.Facet != null)
-            //{
-
-            filters.Add(
+            var filters = new List<IFilters>
+            {
                 new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
                     EnumExtension.GetValues<DocumentType>()
                         .Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
                         .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
-            );
-            // }
+            };
+
 
             if (profile.Courses != null)
             {
@@ -158,15 +170,17 @@ namespace Cloudents.Web.Api
                     {
                         s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
                     }
+
+                    if (votesTask != null && votesTask.Result.TryGetValue(s.Id, out var param))
+                    {
+                        s.Vote.Vote = param;
+                    }
+
                     return s;
                 }),
                 Filters = filters,
                 NextPageLink = nextPageLink
             };
-
-
-
-
         }
 
         [HttpPost("vote")]

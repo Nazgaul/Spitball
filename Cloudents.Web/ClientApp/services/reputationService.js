@@ -12,6 +12,7 @@ export default {
             return 3;
         }
     },
+
     voteQuestion:(id, voteType) => {
         //vote types can be [down, none, up]
         var data = {
@@ -19,6 +20,22 @@ export default {
             voteType
         }
         return connectivityModule.http.post("Question/vote", data)
+    },
+    voteAnswer:(id, voteType) => {
+        //vote types can be [down, none, up]
+        var data = {
+            id,
+            voteType
+        }
+        return connectivityModule.http.post("Answer/vote", data)
+    },
+    voteDocument:(id, voteType) => {
+        //vote types can be [down, none, up]
+        var data = {
+            id,
+            voteType
+        }
+        return connectivityModule.http.post("Document/vote", data)
     },
 
     updateVoteCounter:(item, type)=>{

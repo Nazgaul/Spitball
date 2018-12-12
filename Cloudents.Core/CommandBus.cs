@@ -22,7 +22,7 @@ namespace Cloudents.Core
             using (var child = _container.BeginLifetimeScope())
             {
                 var obj = child.Resolve<ICommandHandler<TCommand>>();
-                await obj.ExecuteAsync(command, token).ConfigureAwait(true);
+                await obj.ExecuteAsync(command, token);
             }
         }
 
