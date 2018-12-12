@@ -380,9 +380,10 @@ const actions = {
     resetData({commit}){
         commit(SEARCH.RESET_DATA)
     },
-    questionVote({commit}, data){
+    questionVote({commit, dispatch}, data){
         reputationService.voteQuestion(data.id, data.type).then(()=>{
             commit(SEARCH.UPDATE_QUESTION_VOTE, data);
+            dispatch('innerQuestionVote', data);
         })
     },
     documentVote({commit}, data){

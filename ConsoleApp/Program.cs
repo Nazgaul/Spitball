@@ -93,6 +93,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+
+            var dic = new Dictionary<Guid?, VoteType>();
+
+
             var t = _container.Resolve<IUnitOfWork>();
             var z = _container.Resolve<ICommandBus>();
             var command = new AddVoteAnswerCommand(638, Guid.Parse("befedd71-01dd-4d06-89b0-a9b100952703"), VoteType.Up);

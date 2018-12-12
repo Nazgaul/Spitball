@@ -8,6 +8,30 @@
   width: 100%;
   padding: 14px 16px !important;
 
+  .doc-type-text {
+    font-size: 13px;
+    font-weight: 600;
+    font-family: @fontFiraSans;
+  }
+  i {
+    font-size: 16px;
+  }
+  i, .doc-type-text {
+    &.type-lecture {
+      color: @colorTypeLecture;
+    }
+    &.type-textbook {
+      color: @color-blue-new;
+    }
+    &.type-exam {
+      color: @colorTypeExam;
+    }
+    &.type-document {
+      color: @colorTypeDocThirdParty;
+    }
+
+  }
+
   .document-header-container {
     display: flex;
     flex-direction: row;
@@ -25,6 +49,9 @@
         }
         .rank-area {
           margin: 0 12px;
+          &.thirdParty{
+            margin: 0;
+          }
           @media(max-width: @screen-xs) {
             margin: 0 2px;
           }
@@ -128,30 +155,9 @@
         display: flex;
         flex-direction: column;
         padding-left: 21px;
-        .doc-type-text {
-          font-size: 13px;
-          font-weight: 600;
-          font-family: @fontFiraSans;
+        &.thirdPartyItem{
+          padding-left: 0;
         }
-        i {
-          font-size: 16px;
-        }
-        i, .doc-type-text {
-          &.type-lecture {
-            color: @colorTypeLecture;
-          }
-          &.type-textbook {
-            color: @color-blue-new;
-          }
-          &.type-exam {
-            color: @colorTypeExam;
-          }
-          &.type-document {
-            color: @colorTypeDocThirdParty;
-          }
-
-        }
-
       }
     }
     .details-row {
@@ -180,6 +186,9 @@
       height: 100%;
       max-height: 81px;
       margin: 20px 0 30px 0;
+      &.thirdParty{
+        margin-top: 12px;
+      }
       .content-wrap {
         padding: 12px 8px;
         background: @colorContentBackground;

@@ -160,11 +160,6 @@ export default {
         reportItem() {
             this.itemId = this.cardData.id;
             this.showReportReasons = !this.showReportReasons;
-            console.log('reporting item',this.itemId );
-            // this.updateToasterParams({
-            //     toasterText: LanguageService.getValueByKey("questionCard_Report"),
-            //     showToaster: true,
-            // });
         },
         closeReportDialog(){
             this.showReportReasons = false

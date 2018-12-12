@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Linq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    public class UserVotesByCategoryCommandHandler : 
+    public class UserVotesByCategoryCommandHandler :
         IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteDocumentDto>>,
         IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteQuestionDto>>,
         IQueryHandler<UserVotesQuestionQuery, IEnumerable<UserVoteAnswerDto>>
@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             _session = session.StatelessSession;
         }
-        
+
         async Task<IEnumerable<UserVoteDocumentDto>> IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteDocumentDto>>.GetAsync(UserVotesByCategoryQuery query, CancellationToken token)
         {
             return await _session.Query<Vote>()
@@ -45,17 +45,13 @@ namespace Cloudents.Infrastructure.Database.Query
                     }).ToListAsync(token);
         }
 
-        async Task<IEnumerable<UserVoteAnswerDto>> IQueryHandler<UserVotesQuestionQuery, 
+        async Task<IEnumerable<UserVoteAnswerDto>> IQueryHandler<UserVotesQuestionQuery,
             IEnumerable<UserVoteAnswerDto>>.GetAsync(UserVotesQuestionQuery query, CancellationToken token)
         {
             return await _session.Query<Vote>()
                 .Where(w => w.Question.Id == query.QuestionId && w.User.Id == query.UserId)
-                .Select(s => new UserVoteAnswerDto
-                {
-                    Id = s.Answer.Id,
-                    //QuestionId = s.Question.Id,
-                    Vote = s.VoteType
-                }).ToListAsync(token);
+                .Select(s => new UserVoteAnswerDto(s.Answer.Id,s.VoteType)
+                ).ToListAsync(token);
         }
     }
 }

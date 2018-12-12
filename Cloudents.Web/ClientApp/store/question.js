@@ -39,6 +39,11 @@ const mutations = {
                 reputationService.updateVoteCounter(answer, type)
             }
         })
+    },
+    updateInnerQuestionVotes(state, {id, type}){
+        if(!!state.question && state.question.id === id){
+            reputationService.updateVoteCounter(state.question, type)
+        }
     }
 };
 const getters = {
@@ -117,6 +122,9 @@ const actions = {
         reputationService.voteAnswer(data.id, data.type).then(()=>{
             commit('updateAnswerVotes', data);
         })
+    },
+    innerQuestionVote({commit}, data){
+        commit('updateInnerQuestionVotes', data);
     }
 };
 export default {
