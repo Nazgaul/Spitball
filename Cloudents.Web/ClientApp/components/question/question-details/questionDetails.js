@@ -11,6 +11,7 @@ import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue
 import { sendEventList } from '../../../services/signalR/signalREventSender'
 import { LanguageService } from "../../../services/language/languageService";
 import analyticsService from '../../../services/analytics.service';
+import searchService from '../../../services/searchService'
 
 export default {
     mixins: [disableForm],
@@ -69,7 +70,7 @@ export default {
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
-                        self.cardList = resp.data;
+                        self.cardList = resp.data.nextQuestions.map(searchService.createQuestionItem);
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, (error) => {

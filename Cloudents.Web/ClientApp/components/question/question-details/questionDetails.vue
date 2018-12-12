@@ -92,14 +92,13 @@
                 </v-tab-item>
                 <v-tab-item :key="'2'" :id="'tab-2'">
                         <v-flex xs12>
-                            <div ref="chat-area" class="chat-iframe"></div>
+                        <div ref="chat-area" class="chat-iframe"></div>
                         </v-flex>
                 </v-tab-item>
             </v-tabs>
         </div>
-        <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'"  :content-class="'question-suggest'">
-                <question-suggest-pop-up  :user="questionData.user" :cardList="cardList.nextQuestions"></question-suggest-pop-up>
-
+        <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'" :content-class="'question-suggest'">
+                <question-suggest-pop-up  :user="questionData.user" :cardList="cardList"></question-suggest-pop-up>
         </sb-dialog>
 
         <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">

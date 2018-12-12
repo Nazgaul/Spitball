@@ -23,7 +23,7 @@
                 <uni-Select-pop :showDialog="universitySelectPopup"
                                 :popUpType="'universitySelectPopup'"></uni-Select-pop>
             </sb-dialog>
-            <sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'"
+            <sb-dialog :isPersistent="true" :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'"
                        :content-class="'newQuestionDialog'">
                 <new-question></new-question>
             </sb-dialog>
