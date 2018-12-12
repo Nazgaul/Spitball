@@ -17,12 +17,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Models;
+using Cloudents.Core.Votes.Commands.AddVoteQuestion;
 using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
@@ -79,7 +79,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, _localizer["QuestionFlood"]);
                 return BadRequest(ModelState);
             }
-            if (score < Privileges.AutoPost)
+            if (score < Privileges.Post)
             {
                 toasterMessage = _localizer["PostedQuestionToasterPending"];
             }
@@ -176,6 +176,17 @@ namespace Cloudents.Web.Api
                 },
                 NextPageLink = nextPageLink
             };
+        }
+
+
+        [HttpPost("vote")]
+        public async Task<IActionResult> VoteAsync([FromBody] AddVoteQuestionRequest model,CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);
+
+            await _commandBus.Value.DispatchAsync(command, token);
+            return Ok();
         }
 
     }

@@ -22,7 +22,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             foreach (var id in message.Id)
             {
                 var document = await _documentRepository.LoadAsync(id, token);
-                document.State = ItemState.Ok;
+                document.Item.State = ItemState.Ok;
 
                 document.Events.Add(new DocumentCreatedEvent(document));
                 await _documentRepository.UpdateAsync(document, token);

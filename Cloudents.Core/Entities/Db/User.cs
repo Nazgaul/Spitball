@@ -1,7 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -52,25 +49,6 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual int Score { get; set; }
 
-        //public virtual void AddTransaction(Transaction t)
-        //{
-        //    if (Fictive.GetValueOrDefault())
-        //    {
-        //        return;
-        //    }
-
-        //    t.User = this;
-        //    if (t.Type == TransactionType.Earned && t.Price > 0)
-        //    {
-        //        Score += (int)t.Price;
-        //    }
-        //    Balance += t.Price;
-        //    if (Balance < 0)
-        //    {
-        //        throw new InsufficientFundException("not enough tokens");
-        //    }
-        //    Transactions.Add(t);
-        //}
 
         /// <summary>
         /// To be reused for (NHibernate) Linq generator
@@ -130,6 +108,7 @@ namespace Cloudents.Core.Entities.Db
     }
 
 
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class RegularUser : User
     {
         public RegularUser(string email, string name, string privateKey, CultureInfo culture)

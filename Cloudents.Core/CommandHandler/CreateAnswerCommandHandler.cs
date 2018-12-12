@@ -41,7 +41,7 @@ namespace Cloudents.Core.CommandHandler
                 throw new ArgumentException("question doesn't exits");
             }
 
-            if (question.State != ItemState.Ok)
+            if (question.Item.State != ItemState.Ok)
             {
                 throw new ArgumentException("question doesn't exits");
             }

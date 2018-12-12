@@ -1,13 +1,10 @@
 ﻿using System.Globalization;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Exceptions;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -16,10 +13,8 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question : DomainObject
+    public class Question : DomainObject, ISoftDelete
     {
-        private ItemState _state;
-
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             RegularUser user,
             QuestionColor color, CultureInfo language)
@@ -35,7 +30,7 @@ namespace Cloudents.Core.Entities.Db
             {
                 Color = color;
             }
-            State = Privileges.GetItemState(user.Score);
+            Item.State = Privileges.GetItemState(user.Score);
             Language = language;
         }
 
@@ -55,7 +50,7 @@ namespace Cloudents.Core.Entities.Db
                 Color = color;
             }
 
-            State = ItemState.Pending;
+            Item.State = ItemState.Pending;
             Language = language;
         }
 
@@ -63,6 +58,7 @@ namespace Cloudents.Core.Entities.Db
         protected Question()
         {
             Answers = Answers ?? new List<Answer>();
+            Item = new ItemComponent();
         }
 
         public virtual long Id { get; protected set; }
@@ -87,19 +83,9 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual QuestionColor? Color { get; set; }
 
-        public virtual ItemState State
-        {
-            get => _state;
-            set => _state = value;
-            //{
-            //    if (State == ItemState.Ok)
-            //    {
-            //        var t = Transaction.QuestionApproved(this);
-            //        User.AddTransaction(t);
-            //        _state = value;
-            //    }
-            //}
-        }
+        public virtual ItemComponent Item { get; set; }
+
+        
 
         public virtual Answer AddAnswer(string text, int attachments, RegularUser user)
         {

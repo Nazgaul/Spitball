@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -120,7 +121,9 @@ namespace Cloudents.Infrastructure.Database
         {
             if (entity is ISoftDelete deletable)
             {
-                deletable.State = ItemState.Deleted;
+                deletable.Item.State = ItemState.Deleted;
+                deletable.Item.DeletedOn = DateTime.UtcNow;
+                
 
                 CascadeBeforeDelete(session, persister, deletable, entityEntry, transientEntities);
                 CascadeAfterDelete(session, persister, deletable, transientEntities);
@@ -138,7 +141,9 @@ namespace Cloudents.Infrastructure.Database
             if (entity is ISoftDelete deletable)
             {
                 //deletable.DeleteAssociation();
-                deletable.State = ItemState.Deleted;
+                deletable.Item.State = ItemState.Deleted;
+                deletable.Item.DeletedOn = DateTime.UtcNow;
+
 
                 await CascadeBeforeDeleteAsync(session, persister, deletable, entityEntry, transientEntities, cancellationToken);
                 await CascadeAfterDeleteAsync(session, persister, deletable, transientEntities, cancellationToken);

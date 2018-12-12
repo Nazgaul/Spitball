@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Core.Entities
 {
     public interface ISoftDelete
     {
-        ItemState State { get; set; }
+        ItemComponent Item { get; set; }
         //void DeleteAssociation();
     }
 }

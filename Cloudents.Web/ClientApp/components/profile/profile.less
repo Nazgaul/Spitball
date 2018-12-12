@@ -102,29 +102,29 @@
     .tab-padding{
         .v-tabs__bar{
             background-color: @color-white;
-            border-top: solid 1px @color-medium-grey;
+            box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.19);
             @media (max-width: @screen-xs) {
                 height: 64px;
                 font-size: 18px;
             }
         }
         .v-tabs__container{
-            border-top: solid 1px @color-medium-grey;
+            // border-top: solid 1px @color-medium-grey;
             height: 64px;
             .v-tabs__item{
                 text-transform: none;
                 font-size: 18px;
                 &.v-tabs__item--active{
-                    color: @color-main-purple!important;
+                    color: @color-blue-new!important;
                     font-weight: bold;}
             }
             .v-tabs__slider.blue{
-                border-bottom: 2px solid @color-main-purple;
+                border-bottom: 2px solid @color-blue-new;
             }
         }
     }
     .column{
-        .main-block .user-block{height: 170px;}
+        .main-block .user-block{height: 210px;}
         .web-content{ margin: 16px 8px;}
     }
     .empty-state{

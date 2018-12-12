@@ -20,7 +20,7 @@ namespace Cloudents.Core.CommandHandler.Admin
         public async Task ExecuteAsync(DeleteDocumentCommand message, CancellationToken token)
         {
             var document = await _documentRepository.GetAsync(message.Id, token);
-            if (document.State == ItemState.Deleted)
+            if (document.Item.State == ItemState.Deleted)
             {
                 return;
             }

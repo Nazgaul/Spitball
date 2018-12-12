@@ -1,14 +1,11 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Command;
-using Cloudents.Core.CommandHandler;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
@@ -30,9 +27,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Query;
-using Cloudents.Infrastructure.Search.Question;
+using Cloudents.Core.Votes.Commands.AddVoteAnswer;
 
 
 namespace ConsoleApp
@@ -98,8 +93,11 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var z = _container.Resolve<AzureQuestionSearch>();
-            await z.GetById("43958");
+            var t = _container.Resolve<IUnitOfWork>();
+            var z = _container.Resolve<ICommandBus>();
+            var command = new AddVoteAnswerCommand(638, Guid.Parse("befedd71-01dd-4d06-89b0-a9b100952703"), VoteType.Up);
+            await z.DispatchAsync(command, token);
+            //await z.GetById("43958");
             //
         }
 
@@ -341,7 +339,7 @@ where left(blobName ,4) != 'file'");
         private static async Task HadarMethod()
         {
 
-            await MigrateUniversity();
+            //await MigrateUniversity();
             //var t = _container.Resolve<IBlockChainErc20Service>();
             //string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
@@ -958,51 +956,51 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 
 
 
-        public static async Task MigrateUniversity()
-        {
-            var d = _container.Resolve<DapperRepository>();
+      //  public static async Task MigrateUniversity()
+      //  {
+      //      var d = _container.Resolve<DapperRepository>();
 
-            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-            {
+      //      var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+      //      {
 
-                return await f.QueryAsync(
-                    @"
-                  select top 100 U.Id, Un.UniversityName, Un.Country
-                        from sb.[User] U
-						join zbox.Users ZU
-							on U.Email = ZU.Email
-                        join [Zbox].[University] Un
-                            on Un.Id = ZU.UniversityId
-                          where u.OldUser = 1
-                            and IsEmailVerified = 1 
-							and U.UniversityId2 is null
-                            and Un.isdeleted = 0; 
-                  ");
-            }, default);
+      //          return await f.QueryAsync(
+      //              @"
+      //            select top 100 U.Id, Un.UniversityName, Un.Country
+      //                  from sb.[User] U
+						//join zbox.Users ZU
+						//	on U.Email = ZU.Email
+      //                  join [Zbox].[University] Un
+      //                      on Un.Id = ZU.UniversityId
+      //                    where u.OldUser = 1
+      //                      and IsEmailVerified = 1 
+						//	and U.UniversityId2 is null
+      //                      and Un.isdeleted = 0; 
+      //            ");
+      //      }, default);
 
-            if (z.Count() == 0)
-            { return; }
+      //      if (z.Count() == 0)
+      //      { return; }
 
-            using (var child = _container.BeginLifetimeScope())
-            {
-                var repository = child.Resolve<IRegularUserRepository>();
-                var uni = child.Resolve<IUniversityRepository>();
-                using (var unitOfWork = child.Resolve<IUnitOfWork>())
-                {
-                    var ch = new AssignUniversityToUserCommandHandler(repository, uni);
-                    // List<Task> taskes = new List<Task>();
-                    foreach (var pair in z)
-                    {
-                        var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
-                        await ch.ExecuteAsync(command, default);
-                        // taskes.Add(ch.ExecuteAsync(t, default));
-                    }
-                    //await Task.WhenAll(taskes);
-                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-                }
-            }
-            await MigrateUniversity();
-        }
+      //      using (var child = _container.BeginLifetimeScope())
+      //      {
+      //          var repository = child.Resolve<IRegularUserRepository>();
+      //          var uni = child.Resolve<IUniversityRepository>();
+      //          using (var unitOfWork = child.Resolve<IUnitOfWork>())
+      //          {
+      //              var ch = new AssignUniversityToUserCommandHandler(repository, uni);
+      //              // List<Task> taskes = new List<Task>();
+      //              foreach (var pair in z)
+      //              {
+      //                  var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
+      //                  await ch.ExecuteAsync(command, default);
+      //                  // taskes.Add(ch.ExecuteAsync(t, default));
+      //              }
+      //              //await Task.WhenAll(taskes);
+      //              await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+      //          }
+      //      }
+      //      await MigrateUniversity();
+      //  }
 
 
     }

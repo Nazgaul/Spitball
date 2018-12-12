@@ -1,11 +1,8 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities.Db
 {
@@ -14,7 +11,7 @@ namespace Cloudents.Core.Entities.Db
     public class Transaction : DomainObject
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-        public Transaction(TransactionActionType action, TransactionType type, decimal price, RegularUser user) : base()
+        public Transaction(TransactionActionType action, TransactionType type, decimal price, RegularUser user)
         {
             Action = action;
             Type = type;
@@ -24,8 +21,9 @@ namespace Cloudents.Core.Entities.Db
             Events.Add(new TransactionEvent(this));
             
         }
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 
-        public Transaction(TransactionActionType action, TransactionType type, ReputationAction price, RegularUser user) : base()
+        public Transaction(TransactionActionType action, TransactionType type, ReputationAction price, RegularUser user)
         {
             Action = action;
             Type = type;

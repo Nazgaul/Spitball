@@ -3,7 +3,6 @@ using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Command;
 using Cloudents.Core.CommandHandler;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;

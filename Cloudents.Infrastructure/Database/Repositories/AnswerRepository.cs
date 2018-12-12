@@ -1,11 +1,10 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {
@@ -24,5 +23,12 @@ namespace Cloudents.Infrastructure.Database.Repositories
         //         .CountAsync(token);
 
         //}
+        public Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token)
+        {
+            return Session.Query<Answer>()
+                .Where(w => w.Question.Id == questionId && w.User.Id == userId)
+                .SingleOrDefaultAsync(token);
+
+        }
     }
 }

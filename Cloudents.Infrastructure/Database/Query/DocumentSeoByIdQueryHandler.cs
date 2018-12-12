@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             return _session.Query<Document>()
                 .Fetch(f => f.University)
-                 .Where(w => w.Id == query.Id && w.State == ItemState.Ok)
+                 .Where(w => w.Id == query.Id && w.Item.State == ItemState.Ok)
 
                  .Select(s => new DocumentSeoDto(s.Name, s.Course.Name, s.University.Country, s.University.Name, s.Id)
                 ).SingleOrDefaultAsync(token);

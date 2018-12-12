@@ -1,11 +1,13 @@
-﻿using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Entities.Db;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
+
     public class AnswerMap : ClassMap<Answer>
     {
         public AnswerMap()
@@ -15,7 +17,9 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Text).Length(8000);
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
-            Map(x => x.State).Not.Nullable();
+            //Map(x => x.State).Not.Nullable();
+            Component(x => x.Item);
+
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
 
@@ -25,7 +29,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .LazyLoad()
                 .Inverse();
 
-            SchemaAction.None();
+            SchemaAction.Update();
             //DiscriminateSubClassesOnColumn("State");
         }
 

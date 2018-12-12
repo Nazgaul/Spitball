@@ -59,10 +59,7 @@ namespace Cloudents.FunctionsV2
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
         {
-            var message = new SendGridMessage
-            {
-                
-            };
+            var message = new SendGridMessage();
            
             var personalization = new Personalization();
             //personalization.AddTo(new Email(topicMessage.To));

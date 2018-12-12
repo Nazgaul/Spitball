@@ -1,7 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
-
-namespace Cloudents.Core.Event
+﻿namespace Cloudents.Core.Event
 {
     //public class QuestionRejectEvent : IEvent
     //{

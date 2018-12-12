@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using PhoneNumbers;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
 
-        public const string smsTime = "SmsTime";
+        private const string SmsTime = "SmsTime";
 
         public SmsController(SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager,
             ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
@@ -112,7 +113,7 @@ namespace Cloudents.Web.Api
 
             if (retVal.Succeeded)
             {
-                TempData[smsTime] = DateTime.UtcNow.ToString();
+                TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
                 await _client.SendSmsAsync(user, token);
                 return Ok();
             }
@@ -196,7 +197,7 @@ namespace Cloudents.Web.Api
         [HttpPost("resend")]
         public async Task<IActionResult> ResendAsync(CancellationToken token)
         {
-            var temp = DateTime.Parse(TempData.Peek(smsTime).ToString());
+            var temp = DateTime.Parse(TempData.Peek(SmsTime).ToString());
             
             if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
             {
@@ -215,7 +216,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            TempData[smsTime] = DateTime.UtcNow.ToString();
+            TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await _client.SendSmsAsync(user, token).ConfigureAwait(false);
             return Ok();
         }

@@ -7,6 +7,7 @@ function AccountUser(ObjInit){
     this.name= ObjInit.name
     this.token= ObjInit.token
     this.universityExists= ObjInit.universityExists
+    this.score = ObjInit.score
 }
 
 function ProfileData(arrInit){
