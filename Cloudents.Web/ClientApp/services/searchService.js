@@ -85,9 +85,9 @@ function DocumentItem(objInit) {
     this.user = objInit.user;
     this.views = objInit.views;
     this.template = 'note';
-    this.votes = objInit.vote.votes;
-    this.upvoted = !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false ;
-    this.downvoted = !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false ;
+    this.votes = !!objInit.vote ? objInit.vote.votes : null;
+    this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
+    this.downvoted = !!objInit.vote ? ( !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
 }
 
 function createDocumentItem(objInit){
