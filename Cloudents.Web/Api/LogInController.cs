@@ -11,6 +11,7 @@ using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+using System;
 
 namespace Cloudents.Web.Api
 {
@@ -60,9 +61,18 @@ namespace Cloudents.Web.Api
 
             if (result.IsLockedOut)
             {
-                ModelState.AddModelError(nameof(model.Password), _localizer["LockOut"]);
-                return BadRequest(ModelState);
+                if (user.LockoutEnd == DateTimeOffset.MaxValue)
+                {
+                    ModelState.AddModelError(nameof(model.Password), _localizer["LockOut"]);
+                    return BadRequest(ModelState);
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(model.Password), _localizer["TempLockOut"]);
+                    return BadRequest(ModelState);
+                }
             }
+
 
             if (result.IsNotAllowed)
             {
