@@ -13,9 +13,10 @@
                     </div>
                     <v-list>
                         <template v-for="(reason, i) in reasons">
-                            <v-list-tile :class="['reason-tile', isSelected(reason.id) ? 'selected' : '']" :key="i">
+                            <v-list-tile :class="['reason-tile', isSelected(reason.title) ? 'selected' : '']" :key="i">
                                 <v-list-tile-content class="reason-tile-content">
-                                    <v-list-tile-title class="reason-name" @click="selectReason(reason.id)">{{ reason.title }}
+                                    <v-list-tile-title class="reason-name" @click="selectReason(reason.title)">{{
+                                        reason.title }}
                                     </v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
@@ -29,8 +30,8 @@
 
                     </v-list>
                     <transition name="slide-y-transition">
-                    <v-text-field autofocus class="input-reason" solo v-show="isOtherInputVisible"
-                                  v-model="customReason"></v-text-field>
+                        <v-text-field autofocus class="input-reason" solo v-show="isOtherInputVisible"
+                                      v-model="customReason"></v-text-field>
                     </transition>
 
                 </div>
@@ -45,8 +46,8 @@
 </template>
 
 <script>
-    import cardActionService from "../../../../services/cardActionService";
-   import {mapActions} from 'vuex';
+    import { mapActions } from 'vuex';
+
     export default {
         name: "reportItem",
         components: {},
@@ -67,43 +68,42 @@
         },
         props: {
             itemId: {
-                required:true,
+                required: true,
             },
-            closeReport:{
-                required:true,
+            closeReport: {
+                required: true,
                 type: Function
             },
-            itemType:{
+            itemType: {
                 type: String,
                 required: true,
-
             }
         },
         computed: {
-            isBtnDisabled(){
+            isBtnDisabled() {
                 return !this.preDefinedReason && !this.customReason
             },
         },
         methods: {
             ...mapActions(['reportQuestion', 'reportDocument']),
-            callRelevantAction(type, data){
-                let actions ={
+            callRelevantAction(type, data) {
+                let actions = {
                     "ask": this.reportQuestion,
-                    "note" : this.reportDocument
+                    "note": this.reportDocument
                 };
                 return actions[type](data)
             },
-            isSelected(id){
-                return (this.preDefinedReason === id) && !this.isOtherInputVisible
+            isSelected(reason) {
+                return (this.preDefinedReason === reason) && !this.isOtherInputVisible
             },
             selectReason(reason) {
+                this.isOtherInputVisible = false;
                 this.customReason = '';
                 this.preDefinedReason = reason;
             },
             toogleOtherInput() {
                 this.preDefinedReason = '';
                 this.isOtherInputVisible = !this.isOtherInputVisible;
-                console.log('inputState', this.isOtherInputVisible)
             },
             sendItemReport() {
                 let reasonToSend = this.preDefinedReason !== '' ? this.preDefinedReason : this.customReason;
@@ -111,12 +111,13 @@
                     "id": this.itemId,
                     "flagReason": reasonToSend
                 };
-                this.callRelevantAction(this.itemType, data).then(()=>{
-                    this.closeReportPop()
+                let self = this;
+                this.callRelevantAction(this.itemType, data).then(() => {
+                    self.closeReportPop()
                 })
 
             },
-            closeReportPop(){
+            closeReportPop() {
                 this.closeReport();
             }
         },
@@ -139,7 +140,7 @@
             height: 38px;
             font-size: 13px;
             padding: 0 16px;
-            .text-head{
+            .text-head {
                 display: flex;
                 flex-grow: 1;
             }
@@ -148,7 +149,7 @@
                 font-size: 16px;
                 margin-right: 8px;
             }
-            .report-close-icon{
+            .report-close-icon {
                 color: fade(@color-white, 80%);
                 font-size: 14px;
                 cursor: pointer;
@@ -157,32 +158,31 @@
             }
         }
         .reasons-wrap {
-            padding: 16px;
+            padding: 16px 0;
             .heading-container {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: flex-start;
-                padding: 16px 0 16px 0;
+                padding: 16px 16px;
                 .report-heading-text {
                     font-size: 16px;
                     letter-spacing: -0.3px;
                     color: @textColor;
                 }
             }
-
             .reason-tile {
                 border-bottom: 1px solid fade(@colorInputRegularBorder, 12%);
                 cursor: pointer;
                 &:hover {
                     background-color: rgba(0, 0, 0, 0.04);
                 }
-                &.selected{
-                    background-color: @color-blue-new;
+                &.selected {
+                    // background-color: @color-blue-new;
                     .v-list__tile {
                         .reason-tile-content {
                             .reason-name {
-                                color: @color-white;
+                                color: @color-blue-new;
                             }
                         }
                     }
@@ -205,6 +205,8 @@
             }
             .input-reason {
                 padding-top: 30px;
+                padding-left: 16px;
+                padding-right: 16px;
                 font-size: 13px;
                 color: @textColor;
                 .v-input__slot {
@@ -214,16 +216,18 @@
                 }
             }
         }
-        .report-submit{
+        .report-submit {
             .sb-rounded-medium-btn();
-             min-width: 180px;
-             justify-content: center;
+            min-width: 180px;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: normal;
             &[disabled] {
                 background-color: fade(@color-black, 12%);
                 color: fade(@color-black, 12%)
             }
         }
-        .report-footer{
+        .report-footer {
             padding-bottom: 32px;
             justify-content: center;
         }

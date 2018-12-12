@@ -31,16 +31,26 @@
                         <!--<span>SBL</span>-->
                         <!--</div>-->
                         <div class="menu-area">
-                            <v-menu bottom left>
+                            <v-menu bottom left content-class="card-user-actions">
                                 <v-btn :depressed="true" @click.prevent slot="activator" icon>
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
-                                    <v-list-tile v-for="(action, i) in actions" :key="i" @click>
-                                        <v-list-tile-title>{{ action.title }}</v-list-tile-title>
+                                    <v-list-tile :disabled="!item.isVisible" v-for="(item, i) in actions" :key="i">
+                                        <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
                                 </v-list>
                             </v-menu>
+                            <!--<v-menu bottom left>-->
+                                <!--<v-btn :depressed="true" @click.prevent slot="activator" icon>-->
+                                    <!--<v-icon>sbf-3-dot</v-icon>-->
+                                <!--</v-btn>-->
+                                <!--<v-list>-->
+                                    <!--<v-list-tile v-for="(action, i) in actions" :key="i" @click>-->
+                                        <!--<v-list-tile-title>{{ action.title }}</v-list-tile-title>-->
+                                    <!--</v-list-tile>-->
+                                <!--</v-list>-->
+                            <!--</v-menu>-->
                         </div>
                     </div>
                 </div>
@@ -86,17 +96,27 @@
                 </v-flex>
             </v-flex>
         </v-container>
+        <sb-dialog
+                :showDialog="showReport"
+                :maxWidth="'438px'"
+                :popUpType="'reportDialog'"
+                :content-class="`reportDialog ${isRtl? 'rtl': ''}` ">
+            <report-item  :closeReport="closeReportDialog" :itemType="item.template" :itemId="itemId"></report-item>
+        </sb-dialog>
     </a>
 </template>
 <script>
-
+    import {mapGetters} from "vuex";
     import FlashcardDefault from '../helpers/img/flashcard.svg';
     import AskDefault from '../helpers/img/ask.svg';
     import NoteDefault from '../helpers/img/document.svg';
     import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
     import userRank from "../helpers/UserRank/UserRank.vue";
+    import reportItem from "./helpers/reportItem/reportItem.vue";
+    import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
     import { documentTypes } from "./helpers/uploadFiles/consts.js"
     import documentDetails from "./helpers/documentDetails/documentDetails.vue"
+    import { LanguageService } from "../../services/language/languageService";
 
     export default {
         components: {
@@ -105,13 +125,29 @@
             FlashcardDefault,
             documentDetails,
             userAvatar,
-            userRank
+            sbDialog,
+            userRank,
+            reportItem
 
         },
         data() {
             return {
                 isFirefox: global.isFirefox,
-                actions: [{title: "Flag"}],
+                actions: [
+                    {
+                        title: LanguageService.getValueByKey("questionCard_Report"),
+                        action: this.reportItem,
+                        isVisible: !this.cardOwner()
+                    },
+                    {
+                        title: LanguageService.getValueByKey("questionCard_Delete"),
+                        action: '',
+                        isVisible: false
+                    }
+                ],
+                isRtl: global.isRtl,
+                showReport: false,
+                itemId : 0,
             }
         },
         props: {item: {type: Object, required: true}, index: {Number}},
@@ -194,6 +230,21 @@
 
         },
         methods: {
+            ...mapGetters(['accountUser']),
+            cardOwner() {
+                let userAccount = this.accountUser();
+                if (userAccount && this.item.user) {
+                    return userAccount.id === this.item.user.id; // will work once API call will also return userId
+                }
+            },
+            reportItem() {
+                this.itemId = this.item.id;
+                this.showReport = !this.showReport;
+                console.log('reporting item',this.itemId );
+            },
+            closeReportDialog(){
+                this.showReport = false
+            },
             $_spitball(event) {
                 event.preventDefault();
                 this.$router.push(this.url);
