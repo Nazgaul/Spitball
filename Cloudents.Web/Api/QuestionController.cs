@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Models;
 using Cloudents.Core.Votes.Commands.AddVoteQuestion;
 using Cloudents.Web.Binders;
+using Cloudents.Core.Questions.Commands.FlagQuestion;
 
 namespace Cloudents.Web.Api
 {
@@ -32,13 +33,13 @@ namespace Cloudents.Web.Api
     [Authorize, ApiController]
     public class QuestionController : ControllerBase
     {
-        private readonly Lazy<ICommandBus> _commandBus;
+        private readonly ICommandBus _commandBus;
         private readonly IProfileUpdater _profileUpdater;
         private readonly UserManager<RegularUser> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
 
-        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<RegularUser> userManager,
+        public QuestionController(ICommandBus commandBus, UserManager<RegularUser> userManager,
             IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch,
             IProfileUpdater profileUpdater)
         {
@@ -63,7 +64,7 @@ namespace Cloudents.Web.Api
             {
                 var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price,
                     _userManager.GetLongUserId(User), model.Files, model.Color.GetValueOrDefault());
-                await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             }
             catch (DuplicateRowException)
             {
@@ -103,7 +104,7 @@ namespace Cloudents.Web.Api
             // var link = Url.Link("WalletRoute", null);
             var command = new MarkAnswerAsCorrectCommand(model.AnswerId, _userManager.GetLongUserId(User));
 
-            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
 
@@ -130,7 +131,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new DeleteQuestionCommand(model.Id, _userManager.GetLongUserId(User));
-                await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
                 return Ok();
             }
             catch (ArgumentException)
@@ -185,7 +186,16 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);
 
-            await _commandBus.Value.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("flag")]
+        public async Task<IActionResult> FlagAsync([FromBody] FlagQuestionRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new FlagQuestionCommand(userId, model.Id, model.FlagReason);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 

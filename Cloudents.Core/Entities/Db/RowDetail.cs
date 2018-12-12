@@ -36,20 +36,5 @@ namespace Cloudents.Core.Entities.Db
         public virtual DateTime UpdateTime { get; private set; }
     }
 
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-
-    public class ItemComponent
-    {
-        public ItemComponent()
-        {
-            Votes = new List<Vote>();
-        }
-        public virtual ItemState State { get; set; }
-        public virtual DateTime? DeletedOn { get; set; }
-        public virtual string FlagReason { get; set; }
-
-        public virtual ICollection<Vote> Votes { get; protected set; }
-
-        public virtual int VoteCount { get; set; }
-    }
+  
 }

@@ -29,7 +29,12 @@ export default {
             required: false
         },
         isPersistent: false,
-        transitionAnimation: ''
+        transitionAnimation: '',
+        maxWidth: {
+            type: String,
+            default: '720px',
+            required: false
+        }
     },
     data: function () {
         return {
