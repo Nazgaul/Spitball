@@ -30,7 +30,10 @@ namespace Cloudents.Core.DTOs
             Color = color;
             HasCorrectAnswer = hasCorrectAnswer;
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
-            Votes = votes;
+            Vote = new VoteDto()
+            {
+                Votes = votes
+            };
         }
 
         
@@ -56,6 +59,6 @@ namespace Cloudents.Core.DTOs
 
         public bool IsRtl { get; set; }
 
-        public int Votes { get; set; }
+        public VoteDto Vote { get; set; }
     }
 }

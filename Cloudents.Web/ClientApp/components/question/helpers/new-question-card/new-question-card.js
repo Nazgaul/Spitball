@@ -35,6 +35,10 @@ export default {
     props: {
         cardData: {
             required: true
+        },
+        detailedView: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {

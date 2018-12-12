@@ -8,6 +8,7 @@ namespace Cloudents.Core.DTOs
     [DataContract]
     public class DocumentFeedDto
     {
+        [DataMember]
         public long Id { get; set; }
         [DataMember]
         public string University { get; set; }
@@ -66,8 +67,8 @@ namespace Cloudents.Core.DTOs
 
     }
 
-    public class UserVoteAnswerDto : UserVoteDto<Guid>
+    public class UserVoteAnswerDto : UserVoteDto<Guid?>
     {
-        public long QuestionId { get; set; }
+      
     }
 }
