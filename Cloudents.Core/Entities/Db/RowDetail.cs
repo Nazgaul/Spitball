@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities.Db
@@ -34,10 +36,5 @@ namespace Cloudents.Core.Entities.Db
         public virtual DateTime UpdateTime { get; private set; }
     }
 
-    public class ItemComponent
-    {
-        public virtual ItemState State { get; set; }
-        public virtual DateTime? DeletedOn { get; set; }
-        public virtual string FlagReason { get; set; }
-    }
+  
 }

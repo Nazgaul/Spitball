@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return await _session.Query<Document>()
                 .Fetch(f => f.University)
                 .Fetch(f => f.User)
-                .Where(w => w.User.Id == query.Id && w.State.State == ItemState.Ok)
+                .Where(w => w.User.Id == query.Id && w.Item.State == ItemState.Ok)
 
                 // .Where(w => w.State == null || w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
@@ -46,7 +46,8 @@ namespace Cloudents.Infrastructure.Database.Query
                         Title = s.Name,
                         Views = s.Views,
                         Downloads = s.Downloads,
-                        University = s.University.Name
+                        University = s.University.Name,
+                        Votes = s.Item.VoteCount
                     }
                 )
                 .Take(50).Skip(query.Page * 50)

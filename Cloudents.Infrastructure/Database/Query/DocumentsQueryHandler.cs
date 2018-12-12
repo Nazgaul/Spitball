@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return await _session.Query<Document>()
                 .Fetch(f => f.User)
                 .Fetch(f=>f.University)
-                .Where(w => ids.Contains(w.Id) && w.State.State == ItemState.Ok)
+                .Where(w => ids.Contains(w.Id) && w.Item.State == ItemState.Ok)
                 .Select(s => new DocumentFeedDto
                 {
                     Id = s.Id,
@@ -45,7 +45,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     Title = s.Name,
                     Views = s.Views,
                     Downloads = s.Downloads,
-                    University = s.University.Name
+                    University = s.University.Name,
+                    Votes = s.Item.VoteCount
                 })
                 .ToListAsync(token);
 

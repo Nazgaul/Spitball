@@ -124,3 +124,96 @@ update sb.[user]
 set SecurityStamp = ''
 where SecurityStamp is null and OldUser = 1
 commit
+
+
+--set items state to be not null
+begin tran
+update sb.Document
+set [state] = 'Ok'
+where [state] is null
+alter table sb.Document alter column [state] nvarchar(255) not null;
+commit
+
+begin tran
+update sb.Answer
+set [state] = 'Ok'
+where [state] is null
+alter table sb.Answer alter column [state] nvarchar(255) not null;
+commit
+
+begin tran
+update sb.Question
+set [state] = 'Ok'
+where [state] is null
+alter table sb.Question alter column [state] nvarchar(255) not null;
+commit
+
+/****** Object:  Table [sb].[Vote]    Script Date: 11/12/2018 17:01:22 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[Vote](
+	[Id] [uniqueidentifier] NOT NULL,
+	[VoteType] [int] NOT NULL,
+	[UserId] [bigint] NOT NULL,
+	[DocumentId] [bigint] NULL,
+	[AnswerId] [uniqueidentifier] NULL,
+	[QuestionId] [bigint] NULL,
+	[CreationTime] [datetime2](7) NULL,
+	[UpdateTime] [datetime2](7) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+--ALTER TABLE [sb].[Vote]  WITH CHECK ADD  CONSTRAINT [FK544BAFF294A65100] FOREIGN KEY([ItemComponent_id])
+--REFERENCES [sb].[Answer] ([Id])
+--GO
+
+--ALTER TABLE [sb].[Vote] CHECK CONSTRAINT [FK544BAFF294A65100]
+--GO
+
+ALTER TABLE [sb].[Vote]  WITH CHECK ADD  CONSTRAINT [Votes_Answer] FOREIGN KEY([AnswerId])
+REFERENCES [sb].[Answer] ([Id])
+GO
+
+ALTER TABLE [sb].[Vote] CHECK CONSTRAINT [Votes_Answer]
+GO
+
+ALTER TABLE [sb].[Vote]  WITH CHECK ADD  CONSTRAINT [Votes_Document] FOREIGN KEY([DocumentId])
+REFERENCES [sb].[Document] ([Id])
+GO
+
+ALTER TABLE [sb].[Vote] CHECK CONSTRAINT [Votes_Document]
+GO
+
+ALTER TABLE [sb].[Vote]  WITH CHECK ADD  CONSTRAINT [Votes_Question] FOREIGN KEY([QuestionId])
+REFERENCES [sb].[Question] ([Id])
+GO
+
+ALTER TABLE [sb].[Vote] CHECK CONSTRAINT [Votes_Question]
+GO
+
+ALTER TABLE [sb].[Vote] ADD UNIQUE NONCLUSTERED (
+	[UserId] ASC,
+	[QuestionId] ASC)
+    ALTER TABLE [sb].[Vote] ADD UNIQUE NONCLUSTERED (
+	[UserId] ASC,
+	[AnswerId] ASC)
+    ALTER TABLE [sb].[Vote] ADD UNIQUE NONCLUSTERED (
+	[UserId] ASC,
+	[DocumentId] ASC)
+
+
+
+update sb.question set votecount = 0 where votecount is null;
+update sb.answer set votecount = 0 where votecount is null;
+update sb.document set votecount = 0 where votecount is null;
+alter table sb.Question alter column [votecount] int not null;
+alter table sb.answer alter column [votecount] int not null;
+alter table sb.document alter column [votecount] int not null;

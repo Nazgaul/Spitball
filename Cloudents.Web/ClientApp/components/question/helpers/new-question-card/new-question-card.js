@@ -35,12 +35,7 @@ export default {
     props: {
         cardData: {
             required: true
-        },
-        typeAnswer: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
+        }
     },
     computed: {
         uploadDate() {
@@ -117,14 +112,15 @@ export default {
                             toasterText: LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
                             showToaster: true,
                         });
-                        if (!this.typeAnswer) {
-                            let objToDelete = {
-                                id: parseInt(this.$route.params.id)
-                            }
-                            this.updateBalance(this.cardData.price);
-                            this.$ga.event("Delete_question", "Homework help");
-                            //ToDO change to router link use and not text URL
-                            this.removeQuestionItemAction(objToDelete);
+                        let objToDelete = {
+                            id: parseInt(this.$route.params.id)
+                        }
+                        this.updateBalance(this.cardData.price);
+                        this.$ga.event("Delete_question", "Homework help");
+                        //ToDO change to router link use and not text URL
+                        this.removeQuestionItemAction(objToDelete);
+                        if(this.$route.name === 'question'){
+                            //redirect only if question got deleted from the question page
                             this.$router.push('/ask')
                         }
                     },

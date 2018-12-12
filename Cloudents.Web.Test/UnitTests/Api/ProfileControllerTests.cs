@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac.Extras.Moq;
+﻿using Autofac.Extras.Moq;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -10,10 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Xunit;
@@ -45,7 +42,6 @@ namespace Cloudents.Web.Test.UnitTests.Api
                 var id = 1L;
                 var page = 0;
                 var cancellationToken = CancellationToken.None;
-                var query = new UserDataPagingByIdQuery(id, page);
                 var result = new[] {new DocumentFeedDto()
                 {
                     Id = 1,

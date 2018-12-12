@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
@@ -43,7 +42,8 @@ namespace Cloudents.Core.EventHandler
                 DateTime.UtcNow,
                 eventMessage.Question.Color,
                 false,
-                eventMessage.Question.Language);
+                eventMessage.Question.Language, 
+                eventMessage.Question.Item.VoteCount);
             
             await _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), token);
         }

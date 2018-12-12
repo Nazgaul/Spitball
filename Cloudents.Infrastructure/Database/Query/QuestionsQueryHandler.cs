@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Database.Query
             
             return await _session.Query<Question>()
                  .Fetch(f => f.User)
-                 .Where(w => ids.Contains(w.Id) && w.State.State == ItemState.Ok)
+                 .Where(w => ids.Contains(w.Id) && w.Item.State == ItemState.Ok)
                  .Select(s => new QuestionFeedDto(s.Id,
                     s.Subject,
                     s.Price,
@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Database.Query
                         Image = s.User.Image,
                         Score = s.User.Score
                     }, s.Updated,
-                    s.Color, s.CorrectAnswer.Id != null, s.Language)
+                    s.Color, s.CorrectAnswer.Id != null, s.Language, s.Item.VoteCount)
                  )
                 .ToListAsync(token);
 

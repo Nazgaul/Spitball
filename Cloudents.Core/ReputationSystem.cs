@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core
@@ -58,6 +59,26 @@ namespace Cloudents.Core
             }
 
             return ItemState.Ok;
+        }
+
+        public static bool CanVote(int score, VoteType vote)
+        {
+            switch (vote)
+            {
+                case VoteType.Down:
+                    return score >= DownVote;
+                case VoteType.None:
+                    return true;
+                case VoteType.Up:
+                    return score >= UpVote;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(vote), vote, null);
+            }
+        }
+
+        public static bool CanFlag(int score)
+        {
+            return score >= Flag;
         }
     }
 

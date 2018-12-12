@@ -78,7 +78,7 @@ namespace Cloudents.Core.CommandHandler
                         Enumerable.Empty<Task>();
                 await Task.WhenAll(l).ConfigureAwait(true);
             }
-            if (question.State.State == ItemState.Ok)
+            if (question.Item.State == ItemState.Ok)
             {
                 question.Events.Add(new QuestionCreatedEvent(question));
             }

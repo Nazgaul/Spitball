@@ -91,7 +91,7 @@ namespace Cloudents.Infrastructure.Database.Maps
         public RegularUserMap()
         {
 
-            DiscriminatorValue("0");
+            DiscriminatorValue(false);
         }
     }
 
@@ -100,7 +100,7 @@ namespace Cloudents.Infrastructure.Database.Maps
         public FictiveUserMap()
         {
 
-            DiscriminatorValue("1");
+            DiscriminatorValue(true);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -44,6 +45,13 @@ namespace Cloudents.Core.Interfaces
         Task<Course> GetOrAddAsync(string name, CancellationToken token);
     }
 
+    public interface IVoteRepository : IRepository<Vote>
+    {
+        Task<Vote> GetVoteQuestionAsync(long userId,long questionId,  CancellationToken token);
+        Task<Vote> GetVoteDocumentAsync(long userId,long documentId,  CancellationToken token);
+        Task<Vote> GetVoteAnswerAsync(long userId,Guid answerId,  CancellationToken token);
+    }
+
     public interface ITagRepository : IRepository<Tag>
     {
         Task<Tag> GetOrAddAsync(string name, CancellationToken token);
@@ -67,6 +75,14 @@ namespace Cloudents.Core.Interfaces
 
     public interface IAnswerRepository : IRepository<Answer>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="questionId"></param>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <returns>the user answer otherwise null</returns>
+        Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token);
         //Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
     }
 

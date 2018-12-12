@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             var detachedQuery = QueryOver.Of<Question>()
                 .Select(s => s.Subject)
-                .Where(w => w.Id == query.QuestionId && w.State.State == ItemState.Ok)
+                .Where(w => w.Id == query.QuestionId && w.Item.State == ItemState.Ok)
                 .Take(1);
 
             return await _session.QueryOver(() => questionAlias)
@@ -44,6 +44,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
                     .Select(s => s.Color).WithAlias(() => dto.Color)
+                    .Select(s => s.Item.VoteCount).WithAlias(() => dto.Votes)
                     .Select(Projections.Conditional(
                         Restrictions.Where(() => questionAlias.CorrectAnswer != null),
                         Projections.Constant(true), Projections.Constant(false))).WithAlias(() => dto.HasCorrectAnswer)
@@ -51,16 +52,16 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
                     .SelectSubQuery(QueryOver.Of<Answer>()
-                        .Where(w => w.Question.Id == questionAlias.Id && w.State.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
+                        .Where(w => w.Question.Id == questionAlias.Id && w.Item.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
 
                 )
                 .Where(w => w.CorrectAnswer == null)
                 .Where(w => w.User.Id != query.UserId)
                 .Where(w => w.Id != query.QuestionId)
-                .Where(w => w.State.State == ItemState.Ok)
+                .Where(w => w.Item.State == ItemState.Ok)
                 .WithSubquery.WhereProperty(x => x.Id)
                 .NotIn(QueryOver.Of<Answer>().
-                    Where(w => w.User.Id == query.UserId && w.State.State == ItemState.Ok).Select(s => s.Question.Id))
+                    Where(w => w.User.Id == query.UserId && w.Item.State == ItemState.Ok).Select(s => s.Question.Id))
                 .TransformUsing(new DeepTransformer<QuestionFeedDto>())
                 .OrderBy(Projections.Conditional(
                     Subqueries.PropertyEq(nameof(Question.Subject), detachedQuery.DetachedCriteria)
