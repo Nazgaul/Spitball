@@ -153,7 +153,7 @@ namespace Cloudents.Web.Api
             {
                 if (votesTask.Result.TryGetValue(answer.Id, out var p2))
                 {
-                    retVal.Vote.Vote = p2;
+                    answer.Vote.Vote = p2;
                 }
             }
 

@@ -101,7 +101,7 @@ namespace ConsoleApp
             var bus = _container.Resolve<IQueryBus>();
 
             var userId = 159478;
-            var queryTags = new UserVotesQuestionQuery(userId, 7013);
+            var queryTags = new UserVotesQuestionQuery(userId, 7040);
             var t = await  bus.QueryAsync<IEnumerable<UserVoteAnswerDto>>(queryTags, token)
                 .ContinueWith(
                     t2 =>
