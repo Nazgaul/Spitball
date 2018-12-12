@@ -43,7 +43,8 @@ namespace Cloudents.Core.EventHandler
                 eventMessage.Question.Color,
                 false,
                 eventMessage.Question.Language, 
-                eventMessage.Question.Item.VoteCount);
+                eventMessage.Question.Item.VoteCount,
+                eventMessage.Question.AnswerCount);
             
             await _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), token);
         }
