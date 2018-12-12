@@ -98,16 +98,11 @@ namespace ConsoleApp
 
             var dic = new Dictionary<Guid?, VoteType>();
 
-            var bus = _container.Resolve<IQueryBus>();
-
+            var bus = _container.Resolve<ICommandBus>();
             var userId = 159478;
-            var queryTags = new UserVotesQuestionQuery(userId, 7040);
-            var t = await  bus.QueryAsync<IEnumerable<UserVoteAnswerDto>>(queryTags, token)
-                .ContinueWith(
-                    t2 =>
-                    {
-                        return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
-                    }, token);
+            var command = new AddVoteAnswerCommand(159478,Guid.Parse("497009aa-7bdc-4dc0-9ef5-a9b300dcf773"),VoteType.Up);
+            await bus.DispatchAsync(command, token);
+            
 
             
             //await z.GetById("43958");
