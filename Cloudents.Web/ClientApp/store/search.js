@@ -357,6 +357,9 @@ const actions = {
     },
     resetData({commit}){
         commit(SEARCH.RESET_DATA)
+    },
+    reportItemAction({commit}){
+        commit(SEARCH.RESET_DATA)
     }
 };
 

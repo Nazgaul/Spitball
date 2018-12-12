@@ -1,5 +1,5 @@
 <template>
-    <v-container class="report-comp-container">
+    <div class="report-comp-container">
         <v-layout row wrap>
             <v-flex xs12>
                 <div class="report-head">
@@ -29,7 +29,7 @@
 
                     </v-list>
                     <transition name="slide-y-transition">
-                    <v-text-field class="input-reason" solo v-show="isOtherInputVisible"
+                    <v-text-field autofocus class="input-reason" solo v-show="isOtherInputVisible"
                                   v-model="customReason"></v-text-field>
                     </transition>
 
@@ -39,7 +39,7 @@
                 <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()">Report</button>
             </v-layout>
         </v-layout>
-    </v-container>
+    </div>
 
 
 </template>
@@ -68,7 +68,6 @@
         props: {
             itemId: {
                 required:true,
-
             },
             closeReport:{
                 required:true,
@@ -79,14 +78,12 @@
             isBtnDisabled(){
                 return !this.preDefinedReason && !this.customReason
             },
-
         },
         methods: {
             isSelected(id){
                 return (this.preDefinedReason === id) && !this.isOtherInputVisible
             },
             selectReason(reason) {
-                console.log('reason', reason)
                 this.customReason = '';
                 this.preDefinedReason = reason;
             },
