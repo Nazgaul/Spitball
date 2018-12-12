@@ -1,5 +1,5 @@
 <template>
-    <v-container class="report-comp-container">
+    <div class="report-comp-container">
         <v-layout row wrap>
             <v-flex xs12>
                 <div class="report-head">
@@ -29,7 +29,7 @@
 
                     </v-list>
                     <transition name="slide-y-transition">
-                    <v-text-field class="input-reason" solo v-show="isOtherInputVisible"
+                    <v-text-field autofocus class="input-reason" solo v-show="isOtherInputVisible"
                                   v-model="customReason"></v-text-field>
                     </transition>
 
@@ -39,14 +39,14 @@
                 <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()">Report</button>
             </v-layout>
         </v-layout>
-    </v-container>
+    </div>
 
 
 </template>
 
 <script>
     import cardActionService from "../../../../services/cardActionService";
-
+   import {mapActions} from 'vuex';
     export default {
         name: "reportItem",
         components: {},
@@ -68,25 +68,35 @@
         props: {
             itemId: {
                 required:true,
-
             },
             closeReport:{
                 required:true,
                 type: Function
+            },
+            itemType:{
+                type: String,
+                required: true,
+
             }
         },
         computed: {
             isBtnDisabled(){
                 return !this.preDefinedReason && !this.customReason
             },
-
         },
         methods: {
+            ...mapActions(['reportQuestion', 'reportDocument']),
+            callRelevantAction(type, data){
+                let actions ={
+                    "ask": this.reportQuestion,
+                    "note" : this.reportDocument
+                };
+                return actions[type](data)
+            },
             isSelected(id){
                 return (this.preDefinedReason === id) && !this.isOtherInputVisible
             },
             selectReason(reason) {
-                console.log('reason', reason)
                 this.customReason = '';
                 this.preDefinedReason = reason;
             },
@@ -97,9 +107,14 @@
             },
             sendItemReport() {
                 let reasonToSend = this.preDefinedReason !== '' ? this.preDefinedReason : this.customReason;
-                console.log('reason:::', reasonToSend, 'ITEM ID::', this.itemId);
-                // cardActionService.reportItem(this.itemId, reasonToSend)
-                this.closeReportPop()
+                let data = {
+                    "id": this.itemId,
+                    "flagReason": reasonToSend
+                };
+                this.callRelevantAction(this.itemType, data).then(()=>{
+                    this.closeReportPop()
+                })
+
             },
             closeReportPop(){
                 this.closeReport();

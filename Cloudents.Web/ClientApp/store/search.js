@@ -1,8 +1,8 @@
-﻿import {SEARCH} from "./mutation-types"
-import {skeletonData} from '../components/results/consts'
-import searchService from "./../services/searchService"
-import reputationService from './../services/reputationService'
-
+﻿import {SEARCH} from "./mutation-types";
+import {skeletonData} from '../components/results/consts';
+import searchService from "./../services/searchService";
+import reputationService from './../services/reputationService';
+import reportService from "./../services/cardActionService"
 const LOCATION_VERTICALS= new Map([["tutor",true],["job",true]]);
 const state = {
     loading: false,
@@ -185,7 +185,9 @@ const mutations = {
                 MutationObj.fnUpdateCourses(filters)
             }
         }
-    }
+    },
+
+
 };
 
 const getters = {
@@ -373,6 +375,12 @@ const actions = {
         reputationService.voteQuestion(data.id, data.type).then(()=>{
             commit(SEARCH.UPDATE_QUESTION_VOTE, data);
         })
+    },
+    reportQuestion({commit}, data){
+        return reportService.reportQuestion(data)
+    },
+    reportDocument({commit}, data){
+        return reportService.reportDocument(data)
     }
 };
 

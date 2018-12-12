@@ -1,17 +1,21 @@
 import { connectivityModule } from "./connectivity.module"
 
-const report = (itemId, reason) => {
+const reportQuestionItem = (data) => {
     console.log('got to send report stuff service')
-    let data = {
-        "id": itemId,
-        "reason": reason
-    };
-    return connectivityModule.http.post("Report/", data)
+    return connectivityModule.http.post("Question/flag", data)
 };
 
-export default {
-    reportItem(itemId, reason) {
-        return report(itemId, reason)
-    },
+const reportDocumentItem = (data) => {
+    console.log('got to send report stuff service')
+    return connectivityModule.http.post("Document/flag", data)
+};
 
+
+export default {
+    reportQuestion(data) {
+        return reportQuestionItem(data)
+    },
+    reportDocument(data) {
+        return reportDocumentItem(data)
+    },
 }
