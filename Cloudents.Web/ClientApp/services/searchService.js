@@ -46,9 +46,9 @@ function AnswerItem(objInit){
     this.create = objInit.create;
     this.files = objInit.files;
     this.user = objInit.user;
-    this.votes = objInit.vote.votes;
-    this.upvoted = !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false ;
-    this.downvoted = !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false ;
+    this.votes = !!objInit.vote ? objInit.vote.votes : undefined;
+    this.upvoted =!!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : undefined;
+    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : undefined;
 }
 
 function createAnswerItem(objInit){
@@ -65,7 +65,7 @@ function QuestionItem(objInit) {
     this.price = objInit.price;
     this.text = objInit.text;
     this.files = objInit.files;
-    this.answers = typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem);
+    this.answers = objInit.answers !== undefined ?  (typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem)) : undefined;
     this.user = objInit.user;
     this.dateTime = objInit.dateTime || objInit.create;
     this.color = !!objInit.color ? objInit.color.toLowerCase() : undefined;
@@ -75,9 +75,9 @@ function QuestionItem(objInit) {
     this.template = "ask";
     this.filesNum = this.files;
     this.isRtl = objInit.isRtl;
-    this.votes = objInit.vote.votes;
-    this.upvoted = !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false ;
-    this.downvoted = !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false ;
+    this.votes = !!objInit.vote ? objInit.vote.votes : undefined;
+    this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : undefined;
+    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : undefined;
     // if the question is younger then 1 minute then watching now will be 0
     //if question is older then threshold, watching now also gonna be 0 other wise random between 0 to 1
     let questionOlderTheOneMinute = (new Date().getTime() - new Date(this.dateTime).getTime()) > oneMinute;
