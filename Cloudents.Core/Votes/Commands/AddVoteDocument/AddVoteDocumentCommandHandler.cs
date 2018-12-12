@@ -23,14 +23,14 @@ namespace Cloudents.Core.Votes.Commands.AddVoteDocument
         public async Task ExecuteAsync(AddVoteDocumentCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            if (!Privileges.CanFlag(user.Score, message.VoteType))
+            if (!Privileges.CanVote(user.Score, message.VoteType))
             {
                 throw new UnauthorizedAccessException("not enough score");
             }
             var document = await _documentRepository.LoadAsync(message.DocumentId, token);
             if (document.User.Id == user.Id)
             {
-                throw new UnauthorizedAccessException("you cannot vote you own document");
+                throw new UnauthorizedAccessException("you cannot vote your own document");
 
             }
 

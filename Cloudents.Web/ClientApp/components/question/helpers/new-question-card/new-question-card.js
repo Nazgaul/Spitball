@@ -1,21 +1,33 @@
 import userAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import userRank from "../../../helpers/UserRank/UserRank.vue";
+import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
+import reportItem from "../../../results/helpers/reportItem/reportItem.vue"
 import { LanguageService } from "../../../../services/language/languageService";
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
+    components: {
+        sbDialog,
+        reportItem,
+        userAvatar,
+        userRank
+    },
     data() {
         return {
             actions: [
                 {
                     title: LanguageService.getValueByKey("questionCard_Report"),
                     action: this.reportItem,
-                    isVisible: !this.cardOwner()},
+                    isVisible: !this.cardOwner()
+                },
                 {
                     title: LanguageService.getValueByKey("questionCard_Delete"),
                     action: this.deleteQuestion,
                     isVisible: this.canDelete()
                 }
             ],
+            showReportReasons: false,
+            itemId : 0,
             maximumAnswersToDisplay: 3,
             isRtl: global.isRtl
         };
@@ -25,10 +37,6 @@ export default {
             required: true
         }
     },
-    components: {
-        userAvatar,
-        userRank
-    },
     computed: {
         uploadDate() {
             if (this.cardData && this.cardData.dateTime) {
@@ -37,7 +45,7 @@ export default {
                 return "";
             }
         },
-        hideAnswerInput(){
+        hideAnswerInput() {
             return this.detailedView
         },
         isSold() {
@@ -69,9 +77,7 @@ export default {
         randomViews() {
             return Math.floor(Math.random() * 1001);
         },
-        questionReputation() {
-            return Math.floor(Math.random() * 100);
-        }
+
     },
     methods: {
         ...mapActions({
@@ -80,9 +86,32 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
-            manualAnswerRemove: 'answerRemoved'
+            manualAnswerRemove: 'answerRemoved',
+            questionVote: "questionVote"
         }),
         ...mapGetters(['accountUser']),
+        upvoteQuestion(){
+            let type = "up";
+            if(!!this.cardData.upvoted){
+                type = "none"; 
+            }
+            let data = {
+                type,
+                id: this.cardData.id
+            }
+            this.questionVote(data);
+        },
+        downvoteQuestion(){
+            let type = "down";
+            if(!!this.cardData.downvoted){
+                type = "none"; 
+            }
+            let data = {
+                type,
+                id: this.cardData.id
+            }
+            this.questionVote(data);
+        },
         cardOwner() {
             let userAccount = this.accountUser();
             if (userAccount && this.cardData.user) {
@@ -94,10 +123,10 @@ export default {
             if (!isOwner) {
                 return false;
             }
-            return  this.cardData.answers < 1 && !this.cardData.answers.length;
+            return this.cardData.answers < 1 && !this.cardData.answers.length;
         },
         deleteQuestion() {
-            this.delete({id: this.cardData.id, type:  'Question'})
+            this.delete({id: this.cardData.id, type: 'Question'})
                 .then((success) => {
                         this.updateToasterParams({
                             toasterText: LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
@@ -124,12 +153,18 @@ export default {
                     }
                 );
         },
-        reportItem(){
-            console.log('reporting item', {id: this.cardData.id, type:  'Question'});
-            this.updateToasterParams({
-                toasterText: LanguageService.getValueByKey("questionCard_Report"),
-                showToaster: true,
-            });
+        reportItem() {
+
+            this.itemId = this.cardData.id;
+            this.showReportReasons = !this.showReportReasons;
+            console.log('reporting item',this.itemId );
+            // this.updateToasterParams({
+            //     toasterText: LanguageService.getValueByKey("questionCard_Report"),
+            //     showToaster: true,
+            // });
+        },
+        closeReportDialog(){
+            this.showReportReasons = false
         }
     },
 };

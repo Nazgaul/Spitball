@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Answers.Commands.FlagAnswer;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Exceptions;
@@ -105,5 +106,13 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPost("flag")]
+        public async Task<IActionResult> FlagAsync([FromBody] FlagAnswerRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new FlagAnswerCommand(userId, model.Id, model.FlagReason);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }

@@ -1,0 +1,218 @@
+<template>
+    <v-container class="report-comp-container">
+        <v-layout row wrap>
+            <v-flex xs12>
+                <div class="report-head">
+                    <v-icon class="flag-icon">sbf-flag</v-icon>
+                    <span class="text-head">Report this item</span>
+                    <v-icon class="report-close-icon" @click.prevent="closeReportPop()">sbf-close</v-icon>
+                </div>
+                <div class="reasons-wrap">
+                    <div class="heading-container">
+                        <span class="report-heading-text">We’re sorry that something isn't right.  what’s wrong?</span>
+                    </div>
+                    <v-list>
+                        <template v-for="(reason, i) in reasons">
+                            <v-list-tile :class="['reason-tile', isSelected(reason.id) ? 'selected' : '']" :key="i">
+                                <v-list-tile-content class="reason-tile-content">
+                                    <v-list-tile-title class="reason-name" @click="selectReason(reason.id)">{{ reason.title }}
+                                    </v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </template>
+
+                        <v-list-tile class="reason-tile" @click="toogleOtherInput()">
+                            <v-list-tile-content class="reason-tile-content">
+                                <v-list-tile-title class="reason-name">Other</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+
+                    </v-list>
+                    <transition name="slide-y-transition">
+                    <v-text-field class="input-reason" solo v-show="isOtherInputVisible"
+                                  v-model="customReason"></v-text-field>
+                    </transition>
+
+                </div>
+            </v-flex>
+            <v-layout justify-center align-content-center xs12 class="report-footer">
+                <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()">Report</button>
+            </v-layout>
+        </v-layout>
+    </v-container>
+
+
+</template>
+
+<script>
+    import cardActionService from "../../../../services/cardActionService";
+
+    export default {
+        name: "reportItem",
+        components: {},
+        data() {
+            return {
+                reasons: [
+                    {title: "Inappropriate Content", id: "inappropriateContent"},
+                    {title: "Inappropriate Language ", id: "inappropriateLanguage"},
+                    {title: "Plagiarism", id: "plagiarism"},
+                    {title: "Spam", id: "spam"},
+                ],
+                preDefinedReason: '',
+                customReason: '',
+                isOtherInputVisible: false,
+
+            }
+
+        },
+        props: {
+            itemId: {
+                required:true,
+
+            },
+            closeReport:{
+                required:true,
+                type: Function
+            }
+        },
+        computed: {
+            isBtnDisabled(){
+                return !this.preDefinedReason && !this.customReason
+            },
+
+        },
+        methods: {
+            isSelected(id){
+                return (this.preDefinedReason === id) && !this.isOtherInputVisible
+            },
+            selectReason(reason) {
+                console.log('reason', reason)
+                this.customReason = '';
+                this.preDefinedReason = reason;
+            },
+            toogleOtherInput() {
+                this.preDefinedReason = '';
+                this.isOtherInputVisible = !this.isOtherInputVisible;
+                console.log('inputState', this.isOtherInputVisible)
+            },
+            sendItemReport() {
+                let reasonToSend = this.preDefinedReason !== '' ? this.preDefinedReason : this.customReason;
+                console.log('reason:::', reasonToSend, 'ITEM ID::', this.itemId);
+                // cardActionService.reportItem(this.itemId, reasonToSend)
+                this.closeReportPop()
+            },
+            closeReportPop(){
+                this.closeReport();
+            }
+        },
+    }
+</script>
+
+<style lang="less">
+    @import "../../../../styles/mixin.less";
+
+    .report-comp-container {
+        background: @color-white;
+        padding: 0;
+        .report-head {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: @color-blue-new;
+            color: @color-white;
+            height: 38px;
+            font-size: 13px;
+            padding: 0 16px;
+            .text-head{
+                display: flex;
+                flex-grow: 1;
+            }
+            .flag-icon {
+                color: @color-white;
+                font-size: 16px;
+                margin-right: 8px;
+            }
+            .report-close-icon{
+                color: fade(@color-white, 80%);
+                font-size: 14px;
+                cursor: pointer;
+                width: 20px;
+                height: 20px;
+            }
+        }
+        .reasons-wrap {
+            padding: 16px;
+            .heading-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 16px 0 16px 0;
+                .report-heading-text {
+                    font-size: 16px;
+                    letter-spacing: -0.3px;
+                    color: @textColor;
+                }
+            }
+
+            .reason-tile {
+                border-bottom: 1px solid fade(@colorInputRegularBorder, 12%);
+                cursor: pointer;
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.04);
+                }
+                &.selected{
+                    background-color: @color-blue-new;
+                    .v-list__tile {
+                        .reason-tile-content {
+                            .reason-name {
+                                color: @color-white;
+                            }
+                        }
+                    }
+                }
+                &:first-child {
+                    border-top: 1px solid fade(@colorInputRegularBorder, 12%);
+                }
+                .v-list__tile {
+                    padding-left: 0;
+                    padding-right: 0;
+                    .reason-tile-content {
+                        .reason-name {
+                            font-size: 16px;
+                            letter-spacing: -0.3px;
+                            color: @colorBlackNew;
+                            padding-left: 8px;
+                        }
+                    }
+                }
+            }
+            .input-reason {
+                padding-top: 30px;
+                font-size: 13px;
+                color: @textColor;
+                .v-input__slot {
+                    box-shadow: none;
+                    border: 1px solid fade(@color-black, 12%);
+                    border-radius: 4px;
+                }
+            }
+        }
+        .report-submit{
+            .sb-rounded-medium-btn();
+             min-width: 180px;
+             justify-content: center;
+            &[disabled] {
+                background-color: fade(@color-black, 12%);
+                color: fade(@color-black, 12%)
+            }
+        }
+        .report-footer{
+            padding-bottom: 32px;
+            justify-content: center;
+        }
+    }
+
+    //content end
+</style>

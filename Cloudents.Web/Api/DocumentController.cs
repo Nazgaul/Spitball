@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Questions.Commands.FlagDocument;
 
 namespace Cloudents.Web.Api
 {
@@ -188,6 +189,15 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType);
 
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("flag")]
+        public async Task<IActionResult> FlagAsync([FromBody] FlagDocumentRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new FlagDocumentCommand(userId, model.Id, model.FlagReason);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

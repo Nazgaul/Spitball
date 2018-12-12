@@ -13,6 +13,23 @@ namespace Cloudents.Core.Entities.Db
         {
             Votes = new List<Vote>();
         }
+        private const int MaxReasonLength = 255;
+
+
+        public static bool ValidateFlagReason(string FlagReason)
+        {
+            if (string.IsNullOrEmpty(FlagReason))
+            {
+                return false;
+            }
+
+            if (FlagReason.Length > MaxReasonLength)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public virtual ItemState State { get; set; }
         public virtual DateTime? DeletedOn { get; set; }
         public virtual string FlagReason { get; set; }

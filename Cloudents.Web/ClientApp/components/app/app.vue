@@ -31,6 +31,7 @@
                        :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
                 <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
             </sb-dialog>
+
             <!--upload dilaog-->
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
@@ -55,7 +56,7 @@
     import uniSelectPop from '../helpers/uni-select/uniSelectPop.vue';
     import uniSelect from '../helpers/uni-select/uniSelect.vue';
     import newIsraeliPop from '../dialogs/israeli-pop/newIsraeliPop.vue';
-
+    import reportItem from '../results/helpers/reportItem/reportItem.vue'
     export default {
         components: {
             NewQuestion,
@@ -64,7 +65,8 @@
             uniSelectPop,
             uniSelect,
             uploadFiles,
-            newIsraeliPop
+            newIsraeliPop,
+            reportItem
         },
         data() {
             return {
