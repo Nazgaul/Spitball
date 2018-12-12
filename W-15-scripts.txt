@@ -126,6 +126,28 @@ where SecurityStamp is null and OldUser = 1
 commit
 
 
+--set items state to be not null
+begin tran
+update sb.Document
+set [state] = 'Ok'
+where [state] is null
+alter table sb.Document alter column [state] nvarchar(255) not null;
+commit
+
+begin tran
+update sb.Answer
+set [state] = 'Ok'
+where [state] is null
+alter table sb.Answer alter column [state] nvarchar(255) not null;
+commit
+
+begin tran
+update sb.Question
+set [state] = 'Ok'
+where [state] is null
+alter table sb.Question alter column [state] nvarchar(255) not null;
+commit
+
 /****** Object:  Table [sb].[Vote]    Script Date: 11/12/2018 17:01:22 ******/
 SET ANSI_NULLS ON
 GO
