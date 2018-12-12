@@ -23,7 +23,7 @@ namespace Cloudents.Core.Votes.Commands.AddVoteQuestion
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            if (!Privileges.CanFlag(user.Score, message.VoteType))
+            if (!Privileges.CanVote(user.Score, message.VoteType))
             {
                 throw new UnauthorizedAccessException("not enough score");
             }

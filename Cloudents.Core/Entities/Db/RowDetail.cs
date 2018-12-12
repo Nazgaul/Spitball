@@ -51,5 +51,22 @@ namespace Cloudents.Core.Entities.Db
         public virtual ICollection<Vote> Votes { get; protected set; }
 
         public virtual int VoteCount { get; set; }
+
+        private const int MaxReasonLength = 255;
+
+
+        public static bool ValidateFlagReason(string FlagReason)
+        {
+            if (string.IsNullOrEmpty(FlagReason))
+            {
+                return false;
+            }
+
+            if (FlagReason.Length > MaxReasonLength)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

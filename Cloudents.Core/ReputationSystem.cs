@@ -61,7 +61,7 @@ namespace Cloudents.Core
             return ItemState.Ok;
         }
 
-        public static bool CanFlag(int score, VoteType vote)
+        public static bool CanVote(int score, VoteType vote)
         {
             switch (vote)
             {
@@ -77,8 +77,11 @@ namespace Cloudents.Core
                 default:
                     throw new ArgumentOutOfRangeException(nameof(vote), vote, null);
             }
-           
-            
+        }
+
+        public static bool CanFlag(int score)
+        {
+            return score >= Flag;
         }
     }
 
