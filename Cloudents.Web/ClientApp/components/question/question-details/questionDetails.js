@@ -2,7 +2,8 @@ import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import questionCard from "./../helpers/question-card/question-card.vue";
+import questionCard from "./../helpers/new-question-card/new-question-card.vue";
+import answerCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
@@ -13,7 +14,7 @@ import analyticsService from '../../../services/analytics.service';
 
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
+    components: {questionThread, questionCard, answerCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
     props: {
         id: {Number}, // got it from route
         questionId: {Number}

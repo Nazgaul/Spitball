@@ -1,11 +1,12 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
+import userRank from "../../../helpers/UserRank/UserRank.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
 import { mapGetters, mapActions } from 'vuex'
 import timeago from 'timeago.js';
 import { LanguageService } from "../../../../services/language/languageService";
 export default {
     mixins: [disableForm],
-    components: {userBlock},
+    components: {userBlock, userRank},
     props: {
         hasAnswer: false,
         typeAnswer: {
@@ -97,6 +98,9 @@ export default {
         },
         cardAnswers() {
             return this.cardData.answers
+        },
+        questionReputation(){
+            return Math.floor(Math.random() * 100);
         }
     },
     methods: {
