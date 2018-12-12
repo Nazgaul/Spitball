@@ -23,7 +23,7 @@ namespace Cloudents.Core.Votes.Commands.AddVoteAnswer
         public async Task ExecuteAsync(AddVoteAnswerCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            if (Privileges.CanFlag(user.Score, message.VoteType))
+            if (!Privileges.CanFlag(user.Score, message.VoteType))
             {
                 throw new UnauthorizedAccessException("not enough score");
             }
