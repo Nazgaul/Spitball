@@ -11,9 +11,10 @@ namespace Cloudents.Core.DTOs
     {
         public QuestionDetailDto(UserDto user, long id, string text, decimal price,
              DateTime create,
-            Guid? correctAnswerId, QuestionColor? color, QuestionSubject subject, CultureInfo culture)
+            Guid? correctAnswerId, QuestionColor? color, QuestionSubject subject, CultureInfo culture, int votes)
         {
             Subject = subject;
+            Votes = votes;
             Id = id;
             Text = text;
             Price = price;
@@ -44,6 +45,8 @@ namespace Cloudents.Core.DTOs
         public QuestionColor? Color { get; }
 
         public bool IsRtl { get; }
+
+        public int Votes { get;  }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
@@ -57,5 +60,7 @@ namespace Cloudents.Core.DTOs
         public DateTime Create { get; set; }
 
         public IEnumerable<Uri> Files { get; set; }
+        public int Votes { get; set; }
+
     }
 }
