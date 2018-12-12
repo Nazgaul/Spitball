@@ -49,6 +49,9 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 await _transactionRepository.DeleteAsync(transaction, token);
             }
+            answer.Question.AnswerCount--;
+
+            await _questionRepository.UpdateAsync(answer.Question, token);
 
             answer.Events.Add(new AnswerDeletedEvent(answer));
 
