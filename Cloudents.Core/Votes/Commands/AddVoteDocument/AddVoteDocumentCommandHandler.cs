@@ -22,10 +22,18 @@ namespace Cloudents.Core.Votes.Commands.AddVoteDocument
 
         public async Task ExecuteAsync(AddVoteDocumentCommand message, CancellationToken token)
         {
-            //var user = await _userRepository.LoadAsync(message.UserId, token);
-            //var answer = await _documentRepository.LoadAsync(message.DocumentId, token);
-            //var vote = new Vote(user, answer, message.VoteType);
-            //await _voteRepository.AddAsync(vote, token);
+            var user = await _userRepository.LoadAsync(message.UserId, token);
+            if (Privileges.CanFlag(user.Score, message.VoteType))
+            {
+                throw new UnauthorizedAccessException("not enough score");
+            }
+            var document = await _documentRepository.LoadAsync(message.DocumentId, token);
+            if (document.User.Id == user.Id)
+            {
+                throw new UnauthorizedAccessException("you cannot vote you own document");
+
+            }
+
             var vote = await _voteRepository.GetVoteDocumentAsync(message.UserId, message.DocumentId, token);
             if (vote == null && message.VoteType == VoteType.None)
             {
@@ -33,9 +41,7 @@ namespace Cloudents.Core.Votes.Commands.AddVoteDocument
             }
             if (vote == null)
             {
-                var user = await _userRepository.LoadAsync(message.UserId, token);
-                var answer = await _documentRepository.LoadAsync(message.DocumentId, token);
-                vote = new Vote(user, answer, message.VoteType);
+                vote = new Vote(user, document, message.VoteType);
                 await _voteRepository.AddAsync(vote, token);
                 return;
             }

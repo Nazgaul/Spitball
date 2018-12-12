@@ -75,6 +75,14 @@ namespace Cloudents.Core.Interfaces
 
     public interface IAnswerRepository : IRepository<Answer>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="questionId"></param>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <returns>the user answer otherwise null</returns>
+        Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token);
         //Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
     }
 

@@ -10,10 +10,10 @@ namespace Cloudents.Core.Votes.Commands.AddVoteAnswer
     {
         private readonly IVoteRepository _voteRepository;
         private readonly IRepository<RegularUser> _userRepository;
-        private readonly IRepository<Answer> _answerRepository;
+        private readonly IAnswerRepository _answerRepository;
 
         public AddVoteAnswerCommandHandler(IVoteRepository voteRepository,
-            IRepository<RegularUser> userRepository, IRepository<Answer> answerRepository)
+            IRepository<RegularUser> userRepository, IAnswerRepository answerRepository)
         {
             _voteRepository = voteRepository;
             _userRepository = userRepository;
@@ -22,6 +22,25 @@ namespace Cloudents.Core.Votes.Commands.AddVoteAnswer
 
         public async Task ExecuteAsync(AddVoteAnswerCommand message, CancellationToken token)
         {
+            var user = await _userRepository.LoadAsync(message.UserId, token);
+            if (Privileges.CanFlag(user.Score, message.VoteType))
+            {
+                throw new UnauthorizedAccessException("not enough score");
+            }
+            var answer = await _answerRepository.LoadAsync(message.AnswerId, token);
+
+            if (answer.User.Id == message.UserId)
+            {
+                throw new UnauthorizedAccessException("you cannot vote you own answer");
+            }
+
+            var answerExists = await _answerRepository.GetUserAnswerInQuestion(answer.Question.Id, user.Id, token);
+            if (answerExists != null)
+            {
+                throw new UnauthorizedAccessException("you cannot vote if you gave answer");
+
+            }
+
             var vote = await _voteRepository.GetVoteAnswerAsync(message.UserId, message.AnswerId, token);
             if (vote == null && message.VoteType == VoteType.None)
             {
@@ -30,8 +49,7 @@ namespace Cloudents.Core.Votes.Commands.AddVoteAnswer
             if (vote == null)
             {
                 //TODO : need to check
-                var user = await _userRepository.LoadAsync(message.UserId, token);
-                var answer = await _answerRepository.LoadAsync(message.AnswerId, token);
+                //var user = await _userRepository.LoadAsync(message.UserId, token);
                 vote = new Vote(user, answer, message.VoteType);
                 await _voteRepository.AddAsync(vote, token);
                 return;
