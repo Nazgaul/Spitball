@@ -225,3 +225,13 @@ alter table sb.document alter column [votecount] int not null;
 alter table sb.Question add AnswerCount int;
 update sb.Question set AnswerCount = 0;
 alter table sb.Question alter column AnswerCount int not null;
+
+
+
+begin tran
+update Q
+set [AnswerCount] = c
+from sb.Question Q
+join (select QuestionId,count(1) as c from sb.Answer A group by QuestionId) as A
+	on A.QuestionId = Q.Id
+commit
