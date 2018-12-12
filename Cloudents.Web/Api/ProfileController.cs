@@ -3,9 +3,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -15,10 +17,13 @@ namespace Cloudents.Web.Api
     public class ProfileController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
+        private readonly UserManager<RegularUser> _userManager;
 
-        public ProfileController(IQueryBus queryBus)
+
+        public ProfileController(IQueryBus queryBus, UserManager<RegularUser> userManager)
         {
             _queryBus = queryBus;
+            _userManager = userManager;
         }
 
         // GET
@@ -44,9 +49,38 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);
-            var retVal = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token).ConfigureAwait(false);
-            
-            return retVal;
+            var retValTask = _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+
+            return await MergeFeedWithVotes(retValTask, token);
+        }
+
+        private async Task<IEnumerable<QuestionFeedDto>> MergeFeedWithVotes(Task<IEnumerable<QuestionFeedDto>> retValTask, CancellationToken token)
+        {
+            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var queryTags = new UserVotesByCategoryQuery(userId);
+                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteQuestionDto>>(queryTags, token)
+                    .ContinueWith(
+                        t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
+            }
+
+            await Task.WhenAll(retValTask, votesTask);
+            if (votesTask.Result == null)
+            {
+                return retValTask.Result;
+            }
+
+            return retValTask.Result.Select(s =>
+            {
+                if (votesTask.Result.TryGetValue(s.Id, out var p))
+                {
+                    s.Vote.Vote = p;
+                }
+
+                return s;
+            });
         }
 
         // GET
@@ -56,8 +90,8 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
         {
             var query = new UserAnswersByIdQuery(id, page);
-            var retVal = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token).ConfigureAwait(false);
-            return retVal;
+            var retValTask = _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            return await MergeFeedWithVotes(retValTask, token);
         }
 
         [HttpGet("{id}/documents")]
@@ -66,11 +100,29 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(long id, int page, CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);
-            var retVal = await _queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, token);
+            var retValTask = _queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, token);
 
-            return retVal.Select(s =>
+            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+            if (User.Identity.IsAuthenticated)
             {
-                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                var userId = _userManager.GetLongUserId(User);
+                var queryTags = new UserVotesByCategoryQuery(userId);
+                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
+                    .ContinueWith(
+                        t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
+            }
+
+            await Task.WhenAll(retValTask, votesTask);
+
+            return retValTask.Result.Select(s =>
+            {
+                s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+
+                if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
+                {
+                    s.Vote.Vote = p;
+                }
+
                 return s;
             });
         }
