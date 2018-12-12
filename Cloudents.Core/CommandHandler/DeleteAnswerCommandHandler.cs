@@ -14,10 +14,12 @@ namespace Cloudents.Core.CommandHandler
     public class DeleteAnswerCommandHandler : ICommandHandler<DeleteAnswerCommand>
     {
         private readonly IRepository<Answer> _repository;
+        private readonly IRepository<Question> _questionRepository;
 
-        public DeleteAnswerCommandHandler(IRepository<Answer> repository)
+        public DeleteAnswerCommandHandler(IRepository<Answer> repository, IRepository<Question> questionRepository)
         {
             _repository = repository;
+            _questionRepository = questionRepository;
         }
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
@@ -44,6 +46,9 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new ArgumentException("this is answer is correct answer");
             }
+            answer.Question.AnswerCount--;
+         
+            await _questionRepository.UpdateAsync(answer.Question, token);
 
             answer.Events.Add(new AnswerDeletedEvent(answer));
             

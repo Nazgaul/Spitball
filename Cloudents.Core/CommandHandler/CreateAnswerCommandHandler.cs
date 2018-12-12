@@ -87,6 +87,8 @@ namespace Cloudents.Core.CommandHandler
                 }
             var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(newAnswer, token).ConfigureAwait(false);
+            question.AnswerCount++;
+            await _questionRepository.UpdateAsync(question, token);
             var id = newAnswer.Id;
 
 

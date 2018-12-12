@@ -219,3 +219,9 @@ update sb.document set votecount = 0 where votecount is null;
 alter table sb.Question alter column [votecount] int not null;
 alter table sb.answer alter column [votecount] int not null;
 alter table sb.document alter column [votecount] int not null;
+
+
+
+alter table sb.Question add AnswerCount int;
+update sb.Question set AnswerCount = 0;
+alter table sb.Question alter column AnswerCount int not null;
