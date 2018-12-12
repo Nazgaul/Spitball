@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Image = s.User.Image,
                     Score = s.User.Score
                 }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id,
-                    s.Color, s.Subject, s.Language,s.Item.VoteCount)
+                    s.Color, s.Subject, s.Language, s.Item.VoteCount)
                 ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
                 .Where(w => w.Question.Id == id && w.Item.State == ItemState.Ok)
@@ -52,7 +52,10 @@ namespace Cloudents.Infrastructure.Database.Query
                     Id = s.Id,
                     Text = s.Text,
                     Create = s.Created,
-                    Votes = s.Item.VoteCount,
+                    Vote = new VoteDto()
+                    {
+                        Votes = s.Item.VoteCount
+                    },
                     User = new UserDto
                     {
                         Id = s.User.Id,

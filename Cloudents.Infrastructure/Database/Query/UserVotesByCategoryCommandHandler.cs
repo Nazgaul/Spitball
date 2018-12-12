@@ -14,7 +14,7 @@ namespace Cloudents.Infrastructure.Database.Query
     public class UserVotesByCategoryCommandHandler : 
         IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteDocumentDto>>,
         IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteQuestionDto>>,
-        IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteAnswerDto>>
+        IQueryHandler<UserVotesQuestionQuery, IEnumerable<UserVoteAnswerDto>>
     {
         private readonly IStatelessSession _session;
 
@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Database.Query
         async Task<IEnumerable<UserVoteDocumentDto>> IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteDocumentDto>>.GetAsync(UserVotesByCategoryQuery query, CancellationToken token)
         {
             return await _session.Query<Vote>()
-                    .Where(w => w.Document != null)
+                    .Where(w => w.Document != null && w.User.Id == query.UserId)
                     .Select(s => new UserVoteDocumentDto
                     {
                         Id = s.Document.Id,
@@ -37,7 +37,7 @@ namespace Cloudents.Infrastructure.Database.Query
         async Task<IEnumerable<UserVoteQuestionDto>> IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteQuestionDto>>.GetAsync(UserVotesByCategoryQuery query, CancellationToken token)
         {
             return await _session.Query<Vote>()
-                    .Where(w => w.Question != null && w.Answer != null)
+                    .Where(w => w.Question != null && w.Answer == null && w.User.Id == query.UserId)
                     .Select(s => new UserVoteQuestionDto
                     {
                         Id = s.Question.Id,
@@ -45,14 +45,15 @@ namespace Cloudents.Infrastructure.Database.Query
                     }).ToListAsync(token);
         }
 
-        async Task<IEnumerable<UserVoteAnswerDto>> IQueryHandler<UserVotesByCategoryQuery, IEnumerable<UserVoteAnswerDto>>.GetAsync(UserVotesByCategoryQuery query, CancellationToken token)
+        async Task<IEnumerable<UserVoteAnswerDto>> IQueryHandler<UserVotesQuestionQuery, 
+            IEnumerable<UserVoteAnswerDto>>.GetAsync(UserVotesQuestionQuery query, CancellationToken token)
         {
             return await _session.Query<Vote>()
-                .Where(w => w.Question != null && w.Answer != null)
+                .Where(w => w.Question.Id == query.QuestionId && w.User.Id == query.UserId)
                 .Select(s => new UserVoteAnswerDto
                 {
                     Id = s.Answer.Id,
-                    QuestionId = s.Question.Id,
+                    //QuestionId = s.Question.Id,
                     Vote = s.VoteType
                 }).ToListAsync(token);
         }
