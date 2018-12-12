@@ -42,16 +42,20 @@ namespace Cloudents.Core.Votes.Commands.AddVoteDocument
             if (vote == null)
             {
                 vote = new Vote(user, document, message.VoteType);
+                document.Item.VoteCount += (int)vote.VoteType;
                 await _voteRepository.AddAsync(vote, token);
                 return;
             }
 
             if (message.VoteType == VoteType.None)
             {
+                document.Item.VoteCount -= (int)vote.VoteType;
                 await _voteRepository.DeleteAsync(vote, token);
                 return;
             }
 
+            document.Item.VoteCount -= (int)vote.VoteType;
+            document.Item.VoteCount += (int)message.VoteType;
             vote.VoteType = message.VoteType;
 
             await _voteRepository.UpdateAsync(vote, token);

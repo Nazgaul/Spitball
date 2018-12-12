@@ -51,16 +51,20 @@ namespace Cloudents.Core.Votes.Commands.AddVoteAnswer
                 //TODO : need to check
                 //var user = await _userRepository.LoadAsync(message.UserId, token);
                 vote = new Vote(user, answer, message.VoteType);
+                answer.Item.VoteCount += (int)vote.VoteType;
                 await _voteRepository.AddAsync(vote, token);
                 return;
             }
 
             if (message.VoteType == VoteType.None)
             {
+                answer.Item.VoteCount -= (int)vote.VoteType;
                 await _voteRepository.DeleteAsync(vote, token);
                 return;
             }
 
+            answer.Item.VoteCount -= (int)vote.VoteType;
+            answer.Item.VoteCount += (int)message.VoteType;
             vote.VoteType = message.VoteType;
 
             await _voteRepository.UpdateAsync(vote, token);
