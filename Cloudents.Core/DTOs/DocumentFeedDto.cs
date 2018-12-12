@@ -8,6 +8,7 @@ namespace Cloudents.Core.DTOs
     [DataContract]
     public class DocumentFeedDto
     {
+        [DataMember]
         public long Id { get; set; }
         [DataMember]
         public string University { get; set; }
