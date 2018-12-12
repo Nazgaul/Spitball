@@ -27,6 +27,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             //Component(x => x.Item);
             Map(x => x.Language).Length(5);
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
+            Map(x => x.AnswerCount).Not.Nullable();
 
             References(x => x.User).Column("UserId")
                 .ForeignKey("Question_User").Not.Nullable()
