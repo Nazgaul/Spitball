@@ -12,15 +12,15 @@ export default {
     props:{
         score:{
             required: true
-        }
+        },
+        rankNames: ['Beginner', 'Professional', 'World Class', 'Spitballer']
     },
     computed:{
         rank(){
             return reputationService.calculateRankByScore(this.score);
         },
         rankName(){
-            let rankNames = ['Beginner', 'Professional', 'World Class', 'Spitballer']
-            return rankNames[this.rank];
+            return this.rankNames[this.rank];
         }
     }
 }
