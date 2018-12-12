@@ -27,6 +27,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Query;
 using Cloudents.Core.Votes.Commands.AddVoteAnswer;
 
 
@@ -96,11 +98,18 @@ namespace ConsoleApp
 
             var dic = new Dictionary<Guid?, VoteType>();
 
+            var bus = _container.Resolve<IQueryBus>();
 
-            var t = _container.Resolve<IUnitOfWork>();
-            var z = _container.Resolve<ICommandBus>();
-            var command = new AddVoteAnswerCommand(638, Guid.Parse("befedd71-01dd-4d06-89b0-a9b100952703"), VoteType.Up);
-            await z.DispatchAsync(command, token);
+            var userId = 159478;
+            var queryTags = new UserVotesQuestionQuery(userId, 7013);
+            var t = await  bus.QueryAsync<IEnumerable<UserVoteAnswerDto>>(queryTags, token)
+                .ContinueWith(
+                    t2 =>
+                    {
+                        return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
+                    }, token);
+
+            
             //await z.GetById("43958");
             //
         }
