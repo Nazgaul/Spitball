@@ -39,5 +39,7 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public DateTime? DateTime { get; set; }
+
+        [DataMember] public int Votes { get; set; }
     }
 }

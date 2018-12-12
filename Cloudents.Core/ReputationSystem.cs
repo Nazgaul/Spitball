@@ -67,13 +67,10 @@ namespace Cloudents.Core
             {
                 case VoteType.Down:
                     return score >= DownVote;
-                    break;
                 case VoteType.None:
                     return true;
-                    break;
                 case VoteType.Up:
                     return score >= UpVote;
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(vote), vote, null);
             }

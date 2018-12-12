@@ -18,7 +18,11 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
             //Map(x => x.State).Not.Nullable();
-            Component(x => x.Item);
+            Component(x => x.Item, t =>
+            {
+                QuestionMap.ItemComponentPartialMapping(t);
+                t.HasMany(x => x.Votes).KeyColumns.Add("AnswerId").Inverse().Cascade.AllDeleteOrphan();
+            });
 
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();

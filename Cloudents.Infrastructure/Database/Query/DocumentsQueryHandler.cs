@@ -45,7 +45,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     Title = s.Name,
                     Views = s.Views,
                     Downloads = s.Downloads,
-                    University = s.University.Name
+                    University = s.University.Name,
+                    Votes = s.Item.VoteCount
                 })
                 .ToListAsync(token);
 

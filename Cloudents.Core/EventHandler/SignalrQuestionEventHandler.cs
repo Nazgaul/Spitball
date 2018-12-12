@@ -42,7 +42,8 @@ namespace Cloudents.Core.EventHandler
                 DateTime.UtcNow,
                 eventMessage.Question.Color,
                 false,
-                eventMessage.Question.Language);
+                eventMessage.Question.Language, 
+                eventMessage.Question.Item.VoteCount);
             
             await _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), token);
         }
