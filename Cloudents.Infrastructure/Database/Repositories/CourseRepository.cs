@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {
@@ -43,7 +43,8 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public Task<Vote> GetVoteQuestionAsync(long userId, long questionId, CancellationToken token)
         {
-            return Session.Query<Vote>().Where(w => w.User.Id == userId && w.Question.Id == questionId)
+            return Session.Query<Vote>()
+                .Where(w => w.User.Id == userId && w.Question.Id == questionId && w.Answer.Id == null)
                 .SingleOrDefaultAsync(cancellationToken: token);
         }
 

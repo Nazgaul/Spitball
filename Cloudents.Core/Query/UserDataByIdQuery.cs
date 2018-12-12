@@ -12,8 +12,6 @@ namespace Cloudents.Core.Query
         IQuery<IEnumerable<BalanceDto>>,
         IQuery<IEnumerable<TransactionDto>>, 
         IQuery<UserProfileDto>
-        //IQuery<SuspendUserDto>
-        
     {
         public UserDataByIdQuery(long id)
         {
@@ -21,6 +19,20 @@ namespace Cloudents.Core.Query
         }
 
         public long Id { get; }
+    }
+
+    public class UserVotesByCategoryQuery : 
+        IQuery<IEnumerable<UserVoteDocumentDto>>,
+        IQuery<IEnumerable<UserVoteQuestionDto>>,
+        IQuery<IEnumerable<UserVoteAnswerDto>>
+
+    {
+        public UserVotesByCategoryQuery(long userId)
+        {
+            UserId = userId;
+        }
+
+        public long UserId { get; set; }
     }
 
 
