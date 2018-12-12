@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="!isSold && hideAnswerInput" class="question-bottom-section">
+            <div v-if="!isSold && !hideAnswerInput" class="question-bottom-section">
                 <div class="question-input-container">
                     <input class="question-input" placeholder="questionCard_Answer_placeholder" v-language:placeholder
                            type="text">
