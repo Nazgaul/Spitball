@@ -201,7 +201,7 @@ GO
 
 CREATE UNIQUE NONCLUSTERED INDEX idx_votesQuestion
                ON [sb].[Vote]([UserId] ASC,	[QuestionId] ASC)
-               WHERE [QuestionId] IS NOT NULL;
+               WHERE [QuestionId] IS NOT NULL and [AnswerId] is null;
 
 			   CREATE UNIQUE NONCLUSTERED INDEX idx_votesAnswer
                ON [sb].[Vote]([UserId] ASC,	[AnswerId] ASC)

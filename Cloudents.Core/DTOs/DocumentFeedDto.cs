@@ -66,8 +66,8 @@ namespace Cloudents.Core.DTOs
 
     }
 
-    public class UserVoteAnswerDto : UserVoteDto<Guid>
+    public class UserVoteAnswerDto : UserVoteDto<Guid?>
     {
-        public long QuestionId { get; set; }
+      
     }
 }

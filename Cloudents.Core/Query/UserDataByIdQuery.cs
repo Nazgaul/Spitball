@@ -23,8 +23,8 @@ namespace Cloudents.Core.Query
 
     public class UserVotesByCategoryQuery : 
         IQuery<IEnumerable<UserVoteDocumentDto>>,
-        IQuery<IEnumerable<UserVoteQuestionDto>>,
-        IQuery<IEnumerable<UserVoteAnswerDto>>
+        IQuery<IEnumerable<UserVoteQuestionDto>>
+        //IQuery<IEnumerable<UserVoteAnswerDto>>
 
     {
         public UserVotesByCategoryQuery(long userId)
@@ -33,6 +33,18 @@ namespace Cloudents.Core.Query
         }
 
         public long UserId { get; set; }
+    }
+
+    public class UserVotesQuestionQuery : IQuery<IEnumerable<UserVoteAnswerDto>>
+    {
+        public UserVotesQuestionQuery(long userId, long questionId)
+        {
+            UserId = userId;
+            QuestionId = questionId;
+        }
+
+        public long UserId { get; private set; }
+        public long QuestionId { get; private set; }
     }
 
 
