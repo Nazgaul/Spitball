@@ -55,7 +55,7 @@ namespace Cloudents.Web.Api
             if (result == SignInResult.Success)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Ok();
+                return Ok(new { Country = user.Country });
             }
 
 
