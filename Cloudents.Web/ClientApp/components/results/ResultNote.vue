@@ -64,7 +64,7 @@
                                        v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 ">
                                         {{item.title}}
                                     </p>
-                                    <v-icon class="doc mr-2">sbf-document-note</v-icon>
+                                    <v-icon class="doc">sbf-document-note</v-icon>
                                 </div>
                                 <div class="content-text" v-show="item.snippet">
                                     <span v-line-clamp="2">{{item.snippet}}</span>
