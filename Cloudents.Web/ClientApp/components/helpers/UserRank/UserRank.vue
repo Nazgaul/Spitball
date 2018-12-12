@@ -9,11 +9,15 @@
 <script>
 import reputationService from '../../../services/reputationService.js'
 export default {
+    data(){
+        return {
+            rankNames: ['Beginner', 'Professional', 'World Class', 'Spitballer']
+        }
+    },
     props:{
         score:{
             required: true
-        },
-        rankNames: ['Beginner', 'Professional', 'World Class', 'Spitballer']
+        }
     },
     computed:{
         rank(){
