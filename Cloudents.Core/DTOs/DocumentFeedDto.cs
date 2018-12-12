@@ -69,6 +69,10 @@ namespace Cloudents.Core.DTOs
 
     public class UserVoteAnswerDto : UserVoteDto<Guid>
     {
-      
+        public UserVoteAnswerDto(Guid? id, VoteType vote)
+        {
+            Id = id ?? default;
+            Vote = vote;
+        }
     }
 }

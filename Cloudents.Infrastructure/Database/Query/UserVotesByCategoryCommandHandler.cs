@@ -50,12 +50,8 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             return await _session.Query<Vote>()
                 .Where(w => w.Question.Id == query.QuestionId && w.User.Id == query.UserId)
-                .Select(s => new UserVoteAnswerDto
-                {
-                    Id = s.Answer.Id != null ? default : s.Answer.Id,
-                    //QuestionId = s.Question.Id,
-                    Vote = s.VoteType
-                }).ToListAsync(token);
+                .Select(s => new UserVoteAnswerDto(s.Answer.Id,s.VoteType)
+                ).ToListAsync(token);
         }
     }
 }
