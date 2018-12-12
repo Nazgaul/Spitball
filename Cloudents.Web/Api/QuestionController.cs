@@ -117,7 +117,7 @@ namespace Cloudents.Web.Api
             [FromServices] IQueryBus bus, CancellationToken token)
         {
             var retValTask =  bus.QueryAsync(new QuestionDataByIdQuery(id), token);
-            var votesTask = Task.FromResult<Dictionary<Guid?, VoteType>>(null);
+            var votesTask = Task.FromResult<Dictionary<Guid, VoteType>>(null);
 
             if (User.Identity.IsAuthenticated)
             {
@@ -144,7 +144,7 @@ namespace Cloudents.Web.Api
                 return retVal;
             }
 
-            if (votesTask.Result.TryGetValue(null, out var p))
+            if (votesTask.Result.TryGetValue(default, out var p))
             {
                 retVal.Vote.Vote = p;
             }
