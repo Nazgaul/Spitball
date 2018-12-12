@@ -35,6 +35,10 @@ export default {
     props: {
         cardData: {
             required: true
+        },
+        detailedView: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -76,9 +80,6 @@ export default {
         },
         randomViews() {
             return Math.floor(Math.random() * 1001);
-        },
-        questionReputation() {
-            return Math.floor(Math.random() * 100);
         },
 
     },

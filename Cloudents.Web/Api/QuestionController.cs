@@ -6,7 +6,11 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Cloudents.Core.Query;
+using Cloudents.Core.Questions.Commands.FlagQuestion;
+using Cloudents.Core.Votes.Commands.AddVoteQuestion;
+using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -21,10 +25,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Models;
-using Cloudents.Core.Votes.Commands.AddVoteQuestion;
-using Cloudents.Web.Binders;
-using Cloudents.Core.Questions.Commands.FlagQuestion;
 
 namespace Cloudents.Web.Api
 {
@@ -34,6 +34,7 @@ namespace Cloudents.Web.Api
     public class QuestionController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
+
         private readonly IProfileUpdater _profileUpdater;
         private readonly UserManager<RegularUser> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
@@ -115,11 +116,47 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<QuestionDetailDto>> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retVal = await bus.QueryAsync(new QuestionDataByIdQuery(id), token).ConfigureAwait(false);
+            var retValTask =  bus.QueryAsync(new QuestionDataByIdQuery(id), token);
+            var votesTask = Task.FromResult<Dictionary<Guid?, VoteType>>(null);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var queryTags = new UserVotesQuestionQuery(userId, id);
+                votesTask = bus.QueryAsync<IEnumerable<UserVoteAnswerDto>>(queryTags, token)
+                    .ContinueWith(
+                        t2 =>
+                        {
+                            return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
+                        }, token);
+
+            }
+
+            await Task.WhenAll(retValTask, votesTask);
+            var retVal = retValTask.Result;
             if (retVal == null)
             {
                 return NotFound();
             }
+
+            if (votesTask.Result == null)
+            {
+                return retVal;
+            }
+
+            if (votesTask.Result.TryGetValue(null, out var p))
+            {
+                retVal.Vote.Vote = p;
+            }
+
+            foreach (var answer in retVal.Answers)
+            {
+                if (votesTask.Result.TryGetValue(answer.Id, out var p2))
+                {
+                    retVal.Vote.Vote = p2;
+                }
+            }
+
             return retVal;
         }
 
@@ -143,8 +180,8 @@ namespace Cloudents.Web.Api
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
             [FromQuery]QuestionsRequest model,
-             //[ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            [FromServices] IQueryBus queryBus,
            CancellationToken token)
         {
             var query = new QuestionsQuery(model.Term, model.Source,
@@ -155,7 +192,25 @@ namespace Cloudents.Web.Api
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
 
-            var result = await _questionSearch.SearchAsync(query, token);
+            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var queryTags = new UserVotesByCategoryQuery(userId);
+                votesTask = queryBus.QueryAsync<IEnumerable<UserVoteQuestionDto>>(queryTags, token)
+                    .ContinueWith(
+                        t2 =>
+                        {
+                            return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
+                        }, token);
+
+            }
+
+            var taskResult = _questionSearch.SearchAsync(query, token);
+            await Task.WhenAll(votesTask, taskResult);
+
+            var result = taskResult.Result;
             string nextPageLink = null;
             if (result.Result.Count > 0)
             {
@@ -165,7 +220,15 @@ namespace Cloudents.Web.Api
             await queueTask;
             return new WebResponseWithFacet<QuestionFeedDto>
             {
-                Result = result.Result,
+                Result = result.Result.Select(s =>
+                {
+                    if (votesTask != null && votesTask.Result.TryGetValue(s.Id, out var param))
+                    {
+                        s.Vote.Vote = param;
+                    }
+
+                    return s;
+                }),
                 Filters = new IFilters[]
                 {
                     new Filters<string>(nameof(QuestionsRequest.Filter),_localizer["FilterTypeTitle"],
@@ -181,7 +244,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("vote")]
-        public async Task<IActionResult> VoteAsync([FromBody] AddVoteQuestionRequest model,CancellationToken token)
+        public async Task<IActionResult> VoteAsync([FromBody] AddVoteQuestionRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);

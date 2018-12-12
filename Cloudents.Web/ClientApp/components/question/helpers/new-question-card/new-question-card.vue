@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="!isSold && hideAnswerInput" class="question-bottom-section">
+            <div v-if="!isSold && !hideAnswerInput" class="question-bottom-section">
                 <div class="question-input-container">
                     <input class="question-input" placeholder="questionCard_Answer_placeholder" v-language:placeholder
                            type="text">
@@ -105,7 +105,7 @@
                 :maxWidth="'438px'"
                 :popUpType="'reportDialog'"
                 :content-class="`reportDialog ${isRtl? 'rtl': ''}` ">
-            <report-item  :closeReport="closeReportDialog" :itemId="itemId"></report-item>
+            <report-item  :closeReport="closeReportDialog" :itemType="cardData.template" :itemId="itemId"></report-item>
         </sb-dialog>
     </div>
 </template>

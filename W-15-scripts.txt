@@ -199,15 +199,17 @@ GO
 ALTER TABLE [sb].[Vote] CHECK CONSTRAINT [Votes_Question]
 GO
 
-ALTER TABLE [sb].[Vote] ADD UNIQUE NONCLUSTERED (
-	[UserId] ASC,
-	[QuestionId] ASC)
-    ALTER TABLE [sb].[Vote] ADD UNIQUE NONCLUSTERED (
-	[UserId] ASC,
-	[AnswerId] ASC)
-    ALTER TABLE [sb].[Vote] ADD UNIQUE NONCLUSTERED (
-	[UserId] ASC,
-	[DocumentId] ASC)
+CREATE UNIQUE NONCLUSTERED INDEX idx_votesQuestion
+               ON [sb].[Vote]([UserId] ASC,	[QuestionId] ASC)
+               WHERE [QuestionId] IS NOT NULL and [AnswerId] is null;
+
+			   CREATE UNIQUE NONCLUSTERED INDEX idx_votesAnswer
+               ON [sb].[Vote]([UserId] ASC,	[AnswerId] ASC)
+               WHERE [AnswerId] IS NOT NULL;
+
+			   CREATE UNIQUE NONCLUSTERED INDEX idx_votesDocument
+               ON [sb].[Vote]([UserId] ASC,	[DocumentId] ASC)
+               WHERE [DocumentId] IS NOT NULL;
 
 
 

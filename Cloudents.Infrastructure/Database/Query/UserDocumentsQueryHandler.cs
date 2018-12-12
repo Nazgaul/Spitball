@@ -14,11 +14,11 @@ namespace Cloudents.Infrastructure.Database.Query
 {
     public class UserDocumentsQueryHandler : IQueryHandler<UserDataPagingByIdQuery, IEnumerable<DocumentFeedDto>>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
         public UserDocumentsQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
         {
@@ -26,8 +26,6 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Fetch(f => f.University)
                 .Fetch(f => f.User)
                 .Where(w => w.User.Id == query.Id && w.Item.State == ItemState.Ok)
-
-                // .Where(w => w.State == null || w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new DocumentFeedDto()
                     {
@@ -47,7 +45,11 @@ namespace Cloudents.Infrastructure.Database.Query
                         Views = s.Views,
                         Downloads = s.Downloads,
                         University = s.University.Name,
-                        Votes = s.Item.VoteCount
+                        Vote = new VoteDto()
+                        {
+                            Votes = s.Item.VoteCount
+                        }
+                        
                     }
                 )
                 .Take(50).Skip(query.Page * 50)

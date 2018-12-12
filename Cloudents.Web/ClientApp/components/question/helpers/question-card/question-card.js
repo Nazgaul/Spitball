@@ -99,9 +99,6 @@ export default {
         cardAnswers() {
             return this.cardData.answers
         },
-        questionReputation(){
-            return Math.floor(Math.random() * 100);
-        }
     },
     methods: {
         ...mapActions({
@@ -110,8 +107,31 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
-            manualAnswerRemove: 'answerRemoved'
+            manualAnswerRemove: 'answerRemoved',
+            answerVote: 'answerVote'
         }),
+        upvoteAnswer(){
+            let type = "up";
+            if(!!this.cardData.upvoted){
+                type = "none"; 
+            }
+            let data = {
+                type,
+                id: this.cardData.id
+            }
+            this.answerVote(data);
+        },
+        downvoteAnswer(){
+            let type = "down";
+            if(!!this.cardData.downvoted){
+                type = "none"; 
+            }
+            let data = {
+                type,
+                id: this.cardData.id
+            }
+            this.answerVote(data);
+        },
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {
                 return this.cardData.color = 'default';

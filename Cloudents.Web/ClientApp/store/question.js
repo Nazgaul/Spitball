@@ -1,5 +1,6 @@
 import questionService from '../services/questionService'
 import searchService from '../services/searchService'
+import reputationService from '../services/reputationService'
 
 const state = {
     deletedAnswer: false,
@@ -31,6 +32,13 @@ const mutations = {
     markAsCorrect(state, answerId){
         state.question.hasCorrectAnswer = true;
         state.question.correctAnswerId = answerId;
+    },
+    updateAnswerVotes(state, {id, type}){
+        state.question.answers.forEach((answer) => {
+            if(answer.id === id){
+                reputationService.updateVoteCounter(answer, type)
+            }
+        })
     }
 };
 const getters = {
@@ -104,6 +112,11 @@ const actions = {
         if(!!state.question && state.question.id === questionId){
             commit('removeAnswer', answerId);
          }         
+    },
+    answerVote({commit}, data){
+        reputationService.voteAnswer(data.id, data.type).then(()=>{
+            commit('updateAnswerVotes', data);
+        })
     }
 };
 export default {

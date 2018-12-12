@@ -52,38 +52,10 @@ namespace Cloudents.Infrastructure.Database.Maps
 
         public static void ItemComponentPartialMapping(ComponentPart<ItemComponent> t)
         {
-            
             t.Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             t.Map(m => m.DeletedOn).Nullable();
             t.Map(m => m.FlagReason).Nullable();
             t.Map(m => m.VoteCount).Not.Nullable();
         }
     }
-
-    //public class QuestionDeleteMap : SubclassMap<QuestionDeleted>
-    //{
-    //    public QuestionDeleteMap()
-    //    {
-            
-    //        DiscriminatorValue(ItemState.Deleted);
-    //    }
-    //}
-
-    //public class QuestionPendingMap : SubclassMap<QuestionPending>
-    //{
-    //    public QuestionPendingMap()
-    //    {
-
-    //        DiscriminatorValue(ItemState.Pending);
-    //    }
-    //}
-
-    //public class QuestionApprovedMap : SubclassMap<QuestionApproved>
-    //{
-    //    public QuestionApprovedMap()
-    //    {
-    //        DiscriminatorValue(ItemState.Ok);
-    //    }
-    //}
-   
 }

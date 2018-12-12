@@ -18,6 +18,7 @@ namespace Cloudents.Core.Entities.Db
         {
             User = user;
             Answer = answer;
+            Question = answer.Question;
             VoteType = voteType;
         }
 

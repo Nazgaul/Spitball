@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Linq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Database.Query
             var ids = query.QuestionIds.ToList();
             return await _session.Query<Document>()
                 .Fetch(f => f.User)
-                .Fetch(f=>f.University)
+                .Fetch(f => f.University)
                 .Where(w => ids.Contains(w.Id) && w.Item.State == ItemState.Ok)
                 .Select(s => new DocumentFeedDto
                 {
@@ -46,7 +46,10 @@ namespace Cloudents.Infrastructure.Database.Query
                     Views = s.Views,
                     Downloads = s.Downloads,
                     University = s.University.Name,
-                    Votes = s.Item.VoteCount
+                    Vote = new VoteDto()
+                    {
+                        Votes = s.Item.VoteCount
+                    }
                 })
                 .ToListAsync(token);
 
