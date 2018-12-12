@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <v-flex grow class="top-row">
-                    <div class="upvotes-counter">
+                    <div class="upvotes-counter" v-if="item.votes !== null">
             <span class="document-reputation upvote-arrow" @click.prevent="upvoteDocument()">
               <v-icon>sbf-arrow-up</v-icon>
             </span>
