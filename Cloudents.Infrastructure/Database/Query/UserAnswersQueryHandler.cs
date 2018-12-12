@@ -36,14 +36,16 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Question.Text,
                     s.Question.Attachments,
                     s.Question.Answers.Count,
-                    new UserDto()
+                    new UserDto
                     {
                         Id = s.Question.User.Id,
                         Name = s.Question.User.Name,
                         Image = s.Question.User.Image,
                         Score = s.Question.User.Score
                     }, s.Question.Updated,
-                    s.Question.Color, s.Question.CorrectAnswer.Id != null, s.Question.Language))
+                    s.Question.Color, s.Question.CorrectAnswer.Id != null,
+                    s.Question.Language,
+                    s.Question.Item.VoteCount))
                 .Take(50).Skip(query.Page * 50).ToListAsync(token);
         }
     }

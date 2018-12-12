@@ -32,10 +32,10 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Attachments,
                     s.Answers.Count,
                     s.Updated,
-                    s.Color, s.CorrectAnswer.Id != null, s.Language)
+                    s.Color, s.CorrectAnswer.Id != null, s.Language, s.Item.VoteCount)
                 )
                 .Take(50).Skip(query.Page * 50)
-                .ToListAsync(cancellationToken: token);
+                .ToListAsync(token);
         }
     }
 }

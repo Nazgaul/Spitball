@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Database.Query
                         Image = s.User.Image,
                         Score = s.User.Score
                     }, s.Updated,
-                    s.Color, s.CorrectAnswer.Id != null, s.Language)
+                    s.Color, s.CorrectAnswer.Id != null, s.Language, s.Item.VoteCount)
                  )
                 .ToListAsync(token);
 
