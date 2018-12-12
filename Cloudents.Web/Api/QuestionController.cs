@@ -183,7 +183,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> VoteAsync([FromBody] AddVoteQuestionRequest model,CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AddVoteQuestionCommand(userId, model.QuestionId, model.VoteType);
+            var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);
 
             await _commandBus.Value.DispatchAsync(command, token);
             return Ok();

@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using System;
+using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Web.Models
 {
@@ -7,7 +8,34 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// Question Id
         /// </summary>
-        public long QuestionId { get; set; }
+        public long Id { get; set; }
+
+        /// <summary>
+        /// The vote - None if you want to cancel the vote
+        /// </summary>
+        public VoteType VoteType { get; set; }
+    }
+
+
+    public class AddVoteAnswerRequest
+    {
+        /// <summary>
+        /// Answer Id
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// The vote - None if you want to cancel the vote
+        /// </summary>
+        public VoteType VoteType { get; set; }
+    }
+
+    public class AddVoteDocumentRequest
+    {
+        /// <summary>
+        /// Document Id
+        /// </summary>
+        public long Id { get; set; }
 
         /// <summary>
         /// The vote - None if you want to cancel the vote
