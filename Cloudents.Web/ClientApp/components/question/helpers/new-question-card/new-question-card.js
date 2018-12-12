@@ -80,9 +80,32 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
-            manualAnswerRemove: 'answerRemoved'
+            manualAnswerRemove: 'answerRemoved',
+            questionVote: "questionVote"
         }),
         ...mapGetters(['accountUser']),
+        upvoteQuestion(){
+            let type = "up";
+            if(!!this.cardData.upvoted){
+                type = "none"; 
+            }
+            let data = {
+                type,
+                id: this.cardData.id
+            }
+            this.questionVote(data);
+        },
+        downvoteQuestion(){
+            let type = "down";
+            if(!!this.cardData.downvoted){
+                type = "none"; 
+            }
+            let data = {
+                type,
+                id: this.cardData.id
+            }
+            this.questionVote(data);
+        },
         cardOwner() {
             let userAccount = this.accountUser();
             if (userAccount && this.cardData.user) {
