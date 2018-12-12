@@ -40,6 +40,21 @@ const autoComplete = (data) => {
     return connectivityModule.http.get("suggest", {params: {sentence: data.term, vertical: data.vertical}})
 }
 
+function AnswerItem(objInit){
+    this.id = objInit.id;
+    this.text = objInit.text;
+    this.create = objInit.create;
+    this.files = objInit.files;
+    this.user = objInit.user;
+    this.votes = objInit.vote.votes;
+    this.upvoted = !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false ;
+    this.downvoted = !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false ;
+}
+
+function createAnswerItem(objInit){
+    return new AnswerItem(objInit)
+}
+
 function QuestionItem(objInit) {
     let oneMinute = 60000;
     let oneHour = oneMinute * 60;
@@ -50,7 +65,7 @@ function QuestionItem(objInit) {
     this.price = objInit.price;
     this.text = objInit.text;
     this.files = objInit.files;
-    this.answers = objInit.answers;
+    this.answers = typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem);
     this.user = objInit.user;
     this.dateTime = objInit.dateTime || objInit.create;
     this.color = !!objInit.color ? objInit.color.toLowerCase() : undefined;
