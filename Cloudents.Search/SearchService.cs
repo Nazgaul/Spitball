@@ -1,9 +1,9 @@
-﻿using Cloudents.Core.Interfaces;
-using Microsoft.Azure.Search;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
+using Cloudents.Core.Interfaces;
+using Microsoft.Azure.Search;
 
-namespace Cloudents.Infrastructure.Search
+namespace Cloudents.Search
 {
     public sealed class SearchService : ISearchService, IDisposable
     {
@@ -12,11 +12,11 @@ namespace Cloudents.Infrastructure.Search
         //Maintaining a Dictionary of Index Clients is better performant
         private readonly ConcurrentDictionary<string, ISearchIndexClient> _indexClients;
 
-        public SearchService(IConfigurationKeys configuration)
+        public SearchService(string key,string name, bool isDevelop)
         {
-            var key = configuration.Search;
-            _isDevelop = key.IsDevelop;
-            Client = new SearchServiceClient(key.Name, new SearchCredentials(key.Key));
+            
+            _isDevelop = isDevelop;
+            Client = new SearchServiceClient(name, new SearchCredentials(key));
             _indexClients = new ConcurrentDictionary<string, ISearchIndexClient>();
         }
 

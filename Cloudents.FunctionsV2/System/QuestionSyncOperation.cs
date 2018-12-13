@@ -4,6 +4,8 @@ using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.WebJobs;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Search;
+using Cloudents.Search.Question;
 
 namespace Cloudents.FunctionsV2.System
 {

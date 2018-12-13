@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.Search;
 
-namespace Cloudents.Infrastructure.Search
+namespace Cloudents.Search
 {
     public interface ISearchService
     {

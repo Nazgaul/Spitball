@@ -1,14 +1,13 @@
-﻿using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 
-namespace Cloudents.Infrastructure.Write
+namespace Cloudents.Search
 {
     public abstract class SearchServiceWrite<T> :  ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {

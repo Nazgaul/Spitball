@@ -33,6 +33,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Search;
 using Microsoft.AspNetCore.HttpOverrides;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -200,6 +201,8 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
 
+            containerBuilder.RegisterModule(new SearchModule(Configuration["AzureSearch:SearchServiceName"],
+                Configuration["AzureSearch:SearchServiceAdminApiKey"], !HostingEnvironment.IsProduction()));
 
             containerBuilder.RegisterType<SeoDocumentRepository>()
                 .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>().WithParameter("query", SeoDbQuery.Flashcard);

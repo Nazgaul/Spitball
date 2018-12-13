@@ -1,12 +1,12 @@
-﻿using Cloudents.Core.Extension;
-using Microsoft.Azure.Search.Models;
-using Microsoft.Spatial;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using Cloudents.Core.Extension;
+using Microsoft.Azure.Search.Models;
+using Microsoft.Spatial;
 
-namespace Cloudents.Infrastructure.Write
+namespace Cloudents.Search
 {
     public class FluentSearchIndexBuilder<T>
     {
