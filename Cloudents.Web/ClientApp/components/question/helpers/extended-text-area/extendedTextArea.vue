@@ -9,7 +9,7 @@
                           :value="value" autofocus="isFocused"
                           :placeholder="`extendedTextArea_type_your_${actionType}`" v-language:placeholder></textarea>
                 <div class="action-holder">
-                    <ul class="actions_text files-actions">
+                    <ul class="actions_text files-actions" v-if="isAttachVisible">
                         <li>
                             <v-icon style="cursor: pointer; font-size: 18px; position: absolute; top: 4px;"
                                     :class="`sbf-font-${activeColor.name}`">sbf-attach
