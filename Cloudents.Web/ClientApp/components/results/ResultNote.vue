@@ -1,15 +1,12 @@
 <template>
-    <!--to apply border left, for cell based on type, add this to class---- 'type-'+typeID  -->
     <a
             :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'"
             @click.native="(isOurs ? $_spitball($event):'')"
             :href="url"
-            :class="['d-block', 'note-block']"
-    >
+            :class="['d-block', 'note-block']">
         <v-container
                 class="pa-0"
-                @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)"
-        >
+                @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-flex class="wrapper">
                 <div class="document-header-container">
                     <div class="document-header-large-sagment">
@@ -123,7 +120,7 @@
                     {
                         title: LanguageService.getValueByKey("questionCard_Report"),
                         action: this.reportItem,
-                        isVisible: !this.cardOwner()
+                        isVisible: !this.cardOwner() && this.isCloudents()
                     },
                     {
                         title: LanguageService.getValueByKey("questionCard_Delete"),
@@ -143,9 +140,9 @@
                     return this.item.user.score;
                 }
             },
-            documentUpvotes() {
-                return Math.floor(Math.random() * 100);
-            },
+            // documentUpvotes() {
+            //     return Math.floor(Math.random() * 100);
+            // },
             type() {
                 let self = this;
                 if (!!self.item.type) {
@@ -207,12 +204,10 @@
                         this.item.source.toLowerCase().includes("spitball")
                     );
             },
-            isCloudents() {
-                return this.item.source.includes("Cloudents");
-            },
-            isSpitball() {
-                return this.item.source.includes("Spitball");
-            },
+
+            // isSpitball() {
+            //     return this.item.source.includes("Spitball");
+            // },
             url: function () {
                 return this.item.url;
             }
@@ -225,6 +220,9 @@
                 if (userAccount && this.item.user) {
                     return userAccount.id === this.item.user.id; // will work once API call will also return userId
                 }
+            },
+            isCloudents() {
+                return this.item.source.toLowerCase().includes("cloudents");
             },
             reportItem() {
                 this.itemId = this.item.id;

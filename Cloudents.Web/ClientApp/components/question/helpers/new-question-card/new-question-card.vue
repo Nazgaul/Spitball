@@ -57,7 +57,7 @@
                             class="question-body-content-container"
                             :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`]"
                     >
-                        <span>{{cardData.text}}</span>
+                        <span >{{cardData.text}}</span>
                     </div>
                 </div>
             </div>
