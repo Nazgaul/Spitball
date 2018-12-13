@@ -1,24 +1,380 @@
+@import "../../styles/mixin.less";
 
-.page{
-  display: flex;
-  @media (max-width: 1000px){
-  }
-
-  @media (max-width: 600px){
+.placeholder {
+  height: 250px;
+  width: 100%;
+  background: #6a6a6a;
+}
+.wide-parallax{
+  width: 100%;
+  overflow-x: hidden;
+  .statistics{
+    width: 105%;
   }
 }
-main{
-  width: 100%;
+
+ul, nav {
+  list-style: none;
+}
+
+a.btn {
+  color: #fff;
+  border-radius: 4px;
+  text-transform: uppercase;
+  background-color: #2196F3;
+  font-weight: 800;
+  text-align: center;
+}
+
+hr {
+  width: 150px;
+  height: 2px;
+  background-color: #2196F3;
+  border: 0;
+  margin-bottom: 80px;
+}
+
+section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 125px 100px;
+   //padding: 125px 0px;
+
 }
-section{
+
+@media (max-width: 1000px) {
+
+  section {
+    padding: 100px 50px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  section {
+    padding: 80px 30px;
+  }
+
+}
+
+section h3.title {
+  color: #414a4f;
+  text-transform: capitalize;
+  font: bold 32px 'Open Sans', sans-serif;
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+section p {
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 35px;
+  padding: 0 20px;
+  line-height: 2;
+}
+
+.carousel-holder {
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/*----------------
+ 	Parralax Section
+----------------*/
+.overflowing-parallax{
+  overflow: visible;
+  max-height: 600px;
+  @media (max-width: @screen-xs) {
+   max-height: 350px;
+   overflow: visible;
+  }
+
+}
+
+/*----------------
+ 	Hero Section
+----------------*/
+
+.hero {
+  position: relative;
+  justify-content: center;
+  height: 100%;
+  color: #fff;
+  text-align: center;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  .hero-wrap{
+    display: flex;
+    flex-grow:1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .hero-text-container {
+    height: 190px;
+    .hero-title {
+      font-size: 56px;
+      color: @color-white;
+      font-family: 'Patua One', sans-serif;
+      margin-bottom: 15px;
+    }
+    h3 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 24px;
+      line-height: 1.29;
+      letter-spacing: normal;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.66);
+      font-weight: normal;
+    }
+  }
+  .cta-button{
+    padding: 16px 32px;
+    border-radius: 56.5px;
+    box-shadow: 0 16px 23px 0 rgba(20, 17, 3, 0.44);
+    background-color: #ffdf54;
+    font-family: @fontFiraSans;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    color: @textColor;
+  }
+  .video-link{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 0.88;
+    letter-spacing: normal;
+    color: @colorWhiteBlured;
+    margin-top: 52px;
+    .play-icon{
+      font-size: 26px;
+      color: @color-white;
+      margin-right: 12px;
+    }
+  }
+}
+
+
+.hero a.btn {
+  padding: 20px 46px;
+}
+
+@media (max-width: 800px) {
+  .hero {
+    min-height: 600px;
+    h1 {
+      font-size: 48px;
+    }
+    h3 {
+      font-size: 24px;
+    }
+    a {
+      &.btn {
+        padding: 15px 40px;
+      }
+    }
+  }
+}
+
+/*--------------------
+ 	Statistics Section
+---------------------*/
+.statistics {
+  align-items: stretch;
+  justify-content: center;
+  background-color: fade(@color-black, 41%);
+  padding: 16px 100px;
+}
+
+/*--------------------
+ 	Statistics Section
+---------------------*/
+.intro-one, .intro-two {
   flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  @media (max-width: @screen-xs) {
+    flex-direction: column;
+  }
+  .right-part {
+    order: 2;
+    display: flex;
+    flex-basis: 50%;
+    justify-content: center;
+  }
+  .left-part {
+    order: 1;
+    display: flex;
+    flex-basis: 50%;
+  }
+}
+
+/*--------------------
+ 	reviews  Section
+---------------------*/
+
+.reviews {
+  //background-color: #fff;
+  .grid {
+    li {
+      padding: 20px;
+      height: 350px;
+      border-radius: 3px;
+      background-clip: content-box;
+      background-size: cover;
+      background-position: center;
+      background-color: #333;
+      &.small {
+        flex-basis: 40%;
+        @media (max-width: 1000px) {
+          flex-basis: 100%;
+        }
+      }
+      &.large {
+        flex-basis: 60%;
+        @media (max-width: 1000px) {
+          flex-basis: 100%;
+        }
+      }
+    }
+  }
+}
+
+/*----------------------
+ 	Features Section
+----------------------*/
+
+.features {
+  background-color: #f7f7f7;
+}
+
+.features .grid li {
+  padding: 0 30px;
+  flex-basis: 33%;
+  text-align: center;
+}
+
+.features .grid li i {
+  font-size: 50px;
+  color: #2196F3;
+  margin-bottom: 25px;
+}
+
+.features .grid li h4 {
+  color: #555;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+.features .grid li p {
+  margin: 0;
+}
+
+@media (max-width: 1000px) {
+
+  .features .grid li {
+    flex-basis: 70%;
+    margin-bottom: 65px;
+  }
+
+  .features .grid li:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .features .grid li {
+    flex-basis: 100%;
+  }
+
+}
+
+/*--------------------
+ 	FAQ is Section
+--------------------*/
+
+.faq {
+  background-color: #fff;
+}
+
+.faq .quote {
+  text-align: center;
+  width: 80%;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  padding: 0;
+}
+
+.faq .author {
+  font-size: 18px;
+  margin-bottom: 50px;
+}
+
+.faq .author:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1000px) {
+
+  .faq .quote {
+    font-size: 20px;
+  }
+
+  .faq .author {
+    font-size: 16px;
+  }
+
+}
+
+/*---------------------
+ 	Contact Section
+---------------------*/
+
+.contact {
+  background-color: #f7f7f7;
+}
+
+.contact form {
+  display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
+  flex-wrap: wrap;
+
+  max-width: 800px;
+  width: 80%;
+}
+
+.contact form input {
+  padding: 15px;
+  flex: 1;
+  margin-right: 30px;
+  font-size: 18px;
+  color: #555;
+}
+
+.contact form .btn {
+  padding: 18px 42px;
+}
+
+@media (max-width: 800px) {
+
+  .contact form input {
+    flex-basis: 100%;
+    margin: 0 0 20px 0;
+  }
+
 }
 
 

@@ -47,7 +47,8 @@ const vuetifyComponents = {
     VDataTable,
     VStepper,
     VCombobox,
-    VCheckbox
+    VCheckbox,
+    VParallax
 
 };
 import {
@@ -81,7 +82,8 @@ import {
     VDataTable,
     VStepper,
     VCombobox,
-    VCheckbox
+    VCheckbox,
+    VParallax
 
 } from "vuetify";
 import * as route from "./routes";
@@ -91,7 +93,7 @@ import { constants } from "./utilities/constants";
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: ["Open+Sans:300,400,600,700", "Fira+Sans:300,400,600,700", "Assistant:300,400,600,700", "Alef:300,400,600,700"]
+        families: ["Open+Sans:300,400,600,700", "Fira+Sans:300,400,600,700", "Assistant:300,400,600,700", "Alef:300,400,600,700", "Patua+One"]
     }
 });
 

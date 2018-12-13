@@ -71,6 +71,7 @@ let routes2 = [
         name: "main",
         components: {
             default: landingPage,
+            header: pageHeader
         },
     },
     {
