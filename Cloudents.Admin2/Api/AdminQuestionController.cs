@@ -80,14 +80,13 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("approve")]
-        public async Task<ActionResult> ApproveQuestionAsync([FromBody]ApproveQuestionRequest model, CancellationToken token)
+        public async Task<ActionResult> ApproveQuestionAsync([FromQuery(Name = "id")]IEnumerable<long> ids, CancellationToken token)
         {
-            //foreach (var id in model.Ids)
-            // {
+         
 
-            var command = new ApproveQuestionCommand(model.Id);
+            var command = new ApproveQuestionCommand(ids);
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
-            //}
+          
             return Ok();
         }
 
@@ -135,8 +134,21 @@ namespace Cloudents.Admin2.Api
                 return new UploadAskFileResponse(fileName);
             }
 
-
         }
 
+        [HttpGet("flagged")]
+        public async Task<IEnumerable<FlaggedQuestionDto>> FlagAsync(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            return await _queryBus.QueryAsync<IEnumerable<FlaggedQuestionDto>>(query, token);
+        }
+
+        [HttpPost("unFlage")]
+        public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] IEnumerable<long> ids, CancellationToken token)
+        {
+            var command = new UnFlagQuestionCommand(ids);
+            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+            return Ok();
+        }
     }
 }

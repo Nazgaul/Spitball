@@ -38,10 +38,10 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("approve")]
-        public async Task<ActionResult> ApproveQuestionAsync([FromBody]ApproveAnswerRequest model, CancellationToken token)
+        public async Task<ActionResult> ApproveAnswerAsync([FromQuery(Name = "id")] Guid id, CancellationToken token)
         {
          
-            var command = new ApproveAnswerCommand(model.Id);
+            var command = new ApproveAnswerCommand(id);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
@@ -53,7 +53,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<ActionResult> DeleteQuestionAsync([FromQuery(Name = "id")]IEnumerable<Guid> ids, CancellationToken token)
+        public async Task<ActionResult> DeleteAnswerAsync([FromQuery(Name = "id")] IEnumerable<Guid> ids, CancellationToken token)
         {
             foreach (var id in ids)
             {
@@ -62,6 +62,21 @@ namespace Cloudents.Admin2.Api
 
                 await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             }
+            return Ok();
+        }
+
+        [HttpGet("flagged")]
+        public async Task<IEnumerable<FlaggedAnswerDto>> FlagAsync(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            return await _queryBus.QueryAsync<IEnumerable<FlaggedAnswerDto>>(query, token);
+        }
+
+        [HttpPost("unFlage")]
+        public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] IEnumerable<Guid> ids, CancellationToken token)
+        {
+            var command = new UnFlagAnswerCommand(ids);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
     }
