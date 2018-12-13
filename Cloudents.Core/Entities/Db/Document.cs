@@ -75,7 +75,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual ItemComponent Item { get; set; }
 
-        public virtual CultureInfo Language { get; set; }
+        //public virtual CultureInfo Language { get; set; }
 
     }
 

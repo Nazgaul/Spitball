@@ -53,7 +53,7 @@ namespace Cloudents.FunctionsV2
         private static async Task SyncBlobWithSearch(string text, long id, IDictionary<string, string> metadata,
             IAsyncCollector<AzureSearchSyncOutput> searchInstance, ICommandBus commandBus, ITextAnalysis textAnalysis, CancellationToken token)
         {
-            var lang = await textAnalysis.DetectLanguageAsync(text.Truncate(5000), token);
+            //var lang = await textAnalysis.DetectLanguageAsync(text.Truncate(5000), token);
             int? pageCount = null;
             if (metadata.TryGetValue("PageCount", out var pageCountStr) &&
                 int.TryParse(pageCountStr, out var pageCount2))
@@ -63,7 +63,7 @@ namespace Cloudents.FunctionsV2
 
             try
             {
-                var command = new UpdateDocumentMetaCommand(id, lang, pageCount);
+                var command = new UpdateDocumentMetaCommand(id,  pageCount);
                 await commandBus.DispatchAsync(command, token);
 
 
@@ -74,7 +74,7 @@ namespace Cloudents.FunctionsV2
                     {
                         Id = id.ToString(),
                         Content = text.Truncate(6000),
-                        Language = lang.TwoLetterISOLanguageName,
+                        //Language = lang.TwoLetterISOLanguageName,
                         MetaContent = text.Truncate(200, true)
                     },
                     Insert = true

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search.Models;
+using System.Collections.Generic;
 
 namespace Cloudents.Search.Document
 {
@@ -28,7 +28,10 @@ namespace Cloudents.Search.Document
                 Name = indexName,
                 Fields = new List<Field>
                 {
-
+                    new Field("Language",DataType.String)
+                    {
+                        IsFilterable = true
+                    },
                    fieldBuilder.Map(x=>x.Id).IsKey(),
                    fieldBuilder.Map(x=>x.DateTime).IsSortable().IsFilterable(),
                    fieldBuilder.Map(x=>x.Content).IsSearchable(),
@@ -38,7 +41,7 @@ namespace Cloudents.Search.Document
                     fieldBuilder.Map(x=>x.Tags).IsSearchable().IsFilterable(),
                     fieldBuilder.Map(x=>x.Course).IsFilterable(),
                     fieldBuilder.Map(x=>x.Country).IsFilterable().IsFacetable(),
-                    fieldBuilder.Map(x=>x.Language).IsFilterable(),
+                    //fieldBuilder.Map(x=>x.Language).IsFilterable(),
                     fieldBuilder.Map(x=>x.University).IsFilterable(),
                     fieldBuilder.Map(x=>x.Type).IsFilterable().IsFacetable()
                 },

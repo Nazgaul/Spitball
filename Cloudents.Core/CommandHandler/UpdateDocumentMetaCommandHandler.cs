@@ -19,7 +19,7 @@ namespace Cloudents.Core.CommandHandler
         {
             var doc = await _documentRepository.LoadAsync(message.Id, token);
             doc.PageCount = message.PageCount;
-            doc.Language = message.Language;
+            //doc.Language = message.Language;
 
             await _documentRepository.UpdateAsync(doc, token);
         }

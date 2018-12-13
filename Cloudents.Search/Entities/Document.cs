@@ -22,7 +22,7 @@ namespace Cloudents.Search.Entities
                 Course = obj.Course.ToUpperInvariant(),
                 Id = obj.ItemId.ToString(),
                 Name = obj.Name,
-                Language = obj.Language.ToLowerInvariant(),
+               // Language = obj.Language.ToLowerInvariant(),
                 Type = obj.Type,
                 Tags = obj.TagsArray
             };
@@ -40,7 +40,7 @@ namespace Cloudents.Search.Entities
         public string[] Tags { get; set; }
         public string Course { get; set; }
         public string Country { get;  set; }
-        public string Language { get;  set; }
+        //public string Language { get;  set; }
         public string University { get;  set; }
 
 

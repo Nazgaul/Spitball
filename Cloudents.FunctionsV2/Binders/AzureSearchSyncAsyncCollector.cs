@@ -29,6 +29,10 @@ namespace Cloudents.FunctionsV2.Binders
 
         public async Task FlushAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (_messages.Count == 0)
+            {
+                return;
+            }
             var uploadAction = _messages.Where(w => w.Insert).Select(s => IndexAction.MergeOrUpload(s.Item));
             var deleteAction = _messages.Where(w => !w.Insert).Select(s => IndexAction.Delete(s.Item));
 

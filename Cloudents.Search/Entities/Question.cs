@@ -35,7 +35,7 @@ namespace Cloudents.Search.Entities
             Text = dto.Text;
             Prefix = new[] { dto.Text }.Union(dto.Subject.GetEnumLocalizationAllValues()).ToArray();
             Country = dto.Country.ToUpperInvariant();
-            Language = dto.Language.ToLowerInvariant();
+            Language = dto.Language?.ToLowerInvariant() ?? "en";
             Subject = dto.Subject;
             State = dto.Filter;
         }
