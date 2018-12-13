@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
         public async Task<UserProfileDto> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            var futureDto = _session.Query<User>()
+            return await _session.Query<User>()
                  .Fetch(u => u.University)
                  .Where(w => w.Id == query.Id)
                  .Select(s => new UserProfileDto
@@ -31,11 +31,11 @@ namespace Cloudents.Infrastructure.Database.Query
                          Id = s.Id,
                          Image = s.Image,
                          Name = s.Name,
-                         UniversityName = s.University.Name
+                         UniversityName = s.University.Name,
+                         Score = s.Score
                  })
-                 .ToFutureValue();
+                 .SingleOrDefaultAsync(cancellationToken: token);
 
-            return await futureDto.GetValueAsync(token).ConfigureAwait(false);
         }
     }
 }

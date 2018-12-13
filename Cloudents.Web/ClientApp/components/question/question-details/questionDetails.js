@@ -2,7 +2,8 @@ import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import questionCard from "./../helpers/question-card/question-card.vue";
+import questionCard from "./../helpers/new-question-card/new-question-card.vue";
+import answerCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
@@ -10,10 +11,11 @@ import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue
 import { sendEventList } from '../../../services/signalR/signalREventSender'
 import { LanguageService } from "../../../services/language/languageService";
 import analyticsService from '../../../services/analytics.service';
+import searchService from '../../../services/searchService'
 
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
+    components: {questionThread, questionCard, answerCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
     props: {
         id: {Number}, // got it from route
         questionId: {Number}
@@ -68,7 +70,7 @@ export default {
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
-                        self.cardList = resp.data;
+                        self.cardList = resp.data.nextQuestions.map(searchService.createQuestionItem);
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, (error) => {
@@ -85,8 +87,9 @@ export default {
             return duplicated.length > 0;
         },
 
-        addFile(filename) {
-            this.answerFiles.push(...filename.split(','));
+        addFile(filenames) {
+            this.answerFiles = this.answerFiles.concat(filenames);
+            //this.answerFiles.push(...filename.split(','));
         },
         removeFile(index) {
             this.answerFiles.splice(index, 1);

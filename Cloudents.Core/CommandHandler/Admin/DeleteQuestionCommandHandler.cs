@@ -6,6 +6,7 @@ using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -30,18 +31,27 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 return;
             }
-            await DeleteQuestionAsync(question, token);
+            if (question.Item.State == ItemState.Deleted)
+            {
+                return;
+            }
+
+            if (!(question.User is RegularUser user))
+            {
+                return;
+            }
+            await DeleteQuestionAsync(question, user, token);
         }
 
-        internal async Task DeleteQuestionAsync(Question question, CancellationToken token)
+        internal async Task DeleteQuestionAsync(Question question,RegularUser user, CancellationToken token)
         {
             foreach (var transaction in question.Transactions)
             {
                 await _transactionRepository.DeleteAsync(transaction, token);
             }
 
-            question.Events.Add(new QuestionDeletedEvent(question));
-            question.Events.Add(new QuestionDeletedAdminEvent());
+            question.Events.Add(new QuestionDeletedAdminEvent(question, user));
+            //question.Events.Add(new QuestionRejectEvent(user));
             await _questionRepository.DeleteAsync(question, token);
         }
     }

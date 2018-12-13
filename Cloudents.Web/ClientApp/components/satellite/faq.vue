@@ -2,7 +2,7 @@
     <general-page>
         <div class="faq">
             <v-expansion-panel class="elevation-0" popout :value="+id">
-                <v-expansion-panel-content expand v-for="(question,i) in questions" :key="i" >
+                <v-expansion-panel-content  v-for="(question,i) in questions" :key="i" >
                     <v-icon slot="actions" class="actions">sbf-chevron-down</v-icon>
                     <div slot="header">
                         <div>{{question.question}}</div>

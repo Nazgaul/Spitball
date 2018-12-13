@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
@@ -11,10 +10,9 @@ namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
 
-    public class Document : IEvents
+    public class Document : DomainObject, ISoftDelete
     {
         public Document([NotNull] string name,
-            /*[NotNull] string blobName,*/
             [NotNull] University university,
             [NotNull] Course course, DocumentType type,
             [NotNull] IEnumerable<Tag> tags, User user, string professor)
@@ -31,7 +29,16 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Views = 0;
             Professor = professor;
-            Events.Add(new DocumentCreatedEvent(this));
+
+            Item.State = Privileges.GetItemState(user.Score);
+
+            if (Item.State == ItemState.Ok)
+            {
+                Events.Add(new DocumentCreatedEvent(this));
+
+            }
+            
+            
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
@@ -39,7 +46,7 @@ namespace Cloudents.Core.Entities.Db
         {
             TimeStamp = new DomainTimeStamp();
             Tags = new HashSet<Tag>();
-            Events = new List<IEvent>();
+            Item = new ItemComponent();
         }
 
         public virtual long Id { get; set; }
@@ -70,10 +77,31 @@ namespace Cloudents.Core.Entities.Db
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }
 
-        public virtual ItemState? State { get; set; }
-
+        public virtual ItemComponent Item { get; set; }
 
         public virtual CultureInfo Language { get; set; }
-        public virtual IList<IEvent> Events { get; }
+
     }
+
+
+    //public class DocumentApproved : Document, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
+
+    //public class DocumentPending : Document, ISoftDelete
+    //{
+    //    //public void DeleteAssociation()
+    //    //{
+    //    //    throw new NotImplementedException();
+    //    //}
+    //}
+
+    //public class DocumentDeleted : Document
+    //{
+
+    //}
 }

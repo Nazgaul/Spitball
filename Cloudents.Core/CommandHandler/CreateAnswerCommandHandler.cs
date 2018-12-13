@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -17,12 +18,12 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IAnswerRepository _answerRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<RegularUser> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
-            IAnswerRepository answerRepository, IRepository<User> userRepository,
+            IAnswerRepository answerRepository, IRepository<RegularUser> userRepository,
             IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _questionRepository = questionRepository;
@@ -39,6 +40,11 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new ArgumentException("question doesn't exits");
             }
+
+            if (question.Item.State != ItemState.Ok)
+            {
+                throw new ArgumentException("question doesn't exits");
+            }
             if (question.CorrectAnswer != null)
             {
                 throw new QuestionAlreadyAnsweredException();
@@ -51,21 +57,15 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("user cannot answer himself");
             }
 
-           
-            if (user.Fictive.GetValueOrDefault())
-            {
-                throw new InvalidOperationException("fictive user");
-            }
-
-            if (!Language.ListOfWhiteListCountries.Contains(user.Country))
-            {
-                var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
-                var pendingAnswerAfterThisInsert = pendingAnswers + 1;
-                if (pendingAnswerAfterThisInsert > 5)
-                {
-                    throw new QuotaExceededException();
-                }
-            }
+            //if (!Language.ListOfWhiteListCountries.Contains(user.Country))
+            //{
+            //    var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
+            //    var pendingAnswerAfterThisInsert = pendingAnswers + 1;
+            //    if (pendingAnswerAfterThisInsert > 5)
+            //    {
+            //        throw new QuotaExceededException();
+            //    }
+            //}
 
             //TODO:
             //we can check if we can create sql query to check answer with regular expression
@@ -73,7 +73,7 @@ namespace Cloudents.Core.CommandHandler
             var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
             var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
             if (question.Answers != null)
-                foreach (var answer in question.Answers)
+                foreach (var answer in question.Answers.Where(w=>w.Item.State == ItemState.Ok))
                 {
                     if (answer.User.Id == user.Id)
                     {
@@ -87,6 +87,8 @@ namespace Cloudents.Core.CommandHandler
                 }
             var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(newAnswer, token).ConfigureAwait(false);
+            question.AnswerCount++;
+            await _questionRepository.UpdateAsync(question, token);
             var id = newAnswer.Id;
 
 

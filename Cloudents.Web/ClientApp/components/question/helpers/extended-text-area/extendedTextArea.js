@@ -1,16 +1,18 @@
 import colorsSet from '../colorsSet';
-import Vue from 'vue';
+//import Vue from 'vue';
 import FileUpload from 'vue-upload-component/src';
 //docs here https://lian-yue.github.io/vue-upload-component   --vue-upload-component--
-Vue.component('file-upload', FileUpload);
+//Vue.component('file-upload', FileUpload);
 export default {
-
     props: {
         value: {type: String},
         error: {},
         actionType: {type: String, default: 'answer'},
         isFocused: false,
         uploadUrl: {type: String}
+    },
+    components:{
+        FileUpload
     },
     data() {
         return {
@@ -23,11 +25,11 @@ export default {
             },
             isFirefox: global.isFirefox,
             files: [],
-            extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp', 'bmp']
+            extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp', 'bmp'],
+            componentUniqueId: `instance-${this._uid}` 
         }
-
-
     },
+    
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
@@ -99,7 +101,10 @@ export default {
                 let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
                 let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
                 let isSupported = this.extensions.includes(ext);
-                if (!isSupported) {
+                if (!isSupported ) {
+                    return prevent()
+                }
+                if(newFile && newFile.size === 0){
                     return prevent()
                 }
             }
@@ -126,5 +131,7 @@ export default {
         });
 
     },
-
+created(){
+    console.log(`router path: ${this.$route.fullPath} component`, this)
+}
 }

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
@@ -12,6 +11,7 @@ namespace Cloudents.Core.EventHandler
     public class SignalrQuestionEventHandler 
         : IEventHandler<QuestionCreatedEvent>,
             IEventHandler<QuestionDeletedEvent>,
+            IEventHandler<QuestionDeletedAdminEvent>,
             IEventHandler<MarkAsCorrectEvent>,
             IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>,
             IEventHandler<TransactionEvent>
@@ -42,9 +42,11 @@ namespace Cloudents.Core.EventHandler
                 DateTime.UtcNow,
                 eventMessage.Question.Color,
                 false,
-                eventMessage.Question.Language);
+                eventMessage.Question.Language, 
+                eventMessage.Question.Item.VoteCount,
+                eventMessage.Question.AnswerCount);
             
-            await _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Add, dto), token);
+            await _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), token);
         }
 
 
@@ -55,32 +57,40 @@ namespace Cloudents.Core.EventHandler
                 id = eventMessage.Question.Id
             };
 
-            await _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Delete, dto), token);
+            await _queueProvider.InsertMessageAsync(
+                new SignalRTransportType(SignalRType.Question, SignalRAction.Delete, dto), token);
         }
 
         public Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
         {
-            var question = eventMessage.Answer.Question;
-            var user = new UserDto
-            {
-                Id = question.User.Id,
-                Name = question.User.Name,
-                Image = question.User.Image
-            };
-            var dto = new QuestionFeedDto(question.Id,
-                question.Subject,
-                question.Price,
-                question.Text,
-                question.Attachments,
-                question.Answers.Count,
-                user,
-                question.Updated,
-                question.Color,
-                question.CorrectAnswer?.Id != null,
-                question.Language);
+            var message = new SignalRTransportType(SignalRType.Question, SignalREventAction.MarkAsCorrect,
+                new
+                {
+                    questionId = eventMessage.Answer.Question.Id,
+                    answerId = eventMessage.Answer.Id
+                });
+
+            //var question = eventMessage.Answer.Question;
+            //var user = new UserDto
+            //{
+            //    Id = question.User.Id,
+            //    Name = question.User.Name,
+            //    Image = question.User.Image
+            //};
+            //var dto = new QuestionFeedDto(question.Id,
+            //    question.Subject,
+            //    question.Price,
+            //    question.Text,
+            //    question.Attachments,
+            //    question.Answers.Count,
+            //    user,
+            //    question.Updated,
+            //    question.Color,
+            //    question.CorrectAnswer?.Id != null,
+            //    question.Language);
 
 
-            return _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Question, SignalRAction.Update, dto), token);
+            return _queueProvider.InsertMessageAsync(message, token);
         }
 
         public Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
@@ -101,11 +111,11 @@ namespace Cloudents.Core.EventHandler
             };
             var dto = new
             {
-                questionId = eventMessage.Answer.Question.Id,
-                answer = answerDto
+                QuestionId = eventMessage.Answer.Question.Id,
+                Answer = answerDto
             };
 
-            return _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Answer, SignalRAction.Add, dto), token);
+            return _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Answer, SignalRAction.Add, dto), token);
         }
 
         public Task HandleAsync(AnswerDeletedEvent eventMessage, CancellationToken token)
@@ -116,18 +126,27 @@ namespace Cloudents.Core.EventHandler
                 answer = new { id = eventMessage.Answer.Id}
             };
 
-            return _queueProvider.InsertMessageAsync(new SignalRMessage(SignalRType.Answer, SignalRAction.Delete, dto), token);
+            return _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Answer, SignalRAction.Delete, dto), token);
         }
 
         public Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
         {
-            var message = new SignalRMessage(SignalRType.User,
-                SignalRAction.Update, new {balance = eventMessage.Transaction.User.Balance})
-            {
-                UserId = eventMessage.Transaction.User.Id
-            };
+            var message = new SignalRTransportType(SignalRType.User,
+                SignalRAction.Update, new {balance = eventMessage.Transaction.User.Balance});
+           
             return _queueProvider.InsertMessageAsync
-                (message, token);
+                (message, eventMessage.Transaction.User.Id, token);
+        }
+
+        public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
+        {
+            var dto = new
+            {
+                id = eventMessage.Question.Id
+            };
+
+            return _queueProvider.InsertMessageAsync(
+                new SignalRTransportType(SignalRType.Question, SignalRAction.Delete, dto), token);
         }
     }
 }

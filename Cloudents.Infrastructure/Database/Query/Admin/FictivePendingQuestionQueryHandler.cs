@@ -29,8 +29,9 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             foreach (var county in counties)
             {
                 var future = _session.Query<Question>()
+
                       .Fetch(f => f.User)
-                      .Where(w => w.User.Fictive == true && w.User.Country == county && w.State == ItemState.Pending)
+                      .Where(w => w.User is SystemUser && w.User.Country == county && w.Item.State == ItemState.Pending)
                       .OrderBy(o => o.Id)
                       .Take(1)
                       .Select(s => s.Id)

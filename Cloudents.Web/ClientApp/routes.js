@@ -56,7 +56,6 @@ const resultProps = {
     header: headerResultPageFn
 };
 
-
 const bookDetailsProps = {
     default: dynamicDetailsPropsFn,
     header: (route) => ({
@@ -74,7 +73,6 @@ let routes2 = [
             default: landingPage,
         },
     },
-
     {
         path: "/result",
         name: "result",

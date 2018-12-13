@@ -4,7 +4,7 @@ namespace Cloudents.Core.Entities.Db
 {
     public class UserLocation
     {
-        public UserLocation(User user, string ip, string country)
+        public UserLocation(RegularUser user, string ip, string country)
         {
             User = user;
             Ip = ip;
@@ -18,7 +18,7 @@ namespace Cloudents.Core.Entities.Db
         }
 
         public virtual Guid Id { get; set; }
-        public virtual User User { get; set; }
+        public virtual RegularUser User { get; set; }
         public virtual DomainTimeStamp TimeStamp { get; set; }
         public virtual string Ip { get; set; }
         public virtual string Country { get; set; }

@@ -131,7 +131,7 @@ export default {
                         self.nextStep(step)
                     },
                     (error) => {
-                        console.log('doc data error', error)
+                        console.log("doc data error", error)
                     });
 
         },

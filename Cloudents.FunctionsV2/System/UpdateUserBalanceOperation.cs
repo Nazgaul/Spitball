@@ -18,7 +18,7 @@ namespace Cloudents.FunctionsV2.System
 
         public async Task DoOperationAsync(UpdateUserBalanceMessage msg, IBinder binder, CancellationToken token)
         {
-            var command = new UpdateUserBalanceCommand();
+            var command = new UpdateUserBalanceCommand(msg.UsersIds);
             await _commandBus.DispatchAsync(command, token);
         }
     }

@@ -120,6 +120,9 @@
   <data name="ActionTypeAnswerCorrect" xml:space="preserve">
     <value>Answer correct</value>
   </data>
+  <data name="ActionTypeAwarded" xml:space="preserve">
+    <value>Awarded</value>
+  </data>
   <data name="ActionTypeCashOut" xml:space="preserve">
     <value>Cash out</value>
   </data>
@@ -174,9 +177,6 @@
   </data>
   <data name="SearchRequestSortRelevance" xml:space="preserve">
     <value>Relevance</value>
-  </data>
-  <data name="TransactionTypeAwarded" xml:space="preserve">
-    <value>Awarded</value>
   </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
     <value>Earned</value>

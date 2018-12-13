@@ -1,11 +1,12 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
+import userRank from "../../../helpers/UserRank/UserRank.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
 import { mapGetters, mapActions } from 'vuex'
 import timeago from 'timeago.js';
 import { LanguageService } from "../../../../services/language/languageService";
 export default {
     mixins: [disableForm],
-    components: {userBlock},
+    components: {userBlock, userRank},
     props: {
         hasAnswer: false,
         typeAnswer: {
@@ -97,7 +98,7 @@ export default {
         },
         cardAnswers() {
             return this.cardData.answers
-        }
+        },
     },
     methods: {
         ...mapActions({
@@ -106,8 +107,31 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
-            manualAnswerRemove: 'answerRemoved'
+            manualAnswerRemove: 'answerRemoved',
+            answerVote: 'answerVote'
         }),
+        upvoteAnswer(){
+            let type = "up";
+            if(!!this.cardData.upvoted){
+                type = "none"; 
+            }
+            let data = {
+                type,
+                id: this.cardData.id
+            }
+            this.answerVote(data);
+        },
+        downvoteAnswer(){
+            let type = "down";
+            if(!!this.cardData.downvoted){
+                type = "none"; 
+            }
+            let data = {
+                type,
+                id: this.cardData.id
+            }
+            this.answerVote(data);
+        },
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {
                 return this.cardData.color = 'default';

@@ -5,7 +5,7 @@ namespace Cloudents.Core.Command
 {
     public class AddUserLoginCommand : ICommand
     {
-        public AddUserLoginCommand(User user, string loginProvider, string providerKey, string providerDisplayName)
+        public AddUserLoginCommand(RegularUser user, string loginProvider, string providerKey, string providerDisplayName)
         {
             User = user;
             LoginProvider = loginProvider;
@@ -13,7 +13,7 @@ namespace Cloudents.Core.Command
             ProviderDisplayName = providerDisplayName;
         }
 
-        public User User { get; }
+        public RegularUser User { get; }
 
         public string LoginProvider { get; }
 

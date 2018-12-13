@@ -1,13 +1,9 @@
-﻿using Cloudents.Web.Identity;
-using Microsoft.ApplicationInsights.Channel;
+﻿using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using System.IO;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace Cloudents.Web.Services
 {

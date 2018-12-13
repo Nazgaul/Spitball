@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Database
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
             builder.RegisterType<QueryBuilder>().AsSelf();
-            builder.RegisterType<FluentQueryBuilder>().AsSelf();
+            
 
             builder.RegisterGenericDecorator(
                 typeof(CacheQueryHandlerDecorator<,>),

@@ -1,6 +1,8 @@
-﻿import {SEARCH} from "./mutation-types"
-import {skeletonData} from '../components/results/consts'
-import searchService from "./../services/searchService"
+﻿import {SEARCH} from "./mutation-types";
+import {skeletonData} from '../components/results/consts';
+import searchService from "./../services/searchService";
+import reputationService from './../services/reputationService';
+import reportService from "./../services/cardActionService"
 const LOCATION_VERTICALS= new Map([["tutor",true],["job",true]]);
 const state = {
     loading: false,
@@ -158,6 +160,24 @@ const mutations = {
             });
         }
     },
+    [SEARCH.UPDATE_QUESTION_VOTE](state, {id, type}){
+        if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
+            state.itemsPerVertical.ask.data.forEach((question) => {
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            });
+        }
+    },  
+    [SEARCH.UPDATE_DOCUMENT_VOTE](state, {id, type}){
+        if(!!state.itemsPerVertical.note && state.itemsPerVertical.note.data && state.itemsPerVertical.note.data.length){
+            state.itemsPerVertical.note.data.forEach((document) => {
+                if(document.id === id){
+                    reputationService.updateVoteCounter(document, type)
+                }
+            });
+        }
+    },  
     
     //Note Area
     [SEARCH.UPDATE_COURSES_FILTERS](state, MutationObj){
@@ -174,7 +194,9 @@ const mutations = {
                 MutationObj.fnUpdateCourses(filters)
             }
         }
-    }
+    },
+
+
 };
 
 const getters = {
@@ -190,6 +212,9 @@ const getters = {
             //return data
             return state.itemsPerVertical[getCurrentVertical].data;   
         }
+    },
+    getNextPageUrl: function(state, {getCurrentVertical}){
+        return state.itemsPerVertical[getCurrentVertical].nextPage
     },
     getShowQuestionToaster: function(state, {getCurrentVertical}){
         return !!state.queItemsPerVertical[getCurrentVertical] ? state.queItemsPerVertical[getCurrentVertical].length > 0 : false;
@@ -354,6 +379,23 @@ const actions = {
     },
     resetData({commit}){
         commit(SEARCH.RESET_DATA)
+    },
+    questionVote({commit, dispatch}, data){
+        reputationService.voteQuestion(data.id, data.type).then(()=>{
+            commit(SEARCH.UPDATE_QUESTION_VOTE, data);
+            dispatch('innerQuestionVote', data);
+        })
+    },
+    documentVote({commit}, data){
+        reputationService.voteDocument(data.id, data.type).then(()=>{
+            commit(SEARCH.UPDATE_DOCUMENT_VOTE, data);
+        })
+    },
+    reportQuestion({commit}, data){
+        return reportService.reportQuestion(data)
+    },
+    reportDocument({commit}, data){
+        return reportService.reportDocument(data)
     }
 };
 

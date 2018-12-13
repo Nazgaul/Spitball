@@ -11,18 +11,19 @@ using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+using System;
 
 namespace Cloudents.Web.Api
 {
     [Route("api/[controller]"), ApiController]
     public class LogInController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly SbSignInManager _signInManager;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<LogInController> _localizer;
 
-        public LogInController(UserManager<User> userManager, SbSignInManager signInManager,
+        public LogInController(UserManager<RegularUser> userManager, SbSignInManager signInManager,
             IStringLocalizer<LogInController> localizer, ICommandBus commandBus)
         {
             _userManager = userManager;
@@ -54,15 +55,24 @@ namespace Cloudents.Web.Api
             if (result == SignInResult.Success)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Ok();
+                return Ok(new { Country = user.Country });
             }
 
 
             if (result.IsLockedOut)
             {
-                ModelState.AddModelError(nameof(model.Password), _localizer["LockOut"]);
-                return BadRequest(ModelState);
+                if (user.LockoutEnd == DateTimeOffset.MaxValue)
+                {
+                    ModelState.AddModelError(nameof(model.Password), _localizer["LockOut"]);
+                    return BadRequest(ModelState);
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(model.Password), _localizer["TempLockOut"]);
+                    return BadRequest(ModelState);
+                }
             }
+
 
             if (result.IsNotAllowed)
             {

@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -28,8 +29,13 @@ namespace Cloudents.Core.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
         {
-            var answer = await _repository.GetAsync(message.Id, token).ConfigureAwait(false); //no point in load since next line will do query
+            var answer = await _repository.GetAsync(message.Id, token); //no point in load since next line will do query
             if (answer == null)
+            {
+                throw new ArgumentException("answer doesn't exits");
+            }
+
+            if (answer.Item.State == ItemState.Deleted)
             {
                 throw new ArgumentException("answer doesn't exits");
             }
@@ -43,12 +49,15 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 await _transactionRepository.DeleteAsync(transaction, token);
             }
+            answer.Question.AnswerCount--;
+
+            await _questionRepository.UpdateAsync(answer.Question, token);
 
             answer.Events.Add(new AnswerDeletedEvent(answer));
 
             answer.Question.CorrectAnswer = null;
             await _questionRepository.UpdateAsync(answer.Question, token);
-            answer.Events.Add(new AnswerDeletedAdminEvent());
+            answer.Events.Add(new AnswerDeletedAdminEvent(answer));
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
         }
     }

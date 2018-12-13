@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using PhoneNumbers;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,17 +25,17 @@ namespace Cloudents.Web.Api
 
     public class SmsController : Controller
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
         private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
 
-        public const string smsTime = "SmsTime";
+        private const string SmsTime = "SmsTime";
 
-        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
+        public SmsController(SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager,
             ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
             ILogger logger, IStringLocalizer<SmsController> smsLocalizer)
         {
@@ -112,7 +113,7 @@ namespace Cloudents.Web.Api
 
             if (retVal.Succeeded)
             {
-                TempData[smsTime] = DateTime.UtcNow.ToString();
+                TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
                 await _client.SendSmsAsync(user, token);
                 return Ok();
             }
@@ -157,7 +158,7 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user, string country)
+        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, RegularUser user, string country)
         {
             if (TempData[HomeController.Referral] != null)
             {
@@ -196,7 +197,7 @@ namespace Cloudents.Web.Api
         [HttpPost("resend")]
         public async Task<IActionResult> ResendAsync(CancellationToken token)
         {
-            var temp = DateTime.Parse(TempData.Peek(smsTime).ToString());
+            var temp = DateTime.Parse(TempData.Peek(SmsTime).ToString());
             
             if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
             {
@@ -215,7 +216,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            TempData[smsTime] = DateTime.UtcNow.ToString();
+            TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await _client.SendSmsAsync(user, token).ConfigureAwait(false);
             return Ok();
         }

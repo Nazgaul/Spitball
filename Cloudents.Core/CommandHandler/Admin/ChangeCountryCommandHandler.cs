@@ -1,8 +1,5 @@
 ﻿using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,9 +7,9 @@ namespace Cloudents.Core.CommandHandler.Admin
 {
     public class ChangeCountryCommandHandler : ICommandHandler<ChangeCountryCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRegularUserRepository _userRepository;
 
-        public ChangeCountryCommandHandler(IUserRepository userRepository)
+        public ChangeCountryCommandHandler(IRegularUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

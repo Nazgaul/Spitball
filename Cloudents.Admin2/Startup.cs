@@ -80,7 +80,8 @@ namespace Cloudents.Admin2
             {
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
                 Storage = Configuration["Storage"],
-                Redis = Configuration["Redis"]
+                Redis = Configuration["Redis"],
+                ServiceBus = Configuration["ServiceBus"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();

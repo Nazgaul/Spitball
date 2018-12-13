@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
@@ -13,20 +14,18 @@ namespace Cloudents.Infrastructure.Database.Query
 {
     public class UserDocumentsQueryHandler : IQueryHandler<UserDataPagingByIdQuery, IEnumerable<DocumentFeedDto>>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
         public UserDocumentsQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
         {
             return await _session.Query<Document>()
                 .Fetch(f => f.University)
                 .Fetch(f => f.User)
-                .Where(w => w.User.Id == query.Id)
-
-                // .Where(w => w.State == null || w.State == ItemState.Ok)
+                .Where(w => w.User.Id == query.Id && w.Item.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new DocumentFeedDto()
                     {
@@ -35,7 +34,8 @@ namespace Cloudents.Infrastructure.Database.Query
                         {
                             Id = s.User.Id,
                             Name = s.User.Name,
-                            Image = s.User.Image
+                            Image = s.User.Image,
+                            Score = s.User.Score
                         },
                         DateTime = s.TimeStamp.UpdateTime,
                         Course = s.Course.Name,
@@ -44,7 +44,12 @@ namespace Cloudents.Infrastructure.Database.Query
                         Title = s.Name,
                         Views = s.Views,
                         Downloads = s.Downloads,
-                        University = s.University.Name
+                        University = s.University.Name,
+                        Vote = new VoteDto()
+                        {
+                            Votes = s.Item.VoteCount
+                        }
+                        
                     }
                 )
                 .Take(50).Skip(query.Page * 50)

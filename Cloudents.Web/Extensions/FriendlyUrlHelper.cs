@@ -82,7 +82,7 @@ namespace Cloudents.Web.Extensions
                 }
                 //Remove + because of allowDoubleEscaping workaround
                 else if ((c == ' ') || (c == ',') || (c == '.') || (c == '/') ||
-                         (c == '\\') || (c == '-') || (c == '_') || (c == '=') || c == '+')
+                         (c == '\\') || (c == '-') || (c == '_') || (c == '=') /*|| c == '+'*/)
                 {
                     if (!prevdash && (stringBuilder.Length > 0))
                     {

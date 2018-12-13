@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         {
             return await _session.Query<Question>()
                 .Fetch(f => f.User)
-                .Where(w => w.User.Fictive != true && w.State == ItemState.Pending)
+                .Where(w => w.User is RegularUser && w.Item.State == ItemState.Pending)
                 .Select(s => new PendingQuestionDto
                 {
                     Id = s.Id,

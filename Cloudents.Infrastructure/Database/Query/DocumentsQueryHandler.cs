@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Linq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -25,8 +26,8 @@ namespace Cloudents.Infrastructure.Database.Query
             var ids = query.QuestionIds.ToList();
             return await _session.Query<Document>()
                 .Fetch(f => f.User)
-                .Fetch(f=>f.University)
-                .Where(w => ids.Contains(w.Id))
+                .Fetch(f => f.University)
+                .Where(w => ids.Contains(w.Id) && w.Item.State == ItemState.Ok)
                 .Select(s => new DocumentFeedDto
                 {
                     Id = s.Id,
@@ -34,7 +35,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image
+                        Image = s.User.Image,
+                        Score = s.User.Score
                     },
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Name,
@@ -43,7 +45,11 @@ namespace Cloudents.Infrastructure.Database.Query
                     Title = s.Name,
                     Views = s.Views,
                     Downloads = s.Downloads,
-                    University = s.University.Name
+                    University = s.University.Name,
+                    Vote = new VoteDto()
+                    {
+                        Votes = s.Item.VoteCount
+                    }
                 })
                 .ToListAsync(token);
 

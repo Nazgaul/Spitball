@@ -97,7 +97,7 @@
     line-height: 32px;
     .accept-btn {
       width: 88px;
-      line-height: 32px;
+      line-height: 24px;
       border-radius: 4px;
       background-color: transparent;
       color: @Feed-Date;
@@ -108,13 +108,16 @@
       position: absolute;
       right: 34px;
       top: 23px;
-      border: 1px solid @Feed-Date;
+      border: 1px solid #b5b5b5;
       .sbf {
         color: @Feed-Date;
         font-size: 16px;
-        margin: 0px 4px 0px 8px;
+        margin: 0 -6px 0 10px;
         position: relative;
         top: -2px;
+      }
+      span{
+        margin-left: 5px;
       }
       @media (max-width: @screen-xs) {
         background: none;
@@ -140,7 +143,7 @@
       top: 20px;
       .sbf {
         color: #7ed321;
-        font-size: 32px;
+        font-size: 25px;
       }
       @media (max-width: @screen-xs) {
         span {
@@ -389,7 +392,13 @@
         padding-right: 15px;
         padding-top: 8px;
         max-width: 430px;
-
+        border-radius: 6px;
+        .text{
+          display: flex;
+          justify-content: space-between;
+          width: 65%;
+          min-width: 235px;
+        }
         @media (max-width: @screen-xs) {
           max-width: 435px;
         }
@@ -397,7 +406,7 @@
     }
 
     .fixed-margin {
-      margin: 0px 18px 18px -13px;
+      margin: 0px 18px 0 -13px;
       background-color: @Question-Answer-Bg;
     }
     .column-direction {
@@ -413,6 +422,40 @@
       @media (max-width: @screen-xs) {
         margin: -5px 16px 6px 0px;
 
+      }
+    }
+    .answer-body-container{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      margin-right: 10px;
+      height: 80px;
+      margin-top: 10px;
+      justify-content: space-evenly;
+      .answer-raputation{
+        font-size: 12px;
+        font-family: @fontOpenSans;
+        font-weight: 700;
+        text-align: center;
+        color: @color-blue-new;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .upvote-arrow{
+        cursor: pointer;
+        i {
+          color: @color-blue-new;
+        }
+      }
+      .answer-score{
+        color: @color-blue-new;
+      }
+      .downvote-arrow{
+        cursor: pointer;
+        i {
+          color: @color-blue-new;
+        }
       }
     }
   }

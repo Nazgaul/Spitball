@@ -4,7 +4,7 @@
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <h1 class="item-name">{{itemName}} <span class="doc-extension">({{item ? item.extension : ''}})</span></h1>
+                    <h1 class="item-name">{{itemName}} <span class="doc-extension" v-show="item.extension">({{item ? item.extension : ''}})</span></h1>
                     <div class="doc-details">
                         <div class="author">
                         <span class="upload-by">
@@ -14,7 +14,7 @@
                         </span>
                         </div>
                         <div class="date">
-                            {{item ? item.date : '' | mediumDate}}
+                            {{uploadDate}}
                         </div>
                     </div>
                     <item-actions></item-actions>
@@ -144,6 +144,13 @@
             uploaderName() {
                 if (this.item && this.item.user && this.item.user.name)
                     return this.item.user.name
+            },
+             uploadDate(){
+              if(this.item && this.item.date){
+                 return this.$options.filters.fullMonthDate(this.item.date);
+              }else{
+                  return ''
+              }
             },
 
         },

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
@@ -13,23 +13,26 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Answer : IEvents
+    public class Answer : DomainObject, ISoftDelete
     {
-        public Answer(Question question, string text, int attachments, User user) : this()
+        public Answer(Question question, string text, int attachments, RegularUser user) : this()
         {
             Question = question;
             Text = text;
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-
-            Events.Add(new AnswerCreatedEvent(this));
+            Item.State = Privileges.GetItemState(user.Score);
+            if (Item.State == ItemState.Ok)
+            {
+                Events.Add(new AnswerCreatedEvent(this));
+            }
         }
 
         [UsedImplicitly]
         protected Answer()
         {
-            Events = new List<IEvent>();
+            Item = new ItemComponent();
         }
 
         public virtual Guid Id { get; set; }
@@ -37,14 +40,15 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual string Text { get; set; }
         public virtual int Attachments { get; set; }
-        public virtual User User { get; set; }
+        public virtual RegularUser User { get; set; }
 
         public virtual DateTime Created { get; set; }
 
-        //protected internal virtual Question QuestionAnswerCorrect { get; set; }
-
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
-        public virtual IList<IEvent> Events { get; }
+
+        public virtual ItemComponent Item { get; set; }
+        //public virtual ItemState State { get; set; }
     }
+    
 }

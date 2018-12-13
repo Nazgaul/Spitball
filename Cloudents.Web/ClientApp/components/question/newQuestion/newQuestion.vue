@@ -19,15 +19,13 @@
                                         @addFile="addFile"
                                         :actionType="actionType"
                                         :error="errorTextArea"
-                                        @removeFile="removeFile"
-
-                    >
+                                        @removeFile="removeFile">
                     </extended-text-area>
 
                     <v-flex xs8 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
                         <select v-model="subject">
                             <option value="" disabled hidden v-language:inner>newQuestion_Pick_a_subject</option>
-                            <option v-for="item in subjectList" :value="item">{{item.subject}}</option>
+                            <option v-for="item in subjectList" :value="item" :key="item.subject">{{item.subject}}</option>
                         </select>
                     </v-flex>
                     <v-flex xs4 v-if="!subject" class="input-error">
@@ -37,7 +35,7 @@
                     <v-flex xs12 v-if="currentSum"
                             :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">
                             <!-- <span v-language:inner>newQuestion_You_have</span> {{currentSum | fixedPoints}} <span v-language:inner>newQuestion_SBL</span> -->
-                            <span v-html="$Ph('newQuestion_sbl_calc', [currentSum, thirtyPercent])">newQuestion_You_have</span>
+                            <span  v-html="$Ph('newQuestion_sbl_calc', [currentSum, thirtyPercent])">newQuestion_You_have</span>
                     </v-flex>
                     <v-flex xs12 v-if="(price > 100)" :class="[price < 100 ? 'text-blue' : 'text-red']" v-language:inner>
                         newQuestion_max_SBL

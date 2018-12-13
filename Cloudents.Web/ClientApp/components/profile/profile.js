@@ -1,13 +1,25 @@
-import questionCard from "../question/helpers/question-card/question-card.vue";
+import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
 import resultNote from "../results/ResultNote.vue"
 import userBlock from '../helpers/user-block/user-block.vue';
-import { mapGetters, mapActions } from 'vuex'
-import { LanguageService } from "../../services/language/languageService";
-
+import {
+    mapGetters,
+    mapActions
+} from 'vuex'
+import {
+    LanguageService
+} from "../../services/language/languageService";
+import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue"
 export default {
-    components: {questionCard, userBlock, resultNote},
+    components: {
+        questionCard,
+        userBlock,
+        resultNote,
+        uploadDocumentBtn
+    },
     props: {
-        id: {Number}
+        id: {
+            Number
+        }
     },
     data() {
         return {
@@ -31,11 +43,13 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions', 'getDocuments']),
+        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions', 'getDocuments', 'resetProfileData']),
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
-            this.$router.meta = {previous: tabId}
+            this.$router.meta = {
+                previous: tabId
+            }
         },
         fetchData() {
             this.syncProfile(this.id);
@@ -105,8 +119,14 @@ export default {
     },
     computed: {
         ...mapGetters(["accountUser", "getProfile"]),
-        profileData() {
-            return this.getProfile;
+        profileData: {
+            get() {
+                return this.getProfile;
+            },
+            set(val) {
+
+            }
+
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
@@ -134,6 +154,7 @@ export default {
             };
             let documents = {
                 text: LanguageService.getValueByKey("profile_emptyState_documents_text"),
+                //TODO feel free to remove this after redesign, will not be used, using reusable component instead
                 btnText: LanguageService.getValueByKey("profile_emptyState_documents_btnText"),
                 btnUrl: 'note'
             };
@@ -148,6 +169,11 @@ export default {
     },
     watch: {
         '$route': 'fetchData'
+    },
+    //reset profile data to prevent glitch in profile loading
+    beforeRouteLeave(to, from, next) {
+        this.resetProfileData();   
+        next()
     },
     created() {
         this.fetchData();

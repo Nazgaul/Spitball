@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Database.Maps
         public UserMap()
         {
             DynamicUpdate();
-            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(User)}'");
+            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
             Map(e => e.Email)/*.Not.Nullable()*/.Unique();
             Map(e => e.PrivateKey);
             Map(e => e.PhoneNumber).Column("PhoneNumberHash");
@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();
-            Map(e => e.Fictive).Update();
+            Map(e => e.Fictive).ReadOnly();
             Map(e => e.FraudScore);
 
             Map(e => e.PasswordHash).Nullable();
@@ -36,6 +36,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.LockoutEnabled);
             Map(e => e.OldUser).Nullable();
 
+            Map(e => e.Score);
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
 
             Map(x => x.Balance).CustomSqlType("smallmoney");
@@ -72,14 +73,34 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .ForeignKeyConstraintNames("User_Tags", "Tags_User")
                 .Table("UsersTags").AsSet();
 
-
+            Table("[User]");
 
             SchemaAction.None();
+            DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)
                WHERE PhoneNumberHash IS NOT NULL;
              */
+        }
+    }
+
+
+    public class RegularUserMap : SubclassMap<RegularUser>
+    {
+        public RegularUserMap()
+        {
+
+            DiscriminatorValue(false);
+        }
+    }
+
+    public class FictiveUserMap : SubclassMap<SystemUser>
+    {
+        public FictiveUserMap()
+        {
+
+            DiscriminatorValue(true);
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿import ResultItem from './ResultItem.vue';
 import ResultNote from "./ResultNote.vue"
-import questionCard from './../question/helpers/question-card/question-card.vue';
+import ResultAsk from "./ResultAsk.vue"
 import { verticalsNavbar, verticalsName } from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import { typesPersonalize } from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
-import QuestionCard from "../question/helpers/question-card/question-card";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue';
@@ -34,16 +33,15 @@ export default {
         ResultTutor,
         ResultJob,
         ResultBook,
-        questionCard,
         faqBlock,
         signupBanner,
-        QuestionCard,
         sbDialog,
         loginToAnswer,
         notificationCenter,
         uploadFilesBtn,
         askQuestionBtn,
-        soonComponent
+        soonComponent,
+        ResultAsk
     },
     data() {
         return {
@@ -178,7 +176,7 @@ export default {
             'nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
-        ...mapGetters(["getCurrentVertical"]),
+        ...mapGetters(["getCurrentVertical", "getNextPageUrl"]),
 
         loadNewQuestions(){
             this.INJECT_QUESTION();
@@ -196,7 +194,9 @@ export default {
         },
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
-            this.nextPage({vertical: this.pageData.vertical, url: this.pageData.nextPage})
+            let nextPageUrl = this.getNextPageUrl();
+            if(this.name !== this.pageData.vertical) return;
+            this.nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
                     if (res.data && res.data.length) {
                         this.scrollBehaviour.isLoading = false;
@@ -214,6 +214,7 @@ export default {
         },
         //    3-%%%   fetching data and calling updateData func
         updateContentOfPage(to, from, next) {
+            this.scrollBehaviour.isComplete = true;
             const toName = to.path.slice(1);
             let params=  {...to.query, ...to.params, term: to.query.term};
             this.fetchingData({name: toName, params}, true)
@@ -236,6 +237,9 @@ export default {
                     this.isLoad = false;
                     next();
                 }
+            }).finally(()=>{
+                this.scrollBehaviour.isLoading = false;
+                this.scrollBehaviour.isComplete = false;
             });
         },
 

@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities.Db
 
         public Course(string name)
         {
-            Name = name.Trim().Replace("+", string.Empty);
+            Name = name.Trim();//.Replace("+", string.Empty);
             if (Name.Length > MaxLength || Name.Length < MinLength)
             {
                 throw new ArgumentException();
@@ -32,7 +32,7 @@ namespace Cloudents.Core.Entities.Db
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((Course)obj);
         }
 

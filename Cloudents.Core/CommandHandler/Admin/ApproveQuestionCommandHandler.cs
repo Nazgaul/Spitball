@@ -23,7 +23,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             foreach (var questionId in message.QuestionIds)
             {
                 var question = await _questionRepository.LoadAsync(questionId, token);
-                question.State = ItemState.Ok;
+                question.Item.State = ItemState.Ok;
                 question.Updated = DateTime.UtcNow;
 
                 question.Events.Add(new QuestionCreatedEvent(question));

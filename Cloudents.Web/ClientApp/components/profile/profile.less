@@ -102,32 +102,82 @@
     .tab-padding{
         .v-tabs__bar{
             background-color: @color-white;
-            border-top: solid 1px @color-medium-grey;
+            box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.19);
             @media (max-width: @screen-xs) {
                 height: 64px;
                 font-size: 18px;
             }
         }
         .v-tabs__container{
-            border-top: solid 1px @color-medium-grey;
+            // border-top: solid 1px @color-medium-grey;
             height: 64px;
             .v-tabs__item{
                 text-transform: none;
                 font-size: 18px;
                 &.v-tabs__item--active{
-                    color: @color-main-purple!important;
+                    color: @color-blue-new!important;
                     font-weight: bold;}
             }
             .v-tabs__slider.blue{
-                border-bottom: 2px solid @color-main-purple;
+                border-bottom: 2px solid @color-blue-new;
             }
         }
     }
     .column{
-        .main-block .user-block{height: 170px;}
+        .main-block .user-block{height: 210px;}
         .web-content{ margin: 16px 8px;}
     }
     .empty-state{
+        &:not(.doc-empty-state){
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-radius: 4px;
+            background-color: @color-white;
+            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+            margin-bottom: 16px;
+            .responsive-property(height, 228px, null, 248px);
+            .text-block{
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-weight: 300;
+                margin-bottom: 0;
+                .responsive-property(padding-top, 4px, null, 0);
+                padding-left: 20px;
+                padding-right: 20px;
+                p,b{
+                    line-height: 0.9;
+                    letter-spacing: -0.3px;
+                    color: @color-grey;
+                    .responsive-property(font-size, 32px, null, 30px);
+                    font-size: 32px;
+                    .responsive-property(line-height, 1, null, 1.2);
+                    margin-bottom: 0;
+                }
+                b{
+                    font-weight: bold;
+                }
+            }
+            a{
+                display: inline-block;
+                line-height: 40px;
+                min-width: 208px;
+                max-width: 208px;
+                background: @color-dark-blue;
+                color: @color-white;
+                font-size: 20px;
+                font-weight: bold;
+                letter-spacing: -0.5px;
+                border-radius: 4px;
+                margin-bottom: 24px;
+            }
+        }
+   
+    }
+    .doc-empty-state{
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -137,6 +187,11 @@
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
         margin-bottom: 16px;
         .responsive-property(height, 228px, null, 248px);
+        .responsive-property(padding-bottom, 0, null, 16px);
+        .upload-btn:not(.rounded-floating-button){
+            //TODO create a new button componet for upload doc, without floating, and unused styles 
+            margin-right: 0!important;
+        }
         .text-block{
             flex-grow: 1;
             display: flex;
@@ -159,19 +214,6 @@
             b{
                 font-weight: bold;
             }
-        }
-        a{
-            display: inline-block;
-            line-height: 40px;
-            min-width: 208px;
-            max-width: 208px;
-            background: @color-dark-blue;
-            color: @color-white;
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: -0.5px;
-            border-radius: 4px;
-            margin-bottom: 24px;
         }
     }
 }

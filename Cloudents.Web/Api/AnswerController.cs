@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Answers.Commands.FlagAnswer;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Core.Votes.Commands.AddVoteAnswer;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -23,9 +25,9 @@ namespace Cloudents.Web.Api
         //internal const string CreateAnswerPurpose = "CreateAnswer";
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<AnswerController> _localizer;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
 
-        public AnswerController(ICommandBus commandBus, UserManager<User> userManager, IStringLocalizer<AnswerController> localizer)
+        public AnswerController(ICommandBus commandBus, UserManager<RegularUser> userManager, IStringLocalizer<AnswerController> localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
@@ -92,6 +94,25 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
         }
-        
+
+
+        [HttpPost("vote")]
+        public async Task<IActionResult> VoteAsync([FromBody] AddVoteAnswerRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AddVoteAnswerCommand(userId, model.Id, model.VoteType);
+
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("flag")]
+        public async Task<IActionResult> FlagAsync([FromBody] FlagAnswerRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new FlagAnswerCommand(userId, model.Id, model.FlagReason);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }

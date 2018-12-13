@@ -32,29 +32,36 @@ namespace Cloudents.Infrastructure.Database.Query
         private async Task<QuestionDetailDto> GetFromDbAsync(long id, CancellationToken token)
         {
             //TODO: this is left join query need to fix that
-            var questionFuture = _session.Query<Question>().Where(w => w.Id == id)
+            var questionFuture = _session.Query<Question>()
+                .Where(w => w.Id == id && w.Item.State == ItemState.Ok)
                 .Fetch(f => f.User)
-                .Where(w => w.State == null || w.State == ItemState.Ok)
                 .Select(s => new QuestionDetailDto(new UserDto
                 {
                     Id = s.User.Id,
                     Name = s.User.Name,
-                    Image = s.User.Image
-                }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id, s.Color, s.Subject, s.Language)
+                    Image = s.User.Image,
+                    Score = s.User.Score
+                }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id,
+                    s.Color, s.Subject, s.Language, s.Item.VoteCount)
                 ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
-                .Where(w => w.Question.Id == id)
+                .Where(w => w.Question.Id == id && w.Item.State == ItemState.Ok)
                 .Fetch(f => f.User)
                 .Select(s => new QuestionDetailAnswerDto
                 {
                     Id = s.Id,
                     Text = s.Text,
                     Create = s.Created,
+                    Vote = new VoteDto()
+                    {
+                        Votes = s.Item.VoteCount
+                    },
                     User = new UserDto
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image
+                        Image = s.User.Image,
+                        Score = s.User.Score
                     }
                 }).ToFuture();
 

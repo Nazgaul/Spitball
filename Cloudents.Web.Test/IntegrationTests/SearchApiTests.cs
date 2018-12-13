@@ -1,10 +1,5 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Web.Models;
-using FluentAssertions;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests

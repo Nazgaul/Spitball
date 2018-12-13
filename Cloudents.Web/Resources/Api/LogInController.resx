@@ -130,4 +130,7 @@ Reason: fraudulent behavior against our T&amp;C</value>
   <data name="NotAllowed" xml:space="preserve">
     <value>User is not allowed</value>
   </data>
+  <data name="TempLockOut" xml:space="preserve">
+    <value>User locked out</value>
+  </data>
 </root>

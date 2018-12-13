@@ -6,56 +6,158 @@
   background: @color-white;
   border-radius: 4px;
   width: 100%;
-  padding: 8px 16px !important;
-  &.type-lecture {
-    border-left: 2px solid @colorTypeLecture;
+  padding: 14px 16px !important;
+
+  .doc-type-text {
+    font-size: 13px;
+    font-weight: 600;
+    font-family: @fontFiraSans;
   }
-  &.type-textbook {
-    border-left: 2px solid @color-blue-new;
+  i {
+    font-size: 16px;
+  }
+  i, .doc-type-text {
+    &.type-lecture {
+      color: @colorTypeLecture;
+    }
+    &.type-textbook {
+      color: @color-blue-new;
+    }
+    &.type-exam {
+      color: @colorTypeExam;
+    }
+    &.type-document {
+      color: @colorTypeDocThirdParty;
+    }
 
   }
-  &.type-exam {
-    border-left: 2px solid @colorTypeExam;
-  }
-  &.type-document {
-    border-left: 3px solid @colorTypeDocDefault;
+
+  .document-header-container {
+    display: flex;
+    flex-direction: row;
+    line-height: 35px;
+    white-space: nowrap;
+    .document-header-large-sagment {
+      display: flex;
+      width: 90%;
+      flex-grow: 1;
+      .rank-date-container {
+        display: flex;
+        @media(max-width: @screen-xs) {
+          flex-direction: column-reverse;
+          margin-left: 8px;
+        }
+        .rank-area {
+          margin: 0 12px;
+          &.thirdParty{
+            margin: 0;
+          }
+          @media(max-width: @screen-xs) {
+            margin: 0 2px;
+          }
+        }
+        .date-area {
+          font-family: @fontOpenSans;
+          font-size: 13px;
+          width: 96px;
+          color: rgba(0, 0, 0, 0.38);
+          vertical-align: middle;
+        }
+      }
+      .sold-area {
+        .sold-container {
+          width: 65px;
+          display: flex;
+          margin-left: -10px;
+          background-color: #2bcea9;
+          border-radius: 15px;
+          height: 15px;
+          margin-top: 10px;
+          line-height: 15px;
+          justify-content: space-evenly;
+          span {
+            font-family: @fontFiraSans;
+            font-size: 11px;
+            font-weight: 500;
+            font-style: italic;
+            color: #ffffff;
+          }
+          i {
+            color: #fff;
+            font-size: 11px;
+          }
+        }
+      }
+    }
+    .document-header-small-sagment {
+      display: flex;
+      .price-area {
+        color: @color-blue-new;
+        font-family: @fontOpenSans;
+        font-size: 16px;
+        font-weight: 600;
+        &.sold {
+          color: rgba(0, 0, 0, 0.38);
+        }
+        span {
+          font-size: 10px;
+        }
+      }
+      .menu-area {
+        margin-top: -10px;
+        width: 30px;
+        i {
+          font-size: 16px;
+          color: @colorTypeDocDefault;
+        }
+      }
+    }
   }
   .wrapper {
     .top-row {
-      height: 40px;
       display: flex;
       flex-direction: row;
-      align-items: center;
-      border-bottom: 1px solid rgba(151, 151, 151, 0.21);
+      align-items: flex-start;
+      padding-top: 12px;
+
+      .upvotes-counter {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 90px;
+        padding-left: 8px;
+        .document-reputation{
+          font-size: 12px;
+          font-family: @fontOpenSans;
+          font-weight: bold;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .upvote-arrow {
+          i {
+            color: @color-blue-new;
+          }
+        }
+        .document-score {
+          color: @color-blue-new;
+        }
+        .downvote-arrow {
+          i {
+            color: @color-blue-new;
+          }
+        }
+      }
+
       .type-wrap {
         flex-grow: 1;
         display: flex;
-        flex-direction: row;
-        //align-items: baseline;
-        .doc-type-text {
-          font-size: 13px;
-          font-weight: 600;
-          font-family: @fontFiraSans;
+        flex-direction: column;
+        padding-left: 21px;
+        &.thirdPartyItem{
+          padding-left: 0;
         }
-        i {
-          font-size: 16px;
-        }
-        i, .doc-type-text {
-          &.type-lecture {
-            color: @colorTypeLecture;
-          }
-          &.type-textbook {
-            color: @color-blue-new;
-          }
-          &.type-exam {
-            color: @colorTypeExam;
-          }
-          &.type-document {
-            color: @colorTypeDocThirdParty;
-          }
-
-        }
-
       }
     }
     .details-row {
@@ -68,7 +170,7 @@
           justify-content: flex-start;
           align-items: flex-end;
           .sb-icon-arrow {
-            font-size: 24px;
+            font-size: 12px;
             height: 16px;
             width: 16px;
             color: @colorGreyLight;
@@ -83,30 +185,48 @@
       align-items: center;
       height: 100%;
       max-height: 81px;
-      margin: 5% 0;
-      .upvotes-counter {
-
+      margin: 20px 0 30px 0;
+      &.thirdParty{
+        margin-top: 12px;
       }
       .content-wrap {
-        padding: 9px 8px;
+        padding: 12px 8px;
         background: @colorContentBackground;
         display: flex;
         flex-direction: column;
         width: 100%;
         height: auto;
+        border-radius: 4px;
+        &.type-lecture {
+          background: fade(@colorTypeLecture, 12%)
+        }
+        &.type-textbook {
+          background:  fade(@color-blue-new, 9%);
+
+        }
+        &.type-exam {
+          background:  fade(@colorTypeExam, 10%);
+        }
+        &.type-document {
+          background:  fade(@colorTypeDocDefault, 7%);
+        }
         .title-wrap {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
 
           i.doc {
-            color: @colorGreyLight;
+            color: @colorBlackNew;
             font-size: 14px;
+            padding-top: 3px;
+            padding-right: 4px;
           }
           .doc-title {
             font-size: 13px;
             font-weight: 600;
             color: @textColor;
             margin-bottom: 0;
+            flex-grow: 1;
+            display: inline-flex;
             //firefox fix for line clamp, needs specific max-height
             &.foxLineClamp{
               max-height: 30px!important;
@@ -131,19 +251,7 @@
     .doc-details {
       display: flex;
       flex-direction: row;
-      .author-info-date {
-        flex-grow: 1;
-        font-size: 11px;
-        .autor{
-          color: @colorBlackNew;
-          font-weight: 600;
-          display: inline-flex;
-        }
-
-        .date{
-          color: @colorUploadDate;
-        }
-      }
+      justify-content: flex-end;
       .doc-actions-info {
         display: flex;
         flex-direction: row;
@@ -159,42 +267,12 @@
           font-size: 11px;
           opacity: 0.9;
           font-family: @fontFiraSans;
-          &.views{
+          &.downloads{
             margin-right: 12px;
           }
         }
       }
     }
-    .loading-skeleton {
-      .img-wrap {
-        background: @Site-Background !important;
-        box-shadow: none;
 
-        svg {
-          display: none;
-        }
-      }
-
-      .cell-title, .snippet, .bottom {
-        background: @Site-Background;
-        color: transparent;
-      }
-
-      .cell-title {
-        font-size: 12px;
-        line-height: 0;
-        display: inline;
-      }
-
-      .snippet {
-        font-size: 7px;
-        line-height: 0;
-      }
-
-      .bottom {
-        font-size: 7px;
-        line-height: 0;
-      }
-    }
   }
 }

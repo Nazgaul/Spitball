@@ -57,6 +57,9 @@ const mutations = {
     setProfile(state, val){
         state.profile = val;
     },
+    resetProfile(state){
+        state.profile = null;
+    },
     changeLoginStatus(state, val) {
         state.login = val;
     },
@@ -108,7 +111,7 @@ const getters = {
         }else{
             return false;
         }
-    },
+    }
 };
 
 const actions = {
@@ -123,6 +126,9 @@ const actions = {
         let profileData = accountService.createProfileData(vals);
         context.commit('setProfile', profileData)
        });       
+    },
+    resetProfileData(context){
+        context.commit('resetProfile')
     },
     getAnswers(context, answersInfo){
         let id = answersInfo.id

@@ -34,7 +34,7 @@ namespace Cloudents.Functions
         {
             var t = await directory.ListBlobsSegmentedAsync(null, token);
             var myBlob = (CloudBlockBlob)t.Results.FirstOrDefault(f => f.Uri.Segments.Last().StartsWith("file-"));
-            var name = myBlob.Name.Split('-').Last();
+            var name = myBlob?.Name.Split('-').Last();
 
             await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
         }
