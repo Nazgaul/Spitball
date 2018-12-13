@@ -96,15 +96,19 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-            var dic = new Dictionary<Guid?, VoteType>();
 
             var bus = _container.Resolve<ICommandBus>();
-            var userId = 159478;
-            var command = new AddVoteAnswerCommand(159478,Guid.Parse("497009aa-7bdc-4dc0-9ef5-a9b300dcf773"),VoteType.Up);
+            var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
+                10, 638, null, QuestionColor.Default);
             await bus.DispatchAsync(command, token);
-            
 
-            
+
+            var command2 = new CreateQuestionCommand(QuestionSubject.Arts, "This is verysssssss nice question to check",
+                10, 638, null, QuestionColor.Default);
+            await bus.DispatchAsync(command2, token);
+
+
+
             //await z.GetById("43958");
             //
         }

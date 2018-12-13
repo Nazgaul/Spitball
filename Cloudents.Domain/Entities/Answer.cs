@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
-using JetBrains.Annotations;
+using Cloudents.Domain.Interfaces;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
-namespace Cloudents.Core.Entities.Db
+namespace Cloudents.Domain.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
@@ -23,13 +21,9 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Created = DateTime.UtcNow;
             Item.State = Privileges.GetItemState(user.Score);
-            //if (Item.State == ItemState.Ok)
-            //{
-            //    Events.Add(new AnswerCreatedEvent(this));
-            //}
+            
         }
 
-        [UsedImplicitly]
         protected Answer()
         {
             Item = new ItemComponent();
@@ -50,5 +44,5 @@ namespace Cloudents.Core.Entities.Db
         public virtual ItemComponent Item { get; set; }
         //public virtual ItemState State { get; set; }
     }
-    
+
 }

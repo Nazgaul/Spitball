@@ -2,8 +2,8 @@
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IEvents
-    {
-        IList<IEvent> Events { get; }
-    }
+    //public interface IEvents
+    //{
+    //    IList<IEvent> Events { get; }
+    //}
 }

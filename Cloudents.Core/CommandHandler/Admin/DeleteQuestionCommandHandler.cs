@@ -16,12 +16,14 @@ namespace Cloudents.Core.CommandHandler.Admin
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Transaction> _transactionRepository;
+        private readonly IEventStore _eventStore;
 
 
-        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<Transaction> transactionRepository)
+        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<Transaction> transactionRepository, IEventStore eventStore)
         {
             _questionRepository = questionRepository;
             _transactionRepository = transactionRepository;
+            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
@@ -50,7 +52,7 @@ namespace Cloudents.Core.CommandHandler.Admin
                 await _transactionRepository.DeleteAsync(transaction, token);
             }
 
-            question.Events.Add(new QuestionDeletedAdminEvent(question, user));
+            _eventStore.Add(new QuestionDeletedAdminEvent(question, user));
             //question.Events.Add(new QuestionRejectEvent(user));
             await _questionRepository.DeleteAsync(question, token);
         }

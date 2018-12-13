@@ -3,12 +3,12 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities.Db
 {
-    public abstract class DomainObject : IEvents
+    public abstract class DomainObject //: IEvents
     {
         protected DomainObject()
         {
-            Events = new List<IEvent>();
+           // Events = new List<IEvent>();
         }
-        public virtual IList<IEvent> Events { get; }
+        //public virtual IList<IEvent> Events { get; }
     }
 }

@@ -1,21 +1,20 @@
-﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
-using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Cloudents.Domain.Enums;
+using Cloudents.Domain.Interfaces;
 
-namespace Cloudents.Core.Entities.Db
+namespace Cloudents.Domain.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
 
     public class Document : DomainObject, ISoftDelete
     {
-        public Document([NotNull] string name,
-            [NotNull] University university,
-            [NotNull] Course course, DocumentType type,
-            [NotNull] IEnumerable<Tag> tags, User user, string professor)
+        public Document(string name,
+            University university,
+            Course course, DocumentType type,
+            IEnumerable<Tag> tags, User user, string professor)
         : this()
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
@@ -32,9 +31,7 @@ namespace Cloudents.Core.Entities.Db
 
             Item.State = Privileges.GetItemState(user.Score);
 
-            
-            
-            
+
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
@@ -50,7 +47,7 @@ namespace Cloudents.Core.Entities.Db
 
 
         //public virtual RowDetail RowDetail { get; protected set; }
-      //  public virtual string BlobName { get; protected set; }
+        //  public virtual string BlobName { get; protected set; }
 
         public virtual University University { get; set; }
 
@@ -78,26 +75,4 @@ namespace Cloudents.Core.Entities.Db
         public virtual CultureInfo Language { get; set; }
 
     }
-
-
-    //public class DocumentApproved : Document, ISoftDelete
-    //{
-    //    //public void DeleteAssociation()
-    //    //{
-    //    //    throw new NotImplementedException();
-    //    //}
-    //}
-
-    //public class DocumentPending : Document, ISoftDelete
-    //{
-    //    //public void DeleteAssociation()
-    //    //{
-    //    //    throw new NotImplementedException();
-    //    //}
-    //}
-
-    //public class DocumentDeleted : Document
-    //{
-
-    //}
 }
