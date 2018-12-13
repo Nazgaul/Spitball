@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(s => s.Color).WithAlias(() => dto.Color)
 
                     .Select(Projections.Property(() => questionAlias.Item.VoteCount).As("Vote.Votes"))
-
+                    .Select(s => s.AnswerCount)
                     //.Select(s => s.Item.VoteCount).WithAlias(() => dto.Votes)
                     .Select(Projections.Conditional(
                         Restrictions.Where(() => questionAlias.CorrectAnswer != null),
@@ -54,8 +54,6 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
-                    .SelectSubQuery(QueryOver.Of<Answer>()
-                        .Where(w => w.Question.Id == questionAlias.Id && w.Item.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
 
                 )
                 .Where(w => w.CorrectAnswer == null)

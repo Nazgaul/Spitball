@@ -42,11 +42,11 @@
             <div class="question-body-container">
                 <div class="question-left-body-container">
           <span class="question-raputation upvote-arrow" @click.prevent="upvoteQuestion()">
-            <v-icon>sbf-arrow-up</v-icon>
+            <v-icon :class="{'voted': cardData.upvoted}">sbf-arrow-up</v-icon>
           </span>
           <span class="question-raputation question-score">{{cardData.votes}}</span>
           <span class="question-raputation downvote-arrow" @click.prevent="downvoteQuestion()">
-            <v-icon>sbf-arrow-down</v-icon>
+            <v-icon :class="{'voted': cardData.downvoted}">sbf-arrow-down</v-icon>
           </span>
                 </div>
                 <div class="question-right-body-container">
@@ -57,7 +57,7 @@
                             class="question-body-content-container"
                             :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`]"
                     >
-                        <span>{{cardData.text}}</span>
+                        <span >{{cardData.text}}</span>
                     </div>
                 </div>
             </div>

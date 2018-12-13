@@ -49,7 +49,6 @@ namespace Cloudents.Core.CommandHandler
                 throw new ArgumentException("this is answer is correct answer");
             }
             answer.Question.AnswerCount--;
-         
             await _questionRepository.UpdateAsync(answer.Question, token);
 
             _eventStore.Add(new AnswerDeletedEvent(answer));

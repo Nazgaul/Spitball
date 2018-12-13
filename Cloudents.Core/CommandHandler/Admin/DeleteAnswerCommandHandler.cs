@@ -41,22 +41,21 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 throw new ArgumentException("answer doesn't exits");
             }
-
+            
             await DeleteAnswerAsync(answer, token);
         }
 
         internal async Task DeleteAnswerAsync(Answer answer, CancellationToken token)
         {
-            foreach (var transaction in answer.Transactions)
-            {
-                await _transactionRepository.DeleteAsync(transaction, token);
-            }
-            answer.Question.AnswerCount--;
-
-            await _questionRepository.UpdateAsync(answer.Question, token);
-
+                foreach (var transaction in answer.Transactions)
+                {
+                    await _transactionRepository.DeleteAsync(transaction, token);
+                }
+            
+            
             _eventStore.Add(new AnswerDeletedEvent(answer));
 
+            answer.Question.AnswerCount--;
             answer.Question.CorrectAnswer = null;
             await _questionRepository.UpdateAsync(answer.Question, token);
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);

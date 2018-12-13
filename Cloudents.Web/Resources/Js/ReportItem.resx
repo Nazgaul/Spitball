@@ -117,19 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Answer does not exists" xml:space="preserve">
-    <value>תשובה אינה קיימת</value>
+  <data name="reason_inappropriateContent" xml:space="preserve">
+    <value>Inappropriate Content</value>
   </data>
-  <data name="DuplicateAnswer" xml:space="preserve">
-    <value>קיימת כבר תשובה כזו לשאלה</value>
+  <data name="reason_inappropriateLanguage" xml:space="preserve">
+    <value>Inappropriate Language</value>
   </data>
-  <data name="QuestionNotExists" xml:space="preserve">
-    <value>שאלה אינה קיימת</value>
+  <data name="reason_plagiarism" xml:space="preserve">
+    <value>Plagiarism</value>
   </data>
-  <data name="This question have correct answer" xml:space="preserve">
-    <value>לשאלה זו יש תשובה נכונה</value>
+  <data name="reason_spam" xml:space="preserve">
+    <value>Spam</value>
   </data>
-  <data name="You exceed your quota of answers" xml:space="preserve">
-    <value>כבר ענית 3 תשובות לשאלות אחרות. חכה עד שאחת מהן תתקבל או מחק אחת מהתשובות הקודמות שלך בשביל לענות על שאלה זו.</value>
+  <data name="report_subtitle" xml:space="preserve">
+    <value>We’re sorry that something isn't right.  what’s wrong?</value>
+  </data>
+  <data name="report_title" xml:space="preserve">
+    <value>Report this item</value>
   </data>
 </root>

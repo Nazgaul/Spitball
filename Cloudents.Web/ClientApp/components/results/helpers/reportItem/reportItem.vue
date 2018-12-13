@@ -4,12 +4,12 @@
             <v-flex xs12>
                 <div class="report-head">
                     <v-icon class="flag-icon">sbf-flag</v-icon>
-                    <span class="text-head">Report this item</span>
+                    <span class="text-head"  v-language:inner>reportItem_report_title</span>
                     <v-icon class="report-close-icon" @click.prevent="closeReportPop()">sbf-close</v-icon>
                 </div>
                 <div class="reasons-wrap">
                     <div class="heading-container">
-                        <span class="report-heading-text">We’re sorry that something isn't right.  what’s wrong?</span>
+                        <span class="report-heading-text" v-language:inner>reportItem_report_subtitle</span>
                     </div>
                     <v-list>
                         <template v-for="(reason, i) in reasons">
@@ -47,6 +47,7 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import { LanguageService } from "../../../../services/language/languageService";
 
     export default {
         name: "reportItem",
@@ -54,10 +55,10 @@
         data() {
             return {
                 reasons: [
-                    {title: "Inappropriate Content", id: "inappropriateContent"},
-                    {title: "Inappropriate Language ", id: "inappropriateLanguage"},
-                    {title: "Plagiarism", id: "plagiarism"},
-                    {title: "Spam", id: "spam"},
+                    {title: LanguageService.getValueByKey("reportItem_reason_inappropriateContent"), id: "inappropriateContent"},
+                    {title: LanguageService.getValueByKey("reportItem_reason_inappropriateLanguage"), id: "inappropriateLanguage"},
+                    {title: LanguageService.getValueByKey("reportItem_reason_plagiarism"), id: "plagiarism"},
+                    {title: LanguageService.getValueByKey("reportItem_reason_spam"), id: "spam"},
                 ],
                 preDefinedReason: '',
                 customReason: '',

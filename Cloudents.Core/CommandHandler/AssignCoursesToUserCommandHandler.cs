@@ -29,11 +29,11 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(AssignCoursesToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var firstCourseTransaction = user.Transactions.Where(w => w.Action == TransactionActionType.FirstCours)
+            var firstCourseTransaction = user.Transactions.Where(w => w.Action == TransactionActionType.FirstCourse)
                                                             .Select(s => s.Action).FirstOrDefault();
             if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
             {
-                var t = new Transaction(TransactionActionType.FirstCours, TransactionType.Earned, ReputationAction.FirstCourse, user);
+                var t = new Transaction(TransactionActionType.FirstCourse, TransactionType.Earned, ReputationAction.FirstCourse, user);
                 await _transactionRepository.AddAsync(t, token);
             }
             user.Courses.Clear();

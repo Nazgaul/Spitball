@@ -9,11 +9,11 @@
                     <user-block class="q-user-block" :cardData="cardData" :user="cardData.user"></user-block>
                     <div class="answer-body-container">
                         <span class="answer-raputation upvote-arrow" @click.prevent="upvoteAnswer()">
-                            <v-icon>sbf-arrow-up</v-icon>
+                            <v-icon :class="{'voted': cardData.upvoted}">sbf-arrow-up</v-icon>
                         </span>
                         <span class="answer-raputation answer-score">{{cardData.votes}}</span>
                         <span class="answer-raputation downvote-arrow" @click.prevent="downvoteAnswer()">
-                            <v-icon>sbf-arrow-down</v-icon>
+                            <v-icon :class="{'voted': cardData.downvoted}">sbf-arrow-down</v-icon>
                         </span>
                     </div>
                 </div>
