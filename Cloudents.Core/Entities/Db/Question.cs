@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Cloudents.Common;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 

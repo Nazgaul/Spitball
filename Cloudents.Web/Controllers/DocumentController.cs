@@ -25,7 +25,7 @@ namespace Cloudents.Web.Controllers
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IQueryBus _queryBus;
-        private readonly IDocumentSearch _documentSearch;
+        private readonly IDocumentsSearch _documentSearch;
         private readonly IQueueProvider _queueProvider;
 
 
@@ -34,7 +34,7 @@ namespace Cloudents.Web.Controllers
             IBlobProvider<DocumentContainer> blobProvider,
             IStringLocalizer<SharedResource> sharedLocalizer,
             IStringLocalizer<DocumentController> localizer,
-            IQueryBus queryBus, IDocumentSearch documentSearch, IQueueProvider queueProvider)
+            IQueryBus queryBus, IDocumentsSearch documentSearch, IQueueProvider queueProvider)
         {
             _blobProvider = blobProvider;
             _sharedLocalizer = sharedLocalizer;

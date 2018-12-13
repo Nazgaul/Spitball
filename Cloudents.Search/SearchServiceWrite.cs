@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using ISearchObject = Cloudents.Search.Interfaces.ISearchObject;
 
 namespace Cloudents.Search
 {
-    public abstract class SearchServiceWrite<T> :  ISearchServiceWrite<T> where T : class, ISearchObject, new()
+    public abstract class SearchServiceWrite<T> /*:  ISearchServiceWrite<T>*/ where T : class, ISearchObject, new()
     {
         private readonly SearchServiceClient _client;
         protected readonly ISearchIndexClient IndexClient;

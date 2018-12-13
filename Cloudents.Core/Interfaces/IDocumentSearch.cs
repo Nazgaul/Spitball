@@ -10,10 +10,10 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IDocumentSearch
     {
-        Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
+        //Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
 
 
-        Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
+        //Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
 
         Task<IList<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken cancelToken);

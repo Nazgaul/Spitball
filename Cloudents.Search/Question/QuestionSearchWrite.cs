@@ -7,7 +7,7 @@ using Microsoft.Azure.Search.Models;
 namespace Cloudents.Search.Question
 {
     [UsedImplicitly]
-    public class QuestionSearchWrite : SearchServiceWrite<Core.Entities.Search.Question>
+    public class QuestionSearchWrite : SearchServiceWrite<Entities.Question>
     {
         public const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
@@ -20,7 +20,7 @@ namespace Cloudents.Search.Question
 
         protected override Index GetIndexStructure(string indexName)
         {
-            var fieldBuilder = new FluentSearchFieldBuilder<Core.Entities.Search.Question>();
+            var fieldBuilder = new FluentSearchFieldBuilder<Entities.Question>();
 
             return new Index
             {
@@ -71,14 +71,14 @@ namespace Cloudents.Search.Question
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(Core.Entities.Search.Question.Text)] = 185,
-                            [nameof(Core.Entities.Search.Question.Prefix)] = 180,
+                            [nameof(Entities.Question.Text)] = 185,
+                            [nameof(Entities.Question.Prefix)] = 180,
                         }),
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new FreshnessScoringFunction(nameof(Core.Entities.Search.Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
-                            new TagScoringFunction(nameof(Core.Entities.Search.Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
+                            new FreshnessScoringFunction(nameof(Entities.Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
+                            new TagScoringFunction(nameof(Entities.Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
                         }
                     }
                 },

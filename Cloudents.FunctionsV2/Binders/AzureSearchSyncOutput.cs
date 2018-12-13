@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Interfaces;
+﻿
+using Cloudents.Search.Interfaces;
 
 namespace Cloudents.FunctionsV2.Binders
 {

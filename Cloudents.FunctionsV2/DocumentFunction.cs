@@ -10,6 +10,10 @@ using NHibernate;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.FunctionsV2.Binders;
+using Cloudents.Search.Document;
+using Cloudents.Search.Entities;
+using Cloudents.Search.Question;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -22,12 +26,14 @@ namespace Cloudents.FunctionsV2
         [FunctionName("BlobFunction")]
         public static async Task RunAsync(
             [BlobTrigger("spitball-files/files/{id}/text.txt")]string text, long id, IDictionary<string, string> metadata,
-            [Inject] ISearchServiceWrite<Document> searchInstance,
+            //[Inject] ISearchServiceWrite<Document> searchInstance,
+            [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] ICommandBus commandBus,
             [Inject] ITextAnalysis textAnalysis,
+
             CancellationToken token)
         {
-            await SyncBlobWithSearch(text, id, metadata, searchInstance, commandBus, textAnalysis, token);
+            await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, textAnalysis, token);
         }
 
         //[FunctionName("BlobFunctionTimer")]
@@ -45,7 +51,7 @@ namespace Cloudents.FunctionsV2
         //}
 
         private static async Task SyncBlobWithSearch(string text, long id, IDictionary<string, string> metadata,
-            ISearchServiceWrite<Document> searchInstance, ICommandBus commandBus, ITextAnalysis textAnalysis, CancellationToken token)
+            IAsyncCollector<AzureSearchSyncOutput> searchInstance, ICommandBus commandBus, ITextAnalysis textAnalysis, CancellationToken token)
         {
             var lang = await textAnalysis.DetectLanguageAsync(text.Truncate(5000), token);
             int? pageCount = null;
@@ -62,27 +68,36 @@ namespace Cloudents.FunctionsV2
 
 
 
-                await searchInstance.UpdateDataAsync(new[]
+                await searchInstance.AddAsync(new AzureSearchSyncOutput()
+                {
+                    Item = new Document
                     {
-                        new Document
-                        {
-                            Id = id.ToString(),
-                            Content = text.Truncate(6000),
-                            Language = lang.TwoLetterISOLanguageName,
-                            MetaContent = text.Truncate(200, true)
-                        }
-                    }, token
-                );
+                        Id = id.ToString(),
+                        Content = text.Truncate(6000),
+                        Language = lang.TwoLetterISOLanguageName,
+                        MetaContent = text.Truncate(200, true)
+                    },
+                    Insert = true
+                }, token);
+              
             }
             catch (ObjectNotFoundException)
             {
-                await searchInstance.DeleteDataAsync(new[] { id.ToString() }, token);
+                await searchInstance.AddAsync(new AzureSearchSyncOutput()
+                {
+                    Item = new Document
+                    {
+                        Id = id.ToString(),
+                    },
+                    Insert = false
+                }, token);
             }
         }
 
 
         [FunctionName("DocumentSearchSync")]
-        public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+        public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *", RunOnStartup = true)]
+            TimerInfo myTimer,
             [OrchestrationClient] DurableOrchestrationClient starter,
             ILogger log)
         {

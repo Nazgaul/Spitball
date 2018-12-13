@@ -1,12 +1,10 @@
-﻿using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
+﻿using System.Collections.Generic;
+using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search.Models;
-using System.Collections.Generic;
-using Document = Cloudents.Core.Entities.Search.Document;
 
-namespace Cloudents.Infrastructure.Write
+namespace Cloudents.Search.Document
 {
-    public class DocumentSearchWrite : SearchServiceWrite<Document>
+    public class DocumentSearchWrite : SearchServiceWrite<Entities.Document>
     {
         public const string IndexName = "document3";
 
@@ -23,7 +21,7 @@ namespace Cloudents.Infrastructure.Write
 
         protected override Index GetIndexStructure(string indexName)
         {
-            var fieldBuilder = new FluentSearchFieldBuilder<Document>();
+            var fieldBuilder = new FluentSearchFieldBuilder<Entities.Document>();
 
             return new Index()
             {
@@ -50,16 +48,16 @@ namespace Cloudents.Infrastructure.Write
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(Document.Name)] = 4,
-                            [nameof(Document.Tags)] = 3.5,
-                            [nameof(Document.Content)] = 3,
+                            [nameof(Entities.Document.Name)] = 4,
+                            [nameof(Entities.Document.Tags)] = 3.5,
+                            [nameof(Entities.Document.Content)] = 3,
                         }),
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new TagScoringFunction(nameof(Document.Course),3, new TagScoringParameters(TagsCourseParameter)),
-                            new TagScoringFunction(nameof(Document.University),2, new TagScoringParameters(TagsUniversityParameter)),
-                            new TagScoringFunction(nameof(Document.Tags),1.5, new TagScoringParameters(TagsTagsParameter)),
+                            new TagScoringFunction(nameof(Entities.Document.Course),3, new TagScoringParameters(TagsCourseParameter)),
+                            new TagScoringFunction(nameof(Entities.Document.University),2, new TagScoringParameters(TagsUniversityParameter)),
+                            new TagScoringFunction(nameof(Entities.Document.Tags),1.5, new TagScoringParameters(TagsTagsParameter)),
                         }
                     }
                 },

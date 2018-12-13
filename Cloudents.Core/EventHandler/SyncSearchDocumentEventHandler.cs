@@ -6,6 +6,8 @@ using Cloudents.Core.Storage;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Core.EventHandler
 {
@@ -21,15 +23,15 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(DocumentCreatedEvent eventMessage, CancellationToken token)
         {
-            var doc = new Document()
+            var doc = new DocumentSearchDto()
             {
-                University = eventMessage.Document.University.Id.ToString(),
+                University = eventMessage.Document.University.Id,
                 Country = eventMessage.Document.University.Country.ToUpperInvariant(),
                 Course = eventMessage.Document.Course.Name.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
-                Id = eventMessage.Document.Id.ToString(),
+                ItemId =  eventMessage.Document.Id,
                 Name = eventMessage.Document.Name,
-                Tags = eventMessage.Document.Tags.Select(s => s.Name.ToUpperInvariant()).ToArray(),
+                TagsArray = eventMessage.Document.Tags.Select(s => s.Name.ToUpperInvariant()).ToArray(),
                 Type = eventMessage.Document.Type
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
@@ -37,9 +39,9 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(DocumentDeletedEvent eventMessage, CancellationToken token)
         {
-            var doc = new Document()
+            var doc = new DocumentSearchDto()
             {
-                Id = eventMessage.Document.Id.ToString()
+                ItemId = eventMessage.Document.Id
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, false), token);
         }

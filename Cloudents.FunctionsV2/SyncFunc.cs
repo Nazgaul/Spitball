@@ -108,12 +108,13 @@ namespace Cloudents.FunctionsV2
         public static async Task<SyncResponse> DoSearchSync(
             [ActivityTrigger] SearchSyncInput input,
             [Inject] ILifetimeScope lifetimeScope,
+            IBinder binder,
             ILogger log,
             CancellationToken token)
         {
             log.LogInformation($"Going to sync {input}");
             var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
-            return await syncObject.DoSyncAsync(input.SyncAzureQuery, token);
+            return await syncObject.DoSyncAsync(input.SyncAzureQuery, binder, token);
         }
 
         [FunctionName(GetSyncStatusFunctionName)]

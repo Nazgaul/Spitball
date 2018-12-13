@@ -49,7 +49,7 @@ namespace Cloudents.Infrastructure
             //builder.RegisterType<AzureQuestionSearch>().AsSelf();//
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
 
-            builder.RegisterType<AzureDocumentSearch>().AsSelf();//
+            //builder.RegisterType<AzureDocumentSearch>().AsSelf();//
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
 
             #region Tutor
@@ -77,7 +77,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
-            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             //builder.RegisterType<DocumentSearch>().AsImplementedInterfaces();

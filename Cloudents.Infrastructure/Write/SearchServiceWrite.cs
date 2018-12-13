@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Write
 {
-    public abstract class SearchServiceWrite<T> :  ISearchServiceWrite<T> where T : class, ISearchObject, new()
+    public abstract class SearchServiceWrite<T> : ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
         private readonly SearchServiceClient _client;
         protected readonly ISearchIndexClient IndexClient;
@@ -82,7 +82,7 @@ namespace Cloudents.Infrastructure.Write
             if (actions.Count <= 0) return false;
             var batch = IndexBatch.New(actions);
             var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
-            foreach (var errorResult in result.Results.Where(w=>!w.Succeeded))
+            foreach (var errorResult in result.Results.Where(w => !w.Succeeded))
             {
                 _logger.Error($"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {IndexClient.IndexName} ");
             }
@@ -111,8 +111,8 @@ namespace Cloudents.Infrastructure.Write
         protected abstract Index GetIndexStructure(string indexName);
 
 
-       
 
-       
+
+
     }
 }

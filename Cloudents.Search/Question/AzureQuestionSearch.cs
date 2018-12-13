@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common;
 
 namespace Cloudents.Search.Question
 {
@@ -23,7 +24,7 @@ namespace Cloudents.Search.Question
 
         public async Task GetById(string id)
         {
-            var t = await _client.Documents.GetAsync<Core.Entities.Search.Question>(id);
+            var t = await _client.Documents.GetAsync<Entities.Question>(id);
 
         }
 
@@ -31,12 +32,12 @@ namespace Cloudents.Search.Question
         {
             var filters = new List<string>
             {
-                $"({nameof(Core.Entities.Search.Question.Country)} eq '{query.Country.ToUpperInvariant()}' or {nameof(Core.Entities.Search.Question.Language)} eq 'en')"
+                $"({nameof(Entities.Question.Country)} eq '{query.Country.ToUpperInvariant()}' or {nameof(Entities.Question.Language)} eq 'en')"
             };
             if (query.Source != null)
             {
                 var filterStr = string.Join(" or ", query.Source.Select(s =>
-                    $"{nameof(Core.Entities.Search.Question.Subject)} eq {(int)s}"));
+                    $"{nameof(Entities.Question.Subject)} eq {(int)s}"));
 
                 filters.Add($"({filterStr})");
             }
@@ -44,13 +45,13 @@ namespace Cloudents.Search.Question
             if (query.Filters != null)
             {
                 var filterStr = string.Join(" or ", query.Filters.Select(s =>
-                     $"{nameof(Core.Entities.Search.Question.State)} eq {(int)s}"));
+                     $"{nameof(Entities.Question.State)} eq {(int)s}"));
                 filters.Add($"({filterStr})");
             }
             var searchParameter = new SearchParameters
             {
                 Filter = string.Join(" and ", filters),
-                Select = new[] { nameof(Core.Entities.Search.Question.Id) },
+                Select = new[] { nameof(Entities.Question.Id) },
                 Top = 50,
                 Skip = query.Page * 50,
                 ScoringProfile = QuestionSearchWrite.ScoringProfile,
@@ -66,13 +67,13 @@ namespace Cloudents.Search.Question
             {
                 searchParameter.Facets = new[]
                 {
-                    nameof(Core.Entities.Search.Question.Subject),
-                    nameof(Core.Entities.Search.Question.State)
+                    nameof(Entities.Question.Subject),
+                    nameof(Entities.Question.State)
                 };
             }
 
             var result = await
-                _client.Documents.SearchAsync<Core.Entities.Search.Question>(query.Term, searchParameter,
+                _client.Documents.SearchAsync<Entities.Question>(query.Term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
 
             IEnumerable<QuestionSubject> facetSubject = null;
@@ -80,13 +81,13 @@ namespace Cloudents.Search.Question
 
             if (result.Facets != null)
             {
-                if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
+                if (result.Facets.TryGetValue(nameof(Entities.Question.Subject), out var p))
 
                 {
                     facetSubject = p.AsEnumFacetResult<QuestionSubject>();
                 }
 
-                if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.State), out var p2))
+                if (result.Facets.TryGetValue(nameof(Entities.Question.State), out var p2))
                 {
                     questionFilter = p2.AsEnumFacetResult<QuestionFilter>();
                     //retVal.FacetState = p2.Select(s => (QuestionFilter)s.AsValueFacetResult<long>().Value);

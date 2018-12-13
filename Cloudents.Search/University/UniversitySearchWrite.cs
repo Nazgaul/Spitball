@@ -2,14 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
 
-namespace Cloudents.Infrastructure.Write
+namespace Cloudents.Search.University
 {
     [UsedImplicitly]
-    public class UniversitySearchWrite : SearchServiceWrite<Core.Entities.Search.University>
+    public class UniversitySearchWrite : SearchServiceWrite<Entities.University>
     {
         public const string IndexName = "universities5";
         public const string ScoringProfile = "university-default";
@@ -57,32 +56,32 @@ namespace Cloudents.Infrastructure.Write
                 Name = indexName,
                 Fields = new List<Field>
                 {
-                    new Field(nameof(Core.Entities.Search.University.Id), DataType.String)
+                    new Field(nameof(Entities.University.Id), DataType.String)
                     {
                         IsKey = true
                     },
-                    new Field(nameof(Core.Entities.Search.University.Name), DataType.String)
+                    new Field(nameof(Entities.University.Name), DataType.String)
                     {
                         IsSearchable = true
                         
                         //SearchAnalyzer = AnalyzerName.StandardLucene,
                         //IndexAnalyzer =  AnalyzerName.Create("stopWords")
                     },
-                    new Field(nameof(Core.Entities.Search.University.DisplayName), DataType.String)
+                    new Field(nameof(Entities.University.DisplayName), DataType.String)
                     {
                         IsRetrievable = true,
                         IsSortable = true
 
                         //IndexAnalyzer =  AnalyzerName.Create("stopWords")
                     },
-                    new Field(nameof(Core.Entities.Search.University.Prefix), DataType.Collection(DataType.String))
+                    new Field(nameof(Entities.University.Prefix), DataType.Collection(DataType.String))
                     {
                         IsSearchable = true,
                         SearchAnalyzer = AnalyzerName.StandardLucene,
                         IndexAnalyzer = AnalyzerName.Create("prefix")
                         
                     },
-                    new Field(nameof(Core.Entities.Search.University.Extra), DataType.String)
+                    new Field(nameof(Entities.University.Extra), DataType.String)
                     {
                         IsSearchable = true
                        
@@ -90,7 +89,7 @@ namespace Cloudents.Infrastructure.Write
                         //IndexAnalyzer =  AnalyzerName.Create("stopWords"),
 
                     },
-                    new Field(nameof(Core.Entities.Search.University.Country), DataType.String)
+                    new Field(nameof(Entities.University.Country), DataType.String)
                     {
                         IsFilterable = true
                     }
@@ -117,18 +116,18 @@ namespace Cloudents.Infrastructure.Write
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(Core.Entities.Search.University.Extra)] = 3,
-                            [nameof(Core.Entities.Search.University.Name)] = 2.5,
-                            [nameof(Core.Entities.Search.University.Prefix)] = 2,
+                            [nameof(Entities.University.Extra)] = 3,
+                            [nameof(Entities.University.Name)] = 2.5,
+                            [nameof(Entities.University.Prefix)] = 2,
 
                         }),
 
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new TagScoringFunction(nameof(Core.Entities.Search.University.Country),1.5, new TagScoringParameters(CountryTagScoringParameters))
+                            new TagScoringFunction(nameof(Entities.University.Country),1.5, new TagScoringParameters(CountryTagScoringParameters))
                         //    new DistanceScoringFunction(
-                        //        nameof(Core.Entities.Search.University.GeographyPoint),
+                        //        nameof(Entities.University.GeographyPoint),
                         //        5,DistanceScoringParameter,10,ScoringFunctionInterpolation.Linear),
 
                         }
@@ -137,8 +136,8 @@ namespace Cloudents.Infrastructure.Write
                 Suggesters = new List<Suggester>
                 {
                     new Suggester("sg",
-                        nameof(Core.Entities.Search.University.Extra),
-                        nameof(Core.Entities.Search.University.Name))
+                        nameof(Entities.University.Extra),
+                        nameof(Entities.University.Name))
                 }
             };
         }

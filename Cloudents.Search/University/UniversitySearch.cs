@@ -1,17 +1,15 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Write;
-using JetBrains.Annotations;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 
-namespace Cloudents.Infrastructure.Search
+namespace Cloudents.Search.University
 {
     [UsedImplicitly]
     public class UniversitySearch : IUniversitySearch
@@ -19,9 +17,9 @@ namespace Cloudents.Infrastructure.Search
         private readonly ISearchIndexClient _client;
 
         private readonly string[] _listOfSelectParams = {
-            nameof(University.Id),
-            nameof(University.DisplayName),
-            nameof(University.Country)
+            nameof(Entities.University.Id),
+            nameof(Entities.University.DisplayName),
+            nameof(Entities.University.Country)
         };
 
         public UniversitySearch(ISearchService client)
@@ -49,7 +47,7 @@ namespace Cloudents.Infrastructure.Search
                 Select = _listOfSelectParams,
                 Top = 15,
                 //QueryType = QueryType.Full,
-                OrderBy = new List<string> { "search.score() desc", nameof(University.DisplayName) },
+                OrderBy = new List<string> { "search.score() desc", nameof(Entities.University.DisplayName) },
                 ScoringProfile = UniversitySearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                 {
@@ -61,7 +59,7 @@ namespace Cloudents.Infrastructure.Search
 
             term = term?.Replace("\"", "\\");
             var result = await
-                _client.Documents.SearchAsync<University>(term, searchParameter,
+                _client.Documents.SearchAsync<Entities.University>(term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
             return new UniversitySearchDto(result.Results.Select(s =>
                 new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName, s.Document.Country)));
