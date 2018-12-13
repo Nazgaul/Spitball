@@ -121,7 +121,7 @@
     <value>תשובה אינה קיימת</value>
   </data>
   <data name="DuplicateAnswer" xml:space="preserve">
-    <value>לשאלה זו כבר קיימת תשובה</value>
+    <value>קיימת כבר תשובה כזו לשאלה</value>
   </data>
   <data name="QuestionNotExists" xml:space="preserve">
     <value>שאלה אינה קיימת</value>
