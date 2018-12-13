@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Cloudents.Common;
+using Cloudents.Domain.Enums;
+using Cloudents.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Cloudents.Common;
-using Cloudents.Domain.Enums;
-using Cloudents.Domain.Interfaces;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -78,7 +78,7 @@ namespace Cloudents.Domain.Entities
         public virtual IList<Answer> Answers { get; protected set; }
 
 
-        protected internal virtual IList<Transaction> Transactions { get; set; }
+        public virtual IList<Transaction> Transactions { get; protected set; }
 
         public virtual QuestionColor? Color { get; set; }
 

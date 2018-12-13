@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 
 namespace Cloudents.Web.Services
 {

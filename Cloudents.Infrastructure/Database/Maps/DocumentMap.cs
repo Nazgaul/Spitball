@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps

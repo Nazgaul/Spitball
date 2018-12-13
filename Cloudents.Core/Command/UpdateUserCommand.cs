@@ -1,5 +1,5 @@
-﻿using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Domain.Entities;
 
 namespace Cloudents.Core.Command
 {

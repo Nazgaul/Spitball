@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cloudents.Domain.Interfaces;
@@ -39,6 +40,8 @@ namespace Cloudents.Domain.Entities
         public virtual DateTime Created { get; set; }
 
         protected internal virtual IList<Transaction> Transactions { get; set; }
+
+        public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
 
 
         public virtual ItemComponent Item { get; set; }

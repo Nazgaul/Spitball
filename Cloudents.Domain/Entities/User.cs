@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -66,13 +67,21 @@ namespace Cloudents.Domain.Entities
         public virtual decimal Balance { get; set; }
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
-        protected internal virtual IList<Transaction> Transactions { get; protected set; }
+        public virtual IList<Transaction> Transactions { get; protected set; }
         protected internal virtual IList<Question> Questions { get; set; }
+
+        
+
+        public virtual IList<Question> QuestionsReadOnly => new ReadOnlyCollection<Question>(Questions);
+
         protected internal virtual IList<Answer> Answers { get; set; }
+
+        public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
+
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
 
-        protected internal virtual ISet<Course> Courses { get; protected set; }
+        public virtual ISet<Course> Courses { get; protected set; }
         public virtual ISet<Tag> Tags { get; protected set; }
 
 

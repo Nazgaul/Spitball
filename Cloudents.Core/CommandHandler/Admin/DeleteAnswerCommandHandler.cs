@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System;
@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -47,7 +48,7 @@ namespace Cloudents.Core.CommandHandler.Admin
 
         internal async Task DeleteAnswerAsync(Answer answer, CancellationToken token)
         {
-                foreach (var transaction in answer.Transactions)
+                foreach (var transaction in answer.TransactionsReadOnly)
                 {
                     await _transactionRepository.DeleteAsync(transaction, token);
                 }

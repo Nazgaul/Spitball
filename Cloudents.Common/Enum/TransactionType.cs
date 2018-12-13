@@ -1,7 +1,7 @@
-﻿using Cloudents.Core.Attributes;
+﻿using Cloudents.Common.Attributes;
 using Cloudents.Core.Enum.Resources;
 
-namespace Cloudents.Core.Enum
+namespace Cloudents.Common.Enum
 {
     public enum TransactionType
     {
@@ -9,7 +9,6 @@ namespace Cloudents.Core.Enum
         //[PublicValue]
         //[ResourceDescription(typeof(EnumResources), "TransactionTypeAwarded")]
         //Awarded,
-        [PublicValue]
         [ResourceDescription(typeof(EnumResources), "TransactionTypeEarned")]
         Earned,
         [ResourceDescription(typeof(EnumResources), "TransactionTypeStake")]

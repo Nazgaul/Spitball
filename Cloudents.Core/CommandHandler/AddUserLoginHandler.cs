@@ -1,9 +1,9 @@
 ﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Domain.Entities;
 
 namespace Cloudents.Core.CommandHandler
 {

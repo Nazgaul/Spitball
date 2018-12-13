@@ -1,5 +1,5 @@
 ﻿using System;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;

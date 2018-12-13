@@ -1,26 +1,26 @@
-﻿//using System;
+﻿using System;
 
-//namespace Cloudents.Domain.Entities
-//{
-//    public class UserLocation
-//    {
-//        public UserLocation(RegularUser user, string ip, string country)
-//        {
-//            User = user;
-//            Ip = ip;
-//            Country = country;
-//            TimeStamp = new DomainTimeStamp();
-//        }
+namespace Cloudents.Domain.Entities
+{
+    public class UserLocation
+    {
+        public UserLocation(RegularUser user, string ip, string country)
+        {
+            User = user;
+            Ip = ip;
+            Country = country;
+            TimeStamp = new DomainTimeStamp();
+        }
 
-//        protected UserLocation()
-//        {
-            
-//        }
+        protected UserLocation()
+        {
 
-//        public virtual Guid Id { get; set; }
-//        public virtual RegularUser User { get; set; }
-//        public virtual DomainTimeStamp TimeStamp { get; set; }
-//        public virtual string Ip { get; set; }
-//        public virtual string Country { get; set; }
-//    }
-//}
+        }
+
+        public virtual Guid Id { get; set; }
+        public virtual RegularUser User { get; set; }
+        public virtual DomainTimeStamp TimeStamp { get; set; }
+        public virtual string Ip { get; set; }
+        public virtual string Country { get; set; }
+    }
+}

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;

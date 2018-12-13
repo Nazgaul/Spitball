@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Query

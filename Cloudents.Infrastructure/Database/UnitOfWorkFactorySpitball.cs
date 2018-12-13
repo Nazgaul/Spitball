@@ -16,6 +16,7 @@ using NHibernate.Persister.Entity;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database
 {

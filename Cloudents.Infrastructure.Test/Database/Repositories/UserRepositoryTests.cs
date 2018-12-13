@@ -1,5 +1,5 @@
 ﻿using Autofac.Extras.Moq;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Infrastructure.Database.Repositories;
 using Moq;
 using NHibernate;

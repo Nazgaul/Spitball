@@ -3,8 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common.Enum;
 using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
@@ -29,13 +30,14 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(AssignCoursesToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var firstCourseTransaction = user.Transactions.Where(w => w.Action == TransactionActionType.FirstCourse)
-                                                            .Select(s => s.Action).FirstOrDefault();
-            if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
-            {
-                var t = new Transaction(TransactionActionType.FirstCourse, TransactionType.Earned, ReputationAction.FirstCourse, user);
-                await _transactionRepository.AddAsync(t, token);
-            }
+            //TODO fix that.
+            //var firstCourseTransaction = user.Transactions.Where(w => w.Action == TransactionActionType.FirstCourse)
+            //                                                .Select(s => s.Action).FirstOrDefault();
+            //if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
+            //{
+            //    var t = new Transaction(TransactionActionType.FirstCourse, TransactionType.Earned, ReputationAction.FirstCourse, user);
+            //    await _transactionRepository.AddAsync(t, token);
+            //}
             user.Courses.Clear();
             foreach (var name in message.Name)
             {

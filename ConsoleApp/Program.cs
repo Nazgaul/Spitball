@@ -1,8 +1,7 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -31,6 +30,8 @@ using Cloudents.Common;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Query;
 using Cloudents.Core.Votes.Commands.AddVoteAnswer;
+using Cloudents.Domain.Enums;
+using DocumentType = Cloudents.Common.Enum.DocumentType;
 
 
 namespace ConsoleApp

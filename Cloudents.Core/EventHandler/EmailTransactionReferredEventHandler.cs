@@ -5,6 +5,7 @@ using Cloudents.Core.Storage;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common.Enum;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.EventHandler

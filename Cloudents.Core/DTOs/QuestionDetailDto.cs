@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Cloudents.Common;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.DTOs
 {

@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using NHibernate;
 using NHibernate.Linq;
 using System.Linq;

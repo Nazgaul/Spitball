@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using JetBrains.Annotations;
