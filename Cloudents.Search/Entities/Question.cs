@@ -1,11 +1,14 @@
-﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Search.Interfaces;
+using Microsoft.Azure.Search;
+using QuestionSubject = Cloudents.Common.QuestionSubject;
 
-namespace Cloudents.Core.Entities.Search
+namespace Cloudents.Search.Entities
 {
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global",Justification = "json.net need public set")]
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global", Justification = "json.net need public set")]
@@ -19,7 +22,7 @@ namespace Cloudents.Core.Entities.Search
             Text = text;
             Prefix = new[] { text }.Union(subject.GetEnumLocalizationAllValues()).ToArray();
             Country = country.ToUpperInvariant();
-            Language = language?.ToLowerInvariant();
+            Language = language.ToLowerInvariant();
             Subject = subject;
             State = state;
         }
@@ -29,9 +32,13 @@ namespace Cloudents.Core.Entities.Search
             
         }
 
+        [Key]
         public string Id { get; set; } //key readonly
 
+        [IsSortable,IsFilterable]
         public DateTime? DateTime { get;  set; } //readonly
+
+        [IsSearchable]
         public string Text { get;  set; } //search readonly
 
         public string[] Prefix { get;  set; } //search
@@ -46,5 +53,22 @@ namespace Cloudents.Core.Entities.Search
         public QuestionFilter? State { get; set; }
 
 
+        //[Obsolete]
+        //public string UserName { get; set; }
+
+        //[Obsolete]
+        //public string UserName { get; set; }
+        //[Obsolete]
+        //public string UserName { get; set; }
+        //[Obsolete]
+        //public string UserName { get; set; }
+        //[Obsolete]
+        //public string UserName { get; set; }
+        //[Obsolete]
+        //public string UserName { get; set; }
+        //[Obsolete]
+        //public string UserName { get; set; }
+        //[Obsolete]
+        //public string UserName { get; set; }
     }
 }
