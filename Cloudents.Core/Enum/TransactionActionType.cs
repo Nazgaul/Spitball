@@ -21,7 +21,7 @@ namespace Cloudents.Core.Enum
         ReferringUser,
         [ResourceDescription(typeof(EnumResources), "ActionTypeAwarded")]
         Awarded,
-        [ResourceDescription(typeof(EnumResources), "ActionTypeFirstCours")]
-        FirstCours,
+        [ResourceDescription(typeof(EnumResources), "ActionTypeFirstCourse")]
+        FirstCourse,
     }
 }

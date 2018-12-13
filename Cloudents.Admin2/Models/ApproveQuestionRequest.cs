@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Admin2.Models
+﻿using System;
+
+namespace Cloudents.Admin2.Models
 {
     public class ApproveQuestionRequest
     {
@@ -9,5 +11,10 @@
     public class ApproveDocumentRequest
     {
         public long[] Id { get; set; }
+    }
+
+    public class ApproveAnswerRequest
+    {
+        public Guid Id { get; set; }
     }
 }
