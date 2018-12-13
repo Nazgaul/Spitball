@@ -31,16 +31,13 @@ namespace Cloudents.Search.Entities
         {
             
         }
-
-        [Key]
         public string Id { get; set; } //key readonly
 
-        [IsSortable,IsFilterable]
         public DateTime? DateTime { get;  set; } //readonly
 
-        [IsSearchable]
         public string Text { get;  set; } //search readonly
 
+        
         public string[] Prefix { get;  set; } //search
 
 
@@ -52,23 +49,5 @@ namespace Cloudents.Search.Entities
         public QuestionSubject? Subject { get;  set; } // facetable readonly
         public QuestionFilter? State { get; set; }
 
-
-        //[Obsolete]
-        //public string UserName { get; set; }
-
-        //[Obsolete]
-        //public string UserName { get; set; }
-        //[Obsolete]
-        //public string UserName { get; set; }
-        //[Obsolete]
-        //public string UserName { get; set; }
-        //[Obsolete]
-        //public string UserName { get; set; }
-        //[Obsolete]
-        //public string UserName { get; set; }
-        //[Obsolete]
-        //public string UserName { get; set; }
-        //[Obsolete]
-        //public string UserName { get; set; }
     }
 }
