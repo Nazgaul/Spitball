@@ -18,12 +18,12 @@ export default {
                 {
                     title: LanguageService.getValueByKey("questionCard_Report"),
                     action: this.reportItem,
-                    isVisible: !this.cardOwner()
+                    isDisabled: this.cardOwner
                 },
                 {
                     title: LanguageService.getValueByKey("questionCard_Delete"),
                     action: this.deleteQuestion,
-                    isVisible: this.canDelete()
+                    isDisabled: this.canDelete
                 }
             ],
             showReportReasons: false,
@@ -81,6 +81,7 @@ export default {
         randomViews() {
             return Math.floor(Math.random() * 1001);
         },
+        
 
     },
     methods: {
@@ -125,9 +126,14 @@ export default {
         canDelete() {
             let isOwner = this.cardOwner();
             if (!isOwner) {
-                return false;
+                return true;
             }
-            return this.cardData.answers < 1 && !this.cardData.answers.length;
+            if(typeof this.cardData.answers !== 'number'){
+                return this.cardData.answers.length !== 0;
+            }
+            return this.cardData.answers !== 0;
+            
+            
         },
         deleteQuestion() {
             this.delete({id: this.cardData.id, type: 'Question'})
