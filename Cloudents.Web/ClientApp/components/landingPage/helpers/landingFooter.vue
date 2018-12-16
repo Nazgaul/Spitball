@@ -4,18 +4,17 @@
             <white-logo></white-logo>
         </v-card>
         <v-card class="footer-card social-card">
-            <div class="social-links-wrap">
                 <div  class="social-link"><v-icon>sbf-social-medium</v-icon></div>
                 <div  class="social-link"><v-icon>sbf-social-linkedin</v-icon></div>
                 <div  class="social-link"><v-icon>sbf-social-facebook</v-icon></div>
                 <div  class="social-link"><v-icon>sbf-social-youtube</v-icon></div>
                 <div  class="social-link"><v-icon>sbf-social-telegram</v-icon></div>
                 <div  class="social-link"><v-icon>sbf-social-twitter</v-icon></div>
-            </div>
+
         </v-card>
         <v-card class="footer-card links-card">
             <div class="footer-links" v-for="(singleLink, index) in footerLinks" :key="singleLink.id">
-                <a :href="singleLink.linkValue">{{singleLink.linkText}}</a>
+                <a :href="singleLink.linkValue" class="footer-link">{{singleLink.linkText}}</a>
             </div>
         </v-card>
     </footer>
@@ -129,6 +128,17 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
+                justify-content: space-around;
+                height: 80px;
+                border-top: 1px solid #979797;
+                border-bottom: 1px solid #979797;;
+                .social-link{
+                    width: 50px;
+                   i{
+                       color: @color-white;
+                       font-size: 22px;
+                   }
+                }
             }
         }
         .footer-links {
@@ -142,7 +152,7 @@
                 color: @footerLinksColor;
                 text-decoration: none;
                 &:hover{
-                    color: fade(@footerLinksColor, 0%);
+                    color: fade(@footerLinksColor, 100%);
                 }
             }
 

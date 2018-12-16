@@ -1,20 +1,15 @@
-import questionCard from '../question/helpers/question-card/question-card.vue';
-import extendedTextArea from '../question/helpers/extended-text-area/extendedTextArea.vue';
 import statistics from './helpers/statisticsData.vue';
 import landingFooter from './helpers/landingFooter.vue'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import questionService from "../../services/questionService";
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
-
 export default {
     name: "landingPage",
     components: {
-        questionCard,
-        extendedTextArea,
         statistics,
         landingFooter,
-        sbDialog
+        sbDialog,
     },
     data() {
         return {
@@ -39,7 +34,7 @@ export default {
             youTubeVideoId: '',
             playerVisible: false,
             playerWidth: '',
-            playerHeight: ''
+            playerHeight: '',
         }
     },
     props: {
@@ -54,6 +49,13 @@ export default {
                 return true
             }
         },
+        binding () {
+            const binding = {};
+            if (this.$vuetify.breakpoint.xsOnly) {
+                binding.column = true
+            }
+            return binding
+        }
 
     },
     watch: {
@@ -95,8 +97,21 @@ export default {
         },
         hideVideoPlayer() {
             this.playerVisible = false;
+        },
+        updateSubject(val){
+            this.selectedSubject = val;
+            console.log('!!!subj', this.selectedSubject)
+        },
+        goToResulstQuestionsPage(val){
+            this.$router.push({path: 'ask', query: val});
+        },
+        goToResultDocumentsPage(val){
+            this.$router.push({name: 'note', query: val});
         }
 
+    },
+    created(){
+        this.getAllSubjects();
     },
     filters: {
         boldText(value, search) {

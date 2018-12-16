@@ -23,102 +23,120 @@
 
 
         <section class="intro-one">
-            <div class="right-part">
-                <div class="placeholder">
+            <div class="right-part overlap-above">
+                <div class="background-white-boxed">
 
                 </div>
             </div>
-            <div class="left-part">
-                <v-combobox
-                        class="hello-gaby"
-                        v-model="selectedSubject"
-                        :items="subjectList"
-                        :label="'some label'"
-                        :placeholder="'some placeholder'"
-                        clearable
-                        solo
-                        :search-input.sync="search"
-                        :append-icon="''"
-                        :clear-icon="'sbf-close'"
-                        @click:clear="clearData(search, selectedSubject)"
-                        autofocus
-                        no-filter
-                        :background-color="'rgba( 255, 255, 255, 1)'"
-                >
-                    <template slot="no-data">
-                        <v-list-tile v-show="showBox">
-                            <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
-                        </v-list-tile>
-                        <v-list-tile>
-                            <div style="cursor:pointer;" @click="getAllSubjects()" class="subheading dark"
-                                 v-language:inner>uniSelect_show_all_schools
-                            </div>
-                        </v-list-tile>
-                    </template>
-                    <template slot="item" slot-scope="{ index, item, parent }">
-                        <v-list-tile-content style="max-width:385px;">
-                            <span v-html="$options.filters.boldText(item, search)">{{ item }}</span>
-                        </v-list-tile-content>
-                    </template>
-                </v-combobox>
+            <div class="left-part gradient-background">
+                <div class="input-holder">
+                    <v-combobox
+                            class="input-uni"
+                            v-model="selectedSubject"
+                            :items="subjectList"
+                            :label="'some label'"
+                            :placeholder="'some placeholder'"
+                            clearable
+                            solo
+                            :search-input.sync="search"
+                            :append-icon="''"
+                            :clear-icon="'sbf-close'"
+                            @click:clear="clearData(search, selectedSubject)"
+                            autofocus
+                            no-filter
+                            :background-color="'rgba( 255, 255, 255, 1)'"
+                    >
+                        <template slot="no-data">
+                            <v-list-tile v-show="showBox">
+                                <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
+                            </v-list-tile>
+                            <v-list-tile>
+                                <div style="cursor:pointer;" @click="getAllSubjects()" class="subheading dark"
+                                     v-language:inner>uniSelect_show_all_schools
+                                </div>
+                            </v-list-tile>
+                        </template>
+                        <template slot="item" slot-scope="{ index, item, parent }">
+                            <v-list-tile-content style="max-width:385px;">
+                                <span v-html="$options.filters.boldText(item, search)">{{ item }}</span>
+                            </v-list-tile-content>
+                        </template>
+                    </v-combobox>
+                </div>
             </div>
         </section>
 
         <section class="intro-two">
-            <div class="left-part">
-                <div class="placeholder">
+            <div class="left-part overlap-above">
+                <div class="background-white-boxed ">
 
                 </div>
             </div>
-            <div class="right-part">
-                <v-combobox
-                        class="hello-gaby"
-                        v-model="selectedSubject"
-                        :items="subjectList"
-                        :label="'some label'"
-                        :placeholder="'some placeholder'"
-                        clearable
-                        solo
-                        :search-input.sync="search"
-                        :append-icon="''"
-                        :clear-icon="'sbf-close'"
-                        @click:clear="clearData(search, selectedSubject)"
-                        autofocus
-                        no-filter
-                        :background-color="'rgba( 255, 255, 255, 1)'"
-                >
-                    <template slot="no-data">
-                        <v-list-tile v-show="showBox">
-                            <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
-                        </v-list-tile>
-                        <v-list-tile>
-                            <div style="cursor:pointer;" @click="getAllSubjects()" class="subheading dark"
-                                 v-language:inner>uniSelect_show_all_schools
-                            </div>
-                        </v-list-tile>
-                    </template>
-                    <template slot="item" slot-scope="{ index, item, parent }">
-                        <v-list-tile-content style="max-width:385px;">
-                            <span v-html="$options.filters.boldText(item, search)">{{ item }}</span>
-                        </v-list-tile-content>
-                    </template>
-                </v-combobox>
+            <div class="right-part gradient-background">
+                <div class="input-holder">
+                    <v-combobox
+                            class="input-subject"
+                            v-model="selectedSubject"
+                            :items="subjectList"
+                            :label="'some label'"
+                            :placeholder="'some placeholder'"
+                            clearable
+                            solo
+                            :search-input.sync="search"
+                            :append-icon="''"
+                            :clear-icon="'sbf-close'"
+                            @click:clear="clearData(search, selectedSubject)"
+                            autofocus
+                            no-filter
+                            :background-color="'rgba( 255, 255, 255, 1)'"
+                    >
+                        <template slot="no-data">
+                            <v-list-tile v-show="showBox">
+                                <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
+                            </v-list-tile>
+                            <v-list-tile>
+                                <div style="cursor:pointer;" @click="getAllSubjects()" class="subheading dark"
+                                     v-language:inner>uniSelect_show_all_schools
+                                </div>
+                            </v-list-tile>
+                        </template>
+                        <template slot="item" slot-scope="{ index, item, parent }">
+                            <v-list-tile-content style="max-width:385px;">
+                                <span v-html="$options.filters.boldText(item, search)">{{ item }}</span>
+                            </v-list-tile-content>
+                        </template>
+                    </v-combobox>
+                </div>
+
             </div>
         </section>
         <section class="faq">
-            <h3 class="title">What is Spitball</h3>
+            <div class="faq-wrap">
+                <h3 class="faq-title">What is Spitball</h3>
+                <p class="faq-text">Spitball is an online marketplace where students acquire knowledge and earn from
+                    helping others. Our platform allows students to ask and answer homework problems, share study
+                    documents and buy books. On spitball students get the right incentives to learn and earn and help
+                    each other.</p>
+                <h3 class="faq-title">How does Spitball differ from other websites?</h3>
+                <p class="faq-text">Spitball brings power back to students, no subscription fees, no ads, no catch. With
+                    Spitball you get the tools to learn smarter and earn so you can enjoy life.
+                </p>
 
-            <p class="quote">Mauris sit amet mauris a arcu eleifend ultricies eget ut dolor. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-            <p class="author">— Patrick Farrell</p>
-
-            <p class="quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum
-                ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-            <p class="author">— George Smith</p>
-
-            <p class="quote">Donec commodo dolor augue, vitae faucibus tortor tincidunt in. Aliquam vitae leo quis mi
-                pulvinar ornare. Integer eu iaculis metus.</p>
-            <p class="author">— Kevin Blake</p>
+                <h3 class="faq-title">How does spitball work?</h3>
+                <p class="faq-text">Students that need help with their studies, choose their campus and class browse
+                    study documents or ask homework questions. Students that know the answer will help solve these
+                    problems, and the most helpful answer or document gets rewarded with SBL.</p>
+                <h3 class="faq-title">What is an SBL?</h3>
+                <p class="faq-text">SBL is the currency used on the Spitball platform. SBL can be converted into real
+                    money through Amazon Gift cards.</p>
+                <h3 class="faq-title">How do I get SBL?</h3>
+                <p class="faq-text">You get SBL when you register and earn more SBL by helping others or referring
+                    friends.</p>
+                <h3 class="faq-title">Wait, I can earn real money on Spitball, what’s the catch?</h3>
+                <p class="faq-text">That’s right! There is no catch. Earned SBL’s are redeemable for Amazon gift
+                    cards</p>
+            </div>
+            <button class="cta-sbl sb-rounded-btn">Get Your SBL</button>
         </section>
 
         <v-parallax class="overflowing-parallax"
@@ -137,17 +155,23 @@
             </section>
         </v-parallax>
 
-        <section class="contact">
-            <h3 class="title">Join our newsletter</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.
-                Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-            <hr>
-
-            <form>
-                <input type="email" placeholder="Email">
-                <a href="#" class="btn">Subscribe now</a>
-            </form>
+        <section class="subjects">
+            <h3 class="subject-title">Find Homework Help By Subject</h3>
+            <span class="subject-sub-title">Just pick a subject, and we'll find the right tutor for you</span>
+            <v-layout row wrap  v-bind="binding" class="layout-subject">
+            <v-flex v-for="subjectItem in subjectList" class="subject-item" :key="`${subjectItem}`" xs3>
+                <v-card class="subject-card">
+                    <v-card-text class="subject-text" @click="updateSubject(subjectItem)">{{subjectItem}}</v-card-text>
+                </v-card>
+            </v-flex>
+            </v-layout>
         </section>
+
+
+            <section class="join">
+                <h3 class="join-title">Join our newsletter</h3>
+                <button class="join-cta">Join Now</button>
+            </section>
         <landing-footer></landing-footer>
         <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="playerVisible" :popUpType="'videoPlayer'"
                    :content-class="'videoPlayerDialog'">

@@ -1,14 +1,18 @@
 @import "../../styles/mixin.less";
 
+@faqbackgroundColor: rgba(0, 0, 0, 0.03);
+@fontPatua: 'Patua One', sans-serif;
+@ctaSblColor: #3d5afe;
 .placeholder {
   height: 250px;
   width: 100%;
   background: #6a6a6a;
 }
-.wide-parallax{
+
+.wide-parallax {
   width: 100%;
   overflow-x: hidden;
-  .statistics{
+  .statistics {
     width: 105%;
   }
 }
@@ -31,20 +35,19 @@ section {
   flex-direction: column;
   align-items: center;
   padding: 125px 100px;
-  p{
+  p {
     max-width: 800px;
-    text-align: center;
     margin-bottom: 35px;
-    padding: 0 20px;
-    line-height: 2;
+    line-height: normal;
   }
-  h3{
-    &.title{
+  h3 {
+    &.title {
       color: #414a4f;
-        text-transform: capitalize;
-        font: bold 32px 'Open Sans', sans-serif;
-        margin-bottom: 35px;
-        text-align: center;
+      text-transform: capitalize;
+      font: bold 32px 'Open Sans', sans-serif;
+      margin-bottom: 35px;
+      text-align: center;
+      font-weight: normal;
     }
   }
 }
@@ -61,6 +64,7 @@ section {
     padding: 80px 30px;
   }
 }
+
 .carousel-holder {
   width: 100%;
   display: flex;
@@ -71,12 +75,12 @@ section {
 /*----------------
  	Parralax Section
 ----------------*/
-.overflowing-parallax{
+.overflowing-parallax {
   overflow: visible;
   max-height: 600px;
   @media (max-width: @screen-xs) {
-   max-height: 350px;
-   overflow: visible;
+    max-height: 350px;
+    overflow: visible;
   }
 
 }
@@ -94,9 +98,9 @@ section {
   padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;
-  .hero-wrap{
+  .hero-wrap {
     display: flex;
-    flex-grow:1;
+    flex-grow: 1;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
@@ -106,7 +110,7 @@ section {
     .hero-title {
       font-size: 56px;
       color: @color-white;
-      font-family: 'Patua One', sans-serif;
+      font-family: @fontPatua;
       margin-bottom: 15px;
     }
     h3 {
@@ -119,7 +123,7 @@ section {
       font-weight: normal;
     }
   }
-  .cta-button{
+  .cta-button {
     padding: 16px 32px;
     border-radius: 56.5px;
     box-shadow: 0 16px 23px 0 rgba(20, 17, 3, 0.44);
@@ -130,7 +134,7 @@ section {
     text-align: center;
     color: @textColor;
   }
-  .video-link{
+  .video-link {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -140,7 +144,7 @@ section {
     letter-spacing: normal;
     color: @colorWhiteBlured;
     margin-top: 52px;
-    .play-icon{
+    .play-icon {
       font-size: 26px;
       color: @color-white;
       margin-right: 12px;
@@ -159,6 +163,7 @@ section {
     }
   }
 }
+
 /*--------------------
  	Statistics Section
 ---------------------*/
@@ -170,7 +175,8 @@ section {
 }
 
 /*--------------------
- 	intro other sections as : intro1, intro2 and so on
+ 	intro other sections shared styles
+ 	 as : intro1, intro2 and so on
 ---------------------*/
 .intro-one, .intro-two {
   flex-direction: row;
@@ -190,6 +196,55 @@ section {
     display: flex;
     flex-basis: 50%;
   }
+
+  //.overlap-below{
+  //  position:relative;
+  //  bottom:10px;
+  //  left:150px;
+  //}
+  .background-white-boxed {
+    box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.2);
+    background-color: @color-white;
+    height: 396px;
+    width: 100%;
+  }
+  .gradient-background {
+    background-image: radial-gradient(circle at 48% 0, #4b8ffe, #4b8ffe 12%, #4b8ffe 34%, #4452fc);
+  }
+}
+
+/*--------------------
+ 	intro sections defferering styles
+---------------------*/
+.intro-one {
+  .left-part {
+    align-items: center;
+    justify-content: center;
+  }
+  .overlap-above {
+    position: relative;
+    bottom: 46px;
+    left: -8%;
+  }
+  .input-holder {
+    width: 60%;
+  }
+}
+
+.intro-two {
+  .right-part {
+    align-items: center;
+    justify-content: center;
+
+  }
+  .overlap-above {
+    position: relative;
+    bottom: 46px;
+    right: -8%;
+  }
+  .input-holder {
+    width: 60%;
+  }
 }
 
 /*--------------------
@@ -205,77 +260,111 @@ section {
 --------------------*/
 
 .faq {
-  background-color: #fff;
-}
+  background-color: @faqbackgroundColor;
+  padding: 94px 100px;
+  .faq-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .faq-title {
+      font-family: @fontPatua;
+      font-size: 28px;
+      font-weight: normal;
+      margin-bottom: 8px;
 
-.faq .quote {
-  text-align: center;
-  width: 80%;
-  font-size: 22px;
-  font-weight: 300;
-  line-height: 1.5;
-  margin-bottom: 20px;
-  padding: 0;
-}
+    }
+    .faq-text {
+      text-align: left;
+      font-size: 18px;
+      font-family: @fontOpenSans;
+      color: @textColor;
+    }
 
-.faq .author {
-  font-size: 18px;
-  margin-bottom: 50px;
-}
-
-.faq .author:last-child {
-  margin-bottom: 0;
-}
-
-@media (max-width: 1000px) {
-
-  .faq .quote {
+  }
+  .sb-rounded-btn {
+    .sb-rounded-btn(@ctaSblColor);
+    font-family: @fontFiraSans;
+    padding: 18px 90px;
+    margin-top: 96px;
     font-size: 20px;
+    border-radius: 56.5px;
+    box-shadow: 0 3px 8px 0 rgba(31, 44, 197, 0.66);
   }
-
-  .faq .author {
-    font-size: 16px;
-  }
-
 }
 
 /*---------------------
  	Contact Section
 ---------------------*/
-
-.contact {
-  background-color: #f7f7f7;
-}
-
-.contact form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  max-width: 800px;
-  width: 80%;
-}
-
-.contact form input {
-  padding: 15px;
-  flex: 1;
-  margin-right: 30px;
-  font-size: 18px;
-  color: #555;
-}
-
-.contact form .btn {
-  padding: 18px 42px;
-}
-
-@media (max-width: 800px) {
-
-  .contact form input {
-    flex-basis: 100%;
-    margin: 0 0 20px 0;
+.join {
+  background-image: url("./images/home_page_join_background.jpg");
+  background-size: cover;
+  .join-title {
+    font-family: @fontPatua;
+    font-size: 50px;
+    font-weight: normal;
+    color: @color-white;
   }
-
+  .join-cta {
+    .sb-rounded-btn(@ctaSblColor);
+    font-family: @fontFiraSans;
+    padding: 18px 90px;
+    margin-top: 44px;
+    font-size: 20px;
+    border-radius: 56.5px;
+    box-shadow: 0 7px 15px 0 #1f2cc5;
+  }
 }
 
+/*---------------------
+ 	Subjects Section Section
+---------------------*/
+.subjects {
+  background-image: linear-gradient(95deg, #4b8ffe, #4b8ffe 34%, #4452fc);
+  .layout-subject {
+  padding-top: 78px;
+  .subject-item {
+    padding-left: 16px;
+    height: 36px;
+    &:hover{
+      .subject-card{
+        .subject-text{
+          cursor: pointer;
+          color: fade(@color-white, 90%);
+        }
+      }
+    }
+    .subject-card {
+      background-color: transparent;
+      box-shadow: none;
+      font-weight: normal;
+      font-family: @fontOpenSans;
+      text-align: left;
+      .subject-text {
+        font-size: 16px;
+        color: @color-white;
+        display: block;
+        margin: 0 auto;
+        width: 33%;
+        @media (max-width: @screen-xs) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+  .subject-title {
+    font-family: @fontPatua;
+    font-size: 38px;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.87);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .subject-sub-title {
+    font-size: 18px;
+    font-family: @fontOpenSans;
+    font-weight: normal;
+    color: @color-white;
+  }
+}
 
