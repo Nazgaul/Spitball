@@ -7,11 +7,13 @@ namespace Cloudents.Core.Command
     {
         public UpdateDocumentMetaCommand(long id, 
             //CultureInfo language,
-            int? pageCount)
+            int? pageCount, string snippet)
         {
             Id = id;
+            
            // Language = language;
             PageCount = pageCount;
+            Snippet = snippet;
         }
 
         public long Id { get; }
@@ -19,5 +21,7 @@ namespace Cloudents.Core.Command
         //public CultureInfo Language { get; }
 
         public int? PageCount { get; }
+
+        public string Snippet { get; private set; }
     }
 }

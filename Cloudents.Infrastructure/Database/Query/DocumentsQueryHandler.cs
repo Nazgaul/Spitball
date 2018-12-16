@@ -1,15 +1,14 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Domain.Entities;
+using Cloudents.Domain.Enums;
 using NHibernate;
 using NHibernate.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -44,6 +43,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     TypeStr = s.Type,
                     Professor = s.Professor,
                     Title = s.Name,
+                    Snippet = s.MetaContent,
                     Views = s.Views,
                     Downloads = s.Downloads,
                     University = s.University.Name,

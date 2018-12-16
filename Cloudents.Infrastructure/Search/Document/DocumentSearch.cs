@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure.Search.Document
                 }
                 if (dic.TryGetValue(resultResult.Id, out var p))
                 {
-                    p.Snippet = resultResult.MetaContent;
+                    //p.Snippet = resultResult.MetaContent;
                     p.Source = "Cloudents";
                     //p.Url = _urlBuilder.BuildDocumentEndPoint(p.Id);
                     retVal.Add(p);

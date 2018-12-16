@@ -1,21 +1,19 @@
-using System;
 using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Sync;
+using Cloudents.Search.Document;
+using Cloudents.Search.Entities;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.FunctionsV2.Binders;
-using Cloudents.Search.Document;
-using Cloudents.Search.Entities;
-using Cloudents.Search.Question;
-using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -26,14 +24,27 @@ namespace Cloudents.FunctionsV2
         [FunctionName("BlobFunction")]
         public static async Task RunAsync(
             [BlobTrigger("spitball-files/files/{id}/text.txt")]string text, long id, IDictionary<string, string> metadata,
-            //[Inject] ISearchServiceWrite<Document> searchInstance,
             [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] ICommandBus commandBus,
-            [Inject] ITextAnalysis textAnalysis,
+            CancellationToken token)
+        {
+            await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, token);
+        }
+
+
+        [FunctionName("ReduBlobFunction")]
+        public static async Task ReduBlobFunctionAsync(
+            [QueueTrigger("generate-search-preview")] string id,
+            [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,// IDictionary<string, string> metadata,
+            [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
+            [Inject] ICommandBus commandBus,
 
             CancellationToken token)
         {
-            await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, textAnalysis, token);
+            var text = await blob.DownloadTextAsync();
+            await blob.FetchAttributesAsync();
+            var metadata = blob.Metadata;
+            await SyncBlobWithSearch(text, Convert.ToInt64(id), metadata, indexInstance, commandBus, token);
         }
 
         //[FunctionName("BlobFunctionTimer")]
@@ -51,35 +62,30 @@ namespace Cloudents.FunctionsV2
         //}
 
         private static async Task SyncBlobWithSearch(string text, long id, IDictionary<string, string> metadata,
-            IAsyncCollector<AzureSearchSyncOutput> searchInstance, ICommandBus commandBus, ITextAnalysis textAnalysis, CancellationToken token)
+            IAsyncCollector<AzureSearchSyncOutput> searchInstance, ICommandBus commandBus, CancellationToken token)
         {
-            //var lang = await textAnalysis.DetectLanguageAsync(text.Truncate(5000), token);
             int? pageCount = null;
             if (metadata.TryGetValue("PageCount", out var pageCountStr) &&
                 int.TryParse(pageCountStr, out var pageCount2))
             {
                 pageCount = pageCount2;
             }
-
             try
             {
-                var command = new UpdateDocumentMetaCommand(id,  pageCount);
+                var snippet = text.Truncate(200, true);
+                var command = new UpdateDocumentMetaCommand(id, pageCount, snippet);
                 await commandBus.DispatchAsync(command, token);
-
-
 
                 await searchInstance.AddAsync(new AzureSearchSyncOutput()
                 {
                     Item = new Document
                     {
                         Id = id.ToString(),
-                        Content = text.Truncate(6000),
-                        //Language = lang.TwoLetterISOLanguageName,
-                        MetaContent = text.Truncate(200, true)
+                        Content = text.Truncate(6000)
                     },
                     Insert = true
                 }, token);
-              
+
             }
             catch (ObjectNotFoundException)
             {
@@ -97,7 +103,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("DocumentSearchSync")]
         public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *", RunOnStartup = true)]
-            TimerInfo myTimer,
+            TimerInfo _,
             [OrchestrationClient] DurableOrchestrationClient starter,
             ILogger log)
         {
@@ -106,7 +112,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("DocumentDeleteOld")]
-        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *", RunOnStartup = true)] TimerInfo myTimer,
+        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *", RunOnStartup = true)] TimerInfo _,
             [Blob("spitball-files/files")]CloudBlobDirectory directory,
             ILogger log,
             CancellationToken token)
@@ -114,7 +120,7 @@ namespace Cloudents.FunctionsV2
             BlobContinuationToken blobToken = null;
             do
             {
-                
+
                 var files = await directory.ListBlobsSegmentedAsync(false, BlobListingDetails.None, null, blobToken,
                     new BlobRequestOptions(),
                     new OperationContext(), token);

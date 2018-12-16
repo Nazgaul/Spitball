@@ -98,7 +98,7 @@ namespace Cloudents.Search
             try
             {
                 var index = GetIndexStructure(IndexClient.IndexName);
-                await _client.Indexes.CreateAsync(index, cancellationToken: token);
+                await _client.Indexes.CreateOrUpdateAsync(index, cancellationToken: token);
             }
             catch (Microsoft.Rest.Azure.CloudException)
             {

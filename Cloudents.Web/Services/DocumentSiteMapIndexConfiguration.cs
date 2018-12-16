@@ -24,7 +24,14 @@ namespace Cloudents.Web.Services
             DataSource = statelessSession.Query<Document>()
                 .Where(w => w.Item.State == ItemState.Ok)
                 .Fetch(f => f.University)
-                .Select(s => new DocumentSeoDto(s.Name, s.Course.Name, s.University.Country, s.University.Name, s.Id));
+                .Select(s => new DocumentSeoDto
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Country = s.University.Country,
+                    CourseName = s.Course.Name,
+                    UniversityName = s.University.Name
+                });
         }
 
         public SitemapIndexNode CreateSitemapIndexNode(int currentPage)
