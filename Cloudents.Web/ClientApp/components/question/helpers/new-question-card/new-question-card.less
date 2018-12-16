@@ -58,7 +58,7 @@
           height: 15px;
           margin-top: 10px;
           line-height: 15px;
-          justify-content: space-evenly;
+          justify-content: space-around;
           span {
             font-family: @fontFiraSans;
             font-size: 11px;
@@ -163,6 +163,56 @@
         }
         &.align-switch-r {
           direction: rtl;
+        }
+      }
+      .gallery {
+        height: 300px !important;
+        @media (max-width: @screen-xs) {
+          height: 238px !important;
+        }
+        .v-carousel {
+          height:300px !important;
+          cursor: pointer;
+          .v-jumbotron__wrapper {
+            .v-jumbotron__image {
+              height: auto;
+              width: 100%;
+              cursor: pointer;
+            }
+          }
+          @media (max-width: @screen-xs) {
+            height: 238px !important;
+            padding: 25px;
+          }
+          box-shadow: none;
+          button {
+            width: 40px;
+            height: @btnHeight;
+            &:before {
+              opacity: 0.2;
+              background-color: #000000;
+            }
+            .v-icon {
+              font-size: 20px !important;
+              &.left {
+                transform: scale(-1, 1);
+                margin-right: 3px;
+              }
+              &.right {
+                transform: scale(1, 1);
+                margin-left: 4px;
+              }
+            }
+          }
+          .v-carousel__item {
+            height:300px !important;
+            @media (max-width: @screen-xs) {
+              height: 238px !important;
+            }
+            .v-image__image--cover {
+              background-size: contain;
+            }
+          }
         }
       }
     }

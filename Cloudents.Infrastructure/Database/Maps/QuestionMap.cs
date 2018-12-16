@@ -57,6 +57,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             t.Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             t.Map(m => m.DeletedOn).Nullable();
             t.Map(m => m.FlagReason).Nullable();
+            t.Map(m => m.FlaggedUser).Nullable();
             t.Map(m => m.VoteCount).Not.Nullable();
         }
     }

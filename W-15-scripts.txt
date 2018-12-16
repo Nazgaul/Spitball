@@ -236,4 +236,5 @@ join (select QuestionId,count(1) as c from sb.Answer A group by QuestionId) as A
 	on A.QuestionId = Q.Id
 commit
 
-need to update document index
+need to update document index - run BuildSearchIndex
+need to run ReduDocument - to support uni and class search

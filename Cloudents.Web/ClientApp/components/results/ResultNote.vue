@@ -32,7 +32,7 @@
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
-                                    <v-list-tile :disabled="!item.isVisible" v-for="(item, i) in actions" :key="i">
+                                    <v-list-tile :disabled="!item.isDisabled" v-for="(item, i) in actions" :key="i">
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
                                 </v-list>
@@ -120,13 +120,8 @@
                     {
                         title: LanguageService.getValueByKey("questionCard_Report"),
                         action: this.reportItem,
-                        isVisible: !this.cardOwner() && this.isCloudents()
+                        isDisabled: !this.cardOwner() && this.isCloudents()
                     },
-                    {
-                        title: LanguageService.getValueByKey("questionCard_Delete"),
-                        action: '',
-                        isVisible: false
-                    }
                 ],
                 itemId: 0,
                 showReport: false,

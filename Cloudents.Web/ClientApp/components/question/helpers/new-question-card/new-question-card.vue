@@ -31,7 +31,7 @@
                                 <v-icon>sbf-3-dot</v-icon>
                             </v-btn>
                             <v-list>
-                                <v-list-tile :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
+                                <v-list-tile v-show="item.isVisible" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
                                     <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                 </v-list-tile>
                             </v-list>
@@ -59,7 +59,20 @@
                     >
                         <span >{{cardData.text}}</span>
                     </div>
+                    <div class="gallery" v-if="cardData.files && cardData.files.length">
+                        <v-carousel :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
+                                     :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right right'"
+                                    interval="600000" cycle full-screen
+                                    hide-delimiters :hide-controls="cardData.files.length===1">
+                            <v-carousel-item v-for="(item,i) in cardData.files" v-bind:src="item" :key="i"
+                                             @click.native="showBigImage(item)"></v-carousel-item>
+                        </v-carousel>
+                    </div>
                 </div>
+                <v-dialog v-model="showDialog" max-width="720px"
+                      transition="scale-transition" content-class="zoom-image">
+                <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
+                </v-dialog>
             </div>
             <div class="question-footer-container">
                 <div class="answer-display-container">
