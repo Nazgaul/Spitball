@@ -57,7 +57,10 @@ namespace Cloudents.Core.CommandHandler.Admin
             _eventStore.Add(new AnswerDeletedEvent(answer));
 
             answer.Question.AnswerCount--;
-            answer.Question.CorrectAnswer = null;
+            if (answer.Id == answer.Question.CorrectAnswer.Id)
+            {
+                answer.Question.CorrectAnswer = null;
+            }
             await _questionRepository.UpdateAsync(answer.Question, token);
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
         }
