@@ -31,7 +31,7 @@
             <div class="left-part gradient-background">
                 <div class="input-holder">
                     <v-combobox
-                            class="input-uni"
+                            class="input-subject"
                             v-model="selectedSubject"
                             :items="subjectList"
                             :label="'some label'"
@@ -40,6 +40,7 @@
                             solo
                             :search-input.sync="search"
                             :append-icon="''"
+                            :prepend-inner-icon="'sbf-search'"
                             :clear-icon="'sbf-close'"
                             @click:clear="clearData(search, selectedSubject)"
                             autofocus
@@ -75,37 +76,40 @@
             <div class="right-part gradient-background">
                 <div class="input-holder">
                     <v-combobox
-                            class="input-subject"
-                            v-model="selectedSubject"
-                            :items="subjectList"
-                            :label="'some label'"
-                            :placeholder="'some placeholder'"
+                            class="input-uni"
+                            v-model="university"
+                            :items="universities"
+                            :label="schoolNamePlaceholder"
+                            :placeholder="schoolNamePlaceholder"
                             clearable
                             solo
-                            :search-input.sync="search"
+                            :search-input.sync="searchUni"
                             :append-icon="''"
                             :clear-icon="'sbf-close'"
-                            @click:clear="clearData(search, selectedSubject)"
+                            @click:clear="clearData(searchUni, university)"
                             autofocus
                             no-filter
+
                             :background-color="'rgba( 255, 255, 255, 1)'"
                     >
                         <template slot="no-data">
-                            <v-list-tile v-show="showBox">
+                            <v-list-tile v-show="showBoxUni">
                                 <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
                             </v-list-tile>
                             <v-list-tile>
-                                <div style="cursor:pointer;" @click="getAllSubjects()" class="subheading dark"
-                                     v-language:inner>uniSelect_show_all_schools
-                                </div>
+                                <div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark" v-language:inner>uniSelect_show_all_schools</div>
                             </v-list-tile>
                         </template>
                         <template slot="item" slot-scope="{ index, item, parent }">
                             <v-list-tile-content style="max-width:385px;">
-                                <span v-html="$options.filters.boldText(item, search)">{{ item }}</span>
+                                <span v-html="$options.filters.boldText(item.text, searchUni)">{{ item.text }}</span>
                             </v-list-tile-content>
                         </template>
                     </v-combobox>
+
+
+
+
                 </div>
 
             </div>
@@ -154,32 +158,31 @@
                 </div>
             </section>
         </v-parallax>
-
         <section class="subjects">
             <h3 class="subject-title">Find Homework Help By Subject</h3>
             <span class="subject-sub-title">Just pick a subject, and we'll find the right tutor for you</span>
-            <v-layout row wrap  v-bind="binding" class="layout-subject">
-            <v-flex v-for="subjectItem in subjectList" class="subject-item" :key="`${subjectItem}`" xs3>
-                <v-card class="subject-card">
-                    <v-card-text class="subject-text" @click="updateSubject(subjectItem)">{{subjectItem}}</v-card-text>
-                </v-card>
-            </v-flex>
+            <v-layout row wrap v-bind="binding" class="layout-subject">
+                <v-flex v-for="subjectItem in subjectList" class="subject-item" :key="`${subjectItem}`" xs3>
+                    <v-card class="subject-card">
+                        <v-card-text class="subject-text" @click="updateSubject(subjectItem)">
+                            {{subjectItem}}
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
             </v-layout>
         </section>
-
-
-            <section class="join">
-                <h3 class="join-title">Join our newsletter</h3>
-                <button class="join-cta">Join Now</button>
-            </section>
+        <section class="join">
+            <h3 class="join-title">Join our newsletter</h3>
+            <button class="join-cta">Join Now</button>
+        </section>
         <landing-footer></landing-footer>
         <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="playerVisible" :popUpType="'videoPlayer'"
                    :content-class="'videoPlayerDialog'">
-            <youtube-media
-                    :video-id="youTubeVideoId"
-                    :player-vars="{autoplay: 1}">
+            <youtube
+            :video-id="youTubeVideoId"
+            :player-vars="{autoplay: 1}">
 
-            </youtube-media>
+            </youtube>
         </sb-dialog>
     </div>
 </template>

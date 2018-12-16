@@ -9,7 +9,7 @@
                 <div  class="social-link"><v-icon>sbf-social-facebook</v-icon></div>
                 <div  class="social-link"><v-icon>sbf-social-youtube</v-icon></div>
                 <div  class="social-link"><v-icon>sbf-social-telegram</v-icon></div>
-                <div  class="social-link"><v-icon>sbf-social-twitter</v-icon></div>
+                <!--<div  class="social-link"><v-icon>sbf-social-twitter</v-icon></div>-->
 
         </v-card>
         <v-card class="footer-card links-card">
@@ -102,7 +102,6 @@
     @footerLinksColor: rgba(255, 255, 255, 0.87);
     @footerBackground: rgba(3, 4, 21, 0.72);
     .footer {
-
         display: flex;
         flex-direction: column;
         align-items: center;

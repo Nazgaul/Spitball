@@ -2,20 +2,23 @@ import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective";
-import { LanguageService } from './services/language/languageService'
-
-import initSignalRService from './services/signalR/signalrEventService'
+import { LanguageService } from './services/language/languageService';
+import initSignalRService from './services/signalR/signalrEventService';
 
 // clip board copy text
-import VueClipboard from 'vue-clipboard2'
-import lineClamp from 'vue-line-clamp'
+import VueClipboard from 'vue-clipboard2';
+import lineClamp from 'vue-line-clamp';
 import Scroll from "vuetify/es5/directives/scroll";
 import scrollComponent from './components/helpers/infinateScroll.vue';
 import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-import VueYouTubeEmbed from 'vue-youtube-embed'
+import VueYouTubeEmbed from 'vue-youtube-embed';
+
+
+
+
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
@@ -49,7 +52,6 @@ const vuetifyComponents = {
     VCombobox,
     VCheckbox,
     VParallax
-
 };
 import {
     Vuetify,
@@ -85,6 +87,7 @@ import {
     VCheckbox,
     VParallax
 
+
 } from "vuetify";
 import * as route from "./routes";
 
@@ -93,7 +96,12 @@ import { constants } from "./utilities/constants";
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: ["Open+Sans:300,400,600,700", "Fira+Sans:300,400,600,700", "Assistant:300,400,600,700", "Alef:300,400,600,700", "Patua+One"]
+        families: [
+            "Open+Sans:300,400,600,700",
+            "Fira+Sans:300,400,600,700",
+            "Assistant:300,400,600,700",
+            "Alef:300,400,600,700",
+            "Patua+One: 300,400,600,700"]
     }
 });
 
@@ -104,13 +112,13 @@ WebFont.load({
 //});
 
 Vue.use(VueRouter);
-Vue.use(VueYouTubeEmbed, { global: true, componentId: "youtube-media" });
 Vue.use(Vuetify, {
     directives: {
         Scroll,
     },
     components: vuetifyComponents
 });
+Vue.use(VueYouTubeEmbed, { global: true });
 Vue.component("scroll-list", scrollComponent);
 //Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);

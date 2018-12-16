@@ -13,7 +13,8 @@ import newQuestionDialog from './newQuestionDialog'
 import document from './document'
 import notification from "./notification";
 import uploadFiles from  "./uploadFiles";
-import University from "./university"
+import University from "./university";
+import homeLanding from "./homeLanding"
 
 
 Vue.use(Vuex);
@@ -32,7 +33,8 @@ const store = new Vuex.Store({
         notification,
         University,
         uploadFiles,
-        document
+        document,
+        homeLanding
     }
 });
 export default store;

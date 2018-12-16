@@ -4,17 +4,21 @@ import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import questionService from "../../services/questionService";
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
+import { LanguageService } from "../../services/language/languageService";
+
+
 export default {
     name: "landingPage",
     components: {
         statistics,
         landingFooter,
         sbDialog,
+
     },
     data() {
         return {
+            schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
             isFocused: false,
-            subjectList: [],
             selectedSubject: '',
             search: '',
             items: [
@@ -35,6 +39,8 @@ export default {
             playerVisible: false,
             playerWidth: '',
             playerHeight: '',
+            universityModel: '',
+            searchUni: '',
         }
     },
     props: {
@@ -45,9 +51,29 @@ export default {
     },
     computed: {
         showBox() {
-            if (this.search && this.search > 0) {
+            if (this.search && this.search.length > 0) {
                 return true
             }
+        },
+        showBoxUni() {
+            if (this.searchUni && this.searchUni.length > 0) {
+                return true
+            }
+        },
+        university: {
+            get: function () {
+                let schoolNameFromStore = this.getSchoolName();
+                return schoolNameFromStore || this.universityModel
+            },
+            set: function (newValue) {
+                this.universityModel = newValue
+            }
+        },
+        universities() {
+            return this.getUniversities();
+        },
+        subjectList(){
+            return this.getSubjectsList();
         },
         binding () {
             const binding = {};
@@ -55,26 +81,40 @@ export default {
                 binding.column = true
             }
             return binding
-        }
+        },
 
     },
     watch: {
         search: debounce(function () {
             if (!!this.search && this.search.length > 2) {
                 this.selectedSubject = this.search;
-                console.log('updated subject')
             }
             if (this.search === "") {
                 this.clearData();
             }
-        }, 250)
+        }, 250),
+
+        searchUni: debounce(function(){
+                if(!!this.searchUni && this.searchUni.length > 2 ){
+                    this.updateUniversities(this.searchUni);
+                }
+                if(this.searchUni === ""){
+                    this.clearData();
+                }
+            }, 250)
+
     },
     methods: {
-        getAllSubjects() {
-            questionService.getSubjects().then((response) => {
-                this.subjectList = response.data.map(a => a.subject)
-                console.log(this.subjectList)
-            });
+        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "updateSubject"]),
+        ...mapGetters(["getUniversities", "getSchoolName", "getSubjectsList"]),
+        // getAllSubjects() {
+        //     questionService.getSubjects().then((response) => {
+        //         this.subjectList = response.data.map(a => a.subject)
+        //     });
+        // },
+        getAllUniversities(){
+            //leave space
+            this.updateUniversities(' ');
         },
         clearData(search, university) {
             search = '';
@@ -100,7 +140,6 @@ export default {
         },
         updateSubject(val){
             this.selectedSubject = val;
-            console.log('!!!subj', this.selectedSubject)
         },
         goToResulstQuestionsPage(val){
             this.$router.push({path: 'ask', query: val});
@@ -111,7 +150,7 @@ export default {
 
     },
     created(){
-        this.getAllSubjects();
+        // this.getAllSubjects();
     },
     filters: {
         boldText(value, search) {

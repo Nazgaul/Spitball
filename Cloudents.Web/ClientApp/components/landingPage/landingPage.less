@@ -3,11 +3,6 @@
 @faqbackgroundColor: rgba(0, 0, 0, 0.03);
 @fontPatua: 'Patua One', sans-serif;
 @ctaSblColor: #3d5afe;
-.placeholder {
-  height: 250px;
-  width: 100%;
-  background: #6a6a6a;
-}
 
 .wide-parallax {
   width: 100%;
@@ -196,12 +191,6 @@ section {
     display: flex;
     flex-basis: 50%;
   }
-
-  //.overlap-below{
-  //  position:relative;
-  //  bottom:10px;
-  //  left:150px;
-  //}
   .background-white-boxed {
     box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.2);
     background-color: @color-white;
@@ -217,8 +206,24 @@ section {
  	intro sections defferering styles
 ---------------------*/
 .intro-one {
+  .right-part {
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 34%;
+      width: 0;
+      height: 0;
+      border: 22px solid transparent;
+      border-right-color: @color-white;
+      border-left: 0;
+      margin-top: -22px;
+      margin-left: -22px;
+    }
+  }
   .left-part {
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
   }
   .overlap-above {
@@ -227,15 +232,32 @@ section {
     left: -8%;
   }
   .input-holder {
+    padding-top: 64px;
     width: 60%;
+
   }
 }
 
 .intro-two {
   .right-part {
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 
+  }
+  .left-part{
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 34%;
+      width: 0;
+      height: 0;
+      border: 22px solid transparent;
+      border-left-color:@color-white;
+      border-right: 0;
+      margin-top: -22px;
+      margin-right: -22px;
+    }
   }
   .overlap-above {
     position: relative;
@@ -243,6 +265,7 @@ section {
     right: -8%;
   }
   .input-holder {
+    padding-top: 64px;
     width: 60%;
   }
 }
