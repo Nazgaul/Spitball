@@ -353,6 +353,7 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
+            //await MigrateDelta();
 
             //await MigrateUniversity();
             //var t = _container.Resolve<IBlockChainErc20Service>();
@@ -627,6 +628,7 @@ where left(blobName ,4) != 'file'");
                 FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
                 ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
                     FROM zbox.University u
+                        and u.UniversityName not in (select name from sb.University)
                 where isdeleted = 0
                     ) u
                 WHERE cnt = 1");
@@ -1020,11 +1022,80 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 
         public static async Task MigrateDelta()
         {
+            var sessin = _container.Resolve<IStatelessSession>();
+
             await TransferUsers();
             await TransferUniversities();
             await TransferDocuments();
-            await MigrateUniversity();
+           
             
+            //populate courses tags
+            sessin.CreateSQLQuery(@"insert into sb.Course(Name,Count)
+                                    select distinct BoxName,0 from zbox.box
+                                    where isdeleted = 0
+                                    and discriminator in (2,3)
+                                    except
+                                    select Name,0 from sb.Course;
+                                    insert into sb.Course(Name,Count)
+                                    select distinct CourseCode,0 from zbox.box
+                                    where isdeleted = 0
+                                    and CourseCode is not null
+                                    and discriminator in (2,3)
+                                    except
+                                    select Name,0 from sb.Course;");
+
+            //Transfer tags
+            sessin.CreateSQLQuery(@"insert into sb.Tag
+                                    select DISTINCT [Name], 0 
+                                    from Zbox.Tag
+                                    where len(Name) >= 4
+                                    and [Name] not in (select [Name] from sb.Tag)");
+           
+            await MigrateUniversity();
+            //update country to user
+            sessin.CreateSQLQuery(@"update sb.[user]
+                                    set country = (select country from  sb.University u2 where universityid2 = u2.Id)
+                                    where OldUser = 1 and Cou");
+
+            //Users - Courses migration
+            sessin.CreateSQLQuery(@"insert into [sb].[UsersCourses]
+                                    select U.Id, B.BoxName
+                                    from sb.[User] U
+                                    join Zbox.Users ZU
+	                                    on U.Email = ZU.Email
+                                    join [Zbox].[UserBoxRel] UB
+	                                    on ZU.UserId = UB.UserId
+                                    join Zbox.Box B
+	                                    on UB.BoxId = B.BoxId
+                                    where isdeleted = 0
+                                    and CourseCode is not null
+                                    and discriminator in (2,3)
+                                    union
+                                    select U.Id, B.CourseCode
+                                    from sb.[User] U
+                                    join Zbox.Users ZU
+	                                    on U.Email = ZU.Email
+                                    join [Zbox].[UserBoxRel] UB
+	                                    on ZU.UserId = UB.UserId
+                                    join Zbox.Box B
+	                                    on UB.BoxId = B.BoxId
+                                    where isdeleted = 0
+                                    and CourseCode is not null
+                                    and discriminator in (2,3)");
+
+            sessin.CreateSQLQuery(@"begin tran
+                                    declare @tmp table (CourseId nvarchar(300), userCounter int)
+                                    insert into @tmp 
+                                    select CourseId, count(1)
+                                    from sb.[UsersCourses]
+                                    group by CourseId
+
+                                    update [sb].[Course]
+                                    set [Count] = t.userCounter
+                                    from sb.[Course] c
+                                    join  @tmp t
+	                                    on c.[Name] = t.CourseId
+                                    commit");
         }
     }
 }
