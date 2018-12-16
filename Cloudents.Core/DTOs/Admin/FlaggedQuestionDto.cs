@@ -11,12 +11,14 @@ namespace Cloudents.Core.DTOs.Admin
         public long UserId { get; set; }
         public string Text { get; set; }
         public string Email { get; set; }
+        public long FlaggedUserId { get; set; }
     }
 
     public class FlaggedDocumentDto
     {
         public long Id { get; set; }
         public Uri Preview { get; set; }
+        public long FlaggedUserId { get; set; }
     }
 
     public class FlaggedAnswerDto
@@ -26,5 +28,6 @@ namespace Cloudents.Core.DTOs.Admin
         public long UserId { get; set; }
         public string Text { get; set; }
         public string Email { get; set; }
+        public long FlaggedUserId { get; set; }
     }
 }

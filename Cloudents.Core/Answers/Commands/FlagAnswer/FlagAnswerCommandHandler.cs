@@ -38,6 +38,7 @@ namespace Cloudents.Core.Answers.Commands.FlagAnswer
 
             answer.Item.State = ItemState.Flagged;
             answer.Item.FlagReason = message.FlagReason;
+            answer.Item.FlaggedUserId = user.Id;
             await _answerRepository.UpdateAsync(answer, token);
         }
     }

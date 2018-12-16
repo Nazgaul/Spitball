@@ -34,7 +34,7 @@ export default {
 @import "../../../styles/mixin.less";
     .rank-container{
             width: 75px;
-            margin-top: 10px;
+            margin-top: 8px;
             font-family: @fontFiraSans;
             font-size: 12px;
             font-weight: normal;
