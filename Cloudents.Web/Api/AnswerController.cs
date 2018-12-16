@@ -85,7 +85,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new DeleteAnswerCommand(model.Id, _userManager.GetLongUserId(User));
-                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
             catch (ArgumentException)
