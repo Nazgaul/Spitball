@@ -384,11 +384,25 @@ const actions = {
         reputationService.voteQuestion(data.id, data.type).then(()=>{
             commit(SEARCH.UPDATE_QUESTION_VOTE, data);
             dispatch('innerQuestionVote', data);
+            dispatch('profileVote', data);
+        }, (err) => {
+            let errorObj = {
+                toasterText:err.message,
+                showToaster: true,
+            }
+            dispatch('updateToasterParams', errorObj);
         })
     },
-    documentVote({commit}, data){
+    documentVote({commit, dispatch}, data){
         reputationService.voteDocument(data.id, data.type).then(()=>{
             commit(SEARCH.UPDATE_DOCUMENT_VOTE, data);
+            dispatch('profileVote', data);
+        }, (err) => {
+            let errorObj = {
+                toasterText:err.message,
+                showToaster: true,
+            }
+            dispatch('updateToasterParams', errorObj);
         })
     },
     reportQuestion({commit}, data){
