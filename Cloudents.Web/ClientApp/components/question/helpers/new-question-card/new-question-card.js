@@ -53,7 +53,7 @@ export default {
             return this.detailedView
         },
         isSold() {
-            return this.cardData.hasCorrectAnswer;
+            return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
         },
         cardPrice() {
             if (!!this.cardData && !!this.cardData.price) {
