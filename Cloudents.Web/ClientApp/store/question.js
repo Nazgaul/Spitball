@@ -104,7 +104,7 @@ const actions = {
     },
     answerAdded({commit, state, dispatch}, notifyObj){
         let questionId = notifyObj.questionId;
-        let answerObj = questionService.createAnswerItem(notifyObj.answer);
+        let answerObj = searchService.createAnswerItem(notifyObj.answer);
         //update question in case user is in the question page
         if(!!state.question && state.question.id === questionId){
            commit('addAnswer', answerObj);
@@ -118,9 +118,15 @@ const actions = {
             commit('removeAnswer', answerId);
          }         
     },
-    answerVote({commit}, data){
+    answerVote({commit, dispatch}, data){
         reputationService.voteAnswer(data.id, data.type).then(()=>{
             commit('updateAnswerVotes', data);
+        }, (err) => {
+            let errorObj = {
+                toasterText:err.message,
+                showToaster: true,
+            }
+            dispatch('updateToasterParams', errorObj);
         })
     },
     innerQuestionVote({commit}, data){
