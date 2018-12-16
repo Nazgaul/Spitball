@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Cloudents.Common;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Domain.Enums;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Command

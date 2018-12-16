@@ -1,6 +1,6 @@
 ﻿<template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
-        <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
+        <!-- <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner> -->
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
         <div slot="main">
               <div class="d-flex mobile-filter">

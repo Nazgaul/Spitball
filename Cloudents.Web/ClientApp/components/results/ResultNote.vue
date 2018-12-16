@@ -32,7 +32,7 @@
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
-                                    <v-list-tile :disabled="!item.isVisible" v-for="(item, i) in actions" :key="i">
+                                    <v-list-tile :disabled="!item.isDisabled" v-for="(item, i) in actions" :key="i">
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
                                 </v-list>
@@ -43,11 +43,11 @@
                 <v-flex grow class="top-row">
                     <div class="upvotes-counter" v-if="item.votes !== null">
             <span class="document-reputation upvote-arrow" @click.prevent="upvoteDocument()">
-              <v-icon>sbf-arrow-up</v-icon>
+              <v-icon :class="{'voted': item.upvoted}">sbf-arrow-up</v-icon>
             </span>
                         <span class="document-reputation document-score">{{item.votes}}</span>
                         <span class="document-reputation downvote-arrow" @click.prevent="downvoteDocument()">
-              <v-icon>sbf-arrow-down</v-icon>
+              <v-icon :class="{'voted': item.downvoted}">sbf-arrow-down</v-icon>
             </span>
                     </div>
                     <div :class="['type-wrap', !isOurs ? 'thirdPartyItem' : '']">
@@ -58,7 +58,7 @@
                                 <div class="title-wrap">
                                     <p
                                             :class="['doc-title', isFirefox ? 'foxLineClamp' : '']"
-                                            v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 "
+                                            v-line-clamp:20="$vuetify.breakpoint.xsOnly ? 2 : 2 "
                                     >{{item.title}}</p>
                                     <v-icon class="doc">sbf-document-note</v-icon>
                                 </div>
@@ -120,17 +120,12 @@
                     {
                         title: LanguageService.getValueByKey("questionCard_Report"),
                         action: this.reportItem,
-                        isVisible: !this.cardOwner() && this.isCloudents()
+                        isDisabled: !this.cardOwner() && this.isCloudents()
                     },
-                    {
-                        title: LanguageService.getValueByKey("questionCard_Delete"),
-                        action: '',
-                        isVisible: false
-                    }
                 ],
                 itemId: 0,
                 showReport: false,
-                isRtl : global.isRtl
+                isRtl: global.isRtl
             };
         },
         props: {item: {type: Object, required: true}, index: {Number}},
@@ -222,7 +217,7 @@
                 }
             },
             isCloudents() {
-                return this.item.source.toLowerCase().includes("cloudents");
+                return !!this.item.source ? this.item.source.toLowerCase().includes("cloudents") : "";
             },
             reportItem() {
                 this.itemId = this.item.id;

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Cloudents.Common;
+using Cloudents.Domain.Enums;
+using Cloudents.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Cloudents.Common;
-using Cloudents.Domain.Enums;
-using Cloudents.Domain.Interfaces;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -14,7 +14,7 @@ namespace Cloudents.Domain.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question : DomainObject, ISoftDelete
+    public class Question :  ISoftDelete
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             RegularUser user,
@@ -78,7 +78,7 @@ namespace Cloudents.Domain.Entities
         public virtual IList<Answer> Answers { get; protected set; }
 
 
-        protected internal virtual IList<Transaction> Transactions { get; set; }
+        public virtual IList<Transaction> Transactions { get; protected set; }
 
         public virtual QuestionColor? Color { get; set; }
 

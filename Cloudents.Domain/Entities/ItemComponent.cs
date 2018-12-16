@@ -16,14 +16,14 @@ namespace Cloudents.Domain.Entities
         private const int MaxReasonLength = 255;
 
 
-        public static bool ValidateFlagReason(string FlagReason)
+        public static bool ValidateFlagReason(string flagReason)
         {
-            if (string.IsNullOrEmpty(FlagReason))
+            if (string.IsNullOrEmpty(flagReason))
             {
                 return false;
             }
 
-            if (FlagReason.Length > MaxReasonLength)
+            if (flagReason.Length > MaxReasonLength)
             {
                 return false;
             }
@@ -33,6 +33,7 @@ namespace Cloudents.Domain.Entities
         public virtual ItemState State { get; set; }
         public virtual DateTime? DeletedOn { get; set; }
         public virtual string FlagReason { get; set; }
+        public virtual long FlaggedUserId { get; set; }
 
         public virtual ICollection<Vote> Votes { get; protected set; }
 

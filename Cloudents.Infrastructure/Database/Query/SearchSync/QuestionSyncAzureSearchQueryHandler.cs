@@ -5,6 +5,7 @@ using Cloudents.Core.Query.Sync;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {

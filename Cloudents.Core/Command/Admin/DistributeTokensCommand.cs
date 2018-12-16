@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Enum;
+﻿using Cloudents.Common.Enum;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Command.Admin

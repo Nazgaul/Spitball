@@ -18,18 +18,22 @@ export default {
                 {
                     title: LanguageService.getValueByKey("questionCard_Report"),
                     action: this.reportItem,
-                    isVisible: !this.cardOwner()
+                    isDisabled: this.cardOwner,
+                    isVisible: true
                 },
                 {
                     title: LanguageService.getValueByKey("questionCard_Delete"),
                     action: this.deleteQuestion,
-                    isVisible: this.canDelete()
+                    isDisabled: this.canDelete,
+                    isVisible: true
                 }
             ],
             showReportReasons: false,
             itemId : 0,
             maximumAnswersToDisplay: 3,
-            isRtl: global.isRtl
+            isRtl: global.isRtl,
+            showDialog: false,
+            selectedImage: '',
         };
     },
     props: {
@@ -53,7 +57,7 @@ export default {
             return this.detailedView
         },
         isSold() {
-            return this.cardData.hasCorrectAnswer;
+            return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
         },
         cardPrice() {
             if (!!this.cardData && !!this.cardData.price) {
@@ -65,10 +69,16 @@ export default {
         },
         answersNumber() {
             let answersNum = this.cardData.answers;
-            if (answersNum > this.maximumAnswersToDisplay) {
+            let numericValue = 0;
+            if(typeof answersNum !== 'number'){
+                numericValue = answersNum.length
+            }else{
+                numericValue = answersNum;
+            }
+            if (numericValue > this.maximumAnswersToDisplay) {
                 return this.maximumAnswersToDisplay;
             }
-            return answersNum;
+            return numericValue;
         },
         answersDeltaNumber() {
             let answersNum = this.cardData.answers;
@@ -81,6 +91,7 @@ export default {
         randomViews() {
             return Math.floor(Math.random() * 1001);
         },
+        
 
     },
     methods: {
@@ -125,9 +136,18 @@ export default {
         canDelete() {
             let isOwner = this.cardOwner();
             if (!isOwner) {
-                return false;
+                return true;
             }
-            return this.cardData.answers < 1 && !this.cardData.answers.length;
+            if(typeof this.cardData.answers !== 'number'){
+                return this.cardData.answers.length !== 0;
+            }
+            return this.cardData.answers !== 0;
+            
+            
+        },
+        showBigImage(src) {
+            this.showDialog = true;
+            this.selectedImage = src;
         },
         deleteQuestion() {
             this.delete({id: this.cardData.id, type: 'Question'})

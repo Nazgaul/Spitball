@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Exceptions;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Identity;

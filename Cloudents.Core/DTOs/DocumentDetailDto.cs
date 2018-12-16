@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization;
+using Cloudents.Common.Enum;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs

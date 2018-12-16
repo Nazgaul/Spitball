@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -90,13 +91,14 @@ namespace Cloudents.Core.CommandHandler
                 }
             var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(newAnswer, token).ConfigureAwait(false);
-            question.AnswerCount++;
-            await _questionRepository.UpdateAsync(question, token);
+            
             var id = newAnswer.Id;
 
             if (newAnswer.Item.State == ItemState.Ok)
             {
                 _eventStore.Add(new AnswerCreatedEvent(newAnswer));
+                question.AnswerCount++;
+                await _questionRepository.UpdateAsync(question, token);
             }
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();

@@ -10,6 +10,6 @@ namespace Cloudents.Core.Documents.Queries.GetDocumentsList
 
         public double Score { get; set; }
 
-        public string MetaContent { get; set; }
+     //   public string MetaContent { get; set; }
     }
 }

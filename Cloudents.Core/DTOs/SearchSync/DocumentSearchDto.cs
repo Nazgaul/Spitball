@@ -1,6 +1,8 @@
 ﻿using Cloudents.Core.Entities.Search;
 using System;
+using Cloudents.Common.Enum;
 using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {

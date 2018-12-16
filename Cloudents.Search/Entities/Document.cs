@@ -1,8 +1,10 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using Cloudents.Common.Enum;
 using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Enum;
 using Cloudents.Search.Interfaces;
+using Microsoft.Azure.Search;
+using Newtonsoft.Json;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Search.Entities
 {
@@ -22,30 +24,32 @@ namespace Cloudents.Search.Entities
                 Course = obj.Course.ToUpperInvariant(),
                 Id = obj.ItemId.ToString(),
                 Name = obj.Name,
-               // Language = obj.Language.ToLowerInvariant(),
                 Type = obj.Type,
                 Tags = obj.TagsArray
             };
         }
 
-       
-       
 
+
+        [System.ComponentModel.DataAnnotations.Key]
         public string Id { get; set; }
-
+        [IsSearchable]
         public string Name { get; set; }
-        public string MetaContent { get; set; }
+       // public string MetaContent { get; set; }
+        [IsSearchable]
         public string Content { get; set; }
 
+        [IsSearchable, IsFilterable]
         public string[] Tags { get; set; }
+        [IsFilterable, IsSearchable, JsonProperty("Course2")]
         public string Course { get; set; }
-        public string Country { get;  set; }
-        //public string Language { get;  set; }
-        public string University { get;  set; }
-
-
+        [IsFilterable, IsFacetable]
+        public string Country { get; set; }
+        [IsFilterable, IsSearchable, JsonProperty("University2")]
+        public string University { get; set; }
+        [IsSortable, IsFilterable]
         public DateTimeOffset? DateTime { get; set; }
-
+        [IsFilterable, IsFacetable]
         public DocumentType Type { get; set; }
 
     }

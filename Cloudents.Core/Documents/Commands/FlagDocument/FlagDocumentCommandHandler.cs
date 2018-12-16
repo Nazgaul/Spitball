@@ -1,13 +1,12 @@
-﻿using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Questions.Commands.FlagDocument;
+using Cloudents.Domain.Entities;
+using Cloudents.Domain.Enums;
 
-namespace Cloudents.Core.Questions.Commands.FlagDocument
+namespace Cloudents.Core.Documents.Commands.FlagDocument
 {
     public class FlagDocumentCommandHandler : ICommandHandler<FlagDocumentCommand>
     {

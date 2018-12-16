@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -35,7 +36,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Question.Price,
                     s.Question.Text,
                     s.Question.Attachments,
-                    s.Question.Answers.Count,
+                    s.Question.AnswerCount,
                     new UserDto
                     {
                         Id = s.Question.User.Id,
@@ -45,7 +46,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     }, s.Question.Updated,
                     s.Question.Color, s.Question.CorrectAnswer.Id != null,
                     s.Question.Language,
-                    s.Question.Item.VoteCount, s.Question.AnswerCount))
+                    s.Question.Item.VoteCount))
                 .Take(50).Skip(query.Page * 50).ToListAsync(token);
         }
     }

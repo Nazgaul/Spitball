@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Enum;
+﻿using Cloudents.Common.Enum;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Message.System
 {

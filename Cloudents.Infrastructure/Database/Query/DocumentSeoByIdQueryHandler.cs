@@ -1,8 +1,8 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Domain.Entities;
+using Cloudents.Domain.Enums;
 using NHibernate;
 using NHibernate.Linq;
 using System.Linq;
@@ -25,7 +25,16 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Fetch(f => f.University)
                  .Where(w => w.Id == query.Id && w.Item.State == ItemState.Ok)
 
-                 .Select(s => new DocumentSeoDto(s.Name, s.Course.Name, s.University.Country, s.University.Name, s.Id)
+                 .Select(s => new DocumentSeoDto
+                 {
+                     Id = s.Id,
+                     Name = s.Name,
+                     Country = s.University.Country,
+                     MetaContent = s.MetaContent,
+                     CourseName = s.Course.Name,
+                     UniversityName = s.University.Name
+                 }
+                // (s.Name, s.Course.Name, s.University.Country, s.University.Name, s.Id)
                 ).SingleOrDefaultAsync(token);
         }
     }

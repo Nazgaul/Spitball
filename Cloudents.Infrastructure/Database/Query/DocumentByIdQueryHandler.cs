@@ -2,10 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Domain.Enums;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Linq;
@@ -39,6 +40,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Professor = s.Professor,
                     Views = s.Views,
                     Downloads = s.Downloads,
+                    
                     User = new UserDto
                     {
                         Id = s.User.Id,

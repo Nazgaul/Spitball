@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -46,8 +46,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(s => s.Color).WithAlias(() => dto.Color)
 
                     .Select(Projections.Property(() => questionAlias.Item.VoteCount).As("Vote.Votes"))
-                    .Select(s => s.AnswerCount)
-                    //.Select(s => s.Item.VoteCount).WithAlias(() => dto.Votes)
+                    .Select(s => s.AnswerCount).WithAlias(() => dto.Answers)
                     .Select(Projections.Conditional(
                         Restrictions.Where(() => questionAlias.CorrectAnswer != null),
                         Projections.Constant(true), Projections.Constant(false))).WithAlias(() => dto.HasCorrectAnswer)

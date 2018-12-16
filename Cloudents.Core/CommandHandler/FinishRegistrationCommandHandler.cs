@@ -1,9 +1,10 @@
 ﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using Cloudents.Common.Enum;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cloudents.Common.Enum;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 

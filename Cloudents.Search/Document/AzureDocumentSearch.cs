@@ -62,25 +62,25 @@ namespace Cloudents.Search.Document
         }
 
 
-        public async Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
-        {
-            try
-            {
-                var item =
-                    await
-                        _client.Documents.GetAsync<Entities.Document>
-                            (itemId.ToString(CultureInfo.InvariantCulture),
-                                new[] { nameof(Entities.Document.MetaContent) },
-                                cancellationToken: cancelToken)
-                            .ConfigureAwait(false);
-                return item.MetaContent;
-            }
-            //item may not exists in the search....
-            catch (CloudException)
-            {
-                return null;
-            }
-        }
+        //public async Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
+        //{
+        //    try
+        //    {
+        //        var item =
+        //            await
+        //                _client.Documents.GetAsync<Entities.Document>
+        //                    (itemId.ToString(CultureInfo.InvariantCulture),
+        //                        new[] { nameof(Entities.Document.MetaContent) },
+        //                        cancellationToken: cancelToken)
+        //                    .ConfigureAwait(false);
+        //        return item.MetaContent;
+        //    }
+        //    //item may not exists in the search....
+        //    catch (CloudException)
+        //    {
+        //        return null;
+        //    }
+        //}
 
         public async Task<IEnumerable<DocumentSearchResultWithScore>> SearchAsync(DocumentQuery query, CancellationToken token)
         {
@@ -112,8 +112,8 @@ namespace Cloudents.Search.Document
             var searchParameter = new SearchParameters
             {
                 Filter = string.Join(" and ", filters),
-                Select = new[] { nameof(Entities.Document.Id),
-                    nameof(Entities.Document.MetaContent) },
+                Select = new[] { nameof(Entities.Document.Id) },
+                    //nameof(Entities.Document.MetaContent) },
                 Top = 50,
                 Skip = query.Page * 50,
                 OrderBy = new List<string> { "search.score() desc", $"{nameof(Entities.Document.DateTime)} desc" },
@@ -135,7 +135,7 @@ namespace Cloudents.Search.Document
             {
                 Id = Convert.ToInt64(s.Document.Id),
                 Score = s.Score,
-                MetaContent = s.Document.MetaContent
+               // MetaContent = s.Document.MetaContent
             });
 
         }

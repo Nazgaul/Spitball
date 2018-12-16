@@ -1,11 +1,12 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common.Enum;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {

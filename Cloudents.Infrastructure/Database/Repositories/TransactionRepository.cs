@@ -1,8 +1,9 @@
 ﻿using Cloudents.Core.Interfaces;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
 using System.Threading;
+using Cloudents.Common.Enum;
 using NHibernate;
 using NHibernate.Criterion;
 using Cloudents.Core.Enum;
