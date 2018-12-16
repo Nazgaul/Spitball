@@ -65,10 +65,16 @@ export default {
         },
         answersNumber() {
             let answersNum = this.cardData.answers;
-            if (answersNum > this.maximumAnswersToDisplay) {
+            let numericValue = 0;
+            if(typeof answersNum !== 'number'){
+                numericValue = answersNum.length
+            }else{
+                numericValue = answersNum;
+            }
+            if (numericValue > this.maximumAnswersToDisplay) {
                 return this.maximumAnswersToDisplay;
             }
-            return answersNum;
+            return numericValue;
         },
         answersDeltaNumber() {
             let answersNum = this.cardData.answers;
