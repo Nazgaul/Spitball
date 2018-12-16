@@ -1,13 +1,14 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Command;
-using Cloudents.Domain.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Domain.Entities;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
+using Cloudents.Search;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -26,12 +27,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Common;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Query;
-using Cloudents.Core.Votes.Commands.AddVoteAnswer;
-using Cloudents.Domain.Enums;
-using Cloudents.Search;
 using DocumentType = Cloudents.Common.Enum.DocumentType;
 
 
@@ -102,7 +97,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await BuildSearchIndex();
+            await ReduDocument();
 
             //var bus = _container.Resolve<ICommandBus>();
             //var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
@@ -124,6 +119,40 @@ namespace ConsoleApp
         {
             var service = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
             await service.CreateOrUpdateAsync(default);
+        }
+
+        private static async Task ReduDocument()
+        {
+            var service = _container.Resolve<IStatelessSession>();
+            var storage = _container.Resolve<ICloudStorageProvider>();
+            var queueClient = storage.GetQueueClient();
+            var queue = queueClient.GetQueueReference("generate-search-preview");
+
+
+            var i = 0L;
+            var cont = false;
+            do
+            {
+                var i1 = i;
+                var itemIds = await service.Query<Document>().Where(w => w.Id > i1)
+                    .Take(100).OrderBy(o => o.Id).Select(s => s.Id).ToListAsync();
+
+                var t = new List<Task>();
+                foreach (var itemId in itemIds)
+                {
+                    var msg = new CloudQueueMessage(itemId.ToString());
+                    t.Add( queue.AddMessageAsync(msg));
+                    i = itemId;
+                }
+
+                await Task.WhenAll(t);
+                cont = itemIds.Count > 0;
+
+            } while (cont);
+
+
+            //var service = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
+            //await service.CreateOrUpdateAsync(default);
         }
 
         private static async Task FixPoisonBackground(ICommandBus _commandBus)
@@ -981,51 +1010,51 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 
 
 
-      //  public static async Task MigrateUniversity()
-      //  {
-      //      var d = _container.Resolve<DapperRepository>();
+        //  public static async Task MigrateUniversity()
+        //  {
+        //      var d = _container.Resolve<DapperRepository>();
 
-      //      var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-      //      {
+        //      var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+        //      {
 
-      //          return await f.QueryAsync(
-      //              @"
-      //            select top 100 U.Id, Un.UniversityName, Un.Country
-      //                  from sb.[User] U
-						//join zbox.Users ZU
-						//	on U.Email = ZU.Email
-      //                  join [Zbox].[University] Un
-      //                      on Un.Id = ZU.UniversityId
-      //                    where u.OldUser = 1
-      //                      and IsEmailVerified = 1 
-						//	and U.UniversityId2 is null
-      //                      and Un.isdeleted = 0; 
-      //            ");
-      //      }, default);
+        //          return await f.QueryAsync(
+        //              @"
+        //            select top 100 U.Id, Un.UniversityName, Un.Country
+        //                  from sb.[User] U
+        //join zbox.Users ZU
+        //	on U.Email = ZU.Email
+        //                  join [Zbox].[University] Un
+        //                      on Un.Id = ZU.UniversityId
+        //                    where u.OldUser = 1
+        //                      and IsEmailVerified = 1 
+        //	and U.UniversityId2 is null
+        //                      and Un.isdeleted = 0; 
+        //            ");
+        //      }, default);
 
-      //      if (z.Count() == 0)
-      //      { return; }
+        //      if (z.Count() == 0)
+        //      { return; }
 
-      //      using (var child = _container.BeginLifetimeScope())
-      //      {
-      //          var repository = child.Resolve<IRegularUserRepository>();
-      //          var uni = child.Resolve<IUniversityRepository>();
-      //          using (var unitOfWork = child.Resolve<IUnitOfWork>())
-      //          {
-      //              var ch = new AssignUniversityToUserCommandHandler(repository, uni);
-      //              // List<Task> taskes = new List<Task>();
-      //              foreach (var pair in z)
-      //              {
-      //                  var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
-      //                  await ch.ExecuteAsync(command, default);
-      //                  // taskes.Add(ch.ExecuteAsync(t, default));
-      //              }
-      //              //await Task.WhenAll(taskes);
-      //              await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-      //          }
-      //      }
-      //      await MigrateUniversity();
-      //  }
+        //      using (var child = _container.BeginLifetimeScope())
+        //      {
+        //          var repository = child.Resolve<IRegularUserRepository>();
+        //          var uni = child.Resolve<IUniversityRepository>();
+        //          using (var unitOfWork = child.Resolve<IUnitOfWork>())
+        //          {
+        //              var ch = new AssignUniversityToUserCommandHandler(repository, uni);
+        //              // List<Task> taskes = new List<Task>();
+        //              foreach (var pair in z)
+        //              {
+        //                  var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
+        //                  await ch.ExecuteAsync(command, default);
+        //                  // taskes.Add(ch.ExecuteAsync(t, default));
+        //              }
+        //              //await Task.WhenAll(taskes);
+        //              await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+        //          }
+        //      }
+        //      await MigrateUniversity();
+        //  }
 
 
     }
