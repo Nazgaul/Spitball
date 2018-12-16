@@ -86,7 +86,8 @@ export default {
                 transactions: []
             },
             items: [],
-            cashOutOptions: cashOutCards
+            cashOutOptions: cashOutCards,
+            walletData: []
         }
     },
     methods: {
@@ -131,6 +132,7 @@ export default {
                         this.cash = Math.min(this.cash, earnedVal);
                         total.value = total.value.toFixed(2);
                         this.items.push(total);
+                        this.walletData = [...this.items];
                     },
                     error => {
                         console.error('error getting balance:', error)
@@ -161,7 +163,7 @@ export default {
         calculatedEarnedPoints(){
             let typesDictionary = {};
             let earned = 0;
-            this.items.forEach((item) => {
+            this.walletData.forEach((item) => {
                 typesDictionary[item.type] = item.points;
             });
             let reduce = typesDictionary["Stake"] + typesDictionary["Spent"] + typesDictionary["Awarded"];

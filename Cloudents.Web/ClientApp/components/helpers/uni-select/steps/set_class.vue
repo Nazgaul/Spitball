@@ -124,7 +124,7 @@ export default {
     filters:{
         boldText(value, search){
            if (!value) return '';
-           if(!search)return;
+           if (!search) return value;
             let match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
             if(match){
                 let startIndex = value.toLowerCase().indexOf(search.toLowerCase())
