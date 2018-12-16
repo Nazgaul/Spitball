@@ -364,7 +364,7 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-            //await MigrateDelta();
+            await MigrateDelta();
 
             //await MigrateUniversity();
             //var t = _container.Resolve<IBlockChainErc20Service>();
@@ -636,13 +636,13 @@ where left(blobName ,4) != 'file'");
             {
                 return await f.QueryAsync(
                     @"SELECT u.UniversityName,u.Country,u.Extra
-                FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
-                ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
+                    FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
+                    ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
                     FROM zbox.University u
-                        and u.UniversityName not in (select name from sb.University)
-                where isdeleted = 0
-                    ) u
-                WHERE cnt = 1");
+                    where isdeleted = 0
+                    and u.UniversityName not in (select name from sb.University)
+                        ) u
+                    WHERE cnt = 1");
             }, default);
 
             using (var child = _container.BeginLifetimeScope())
@@ -1037,11 +1037,11 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 
             await TransferUsers();
             await TransferUniversities();
-            await TransferDocuments();
+            //await TransferDocuments();
            
             
             //populate courses tags
-            sessin.CreateSQLQuery(@"insert into sb.Course(Name,Count)
+            await sessin.CreateSQLQuery(@"insert into sb.Course(Name,Count)
                                     select distinct BoxName,0 from zbox.box
                                     where isdeleted = 0
                                     and discriminator in (2,3)
@@ -1053,23 +1053,23 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                                     and CourseCode is not null
                                     and discriminator in (2,3)
                                     except
-                                    select Name,0 from sb.Course;");
+                                    select Name,0 from sb.Course;").ExecuteUpdateAsync();
 
             //Transfer tags
-            sessin.CreateSQLQuery(@"insert into sb.Tag
+            await sessin.CreateSQLQuery(@"insert into sb.Tag
                                     select DISTINCT [Name], 0 
                                     from Zbox.Tag
                                     where len(Name) >= 4
-                                    and [Name] not in (select [Name] from sb.Tag)");
+                                    and [Name] not in (select [Name] from sb.Tag)").ExecuteUpdateAsync(); 
            
             await MigrateUniversity();
             //update country to user
-            sessin.CreateSQLQuery(@"update sb.[user]
+            await sessin.CreateSQLQuery(@"update sb.[user]
                                     set country = (select country from  sb.University u2 where universityid2 = u2.Id)
-                                    where OldUser = 1 and Cou");
+                                    where OldUser = 1 and Cou").ExecuteUpdateAsync();
 
             //Users - Courses migration
-            sessin.CreateSQLQuery(@"insert into [sb].[UsersCourses]
+            await sessin.CreateSQLQuery(@"insert into [sb].[UsersCourses]
                                     select U.Id, B.BoxName
                                     from sb.[User] U
                                     join Zbox.Users ZU
@@ -1092,9 +1092,9 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 	                                    on UB.BoxId = B.BoxId
                                     where isdeleted = 0
                                     and CourseCode is not null
-                                    and discriminator in (2,3)");
+                                    and discriminator in (2,3)").ExecuteUpdateAsync();
 
-            sessin.CreateSQLQuery(@"begin tran
+            await sessin.CreateSQLQuery(@"begin tran
                                     declare @tmp table (CourseId nvarchar(300), userCounter int)
                                     insert into @tmp 
                                     select CourseId, count(1)
@@ -1106,7 +1106,7 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                                     from sb.[Course] c
                                     join  @tmp t
 	                                    on c.[Name] = t.CourseId
-                                    commit");
+                                    commit").ExecuteUpdateAsync();
         }
     }
 }
