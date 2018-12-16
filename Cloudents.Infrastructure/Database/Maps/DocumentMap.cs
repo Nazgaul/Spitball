@@ -36,10 +36,9 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Downloads).Not.Nullable();
             Map(x => x.Professor).Nullable();
             Map(x => x.PageCount).Nullable();
-            //Map(x => x.Language).Nullable();
             Map(x => x.Purchased).Not.Nullable();
             Map(x => x.OldId).Nullable();
-            //Map(x => x.State).Nullable();
+            Map(x => x.MetaContent).Nullable();
             
             SchemaAction.Update();
             //DiscriminateSubClassesOnColumn("State");

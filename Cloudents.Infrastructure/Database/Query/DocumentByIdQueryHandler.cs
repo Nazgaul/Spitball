@@ -40,6 +40,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Professor = s.Professor,
                     Views = s.Views,
                     Downloads = s.Downloads,
+                    
                     User = new UserDto
                     {
                         Id = s.User.Id,

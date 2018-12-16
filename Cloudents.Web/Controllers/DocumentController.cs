@@ -100,7 +100,7 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            var metaContent = await _documentSearch.ItemMetaContentAsync(id, token);
+            //var metaContent = await _documentSearch.ItemMetaContentAsync(id, token);
             if (string.IsNullOrEmpty(model.Country)) return View();
 
             //TODO: need to be university culture
@@ -108,9 +108,9 @@ namespace Cloudents.Web.Controllers
                 $"{model.CourseName} - {model.Name} | {_sharedLocalizer["Spitball"]}";
 
             ViewBag.metaDescription = _localizer["meta"];
-            if (!string.IsNullOrEmpty(metaContent))
+            if (!string.IsNullOrEmpty(model.MetaContent))
             {
-                ViewBag.metaDescription += ":" + metaContent.Truncate(100);
+                ViewBag.metaDescription += ":" + model.MetaContent.Truncate(100);
             }
             ViewBag.metaDescription = WebUtility.HtmlDecode(ViewBag.metaDescription);
             return View();

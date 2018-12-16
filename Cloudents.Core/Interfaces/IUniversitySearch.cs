@@ -40,7 +40,7 @@ namespace Cloudents.Core.Interfaces
     public interface IDocumentsSearch
     {
         Task<IEnumerable<DocumentSearchResultWithScore>> SearchAsync(DocumentQuery query, CancellationToken token);
-        Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
+       // Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
     }
 
 

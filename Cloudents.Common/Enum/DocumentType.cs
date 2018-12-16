@@ -4,7 +4,7 @@ using Cloudents.Core.Enum.Resources;
 
 namespace Cloudents.Common.Enum
 {
-    public enum DocumentType
+    public enum DocumentType : int
     {
         None,
         [PublicValue]

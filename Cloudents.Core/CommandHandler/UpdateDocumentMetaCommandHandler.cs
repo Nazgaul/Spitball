@@ -17,9 +17,10 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(UpdateDocumentMetaCommand message, CancellationToken token)
         {
+            //TODO: change this to update and check if the upadte occure
             var doc = await _documentRepository.LoadAsync(message.Id, token);
             doc.PageCount = message.PageCount;
-            //doc.Language = message.Language;
+            doc.MetaContent = message.Snippet;
 
             await _documentRepository.UpdateAsync(doc, token);
         }
