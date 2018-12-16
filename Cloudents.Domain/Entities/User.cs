@@ -10,7 +10,7 @@ namespace Cloudents.Domain.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-    public abstract class User : DomainObject
+    public abstract class User 
     {
 
 
