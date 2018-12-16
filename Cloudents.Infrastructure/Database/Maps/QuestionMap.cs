@@ -25,6 +25,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             {
                 ItemComponentPartialMapping(t);
                 t.HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse().Cascade.AllDeleteOrphan();
+                t.References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("QuestionFlagged_User");
             });
             //Component(x => x.Item);
             Map(x => x.Language).Length(5);
@@ -58,7 +59,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             t.Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             t.Map(m => m.DeletedOn).Nullable();
             t.Map(m => m.FlagReason).Nullable();
-            t.Map(m => m.FlaggedUserId).Nullable();
+           
+           // t.Map(m => m.FlaggedUserId).Nullable();
             t.Map(m => m.VoteCount).Not.Nullable();
         }
     }

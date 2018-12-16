@@ -4,12 +4,13 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Event;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.Votes.Commands
 {
     public abstract class BaseAddVoteCommandHandler<T, TId> where T : ItemObject
     {
-        private const int VotesToFlag = -3;
+        private const int VotesToFlag = -2;
         private readonly IRepository<RegularUser> _userRepository;
         protected readonly IVoteRepository VoteRepository;
         private readonly IRepository<T> _repository;
@@ -32,7 +33,10 @@ namespace Cloudents.Core.Votes.Commands
                 throw new UnauthorizedAccessException("not enough score");
             }
             var question = await _repository.LoadAsync(id, token);
-
+            if (question.Item.State != ItemState.Ok)
+            {
+                throw new UnauthorizedAccessException("item doesn't exits.");
+            }
             await ValidateAsync(user, question, token);
             //if (question.User.Id == user.Id)
             //{
@@ -52,6 +56,10 @@ namespace Cloudents.Core.Votes.Commands
                 vote = CreateVote(user, question, type);
                 question.Item.VoteCount += (int)vote.VoteType;
                 await VoteRepository.AddAsync(vote, token);
+                if (question.Item.VoteCount < VotesToFlag)
+                {
+                    _eventStore.Add(new ItemFlaggedEvent(question));
+                }
                 return;
             }
 

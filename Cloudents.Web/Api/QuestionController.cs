@@ -7,7 +7,6 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
-using Cloudents.Core.Questions.Commands.FlagQuestion;
 using Cloudents.Core.Votes.Commands.AddVoteQuestion;
 using Cloudents.Domain.Entities;
 using Cloudents.Web.Binders;
@@ -25,6 +24,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Item.Commands.FlagItem;
 
 namespace Cloudents.Web.Api
 {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Answers.Commands.FlagAnswer;
 using Cloudents.Core.Command;
 using Cloudents.Domain.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Item.Commands.FlagItem;
 using Cloudents.Core.Query;
 using Cloudents.Core.Votes.Commands.AddVoteAnswer;
 using Cloudents.Web.Extensions;
@@ -85,7 +85,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new DeleteAnswerCommand(model.Id, _userManager.GetLongUserId(User));
-                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
             catch (ArgumentException)

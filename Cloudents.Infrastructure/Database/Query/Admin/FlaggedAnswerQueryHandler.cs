@@ -17,29 +17,29 @@ using Cloudents.Domain.Enums;
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    class FlagedQuestionQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<FlaggedQuestionDto>>
+    class FlaggedAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<FlaggedAnswerDto>>
     {
 
         private readonly IStatelessSession _session;
 
 
-        public FlagedQuestionQueryHandler(QuerySession session)
+        public FlaggedAnswerQueryHandler(QuerySession session)
         {
             _session = session.StatelessSession;
         }
 
-        public async Task<IEnumerable<FlaggedQuestionDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
+        public async Task<IEnumerable<FlaggedAnswerDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            return await _session.Query<Question>()
+            return await _session.Query<Answer>()
                 .Fetch(f => f.User)
-                .Where(w => w.User is RegularUser && w.Item.State == ItemState.Flagged)
-                .Select(s => new FlaggedQuestionDto
+                .Where(w => w.Item.State == ItemState.Flagged)
+                .Select(s => new FlaggedAnswerDto
                 {
                     Id = s.Id,
                     Text = s.Text,
                     Email = s.User.Email,
                     UserId = s.User.Id,
-                    FlaggedUserId = s.Item.FlaggedUserId
+                    FlaggedUserId = s.Item.FlaggedUser.Id
                 }).OrderBy(o => o.Id).ToListAsync(token);
         }
     }
