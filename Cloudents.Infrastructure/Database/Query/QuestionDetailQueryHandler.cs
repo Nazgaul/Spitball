@@ -48,6 +48,9 @@ namespace Cloudents.Infrastructure.Database.Query
             var answersFuture = _session.Query<Answer>()
                 .Where(w => w.Question.Id == id && w.Item.State == ItemState.Ok)
                 .Fetch(f => f.User)
+                
+                //.ThenByDescending(x => x.Item.VoteCount)
+                //.ThenBy(x=>x.Id)
                 .Select(s => new QuestionDetailAnswerDto
                 {
                     Id = s.Id,
@@ -66,12 +69,15 @@ namespace Cloudents.Infrastructure.Database.Query
                     }
                 }).ToFuture();
 
-            var dto = await questionFuture.GetValueAsync(token).ConfigureAwait(false);
+            var dto = await questionFuture.GetValueAsync(token);
             if (dto == null)
             {
                 return null;
             }
-            dto.Answers = await answersFuture.GetEnumerableAsync(token).ConfigureAwait(false);
+            var answerResult = await answersFuture.GetEnumerableAsync(token);
+
+            dto.Answers = answerResult.OrderByDescending(x => x.Id == dto.CorrectAnswerId)
+                .ThenByDescending(x => x.Vote.Votes).ThenBy(x => x.Id);
 
             return dto;
         }
@@ -83,7 +89,7 @@ namespace Cloudents.Infrastructure.Database.Query
             //TODO: this is left join query need to fix that
 
             var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
-            await Task.WhenAll(dtoTask, filesTask).ConfigureAwait(false);
+            await Task.WhenAll(dtoTask, filesTask);
             var files = filesTask.Result.Select(s => _blobProvider2.GeneratePreviewLink(s, 20));
             var dto = dtoTask.Result;
 
