@@ -18,12 +18,14 @@ export default {
                 {
                     title: LanguageService.getValueByKey("questionCard_Report"),
                     action: this.reportItem,
-                    isDisabled: this.cardOwner
+                    isDisabled: this.cardOwner,
+                    isVisible: true
                 },
                 {
                     title: LanguageService.getValueByKey("questionCard_Delete"),
                     action: this.deleteQuestion,
-                    isDisabled: this.canDelete
+                    isDisabled: this.canDelete,
+                    isVisible: true
                 }
             ],
             showReportReasons: false,
