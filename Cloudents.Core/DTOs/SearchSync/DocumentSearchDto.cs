@@ -6,9 +6,25 @@ namespace Cloudents.Core.DTOs.SearchSync
 {
     public class DocumentSearchDto
     {
+        private string[] _tags;
         public long ItemId { get; set; }
         public string Name { get; set; }
-        public string Tags { get; set; }
+
+        public string Tags
+        {
+           // get => _tags;
+            set
+            {
+                _tags = value?.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+                
+            }
+        }
+
+        public string[] TagsArray
+        {
+            get => _tags;
+            set => _tags = value;
+        }
 
         public string Course { get; set; }
         public string Country { get; set; }
@@ -18,20 +34,6 @@ namespace Cloudents.Core.DTOs.SearchSync
         public ItemState State { get; set; }
         public DocumentType Type { get; set; }
 
-        public Document ToDocument()
-        {
-            return new Document
-            {
-                University = University.ToString(),
-                DateTime = DateTime,
-                Country = Country.ToUpperInvariant(),
-                Course = Course.ToUpperInvariant(),
-                Id = ItemId.ToString(),
-                Name = Name,
-                Language = Language.ToLowerInvariant(),
-                Type = Type,
-                Tags = Tags?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-            };
-        }
+       
     }
 }

@@ -1,15 +1,13 @@
-﻿using Cloudents.Core.Entities.Search;
+﻿using System;
+using System.Collections.Generic;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
-using System;
-using System.Collections.Generic;
 
-namespace Cloudents.Infrastructure.Write
+namespace Cloudents.Search.Question
 {
     [UsedImplicitly]
-    public class QuestionSearchWrite : SearchServiceWrite<Question>
+    public class QuestionSearchWrite : SearchServiceWrite<Entities.Question>
     {
         public const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
@@ -22,7 +20,7 @@ namespace Cloudents.Infrastructure.Write
 
         protected override Index GetIndexStructure(string indexName)
         {
-            var fieldBuilder = new FluentSearchFieldBuilder<Question>();
+            var fieldBuilder = new FluentSearchFieldBuilder<Entities.Question>();
 
             return new Index
             {
@@ -69,32 +67,18 @@ namespace Cloudents.Infrastructure.Write
                 },
                 ScoringProfiles = new List<ScoringProfile>
                 {
-                    //new ScoringProfile("ScoringProfile")
-                    //{
-                    //    TextWeights = new TextWeights(new Dictionary<string, double>
-                    //    {
-                    //        [nameof(Question.Text)] = 185,
-                    //        [nameof(Question.Prefix)] = 180,
-                    //    }),
-                    //    FunctionAggregation = ScoringFunctionAggregation.Maximum,
-                    //    Functions = new List<ScoringFunction>
-                    //    {
-                    //        new FreshnessScoringFunction(nameof(Question.DateTime),1.6,TimeSpan.FromDays(365)),
-                    //        new TagScoringFunction(nameof(Question.Country),1.5, new TagScoringParameters(TagsCountryParameter)),
-                    //    }
-                    //},
                     new ScoringProfile(ScoringProfile)
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(Question.Text)] = 185,
-                            [nameof(Question.Prefix)] = 180,
+                            [nameof(Entities.Question.Text)] = 185,
+                            [nameof(Entities.Question.Prefix)] = 180,
                         }),
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new FreshnessScoringFunction(nameof(Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
-                            new TagScoringFunction(nameof(Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
+                            new FreshnessScoringFunction(nameof(Entities.Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
+                            new TagScoringFunction(nameof(Entities.Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
                         }
                     }
                 },

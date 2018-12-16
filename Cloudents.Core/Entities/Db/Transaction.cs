@@ -18,7 +18,7 @@ namespace Cloudents.Core.Entities.Db
             Price = price;
             Created = DateTime.UtcNow;
             User = user;
-            Events.Add(new TransactionEvent(this));
+           // Events.Add(new TransactionEvent(this));
             
         }
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
@@ -30,7 +30,7 @@ namespace Cloudents.Core.Entities.Db
             Price = price;
             Created = DateTime.UtcNow;
             User = user;
-            Events.Add(new TransactionEvent(this));
+          //  Events.Add(new TransactionEvent(this));
 
         }
 

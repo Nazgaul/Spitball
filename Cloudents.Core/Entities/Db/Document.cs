@@ -32,11 +32,7 @@ namespace Cloudents.Core.Entities.Db
 
             Item.State = Privileges.GetItemState(user.Score);
 
-            if (Item.State == ItemState.Ok)
-            {
-                Events.Add(new DocumentCreatedEvent(this));
-
-            }
+            
             
             
         }
@@ -79,7 +75,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual ItemComponent Item { get; set; }
 
-        public virtual CultureInfo Language { get; set; }
+        //public virtual CultureInfo Language { get; set; }
 
     }
 

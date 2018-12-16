@@ -27,6 +27,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Query;
 using Cloudents.Core.Votes.Commands.AddVoteAnswer;
@@ -96,15 +97,19 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-            var dic = new Dictionary<Guid?, VoteType>();
 
             var bus = _container.Resolve<ICommandBus>();
-            var userId = 159478;
-            var command = new AddVoteAnswerCommand(159478,Guid.Parse("497009aa-7bdc-4dc0-9ef5-a9b300dcf773"),VoteType.Up);
+            var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
+                10, 638, null, QuestionColor.Default);
             await bus.DispatchAsync(command, token);
-            
 
-            
+
+            var command2 = new CreateQuestionCommand(QuestionSubject.Arts, "This is verysssssss nice question to check",
+                10, 638, null, QuestionColor.Default);
+            await bus.DispatchAsync(command2, token);
+
+
+
             //await z.GetById("43958");
             //
         }
@@ -294,18 +299,18 @@ where left(blobName ,4) != 'file'");
 
         }
 
-        private static async Task CheckSync()
-        {
-            var str =
-                "  {\"$type\":\"Cloudents.Core.Message.System.DocumentSearchMessage, Cloudents.Core\",\"Document\":{\"$type\":\"Cloudents.Core.Entities.Search.Document, Cloudents.Core\",\"Id\":\"52\",\"Name\":\"מבחן תורת הקבוצות א 003.jpg\",\"MetaContent\":null,\"Content\":null,\"Tags\":{\"$type\":\"System.String[], mscorlib\",\"$values\":[]},\"Course\":\"תורת הקבוצות א\",\"Country\":\"IL\",\"Language\":null,\"University\":\"6c19649e-1c27-4095-91e6-a99c008af82e\",\"DateTime\":\"2018-11-19T13:10:46.1653245Z\",\"Type\":0}}";
+        //private static async Task CheckSync()
+        //{
+        //    var str =
+        //        "  {\"$type\":\"Cloudents.Core.Message.System.DocumentSearchMessage, Cloudents.Core\",\"Document\":{\"$type\":\"Cloudents.Core.Entities.Search.Document, Cloudents.Core\",\"Id\":\"52\",\"Name\":\"מבחן תורת הקבוצות א 003.jpg\",\"MetaContent\":null,\"Content\":null,\"Tags\":{\"$type\":\"System.String[], mscorlib\",\"$values\":[]},\"Course\":\"תורת הקבוצות א\",\"Country\":\"IL\",\"Language\":null,\"University\":\"6c19649e-1c27-4095-91e6-a99c008af82e\",\"DateTime\":\"2018-11-19T13:10:46.1653245Z\",\"Type\":0}}";
 
 
-            var val = JsonConvert.DeserializeObject<Cloudents.Core.Message.System.DocumentSearchMessage>(str);
-            val.Document.Type = DocumentType.Lecture;
-            var elem = _container.Resolve<ISearchServiceWrite<Cloudents.Core.Entities.Search.Document>>();
+        //    var val = JsonConvert.DeserializeObject<Cloudents.Core.Message.System.DocumentSearchMessage>(str);
+        //    val.Document.Type = DocumentType.Lecture;
+        //    var elem = _container.Resolve<ISearchServiceWrite<Cloudents.Core.Entities.Search.Document>>();
 
-            await elem.UpdateDataAsync(new[] { val.Document }, default);
-        }
+        //    await elem.UpdateDataAsync(new[] { val.Document }, default);
+        //}
 
 
         private static IEnumerable<string> SplitSentence(string input)

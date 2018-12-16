@@ -16,14 +16,16 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
         private readonly IRepository<Transaction> _transactionRepository;
+        private readonly IEventStore _eventStore;
 
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository, IRepository<Transaction> transactionRepository)
+            IRepository<Answer> answerRepository, IRepository<Transaction> transactionRepository, IEventStore eventStore)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _transactionRepository = transactionRepository;
+            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
@@ -64,7 +66,7 @@ namespace Cloudents.Core.CommandHandler
 
             await _transactionRepository.AddAsync(new[] { tAnswer, t4 }, token);
 
-            answer.Events.Add(new MarkAsCorrectEvent(answer));
+            _eventStore.Add(new MarkAsCorrectEvent(answer));
 
             //TODO: need to put it as event
             // await FraudDetectionAsync(question, answer, token);

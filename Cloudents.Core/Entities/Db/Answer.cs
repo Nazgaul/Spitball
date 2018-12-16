@@ -23,10 +23,10 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Created = DateTime.UtcNow;
             Item.State = Privileges.GetItemState(user.Score);
-            if (Item.State == ItemState.Ok)
-            {
-                Events.Add(new AnswerCreatedEvent(this));
-            }
+            //if (Item.State == ItemState.Ok)
+            //{
+            //    Events.Add(new AnswerCreatedEvent(this));
+            //}
         }
 
         [UsedImplicitly]

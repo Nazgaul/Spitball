@@ -8,6 +8,7 @@ using Moq;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using Cloudents.Common;
 using Xunit;
 
 namespace Cloudents.Core.Test.CommandHandler

@@ -12,9 +12,4 @@ namespace Cloudents.Core.Interfaces
         Task CreateOrUpdateAsync(CancellationToken token);
         Task<bool> UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token);
     }
-
-    public interface ISearchObject
-    {
-        string Id { get; set; }
-    }
 }

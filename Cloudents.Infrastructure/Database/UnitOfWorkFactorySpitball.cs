@@ -98,12 +98,12 @@ namespace Cloudents.Infrastructure.Database
 #if DEBUG
             config.SetInterceptor(new LoggingInterceptor());
 #endif
-            var eventPublisherListener = new PublishEventsListener(_lifetimeScope.Resolve<IEventPublisher>());
-            config.SetListener(ListenerType.PostCommitDelete, eventPublisherListener);
+            //var eventPublisherListener = new PublishEventsListener(_lifetimeScope.Resolve<IEventPublisher>());
+            //config.SetListener(ListenerType.PostCommitDelete, eventPublisherListener);
             config.SetListener(ListenerType.Delete, new SoftDeleteEventListener());
 
-            config.SetListener(ListenerType.PostInsert, eventPublisherListener);
-            config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
+            //config.SetListener(ListenerType.PostInsert, eventPublisherListener);
+            //config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
 
             //config.LinqToHqlGeneratorsRegistry<MyLinqToHqlGeneratorsRegistry>();
 

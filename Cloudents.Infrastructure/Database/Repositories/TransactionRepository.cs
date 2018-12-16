@@ -6,14 +6,24 @@ using System.Threading;
 using NHibernate;
 using NHibernate.Criterion;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {
     [UsedImplicitly]
     public class TransactionRepository : NHibernateRepository<Transaction>, ITransactionRepository
     {
-        public TransactionRepository(ISession session) : base(session)
+        //TODO: not sure if its ok
+        private readonly IEventStore _store;
+        public TransactionRepository(ISession session, IEventStore store) : base(session)
         {
+            _store = store;
+        }
+
+        public override Task<object> AddAsync(Transaction entity, CancellationToken token)
+        {
+            _store.Add(new TransactionEvent(entity));
+            return base.AddAsync(entity, token);
         }
 
         public Task<decimal> GetBalanceAsync(long userId, CancellationToken token)

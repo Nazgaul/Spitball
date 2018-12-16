@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Interfaces;
+using Cloudents.Search.Interfaces;
 
-namespace Cloudents.Core.Entities.Search
+namespace Cloudents.Search.Entities
 {
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "json.net need public set")]
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global", Justification = "json.net need public set")]
