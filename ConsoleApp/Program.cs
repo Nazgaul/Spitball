@@ -32,7 +32,8 @@ using Cloudents.Core.Query;
 using Cloudents.Core.Votes.Commands.AddVoteAnswer;
 using Cloudents.Domain.Enums;
 using DocumentType = Cloudents.Common.Enum.DocumentType;
-
+using Cloudents.Core.CommandHandler;
+using Cloudents.Infrastructure.Database.Repositories;
 
 namespace ConsoleApp
 {
@@ -970,52 +971,60 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 
 
 
-      //  public static async Task MigrateUniversity()
-      //  {
-      //      var d = _container.Resolve<DapperRepository>();
+        public static async Task MigrateUniversity()
+        {
+            var d = _container.Resolve<DapperRepository>();
 
-      //      var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-      //      {
+            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+            {
 
-      //          return await f.QueryAsync(
-      //              @"
-      //            select top 100 U.Id, Un.UniversityName, Un.Country
-      //                  from sb.[User] U
-						//join zbox.Users ZU
-						//	on U.Email = ZU.Email
-      //                  join [Zbox].[University] Un
-      //                      on Un.Id = ZU.UniversityId
-      //                    where u.OldUser = 1
-      //                      and IsEmailVerified = 1 
-						//	and U.UniversityId2 is null
-      //                      and Un.isdeleted = 0; 
-      //            ");
-      //      }, default);
+                return await f.QueryAsync(
+                    @"
+                  select top 100 U.Id, Un.UniversityName, Un.Country
+                        from sb.[User] U
+						join zbox.Users ZU
+							on U.Email = ZU.Email
+                        join [Zbox].[University] Un
+                            on Un.Id = ZU.UniversityId
+                          where u.OldUser = 1
+                            and IsEmailVerified = 1 
+							and U.UniversityId2 is null
+                            and Un.isdeleted = 0; 
+                  ");
+            }, default);
 
-      //      if (z.Count() == 0)
-      //      { return; }
+            if (z.Count() == 0)
+            { return; }
 
-      //      using (var child = _container.BeginLifetimeScope())
-      //      {
-      //          var repository = child.Resolve<IRegularUserRepository>();
-      //          var uni = child.Resolve<IUniversityRepository>();
-      //          using (var unitOfWork = child.Resolve<IUnitOfWork>())
-      //          {
-      //              var ch = new AssignUniversityToUserCommandHandler(repository, uni);
-      //              // List<Task> taskes = new List<Task>();
-      //              foreach (var pair in z)
-      //              {
-      //                  var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
-      //                  await ch.ExecuteAsync(command, default);
-      //                  // taskes.Add(ch.ExecuteAsync(t, default));
-      //              }
-      //              //await Task.WhenAll(taskes);
-      //              await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-      //          }
-      //      }
-      //      await MigrateUniversity();
-      //  }
+            using (var child = _container.BeginLifetimeScope())
+            {
+                var repository = child.Resolve<IRegularUserRepository>();
+                var uni = child.Resolve<IUniversityRepository>();
+                var transaction = child.Resolve<TransactionRepository>();
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var ch = new AssignUniversityToUserCommandHandler(repository, uni, transaction);
+                    // List<Task> taskes = new List<Task>();
+                    foreach (var pair in z)
+                    {
+                        var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
+                        await ch.ExecuteAsync(command, default);
+                        // taskes.Add(ch.ExecuteAsync(t, default));
+                    }
+                    //await Task.WhenAll(taskes);
+                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                }
+            }
+            await MigrateUniversity();
+        }
 
-
+        public static async Task MigrateDelta()
+        {
+            await TransferUsers();
+            await TransferUniversities();
+            await TransferDocuments();
+            await MigrateUniversity();
+            
+        }
     }
 }
