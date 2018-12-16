@@ -58,7 +58,7 @@
                                 <div class="title-wrap">
                                     <p
                                             :class="['doc-title', isFirefox ? 'foxLineClamp' : '']"
-                                            v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 "
+                                            v-line-clamp:20="$vuetify.breakpoint.xsOnly ? 2 : 2 "
                                     >{{item.title}}</p>
                                     <v-icon class="doc">sbf-document-note</v-icon>
                                 </div>
