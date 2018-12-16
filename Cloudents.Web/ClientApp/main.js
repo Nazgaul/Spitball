@@ -15,7 +15,7 @@ import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-
+import VueYouTubeEmbed from 'vue-youtube-embed'
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
@@ -104,6 +104,7 @@ WebFont.load({
 //});
 
 Vue.use(VueRouter);
+Vue.use(VueYouTubeEmbed, { global: true, componentId: "youtube-media" });
 Vue.use(Vuetify, {
     directives: {
         Scroll,

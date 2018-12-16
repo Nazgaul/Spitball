@@ -5,16 +5,15 @@
                 class="wide-parallax"
                 dark
                 pa-0
-                src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg">
-
+                :src="require('./images/home_page_one.jpg')">
             <section class="hero" style="height: 100%;">
                 <div class="hero-wrap">
                     <div class="hero-text-container">
-                    <h1 class="hero-title">Earn From Your Knowledge</h1>
-                    <h3>Help Students, Earn SBL and Cash out with Amazon Gift Cards</h3>
+                        <h1 class="hero-title">Earn From Your Knowledge</h1>
+                        <h3>Help Students, Earn SBL and Cash out with Amazon Gift Cards</h3>
                     </div>
                     <a href="#" class="cta-button">Join Spitball its 100% Free</a>
-                    <a href="" class="video-link">
+                    <a class="video-link" @click.prevent="updateVideoId('6lt2JfJdGSY')">
                         <v-icon class="play-icon">sbf-play</v-icon>
                         See how it works</a>
                 </div>
@@ -106,37 +105,6 @@
                 </v-combobox>
             </div>
         </section>
-
-
-        <!--<section class="features">-->
-        <!--<h3 class="title">Features and services</h3>-->
-        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.-->
-        <!--Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>-->
-        <!--<hr>-->
-
-        <!--<ul class="grid">-->
-        <!--<li>-->
-        <!--<i class="fa fa-camera-retro"></i>-->
-        <!--<h4>Photography</h4>-->
-        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum-->
-        <!--ultrices vitae pulvinar velit.</p>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<i class="fa fa-cubes"></i>-->
-        <!--<h4>Web Development</h4>-->
-        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum-->
-        <!--ultrices vitae pulvinar velit.</p>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<i class="fa fa-newspaper-o"></i>-->
-        <!--<h4>Content Editing</h4>-->
-        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum-->
-        <!--ultrices vitae pulvinar velit.</p>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</section>-->
-
-
         <section class="faq">
             <h3 class="title">What is Spitball</h3>
 
@@ -166,10 +134,6 @@
                         </v-carousel-item>
                     </v-carousel>
                 </div>
-                <!--<ul class="grid">-->
-                <!--<li class="small" style="background-image: url(images/coast.jpg);"></li>-->
-                <!--<li class="large" style="background-image: url(images/island.jpg);"></li>-->
-                <!--</ul>-->
             </section>
         </v-parallax>
 
@@ -185,6 +149,14 @@
             </form>
         </section>
         <landing-footer></landing-footer>
+        <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="playerVisible" :popUpType="'videoPlayer'"
+                   :content-class="'videoPlayerDialog'">
+            <youtube-media
+                    :video-id="youTubeVideoId"
+                    :player-vars="{autoplay: 1}">
+
+            </youtube-media>
+        </sb-dialog>
     </div>
 </template>
 

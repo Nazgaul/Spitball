@@ -2,35 +2,23 @@ import questionCard from '../question/helpers/question-card/question-card.vue';
 import extendedTextArea from '../question/helpers/extended-text-area/extendedTextArea.vue';
 import statistics from './helpers/statisticsData.vue';
 import landingFooter from './helpers/landingFooter.vue'
-
+import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import questionService from "../../services/questionService";
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
+
 export default {
     name: "landingPage",
-    components:{
+    components: {
         questionCard,
         extendedTextArea,
         statistics,
-        landingFooter
+        landingFooter,
+        sbDialog
     },
     data() {
         return {
-            randomQuestionData:{
-                color: 'green',
-                user:{
-
-                },
-                subject:'test subject',
-                price: '90'
-            },
-            value: {type: String},
-            error: {},
-            actionType:  'answer',
             isFocused: false,
-            uploadUrl: {type: String},
-            textAreaValue: '',
-            errorTextArea:{},
             subjectList: [],
             selectedSubject: '',
             search: '',
@@ -47,7 +35,11 @@ export default {
                 {
                     src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
                 }
-            ]
+            ],
+            youTubeVideoId: '',
+            playerVisible: false,
+            playerWidth: '',
+            playerHeight: ''
         }
     },
     props: {
@@ -64,44 +56,62 @@ export default {
         },
 
     },
-    watch:{
-        search: debounce(function(){
-            if(!!this.search && this.search.length > 2 ){
+    watch: {
+        search: debounce(function () {
+            if (!!this.search && this.search.length > 2) {
                 this.selectedSubject = this.search;
                 console.log('updated subject')
             }
-            if(this.search === ""){
+            if (this.search === "") {
                 this.clearData();
             }
         }, 250)
     },
     methods: {
-        getAllSubjects(){
+        getAllSubjects() {
             questionService.getSubjects().then((response) => {
                 this.subjectList = response.data.map(a => a.subject)
                 console.log(this.subjectList)
             });
         },
-        clearData(search, university){
+        clearData(search, university) {
             search = '';
             university = undefined;
         },
+        updateVideoId(videoID) {
+            if (this.$vuetify.breakpoint.xs) {
+                // this.playerWidth = '100%';
+                // this.playerHeight = '100%';
+
+            }else{
+                // this.playerWidth = '1280';
+                // this.playerHeight = '450';
+            }
+            this.youTubeVideoId = videoID;
+            this.showVideoPlayer()
+        },
+        showVideoPlayer() {
+            this.playerVisible = true;
+        },
+        hideVideoPlayer() {
+            this.playerVisible = false;
+        }
 
     },
-    filters:{
-        boldText(value, search){
+    filters: {
+        boldText(value, search) {
             let match;
             //mark the text bold according to the search value
             if (!value) return '';
-            if(!!search) {
+            if (!!search) {
                 match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
             }
-            if(match){
+            if (match) {
                 let startIndex = value.toLowerCase().indexOf(search.toLowerCase());
                 let endIndex = search.length;
                 let word = value.substr(startIndex, endIndex)
                 return value.replace(word, '<b>' + word + '</b>')
-            }else{
+            } else {
                 return value;
             }
 

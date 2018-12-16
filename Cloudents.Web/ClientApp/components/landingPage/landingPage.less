@@ -26,55 +26,41 @@ a.btn {
   text-align: center;
 }
 
-hr {
-  width: 150px;
-  height: 2px;
-  background-color: #2196F3;
-  border: 0;
-  margin-bottom: 80px;
-}
-
 section {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 125px 100px;
-   //padding: 125px 0px;
-
+  p{
+    max-width: 800px;
+    text-align: center;
+    margin-bottom: 35px;
+    padding: 0 20px;
+    line-height: 2;
+  }
+  h3{
+    &.title{
+      color: #414a4f;
+        text-transform: capitalize;
+        font: bold 32px 'Open Sans', sans-serif;
+        margin-bottom: 35px;
+        text-align: center;
+    }
+  }
 }
 
-@media (max-width: 1000px) {
-
+@media (max-width: @screen-sm) {
   section {
     padding: 100px 50px;
   }
 
 }
 
-@media (max-width: 600px) {
-
+@media (max-width: @screen-xs) {
   section {
     padding: 80px 30px;
   }
-
 }
-
-section h3.title {
-  color: #414a4f;
-  text-transform: capitalize;
-  font: bold 32px 'Open Sans', sans-serif;
-  margin-bottom: 35px;
-  text-align: center;
-}
-
-section p {
-  max-width: 800px;
-  text-align: center;
-  margin-bottom: 35px;
-  padding: 0 20px;
-  line-height: 2;
-}
-
 .carousel-holder {
   width: 100%;
   display: flex;
@@ -162,11 +148,6 @@ section p {
   }
 }
 
-
-.hero a.btn {
-  padding: 20px 46px;
-}
-
 @media (max-width: 800px) {
   .hero {
     min-height: 600px;
@@ -176,14 +157,8 @@ section p {
     h3 {
       font-size: 24px;
     }
-    a {
-      &.btn {
-        padding: 15px 40px;
-      }
-    }
   }
 }
-
 /*--------------------
  	Statistics Section
 ---------------------*/
@@ -195,7 +170,7 @@ section p {
 }
 
 /*--------------------
- 	Statistics Section
+ 	intro other sections as : intro1, intro2 and so on
 ---------------------*/
 .intro-one, .intro-two {
   flex-direction: row;
@@ -222,80 +197,6 @@ section p {
 ---------------------*/
 
 .reviews {
-  //background-color: #fff;
-  .grid {
-    li {
-      padding: 20px;
-      height: 350px;
-      border-radius: 3px;
-      background-clip: content-box;
-      background-size: cover;
-      background-position: center;
-      background-color: #333;
-      &.small {
-        flex-basis: 40%;
-        @media (max-width: 1000px) {
-          flex-basis: 100%;
-        }
-      }
-      &.large {
-        flex-basis: 60%;
-        @media (max-width: 1000px) {
-          flex-basis: 100%;
-        }
-      }
-    }
-  }
-}
-
-/*----------------------
- 	Features Section
-----------------------*/
-
-.features {
-  background-color: #f7f7f7;
-}
-
-.features .grid li {
-  padding: 0 30px;
-  flex-basis: 33%;
-  text-align: center;
-}
-
-.features .grid li i {
-  font-size: 50px;
-  color: #2196F3;
-  margin-bottom: 25px;
-}
-
-.features .grid li h4 {
-  color: #555;
-  font-size: 20px;
-  margin-bottom: 25px;
-}
-
-.features .grid li p {
-  margin: 0;
-}
-
-@media (max-width: 1000px) {
-
-  .features .grid li {
-    flex-basis: 70%;
-    margin-bottom: 65px;
-  }
-
-  .features .grid li:last-child {
-    margin-bottom: 0;
-  }
-
-}
-
-@media (max-width: 600px) {
-
-  .features .grid li {
-    flex-basis: 100%;
-  }
 
 }
 

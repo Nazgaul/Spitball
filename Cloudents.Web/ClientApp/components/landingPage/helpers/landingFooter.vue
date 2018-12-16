@@ -4,7 +4,14 @@
             <white-logo></white-logo>
         </v-card>
         <v-card class="footer-card social-card">
-
+            <div class="social-links-wrap">
+                <div  class="social-link"><v-icon>sbf-social-medium</v-icon></div>
+                <div  class="social-link"><v-icon>sbf-social-linkedin</v-icon></div>
+                <div  class="social-link"><v-icon>sbf-social-facebook</v-icon></div>
+                <div  class="social-link"><v-icon>sbf-social-youtube</v-icon></div>
+                <div  class="social-link"><v-icon>sbf-social-telegram</v-icon></div>
+                <div  class="social-link"><v-icon>sbf-social-twitter</v-icon></div>
+            </div>
         </v-card>
         <v-card class="footer-card links-card">
             <div class="footer-links" v-for="(singleLink, index) in footerLinks" :key="singleLink.id">
