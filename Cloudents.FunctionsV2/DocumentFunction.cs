@@ -1,4 +1,5 @@
 using Cloudents.Core.Command;
+using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Binders;
@@ -12,6 +13,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -34,13 +36,22 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("ReduBlobFunction")]
         public static async Task ReduBlobFunctionAsync(
-            [QueueTrigger("generate-search-preview")] string id,
-            [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,// IDictionary<string, string> metadata,
+            [QueueTrigger("generate-search-preview", Connection = "TempConnectionDev")] string id,
+            [Blob("spitball-files/files/{QueueTrigger}", Connection = "TempConnectionDev")]CloudBlobDirectory dir,// IDictionary<string, string> metadata,
+            [Blob("spitball-files/files/{QueueTrigger}/text.txt", Connection = "TempConnectionDev")]CloudBlockBlob blob,// IDictionary<string, string> metadata,
             [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] ICommandBus commandBus,
 
             CancellationToken token)
         {
+            var x = await dir.ListBlobsSegmentedAsync(null);
+            if (!x.Results.Any())
+            {
+                //There is no file - deleting it.
+                var command = new DeleteDocumentCommand(Convert.ToInt64(id));
+                await commandBus.DispatchAsync(command, token);
+                return;
+            }
             var text = await blob.DownloadTextAsync();
             await blob.FetchAttributesAsync();
             var metadata = blob.Metadata;
