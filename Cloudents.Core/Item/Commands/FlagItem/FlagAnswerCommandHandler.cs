@@ -7,7 +7,7 @@ using Cloudents.Domain.Entities;
 
 namespace Cloudents.Core.Item.Commands.FlagItem
 {
-    public class FlagAnswerCommandHandler : BaseFlagAnItem<Answer,Guid>, ICommandHandler<FlagAnswerCommand>
+    public class FlagAnswerCommandHandler : BaseFlagItemCommandHandler<Answer,Guid>, ICommandHandler<FlagAnswerCommand>
     {
         //private readonly IRepository<RegularUser> _userRepository;
         //private readonly IRepository<Answer> _answerRepository;

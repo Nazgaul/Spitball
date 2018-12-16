@@ -7,7 +7,7 @@ using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.Item.Commands.FlagItem
 {
-    public class FlagQuestionCommandHandler : BaseFlagAnItem<Question,long>, ICommandHandler<FlagQuestionCommand>
+    public class FlagQuestionCommandHandler : BaseFlagItemCommandHandler<Question,long>, ICommandHandler<FlagQuestionCommand>
     {
 
         public FlagQuestionCommandHandler(IRepository<RegularUser> userRepository,
