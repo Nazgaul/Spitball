@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -20,16 +22,18 @@ namespace Cloudents.Core.CommandHandler
         private readonly IAnswerRepository _answerRepository;
         private readonly IRepository<RegularUser> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly IEventStore _eventStore;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
             IAnswerRepository answerRepository, IRepository<RegularUser> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider)
+            IBlobProvider<QuestionAnswerContainer> blobProvider, IEventStore eventStore)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
+            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
@@ -91,6 +95,10 @@ namespace Cloudents.Core.CommandHandler
             await _questionRepository.UpdateAsync(question, token);
             var id = newAnswer.Id;
 
+            if (newAnswer.Item.State == ItemState.Ok)
+            {
+                _eventStore.Add(new AnswerCreatedEvent(newAnswer));
+            }
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 

@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

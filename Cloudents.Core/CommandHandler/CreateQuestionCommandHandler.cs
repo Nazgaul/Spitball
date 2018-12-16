@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common.Enum;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -18,18 +19,21 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IRegularUserRepository _userRepository;
-        private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly Lazy< IBlobProvider<QuestionAnswerContainer>> _blobProvider;
         private readonly ITextAnalysis _textAnalysis;
         private readonly ITransactionRepository _transactionRepository;
+        private readonly IEventStore _eventStore;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRegularUserRepository userRepository, ITextAnalysis textAnalysis,
-            ITransactionRepository transactionRepository, IBlobProvider<QuestionAnswerContainer> blobProvider = null)
+            ITransactionRepository transactionRepository, IEventStore eventStore,
+            Lazy<IBlobProvider<QuestionAnswerContainer>> blobProvider)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
             _textAnalysis = textAnalysis;
             _transactionRepository = transactionRepository;
+            _eventStore = eventStore;
             _blobProvider = blobProvider;
         }
 
@@ -38,10 +42,10 @@ namespace Cloudents.Core.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
             var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
 
-            if (oldQuestion?.Created.AddSeconds(20) > DateTime.UtcNow)
-            {
-                throw new QuotaExceededException("You need to wait before asking more questions");
-            }
+            //if (oldQuestion?.Created.AddSeconds(20) > DateTime.UtcNow)
+            //{
+            //    throw new QuotaExceededException("You need to wait before asking more questions");
+            //}
 
             if (await _questionRepository.GetSimilarQuestionAsync(message.Text, token))
             {
@@ -74,14 +78,15 @@ namespace Cloudents.Core.CommandHandler
 
             if (_blobProvider != null)
             {
-                var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{id}", token)) ??
+                var l = message.Files?.Select(file => _blobProvider.Value.MoveAsync(file, $"{id}", token)) ??
                         Enumerable.Empty<Task>();
                 await Task.WhenAll(l).ConfigureAwait(true);
             }
-            if (question.Item.State == ItemState.Ok)
-            {
-                question.Events.Add(new QuestionCreatedEvent(question));
-            }
+            _eventStore.Add(new QuestionCreatedEvent(question));
+            //if (question.Item.State == ItemState.Ok)
+            //{
+            //    question.Events.Add(new QuestionCreatedEvent(question));
+            //}
         }
     }
 }

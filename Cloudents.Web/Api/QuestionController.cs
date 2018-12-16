@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;

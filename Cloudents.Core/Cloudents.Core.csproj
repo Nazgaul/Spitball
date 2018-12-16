@@ -13,6 +13,10 @@
     <PackageReference Include="Autofac" Version="4.6.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cloudents.Common\Cloudents.Common.csproj" />
+    <ProjectReference Include="..\Cloudents.Domain\Cloudents.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="Enum\Resources\EnumResources.resx">
       <Generator></Generator>
     </EmbeddedResource>

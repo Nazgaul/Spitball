@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
@@ -8,6 +8,7 @@ using NHibernate.Criterion;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common.Enum;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {

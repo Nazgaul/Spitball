@@ -1,6 +1,6 @@
 ﻿using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;

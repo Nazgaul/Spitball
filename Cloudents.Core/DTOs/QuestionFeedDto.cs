@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Cloudents.Common;
 using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.DTOs
 {
     public class QuestionFeedDto
     {
         public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text, int files,
-            int answers, UserDto user, DateTime dateTime, QuestionColor? color, bool hasCorrectAnswer, CultureInfo culture, int votes)
+            int answers, UserDto user, DateTime dateTime, QuestionColor? color, bool hasCorrectAnswer, 
+            CultureInfo culture, int votes)
         :this(id,subject,price,text,files,answers,dateTime,color,hasCorrectAnswer,culture, votes)
         {
           

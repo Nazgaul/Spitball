@@ -1,11 +1,14 @@
 ﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -17,10 +20,11 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Document> _documentRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly ITagRepository _tagRepository;
+        private readonly IEventStore _eventStore;
 
         public CreateDocumentCommandHandler(IBlobProvider<DocumentContainer> blobProvider,
             IRepository<RegularUser> userRepository,
-            IRepository<Document> documentRepository, ICourseRepository courseRepository, ITagRepository tagRepository, IRepository<University> universityRepository)
+            IRepository<Document> documentRepository, ICourseRepository courseRepository, ITagRepository tagRepository, IRepository<University> universityRepository, IEventStore eventStore)
         {
             _blobProvider = blobProvider;
             _userRepository = userRepository;
@@ -28,6 +32,7 @@ namespace Cloudents.Core.CommandHandler
             _courseRepository = courseRepository;
             _tagRepository = tagRepository;
             _universityRepository = universityRepository;
+            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(CreateDocumentCommand message, CancellationToken token)
@@ -62,6 +67,12 @@ namespace Cloudents.Core.CommandHandler
             await _documentRepository.AddAsync(document, token).ConfigureAwait(true);
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);
+
+            if (document.Item.State == ItemState.Ok)
+            {
+                _eventStore.Add(new DocumentCreatedEvent(document));
+
+            }
 
             message.Id = id;
         }

@@ -53,6 +53,7 @@ namespace Cloudents.Core
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IEventHandler<>));
 
             builder.RegisterType<EventPublisher>().As<IEventPublisher>();
+            builder.RegisterType<EventStore>().As<IEventStore>().InstancePerLifetimeScope();
             builder.RegisterType<Logger>().As<ILogger>();
 
         }

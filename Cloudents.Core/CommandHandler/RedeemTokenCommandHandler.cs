@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Event;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -8,6 +8,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common.Enum;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -16,12 +17,16 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<Transaction> _transactionRepository;
+        private readonly IEventStore _eventStore;
 
 
-        public RedeemTokenCommandHandler(IRegularUserRepository userRepository, IQueueProvider serviceBusProvider, IRepository<Transaction> transactionRepository)
+
+        public RedeemTokenCommandHandler(IRegularUserRepository userRepository, 
+            IRepository<Transaction> transactionRepository, IEventStore eventStore)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
+            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(RedeemTokenCommand message, CancellationToken token)
@@ -38,7 +43,7 @@ namespace Cloudents.Core.CommandHandler
             var t = new Transaction(TransactionActionType.CashOut, TransactionType.Earned, price, user);
 
             await _transactionRepository.AddAsync(t, token);
-            user.Events.Add(new RedeemEvent(message.UserId, message.Amount));
+            _eventStore.Add(new RedeemEvent(message.UserId, message.Amount));
         }
     }
 }

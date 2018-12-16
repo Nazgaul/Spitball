@@ -85,10 +85,58 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpPost]
-        public async Task<IActionResult> ApproveAsync(ApproveDocumentRequest model, CancellationToken token)
+        public async Task<IActionResult> ApproveAsync([FromQuery(Name = "id")] IEnumerable<long> ids, CancellationToken token)
         {
-            var command = new ApproveDocumentCommand(model.Id);
+            var command = new ApproveDocumentCommand(ids);
             await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpGet("flagged")]
+        public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync([FromServices] IBlobProvider blobProvider, CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            var retVal = await _queryBus.QueryAsync<IList<FlaggedDocumentDto>>(query, token);
+            var tasks = new Lazy<List<Task>>();
+            var counter = 0;
+            foreach (var id in retVal)
+            {
+                var files = await _blobProvider.FilesInDirectoryAsync("preview-", id.Id.ToString(), token);
+                var file = files.FirstOrDefault();
+                if (file != null)
+                {
+                    id.Preview =
+                        blobProvider.GeneratePreviewLink(file,
+                            20);
+                    counter++;
+                }
+                else
+                {
+
+                    var t = _queueProvider.InsertBlobReprocessAsync(id.Id);
+                    tasks.Value.Add(t);
+                }
+
+                if (counter >= 21)
+                {
+                    break;
+                }
+            }
+
+            if (tasks.IsValueCreated)
+            {
+                await Task.WhenAll(tasks.Value);
+            }
+
+            return retVal.Where(w => w.Preview != null);
+            
+        }
+
+        [HttpPost("unFlage")]
+        public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] IEnumerable<long> ids, CancellationToken token)
+        {
+            var command = new UnFlagDocumentCommand(ids);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
     }

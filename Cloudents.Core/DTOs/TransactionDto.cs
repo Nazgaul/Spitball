@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudents.Common.Enum;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 

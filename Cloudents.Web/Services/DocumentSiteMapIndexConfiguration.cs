@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
@@ -8,6 +8,7 @@ using SimpleMvcSitemap;
 using SimpleMvcSitemap.StyleSheets;
 using System.Collections.Generic;
 using System.Linq;
+using Cloudents.Domain.Enums;
 using Cloudents.Web.Extensions;
 
 namespace Cloudents.Web.Services

@@ -1,9 +1,10 @@
-﻿using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Domain.Entities;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.Answers.Commands.FlagAnswer
 {

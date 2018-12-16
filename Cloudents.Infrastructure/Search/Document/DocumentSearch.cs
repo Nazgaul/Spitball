@@ -12,11 +12,11 @@ namespace Cloudents.Infrastructure.Search.Document
 {
     public class DocumentSearch : IDocumentSearch
     {
-        private readonly AzureDocumentSearch _client;
+        private readonly IDocumentsSearch _client;
         private readonly IQueryBus _queryBus;
         private readonly IWebDocumentSearch _documentSearch;
 
-        public DocumentSearch(AzureDocumentSearch client, IQueryBus queryBus, IWebDocumentSearch documentSearch
+        public DocumentSearch(IDocumentsSearch client, IQueryBus queryBus, IWebDocumentSearch documentSearch
             )
         {
             _client = client;
@@ -24,15 +24,15 @@ namespace Cloudents.Infrastructure.Search.Document
             _documentSearch = documentSearch;
         }
 
-        public Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
-        {
-            return _client.ItemContentAsync(itemId, cancelToken);
-        }
+        //public Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
+        //{
+        //    return _client.ItemContentAsync(itemId, cancelToken);
+        //}
 
-        public Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
-        {
-            return _client.ItemMetaContentAsync(itemId, cancelToken);
-        }
+        //public Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
+        //{
+        //    return _client.ItemMetaContentAsync(itemId, cancelToken);
+        //}
 
         public async Task<IList<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken token)
@@ -46,8 +46,8 @@ namespace Cloudents.Infrastructure.Search.Document
                     _documentSearch.SearchWithUniversityAndCoursesAsync(webQuery, HighlightTextFormat.None, token);
             }
 
-            var searchResult = await _client.SearchAsync(query, token);
-            var ids = searchResult.Results.Select(s => long.Parse(s.Document.Id));
+            var searchResult = (await _client.SearchAsync(query, token)).ToList();
+            var ids = searchResult.Select(s => s.Id);
             var queryDb = new IdsQuery<long>(ids);
             var dbResult = await _queryBus.QueryAsync<IList<DocumentFeedDto>>(queryDb, token);
             var dic = dbResult.ToDictionary(x => x.Id);
@@ -57,7 +57,7 @@ namespace Cloudents.Infrastructure.Search.Document
             var webResult = await taskWebResult;
             var retVal = new List<DocumentFeedDto>();
             var addedBing = false;
-            foreach (var resultResult in searchResult.Results)
+            foreach (var resultResult in searchResult)
             {
                 if (resultResult.Score - 1 < 0 && !addedBing)
                 {
@@ -73,9 +73,9 @@ namespace Cloudents.Infrastructure.Search.Document
                         }));
                     }
                 }
-                if (dic.TryGetValue(long.Parse(resultResult.Document.Id), out var p))
+                if (dic.TryGetValue(resultResult.Id, out var p))
                 {
-                    p.Snippet = resultResult.Document.MetaContent;
+                    p.Snippet = resultResult.MetaContent;
                     p.Source = "Cloudents";
                     //p.Url = _urlBuilder.BuildDocumentEndPoint(p.Id);
                     retVal.Add(p);

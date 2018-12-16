@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;

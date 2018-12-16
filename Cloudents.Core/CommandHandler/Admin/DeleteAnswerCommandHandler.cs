@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System;
@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -18,13 +19,15 @@ namespace Cloudents.Core.CommandHandler.Admin
         private readonly IRepository<Answer> _repository;
         private readonly IRepository<Transaction> _transactionRepository;
         private readonly IRepository<Question> _questionRepository;
+        private readonly IEventStore _eventStore;
 
         public DeleteAnswerCommandHandler(IRepository<Answer> repository,
-            IRepository<Transaction> transactionRepository, IRepository<Question> questionRepository)
+            IRepository<Transaction> transactionRepository, IRepository<Question> questionRepository, IEventStore eventStore)
         {
             _repository = repository;
             _transactionRepository = transactionRepository;
             _questionRepository = questionRepository;
+            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
@@ -39,25 +42,23 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 throw new ArgumentException("answer doesn't exits");
             }
-
+            
             await DeleteAnswerAsync(answer, token);
         }
 
         internal async Task DeleteAnswerAsync(Answer answer, CancellationToken token)
         {
-            foreach (var transaction in answer.Transactions)
-            {
-                await _transactionRepository.DeleteAsync(transaction, token);
-            }
+                foreach (var transaction in answer.TransactionsReadOnly)
+                {
+                    await _transactionRepository.DeleteAsync(transaction, token);
+                }
+            
+            
+            _eventStore.Add(new AnswerDeletedEvent(answer));
+
             answer.Question.AnswerCount--;
-
-            await _questionRepository.UpdateAsync(answer.Question, token);
-
-            answer.Events.Add(new AnswerDeletedEvent(answer));
-
             answer.Question.CorrectAnswer = null;
             await _questionRepository.UpdateAsync(answer.Question, token);
-            answer.Events.Add(new AnswerDeletedAdminEvent(answer));
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
         }
     }

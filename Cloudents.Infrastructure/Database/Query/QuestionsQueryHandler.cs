@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -51,7 +52,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Price,
                     s.Text,
                     s.Attachments,
-                    s.Answers.Count,
+                    s.AnswerCount,
                     new UserDto
                     {
                         Id = s.User.Id,
