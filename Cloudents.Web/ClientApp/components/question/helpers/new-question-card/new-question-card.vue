@@ -87,10 +87,10 @@
                         <v-icon>sbf-attach</v-icon>
                         <span>{{cardData.filesNum}}</span>
                     </div>
-                    <div class="answers-viewers-container">
+                    <!-- <div class="answers-viewers-container">
                         <v-icon class>sbf-views</v-icon>
                         <span>{{randomViews}}</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div v-if="!isSold && !hideAnswerInput" class="question-bottom-section">
