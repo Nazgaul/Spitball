@@ -80,6 +80,10 @@ namespace Cloudents.Web.Api
         [HttpPost("file"), FormContentType]
         public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model, CancellationToken token)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var tempData = TempData.Get<TempData>($"update-{model.session_id}");
 
             var index = (int)(model.start_offset / UploadInnerResponse.BlockSize);
