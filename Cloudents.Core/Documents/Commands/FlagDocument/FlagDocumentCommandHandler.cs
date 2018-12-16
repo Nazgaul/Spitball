@@ -39,6 +39,7 @@ namespace Cloudents.Core.Documents.Commands.FlagDocument
 
             document.Item.State = ItemState.Flagged;
             document.Item.FlagReason = message.FlagReason;
+            document.Item.FlaggedUserId = user.Id;
             await _documentRepository.UpdateAsync(document, token);
         }
     }
