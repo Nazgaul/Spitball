@@ -42,6 +42,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     TypeStr = s.Type,
                     Professor = s.Professor,
                     Title = s.Name,
+                    Source = "Cloudents",
                     Views = s.Views,
                     Downloads = s.Downloads,
                     University = s.University.Name,
