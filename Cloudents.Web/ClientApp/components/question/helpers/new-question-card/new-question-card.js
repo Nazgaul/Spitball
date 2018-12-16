@@ -29,7 +29,9 @@ export default {
             showReportReasons: false,
             itemId : 0,
             maximumAnswersToDisplay: 3,
-            isRtl: global.isRtl
+            isRtl: global.isRtl,
+            showDialog: false,
+            selectedImage: '',
         };
     },
     props: {
@@ -140,6 +142,10 @@ export default {
             return this.cardData.answers !== 0;
             
             
+        },
+        showBigImage(src) {
+            this.showDialog = true;
+            this.selectedImage = src;
         },
         deleteQuestion() {
             this.delete({id: this.cardData.id, type: 'Question'})
