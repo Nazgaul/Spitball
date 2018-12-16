@@ -280,6 +280,10 @@ export default {
         return new QuestionItem(objInit);
     },
 
+    createAnswerItem: (objInit)=>{
+        return createAnswerItem(objInit);
+    },
+
     createFilters: (objInit)=>{
        return new Filters(objInit)
     },
