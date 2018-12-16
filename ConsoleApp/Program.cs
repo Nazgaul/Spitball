@@ -31,6 +31,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Query;
 using Cloudents.Core.Votes.Commands.AddVoteAnswer;
 using Cloudents.Domain.Enums;
+using Cloudents.Search;
 using DocumentType = Cloudents.Common.Enum.DocumentType;
 using Cloudents.Core.CommandHandler;
 using Cloudents.Infrastructure.Database.Repositories;
@@ -69,9 +70,13 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
-                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             builder.RegisterModule<ModuleFile>();
+            var module = new SearchModule(ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                ConfigurationManager.AppSettings["AzureSearchKey"], true);
+
+            builder.RegisterModule(module);
+
 
 
 
@@ -98,22 +103,28 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            await BuildSearchIndex();
+
+            //var bus = _container.Resolve<ICommandBus>();
+            //var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
+            //    10, 638, null, QuestionColor.Default);
+            //await bus.DispatchAsync(command, token);
 
 
-            var bus = _container.Resolve<ICommandBus>();
-            var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
-                10, 638, null, QuestionColor.Default);
-            await bus.DispatchAsync(command, token);
-
-
-            var command2 = new CreateQuestionCommand(QuestionSubject.Arts, "This is verysssssss nice question to check",
-                10, 638, null, QuestionColor.Default);
-            await bus.DispatchAsync(command2, token);
+            //var command2 = new CreateQuestionCommand(QuestionSubject.Arts, "This is verysssssss nice question to check",
+            //    10, 638, null, QuestionColor.Default);
+            //await bus.DispatchAsync(command2, token);
 
 
 
             //await z.GetById("43958");
             //
+        }
+
+        private static async Task BuildSearchIndex()
+        {
+            var service = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
+            await service.CreateOrUpdateAsync(default);
         }
 
         private static async Task FixPoisonBackground(ICommandBus _commandBus)

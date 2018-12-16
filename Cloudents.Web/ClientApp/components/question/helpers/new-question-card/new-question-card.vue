@@ -31,7 +31,7 @@
                                 <v-icon>sbf-3-dot</v-icon>
                             </v-btn>
                             <v-list>
-                                <v-list-tile :disabled="!item.isVisible" v-for="(item, i) in actions" :key="i">
+                                <v-list-tile :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
                                     <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                 </v-list-tile>
                             </v-list>
@@ -87,10 +87,10 @@
                         <v-icon>sbf-attach</v-icon>
                         <span>{{cardData.filesNum}}</span>
                     </div>
-                    <div class="answers-viewers-container">
+                    <!-- <div class="answers-viewers-container">
                         <v-icon class>sbf-views</v-icon>
                         <span>{{randomViews}}</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div v-if="!isSold && !hideAnswerInput" class="question-bottom-section">

@@ -1,6 +1,8 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System;
+using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
+using Microsoft.Azure.Search;
 
 namespace Cloudents.Search.Document
 {
@@ -21,30 +23,10 @@ namespace Cloudents.Search.Document
 
         protected override Index GetIndexStructure(string indexName)
         {
-            var fieldBuilder = new FluentSearchFieldBuilder<Entities.Document>();
-
-            return new Index()
+            var index =  new Index
             {
                 Name = indexName,
-                Fields = new List<Field>
-                {
-                    new Field("Language",DataType.String)
-                    {
-                        IsFilterable = true
-                    },
-                   fieldBuilder.Map(x=>x.Id).IsKey(),
-                   fieldBuilder.Map(x=>x.DateTime).IsSortable().IsFilterable(),
-                   fieldBuilder.Map(x=>x.Content).IsSearchable(),
-                   fieldBuilder.Map(x=>x.Name).IsSearchable(),
-                   fieldBuilder.Map(x=>x.MetaContent),
-
-                    fieldBuilder.Map(x=>x.Tags).IsSearchable().IsFilterable(),
-                    fieldBuilder.Map(x=>x.Course).IsFilterable(),
-                    fieldBuilder.Map(x=>x.Country).IsFilterable().IsFacetable(),
-                    //fieldBuilder.Map(x=>x.Language).IsFilterable(),
-                    fieldBuilder.Map(x=>x.University).IsFilterable(),
-                    fieldBuilder.Map(x=>x.Type).IsFilterable().IsFacetable()
-                },
+                Fields = FieldBuilder.BuildForType<Entities.Document>(new SearchIndexEnumToIntContractResolver()),
                 ScoringProfiles = new List<ScoringProfile>
                 {
                     new ScoringProfile(ScoringProfile)
@@ -65,6 +47,20 @@ namespace Cloudents.Search.Document
                     }
                 },
             };
+            index.Fields.Add(new Field("MetaContent", DataType.String));
+            index.Fields.Add(new Field("Language", DataType.String)
+            {
+                IsFilterable = true
+            });
+            index.Fields.Add(new Field("University", DataType.String)
+            {
+                IsFilterable = true
+            });
+            index.Fields.Add(new Field("Course", DataType.String)
+            {
+                IsFilterable = true
+            });
+            return index;
         }
     }
 }

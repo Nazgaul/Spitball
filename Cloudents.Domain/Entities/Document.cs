@@ -71,6 +71,9 @@ namespace Cloudents.Domain.Entities
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }
 
+
+        public virtual string MetaContent { get; set; }
+
         public virtual ItemComponent Item { get; set; }
 
         //public virtual CultureInfo Language { get; set; }

@@ -32,8 +32,9 @@ namespace Cloudents.Search
             builder.RegisterType<AzureDocumentSearch>().As<IDocumentsSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
 
-            builder.RegisterGeneric(typeof(SearchServiceWrite<>));
-            var assembly = Assembly.GetExecutingAssembly();
+            builder.RegisterType<DocumentSearchWrite>().As<SearchServiceWrite<Entities.Document>>();
+            //builder.RegisterGeneric(typeof(SearchServiceWrite<>)).AsSelf();
+            //var assembly = Assembly.GetExecutingAssembly();
             //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ISearchServiceWrite<>))
             //    .AsImplementedInterfaces();
 

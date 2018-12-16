@@ -58,7 +58,7 @@
                                 <div class="title-wrap">
                                     <p
                                             :class="['doc-title', isFirefox ? 'foxLineClamp' : '']"
-                                            v-line-clamp:13="$vuetify.breakpoint.xsOnly ? 2 : 2 "
+                                            v-line-clamp:20="$vuetify.breakpoint.xsOnly ? 2 : 2 "
                                     >{{item.title}}</p>
                                     <v-icon class="doc">sbf-document-note</v-icon>
                                 </div>
@@ -130,7 +130,7 @@
                 ],
                 itemId: 0,
                 showReport: false,
-                isRtl : global.isRtl
+                isRtl: global.isRtl
             };
         },
         props: {item: {type: Object, required: true}, index: {Number}},
@@ -222,7 +222,7 @@
                 }
             },
             isCloudents() {
-                return this.item.source.toLowerCase().includes("cloudents");
+                return !!this.item.source ? this.item.source.toLowerCase().includes("cloudents") : "";
             },
             reportItem() {
                 this.itemId = this.item.id;
