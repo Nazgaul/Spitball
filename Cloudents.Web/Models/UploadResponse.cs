@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -80,6 +81,7 @@ namespace Cloudents.Web.Models
         public Guid session_id { get; set; }
         public long start_offset { get; set; }
 
+        [Required]
         public IFormFile Chunk { get; set; }
     }
 }

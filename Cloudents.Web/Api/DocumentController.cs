@@ -172,7 +172,7 @@ namespace Cloudents.Web.Api
                         s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
                     }
 
-                    if (votesTask != null && votesTask.Result.TryGetValue(s.Id, out var param))
+                    if (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param))
                     {
                         s.Vote.Vote = param;
                     }

@@ -1,4 +1,5 @@
-﻿using Cloudents.Domain.Entities;
+﻿using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Domain.Enums;
 using FluentNHibernate.Mapping;
@@ -57,6 +58,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             t.Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             t.Map(m => m.DeletedOn).Nullable();
             t.Map(m => m.FlagReason).Nullable();
+            t.Map(m => m.FlaggedUserId).Nullable();
             t.Map(m => m.VoteCount).Not.Nullable();
         }
     }

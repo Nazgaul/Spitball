@@ -91,13 +91,14 @@ namespace Cloudents.Core.CommandHandler
                 }
             var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(newAnswer, token).ConfigureAwait(false);
-            question.AnswerCount++;
-            await _questionRepository.UpdateAsync(question, token);
+            
             var id = newAnswer.Id;
 
             if (newAnswer.Item.State == ItemState.Ok)
             {
                 _eventStore.Add(new AnswerCreatedEvent(newAnswer));
+                question.AnswerCount++;
+                await _questionRepository.UpdateAsync(question, token);
             }
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
