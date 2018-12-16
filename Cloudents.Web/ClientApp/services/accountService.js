@@ -12,14 +12,14 @@ function AccountUser(ObjInit){
 
 function ProfileData(arrInit){
     this.user= arrInit[0].data;
-    this.questions = arrInit[1].data.map(item => {
+    this.questions = arrInit[1].data.map(searchService.createQuestionItem).map(item => {
         return {
             ...item,
             user: arrInit[0].data,
             filesNum: item.files,
         }
     }) || [];
-    this.answers= arrInit[2].data.map(i => {
+    this.answers= arrInit[2].data.map(searchService.createQuestionItem).map(i => {
         return {
             ...i,
             filesNum: i.files,

@@ -384,6 +384,7 @@ const actions = {
         reputationService.voteQuestion(data.id, data.type).then(()=>{
             commit(SEARCH.UPDATE_QUESTION_VOTE, data);
             dispatch('innerQuestionVote', data);
+            dispatch('profileQuestionVote', data);
         })
     },
     documentVote({commit}, data){

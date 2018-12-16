@@ -4,6 +4,7 @@ import {debug} from "util";
 import {dollarCalculate} from "./constants";
 import analyticsService from '../services/analytics.service'
 import profileService from "../services/profile/profileService"
+import reputationService from '..//services/reputationService'
 
 
 function setIntercomSettings(data){
@@ -89,6 +90,25 @@ const mutations = {
     UPDATE_PROFILE_DATA(state, data) {
         state.profileData = data;
     },
+    updateProfileQuestionVote(state, {id, type}){
+        if(!!state.profile){
+            state.profile.questions.forEach(question=>{
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            })
+            state.profile.answers.forEach(question=>{
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            })
+            state.profile.documents.forEach(question=>{
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            })
+        }
+    }
 };
 
 const getters = {
@@ -281,6 +301,9 @@ const actions = {
     
     signalR_SetBalance({commit, state}, newBalance){
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
+    },
+    profileQuestionVote({commit}, data){
+        commit('updateProfileQuestionVote', data);
     }
 };
 
