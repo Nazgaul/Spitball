@@ -25,7 +25,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Common.Enum;
-using Cloudents.Core.Questions.Commands.FlagDocument;
+using Cloudents.Core.Item.Commands.FlagItem;
 
 namespace Cloudents.Web.Api
 {
