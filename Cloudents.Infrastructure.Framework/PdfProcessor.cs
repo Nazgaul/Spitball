@@ -59,6 +59,10 @@ namespace Cloudents.Infrastructure.Framework
                 {
                     doc.Pages[i].Accept(textAbsorber);
                 }
+                catch (IndexOutOfRangeException)
+                {
+
+                }
                 catch (ArgumentException)
                 {
                 }
