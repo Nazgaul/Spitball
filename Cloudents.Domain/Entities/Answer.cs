@@ -12,7 +12,7 @@ namespace Cloudents.Domain.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Answer : DomainObject, ISoftDelete
+    public class Answer :  ISoftDelete
     {
         public Answer(Question question, string text, int attachments, RegularUser user) : this()
         {

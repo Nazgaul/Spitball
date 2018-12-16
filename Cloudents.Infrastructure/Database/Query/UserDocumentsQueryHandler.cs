@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 using NHibernate;
 using NHibernate.Linq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -29,29 +28,30 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Where(w => w.User.Id == query.Id && w.Item.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new DocumentFeedDto()
+                {
+                    Id = s.Id,
+                    User = new UserDto
                     {
-                        Id = s.Id,
-                        User = new UserDto
-                        {
-                            Id = s.User.Id,
-                            Name = s.User.Name,
-                            Image = s.User.Image,
-                            Score = s.User.Score
-                        },
-                        DateTime = s.TimeStamp.UpdateTime,
-                        Course = s.Course.Name,
-                        TypeStr = s.Type,
-                        Professor = s.Professor,
-                        Title = s.Name,
-                        Views = s.Views,
-                        Downloads = s.Downloads,
-                        University = s.University.Name,
-                        Vote = new VoteDto()
-                        {
-                            Votes = s.Item.VoteCount
-                        }
-                        
+                        Id = s.User.Id,
+                        Name = s.User.Name,
+                        Image = s.User.Image,
+                        Score = s.User.Score
+                    },
+                    DateTime = s.TimeStamp.UpdateTime,
+                    Course = s.Course.Name,
+                    TypeStr = s.Type,
+                    Professor = s.Professor,
+                    Title = s.Name,
+                    Views = s.Views,
+                    Downloads = s.Downloads,
+                    University = s.University.Name,
+                    Snippet = s.MetaContent,
+                    Vote = new VoteDto()
+                    {
+                        Votes = s.Item.VoteCount
                     }
+
+                }
                 )
                 .Take(50).Skip(query.Page * 50)
                 .ToListAsync(token);

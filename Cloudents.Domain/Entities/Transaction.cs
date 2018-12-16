@@ -7,7 +7,7 @@ namespace Cloudents.Domain.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "nHibernate Proxy")]
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nHibernate Proxy")]
-    public class Transaction : DomainObject
+    public class Transaction 
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
         public Transaction(TransactionActionType action, TransactionType type, decimal price, RegularUser user)

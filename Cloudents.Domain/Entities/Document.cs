@@ -10,7 +10,7 @@ namespace Cloudents.Domain.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
 
-    public class Document : DomainObject, ISoftDelete
+    public class Document :  ISoftDelete
     {
         public Document(string name,
             University university,
@@ -21,7 +21,6 @@ namespace Cloudents.Domain.Entities
             if (tags == null) throw new ArgumentNullException(nameof(tags));
             if (name == null) throw new ArgumentNullException(nameof(name));
             Name = name.Replace("+", string.Empty);
-            //BlobName = blobName ?? throw new ArgumentNullException(nameof(blobName));
             University = university ?? throw new ArgumentNullException(nameof(university));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             Type = type;
