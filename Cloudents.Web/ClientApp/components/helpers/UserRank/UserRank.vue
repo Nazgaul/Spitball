@@ -8,10 +8,11 @@
 
 <script>
 import reputationService from '../../../services/reputationService.js'
+import { LanguageService } from '../../../services/language/languageService.js'
 export default {
     data(){
         return {
-            rankNames: ['Beginner', 'Professional', 'World Class', 'Spitballer']
+            rankNames: [LanguageService.getValueByKey('userRank_begginer'), LanguageService.getValueByKey('userRank_professional'), LanguageService.getValueByKey('userRank_worldClass'), LanguageService.getValueByKey('userRank_spitballer')]
         }
     },
     props:{
