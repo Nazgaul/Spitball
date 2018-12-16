@@ -33,7 +33,7 @@ namespace Cloudents.Domain.Entities
         public virtual ItemState State { get; set; }
         public virtual DateTime? DeletedOn { get; set; }
         public virtual string FlagReason { get; set; }
-        public virtual User FlaggedUser { get; set; }
+        public virtual long FlaggedUserId { get; set; }
 
         public virtual ICollection<Vote> Votes { get; protected set; }
 
