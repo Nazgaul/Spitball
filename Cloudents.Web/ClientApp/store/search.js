@@ -384,12 +384,13 @@ const actions = {
         reputationService.voteQuestion(data.id, data.type).then(()=>{
             commit(SEARCH.UPDATE_QUESTION_VOTE, data);
             dispatch('innerQuestionVote', data);
-            dispatch('profileQuestionVote', data);
+            dispatch('profileVote', data);
         })
     },
-    documentVote({commit}, data){
+    documentVote({commit, dispatch}, data){
         reputationService.voteDocument(data.id, data.type).then(()=>{
             commit(SEARCH.UPDATE_DOCUMENT_VOTE, data);
+            dispatch('profileVote', data);
         })
     },
     reportQuestion({commit}, data){

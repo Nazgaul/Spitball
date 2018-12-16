@@ -90,7 +90,7 @@ const mutations = {
     UPDATE_PROFILE_DATA(state, data) {
         state.profileData = data;
     },
-    updateProfileQuestionVote(state, {id, type}){
+    updateProfileVote(state, {id, type}){
         if(!!state.profile){
             state.profile.questions.forEach(question=>{
                 if(question.id === id){
@@ -302,8 +302,8 @@ const actions = {
     signalR_SetBalance({commit, state}, newBalance){
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
     },
-    profileQuestionVote({commit}, data){
-        commit('updateProfileQuestionVote', data);
+    profileVote({commit}, data){
+        commit('updateProfileVote', data);
     }
 };
 
