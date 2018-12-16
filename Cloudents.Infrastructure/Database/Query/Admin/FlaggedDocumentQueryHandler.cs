@@ -35,7 +35,8 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 .Take(100)
                 .Select(s => new FlaggedDocumentDto
                 {
-                    Id = s.Id
+                    Id = s.Id,
+                    FlaggedUserId = s.Item.FlaggedUserId
                 }).ToListAsync(token);
         }
     }
