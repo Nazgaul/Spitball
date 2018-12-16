@@ -62,7 +62,7 @@
         </v-list>
         <!--mobile side menu open template-->
         <v-list class="menu-list" v-else>
-            <user-block :user=user :showExtended="true" :classType="'university'" v-if=isMobile></user-block>
+            <user-block :user=user :showExtended="true" :classType="'university authenticated-user'" v-if=isMobile></user-block>
             <router-link tag="v-list-tile" :to="{name:'wallet'}">
                 <v-list-tile-action>
                     <v-icon>sbf-wallet</v-icon>
