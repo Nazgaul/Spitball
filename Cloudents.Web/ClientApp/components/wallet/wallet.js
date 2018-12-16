@@ -166,7 +166,7 @@ export default {
             this.walletData.forEach((item) => {
                 typesDictionary[item.type] = item.points;
             });
-            let reduce = typesDictionary["Stake"] + typesDictionary["Spent"] + typesDictionary["Awarded"];
+            let reduce = typesDictionary["Stake"] + typesDictionary["Spent"];
             if(reduce < 0){
                 earned = typesDictionary["Earned"] + reduce;
             }else{
