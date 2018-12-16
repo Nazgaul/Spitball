@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
@@ -10,6 +9,7 @@ using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Questions.Commands.FlagQuestion;
 using Cloudents.Core.Votes.Commands.AddVoteQuestion;
+using Cloudents.Domain.Entities;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
@@ -116,7 +116,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<QuestionDetailDto>> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retValTask =  bus.QueryAsync(new QuestionDataByIdQuery(id), token);
+            var retValTask = bus.QueryAsync(new QuestionDataByIdQuery(id), token);
             var votesTask = Task.FromResult<Dictionary<Guid, VoteType>>(null);
 
             if (User.Identity.IsAuthenticated)
@@ -222,7 +222,7 @@ namespace Cloudents.Web.Api
             {
                 Result = result.Result.Select(s =>
                 {
-                    if (votesTask != null && votesTask.Result.TryGetValue(s.Id, out var param))
+                    if (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param))
                     {
                         s.Vote.Vote = param;
                     }
