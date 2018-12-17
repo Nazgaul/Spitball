@@ -35,9 +35,12 @@
                             v-model="selectedSubject"
                             :items="subjectList"
                             :label="'some label'"
+                            :item-text="'subject'"
+                            :item-value="'id'"
                             :placeholder="'some placeholder'"
                             clearable
                             solo
+                            return-object
                             :search-input.sync="search"
                             :append-icon="''"
                             :prepend-inner-icon="'sbf-search'"
@@ -59,7 +62,7 @@
                         </template>
                         <template slot="item" slot-scope="{ index, item, parent }">
                             <v-list-tile-content style="max-width:385px;">
-                                <span v-html="$options.filters.boldText(item, search)">{{ item }}</span>
+                                <span v-html="$options.filters.boldText(item, search)" @click="goToResulstQuestionsPage(item)">{{ item }}</span>
                             </v-list-tile-content>
                         </template>
                     </v-combobox>
@@ -162,10 +165,10 @@
             <h3 class="subject-title">Find Homework Help By Subject</h3>
             <span class="subject-sub-title">Just pick a subject, and we'll find the right tutor for you</span>
             <v-layout row wrap v-bind="binding" class="layout-subject">
-                <v-flex v-for="subjectItem in subjectList" class="subject-item" :key="`${subjectItem}`" xs3>
+                <v-flex v-for="subjectItem in subjectList" class="subject-item" :key="`${subjectItem.id}`" xs3>
                     <v-card class="subject-card">
                         <v-card-text class="subject-text" @click="updateSubject(subjectItem)">
-                            {{subjectItem}}
+                            {{subjectItem.subject}}
                         </v-card-text>
                     </v-card>
                 </v-flex>

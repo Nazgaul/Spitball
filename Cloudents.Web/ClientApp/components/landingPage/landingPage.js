@@ -81,8 +81,6 @@ export default {
             set(){
 
             }
-
-
         },
         binding() {
             const binding = {};
@@ -156,7 +154,7 @@ export default {
             this.selectedSubject = val;
         },
         goToResulstQuestionsPage(val) {
-            this.$router.push({path: 'ask', query: val});
+            this.$router.push({path: 'ask', query: {"source": val.id}});
         },
         goToResultDocumentsPage(val) {
             this.$router.push({name: 'note', query: val});
@@ -168,19 +166,25 @@ export default {
     },
     filters: {
         boldText(value, search) {
+            //happens if string uni
+            let valToFil = value;
+            //happens if subject list
+            if(value.subject){
+                valToFil = value.subject
+            }
             let match;
             //mark the text bold according to the search value
-            if (!value) return '';
+            if (!valToFil) return '';
             if (!!search) {
-                match = value.toLowerCase().indexOf(search.toLowerCase()) > -1;
+                match = valToFil.toLowerCase().indexOf(search.toLowerCase()) > -1;
             }
             if (match) {
-                let startIndex = value.toLowerCase().indexOf(search.toLowerCase());
+                let startIndex = valToFil.toLowerCase().indexOf(search.toLowerCase());
                 let endIndex = search.length;
-                let word = value.substr(startIndex, endIndex)
-                return value.replace(word, '<b>' + word + '</b>')
+                let word = valToFil.substr(startIndex, endIndex)
+                return valToFil.replace(word, '<b>' + word + '</b>')
             } else {
-                return value;
+                return valToFil;
             }
 
         }

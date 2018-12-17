@@ -23,7 +23,9 @@ const actions = {
     getAllSubjects({commit}) {
         questionService.getSubjects()
             .then((response) => {
-                let data = response.data.map(a => a.subject);
+                // let data = response.data.map(a => a.subject);
+                let data = response.data;
+
                 commit('getAllSubjects', data);
             });
 
