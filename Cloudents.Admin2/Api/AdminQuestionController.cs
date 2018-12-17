@@ -144,9 +144,9 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("unFlage")]
-        public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] IEnumerable<long> ids, CancellationToken token)
+        public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] long id, CancellationToken token)
         {
-            var command = new UnFlagQuestionCommand(ids);
+            var command = new UnFlagQuestionCommand(id);
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }

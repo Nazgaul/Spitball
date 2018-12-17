@@ -21,15 +21,13 @@ namespace Cloudents.Core.CommandHandler.Admin
         }
         public async Task ExecuteAsync(UnFlagQuestionCommand message, CancellationToken token)
         {
-            foreach (var questionId in message.QuestionIds)
-            {
-                var question = await _questionRepository.LoadAsync(questionId, token);
+           
+                var question = await _questionRepository.LoadAsync(message.QuestionId, token);
                 question.Item.State = ItemState.Ok;
                 question.Item.FlagReason = null;
 
                 await _questionRepository.UpdateAsync(question, token);
-            }
-
+   
         }
     }
 }
