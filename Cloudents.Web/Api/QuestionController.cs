@@ -96,7 +96,7 @@ namespace Cloudents.Web.Api
         public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
         {
             var values = QuestionSubjectMethod.GetValues();
-            return values.Select(s => new QuestionSubjectResponse((int)s, s.GetEnumLocalization()));
+            return values.Select(s => new QuestionSubjectResponse(s.ToString("G"), s.GetEnumLocalization()));
         }
 
         [HttpPut("correct")]
