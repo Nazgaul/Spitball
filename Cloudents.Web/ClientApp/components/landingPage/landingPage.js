@@ -70,12 +70,21 @@ export default {
             }
         },
         universities() {
+
             return this.getUniversities();
         },
-        subjectList(){
-            return this.getSubjectsList();
+        subjectList: {
+            get(){
+               let list = this.getSubjectsList();
+               return list
+            },
+            set(){
+
+            }
+
+
         },
-        binding () {
+        binding() {
             const binding = {};
             if (this.$vuetify.breakpoint.xsOnly) {
                 binding.column = true
@@ -94,25 +103,30 @@ export default {
             }
         }, 250),
 
-        searchUni: debounce(function(){
-                if(!!this.searchUni && this.searchUni.length > 2 ){
-                    this.updateUniversities(this.searchUni);
-                }
-                if(this.searchUni === ""){
-                    this.clearData();
-                }
-            }, 250)
+        searchUni: debounce(function () {
+            if (!!this.searchUni && this.searchUni.length > 2) {
+                this.updateUniversities(this.searchUni);
+            }
+            if (this.searchUni === "") {
+                this.clearData();
+            }
+        }, 250)
 
     },
     methods: {
-        ...mapActions(["updateUniversities", "clearUniversityList", "updateSchoolName", "updateSubject"]),
-        ...mapGetters(["getUniversities", "getSchoolName", "getSubjectsList"]),
-        // getAllSubjects() {
-        //     questionService.getSubjects().then((response) => {
-        //         this.subjectList = response.data.map(a => a.subject)
-        //     });
-        // },
-        getAllUniversities(){
+        ...mapActions([
+            "updateUniversities",
+            "clearUniversityList",
+            "updateSchoolName",
+            "updateSubject",
+            "getAllSubjects"
+        ]),
+        ...mapGetters([
+            "getUniversities",
+            "getSchoolName",
+            "getSubjectsList"
+        ]),
+        getAllUniversities() {
             //leave space
             this.updateUniversities(' ');
         },
@@ -125,7 +139,7 @@ export default {
                 // this.playerWidth = '100%';
                 // this.playerHeight = '100%';
 
-            }else{
+            } else {
                 // this.playerWidth = '1280';
                 // this.playerHeight = '450';
             }
@@ -138,19 +152,19 @@ export default {
         hideVideoPlayer() {
             this.playerVisible = false;
         },
-        updateSubject(val){
+        updateSubject(val) {
             this.selectedSubject = val;
         },
-        goToResulstQuestionsPage(val){
+        goToResulstQuestionsPage(val) {
             this.$router.push({path: 'ask', query: val});
         },
-        goToResultDocumentsPage(val){
+        goToResultDocumentsPage(val) {
             this.$router.push({name: 'note', query: val});
         }
 
     },
-    created(){
-        // this.getAllSubjects();
+    created() {
+        this.getAllSubjects()
     },
     filters: {
         boldText(value, search) {
