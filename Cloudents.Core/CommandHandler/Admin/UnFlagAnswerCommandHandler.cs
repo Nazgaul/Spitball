@@ -26,6 +26,7 @@ namespace Cloudents.Core.CommandHandler.Admin
                 var answer = await _answerRepository.LoadAsync(answerId, token);
                 answer.Item.State = ItemState.Ok;
                 answer.Item.FlagReason = null;
+                answer.Item.Votes.Clear();
 
                 await _answerRepository.UpdateAsync(answer, token);
             }
