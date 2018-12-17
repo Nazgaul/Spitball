@@ -20,7 +20,7 @@ namespace Cloudents.Domain.Entities
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
             if (name == null) throw new ArgumentNullException(nameof(name));
-            Name = name.Replace("+", string.Empty);
+            Name = name.Replace("+","-");
             University = university ?? throw new ArgumentNullException(nameof(university));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             Type = type;

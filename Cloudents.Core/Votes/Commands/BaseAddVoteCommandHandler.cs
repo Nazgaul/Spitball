@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Event;
+using Cloudents.Core.Exceptions;
 using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.Votes.Commands
@@ -30,22 +31,16 @@ namespace Cloudents.Core.Votes.Commands
 
             if (!Privileges.CanVote(user.Score, type))
             {
-                throw new UnauthorizedAccessException("not enough score");
+                throw new NoEnoughScoreException();
             }
             var question = await _repository.LoadAsync(id, token);
             if (question.Item.State != ItemState.Ok)
             {
-                throw new UnauthorizedAccessException("item doesn't exits.");
+                throw new NotFoundException();
             }
             await ValidateAsync(user, question, token);
-            //if (question.User.Id == user.Id)
-            //{
-            //    throw new UnauthorizedAccessException("you cannot vote you own document");
-
-            //}
             var vote = await GetVoteAsync(userId, id, token);
 
-            //var vote = await _voteRepository.GetVoteQuestionAsync(userId, message.QuestionId, token);
             if (vote == null && type == VoteType.None)
             {
                 throw new ArgumentException();

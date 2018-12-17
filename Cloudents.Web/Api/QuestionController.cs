@@ -105,7 +105,7 @@ namespace Cloudents.Web.Api
             // var link = Url.Link("WalletRoute", null);
             var command = new MarkAnswerAsCorrectCommand(model.AnswerId, _userManager.GetLongUserId(User));
 
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
@@ -123,7 +123,7 @@ namespace Cloudents.Web.Api
             {
                 var userId = _userManager.GetLongUserId(User);
                 var queryTags = new UserVotesQuestionQuery(userId, id);
-                votesTask = bus.QueryAsync<IEnumerable<UserVoteAnswerDto>>(queryTags, token)
+                votesTask = bus.QueryAsync(queryTags, token)
                     .ContinueWith(
                         t2 =>
                         {
@@ -247,10 +247,28 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> VoteAsync([FromBody] AddVoteQuestionRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);
+            try
+            {
+                var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);
 
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+            }
+            catch (NoEnoughScoreException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
+                return BadRequest(ModelState);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
+                return BadRequest(ModelState);
+            }
+
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost("flag")]

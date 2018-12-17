@@ -100,10 +100,28 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> VoteAsync([FromBody] AddVoteAnswerRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AddVoteAnswerCommand(userId, model.Id, model.VoteType);
+            try
+            {
+                var command = new AddVoteAnswerCommand(userId, model.Id, model.VoteType);
 
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NoEnoughScoreException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
+                return BadRequest(ModelState);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
+                return BadRequest(ModelState);
+            }
+
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost("flag")]

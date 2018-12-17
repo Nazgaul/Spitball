@@ -3,7 +3,6 @@ using Cloudents.Core.Attributes;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
@@ -25,6 +24,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Common.Enum;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Item.Commands.FlagItem;
 
 namespace Cloudents.Web.Api
@@ -187,11 +187,30 @@ namespace Cloudents.Web.Api
         [HttpPost("vote")]
         public async Task<IActionResult> VoteAsync([FromBody] AddVoteDocumentRequest model, CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType);
 
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            var userId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType);
+
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NoEnoughScoreException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
+                return BadRequest(ModelState);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
+                return BadRequest(ModelState);
+            }
+
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost("flag")]

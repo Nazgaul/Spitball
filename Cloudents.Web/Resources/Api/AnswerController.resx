@@ -130,6 +130,13 @@
   <data name="This question have correct answer" xml:space="preserve">
     <value>This question have correct answer</value>
   </data>
+  <data name="VoteCantVote" xml:space="preserve">
+    <value>You cannot vote</value>
+  </data>
+  <data name="VoteNotEnoughScore" xml:space="preserve">
+    <value>You dont have score</value>
+    <comment>new</comment>
+  </data>
   <data name="You exceed your quota of answers" xml:space="preserve">
     <value>You already submitted 3 answers to other questions.
 Wait until one of them gets accepted or delete one of your previous answers.</value>
