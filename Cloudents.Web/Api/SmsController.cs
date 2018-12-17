@@ -197,11 +197,14 @@ namespace Cloudents.Web.Api
         [HttpPost("resend")]
         public async Task<IActionResult> ResendAsync(CancellationToken token)
         {
-            var temp = DateTime.Parse(TempData.Peek(SmsTime).ToString());
-            
-            if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
-            {
-                return Ok();
+            var t = TempData.Peek(SmsTime);
+            if (t != null) {
+                var temp = DateTime.Parse(t.ToString());
+
+                if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+                {
+                    return Ok();
+                }
             }
 
             if (User.Identity.IsAuthenticated)

@@ -96,8 +96,9 @@ namespace Cloudents.Core.Interfaces
     }
     public interface ITransactionRepository : IRepository<Transaction>
     {
-        Task<decimal> GetUserScoreAsync(long userId, CancellationToken token);
+        Task<int> GetUserScoreAsync(long userId, CancellationToken token);
         Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
+        
     }
 
     }

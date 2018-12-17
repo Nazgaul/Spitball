@@ -34,13 +34,13 @@ namespace Cloudents.Infrastructure.Database.Repositories
                     .Where(w => w.User.Id == userId)
                     .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
         }
-        public Task<decimal> GetUserScoreAsync(long userId, CancellationToken token)
+        public Task<int> GetUserScoreAsync(long userId, CancellationToken token)
         {
             return
                 Session.QueryOver<Transaction>()
                        .Where(w => w.User.Id == userId)
                        .Where(w => w.Type == TransactionType.Earned && w.Price > 0)
-                       .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
+                       .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<int>(token);
         }
     }
 }
