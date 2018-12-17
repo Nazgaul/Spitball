@@ -3,7 +3,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Sync;
 using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Core.Enum;
 using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
@@ -21,16 +20,17 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         {
             get
             {
-                var res = @"select d.Id as ItemId,
+                const string res = @"select d.Id as ItemId,
 	                            d.Name as Name,
 	                            d.CourseName as Course,
 	                            d.Language as Language,
-	                            d.UniversityId as University,
+	                            d.UniversityId as UniversityId,
 	                            d.Type as Type,
 	                            d.State as State,
 	                            d.UpdateTime as DateTime, 
 	                            (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags,
 	                            u.Country as Country,
+								u.Name as UniversityName,
 	                            c.* 
                             From sb.[Document] d  
                             right outer join CHANGETABLE (CHANGES sb.[Document], :Version) AS c ON d.Id = c.id 
@@ -48,17 +48,18 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         {
             get
             {
-               var res = @"select d.Id as ItemId,
+                const string res = @"select d.Id as ItemId,
 	                            d.Name as Name,
 	                            d.CourseName as Course,
 	                            d.Language as Language,
-	                            d.UniversityId as University,
+	                            d.UniversityId as UniversityId,
 	                            d.Type as Type,
 	                            d.State as State,
-                                d.UpdateTime as DateTime,
+	                            d.UpdateTime as DateTime, 
 	                            (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags,
 	                            u.Country as Country,
-	                            c.*
+								u.Name as UniversityName,
+	                            c.* 
                             From sb.[Document] d  
                             CROSS APPLY CHANGETABLE (VERSION sb.[Document], (Id), (Id)) AS c 
                             left join sb.[University] u 
@@ -66,7 +67,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
                             Order by d.Id 
                             OFFSET :PageSize * :PageNumber 
                             ROWS FETCH NEXT :PageSize ROWS ONLY";
-                
+
                 return res;
             }
         }

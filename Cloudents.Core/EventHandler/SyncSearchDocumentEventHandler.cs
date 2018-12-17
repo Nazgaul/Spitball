@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Event;
+﻿using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
@@ -7,7 +6,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Domain.Entities;
 
 namespace Cloudents.Core.EventHandler
 {
@@ -23,9 +21,10 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(DocumentCreatedEvent eventMessage, CancellationToken token)
         {
-            var doc = new DocumentSearchDto()
+            var doc = new DocumentSearchDto
             {
-                University = eventMessage.Document.University.Id,
+                UniversityId = eventMessage.Document.University.Id,
+                UniversityName = eventMessage.Document.University.Name,
                 Country = eventMessage.Document.University.Country.ToUpperInvariant(),
                 Course = eventMessage.Document.Course.Name.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
@@ -39,7 +38,7 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(DocumentDeletedEvent eventMessage, CancellationToken token)
         {
-            var doc = new DocumentSearchDto()
+            var doc = new DocumentSearchDto
             {
                 ItemId = eventMessage.Document.Id
             };

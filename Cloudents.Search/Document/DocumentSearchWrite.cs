@@ -41,7 +41,7 @@ namespace Cloudents.Search.Document
                         Functions = new List<ScoringFunction>
                         {
                             new TagScoringFunction(nameof(Entities.Document.Course),3, new TagScoringParameters(TagsCourseParameter)),
-                            new TagScoringFunction(nameof(Entities.Document.University),2, new TagScoringParameters(TagsUniversityParameter)),
+                            new TagScoringFunction("University",2, new TagScoringParameters(TagsUniversityParameter)),
                             new TagScoringFunction(nameof(Entities.Document.Tags),1.5, new TagScoringParameters(TagsTagsParameter)),
                         }
                     }
@@ -52,10 +52,10 @@ namespace Cloudents.Search.Document
             {
                 IsFilterable = true
             });
-            index.Fields.Add(new Field("University", DataType.String)
-            {
-                IsFilterable = true
-            });
+            //index.Fields.Add(new Field("University", DataType.String)
+            //{
+            //    IsFilterable = true
+            //});
             index.Fields.Add(new Field("Course", DataType.String)
             {
                 IsFilterable = true
