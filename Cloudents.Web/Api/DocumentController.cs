@@ -60,6 +60,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] IBlobProvider blobProvider,
+
             CancellationToken token)
         {
             var query = new DocumentById(id);
@@ -78,7 +79,7 @@ namespace Cloudents.Web.Api
 
             if (!filesTask.Result.Any())
             {
-
+                await queueProvider.InsertBlobReprocessAsync(id);
                 //var queue = queueClient.GetQueueReference("generate-blob-preview");
                 //await queue.AddMessageAsync(new CloudQueueMessage(item.Id.ToString()));
             }
