@@ -24,47 +24,6 @@ namespace Cloudents.Core.Votes.Commands.AddVoteQuestion
         public async Task ExecuteAsync(AddVoteQuestionCommand message, CancellationToken token)
         {
             await BaseExecuteAsync(message.UserId, message.QuestionId, message.VoteType, token);
-            //var user = await _userRepository.LoadAsync(message.UserId, token);
-
-            //if (!Privileges.CanVote(user.Score, message.VoteType))
-            //{
-            //    throw new UnauthorizedAccessException("not enough score");
-            //}
-            //var question = await _questionRepository.LoadAsync(message.QuestionId, token);
-
-            //if (question.User.Id == user.Id)
-            //{
-            //    throw new UnauthorizedAccessException("you cannot vote you own document");
-
-            //}
-
-            //var vote = await _voteRepository.GetVoteQuestionAsync(message.UserId, message.QuestionId, token);
-            //if (vote == null && message.VoteType == VoteType.None)
-            //{
-            //    throw new ArgumentException();
-            //}
-            //if (vote == null)
-            //{
-            //    vote = new Vote(user, question, message.VoteType);
-            //    question.Item.VoteCount += (int)vote.VoteType;
-            //    await _voteRepository.AddAsync(vote, token);
-            //    return;
-            //}
-
-            //if (message.VoteType == VoteType.None)
-            //{
-            //    question.Item.VoteCount -= (int)vote.VoteType;
-            //    await _voteRepository.DeleteAsync(vote, token);
-
-            //    _eventStore.Add(new ItemFlaggedEvent(question));
-            //    return;
-            //}
-
-            //question.Item.VoteCount -= (int)vote.VoteType;
-            //question.Item.VoteCount += (int)message.VoteType;
-            //vote.VoteType = message.VoteType;
-
-            //await _voteRepository.UpdateAsync(vote, token);
         }
 
 

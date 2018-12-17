@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
@@ -30,7 +31,7 @@ namespace Cloudents.Core.Item.Commands.FlagItem
                 user = await _userRepository.LoadAsync(message.UserId, token);
                 if (!Privileges.CanFlag(user.Score))
                 {
-                    throw new UnauthorizedAccessException("not enough score");
+                    throw new NoEnoughScoreException();
                 }
                 Validate(answer, user);
             }

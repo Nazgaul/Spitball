@@ -123,4 +123,11 @@
   <data name="TypeFilterTitle" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="VoteCantVote" xml:space="preserve">
+    <value>You cannot vote</value>
+  </data>
+  <data name="VoteNotEnoughScore" xml:space="preserve">
+    <value>You dont have score</value>
+    <comment>new</comment>
+  </data>
 </root>
