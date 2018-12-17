@@ -14,7 +14,9 @@ namespace Cloudents.Admin2.Models
         /// <summary>
         /// The text of the question
         /// </summary>
-        [Required] public string Text { get; set; }
+        [Required]
+        [MinLength(15)]
+        public string Text { get; set; }
         /// <summary>
         /// The price of the question
         /// </summary>
@@ -22,7 +24,8 @@ namespace Cloudents.Admin2.Models
         /// <summary>
         /// the country of the question - can be us or il
         /// </summary>
-        [Required] public Country Country { get; set; }
+        [Required]
+        public Country Country { get; set; }
 
         [MaxLength(4)]
         public string[] Files { get; set; }
