@@ -129,6 +129,12 @@
   <data name="This question have correct answer" xml:space="preserve">
     <value>לשאלה זו יש תשובה נכונה</value>
   </data>
+  <data name="VoteCantVote" xml:space="preserve">
+    <value>אתה לא יכול להצביע</value>
+  </data>
+  <data name="VoteNotEnoughScore" xml:space="preserve">
+    <value>אין לך מספיק נקודות</value>
+  </data>
   <data name="You exceed your quota of answers" xml:space="preserve">
     <value>כבר ענית 3 תשובות לשאלות אחרות. חכה עד שאחת מהן תתקבל או מחק אחת מהתשובות הקודמות שלך בשביל לענות על שאלה זו.</value>
   </data>
