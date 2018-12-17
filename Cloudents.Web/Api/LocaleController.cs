@@ -20,13 +20,6 @@ namespace Cloudents.Web.Api
         private static readonly Regex DefaultRegex =
             new Regex(@"Cloudents.Web.Resources.Js.([A-Za-z0-9\-]+).resources", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
-     
-        //public Task<IViewComponentResult> InvokeAsync()
-        //{
-        //    var jsonString = CacheDictionary.GetOrAdd(CultureInfo.CurrentUICulture, _ => ParseJsResource());
-        //    return Task.FromResult<IViewComponentResult>(View("Default", jsonString));
-        //}
-
         private static Dictionary<string, string> ParseJsResource(string location)
         {
             var assembly = Assembly.GetExecutingAssembly();
