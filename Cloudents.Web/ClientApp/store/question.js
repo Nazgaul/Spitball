@@ -123,7 +123,7 @@ const actions = {
             commit('updateAnswerVotes', data);
         }, (err) => {
             let errorObj = {
-                toasterText:err.message,
+                toasterText:err.response.data.Id[0],
                 showToaster: true,
             }
             dispatch('updateToasterParams', errorObj);

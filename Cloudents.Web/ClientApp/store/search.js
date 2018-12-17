@@ -387,7 +387,7 @@ const actions = {
             dispatch('profileVote', data);
         }, (err) => {
             let errorObj = {
-                toasterText:err.message,
+                toasterText:err.response.data.Id[0],
                 showToaster: true,
             }
             dispatch('updateToasterParams', errorObj);
@@ -399,7 +399,7 @@ const actions = {
             dispatch('profileVote', data);
         }, (err) => {
             let errorObj = {
-                toasterText:err.message,
+                toasterText:err.response.data.Id[0],
                 showToaster: true,
             }
             dispatch('updateToasterParams', errorObj);
