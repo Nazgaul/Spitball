@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cloudents.Common.Attributes;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum.Resources;
 

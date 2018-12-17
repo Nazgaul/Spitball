@@ -1,11 +1,13 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Command;
+using Cloudents.Core.CommandHandler;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Domain.Entities;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Infrastructure.Database.Repositories;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Search;
@@ -21,6 +23,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -28,8 +31,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using DocumentType = Cloudents.Common.Enum.DocumentType;
-using Cloudents.Core.CommandHandler;
-using Cloudents.Infrastructure.Database.Repositories;
 
 namespace ConsoleApp
 {
@@ -98,7 +99,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await ReduDocument();
+            await ReCopyTransferFiles();
 
             //var bus = _container.Resolve<ICommandBus>();
             //var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
@@ -142,7 +143,7 @@ namespace ConsoleApp
                 foreach (var itemId in itemIds)
                 {
                     var msg = new CloudQueueMessage(itemId.ToString());
-                    t.Add( queue.AddMessageAsync(msg));
+                    t.Add(queue.AddMessageAsync(msg));
                     i = itemId;
                 }
 
@@ -383,14 +384,6 @@ where left(blobName ,4) != 'file'");
         }
 
 
-
-
-        static IEnumerable<CultureInfo> FindCandidateCultures(RegionInfo region)
-        {
-            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-                .Where(x => (new RegionInfo(x.Name)).GeoId == region.GeoId);
-        }
-
         private static async Task HadarMethod()
         {
             await MigrateDelta();
@@ -568,11 +561,7 @@ where left(blobName ,4) != 'file'");
             //}
         }
 
-        private static string TTTT(string input, IEnumerable<string> BAD_WORDS)
-        {
-            return string.Join(" ",
-                input.Split(' ').Select(w => BAD_WORDS.Contains(w) ? "" : w));
-        }
+
         public static Task SendMoneyAsync()
         {
             var t = _container.Resolve<IBlockChainErc20Service>();
@@ -770,6 +759,60 @@ where left(blobName ,4) != 'file'");
             } while (true);
         }
 
+
+        public static async Task ReCopyTransferFiles()
+        {
+            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+            var storageAccount = CloudStorageAccount.Parse(keyNew);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("spitball-files");
+
+            var baseDirectory = container.GetDirectoryReference("files");
+            //var blob = _container.Resolve<IBlobProvider<Document>>();
+            var v = _container.Resolve<IStatelessSession>();
+            var oldIds = 0L;
+            var cont = false;
+            do
+            {
+                cont = false;
+                var result = await v.Query<Document>()
+                    .Where(w => w.Id > oldIds && w.OldId != null)
+
+                    .Take(100).Select(s => new
+                    {
+                        s.Id,
+                        s.OldId
+                    }).OrderBy(o => o.Id).ToListAsync();
+
+                foreach (var item in result)
+                {
+                    cont = true;
+                    oldIds = item.Id;
+
+                    var dir = baseDirectory.GetDirectoryReference(item.Id.ToString());
+                    var blobs = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
+                        1, null, null, null, token).ConfigureAwait(false);
+                    if (blobs.Results.Any())
+                    {
+                        continue;
+                    }
+
+                    var sqlQuery = v.CreateSQLQuery("select BlobName from zbox.item where itemid = :id");
+                    sqlQuery.SetInt64("id", item.OldId.Value);
+                    var blobName = sqlQuery.UniqueResult<string>();
+                    var newBlobName = await CopyBlobFromOldContainerAsync(blobName, item.Id);
+
+                    var newBlob = dir.GetBlockBlobReference(newBlobName);
+                    var pendingBlob = baseDirectory.GetBlockBlobReference(newBlobName);
+                    await newBlob.StartCopyAsync(pendingBlob);
+                    Console.WriteLine(item.Id);
+                }
+            } while (cont);
+
+
+
+        }
+
         public static async Task TransferDocuments()
         {
             var d = _container.Resolve<DapperRepository>();
@@ -789,7 +832,7 @@ where left(blobName ,4) != 'file'");
 
             //CloudBlobContainer directoryToPutFiles = container.Get .GetDirectoryReference("./files");
 
-            Dictionary<int, DocumentType> DocType = new Dictionary<int, DocumentType>
+            Dictionary<int, DocumentType> docType = new Dictionary<int, DocumentType>
             {
                 { 1, DocumentType.Exam },
                 { 2, DocumentType.Exam },
@@ -803,14 +846,14 @@ where left(blobName ,4) != 'file'");
             string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "pptx", "jpg", "png", "gif", "jpeg", "bmp" };
 
             var cacheUsers = new ConcurrentDictionary<string, long?>();
-            List<dynamic> z = new List<dynamic>();
-            List<long> itemsAlreadyProcessed = new List<long>();
+            List<dynamic> z;
+            long itemId = 631767;
             do
             {
                 z = await d.WithConnectionAsync(async f =>
                 {
                     return (await f.QueryAsync(
-                        @"select top 10 I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName, ZUNI.Country,  B.ProfessorName, 
+                        @" select top 10 I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName, ZUNI.Country,  B.ProfessorName, 
 ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views], I.CreationTime,
 			            STRING_AGG((T.Name), ',') as Tags
                         FROM [Zbox].[Item] I
@@ -818,19 +861,20 @@ ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views]
 	                        on I.BoxId = B.BoxId and b.discriminator in (2,3)
                         join Zbox.Users ZU
 	                        on I.UserId = ZU.UserId
-                       join Zbox.University ZUNI on zu.UniversityId = ZUNI.Id
+                        join Zbox.University ZUNI on B.University = ZUNI.Id
 						left join zbox.ItemTag IT
 							on IT.ItemId = I.ItemId
 						left join zbox.Tag T
 							on IT.TagId = T.Id and len(T.Name) >= 4
                         where I.Discriminator = 'File'
+						and i.itemid > @itemId
 	                        and I.IsDeleted = 0 
 							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
-and I.ItemId not in @ItemsAlreadyProcessed
 							and SUBSTRING (I.Name,CHARINDEX ('.',I.Name), 5) in ('.doc', '.docx', '.xls', '.xlsx', '.PDF', '.png', '.jpg', '.ppt', '.pptx', '.jpg', '.png', '.gif', '.jpeg', '.bmp' )
                         group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
 						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
-                ", new { ItemsAlreadyProcessed = itemsAlreadyProcessed })).ToList();
+						 order by i.itemid
+                ", new { itemId = itemId })).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -848,7 +892,8 @@ and I.ItemId not in @ItemsAlreadyProcessed
 
                     foreach (var pair in z)
                     {
-                        Console.WriteLine($"processing {pair.ItemId}");
+                        itemId = pair.ItemId;
+                        Console.WriteLine($"processing {itemId}");
 
                         string[] blobName = pair.BlobName.Split('.');
                         if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
@@ -856,7 +901,7 @@ and I.ItemId not in @ItemsAlreadyProcessed
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine($"{pair.ItemId} not blob support");
                             Console.ResetColor();
-                            itemsAlreadyProcessed.Add(pair.ItemId);
+                            //itemsAlreadyProcessed.Add(pair.ItemId);
                             continue;
                         }
 
@@ -869,9 +914,8 @@ and I.ItemId not in @ItemsAlreadyProcessed
                         });
                         if (userId == null)
                         {
-                            itemsAlreadyProcessed.Add(pair.ItemId);
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"{pair.ItemId} doesn't have userid to assign");
+                            Console.WriteLine($"{pair.ItemId} doesn't have userid to assign country {country}");
                             Console.ResetColor();
                             continue;
                         }
@@ -879,26 +923,14 @@ and I.ItemId not in @ItemsAlreadyProcessed
                         Guid? uniId = GetUniversityId(pair.UniversityName, country);
                         if (uniId == null)
                         {
-                            itemsAlreadyProcessed.Add(pair.ItemId);
+
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine($"{pair.ItemId} doesn't have uniId to assign");
                             Console.ResetColor();
                             continue;
                         }
 
-                        CloudBlockBlob blobDestination =
-                            container.GetBlockBlobReference($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}");
-
-                        var sharedAccessUri = GetShareAccessUri(pair.BlobName, 360, oldContainer);
-                        var blobUri = new Uri(sharedAccessUri);
-
-                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
-                        while (blobDestination.CopyState.Status != CopyStatus.Success)
-                        {
-                            Console.WriteLine(blobDestination.CopyState.Status);
-                            await Task.Delay(TimeSpan.FromSeconds(1));
-                            await blobDestination.ExistsAsync();
-                        }
+                        var newBlobName = await CopyBlobFromOldContainerAsync(pair.BlobName, itemId);
 
 
                         string[] words = null;
@@ -908,9 +940,9 @@ and I.ItemId not in @ItemsAlreadyProcessed
                         }
                         DocumentType type = DocumentType.None;
 
-                        if (DocType.ContainsKey(pair.DocType))
+                        if (docType.ContainsKey(pair.DocType))
                         {
-                            DocType.TryGetValue(pair.DocType, out type);
+                            docType.TryGetValue(pair.DocType, out type);
                         }
 
                         string courseName = pair.BoxName;
@@ -920,15 +952,17 @@ and I.ItemId not in @ItemsAlreadyProcessed
                         }
 
 
-
-                        CreateDocumentCommand command = CreateDocumentCommand.DbiOnly($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
-                            pair.Name,
-                            type, courseName, words, userId.Value, pair.ProfessorName, uniId.Value);
+                        string itemName = pair.Name;
+                        CreateDocumentCommand command =
+                            CreateDocumentCommand.DbiOnly(newBlobName,
+                            itemName.Truncate(150),
+                            type, courseName, words?.Where(Tag.ValidateTag),
+                            userId.Value, pair.ProfessorName, uniId.Value);
 
                         await commandBus.DispatchAsync(command, default);
 
                         int views = pair.Views;
-                        long? itemId = pair.ItemId;
+                        itemId = pair.ItemId;
                         DateTime updateTime = pair.CreationTime;
 
                         var doc = session.Query<Document>().Where(w => w.Id == command.Id)
@@ -937,13 +971,46 @@ and I.ItemId not in @ItemsAlreadyProcessed
                             .Set(x => x.OldId, x => itemId)
                             .Set(x => x.TimeStamp.UpdateTime, x => updateTime)
                             .Update();
-
+                        await Task.Delay(TimeSpan.FromSeconds(0.5));
                     }
 
                 }
             } while (z.Count > 0);
 
             //await TransferDocumants();
+        }
+
+        private static async Task<string> CopyBlobFromOldContainerAsync(string blobName, long itemId)
+        {
+            var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+            var oldBlobClient = productionOldStorageAccount.CreateCloudBlobClient();
+            var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");
+
+
+
+            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+            var storageAccount = CloudStorageAccount.Parse(keyNew);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+
+
+            var container = blobClient.GetContainerReference("spitball-files");
+            var filesBaseDir = container.GetDirectoryReference("files");
+            CloudBlockBlob blobDestination =
+                filesBaseDir.GetBlockBlobReference($"file-{Path.GetFileNameWithoutExtension(blobName)}-{itemId}.{Path.GetExtension(blobName).TrimStart('.')}");
+
+            var sharedAccessUri = GetShareAccessUri(blobName, 360, oldContainer);
+            var blobUri = new Uri(sharedAccessUri);
+
+            await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+            while (blobDestination.CopyState.Status != CopyStatus.Success)
+            {
+                Console.WriteLine(blobDestination.CopyState.Status);
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                await blobDestination.ExistsAsync();
+            }
+
+            return blobDestination.Uri.Segments.Last();
         }
 
         private static long? GetUserId(string email, string country)
@@ -1067,8 +1134,8 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
             await TransferUsers();
             await TransferUniversities();
             //await TransferDocuments();
-           
-            
+
+
             //populate courses tags
             await sessin.CreateSQLQuery(@"insert into sb.Course(Name,Count)
                                     select distinct BoxName,0 from zbox.box
@@ -1089,8 +1156,8 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                                     select DISTINCT [Name], 0 
                                     from Zbox.Tag
                                     where len(Name) >= 4
-                                    and [Name] not in (select [Name] from sb.Tag)").ExecuteUpdateAsync(); 
-           
+                                    and [Name] not in (select [Name] from sb.Tag)").ExecuteUpdateAsync();
+
             await MigrateUniversity();
             //update country to user
             await sessin.CreateSQLQuery(@"update sb.[user]
