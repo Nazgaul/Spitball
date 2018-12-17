@@ -235,7 +235,7 @@ export default {
             this.goBackStep()
         };
         //v8Fix -var self = this and use self. this way we mimify the code
-
+        debugger;
         //event liseners for all steps
         this.$on('changeStep', (stepName) => {
             this.changeStepNumber(stepName);

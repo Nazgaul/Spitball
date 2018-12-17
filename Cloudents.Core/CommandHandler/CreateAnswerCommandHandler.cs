@@ -77,7 +77,7 @@ namespace Cloudents.Core.CommandHandler
             var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
             var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
             if (question.Answers != null)
-                foreach (var answer in question.Answers.Where(w=>w.Item.State == ItemState.Ok))
+                foreach (var answer in question.Answers)
                 {
                     if (answer.User.Id == user.Id)
                     {

@@ -6,10 +6,10 @@ namespace Cloudents.Core.Enum
 {
     public enum TutorRequestFilter
     {
-        [ResourceDescription(typeof(EnumResources), "TutorFilterOnline")]
+        [ResourceDescription(typeof(EnumResourcesOld), "TutorFilterOnline")]
 
         Online,
-        [ResourceDescription(typeof(EnumResources), "TutorFilterInPerson")]
+        [ResourceDescription(typeof(EnumResourcesOld), "TutorFilterInPerson")]
 
         InPerson
     }

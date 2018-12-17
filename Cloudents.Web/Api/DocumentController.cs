@@ -75,6 +75,13 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
+
+            if (!filesTask.Result.Any())
+            {
+
+                //var queue = queueClient.GetQueueReference("generate-blob-preview");
+                //await queue.AddMessageAsync(new CloudQueueMessage(item.Id.ToString()));
+            }
             return new DocumentPreviewResponse(model, files);
         }
 
