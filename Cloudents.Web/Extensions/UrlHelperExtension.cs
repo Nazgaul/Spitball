@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Specialized;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections;
+using System.Collections.Specialized;
 using IPaging = Cloudents.Web.Models.IPaging;
 
 namespace Cloudents.Web.Extensions
@@ -95,10 +95,10 @@ namespace Cloudents.Web.Extensions
         {
             return helper.RouteUrl(SeoTypeString.Document, new
             {
-                universityName = university,//.Replace("+", string.Empty),
+                universityName = university.Replace("+", "-"),//.Replace("+", string.Empty),
                 courseName = course, //.Replace("+", string.Empty),
                 id,
-                name//.Replace("+", string.Empty)
+                name = name.Replace("+", "-")//.Replace("+", string.Empty)
             });
         }
     }

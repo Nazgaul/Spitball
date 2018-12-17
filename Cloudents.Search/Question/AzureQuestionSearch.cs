@@ -39,14 +39,20 @@ namespace Cloudents.Search.Question
                 var filterStr = string.Join(" or ", query.Source.Select(s =>
                     $"{nameof(Entities.Question.Subject)} eq {(int)s}"));
 
-                filters.Add($"({filterStr})");
+                if (!string.IsNullOrEmpty(filterStr))
+                {
+                    filters.Add($"({filterStr})");
+                }
             }
 
             if (query.Filters != null)
             {
                 var filterStr = string.Join(" or ", query.Filters.Select(s =>
                      $"{nameof(Entities.Question.State)} eq {(int)s}"));
-                filters.Add($"({filterStr})");
+                if (!string.IsNullOrEmpty(filterStr))
+                {
+                    filters.Add($"({filterStr})");
+                }
             }
             var searchParameter = new SearchParameters
             {

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using Cloudents.Common.Enum;
-using Cloudents.Domain.Enums;
-using Cloudents.Domain.Interfaces;
 
 namespace Cloudents.Domain.Entities
 {
@@ -72,10 +69,5 @@ namespace Cloudents.Domain.Entities
 
 
         public virtual string MetaContent { get; set; }
-
-        public virtual ItemComponent Item { get; set; }
-
-        //public virtual CultureInfo Language { get; set; }
-
     }
 }

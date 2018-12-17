@@ -76,8 +76,9 @@ namespace Cloudents.Infrastructure.Database.Query
             }
             var answerResult = await answersFuture.GetEnumerableAsync(token);
 
+
             dto.Answers = answerResult.OrderByDescending(x => x.Id == dto.CorrectAnswerId)
-                .ThenByDescending(x => x.Vote.Votes).ThenBy(x => x.Id);
+                .ThenByDescending(x => x.Vote.Votes).ThenBy(x => x.Create);
 
             return dto;
         }

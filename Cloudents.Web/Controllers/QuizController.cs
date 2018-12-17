@@ -1,4 +1,5 @@
-﻿using Cloudents.Web.Extensions;
+﻿using System;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
@@ -9,7 +10,16 @@ namespace Cloudents.Web.Controllers
         [Route("quiz/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}")]
         public IActionResult Index()
         {
-            return this.RedirectToOldSite();
+            var path = HttpContext.Request.Path.Value.TrimEnd('/');
+            var uriBuilder = new UriBuilder
+            {
+                Scheme = "https",
+                Host = "heb.spitball.co",
+                Path = path + "/",
+                Query = HttpContext.Request.QueryString.Value
+            };
+            return Redirect(uriBuilder.ToString());
+            // return this.RedirectToOldSite();
         }
     }
 }

@@ -17,7 +17,7 @@
     <ProjectReference Include="..\Cloudents.Domain\Cloudents.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Enum\Resources\EnumResources.resx">
+    <EmbeddedResource Update="Enum\Resources\EnumResourcesOld.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Enum\Resources\QuestionSubjectResources.resx">

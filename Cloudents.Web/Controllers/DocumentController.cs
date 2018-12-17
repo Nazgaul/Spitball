@@ -47,15 +47,15 @@ namespace Cloudents.Web.Controllers
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
         public IActionResult OldDocumentLinkRedirect(string universityName, string boxName, long id, string name)
         {
-            return this.RedirectToOldSite();
+            //return this.RedirectToOldSite();
             //TODO: we need to put Permanent
-            //return RedirectToAction("Index", new
-            //{
-            //    universityName,
-            //    boxId = boxName,
-            //    id,
-            //    name
-            //});
+            return RedirectToAction("Index", new
+            {
+                universityName,
+                courseName = boxName,
+                id,
+                name
+            });
         }
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}", Name = SeoTypeString.Document)]

@@ -27,7 +27,7 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
         {
-            var answer = await _repository.GetAsync(message.Id, token).ConfigureAwait(false); //no point in load since next line will do query
+            var answer = await _repository.GetAsync(message.Id, token); //no point in load since next line will do query
             if (answer == null)
             {
                 throw new ArgumentException("answer doesn't exits");
@@ -39,8 +39,6 @@ namespace Cloudents.Core.CommandHandler
 
             }
 
-
-
             if (answer.User.Id != message.UserId)
             {
                 throw new InvalidOperationException("user is not the one who wrote the answer");
@@ -50,11 +48,11 @@ namespace Cloudents.Core.CommandHandler
                 throw new ArgumentException("this is answer is correct answer");
             }
             answer.Question.AnswerCount--;
-            await _questionRepository.UpdateAsync(answer.Question, token);
+           // await _questionRepository.UpdateAsync(answer.Question, token);
 
             _eventStore.Add(new AnswerDeletedEvent(answer));
             
-            await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
+            await _repository.DeleteAsync(answer, token);
         }
     }
 }
