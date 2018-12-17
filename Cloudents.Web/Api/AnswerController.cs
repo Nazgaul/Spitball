@@ -128,9 +128,17 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> FlagAsync([FromBody] FlagAnswerRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new FlagAnswerCommand(userId, model.Id, model.FlagReason);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var command = new FlagAnswerCommand(userId, model.Id, model.FlagReason);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch(NoEnoughScoreException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
+                return BadRequest(ModelState);
+            }
         }
     }
 }
