@@ -41,7 +41,7 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
-            var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
+            //var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
 
             //if (oldQuestion?.Created.AddSeconds(20) > DateTime.UtcNow)
             //{
