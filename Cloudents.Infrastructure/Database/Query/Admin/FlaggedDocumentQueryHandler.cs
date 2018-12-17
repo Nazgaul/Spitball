@@ -17,7 +17,7 @@ using Cloudents.Domain.Enums;
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    class FlaggedDocumentQueryHandler : IQueryHandler<AdminEmptyQuery, IList<FlaggedDocumentDto>>
+    internal class FlaggedDocumentQueryHandler : IQueryHandler<AdminEmptyQuery, IList<FlaggedDocumentDto>>
     {
         private readonly IStatelessSession _session;
 
@@ -35,7 +35,8 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 .Take(100)
                 .Select(s => new FlaggedDocumentDto
                 {
-                    Id = s.Id
+                    Id = s.Id,
+                    FlaggedUserId = s.Item.FlaggedUser.Id
                 }).ToListAsync(token);
         }
     }

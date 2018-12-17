@@ -59,10 +59,10 @@
                 :value="true"
                 color="#3f51b5"
         >
-            <v-btn class="bottom-nav-btn" dark  value="refresh" @click="getDocumentsList()">
+            <!-- <v-btn class="bottom-nav-btn" dark  value="refresh" @click="getDocumentsList()">
                 <span class="btn-text">Get another 20</span>
                 <v-icon>refresh</v-icon>
-            </v-btn>
+            </v-btn> -->
             <v-btn class="bottom-nav-btn" dark value="approve" @click="approveDocuments()">
             <span class="btn-text">Approve All</span>
             <v-icon>check</v-icon>

@@ -8,10 +8,11 @@
 
 <script>
 import reputationService from '../../../services/reputationService.js'
+import { LanguageService } from '../../../services/language/languageService.js'
 export default {
     data(){
         return {
-            rankNames: ['Beginner', 'Professional', 'World Class', 'Spitballer']
+            rankNames: [LanguageService.getValueByKey('userRank_begginer'), LanguageService.getValueByKey('userRank_professional'), LanguageService.getValueByKey('userRank_worldClass'), LanguageService.getValueByKey('userRank_spitballer')]
         }
     },
     props:{
@@ -34,7 +35,7 @@ export default {
 @import "../../../styles/mixin.less";
     .rank-container{
             width: 75px;
-            margin-top: 10px;
+            margin-top: 8px;
             font-family: @fontFiraSans;
             font-size: 12px;
             font-weight: normal;

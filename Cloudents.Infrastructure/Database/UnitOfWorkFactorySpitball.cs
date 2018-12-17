@@ -16,6 +16,7 @@ using NHibernate.Persister.Entity;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 using Cloudents.Domain.Interfaces;
 
@@ -123,9 +124,8 @@ namespace Cloudents.Infrastructure.Database
         {
             if (entity is ISoftDelete deletable)
             {
-                deletable.Item.State = ItemState.Deleted;
-                deletable.Item.DeletedOn = DateTime.UtcNow;
-                
+                DeleteItem(deletable);
+
 
                 CascadeBeforeDelete(session, persister, deletable, entityEntry, transientEntities);
                 CascadeAfterDelete(session, persister, deletable, transientEntities);
@@ -142,9 +142,7 @@ namespace Cloudents.Infrastructure.Database
         {
             if (entity is ISoftDelete deletable)
             {
-                //deletable.DeleteAssociation();
-                deletable.Item.State = ItemState.Deleted;
-                deletable.Item.DeletedOn = DateTime.UtcNow;
+                DeleteItem(deletable);
 
 
                 await CascadeBeforeDeleteAsync(session, persister, deletable, entityEntry, transientEntities, cancellationToken);
@@ -157,6 +155,11 @@ namespace Cloudents.Infrastructure.Database
             }
         }
 
-
+        private static void DeleteItem(ISoftDelete deletable)
+        {
+            deletable.Item = deletable.Item ?? new ItemComponent();
+            deletable.Item.State = ItemState.Deleted;
+            deletable.Item.DeletedOn = DateTime.UtcNow;
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 QuestionMap.ItemComponentPartialMapping(t);
                 t.HasMany(x => x.Votes).KeyColumns.Add("DocumentId")
                     .Inverse().Cascade.AllDeleteOrphan();
+                t.References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("DocumentFlagged_User");
             });
             References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");

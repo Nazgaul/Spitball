@@ -5,9 +5,9 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Item.Commands.FlagItem;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
-using Cloudents.Core.Questions.Commands.FlagQuestion;
 using Cloudents.Core.Votes.Commands.AddVoteQuestion;
 using Cloudents.Domain.Entities;
 using Cloudents.Web.Binders;
@@ -91,12 +91,12 @@ namespace Cloudents.Web.Api
 
         }
 
-        [HttpGet("subject")]
+        [HttpGet("subject"), AllowAnonymous]
         [ResponseCache(Duration = TimeConst.Day, VaryByQueryKeys = new[] { "*" })]
         public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
         {
             var values = QuestionSubjectMethod.GetValues();
-            return values.Select(s => new QuestionSubjectResponse((int)s, s.GetEnumLocalization()));
+            return values.Select(s => new QuestionSubjectResponse(s.ToString("G"), s.GetEnumLocalization()));
         }
 
         [HttpPut("correct")]

@@ -51,7 +51,7 @@
                         </div>
                         <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">{{emptyStateData.btnText}}</router-link>
                     </div>
-                    <div class="empty-state doc-empty-state" v-if="activeTab === 3 && profileData.documents.length">
+                    <div class="empty-state doc-empty-state" v-if="activeTab === 3 && !profileData.documents.length">
                         <div class="text-block">
                             <p v-html="emptyStateData.text"></p>
                             <b>{{emptyStateData.boldText}}</b>
@@ -76,7 +76,7 @@
                     <scroll-list v-show="activeTab === 3" :scrollFunc="loadDocuments" :isLoading="documents.isLoading" :isComplete="documents.isComplete">
                         <router-link :to="{name:'document',params:{id:document.id}}" v-for="(document ,index) in profileData.documents"
                                      :key="index" class="mb-3">
-                            <result-note :item="document" class="mb-3"></result-note>
+                            <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>
                         </router-link>
                     </scroll-list>
                 </v-flex>

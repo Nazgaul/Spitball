@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Domain.Enums;
+using Cloudents.Domain.Interfaces;
 
 namespace Cloudents.Domain.Entities
 {
@@ -33,10 +34,17 @@ namespace Cloudents.Domain.Entities
         public virtual ItemState State { get; set; }
         public virtual DateTime? DeletedOn { get; set; }
         public virtual string FlagReason { get; set; }
-        public virtual long FlaggedUserId { get; set; }
+        public virtual User FlaggedUser { get; set; }
 
         public virtual ICollection<Vote> Votes { get; protected set; }
 
         public virtual int VoteCount { get; set; }
+    }
+
+    public abstract class ItemObject : ISoftDelete
+    {
+        public virtual ItemComponent Item { get; set; }
+        //public virtual User User { get; set; }
+
     }
 }

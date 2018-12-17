@@ -106,7 +106,11 @@ namespace Cloudents.Core.EventHandler
                 Files = null,
                 Id = eventMessage.Answer.Id,
                 User = user,
-                Text = eventMessage.Answer.Text
+                Text = eventMessage.Answer.Text,
+                Vote = new VoteDto
+                {
+                    Votes = 0
+                }
             };
             var dto = new
             {

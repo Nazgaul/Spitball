@@ -10,7 +10,7 @@ namespace Cloudents.Domain.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
 
-    public class Document :  ISoftDelete
+    public class Document :  ItemObject
     {
         public Document(string name,
             University university,

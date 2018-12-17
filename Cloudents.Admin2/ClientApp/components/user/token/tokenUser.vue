@@ -30,7 +30,7 @@ export default {
             userId: null,
             tokens: null,
             tokenType: 'Earned',
-            types: ['Earned', 'Awarded'],
+            types: ['Earned'],
 
         }
     },

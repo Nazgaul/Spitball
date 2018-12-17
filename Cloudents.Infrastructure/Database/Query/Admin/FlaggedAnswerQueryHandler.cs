@@ -17,13 +17,13 @@ using Cloudents.Domain.Enums;
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    class FlagedAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<FlaggedAnswerDto>>
+    class FlaggedAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<FlaggedAnswerDto>>
     {
 
         private readonly IStatelessSession _session;
 
 
-        public FlagedAnswerQueryHandler(QuerySession session)
+        public FlaggedAnswerQueryHandler(QuerySession session)
         {
             _session = session.StatelessSession;
         }
@@ -32,13 +32,14 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         {
             return await _session.Query<Answer>()
                 .Fetch(f => f.User)
-                .Where(w => w.User is RegularUser && w.Item.State == ItemState.Flagged)
+                .Where(w => w.Item.State == ItemState.Flagged)
                 .Select(s => new FlaggedAnswerDto
                 {
                     Id = s.Id,
                     Text = s.Text,
                     Email = s.User.Email,
-                    UserId = s.User.Id
+                    UserId = s.User.Id,
+                    FlaggedUserId = s.Item.FlaggedUser.Id
                 }).OrderBy(o => o.Id).ToListAsync(token);
         }
     }
