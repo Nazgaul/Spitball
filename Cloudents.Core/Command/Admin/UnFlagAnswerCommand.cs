@@ -9,14 +9,9 @@ namespace Cloudents.Core.Command.Admin
     {
         public UnFlagAnswerCommand(Guid answerId)
         {
-            AnswerIds = new[] { answerId };
+            AnswerId =  answerId;
         }
-
-        public UnFlagAnswerCommand(IEnumerable<Guid> answerIds)
-        {
-            AnswerIds = answerIds;
-        }
-
-        public IEnumerable<Guid> AnswerIds { get; }
+        
+        public Guid AnswerId { get; }
     }
 }

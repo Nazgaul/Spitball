@@ -21,15 +21,13 @@ namespace Cloudents.Core.CommandHandler.Admin
         }
         public async Task ExecuteAsync(UnFlagDocumentCommand message, CancellationToken token)
         {
-            foreach (var documentId in message.DocumentIds)
-            {
-                var document = await _documentRepository.LoadAsync(documentId, token);
+          
+                var document = await _documentRepository.LoadAsync(message.DocumentId, token);
                 document.Item.State = ItemState.Ok;
                 document.Item.FlagReason = null;
                 document.Item.Votes.Clear();
 
                 await _documentRepository.UpdateAsync(document, token);
-            }
 
         }
     }
