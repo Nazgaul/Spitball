@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Database
 
         private static void DeleteItem(ISoftDelete deletable)
         {
-            deletable.Item = deletable.Item ?? new ItemComponent();
+            deletable.Item = deletable.Item;
             deletable.Item.State = ItemState.Deleted;
             deletable.Item.DeletedOn = DateTime.UtcNow;
         }
