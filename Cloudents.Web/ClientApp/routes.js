@@ -2,6 +2,7 @@ import * as RouteTypes from "./routeTypes";
 
 import resultContent from './components/results/Result.vue';
 import pageHeader from './components/header/header.vue';
+// import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
 import {
     staticRoutes
@@ -71,7 +72,7 @@ let routes2 = [
         name: "main",
         components: {
             default: landingPage,
-            header: pageHeader
+
         },
     },
     {

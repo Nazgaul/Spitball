@@ -122,6 +122,7 @@
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
+                justify-content: center;
             }
             &.social-card{
                 display: flex;
@@ -133,6 +134,10 @@
                 border-bottom: 1px solid #979797;;
                 .social-link{
                     width: 50px;
+                    margin-right: 46px;
+                    @media(max-width: @screen-xs){
+                        margin-right: 8px;
+                    }
                    i{
                        color: @color-white;
                        font-size: 22px;
@@ -142,11 +147,14 @@
         }
         .footer-links {
             display: flex;
-            flex-basis: 50%;
+            flex-basis: 36%;
             align-items: center;
             justify-content: center;
             padding: 16px;
             a{
+                display: inline-block;
+                text-align: left;
+                width: 50%;
                 font-size: 13px;
                 color: @footerLinksColor;
                 text-decoration: none;

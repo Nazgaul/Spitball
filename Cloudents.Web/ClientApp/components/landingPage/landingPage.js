@@ -1,7 +1,9 @@
 import statistics from './helpers/statisticsData.vue';
-import landingFooter from './helpers/landingFooter.vue'
+import landingFooter from './helpers/landingFooter.vue';
+import landingHeader from './helpers/landingHeader.vue';
+
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
-import questionService from "../../services/questionService";
+import sbInput from "../question/helpers/sbInput/sbInput.vue"
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
 import { LanguageService } from "../../services/language/languageService";
@@ -13,6 +15,8 @@ export default {
         statistics,
         landingFooter,
         sbDialog,
+        sbInput,
+        landingHeader
 
     },
     data() {
@@ -41,6 +45,8 @@ export default {
             playerHeight: '',
             universityModel: '',
             searchUni: '',
+            mobileSubjectsDialog: false,
+            mobileUniDialog: false
         }
     },
     props: {
@@ -154,12 +160,23 @@ export default {
             this.selectedSubject = val;
         },
         goToResulstQuestionsPage(val) {
-            this.$router.push({path: 'ask', query: {"source": val.id}});
+            this.$router.push({path: 'ask', query: {Source: val.id}});
         },
         goToResultDocumentsPage(val) {
             this.$router.push({name: 'note', query: val});
+        },
+        showMobileSubjectInput(){
+            this.mobileSubjectsDialog = true
+        },
+        showMobileUniInput(){
+            this.mobileUniDialog = true
+        },
+        closeSubjectInputDialog(){
+            this.mobileSubjectsDialog = false
+        },
+        closeUniInputDialog(){
+            this.mobileUniDialog = false
         }
-
     },
     created() {
         this.getAllSubjects()
