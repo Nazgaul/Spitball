@@ -36,13 +36,14 @@ export default {
     }
 
     #nav {
+        position: fixed;
+        height: 100%;
         padding: 2px;
         flex-grow: 1;
         border-right: 2px solid #7c7979;
         width: 200px;
         max-width: 200px;
         min-width: 200px;
-        position: sticky;
         top: 0;
         border-radius: 25px;
     a {
