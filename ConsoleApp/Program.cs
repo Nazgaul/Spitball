@@ -768,6 +768,7 @@ where left(blobName ,4) != 'file'");
             var container = blobClient.GetContainerReference("spitball-files");
 
             var baseDirectory = container.GetDirectoryReference("files");
+            var queueClient = storageAccount.CreateCloudQueueClient();
             //var blob = _container.Resolve<IBlobProvider<Document>>();
             var v = _container.Resolve<IStatelessSession>();
             var oldIds = 0L;
@@ -791,21 +792,29 @@ where left(blobName ,4) != 'file'");
 
                     var dir = baseDirectory.GetDirectoryReference(item.Id.ToString());
                     var blobs = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
-                        1, null, null, null, token).ConfigureAwait(false);
-                    if (blobs.Results.Any())
+                        2, null, null, null, token).ConfigureAwait(false);
+                    if (blobs.Results.Count() == 0)
                     {
-                        continue;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("processing " + item.Id);
+                        Console.ResetColor();
+                        var sqlQuery = v.CreateSQLQuery("select BlobName from zbox.item where itemid = :id");
+                        sqlQuery.SetInt64("id", item.OldId.Value);
+                        var blobName = sqlQuery.UniqueResult<string>();
+                        var newBlobName = await CopyBlobFromOldContainerAsync(blobName, item.Id);
+
+                        var newBlob = dir.GetBlockBlobReference(newBlobName);
+                        var pendingBlob = baseDirectory.GetBlockBlobReference(newBlobName);
+                        await newBlob.StartCopyAsync(pendingBlob);
                     }
-
-                    var sqlQuery = v.CreateSQLQuery("select BlobName from zbox.item where itemid = :id");
-                    sqlQuery.SetInt64("id", item.OldId.Value);
-                    var blobName = sqlQuery.UniqueResult<string>();
-                    var newBlobName = await CopyBlobFromOldContainerAsync(blobName, item.Id);
-
-                    var newBlob = dir.GetBlockBlobReference(newBlobName);
-                    var pendingBlob = baseDirectory.GetBlockBlobReference(newBlobName);
-                    await newBlob.StartCopyAsync(pendingBlob);
-                    Console.WriteLine(item.Id);
+                    if (blobs.Results.Count() == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("processing " + item.Id);
+                        Console.ResetColor();
+                        var queue = queueClient.GetQueueReference("generate-blob-preview");
+                        await queue.AddMessageAsync(new CloudQueueMessage(item.Id.ToString()));
+                    }
                 }
             } while (cont);
 
