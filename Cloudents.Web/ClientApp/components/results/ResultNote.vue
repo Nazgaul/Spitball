@@ -1,7 +1,7 @@
 <template>
     <a
             :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
-            @click="(isOurs ? $_spitball($event):'')"
+            @click.native="(isOurs ? $_spitball($event):'')"
             :href="url"
             :class="['d-block', 'note-block']">
         <v-container
@@ -32,7 +32,7 @@
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
-                                    <v-list-tile :disabled="!item.isDisabled" v-for="(item, i) in actions" :key="i">
+                                    <v-list-tile :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
                                 </v-list>
@@ -120,7 +120,7 @@
                     {
                         title: LanguageService.getValueByKey("questionCard_Report"),
                         action: this.reportItem,
-                        isDisabled: !this.cardOwner() && this.isCloudents()
+                        isDisabled: this.canReport
                     },
                 ],
                 itemId: 0,
@@ -218,6 +218,9 @@
             },
             isCloudents() {
                 return !!this.item.source ? this.item.source.toLowerCase().includes("cloudents") : "";
+            },
+            canReport(){
+                return this.cardOwner() && !this.isCloudents()
             },
             reportItem() {
                 this.itemId = this.item.id;
