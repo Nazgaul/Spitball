@@ -355,8 +355,10 @@
     <value>אתה מוכן ומזומן להתחיל להרוויח!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_text" xml:space="preserve">
-    <value>בנוסף, הענקנו לך 100  SBL
- (תוכל להשתמש בהן כדי לקבל עזרה עם שאלות שיש לך לגבי שיעורי הבית שלך)</value>
+    <value>!לשימוש מיידי בספיטבול SBL הענקנו לך נקודות
+השתמש בהם כדי לקבל עזרה עם שיעורי הבית שלך
+או ענה על שאלות של סטודנטים אחרים כדי להרוויח 
+GiftCards -שניתנים להמרה ל SBL עוד</value>
   </data>
   <data name="makeMoneyProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>צור סיסמה</value>
