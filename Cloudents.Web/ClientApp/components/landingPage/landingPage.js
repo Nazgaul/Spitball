@@ -25,7 +25,7 @@ export default {
             isFocused: false,
             selectedSubject: '',
             search: '',
-            items: [
+            reviewItems: [
                 {
                     src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
                 },
