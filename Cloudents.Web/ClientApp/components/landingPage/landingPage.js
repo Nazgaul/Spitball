@@ -148,14 +148,11 @@ export default {
         hideVideoPlayer() {
             this.playerVisible = false;
         },
-        updateSubject(val) {
-            this.selectedSubject = val;
-        },
         goToResulstQuestionsPage(val) {
-            this.$router.push({path: 'ask', query: {Source: val.id}});
+            this.$router.push({path: '/ask', query: {Source: val.id}});
         },
         goToResultDocumentsPage(val) {
-            this.$router.push({name: 'note', query: val});
+            this.$router.push({path: '/note', query: {term: val.text}});
         },
         showMobileSubjectInput() {
             this.mobileSubjectsDialog = true

@@ -71,9 +71,9 @@
                             </v-list-tile>
                         </template>
                         <template slot="item" slot-scope="{ index, item, parent }">
-                            <v-list-tile-content style="max-width:385px;">
+                            <v-list-tile-content style="max-width:385px;" @click="goToResulstQuestionsPage(item)">
                                 <span v-html="$options.filters.boldText(item, search)"
-                                      @click="goToResulstQuestionsPage(item)">{{ item }}</span>
+                                      >{{ item }}</span>
                             </v-list-tile-content>
                         </template>
                     </v-combobox>
@@ -132,7 +132,7 @@
                             </v-list-tile>
                         </template>
                         <template slot="item" slot-scope="{ index, item, parent }">
-                            <v-list-tile-content style="max-width:385px;">
+                            <v-list-tile-content style="max-width:385px;"  @click="goToResultDocumentsPage(item)">
                                 <span v-html="$options.filters.boldText(item.text, searchUni)">{{ item.text }}</span>
                             </v-list-tile-content>
                         </template>
@@ -179,7 +179,7 @@
         <!--dark-->
         <!--src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">-->
         <section class="reviews">
-            <h3 class="reviews-title">Students talk about Spitball</h3>
+            <h3 class="reviews-title" v-show="$vuetify.breakpoint.xsAndUp">Students talk about Spitball</h3>
             <div class="carousel-holder">
                 <v-carousel
                         height=""
@@ -191,7 +191,6 @@
                     <v-carousel-item v-for="(items,i) in formattedReviews"  :key="`desktop-${i}`" v-if="!$vuetify.breakpoint.xsOnly">
                         <template v-for="(data, index) in items">
                             <div :key="`innerData_${index}`" class="review-item-wrap">
-
                                 <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
                                 <span class="review-name">{{data.name}}</span>
                                 <span class="review-title">{{data.title}}</span>
@@ -220,7 +219,7 @@
             <v-layout row wrap v-bind="binding" class="layout-subject">
                 <v-flex v-for="subjectItem in subjectList" class="subject-item" :key="`${subjectItem.id}`" xs3>
                     <v-card class="subject-card">
-                        <v-card-text class="subject-text" @click="updateSubject(subjectItem)">
+                        <v-card-text class="subject-text" @click="goToResulstQuestionsPage(subjectItem)">
                             {{subjectItem.subject}}
                         </v-card-text>
                     </v-card>
@@ -321,7 +320,7 @@
                         </v-list-tile>
                     </template>
                     <template slot="item" slot-scope="{ index, item, parent }">
-                        <v-list-tile-content style="max-width:385px;">
+                        <v-list-tile-content style="max-width:385px;" @click="goToResultDocumentsPage(item)">
                             <span v-html="$options.filters.boldText(item.text, searchUni)">{{ item.text }}</span>
                         </v-list-tile-content>
 

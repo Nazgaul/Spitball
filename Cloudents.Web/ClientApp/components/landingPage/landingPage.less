@@ -5,7 +5,6 @@
 @ctaSblColor: #3d5afe;
 @introSubTitleColor: rgba(0, 0, 0, 0.71);
 
-
 .subjects-combo-pop, .uni-combo-pop {
   padding-top: 36px;
   position: relative;
@@ -100,7 +99,6 @@ section {
     padding: 80px 30px;
   }
 }
-
 
 /*----------------
  	Parralax Section
@@ -380,7 +378,7 @@ section {
     max-width: 576px;
     @media (max-width: @screen-xs) {
       padding: 36px 16px;
-  
+
     }
 
   }
@@ -496,9 +494,10 @@ section {
   padding: 50px 100px;
   background-image: url("./images/testimonials_BG.png");
   @media (max-width: @screen-xs) {
-      padding: 50px 12px;
+    padding: 50px 0px;
+    background-repeat: no-repeat;
+    background-size: 100% 110px;
   }
-
 
   .carousel-holder {
     width: 100%;
@@ -506,13 +505,21 @@ section {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    .v-carousel{
+    @media (max-width: @screen-xs) {
+      margin-top: -80px;
+    }
+
+    .v-carousel {
       box-shadow: none;
     }
-    .v-carousel__prev, .v-carousel__next{
+    .v-carousel__prev, .v-carousel__next {
       top: 10%;
+      @media (max-width: @screen-xs) {
+        top: 15%;
+
+      }
     }
-    .v-window__container{
+    .v-window__container {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -521,29 +528,29 @@ section {
         .v-responsive__content {
           display: flex;
           flex-direction: row;
-          .review-item-wrap{
+          .review-item-wrap {
             display: flex;
             flex-direction: column;
-            width:100%;
+            width: 100%;
             max-width: 306px;
             position: relative;
             align-items: center;
-            &:first-child{
+            &:first-child {
               margin-right: 120px;
             }
-            @media(max-width: @screen-xs){
-              &:first-child{
+            @media (max-width: @screen-xs) {
+              &:first-child {
                 margin-right: unset;
               }
             }
-            .review-image{
+            .review-image {
               //TODO temp images are not sized properly
               min-width: 306px;
               max-height: 180px;
               border-radius: 4px;
               box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31);
             }
-            .review-name{
+            .review-name {
               position: absolute;
               display: flex;
               flex-direction: row;
@@ -559,7 +566,7 @@ section {
               font-size: 14px;
               font-family: @fontOpenSans;
             }
-            .review-title{
+            .review-title {
               display: flex;
               height: 56px;
               align-items: center;
@@ -569,14 +576,14 @@ section {
               color: @textColor;
 
             }
-            .review-text{
+            .review-text {
               font-size: 20px;
               font-weight: normal;
               font-style: italic;
               font-family: @fontOpenSans;
               color: @textColor;
               line-height: 1.45;
-              &:before{
+              &:before {
                 content: open-quote;
               }
               &::after {
@@ -590,7 +597,7 @@ section {
 
   }
 
-  .reviews-title{
+  .reviews-title {
     font-family: @fontPatua;
     font-size: 38px;
     font-weight: normal;
@@ -604,11 +611,11 @@ section {
  	FAQ is Section
 --------------------*/
 
-.faq {
+section.faq {
   background-color: @faqbackgroundColor;
   padding: 94px 100px;
   @media (max-width: @screen-xs) {
-    padding: 0 12px;
+    padding: 0 12px 90px 12px;
   }
 
   .faq-wrap {
