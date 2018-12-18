@@ -233,7 +233,7 @@
 
             </youtube>
         </sb-dialog>
-        <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="mobileSubjectsDialog"
+        <sb-dialog class="subjects-dialog" :isPersistent="false" :showDialog="mobileSubjectsDialog"
                    :popUpType="'subject-combobox'"
                    :content-class="'subjects-combo-pop'">
 
@@ -281,7 +281,7 @@
             </div>
 
         </sb-dialog>
-        <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="mobileUniDialog" :popUpType="'uni-combobox'"
+        <sb-dialog class="uni-dialog" :isPersistent="false" :showDialog="mobileUniDialog" :popUpType="'uni-combobox'"
                    :content-class="'uni-combo-pop'">
 
             <v-icon class="dialog-action close-icon" @click="closeUniInputDialog()">sbf-close</v-icon>
