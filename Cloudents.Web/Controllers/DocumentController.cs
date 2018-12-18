@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Message.System;
 using Cloudents.Web.Extensions;
@@ -55,6 +56,29 @@ namespace Cloudents.Web.Controllers
                 courseName = boxName,
                 id,
                 name
+            });
+        }
+
+        [Route("document/{id}")]
+        public async Task<IActionResult> ShortUrl(string base62,
+            CancellationToken token)
+        {
+            if (!Base62.TryParse(base62, out var id))
+            {
+                return NotFound();
+            }
+            var query = new DocumentById(id);
+            var model = await _queryBus.QueryAsync<DocumentSeoDto>(query, token);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return RedirectToRoutePermanent(SeoTypeString.Document, new
+            {
+                universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
+                courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
+                id,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
             });
         }
 

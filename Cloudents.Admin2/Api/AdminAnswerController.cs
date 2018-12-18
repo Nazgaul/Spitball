@@ -72,7 +72,7 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync<IEnumerable<FlaggedAnswerDto>>(query, token);
         }
 
-        [HttpPost("unFlage")]
+        [HttpPost("unFlag")]
         public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] Guid id, CancellationToken token)
         {
             var command = new UnFlagAnswerCommand(id);
