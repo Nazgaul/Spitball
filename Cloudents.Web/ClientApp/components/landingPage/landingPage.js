@@ -136,7 +136,8 @@ export default {
             "getSchoolName",
             "getSubjectsList",
             "getDictionaryPrefixEnum",
-            "statistics"
+            "statistics",
+            "accountUser"
         ]),
         readyPlayer (event) {
             this.player = event.target
@@ -194,8 +195,20 @@ export default {
         }
     },
     created() {
-        this.getAllSubjects();
-        this.getStatistics();
+        let user = this.accountUser();
+        if(!user){
+            this.getAllSubjects();
+            this.getStatistics();
+            setTimeout(()=>{
+                this.$nextTick(() => {
+                    global.scrollTo(0, 0);
+                })
+            }, 200)
+        }else{
+            this.$router.push({path: '/ask'})
+        }
+
+        
     },
     filters: {
         boldText(value, search) {

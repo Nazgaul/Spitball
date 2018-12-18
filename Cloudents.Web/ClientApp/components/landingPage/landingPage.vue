@@ -1,10 +1,6 @@
 <template>
     <div>
-
-        <div
-                :height="isMobileView ? '560' : '745'"
-                class="wide-parallax"
-                pa-0>
+        <div class="wide-parallax" pa-0>
 
             <landing-header></landing-header>
 
@@ -89,9 +85,9 @@
                 <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
 
             </div>
-        </section>
+        </section> 
 
-        <section class="intro-two">
+         <section class="intro-two">
             <div class="title-container">
                 <div class="spacer-two" v-if="$vuetify.breakpoint.smAndUp"></div>
                 <div class="title-wrap">
@@ -149,7 +145,7 @@
                 <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
 
             </div>
-        </section>
+        </section> 
         <section class="faq">
             <div class="faq-wrap">
                 <h3 class="faq-title" v-language:inner>landingPage_what_is_spitball</h3>
@@ -192,7 +188,7 @@
                             </div>
                         </template>
                     </v-carousel-item>
-                    <v-carousel-item v-for="(item,index) in formattedReviews"  v-else>
+                    <v-carousel-item v-for="(item,index) in formattedReviews" v-else>
                         <template >
                             <div :key="`innerData_${index}`" class="review-item-wrap">
                                 <img  class="review-image"  :src="require(`${item.image}`)"  :alt="item.title">
