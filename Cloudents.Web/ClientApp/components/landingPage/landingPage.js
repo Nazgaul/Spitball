@@ -133,7 +133,7 @@ export default {
             "getUniversities",
             "getSchoolName",
             "getSubjectsList",
-            "getDictionaryPrefixEnum"
+            "getDictionaryPrefixEnum",
             "statistics"
         ]),
         changeDictionaryType(val){
