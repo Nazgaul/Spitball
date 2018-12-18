@@ -120,6 +120,9 @@
   <data name="ActionTypeAnswerCorrect" xml:space="preserve">
     <value>תשובה נכונה</value>
   </data>
+  <data name="ActionTypeAwarded" xml:space="preserve">
+    <value>הוענק</value>
+  </data>
   <data name="ActionTypeCashOut" xml:space="preserve">
     <value>פדיון</value>
   </data>

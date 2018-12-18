@@ -176,8 +176,10 @@
     <value>אתה מוכן להתחיל לספטבל</value>
   </data>
   <data name="generalProfile_register_stepSix_text" xml:space="preserve">
-    <value>הענקנו לך 100  SBL
- תוכל להשתמש בהן כדי לקבל עזרה עם שאלות שיש לך לגבי שיעורי הבית שלך או להשיב על שאלות של תלמידים אחרים כדי להרוויח  SBL שתוכל להחליף בכסף אמיתי!</value>
+    <value>!לשימוש מיידי בספיטבול SBL הענקנו לך נקודות
+השתמש בהם כדי לקבל עזרה עם שיעורי הבית שלך
+או ענה על שאלות של סטודנטים אחרים כדי להרוויח 
+GiftCards -שניתנים להמרה ל SBL עוד</value>
   </data>
   <data name="generalProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>צור סיסמה</value>

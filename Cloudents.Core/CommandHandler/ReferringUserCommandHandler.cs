@@ -5,6 +5,7 @@ using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Common.Enum;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -12,11 +13,13 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<RegularUser> _userRepository;
         private readonly IRepository<Transaction> _transactionRepository;
+        private readonly IEventStore _eventStore;
 
-        public ReferringUserCommandHandler(IRepository<RegularUser> userRepository, IRepository<Transaction> transactionRepository)
+        public ReferringUserCommandHandler(IRepository<RegularUser> userRepository, IRepository<Transaction> transactionRepository, IEventStore eventStore)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
+            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(ReferringUserCommand message, CancellationToken token)
@@ -28,6 +31,7 @@ namespace Cloudents.Core.CommandHandler
                 InvitedUser = register
 
             };
+            _eventStore.Add(new TransactionEvent(tx));
             await _transactionRepository.AddAsync(tx, default);
         }
     }

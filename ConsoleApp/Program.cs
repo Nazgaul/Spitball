@@ -30,6 +30,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Models;
+using Cloudents.Core.Query;
 using DocumentType = Cloudents.Common.Enum.DocumentType;
 
 namespace ConsoleApp
@@ -51,7 +53,7 @@ namespace ConsoleApp
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"], false),
+                    ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
@@ -99,9 +101,17 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await ReCopyTransferFiles();
+            //await ReCopyTransferFiles();
 
-            //var bus = _container.Resolve<ICommandBus>();
+           // var bus = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
+           // await bus.CreateOrUpdateAsync(token);
+
+            var t = _container.Resolve<IDocumentsSearch>();
+            var z = await t.SearchAsync(new DocumentQuery(null, new UserProfile()
+            {
+                Country = "IL"
+            }, null, 0, null), token);
+
             //var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
             //    10, 638, null, QuestionColor.Default);
             //await bus.DispatchAsync(command, token);

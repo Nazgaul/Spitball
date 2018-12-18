@@ -23,7 +23,7 @@
                         <v-icon class="play-icon">sbf-play</v-icon>
                         <span v-language:inner>landingPage_how_it_works</span></a>
                 </div>
-                <statistics class="statistics"></statistics>
+                <statistics class="statistics" :statsData="statsData"></statistics>
             </section>
         </div>
 

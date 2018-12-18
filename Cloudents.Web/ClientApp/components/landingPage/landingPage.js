@@ -49,6 +49,9 @@ export default {
         dictionaryType(){
             return this.getDictionaryPrefix
         },
+        statsData(){
+            return this.statistics();
+        },
         formattedReviews(){
            return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
 
@@ -123,13 +126,15 @@ export default {
             "updateSchoolName",
             "updateSubject",
             "getAllSubjects",
-            "switchLandingPageText"
+            "switchLandingPageText",
+            "getStatistics"
         ]),
         ...mapGetters([
             "getUniversities",
             "getSchoolName",
             "getSubjectsList",
             "getDictionaryPrefixEnum"
+            "statistics"
         ]),
         changeDictionaryType(val){
             this.switchLandingPageText(val);
@@ -180,7 +185,8 @@ export default {
         }
     },
     created() {
-        this.getAllSubjects()
+        this.getAllSubjects();
+        this.getStatistics();
     },
     filters: {
         boldText(value, search) {

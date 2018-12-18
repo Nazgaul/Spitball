@@ -31,13 +31,13 @@ namespace Cloudents.Core.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
             //TODO fix that.
-            //var firstCourseTransaction = user.Transactions.Where(w => w.Action == TransactionActionType.FirstCourse)
-            //                                                .Select(s => s.Action).FirstOrDefault();
-            //if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
-            //{
-            //    var t = new Transaction(TransactionActionType.FirstCourse, TransactionType.Earned, ReputationAction.FirstCourse, user);
-            //    await _transactionRepository.AddAsync(t, token);
-            //}
+            var firstCourseTransaction = user.Transactions.Where(w => w.Action == TransactionActionType.FirstCourse)
+                                                            .Select(s => s.Action).FirstOrDefault();
+            if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
+            {
+                var t = new Transaction(TransactionActionType.FirstCourse, TransactionType.Earned, ReputationAction.FirstCourse, user);
+                await _transactionRepository.AddAsync(t, token);
+            }
             user.Courses.Clear();
             foreach (var name in message.Name)
             {

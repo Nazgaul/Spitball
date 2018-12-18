@@ -37,13 +37,14 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Question.Text,
                     s.Question.Attachments,
                     s.Question.AnswerCount,
-                    new UserDto
-                    {
-                        Id = s.Question.User.Id,
-                        Name = s.Question.User.Name,
-                        Image = s.Question.User.Image,
-                        Score = s.Question.User.Score
-                    }, s.Question.Updated,
+                    new UserDto(s.Question.User.Id, s.Question.User.Name, s.Question.User.Score),
+                    //{
+                    //    Id = s.Question.User.Id,
+                    //    Name = s.Question.User.Name,
+                    //    Image = s.Question.User.Image,
+                    //    Score = s.Question.User.Score
+                    //},
+                    s.Question.Updated,
                     s.Question.Color, s.Question.CorrectAnswer.Id != null,
                     s.Question.Language,
                     s.Question.Item.VoteCount))

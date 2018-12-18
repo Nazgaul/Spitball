@@ -1,13 +1,14 @@
 import questionService from '../services/questionService'
-
+import homeLandingService from '../services/homeLandingService';
 const state = {
     subjects: [],
-    selectedSubject: '',
     dictionaryPrefixEnum:{
         learn: 'learn',
         earn: 'earn'
     },
     dictionaryPrefix: 'earn',
+    selectedSubject: '',
+    statistics : []
 };
 const mutations = {
     updateChoosenSubject(state, val) {
@@ -15,6 +16,9 @@ const mutations = {
     },
     getAllSubjects(state, data) {
         state.subjects = data
+    },
+    updateStatisticsData(state, data){
+        state.statistics = data
     },
     changeDictionaryPrefix(state, val){
         if(!!state.dictionaryPrefixEnum[val]){
@@ -24,6 +28,7 @@ const mutations = {
 };
 const getters = {
     getSelectedSubject: (state) => state.selectedSubject,
+    statistics: (state) => state.statistics,
     getSubjectsList: (state) => state.subjects,
     getDictionaryPrefix: (state) => state.dictionaryPrefix,
     getDictionaryPrefixEnum: (state) => state.dictionaryPrefixEnum,
@@ -35,18 +40,21 @@ const actions = {
     getAllSubjects({commit}) {
         questionService.getSubjects()
             .then((response) => {
-                // let data = response.data.map(a => a.subject);
                 let data = response.data;
-
                 commit('getAllSubjects', data);
             });
 
     },
     switchLandingPageText({commit}, val){
         commit('changeDictionaryPrefix', val)
+    },
+    getStatistics({commit}) {
+        homeLandingService.getStatistics()
+            .then((response) => {
+                let data = homeLandingService.createStatisticsData(response.data);
+                commit('updateStatisticsData', data);
+            });
     }
-
-
 };
 
 export default {

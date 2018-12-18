@@ -56,23 +56,22 @@ namespace Cloudents.Infrastructure.Search.Document
 
             var webResult = await taskWebResult;
             var retVal = new List<DocumentFeedDto>();
-            var addedBing = false;
             foreach (var resultResult in searchResult)
             {
-                if (resultResult.Score - 1 < 0 && !addedBing)
-                {
-                    addedBing = true;
-                    if (webResult?.Result != null)
-                    {
-                        retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
-                        {
-                            Snippet = s2.Snippet,
-                            Title = s2.Title,
-                            Url = s2.Url,
-                            Source = s2.Source
-                        }));
-                    }
-                }
+                //if (resultResult.Score - 1 < 0 && !addedBing)
+                //{
+                //    addedBing = true;
+                //    if (webResult?.Result != null)
+                //    {
+                //        retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
+                //        {
+                //            Snippet = s2.Snippet,
+                //            Title = s2.Title,
+                //            Url = s2.Url,
+                //            Source = s2.Source
+                //        }));
+                //    }
+                //}
                 if (dic.TryGetValue(resultResult.Id, out var p))
                 {
                     //p.Snippet = resultResult.MetaContent;
@@ -83,19 +82,19 @@ namespace Cloudents.Infrastructure.Search.Document
 
             }
 
-            if (!addedBing)
+            //if (!addedBing)
+            //{
+            if (webResult?.Result != null)
             {
-                if (webResult?.Result != null)
+                retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
                 {
-                    retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
-                    {
-                        Snippet = s2.Snippet,
-                        Title = s2.Title,
-                        Url = s2.Url,
-                        Source = s2.Source
-                    }));
-                }
+                    Snippet = s2.Snippet,
+                    Title = s2.Title,
+                    Url = s2.Url,
+                    Source = s2.Source
+                }));
             }
+            //}
             return retVal;
             //var retVal = new QuestionWithFacetDto { Result = dbResult };
         }

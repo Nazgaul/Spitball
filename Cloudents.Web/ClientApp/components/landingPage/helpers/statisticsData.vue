@@ -26,6 +26,7 @@ export default {
     return {};
   },
   computed: {
+
     isMobileView() {
       return this.$vuetify.breakpoint.width < 1024;
     }

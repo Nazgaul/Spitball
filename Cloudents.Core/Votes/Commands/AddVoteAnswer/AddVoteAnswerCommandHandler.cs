@@ -78,7 +78,7 @@ namespace Cloudents.Core.Votes.Commands.AddVoteAnswer
 
         protected override Task<Vote> GetVoteAsync(long userId, Guid id, CancellationToken token)
         {
-            throw new NotImplementedException();
+           return VoteRepository.GetVoteAnswerAsync(userId, id, token);
         }
 
         protected override async Task ValidateAsync(User user, Answer answer, CancellationToken token)
@@ -92,7 +92,6 @@ namespace Cloudents.Core.Votes.Commands.AddVoteAnswer
             if (answerExists != null)
             {
                 throw new UnauthorizedAccessException("you cannot vote if you gave answer");
-
             }
         }
     }

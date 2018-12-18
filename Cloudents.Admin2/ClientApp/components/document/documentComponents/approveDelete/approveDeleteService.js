@@ -4,6 +4,7 @@ let url = 'AdminDocument';
 function DocumentItem(ObjInit){
     this.id = ObjInit.id || '';
     this.preview = ObjInit.preview || '';
+    this.url = ObjInit.siteLink || '';
 };
 function createDocumentItem(ObjInit){
     return new DocumentItem(ObjInit)
@@ -15,7 +16,7 @@ export default {
             .then((resp) => {
                 console.log(resp, 'success get 20 docs');
                 resp.forEach(function(doc) {
-                    createDocumentItem(doc)
+                   return createDocumentItem(doc)
                 });
                 return Promise.resolve(resp)
             }, (error) => {
