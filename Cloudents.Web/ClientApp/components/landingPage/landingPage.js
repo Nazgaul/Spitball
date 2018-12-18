@@ -58,6 +58,9 @@ export default {
                 return true
             }
         },
+        isMobileView(){
+            return this.$vuetify.breakpoint.width < 1024;
+        },
         university: {
             get: function () {
                 let schoolNameFromStore = this.getSchoolName();
