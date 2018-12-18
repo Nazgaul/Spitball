@@ -176,7 +176,7 @@
                 <p class="faq-text">That’s right! There is no catch. Earned SBL’s are redeemable for Amazon gift
                     cards</p>
             </div>
-            <button class="cta-sbl sb-rounded-btn">Get Your SBL</button>
+            <router-link :to="{path: '/register'}" class="cta-sbl sb-rounded-btn">Sign Up</router-link>
         </section>
 
         <!--<v-parallax class="overflowing-parallax"-->
@@ -232,7 +232,7 @@
         </section>
         <section class="join">
             <h3 class="join-title">Join Spitball Its Free!</h3>
-            <button class="join-cta">SIGN UP</button>
+            <router-link :to="{path: '/register'}" class="join-cta">Sign Up</router-link>
         </section>
         <landing-footer></landing-footer>
         <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="playerVisible" :popUpType="'videoPlayer'"
