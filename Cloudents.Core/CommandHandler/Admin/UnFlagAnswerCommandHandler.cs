@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Domain.Enums;
+using System.Linq;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -22,12 +23,22 @@ namespace Cloudents.Core.CommandHandler.Admin
         public async Task ExecuteAsync(UnFlagAnswerCommand message, CancellationToken token)
         {
         
-                var answer = await _answerRepository.LoadAsync(message.AnswerId, token);
-                answer.Item.State = ItemState.Ok;
-                answer.Item.FlagReason = null;
-                answer.Item.Votes.Clear();
+            var answer = await _answerRepository.LoadAsync(message.AnswerId, token);
+            answer.Item.State = ItemState.Ok;
 
-                await _answerRepository.UpdateAsync(answer, token);
+            if (answer.Item.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
+            {
+                var votes = answer.Item.Votes.ToList<Vote>();
+                foreach (var vote in votes)
+                {
+                    answer.Item.Votes.Remove(vote);
+                }
+            }
+
+            answer.Item.FlagReason = null;
+            answer.Item.VoteCount = answer.Item.Votes.Count;
+
+            await _answerRepository.UpdateAsync(answer, token);
 
         }
     }

@@ -10,7 +10,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize, ApiController]
+    [ApiController]
     public class HomePageController : ControllerBase
     {
         
