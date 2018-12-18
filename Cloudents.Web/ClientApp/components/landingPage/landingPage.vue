@@ -1,12 +1,12 @@
 <template>
     <div>
-        
+
         <div
                 :height="isMobileView ? '560' : '745'"
                 class="wide-parallax"
                 pa-0>
 
-        <landing-header></landing-header>
+            <landing-header></landing-header>
 
             <section class="hero">
                 <div class="text-switch-container" v-show="isMobileView">
@@ -86,7 +86,7 @@
                         <span class="dummy-placeholder">some text</span>
                     </div>
                 </div>
-                <div style="flex-grow:1;width:100%;"></div>
+                <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
 
             </div>
         </section>
@@ -107,7 +107,7 @@
             </div>
             <div class="right-part gradient-background">
                 <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
-                <div class="input-holder"  style="width: 100%;">
+                <div class="input-holder" style="width: 100%;">
                     <v-combobox v-if="$vuetify.breakpoint.smAndUp"
                                 class="input-uni"
                                 v-model="university"
@@ -141,7 +141,7 @@
                             </v-list-tile-content>
                         </template>
                     </v-combobox>
-                     <div class="dummy-input"  @click="showMobileUniInput()" v-else>
+                    <div class="dummy-input" @click="showMobileUniInput()" v-else>
                         <v-icon class="dummy-icon">sbf-search</v-icon>
                         <span class="dummy-placeholder">text some</span>
                     </div>
@@ -180,21 +180,45 @@
         </section>
 
         <!--<v-parallax class="overflowing-parallax"-->
-                    <!--dark-->
-                    <!--src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">-->
-            <section class="reviews">
-                <h3 class="title">Students talk about Spitball</h3>
-                <div class="carousel-holder">
-                    <v-carousel height="350">
-                        <v-carousel-item v-for="(item,i) in items" :key="i"
-                                         :src="item.src">
+        <!--dark-->
+        <!--src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">-->
+        <section class="reviews">
+            <h3 class="reviews-title">Students talk about Spitball</h3>
+            <div class="carousel-holder">
+                <v-carousel
+                        height=""
+                        hide-delimiters
+                        :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-left-carousel left'"
+                        :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right-carousel right'"
+                        :cycle="false"
+                        :max="'250'">
+                    <v-carousel-item v-for="(items,i) in formattedReviews"  :key="`desktop-${i}`" v-if="!$vuetify.breakpoint.xsOnly">
+                        <template v-for="(data, index) in items">
+                            <div :key="`innerData_${index}`" class="review-item-wrap">
 
-                        </v-carousel-item>
-                    </v-carousel>
-                </div>
-            </section>
+                                <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
+                                <span class="review-name">{{data.name}}</span>
+                                <span class="review-title">{{data.title}}</span>
+                                <span class="review-text">{{data.text}}</span>
+                            </div>
+                        </template>
+                    </v-carousel-item>
+                    <v-carousel-item v-for="(item,index) in formattedReviews"  v-else>
+                        <template >
+                            <div :key="`innerData_${index}`" class="review-item-wrap">
+                                <img  class="review-image"  :src="require(`${item.image}`)"  :alt="item.title">
+                                <span class="review-name">{{item.name}}</span>
+                                <span class="review-title">{{item.title}}</span>
+                                <span class="review-text">{{item.text}}</span>
+                            </div>
+                        </template>
+                    </v-carousel-item>
+
+                </v-carousel>
+            </div>
+        </section>
         <!--</v-parallax>-->
-        <section class="subjects" v-if="$vuetify.breakpoint.smAndUp" >
+        <section class="subjects" v-if="$vuetify.breakpoint.smAndUp">
             <h3 class="subject-title">Find Homework Help By Subject</h3>
             <span class="subject-sub-title">Just pick a subject, and we'll find the right tutor for you</span>
             <v-layout row wrap v-bind="binding" class="layout-subject">
@@ -220,14 +244,15 @@
 
             </youtube>
         </sb-dialog>
-        <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="mobileSubjectsDialog" :popUpType="'subject-combobox'"
+        <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="mobileSubjectsDialog"
+                   :popUpType="'subject-combobox'"
                    :content-class="'subjects-combo-pop'">
 
 
-    <v-icon class="dialog-action close-icon" @click="closeSubjectInputDialog()">sbf-close</v-icon>
+            <v-icon class="dialog-action close-icon" @click="closeSubjectInputDialog()">sbf-close</v-icon>
             <div class="combo-wrap">
 
-            <v-combobox
+                <v-combobox
                         class="input-subject"
                         v-model="selectedSubject"
                         :items="subjectList"
@@ -246,67 +271,67 @@
                         autofocus
                         no-filter
                         :background-color="'rgba( 255, 255, 255, 1)'"
-            >
-                <template slot="no-data">
-                    <v-list-tile v-show="showBox">
-                        <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
-                    </v-list-tile>
-                    <v-list-tile>
-                        <div style="cursor:pointer;" @click="getAllSubjects()" class="subheading dark"
-                             v-language:inner>uniSelect_show_all_schools
-                        </div>
-                    </v-list-tile>
-                </template>
-                <template slot="item" slot-scope="{ index, item, parent }">
-                    <v-list-tile-content  @click="goToResulstQuestionsPage(item)" style="max-width:385px;">
+                >
+                    <template slot="no-data">
+                        <v-list-tile v-show="showBox">
+                            <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <div style="cursor:pointer;" @click="getAllSubjects()" class="subheading dark"
+                                 v-language:inner>uniSelect_show_all_schools
+                            </div>
+                        </v-list-tile>
+                    </template>
+                    <template slot="item" slot-scope="{ index, item, parent }">
+                        <v-list-tile-content @click="goToResulstQuestionsPage(item)" style="max-width:385px;">
                                 <span v-html="$options.filters.boldText(item, search)"
-                                     >{{ item }}</span>
-                    </v-list-tile-content>
-                </template>
-            </v-combobox>
+                                >{{ item }}</span>
+                        </v-list-tile-content>
+                    </template>
+                </v-combobox>
             </div>
 
         </sb-dialog>
         <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="mobileUniDialog" :popUpType="'uni-combobox'"
                    :content-class="'uni-combo-pop'">
 
-              <v-icon class="dialog-action close-icon" @click="closeUniInputDialog()">sbf-close</v-icon>
-                <div class="combo-wrap">
-                    <v-combobox
-                            class="input-uni"
-                            v-model="university"
-                            :items="universities"
-                            :label="schoolNamePlaceholder"
-                            :placeholder="schoolNamePlaceholder"
-                            clearable
-                            solo
-                            :search-input.sync="searchUni"
-                            :append-icon="''"
-                            :prepend-inner-icon="'sbf-search'"
-                            :clear-icon="'sbf-close'"
-                            @click:clear="clearData(searchUni, university)"
-                            autofocus
-                            no-filter
-                            :background-color="'rgba( 255, 255, 255, 1)'"
-                    >
-                        <template slot="no-data">
-                            <v-list-tile v-show="showBoxUni">
-                                <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
-                            </v-list-tile>
-                            <v-list-tile>
-                                <div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark"
-                                     v-language:inner>uniSelect_show_all_schools
-                                </div>
-                            </v-list-tile>
-                        </template>
-                        <template slot="item" slot-scope="{ index, item, parent }">
-                            <v-list-tile-content style="max-width:385px;">
-                                <span v-html="$options.filters.boldText(item.text, searchUni)">{{ item.text }}</span>
-                            </v-list-tile-content>
+            <v-icon class="dialog-action close-icon" @click="closeUniInputDialog()">sbf-close</v-icon>
+            <div class="combo-wrap">
+                <v-combobox
+                        class="input-uni"
+                        v-model="university"
+                        :items="universities"
+                        :label="schoolNamePlaceholder"
+                        :placeholder="schoolNamePlaceholder"
+                        clearable
+                        solo
+                        :search-input.sync="searchUni"
+                        :append-icon="''"
+                        :prepend-inner-icon="'sbf-search'"
+                        :clear-icon="'sbf-close'"
+                        @click:clear="clearData(searchUni, university)"
+                        autofocus
+                        no-filter
+                        :background-color="'rgba( 255, 255, 255, 1)'"
+                >
+                    <template slot="no-data">
+                        <v-list-tile v-show="showBoxUni">
+                            <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
+                        </v-list-tile>
+                        <v-list-tile>
+                            <div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark"
+                                 v-language:inner>uniSelect_show_all_schools
+                            </div>
+                        </v-list-tile>
+                    </template>
+                    <template slot="item" slot-scope="{ index, item, parent }">
+                        <v-list-tile-content style="max-width:385px;">
+                            <span v-html="$options.filters.boldText(item.text, searchUni)">{{ item.text }}</span>
+                        </v-list-tile-content>
 
-                        </template>
-                    </v-combobox>
-                </div>
+                    </template>
+                </v-combobox>
+            </div>
 
         </sb-dialog>
 
@@ -315,5 +340,5 @@
 </template>
 
 
-<style src="./landingPage.less" scoped lang="less"></style>
+<style src="./landingPage.less"  lang="less"></style>
 <script src="./landingPage.js"></script>

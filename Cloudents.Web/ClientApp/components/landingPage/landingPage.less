@@ -5,6 +5,7 @@
 @ctaSblColor: #3d5afe;
 @introSubTitleColor: rgba(0, 0, 0, 0.71);
 
+
 .subjects-combo-pop, .uni-combo-pop {
   padding-top: 36px;
   position: relative;
@@ -93,7 +94,6 @@ section {
   section {
     padding: 100px 50px;
   }
-
 }
 
 @media (max-width: @screen-mds) {
@@ -102,12 +102,6 @@ section {
   }
 }
 
-.carousel-holder {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 
 /*----------------
  	Parralax Section
@@ -516,7 +510,111 @@ section {
 ---------------------*/
 
 .reviews {
+  padding: 50px 100px;
+  background-image: url("./images/testimonials_BG.png");
+  @media (max-width: @screen-xs) {
+      padding: 50px 12px;
+  }
 
+
+  .carousel-holder {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    .v-carousel{
+      box-shadow: none;
+    }
+    .v-carousel__prev, .v-carousel__next{
+      top: 10%;
+    }
+    .v-window__container{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      .v-window-item {
+        .v-responsive__content {
+          display: flex;
+          flex-direction: row;
+          .review-item-wrap{
+            display: flex;
+            flex-direction: column;
+            width:100%;
+            max-width: 306px;
+            position: relative;
+            align-items: center;
+            &:first-child{
+              margin-right: 120px;
+            }
+            @media(max-width: @screen-xs){
+              &:first-child{
+                margin-right: unset;
+              }
+            }
+            .review-image{
+              //TODO temp images are not sized properly
+              min-width: 306px;
+              max-height: 180px;
+              border-radius: 4px;
+              box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31);
+            }
+            .review-name{
+              position: absolute;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              top: 0;
+              right: 0;
+              left: 0;
+              height: 38px;
+              background-color: rgba(0, 0, 0, 0.53);
+              border-radius: 4px 4px 0 0;
+              color: fade(@color-white, 87%);
+              font-size: 14px;
+              font-family: @fontOpenSans;
+            }
+            .review-title{
+              display: flex;
+              height: 56px;
+              align-items: center;
+              justify-content: center;
+              font-size: 14px;
+              font-family: @fontOpenSans;
+              color: @textColor;
+
+            }
+            .review-text{
+              font-size: 20px;
+              font-weight: normal;
+              font-style: italic;
+              font-family: @fontOpenSans;
+              color: @textColor;
+              line-height: 1.45;
+              &:before{
+                content: open-quote;
+              }
+              &::after {
+                content: close-quote;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  .reviews-title{
+    font-family: @fontPatua;
+    font-size: 38px;
+    font-weight: normal;
+    text-align: center;
+    color: fade(@color-white, 87%);
+    padding-bottom: 78px;
+  }
 }
 
 /*--------------------
@@ -636,7 +734,7 @@ section {
     font-family: @fontPatua;
     font-size: 38px;
     font-weight: normal;
-    color: rgba(255, 255, 255, 0.87);
+    color: fade(@color-white, 87%);
     line-height: 1;
     margin-bottom: 20px;
   }

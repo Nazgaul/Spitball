@@ -7,7 +7,7 @@ import sbInput from "../question/helpers/sbInput/sbInput.vue"
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
 import { LanguageService } from "../../services/language/languageService";
-
+import { reviews } from "./helpers/testimonials/testimonialsData"
 
 export default {
     name: "landingPage",
@@ -25,8 +25,7 @@ export default {
             isFocused: false,
             selectedSubject: '',
             search: '',
-            reviewItems: [
-            ],
+            reviewItems: reviews,
             youTubeVideoId: '',
             playerVisible: false,
             playerWidth: '',
@@ -34,7 +33,8 @@ export default {
             universityModel: '',
             searchUni: '',
             mobileSubjectsDialog: false,
-            mobileUniDialog: false
+            mobileUniDialog: false,
+            isRtl: global.isRtl
         }
     },
     props: {
@@ -44,6 +44,10 @@ export default {
         },
     },
     computed: {
+        formattedReviews(){
+           return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
+
+        },
         showBox() {
             if (this.search && this.search.length > 0) {
                 return true
@@ -71,11 +75,11 @@ export default {
             return this.getUniversities();
         },
         subjectList: {
-            get(){
-               let list = this.getSubjectsList();
-               return list
+            get() {
+                let list = this.getSubjectsList();
+                return list
             },
-            set(){
+            set() {
 
             }
         },
@@ -106,7 +110,6 @@ export default {
                 this.clearData();
             }
         }, 250)
-
     },
     methods: {
         ...mapActions([
@@ -121,9 +124,7 @@ export default {
             "getSchoolName",
             "getSubjectsList"
         ]),
-        getTestimonials(){
 
-        },
         getAllUniversities() {
             //leave space
             this.updateUniversities(' ');
@@ -159,16 +160,16 @@ export default {
         goToResultDocumentsPage(val) {
             this.$router.push({name: 'note', query: val});
         },
-        showMobileSubjectInput(){
+        showMobileSubjectInput() {
             this.mobileSubjectsDialog = true
         },
-        showMobileUniInput(){
+        showMobileUniInput() {
             this.mobileUniDialog = true
         },
-        closeSubjectInputDialog(){
+        closeSubjectInputDialog() {
             this.mobileSubjectsDialog = false
         },
-        closeUniInputDialog(){
+        closeUniInputDialog() {
             this.mobileUniDialog = false
         }
     },
@@ -180,7 +181,7 @@ export default {
             //happens if string uni
             let valToFil = value;
             //happens if subject list
-            if(value.subject){
+            if (value.subject) {
                 valToFil = value.subject
             }
             let match;
