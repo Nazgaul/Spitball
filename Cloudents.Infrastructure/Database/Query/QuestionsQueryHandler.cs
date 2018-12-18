@@ -53,13 +53,14 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Text,
                     s.Attachments,
                     s.AnswerCount,
-                    new UserDto
-                    {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Image = s.User.Image,
-                        Score = s.User.Score
-                    }, s.Updated,
+                    new UserDto(s.User.Id, s.User.Name, s.User.Score),
+                    //{
+                    //    Id = s.User.Id,
+                    //    Name = s.User.Name,
+                    //    Image = s.User.Image,
+                    //    Score = s.User.Score
+                    //}, 
+                    s.Updated,
                     s.Color, s.CorrectAnswer.Id != null, s.Language, s.Item.VoteCount)
                  )
                 .ToListAsync(token);
