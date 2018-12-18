@@ -9,10 +9,10 @@ const typeToId = {
 };
 
 const typeToTitle = {
-    answers: "Total Answers",
-    sbls: "SBL Token Traded",
-    money: "Money Earned",
-    users: "Happy Students"
+    answers:  LanguageService.getValueByKey("landingPage_stats_answers"),
+    sbls: LanguageService.getValueByKey("landingPage_stats_sbls"),
+    money: LanguageService.getValueByKey("landingPage_stats_money"),
+    users:  LanguageService.getValueByKey("landingPage_stats_users"),
 };
 
 function statisticsData(key, val){
