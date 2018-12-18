@@ -129,6 +129,12 @@
   <data name="reason_spam" xml:space="preserve">
     <value>Spam</value>
   </data>
+  <data name="report_btn" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="report_other" xml:space="preserve">
+    <value>Other</value>
+  </data>
   <data name="report_subtitle" xml:space="preserve">
     <value>We’re sorry that something isn't right.  what’s wrong?</value>
   </data>

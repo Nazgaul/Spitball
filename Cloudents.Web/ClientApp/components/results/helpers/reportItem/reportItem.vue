@@ -24,7 +24,7 @@
 
                         <v-list-tile class="reason-tile" @click="toogleOtherInput()">
                             <v-list-tile-content class="reason-tile-content">
-                                <v-list-tile-title class="reason-name">Other</v-list-tile-title>
+                                <v-list-tile-title class="reason-name" v-language:inner>reportItem_report_other</v-list-tile-title>
                             </v-list-tile-content>
                         </v-list-tile>
 
@@ -37,7 +37,7 @@
                 </div>
             </v-flex>
             <v-layout justify-center align-content-center xs12 class="report-footer">
-                <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()">Report</button>
+                <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()" v-language:inner>reportItem_report_btn</button>
             </v-layout>
         </v-layout>
     </div>

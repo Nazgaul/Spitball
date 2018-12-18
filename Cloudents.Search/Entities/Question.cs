@@ -31,7 +31,11 @@ namespace Cloudents.Search.Entities
         public Question(QuestionSearchDto dto)
         {
             Id = dto.QuestionId.ToString();
-            DateTime = dto.DateTime;
+            if (dto.DateTime.HasValue && dto.DateTime.Value != System.DateTime.MinValue)
+            {
+                DateTime = dto.DateTime;
+            }
+
             Text = dto.Text;
             if (dto.Text != null && dto.Subject != null)
             {
@@ -40,7 +44,11 @@ namespace Cloudents.Search.Entities
 
             Country = dto.Country?.ToUpperInvariant();
             Language = dto.Language?.ToLowerInvariant() ?? "en";
-            Subject = dto.Subject;
+            if (dto.Subject.HasValue && (int) dto.Subject.Value != 0)
+            {
+                Subject = dto.Subject;
+            }
+
             State = dto.Filter;
         }
 
