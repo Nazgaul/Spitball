@@ -21,7 +21,8 @@ export default {
     },
     data() {
         return {
-            schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
+            schoolNamePlaceholder: LanguageService.getValueByKey('landingPage_placeholder_uni'),
+            subjectsPlaceholder: LanguageService.getValueByKey('landingPage_placeholder_subjects'),
             isFocused: false,
             selectedSubject: '',
             search: '',

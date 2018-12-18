@@ -195,11 +195,29 @@
   <data name="learn_upload_section_title" xml:space="preserve">
     <value>Find Class Specific Documents</value>
   </data>
+  <data name="placeholder_subjects" xml:space="preserve">
+    <value>Find a subject you’r good at</value>
+  </data>
+  <data name="placeholder_uni" xml:space="preserve">
+    <value>What is your school?</value>
+  </data>
   <data name="sign_up" xml:space="preserve">
     <value>SIGN UP</value>
   </data>
   <data name="spitball_student_title" xml:space="preserve">
     <value>Students Talk about Spitball</value>
+  </data>
+  <data name="stats_answers" xml:space="preserve">
+    <value>Total Answers</value>
+  </data>
+  <data name="stats_money" xml:space="preserve">
+    <value>Money Earned</value>
+  </data>
+  <data name="stats_sbls" xml:space="preserve">
+    <value>SBL Token Traded</value>
+  </data>
+  <data name="stats_users" xml:space="preserve">
+    <value>Happy Students</value>
   </data>
   <data name="upload_section_subTitle" xml:space="preserve">
     <value>Class Notes, Study Guides, Exams Preparations</value>

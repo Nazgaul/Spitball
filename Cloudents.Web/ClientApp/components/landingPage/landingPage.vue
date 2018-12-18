@@ -48,10 +48,10 @@
                                 class="input-subject"
                                 v-model="selectedSubject"
                                 :items="subjectList"
-                                :label="'some label'"
+                                :label="subjectsPlaceholder"
                                 :item-text="'subject'"
                                 :item-value="'id'"
-                                :placeholder="'some placeholder'"
+                                :placeholder="subjectsPlaceholder"
                                 clearable
                                 solo
                                 return-object
@@ -245,7 +245,7 @@
                         class="input-subject"
                         v-model="selectedSubject"
                         :items="subjectList"
-                        :label="'some label'"
+                        :label="''"
                         :item-text="'subject'"
                         :item-value="'id'"
                         :placeholder="'some placeholder'"
