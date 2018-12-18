@@ -178,8 +178,11 @@ reset instructions.</value>
     <value>You're ready to start Spitballing</value>
   </data>
   <data name="generalProfile_register_stepSix_text" xml:space="preserve">
-    <value>We’ve awarded you 100 SBL
- You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money!</value>
+    <value>We've awarded you some SBL to start using
+Spitball immediately! Use then to get help with your
+own homework questions, or answer other student's
+questions to earn more SBL that can be
+redeemed for GiftCards</value>
   </data>
   <data name="generalProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>Create password</value>
