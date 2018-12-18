@@ -82,9 +82,15 @@ export default {
         },
         answersDeltaNumber() {
             let answersNum = this.cardData.answers;
+            let numericValue = 0;
+            if(typeof answersNum !== 'number'){
+                numericValue = answersNum.length
+            }else{
+                numericValue = answersNum;
+            }
             let delta = 0;
-            if (answersNum > this.maximumAnswersToDisplay) {
-                delta = answersNum - this.maximumAnswersToDisplay;
+            if (numericValue > this.maximumAnswersToDisplay) {
+                delta = numericValue - this.maximumAnswersToDisplay;
             }
             return delta;
         },
