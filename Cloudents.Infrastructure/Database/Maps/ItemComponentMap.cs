@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Domain.Enums;
 using FluentNHibernate.Mapping;
 

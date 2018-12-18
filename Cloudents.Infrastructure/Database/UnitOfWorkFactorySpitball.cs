@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Database.Maps;
 using FluentNHibernate.Cfg;

@@ -1,6 +1,5 @@
 ﻿using System;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core

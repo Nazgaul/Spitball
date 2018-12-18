@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Domain.Entities;
-using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.Item.Commands.FlagItem
 {

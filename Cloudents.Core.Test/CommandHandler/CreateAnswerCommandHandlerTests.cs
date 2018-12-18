@@ -2,7 +2,6 @@
 using Cloudents.Core.Command;
 using Cloudents.Core.CommandHandler;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Moq;
 using System;

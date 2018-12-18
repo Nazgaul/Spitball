@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Entities.Search;
-using System;
+﻿using System;
 using Cloudents.Core.Enum;
 using Cloudents.Domain.Enums;
 

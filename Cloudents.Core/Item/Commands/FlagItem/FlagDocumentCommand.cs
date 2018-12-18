@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Interfaces;
-
-namespace Cloudents.Core.Item.Commands.FlagItem
+﻿namespace Cloudents.Core.Item.Commands.FlagItem
 {
     public class FlagDocumentCommand : BaseFlagItemCommand<long>
     {

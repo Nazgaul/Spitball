@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cloudents.Common;
-using Cloudents.Core.Enum;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Search.Extensions

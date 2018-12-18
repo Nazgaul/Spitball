@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Domain.Enums;
 

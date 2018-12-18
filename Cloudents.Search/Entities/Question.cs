@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Common;
@@ -7,7 +6,6 @@ using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Search.Interfaces;
-using Microsoft.Azure.Search;
 
 namespace Cloudents.Search.Entities
 {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Cloudents.Core.Interfaces
+﻿namespace Cloudents.Core.Interfaces
 {
     //public interface IEvents
     //{

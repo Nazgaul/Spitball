@@ -7,7 +7,6 @@ using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Interceptor;
-using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Question;

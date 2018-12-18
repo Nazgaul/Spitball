@@ -9,7 +9,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
 using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin

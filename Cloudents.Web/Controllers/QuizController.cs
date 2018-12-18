@@ -1,5 +1,4 @@
 ﻿using System;
-using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers

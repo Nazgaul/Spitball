@@ -1,6 +1,4 @@
-﻿using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;

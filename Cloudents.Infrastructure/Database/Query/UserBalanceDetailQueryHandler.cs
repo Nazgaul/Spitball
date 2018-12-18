@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Common.Enum;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Database.Repositories;

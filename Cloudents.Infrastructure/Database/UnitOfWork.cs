@@ -2,12 +2,10 @@
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
-using NHibernate.Engine;
 using NHibernate.Exceptions;
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

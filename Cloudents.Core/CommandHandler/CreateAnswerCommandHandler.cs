@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Domain.Enums;
 

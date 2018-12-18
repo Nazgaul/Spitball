@@ -1,5 +1,4 @@
 ﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

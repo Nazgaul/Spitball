@@ -6,7 +6,6 @@ using System.Threading;
 using Cloudents.Common.Enum;
 using NHibernate;
 using NHibernate.Criterion;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 
 namespace Cloudents.Infrastructure.Database.Repositories

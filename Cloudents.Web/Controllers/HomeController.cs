@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core;
 using Cloudents.Domain.Entities;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;

@@ -1,5 +1,4 @@
-﻿using System;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
 using Microsoft.Azure.Search;

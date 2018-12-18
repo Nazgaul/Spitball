@@ -1,10 +1,8 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
-using NHibernate.Criterion;
 using NHibernate.Linq;
 using System.Collections.Generic;
 using System.Linq;

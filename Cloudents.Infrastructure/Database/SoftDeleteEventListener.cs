@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 using Cloudents.Domain.Interfaces;
 using NHibernate.Engine;

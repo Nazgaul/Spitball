@@ -1,15 +1,12 @@
 ﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Domain.Enums;

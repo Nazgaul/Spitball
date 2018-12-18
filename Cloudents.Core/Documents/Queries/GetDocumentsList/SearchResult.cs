@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Core.Documents.Queries.GetDocumentsList
+﻿namespace Cloudents.Core.Documents.Queries.GetDocumentsList
 {
     public class DocumentSearchResultWithScore
     {

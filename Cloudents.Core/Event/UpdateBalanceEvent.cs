@@ -1,8 +1,5 @@
 ﻿using Cloudents.Core.Interfaces;
 using Cloudents.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Core.Event
 {
