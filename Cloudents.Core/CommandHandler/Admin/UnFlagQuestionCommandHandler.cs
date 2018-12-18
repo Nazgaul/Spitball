@@ -24,14 +24,19 @@ namespace Cloudents.Core.CommandHandler.Admin
         {
            
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
+       
             question.Item.State = ItemState.Ok;
-            if (question.Item.FlagReason == "Too many down vote")
+            if (question.Item.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
-                var v = question.Item.Votes.Remove(question.Item.Votes.Where(w => w.Answer == null).FirstOrDefault());
+                var votes = question.Item.Votes.Where(w => w.Answer == null).ToList<Vote>();
+                foreach (var vote in votes)
+                {
+                    question.Item.Votes.Remove(vote);
+                }
             }
             question.Item.FlagReason = null;
+            question.Item.VoteCount = question.Item.Votes.Count;
             
-          
             await _questionRepository.UpdateAsync(question, token);
         }
     }
