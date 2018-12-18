@@ -35,7 +35,7 @@ export default {
             mobileSubjectsDialog: false,
             mobileUniDialog: false,
             isRtl: global.isRtl,
-
+            dictionaryTypesEnum: this.getDictionaryPrefixEnum()
         }
     },
     props: {
@@ -133,6 +133,7 @@ export default {
             "getUniversities",
             "getSchoolName",
             "getSubjectsList",
+            "getDictionaryPrefixEnum",
             "statistics"
         ]),
         changeDictionaryType(val){

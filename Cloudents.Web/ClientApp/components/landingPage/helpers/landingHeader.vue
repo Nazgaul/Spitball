@@ -8,8 +8,8 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="landing-header-items">
-                <a v-show="!isMobileView" class="white-text lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
-                <a v-show="!isMobileView" class="yellow-text lp-header-link bold" @click="changeDictionaryType('earn')">Earn money</a>
+                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}" v-show="!isMobileView" class="lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
+                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}" v-show="!isMobileView" class="lp-header-link bold" @click="changeDictionaryType('earn')">Earn money</a>
                 <router-link v-show="!loggedIn" :to="{path: '/signin'}" class="login-action login">Login</router-link>
                 <router-link v-show="!loggedIn" :to="{path: '/register'}" class="login-action signup">Sign Up</router-link>
                 <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
@@ -45,14 +45,19 @@
             return {
                 drawer: false,
                 offset: 0,
-                isRtl: global.isRtl
+                isRtl: global.isRtl,
+                dictionaryTypesEnum: this.getDictionaryPrefixEnum()
             }
         },
         props: {},
         computed: {
             ...mapGetters([
                 "accountUser",
+                "getDictionaryPrefix"
             ]),
+            dictionaryType(){
+                return this.getDictionaryPrefix
+            },
             loggedIn() {
                 return !!this.accountUser
             },
@@ -66,8 +71,9 @@
         },
         methods: {
             ...mapActions([
-                "switchLandingPageText",
+                "switchLandingPageText"
             ]),
+            ...mapGetters(["getDictionaryPrefixEnum"]),
             changeDictionaryType(val){
                 this.switchLandingPageText(val);
             },

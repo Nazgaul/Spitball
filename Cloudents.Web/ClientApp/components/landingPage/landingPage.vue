@@ -10,15 +10,15 @@
 
             <section class="hero">
                 <div class="text-switch-container" v-show="isMobileView">
-                    <a class="white-text lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
-                    <a class="yellow-text lp-header-link" @click="changeDictionaryType('earn')">Earn money</a>
+                    <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}" class="lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
+                    <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}" class="lp-header-link" @click="changeDictionaryType('earn')">Earn money</a>
                 </div>
                 <div class="hero-wrap">
                     <div class="hero-text-container">
                         <h1 class="hero-title" v-html="$Ph(`landingPage_${dictionaryType}_knowledge_title`)"></h1>
                         <h3 v-html="$Ph(`landingPage_${dictionaryType}_knowledge_subTitle`)"></h3>
                     </div>
-                    <a href="#" class="cta-button" v-language:inner>landingPage_join_spitball</a>
+                    <router-link :to="{path: '/register'}" class="cta-button" v-language:inner>landingPage_join_spitball</router-link>
                     <a class="video-link" @click.prevent="updateVideoId('6lt2JfJdGSY')">
                         <v-icon class="play-icon">sbf-play</v-icon>
                         <span v-language:inner>landingPage_how_it_works</span></a>
@@ -173,7 +173,7 @@
         <!--dark-->
         <!--src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">-->
         <section class="reviews">
-            <h3 class="reviews-title" v-show="$vuetify.breakpoint.xsAndUp" v-language:inner>landingPage_spitball_student_title</h3>
+            <h3 class="reviews-title" v-show="!$vuetify.breakpoint.xsOnly" v-language:inner>landingPage_spitball_student_title</h3>
             <div class="carousel-holder">
                 <v-carousel
                         height=""
