@@ -1,7 +1,7 @@
 <template>
     <a
             :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
-            @click.native="(isOurs ? $_spitball($event):'')"
+            @click="(isOurs ? $_spitball($event): '')"
             :href="url"
             :class="['d-block', 'note-block']"
     >
@@ -200,7 +200,7 @@
                 return data
             },
 
-            url: function () {
+            url() {
                 return this.item.url;
             },
             canReport() {
