@@ -6,10 +6,10 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="landing-header-items">
-                <a  class="white-text lp-header-link mr-3">Learn faster</a>
-                <a  class="yellow-text lp-header-link bold mr-3">Earn money</a>
-                <a  class="login-action login mr-3" @click.native="goToLogin">Login</a>
-                <a  class="login-action signup mr-3"  @click.native="goToRegister">Sign Up</a>
+                <a class="white-text lp-header-link mr-3">Learn faster</a>
+                <a class="yellow-text lp-header-link bold mr-3">Earn money</a>
+                <router-link :to="{path: '/signin'}" class="login-action login mr-3">Login</router-link>
+                <router-link :to="{path: '/register'}" class="login-action signup mr-3">Sign Up</router-link>
                 <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'"
                         v-if="!loggedIn">
                     <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer" class="gamburger">
