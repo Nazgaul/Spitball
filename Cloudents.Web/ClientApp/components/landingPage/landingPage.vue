@@ -181,10 +181,10 @@
             <section class="reviews">
                 <h3 class="title">Students talk about Spitball</h3>
                 <div class="carousel-holder">
-                    <v-carousel height="350">
-                        <v-carousel-item v-for="(item,i) in items" :key="i"
-                                         :src="item.src">
-
+                    <v-carousel height="">
+                        <v-carousel-item v-for="(item,i) in reviewItems" :key="i"
+                                         :src="require(`${item.image}`)">
+                            {{item}}
                         </v-carousel-item>
                     </v-carousel>
                 </div>
