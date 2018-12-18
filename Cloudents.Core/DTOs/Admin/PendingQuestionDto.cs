@@ -17,6 +17,8 @@ namespace Cloudents.Core.DTOs.Admin
     {
         public long Id { get; set; }
         public Uri Preview { get; set; }
+
+        public string SiteLink { get; set; }
     }
 
     public class FictivePendingQuestionDto

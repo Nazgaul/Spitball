@@ -26,12 +26,9 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
-            var user = new UserDto
-            {
-                Id = eventMessage.Question.User.Id,
-                Name = eventMessage.Question.User.Name,
-                Image = eventMessage.Question.User.Image
-            };
+            var user = new UserDto(eventMessage.Question.User.Id, eventMessage.Question.User.Name,
+                eventMessage.Question.User.Score);
+            
             var dto = new QuestionFeedDto(eventMessage.Question.Id,
                 eventMessage.Question.Subject,
                 eventMessage.Question.Price,
@@ -94,12 +91,9 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
         {
-            var user = new UserDto
-            {
-                Id = eventMessage.Answer.User.Id,
-                Name = eventMessage.Answer.User.Name,
-                Image = eventMessage.Answer.User.Image
-            };
+            var user = new UserDto(eventMessage.Answer.User.Id, eventMessage.Answer.User.Name,
+                eventMessage.Answer.User.Score);
+           
             var answerDto = new QuestionDetailAnswerDto
             {
                 Create = eventMessage.Answer.Created,

@@ -38,12 +38,9 @@ namespace Cloudents.Admin2.Api
         [HttpPost]
         public async Task<ActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
         {
-            // var userId = await _queryBus.QueryAsync<long>(new AdminEmptyQuery(), token);
 
             var command = new CreateQuestionCommand(model.SubjectId, model.Text, model.Price, model.Files, model.Country.ToString("G"));
             await _commandBus.Value.DispatchAsync(command, token);
-            //var message = new NewQuestionMessage(model.SubjectId, model.Text, model.Price, userId);
-            //await _queueProvider.InsertMessageAsync(message, token);
             return Ok();
         }
 
@@ -143,7 +140,7 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync<IEnumerable<FlaggedQuestionDto>>(query, token);
         }
 
-        [HttpPost("unFlage")]
+        [HttpPost("unFlag")]
         public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] long id, CancellationToken token)
         {
             var command = new UnFlagQuestionCommand(id);

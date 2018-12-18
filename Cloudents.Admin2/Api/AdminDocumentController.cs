@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,13 +24,15 @@ namespace Cloudents.Admin2.Api
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly ICommandBus _commandBus;
         private readonly IQueueProvider _queueProvider;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public AdminDocumentController(IQueryBus queryBus, IBlobProvider<DocumentContainer> blobProvider, ICommandBus commandBus, IQueueProvider queueProvider)
+        public AdminDocumentController(IQueryBus queryBus, IBlobProvider<DocumentContainer> blobProvider, ICommandBus commandBus, IQueueProvider queueProvider, IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _blobProvider = blobProvider;
             _commandBus = commandBus;
             _queueProvider = queueProvider;
+            _urlBuilder = urlBuilder;
         }
 
         // GET: api/<controller>
@@ -45,12 +48,14 @@ namespace Cloudents.Admin2.Api
             foreach (var id in retVal)
             {
                 var files = await _blobProvider.FilesInDirectoryAsync("preview-", id.Id.ToString(), token);
+
                 var file = files.FirstOrDefault();
                 if (file != null)
                 {
                     id.Preview =
                         blobProvider.GeneratePreviewLink(file,
                             20);
+                    id.SiteLink = _urlBuilder.BuildDocumentEndPoint(new Base62(id.Id));
                     counter++;
                 }
                 else
@@ -103,7 +108,7 @@ namespace Cloudents.Admin2.Api
             
         }
 
-        [HttpPost("unFlage")]
+        [HttpPost("unFlag")]
         public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] long id, CancellationToken token)
         {
             var command = new UnFlagDocumentCommand(id);

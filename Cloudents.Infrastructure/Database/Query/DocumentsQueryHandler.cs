@@ -31,13 +31,13 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Select(s => new DocumentFeedDto
                 {
                     Id = s.Id,
-                    User = new UserDto
-                    {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Image = s.User.Image,
-                        Score = s.User.Score
-                    },
+                    User = new UserDto(s.User.Id, s.User.Name, s.User.Score),
+                    //{
+                    //    Id = s.User.Id,
+                    //    Name = s.User.Name,
+                    //    Image = s.User.Image,
+                    //    Score = s.User.Score
+                    //},
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Name,
                     TypeStr = s.Type,
