@@ -25,7 +25,7 @@ namespace Cloudents.Admin2.Controllers
         }
 
 
-        [Route("document/{id}", Name = "DocumentDownload")]
+        [Route("document/{id}", Name = "DocumentDownload"),ApiExplorerSettings(IgnoreApi =true)]
         public async Task<IActionResult> DownloadDocument(long id, [FromServices] IQueryBus queryBus,
             [FromServices] IBlobProvider<DocumentContainer> blobProvider,
             [FromServices] IBlobProvider blobProvider2,
