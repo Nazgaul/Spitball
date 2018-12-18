@@ -34,7 +34,8 @@ export default {
             searchUni: '',
             mobileSubjectsDialog: false,
             mobileUniDialog: false,
-            isRtl: global.isRtl
+            isRtl: global.isRtl,
+            dictionaryTypesEnum: this.getDictionaryPrefixEnum()
         }
     },
     props: {
@@ -127,7 +128,8 @@ export default {
         ...mapGetters([
             "getUniversities",
             "getSchoolName",
-            "getSubjectsList"
+            "getSubjectsList",
+            "getDictionaryPrefixEnum"
         ]),
         changeDictionaryType(val){
             this.switchLandingPageText(val);
