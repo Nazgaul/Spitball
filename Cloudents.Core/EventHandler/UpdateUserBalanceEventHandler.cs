@@ -22,7 +22,10 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(TransactionEvent transactionEventMessage, CancellationToken token)
         {
-            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(new List<long>() { transactionEventMessage.Transaction.User.Id }), token);
+            return _queueProvider.InsertMessageAsync(new UpdateUserBalanceMessage(new List<long>()
+            {
+                transactionEventMessage.Transaction.User.Id
+            }), token);
         }
     }
 }
