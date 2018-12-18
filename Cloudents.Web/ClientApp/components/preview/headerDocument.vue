@@ -1,6 +1,5 @@
 ﻿<template>
     <div class="header-wrap">
-
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">

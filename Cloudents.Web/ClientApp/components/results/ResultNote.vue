@@ -1,8 +1,9 @@
 <template>
     <a
             :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
-            @click="(isOurs ? $_spitball($event): '')"
+            @click.native="(isOurs ? $_spitball($event): '')"
             :href="url"
+            id="sb-link"
             :class="['d-block', 'note-block']"
     >
         <v-container
