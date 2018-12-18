@@ -11,6 +11,8 @@ namespace Cloudents.Core.Storage
     public interface IBlobProvider
     {
         Uri GeneratePreviewLink(Uri blobUrl, double expirationTimeInMinutes);
+        Uri GenerateDownloadLink(Uri blobUrl, double expirationTimeInMinutes,
+            string contentDisposition);
     }
 
     public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
@@ -22,8 +24,8 @@ namespace Cloudents.Core.Storage
         Task CommitBlockListAsync(string blobName, string mimeType, IList<int> indexes, CancellationToken token);
 
 
-        string GenerateDownloadLink(string blobName, double expirationTimeInMinutes,
-            string contentDisposition);
+        //string GenerateDownloadLink(string blobName, double expirationTimeInMinutes,
+        //    string contentDisposition);
 
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
