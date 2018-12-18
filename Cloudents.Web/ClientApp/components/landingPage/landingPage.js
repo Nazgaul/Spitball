@@ -45,7 +45,8 @@ export default {
     },
     computed: {
         formattedReviews(){
-            return this.formatReviews(this.reviewItems)
+           return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
+
         },
         showBox() {
             if (this.search && this.search.length > 0) {
@@ -120,14 +121,7 @@ export default {
             "getSchoolName",
             "getSubjectsList"
         ]),
-        formatReviews(data) {
-                if(this.$vuetify.breakpoint.xsOnly){
-                    let merged = [].concat(...data);
-                    return merged
-                }else{
-                    return data
-                }
-        },
+
         getAllUniversities() {
             //leave space
             this.updateUniversities(' ');
