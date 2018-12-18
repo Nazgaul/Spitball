@@ -82,7 +82,7 @@
                         <span class="dummy-placeholder">some text</span>
                     </div>
                 </div>
-                <div style="flex-grow:1;width:100%;"></div>
+                <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
 
             </div>
         </section>
