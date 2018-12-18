@@ -195,6 +195,11 @@ export default {
     created() {
         this.getAllSubjects();
         this.getStatistics();
+        setTimeout(()=>{
+            this.$nextTick(() => {
+                global.scrollTo(0, 0);
+            })
+        }, 200)
     },
     filters: {
         boldText(value, search) {
