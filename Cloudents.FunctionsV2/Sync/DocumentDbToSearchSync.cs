@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Sync;
 using Cloudents.FunctionsV2.Binders;
-using Cloudents.Infrastructure.Write;
 using Cloudents.Search.Document;
 using Cloudents.Search.Entities;
 using Microsoft.Azure.WebJobs;
@@ -40,26 +37,26 @@ namespace Cloudents.FunctionsV2.Sync
                 new AzureSearchSyncAttribute(DocumentSearchWrite.IndexName), token);
 
             var needContinue = false;
-            foreach (var questionUpdate in update)
+            foreach (var document in update)
             {
 
                 needContinue = true;
-                await syncService.AddAsync(new AzureSearchSyncOutput()
+                await syncService.AddAsync(new AzureSearchSyncOutput
                 {
-                    Item = Document.FromDto(questionUpdate),
+                    Item = Document.FromDto(document),
                     Insert = true
 
                 }, token);
             }
 
-            foreach (var questionDelete in delete)
+            foreach (var document in delete)
             {
                 needContinue = true;
-                await syncService.AddAsync(new AzureSearchSyncOutput()
+                await syncService.AddAsync(new AzureSearchSyncOutput
                 {
                     Item = new Question()
                     {
-                        Id = questionDelete
+                        Id = document
                     },
                     Insert = false
 

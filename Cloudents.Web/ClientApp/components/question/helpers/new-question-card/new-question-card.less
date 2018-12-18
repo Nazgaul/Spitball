@@ -150,7 +150,8 @@
       flex-direction: column;
       margin-left: 16px;
       padding-right: 10px;
-      word-break: break-all;
+      word-break: break-all; // firefox fallback
+      word-break: break-word;
       padding-top: 3px;
       width: 100%;
       .question-body-header-container {
@@ -308,7 +309,7 @@
       font-family: @fontOpenSans;
       font-size: 12px;
       font-weight: 600;
-      line-height: 1;
+      //line-height: 1;
       color: @color-blue-new;
     }
     ::-moz-placeholder {
@@ -316,7 +317,7 @@
       font-family: @fontOpenSans;
       font-size: 12px;
       font-weight: 600;
-      line-height: 1;
+      //line-height: 3;
       color: @color-blue-new;
     }
     :-ms-input-placeholder {
@@ -324,7 +325,7 @@
       font-family: @fontOpenSans;
       font-size: 12px;
       font-weight: 600;
-      line-height: 1;
+      //line-height: 1;
       color: @color-blue-new;
     }
     :-moz-placeholder {
@@ -332,7 +333,7 @@
       font-family: @fontOpenSans;
       font-size: 12px;
       font-weight: 600;
-      line-height: 1;
+      //line-height: 1;
       color: @color-blue-new;
     }
     .question-input-container {

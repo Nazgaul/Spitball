@@ -1,36 +1,26 @@
-﻿using Cloudents.Core.Entities.Search;
-using System;
+﻿using System;
 using Cloudents.Common.Enum;
-using Cloudents.Core.Enum;
 using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
     public class DocumentSearchDto
     {
-        private string[] _tags;
         public long ItemId { get; set; }
         public string Name { get; set; }
 
         public string Tags
         {
            // get => _tags;
-            set
-            {
-                _tags = value?.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
-                
-            }
+            set => TagsArray = value?.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public string[] TagsArray
-        {
-            get => _tags;
-            set => _tags = value;
-        }
+        public string[] TagsArray { get; set; }
 
         public string Course { get; set; }
         public string Country { get; set; }
-        public Guid University { get; set; }
+        public Guid UniversityId { get; set; }
+        public string UniversityName { get; set; }
         public DateTime DateTime { get; set; }
         public string Language { get; set; }
         public ItemState State { get; set; }

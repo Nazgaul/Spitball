@@ -123,4 +123,10 @@
   <data name="TypeFilterTitle" xml:space="preserve">
     <value>סוגי מסמכים</value>
   </data>
+  <data name="VoteCantVote" xml:space="preserve">
+    <value>אתה לא יכול להצביע</value>
+  </data>
+  <data name="VoteNotEnoughScore" xml:space="preserve">
+    <value>אין לך מספיק נקודות</value>
+  </data>
 </root>

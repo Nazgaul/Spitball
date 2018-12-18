@@ -1,5 +1,5 @@
 ﻿
-namespace Cloudents.Core.Enum.Resources
+namespace Cloudents.Common.Resources
 {
     public class EnumResources
     {

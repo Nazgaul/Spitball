@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Common.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -40,7 +41,7 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
-            var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
+            //var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
 
             //if (oldQuestion?.Created.AddSeconds(20) > DateTime.UtcNow)
             //{
@@ -82,11 +83,11 @@ namespace Cloudents.Core.CommandHandler
                         Enumerable.Empty<Task>();
                 await Task.WhenAll(l).ConfigureAwait(true);
             }
-            _eventStore.Add(new QuestionCreatedEvent(question));
-            //if (question.Item.State == ItemState.Ok)
-            //{
-            //    question.Events.Add(new QuestionCreatedEvent(question));
-            //}
+            
+            if (question.Item.State == ItemState.Ok)
+            {
+                _eventStore.Add(new QuestionCreatedEvent(question));
+            }
         }
     }
 }

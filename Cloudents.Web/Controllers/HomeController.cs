@@ -18,9 +18,8 @@ namespace Cloudents.Web.Controllers
         internal const string Referral = "referral";
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        [ServiceFilter(typeof(RedirectToOldSiteFilterAttribute))]
+        //[ServiceFilter(typeof(RedirectToOldSiteFilterAttribute))]
         public IActionResult Index(
-            // [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral
             )

@@ -38,7 +38,8 @@
                 </div>
             </div>
             <div class="left-part gradient-background">
-                <div class="input-holder">
+                <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
+                <div style="width:100%;" class="input-holder">
                     <v-combobox v-if="$vuetify.breakpoint.smAndUp"
                                 class="input-subject"
                                 v-model="selectedSubject"
@@ -81,6 +82,8 @@
                         <span class="dummy-placeholder">some text</span>
                     </div>
                 </div>
+                <div style="flex-grow:1;width:100%;"></div>
+
             </div>
         </section>
 
@@ -99,7 +102,8 @@
                 </div>
             </div>
             <div class="right-part gradient-background">
-                <div class="input-holder">
+                <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
+                <div class="input-holder"  style="width: 100%;">
                     <v-combobox v-if="$vuetify.breakpoint.smAndUp"
                                 class="input-uni"
                                 v-model="university"
@@ -133,12 +137,12 @@
                             </v-list-tile-content>
                         </template>
                     </v-combobox>
-                    <div class="dummy-input"  @click="showMobileUniInput()" v-else>
+                     <div class="dummy-input"  @click="showMobileUniInput()" v-else>
                         <v-icon class="dummy-icon">sbf-search</v-icon>
                         <span class="dummy-placeholder">text some</span>
-
                     </div>
                 </div>
+                <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
 
             </div>
         </section>

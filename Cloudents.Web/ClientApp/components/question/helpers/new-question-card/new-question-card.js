@@ -102,21 +102,33 @@ export default {
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
-            questionVote: "questionVote"
+            questionVote: "questionVote",
+            updateLoginDialogState: "updateLoginDialogState"
         }),
         ...mapGetters(['accountUser']),
+        isAuthUser(){
+            let user = this.accountUser();
+            if (user == null) {
+              this.updateLoginDialogState(true);
+              return false;
+            }
+            return true;
+        },
         upvoteQuestion(){
-            let type = "up";
-            if(!!this.cardData.upvoted){
-                type = "none"; 
+            if (this.isAuthUser()) {
+                let type = "up";
+                if(!!this.cardData.upvoted){
+                    type = "none"; 
+                }
+                let data = {
+                    type,
+                    id: this.cardData.id
+                }
+                this.questionVote(data);
             }
-            let data = {
-                type,
-                id: this.cardData.id
-            }
-            this.questionVote(data);
         },
         downvoteQuestion(){
+            if (this.isAuthUser()) {
             let type = "down";
             if(!!this.cardData.downvoted){
                 type = "none"; 
@@ -126,6 +138,7 @@ export default {
                 id: this.cardData.id
             }
             this.questionVote(data);
+        }
         },
         cardOwner() {
             let userAccount = this.accountUser();

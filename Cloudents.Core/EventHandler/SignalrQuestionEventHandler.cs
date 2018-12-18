@@ -14,7 +14,7 @@ namespace Cloudents.Core.EventHandler
             IEventHandler<QuestionDeletedAdminEvent>,
             IEventHandler<MarkAsCorrectEvent>,
             IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>,
-            IEventHandler<TransactionEvent>
+            IEventHandler<UpdateBalanceEvent>
     {
         private readonly IServiceBusProvider _queueProvider;
 
@@ -132,13 +132,13 @@ namespace Cloudents.Core.EventHandler
             return _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Answer, SignalRAction.Delete, dto), token);
         }
 
-        public Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(UpdateBalanceEvent eventMessage, CancellationToken token)
         {
             var message = new SignalRTransportType(SignalRType.User,
-                SignalRAction.Update, new {balance = eventMessage.Transaction.User.Balance});
+                SignalRAction.Update, new {balance = eventMessage.User.Balance});
            
             return _queueProvider.InsertMessageAsync
-                (message, eventMessage.Transaction.User.Id, token);
+                (message, eventMessage.User.Id, token);
         }
 
         public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
@@ -151,5 +151,7 @@ namespace Cloudents.Core.EventHandler
             return _queueProvider.InsertMessageAsync(
                 new SignalRTransportType(SignalRType.Question, SignalRAction.Delete, dto), token);
         }
+
+
     }
 }

@@ -25,19 +25,7 @@ export default {
             isFocused: false,
             selectedSubject: '',
             search: '',
-            items: [
-                {
-                    src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-                },
-                {
-                    src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-                },
-                {
-                    src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-                },
-                {
-                    src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-                }
+            reviewItems: [
             ],
             youTubeVideoId: '',
             playerVisible: false,
@@ -130,6 +118,9 @@ export default {
             "getSchoolName",
             "getSubjectsList"
         ]),
+        getTestimonials(){
+
+        },
         getAllUniversities() {
             //leave space
             this.updateUniversities(' ');

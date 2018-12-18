@@ -283,13 +283,13 @@ Vue.filter('commasFilter', function (value) {
 
 router.beforeEach((to, from, next) => {
     store.dispatch('changeSelectUniState', false)
-    if (!!to.query && Object.keys(to.query).length > 0) {
-        for (let prop in to.query) {
-            //if (constants.regExXSSCheck.test(to.query[prop])) {
-                to.query[prop] = "";
-            //}
-        }
-    }
+    // if (!!to.query && Object.keys(to.query).length > 0) {
+    //     for (let prop in to.query) {
+    //         if (constants.regExXSSCheck.test(to.query[prop])) {
+    //             to.query[prop] = "";
+    //         }
+    //     }
+    // }
     if (global.innerWidth < 600) {
         intercomSettings.hide_default_launcher = true;
     }

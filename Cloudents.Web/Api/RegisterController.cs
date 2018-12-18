@@ -96,7 +96,6 @@ namespace Cloudents.Web.Api
             var p = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
             if (p.Succeeded)
             {
-                TempData[emailTime] = DateTime.UtcNow.ToString();
                 await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
                 return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
             }
@@ -255,6 +254,7 @@ namespace Cloudents.Web.Api
             {
                 url = null;
             }
+            TempData[emailTime] = DateTime.UtcNow.ToString();
 
             var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url, referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
