@@ -1,11 +1,9 @@
-﻿--need to add connection string to service bus , in azure function
+﻿--add queue name sms production
+az servicebus queue create --name sms --namespace-name spitball-prod --resource-group zbox --default-message-time-to-live PT30M
+az servicebus queue create --name signalr --namespace-name spitball-prod --resource-group zbox --default-message-time-to-live PT30M
+az servicebus topic create --name background2 --namespace-name spitball-prod --resource-group zbox --default-message-time-to-live P14D --max-size  5120
+az servicebus topic subscription create --name default --namespace-name spitball-prod --resource-group zbox --topic-name background2
 
-
---add queue name sms production
-az servicebus queue create --name sms --namespace-name spitball-dev --resource-group zbox-dev --default-message-time-to-live PT30M
-az servicebus queue create --name signalr --namespace-name spitball-dev --resource-group zbox-dev --default-message-time-to-live PT30M
-az servicebus topic create --name background2 --namespace-name spitball-dev --resource-group zbox-dev --default-message-time-to-live P14D --max-size  5120
-az servicebus topic subscription create --name default --namespace-name spitball-dev --resource-group zbox-dev --topic-name background2
 
 --Update document university
 BEGIN tran
@@ -24,129 +22,23 @@ join (select U2.Id, d.Id
 			on u.UniversityName = u2.Name and u.Country = u2.Country) t (University, tId) on t.tId = D.Id
 commit
 
-
 alter table sb.document
 add  Downloads int  null;
 
 UPDATE sb.Document
-SET Name = REPLACE(Name, '+', '');
-UPDATE sb.Course
-SET Name = REPLACE(Name, '+', '');
+SET Name = REPLACE(Name, '+', '-');
+
 UPDATE sb.University
-SET Name = REPLACE(Name, '+', '');
+SET Name = REPLACE(Name, '+', '-');
 
 ALTER TABLE sb.document ALTER COLUMN BlobName nvarchar(255) null;
---remove + char from course name
-begin tran
-insert into sb.Course select REPLACE(Name, '+', '-'),0 from sb.Course where [Name] like '%+%' order by 1
 
-update sb.Document
-set CourseName = REPLACE(CourseName, '+', '-')
-where CourseName like '%+%'
-
-delete from sb.Course where name like '%+%'
-commit
-
---make sure state in question table is not null
 update sb.Question
 set state = 'Ok'
 where state is null
 
-update sb.Question
-set state = 'Deleted' 
-where state = 'Suspended'
-
-ALTER TABLE sb.question ALTER COLUMN State nvarchar(255) not null;
-
 alter table sb.answer
 add  State nvarchar(255) null
-update sb.Answer
-set state = 'Ok'
-ALTER TABLE sb.Answer ALTER COLUMN State nvarchar(255) not null;
-
-
-begin tran
-update sb.[Transaction]
-
-alter table sb.[user]
-add  Score int null
-set [Type] = 'Earned'
-where [Type] = 'Awarded'
-commit
-
-alter table sb.[user]
-add Score int null
-
-
-begin tran
-update U
-set Score =  U.Balance + (isnull(t.price, 0) * -1)
-from sb.[user] U 
-left join (select [User_Id], sum(price) as price from sb.[Transaction] where [Action] = 'CashOut' group by [User_Id]) as t
-	on U.Id = t.[User_id] 
-commit
-
-
-
-update sb.[user]
-set fictive = 0s
-where fictive is null
-
-alter table sb.[user]
- ALTER COLUMN fictive bit not null;
-
-
-
-
---Case 11739
-
-begin tran
-update D
-set [Views] = NumberOfViews
-from sb.Document D
-join (select ItemId, NumberOfViews from zbox.Item) I
-on D.OldId = I.ItemId
-commit
-
-
-begin tran
-update D
-set Downloads = NumberOfDownloads
-from sb.Document D
-join (select ItemId, NumberOfDownloads from zbox.Item) I
-on D.OldId = I.ItemId
-commit
-
-
---Case 11716
-begin tran
-update sb.[user]
-set SecurityStamp = ''
-where SecurityStamp is null and OldUser = 1
-commit
-
-
---set items state to be not null
-begin tran
-update sb.Document
-set [state] = 'Ok'
-where [state] is null
-alter table sb.Document alter column [state] nvarchar(255) not null;
-commit
-
-begin tran
-update sb.Answer
-set [state] = 'Ok'
-where [state] is null
-alter table sb.Answer alter column [state] nvarchar(255) not null;
-commit
-
-begin tran
-update sb.Question
-set [state] = 'Ok'
-where [state] is null
-alter table sb.Question alter column [state] nvarchar(255) not null;
-commit
 
 /****** Object:  Table [sb].[Vote]    Script Date: 11/12/2018 17:01:22 ******/
 SET ANSI_NULLS ON
@@ -212,6 +104,131 @@ CREATE UNIQUE NONCLUSTERED INDEX idx_votesQuestion
                WHERE [DocumentId] IS NOT NULL;
 
 
+			   begin tran
+Create Table sb.HomeStats(users bigint, answers bigint, SBLs bigint, [money] bigint)
+commit
+
+insert into sb.HomeStats ([users], [answers], SBLs, [money]) VALUES (
+(select count(1) from sb.[user] where Fictive = 0),
+(select count(1) from sb.Answer),
+(select sum(Price) from sb.[Transaction] where Type = 'Earned'),
+(select sum(Price)/40 from sb.[Transaction] where Type = 'Earned')
+)
+
+
+--DONE
+--need to add connection string to service bus , in azure function
+
+
+
+--remove + char from course name
+begin tran
+insert into sb.Course select REPLACE(Name, '+', '-'),0 from sb.Course where [Name] like '%+%' order by 1
+
+update sb.Document
+set CourseName = REPLACE(CourseName, '+', '-')
+where CourseName like '%+%'
+
+delete from sb.Course where name like '%+%'
+commit
+
+alter table sb.[user]
+add  Score int null
+
+--make sure state in question table is not null
+
+
+update sb.Question
+set state = 'Deleted' 
+where state = 'Suspended'
+
+ALTER TABLE sb.question ALTER COLUMN State nvarchar(255) not null;
+
+
+update sb.Answer
+set state = 'Ok'
+ALTER TABLE sb.Answer ALTER COLUMN State nvarchar(255) not null;
+
+
+begin tran
+update sb.[Transaction]
+set [Type] = 'Earned'
+where [Type] = 'Awarded'
+commit
+
+begin tran
+update U
+set Score =  U.Balance + (isnull(t.price, 0) * -1)
+from sb.[user] U 
+left join (select [User_Id], sum(price) as price from sb.[Transaction] where [Action] = 'CashOut' group by [User_Id]) as t
+	on U.Id = t.[User_id] 
+commit
+
+
+
+update sb.[user]
+set fictive = 0
+where fictive is null
+
+alter table sb.[user]
+ ALTER COLUMN fictive bit not null;
+
+
+
+
+--Case 11739
+
+begin tran
+update D
+set [Views] = NumberOfViews
+from sb.Document D
+join (select ItemId, NumberOfViews from zbox.Item) I
+on D.OldId = I.ItemId
+commit
+
+
+begin tran
+update D
+set Downloads = NumberOfDownloads
+from sb.Document D
+join (select ItemId, NumberOfDownloads from zbox.Item) I
+on D.OldId = I.ItemId
+commit
+
+
+--Case 11716
+begin tran
+update sb.[user]
+set SecurityStamp = ''
+where SecurityStamp is null and OldUser = 1
+commit
+
+
+--set items state to be not null
+begin tran
+update sb.Document
+set [state] = 'Ok'
+where [state] is null
+alter table sb.Document alter column [state] nvarchar(255) not null;
+commit
+
+begin tran
+update sb.Answer
+set [state] = 'Ok'
+where [state] is null
+alter table sb.Answer alter column [state] nvarchar(255) not null;
+commit
+
+begin tran
+update sb.Question
+set [state] = 'Ok'
+where [state] is null
+alter table sb.Question alter column [state] nvarchar(255) not null;
+commit
+
+
+
+
 
 update sb.question set votecount = 0 where votecount is null;
 update sb.answer set votecount = 0 where votecount is null;
@@ -241,13 +258,3 @@ need to run ReduDocument - to support uni and class search
 
 
 
-begin tran
-Create Table sb.HomeStats(users bigint, answers bigint, SBLs bigint, [money] bigint)
-commit
-
-insert into sb.HomeStats ([users], [answers], SBLs, [money]) VALUES (
-(select count(1) from sb.[user] where Fictive = 0),
-(select count(1) from sb.Answer),
-(select sum(Price) from sb.[Transaction] where Type = 'Earned'),
-(select sum(Price)/40 from sb.[Transaction] where Type = 'Earned')
-)

@@ -59,10 +59,14 @@ namespace Cloudents.Web.Controllers
             });
         }
 
-        [Route("document/{id}")]
+        [Route("document/{base62}")]
         public async Task<IActionResult> ShortUrl(string base62,
             CancellationToken token)
         {
+            if (string.IsNullOrEmpty(base62))
+            {
+                return NotFound();
+            }
             if (!Base62.TryParse(base62, out var id))
             {
                 return NotFound();
