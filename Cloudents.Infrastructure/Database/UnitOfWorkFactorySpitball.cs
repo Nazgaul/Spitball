@@ -3,8 +3,8 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Database.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
-using NHibernate.Caches.CoreDistributedCache;
-using NHibernate.Caches.CoreDistributedCache.Redis;
+//using NHibernate.Caches.CoreDistributedCache;
+//using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
 using NHibernate.Event;
 
@@ -56,12 +56,12 @@ namespace Cloudents.Infrastructure.Database
             });
             //TODO: Azure function as usual making live harder
             //Could not load file or assembly 'Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60' or one of its dependencies. The system cannot find the file specified.
-            configuration.Cache(c =>
-            {
-                CoreDistributedCacheProvider.CacheFactory = new RedisFactory(connectionString.Db.Redis, "master");
-                c.UseSecondLevelCache().RegionPrefix("nhibernate")
-                    .UseQueryCache().ProviderClass<CoreDistributedCacheProvider>();
-            });
+            //configuration.Cache(c =>
+            //{
+            //    CoreDistributedCacheProvider.CacheFactory = new RedisFactory(connectionString.Db.Redis, "master");
+            //    c.UseSecondLevelCache().RegionPrefix("nhibernate")
+            //        .UseQueryCache().ProviderClass<CoreDistributedCacheProvider>();
+            //});
 
             _factory = configuration.BuildSessionFactory();
 

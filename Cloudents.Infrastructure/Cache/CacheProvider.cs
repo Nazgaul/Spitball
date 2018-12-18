@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Cache
         {
             _logger = logger;
             
-            var multiplexer = ConnectionMultiplexer.Connect(keys.Redis);
+            var multiplexer = StackExchange.Redis.ConnectionMultiplexer.Connect(keys.Redis);
 
             multiplexer.ConnectionFailed += (sender, args) =>
             {
