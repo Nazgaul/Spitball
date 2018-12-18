@@ -1,10 +1,10 @@
 <template>
     <div>
-        <v-parallax
+        
+        <div
                 :height="$vuetify.breakpoint.xsOnly ? '560' : '745'"
                 class="wide-parallax"
-                pa-0
-                :src="$vuetify.breakpoint.xsOnly ? require('./images/home_page_one.jpg') : require('./images/home_page_one.jpg')">
+                pa-0>
 
         <landing-header></landing-header>
 
@@ -21,7 +21,7 @@
                 </div>
                 <statistics class="statistics"></statistics>
             </section>
-        </v-parallax>
+        </div>
 
 
         <section class="intro-one">
