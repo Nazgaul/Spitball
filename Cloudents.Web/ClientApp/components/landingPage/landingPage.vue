@@ -2,13 +2,17 @@
     <div>
         
         <div
-                :height="$vuetify.breakpoint.xsOnly ? '560' : '745'"
+                :height="isMobileView ? '560' : '745'"
                 class="wide-parallax"
                 pa-0>
 
         <landing-header></landing-header>
 
             <section class="hero">
+                <div class="text-switch-container" v-show="isMobileView">
+                    <a class="white-text lp-header-link">Learn faster</a>
+                    <a class="yellow-text lp-header-link">Earn money</a>
+                </div>
                 <div class="hero-wrap">
                     <div class="hero-text-container">
                         <h1 class="hero-title">Earn From Your Knowledge</h1>

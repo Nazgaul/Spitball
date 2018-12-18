@@ -45,9 +45,10 @@
   background-image: url('./images/home_page_one.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+  overflow: hidden;
   .statistics {
     width: 105%;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       width: 110%;
     }
   }
@@ -95,7 +96,7 @@ section {
 
 }
 
-@media (max-width: @screen-xs) {
+@media (max-width: @screen-mds) {
   section {
     padding: 80px 30px;
   }
@@ -114,7 +115,7 @@ section {
 .overflowing-parallax {
   overflow: visible;
   max-height: 600px;
-  @media (max-width: @screen-xs) {
+  @media (max-width: @screen-mds) {
     max-height: 350px;
     overflow: visible;
   }
@@ -133,10 +134,25 @@ section {
   padding: 0;
   margin-top: 125px;
   height: 100%;
-  @media (max-width: @screen-xs) {
-    padding-top: 74px;
+  @media (max-width: @screen-mds) {
+    padding: 74px 20px 0 20px;
     height: 560px;
     margin-top: unset;
+  }
+  .text-switch-container{
+    display: flex;
+    width: 100%;
+    margin-bottom: 23px;
+    .yellow-text {
+        color: @color-yellow;
+    }
+    .white-text {
+        color: rgba(255, 255, 255, 0.45);
+    }
+    .lp-header-link {
+      font-size: 13px;
+      margin-right: 18px;
+    }
   }
   .hero-wrap {
     display: flex;
@@ -144,18 +160,19 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       flex-grow: 1;
     }
   }
   .hero-text-container {
     height: 190px;
+    min-height: 190px;
     .hero-title {
       font-size: 56px;
       color: @color-white;
       font-family: @fontPatua;
       margin-bottom: 15px;
-      @media (max-width: @screen-xs) {
+      @media (max-width: @screen-mds) {
         text-shadow: 0 2px 25px rgba(0, 0, 0, 0.86);
         font-size: 42px;
         line-height: 1.21;
@@ -172,7 +189,7 @@ section {
       text-align: center;
       color: rgba(255, 255, 255, 0.66);
       font-weight: normal;
-      @media (max-width: @screen-xs) {
+      @media (max-width: @screen-mds) {
         text-align: left;
         font-size: 14px;
         color: fade(@color-white, 66%);
@@ -229,7 +246,7 @@ section {
   flex-wrap: wrap;
   align-items: stretch;
   padding: 125px 0;
-  @media (max-width: @screen-xs) {
+  @media (max-width: @screen-mds) {
     flex-direction: column;
   }
   .right-part {
@@ -251,7 +268,7 @@ section {
     height: 396px;
     width: 100%;
     border-radius: 4px;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.39);
     }
   }
@@ -260,7 +277,7 @@ section {
   }
   .input-holder {
 
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       .dummy-input {
         display: flex;
         flex-direction: row;
@@ -292,7 +309,7 @@ section {
  	intro sections defferering styles
 ---------------------*/
 .intro-one {
-  @media (max-width: @screen-xs) {
+  @media (max-width: @screen-mds) {
     padding: 0 12px;
   }
   .title-container {
@@ -303,7 +320,7 @@ section {
     justify-content: flex-start;
     flex-direction: row;
     margin-bottom: 34px;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       padding-top: 34px;
     }
     .title-wrap {
@@ -316,7 +333,7 @@ section {
         font-size: 38px;
         color: @textColor;
         margin-bottom: 12px;
-        @media (max-width: @screen-xs) {
+        @media (max-width: @screen-mds) {
           font-size: 20px;
         }
       }
@@ -325,7 +342,7 @@ section {
         font-family: @fontOpenSans;
         color: @introSubTitleColor;
         margin-bottom: 64px;
-        @media (max-width: @screen-xs) {
+        @media (max-width: @screen-mds) {
           font-size: 14px;
         }
       }
@@ -333,7 +350,7 @@ section {
   }
   .right-part {
     position: relative;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       order: 1;
     }
     &:after {
@@ -348,7 +365,7 @@ section {
       border-left: 0;
       margin-top: -22px;
       margin-left: -22px;
-      @media (max-width: @screen-xs) {
+      @media (max-width: @screen-mds) {
         content: '';
         position: absolute;
         top: 105%;
@@ -375,7 +392,7 @@ section {
     bottom: 46px;
     left: -15%;
     max-width: 643px;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       bottom: 0;
       left: 0;
     }
@@ -384,7 +401,7 @@ section {
     padding-top: 64px;
     width: 100%;
     max-width: 576px;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       padding: 36px 16px;
   
     }
@@ -393,7 +410,7 @@ section {
 }
 
 .intro-two {
-  @media (max-width: @screen-xs) {
+  @media (max-width: @screen-mds) {
     padding: 0 12px;
   }
   .title-container {
@@ -404,7 +421,7 @@ section {
     justify-content: flex-start;
     flex-direction: row;
     margin-bottom: 34px;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       padding-top: 34px;
     }
     .title-wrap {
@@ -417,7 +434,7 @@ section {
         font-size: 38px;
         color: @textColor;
         margin-bottom: 12px;
-        @media (max-width: @screen-xs) {
+        @media (max-width: @screen-mds) {
           font-size: 20px;
         }
       }
@@ -425,7 +442,7 @@ section {
         font-size: 20px;
         font-family: @fontOpenSans;
         color: @introSubTitleColor;
-        @media (max-width: @screen-xs) {
+        @media (max-width: @screen-mds) {
           font-size: 14px;
         }
       }
@@ -438,7 +455,7 @@ section {
 
   }
   .left-part {
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       order: 1;
     }
     &:after {
@@ -453,7 +470,7 @@ section {
       border-right: 0;
       margin-top: -22px;
       margin-right: -22px;
-      @media (max-width: @screen-xs) {
+      @media (max-width: @screen-mds) {
         content: '';
         position: absolute;
         top: 105%;
@@ -473,7 +490,7 @@ section {
     bottom: 46px;
     right: -15%;
     max-width: 643px;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       bottom: 0;
       right: 0;
     }
@@ -482,7 +499,7 @@ section {
     padding-top: 64px;
     width: 60%;
     max-width: 576px;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       padding: 36px 16px;
       width: 100%;
       .input-subject {
@@ -509,7 +526,7 @@ section {
 .faq {
   background-color: @faqbackgroundColor;
   padding: 94px 100px;
-  @media (max-width: @screen-xs) {
+  @media (max-width: @screen-mds) {
     padding: 0 12px;
   }
 
@@ -554,7 +571,7 @@ section {
     font-size: 50px;
     font-weight: normal;
     color: @color-white;
-    @media (max-width: @screen-xs) {
+    @media (max-width: @screen-mds) {
       font-size: 32px;
     }
   }
@@ -566,6 +583,14 @@ section {
     font-size: 20px;
     border-radius: 56.5px;
     box-shadow: 0 7px 15px 0 #1f2cc5;
+  }
+}
+/*---------------------
+ 	Video Preview
+---------------------*/
+.video-dialog{
+  .videoPlayerDialog{
+    box-shadow: none;
   }
 }
 
@@ -600,7 +625,7 @@ section {
           display: block;
           margin: 0 auto;
           width: 50%;
-          @media (max-width: @screen-xs) {
+          @media (max-width: @screen-mds) {
             width: 100%;
           }
         }
