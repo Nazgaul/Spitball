@@ -92,7 +92,6 @@ namespace Cloudents.Core.Votes.Commands.AddVoteAnswer
             if (answerExists != null)
             {
                 throw new UnauthorizedAccessException("you cannot vote if you gave answer");
-
             }
         }
     }

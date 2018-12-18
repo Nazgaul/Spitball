@@ -9,7 +9,8 @@
             Score = score;
         }
 
-        protected UserDto()
+        // ReSharper disable once MemberCanBeProtected.Global need that for mark answer as correct.
+        public UserDto()
         {
             
         }
