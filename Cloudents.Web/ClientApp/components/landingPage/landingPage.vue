@@ -75,9 +75,9 @@
                             </v-list-tile>
                         </template>
                         <template slot="item" slot-scope="{ index, item, parent }">
-                            <v-list-tile-content style="max-width:385px;">
+                            <v-list-tile-content style="max-width:385px;" @click="goToResulstQuestionsPage(item)">
                                 <span v-html="$options.filters.boldText(item, search)"
-                                      @click="goToResulstQuestionsPage(item)">{{ item }}</span>
+                                      >{{ item }}</span>
                             </v-list-tile-content>
                         </template>
                     </v-combobox>
@@ -136,7 +136,7 @@
                             </v-list-tile>
                         </template>
                         <template slot="item" slot-scope="{ index, item, parent }">
-                            <v-list-tile-content style="max-width:385px;">
+                            <v-list-tile-content style="max-width:385px;"  @click="goToResultDocumentsPage(item)">
                                 <span v-html="$options.filters.boldText(item.text, searchUni)">{{ item.text }}</span>
                             </v-list-tile-content>
                         </template>
@@ -166,14 +166,14 @@
                 <h3 class="faq-title" v-language:inner>landingPage_how_is_catch</h3>
                 <p class="faq-text" v-language:inner>landingPage_how_is_catch_desc</p>
             </div>
-            <button class="cta-sbl sb-rounded-btn" v-language:inner>landingPage_get_your_sbl</button>
+            <router-link :to="{path: '/register'}" class="cta-sbl sb-rounded-btn" v-language:inner>landingPage_get_your_sbl</router-link>
         </section>
 
         <!--<v-parallax class="overflowing-parallax"-->
         <!--dark-->
         <!--src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">-->
         <section class="reviews">
-            <h3 class="reviews-title" v-language:inner>landingPage_spitball_student_title</h3>
+            <h3 class="reviews-title" v-show="$vuetify.breakpoint.xsAndUp" v-language:inner>landingPage_spitball_student_title</h3>
             <div class="carousel-holder">
                 <v-carousel
                         height=""
@@ -185,7 +185,6 @@
                     <v-carousel-item v-for="(items,i) in formattedReviews"  :key="`desktop-${i}`" v-if="!$vuetify.breakpoint.xsOnly">
                         <template v-for="(data, index) in items">
                             <div :key="`innerData_${index}`" class="review-item-wrap">
-
                                 <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
                                 <span class="review-name">{{data.name}}</span>
                                 <span class="review-title">{{data.title}}</span>
@@ -214,7 +213,7 @@
             <v-layout row wrap v-bind="binding" class="layout-subject">
                 <v-flex v-for="subjectItem in subjectList" class="subject-item" :key="`${subjectItem.id}`" xs3>
                     <v-card class="subject-card">
-                        <v-card-text class="subject-text" @click="updateSubject(subjectItem)">
+                        <v-card-text class="subject-text" @click="goToResulstQuestionsPage(subjectItem)">
                             {{subjectItem.subject}}
                         </v-card-text>
                     </v-card>
@@ -223,7 +222,7 @@
         </section>
         <section class="join">
             <h3 class="join-title" v-language:inner>landingPage_join_spitball_free</h3>
-            <button class="join-cta" v-language:inner>landingPage_sign_up</button>
+            <router-link :to="{path: '/register'}" class="join-cta" v-language:inner>landingPage_sign_up</router-link>
         </section>
         <landing-footer></landing-footer>
         <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="playerVisible" :popUpType="'videoPlayer'"
@@ -315,7 +314,7 @@
                         </v-list-tile>
                     </template>
                     <template slot="item" slot-scope="{ index, item, parent }">
-                        <v-list-tile-content style="max-width:385px;">
+                        <v-list-tile-content style="max-width:385px;" @click="goToResultDocumentsPage(item)">
                             <span v-html="$options.filters.boldText(item.text, searchUni)">{{ item.text }}</span>
                         </v-list-tile-content>
 
