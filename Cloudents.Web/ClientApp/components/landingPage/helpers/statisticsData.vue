@@ -67,7 +67,7 @@ export default {
 <style scoped lang="less">
 @import "../../../styles/mixin.less";
 .stats-wrap {
-  width: 100%;
+  width: 115%;
   padding: 26px 100px;
   @media (max-width: @screen-mds) {
     padding: 0;

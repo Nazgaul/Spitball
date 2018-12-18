@@ -45,6 +45,10 @@ export default {
         },
     },
     computed: {
+        ...mapGetters(['getDictionaryPrefix']),
+        dictionaryType(){
+            return this.getDictionaryPrefix
+        },
         statsData(){
             return this.statistics();
         },
@@ -122,6 +126,7 @@ export default {
             "updateSchoolName",
             "updateSubject",
             "getAllSubjects",
+            "switchLandingPageText",
             "getStatistics"
         ]),
         ...mapGetters([
@@ -130,7 +135,9 @@ export default {
             "getSubjectsList",
             "statistics"
         ]),
-
+        changeDictionaryType(val){
+            this.switchLandingPageText(val);
+        },
         getAllUniversities() {
             //leave space
             this.updateUniversities(' ');

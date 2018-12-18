@@ -2,6 +2,11 @@ import questionService from '../services/questionService'
 import homeLandingService from '../services/homeLandingService';
 const state = {
     subjects: [],
+    dictionaryPrefixEnum:{
+        learn: 'learn',
+        earn: 'earn'
+    },
+    dictionaryPrefix: 'earn',
     selectedSubject: '',
     statistics : []
 };
@@ -14,13 +19,19 @@ const mutations = {
     },
     updateStatisticsData(state, data){
         state.statistics = data
+    },
+    changeDictionaryPrefix(state, val){
+        if(!!state.dictionaryPrefixEnum[val]){
+            state.dictionaryPrefix = state.dictionaryPrefixEnum[val];
+        }
     }
 };
 const getters = {
     getSelectedSubject: (state) => state.selectedSubject,
+    statistics: (state) => state.statistics,
     getSubjectsList: (state) => state.subjects,
-    statistics: (state) => state.statistics
-
+    getDictionaryPrefix: (state) => state.dictionaryPrefix,
+    getDictionaryPrefixEnum: (state) => state.dictionaryPrefixEnum,
 };
 const actions = {
     updateSubject({commit}, data) {
@@ -32,6 +43,10 @@ const actions = {
                 let data = response.data;
                 commit('getAllSubjects', data);
             });
+
+    },
+    switchLandingPageText({commit}, val){
+        commit('changeDictionaryPrefix', val)
     },
     getStatistics({commit}) {
         homeLandingService.getStatistics()
