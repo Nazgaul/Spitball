@@ -12,6 +12,7 @@ import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue';
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin';
 import {LanguageService} from '../../services/language/languageService'
 import soonComponent from './helpers/soon/soon.vue'
+import setUniClass from './helpers/setUniClassItem/setUniClass.vue'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 import notificationCenter from '../notificationCenter/notificationCenter.vue'
@@ -41,7 +42,8 @@ export default {
         uploadFilesBtn,
         askQuestionBtn,
         soonComponent,
-        ResultAsk
+        ResultAsk,
+        setUniClass
     },
     data() {
         return {
@@ -82,9 +84,12 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster', 'getSchoolName']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
-
+        showSelectUni(){
+            let schoolName = this.getSchoolName;
+            return schoolName.length === 0;
+        },
         isNote(){
             return  this.$route.path.slice(1)==='note'
         },

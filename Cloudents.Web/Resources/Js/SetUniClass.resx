@@ -117,16 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="begginer" xml:space="preserve">
-    <value>New Kid</value>
+  <data name="choose_now" xml:space="preserve">
+    <value>Choose Now</value>
   </data>
-  <data name="professional" xml:space="preserve">
-    <value>Yound Gun</value>
-  </data>
-  <data name="spitballer" xml:space="preserve">
-    <value>Hot Shot</value>
-  </data>
-  <data name="worldClass" xml:space="preserve">
-    <value>Legend</value>
+  <data name="find_relevant" xml:space="preserve">
+    <value>Find Study Document relevant to you!
+      Select your School and Class</value>
   </data>
 </root>

@@ -58,7 +58,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['accountUser', 'getToasterText', 'getShowToaster']),
+        ...mapGetters(['getToasterText', 'getShowToaster']),
         gallery() {
             return this.cardData.files
         },
@@ -66,8 +66,9 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         cardOwner() {
-            if (this.accountUser && this.cardData.user) {
-                return this.accountUser.id === this.cardData.user.id; // will work once API call will also return userId
+            let user = this.accountUser();
+            if (user && this.cardData.user) {
+                return user.id === this.cardData.user.id; // will work once API call will also return userId
             }
         },
         canDelete() {
@@ -108,29 +109,43 @@ export default {
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
-            answerVote: 'answerVote'
+            answerVote: 'answerVote',
+            updateLoginDialogState:'updateLoginDialogState'
         }),
+        ...mapGetters(['accountUser']),
+        isAuthUser(){
+            let user = this.accountUser();
+            if (user == null) {
+              this.updateLoginDialogState(true);
+              return false;
+            }
+            return true;
+        },
         upvoteAnswer(){
-            let type = "up";
-            if(!!this.cardData.upvoted){
-                type = "none"; 
+            if (this.isAuthUser()) {
+                let type = "up";
+                if(!!this.cardData.upvoted){
+                    type = "none"; 
+                }
+                let data = {
+                    type,
+                    id: this.cardData.id
+                }
+                this.answerVote(data);
             }
-            let data = {
-                type,
-                id: this.cardData.id
-            }
-            this.answerVote(data);
         },
         downvoteAnswer(){
-            let type = "down";
-            if(!!this.cardData.downvoted){
-                type = "none"; 
+            if (this.isAuthUser()) {
+                let type = "down";
+                if(!!this.cardData.downvoted){
+                    type = "none"; 
+                }
+                let data = {
+                    type,
+                    id: this.cardData.id
+                }
+                this.answerVote(data);
             }
-            let data = {
-                type,
-                id: this.cardData.id
-            }
-            this.answerVote(data);
         },
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {

@@ -117,16 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="begginer" xml:space="preserve">
-    <value>New Kid</value>
+  <data name="Testimonial1" xml:space="preserve">
+    <value>כל הכבוד על היוזמה. אתר טוב מאוד ויעיל. תודה רבה</value>
   </data>
-  <data name="professional" xml:space="preserve">
-    <value>Yound Gun</value>
+  <data name="Testimonial1Person" xml:space="preserve">
+    <value>ורד סלקמן</value>
   </data>
-  <data name="spitballer" xml:space="preserve">
-    <value>Hot Shot</value>
+  <data name="Testimonial1Title" xml:space="preserve">
+    <value>האוניברסיטה הפתוחה </value>
   </data>
-  <data name="worldClass" xml:space="preserve">
-    <value>Legend</value>
+  <data name="Testimonial2" xml:space="preserve">
+    <value>אוהבים את הכל!!! אין על האתר הזה, הכי עוזר שיש</value>
+  </data>
+  <data name="Testimonial2Person" xml:space="preserve">
+    <value>חן נעים</value>
+  </data>
+  <data name="Testimonial2Title" xml:space="preserve">
+    <value>המכללה האקדמית אשקלון</value>
+  </data>
+  <data name="Testimonial3" xml:space="preserve">
+    <value>אתר מדהים! ממשק פשוט ונוח מאגר חומרי לימוד יעיל ועדכני</value>
+  </data>
+  <data name="Testimonial3Person" xml:space="preserve">
+    <value>טובי כהן</value>
+  </data>
+  <data name="Testimonial3Title" xml:space="preserve">
+    <value>האוניברסיטה הפתוחה</value>
+  </data>
+  <data name="Testimonial4" xml:space="preserve">
+    <value>אתר מעולה תורם רבות בעיקר ללמוד לקראת מבחנים, מאוד מועיל תודה רבה :)</value>
+  </data>
+  <data name="Testimonial4Person" xml:space="preserve">
+    <value> ענת פלד
+</value>
+  </data>
+  <data name="Testimonial4Title" xml:space="preserve">
+    <value>האוניברסיטה הפתוחה</value>
   </data>
 </root>
