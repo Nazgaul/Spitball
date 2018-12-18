@@ -8,11 +8,11 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="landing-header-items">
-                <a v-show="!isMobileView" class="white-text lp-header-link">Learn faster</a>
-                <a v-show="!isMobileView" class="yellow-text lp-header-link bold">Earn money</a>
+                <a v-show="!isMobileView" class="white-text lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
+                <a v-show="!isMobileView" class="yellow-text lp-header-link bold" @click="changeDictionaryType('earn')">Earn money</a>
                 <router-link v-show="!loggedIn" :to="{path: '/signin'}" class="login-action login">Login</router-link>
                 <router-link v-show="!loggedIn" :to="{path: '/register'}" class="login-action signup">Sign Up</router-link>
-                <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'" v-if="!loggedIn">
+                <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                     <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer" class="gamburger">
                         <v-icon>sbf-menu</v-icon>
                     </v-btn>
@@ -30,7 +30,7 @@
     </div>
 </template>
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import footerLogo from '../images/footerLogo.svg';
     import shortLogo from '../images/sb-logo-short.svg';
     import menuList from "../../helpers/menu-list/menu-list.vue";
@@ -51,10 +51,10 @@
         props: {},
         computed: {
             ...mapGetters([
-                "accounUser",
+                "accountUser",
             ]),
             loggedIn() {
-                return this.accountUser
+                return !!this.accountUser
             },
             isSolidHeader(){
                 return this.offset > 120
@@ -65,6 +65,12 @@
 
         },
         methods: {
+            ...mapActions([
+                "switchLandingPageText",
+            ]),
+            changeDictionaryType(val){
+                this.switchLandingPageText(val);
+            },
             goToLogin() {
                 console.log( 'login sdfsdf')
                 this.$router.push({path: '/signin'});

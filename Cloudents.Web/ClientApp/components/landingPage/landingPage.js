@@ -44,6 +44,10 @@ export default {
         },
     },
     computed: {
+        ...mapGetters(['getDictionaryPrefix']),
+        dictionaryType(){
+            return this.getDictionaryPrefix
+        },
         formattedReviews(){
            return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
 
@@ -117,14 +121,17 @@ export default {
             "clearUniversityList",
             "updateSchoolName",
             "updateSubject",
-            "getAllSubjects"
+            "getAllSubjects",
+            "switchLandingPageText"
         ]),
         ...mapGetters([
             "getUniversities",
             "getSchoolName",
             "getSubjectsList"
         ]),
-
+        changeDictionaryType(val){
+            this.switchLandingPageText(val);
+        },
         getAllUniversities() {
             //leave space
             this.updateUniversities(' ');

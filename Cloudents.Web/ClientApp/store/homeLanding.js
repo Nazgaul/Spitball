@@ -2,7 +2,12 @@ import questionService from '../services/questionService'
 
 const state = {
     subjects: [],
-    selectedSubject: ''
+    selectedSubject: '',
+    dictionaryPrefixEnum:{
+        learn: 'learn',
+        earn: 'earn'
+    },
+    dictionaryPrefix: 'earn',
 };
 const mutations = {
     updateChoosenSubject(state, val) {
@@ -10,11 +15,18 @@ const mutations = {
     },
     getAllSubjects(state, data) {
         state.subjects = data
+    },
+    changeDictionaryPrefix(state, val){
+        if(!!state.dictionaryPrefixEnum[val]){
+            state.dictionaryPrefix = state.dictionaryPrefixEnum[val];
+        }
     }
 };
 const getters = {
     getSelectedSubject: (state) => state.selectedSubject,
-    getSubjectsList: (state) => state.subjects
+    getSubjectsList: (state) => state.subjects,
+    getDictionaryPrefix: (state) => state.dictionaryPrefix,
+    getDictionaryPrefixEnum: (state) => state.dictionaryPrefixEnum,
 };
 const actions = {
     updateSubject({commit}, data) {
@@ -29,6 +41,9 @@ const actions = {
                 commit('getAllSubjects', data);
             });
 
+    },
+    switchLandingPageText({commit}, val){
+        commit('changeDictionaryPrefix', val)
     }
 
 

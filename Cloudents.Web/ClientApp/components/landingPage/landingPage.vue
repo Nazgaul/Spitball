@@ -10,18 +10,18 @@
 
             <section class="hero">
                 <div class="text-switch-container" v-show="isMobileView">
-                    <a class="white-text lp-header-link">Learn faster</a>
-                    <a class="yellow-text lp-header-link">Earn money</a>
+                    <a class="white-text lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
+                    <a class="yellow-text lp-header-link" @click="changeDictionaryType('earn')">Earn money</a>
                 </div>
                 <div class="hero-wrap">
                     <div class="hero-text-container">
-                        <h1 class="hero-title">Earn From Your Knowledge</h1>
-                        <h3>Help Students, Earn SBL and Cash out with Amazon Gift Cards</h3>
+                        <h1 class="hero-title" v-html="$Ph(`landingPage_${dictionaryType}_knowledge_title`)"></h1>
+                        <h3 v-html="$Ph(`landingPage_${dictionaryType}_knowledge_subTitle`)"></h3>
                     </div>
-                    <a href="#" class="cta-button">Join Spitball its 100% Free</a>
+                    <a href="#" class="cta-button" v-language:inner>landingPage_join_spitball</a>
                     <a class="video-link" @click.prevent="updateVideoId('6lt2JfJdGSY')">
                         <v-icon class="play-icon">sbf-play</v-icon>
-                        See how it works</a>
+                        <span v-language:inner>landingPage_how_it_works</span></a>
                 </div>
                 <statistics class="statistics"></statistics>
             </section>
@@ -32,8 +32,8 @@
             <div class="title-container">
                 <div class="spacer-one" v-if="$vuetify.breakpoint.smAndUp"></div>
                 <div class="title-wrap">
-                    <h3 class="intro-one-title">Answer Questions, Earn SBL</h3>
-                    <span class="intro-one-sub-title">Cash out your SBL into amazon gift cards </span>
+                    <h3 class="intro-one-title" v-html="$Ph(`landingPage_${dictionaryType}_question_section_title`)"></h3>
+                    <span class="intro-one-sub-title" v-html="$Ph(`landingPage_${dictionaryType}_question_section_subTitle`)"></span>
                 </div>
             </div>
             <div class="right-part overlap-above">
@@ -95,8 +95,8 @@
             <div class="title-container">
                 <div class="spacer-two" v-if="$vuetify.breakpoint.smAndUp"></div>
                 <div class="title-wrap">
-                    <h3 class="intro-two-title">Upload Documents For Your Classes</h3>
-                    <span class="intro-two-sub-title">Class Notes, Study Guides, Exams Preparations</span>
+                    <h3 class="intro-two-title" v-html="$Ph(`landingPage_${dictionaryType}_upload_section_title`)"></h3>
+                    <span class="intro-two-sub-title" v-language:inner>landingPage_upload_section_subTitle</span>
                 </div>
 
             </div>
@@ -152,38 +152,28 @@
         </section>
         <section class="faq">
             <div class="faq-wrap">
-                <h3 class="faq-title">What is Spitball</h3>
-                <p class="faq-text">Spitball is an online marketplace where students acquire knowledge and earn from
-                    helping others. Our platform allows students to ask and answer homework problems, share study
-                    documents and buy books. On spitball students get the right incentives to learn and earn and help
-                    each other.</p>
-                <h3 class="faq-title">How does Spitball differ from other websites?</h3>
-                <p class="faq-text">Spitball brings power back to students, no subscription fees, no ads, no catch. With
-                    Spitball you get the tools to learn smarter and earn so you can enjoy life.
-                </p>
+                <h3 class="faq-title" v-language:inner>landingPage_what_is_spitball</h3>
+                <p class="faq-text" v-language:inner>landingPage_what_is_spitball_desc</p>
+                <h3 class="faq-title" v-language:inner>landingPage_how_spitball_differs</h3>
+                <p class="faq-text" v-language:inner>landingPage_how_spitball_differs_desc</p>
 
-                <h3 class="faq-title">How does spitball work?</h3>
-                <p class="faq-text">Students that need help with their studies, choose their campus and class browse
-                    study documents or ask homework questions. Students that know the answer will help solve these
-                    problems, and the most helpful answer or document gets rewarded with SBL.</p>
-                <h3 class="faq-title">What is an SBL?</h3>
-                <p class="faq-text">SBL is the currency used on the Spitball platform. SBL can be converted into real
-                    money through Amazon Gift cards.</p>
-                <h3 class="faq-title">How do I get SBL?</h3>
-                <p class="faq-text">You get SBL when you register and earn more SBL by helping others or referring
-                    friends.</p>
-                <h3 class="faq-title">Wait, I can earn real money on Spitball, what’s the catch?</h3>
-                <p class="faq-text">That’s right! There is no catch. Earned SBL’s are redeemable for Amazon gift
-                    cards</p>
+                <h3 class="faq-title" v-language:inner>landingPage_how_spitball_work</h3>
+                <p class="faq-text" v-language:inner>landingPage_how_spitball_work_desc</p>
+                <h3 class="faq-title" v-language:inner>landingPage_how_sbl_money</h3>
+                <p class="faq-text" v-language:inner>landingPage_how_sbl_money_desc</p>
+                <h3 class="faq-title" v-language:inner>landingPage_how_get_sbl</h3>
+                <p class="faq-text" v-language:inner>landingPage_how_get_sbl_desc</p>
+                <h3 class="faq-title" v-language:inner>landingPage_how_is_catch</h3>
+                <p class="faq-text" v-language:inner>landingPage_how_is_catch_desc</p>
             </div>
-            <button class="cta-sbl sb-rounded-btn">Get Your SBL</button>
+            <button class="cta-sbl sb-rounded-btn" v-language:inner>landingPage_get_your_sbl</button>
         </section>
 
         <!--<v-parallax class="overflowing-parallax"-->
         <!--dark-->
         <!--src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">-->
         <section class="reviews">
-            <h3 class="reviews-title">Students talk about Spitball</h3>
+            <h3 class="reviews-title" v-language:inner>landingPage_spitball_student_title</h3>
             <div class="carousel-holder">
                 <v-carousel
                         height=""
@@ -219,8 +209,8 @@
         </section>
         <!--</v-parallax>-->
         <section class="subjects" v-if="$vuetify.breakpoint.smAndUp">
-            <h3 class="subject-title">Find Homework Help By Subject</h3>
-            <span class="subject-sub-title">Just pick a subject, and we'll find the right tutor for you</span>
+            <h3 class="subject-title" v-language:inner>landingPage_find_by_subject</h3>
+            <span class="subject-sub-title" v-language:inner>landingPage_find_by_subject_desc</span>
             <v-layout row wrap v-bind="binding" class="layout-subject">
                 <v-flex v-for="subjectItem in subjectList" class="subject-item" :key="`${subjectItem.id}`" xs3>
                     <v-card class="subject-card">
@@ -232,8 +222,8 @@
             </v-layout>
         </section>
         <section class="join">
-            <h3 class="join-title">Join Spitball Its Free!</h3>
-            <button class="join-cta">SIGN UP</button>
+            <h3 class="join-title" v-language:inner>landingPage_join_spitball_free</h3>
+            <button class="join-cta" v-language:inner>landingPage_sign_up</button>
         </section>
         <landing-footer></landing-footer>
         <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="playerVisible" :popUpType="'videoPlayer'"
