@@ -35,7 +35,8 @@ export default {
             mobileSubjectsDialog: false,
             mobileUniDialog: false,
             isRtl: global.isRtl,
-            dictionaryTypesEnum: this.getDictionaryPrefixEnum()
+            dictionaryTypesEnum: this.getDictionaryPrefixEnum(),
+            player: null
         }
     },
     props: {
@@ -136,6 +137,12 @@ export default {
             "getDictionaryPrefixEnum",
             "statistics"
         ]),
+        readyPlayer (event) {
+            this.player = event.target
+        },
+        stopPlayer () {
+            this.player.pauseVideo()
+        },
         changeDictionaryType(val){
             this.switchLandingPageText(val);
         },
@@ -164,6 +171,7 @@ export default {
         },
         hideVideoPlayer() {
             this.playerVisible = false;
+            this.stopPlayer()
         },
         goToResulstQuestionsPage(val) {
             this.$router.push({path: '/ask', query: {Source: val.id}});
