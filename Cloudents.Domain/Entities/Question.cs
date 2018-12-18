@@ -82,8 +82,6 @@ namespace Cloudents.Domain.Entities
 
         public virtual QuestionColor? Color { get; set; }
 
-        public virtual ItemComponent Item { get; set; }
-
         public virtual int AnswerCount { get; set; }
 
         public virtual Answer AddAnswer(string text, int attachments, RegularUser user)

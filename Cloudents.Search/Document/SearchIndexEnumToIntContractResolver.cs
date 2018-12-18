@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -15,6 +16,10 @@ namespace Cloudents.Search.Document
                 p.PropertyType = typeof(int);
             }
 
+            if (p.PropertyType == typeof(Guid))
+            {
+                p.PropertyType = typeof(string);
+            }
             return p;
         }
     }

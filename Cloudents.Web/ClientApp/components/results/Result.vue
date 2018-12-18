@@ -46,6 +46,10 @@
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
+                                <v-flex v-show="!showSkelaton && isNote && showSelectUni" class="result-cell mb-2" xs-12>
+                                    <set-uni-class class="cell"></set-uni-class>
+                                </v-flex>
+                                
                                 <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component :is="'result-'+item.template"

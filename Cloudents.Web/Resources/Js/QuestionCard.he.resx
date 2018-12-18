@@ -138,8 +138,14 @@
   <data name="Earn" xml:space="preserve">
     <value>קבל</value>
   </data>
+  <data name="error_delete" xml:space="preserve">
+    <value>אופס, קרתה תקלה, אנא נסה שוב</value>
+  </data>
   <data name="Question_price" xml:space="preserve">
     <value>{1} SBL</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>דווח על פריט זה</value>
   </data>
   <data name="Sold" xml:space="preserve">
     <value>נמכר</value>

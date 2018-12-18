@@ -97,6 +97,12 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
+            if (!user.EmailConfirmed || !user.PhoneNumberConfirmed)
+            {
+                ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
+                return BadRequest(ModelState);
+            }
+
             if (user.PasswordHash == null)
             {
                 return new CheckUserStatusResponse(NextStep.EmailPassword);

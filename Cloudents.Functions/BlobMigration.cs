@@ -28,7 +28,7 @@ namespace Cloudents.Functions
 
         [FunctionName("BlobPreview-Queue")]
         public static async Task BlobPreviewQueueRun(
-            [QueueTrigger("generate-blob-preview", Connection = "LocalStorage")] string id,
+            [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
             TraceWriter log, CancellationToken token)

@@ -9,14 +9,9 @@ namespace Cloudents.Core.Command.Admin
     {
         public UnFlagQuestionCommand(long questionId)
         {
-            QuestionIds = new[] { questionId };
+            QuestionId = questionId ;
         }
-
-        public UnFlagQuestionCommand(IEnumerable<long> questionIds)
-        {
-            QuestionIds = questionIds;
-        }
-
-        public IEnumerable<long> QuestionIds { get; }
+        
+        public long QuestionId { get; }
     }
 }

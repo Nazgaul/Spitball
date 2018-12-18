@@ -108,8 +108,5 @@ export default {
     },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
-    },
-    created() {
-        console.log(this.query)
     }
 };

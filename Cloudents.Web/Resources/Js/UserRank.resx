@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="begginer" xml:space="preserve">
-    <value>Beginner</value>
+    <value>New Kid</value>
   </data>
   <data name="professional" xml:space="preserve">
-    <value>Professional</value>
+    <value>Yound Gun</value>
   </data>
   <data name="spitballer" xml:space="preserve">
-    <value>Spitballer</value>
+    <value>Hot Shot</value>
   </data>
   <data name="worldClass" xml:space="preserve">
-    <value>World Class</value>
+    <value>Legend</value>
   </data>
 </root>
