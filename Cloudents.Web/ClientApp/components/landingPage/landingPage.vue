@@ -188,7 +188,7 @@
                         :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right-carousel right'"
                         :cycle="false"
                         :max="'250'">
-                    <v-carousel-item v-for="(items,i) in reviewItems" :key="i">
+                    <v-carousel-item v-for="(items,i) in formattedReviews"  :key="`desktop-${i}`" v-if="!$vuetify.breakpoint.xsOnly">
                         <template v-for="(data, index) in items">
                             <div :key="`innerData_${index}`" class="review-item-wrap">
 
@@ -199,7 +199,16 @@
                             </div>
                         </template>
                     </v-carousel-item>
-
+                    <v-carousel-item v-for="(item,index) in formattedReviews"  v-else>
+                        <template >
+                            <div :key="`innerData_${index}`" class="review-item-wrap">
+                                <img  class="review-image"  :src="require(`${item.image}`)"  :alt="item.title">
+                                <span class="review-name">{{item.name}}</span>
+                                <span class="review-title">{{item.title}}</span>
+                                <span class="review-text">{{item.text}}</span>
+                            </div>
+                        </template>
+                    </v-carousel-item>
 
                 </v-carousel>
             </div>

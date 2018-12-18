@@ -44,6 +44,9 @@ export default {
         },
     },
     computed: {
+        formattedReviews(){
+            return this.formatReviews(this.reviewItems)
+        },
         showBox() {
             if (this.search && this.search.length > 0) {
                 return true
@@ -103,7 +106,6 @@ export default {
                 this.clearData();
             }
         }, 250)
-
     },
     methods: {
         ...mapActions([
@@ -118,8 +120,13 @@ export default {
             "getSchoolName",
             "getSubjectsList"
         ]),
-        getTestimonials() {
-
+        formatReviews(data) {
+                if(this.$vuetify.breakpoint.xsOnly){
+                    let merged = [].concat(...data);
+                    return merged
+                }else{
+                    return data
+                }
         },
         getAllUniversities() {
             //leave space
