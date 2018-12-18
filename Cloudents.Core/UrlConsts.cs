@@ -37,13 +37,12 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        //public string BuildDocumentEndPoint
-        //    (long id, object parameters = null)
-        //{
-        //    var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{id}" };
-        //    builder.AddQuery(parameters);
-        //    return builder.ToString();
-        //}
+        public string BuildDocumentEndPoint(long id, object parameters = null)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{id}" };
+            builder.AddQuery(parameters);
+            return builder.ToString();
+        }
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {

@@ -238,3 +238,16 @@ commit
 
 need to update document index - run BuildSearchIndex
 need to run ReduDocument - to support uni and class search
+
+
+
+begin tran
+Create Table sb.HomeStats(users bigint, answers bigint, SBLs bigint, [money] bigint)
+commit
+
+insert into sb.HomeStats ([users], [answers], SBLs, [money]) VALUES (
+(select count(1) from sb.[user] where Fictive = 0),
+(select count(1) from sb.Answer),
+(select sum(Price) from sb.[Transaction] where Type = 'Earned'),
+(select sum(Price)/40 from sb.[Transaction] where Type = 'Earned')
+)

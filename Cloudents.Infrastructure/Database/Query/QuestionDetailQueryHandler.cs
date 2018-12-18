@@ -36,13 +36,15 @@ namespace Cloudents.Infrastructure.Database.Query
             var questionFuture = _session.Query<Question>()
                 .Where(w => w.Id == id && w.Item.State == ItemState.Ok)
                 .Fetch(f => f.User)
-                .Select(s => new QuestionDetailDto(new UserDto
-                {
-                    Id = s.User.Id,
-                    Name = s.User.Name,
-                    Image = s.User.Image,
-                    Score = s.User.Score
-                }, s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id,
+                .Select(s => new QuestionDetailDto(
+                    new UserDto(s.User.Id, s.User.Name, s.User.Score),
+                //{
+                //    Id = s.User.Id,
+                //    Name = s.User.Name,
+                //    Image = s.User.Image,
+                //    Score = s.User.Score
+                //},
+                    s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id,
                     s.Color, s.Subject, s.Language, s.Item.VoteCount)
                 ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
@@ -60,13 +62,13 @@ namespace Cloudents.Infrastructure.Database.Query
                     {
                         Votes = s.Item.VoteCount
                     },
-                    User = new UserDto
-                    {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Image = s.User.Image,
-                        Score = s.User.Score
-                    }
+                    User = new UserDto(s.User.Id, s.User.Name, s.User.Score)
+                    //{
+                    //    Id = s.User.Id,
+                    //    Name = s.User.Name,
+                    //    Image = s.User.Image,
+                    //    Score = s.User.Score
+                    //}
                 }).ToFuture();
 
             var dto = await questionFuture.GetValueAsync(token);
