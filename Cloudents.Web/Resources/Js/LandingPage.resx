@@ -138,6 +138,36 @@
   <data name="find_by_subject_desc" xml:space="preserve">
     <value>Just pick a subject, and we'll find the right tutor for you</value>
   </data>
+  <data name="footer_about" xml:space="preserve">
+    <value>About Spitball</value>
+  </data>
+  <data name="footer_ambassador" xml:space="preserve">
+    <value>Ambassadors</value>
+  </data>
+  <data name="footer_blog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="footer_contact" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="footer_faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="footer_feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="footer_partners" xml:space="preserve">
+    <value>Partners</value>
+  </data>
+  <data name="footer_pr" xml:space="preserve">
+    <value>PR</value>
+  </data>
+  <data name="footer_privacy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="footer_terms" xml:space="preserve">
+    <value>Terms &amp; Conditions</value>
+  </data>
   <data name="get_your_sbl" xml:space="preserve">
     <value>Get Your SBL</value>
   </data>

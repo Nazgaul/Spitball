@@ -13,7 +13,7 @@
             <v-flex class="stats-single-item" v-for="(singleStat, index) in statsData" :key="`3${index}`">
                 <v-card class="stat-card">
                     <v-card-text class="stat-text-title px-0">{{singleStat.title}}</v-card-text>
-                    <v-card-text class="stat-text-data px-0">{{singleStat.data | localeNumber}}</v-card-text>
+                    <v-card-text class="stat-text-data px-0">{{singleStat.data | localeNumber(singleStat.id)}}</v-card-text>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -43,8 +43,13 @@
             }
         },
         filters: {
-            localeNumber(val) {
-                return val.toLocaleString('us-EG');
+            localeNumber(val, param) {
+                if(param === 2){
+                    return `$${val.toLocaleString('us-EG')}`;
+                }else{
+                    return val.toLocaleString('us-EG');
+                }
+
             }
         }
     };

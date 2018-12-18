@@ -27,6 +27,10 @@ function createStatisticsData(ObjInit){
         let stat = new statisticsData(prop, ObjInit[prop]);
         statisticsDataResult.push(stat)
     }
+    //sort objects by id to keep the requested order of items
+    statisticsDataResult.sort(function(a, b) {
+        return  ( a.id - b.id  ||  a.title.localeCompare(b.title) );
+    });
     return statisticsDataResult;
 }
 

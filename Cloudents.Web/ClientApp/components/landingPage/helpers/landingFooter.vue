@@ -33,61 +33,61 @@
                         id: 0,
                         linkText: LanguageService.getValueByKey("landingPage_footer_about"),
                         linkValue: '/about',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
                     {
                         id: 1,
                         linkText: LanguageService.getValueByKey("landingPage_footer_ambassador"),
                         linkValue: '/reps',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
                     {
                         id: 2,
                         linkText: LanguageService.getValueByKey("landingPage_footer_feedback"),
                         linkValue: '/faq',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
                     {
                         id: 3,
                         linkText: LanguageService.getValueByKey("landingPage_footer_partners"),
                         linkValue: '/partners',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
                     {
                         id: 4,
                         linkText: LanguageService.getValueByKey("landingPage_footer_terms"),
                         linkValue: '/terms',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
                     {
                         id: 5,
                         linkText: LanguageService.getValueByKey("landingPage_footer_faq"),
                         linkValue: '/faq',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
                     {
                         id: 6,
                         linkText: LanguageService.getValueByKey("landingPage_footer_privacy"),
                         linkValue: '/privacy',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
                     {
                         id: 7,
                         linkText: LanguageService.getValueByKey("landingPage_footer_pr"),
                         linkValue: '/partners',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
                     {
                         id: 8,
                         linkText: LanguageService.getValueByKey("landingPage_footer_contact"),
                         linkValue: '/contact',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
                     {
                         id: 9,
                         linkText: LanguageService.getValueByKey("landingPage_footer_blog"),
                         linkValue: '/blog',
-                        linkTarget: ''
+                        linkTarget: '_blank'
                     },
 
 
