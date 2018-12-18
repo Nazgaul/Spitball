@@ -225,12 +225,12 @@
             <router-link :to="{path: '/register'}" class="join-cta" v-language:inner>landingPage_sign_up</router-link>
         </section>
         <landing-footer></landing-footer>
-        <sb-dialog class="video-dialog" :isPersistent="false" :showDialog="playerVisible" :popUpType="'videoPlayer'"
+        <sb-dialog style="box-shadow: none;" :onclosefn="hideVideoPlayer" class="video-dialog" :isPersistent="false" :showDialog="playerVisible" :popUpType="'videoPlayer'"
                    :content-class="'videoPlayerDialog'">
             <youtube
                     :video-id="youTubeVideoId"
-                    :player-vars="{autoplay: 1}">
-
+                    :player-vars="{autoplay: 1}" @ready="readyPlayer">
+                 
             </youtube>
         </sb-dialog>
         <sb-dialog class="subjects-dialog" :isPersistent="false" :showDialog="mobileSubjectsDialog"
