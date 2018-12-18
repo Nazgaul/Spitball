@@ -33,7 +33,8 @@ export default {
             universityModel: '',
             searchUni: '',
             mobileSubjectsDialog: false,
-            mobileUniDialog: false
+            mobileUniDialog: false,
+            isRtl: global.isRtl
         }
     },
     props: {
