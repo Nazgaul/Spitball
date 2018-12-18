@@ -23,7 +23,7 @@
                         <v-icon class="play-icon">sbf-play</v-icon>
                         See how it works</a>
                 </div>
-                <statistics class="statistics"></statistics>
+                <statistics class="statistics" :statsData="statsData"></statistics>
             </section>
         </div>
 

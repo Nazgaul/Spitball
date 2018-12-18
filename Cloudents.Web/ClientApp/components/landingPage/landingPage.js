@@ -34,7 +34,8 @@ export default {
             searchUni: '',
             mobileSubjectsDialog: false,
             mobileUniDialog: false,
-            isRtl: global.isRtl
+            isRtl: global.isRtl,
+
         }
     },
     props: {
@@ -44,6 +45,9 @@ export default {
         },
     },
     computed: {
+        statsData(){
+            return this.statistics();
+        },
         formattedReviews(){
            return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
 
@@ -117,12 +121,14 @@ export default {
             "clearUniversityList",
             "updateSchoolName",
             "updateSubject",
-            "getAllSubjects"
+            "getAllSubjects",
+            "getStatistics"
         ]),
         ...mapGetters([
             "getUniversities",
             "getSchoolName",
-            "getSubjectsList"
+            "getSubjectsList",
+            "statistics"
         ]),
 
         getAllUniversities() {
@@ -171,7 +177,8 @@ export default {
         }
     },
     created() {
-        this.getAllSubjects()
+        this.getAllSubjects();
+        this.getStatistics();
     },
     filters: {
         boldText(value, search) {
