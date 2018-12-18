@@ -1,5 +1,4 @@
 ﻿using System;
-using Cloudents.Admin2.Models;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
@@ -10,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,23 +43,24 @@ namespace Cloudents.Admin2.Api
             var retVal = await _queryBus.QueryAsync<IList<PendingDocumentDto>>(query, token);
             var tasks = new Lazy<List<Task>>();
             var counter = 0;
-            foreach (var id in retVal)
+            foreach (var document in retVal)
             {
-                var files = await _blobProvider.FilesInDirectoryAsync("preview-", id.Id.ToString(), token);
 
+                var files = await  _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
                 var file = files.FirstOrDefault();
                 if (file != null)
                 {
-                    id.Preview =
+                    document.Preview =
                         blobProvider.GeneratePreviewLink(file,
                             20);
-                    id.SiteLink = _urlBuilder.BuildDocumentEndPoint(new Base62(id.Id));
+
+                    document.SiteLink = Url.RouteUrl("DocumentDownload", new {id = document.Id});
                     counter++;
                 }
                 else
                 {
 
-                    var t =  _queueProvider.InsertBlobReprocessAsync(id.Id);
+                    var t =  _queueProvider.InsertBlobReprocessAsync(document.Id);
                     tasks.Value.Add(t);
                 }
 

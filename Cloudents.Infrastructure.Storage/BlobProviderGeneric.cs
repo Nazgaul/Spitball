@@ -113,23 +113,25 @@ namespace Cloudents.Infrastructure.Storage
         }
 
 
-        public string GenerateDownloadLink(string blobName, double expirationTimeInMinutes, string fileName)
-        {
-            var blob = GetBlob(blobName);
+        //public string GenerateDownloadLink(string blobName, double expirationTimeInMinutes, string fileName)
+        //{
+        //    var blob = GetBlob(blobName);
 
-            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
-            {
-                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
-                Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
+        //    var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+        //    {
+        //        SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
+        //        Permissions = SharedAccessBlobPermissions.Read,
+        //        SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
 
-            }, new SharedAccessBlobHeaders
-            {
-                ContentDisposition = "attachment; filename=\"" + WebUtility.UrlEncode(fileName ?? blob.Name) + "\""
-            });
-            var url = new Uri(blob.Uri, signedUrl);
-            return url.AbsoluteUri;
-        }
+        //    }, new SharedAccessBlobHeaders
+        //    {
+        //        ContentDisposition = "attachment; filename=\"" + WebUtility.UrlEncode(fileName ?? blob.Name) + "\""
+        //    });
+            
+            
+        //    var url = new Uri(blob.Uri, signedUrl);
+        //    return url.AbsoluteUri;
+        //}
 
 
         public Task<bool> ExistsAsync(string blobName, CancellationToken token)

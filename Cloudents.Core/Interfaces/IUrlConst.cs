@@ -10,7 +10,7 @@ namespace Cloudents.Core.Interfaces
         string BuildWalletEndPoint(object parameters = null);
 
         string BuildQuestionEndPoint(long id, object parameters = null);
-        string BuildDocumentEndPoint(long id, object parameters = null);
+        //string BuildDocumentEndPoint(long id, object parameters = null);
 
         //string BuildDocumentEndPoint
         //    (long id, object parameters = null);

@@ -59,32 +59,32 @@ namespace Cloudents.Web.Controllers
             });
         }
 
-        [Route("document/{base62}")]
-        public async Task<IActionResult> ShortUrl(string base62,
-            CancellationToken token)
-        {
-            if (string.IsNullOrEmpty(base62))
-            {
-                return NotFound();
-            }
-            if (!Base62.TryParse(base62, out var id))
-            {
-                return NotFound();
-            }
-            var query = new DocumentById(id);
-            var model = await _queryBus.QueryAsync<DocumentSeoDto>(query, token);
-            if (model == null)
-            {
-                return NotFound();
-            }
-            return RedirectToRoutePermanent(SeoTypeString.Document, new
-            {
-                universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
-                courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
-                id,
-                name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
-            });
-        }
+        //[Route("document/{base62}")]
+        //public async Task<IActionResult> ShortUrl(string base62,
+        //    CancellationToken token)
+        //{
+        //    if (string.IsNullOrEmpty(base62))
+        //    {
+        //        return NotFound();
+        //    }
+        //    if (!Base62.TryParse(base62, out var id))
+        //    {
+        //        return NotFound();
+        //    }
+        //    var query = new DocumentById(id);
+        //    var model = await _queryBus.QueryAsync<DocumentSeoDto>(query, token);
+        //    if (model == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return RedirectToRoutePermanent(SeoTypeString.Document, new
+        //    {
+        //        universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
+        //        courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
+        //        id,
+        //        name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
+        //    });
+        //}
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}", Name = SeoTypeString.Document)]
         [ActionName("Index")]
@@ -146,7 +146,7 @@ namespace Cloudents.Web.Controllers
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}/download", Name = "ItemDownload")]
         [Authorize]
-        public async Task<ActionResult> DownloadAsync(long id, CancellationToken token)
+        public async Task<ActionResult> DownloadAsync(long id, [FromServices] IBlobProvider blobProvider2, CancellationToken token)
         {
             
             var query = new DocumentById(id);
@@ -161,15 +161,16 @@ namespace Cloudents.Web.Controllers
             }
 
             var files = tFiles.Result;
-            var file = files.First().Segments.Last();
+            var uri = files.First();
+            var file = uri.Segments.Last();
 
             //blob.core.windows.net/spitball-files/files/6160/file-82925b5c-e3ba-4f88-962c-db3244eaf2b2-advanced-linux-programming.pdf
 
             await _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);
             var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
             var extension = Path.GetExtension(file);
-            var url = _blobProvider.GenerateDownloadLink($"{id}/{file}", 30, nameToDownload + extension);
-            return Redirect(url);
+            var url = blobProvider2.GenerateDownloadLink(uri, 30, nameToDownload + extension);
+            return Redirect(url.AbsoluteUri);
         }
     }
 }
