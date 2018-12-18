@@ -74,6 +74,7 @@ let routes2 = [
             default: landingPage,
 
         },
+        
     },
     {
         path: "/result",
