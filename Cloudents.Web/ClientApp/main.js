@@ -14,7 +14,8 @@ import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-import VueYouTubeEmbed from 'vue-youtube-embed';
+
+import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/vue-youtube-embed
 
 
 

@@ -22,6 +22,7 @@
 
 <script>
     import whiteLogo from "../images/footerLogo.svg"
+    import { LanguageService } from "../../../services/language/languageService";
     export default {
         components: {whiteLogo},
         name: "landingFooter",
@@ -29,63 +30,63 @@
             return {
                 footerLinks: [
                     {
-                        id: '1',
-                        linkText: 'About Spitball',
-                        linkValue: '',
+                        id: 0,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_about"),
+                        linkValue: '/about',
                         linkTarget: ''
                     },
                     {
-                        id: '2',
-                        linkText: 'Ambassadors',
-                        linkValue: '',
+                        id: 1,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_ambassador"),
+                        linkValue: '/reps',
                         linkTarget: ''
                     },
                     {
-                        id: '3',
-                        linkText: 'Feedback',
-                        linkValue: '',
+                        id: 2,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_feedback"),
+                        linkValue: '/faq',
                         linkTarget: ''
                     },
                     {
-                        id: '4',
-                        linkText: 'Terms & Conditions',
-                        linkValue: '',
+                        id: 3,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_partners"),
+                        linkValue: '/partners',
                         linkTarget: ''
                     },
                     {
-                        id: '5',
-                        linkText: 'Partners',
-                        linkValue: '',
+                        id: 4,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_terms"),
+                        linkValue: '/terms',
                         linkTarget: ''
                     },
                     {
-                        id: '6',
-                        linkText: 'FAQ',
-                        linkValue: '',
+                        id: 5,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_faq"),
+                        linkValue: '/faq',
                         linkTarget: ''
                     },
                     {
-                        id: '7',
-                        linkText: 'Privacy Policy\n',
-                        linkValue: '',
+                        id: 6,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_privacy"),
+                        linkValue: '/privacy',
                         linkTarget: ''
                     },
                     {
-                        id: '8',
-                        linkText: 'PR',
-                        linkValue: '',
+                        id: 7,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_pr"),
+                        linkValue: '/partners',
                         linkTarget: ''
                     },
                     {
-                        id: '9',
-                        linkText: 'Contact Us',
-                        linkValue: '',
+                        id: 8,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_contact"),
+                        linkValue: '/contact',
                         linkTarget: ''
                     },
                     {
-                        id: '10',
-                        linkText: 'Blog',
-                        linkValue: '',
+                        id: 9,
+                        linkText: LanguageService.getValueByKey("landingPage_footer_blog"),
+                        linkValue: '/blog',
                         linkTarget: ''
                     },
 
