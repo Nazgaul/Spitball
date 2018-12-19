@@ -18,7 +18,7 @@
                         <div class="sold-container">
                             <div class="sold-wrap">
                                 <span v-language:inner>questionCard_Sold</span>
-                                <v-icon>sbf-curved-arrow</v-icon>
+                                <!-- <v-icon>sbf-curved-arrow</v-icon> -->
                             </div>
                         </div>
                     </div>
