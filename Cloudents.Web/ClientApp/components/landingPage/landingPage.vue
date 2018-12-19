@@ -174,8 +174,8 @@
                 <v-carousel
                         height=""
                         hide-delimiters
-                        :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-left-carousel left'"
-                        :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right-carousel right'"
+                        :prev-icon="isRtl ? 'sbf-arrow-right-carousel right' : 'sbf-arrow-left-carousel left'"
+                        :next-icon="isRtl ?  'sbf-arrow-left-carousel left': 'sbf-arrow-right-carousel right'"
                         :cycle="false"
                         :max="'250'">
                     <v-carousel-item v-for="(items,i) in formattedReviews"  :key="`desktop-${i}`" v-if="!$vuetify.breakpoint.xsOnly">
