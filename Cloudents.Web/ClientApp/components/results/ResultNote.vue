@@ -217,18 +217,18 @@
                     return false
                 }
             },
-            isDisabled(){
+            isDisabled() {
                 let isOwner, account, notEnough;
                 isOwner = this.cardOwner();
                 account = this.accountUser();
-                if(account && account.balance){
+                if (account && account.balance) {
                     notEnough = account.balance < 400
                 }
-                if(isOwner || !account || notEnough){
+                if (isOwner || !account || notEnough) {
                     return true
                 }
             },
-              reportItem() {
+            reportItem() {
                 this.itemId = this.item.id;
                 this.showReport = !this.showReport;
             },
@@ -236,7 +236,7 @@
                 this.showReport = false;
             },
             $_spitball(event) {
-                console.log('our event',event);
+                console.log('our event', event);
                 event.preventDefault();
                 this.$router.push(this.url);
                 setTimeout(() => {

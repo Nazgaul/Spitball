@@ -181,7 +181,9 @@
                     <v-carousel-item v-for="(items,i) in formattedReviews"  :key="`desktop-${i}`" v-if="!$vuetify.breakpoint.xsOnly">
                         <template v-for="(data, index) in items">
                             <div :key="`innerData_${index}`" class="review-item-wrap">
-                                <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
+                                <div class="review-image-wrap">
+                                    <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
+                                </div>
                                 <span class="review-name">{{data.name}}</span>
                                 <span class="review-title">{{data.title}}</span>
                                 <span class="review-text">{{data.text}}</span>

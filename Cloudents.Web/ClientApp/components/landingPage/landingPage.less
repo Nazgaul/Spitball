@@ -579,12 +579,18 @@ section {
                 margin-right: unset;
               }
             }
-            .review-image {
-              //TODO temp images are not sized properly
+            .review-image-wrap {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 180px;
               min-width: 306px;
-              max-height: 180px;
-              border-radius: 4px;
-              box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31);
+              background-color: fade(@color-white, 87%);
+              border-radius: 4px 4px 0 0;
+              .review-image {
+                border-radius: 4px;
+                box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31);
+              }
             }
             .review-name {
               position: absolute;
