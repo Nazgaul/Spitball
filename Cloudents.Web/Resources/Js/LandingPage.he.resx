@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="earn_knowledge_subTitle" xml:space="preserve">
-    <value />
+    <value>הצטרפו לקהילת ספיטבול, ענו על שאלות, צברו נקודות זיכוי ותהנו מקניות באינטרנט או מקרדיטים לבילוי ופנאי</value>
   </data>
   <data name="earn_knowledge_title" xml:space="preserve">
-    <value />
+    <value>בואו להרוויח מהידע האקדמי – עוד לפני סיום התואר!</value>
   </data>
   <data name="earn_question_section_subTitle" xml:space="preserve">
     <value />
@@ -130,46 +130,46 @@
     <value />
   </data>
   <data name="earn_upload_section_title" xml:space="preserve">
-    <value />
+    <value>בואו לחלוק את הידע האקדמי שלכם </value>
   </data>
   <data name="find_by_subject" xml:space="preserve">
-    <value />
+    <value>מצא שעורי בית לפי נושא</value>
   </data>
   <data name="find_by_subject_desc" xml:space="preserve">
-    <value />
+    <value>פשוט בחר נושא, ומצא שאלות רלוונטיות עבורך</value>
   </data>
   <data name="footer_about" xml:space="preserve">
-    <value />
+    <value>אודות ספיטבול</value>
   </data>
   <data name="footer_ambassador" xml:space="preserve">
-    <value />
+    <value>שגרירים</value>
   </data>
   <data name="footer_blog" xml:space="preserve">
-    <value />
+    <value>בלוג</value>
   </data>
   <data name="footer_contact" xml:space="preserve">
-    <value />
+    <value>צור קשר</value>
   </data>
   <data name="footer_faq" xml:space="preserve">
-    <value />
+    <value>שאלות נפוצות</value>
   </data>
   <data name="footer_feedback" xml:space="preserve">
-    <value />
+    <value>פידבק</value>
   </data>
   <data name="footer_partners" xml:space="preserve">
-    <value />
+    <value>שותפיות</value>
   </data>
   <data name="footer_pr" xml:space="preserve">
-    <value />
+    <value>יחסי ציבור</value>
   </data>
   <data name="footer_privacy" xml:space="preserve">
-    <value />
+    <value>מדיניות פרטיות</value>
   </data>
   <data name="footer_terms" xml:space="preserve">
-    <value />
+    <value>תנאי שימוש</value>
   </data>
   <data name="get_your_sbl" xml:space="preserve">
-    <value />
+    <value>להרשמה וקבלת SBL</value>
   </data>
   <data name="header_login" xml:space="preserve">
     <value>כניסה</value>
@@ -178,90 +178,94 @@
     <value>הרשמה</value>
   </data>
   <data name="how_get_sbl" xml:space="preserve">
-    <value />
+    <value>איך אפשר לצבור נקודות זיכוי?</value>
   </data>
   <data name="how_get_sbl_desc" xml:space="preserve">
-    <value />
+    <value>ממש בעת ההרשמה – כל נרשם מקבל SBL כאשר הוא מצטרף לקהילת ספיטבול ויכול לצבור עוד ועוד SBL בסיוע לסטודנטים או בצירוף חברים נוספים. </value>
   </data>
   <data name="how_is_catch" xml:space="preserve">
-    <value />
+    <value>אוקי אוקי – אז מה הקאץ’??</value>
   </data>
   <data name="how_is_catch_desc" xml:space="preserve">
-    <value />
+    <value>אין. קאץ’. הגיפט קארד של  buyme.co.il מחכים לך אצלנו כבר עכשיו – וזה בדיוק הזמן להירשם.</value>
   </data>
   <data name="how_it_works" xml:space="preserve">
-    <value />
+    <value>אז מה בעצם אפשר למצוא בספיטבול?</value>
   </data>
   <data name="how_sbl_money" xml:space="preserve">
-    <value />
+    <value>רגע – SBL זה כסף אמיתי?</value>
   </data>
   <data name="how_sbl_money_desc" xml:space="preserve">
-    <value />
+    <value>ה- SBL הוא בעצם המטבע שבו הפלטפורמה שלנו עושה שימוש. ה- SBL של ספיטבול יכול להיות מומר לכסף אמיתי באמצעות הגיפט קארד של BuyMe.</value>
   </data>
   <data name="how_spitball_differs" xml:space="preserve">
-    <value />
+    <value>במה ספיטבול שונה מאתרים אחרים? </value>
   </data>
   <data name="how_spitball_differs_desc" xml:space="preserve">
-    <value />
+    <value>ספיטבול מאפשרת לסטודנטים ליהנות מיתרונות הקהילה ללא דמי מנוי, ללא פרסומות ובלי קאץ’ או אותיות קטנות.
+איתנו בספיטבול אפשר גם לקבל עזרה ולשפר את רמת שיעורי הבית ואת הציונים בהתאם אבל אפשר גם לסייע לאחרים ולתרגם את ההשקעה לקניות או הנאה.
+</value>
   </data>
   <data name="how_spitball_work" xml:space="preserve">
-    <value />
+    <value>איך זה עובד?</value>
   </data>
   <data name="how_spitball_work_desc" xml:space="preserve">
-    <value />
+    <value>סטודנטים הזקוקים לסיוע במהלך הכנת שיעורי הבית בוחרים את הקמפוס והקורס הרלוונטיים להם, יכולים לשאול שאלה מתוך שיעורי הבית או לבחור קובץ מסייע מתוך מאגר. סטודנטים אחרים שיודעים מה היא התשובה מוזמנים להעלות ולפרסם אותה (ממש כמו תגובה בפייסבוק)  - התשובה או המסמך שיבחרו כמסייעים ביותר, יעניקו לבעליהם SBL שניתנים למימו ב BuyMe.</value>
   </data>
   <data name="join_spitball" xml:space="preserve">
-    <value />
+    <value>לא תנסו? זה בחינם!</value>
   </data>
   <data name="join_spitball_free" xml:space="preserve">
-    <value />
+    <value>עוד לא הצטרפת? זה בחינם!</value>
   </data>
   <data name="learn_knowledge_subTitle" xml:space="preserve">
-    <value />
+    <value>הגיע הזמן להתעורר למציאות חדשה!</value>
   </data>
   <data name="learn_knowledge_title" xml:space="preserve">
-    <value />
+    <value>חולמים על שיעורי בית מושלמים?</value>
   </data>
   <data name="learn_question_section_subTitle" xml:space="preserve">
-    <value />
+    <value>למעשה, 80% מהשאלות שעולות בקהילת  Spitball, זוכות למענה תוך פחות מדקה! </value>
   </data>
   <data name="learn_question_section_title" xml:space="preserve">
-    <value />
+    <value>עובדים להגשה ותקועים בשאלה קשה?</value>
   </data>
   <data name="learn_upload_section_title" xml:space="preserve">
-    <value />
+    <value>פספסת שיעור ואין לך סיכום טוב?</value>
   </data>
   <data name="placeholder_subjects" xml:space="preserve">
-    <value />
+    <value>בחר נושא</value>
   </data>
   <data name="placeholder_uni" xml:space="preserve">
-    <value />
+    <value>בחר מוסד אקדמי </value>
   </data>
   <data name="sign_up" xml:space="preserve">
-    <value />
+    <value>הרשמה</value>
   </data>
   <data name="spitball_student_title" xml:space="preserve">
-    <value />
+    <value>הסטודנטים של קהילת ספיטבול מדברים עלינו</value>
   </data>
   <data name="stats_answers" xml:space="preserve">
-    <value />
+    <value>סך כל התשובות</value>
   </data>
   <data name="stats_money" xml:space="preserve">
-    <value />
+    <value>סך הרווחים של חברי הקהילה</value>
   </data>
   <data name="stats_sbls" xml:space="preserve">
-    <value />
+    <value>נקודות זיכוי שמומשו</value>
   </data>
   <data name="stats_users" xml:space="preserve">
-    <value />
+    <value>סטודנטים מרוצים</value>
   </data>
   <data name="upload_section_subTitle" xml:space="preserve">
-    <value />
+    <value>אז זהו, שיש. עכשיו צריך רק למצוא אותו!</value>
   </data>
   <data name="what_is_spitball" xml:space="preserve">
-    <value />
+    <value>מה זה בעצם ספיטבול?</value>
   </data>
   <data name="what_is_spitball_desc" xml:space="preserve">
-    <value />
+    <value>ספיטבול היא פלטפורמה אינטרנטית המאגדת בתוכה קהילת המורכבת הן מסטודנטים והן מבוגרי מוסדות אקדמיים שנמצאים בה כדי לסייע ולהסתייע – אבל גם ליהנות מתגמול.
+הפלטפורמה שלנו מאפשרת לסטודנטים לשאול או לענות על שאלות ובעיות המתגלות בשעת הכנת שיעורי בית, עבודות להגשה או הכנה לבחינות הסמסטר, לחלוק מסמכים וקבצים ולרכוש ספרים משומשים.
+אצלנו – כולם מרוויחים: הסטודנטים שזקוקים לסיוע אקדמי זוכים למענה מהיר, אמין ובעל ידע וקהילת המסייעים צוברת נקודות (SBL) למימוש  ב-buyme.co.il.</value>
   </data>
 </root>

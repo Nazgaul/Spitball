@@ -136,7 +136,7 @@
     <value>Find Homework Help By Subject</value>
   </data>
   <data name="find_by_subject_desc" xml:space="preserve">
-    <value>Just pick a subject, and we'll find the right tutor for you</value>
+    <value>Just pick a subject, and find relevant questions for you</value>
   </data>
   <data name="footer_about" xml:space="preserve">
     <value>About Spitball</value>
