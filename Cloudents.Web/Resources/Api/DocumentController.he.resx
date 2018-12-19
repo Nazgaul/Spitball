@@ -120,13 +120,13 @@
   <data name="CoursesFilterTitle" xml:space="preserve">
     <value>קורסים</value>
   </data>
+  <data name="CreatePending" xml:space="preserve">
+    <value>המסמך שלך ממתין לאישור, נא לא להעלות מסמך זה שוב</value>
+  </data>
   <data name="TypeFilterTitle" xml:space="preserve">
     <value>סוגי מסמכים</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>אתה לא יכול להצביע</value>
-  </data>
-  <data name="VoteNotEnoughScore" xml:space="preserve">
-    <value>אין לך מספיק נקודות</value>
+    <value>לא ניתן להצביע בעד / נגד המסמך שלך</value>
   </data>
 </root>

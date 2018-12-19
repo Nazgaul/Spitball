@@ -26,6 +26,9 @@ using System.Threading.Tasks;
 using Cloudents.Common.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Item.Commands.FlagItem;
+using Cloudents.Web.Hubs;
+using Cloudents.Web.Identity;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {
@@ -89,6 +92,8 @@ namespace Cloudents.Web.Api
         [HttpPost, Authorize]
         public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
+            [FromServices] IHubContext<SbHub> hubContext,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -102,6 +107,19 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
 
             var url = Url.DocumentUrl(profile.University.Name, model.Course, command.Id, model.Name);
+
+
+            if (score < Privileges.Post)
+            {
+                await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
+                {
+                    new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
+                        {
+                            text = _localizer["CreatePending"].Value
+                        }
+                    )
+                }, token);
+            }
             return new CreateDocumentResponse(url);
         }
 
@@ -193,7 +211,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("vote")]
-        public async Task<IActionResult> VoteAsync([FromBody] AddVoteDocumentRequest model, CancellationToken token)
+        public async Task<IActionResult> VoteAsync([FromBody]
+            AddVoteDocumentRequest model,
+            [FromServices] IStringLocalizer<SharedResource> resource,
+            CancellationToken token)
         {
 
             var userId = _userManager.GetLongUserId(User);
@@ -206,7 +227,8 @@ namespace Cloudents.Web.Api
             }
             catch (NoEnoughScoreException)
             {
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
+                string voteMessage = resource[$"{model.VoteType:G}VoteError"];
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
                 return BadRequest(ModelState);
             }
             catch (UnauthorizedAccessException)

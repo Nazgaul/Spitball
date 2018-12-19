@@ -124,7 +124,7 @@
     <value>You do not have sufficient SBL, Earn more SBL by answering questions</value>
   </data>
   <data name="PostedQuestionToasterOk" xml:space="preserve">
-    <value>The best brains are working on it right now</value>
+    <value>Thanks, we will notify you as soon as you get an answer!</value>
   </data>
   <data name="PostedQuestionToasterPending" xml:space="preserve">
     <value>Your question is pending approval, please do not resubmit this question. </value>
@@ -136,10 +136,6 @@
     <value>Subject</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>You cannot vote</value>
-  </data>
-  <data name="VoteNotEnoughScore" xml:space="preserve">
-    <value>You dont have score</value>
-    <comment>new</comment>
+    <value>You can not upvote / downvote your own question</value>
   </data>
 </root>
