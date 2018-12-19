@@ -14,7 +14,7 @@
                 <v-card class="stat-card">
                     <v-card-text class="stat-text-title px-0">{{singleStat.title}}</v-card-text>
                     <v-card-text class="stat-text-data px-0">
-                        <tween-number :item="singleStat"></tween-number>
+                        <tween-number :item="singleStat" :startValue="500"></tween-number>
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -29,7 +29,9 @@
         name: "statisticsData",
         components: {tweenNumber},
         data() {
-            return {};
+            return {
+
+            };
         },
         computed: {
             isMobileView() {
