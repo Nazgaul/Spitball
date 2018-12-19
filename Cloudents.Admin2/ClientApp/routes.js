@@ -82,6 +82,10 @@ export const routes = [
         component: Answer,
         children: [
             {
+              path: '',
+              redirect: 'delete',
+            },
+            {
                 path: 'delete',
                 component: ADelete
             },
@@ -93,6 +97,10 @@ export const routes = [
             {
                 path: 'pendingAnswers',
                 component: APending
+            },
+            {
+              path: '*',
+              redirect: 'delete',
             },
         ]
     },
