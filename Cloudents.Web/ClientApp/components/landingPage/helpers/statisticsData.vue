@@ -14,8 +14,7 @@
                 <v-card class="stat-card">
                     <v-card-text class="stat-text-title px-0">{{singleStat.title}}</v-card-text>
                     <v-card-text class="stat-text-data px-0">
-                        <tween-number :item="getValue(singleStat)"></tween-number>
-                        <!--{{singleStat.data | localeNumber(singleStat.id)}}-->
+                        <tween-number :item="singleStat"></tween-number>
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -37,12 +36,7 @@
                 return this.$vuetify.breakpoint.width < 1024;
             }
         },
-        methods: {
-            getValue(item) {
-                console.log('number in stats', item.data);
-                return item
-            },
-        },
+
         props: {
             statsData: {
                 required: false,

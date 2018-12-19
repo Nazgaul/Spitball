@@ -3,6 +3,14 @@
 </template>
 
 <script>
+    /*
+    * Receives object item as prop
+    * required item.id -> integer (helps to apply specific formatter)
+    * required item.data -> integer ( data to tween)
+    *
+    *
+    * */
+
     var TWEEN = require('./tweenJS.js');
     export default {
         name: "tweenNumber",
