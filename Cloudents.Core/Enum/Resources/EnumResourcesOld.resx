@@ -167,7 +167,7 @@
     <value>Answered</value>
   </data>
   <data name="QuestionFilterSold" xml:space="preserve">
-    <value>Sold</value>
+    <value>Accepted</value>
   </data>
   <data name="QuestionFilterUnanswered" xml:space="preserve">
     <value>Unanswered</value>
