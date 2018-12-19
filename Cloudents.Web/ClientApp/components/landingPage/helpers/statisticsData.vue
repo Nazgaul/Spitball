@@ -14,7 +14,7 @@
                 <v-card class="stat-card">
                     <v-card-text class="stat-text-title px-0">{{singleStat.title}}</v-card-text>
                     <v-card-text class="stat-text-data px-0">
-                        <tween-number :value="getValue(singleStat)"></tween-number>
+                        <tween-number :item="getValue(singleStat)"></tween-number>
                         <!--{{singleStat.data | localeNumber(singleStat.id)}}-->
                     </v-card-text>
                 </v-card>
@@ -40,8 +40,8 @@
         methods: {
             getValue(item) {
                 console.log('number in stats', item.data);
-                return item.data
-            }
+                return item
+            },
         },
         props: {
             statsData: {
@@ -52,16 +52,6 @@
                 }
             }
         },
-        filters: {
-            localeNumber(val, param) {
-                if (param === 2) {
-                    return `$${val.toLocaleString('us-EG')}`;
-                } else {
-                    return val.toLocaleString('us-EG');
-                }
-
-            }
-        }
     };
 </script>
 

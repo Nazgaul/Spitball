@@ -7,9 +7,13 @@
     export default {
         name: "tweenNumber",
         props: {
-            value: {
-                type: Number,
+            item: {
+                type: Object,
                 required: true
+            },
+            toLocale:{
+                types: Function,
+                required: false
             }
         },
         data: function() {
@@ -19,16 +23,31 @@
         },
         watch: {
             value: function(newValue, oldValue) {
-                console.log('value in tween',newValue, oldValue)
                 this.tween(oldValue, newValue)
             }
         },
         mounted: function() {
             this.tween(0, this.value)
         },
+        computed: {
+            value() {
+                return this.item.data;
+            },
+            id(){
+                return this.item.id
+            }
+        },
         methods: {
-            tween: function(startValue, endValue) {
+            localeNumber(val, id) {
+                let numericVal = parseInt(val);
+                if (id === 2) {
+                    return `$${numericVal.toLocaleString('us-EG')}`;
+                } else {
+                    return numericVal.toLocaleString('us-EG');
+                }
+            },
 
+            tween: function(startValue, endValue) {
                 let self = this;
                 function animate() {
                     if (TWEEN.update()) {
@@ -40,17 +59,16 @@
                 })
                     .to({
                         tweeningValue: endValue
-                    }, 500)
-                    .onUpdate(()=> {
-                        self.tweeningValue = this.tweeningValue
+                    }, 3000)
+                    .easing(TWEEN.Easing.Circular.In)
+                    .onUpdate(function(obj) {
+                        self.tweeningValue = self.localeNumber(obj.tweeningValue.toFixed(0), self.id);
                     })
                     .start();
                 animate()
             }
         },
-        created(){
-            console.log('tween created', this.value)
-        }
+
 
 
     }
