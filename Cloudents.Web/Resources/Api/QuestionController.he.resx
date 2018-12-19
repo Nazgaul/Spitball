@@ -136,9 +136,6 @@
     <value>נושא</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>אתה לא יכול להצביע</value>
-  </data>
-  <data name="VoteNotEnoughScore" xml:space="preserve">
-    <value>אין לך מספיק נקודות</value>
+    <value>לא ניתן להצביע בעד / נגד השאלה שלך</value>
   </data>
 </root>

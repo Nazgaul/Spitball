@@ -136,10 +136,6 @@
     <value>Subject</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>You cannot vote</value>
-  </data>
-  <data name="VoteNotEnoughScore" xml:space="preserve">
-    <value>You dont have score</value>
-    <comment>new</comment>
+    <value>You can not upvote / downvote your own question</value>
   </data>
 </root>
