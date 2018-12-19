@@ -3,6 +3,7 @@
 </template>
 
 <script>
+    var TWEEN = require('./tweenJS.js');
     export default {
         name: "tweenNumber",
         props: {
@@ -18,6 +19,7 @@
         },
         watch: {
             value: function(newValue, oldValue) {
+                console.log('value in tween',newValue, oldValue)
                 this.tween(oldValue, newValue)
             }
         },
@@ -26,8 +28,8 @@
         },
         methods: {
             tween: function(startValue, endValue) {
-                var vm = this
 
+                let self = this;
                 function animate() {
                     if (TWEEN.update()) {
                         requestAnimationFrame(animate)
@@ -39,12 +41,15 @@
                     .to({
                         tweeningValue: endValue
                     }, 500)
-                    .onUpdate(function() {
-                        vm.tweeningValue = this.tweeningValue.toFixed(0)
+                    .onUpdate(()=> {
+                        self.tweeningValue = this.tweeningValue
                     })
-                    .start()
+                    .start();
                 animate()
             }
+        },
+        created(){
+            console.log('tween created', this.value)
         }
 
 

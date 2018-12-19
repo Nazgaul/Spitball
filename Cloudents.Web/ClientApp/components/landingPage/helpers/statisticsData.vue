@@ -13,7 +13,10 @@
             <v-flex class="stats-single-item" v-for="(singleStat, index) in statsData" :key="`3${index}`">
                 <v-card class="stat-card">
                     <v-card-text class="stat-text-title px-0">{{singleStat.title}}</v-card-text>
-                    <v-card-text class="stat-text-data px-0">{{singleStat.data | localeNumber(singleStat.id)}}</v-card-text>
+                    <v-card-text class="stat-text-data px-0">
+                        <tween-number :value="getValue(singleStat)"></tween-number>
+                        <!--{{singleStat.data | localeNumber(singleStat.id)}}-->
+                    </v-card-text>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -21,16 +24,23 @@
 </template>
 
 <script>
+    import tweenNumber from "../../results/helpers/tweenNumber/tweenNumber.vue"
 
     export default {
         name: "statisticsData",
+        components: {tweenNumber},
         data() {
             return {};
         },
         computed: {
-
             isMobileView() {
                 return this.$vuetify.breakpoint.width < 1024;
+            }
+        },
+        methods: {
+            getValue(item) {
+                console.log('number in stats', item.data);
+                return item.data
             }
         },
         props: {
@@ -44,9 +54,9 @@
         },
         filters: {
             localeNumber(val, param) {
-                if(param === 2){
+                if (param === 2) {
                     return `$${val.toLocaleString('us-EG')}`;
-                }else{
+                } else {
                     return val.toLocaleString('us-EG');
                 }
 
