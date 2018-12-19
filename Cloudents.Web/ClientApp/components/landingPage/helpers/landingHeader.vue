@@ -8,10 +8,10 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="landing-header-items">
-                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}" v-show="!isMobileView" class="lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
-                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}" v-show="!isMobileView" class="lp-header-link bold" @click="changeDictionaryType('earn')">Earn money</a>
-                <router-link v-show="!loggedIn" :to="{path: '/signin'}" class="login-action login">Login</router-link>
-                <router-link v-show="!loggedIn" :to="{path: '/register'}" class="login-action signup">Sign Up</router-link>
+                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}" v-show="!isMobileView" class="lp-header-link" @click="changeDictionaryType('learn')" v-language:inner>loginPage_header_learn_faster</a>
+                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}" v-show="!isMobileView" class="lp-header-link bold" @click="changeDictionaryType('earn')" v-language:inner>loginPage_header_earn_money</a>
+                <router-link v-show="!loggedIn" :to="{path: '/signin'}" class="login-action login" v-language:inner>loginPage_header_login</router-link>
+                <router-link v-show="!loggedIn" :to="{path: '/register'}" class="login-action signup" v-language:inner>loginPage_header_sign_up</router-link>
                 <v-menu style="margin-top:3px;" close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                     <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer" class="gamburger">
                         <v-icon>sbf-menu</v-icon>
