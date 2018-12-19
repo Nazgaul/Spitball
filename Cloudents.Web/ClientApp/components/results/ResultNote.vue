@@ -49,7 +49,7 @@
             <span class="document-reputation upvote-arrow" @click.prevent="upvoteDocument()">
               <v-icon :class="{'voted': item.upvoted}">sbf-arrow-up</v-icon>
             </span>
-                        <span class="document-reputation document-score">{{item.votes}}</span>
+                        <span class="document-reputation document-score" :dir="isRtl ? `ltr` : ''">{{item.votes}}</span>
                         <span class="document-reputation downvote-arrow" @click.prevent="downvoteDocument()">
               <v-icon :class="{'voted': item.downvoted}">sbf-arrow-down</v-icon>
             </span>
