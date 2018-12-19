@@ -118,16 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="earn_knowledge_subTitle" xml:space="preserve">
-    <value>הצטרפו לקהילת ספיטבול, ענו על שאלות, צברו נקודות זיכוי ותהנו מקניות באינטרנט או מקרדיטים לבילוי ופנאי</value>
+    <value>הצטרפו לקהילת Spitball, ענו על שאלות, צברו נקודות SBL ותוכלו גם לקנות וגם ליהנות!</value>
   </data>
   <data name="earn_knowledge_title" xml:space="preserve">
-    <value>בואו להרוויח מהידע האקדמי – עוד לפני סיום התואר!</value>
+    <value>בואו להרוויח מהידע האקדמי שצברתם!</value>
   </data>
   <data name="earn_question_section_subTitle" xml:space="preserve">
-    <value />
+    <value>צברו נקודות SBL וממשו אותן ב- BuyMe</value>
   </data>
   <data name="earn_question_section_title" xml:space="preserve">
-    <value />
+    <value>עונים על שאלות - צוברים נקודות!</value>
+  </data>
+  <data name="earn_upload_section_subTitle" xml:space="preserve">
+    <value>העלו עכשיו מסמכי לימוד שיצרתם וסייעו לסטודנטים אחרים</value>
   </data>
   <data name="earn_upload_section_title" xml:space="preserve">
     <value>בואו לחלוק את הידע האקדמי שלכם </value>
@@ -170,6 +173,12 @@
   </data>
   <data name="get_your_sbl" xml:space="preserve">
     <value>להרשמה וקבלת SBL</value>
+  </data>
+  <data name="header_earn_money" xml:space="preserve">
+    <value>להרוויח יותר</value>
+  </data>
+  <data name="header_learn_faster" xml:space="preserve">
+    <value>ללמוד מהר</value>
   </data>
   <data name="header_login" xml:space="preserve">
     <value>כניסה</value>
@@ -219,19 +228,22 @@
     <value>עוד לא הצטרפת? זה בחינם!</value>
   </data>
   <data name="learn_knowledge_subTitle" xml:space="preserve">
-    <value>הגיע הזמן להתעורר למציאות חדשה!</value>
+    <value>שפרו ציונים וקבלו גם סיוע בשיעורי הבית וגם גישה לאלפי מסמכי לימוד</value>
   </data>
   <data name="learn_knowledge_title" xml:space="preserve">
     <value>חולמים על שיעורי בית מושלמים?</value>
   </data>
   <data name="learn_question_section_subTitle" xml:space="preserve">
-    <value>למעשה, 80% מהשאלות שעולות בקהילת  Spitball, זוכות למענה תוך פחות מדקה! </value>
+    <value>80% מהשאלות שעולות בקהילת  Spitball, זוכות למענה תוך פחות מדקה!  </value>
   </data>
   <data name="learn_question_section_title" xml:space="preserve">
-    <value>עובדים להגשה ותקועים בשאלה קשה?</value>
+    <value>עבודה להגשה שתקועה בשאלה קשה?</value>
+  </data>
+  <data name="learn_upload_section_subTitle" xml:space="preserve">
+    <value>מצאו את הקובץ המתאים לכם עכשיו</value>
   </data>
   <data name="learn_upload_section_title" xml:space="preserve">
-    <value>פספסת שיעור ואין לך סיכום טוב?</value>
+    <value>קבלו גישה למסמכים המכילים חומרי לימוד </value>
   </data>
   <data name="placeholder_subjects" xml:space="preserve">
     <value>בחר נושא</value>
@@ -252,7 +264,7 @@
     <value>סך הרווחים של חברי הקהילה</value>
   </data>
   <data name="stats_sbls" xml:space="preserve">
-    <value>נקודות זיכוי שמומשו</value>
+    <value>נקודות SBL שמומשו</value>
   </data>
   <data name="stats_users" xml:space="preserve">
     <value>סטודנטים מרוצים</value>
