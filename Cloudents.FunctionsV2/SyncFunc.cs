@@ -69,7 +69,7 @@ namespace Cloudents.FunctionsV2
 
             //    await context.CallActivityAsync(CreateIndexFunctionName, input);
             //}
-            input.SyncAzureQuery = SyncAzureQuery.Empty(); //query;
+            input.SyncAzureQuery = query;
 
             bool needContinue;
             long nextVersion = 0;

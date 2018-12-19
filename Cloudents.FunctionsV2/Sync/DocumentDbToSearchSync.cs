@@ -54,7 +54,7 @@ namespace Cloudents.FunctionsV2.Sync
                 needContinue = true;
                 await syncService.AddAsync(new AzureSearchSyncOutput
                 {
-                    Item = new Question()
+                    Item = new Document()
                     {
                         Id = document
                     },
@@ -64,8 +64,6 @@ namespace Cloudents.FunctionsV2.Sync
             }
 
             await syncService.FlushAsync(token);
-
-            // var result = await _questionServiceWrite.UpdateDataAsync(update.Select(s => s.ToDocument()), delete, token);
             return new SyncResponse(version, needContinue);
         }
     }
