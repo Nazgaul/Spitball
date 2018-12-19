@@ -44,6 +44,9 @@
                 <upload-files v-if="getDialogState"></upload-files>
             </sb-dialog>
         </v-content>
+        <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
+            <div class="text-wrap" v-html="getToasterText"></div>
+        </v-snackbar>
     </v-app>
 </template>
 <script>
@@ -71,7 +74,8 @@
         data() {
             return {
                 acceptIsraeli: true,
-                isRtl: global.isRtl
+                isRtl: global.isRtl,
+                toasterTimeout: 5000,
             }
         },
         computed: {
@@ -85,7 +89,9 @@
                 "getShowSelectUniInterface",
                 "getDialogState",
                 "getUploadFullMobile",
-                "confirmationDialog"
+                "confirmationDialog",
+                "getShowToaster",
+                "getToasterText"
             ]),
             cookiesShow() {
                 return this.getCookieAccepted()
@@ -118,8 +124,20 @@
                 // entire question-details has been rendered
             })
         },
+        watch:{
+            getShowToaster: function (val) {
+                if (val) {
+                    var self = this;
+                    setTimeout(function () {
+                        self.updateToasterParams({
+                            showToaster: false
+                        })
+                    }, this.toasterTimeout)
+                }
+            },
+        },
         methods: {
-            ...mapActions(['updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState', 'updateDialogState', 'setCookieAccepted']),
+            ...mapActions(['updateToasterParams', 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState', 'updateDialogState', 'setCookieAccepted']),
             ...mapGetters(['getCookieAccepted']),
             removeCookiesPopup: function () {
                 this.setCookieAccepted();

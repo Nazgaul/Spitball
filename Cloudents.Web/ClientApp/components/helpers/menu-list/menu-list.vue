@@ -118,7 +118,7 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name"
+            <v-list-tile v-if="!fromUSA" v-for="singleLang in languageChoisesAval" :key="singleLang.name"
                          @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
                     <v-icon>{{singleLang.icon}}</v-icon>
@@ -224,6 +224,7 @@
                 showReferral: false,
                 languagesLocales,
                 languageChoisesAval: [],
+                fromUSA: global.country.toLowerCase() === 'us'
             }
         },
         props: {
