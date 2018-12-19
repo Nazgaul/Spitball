@@ -11,7 +11,7 @@
                         <span class="answer-raputation upvote-arrow" @click.prevent="upvoteAnswer()">
                             <v-icon :class="{'voted': cardData.upvoted}">sbf-arrow-up</v-icon>
                         </span>
-                        <span class="answer-raputation answer-score">{{cardData.votes}}</span>
+                        <span class="answer-raputation answer-score" :dir="isRtl ? `ltr` : ''">{{cardData.votes}}</span>
                         <span class="answer-raputation downvote-arrow" @click.prevent="downvoteAnswer()">
                             <v-icon :class="{'voted': cardData.downvoted}">sbf-arrow-down</v-icon>
                         </span>

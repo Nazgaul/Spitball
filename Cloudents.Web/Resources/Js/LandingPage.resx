@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="earn_knowledge_subTitle" xml:space="preserve">
-    <value>Simply answer questions, earn SBL and cash out with Amazon gift cards</value>
+    <value>Simply answer questions, collect tokens (SBL) and cash out!</value>
   </data>
   <data name="earn_knowledge_title" xml:space="preserve">
     <value>Earn From Helping Students</value>
@@ -205,19 +205,19 @@
     <value>Students that need help with their studies, choose their campus and class browse study documents or ask homework questions. Students that know the answer will help solve these problems, and the most helpful answer or document gets rewarded with SBL.</value>
   </data>
   <data name="join_spitball" xml:space="preserve">
-    <value>Join Spitball its 100% Free</value>
+    <value>Join Spitball it's 100% Free</value>
   </data>
   <data name="join_spitball_free" xml:space="preserve">
-    <value>Join Spitball Its Free!</value>
+    <value>Join Spitball it's Free!</value>
   </data>
   <data name="learn_knowledge_subTitle" xml:space="preserve">
-    <value>Improve your grades, Receive homework help in seconds, access thousands of study docs</value>
+    <value>Quickly boost your GPA with instant help and thousands of study docs</value>
   </data>
   <data name="learn_knowledge_title" xml:space="preserve">
     <value>Study Faster, Enjoy College</value>
   </data>
   <data name="learn_question_section_subTitle" xml:space="preserve">
-    <value>80% of questions get answered in under 1 minutes</value>
+    <value>80% of questions get answered in under 1 minute</value>
   </data>
   <data name="learn_question_section_title" xml:space="preserve">
     <value>Get Solutions to Homework Questions</value>

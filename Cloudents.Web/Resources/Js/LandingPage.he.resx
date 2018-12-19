@@ -117,40 +117,145 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accept" xml:space="preserve">
-    <value>קבל</value>
+  <data name="earn_knowledge_subTitle" xml:space="preserve">
+    <value />
   </data>
-  <data name="Answer" xml:space="preserve">
-    <value>ענה עכשיו</value>
+  <data name="earn_knowledge_title" xml:space="preserve">
+    <value />
   </data>
-  <data name="Answer_dot" xml:space="preserve">
-    <value>תשובה</value>
+  <data name="earn_question_section_subTitle" xml:space="preserve">
+    <value />
   </data>
-  <data name="Answer_placeholder" xml:space="preserve">
-    <value>ענה...</value>
+  <data name="earn_question_section_title" xml:space="preserve">
+    <value />
   </data>
-  <data name="Currency" xml:space="preserve">
-    <value>SBL</value>
+  <data name="earn_upload_section_title" xml:space="preserve">
+    <value />
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>מחק</value>
+  <data name="find_by_subject" xml:space="preserve">
+    <value />
   </data>
-  <data name="Earn" xml:space="preserve">
-    <value>קבל</value>
+  <data name="find_by_subject_desc" xml:space="preserve">
+    <value />
   </data>
-  <data name="error_delete" xml:space="preserve">
-    <value>אופס, קרתה תקלה, אנא נסה שוב</value>
+  <data name="footer_about" xml:space="preserve">
+    <value />
   </data>
-  <data name="Question_price" xml:space="preserve">
-    <value>{1} SBL</value>
+  <data name="footer_ambassador" xml:space="preserve">
+    <value />
   </data>
-  <data name="Report" xml:space="preserve">
-    <value>דווח על פריט זה</value>
+  <data name="footer_blog" xml:space="preserve">
+    <value />
   </data>
-  <data name="Sold" xml:space="preserve">
-    <value>נענתה</value>
+  <data name="footer_contact" xml:space="preserve">
+    <value />
   </data>
-  <data name="Someone_answering" xml:space="preserve">
-    <value>מישהו עונה עכשיו...</value>
+  <data name="footer_faq" xml:space="preserve">
+    <value />
+  </data>
+  <data name="footer_feedback" xml:space="preserve">
+    <value />
+  </data>
+  <data name="footer_partners" xml:space="preserve">
+    <value />
+  </data>
+  <data name="footer_pr" xml:space="preserve">
+    <value />
+  </data>
+  <data name="footer_privacy" xml:space="preserve">
+    <value />
+  </data>
+  <data name="footer_terms" xml:space="preserve">
+    <value />
+  </data>
+  <data name="get_your_sbl" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_get_sbl" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_get_sbl_desc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_is_catch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_is_catch_desc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_it_works" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_sbl_money" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_sbl_money_desc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_spitball_differs" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_spitball_differs_desc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_spitball_work" xml:space="preserve">
+    <value />
+  </data>
+  <data name="how_spitball_work_desc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="join_spitball" xml:space="preserve">
+    <value />
+  </data>
+  <data name="join_spitball_free" xml:space="preserve">
+    <value />
+  </data>
+  <data name="learn_knowledge_subTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="learn_knowledge_title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="learn_question_section_subTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="learn_question_section_title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="learn_upload_section_title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="placeholder_subjects" xml:space="preserve">
+    <value />
+  </data>
+  <data name="placeholder_uni" xml:space="preserve">
+    <value />
+  </data>
+  <data name="sign_up" xml:space="preserve">
+    <value />
+  </data>
+  <data name="spitball_student_title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="stats_answers" xml:space="preserve">
+    <value />
+  </data>
+  <data name="stats_money" xml:space="preserve">
+    <value />
+  </data>
+  <data name="stats_sbls" xml:space="preserve">
+    <value />
+  </data>
+  <data name="stats_users" xml:space="preserve">
+    <value />
+  </data>
+  <data name="upload_section_subTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="what_is_spitball" xml:space="preserve">
+    <value />
+  </data>
+  <data name="what_is_spitball_desc" xml:space="preserve">
+    <value />
   </data>
 </root>

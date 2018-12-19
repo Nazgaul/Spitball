@@ -1,8 +1,9 @@
 <template>
     <a
             :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
-            @click.native="(isOurs ? $_spitball($event):'')"
+            @click.native="(isOurs ? $_spitball($event, url): '')"
             :href="url"
+            id="sb-link"
             :class="['d-block', 'note-block']"
     >
         <v-container
@@ -34,7 +35,7 @@
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
-                                    <v-list-tile :disabled="!canReport && !isOurs" v-for="(item, i) in actions"
+                                    <v-list-tile :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
                                                  :key="i">
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
@@ -48,7 +49,7 @@
             <span class="document-reputation upvote-arrow" @click.prevent="upvoteDocument()">
               <v-icon :class="{'voted': item.upvoted}">sbf-arrow-up</v-icon>
             </span>
-                        <span class="document-reputation document-score">{{item.votes}}</span>
+                        <span class="document-reputation document-score" :dir="isRtl ? `ltr` : ''">{{item.votes}}</span>
                         <span class="document-reputation downvote-arrow" @click.prevent="downvoteDocument()">
               <v-icon :class="{'voted': item.downvoted}">sbf-arrow-down</v-icon>
             </span>
@@ -124,6 +125,7 @@
                     {
                         title: LanguageService.getValueByKey("questionCard_Report"),
                         action: this.reportItem,
+                        isDisabled: this.isDisabled,
                     }
                 ],
                 itemId: 0,
@@ -193,19 +195,15 @@
                 }
             },
             isOurs() {
-                let data;
+                let ours;
                 if (this.item && this.item.source) {
-                    data = this.item.source.toLowerCase().includes("cloudents") || this.item.source.toLowerCase().includes("spitball");
+                    ours = this.item.source.toLowerCase().includes("cloudents") || this.item.source.toLowerCase().includes("spitball");
                 }
-                return data
+                return ours
             },
 
-            url: function () {
+            url() {
                 return this.item.url;
-            },
-            canReport() {
-                return this.cardOwner();
-
             },
         },
         methods: {
@@ -218,9 +216,19 @@
                 } else {
                     return false
                 }
-
             },
-              reportItem() {
+            isDisabled() {
+                let isOwner, account, notEnough;
+                isOwner = this.cardOwner();
+                account = this.accountUser();
+                if (account && account.balance) {
+                    notEnough = account.balance < 400
+                }
+                if (isOwner || !account || notEnough) {
+                    return true
+                }
+            },
+            reportItem() {
                 this.itemId = this.item.id;
                 this.showReport = !this.showReport;
             },
@@ -228,6 +236,7 @@
                 this.showReport = false;
             },
             $_spitball(event) {
+                console.log('our event', event);
                 event.preventDefault();
                 this.$router.push(this.url);
                 setTimeout(() => {
@@ -236,6 +245,7 @@
                     }
                 }, 100);
             },
+
             isAuthUser() {
                 let user = this.accountUser();
                 if (user == null) {
