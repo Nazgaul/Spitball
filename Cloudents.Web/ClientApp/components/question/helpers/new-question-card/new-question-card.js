@@ -18,7 +18,7 @@ export default {
                 {
                     title: LanguageService.getValueByKey("questionCard_Report"),
                     action: this.reportItem,
-                    isDisabled: this.cardOwner,
+                    isDisabled: this.isDisabled,
                     isVisible: true
                 },
                 {
@@ -129,7 +129,7 @@ export default {
                 let data = {
                     type,
                     id: this.cardData.id
-                }
+                };
                 this.questionVote(data);
             }
         },
@@ -142,9 +142,19 @@ export default {
             let data = {
                 type,
                 id: this.cardData.id
-            }
+            };
             this.questionVote(data);
-        }
+        }  },
+        isDisabled(){
+            let isOwner, account, isEnough;
+             isOwner = this.cardOwner();
+             account = this.accountUser();
+            if(account && account.balance){
+                isEnough = account.balance < 400
+            }
+            if(isOwner || !account || isEnough){
+                return true
+            }
         },
         cardOwner() {
             let userAccount = this.accountUser();
