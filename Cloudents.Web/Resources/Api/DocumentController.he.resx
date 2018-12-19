@@ -120,6 +120,9 @@
   <data name="CoursesFilterTitle" xml:space="preserve">
     <value>קורסים</value>
   </data>
+  <data name="CreateOk" xml:space="preserve">
+    <value>המסמך שלך עלה, ויהיה זמין בקרוב</value>
+  </data>
   <data name="CreatePending" xml:space="preserve">
     <value>המסמך שלך ממתין לאישור, נא לא להעלות מסמך זה שוב</value>
   </data>
