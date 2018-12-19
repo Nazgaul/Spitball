@@ -4,12 +4,25 @@
             <white-logo></white-logo>
         </v-card>
         <v-card class="footer-card social-card">
-                <div  class="social-link"><v-icon>sbf-social-medium</v-icon></div>
-                <div  class="social-link"><v-icon>sbf-social-linkedin</v-icon></div>
-                <div  class="social-link"><v-icon>sbf-social-facebook</v-icon></div>
-                <div  class="social-link"><v-icon>sbf-social-youtube</v-icon></div>
-                <div  class="social-link"><v-icon>sbf-social-telegram</v-icon></div>
-                <div  class="social-link"><v-icon>sbf-social_twitter</v-icon></div>
+            <a href="https://medium.com/@spitballstudy" class="social-link" target="_blank">
+                <v-icon>sbf-social-medium</v-icon>
+            </a>
+            <a href="https://www.linkedin.com/company/spitball/" class="social-link" target="_blank">
+                <v-icon>sbf-social-linkedin</v-icon>
+            </a>
+            <a href="https://www.facebook.com/spitballstudy/" target="_blank" class="social-link">
+                <v-icon>sbf-social-facebook</v-icon>
+            </a>
+            <a href="https://www.youtube.com/channel/UC9qGHTJixreP2bbwugmSi2Q?view_as=subscriber" class="social-link"
+               target="_blank">
+                <v-icon>sbf-social-youtube</v-icon>
+            </a>
+            <a href="https://t.me/Spitball" class="social-link" target="_blank">
+                <v-icon>sbf-social-telegram</v-icon>
+            </a>
+            <a href="https://twitter.com/SpitballStudy" class="social-link" target="_blank">
+                <v-icon>sbf-social_twitter</v-icon>
+            </a>
 
         </v-card>
         <v-card class="footer-card links-card">
@@ -23,6 +36,7 @@
 <script>
     import whiteLogo from "../images/footerLogo.svg"
     import { LanguageService } from "../../../services/language/languageService";
+
     export default {
         components: {whiteLogo},
         name: "landingFooter",
@@ -125,7 +139,7 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            &.social-card{
+            &.social-card {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -133,16 +147,16 @@
                 height: 80px;
                 border-top: 1px solid #979797;
                 border-bottom: 1px solid #979797;;
-                .social-link{
+                .social-link {
                     width: 50px;
                     margin-right: 46px;
-                    @media(max-width: @screen-xs){
+                    @media (max-width: @screen-xs) {
                         margin-right: 8px;
                     }
-                   i{
-                       color: @color-white;
-                       font-size: 22px;
-                   }
+                    i {
+                        color: @color-white;
+                        font-size: 22px;
+                    }
                 }
             }
         }
@@ -152,14 +166,14 @@
             align-items: center;
             justify-content: center;
             padding: 16px;
-            a{
+            a {
                 display: inline-block;
                 text-align: left;
                 width: 50%;
                 font-size: 13px;
                 color: @footerLinksColor;
                 text-decoration: none;
-                &:hover{
+                &:hover {
                     color: fade(@footerLinksColor, 100%);
                 }
             }
