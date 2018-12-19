@@ -34,13 +34,11 @@
             </div>
             <div class="right-part overlap-above">
                 <div class="background-white-boxed">
-                    <video autoplay width="100%" height="100%" muted loop>
-                        <source src="https://zboxstorage.blob.core.windows.net/videos/ask_a_question_gif.mp4" type="video/mp4" />
-                    </video>
+                    <div class="gif-container-question" :class="{'learn': dictionaryType === 'learn'}"></div>
                 </div>
             </div>
             <div class="left-part gradient-background">
-                <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
+                <div style="flex-grow:1;width:64%;" v-if="$vuetify.breakpoint.smAndUp"></div>
                 <div style="width:100%;" class="input-holder">
                     <v-combobox v-if="$vuetify.breakpoint.smAndUp"
                                 class="input-subject"
@@ -100,9 +98,7 @@
             </div>
             <div class="left-part overlap-above">
                 <div class="background-white-boxed ">
-                    <video autoplay width="100%" height="100%" muted loop>
-                        <source src="https://zboxstorage.blob.core.windows.net/videos/ask_a_question_gif.mp4" type="video/mp4" />
-                    </video>
+                    <div class="gif-container-document" :class="{'learn': dictionaryType === 'learn'}"></div>
                 </div>
             </div>
             <div class="right-part gradient-background">
@@ -146,7 +142,7 @@
                         <span class="dummy-placeholder">text some</span>
                     </div>
                 </div>
-                <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
+                <div style="flex-grow:1;width:64%;" v-if="$vuetify.breakpoint.smAndUp"></div>
 
             </div>
         </section> 
