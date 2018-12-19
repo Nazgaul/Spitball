@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
+[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 
 namespace Cloudents.Domain.Entities
 {
