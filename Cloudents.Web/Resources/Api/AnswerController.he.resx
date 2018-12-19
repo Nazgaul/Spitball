@@ -126,6 +126,9 @@
   <data name="DuplicateAnswer" xml:space="preserve">
     <value>קיימת כבר תשובה כזו לשאלה</value>
   </data>
+  <data name="More then one answer" xml:space="preserve">
+    <value>הכנסת כבר תשובה לשאלה זו</value>
+  </data>
   <data name="QuestionNotExists" xml:space="preserve">
     <value>שאלה אינה קיימת</value>
   </data>

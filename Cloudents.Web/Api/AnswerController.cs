@@ -16,8 +16,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 
 namespace Cloudents.Web.Api
 {
@@ -48,11 +50,17 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             try
             {
+                var t2 = Task.FromResult<IEnumerable<QuestionFeedDto>>(null);
                 var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files);
                 var t1 = _commandBus.DispatchAsync(command, token);
 
-                var query = new NextQuestionQuery(model.QuestionId, userId);
-                var t2 = queryBus.QueryAsync(query, token);
+
+                if (score >= Privileges.Post)
+                {
+                    var query = new NextQuestionQuery(model.QuestionId, userId);
+                    t2 = queryBus.QueryAsync(query, token);
+                }
+
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
 
                 if (score < Privileges.Post)
@@ -77,6 +85,11 @@ namespace Cloudents.Web.Api
             //    ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
             //    return BadRequest(ModelState);
             //}
+            catch (MoreThenOneAnswerException)
+            {
+                ModelState.AddModelError(nameof(model.Text), _localizer["More then one answer"]);
+                return BadRequest(ModelState);
+            }
             catch (QuestionAlreadyAnsweredException)
             {
                 ModelState.AddModelError(nameof(model.Text), _localizer["This question have correct answer"]);
