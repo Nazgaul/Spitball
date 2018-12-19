@@ -81,7 +81,8 @@ namespace Cloudents.Core.CommandHandler
                 {
                     if (answer.User.Id == user.Id)
                     {
-                        throw new InvalidOperationException("user cannot give more then one answer");
+                        throw new MoreThenOneAnswerException();
+                        //throw new InvalidOperationException("user cannot give more then one answer");
                     }
                     var check = Regex.Replace(answer.Text, regex.ToString(), "");
                     if (nakedString == check)
