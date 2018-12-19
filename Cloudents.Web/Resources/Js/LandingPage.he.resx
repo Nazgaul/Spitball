@@ -171,6 +171,12 @@
   <data name="get_your_sbl" xml:space="preserve">
     <value />
   </data>
+  <data name="header_login" xml:space="preserve">
+    <value>כניסה</value>
+  </data>
+  <data name="header_sign_up" xml:space="preserve">
+    <value>הרשמה</value>
+  </data>
   <data name="how_get_sbl" xml:space="preserve">
     <value />
   </data>
