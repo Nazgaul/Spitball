@@ -1,12 +1,12 @@
 ﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Exceptions;
+using Cloudents.Application.Interfaces;
 using Cloudents.Common.Enum;
 
 namespace Cloudents.Infrastructure.Database.Repositories

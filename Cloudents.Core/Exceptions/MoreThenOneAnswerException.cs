@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Exceptions
+namespace Cloudents.Application.Exceptions
 {
     public class MoreThenOneAnswerException : Exception
     {

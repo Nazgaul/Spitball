@@ -1,8 +1,4 @@
-﻿using Cloudents.Core.Command;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using Cloudents.Domain.Entities;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -19,6 +15,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Command;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 
 namespace Cloudents.Web.Api
 {

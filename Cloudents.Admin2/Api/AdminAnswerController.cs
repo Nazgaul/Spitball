@@ -1,12 +1,12 @@
-﻿using Cloudents.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.Admin;
 using System.Threading;
-using Cloudents.Core.Query.Admin;
-using Cloudents.Core.Command.Admin;
+using Cloudents.Application.Command.Admin;
+using Cloudents.Application.DTOs.Admin;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query.Admin;
 
 namespace Cloudents.Admin2.Api
 {

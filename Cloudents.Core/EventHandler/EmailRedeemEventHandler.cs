@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Event;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Message;
+using Cloudents.Application.Storage;
 
-namespace Cloudents.Core.EventHandler
+namespace Cloudents.Application.EventHandler
 {
     public class EmailRedeemEventHandler: IEventHandler<RedeemEvent>
     {

@@ -1,12 +1,12 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using Cloudents.Core.Request;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
+using Cloudents.Application.Request;
 
 namespace Cloudents.Infrastructure.Search.Document
 {

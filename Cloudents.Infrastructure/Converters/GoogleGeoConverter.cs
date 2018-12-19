@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using Cloudents.Core.Models;
+using Cloudents.Application.Models;
 using Cloudents.Infrastructure.Search.Places;
 
 namespace Cloudents.Infrastructure.Converters

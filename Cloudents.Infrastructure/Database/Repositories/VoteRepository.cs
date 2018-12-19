@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Cloudents.Domain.Entities;
 using NHibernate;
 using NHibernate.Linq;

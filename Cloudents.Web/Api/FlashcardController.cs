@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.DocumentDb;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Entities.DocumentDb;
+using Cloudents.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api

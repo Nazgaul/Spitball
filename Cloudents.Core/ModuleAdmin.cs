@@ -2,12 +2,12 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.Interfaces;
 using JetBrains.Annotations;
 using Module = Autofac.Module;
 
-namespace Cloudents.Core
+namespace Cloudents.Application
 {
     [ModuleRegistration(Enum.System.Admin, Order = 2)]
     [ModuleRegistration(Enum.System.Function, Order = 2)]

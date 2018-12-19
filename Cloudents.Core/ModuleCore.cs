@@ -2,14 +2,14 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.CommandHandler;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.CommandHandler;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 using JetBrains.Annotations;
 using Module = Autofac.Module;
 
-namespace Cloudents.Core
+namespace Cloudents.Application
 {
     [ModuleRegistration(Enum.System.Console, Order = 1)]
     [ModuleRegistration(Enum.System.Function)]

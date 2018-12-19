@@ -1,17 +1,17 @@
 ﻿using Autofac;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Storage;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Storage
 {
-    [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.WorkerRole)]
-    [ModuleRegistration(Core.Enum.System.Function)]
-    [ModuleRegistration(Core.Enum.System.Web)]
-    [ModuleRegistration(Core.Enum.System.Admin)]
-    [ModuleRegistration(Core.Enum.System.IcoSite)]
+    [ModuleRegistration(Application.Enum.System.Console)]
+    [ModuleRegistration(Application.Enum.System.WorkerRole)]
+    [ModuleRegistration(Application.Enum.System.Function)]
+    [ModuleRegistration(Application.Enum.System.Web)]
+    [ModuleRegistration(Application.Enum.System.Admin)]
+    [ModuleRegistration(Application.Enum.System.IcoSite)]
     [UsedImplicitly]
     public class ModuleStorage : Module
     {
@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Storage
         }
     }
 
-    [ModuleRegistration(Core.Enum.System.WorkerRole)]
+    [ModuleRegistration(Application.Enum.System.WorkerRole)]
     public class ModuleTempStorage : Module
     {
         protected override void Load(ContainerBuilder builder)

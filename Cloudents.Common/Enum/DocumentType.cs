@@ -1,6 +1,5 @@
 ﻿using Cloudents.Common.Attributes;
 using Cloudents.Common.Resources;
-using Cloudents.Core.Attributes;
 
 namespace Cloudents.Common.Enum
 {

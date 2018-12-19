@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Cloudents.Common;
+using Cloudents.Common.Enum;
 
 namespace Cloudents.Admin2.Models
 {

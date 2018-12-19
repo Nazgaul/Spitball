@@ -1,7 +1,8 @@
 ﻿using System;
+
 //using Cloudents.Core.Storage;
 
-namespace Cloudents.Core.Attributes
+namespace Cloudents.Application.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class LogAttribute : Attribute

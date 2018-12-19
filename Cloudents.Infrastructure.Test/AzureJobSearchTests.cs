@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Autofac.Extras.Moq;
-using Cloudents.Core.Enum;
+using Cloudents.Application.Enum;
 using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Search.Job;
 using FluentAssertions;

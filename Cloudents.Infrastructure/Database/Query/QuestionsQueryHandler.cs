@@ -1,13 +1,13 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
+﻿using Cloudents.Domain.Entities;
 using NHibernate;
 using NHibernate.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Cloudents.Infrastructure.Database.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;

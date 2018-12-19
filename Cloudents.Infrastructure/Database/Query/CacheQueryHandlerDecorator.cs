@@ -2,8 +2,8 @@
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
 
 namespace Cloudents.Infrastructure.Database.Query

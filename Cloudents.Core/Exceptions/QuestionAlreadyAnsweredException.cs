@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Cloudents.Core.Exceptions
+namespace Cloudents.Application.Exceptions
 {
     public class QuestionAlreadyAnsweredException : Exception
     {

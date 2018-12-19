@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using Cloudents.Application.Attributes;
 
-namespace Cloudents.Core.Extension
+namespace Cloudents.Application.Extension
 {
     public static class StringExtensions
     {

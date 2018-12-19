@@ -1,15 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.Command;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Item.Commands.FlagItem;
-using Cloudents.Core.Models;
-using Cloudents.Core.Query;
-using Cloudents.Core.Votes.Commands.AddVoteQuestion;
-using Cloudents.Domain.Entities;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
@@ -25,7 +14,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application;
+using Cloudents.Application.Command;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Exceptions;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Item.Commands.FlagItem;
+using Cloudents.Application.Models;
+using Cloudents.Application.Query;
+using Cloudents.Application.Votes.Commands.AddVoteQuestion;
 using Cloudents.Web.Hubs;
+using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api

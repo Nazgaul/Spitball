@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Storage;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.Command.Admin;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Storage;
+using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 
-namespace Cloudents.Core.CommandHandler.Admin
+namespace Cloudents.Application.CommandHandler.Admin
 {
     [AdminCommandHandler]
     public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>

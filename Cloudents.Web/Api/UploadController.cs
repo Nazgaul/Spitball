@@ -1,6 +1,4 @@
 ﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
@@ -14,6 +12,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Storage;
 
 namespace Cloudents.Web.Api
 {

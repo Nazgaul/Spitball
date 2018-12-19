@@ -1,8 +1,8 @@
-﻿using Cloudents.Core.Interfaces;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.CommandHandler
+namespace Cloudents.Application.CommandHandler
 {
     public class CommitUnitOfWorkCommandHandlerDecorator<TCommand>
         : ICommandHandler<TCommand> where TCommand : ICommand

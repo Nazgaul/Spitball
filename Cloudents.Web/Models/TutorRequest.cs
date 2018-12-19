@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Enum;
+using Cloudents.Application.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models

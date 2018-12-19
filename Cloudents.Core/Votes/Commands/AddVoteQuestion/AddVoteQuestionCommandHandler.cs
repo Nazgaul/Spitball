@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.Interfaces;
-using Cloudents.Domain.Entities;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
+using Cloudents.Domain.Entities;
 
-namespace Cloudents.Core.Votes.Commands.AddVoteQuestion
+namespace Cloudents.Application.Votes.Commands.AddVoteQuestion
 {
     public class AddVoteQuestionCommandHandler : BaseAddVoteCommandHandler<Question, long>, ICommandHandler<AddVoteQuestionCommand>
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Autofac.Extras.Moq;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Models;
 using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Search.Tutor;
 using FluentAssertions;

@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using Cloudents.Common.Enum;
 using Cloudents.Domain.Entities;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Application.DTOs
 {
     [DataContract]
     public class DocumentFeedDto

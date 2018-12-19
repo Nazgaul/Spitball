@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Item.Commands.FlagItem
+namespace Cloudents.Application.Item.Commands.FlagItem
 {
     public class BaseFlagItemCommand<T> : ICommand
     {

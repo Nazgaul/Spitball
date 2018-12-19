@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
+using Cloudents.Application.Attributes;
 using Cloudents.Common.Attributes;
 
-namespace Cloudents.Core.Extension
+namespace Cloudents.Application.Extension
 {
     public static class EnumExtension
     {

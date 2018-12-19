@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core
+namespace Cloudents.Application
 {
 
     public class EventStore : IEventStore , IEnumerable<IEvent>

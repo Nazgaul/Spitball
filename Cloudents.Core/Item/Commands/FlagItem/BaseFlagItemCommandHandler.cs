@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Exceptions;
+using Cloudents.Application.Interfaces;
 using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 
-namespace Cloudents.Core.Item.Commands.FlagItem
+namespace Cloudents.Application.Item.Commands.FlagItem
 {
     public abstract class BaseFlagItemCommandHandler<T, TId> where T : ItemObject
     {

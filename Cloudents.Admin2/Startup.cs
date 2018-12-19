@@ -1,9 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Admin2.Extensions;
-using Cloudents.Core;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +15,9 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Reflection;
+using Cloudents.Application;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
@@ -86,7 +86,7 @@ namespace Cloudents.Admin2
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterSystemModules(
-                Core.Enum.System.Admin, assembliesOfProgram);
+                Application.Enum.System.Admin, assembliesOfProgram);
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();

@@ -1,10 +1,4 @@
 ﻿using Autofac;
-using Cloudents.Core;
-using Cloudents.Core.Command;
-using Cloudents.Core.CommandHandler;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Cloudents.Domain.Entities;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Database.Repositories;
@@ -30,8 +24,13 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Models;
-using Cloudents.Core.Query;
+using Cloudents.Application;
+using Cloudents.Application.Command;
+using Cloudents.Application.CommandHandler;
+using Cloudents.Application.Exceptions;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Message.System;
 using Cloudents.Search.Document;
 using DocumentType = Cloudents.Common.Enum.DocumentType;
 
@@ -189,7 +188,7 @@ namespace ConsoleApp
                     {
                         var sMsg =
                             JsonConvert
-                                .DeserializeObject<Cloudents.Core.Message.System.AddUserTagMessage>(msg.AsString);
+                                .DeserializeObject<AddUserTagMessage>(msg.AsString);
                         if (!Tag.ValidateTag(sMsg.Tag))
                         {
                             queue.DeleteMessage(msg);

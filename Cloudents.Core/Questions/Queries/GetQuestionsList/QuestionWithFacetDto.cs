@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Common;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Enum;
+using Cloudents.Common.Enum;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.Questions.Queries.GetQuestionsList
+namespace Cloudents.Application.Questions.Queries.GetQuestionsList
 {
     public class QuestionWithFacetDto
     {

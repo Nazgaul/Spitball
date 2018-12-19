@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Cloudents.Common;
+using Cloudents.Common.Enum;
 using Cloudents.Domain.Enums;
 
 namespace Cloudents.Web.Models

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Cloudents.Core.Extension;
+using Cloudents.Application.Extension;
 
-namespace Cloudents.Core.Message.Email
+namespace Cloudents.Application.Message.Email
 {
     [Serializable]
     public class AnswerCorrectEmail : BaseEmail

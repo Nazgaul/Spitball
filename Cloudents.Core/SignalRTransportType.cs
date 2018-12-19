@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Cloudents.Core
+namespace Cloudents.Application
 {
     public class SignalRTransportType
     {

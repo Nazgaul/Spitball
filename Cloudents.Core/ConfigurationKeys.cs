@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core
+namespace Cloudents.Application
 {
     public class ConfigurationKeys : IConfigurationKeys
     {

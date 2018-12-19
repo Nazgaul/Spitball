@@ -1,7 +1,3 @@
-using Cloudents.Core.Command;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Sync;
 using Cloudents.Search.Document;
@@ -16,6 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Command;
+using Cloudents.Application.Command.Admin;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 

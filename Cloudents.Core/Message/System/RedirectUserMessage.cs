@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Message.System
+namespace Cloudents.Application.Message.System
 {
     public class RedirectUserMessage: ISystemQueueMessage
     {

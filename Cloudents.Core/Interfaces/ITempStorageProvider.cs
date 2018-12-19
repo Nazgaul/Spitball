@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace Cloudents.Core.Interfaces
+namespace Cloudents.Application.Interfaces
 {
     public interface ITempStorageProvider
     {

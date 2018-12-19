@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Cloudents.Core;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
 using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;

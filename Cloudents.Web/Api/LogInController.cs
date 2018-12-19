@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command;
-using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using System;
+using Cloudents.Application.Command;
+using Cloudents.Application.Interfaces;
 
 namespace Cloudents.Web.Api
 {

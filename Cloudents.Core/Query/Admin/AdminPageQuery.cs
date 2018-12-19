@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.DTOs.Admin;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Query.Admin
+namespace Cloudents.Application.Query.Admin
 {
     public class AdminPageQuery : IQuery<IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {

@@ -1,13 +1,13 @@
-﻿using Cloudents.Core.Interfaces;
-using Cloudents.Domain.Entities;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Event;
-using Cloudents.Core.Exceptions;
+using Cloudents.Application.Event;
+using Cloudents.Application.Exceptions;
+using Cloudents.Application.Interfaces;
+using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 
-namespace Cloudents.Core.Votes.Commands
+namespace Cloudents.Application.Votes.Commands
 {
     public abstract class BaseAddVoteCommandHandler<T, TId> where T : ItemObject
     {

@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Command.Admin
+namespace Cloudents.Application.Command.Admin
 {
     public class DeleteUserCommand : ICommand
     {

@@ -1,11 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.Command;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Item.Commands.FlagItem;
-using Cloudents.Core.Query;
-using Cloudents.Core.Votes.Commands.AddVoteAnswer;
-using Cloudents.Domain.Entities;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
@@ -19,7 +12,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+using Cloudents.Application;
+using Cloudents.Application.Command;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Exceptions;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Item.Commands.FlagItem;
+using Cloudents.Application.Query;
+using Cloudents.Application.Votes.Commands.AddVoteAnswer;
+using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Api
 {

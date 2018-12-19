@@ -1,7 +1,7 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Application.Interfaces;
+using Cloudents.Domain.Entities;
 
-namespace Cloudents.Core.Votes.Commands.AddVoteDocument
+namespace Cloudents.Application.Votes.Commands.AddVoteDocument
 {
     public class AddVoteDocumentCommand : ICommand
     {

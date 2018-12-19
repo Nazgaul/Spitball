@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Message
+namespace Cloudents.Application.Message
 {
     [Serializable]
     public class BlockChainInitialBalance

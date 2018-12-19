@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cloudents.Core.Interfaces
+namespace Cloudents.Application.Interfaces
 {
     public interface IUrlBuilder
     {

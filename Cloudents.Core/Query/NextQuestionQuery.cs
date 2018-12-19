@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Query
+namespace Cloudents.Application.Query
 {
     public class NextQuestionQuery : IQuery<IEnumerable<QuestionFeedDto>>
     {

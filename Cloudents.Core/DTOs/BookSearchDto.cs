@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using Cloudents.Application.Enum.Resources;
 using Cloudents.Common.Attributes;
-using Cloudents.Core.Enum.Resources;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Application.DTOs
 {
     public class BookSearchDto
     {

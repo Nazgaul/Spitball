@@ -2,10 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core
+namespace Cloudents.Application
 {
     [UsedImplicitly]
     public sealed class CommandBus : ICommandBus, IDisposable

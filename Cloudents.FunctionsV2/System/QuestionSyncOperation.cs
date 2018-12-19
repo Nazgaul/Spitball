@@ -1,8 +1,8 @@
-﻿using Cloudents.Core.Message.System;
-using Cloudents.FunctionsV2.Binders;
+﻿using Cloudents.FunctionsV2.Binders;
 using Microsoft.Azure.WebJobs;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Message.System;
 using Cloudents.Search.Entities;
 using Cloudents.Search.Question;
 

@@ -1,15 +1,15 @@
-﻿using Cloudents.Core.Command;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Event;
+using Cloudents.Application.Command;
+using Cloudents.Application.Event;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Storage;
+using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 
-namespace Cloudents.Core.CommandHandler
+namespace Cloudents.Application.CommandHandler
 {
     public class CreateDocumentCommandHandler : ICommandHandler<CreateDocumentCommand>
     {

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using NHibernate;
 
 namespace Cloudents.Infrastructure.Database.Repositories

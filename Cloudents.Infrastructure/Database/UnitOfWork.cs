@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Exceptions;
 using System;
@@ -8,6 +6,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Exceptions;
+using Cloudents.Application.Interfaces;
 
 namespace Cloudents.Infrastructure.Database
 {

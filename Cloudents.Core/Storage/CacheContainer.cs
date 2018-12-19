@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Core.Storage
+﻿namespace Cloudents.Application.Storage
 {
     public class OldCacheContainer : IStorageContainer
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Message.System;
+using Cloudents.Application.Message;
+using Cloudents.Application.Message.Email;
+using Cloudents.Application.Message.System;
 
-namespace Cloudents.Core.Storage
+namespace Cloudents.Application.Storage
 {
     public interface IQueueProvider
     {

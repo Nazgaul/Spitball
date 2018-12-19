@@ -1,11 +1,11 @@
 ﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Message.System;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Message.System;
+using Cloudents.Application.Storage;
 
 namespace Cloudents.Web.Services
 {

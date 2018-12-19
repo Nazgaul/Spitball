@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace Cloudents.Core.Message.Email
+namespace Cloudents.Application.Message.Email
 {
     class UnSuspendUserEmail : BaseEmail
     {

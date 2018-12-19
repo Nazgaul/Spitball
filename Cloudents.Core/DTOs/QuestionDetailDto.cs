@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Common;
+using Cloudents.Common.Enum;
 using Cloudents.Domain.Enums;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Application.DTOs
 {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailDto

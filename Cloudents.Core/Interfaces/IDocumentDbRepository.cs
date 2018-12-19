@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Cloudents.Core.Interfaces
+namespace Cloudents.Application.Interfaces
 {
     public interface IDocumentDbRepository<T> where T : class
     {

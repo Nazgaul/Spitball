@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.Attributes;
+﻿using Cloudents.Application.Attributes;
 
-namespace Cloudents.Core.Enum
+namespace Cloudents.Application.Enum
 {
     public enum JobFilter
     {

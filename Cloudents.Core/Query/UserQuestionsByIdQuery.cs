@@ -1,8 +1,8 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Query
+namespace Cloudents.Application.Query
 {
     public class UserDataPagingByIdQuery : IQuery<IEnumerable<QuestionFeedDto>>, IQuery<IEnumerable<DocumentFeedDto>>
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Autofac.Extras.Moq;
 using AutoMapper;
+using Cloudents.Application;
 using Cloudents.Core;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Domain;

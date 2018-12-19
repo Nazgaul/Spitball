@@ -1,9 +1,9 @@
-﻿using Cloudents.Core.Enum;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Common;
+using Cloudents.Application.Enum;
+using Cloudents.Common.Enum;
 
-namespace Cloudents.Core.Query
+namespace Cloudents.Application.Query
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper initialize")]
     public class QuestionsQuery 

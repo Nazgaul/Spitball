@@ -1,7 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Storage;
-using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
@@ -10,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {

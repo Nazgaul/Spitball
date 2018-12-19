@@ -1,7 +1,7 @@
 ﻿using Cloudents.Common.Attributes;
 using Cloudents.Common.Resources;
 
-namespace Cloudents.Common
+namespace Cloudents.Common.Enum
 {
     public enum QuestionSubject
     {

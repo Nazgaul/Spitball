@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.Enum;
+﻿using Cloudents.Application.Enum;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Application.DTOs
 {
     public class SiteMapCountDto
     {

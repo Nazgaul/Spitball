@@ -1,9 +1,9 @@
 ﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
 using NHibernate;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {

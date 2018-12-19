@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
-using Cloudents.Core.Extension;
+using Cloudents.Application.Extension;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Application.DTOs
 {
     [DataContract]
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "This is dto class format to json")]

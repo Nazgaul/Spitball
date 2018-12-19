@@ -1,5 +1,4 @@
 ﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Linq;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
 using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Repositories

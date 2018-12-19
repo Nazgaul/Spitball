@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Cloudents.Core;
+using Cloudents.Application;
+using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
 

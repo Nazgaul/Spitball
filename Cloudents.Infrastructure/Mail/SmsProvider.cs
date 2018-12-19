@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Newtonsoft.Json;
 
 //using Twilio;

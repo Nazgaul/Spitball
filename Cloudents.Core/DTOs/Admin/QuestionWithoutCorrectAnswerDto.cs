@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.DTOs.Admin
+namespace Cloudents.Application.DTOs.Admin
 {
     [UsedImplicitly]
     public class QuestionWithoutCorrectAnswerDto

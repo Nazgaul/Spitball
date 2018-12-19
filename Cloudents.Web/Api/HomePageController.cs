@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
+using Cloudents.Application;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 
 namespace Cloudents.Web.Api
 {

@@ -1,9 +1,9 @@
-﻿using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query.Sync;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Application.DTOs.SearchSync;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query.Sync;
 using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync

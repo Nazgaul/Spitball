@@ -1,5 +1,5 @@
 ﻿using System.Runtime.Serialization;
-using Cloudents.Core.Models;
+using Cloudents.Application.Models;
 using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models

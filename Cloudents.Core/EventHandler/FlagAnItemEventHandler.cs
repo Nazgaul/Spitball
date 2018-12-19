@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Item.Commands.FlagItem;
+using Cloudents.Application.Event;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Item.Commands.FlagItem;
 using Cloudents.Domain.Entities;
 
-namespace Cloudents.Core.EventHandler
+namespace Cloudents.Application.EventHandler
 {
     public class FlagAnItemEventHandler : IEventHandler<ItemFlaggedEvent>
     {

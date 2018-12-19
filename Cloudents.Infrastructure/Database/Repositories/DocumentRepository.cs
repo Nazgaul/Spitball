@@ -4,7 +4,7 @@ using NHibernate.Linq;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {

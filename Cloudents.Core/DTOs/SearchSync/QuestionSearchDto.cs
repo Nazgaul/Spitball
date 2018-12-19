@@ -1,8 +1,9 @@
 ﻿using System;
-using Cloudents.Core.Enum;
+using Cloudents.Application.Enum;
+using Cloudents.Common.Enum;
 using Cloudents.Domain.Enums;
 
-namespace Cloudents.Core.DTOs.SearchSync
+namespace Cloudents.Application.DTOs.SearchSync
 {
     public class QuestionSearchDto
     {
@@ -18,7 +19,7 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string Language { get; set; }
 
 
-        public Common.QuestionSubject? Subject { get; set; } // facetable
+        public QuestionSubject? Subject { get; set; } // facetable
         public ItemState? State { get; set; }
 
 

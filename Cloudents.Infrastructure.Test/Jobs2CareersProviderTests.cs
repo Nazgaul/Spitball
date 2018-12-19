@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Autofac.Extras.Moq;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Models;
 using Cloudents.Infrastructure.Search.Job;
 using FluentAssertions;
 using Xunit;

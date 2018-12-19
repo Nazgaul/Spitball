@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Query;
-using Cloudents.Core.Request;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Query;
+using Cloudents.Application.Request;
 
-namespace Cloudents.Core.Interfaces
+namespace Cloudents.Application.Interfaces
 {
     public interface IDocumentSearch
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

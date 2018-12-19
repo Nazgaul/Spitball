@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Localization;
 using System.Collections;
@@ -7,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
+using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Filters
 {

@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Command;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.CommandHandler
+namespace Cloudents.Application.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Ioc resolve")]
     public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>

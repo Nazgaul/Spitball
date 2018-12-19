@@ -1,10 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using Cloudents.Core.Request;
-using Cloudents.Web.Services;
+﻿using Cloudents.Web.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
@@ -14,6 +8,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using Cloudents.Application;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
+using Cloudents.Application.Request;
 
 namespace Cloudents.Web.Controllers
 {

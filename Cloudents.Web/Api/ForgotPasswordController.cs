@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message.Email;
+using Cloudents.Application.Message.Email;
+using Cloudents.Application.Storage;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api

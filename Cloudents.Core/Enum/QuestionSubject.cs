@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Common;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Extension;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.Extension;
+using Cloudents.Common.Enum;
 
-namespace Cloudents.Core.Enum
+namespace Cloudents.Application.Enum
 {
     
 

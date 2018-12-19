@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Cloudents.Web.Binders

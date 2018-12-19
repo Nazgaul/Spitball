@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 

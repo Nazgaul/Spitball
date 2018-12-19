@@ -1,14 +1,14 @@
-﻿using Cloudents.Core.Message;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Message.System;
-using Cloudents.Core.Storage;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Message;
+using Cloudents.Application.Message.Email;
+using Cloudents.Application.Message.System;
+using Cloudents.Application.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {

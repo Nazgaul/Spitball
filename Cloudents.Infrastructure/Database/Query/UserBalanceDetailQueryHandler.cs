@@ -4,10 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 using Cloudents.Common.Enum;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Database.Repositories;
 using NHibernate;
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Application.DTOs.SearchSync;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Extension;
 using Cloudents.Common;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
+using Cloudents.Common.Enum;
 using Cloudents.Search.Interfaces;
 
 namespace Cloudents.Search.Entities

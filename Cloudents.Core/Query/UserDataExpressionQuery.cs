@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Cloudents.Application.Interfaces;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Core.Query
+namespace Cloudents.Application.Query
 {
     public class UserDataExpressionQuery : IQuery<RegularUser>
     {

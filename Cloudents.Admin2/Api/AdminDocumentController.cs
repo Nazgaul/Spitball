@@ -1,14 +1,14 @@
 ﻿using System;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query.Admin;
-using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Command.Admin;
+using Cloudents.Application.DTOs.Admin;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query.Admin;
+using Cloudents.Application.Storage;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

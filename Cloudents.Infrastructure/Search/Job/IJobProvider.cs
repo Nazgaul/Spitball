@@ -1,7 +1,9 @@
-﻿namespace Cloudents.Infrastructure.Search.Job
+﻿using Cloudents.Application.DTOs;
+
+namespace Cloudents.Infrastructure.Search.Job
 {
     public interface IJobProvider
     {
-        System.Threading.Tasks.Task<Core.DTOs.ResultWithFacetDto<Core.DTOs.JobProviderDto>> SearchAsync(JobProviderRequest jobProviderRequest, System.Threading.CancellationToken token);
+        System.Threading.Tasks.Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(JobProviderRequest jobProviderRequest, System.Threading.CancellationToken token);
     }
 }

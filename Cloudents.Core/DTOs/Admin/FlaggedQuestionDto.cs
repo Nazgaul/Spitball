@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.DTOs.Admin
+namespace Cloudents.Application.DTOs.Admin
 {
     public class FlaggedQuestionDto
     {

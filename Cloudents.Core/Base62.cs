@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace Cloudents.Core
+namespace Cloudents.Application
 {
     /// <summary>
     /// Struct whose numbering system consists of 0..9 a..z A..Z.  For example, "10" == 62.

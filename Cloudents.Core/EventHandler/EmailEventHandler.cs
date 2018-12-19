@@ -1,11 +1,11 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Message.Email;
+using Cloudents.Application.Storage;
+using Cloudents.Domain.Entities;
 
-namespace Cloudents.Core.EventHandler
+namespace Cloudents.Application.EventHandler
 {
     public abstract class EmailEventHandler
     {

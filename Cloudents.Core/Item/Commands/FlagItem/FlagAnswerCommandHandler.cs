@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Cloudents.Domain.Entities;
 
-namespace Cloudents.Core.Item.Commands.FlagItem
+namespace Cloudents.Application.Item.Commands.FlagItem
 {
     public class FlagAnswerCommandHandler : BaseFlagItemCommandHandler<Answer,Guid>, ICommandHandler<FlagAnswerCommand>
     {

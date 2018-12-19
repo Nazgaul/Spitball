@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Core.Documents.Queries.GetDocumentsList
+﻿namespace Cloudents.Application.Documents.Queries.GetDocumentsList
 {
     public class DocumentSearchResultWithScore
     {

@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using Cloudents.Application.Interfaces;
 
 namespace Cloudents.Infrastructure
 {

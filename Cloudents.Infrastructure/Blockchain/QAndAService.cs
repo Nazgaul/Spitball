@@ -1,11 +1,10 @@
-﻿using Cloudents.Core.Interfaces;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Infrastructure.BlockChain;
 using System.Collections.Generic;
 using System.Numerics;
-using Cloudents.Core.Request;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Request;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Blockchain

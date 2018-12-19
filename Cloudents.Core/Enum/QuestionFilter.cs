@@ -1,8 +1,7 @@
-﻿using Cloudents.Common.Attributes;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Enum.Resources;
+﻿using Cloudents.Application.Enum.Resources;
+using Cloudents.Common.Attributes;
 
-namespace Cloudents.Core.Enum
+namespace Cloudents.Application.Enum
 {
     public enum QuestionFilter
     {

@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Linq;
 

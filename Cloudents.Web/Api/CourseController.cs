@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Command;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -8,9 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Query;
 using System.Linq;
-using Cloudents.Core;
+using Cloudents.Application;
+using Cloudents.Application.Command;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 
 namespace Cloudents.Web.Api
 {

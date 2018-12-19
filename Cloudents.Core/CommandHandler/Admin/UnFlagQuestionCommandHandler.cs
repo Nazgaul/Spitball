@@ -1,13 +1,13 @@
-﻿using Cloudents.Core.Command.Admin;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using System;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Command.Admin;
+using Cloudents.Application.Interfaces;
+using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
-using System.Linq;
 
-namespace Cloudents.Core.CommandHandler.Admin
+namespace Cloudents.Application.CommandHandler.Admin
 {
     class UnFlagQuestionCommandHandler : ICommandHandler<UnFlagQuestionCommand>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Cloudents.Core.DTOs;
+using Cloudents.Application.DTOs;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Converters

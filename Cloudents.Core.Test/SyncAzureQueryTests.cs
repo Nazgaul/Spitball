@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Query.Sync;
+﻿using Cloudents.Application.Query.Sync;
 using FluentAssertions;
 using Xunit;
 

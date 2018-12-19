@@ -1,8 +1,4 @@
-﻿using Cloudents.Core.Command;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
+﻿using Cloudents.Domain.Entities;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -10,6 +6,10 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Command;
+using Cloudents.Application.Exceptions;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 
 namespace Cloudents.Web.Identity
 {

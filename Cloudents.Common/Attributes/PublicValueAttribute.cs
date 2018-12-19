@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Attributes
+namespace Cloudents.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]
     public sealed class PublicValueAttribute : Attribute

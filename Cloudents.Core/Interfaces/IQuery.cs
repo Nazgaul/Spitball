@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Core.Interfaces
+namespace Cloudents.Application.Interfaces
 {
     // ReSharper disable once UnusedTypeParameter - using in dynamic reflection
     public interface IQuery<TResult>

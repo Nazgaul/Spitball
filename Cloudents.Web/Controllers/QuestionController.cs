@@ -1,9 +1,9 @@
 ﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
 using EmailAnswerCreated = Cloudents.Web.EventHandler.EmailAnswerCreated;
 
 namespace Cloudents.Web.Controllers

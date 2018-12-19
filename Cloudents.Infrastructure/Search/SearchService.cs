@@ -1,7 +1,7 @@
-﻿using Cloudents.Core.Interfaces;
-using Microsoft.Azure.Search;
+﻿using Microsoft.Azure.Search;
 using System;
 using System.Collections.Concurrent;
+using Cloudents.Application.Interfaces;
 
 namespace Cloudents.Infrastructure.Search
 {

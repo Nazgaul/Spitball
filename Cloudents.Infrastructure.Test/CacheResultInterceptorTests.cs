@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Threading;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
-using Cloudents.Core.Query;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Models;
+using Cloudents.Application.Query;
 using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Job;

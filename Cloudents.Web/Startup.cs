@@ -1,10 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
-using Cloudents.Core;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
@@ -30,10 +27,14 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Request;
+using Cloudents.Application;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Request;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Search;
+using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.HttpOverrides;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -196,7 +197,7 @@ namespace Cloudents.Web
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterSystemModules(
-                Core.Enum.System.Web, assembliesOfProgram);
+                Application.Enum.System.Web, assembliesOfProgram);
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();

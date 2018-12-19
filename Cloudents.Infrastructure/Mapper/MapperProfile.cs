@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Models;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Models;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Suggest;
-using SearchResult = Cloudents.Core.DTOs.SearchResult;
+using SearchResult = Cloudents.Application.DTOs.SearchResult;
 
 namespace Cloudents.Infrastructure.Mapper
 {

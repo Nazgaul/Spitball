@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Command
+namespace Cloudents.Application.Command
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "automapper initialize it")]
     public class DeleteQuestionCommand : ICommand

@@ -1,7 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.Command;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
@@ -16,7 +13,11 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
+using Cloudents.Application;
+using Cloudents.Application.Command;
+using Cloudents.Application.Exceptions;
+using Cloudents.Application.Interfaces;
+using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Api
 {

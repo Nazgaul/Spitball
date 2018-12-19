@@ -3,14 +3,14 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
-using Cloudents.Core.Attributes;
+using Cloudents.Application.Attributes;
 
-namespace Cloudents.Core.Extension
+namespace Cloudents.Application.Extension
 {
     public static class ModuleRegistrationExtensions
     {
         public static void RegisterSystemModules(this ContainerBuilder builder,
-            Core.Enum.System system, params Assembly[] assemblies)
+            Enum.System system, params Assembly[] assemblies)
         {
             if (builder == null)
             {

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Cloudents.Common.Enum;
+using Cloudents.Web.Resources;
 using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models

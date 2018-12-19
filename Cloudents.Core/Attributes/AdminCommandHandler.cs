@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Attributes
+namespace Cloudents.Application.Attributes
 {
    
     //TODO: remove this - user namespace check

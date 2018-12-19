@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
+using Cloudents.Application.Event;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Storage;
 
-namespace Cloudents.Core.EventHandler
+namespace Cloudents.Application.EventHandler
 {
     public class DeleteBlobEventHandler : IEventHandler<DocumentDeletedEvent>
     {

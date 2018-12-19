@@ -1,14 +1,14 @@
 ﻿using Autofac;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.Interfaces;
 
 namespace Cloudents.Infrastructure.Mail
 {
-    [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.Function)]
-    [ModuleRegistration(Core.Enum.System.WorkerRole)]
-    [ModuleRegistration(Core.Enum.System.Web)]
-    [ModuleRegistration(Core.Enum.System.MailGun)]
+    [ModuleRegistration(Application.Enum.System.Console)]
+    [ModuleRegistration(Application.Enum.System.Function)]
+    [ModuleRegistration(Application.Enum.System.WorkerRole)]
+    [ModuleRegistration(Application.Enum.System.Web)]
+    [ModuleRegistration(Application.Enum.System.MailGun)]
     public class ModuleMail : Module
     {
         protected override void Load(ContainerBuilder builder)

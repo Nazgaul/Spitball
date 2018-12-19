@@ -1,5 +1,5 @@
-﻿using Cloudents.Core.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Cloudents.Application.DTOs;
 
 namespace Cloudents.Web.Models
 {

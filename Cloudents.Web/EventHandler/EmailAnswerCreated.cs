@@ -1,14 +1,14 @@
-﻿using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
-using Cloudents.Web.Services;
+﻿using Cloudents.Web.Services;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Event;
+using Cloudents.Application.EventHandler;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Message.Email;
+using Cloudents.Application.Storage;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.EventHandler;
 
 namespace Cloudents.Web.EventHandler
 {

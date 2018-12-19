@@ -1,5 +1,5 @@
 ﻿using Autofac.Extras.Moq;
-using Cloudents.Core.DTOs;
+using Cloudents.Application.DTOs;
 using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Search.Book;
 using FluentAssertions;

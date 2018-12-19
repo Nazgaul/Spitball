@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Common;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
+using Cloudents.Common.Enum;
 using Cloudents.Domain.Enums;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.Command
+namespace Cloudents.Application.Command
 {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local", Justification = "Automapper handle that")]
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global" , Justification = "Automapper")]

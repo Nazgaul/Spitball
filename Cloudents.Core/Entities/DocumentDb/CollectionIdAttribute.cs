@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Entities.DocumentDb
+namespace Cloudents.Application.Entities.DocumentDb
 {
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class CollectionIdAttribute : Attribute

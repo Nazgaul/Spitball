@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Cloudents.Core;
+using Cloudents.Application;
 using JetBrains.Annotations;
 using Nager.PublicSuffix;
 
@@ -8,12 +8,12 @@ namespace Cloudents.Infrastructure.Domain
     [UsedImplicitly]
     public class DomainCache : ICacheProvider
     {
-        private readonly Core.Interfaces.ICacheProvider _cacheProvider;
+        private readonly Application.Interfaces.ICacheProvider _cacheProvider;
 
         private const string Key = "suffix";
         private const string Region = "domain";
 
-        public DomainCache(Core.Interfaces.ICacheProvider cacheProvider)
+        public DomainCache(Application.Interfaces.ICacheProvider cacheProvider)
         {
             _cacheProvider = cacheProvider;
         }

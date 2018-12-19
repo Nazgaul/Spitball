@@ -1,8 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Cloudents.Core;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Sync;
 using Cloudents.FunctionsV2.System;
 using Cloudents.Infrastructure;
@@ -12,7 +9,11 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Cloudents.Application;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using ILogger = Cloudents.Application.Interfaces.ILogger;
 
 namespace Cloudents.FunctionsV2.Di
 {
@@ -57,7 +58,7 @@ namespace Cloudents.FunctionsV2.Di
             builder.Register(_ => keys).As<IConfigurationKeys>();
 
             builder.RegisterSystemModules(
-                Core.Enum.System.Function,
+                Application.Enum.System.Function,
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"));
@@ -71,7 +72,7 @@ namespace Cloudents.FunctionsV2.Di
             {
                 var logger = _loggerFactory.CreateLogger("logger");
                 return new Logger(logger);
-            }).As<Core.Interfaces.ILogger>();
+            }).As<ILogger>();
 
             builder.RegisterType<QuestionDbToSearchSync>()
                 .Keyed<IDbToSearchSync>(SyncType.Question).SingleInstance();

@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using Cloudents.Common.Enum;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Application.DTOs
 {
     [DataContract]
     public class DocumentDetailDto

@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
+using Cloudents.Application;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Models;
 using JetBrains.Annotations;
 using IMapper = AutoMapper.IMapper;
 

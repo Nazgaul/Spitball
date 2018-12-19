@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Attributes
+namespace Cloudents.Application.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class CacheAttribute : Attribute

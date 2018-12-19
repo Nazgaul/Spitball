@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Core.Enum
+﻿namespace Cloudents.Application.Enum
 {
     public enum AffiliateProgram
     {

@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Message;
+using Cloudents.Application.Storage;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 

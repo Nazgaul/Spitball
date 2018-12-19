@@ -1,11 +1,4 @@
 ﻿using Cloudents.Admin2.Models;
-using Cloudents.Core;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query.Admin;
-using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +6,13 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application;
+using Cloudents.Application.Command.Admin;
+using Cloudents.Application.DTOs.Admin;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query.Admin;
+using Cloudents.Application.Storage;
 
 namespace Cloudents.Admin2.Api
 {

@@ -1,7 +1,4 @@
 ﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
@@ -17,6 +14,9 @@ using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Message.Email;
+using Cloudents.Application.Storage;
 
 namespace Cloudents.Web.Api
 {

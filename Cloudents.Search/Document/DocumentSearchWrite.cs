@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.Interfaces;
-using Microsoft.Azure.Search.Models;
+﻿using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
+using Cloudents.Application.Interfaces;
 using Microsoft.Azure.Search;
 
 namespace Cloudents.Search.Document

@@ -1,7 +1,4 @@
 ﻿using Autofac.Extras.Moq;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Web.Api;
 using Cloudents.Web.Extensions;
 using FluentAssertions;
@@ -11,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Xunit;

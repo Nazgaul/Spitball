@@ -1,12 +1,12 @@
 ﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Linq;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Models;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Models;
+using Cloudents.Application.Query;
 
 namespace Cloudents.Infrastructure.Database.Query
 {

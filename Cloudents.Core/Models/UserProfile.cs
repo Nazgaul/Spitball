@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.Models
+namespace Cloudents.Application.Models
 {
     public class UserProfile
     {

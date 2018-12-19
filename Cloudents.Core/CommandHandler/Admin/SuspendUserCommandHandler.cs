@@ -1,11 +1,11 @@
-﻿using Autofac;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
+using Cloudents.Application.Command.Admin;
+using Cloudents.Application.Event;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.CommandHandler.Admin
+namespace Cloudents.Application.CommandHandler.Admin
 {
     public class SuspendUserCommandHandler : ICommandHandler<SuspendUserCommand>
     {

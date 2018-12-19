@@ -1,15 +1,15 @@
-﻿using Cloudents.Core.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Interfaces;
+using Nethereum.Contracts;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
-using Nethereum.Contracts;
 
-namespace Cloudents.Infrastructure.BlockChain
+namespace Cloudents.Infrastructure.Blockchain
 {
     public abstract class BlockChainProvider
     {

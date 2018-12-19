@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Text;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core
+namespace Cloudents.Application
 {
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder

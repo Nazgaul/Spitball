@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Core.Entities.DocumentDb
+﻿namespace Cloudents.Application.Entities.DocumentDb
 {
     public class CardSlide
     {

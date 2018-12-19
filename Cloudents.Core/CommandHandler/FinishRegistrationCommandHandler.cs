@@ -1,12 +1,12 @@
-﻿using Cloudents.Core.Command;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
+using Cloudents.Application.Command;
+using Cloudents.Application.Interfaces;
 using Cloudents.Common.Enum;
+using Cloudents.Domain.Entities;
 
-namespace Cloudents.Core.CommandHandler
+namespace Cloudents.Application.CommandHandler
 {
     public class FinishRegistrationCommandHandler : ICommandHandler<FinishRegistrationCommand>
     {

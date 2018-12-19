@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using ISearchObject = Cloudents.Search.Interfaces.ISearchObject;

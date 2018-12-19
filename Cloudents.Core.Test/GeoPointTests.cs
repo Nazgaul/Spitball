@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Models;
+﻿using Cloudents.Application.Models;
 using Xunit;
 
 namespace Cloudents.Core.Test

@@ -1,5 +1,5 @@
 ﻿
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Application.DTOs
 {
     public class StatsDto
     {

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.Message.Email
+namespace Cloudents.Application.Message.Email
 {
     [Serializable]
     public abstract class BaseEmail

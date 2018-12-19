@@ -1,15 +1,15 @@
 ﻿using System.Reflection;
 using Autofac;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.Interfaces;
 using Cloudents.Infrastructure.Data;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
-    [ModuleRegistration(Core.Enum.System.Web)]
-    [ModuleRegistration(Core.Enum.System.MailGun)]
-    [ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Application.Enum.System.Web)]
+    [ModuleRegistration(Application.Enum.System.MailGun)]
+    [ModuleRegistration(Application.Enum.System.Console)]
     public class ModuleReadDb : Module
     {
         protected override void Load(ContainerBuilder builder)

@@ -1,8 +1,8 @@
 ﻿using System.Net;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Cloudents.Domain.Entities;
 
-namespace Cloudents.Core.Command
+namespace Cloudents.Application.Command
 {
     public class AddUserLocationCommand : ICommand
     {

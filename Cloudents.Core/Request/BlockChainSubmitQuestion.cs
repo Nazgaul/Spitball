@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Request
+namespace Cloudents.Application.Request
 {
     [Serializable]
     public abstract class BlockChainQnaSubmit

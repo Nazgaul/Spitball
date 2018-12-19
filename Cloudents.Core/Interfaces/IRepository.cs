@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Domain.Entities;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.Interfaces
+namespace Cloudents.Application.Interfaces
 {
     public interface IRepository<T>  where T : class
     {

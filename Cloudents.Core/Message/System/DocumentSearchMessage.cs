@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Application.DTOs.SearchSync;
 
-namespace Cloudents.Core.Message.System
+namespace Cloudents.Application.Message.System
 {
     public class DocumentSearchMessage : ISystemQueueMessage
     {

@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command;
+using Cloudents.Application.Command;
+using Cloudents.Application.Interfaces;
 using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Core.CommandHandler
+namespace Cloudents.Application.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Ioc resolve")]
     public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand>

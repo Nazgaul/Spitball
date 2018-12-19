@@ -1,7 +1,7 @@
-﻿using Cloudents.Core.Interfaces;
-using System;
+﻿using System;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Command.Admin
+namespace Cloudents.Application.Command.Admin
 {
     public class DeleteAnswerCommand : ICommand
     {

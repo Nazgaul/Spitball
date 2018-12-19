@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.Extension;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Persister.Entity;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using Cloudents.Application.Extension;
 
 namespace Cloudents.Infrastructure.Database.Query
 {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Command
+namespace Cloudents.Application.Command
 {
     public class CreateUrlStatsCommand : ICommand
     {

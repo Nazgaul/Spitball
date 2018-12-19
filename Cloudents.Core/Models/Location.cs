@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Cloudents.Core.Models
+namespace Cloudents.Application.Models
 {
     [DataContract]
     public class Location

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Cloudents.Core.Extension;
+using Cloudents.Application.Extension;
 using NHibernate;
 using NHibernate.Persister.Entity;
 

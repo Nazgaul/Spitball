@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Cloudents.Core.Enum
+namespace Cloudents.Application.Enum
 {
     [SuppressMessage("ReSharper", "EnumUnderlyingTypeIsInt", Justification = "Need it for serialization")]
     public enum Vertical : int

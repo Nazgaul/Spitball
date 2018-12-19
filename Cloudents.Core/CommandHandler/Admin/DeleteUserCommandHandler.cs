@@ -1,9 +1,9 @@
-﻿using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Interfaces;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Command.Admin;
+using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.CommandHandler.Admin
+namespace Cloudents.Application.CommandHandler.Admin
 {
     public class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
     {

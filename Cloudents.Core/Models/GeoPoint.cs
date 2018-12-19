@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using Microsoft.Spatial;
 
-namespace Cloudents.Core.Models
+namespace Cloudents.Application.Models
 {
     [DataContract]
     public class GeoPoint

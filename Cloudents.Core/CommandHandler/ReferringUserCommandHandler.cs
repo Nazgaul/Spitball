@@ -1,12 +1,12 @@
-﻿using Cloudents.Core.Command;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.Command;
+using Cloudents.Application.Event;
+using Cloudents.Application.Interfaces;
 using Cloudents.Common.Enum;
-using Cloudents.Core.Event;
+using Cloudents.Domain.Entities;
 
-namespace Cloudents.Core.CommandHandler
+namespace Cloudents.Application.CommandHandler
 {
     public class ReferringUserCommandHandler : ICommandHandler<ReferringUserCommand>
     {

@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Common;
-using Cloudents.Core.Documents.Queries.GetDocumentsList;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Query;
-using Cloudents.Core.Questions.Queries.GetQuestionsList;
+using Cloudents.Application.Documents.Queries.GetDocumentsList;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Query;
+using Cloudents.Application.Questions.Queries.GetQuestionsList;
+using Cloudents.Common.Enum;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.Interfaces
+namespace Cloudents.Application.Interfaces
 {
     public interface IUniversitySearch
     {

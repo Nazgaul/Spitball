@@ -2,8 +2,8 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Attributes;
+using Cloudents.Application.Interfaces;
 using Cloudents.Infrastructure.Database.Query;
 using Cloudents.Infrastructure.Database.Repositories;
 using JetBrains.Annotations;
@@ -11,10 +11,10 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure.Database
 {
-    [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.Web)]
-    [ModuleRegistration(Core.Enum.System.Function)]
-    [ModuleRegistration(Core.Enum.System.Admin)]
+    [ModuleRegistration(Application.Enum.System.Console)]
+    [ModuleRegistration(Application.Enum.System.Web)]
+    [ModuleRegistration(Application.Enum.System.Function)]
+    [ModuleRegistration(Application.Enum.System.Admin)]
     [UsedImplicitly]
     public class ModuleDb : Module
     {

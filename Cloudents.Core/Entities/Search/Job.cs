@@ -1,11 +1,11 @@
 using System;
 using System.Runtime.Serialization;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Extension;
+using Cloudents.Application.Interfaces;
 using Microsoft.Spatial;
 
-namespace Cloudents.Core.Entities.Search
+namespace Cloudents.Application.Entities.Search
 {
     [DataContract]
     public class Job :ISearchObject

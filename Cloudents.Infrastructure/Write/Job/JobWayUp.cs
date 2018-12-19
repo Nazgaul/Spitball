@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Enum;
+using Cloudents.Application.Interfaces;
 using Cloudents.Infrastructure.Write.Job.Entities;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Write.Job
 {
     [UsedImplicitly]
-    public class JobWayUp : UpdateAffiliate<WayUpJob, Core.Entities.Search.Job>
+    public class JobWayUp : UpdateAffiliate<WayUpJob, Application.Entities.Search.Job>
     {
         private readonly JobSearchWrite _jobSearchService;
         private readonly IGooglePlacesSearch _zipToLocation;
@@ -77,7 +77,7 @@ namespace Cloudents.Infrastructure.Write.Job
 
         private const string Source = "WayUp";
 
-        protected override async Task<Core.Entities.Search.Job> ParseTAsync(WayUpJob obj, CancellationToken token)
+        protected override async Task<Application.Entities.Search.Job> ParseTAsync(WayUpJob obj, CancellationToken token)
         {
             //var dateTimeStr = obj.PostedDate.Replace("UTC", string.Empty).Trim();
 
@@ -88,7 +88,7 @@ namespace Cloudents.Infrastructure.Write.Job
             }
 
             var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
-            var job = new Core.Entities.Search.Job
+            var job = new Application.Entities.Search.Job
             {
                 City = obj.City,
                 //Compensation = obj.CompType,
@@ -113,7 +113,7 @@ namespace Cloudents.Infrastructure.Write.Job
             return job;
         }
 
-        protected override Task UpdateSearchAsync(IEnumerable<Core.Entities.Search.Job> list, CancellationToken token)
+        protected override Task UpdateSearchAsync(IEnumerable<Application.Entities.Search.Job> list, CancellationToken token)
         {
             return _jobSearchService.UpdateDataAsync(list, token);
         }

@@ -1,5 +1,5 @@
 ﻿using System;
-using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Application.DTOs.SearchSync;
 using Cloudents.Infrastructure.Database;
 using FluentAssertions;
 using Xunit;

@@ -2,7 +2,7 @@
 using Cloudents.Common.Enum;
 using Cloudents.Domain.Enums;
 
-namespace Cloudents.Core.DTOs.SearchSync
+namespace Cloudents.Application.DTOs.SearchSync
 {
     public class DocumentSearchDto
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.Common;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Newtonsoft.Json;
 using NHibernate;
 using NHibernate.Engine;

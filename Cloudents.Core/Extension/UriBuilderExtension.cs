@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 
-namespace Cloudents.Core.Extension
+namespace Cloudents.Application.Extension
 {
     public static class UriBuilderExtensions
     {

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
 using Cloudents.Search.Document;
 using Cloudents.Search.Question;
 using Cloudents.Search.University;

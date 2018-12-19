@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Common;
+using Cloudents.Common.Enum;
 using Cloudents.Domain.Enums;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Application.DTOs
 {
     public class QuestionFeedDto
     {

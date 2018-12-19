@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Core
+﻿namespace Cloudents.Application
 {
     public static class TimeConst
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cloudents.Core.Extension
+namespace Cloudents.Application.Extension
 {
     public static class ListExtension
     {

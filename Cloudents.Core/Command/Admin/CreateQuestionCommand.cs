@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Common;
-using Cloudents.Core.Interfaces;
+using Cloudents.Application.Interfaces;
+using Cloudents.Common.Enum;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.Command.Admin
+namespace Cloudents.Application.Command.Admin
 {
     public class CreateQuestionCommand : ICommand
     {

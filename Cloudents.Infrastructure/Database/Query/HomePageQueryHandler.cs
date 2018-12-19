@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Transform;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Application.DTOs;
+using Cloudents.Application.Interfaces;
+using Cloudents.Application.Query;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
