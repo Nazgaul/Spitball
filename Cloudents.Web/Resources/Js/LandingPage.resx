@@ -171,6 +171,18 @@
   <data name="get_your_sbl" xml:space="preserve">
     <value>Get Your SBL</value>
   </data>
+  <data name="header_earn_money" xml:space="preserve">
+    <value>Earn money</value>
+  </data>
+  <data name="header_learn_faster" xml:space="preserve">
+    <value>Learn Faster</value>
+  </data>
+  <data name="header_login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="header_sign_up" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
   <data name="how_get_sbl" xml:space="preserve">
     <value>How do I get SBL?</value>
   </data>

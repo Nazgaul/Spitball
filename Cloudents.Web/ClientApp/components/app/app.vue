@@ -36,7 +36,8 @@
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                        :popUpType="'uploadDialog'"
-                       :fullWidth="true"
+
+                       :maxWidth="'966px'"
                        :onclosefn="setUploadDialogState"
                        :activateOverlay="isUploadAbsoluteMobile"
                        :isPersistent="$vuetify.breakpoint.smAndUp"
