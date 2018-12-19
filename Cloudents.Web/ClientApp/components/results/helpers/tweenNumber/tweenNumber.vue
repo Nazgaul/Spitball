@@ -1,5 +1,5 @@
 <template>
-    <span>{{ tweeningValue }}</span>
+    <span class="tweened-number">{{ tweeningValue }}</span>
 </template>
 
 <script>
@@ -38,10 +38,12 @@
             }
         },
         methods: {
-            localeNumber(val, id) {
+            localeNumber(val, id) { //val string
                 let numericVal = parseInt(val);
+                // format currency
                 if (id === 2) {
                     return `$${numericVal.toLocaleString('us-EG')}`;
+                    //number
                 } else {
                     return numericVal.toLocaleString('us-EG');
                 }
@@ -60,7 +62,7 @@
                     .to({
                         tweeningValue: endValue
                     }, 3000)
-                    .easing(TWEEN.Easing.Circular.In)
+                    .easing(TWEEN.Easing.Linear.None) //animation frame
                     .onUpdate(function(obj) {
                         self.tweeningValue = self.localeNumber(obj.tweeningValue.toFixed(0), self.id);
                     })
