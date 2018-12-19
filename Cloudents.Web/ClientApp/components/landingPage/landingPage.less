@@ -267,19 +267,35 @@ section {
     .gif-container-question{
       width: 100%;
       height: 100%;
-      background: url('./images/gif/earn_answer_question.gif'); 
+      background: url('./images/gif/earn_answer_question.gif') no-repeat center center; 
       background-size: cover;
+      @media (max-width: @screen-xs) {
+        background: url('./images/gif/earn_answer_question.gif') no-repeat -70px -5px; 
+        background-size: cover;
+      }
       &.learn{
-        background: url('./images/home_page_one.jpg'); 
+        background: url('./images/home_page_one.jpg') no-repeat center center; 
+        @media (max-width: @screen-xs) {
+          background: url('./images/home_page_one.jpg') no-repeat -70px -5px;
+          background-size: cover; 
+        }
       }
     }
     .gif-container-document{
       width: 100%;
       height: 100%;
-      background: url('./images/gif/earn_answer_question.gif'); 
+      background: url('./images/gif/earn_answer_question.gif') no-repeat center center; 
       background-size: cover;
+      @media (max-width: @screen-xs) {
+        background: url('./images/gif/earn_answer_question.gif') no-repeat -70px -5px; 
+        background-size: cover;
+      }
       &.learn{
-        background: url('./images/home_page_one.jpg'); 
+        background: url('./images/home_page_one.jpg') no-repeat center center; 
+        @media (max-width: @screen-xs) {
+          background: url('./images/home_page_one.jpg') no-repeat -70px -5px; 
+          background-size: cover;
+        }
       }
     }
   }
