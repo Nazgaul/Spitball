@@ -27,7 +27,7 @@ namespace Cloudents.Core
             {
                 new
                 {
-                    type = action,
+                    type = action.ToString("G").ToLowerInvariant(),
                     data = data
                 }
             };
@@ -60,7 +60,8 @@ namespace Cloudents.Core
     public enum SignalREventAction
     {
         Logout,
-        MarkAsCorrect
+        MarkAsCorrect,
+        Toaster
     }
 
     public enum SignalRType
@@ -68,6 +69,7 @@ namespace Cloudents.Core
         Question,
         Answer,
         Document,
-        User
+        User,
+        System
     }
 }

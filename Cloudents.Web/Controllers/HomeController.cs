@@ -41,15 +41,18 @@ namespace Cloudents.Web.Controllers
             [FromServices] SignInManager<RegularUser> signInManager,
             [FromServices] IHubContext<SbHub> hubContext, CancellationToken token)
         {
-            await signInManager.SignOutAsync().ConfigureAwait(false);
-            TempData.Clear();
 
             var message = new SignalRTransportType(SignalRType.User, SignalREventAction.Logout,
                 new object());
+
             await hubContext.Clients.User(signInManager.UserManager.GetUserId(User)).SendCoreAsync("Message", new object[]
-                        {
-                            message
-                        }, token);
+            {
+                message
+            }, token);
+            await signInManager.SignOutAsync().ConfigureAwait(false);
+            TempData.Clear();
+
+            
             return Redirect("/");
         }
     }

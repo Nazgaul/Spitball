@@ -19,10 +19,9 @@ namespace Cloudents.Core.DTOs.SearchSync
 
         public string Course { get; set; }
         public string Country { get; set; }
-        public Guid UniversityId { get; set; }
+        public Guid? UniversityId { get; set; }
         public string UniversityName { get; set; }
         public DateTime? DateTime { get; set; }
-        public string Language { get; set; }
         public ItemState State { get; set; }
         public DocumentType Type { get; set; }
 
