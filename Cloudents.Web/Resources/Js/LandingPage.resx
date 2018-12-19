@@ -267,6 +267,9 @@
   <data name="stats_users" xml:space="preserve">
     <value>Happy Students</value>
   </data>
+  <data name="upload_section_subTitle" xml:space="preserve">
+    <value>Class Notes, Study Guides, Exams Preparations</value>
+  </data>
   <data name="what_is_spitball" xml:space="preserve">
     <value>What is Spitball?</value>
   </data>
