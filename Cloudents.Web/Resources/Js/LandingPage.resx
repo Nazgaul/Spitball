@@ -130,7 +130,7 @@
     <value>Answer Questions, Earn SBL</value>
   </data>
   <data name="earn_upload_section_subTitle" xml:space="preserve">
-    <value>Class Notes, Study Guides, Exams Preparations</value>
+    <value>Upload Class Notes, Study Guides and Exams Preparations now!</value>
   </data>
   <data name="earn_upload_section_title" xml:space="preserve">
     <value>Share your knowledge, Upload study docs</value>
@@ -238,7 +238,7 @@
     <value>Get Solutions to Homework Questions</value>
   </data>
   <data name="learn_upload_section_subTitle" xml:space="preserve">
-    <value>Class Notes, Study Guides, Exams Preparations</value>
+    <value>Find Class Notes, Study Guides, Exams Preparations</value>
   </data>
   <data name="learn_upload_section_title" xml:space="preserve">
     <value>Find Class Specific Documents</value>
@@ -266,6 +266,9 @@
   </data>
   <data name="stats_users" xml:space="preserve">
     <value>Happy Students</value>
+  </data>
+  <data name="upload_section_subTitle" xml:space="preserve">
+    <value>Class Notes, Study Guides, Exams Preparations</value>
   </data>
   <data name="what_is_spitball" xml:space="preserve">
     <value>What is Spitball?</value>

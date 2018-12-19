@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         {
             return await _session.Query<Document>()
                 .Where(w => w.Item.State == ItemState.Pending)
-                .OrderBy(w => w.Id)
+                .OrderByDescending(w => w.Id)
                 .Take(100)
                 .Select(s => new PendingDocumentDto
                 {

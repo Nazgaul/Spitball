@@ -8,6 +8,11 @@ import QAddBulk from './components/question/questionComponents/addBulk/addBulkQu
 import QAccept from './components/question/questionComponents/accept/acceptQuestion.vue'
 import QPending from './components/question/questionComponents/pendingQuestions/pendingQuestions.vue'
 
+import Answer from './components/answer/answer.vue'
+import ADelete from './components/answer/answerComponents/delete/deleteAnswer.vue'
+import AAccept from './components/answer/answerComponents/accept/acceptAnswer.vue'
+import APending from './components/answer/answerComponents/pendingAnswers/pendingAnswers.vue'
+
 import User from './components/user/user.vue'
 import UToken from './components/user/token/tokenUser.vue'
 import UCashout from './components/user/cashout/cashoutUser.vue'
@@ -69,7 +74,37 @@ export const routes = [
             redirect: 'mark',
           },
         ]
-      },
+    },
+
+    {
+        path: '/answer',
+        name: 'answer',
+        component: Answer,
+        children: [
+            {
+              path: '',
+              redirect: 'delete',
+            },
+            {
+                path: 'delete',
+                component: ADelete
+            },
+          
+            {
+                path: 'acceptAnswer',
+                component: AAccept
+            },
+            {
+                path: 'pendingAnswers',
+                component: APending
+            },
+            {
+              path: '*',
+              redirect: 'delete',
+            },
+        ]
+    },
+
       {
         path: '/user',
         name: 'user',
