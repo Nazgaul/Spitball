@@ -79,7 +79,7 @@
                     </v-combobox>
                     <div class="dummy-input" @click="showMobileSubjectInput()" v-else>
                         <v-icon class="dummy-icon">sbf-search</v-icon>
-                        <span class="dummy-placeholder">some text</span>
+                        <span class="dummy-placeholder">{{subjectsPlaceholder}}</span>
                     </div>
                 </div>
                 <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
@@ -139,7 +139,7 @@
                     </v-combobox>
                     <div class="dummy-input" @click="showMobileUniInput()" v-else>
                         <v-icon class="dummy-icon">sbf-search</v-icon>
-                        <span class="dummy-placeholder">text some</span>
+                        <span class="dummy-placeholder">{{schoolNamePlaceholder}}</span>
                     </div>
                 </div>
                 <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>

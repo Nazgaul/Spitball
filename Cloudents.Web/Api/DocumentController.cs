@@ -109,6 +109,7 @@ namespace Cloudents.Web.Api
             var url = Url.DocumentUrl(profile.University.Name, model.Course, command.Id, model.Name);
 
 
+
             if (score < Privileges.Post)
             {
                 await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
@@ -120,6 +121,16 @@ namespace Cloudents.Web.Api
                     )
                 }, token);
             }
+
+            var localizerKey = score < Privileges.Post ? "CreatePending" : "CreateOk";
+            await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
+            {
+                new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
+                    {
+                        text = _localizer[localizerKey].Value
+                    }
+                )
+            }, token);
             return new CreateDocumentResponse(url);
         }
 
