@@ -7,7 +7,7 @@
     * Receives object item as prop
     * required item.id -> integer (helps to apply specific formatter)
     * required item.data -> integer ( data to tween)
-    *
+    * accept conditional prop, startValue, value to start animation from
     *
     * */
 
@@ -15,14 +15,14 @@
     export default {
         name: "tweenNumber",
         props: {
+            startValue:{
+                default: 0,
+                required: false
+            },
             item: {
                 type: Object,
                 required: true
             },
-            toLocale:{
-                types: Function,
-                required: false
-            }
         },
         data: function() {
             return {
@@ -35,7 +35,7 @@
             }
         },
         mounted: function() {
-            this.tween(0, this.value)
+            this.tween(this.startValue, this.value)
         },
         computed: {
             value() {
