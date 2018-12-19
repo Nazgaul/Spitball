@@ -70,6 +70,7 @@ export default {
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
+                        if(!resp.data.nextQuestions)return;
                         self.cardList = resp.data.nextQuestions.map(searchService.createQuestionItem);
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog

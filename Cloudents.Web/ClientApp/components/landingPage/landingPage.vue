@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="left-part gradient-background">
-                <div style="flex-grow:1;width:64%;" v-if="$vuetify.breakpoint.smAndUp"></div>
+                <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
                 <div style="width:100%;" class="input-holder">
                     <v-combobox v-if="$vuetify.breakpoint.smAndUp"
                                 class="input-subject"
@@ -142,7 +142,7 @@
                         <span class="dummy-placeholder">text some</span>
                     </div>
                 </div>
-                <div style="flex-grow:1;width:64%;" v-if="$vuetify.breakpoint.smAndUp"></div>
+                <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
 
             </div>
         </section> 
@@ -243,10 +243,10 @@
                         class="input-subject"
                         v-model="selectedSubject"
                         :items="subjectList"
-                        :label="''"
+                        :label="subjectsPlaceholder"
                         :item-text="'subject'"
                         :item-value="'id'"
-                        :placeholder="'some placeholder'"
+                        :placeholder="subjectsPlaceholder"
                         clearable
                         solo
                         return-object
