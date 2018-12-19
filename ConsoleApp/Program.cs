@@ -32,6 +32,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
+using Cloudents.Search.Document;
 using DocumentType = Cloudents.Common.Enum.DocumentType;
 
 namespace ConsoleApp
@@ -62,13 +63,12 @@ namespace ConsoleApp
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
-            //builder.RegisterType<PPP>().As<IDataProtect>();
-            builder.RegisterSystemModules(
-                Cloudents.Core.Enum.System.Console,
-                Assembly.Load("Cloudents.Infrastructure.Framework"),
-                Assembly.Load("Cloudents.Infrastructure.Storage"),
-                Assembly.Load("Cloudents.Infrastructure"),
-                Assembly.Load("Cloudents.Core"));
+            //builder.RegisterSystemModules(
+            //    Cloudents.Core.Enum.System.Console,
+            //    Assembly.Load("Cloudents.Infrastructure.Framework"),
+            //    Assembly.Load("Cloudents.Infrastructure.Storage"),
+            //    Assembly.Load("Cloudents.Infrastructure"),
+            //    Assembly.Load("Cloudents.Core"));
             builder.RegisterModule<ModuleFile>();
             var module = new SearchModule(ConfigurationManager.AppSettings["AzureSearchServiceName"],
                 ConfigurationManager.AppSettings["AzureSearchKey"], true);
@@ -106,11 +106,12 @@ namespace ConsoleApp
            // var bus = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
            // await bus.CreateOrUpdateAsync(token);
 
-            var t = _container.Resolve<IDocumentsSearch>();
-            var z = await t.SearchAsync(new DocumentQuery(null, new UserProfile()
-            {
-                Country = "IL"
-            }, null, 0, null), token);
+            var t = _container.Resolve<AzureDocumentSearch>();
+            var z = await t.ItemAsync(6746, default);
+            //var z = await t.SearchAsync(new DocumentQuery(null, new UserProfile()
+            //{
+            //    Country = "IL"
+            //}, null, 0, null), token);
 
             //var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
             //    10, 638, null, QuestionColor.Default);

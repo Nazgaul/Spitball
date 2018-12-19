@@ -25,7 +25,7 @@ namespace Cloudents.Search
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AzureQuestionSearch>().As<IQuestionsSearch>().AsSelf();
-            builder.RegisterType<AzureDocumentSearch>().As<IDocumentsSearch>();
+            builder.RegisterType<AzureDocumentSearch>().AsSelf().As<IDocumentsSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
 
             builder.RegisterType<DocumentSearchWrite>().As<SearchServiceWrite<Entities.Document>>();
