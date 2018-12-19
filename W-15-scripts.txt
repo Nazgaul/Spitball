@@ -241,6 +241,11 @@ alter table sb.document alter column [votecount] int not null;
 
 alter table sb.Question add AnswerCount int;
 update sb.Question set AnswerCount = 0;
+update Q
+set AnswerCount = Answers
+from sb.Question Q
+join (select count(1) as Answers,QuestionId from sb.Answer A group by QuestionId) A
+	on A.QuestionId = Q.Id;
 alter table sb.Question alter column AnswerCount int not null;
 
 

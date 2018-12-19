@@ -1,10 +1,9 @@
 ﻿<template>
     <div class="header-wrap">
-
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <h1 class="item-name">{{itemName}} <span class="doc-extension" v-show="item.extension">({{item ? item.extension : ''}})</span></h1>
+                    <h1 class="item-name">{{itemName}} <span class="doc-extension" v-show="item && item.extension">({{item ? item.extension : ''}})</span></h1>
                     <div class="doc-details">
                         <div class="author">
                         <span class="upload-by">

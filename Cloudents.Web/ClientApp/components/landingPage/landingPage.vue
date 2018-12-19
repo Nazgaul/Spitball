@@ -34,7 +34,9 @@
             </div>
             <div class="right-part overlap-above">
                 <div class="background-white-boxed">
-
+                    <video autoplay width="100%" height="100%" muted loop>
+                        <source src="https://zboxstorage.blob.core.windows.net/videos/ask_a_question_gif.mp4" type="video/mp4" />
+                    </video>
                 </div>
             </div>
             <div class="left-part gradient-background">
@@ -98,7 +100,9 @@
             </div>
             <div class="left-part overlap-above">
                 <div class="background-white-boxed ">
-
+                    <video autoplay width="100%" height="100%" muted loop>
+                        <source src="https://zboxstorage.blob.core.windows.net/videos/ask_a_question_gif.mp4" type="video/mp4" />
+                    </video>
                 </div>
             </div>
             <div class="right-part gradient-background">
@@ -181,7 +185,9 @@
                     <v-carousel-item v-for="(items,i) in formattedReviews"  :key="`desktop-${i}`" v-if="!$vuetify.breakpoint.xsOnly">
                         <template v-for="(data, index) in items">
                             <div :key="`innerData_${index}`" class="review-item-wrap">
-                                <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
+                                <div class="review-image-wrap">
+                                    <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
+                                </div>
                                 <span class="review-name">{{data.name}}</span>
                                 <span class="review-title">{{data.title}}</span>
                                 <span class="review-text">{{data.text}}</span>

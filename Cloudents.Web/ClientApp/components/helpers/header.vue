@@ -69,11 +69,7 @@
                     <slot name="extraHeader"></slot>
                 </div>
                 
-            </v-layout>
-            <v-snackbar absolute :timeout="toasterTimeout" :value="getShowToaster">
-                <div class="text-wrap" v-html="getToasterText"></div>
-            </v-snackbar>
-            
+            </v-layout>            
         </v-toolbar>
 
         <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
@@ -115,7 +111,6 @@
                 notRegMenu,
                 clickOnce: false,
                 drawer: false,
-                toasterTimeout: 5000,
                 showDialogLogin: false,
                 isRtl: global.isRtl
             }
@@ -148,16 +143,6 @@
         watch: {
             toolbarHeight(val) {
                 this.height = val;
-            },
-            getShowToaster: function (val) {
-                if (val) {
-                    var self = this;
-                    setTimeout(function () {
-                        self.updateToasterParams({
-                            showToaster: false
-                        })
-                    }, this.toasterTimeout)
-                }
             },
             drawer(val){
                 if(!!val && this.$vuetify.breakpoint.xsOnly){

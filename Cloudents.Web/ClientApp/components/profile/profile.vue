@@ -61,19 +61,19 @@
                         </div>               
 
                     </div>
-                        <scroll-list v-show="activeTab === 1" :scrollFunc="loadQuestions" :isLoading="questions.isLoading" :isComplete="questions.isComplete">
+                        <scroll-list v-if="activeTab === 1" :scrollFunc="loadQuestions" :isLoading="questions.isLoading" :isComplete="questions.isComplete">
                             <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
                                         v-for="(questionData,index) in profileData.questions" :key="index">
                                 <question-card :cardData="questionData"></question-card>
                             </router-link>
                         </scroll-list>
-                        <scroll-list v-show="activeTab === 2" :scrollFunc="loadAnswers" :isLoading="answers.isLoading" :isComplete="answers.isComplete">
+                        <scroll-list v-if="activeTab === 2" :scrollFunc="loadAnswers" :isLoading="answers.isLoading" :isComplete="answers.isComplete">
                             <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="(answerData,index) in profileData.answers"
                                         :key="index" class="mb-3">
                                 <question-card :cardData="answerData" class="mb-3"></question-card>
                             </router-link>
                         </scroll-list>
-                    <scroll-list v-show="activeTab === 3" :scrollFunc="loadDocuments" :isLoading="documents.isLoading" :isComplete="documents.isComplete">
+                    <scroll-list v-if="activeTab === 3" :scrollFunc="loadDocuments" :isLoading="documents.isLoading" :isComplete="documents.isComplete">
                         <router-link :to="{name:'document',params:{id:document.id}}" v-for="(document ,index) in profileData.documents"
                                      :key="index" class="mb-3">
                             <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>

@@ -169,6 +169,10 @@ const mutations = {
             });
         }
     },  
+    
+    
+    //Note Area
+
     [SEARCH.UPDATE_DOCUMENT_VOTE](state, {id, type}){
         if(!!state.itemsPerVertical.note && state.itemsPerVertical.note.data && state.itemsPerVertical.note.data.length){
             state.itemsPerVertical.note.data.forEach((document) => {
@@ -178,8 +182,7 @@ const mutations = {
             });
         }
     },  
-    
-    //Note Area
+
     [SEARCH.UPDATE_COURSES_FILTERS](state, MutationObj){
         if(!!state.itemsPerVertical.note && !!state.itemsPerVertical.note.filters){
             let coursesFiltersIndex = null;
@@ -195,7 +198,18 @@ const mutations = {
             }
         }
     },
-
+    [SEARCH.REMOVE_DOCUMENT](state, documentToRemove){
+        if(!!state.itemsPerVertical.note && !!state.itemsPerVertical.note.data && state.itemsPerVertical.note.data.length > 0){
+            for(let documentIndex = 0; documentIndex < state.itemsPerVertical.note.data.length; documentIndex++ ){
+                let currentDocument = state.itemsPerVertical.note.data[documentIndex];
+                if(currentDocument.id === documentToRemove.id){
+                    //remove the document from the list
+                    state.itemsPerVertical.note.data.splice(documentIndex, 1);
+                    return;
+                }
+            }
+        }
+    },
 
 };
 
@@ -405,11 +419,27 @@ const actions = {
             dispatch('updateToasterParams', errorObj);
         })
     },
-    reportQuestion({commit}, data){
-        return reportService.reportQuestion(data)
+
+    removeDocumentItemAction({ commit }, notificationQuestionObject){
+        let documentObj = searchService.createDocumentItem(notificationQuestionObject);
+        commit(SEARCH.REMOVE_DOCUMENT, documentObj);
+     },
+
+    reportQuestion({commit, dispatch}, data){
+        return reportService.reportQuestion(data).then(()=>{
+            let objToRemove = {
+                id: data.id
+            }
+            dispatch('removeQuestionItemAction', objToRemove);
+        })
     },
-    reportDocument({commit}, data){
-        return reportService.reportDocument(data)
+    reportDocument({commit, dispatch}, data){
+        return reportService.reportDocument(data).then(()=>{
+            let objToRemove = {
+                id: data.id
+            }
+            dispatch('removeDocumentItemAction', objToRemove);
+        })
     }
 };
 
