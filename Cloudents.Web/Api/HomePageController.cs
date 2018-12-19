@@ -4,6 +4,7 @@ using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Api
 {
@@ -12,13 +13,8 @@ namespace Cloudents.Web.Api
     [ApiController]
     public class HomePageController : ControllerBase
     {
-        
-
-        public HomePageController()
-        {
-        }
-
         [HttpGet]
+        [ResponseCache(Duration = TimeConst.Day,Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<StatsDto>> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var query = new HomePageQuery();

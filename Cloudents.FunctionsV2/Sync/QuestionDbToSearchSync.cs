@@ -54,7 +54,7 @@ namespace Cloudents.FunctionsV2.Sync
                 needContinue = true;
                 await syncService.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Question()
+                    Item = new Question
                     {
                         Id = questionDelete
                     },

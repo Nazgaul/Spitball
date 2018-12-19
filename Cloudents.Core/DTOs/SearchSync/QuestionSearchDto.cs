@@ -9,16 +9,16 @@ namespace Cloudents.Core.DTOs.SearchSync
         private QuestionFilter? _filter;
         public long QuestionId { get; set; } //key
 
-        public int AnswerCount { get; set; }
-        public DateTime DateTime { get; set; }
-        public bool HasCorrectAnswer { get; set; }
+        public int? AnswerCount { get; set; }
+        public DateTime? DateTime { get; set; }
+        public bool? HasCorrectAnswer { get; set; }
         public string Text { get; set; }
 
         public string Country { get; set; }
         public string Language { get; set; }
 
 
-        public Cloudents.Common.QuestionSubject Subject { get; set; } // facetable
+        public Common.QuestionSubject? Subject { get; set; } // facetable
         public ItemState? State { get; set; }
 
 
@@ -36,7 +36,7 @@ namespace Cloudents.Core.DTOs.SearchSync
                     state = QuestionFilter.Answered;
                 }
 
-                if (HasCorrectAnswer)
+                if (HasCorrectAnswer.HasValue && HasCorrectAnswer.Value)
                 {
                     state = QuestionFilter.Sold;
                 }

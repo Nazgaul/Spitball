@@ -30,7 +30,6 @@ namespace Cloudents.Core.Votes.Commands.AddVoteQuestion
         protected override Vote CreateVote(RegularUser user, Question question, VoteType vote)
         {
             return new Vote(user, question, vote);
-            //throw new NotImplementedException();
         }
 
         protected override Task ValidateAsync(User user, Question question, CancellationToken token)

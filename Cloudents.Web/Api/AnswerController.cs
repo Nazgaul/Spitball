@@ -1,19 +1,23 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Core;
 using Cloudents.Core.Command;
-using Cloudents.Domain.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Item.Commands.FlagItem;
 using Cloudents.Core.Query;
 using Cloudents.Core.Votes.Commands.AddVoteAnswer;
+using Cloudents.Domain.Entities;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Hubs;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -37,6 +41,8 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<ActionResult<CreateAnswerResponse>> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
             [FromServices] IQueryBus queryBus,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
+            [FromServices] IHubContext<SbHub> hubContext,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -49,16 +55,28 @@ namespace Cloudents.Web.Api
                 var t2 = queryBus.QueryAsync(query, token);
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
 
+                if (score < Privileges.Post)
+                {
+                    await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
+                    {
+                        new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
+                            {
+                                text = _localizer["CreatePending"].Value
+                            }
+                        )
+                    }, token);
+                }
+
                 return new CreateAnswerResponse
                 {
                     NextQuestions = t2.Result
                 };
             }
-            catch (QuotaExceededException)
-            {
-                ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
-                return BadRequest(ModelState);
-            }
+            //catch (QuotaExceededException)
+            //{
+            //    ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
+            //    return BadRequest(ModelState);
+            //}
             catch (QuestionAlreadyAnsweredException)
             {
                 ModelState.AddModelError(nameof(model.Text), _localizer["This question have correct answer"]);
@@ -97,19 +115,22 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("vote")]
-        public async Task<IActionResult> VoteAsync([FromBody] AddVoteAnswerRequest model, CancellationToken token)
+        public async Task<IActionResult> VoteAsync(
+            [FromBody] AddVoteAnswerRequest model,
+            [FromServices] IStringLocalizer<SharedResource> resource,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             try
             {
                 var command = new AddVoteAnswerCommand(userId, model.Id, model.VoteType);
-
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
             catch (NoEnoughScoreException)
             {
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
+                string voteMessage = resource[$"{model.VoteType:G}VoteError"];
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
                 return BadRequest(ModelState);
             }
             catch (UnauthorizedAccessException)
@@ -134,7 +155,7 @@ namespace Cloudents.Web.Api
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
-            catch(NoEnoughScoreException)
+            catch (NoEnoughScoreException)
             {
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
                 return BadRequest(ModelState);

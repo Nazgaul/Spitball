@@ -18,7 +18,7 @@ export default {
                 {
                     title: LanguageService.getValueByKey("questionCard_Report"),
                     action: this.reportItem,
-                    isDisabled: this.cardOwner,
+                    isDisabled: this.isDisabled,
                     isVisible: true
                 },
                 {
@@ -29,7 +29,7 @@ export default {
                 }
             ],
             showReportReasons: false,
-            itemId : 0,
+            itemId: 0,
             maximumAnswersToDisplay: 3,
             isRtl: global.isRtl,
             showDialog: false,
@@ -70,9 +70,9 @@ export default {
         answersNumber() {
             let answersNum = this.cardData.answers;
             let numericValue = 0;
-            if(typeof answersNum !== 'number'){
+            if (typeof answersNum !== 'number') {
                 numericValue = answersNum.length
-            }else{
+            } else {
                 numericValue = answersNum;
             }
             if (numericValue > this.maximumAnswersToDisplay) {
@@ -82,16 +82,22 @@ export default {
         },
         answersDeltaNumber() {
             let answersNum = this.cardData.answers;
+            let numericValue = 0;
+            if (typeof answersNum !== 'number') {
+                numericValue = answersNum.length
+            } else {
+                numericValue = answersNum;
+            }
             let delta = 0;
-            if (answersNum > this.maximumAnswersToDisplay) {
-                delta = answersNum - this.maximumAnswersToDisplay;
+            if (numericValue > this.maximumAnswersToDisplay) {
+                delta = numericValue - this.maximumAnswersToDisplay;
             }
             return delta;
         },
         randomViews() {
             return Math.floor(Math.random() * 1001);
         },
-        
+
 
     },
     methods: {
@@ -106,39 +112,50 @@ export default {
             updateLoginDialogState: "updateLoginDialogState"
         }),
         ...mapGetters(['accountUser']),
-        isAuthUser(){
+        isAuthUser() {
             let user = this.accountUser();
             if (user == null) {
-              this.updateLoginDialogState(true);
-              return false;
+                this.updateLoginDialogState(true);
+                return false;
             }
             return true;
         },
-        upvoteQuestion(){
+        upvoteQuestion() {
             if (this.isAuthUser()) {
                 let type = "up";
-                if(!!this.cardData.upvoted){
-                    type = "none"; 
+                if (!!this.cardData.upvoted) {
+                    type = "none";
                 }
                 let data = {
                     type,
                     id: this.cardData.id
-                }
+                };
                 this.questionVote(data);
             }
         },
-        downvoteQuestion(){
+        downvoteQuestion() {
             if (this.isAuthUser()) {
-            let type = "down";
-            if(!!this.cardData.downvoted){
-                type = "none"; 
+                let type = "down";
+                if (!!this.cardData.downvoted) {
+                    type = "none";
+                }
+                let data = {
+                    type,
+                    id: this.cardData.id
+                };
+                this.questionVote(data);
             }
-            let data = {
-                type,
-                id: this.cardData.id
+        },
+        isDisabled() {
+            let isOwner, account, notEnough;
+            isOwner = this.cardOwner();
+            account = this.accountUser();
+            if (account && account.score) {
+                notEnough = account.score < 400
             }
-            this.questionVote(data);
-        }
+            if (isOwner || !account || notEnough) {
+                return true
+            }
         },
         cardOwner() {
             let userAccount = this.accountUser();
@@ -151,12 +168,12 @@ export default {
             if (!isOwner) {
                 return true;
             }
-            if(typeof this.cardData.answers !== 'number'){
+            if (typeof this.cardData.answers !== 'number') {
                 return this.cardData.answers.length !== 0;
             }
             return this.cardData.answers !== 0;
-            
-            
+
+
         },
         showBigImage(src) {
             this.showDialog = true;
@@ -176,7 +193,7 @@ export default {
                         this.$ga.event("Delete_question", "Homework help");
                         //ToDO change to router link use and not text URL
                         this.removeQuestionItemAction(objToDelete);
-                        if(this.$route.name === 'question'){
+                        if (this.$route.name === 'question') {
                             //redirect only if question got deleted from the question page
                             this.$router.push('/ask')
                         }
@@ -194,7 +211,7 @@ export default {
             this.itemId = this.cardData.id;
             this.showReportReasons = !this.showReportReasons;
         },
-        closeReportDialog(){
+        closeReportDialog() {
             this.showReportReasons = false
         }
     },

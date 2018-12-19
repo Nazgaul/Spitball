@@ -124,7 +124,7 @@
     <value>אין לך מספיק SBL,  קבל עוד SBL על ידי מתן תשובות לשאלות.</value>
   </data>
   <data name="PostedQuestionToasterOk" xml:space="preserve">
-    <value>השאלה נשלחה ומיטב המוחות שוקדים עליה ברגע זה</value>
+    <value>תודה, נעדכן אותך מייד ברגע שתתקבל תשובה</value>
   </data>
   <data name="PostedQuestionToasterPending" xml:space="preserve">
     <value>השאלה שלך ממתינה לאישור, נא לא לשלוח שאלה זו שוב.</value>
@@ -136,9 +136,6 @@
     <value>נושא</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>אתה לא יכול להצביע</value>
-  </data>
-  <data name="VoteNotEnoughScore" xml:space="preserve">
-    <value>אין לך מספיק נקודות</value>
+    <value>לא ניתן להצביע בעד / נגד השאלה שלך</value>
   </data>
 </root>

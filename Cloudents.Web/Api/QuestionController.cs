@@ -25,6 +25,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {
@@ -54,17 +56,19 @@ namespace Cloudents.Web.Api
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<CreateQuestionResponse>> CreateQuestionAsync([FromBody]CreateQuestionRequest model,
+        public async Task<IActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
+            [FromServices] IHubContext<SbHub> hubContext,
             CancellationToken token)
         {
 
             Debug.Assert(model.SubjectId != null, "model.SubjectId != null");
+            var userId = _userManager.GetLongUserId(User);
             var toasterMessage = _localizer["PostedQuestionToasterOk"];
             try
             {
                 var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price,
-                    _userManager.GetLongUserId(User), model.Files, model.Color.GetValueOrDefault());
+                    userId, model.Files, model.Color.GetValueOrDefault());
                 await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             }
             catch (DuplicateRowException)
@@ -85,8 +89,17 @@ namespace Cloudents.Web.Api
             {
                 toasterMessage = _localizer["PostedQuestionToasterPending"];
             }
+            await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
+            {
+                new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
+                    {
+                        text = toasterMessage.Value
+                    }
+                )}, token);
+            return Ok();
 
-            return new CreateQuestionResponse(toasterMessage);
+
+            // return new CreateQuestionResponse(toasterMessage);
 
 
         }
@@ -244,7 +257,10 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("vote")]
-        public async Task<IActionResult> VoteAsync([FromBody] AddVoteQuestionRequest model, CancellationToken token)
+        public async Task<IActionResult> VoteAsync(
+            [FromBody] AddVoteQuestionRequest model,
+            [FromServices] IStringLocalizer<SharedResource> resource,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             try
@@ -256,7 +272,8 @@ namespace Cloudents.Web.Api
             }
             catch (NoEnoughScoreException)
             {
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
+                string voteMessage = resource[$"{model.VoteType:G}VoteError"];
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
                 return BadRequest(ModelState);
             }
             catch (UnauthorizedAccessException)

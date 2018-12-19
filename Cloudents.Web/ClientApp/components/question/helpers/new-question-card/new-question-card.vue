@@ -11,16 +11,17 @@
                             <user-rank :score="cardData.user.score"></user-rank>
                         </div>
                         <div class="date-area">{{uploadDate}}</div>
-                    </div>
-
-                    <div class="sold-area" v-if="isSold">
-                        <div class="sold-container">
-                            <span v-language:inner>questionCard_Sold</span>
-                            <v-icon>sbf-curved-arrow</v-icon>
-                        </div>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="question-header-small-sagment">
+                    <div class="sold-area" v-if="isSold">
+                        <div class="sold-container">
+                            <div class="sold-wrap">
+                                <span v-language:inner>questionCard_Sold</span>
+                                <!-- <v-icon>sbf-curved-arrow</v-icon> -->
+                            </div>
+                        </div>
+                    </div>
                     <div class="price-area" :class="{'sold': isSold}">
                         {{cardPrice}}
                         <span v-language:inner>questionCard_Currency</span>
@@ -44,7 +45,7 @@
           <span class="question-raputation upvote-arrow" @click.prevent="upvoteQuestion()">
             <v-icon :class="{'voted': cardData.upvoted}">sbf-arrow-up</v-icon>
           </span>
-          <span class="question-raputation question-score">{{cardData.votes}}</span>
+          <span class="question-raputation question-score" :dir="isRtl ? `ltr` : ''">{{cardData.votes}}</span>
           <span class="question-raputation downvote-arrow" @click.prevent="downvoteQuestion()">
             <v-icon :class="{'voted': cardData.downvoted}">sbf-arrow-down</v-icon>
           </span>
