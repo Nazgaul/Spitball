@@ -3,7 +3,7 @@
         <h1>Pending Answers</h1>
         <div class="page-container">
             <div class="answer-co">
-                <div v-show="asnwers.length > 0" class="answerItem" v-for="(answer,index) in answers" :key="index">
+                <div class="answerItem" v-for="(answer,index) in answers" :key="index">
                     <div class="answer-left-body">
                         <div class="user-container">
                             <div>User Id: {{answer.user.id}}</div>
@@ -16,12 +16,12 @@
                         </div>
                     </div>
                     <div class="answer-right-body">
-                        <button @click="aproveQ(answer, index)">Aprove</button>
+                        <button @click="aproveA(answer, index)">Aprove</button>
                         <button class="decline" @click="declineAnswer(answer, index)">Delete</button>
                     </div>
                 </div>
                 <div v-if="loading">Loading answers, please wait...</div>
-                <div v-show="answer.length === 0 && !loading">No more answers to approve</div>
+                <div v-show="answers.length === 0 && !loading">No more answers to approve</div>
             </div>
         </div>
 

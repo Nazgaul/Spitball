@@ -33,8 +33,8 @@ export default {
                 if(this.answersIdString.length > 0){
                     this.answersIds = this.answersIdString.split(',');
                     let numberArr= [];
-                    this.answerIds.forEach(id=>{
-                        return numberArr.push(parseInt(id.trim()));
+                    this.answersIds.forEach(id=>{
+                        return numberArr.push(id.trim());
                     })
                     acceptAnswer(numberArr)
                     .then(resp=>{
