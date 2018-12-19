@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web", "Cloudents.Web\Cloudents.Web.csproj", "{513E9862-224F-43A4-BBCE-ED71C335A670}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Core", "Cloudents.Core\Cloudents.Core.csproj", "{0447E684-5E78-445A-ADCB-3A761D4E0606}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Application", "Cloudents.Core\Cloudents.Application.csproj", "{0447E684-5E78-445A-ADCB-3A761D4E0606}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure", "Cloudents.Infrastructure\Cloudents.Infrastructure.csproj", "{49F15A50-5FE8-48D4-B3AF-30806FAA965C}"
 EndProject

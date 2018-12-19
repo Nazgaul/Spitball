@@ -49,6 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
+    <ProjectReference Include="..\Cloudents.Core\Cloudents.Application.csproj" />
   </ItemGroup>
 </Project>
