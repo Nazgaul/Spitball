@@ -261,8 +261,9 @@ section {
     width: 100%;
     border-radius: 4px;
     padding: 2% 2%;
-    @media (max-width: @screen-mds) {
+    @media (max-width: @screen-xs) {
       box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.39);
+      height: 290px;
     }
     .gif-container-question{
       width: 100%;
@@ -271,15 +272,15 @@ section {
       background-size: cover;
       background-position-y: top;
       @media (max-width: @screen-xs) {
-        background: url('./images/gif/earn_answer_question.gif') no-repeat -70px -5px; 
-        background-size: cover;
+        background: url('./images/gif/earn_answer_question.gif') no-repeat; 
+        background-size: contain;
       }
       &.learn{
         background: url('./images/home_page_one.jpg') no-repeat center center; 
         background-position-y: top;
         @media (max-width: @screen-xs) {
-          background: url('./images/home_page_one.jpg') no-repeat -70px -5px;
-          background-size: cover; 
+          background: url('./images/home_page_one.jpg') no-repeat;
+          background-size: contain; 
         }
       }
     }
@@ -290,15 +291,15 @@ section {
       background-size: cover;
       background-position-y: top;
       @media (max-width: @screen-xs) {
-        background: url('./images/gif/earn_answer_question.gif') no-repeat -70px -5px; 
-        background-size: cover;
+        background: url('./images/gif/earn_answer_question.gif') no-repeat; 
+        background-size: contain;
       }
       &.learn{
         background: url('./images/home_page_one.jpg') no-repeat center center; 
         background-position-y: top;
         @media (max-width: @screen-xs) {
-          background: url('./images/home_page_one.jpg') no-repeat -70px -5px; 
-          background-size: cover;
+          background: url('./images/home_page_one.jpg') no-repeat; 
+          background-size: contain;
         }
       }
     }
