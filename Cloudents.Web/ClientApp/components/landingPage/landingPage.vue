@@ -92,7 +92,7 @@
                 <div class="spacer-two" v-if="$vuetify.breakpoint.smAndUp"></div>
                 <div class="title-wrap">
                     <h3 class="intro-two-title" v-html="$Ph(`landingPage_${dictionaryType}_upload_section_title`)"></h3>
-                    <span class="intro-two-sub-title" v-language:inner>landingPage_upload_section_subTitle</span>
+                    <span class="intro-two-sub-title" v-html="$Ph(`landingPage_${dictionaryType}_upload_section_subTitle`)"></span>
                 </div>
 
             </div>
