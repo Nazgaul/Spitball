@@ -243,10 +243,10 @@
                         class="input-subject"
                         v-model="selectedSubject"
                         :items="subjectList"
-                        :label="''"
+                        :label="subjectsPlaceholder"
                         :item-text="'subject'"
                         :item-value="'id'"
-                        :placeholder="'some placeholder'"
+                        :placeholder="subjectsPlaceholder"
                         clearable
                         solo
                         return-object
