@@ -18,7 +18,8 @@ namespace Cloudents.Search.Entities
         {
             return new Document
             {
-                UniversityId = obj.UniversityId,
+                
+                UniversityId = obj.UniversityId ,
                 UniversityName = obj.UniversityName,
                 DateTime = obj.DateTime,
                 Country = obj.Country?.ToUpperInvariant(),
@@ -50,7 +51,7 @@ namespace Cloudents.Search.Entities
         public string UniversityName { get; set; }
 
         [IsFilterable,  JsonProperty("University")]
-        public Guid UniversityId { get; set; }
+        public Guid? UniversityId { get; set; }
 
         [IsSortable, IsFilterable]
         public DateTimeOffset? DateTime { get; set; }

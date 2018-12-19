@@ -8,11 +8,11 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="landing-header-items">
-                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}" v-show="!isMobileView" class="lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
-                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}" v-show="!isMobileView" class="lp-header-link bold" @click="changeDictionaryType('earn')">Earn money</a>
-                <router-link v-show="!loggedIn" :to="{path: '/signin'}" class="login-action login">Login</router-link>
-                <router-link v-show="!loggedIn" :to="{path: '/register'}" class="login-action signup">Sign Up</router-link>
-                <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
+                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}" v-show="!isMobileView" class="lp-header-link" @click="changeDictionaryType('learn')" v-language:inner>landingPage_header_learn_faster</a>
+                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}" v-show="!isMobileView" class="lp-header-link bold" @click="changeDictionaryType('earn')" v-language:inner>landingPage_header_earn_money</a>
+                <router-link v-show="!loggedIn" :to="{path: '/signin'}" class="login-action login" v-language:inner>landingPage_header_login</router-link>
+                <router-link v-show="!loggedIn" :to="{path: '/register'}" class="login-action signup" v-language:inner>landingPage_header_sign_up</router-link>
+                <v-menu style="margin-top:3px;" close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                     <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer" class="gamburger">
                         <v-icon>sbf-menu</v-icon>
                     </v-btn>
@@ -134,7 +134,7 @@
               z-index: 100;
             }
         &.solid-header{
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: #000;
             box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
             z-index: 99;
         }
@@ -177,7 +177,7 @@
                     &.login {
                         background: transparent;
                         color: @color-white;
-                        border: 1px solid #787878;
+                        border: 2px solid #787878;
                     }
                     &.signup {
                         background: @color-yellow;

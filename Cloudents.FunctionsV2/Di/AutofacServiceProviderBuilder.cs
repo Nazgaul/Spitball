@@ -48,6 +48,7 @@ namespace Cloudents.FunctionsV2.Di
                         _configuration["SearchServiceAdminApiKey"],
                     bool.Parse(_configuration["IsDevelop"])
                 ),
+                ServiceBus = _configuration["AzureWebJobsServiceBus"],
                 //MailGunDb = GetEnvironmentVariable("MailGunConnectionString"),
                 //BlockChainNetwork = GetEnvironmentVariable("BlockChainNetwork"),
                 Storage = _configuration["AzureWebJobsStorage"]

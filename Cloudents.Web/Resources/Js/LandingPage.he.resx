@@ -118,159 +118,154 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="earn_knowledge_subTitle" xml:space="preserve">
-    <value>Simply answer questions, collect tokens (SBL) and cash out!</value>
+    <value>הצטרפו לקהילת ספיטבול, ענו על שאלות, צברו נקודות זיכוי ותהנו מקניות באינטרנט או מקרדיטים לבילוי ופנאי</value>
   </data>
   <data name="earn_knowledge_title" xml:space="preserve">
-    <value>Earn From Helping Students</value>
+    <value>בואו להרוויח מהידע האקדמי – עוד לפני סיום התואר!</value>
   </data>
   <data name="earn_question_section_subTitle" xml:space="preserve">
-    <value>Cash out your SBL into amazon gift cards</value>
+    <value />
   </data>
   <data name="earn_question_section_title" xml:space="preserve">
-    <value>Answer Questions, Earn SBL</value>
-  </data>
-  <data name="earn_upload_section_subTitle" xml:space="preserve">
-    <value>Class Notes, Study Guides, Exams Preparations</value>
+    <value />
   </data>
   <data name="earn_upload_section_title" xml:space="preserve">
-    <value>Share your knowledge, Upload study docs</value>
+    <value>בואו לחלוק את הידע האקדמי שלכם </value>
   </data>
   <data name="find_by_subject" xml:space="preserve">
-    <value>Find Homework Help By Subject</value>
+    <value>מצא שעורי בית לפי נושא</value>
   </data>
   <data name="find_by_subject_desc" xml:space="preserve">
-    <value>Just pick a subject, and find relevant questions for you</value>
+    <value>פשוט בחר נושא, ומצא שאלות רלוונטיות עבורך</value>
   </data>
   <data name="footer_about" xml:space="preserve">
-    <value>About Spitball</value>
+    <value>אודות ספיטבול</value>
   </data>
   <data name="footer_ambassador" xml:space="preserve">
-    <value>Ambassadors</value>
+    <value>שגרירים</value>
   </data>
   <data name="footer_blog" xml:space="preserve">
-    <value>Blog</value>
+    <value>בלוג</value>
   </data>
   <data name="footer_contact" xml:space="preserve">
-    <value>Contact Us</value>
+    <value>צור קשר</value>
   </data>
   <data name="footer_faq" xml:space="preserve">
-    <value>FAQ</value>
+    <value>שאלות נפוצות</value>
   </data>
   <data name="footer_feedback" xml:space="preserve">
-    <value>Feedback</value>
+    <value>פידבק</value>
   </data>
   <data name="footer_partners" xml:space="preserve">
-    <value>Partners</value>
+    <value>שותפיות</value>
   </data>
   <data name="footer_pr" xml:space="preserve">
-    <value>PR</value>
+    <value>יחסי ציבור</value>
   </data>
   <data name="footer_privacy" xml:space="preserve">
-    <value>Privacy Policy</value>
+    <value>מדיניות פרטיות</value>
   </data>
   <data name="footer_terms" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
+    <value>תנאי שימוש</value>
   </data>
   <data name="get_your_sbl" xml:space="preserve">
-    <value>Get Your SBL</value>
-  </data>
-  <data name="header_earn_money" xml:space="preserve">
-    <value>Earn money</value>
-  </data>
-  <data name="header_learn_faster" xml:space="preserve">
-    <value>Learn Faster</value>
+    <value>להרשמה וקבלת SBL</value>
   </data>
   <data name="header_login" xml:space="preserve">
-    <value>Login</value>
+    <value>כניסה</value>
   </data>
   <data name="header_sign_up" xml:space="preserve">
-    <value>Sign Up</value>
+    <value>הרשמה</value>
   </data>
   <data name="how_get_sbl" xml:space="preserve">
-    <value>How do I get SBL?</value>
+    <value>איך אפשר לצבור נקודות זיכוי?</value>
   </data>
   <data name="how_get_sbl_desc" xml:space="preserve">
-    <value>You get SBL when you register and earn more SBL by helping others or referring friends.</value>
+    <value>ממש בעת ההרשמה – כל נרשם מקבל SBL כאשר הוא מצטרף לקהילת ספיטבול ויכול לצבור עוד ועוד SBL בסיוע לסטודנטים או בצירוף חברים נוספים. </value>
   </data>
   <data name="how_is_catch" xml:space="preserve">
-    <value>Wait, what’s the catch?</value>
+    <value>אוקי אוקי – אז מה הקאץ’??</value>
   </data>
   <data name="how_is_catch_desc" xml:space="preserve">
-    <value>There is no catch. Earned SBL’s are redeemable for Amazon gift cards. So there is no reason not to sign up today.</value>
+    <value>אין. קאץ’. הגיפט קארד של  buyme.co.il מחכים לך אצלנו כבר עכשיו – וזה בדיוק הזמן להירשם.</value>
   </data>
   <data name="how_it_works" xml:space="preserve">
-    <value>See how it works</value>
+    <value>אז מה בעצם אפשר למצוא בספיטבול?</value>
   </data>
   <data name="how_sbl_money" xml:space="preserve">
-    <value>Wait, SBL is real money?</value>
+    <value>רגע – SBL זה כסף אמיתי?</value>
   </data>
   <data name="how_sbl_money_desc" xml:space="preserve">
-    <value>SBL is the currency used on the Spitball platform. SBL can be converted into real money through Amazon Gift cards.</value>
+    <value>ה- SBL הוא בעצם המטבע שבו הפלטפורמה שלנו עושה שימוש. ה- SBL של ספיטבול יכול להיות מומר לכסף אמיתי באמצעות הגיפט קארד של BuyMe.</value>
   </data>
   <data name="how_spitball_differs" xml:space="preserve">
-    <value>How does Spitball differ from other websites?</value>
+    <value>במה ספיטבול שונה מאתרים אחרים? </value>
   </data>
   <data name="how_spitball_differs_desc" xml:space="preserve">
-    <value>Spitball brings power back to the students, no subscription fees, no ads, no catch. With Spitball you get the tools to learn smarter and earn SBL so you can enjoy life.</value>
+    <value>ספיטבול מאפשרת לסטודנטים ליהנות מיתרונות הקהילה ללא דמי מנוי, ללא פרסומות ובלי קאץ’ או אותיות קטנות.
+איתנו בספיטבול אפשר גם לקבל עזרה ולשפר את רמת שיעורי הבית ואת הציונים בהתאם אבל אפשר גם לסייע לאחרים ולתרגם את ההשקעה לקניות או הנאה.
+</value>
   </data>
   <data name="how_spitball_work" xml:space="preserve">
-    <value>How does spitball work?</value>
+    <value>איך זה עובד?</value>
   </data>
   <data name="how_spitball_work_desc" xml:space="preserve">
-    <value>Students that need help with their studies, choose their campus and class browse study documents or ask homework questions. Students that know the answer will help solve these problems, and the most helpful answer or document gets rewarded with SBL.</value>
+    <value>סטודנטים הזקוקים לסיוע במהלך הכנת שיעורי הבית בוחרים את הקמפוס והקורס הרלוונטיים להם, יכולים לשאול שאלה מתוך שיעורי הבית או לבחור קובץ מסייע מתוך מאגר. סטודנטים אחרים שיודעים מה היא התשובה מוזמנים להעלות ולפרסם אותה (ממש כמו תגובה בפייסבוק)  - התשובה או המסמך שיבחרו כמסייעים ביותר, יעניקו לבעליהם SBL שניתנים למימו ב BuyMe.</value>
   </data>
   <data name="join_spitball" xml:space="preserve">
-    <value>Join Spitball it's 100% Free</value>
+    <value>לא תנסו? זה בחינם!</value>
   </data>
   <data name="join_spitball_free" xml:space="preserve">
-    <value>Join Spitball it's Free!</value>
+    <value>עוד לא הצטרפת? זה בחינם!</value>
   </data>
   <data name="learn_knowledge_subTitle" xml:space="preserve">
-    <value>Quickly boost your GPA with instant help and thousands of study docs</value>
+    <value>הגיע הזמן להתעורר למציאות חדשה!</value>
   </data>
   <data name="learn_knowledge_title" xml:space="preserve">
-    <value>Study Faster, Enjoy College</value>
+    <value>חולמים על שיעורי בית מושלמים?</value>
   </data>
   <data name="learn_question_section_subTitle" xml:space="preserve">
-    <value>80% of questions get answered in under 1 minute</value>
+    <value>למעשה, 80% מהשאלות שעולות בקהילת  Spitball, זוכות למענה תוך פחות מדקה! </value>
   </data>
   <data name="learn_question_section_title" xml:space="preserve">
-    <value>Get Solutions to Homework Questions</value>
-  </data>
-  <data name="learn_upload_section_subTitle" xml:space="preserve">
-    <value>Class Notes, Study Guides, Exams Preparations</value>
+    <value>עובדים להגשה ותקועים בשאלה קשה?</value>
   </data>
   <data name="learn_upload_section_title" xml:space="preserve">
-    <value>Find Class Specific Documents</value>
+    <value>פספסת שיעור ואין לך סיכום טוב?</value>
   </data>
   <data name="placeholder_subjects" xml:space="preserve">
-    <value>Find a subject you’r good at</value>
+    <value>בחר נושא</value>
   </data>
   <data name="placeholder_uni" xml:space="preserve">
-    <value>What is your school?</value>
+    <value>בחר מוסד אקדמי </value>
   </data>
   <data name="sign_up" xml:space="preserve">
-    <value>SIGN UP</value>
+    <value>הרשמה</value>
   </data>
   <data name="spitball_student_title" xml:space="preserve">
-    <value>Students Talk about Spitball</value>
+    <value>הסטודנטים של קהילת ספיטבול מדברים עלינו</value>
   </data>
   <data name="stats_answers" xml:space="preserve">
-    <value>Total Answers</value>
+    <value>סך כל התשובות</value>
   </data>
   <data name="stats_money" xml:space="preserve">
-    <value>Money Earned</value>
+    <value>סך הרווחים של חברי הקהילה</value>
   </data>
   <data name="stats_sbls" xml:space="preserve">
-    <value>SBL Token Traded</value>
+    <value>נקודות זיכוי שמומשו</value>
   </data>
   <data name="stats_users" xml:space="preserve">
-    <value>Happy Students</value>
+    <value>סטודנטים מרוצים</value>
+  </data>
+  <data name="upload_section_subTitle" xml:space="preserve">
+    <value>אז זהו, שיש. עכשיו צריך רק למצוא אותו!</value>
   </data>
   <data name="what_is_spitball" xml:space="preserve">
-    <value>What is Spitball?</value>
+    <value>מה זה בעצם ספיטבול?</value>
   </data>
   <data name="what_is_spitball_desc" xml:space="preserve">
-    <value>Spitball is an online marketplace where students acquire knowledge and earn from helping others. Our platform allows students to ask and answer homework problems, share study documents and buy books. On spitball students get the right incentives to learn and earn and help each other.</value>
+    <value>ספיטבול היא פלטפורמה אינטרנטית המאגדת בתוכה קהילת המורכבת הן מסטודנטים והן מבוגרי מוסדות אקדמיים שנמצאים בה כדי לסייע ולהסתייע – אבל גם ליהנות מתגמול.
+הפלטפורמה שלנו מאפשרת לסטודנטים לשאול או לענות על שאלות ובעיות המתגלות בשעת הכנת שיעורי בית, עבודות להגשה או הכנה לבחינות הסמסטר, לחלוק מסמכים וקבצים ולרכוש ספרים משומשים.
+אצלנו – כולם מרוויחים: הסטודנטים שזקוקים לסיוע אקדמי זוכים למענה מהיר, אמין ובעל ידע וקהילת המסייעים צוברת נקודות (SBL) למימוש  ב-buyme.co.il.</value>
   </data>
 </root>

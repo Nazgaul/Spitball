@@ -32,6 +32,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
+using Cloudents.Search.Document;
 using DocumentType = Cloudents.Common.Enum.DocumentType;
 
 namespace ConsoleApp
@@ -106,11 +107,12 @@ namespace ConsoleApp
            // var bus = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
            // await bus.CreateOrUpdateAsync(token);
 
-            var t = _container.Resolve<IDocumentsSearch>();
-            var z = await t.SearchAsync(new DocumentQuery(null, new UserProfile()
-            {
-                Country = "IL"
-            }, null, 0, null), token);
+            var t = _container.Resolve<AzureDocumentSearch>();
+            var z = await t.ItemAsync(6746, default);
+            //var z = await t.SearchAsync(new DocumentQuery(null, new UserProfile()
+            //{
+            //    Country = "IL"
+            //}, null, 0, null), token);
 
             //var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
             //    10, 638, null, QuestionColor.Default);

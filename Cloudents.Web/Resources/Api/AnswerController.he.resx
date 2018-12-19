@@ -120,8 +120,14 @@
   <data name="Answer does not exists" xml:space="preserve">
     <value>תשובה אינה קיימת</value>
   </data>
+  <data name="CreatePending" xml:space="preserve">
+    <value>התשובה שלך ממתינה לאישור, נא לא לשלוח תשובה זו שוב</value>
+  </data>
   <data name="DuplicateAnswer" xml:space="preserve">
     <value>קיימת כבר תשובה כזו לשאלה</value>
+  </data>
+  <data name="More then one answer" xml:space="preserve">
+    <value>הכנסת כבר תשובה לשאלה זו</value>
   </data>
   <data name="QuestionNotExists" xml:space="preserve">
     <value>שאלה אינה קיימת</value>
@@ -130,12 +136,6 @@
     <value>לשאלה זו יש תשובה נכונה</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>אתה לא יכול להצביע</value>
-  </data>
-  <data name="VoteNotEnoughScore" xml:space="preserve">
-    <value>אין לך מספיק נקודות</value>
-  </data>
-  <data name="You exceed your quota of answers" xml:space="preserve">
-    <value>כבר ענית 3 תשובות לשאלות אחרות. חכה עד שאחת מהן תתקבל או מחק אחת מהתשובות הקודמות שלך בשביל לענות על שאלה זו.</value>
+    <value>לא ניתן להצביע בעד / נגד התשובה שלך</value>
   </data>
 </root>

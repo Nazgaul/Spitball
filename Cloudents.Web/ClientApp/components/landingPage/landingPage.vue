@@ -34,7 +34,7 @@
             </div>
             <div class="right-part overlap-above">
                 <div class="background-white-boxed">
-
+                    <div class="gif-container-question" :class="{'learn': dictionaryType === 'learn'}"></div>
                 </div>
             </div>
             <div class="left-part gradient-background">
@@ -79,7 +79,7 @@
                     </v-combobox>
                     <div class="dummy-input" @click="showMobileSubjectInput()" v-else>
                         <v-icon class="dummy-icon">sbf-search</v-icon>
-                        <span class="dummy-placeholder">some text</span>
+                        <span class="dummy-placeholder">{{subjectsPlaceholder}}</span>
                     </div>
                 </div>
                 <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
@@ -92,13 +92,13 @@
                 <div class="spacer-two" v-if="$vuetify.breakpoint.smAndUp"></div>
                 <div class="title-wrap">
                     <h3 class="intro-two-title" v-html="$Ph(`landingPage_${dictionaryType}_upload_section_title`)"></h3>
-                    <span class="intro-two-sub-title" v-language:inner>landingPage_upload_section_subTitle</span>
+                    <span class="intro-two-sub-title" v-html="$Ph(`landingPage_${dictionaryType}_upload_section_subTitle`)"></span>
                 </div>
 
             </div>
             <div class="left-part overlap-above">
                 <div class="background-white-boxed ">
-
+                    <div class="gif-container-document" :class="{'learn': dictionaryType === 'learn'}"></div>
                 </div>
             </div>
             <div class="right-part gradient-background">
@@ -139,7 +139,7 @@
                     </v-combobox>
                     <div class="dummy-input" @click="showMobileUniInput()" v-else>
                         <v-icon class="dummy-icon">sbf-search</v-icon>
-                        <span class="dummy-placeholder">text some</span>
+                        <span class="dummy-placeholder">{{schoolNamePlaceholder}}</span>
                     </div>
                 </div>
                 <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
@@ -174,14 +174,16 @@
                 <v-carousel
                         height=""
                         hide-delimiters
-                        :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-left-carousel left'"
-                        :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right-carousel right'"
+                        :prev-icon="isRtl ? 'sbf-arrow-right-carousel right' : 'sbf-arrow-left-carousel left'"
+                        :next-icon="isRtl ?  'sbf-arrow-left-carousel left': 'sbf-arrow-right-carousel right'"
                         :cycle="false"
                         :max="'250'">
                     <v-carousel-item v-for="(items,i) in formattedReviews"  :key="`desktop-${i}`" v-if="!$vuetify.breakpoint.xsOnly">
                         <template v-for="(data, index) in items">
                             <div :key="`innerData_${index}`" class="review-item-wrap">
-                                <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
+                                <div class="review-image-wrap">
+                                    <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
+                                </div>
                                 <span class="review-name">{{data.name}}</span>
                                 <span class="review-title">{{data.title}}</span>
                                 <span class="review-text">{{data.text}}</span>
@@ -241,10 +243,10 @@
                         class="input-subject"
                         v-model="selectedSubject"
                         :items="subjectList"
-                        :label="''"
+                        :label="subjectsPlaceholder"
                         :item-text="'subject'"
                         :item-value="'id'"
-                        :placeholder="'some placeholder'"
+                        :placeholder="subjectsPlaceholder"
                         clearable
                         solo
                         return-object

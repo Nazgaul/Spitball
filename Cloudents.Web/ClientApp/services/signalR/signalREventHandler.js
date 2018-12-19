@@ -74,7 +74,7 @@ export const signlaREvents = {
         },
         action: function(arrEventObj){
             let userActions = {
-                Logout: function(data){
+                logout: function(data){
                     store.dispatch("logout", data)
                 }
             };  
@@ -102,5 +102,38 @@ export const signlaREvents = {
                 store.dispatch("updateNotification", notificationToUpdate)
             })
         },
+    },
+    system: {
+        action: function(arrEventObj){
+            let systemActions = {
+                toaster: function(data){
+                    let serverData = {
+                        text: data.text,
+                        timeout: data.timeout || 5000
+                    }
+                    let toasterConfig= {
+                        toasterText: serverData.text,
+                        showToaster: true,
+                    };
+                    store.dispatch('updateToasterParams', toasterConfig);
+                    setTimeout(()=>{
+                        store.dispatch('updateToasterParams', {
+                            showToaster: false
+                        });
+                    }, serverData.timeout)
+                    
+                }
+            }; 
+
+
+            arrEventObj.forEach((action)=>{
+                if(!systemActions[action.type]){
+                    console.error(`Action type ${action.type} was not defined in User userActions`)
+                }
+                systemActions[action.type](action.data)
+            }) 
+
+
+        }
     }
 };

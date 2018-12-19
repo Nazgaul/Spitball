@@ -2,6 +2,7 @@
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Domain.Entities;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -18,7 +19,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Domain.Entities;
 
 namespace Cloudents.Web.Api
 {
@@ -49,7 +49,10 @@ namespace Cloudents.Web.Api
         [HttpGet]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<UserAccountDto>> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
+        public async Task<ActionResult<UserAccountDto>> GetAsync(
+            [FromServices] IQueryBus queryBus,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserDataByIdQuery(userId);
@@ -57,10 +60,17 @@ namespace Cloudents.Web.Api
             var talkJs = GetToken();
 
             var user = await taskUser.ConfigureAwait(false);
+
             if (user == null)
             {
                 await _signInManager.SignOutAsync().ConfigureAwait(false);
                 return Unauthorized();
+            }
+
+            if (user.Score != score)
+            {
+                var regularUser = await _userManager.GetUserAsync(User);
+                await _signInManager.RefreshSignInAsync(regularUser);
             }
             user.Token = talkJs;
             return user;

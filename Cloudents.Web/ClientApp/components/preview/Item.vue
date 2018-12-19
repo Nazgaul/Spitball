@@ -47,9 +47,7 @@
             }
         },
         props: {
-            id: {
-                type: String
-            }
+            id: 0
         },
 
         methods: {

@@ -121,10 +121,10 @@ export default {
                             self.requestNewQuestionDialogClose(false);
                             self.$router.push({path: '/ask', query: {term: ''}});
                             self.updateLoading(false);
-                            self.updateToasterParams({
-                                toasterText: response.data.toasterText, // LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
-                                showToaster: true,
-                            });
+                            // self.updateToasterParams({
+                            //     toasterText: response.data.toasterText, // LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
+                            //     showToaster: true,
+                            // });
                             self.submitForm(false);
                         },
                         function (error) {
