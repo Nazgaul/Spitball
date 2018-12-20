@@ -1,15 +1,18 @@
 <template>
   <div id="template-app">
+      <div class="nav-container">
         <nav id="nav">
-            <router-link to="/home">Home</router-link> 
-            <router-link to="/question">Question</router-link>
-            <router-link to="/user">User</router-link>
-            <router-link to="/document">Document</router-link>
-            <router-link to="/dev">Dev Only</router-link>
+          <router-link to="/home">Home</router-link>
+          <router-link to="/question">Question</router-link>
+          <router-link to="/answer">Answer</router-link>
+          <router-link to="/user">User</router-link>
+          <router-link to="/document">Document</router-link>
+          <router-link to="/dev">Dev Only</router-link>
         </nav>
-        <div id="app-body">
-            <router-view/>
-        </div>
+      </div>
+      <div id="app-body">
+          <router-view/>
+      </div>
     </div>
 </template>
 
@@ -33,6 +36,11 @@ export default {
         color: rgba(0,0,0,0.87);
         display: flex;
         height:100%;
+        display:flex;
+        justify-content: space-between;
+        .nav-container{
+            min-width: 200px;
+        }
     }
 
     #nav {

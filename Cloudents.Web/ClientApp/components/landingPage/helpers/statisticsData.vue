@@ -55,6 +55,9 @@
     @import "../../../styles/mixin.less";
 
     .stats-wrap {
+        align-items: center;
+        justify-content: center;
+        display: flex;
         width: 115%;
         padding: 26px 100px;
         @media (max-width: @screen-mds) {
@@ -65,6 +68,7 @@
     .stats-container {
         flex-direction: row;
         flex-wrap: nowrap;
+        max-width: 1260px;
         @media (max-width: @screen-mds) {
             /*flex-wrap: wrap;*/
         }
