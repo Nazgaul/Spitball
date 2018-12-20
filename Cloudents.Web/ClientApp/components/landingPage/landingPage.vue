@@ -19,7 +19,7 @@
                     <router-link :to="{path: '/register'}" class="cta-button" v-language:inner>
                         landingPage_join_spitball
                     </router-link>
-                    <a class="video-link" @click.prevent="updateVideoId('6lt2JfJdGSY')">
+                    <a class="video-link" @click.prevent="updateVideoId(SpitballVideoId)">
                         <v-icon class="play-icon">sbf-play</v-icon>
                         <span v-language:inner>landingPage_how_it_works</span></a>
                 </div>
@@ -241,7 +241,7 @@
                    :showDialog="playerVisible" :popUpType="'videoPlayer'"
                    :content-class="'videoPlayerDialog'">
             <youtube
-                    :video-id="youTubeVideoId"
+                    :video-id="youTubeVideoId" :player-width="playerWidth" :player-height="playerHeight"
                     :player-vars="{autoplay: 1}" @ready="readyPlayer">
 
             </youtube>
