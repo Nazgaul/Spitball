@@ -8,6 +8,7 @@
             <v-tab to="/question/addBulk">Add Multiple Questions</v-tab>
             <v-tab to="/question/pendingQuestions">Pending Questions</v-tab>
             <v-tab to="/question/acceptQuestion">Accept pending Question</v-tab>
+            <v-tab to="/question/flaggedQuestions">Flagged Question</v-tab>
         </v-tabs>
         <div class="question-content">
             <router-view></router-view>

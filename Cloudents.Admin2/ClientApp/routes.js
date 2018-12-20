@@ -7,6 +7,7 @@ import QAdd from './components/question/questionComponents/add/addQuestion.vue'
 import QAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue'
 import QAccept from './components/question/questionComponents/accept/acceptQuestion.vue'
 import QPending from './components/question/questionComponents/pendingQuestions/pendingQuestions.vue'
+import QFlagged from './components/question/questionComponents/flaggedQuestions/flaggedQuestions.vue'
 
 import Answer from './components/answer/answer.vue'
 import ADelete from './components/answer/answerComponents/delete/deleteAnswer.vue'
@@ -21,6 +22,7 @@ import USuspend from './components/user/suspend/suspendUser.vue'
 import Document from './components/document/document.vue'
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue'
 import documentDelete from './components/document/documentComponents/documentDelete/documentDelete.vue'
+import flaggedDocument from './components/document/documentComponents/flaggedDocument/flaggedDocument.vue'
 
 import Dev from './components/dev/dev.vue'
 import UChangeCountry from './components/dev/changeCountry/changeCountry.vue'
@@ -68,6 +70,10 @@ export const routes = [
           {
             path:'pendingQuestions',
             component: QPending
+          },
+          {
+            path:'flaggedQuestions',
+            component: QFlagged
           },
           {
             path: '*',
@@ -149,6 +155,10 @@ export const routes = [
             {
                 path:'documentDelete',
                 component: documentDelete
+            },
+            {
+                path:'flaggedDocument',
+                component: flaggedDocument
             },
             {
                 path: '*',
