@@ -88,7 +88,7 @@ namespace Cloudents.Admin2
 
             //containerBuilder.RegisterSystemModules(
             //    Application.Enum.System.Admin, assembliesOfProgram);
-            containerBuilder.RegisterAssemblyTypes(assembliesOfProgram);
+            containerBuilder.RegisterAssemblyModules(assembliesOfProgram);
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

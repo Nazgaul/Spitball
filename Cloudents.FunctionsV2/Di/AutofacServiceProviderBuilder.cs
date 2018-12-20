@@ -56,10 +56,13 @@ namespace Cloudents.FunctionsV2.Di
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
-            builder.RegisterAssemblyTypes(Assembly.Load("Cloudents.Infrastructure.Storage"),
+            builder.RegisterAssemblyModules(
+                Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
-                Assembly.Load("Cloudents.Persistance"),
-                Assembly.Load("Cloudents.Core"));
+                Assembly.Load("Cloudents.Persistance"));
+                //Assembly.Load("Cloudents.Query"),
+                //Assembly.Load("Cloudents.Command"),
+                //Assembly.Load("Cloudents.Core"));
             //builder.RegisterSystemModules(
             //    Application.Enum.System.Function,
             //    Assembly.Load("Cloudents.Infrastructure.Storage"),
