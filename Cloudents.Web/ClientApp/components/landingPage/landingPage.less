@@ -8,6 +8,7 @@
 .subjects-combo-pop, .uni-combo-pop {
   padding-top: 36px;
   position: relative;
+
   .combo-wrap {
     padding: 46px 12px;
     width: 100%;
@@ -29,13 +30,13 @@
 
 .spacer-one {
   display: flex;
-  width: 40%;
+  width: 35%;
   order: 2;
 }
 
 .spacer-two {
   display: flex;
-  width: 40%;
+  width: 35%;
   order: 1;
 }
 
@@ -161,8 +162,10 @@ section {
     min-height: 190px;
     .hero-title {
       font-size: 56px;
+      letter-spacing: 2.2px;
       color: @color-white;
       font-family: @fontPatua;
+      font-weight: normal;
       margin-bottom: 15px;
       @media (max-width: @screen-mds) {
         text-shadow: 0 2px 25px rgba(0, 0, 0, 0.86);
@@ -196,7 +199,7 @@ section {
     background-color: #ffdf54;
     font-family: @fontFiraSans;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
     text-align: center;
     color: @textColor;
   }
@@ -351,7 +354,7 @@ section {
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: row;
-    margin-bottom: 34px;
+    margin-bottom: 70px;
     @media (max-width: @screen-mds) {
       padding-top: 34px;
     }
@@ -430,7 +433,7 @@ section {
     }
   }
   .input-holder {
-    padding-top: 64px;
+    padding-top: 78px;
     width: 100%;
     max-width: 576px;
     @media (max-width: @screen-mds) {
@@ -452,7 +455,7 @@ section {
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: row;
-    margin-bottom: 34px;
+    margin-bottom: 70px;
     @media (max-width: @screen-mds) {
       padding-top: 34px;
     }
@@ -528,7 +531,7 @@ section {
     }
   }
   .input-holder {
-    padding-top: 64px;
+    padding-top: 78px;
     width: 60%;
     max-width: 576px;
     @media (max-width: @screen-mds) {
@@ -536,6 +539,7 @@ section {
       width: 100%;
       .input-subject {
         .input-field {
+          .placeholder-color(@color-black)!important;
           background-color: @color-white;
         }
       }
@@ -606,11 +610,12 @@ section {
               justify-content: center;
               height: 180px;
               min-width: 306px;
-              background-color: fade(@color-white, 87%);
+              background-color: @color-white;
               border-radius: 4px 4px 0 0;
+              box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
               .review-image {
                 border-radius: 4px;
-                box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31);
+
               }
             }
             .review-name {
@@ -637,10 +642,11 @@ section {
               font-size: 14px;
               font-family: @fontOpenSans;
               color: @textColor;
+              font-weight: 600;
 
             }
             .review-text {
-              font-size: 20px;
+              font-size: 18px;
               font-weight: normal;
               font-style: italic;
               font-family: @fontOpenSans;
