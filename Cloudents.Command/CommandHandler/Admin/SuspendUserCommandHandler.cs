@@ -9,16 +9,13 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class SuspendUserCommandHandler : ICommandHandler<SuspendUserCommand>
     {
         private readonly IRegularUserRepository _userRepository;
-        //private readonly ILifetimeScope _lifetimeScope;
         private readonly IEventStore _eventStore;
 
 
         public SuspendUserCommandHandler(IRegularUserRepository userRepository,
-            //ILifetimeScope lifetimeScope,
             IEventStore eventStore)
         {
             _userRepository = userRepository;
-            //_lifetimeScope = lifetimeScope;
             _eventStore = eventStore;
         }
 

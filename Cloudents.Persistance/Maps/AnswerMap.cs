@@ -33,7 +33,7 @@ namespace Cloudents.Persistance.Maps
                 .LazyLoad()
                 .Inverse();
 
-            SchemaAction.Update();
+            SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");
         }
 

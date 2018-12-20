@@ -13,9 +13,6 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure.Stuff
 {
-    [ModuleRegistration(Core.Enum.System.Admin, Order = 2)]
-    [ModuleRegistration(Core.Enum.System.Function, Order = 2)]
-    //[ModuleRegistration(Enum.System.Console, Order = 2)]
     [UsedImplicitly]
     public class ModuleAdmin : Module
     {

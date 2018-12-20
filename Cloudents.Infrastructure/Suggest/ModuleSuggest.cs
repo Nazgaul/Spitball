@@ -8,9 +8,6 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Suggest
 {
-    [ModuleRegistration(Core.Enum.System.Console)]
-    //[ModuleRegistration(Core.Enum.System.Api)]
-    [ModuleRegistration(Core.Enum.System.Web)]
     [UsedImplicitly]
     public class ModuleSuggest : Module
     {

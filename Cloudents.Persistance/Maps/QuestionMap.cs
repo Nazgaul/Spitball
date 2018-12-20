@@ -46,11 +46,11 @@ namespace Cloudents.Persistance.Maps
                 .LazyLoad()
                 .Inverse();
 
-            SchemaAction.Update();
+            SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
         }
 
-        public static void ItemComponentPartialMapping(ComponentPart<ItemComponent> t)
+        internal static void ItemComponentPartialMapping(ComponentPart<ItemComponent> t)
         {
             t.Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             t.Map(m => m.DeletedOn).Nullable();

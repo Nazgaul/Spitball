@@ -21,9 +21,6 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
-    [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.Web)]
-    [ModuleRegistration(Core.Enum.System.Admin)]
     [UsedImplicitly]
     public sealed class ModuleRead : Module
     {

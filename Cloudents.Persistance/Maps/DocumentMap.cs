@@ -41,7 +41,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.OldId).Nullable();
             Map(x => x.MetaContent).Nullable();
             
-            SchemaAction.Update();
+            SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");
         }
     }

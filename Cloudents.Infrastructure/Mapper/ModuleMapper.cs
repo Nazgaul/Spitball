@@ -7,8 +7,6 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure.Mapper
 {
-    [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.WorkerRole)]
     [UsedImplicitly]
     public class ModuleMapper : Module
     {

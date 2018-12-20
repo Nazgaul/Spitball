@@ -33,10 +33,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             {
                 return;
             }
-            if (question.Item.State == ItemState.Deleted)
-            {
-                return;
-            }
+            
 
             if (!(question.User is RegularUser user))
             {
@@ -47,13 +44,15 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         internal async Task DeleteQuestionAsync(Question question,RegularUser user, CancellationToken token)
         {
+            if (question.Item.State == ItemState.Deleted)
+            {
+                return;
+            }
             foreach (var transaction in question.Transactions)
             {
                 await _transactionRepository.DeleteAsync(transaction, token);
             }
-
             _eventStore.Add(new QuestionDeletedAdminEvent(question, user));
-            //question.Events.Add(new QuestionRejectEvent(user));
             await _questionRepository.DeleteAsync(question, token);
         }
     }
