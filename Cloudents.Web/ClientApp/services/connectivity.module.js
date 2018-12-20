@@ -115,6 +115,9 @@ export const connectivityModule = {
             return connection;
         },
         reconnect: function (connection) {
+            connection.connection.stopConnection().then(()=>{
+                connection.start();
+            });
             //connection.start();
         },
         on: function (connection, message, callback) {
