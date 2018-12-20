@@ -132,26 +132,30 @@
 .user-question-style(@names, @colors, @fontColors, @length );
 //end function
 
-.placeholder-color(@color, @opacity:1 ) {
+.placeholder-color(@color, @opacity:1, @fontWeight: 300 ) {
 
   &::-webkit-input-placeholder {
     color: @color !important;
     opacity: @opacity!important;
+    font-weight: @fontWeight!important;
   }
 
   &::-moz-placeholder {
     color: @color !important;
     opacity: @opacity!important;
+    font-weight: @fontWeight!important;
   }
 
   &:-ms-input-placeholder {
     color: @color !important;
     opacity: @opacity!important;
+    font-weight: @fontWeight!important;
   }
 
   &:-moz-placeholder {
     color: @color !important;
     opacity: @opacity!important;
+    font-weight: @fontWeight!important;
   }
 }
 
