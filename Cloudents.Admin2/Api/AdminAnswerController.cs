@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
+using Cloudents.Admin2.Models;
 using Cloudents.Application.Command.Admin;
 using Cloudents.Application.DTOs.Admin;
 using Cloudents.Application.Interfaces;
@@ -36,10 +37,10 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("approve")]
-        public async Task<ActionResult> ApproveAnswerAsync([FromQuery(Name = "id")] Guid id, CancellationToken token)
+        public async Task<ActionResult> ApproveAnswerAsync([FromBody] ApproveAnswerRequest model, CancellationToken token)
         {
          
-            var command = new ApproveAnswerCommand(id);
+            var command = new ApproveAnswerCommand(model.id);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
@@ -71,9 +72,9 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("unFlag")]
-        public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] Guid id, CancellationToken token)
+        public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagAnswerRequest model, CancellationToken token)
         {
-            var command = new UnFlagAnswerCommand(id);
+            var command = new UnFlagAnswerCommand(model.id);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }

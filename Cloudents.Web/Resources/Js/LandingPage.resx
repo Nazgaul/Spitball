@@ -124,19 +124,22 @@
     <value>Earn From Helping Students</value>
   </data>
   <data name="earn_question_section_subTitle" xml:space="preserve">
-    <value>Cash out your SBL into amazon gift cards</value>
+    <value>Earn SBL And Exchange Them To Gift Cards</value>
   </data>
   <data name="earn_question_section_title" xml:space="preserve">
-    <value>Answer Questions, Earn SBL</value>
+    <value>Answer Homework Questions, Get Gift Cards</value>
+  </data>
+  <data name="earn_upload_section_subTitle" xml:space="preserve">
+    <value>Upload Class Notes, Study Guides and Exams Preparations now!</value>
   </data>
   <data name="earn_upload_section_title" xml:space="preserve">
-    <value>Share your knowledge, Upload study docs</value>
+    <value>Your study documents have real value</value>
   </data>
   <data name="find_by_subject" xml:space="preserve">
     <value>Find Homework Help By Subject</value>
   </data>
   <data name="find_by_subject_desc" xml:space="preserve">
-    <value>Just pick a subject, and we'll find the right tutor for you</value>
+    <value>Just pick a subject, and find relevant questions for you</value>
   </data>
   <data name="footer_about" xml:space="preserve">
     <value>About Spitball</value>
@@ -234,6 +237,9 @@
   <data name="learn_question_section_title" xml:space="preserve">
     <value>Get Solutions to Homework Questions</value>
   </data>
+  <data name="learn_upload_section_subTitle" xml:space="preserve">
+    <value>Download Class Notes, Study Guides And Exam Preparations</value>
+  </data>
   <data name="learn_upload_section_title" xml:space="preserve">
     <value>Find Class Specific Documents</value>
   </data>
@@ -268,6 +274,6 @@
     <value>What is Spitball?</value>
   </data>
   <data name="what_is_spitball_desc" xml:space="preserve">
-    <value>Spitball is an online marketplace where students acquire knowledge and earn from helping others. Our platform allows students to ask and answer homework problems, share study documents and buy books. On spitball students get the right incentives to learn and earn and help each other.</value>
+    <value>Spitball is The First Online Marketplace where students acquire knowledge while earning from helping each other succeed in school. Our platform allows students to ask and answer homework questions, share study documents, buy books and so much more. On Spitball, students learn and earn while helping each other</value>
   </data>
 </root>

@@ -75,6 +75,7 @@ export default {
         },
         // button disabled for each step and enabled once everything filled
         isDisabled() {
+            debugger;
             if (this.currentStep === 2 && !this.getFileData.course) {
                 return true
             }
@@ -90,11 +91,11 @@ export default {
             // else if (this.currentStep === 6 && !this.getFileData.price) {
             //     return true
             // }
-            else if (this.currentStep === 6 && !this.getLegal) {
-                return true
+            else if (this.currentStep === 6 /*&& !this.getLegal*/) {
+                return false
             }
-            else if (this.currentStep === 7 && !this.getLegal) {
-                return true
+            else if (this.currentStep === 7/* && !this.getLegal*/) {
+                return false
             } else {
                 return false
             }

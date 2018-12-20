@@ -19,8 +19,11 @@ namespace Cloudents.Application.CommandHandler.Admin
         }
         public async Task ExecuteAsync(UnFlagDocumentCommand message, CancellationToken token)
         {
-          
-            var document = await _documentRepository.LoadAsync(message.DocumentId, token);
+            foreach (var id in message.DocumentIds)
+            {
+
+            
+            var document = await _documentRepository.LoadAsync(id, token);
             document.Item.State = ItemState.Ok;
                
             if (document.Item.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
@@ -35,7 +38,7 @@ namespace Cloudents.Application.CommandHandler.Admin
             document.Item.VoteCount = document.Item.Votes.Count;
 
             await _documentRepository.UpdateAsync(document, token);
-
+            }
         }
     }
 }

@@ -115,7 +115,7 @@
     @import "../../../styles/mixin.less";
 
     @footerLinksColor: rgba(255, 255, 255, 0.87);
-    @footerBackground: rgba(3, 4, 21, 0.72);
+    @footerBackground: #29313F;
     .footer {
         display: flex;
         flex-direction: column;
@@ -138,6 +138,9 @@
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: center;
+                @media (max-width: @screen-xs) {
+                   flex-direction: column;
+                }
             }
             &.social-card {
                 display: flex;
@@ -146,7 +149,8 @@
                 justify-content: space-around;
                 height: 80px;
                 border-top: 1px solid #979797;
-                border-bottom: 1px solid #979797;;
+                border-bottom: 1px solid #979797;
+                margin: 48px 0;
                 .social-link {
                     width: 50px;
                     margin-right: 46px;
@@ -165,7 +169,7 @@
             flex-basis: 36%;
             align-items: center;
             justify-content: center;
-            padding: 16px;
+            padding: 16px 16px 8px 16px;
             a {
                 display: inline-block;
                 text-align: left;
@@ -173,6 +177,10 @@
                 font-size: 13px;
                 color: @footerLinksColor;
                 text-decoration: none;
+                @media (max-width: @screen-xs) {
+                   width: 100%;
+                    text-align: center;
+                }
                 &:hover {
                     color: fade(@footerLinksColor, 100%);
                 }

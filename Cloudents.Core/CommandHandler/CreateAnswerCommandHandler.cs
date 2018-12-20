@@ -69,20 +69,27 @@ namespace Cloudents.Application.CommandHandler
             //        throw new QuotaExceededException();
             //    }
             //}
-
+            var answers = question.Answers;
+            if (answers.Any(a => a.User.Id == user.Id && a.Item.State != ItemState.Deleted))
+            {
+                throw new MoreThenOneAnswerException();
+            }
             //TODO:
             //we can check if we can create sql query to check answer with regular expression
             //and we can create sql to check if its not the same user
             var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
             var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
-            if (question.Answers != null)
-                foreach (var answer in question.Answers)
+            if (answers != null)
+                foreach (var answer in answers.Where(w=> 
+                    w.Item.State == ItemState.Ok
+
+                    ))
                 {
-                    if (answer.User.Id == user.Id)
-                    {
-                        throw new MoreThenOneAnswerException();
-                        //throw new InvalidOperationException("user cannot give more then one answer");
-                    }
+                    //if (answer.User.Id == user.Id)
+                    //{
+                    //    throw new MoreThenOneAnswerException();
+                    //    //throw new InvalidOperationException("user cannot give more then one answer");
+                    //}
                     var check = Regex.Replace(answer.Text, regex.ToString(), "");
                     if (nakedString == check)
                     {

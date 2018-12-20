@@ -77,11 +77,11 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("approve")]
-        public async Task<ActionResult> ApproveQuestionAsync([FromQuery(Name = "id")]IEnumerable<long> ids, CancellationToken token)
+        public async Task<ActionResult> ApproveQuestionAsync([FromBody] ApproveQuestionRequest model, CancellationToken token)
         {
          
 
-            var command = new ApproveQuestionCommand(ids);
+            var command = new ApproveQuestionCommand(model.id);
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
           
             return Ok();
@@ -141,9 +141,9 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("unFlag")]
-        public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] long id, CancellationToken token)
+        public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagQuestionRequest model, CancellationToken token)
         {
-            var command = new UnFlagQuestionCommand(id);
+            var command = new UnFlagQuestionCommand(model.id);
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }

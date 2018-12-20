@@ -63,13 +63,14 @@
         </div>
         <div class="upload-row-4 final-row">
             <div class="legal-wrap">
-                <v-checkbox class="legal-ownership"
+                <span>{{CheckboxLabel}}</span>
+                <!--<v-checkbox class="legal-ownership"
                             :color="'#4452fc'"
                             off-icon="sbf-checkboxOff"
                             on-icon="sbf-checkboxActive"
                             :label="CheckboxLabel"
                             v-model="legalCheck"
-                            @change="updateLegal()"></v-checkbox>
+                            @change="updateLegal()"></v-checkbox>-->
 
             </div>
         </div>
