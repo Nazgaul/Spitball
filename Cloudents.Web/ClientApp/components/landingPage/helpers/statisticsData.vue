@@ -29,9 +29,7 @@
         name: "statisticsData",
         components: {tweenNumber},
         data() {
-            return {
-
-            };
+            return {};
         },
         computed: {
             isMobileView() {
@@ -88,6 +86,9 @@
                     font-size: 16px;
                     text-align: center;
                     color: @color-white;
+                    @media (max-width: @screen-xs) {
+                        font-size: 14px;
+                    }
                 }
                 .stat-text-data {
                     padding-bottom: 4px;
@@ -96,6 +97,10 @@
                     letter-spacing: 2.4px;
                     text-align: center;
                     color: @color-white;
+                    @media (max-width: @screen-xs) {
+                        font-size: 22px;
+                        padding: 4px 4px 12px 4px;
+                    }
                 }
             }
         }

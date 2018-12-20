@@ -138,6 +138,9 @@
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: center;
+                @media (max-width: @screen-xs) {
+                   flex-direction: column;
+                }
             }
             &.social-card {
                 display: flex;
@@ -174,6 +177,10 @@
                 font-size: 13px;
                 color: @footerLinksColor;
                 text-decoration: none;
+                @media (max-width: @screen-xs) {
+                   width: 100%;
+                    text-align: center;
+                }
                 &:hover {
                     color: fade(@footerLinksColor, 100%);
                 }

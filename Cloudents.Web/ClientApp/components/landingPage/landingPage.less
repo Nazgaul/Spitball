@@ -5,16 +5,15 @@
 @ctaSblColor: #3d5afe;
 @introSubTitleColor: rgba(0, 0, 0, 0.71);
 
-
 .input-holder {
   padding-top: 78px;
   width: 60%;
   max-width: 576px;
   //vuetify overwrite
-  .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) .v-input__slot{
+  .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) .v-input__slot {
     box-shadow: 0 3px 20px 0 rgba(255, 255, 255, 0.86), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
   }
-  input{
+  input {
     .placeholder-color(@textColor, 1, 600);
   }
   @media (max-width: @screen-mds) {
@@ -119,7 +118,6 @@ section {
   }
 }
 
-
 /*----------------
  	Parralax Section
 ----------------*/
@@ -150,15 +148,15 @@ section {
     height: 560px;
     margin-top: unset;
   }
-  .text-switch-container{
+  .text-switch-container {
     display: flex;
     width: 100%;
     margin-bottom: 23px;
     .yellow-text {
-        color: @color-yellow;
+      color: @color-yellow;
     }
     .white-text {
-        color: rgba(255, 255, 255, 0.45);
+      color: rgba(255, 255, 255, 0.45);
     }
     .lp-header-link {
       font-size: 13px;
@@ -178,6 +176,9 @@ section {
   .hero-text-container {
     height: 190px;
     min-height: 190px;
+    @media(max-width: @screen-xs){
+      height: 248px;
+    }
     .hero-title {
       font-size: 56px;
       letter-spacing: 2.2px;
@@ -220,6 +221,10 @@ section {
     font-weight: 600;
     text-align: center;
     color: @textColor;
+    @media (max-width: @screen-xs) {
+      padding: 12px 32px;
+      font-size: 16px;
+    }
   }
   .video-link {
     display: flex;
@@ -232,6 +237,10 @@ section {
     color: @colorWhiteBlured;
     margin-top: 52px;
     margin-bottom: 154px;
+    @media (max-width: @screen-xs) {
+      margin-top: 16px;
+      margin-bottom: unset;
+    }
     .play-icon {
       font-size: 26px;
       color: @color-white;
@@ -286,40 +295,40 @@ section {
       box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.39);
       height: 245px;
     }
-    .gif-container-question{
+    .gif-container-question {
       width: 100%;
       height: 100%;
-      background: url('./images/gif/earn_answer_question.gif') no-repeat center center; 
+      background: url('./images/gif/earn_answer_question.gif') no-repeat center center;
       background-size: cover;
       background-position-y: top;
       @media (max-width: @screen-xs) {
-        background: url('./images/gif/earn_answer_question.gif') no-repeat; 
+        background: url('./images/gif/earn_answer_question.gif') no-repeat;
         background-size: contain;
       }
-      &.learn{
-        background: url('./images/gif/learn_answer_question.gif') no-repeat center center; 
+      &.learn {
+        background: url('./images/gif/learn_answer_question.gif') no-repeat center center;
         background-position-y: top;
         @media (max-width: @screen-xs) {
           background: url('./images/gif/learn_answer_question.gif') no-repeat;
-          background-size: contain; 
+          background-size: contain;
         }
       }
     }
-    .gif-container-document{
+    .gif-container-document {
       width: 100%;
       height: 100%;
-      background: url('./images/gif/earn_upload.gif') no-repeat center center; 
+      background: url('./images/gif/earn_upload.gif') no-repeat center center;
       background-size: cover;
       background-position-y: top;
       @media (max-width: @screen-xs) {
-        background: url('./images/gif/earn_upload.gif') no-repeat; 
+        background: url('./images/gif/earn_upload.gif') no-repeat;
         background-size: contain;
       }
-      &.learn{
-        background: url('./images/gif/learn_upload.gif') no-repeat center center; 
+      &.learn {
+        background: url('./images/gif/learn_upload.gif') no-repeat center center;
         background-position-y: top;
         @media (max-width: @screen-xs) {
-          background: url('./images/gif/learn_upload.gif') no-repeat; 
+          background: url('./images/gif/learn_upload.gif') no-repeat;
           background-size: contain;
         }
       }
@@ -374,6 +383,9 @@ section {
     margin-bottom: 70px;
     @media (max-width: @screen-mds) {
       padding-top: 34px;
+    }
+    @media (max-width: @screen-xs) {
+      margin-bottom: 32px;
     }
     .title-wrap {
       order: 1;
@@ -565,19 +577,32 @@ section {
     .v-carousel {
       box-shadow: none;
     }
+    .v-carousel__next{
+      @media (max-width: @screen-xs) {
+        right: 10px;
+      }
+    }
+    .v-carousel__prev{
+      @media (max-width: @screen-xs) {
+        left: 10px;
+      }
+    }
     .v-carousel__prev, .v-carousel__next {
       //TODO carousel with only three data items
       display: none;
-
       top: 10%;
-      i{
-          font-size: 36px!important;
-          color: fade(@color-white, 38%);
-      }
       @media (max-width: @screen-xs) {
         top: 15%;
-
+        display: block;
       }
+      i {
+        font-size: 36px !important;
+        color: fade(@color-white, 38%);
+        @media (max-width: @screen-xs) {
+          font-size: 24px !important;
+        }
+      }
+
     }
     .v-window__container {
       display: flex;
@@ -597,7 +622,7 @@ section {
             align-items: center;
             margin-right: 120px;
             &:last-child {
-              margin-right: 0px;
+              margin-right: 0;
             }
             @media (max-width: @screen-xs) {
               &:first-child {
@@ -686,135 +711,144 @@ section.faq {
   @media (max-width: @screen-mds) {
     padding: 0 12px;
   }
+  @media (max-width: @screen-xs) {
+    padding: 32px 16px 90px 16px;
+  }
+
+  .faq-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .faq-title {
+      font-family: @fontPatua;
+      font-size: 28px;
+      font-weight: normal;
+      margin-bottom: 8px;
+      @media (max-width: @screen-xs) {
+        font-size: 20px;
+      }
+    }
+    .faq-text {
+      text-align: left;
+      font-size: 18px;
+      font-family: @fontOpenSans;
+      color: @textColor;
+      @media (max-width: @screen-xs) {
+        font-size: 16px;
+      }
+    }
+
+  }
+
+  .sb-rounded-btn {
+    .sb-rounded-btn(@ctaSblColor);
+    font-family: @fontFiraSans;
+    padding: 16px 90px;
+    margin-top: 96px;
+    font-size: 20px;
+    border-radius: 56.5px;
+    box-shadow: 0 3px 8px 0 rgba(31, 44, 197, 0.66);
     @media (max-width: @screen-xs) {
-      padding: 0 12px 90px 12px;
+      margin-top: 32px;
     }
-
-    .faq-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      .faq-title {
-        font-family: @fontPatua;
-        font-size: 28px;
-        font-weight: normal;
-        margin-bottom: 8px;
-
-      }
-      .faq-text {
-        text-align: left;
-        font-size: 18px;
-        font-family: @fontOpenSans;
-        color: @textColor;
-      }
-
-    }
-
-    .sb-rounded-btn {
-      .sb-rounded-btn(@ctaSblColor);
-      font-family: @fontFiraSans;
-      padding: 16px 90px;
-      margin-top: 96px;
-      font-size: 20px;
-      border-radius: 56.5px;
-      box-shadow: 0 3px 8px 0 rgba(31, 44, 197, 0.66);
-    }
+  }
 
 }
-  /*---------------------
-       Contact Section
-  ---------------------*/
-  .join {
-    background-image: url("./images/home_page_join_background.jpg");
-    background-size: cover;
-    .join-title {
-      font-family: @fontPatua;
-      font-size: 50px;
-      font-weight: normal;
-      color: @color-white;
-      @media (max-width: @screen-mds) {
-        font-size: 32px;
-      }
-    }
-    .join-cta {
-      .sb-rounded-btn(@ctaSblColor);
-      font-family: @fontFiraSans;
-      padding: 18px 90px;
-      margin-top: 44px;
-      font-size: 20px;
-      border-radius: 56.5px;
-      box-shadow: 0 7px 15px 0 #1f2cc5;
-    }
-  }
-  /*---------------------
-       Video Preview
-  ---------------------*/
-   .videoPlayerDialog {
-      box-shadow: none;
-    }
-  
 
-  /*---------------------
-       Subjects Section Section
-  ---------------------*/
-  .subjects {
-    background-image: linear-gradient(95deg, #4b8ffe, #4b8ffe 34%, #4452fc);
-    .layout-subject {
-      padding-top: 78px;
-      width: 80%;
-      @media(max-width: @screen-sm-960){
-        max-width: 100%;
-      }
-      .subject-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding-left: 16px;
-        height: 36px;
-        &:hover {
-          .subject-card {
-            min-width: 202px;
-            .subject-text {
-              cursor: pointer;
-              color: fade(@color-white, 90%);
-            }
-          }
-        }
-        .subject-card {
-          background-color: transparent;
-          box-shadow: none;
-          font-weight: normal;
-          font-family: @fontOpenSans;
-          text-align: left;
-          position: static;
-          min-width: 200px;
-          .subject-text {
-            font-size: 16px;
-            color: @color-white;
-            display: block;
-            margin: 0 auto;
-            width: 100%;
-            @media (max-width: @screen-mds) {
-              width: 100%;
-            }
-          }
-        }
-      }
-    }
-    .subject-title {
-      font-family: @fontPatua;
-      font-size: 38px;
-      font-weight: normal;
-      color: fade(@color-white, 87%);
-      line-height: 1;
-      margin-bottom: 20px;
-    }
-    .subject-sub-title {
-      font-size: 20px;
-      font-family: @fontOpenSans;
-      font-weight: normal;
-      color: @color-white;
+/*---------------------
+     Contact Section
+---------------------*/
+.join {
+  background-image: url("./images/home_page_join_background.jpg");
+  background-size: cover;
+  .join-title {
+    font-family: @fontPatua;
+    font-size: 50px;
+    font-weight: normal;
+    color: @color-white;
+    @media (max-width: @screen-mds) {
+      font-size: 32px;
     }
   }
+  .join-cta {
+    .sb-rounded-btn(@ctaSblColor);
+    font-family: @fontFiraSans;
+    padding: 18px 90px;
+    margin-top: 44px;
+    font-size: 20px;
+    border-radius: 56.5px;
+    box-shadow: 0 7px 15px 0 #1f2cc5;
+  }
+}
+
+/*---------------------
+     Video Preview
+---------------------*/
+.videoPlayerDialog {
+  box-shadow: none;
+}
+
+/*---------------------
+     Subjects Section Section
+---------------------*/
+.subjects {
+  background-image: linear-gradient(95deg, #4b8ffe, #4b8ffe 34%, #4452fc);
+  .layout-subject {
+    padding-top: 78px;
+    width: 80%;
+    @media (max-width: @screen-sm-960) {
+      max-width: 100%;
+    }
+    .subject-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 16px;
+      height: 36px;
+      &:hover {
+        .subject-card {
+          min-width: 202px;
+          .subject-text {
+            cursor: pointer;
+            color: fade(@color-white, 90%);
+          }
+        }
+      }
+      .subject-card {
+        background-color: transparent;
+        box-shadow: none;
+        font-weight: normal;
+        font-family: @fontOpenSans;
+        text-align: left;
+        position: static;
+        min-width: 200px;
+        .subject-text {
+          font-size: 16px;
+          color: @color-white;
+          display: block;
+          margin: 0 auto;
+          width: 100%;
+          @media (max-width: @screen-mds) {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .subject-title {
+    font-family: @fontPatua;
+    font-size: 38px;
+    font-weight: normal;
+    color: fade(@color-white, 87%);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .subject-sub-title {
+    font-size: 20px;
+    font-family: @fontOpenSans;
+    font-weight: normal;
+    color: @color-white;
+  }
+}
 
 
