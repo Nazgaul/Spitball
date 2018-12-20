@@ -5,6 +5,12 @@
 @ctaSblColor: #3d5afe;
 @introSubTitleColor: rgba(0, 0, 0, 0.71);
 
+.hebrew-wrap{
+  *{
+    font-family: 'Arial', sans-serif!important;
+  }
+};
+
 .input-holder {
   padding-top: 78px;
   width: 60%;
@@ -386,6 +392,7 @@ section {
     }
     @media (max-width: @screen-xs) {
       margin-bottom: 32px;
+      height:auto;
     }
     .title-wrap {
       order: 1;
@@ -476,6 +483,10 @@ section {
     justify-content: flex-start;
     flex-direction: row;
     margin-bottom: 70px;
+    @media (max-width: @screen-xs) {
+      height:auto;
+      margin-bottom: 32px;
+    }
     @media (max-width: @screen-mds) {
       padding-top: 34px;
     }
@@ -592,7 +603,7 @@ section {
       display: none;
       top: 10%;
       @media (max-width: @screen-xs) {
-        top: 15%;
+        top: 28%;
         display: block;
       }
       i {
@@ -743,7 +754,7 @@ section.faq {
   .sb-rounded-btn {
     .sb-rounded-btn(@ctaSblColor);
     font-family: @fontFiraSans;
-    padding: 16px 90px;
+    padding: 16px 26px;
     margin-top: 96px;
     font-size: 20px;
     border-radius: 56.5px;

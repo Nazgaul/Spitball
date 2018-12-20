@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="[isRtl ? 'hebrew-wrap' : '']">
         <div class="wide-parallax" pa-0>
 
             <landing-header></landing-header>
