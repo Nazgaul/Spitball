@@ -10,12 +10,15 @@ namespace Cloudents.Core.Command.Admin
      
         public UnFlagDocumentCommand(long documentId)
         {
-            DocumentId = documentId;
+            DocumentIds = new[] { documentId };
         }
 
+        public UnFlagDocumentCommand(IEnumerable<long> documentIds)
+        {
+            DocumentIds = documentIds;
+        }
 
-
-        public long DocumentId { get; private set; }
+        public IEnumerable<long> DocumentIds { get; private set; }
     }
 }
 
