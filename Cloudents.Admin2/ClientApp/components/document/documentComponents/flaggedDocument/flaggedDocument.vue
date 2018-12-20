@@ -44,9 +44,9 @@
                                             <v-icon>delete</v-icon>
                                         </v-btn>
 
-                                        <v-btn flat color="red" v-bind:href="document.siteLink" target="_blank">
+                                        <!-- <v-btn flat color="red" v-bind:href="document.siteLink" target="_blank">
                                             Link
-                                        </v-btn>
+                                        </v-btn> -->
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
                                 </v-card>
