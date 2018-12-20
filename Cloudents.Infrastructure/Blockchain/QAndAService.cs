@@ -3,8 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Numerics;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Request;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Blockchain

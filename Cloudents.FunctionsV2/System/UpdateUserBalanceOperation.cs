@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command.Admin;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Message.System;
+using Cloudents.Command;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Message.System;
 using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.System

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Domain.Enums;
-using Cloudents.Domain.Interfaces;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using NHibernate.Engine;
 using NHibernate.Event;
 using NHibernate.Event.Default;
 using NHibernate.Persister.Entity;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
     internal class SoftDeleteEventListener : DefaultDeleteEventListener
     {

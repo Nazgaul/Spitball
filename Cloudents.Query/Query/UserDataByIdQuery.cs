@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Models;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Models;
 
-namespace Cloudents.Application.Query
+namespace Cloudents.Query.Query
 {
     public class UserDataByIdQuery : IQuery<RegularUser>,
         IQuery<UserAccountDto>,

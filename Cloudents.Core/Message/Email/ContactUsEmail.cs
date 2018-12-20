@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Cloudents.Application.Message.Email
+namespace Cloudents.Core.Message.Email
 {
     /// <summary>
     /// This is the email template from the ico site

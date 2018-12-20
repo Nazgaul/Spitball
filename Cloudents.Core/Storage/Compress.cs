@@ -3,7 +3,7 @@ using System.IO.Compression;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Application.Storage
+namespace Cloudents.Core.Storage
 {
     public static class Compress
     {

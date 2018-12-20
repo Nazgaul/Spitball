@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Storage;
+using Cloudents.Core;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {

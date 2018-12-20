@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Extension;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Book

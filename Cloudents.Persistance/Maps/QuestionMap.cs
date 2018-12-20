@@ -1,9 +1,8 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Domain.Enums;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
-using JetBrains.Annotations;
 
-namespace Cloudents.Infrastructure.Database.Maps
+namespace Cloudents.Persistance.Maps
 {
     public class QuestionMap : ClassMap<Question>
     {

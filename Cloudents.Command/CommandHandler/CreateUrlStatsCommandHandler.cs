@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Entities;
+using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.CommandHandler
+namespace Cloudents.Command.CommandHandler
 {
     [UsedImplicitly]
     public class CreateUrlStatsCommandHandler : ICommandHandler<CreateUrlStatsCommand>

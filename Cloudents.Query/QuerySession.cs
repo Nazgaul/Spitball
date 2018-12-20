@@ -2,7 +2,7 @@
 using System.Data;
 using NHibernate;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Query
 {
     public sealed class QuerySession : IDisposable
     {

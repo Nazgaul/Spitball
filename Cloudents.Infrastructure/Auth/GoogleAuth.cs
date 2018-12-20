@@ -3,8 +3,8 @@ using System.Collections.Specialized;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 

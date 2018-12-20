@@ -1,7 +1,7 @@
 ﻿using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Net;
-using Cloudents.Application.Storage;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {

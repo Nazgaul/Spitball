@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Application.Models;
-using Cloudents.Common.Enum;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 
-namespace Cloudents.Application.Query
+namespace Cloudents.Core.Query
 {
     public class DocumentQuery
     {

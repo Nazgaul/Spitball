@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 
-namespace Cloudents.Application
+namespace Cloudents.Core
 {
     public sealed class Language
     {

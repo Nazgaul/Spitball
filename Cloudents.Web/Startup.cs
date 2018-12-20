@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
-using Cloudents.Domain.Entities;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
@@ -27,11 +26,11 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Application;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Request;
+using Cloudents.Core;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Search;
 using Cloudents.Web.Resources;
@@ -41,7 +40,7 @@ using Logger = Cloudents.Web.Services.Logger;
 
 namespace Cloudents.Web
 {
-    public partial class Startup
+    public class Startup
     {
         public const string IntegrationTestEnvironmentName = "Integration-Test";
         internal const int PasswordRequiredLength = 8;

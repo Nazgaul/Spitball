@@ -1,15 +1,15 @@
-﻿using JetBrains.Annotations;
-using NHibernate;
-using NHibernate.Exceptions;
-using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Exceptions;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using NHibernate;
+using NHibernate.Exceptions;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
     [UsedImplicitly]
     public sealed class UnitOfWork : IUnitOfWork

@@ -1,14 +1,14 @@
-﻿using Cloudents.Domain.Entities;
-using JetBrains.Annotations;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Threading;
-using Cloudents.Application.Event;
-using Cloudents.Application.Interfaces;
-using Cloudents.Common.Enum;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Persistance.Repositories
 {
     [UsedImplicitly]
     public class TransactionRepository : NHibernateRepository<Transaction>, ITransactionRepository

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Cloudents.Domain.Entities
+namespace Cloudents.Core.Entities
 {
     public class Tag
     {

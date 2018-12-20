@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Cloudents.Application
+namespace Cloudents.Core
 {
     public static class RegEx
     {

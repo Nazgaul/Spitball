@@ -1,14 +1,13 @@
-﻿using Cloudents.Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using NHibernate.Linq;
 using SimpleMvcSitemap;
 using SimpleMvcSitemap.StyleSheets;
 using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Enum;
-using Cloudents.Domain.Enums;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Web.Extensions;
 
 namespace Cloudents.Web.Services

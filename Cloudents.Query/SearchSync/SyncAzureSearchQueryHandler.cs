@@ -1,13 +1,14 @@
-﻿using NHibernate;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs.SearchSync;
-using Cloudents.Application.Query.Sync;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Query.Query.Sync;
+using Cloudents.Query.Stuff;
+using NHibernate;
 
-namespace Cloudents.Infrastructure.Database.Query.SearchSync
+namespace Cloudents.Query.SearchSync
 {
     public abstract class SyncAzureSearchQueryHandler<T> where T : new()
     {

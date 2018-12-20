@@ -6,13 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application;
-using Cloudents.Application.Command.Admin;
-using Cloudents.Application.DTOs.Admin;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query.Admin;
-using Cloudents.Application.Storage;
+using Cloudents.Command;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Storage;
+using Cloudents.Query;
+using Cloudents.Query.Query.Admin;
 
 namespace Cloudents.Admin2.Api
 {
@@ -81,7 +82,7 @@ namespace Cloudents.Admin2.Api
         {
          
 
-            var command = new ApproveQuestionCommand(model.id);
+            var command = new ApproveQuestionCommand(model.Id);
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
           
             return Ok();
@@ -143,7 +144,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("unFlag")]
         public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagQuestionRequest model, CancellationToken token)
         {
-            var command = new UnFlagQuestionCommand(model.id);
+            var command = new UnFlagQuestionCommand(model.Id);
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }

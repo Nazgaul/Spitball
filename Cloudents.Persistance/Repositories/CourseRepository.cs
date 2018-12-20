@@ -1,11 +1,11 @@
-﻿using Cloudents.Domain.Entities;
-using NHibernate;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using NHibernate;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Persistance.Repositories
 {
     public class CourseRepository : NHibernateRepository<Course>, ICourseRepository
     {

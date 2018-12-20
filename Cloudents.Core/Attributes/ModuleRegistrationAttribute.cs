@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Application.Attributes
+namespace Cloudents.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public sealed class ModuleRegistrationAttribute : Attribute

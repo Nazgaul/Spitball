@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Application.Interfaces;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.Command
+namespace Cloudents.Command.Command
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper Initialize")]
     public class CreateAnswerCommand : ICommand

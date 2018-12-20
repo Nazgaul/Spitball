@@ -2,13 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
+using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Query
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class UserLoginQueryHandler : IQueryHandler<UserLoginQuery, RegularUser>

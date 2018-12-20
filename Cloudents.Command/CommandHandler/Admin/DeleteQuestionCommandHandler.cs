@@ -1,14 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.Command.Admin;
-using Cloudents.Application.Event;
-using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Entities;
-using Cloudents.Domain.Enums;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.CommandHandler.Admin
+namespace Cloudents.Command.CommandHandler.Admin
 {
     [AdminCommandHandler]
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]

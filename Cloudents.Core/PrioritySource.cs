@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Cloudents.Application
+namespace Cloudents.Core
 {
     public class PrioritySource
     {

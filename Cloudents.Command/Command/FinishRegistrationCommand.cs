@@ -1,6 +1,4 @@
-﻿using Cloudents.Application.Interfaces;
-
-namespace Cloudents.Application.Command
+﻿namespace Cloudents.Command.Command
 {
     public class FinishRegistrationCommand : ICommand
     {

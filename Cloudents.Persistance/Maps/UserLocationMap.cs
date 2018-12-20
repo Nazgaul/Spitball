@@ -1,11 +1,16 @@
-﻿using Cloudents.Domain.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Infrastructure.Database.Maps
+namespace Cloudents.Persistance.Maps
 {
     internal class UserLocationMap : ClassMap<UserLocation>
     {
         public UserLocationMap()
+        {
+            Map();
+        }
+
+        private void Map()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.User).Column("UserId").ForeignKey("UserLocation_User");

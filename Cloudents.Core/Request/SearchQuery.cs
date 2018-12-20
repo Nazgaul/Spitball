@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.Request
+namespace Cloudents.Core.Request
 {
     public sealed class SearchQuery
     {

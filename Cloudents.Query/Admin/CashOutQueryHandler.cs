@@ -1,19 +1,18 @@
-﻿using Cloudents.Domain.Entities;
-using NHibernate;
-using NHibernate.Linq;
-using NHibernate.Transform;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs.Admin;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query.Admin;
-using Cloudents.Common.Enum;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Query.Query.Admin;
+using NHibernate;
+using NHibernate.Linq;
+using NHibernate.Transform;
 
-namespace Cloudents.Infrastructure.Database.Query.Admin
+namespace Cloudents.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class CashOutQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<CashOutDto>>

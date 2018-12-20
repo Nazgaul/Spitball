@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.Command.Admin;
-using Cloudents.Application.DTOs.Admin;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query.Admin;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Query;
+using Cloudents.Query.Query.Admin;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 

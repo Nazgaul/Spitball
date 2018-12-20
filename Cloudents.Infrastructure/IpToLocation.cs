@@ -2,10 +2,10 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Models;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 

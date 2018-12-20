@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Cloudents.Application.Exceptions
+namespace Cloudents.Core.Exceptions
 {
     public class UserLockoutException : Exception
     {

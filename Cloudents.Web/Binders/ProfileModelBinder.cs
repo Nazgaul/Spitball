@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Models;
-using Cloudents.Application.Query;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Models;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Services;

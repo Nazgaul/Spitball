@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Application.Entities.Search;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search.Models;
 

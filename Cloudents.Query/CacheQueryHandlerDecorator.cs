@@ -2,10 +2,10 @@
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Query
 {
     public class CacheQueryHandlerDecorator<TQuery, TQueryResult> : IQueryHandler<TQuery, TQueryResult> where TQuery : IQuery<TQueryResult>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Application.Exceptions
+namespace Cloudents.Core.Exceptions
 {
     public class NoEnoughScoreException : Exception
     {

@@ -9,9 +9,9 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Message;
-using Cloudents.Application.Message.Email;
-using Cloudents.Application.Storage;
+using Cloudents.Core.Message;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 

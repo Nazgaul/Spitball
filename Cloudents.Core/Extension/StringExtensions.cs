@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using Cloudents.Application.Attributes;
+using Cloudents.Core.Attributes;
 
-namespace Cloudents.Application.Extension
+namespace Cloudents.Core.Extension
 {
     public static class StringExtensions
     {

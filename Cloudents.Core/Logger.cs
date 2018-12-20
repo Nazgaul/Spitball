@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application
+namespace Cloudents.Core
 {
     public class Logger : ILogger
     {

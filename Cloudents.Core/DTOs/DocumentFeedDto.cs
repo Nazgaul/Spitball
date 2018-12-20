@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Cloudents.Common.Enum;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 
-namespace Cloudents.Application.DTOs
+namespace Cloudents.Core.DTOs
 {
     [DataContract]
     public class DocumentFeedDto

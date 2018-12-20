@@ -4,7 +4,7 @@ using NHibernate.Criterion;
 using NHibernate.Engine;
 using NHibernate.SqlCommand;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
     public class FullTextCriterion : ICriterion
     {

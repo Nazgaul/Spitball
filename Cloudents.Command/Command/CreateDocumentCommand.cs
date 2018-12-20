@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Application.Interfaces;
-using Cloudents.Common.Enum;
+using Cloudents.Core.Enum;
 
-namespace Cloudents.Application.Command
+namespace Cloudents.Command.Command
 {
     public class CreateDocumentCommand : ICommand
     {

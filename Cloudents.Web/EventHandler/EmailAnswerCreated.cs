@@ -3,12 +3,12 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Event;
-using Cloudents.Application.EventHandler;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Message.Email;
-using Cloudents.Application.Storage;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Event;
+using Cloudents.Core.EventHandler;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Web.EventHandler
 {

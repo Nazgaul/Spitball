@@ -1,8 +1,8 @@
 ﻿using System;
-using Cloudents.Domain.Entities;
-using Cloudents.Domain.Enums;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 
-namespace Cloudents.Domain
+namespace Cloudents.Core
 {
     public static class Privileges
     {

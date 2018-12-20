@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Web.Api
 {

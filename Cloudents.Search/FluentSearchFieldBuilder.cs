@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using Cloudents.Application.Extension;
+using Cloudents.Core.Extension;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Spatial;
 

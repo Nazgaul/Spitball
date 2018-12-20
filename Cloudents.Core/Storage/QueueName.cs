@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Application.Storage
+﻿namespace Cloudents.Core.Storage
 {
     public sealed class QueueName
     {

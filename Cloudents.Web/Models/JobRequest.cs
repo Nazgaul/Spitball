@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Cloudents.Application.Enum;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models

@@ -1,4 +1,4 @@
-﻿using Cloudents.Application.DTOs;
+﻿using Cloudents.Core.DTOs;
 
 namespace Cloudents.Infrastructure.Search.Job
 {

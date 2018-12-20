@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Application.Extension
+namespace Cloudents.Core.Extension
 {
     public static class UriExtensions
     {

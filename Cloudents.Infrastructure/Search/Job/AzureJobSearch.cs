@@ -3,12 +3,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Cloudents.Application;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Models;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
@@ -38,25 +38,25 @@ namespace Cloudents.Infrastructure.Search.Job
 
             if (jobProviderRequest.Sort == JobRequestSort.Date)
             {
-                sortQuery.Add($"{nameof(Application.Entities.Search.Job.DateTime)} desc");
+                sortQuery.Add($"{nameof(Core.Entities.Search.Job.DateTime)} desc");
             }
             var searchParams = new SearchParameters
             {
                 Select = new[]
                 {
-                    nameof(Application.Entities.Search.Job.Title),
-                    nameof(Application.Entities.Search.Job.Description),
-                    nameof(Application.Entities.Search.Job.DateTime),
-                    nameof(Application.Entities.Search.Job.City),
-                    nameof(Application.Entities.Search.Job.State),
-                    nameof(Application.Entities.Search.Job.JobType),
-                    nameof(Application.Entities.Search.Job.Url),
-                    nameof(Application.Entities.Search.Job.Company),
-                    nameof(Application.Entities.Search.Job.Source)
+                    nameof(Core.Entities.Search.Job.Title),
+                    nameof(Core.Entities.Search.Job.Description),
+                    nameof(Core.Entities.Search.Job.DateTime),
+                    nameof(Core.Entities.Search.Job.City),
+                    nameof(Core.Entities.Search.Job.State),
+                    nameof(Core.Entities.Search.Job.JobType),
+                    nameof(Core.Entities.Search.Job.Url),
+                    nameof(Core.Entities.Search.Job.Company),
+                    nameof(Core.Entities.Search.Job.Source)
                 },
                 Facets = filterQuery.Count == 0 ? new[]
                 {
-                    nameof(Application.Entities.Search.Job.JobType)
+                    nameof(Core.Entities.Search.Job.JobType)
                 } : null,
                 Top = JobSearch.PageSize,
                 Skip = JobSearch.PageSize * jobProviderRequest.Page,
@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.Search.Job
             };
 
             var retVal = await
-                _client.Documents.SearchAsync<Application.Entities.Search.Job>(jobProviderRequest.Term, searchParams, cancellationToken: token).ConfigureAwait(false);
+                _client.Documents.SearchAsync<Core.Entities.Search.Job>(jobProviderRequest.Term, searchParams, cancellationToken: token).ConfigureAwait(false);
             if (retVal.Results.Count == 0)
             {
                 return null;
@@ -79,7 +79,7 @@ namespace Cloudents.Infrastructure.Search.Job
             if (filters != null)
             {
                 var filterStr = string.Join(" or ", filters.Select(s =>
-                    $"{nameof(Application.Entities.Search.Job.JobType)} eq '{s.GetDescription()}'"));
+                    $"{nameof(Core.Entities.Search.Job.JobType)} eq '{s.GetDescription()}'"));
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
                    // filterStr = $"({filterStr})";
@@ -90,7 +90,7 @@ namespace Cloudents.Infrastructure.Search.Job
             if (location?.Point != null)
             {
                 filterQuery.Add(
-                    $"geo.distance({nameof(Application.Entities.Search.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
+                    $"geo.distance({nameof(Core.Entities.Search.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
             }
 
             return filterQuery;

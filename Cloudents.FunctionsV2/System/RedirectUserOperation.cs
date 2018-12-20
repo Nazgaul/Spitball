@@ -2,9 +2,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Message.System;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.Message.System;
 
 namespace Cloudents.FunctionsV2.System
 {

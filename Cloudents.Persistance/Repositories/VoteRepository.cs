@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Persistance.Repositories
 {
     public class VoteRepository : NHibernateRepository<Vote>, IVoteRepository
     {

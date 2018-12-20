@@ -5,14 +5,14 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write.Tutor.Entities;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Write.Tutor
 {
-    public class TutorWyzant : UpdateAffiliate<WyzantTutor, Application.Entities.Search.Tutor>
+    public class TutorWyzant : UpdateAffiliate<WyzantTutor, Core.Entities.Search.Tutor>
     {
         private readonly TutorSearchWrite _tutorProvider;
         private readonly IGooglePlacesSearch _zipToLocation;
@@ -54,7 +54,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
             }
         }
 
-        protected override async Task<Application.Entities.Search.Tutor> ParseTAsync(WyzantTutor obj, CancellationToken token)
+        protected override async Task<Core.Entities.Search.Tutor> ParseTAsync(WyzantTutor obj, CancellationToken token)
         {
             var filter = TutorFilter.None;
             if (obj.OffersInPersonLessons)
@@ -67,7 +67,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
                 filter |= TutorFilter.Online;
             }
             var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
-            return new Application.Entities.Search.Tutor
+            return new Core.Entities.Search.Tutor
             {
                 Id = obj.TutorId.ToString(),
                 Name = obj.Name,
@@ -85,7 +85,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
             };
         }
 
-        protected override Task UpdateSearchAsync(IEnumerable<Application.Entities.Search.Tutor> list, CancellationToken token)
+        protected override Task UpdateSearchAsync(IEnumerable<Core.Entities.Search.Tutor> list, CancellationToken token)
         {
             return _tutorProvider.UpdateDataAsync(list, token);
         }

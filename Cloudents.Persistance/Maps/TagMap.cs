@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Infrastructure.Database.Maps
+namespace Cloudents.Persistance.Maps
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Fluent nhibernate")]
     public sealed class TagMap : ClassMap<Tag>

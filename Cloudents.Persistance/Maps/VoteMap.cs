@@ -1,7 +1,7 @@
-﻿using Cloudents.Domain.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Infrastructure.Database.Maps
+namespace Cloudents.Persistance.Maps
 {
     public class VoteMap : ClassMap<Vote>
     {

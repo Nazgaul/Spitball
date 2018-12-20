@@ -3,16 +3,16 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.Event;
-using Cloudents.Application.Exceptions;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Storage;
-using Cloudents.Domain.Entities;
-using Cloudents.Domain.Enums;
+using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.CommandHandler
+namespace Cloudents.Command.CommandHandler
 {
     [UsedImplicitly]
     public class CreateAnswerCommandHandler : ICommandHandler<CreateAnswerCommand>
@@ -79,23 +79,22 @@ namespace Cloudents.Application.CommandHandler
             //and we can create sql to check if its not the same user
             var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
             var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
-            if (answers != null)
-                foreach (var answer in answers.Where(w=> 
-                    w.Item.State == ItemState.Ok
+            foreach (var answer in answers.Where(w=> 
+                w.Item.State == ItemState.Ok
 
-                    ))
+            ))
+            {
+                //if (answer.User.Id == user.Id)
+                //{
+                //    throw new MoreThenOneAnswerException();
+                //    //throw new InvalidOperationException("user cannot give more then one answer");
+                //}
+                var check = Regex.Replace(answer.Text, regex.ToString(), "");
+                if (nakedString == check)
                 {
-                    //if (answer.User.Id == user.Id)
-                    //{
-                    //    throw new MoreThenOneAnswerException();
-                    //    //throw new InvalidOperationException("user cannot give more then one answer");
-                    //}
-                    var check = Regex.Replace(answer.Text, regex.ToString(), "");
-                    if (nakedString == check)
-                    {
-                        throw new DuplicateRowException("Duplicate answer");
-                    }
+                    throw new DuplicateRowException("Duplicate answer");
                 }
+            }
             var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(newAnswer, token).ConfigureAwait(false);
             

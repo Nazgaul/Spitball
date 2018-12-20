@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Application.DTOs.SearchSync;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query.Sync;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Query.Query.Sync;
 
-namespace Cloudents.Infrastructure.Database.Query.SearchSync
+namespace Cloudents.Query.SearchSync
 {
     public class UniversitySyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<UniversitySearchDto>,
         IQueryHandler<SyncAzureQuery, (IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>

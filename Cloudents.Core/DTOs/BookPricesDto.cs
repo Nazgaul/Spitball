@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Cloudents.Application.DTOs
+namespace Cloudents.Core.DTOs
 {
     [DataContract]
     public class BookPricesDto : IUrlRedirect

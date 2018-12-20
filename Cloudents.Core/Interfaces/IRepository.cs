@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.Interfaces
+namespace Cloudents.Core.Interfaces
 {
     public interface IRepository<T>  where T : class
     {

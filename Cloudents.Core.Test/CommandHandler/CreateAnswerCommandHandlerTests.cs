@@ -1,16 +1,13 @@
 ﻿using Autofac.Extras.Moq;
-using Cloudents.Domain.Entities;
 using Moq;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.CommandHandler;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Interfaces;
-using Cloudents.Common;
-using Cloudents.Common.Enum;
-using Cloudents.Domain.Enums;
+using Cloudents.Command.Command;
+using Cloudents.Command.CommandHandler;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Xunit;
 
 namespace Cloudents.Core.Test.CommandHandler

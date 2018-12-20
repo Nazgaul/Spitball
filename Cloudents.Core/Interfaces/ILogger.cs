@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Cloudents.Application.Interfaces
+namespace Cloudents.Core.Interfaces
 {
     public interface ILogger
     {

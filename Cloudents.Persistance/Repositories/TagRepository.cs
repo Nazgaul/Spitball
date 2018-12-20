@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using NHibernate;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Persistance.Repositories
 {
     public class TagRepository : NHibernateRepository<Tag>, ITagRepository
     {

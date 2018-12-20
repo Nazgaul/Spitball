@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Event;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Storage;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 
-namespace Cloudents.Application.EventHandler
+namespace Cloudents.Core.EventHandler
 {
     public class SignalrQuestionEventHandler 
         : IEventHandler<QuestionCreatedEvent>,

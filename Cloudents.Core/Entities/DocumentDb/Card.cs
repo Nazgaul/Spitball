@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Application.Entities.DocumentDb
+﻿namespace Cloudents.Core.Entities.DocumentDb
 {
     public class Card
     {

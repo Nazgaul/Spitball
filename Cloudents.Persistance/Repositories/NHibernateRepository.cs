@@ -2,10 +2,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Interfaces;
 using NHibernate;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Persistance.Repositories
 {
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {

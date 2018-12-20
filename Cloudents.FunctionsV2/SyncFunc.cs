@@ -6,7 +6,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Query.Sync;
+using Cloudents.Query.Query.Sync;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2

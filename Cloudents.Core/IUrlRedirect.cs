@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Application
+﻿namespace Cloudents.Core
 {
     public interface IUrlRedirect
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Application.DTOs.Admin
+namespace Cloudents.Core.DTOs.Admin
 {
     public class CashOutDto
     {

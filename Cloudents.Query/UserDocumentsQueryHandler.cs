@@ -1,16 +1,15 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Domain.Enums;
-using NHibernate;
-using NHibernate.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Query.Query;
+using NHibernate;
+using NHibernate.Linq;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Query
 {
     public class UserDocumentsQueryHandler : IQueryHandler<UserDataPagingByIdQuery, IEnumerable<DocumentFeedDto>>
     {

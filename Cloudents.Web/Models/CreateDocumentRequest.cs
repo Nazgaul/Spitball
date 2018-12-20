@@ -1,8 +1,8 @@
-﻿using Cloudents.Domain.Entities;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Cloudents.Common.Enum;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Web.Resources;
 using JetBrains.Annotations;
 
@@ -18,7 +18,7 @@ namespace Cloudents.Web.Models
         public DocumentType Type { get; set; }
 
         [Required]
-        [StringLength(Domain.Entities.Course.MaxLength,ErrorMessage = "StringLength", MinimumLength = Domain.Entities.Course.MinLength)]
+        [StringLength(Core.Entities.Course.MaxLength,ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
         public string Course { get; set; }
         [CanBeNull]
         public string[] Tags { get; set; }

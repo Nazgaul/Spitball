@@ -1,6 +1,6 @@
-﻿using Cloudents.Application.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
 
-namespace Cloudents.Application.Message.System
+namespace Cloudents.Core.Message.System
 {
     public class QuestionSearchMessage : ISystemQueueMessage
     {

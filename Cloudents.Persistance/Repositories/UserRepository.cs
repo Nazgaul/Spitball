@@ -1,15 +1,15 @@
-﻿using Cloudents.Domain.Entities;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Application.Exceptions;
-using Cloudents.Application.Interfaces;
-using Cloudents.Common.Enum;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Persistance.Repositories
 {
 
     public class FictiveUserRepository : NHibernateRepository<SystemUser>, IFictiveUserRepository

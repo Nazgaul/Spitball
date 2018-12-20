@@ -8,8 +8,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure
 {

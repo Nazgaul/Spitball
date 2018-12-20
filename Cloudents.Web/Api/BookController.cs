@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;

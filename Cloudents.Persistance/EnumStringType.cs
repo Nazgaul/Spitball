@@ -1,7 +1,7 @@
-﻿using NHibernate.Type;
-using System;
+﻿using System;
+using NHibernate.Type;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
     public class GenericEnumStringType<TEnum> : EnumStringType where TEnum : Enum
     {

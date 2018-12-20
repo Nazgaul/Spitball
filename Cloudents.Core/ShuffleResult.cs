@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application
+namespace Cloudents.Core
 {
     public interface IShuffleable 
     {

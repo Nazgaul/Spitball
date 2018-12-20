@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Interceptor

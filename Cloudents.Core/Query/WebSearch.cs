@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Request;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.Query
+namespace Cloudents.Core.Query
 {
     [UsedImplicitly]
     public class WebSearch : IWebDocumentSearch, IWebFlashcardSearch

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Application.Enum
+namespace Cloudents.Core.Enum
 {
     //TODO: why to we need TutorFilter and TutorRequestFilter
     [Flags]

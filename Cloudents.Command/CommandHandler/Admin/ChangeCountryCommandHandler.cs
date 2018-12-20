@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command.Admin;
-using Cloudents.Application.Interfaces;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.CommandHandler.Admin
+namespace Cloudents.Command.CommandHandler.Admin
 {
     public class ChangeCountryCommandHandler : ICommandHandler<ChangeCountryCommand>
     {

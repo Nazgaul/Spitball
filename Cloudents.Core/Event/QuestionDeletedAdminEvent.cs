@@ -1,7 +1,7 @@
-﻿using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Entities;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.Event
+namespace Cloudents.Core.Event
 {
     public class QuestionDeletedAdminEvent : IEvent
     {

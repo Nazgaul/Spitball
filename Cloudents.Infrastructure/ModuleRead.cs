@@ -11,9 +11,9 @@ using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Search.Document;
 using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
 using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
@@ -21,9 +21,9 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
-    [ModuleRegistration(Application.Enum.System.Console)]
-    [ModuleRegistration(Application.Enum.System.Web)]
-    [ModuleRegistration(Application.Enum.System.Admin)]
+    [ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.Admin)]
     [UsedImplicitly]
     public sealed class ModuleRead : Module
     {

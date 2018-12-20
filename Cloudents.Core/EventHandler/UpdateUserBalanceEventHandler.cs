@@ -2,12 +2,12 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Event;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Message.System;
-using Cloudents.Application.Storage;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 
-namespace Cloudents.Application.EventHandler
+namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UpdateUserBalanceEventHandler : IEventHandler<TransactionEvent>

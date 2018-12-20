@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api

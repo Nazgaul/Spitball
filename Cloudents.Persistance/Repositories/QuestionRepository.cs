@@ -1,16 +1,16 @@
-﻿using Cloudents.Domain.Entities;
-using JetBrains.Annotations;
-using NHibernate;
-using NHibernate.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Enums;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using NHibernate;
+using NHibernate.Linq;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Persistance.Repositories
 {
     [UsedImplicitly]
     public class QuestionRepository : NHibernateRepository<Question>, IQuestionRepository

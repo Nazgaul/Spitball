@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
+using Cloudents.Core.DTOs;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.Interfaces
+namespace Cloudents.Core.Interfaces
 {
     public interface IGoogleAuth
     {

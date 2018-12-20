@@ -2,7 +2,7 @@
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;

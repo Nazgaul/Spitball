@@ -1,12 +1,12 @@
 ﻿using Autofac;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Blockchain
 {
-    [ModuleRegistration(Application.Enum.System.Console)]
-    [ModuleRegistration(Application.Enum.System.Web)]
-    [ModuleRegistration(Application.Enum.System.Function)]
+    [ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.Function)]
     public class ModuleBlockChain : Module
     {
         protected override void Load(ContainerBuilder builder)

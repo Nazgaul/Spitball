@@ -12,10 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.Command.Admin;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Interfaces;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Extension;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 

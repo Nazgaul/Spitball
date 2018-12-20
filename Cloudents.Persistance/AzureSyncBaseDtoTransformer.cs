@@ -1,11 +1,11 @@
-﻿using NHibernate.Transform;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Cloudents.Application.DTOs.SearchSync;
+using Cloudents.Core.DTOs.SearchSync;
+using NHibernate.Transform;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
     public class AzureSyncBaseDtoTransformer<T, TU> : IResultTransformer where T : AzureSyncBaseDto<TU>, new() where TU : new()
     {

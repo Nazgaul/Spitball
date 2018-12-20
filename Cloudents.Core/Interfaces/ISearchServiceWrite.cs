@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Application.Interfaces
+namespace Cloudents.Core.Interfaces
 {
     public interface ISearchServiceWrite<in T> where T : class, ISearchObject, new()
     {

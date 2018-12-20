@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.Storage
+namespace Cloudents.Core.Storage
 {
 
     public interface IBlobProvider

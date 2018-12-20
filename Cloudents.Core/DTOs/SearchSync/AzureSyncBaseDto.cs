@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Cloudents.Application.DTOs.SearchSync
+namespace Cloudents.Core.DTOs.SearchSync
 {
    [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Name of db column - easy to use")]
    public class AzureSyncBaseDto<T>

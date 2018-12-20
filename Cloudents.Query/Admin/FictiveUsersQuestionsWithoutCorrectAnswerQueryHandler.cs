@@ -1,19 +1,19 @@
-﻿using Cloudents.Domain.Entities;
-using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.Transform;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs.Admin;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query.Admin;
-using Cloudents.Domain.Enums;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using Cloudents.Query.Query.Admin;
+using NHibernate;
+using NHibernate.Criterion;
+using NHibernate.Transform;
 
-namespace Cloudents.Infrastructure.Database.Query.Admin
+namespace Cloudents.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>

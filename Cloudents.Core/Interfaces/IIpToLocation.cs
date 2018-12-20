@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Models;
+using Cloudents.Core.Models;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.Interfaces
+namespace Cloudents.Core.Interfaces
 {
     public interface IIpToLocation
     {

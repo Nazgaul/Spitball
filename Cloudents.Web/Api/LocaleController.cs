@@ -7,8 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
-using Cloudents.Application;
-using Cloudents.Application.Extension;
+using Cloudents.Core;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Web.Api
 {

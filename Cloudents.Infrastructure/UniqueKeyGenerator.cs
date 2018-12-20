@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure
 {

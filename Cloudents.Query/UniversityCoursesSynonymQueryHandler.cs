@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Infrastructure.Database.Query
+﻿namespace Cloudents.Query
 {
     //public class UniversityCoursesSynonymQueryHandler : IQueryHandler<UniversityCoursesSynonymQuery, UniversityCoursesSynonymDto>
     //{

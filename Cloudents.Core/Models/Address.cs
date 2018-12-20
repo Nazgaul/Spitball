@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Cloudents.Application.Models
+namespace Cloudents.Core.Models
 {
     [DataContract]
     public class Address

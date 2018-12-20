@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Cloudents.FunctionsV2.Di
 {
-    public class Logger : Application.Interfaces.ILogger
+    public class Logger : Core.Interfaces.ILogger
     {
         private readonly ILogger _logger;
 

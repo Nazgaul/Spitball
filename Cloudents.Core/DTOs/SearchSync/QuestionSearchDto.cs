@@ -1,9 +1,7 @@
 ﻿using System;
-using Cloudents.Application.Enum;
-using Cloudents.Common.Enum;
-using Cloudents.Domain.Enums;
+using Cloudents.Core.Enum;
 
-namespace Cloudents.Application.DTOs.SearchSync
+namespace Cloudents.Core.DTOs.SearchSync
 {
     public class QuestionSearchDto
     {

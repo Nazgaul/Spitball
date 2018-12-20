@@ -1,5 +1,5 @@
 ﻿
-namespace Cloudents.Application.DTOs.SearchSync
+namespace Cloudents.Core.DTOs.SearchSync
 {
     public class UniversitySearchDto
     {

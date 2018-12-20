@@ -1,8 +1,8 @@
-﻿using NHibernate;
+﻿using System.Diagnostics;
+using NHibernate;
 using NHibernate.SqlCommand;
-using System.Diagnostics;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
     public class LoggingInterceptor : EmptyInterceptor
     {

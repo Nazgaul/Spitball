@@ -1,5 +1,5 @@
 ﻿
-namespace Cloudents.Application.Storage
+namespace Cloudents.Core.Storage
 {
     public interface IStorageContainer
     {

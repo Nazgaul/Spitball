@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Cloudents.Application.Message
+namespace Cloudents.Core.Message
 {
     [DataContract]
     public class UrlRedirectQueueMessage

@@ -1,8 +1,8 @@
 ﻿using System;
-using Cloudents.Application.Extension;
-using Cloudents.Common.Enum;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 
-namespace Cloudents.Application.DTOs
+namespace Cloudents.Core.DTOs
 {
     public class TransactionDto
     {

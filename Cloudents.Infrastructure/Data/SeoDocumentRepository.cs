@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Request;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using Dapper;
 using JetBrains.Annotations;
 

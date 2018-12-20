@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Application.Item.Commands.FlagItem
+﻿namespace Cloudents.Command.Item.Commands.FlagItem
 {
     public class FlagQuestionCommand : BaseFlagItemCommand<long>
     {

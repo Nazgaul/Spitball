@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Application.Interfaces
+namespace Cloudents.Core.Interfaces
 {
     public interface IReplaceImageProvider
     {

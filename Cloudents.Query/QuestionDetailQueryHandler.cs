@@ -1,19 +1,18 @@
-﻿using Cloudents.Domain.Entities;
-using NHibernate;
-using NHibernate.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query;
-using Cloudents.Application.Storage;
-using Cloudents.Domain.Enums;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Storage;
+using Cloudents.Query.Query;
+using NHibernate;
+using NHibernate.Linq;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Injected")]
     public class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>

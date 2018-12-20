@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs.SearchSync;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query.Sync;
+using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.FunctionsV2.Binders;
+using Cloudents.Query;
+using Cloudents.Query.Query.Sync;
 using Cloudents.Search.Document;
 using Cloudents.Search.Entities;
 using Microsoft.Azure.WebJobs;

@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Application.Event
+﻿namespace Cloudents.Core.Event
 {
     //public class QuestionRejectEvent : IEvent
     //{

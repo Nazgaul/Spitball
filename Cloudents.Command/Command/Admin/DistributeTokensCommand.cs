@@ -1,7 +1,6 @@
-﻿using Cloudents.Application.Interfaces;
-using Cloudents.Common.Enum;
+﻿using Cloudents.Core.Enum;
 
-namespace Cloudents.Application.Command.Admin
+namespace Cloudents.Command.Command.Admin
 {
     public class DistributeTokensCommand : ICommand
     {

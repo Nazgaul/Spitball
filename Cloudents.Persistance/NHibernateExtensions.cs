@@ -1,6 +1,6 @@
 ﻿using NHibernate;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
     public static class NHibernateExtensions
     {

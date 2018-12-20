@@ -1,16 +1,15 @@
-﻿using Autofac;
-using Cloudents.Application.Interfaces;
-using Cloudents.Infrastructure.Database.Maps;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Persistance.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Caches.CoreDistributedCache;
 using NHibernate.Caches.CoreDistributedCache.Redis;
-//using NHibernate.Caches.CoreDistributedCache;
-//using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
 using NHibernate.Event;
+//using NHibernate.Caches.CoreDistributedCache;
+//using NHibernate.Caches.CoreDistributedCache.Redis;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
     public class UnitOfWorkFactorySpitball
     {

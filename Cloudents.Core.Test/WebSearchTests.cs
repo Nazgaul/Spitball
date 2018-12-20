@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Autofac;
 using Autofac.Extras.Moq;
-using Cloudents.Application.Query;
+using Cloudents.Core.Query;
 using FluentAssertions;
 using Xunit;
 

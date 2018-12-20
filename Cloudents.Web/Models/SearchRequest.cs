@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Application.Enum;
-using Cloudents.Common.Enum;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Models
 {

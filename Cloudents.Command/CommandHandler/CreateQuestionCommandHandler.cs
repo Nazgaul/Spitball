@@ -2,17 +2,16 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.Event;
-using Cloudents.Application.Exceptions;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Storage;
-using Cloudents.Common.Enum;
-using Cloudents.Domain.Entities;
-using Cloudents.Domain.Enums;
+using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.CommandHandler
+namespace Cloudents.Command.CommandHandler
 {
     [UsedImplicitly]
     public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>

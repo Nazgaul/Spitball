@@ -1,12 +1,11 @@
-﻿using NHibernate;
-using NHibernate.Transform;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query;
+using Cloudents.Core.DTOs;
+using Cloudents.Query.Query;
+using NHibernate;
+using NHibernate.Transform;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Query
 {
     class HomePageQueryHandler : IQueryHandler<HomePageQuery, StatsDto>
     {

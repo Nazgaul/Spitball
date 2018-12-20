@@ -6,13 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Message.System;
-using Cloudents.Application.Query;
-using Cloudents.Application.Storage;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Authorization;
@@ -26,7 +26,6 @@ namespace Cloudents.Web.Controllers
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IQueryBus _queryBus;
-        private readonly IDocumentsSearch _documentSearch;
         private readonly IQueueProvider _queueProvider;
 
 
@@ -35,13 +34,12 @@ namespace Cloudents.Web.Controllers
             IBlobProvider<DocumentContainer> blobProvider,
             IStringLocalizer<SharedResource> sharedLocalizer,
             IStringLocalizer<DocumentController> localizer,
-            IQueryBus queryBus, IDocumentsSearch documentSearch, IQueueProvider queueProvider)
+            IQueryBus queryBus, IQueueProvider queueProvider)
         {
             _blobProvider = blobProvider;
             _sharedLocalizer = sharedLocalizer;
             _localizer = localizer;
             _queryBus = queryBus;
-            _documentSearch = documentSearch;
             _queueProvider = queueProvider;
         }
 

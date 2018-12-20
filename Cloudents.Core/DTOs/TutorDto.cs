@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
-using Cloudents.Application.Models;
+using Cloudents.Core.Models;
 
-namespace Cloudents.Application.DTOs
+namespace Cloudents.Core.DTOs
 {
     [DataContract]
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Dto class return as Json")]

@@ -1,8 +1,8 @@
 ﻿using System.Runtime.Serialization;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.Entities.Search
+namespace Cloudents.Core.Entities.Search
 {
     [DataContract]
     public class AutoComplete : ISearchObject

@@ -2,20 +2,23 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.CommandHandler;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query;
+using Cloudents.Command;
+using Cloudents.Command.CommandHandler;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
+using Cloudents.Query;
 using JetBrains.Annotations;
 using Module = Autofac.Module;
 
-namespace Cloudents.Application
+namespace Cloudents.Infrastructure.Stuff
 {
-    [ModuleRegistration(Enum.System.Console, Order = 1)]
-    [ModuleRegistration(Enum.System.Function)]
-    [ModuleRegistration(Enum.System.MailGun)]
-    [ModuleRegistration(Enum.System.Web)]
-    [ModuleRegistration(Enum.System.Admin, Order = 1)]
+    [ModuleRegistration(Core.Enum.System.Console, Order = 1)]
+    [ModuleRegistration(Core.Enum.System.Function)]
+    [ModuleRegistration(Core.Enum.System.MailGun)]
+    [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.Admin, Order = 1)]
     [UsedImplicitly]
     public class ModuleCore : Module
     {

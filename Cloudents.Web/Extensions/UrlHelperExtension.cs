@@ -2,8 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Extension;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using IPaging = Cloudents.Web.Models.IPaging;
 
 namespace Cloudents.Web.Extensions

@@ -1,8 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Admin2.Extensions;
-using Cloudents.Application;
-using Cloudents.Application.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +17,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Reflection;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Admin2
 {

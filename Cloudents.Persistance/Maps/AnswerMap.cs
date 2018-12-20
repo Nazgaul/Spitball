@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
-using JetBrains.Annotations;
 
-namespace Cloudents.Infrastructure.Database.Maps
+namespace Cloudents.Persistance.Maps
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 

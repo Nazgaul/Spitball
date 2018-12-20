@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Application.Enum
+﻿namespace Cloudents.Core.Enum
 {
    
     public enum System

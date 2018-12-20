@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application
+namespace Cloudents.Core
 {
     [UsedImplicitly]
     public class UrlRedirectBuilder : IUrlRedirectBuilder

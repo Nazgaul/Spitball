@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Cloudents.Application.Extension
+namespace Cloudents.Core.Extension
 {
     public static class ExpressionExtensions
     {

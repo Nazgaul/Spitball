@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.Interfaces;
-using Cloudents.Common.Enum;
-using Cloudents.Domain.Entities;
+using Cloudents.Command.Command;
+using Cloudents.Core;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.CommandHandler
+namespace Cloudents.Command.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class AssignCoursesToUserCommandHandler : ICommandHandler<AssignCoursesToUserCommand>

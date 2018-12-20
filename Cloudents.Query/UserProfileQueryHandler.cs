@@ -1,15 +1,14 @@
-﻿using Cloudents.Domain.Entities;
-using NHibernate;
-using NHibernate.Linq;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Query.Query;
+using NHibernate;
+using NHibernate.Linq;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserProfileQueryHandler : IQueryHandler<UserDataByIdQuery, UserProfileDto>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cloudents.Application
+namespace Cloudents.Core
 {
     public sealed class ReputationAction
     {

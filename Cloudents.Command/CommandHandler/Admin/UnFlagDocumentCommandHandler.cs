@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command.Admin;
-using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Entities;
-using Cloudents.Domain.Enums;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.CommandHandler.Admin
+namespace Cloudents.Command.CommandHandler.Admin
 {
     class UnFlagDocumentCommandHandler : ICommandHandler<UnFlagDocumentCommand>
     {
@@ -28,7 +28,7 @@ namespace Cloudents.Application.CommandHandler.Admin
                
             if (document.Item.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
-                var votes = document.Item.Votes.ToList<Vote>();
+                var votes = document.Item.Votes.ToList();
                 foreach (var vote in votes)
                 {
                 document.Item.Votes.Remove(vote);

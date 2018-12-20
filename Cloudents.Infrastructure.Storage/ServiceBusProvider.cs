@@ -5,10 +5,10 @@ using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Message;
-using Cloudents.Application.Storage;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
+using Cloudents.Core.Storage;
 using Newtonsoft.Json.Converters;
 
 namespace Cloudents.Infrastructure.Storage

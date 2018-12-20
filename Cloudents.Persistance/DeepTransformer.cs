@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using NHibernate.Transform;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
     public class DeepTransformer<TEntity> : IResultTransformer
     where TEntity : class

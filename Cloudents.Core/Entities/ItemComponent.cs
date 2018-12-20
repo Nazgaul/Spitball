@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Domain.Enums;
-using Cloudents.Domain.Interfaces;
+using Cloudents.Core.Enum;
 
-namespace Cloudents.Domain.Entities
+namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 

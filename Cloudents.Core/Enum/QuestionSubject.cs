@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.Extension;
-using Cloudents.Common.Attributes;
-using Cloudents.Common.Enum;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum.Resources;
+using Cloudents.Core.Extension;
 
-namespace Cloudents.Application.Enum
+namespace Cloudents.Core.Enum
 {
     public enum QuestionSubject
     {

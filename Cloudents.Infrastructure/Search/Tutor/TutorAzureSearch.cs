@@ -3,16 +3,16 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Cloudents.Application;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Models;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Extensions;
 using Cloudents.Infrastructure.Write.Tutor;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using TutorObj = Cloudents.Application.Entities.Search.Tutor;
+using TutorObj = Cloudents.Core.Entities.Search.Tutor;
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {

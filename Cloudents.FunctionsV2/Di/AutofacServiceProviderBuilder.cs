@@ -9,11 +9,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using Cloudents.Application;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
-using ILogger = Cloudents.Application.Interfaces.ILogger;
+using ILogger = Cloudents.Core.Interfaces.ILogger;
 
 namespace Cloudents.FunctionsV2.Di
 {

@@ -5,7 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
-using Cloudents.Application.Entities.DocumentDb;
+using Cloudents.Core.Entities.DocumentDb;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 

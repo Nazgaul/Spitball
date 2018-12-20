@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.Request
+namespace Cloudents.Core.Request
 {
     [DataContract]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification="We are going via reflection")]

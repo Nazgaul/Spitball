@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CacheManager.Core;
-using Cloudents.Application.Interfaces;
-using StackExchange.Redis;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Cache
 {

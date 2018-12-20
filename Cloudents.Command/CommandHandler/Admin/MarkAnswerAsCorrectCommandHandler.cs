@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.Command;
-using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Entities;
+using Cloudents.Command.Command;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.CommandHandler.Admin
+namespace Cloudents.Command.CommandHandler.Admin
 {
     [AdminCommandHandler]
     public class MarkAnswerAsCorrectCommandHandler : ICommandHandler<Command.Admin.MarkAnswerAsCorrectCommand>

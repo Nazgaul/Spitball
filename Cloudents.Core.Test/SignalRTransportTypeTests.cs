@@ -1,5 +1,4 @@
-﻿using Cloudents.Application;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Newtonsoft.Json;
 using Xunit;
 

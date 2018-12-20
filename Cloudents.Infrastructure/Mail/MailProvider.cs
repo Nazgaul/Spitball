@@ -11,8 +11,8 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Request;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 
 namespace Cloudents.Infrastructure.Mail
 {

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Application.Command.Admin
+namespace Cloudents.Command.Command.Admin
 {
     public class UnFlagDocumentCommand : ICommand
     {

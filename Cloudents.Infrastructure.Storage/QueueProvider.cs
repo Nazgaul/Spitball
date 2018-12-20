@@ -5,10 +5,10 @@ using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Message;
-using Cloudents.Application.Message.Email;
-using Cloudents.Application.Message.System;
-using Cloudents.Application.Storage;
+using Cloudents.Core.Message;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {

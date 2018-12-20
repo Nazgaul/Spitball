@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Cloudents.Domain.Entities;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
@@ -24,17 +23,18 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Cloudents.Application;
-using Cloudents.Application.Command;
-using Cloudents.Application.CommandHandler;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Exceptions;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Message.System;
-using Cloudents.Application.Query;
-using Cloudents.Search.Document;
-using DocumentType = Cloudents.Common.Enum.DocumentType;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
+using Cloudents.Query;
+using Cloudents.Query.Query;
+using DocumentType = Cloudents.Core.Enum.DocumentType;
 
 namespace ConsoleApp
 {

@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application;
-using Cloudents.Application.Command.Admin;
-using Cloudents.Application.DTOs.Admin;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query.Admin;
-using Cloudents.Common.Enum;
+using Cloudents.Command;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
+using Cloudents.Query;
+using Cloudents.Query.Query.Admin;
 
 
 namespace Cloudents.Admin2.Api

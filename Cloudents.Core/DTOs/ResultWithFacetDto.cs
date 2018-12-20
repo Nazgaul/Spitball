@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Cloudents.Application.DTOs
+namespace Cloudents.Core.DTOs
 {
     public class ResultWithFacetDto<T>
     {

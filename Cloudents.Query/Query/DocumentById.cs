@@ -1,7 +1,6 @@
-﻿using Cloudents.Application.DTOs;
-using Cloudents.Application.Interfaces;
+﻿using Cloudents.Core.DTOs;
 
-namespace Cloudents.Application.Query
+namespace Cloudents.Query.Query
 {
     public class DocumentById : IQuery<DocumentSeoDto>, IQuery<DocumentDetailDto>
     {

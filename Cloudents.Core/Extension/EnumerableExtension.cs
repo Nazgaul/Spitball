@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cloudents.Application.Extension
+namespace Cloudents.Core.Extension
 {
     public static class EnumerableExtension
     {

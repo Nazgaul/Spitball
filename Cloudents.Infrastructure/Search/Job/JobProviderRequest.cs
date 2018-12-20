@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Models;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.Search.Job
 {

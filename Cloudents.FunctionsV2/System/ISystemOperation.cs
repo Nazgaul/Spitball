@@ -1,7 +1,7 @@
 ﻿using Microsoft.Azure.WebJobs;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Message.System;
+using Cloudents.Core.Message.System;
 
 namespace Cloudents.FunctionsV2.System
 {

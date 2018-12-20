@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Cloudents.Application;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Enum;
+using Cloudents.Core;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Tutor
@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
     {
         public Mapper()
         {
-            CreateMap<Application.Entities.Search.Tutor, TutorDto>()
+            CreateMap<Core.Entities.Search.Tutor, TutorDto>()
                 .ForMember(m => m.Online, opt =>
                     opt.MapFrom(src => src.TutorFilter == TutorFilter.Online))
 

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Application.Command
+namespace Cloudents.Command.Command
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "need for automapper")]
     public class DeleteAnswerCommand : ICommand

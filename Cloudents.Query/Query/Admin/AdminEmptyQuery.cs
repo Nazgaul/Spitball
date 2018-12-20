@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Application.DTOs.Admin;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Admin;
 
-namespace Cloudents.Application.Query.Admin
+namespace Cloudents.Query.Query.Admin
 {
     public class AdminEmptyQuery :
         IQuery<IEnumerable<QuestionWithoutCorrectAnswerDto>>,
-        IQuery<IEnumerable<DTOs.QuestionFeedDto>>,
+        IQuery<IEnumerable<QuestionFeedDto>>,
         IQuery<IEnumerable<CashOutDto>>,
         IQuery<IEnumerable<PendingQuestionDto>>,
             IQuery<IList<FictivePendingQuestionDto>>,

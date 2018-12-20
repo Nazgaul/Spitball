@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Domain.Entities
+namespace Cloudents.Core.Entities
 {
     public class UserLocation
     {

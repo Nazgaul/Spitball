@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Storage;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure

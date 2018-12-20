@@ -1,6 +1,6 @@
-﻿using Cloudents.Application.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.Event
+namespace Cloudents.Core.Event
 {
     public class RedeemEvent : IEvent
     {

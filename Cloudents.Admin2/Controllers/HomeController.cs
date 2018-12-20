@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Storage;
+using Cloudents.Core.Storage;
+using Cloudents.Query;
 
 namespace Cloudents.Admin2.Controllers
 {

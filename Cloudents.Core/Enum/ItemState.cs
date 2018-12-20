@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Domain.Enums
+﻿namespace Cloudents.Core.Enum
 {
     public enum ItemState
     {

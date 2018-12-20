@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Cloudents.Application.Request
+namespace Cloudents.Core.Request
 {
     public class SeoQuery
     {

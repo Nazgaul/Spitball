@@ -2,25 +2,23 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.Event;
-using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Entities;
-using Cloudents.Domain.Enums;
+using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.CommandHandler
+namespace Cloudents.Command.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class DeleteAnswerCommandHandler : ICommandHandler<DeleteAnswerCommand>
     {
         private readonly IRepository<Answer> _repository;
-        private readonly IRepository<Question> _questionRepository;
         private readonly IEventStore _eventStore;
 
-        public DeleteAnswerCommandHandler(IRepository<Answer> repository, IRepository<Question> questionRepository, IEventStore eventStore)
+        public DeleteAnswerCommandHandler(IRepository<Answer> repository, IEventStore eventStore)
         {
             _repository = repository;
-            _questionRepository = questionRepository;
             _eventStore = eventStore;
         }
 

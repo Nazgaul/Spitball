@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Enum;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 
-namespace Cloudents.Application.Query
+namespace Cloudents.Core.Query
 {
     public interface ISearch
     {

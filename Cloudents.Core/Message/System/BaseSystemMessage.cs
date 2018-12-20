@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Application.Message.System
+﻿namespace Cloudents.Core.Message.System
 {
     public interface ISystemQueueMessage
     {

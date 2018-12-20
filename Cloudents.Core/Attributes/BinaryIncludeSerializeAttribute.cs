@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Application.Attributes
+namespace Cloudents.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public sealed class BinaryIncludeSerializeAttribute : Attribute

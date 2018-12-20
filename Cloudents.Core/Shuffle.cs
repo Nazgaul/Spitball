@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Application.Extension;
+using Cloudents.Core.Extension;
 
-namespace Cloudents.Application
+namespace Cloudents.Core
 {
     public class Shuffle : IShuffle
     {

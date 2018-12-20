@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace Cloudents.Application.Entities.DocumentDb
+namespace Cloudents.Core.Entities.DocumentDb
 {
     [CollectionId(nameof(Flashcard))]
     public class Flashcard

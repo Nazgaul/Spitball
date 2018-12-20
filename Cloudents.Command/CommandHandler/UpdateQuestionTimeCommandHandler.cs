@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Command;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Interfaces;
+using Cloudents.Command.Command;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Application.CommandHandler
+namespace Cloudents.Command.CommandHandler
 {
     public class UpdateQuestionTimeCommandHandler : ICommandHandler<UpdateQuestionTimeCommand>
     {

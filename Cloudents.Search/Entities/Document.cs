@@ -1,10 +1,10 @@
-﻿using Cloudents.Common.Enum;
-using Cloudents.Search.Interfaces;
+﻿using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Application.DTOs.SearchSync;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Search.Entities
 {

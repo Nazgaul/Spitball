@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Cloudents.Application;
-using Cloudents.Application.Extension;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Message.System;
-using Cloudents.Application.Storage;
+using Cloudents.Core;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Cloudents.Infrastructure.Domain;

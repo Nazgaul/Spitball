@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Cloudents.Application;
+using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Extensions
 {

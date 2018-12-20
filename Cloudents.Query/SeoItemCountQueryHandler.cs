@@ -1,15 +1,13 @@
-﻿using Cloudents.Domain.Entities;
-using NHibernate;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Enum;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Query;
-using Cloudents.Domain.Enums;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Query.Query;
+using NHibernate;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Query
 {
     public class SeoItemCountQueryHandler : IQueryHandler<EmptyQuery, IEnumerable<SiteMapCountDto>>
     {

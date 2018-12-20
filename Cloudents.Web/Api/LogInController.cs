@@ -1,5 +1,4 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Web.Models;
+﻿using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -10,8 +9,9 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using System;
-using Cloudents.Application.Command;
-using Cloudents.Application.Interfaces;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.Api
 {
@@ -55,7 +55,7 @@ namespace Cloudents.Web.Api
             if (result == SignInResult.Success)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Ok(new { Country = user.Country });
+                return Ok(new {user.Country });
             }
 
 

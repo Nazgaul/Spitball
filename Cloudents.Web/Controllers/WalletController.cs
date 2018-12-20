@@ -1,11 +1,11 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Web.EventHandler;
+﻿using Cloudents.Web.EventHandler;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Web.Controllers
 {

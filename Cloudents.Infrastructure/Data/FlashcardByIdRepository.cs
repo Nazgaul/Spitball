@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.Entities.DocumentDb;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Entities.DocumentDb;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Data
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Application.Item.Commands.FlagItem
+namespace Cloudents.Command.Item.Commands.FlagItem
 {
     public class FlagAnswerCommand : BaseFlagItemCommand<Guid>
     {

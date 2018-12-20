@@ -1,14 +1,11 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using Autofac;
-using Autofac.Core;
-using Cloudents.Application.Interfaces;
-using Cloudents.Infrastructure.Database.Query;
-using Cloudents.Infrastructure.Database.Repositories;
-using JetBrains.Annotations;
+using Cloudents.Core.Interfaces;
+using Cloudents.Persistance.Repositories;
+using Cloudents.Query;
 using Module = Autofac.Module;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Persistance
 {
  
     public class ModuleDb : Module

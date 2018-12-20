@@ -1,6 +1,4 @@
-﻿using Cloudents.Domain.Entities;
-
-namespace Cloudents.Domain.Interfaces
+﻿namespace Cloudents.Core.Entities
 {
     public interface ISoftDelete
     {

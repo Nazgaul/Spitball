@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
 using Dapper;
 
 namespace Cloudents.Infrastructure.Data

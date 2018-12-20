@@ -1,16 +1,13 @@
-﻿using Cloudents.Common;
-using Cloudents.Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Cloudents.Application.Enum;
-using Cloudents.Common.Enum;
+using Cloudents.Core.Enum;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
-namespace Cloudents.Domain.Entities
+namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]

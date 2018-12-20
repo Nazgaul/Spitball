@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using Castle.DynamicProxy;
-using Cloudents.Application.Attributes;
-using Cloudents.Application.Interfaces;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Interceptor
 {

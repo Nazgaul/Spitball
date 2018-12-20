@@ -1,5 +1,5 @@
 ﻿using System;
-using Cloudents.Application.Query.Sync;
+using Cloudents.Query.Query.Sync;
 
 namespace Cloudents.FunctionsV2.Sync
 {

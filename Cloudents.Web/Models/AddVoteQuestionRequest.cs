@@ -1,5 +1,5 @@
 ﻿using System;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.Models
 {

@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Application.DTOs.SearchSync;
-using Cloudents.Application.Event;
-using Cloudents.Application.Interfaces;
-using Cloudents.Application.Message.System;
-using Cloudents.Application.Storage;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 
-namespace Cloudents.Application.EventHandler
+namespace Cloudents.Core.EventHandler
 {
     public class SyncSearchDocumentEventHandler : IEventHandler<DocumentCreatedEvent>,
         IEventHandler<DocumentDeletedEvent>

@@ -2,7 +2,6 @@
 using Microsoft.Azure.Search.Models;
 using Microsoft.Azure.WebJobs;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

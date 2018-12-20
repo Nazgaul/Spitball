@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Models
 {
     public class ApproveQuestionRequest
     {
-        public long id { get; set; }
+        public long Id { get; set; }
     }
 
     public class ApproveDocumentRequest
     {
-        public IEnumerable<long> id { get; set; }
+        public IEnumerable<long> Id { get; set; }
     }
 
 
     public class ApproveAnswerRequest
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
     }
 }

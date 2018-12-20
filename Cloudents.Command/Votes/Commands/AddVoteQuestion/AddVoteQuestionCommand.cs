@@ -1,7 +1,6 @@
-﻿using Cloudents.Application.Interfaces;
-using Cloudents.Domain.Entities;
+﻿using Cloudents.Core.Entities;
 
-namespace Cloudents.Application.Votes.Commands.AddVoteQuestion
+namespace Cloudents.Command.Votes.Commands.AddVoteQuestion
 {
     public class AddVoteQuestionCommand : ICommand
     {
