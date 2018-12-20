@@ -72,7 +72,7 @@
                 return !!this.accountUser
             },
             isSolidHeader() {
-                return this.offset > 120
+                return this.$vuetify.breakpoint.xsOnly ? this.offset > 45 : this.offset > 120;
             },
             isMobileView() {
                 return this.$vuetify.breakpoint.width < 1024;
@@ -189,7 +189,7 @@
                     &.login {
                         background: transparent;
                         color: @color-white;
-                        border: 1px solid #787878;
+                        border: 1px solid rgba(187, 187, 187, 1);
                     }
                     &.signup {
                         background: @color-yellow;

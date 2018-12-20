@@ -28,6 +28,7 @@ export default {
             search: '',
             reviewItems: reviews,
             youTubeVideoId: '',
+            SpitballVideoId: 'nreiplVSrWk',
             playerVisible: false,
             playerWidth: '',
             playerHeight: '',
@@ -158,8 +159,8 @@ export default {
         },
         updateVideoId(videoID) {
             if (this.$vuetify.breakpoint.xs) {
-                // this.playerWidth = '100%';
-                // this.playerHeight = '100%';
+                this.playerWidth = '100%';
+                this.playerHeight = '100%';
 
             } else {
                 // this.playerWidth = '1280';

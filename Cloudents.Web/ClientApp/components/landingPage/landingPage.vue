@@ -1,21 +1,25 @@
 <template>
-    <div>
-        <div class="wide-parallax" pa-0>
+    <div :class="[isRtl ? 'hebrew-wrap' : '']">
+        <div class="wide-parallax" :class="[isRtl ? 'hebrew-flipped' : '']" pa-0>
 
             <landing-header></landing-header>
 
             <section class="hero">
                 <div class="text-switch-container" v-show="isMobileView">
-                    <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}" class="lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
-                    <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}" class="lp-header-link" @click="changeDictionaryType('earn')">Earn money</a>
+                    <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}"
+                       class="lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
+                    <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}"
+                       class="lp-header-link" @click="changeDictionaryType('earn')">Earn money</a>
                 </div>
                 <div class="hero-wrap">
                     <div class="hero-text-container">
                         <h1 class="hero-title" v-html="$Ph(`landingPage_${dictionaryType}_knowledge_title`)"></h1>
                         <h3 v-html="$Ph(`landingPage_${dictionaryType}_knowledge_subTitle`)"></h3>
                     </div>
-                    <router-link :to="{path: '/register'}" class="cta-button" v-language:inner>landingPage_join_spitball</router-link>
-                    <a class="video-link" @click.prevent="updateVideoId('6lt2JfJdGSY')">
+                    <router-link :to="{path: '/register'}" class="cta-button" v-language:inner>
+                        landingPage_join_spitball
+                    </router-link>
+                    <a class="video-link" @click.prevent="updateVideoId(SpitballVideoId)">
                         <v-icon class="play-icon">sbf-play</v-icon>
                         <span v-language:inner>landingPage_how_it_works</span></a>
                 </div>
@@ -28,8 +32,10 @@
             <div class="title-container">
                 <div class="spacer-one" v-if="$vuetify.breakpoint.smAndUp"></div>
                 <div class="title-wrap">
-                    <h3 class="intro-one-title" v-html="$Ph(`landingPage_${dictionaryType}_question_section_title`)"></h3>
-                    <span class="intro-one-sub-title" v-html="$Ph(`landingPage_${dictionaryType}_question_section_subTitle`)"></span>
+                    <h3 class="intro-one-title"
+                        v-html="$Ph(`landingPage_${dictionaryType}_question_section_title`)"></h3>
+                    <span class="intro-one-sub-title"
+                          v-html="$Ph(`landingPage_${dictionaryType}_question_section_subTitle`)"></span>
                 </div>
             </div>
             <div class="right-part overlap-above">
@@ -73,7 +79,7 @@
                         <template slot="item" slot-scope="{ index, item, parent }">
                             <v-list-tile-content style="max-width:385px;" @click="goToResulstQuestionsPage(item)">
                                 <span v-html="$options.filters.boldText(item, search)"
-                                      >{{ item }}</span>
+                                >{{ item }}</span>
                             </v-list-tile-content>
                         </template>
                     </v-combobox>
@@ -85,14 +91,15 @@
                 <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
 
             </div>
-        </section> 
+        </section>
 
-         <section class="intro-two">
+        <section class="intro-two">
             <div class="title-container">
                 <div class="spacer-two" v-if="$vuetify.breakpoint.smAndUp"></div>
                 <div class="title-wrap">
                     <h3 class="intro-two-title" v-html="$Ph(`landingPage_${dictionaryType}_upload_section_title`)"></h3>
-                    <span class="intro-two-sub-title" v-html="$Ph(`landingPage_${dictionaryType}_upload_section_subTitle`)"></span>
+                    <span class="intro-two-sub-title"
+                          v-html="$Ph(`landingPage_${dictionaryType}_upload_section_subTitle`)"></span>
                 </div>
 
             </div>
@@ -114,6 +121,7 @@
                                 solo
                                 :search-input.sync="searchUni"
                                 :append-icon="''"
+                                :prepend-inner-icon="'sbf-search'"
                                 :clear-icon="'sbf-close'"
                                 @click:clear="clearData(searchUni, university)"
                                 autofocus
@@ -132,7 +140,7 @@
                             </v-list-tile>
                         </template>
                         <template slot="item" slot-scope="{ index, item, parent }">
-                            <v-list-tile-content style="max-width:385px;"  @click="goToResultDocumentsPage(item)">
+                            <v-list-tile-content style="max-width:385px;" @click="goToResultDocumentsPage(item)">
                                 <span v-html="$options.filters.boldText(item.text, searchUni)">{{ item.text }}</span>
                             </v-list-tile-content>
                         </template>
@@ -145,7 +153,7 @@
                 <div style="flex-grow:1;width:100%;" v-if="$vuetify.breakpoint.smAndUp"></div>
 
             </div>
-        </section> 
+        </section>
         <section class="faq">
             <div class="faq-wrap">
                 <h3 class="faq-title" v-language:inner>landingPage_what_is_spitball</h3>
@@ -162,14 +170,17 @@
                 <h3 class="faq-title" v-language:inner>landingPage_how_is_catch</h3>
                 <p class="faq-text" v-language:inner>landingPage_how_is_catch_desc</p>
             </div>
-            <router-link :to="{path: '/register'}" class="cta-sbl sb-rounded-btn" v-language:inner>landingPage_get_your_sbl</router-link>
+            <router-link :to="{path: '/register'}" class="cta-sbl sb-rounded-btn" v-language:inner>
+                landingPage_get_your_sbl
+            </router-link>
         </section>
 
         <!--<v-parallax class="overflowing-parallax"-->
         <!--dark-->
         <!--src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">-->
         <section class="reviews">
-            <h3 class="reviews-title" v-show="!$vuetify.breakpoint.xsOnly" v-language:inner>landingPage_spitball_student_title</h3>
+            <h3 class="reviews-title" v-show="!$vuetify.breakpoint.xsOnly" v-language:inner>
+                landingPage_spitball_student_title</h3>
             <div class="carousel-holder">
                 <v-carousel
                         height=""
@@ -178,11 +189,12 @@
                         :next-icon="isRtl ?  'sbf-arrow-left-carousel left': 'sbf-arrow-right-carousel right'"
                         :cycle="false"
                         :max="'250'">
-                    <v-carousel-item v-for="(items,i) in formattedReviews"  :key="`desktop-${i}`" v-if="!$vuetify.breakpoint.xsOnly">
+                    <v-carousel-item v-for="(items,i) in formattedReviews" :key="`desktop-${i}`"
+                                     v-if="!$vuetify.breakpoint.xsOnly">
                         <template v-for="(data, index) in items">
                             <div :key="`innerData_${index}`" class="review-item-wrap">
                                 <div class="review-image-wrap">
-                                    <img  class="review-image"  :src="require(`${data.image}`)"  :alt="data.title">
+                                    <img class="review-image" :src="require(`${data.image}`)" :alt="data.title">
                                 </div>
                                 <span class="review-name">{{data.name}}</span>
                                 <span class="review-title">{{data.title}}</span>
@@ -191,9 +203,11 @@
                         </template>
                     </v-carousel-item>
                     <v-carousel-item v-for="(item,index) in formattedReviews" v-else>
-                        <template >
+                        <template>
                             <div :key="`innerData_${index}`" class="review-item-wrap">
-                                <img  class="review-image"  :src="require(`${item.image}`)"  :alt="item.title">
+                                <div class="review-image-wrap">
+                                    <img class="review-image" :src="require(`${item.image}`)" :alt="item.title">
+                                </div>
                                 <span class="review-name">{{item.name}}</span>
                                 <span class="review-title">{{item.title}}</span>
                                 <span class="review-text">{{item.text}}</span>
@@ -223,12 +237,13 @@
             <router-link :to="{path: '/register'}" class="join-cta" v-language:inner>landingPage_sign_up</router-link>
         </section>
         <landing-footer></landing-footer>
-        <sb-dialog style="box-shadow: none;" :onclosefn="hideVideoPlayer" class="video-dialog" :isPersistent="false" :showDialog="playerVisible" :popUpType="'videoPlayer'"
+        <sb-dialog style="box-shadow: none;" :onclosefn="hideVideoPlayer" class="video-dialog" :isPersistent="false"
+                   :showDialog="playerVisible" :popUpType="'videoPlayer'"
                    :content-class="'videoPlayerDialog'">
             <youtube
-                    :video-id="youTubeVideoId"
+                    :video-id="youTubeVideoId" :player-width="playerWidth" :player-height="playerHeight"
                     :player-vars="{autoplay: 1}" @ready="readyPlayer">
-                 
+
             </youtube>
         </sb-dialog>
         <sb-dialog class="subjects-dialog" :isPersistent="false" :showDialog="mobileSubjectsDialog"
@@ -327,5 +342,5 @@
 </template>
 
 
-<style src="./landingPage.less"  lang="less"></style>
+<style src="./landingPage.less" lang="less"></style>
 <script src="./landingPage.js"></script>
