@@ -2,7 +2,7 @@
 using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 
-namespace Cloudents.Application
+namespace Cloudents.Domain
 {
     public static class Privileges
     {

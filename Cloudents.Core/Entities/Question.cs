@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using Cloudents.Application.Enum;
 using Cloudents.Common.Enum;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]

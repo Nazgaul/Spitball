@@ -25,6 +25,7 @@ using Cloudents.Application.Item.Commands.FlagItem;
 using Cloudents.Application.Models;
 using Cloudents.Application.Query;
 using Cloudents.Application.Votes.Commands.AddVoteQuestion;
+using Cloudents.Domain;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.SignalR;

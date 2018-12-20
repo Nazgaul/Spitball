@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Cloudents.Application;
 using Cloudents.Application.Command;
 using Cloudents.Application.CommandHandler;
@@ -98,12 +99,26 @@ namespace ConsoleApp
 
         }
 
+        public class Order
+        {
+            public int Id { get; set; }
+        }
+
+        public class OrderDto
+        {
+
+        }
+
         private static async Task RamMethod()
         {
+            Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>());
+
+            Mapper.Configuration.AssertConfigurationIsValid();
+
             //await ReCopyTransferFiles();
 
-           // var bus = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
-           // await bus.CreateOrUpdateAsync(token);
+            // var bus = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
+            // await bus.CreateOrUpdateAsync(token);
 
             var t = _container.Resolve<AzureDocumentSearch>();
             var z = await t.ItemAsync(6746, default);

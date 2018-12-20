@@ -20,6 +20,7 @@ using Cloudents.Application.Interfaces;
 using Cloudents.Application.Item.Commands.FlagItem;
 using Cloudents.Application.Query;
 using Cloudents.Application.Votes.Commands.AddVoteAnswer;
+using Cloudents.Domain;
 using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Api

@@ -1,14 +1,14 @@
-﻿using Cloudents.Application.Enum.Resources;
-using Cloudents.Common.Attributes;
+﻿using Cloudents.Common.Attributes;
+using Cloudents.Common.Resources;
 
 namespace Cloudents.Application.Enum
 {
     public enum TutorRequestFilter
     {
-        [ResourceDescription(typeof(EnumResourcesOld), "TutorFilterOnline")]
+        [ResourceDescription(typeof(EnumResources), "TutorFilterOnline")]
 
         Online,
-        [ResourceDescription(typeof(EnumResourcesOld), "TutorFilterInPerson")]
+        [ResourceDescription(typeof(EnumResources), "TutorFilterInPerson")]
 
         InPerson
     }

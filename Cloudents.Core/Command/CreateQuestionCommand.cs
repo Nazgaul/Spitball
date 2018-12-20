@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Application.Enum;
 using Cloudents.Application.Interfaces;
 using Cloudents.Common.Enum;
 using Cloudents.Domain.Enums;

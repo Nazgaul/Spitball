@@ -26,6 +26,7 @@ using Cloudents.Application.Storage;
 using Cloudents.Application.Votes.Commands.AddVoteDocument;
 using Cloudents.Common.Attributes;
 using Cloudents.Common.Enum;
+using Cloudents.Domain;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Resources;

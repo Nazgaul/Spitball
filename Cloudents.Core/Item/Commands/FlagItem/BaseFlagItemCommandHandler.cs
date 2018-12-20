@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Application.Exceptions;
 using Cloudents.Application.Interfaces;
+using Cloudents.Domain;
 using Cloudents.Domain.Entities;
 using Cloudents.Domain.Enums;
 

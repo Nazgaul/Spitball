@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cloudents.Application.Enum;
 using Cloudents.Application.Interfaces;
 using Cloudents.Common.Enum;
 using JetBrains.Annotations;

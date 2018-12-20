@@ -1,14 +1,14 @@
-﻿using Cloudents.Application.Enum.Resources;
-using Cloudents.Common.Attributes;
+﻿using Cloudents.Common.Attributes;
+using Cloudents.Common.Resources;
 
 namespace Cloudents.Application.Enum
 {
     public enum TutorRequestSort
     {
 
-        [ResourceDescription(typeof(EnumResourcesOld), "SearchRequestSortRelevance")]
+        [ResourceDescription(typeof(EnumResources), "SearchRequestSortRelevance")]
         Relevance,
-        [ResourceDescription(typeof(EnumResourcesOld), "TutorSortPrice")]
+        [ResourceDescription(typeof(EnumResources), "TutorSortPrice")]
         Price,
     }
 }

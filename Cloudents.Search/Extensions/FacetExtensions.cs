@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cloudents.Application.Enum;
 using Cloudents.Common;
 using Cloudents.Common.Enum;
 using Microsoft.Azure.Search.Models;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Application.Enum.Resources;
 using Cloudents.Common.Attributes;
+using Cloudents.Common.Resources;
 
 namespace Cloudents.Application.DTOs
 {
@@ -24,13 +24,13 @@ namespace Cloudents.Application.DTOs
     public enum BookCondition
     {
         None,
-        [ResourceDescription(typeof(EnumResourcesOld), "BookConditionNew")]
+        [ResourceDescription(typeof(EnumResources), "BookConditionNew")]
         New,
-        [ResourceDescription(typeof(EnumResourcesOld), "BookConditionRental")]
+        [ResourceDescription(typeof(EnumResources), "BookConditionRental")]
         Rental,
-        [ResourceDescription(typeof(EnumResourcesOld), "BookConditionEBook")]
+        [ResourceDescription(typeof(EnumResources), "BookConditionEBook")]
         EBook,
-        [ResourceDescription(typeof(EnumResourcesOld), "BookConditionUsed")]
+        [ResourceDescription(typeof(EnumResources), "BookConditionUsed")]
         Used
     }
 }

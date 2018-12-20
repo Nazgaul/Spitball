@@ -8,4 +8,9 @@
     <ProjectReference Include="..\Cloudents.Common\Cloudents.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>

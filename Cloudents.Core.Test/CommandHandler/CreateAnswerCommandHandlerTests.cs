@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using Cloudents.Application.Command;
 using Cloudents.Application.CommandHandler;
+using Cloudents.Application.Enum;
 using Cloudents.Application.Interfaces;
 using Cloudents.Common;
 using Cloudents.Common.Enum;
