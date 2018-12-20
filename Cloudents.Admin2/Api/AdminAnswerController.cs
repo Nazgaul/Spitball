@@ -41,7 +41,7 @@ namespace Cloudents.Admin2.Api
         public async Task<ActionResult> ApproveAnswerAsync([FromBody] ApproveAnswerRequest model, CancellationToken token)
         {
          
-            var command = new ApproveAnswerCommand(model.id);
+            var command = new ApproveAnswerCommand(model.ids);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
