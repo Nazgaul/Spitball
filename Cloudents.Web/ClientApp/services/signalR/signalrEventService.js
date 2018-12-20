@@ -72,11 +72,11 @@ export default function init(connString = '/sbHub'){
     let connection = createConnection(connString)
     
     //reconnect in case connection closes for some reason
-    connection.onclose(function(){
-        console.log("signal-R Disconected");
-        connectionState.isConnected = false;
-        connectivityModule.sr.reconnect(connection);
-    });
+    // connection.onclose(function(){
+    //     console.log("signal-R Disconected");
+    //     connectionState.isConnected = false;
+    //     connectivityModule.sr.reconnect(connection);
+    // });
 
     //open the connection and register the events
     startConnection(connection, "Message"); 
@@ -90,8 +90,14 @@ export function NotifyServer(connection, message, data){
     }
 }
 
-function reconnect(err){
-    console.log(err);
+export function reconnectSignalR(){
+    if(signalRConnectionPool.length > 0){
+        signalRConnectionPool.forEach((connection, index)=>{
+            connection.stop()
+            signalRConnectionPool.splice(index, 1);
+        })
+    }
+    init();
 }
 
 export function getMainConnection(){
