@@ -5,6 +5,24 @@
 @ctaSblColor: #3d5afe;
 @introSubTitleColor: rgba(0, 0, 0, 0.71);
 
+
+.input-holder {
+  padding-top: 78px;
+  width: 60%;
+  max-width: 576px;
+  //vuetify overwrite
+  .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) .v-input__slot{
+    box-shadow: 0 3px 20px 0 rgba(255, 255, 255, 0.86), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  }
+  input{
+    .placeholder-color(@textColor, 1, 600);
+  }
+  @media (max-width: @screen-mds) {
+    padding: 36px 16px;
+    width: 100%;
+  }
+}
+
 .subjects-combo-pop, .uni-combo-pop {
   padding-top: 36px;
   position: relative;
@@ -311,7 +329,6 @@ section {
     background-image: radial-gradient(circle at 48% 0, #4b8ffe, #4b8ffe 12%, #4b8ffe 34%, #4452fc);
   }
   .input-holder {
-
     @media (max-width: @screen-mds) {
       .dummy-input {
         display: flex;
@@ -432,19 +449,10 @@ section {
       left: 0;
     }
   }
-  .input-holder {
-    padding-top: 78px;
-    width: 100%;
-    max-width: 576px;
-    @media (max-width: @screen-mds) {
-      padding: 36px 16px;
-
-    }
-
-  }
 }
 
 .intro-two {
+  background-color: @color-white;
   @media (max-width: @screen-mds) {
     padding: 0 12px;
   }
@@ -530,21 +538,6 @@ section {
       right: 0;
     }
   }
-  .input-holder {
-    padding-top: 78px;
-    width: 60%;
-    max-width: 576px;
-    @media (max-width: @screen-mds) {
-      padding: 36px 16px;
-      width: 100%;
-      .input-subject {
-        .input-field {
-          .placeholder-color(@color-black)!important;
-          background-color: @color-white;
-        }
-      }
-    }
-  }
 }
 
 /*--------------------
@@ -552,10 +545,10 @@ section {
 ---------------------*/
 
 .reviews {
-  padding: 50px 100px;
+  padding: 50px 100px 100px 100px;
   background-image: url("./images/testimonials_BG.png");
   @media (max-width: @screen-xs) {
-    padding: 50px 0px;
+    padding: 50px 0;
     background-repeat: no-repeat;
     background-size: 100% 110px;
   }
@@ -569,12 +562,18 @@ section {
     @media (max-width: @screen-xs) {
       margin-top: -80px;
     }
-
     .v-carousel {
       box-shadow: none;
     }
     .v-carousel__prev, .v-carousel__next {
+      //TODO carousel with only three data items
+      display: none;
+
       top: 10%;
+      i{
+          font-size: 36px!important;
+          color: fade(@color-white, 38%);
+      }
       @media (max-width: @screen-xs) {
         top: 15%;
 
@@ -596,8 +595,9 @@ section {
             max-width: 306px;
             position: relative;
             align-items: center;
-            &:first-child {
-              margin-right: 120px;
+            margin-right: 120px;
+            &:last-child {
+              margin-right: 0px;
             }
             @media (max-width: @screen-xs) {
               &:first-child {
@@ -761,11 +761,19 @@ section.faq {
     background-image: linear-gradient(95deg, #4b8ffe, #4b8ffe 34%, #4452fc);
     .layout-subject {
       padding-top: 78px;
+      width: 80%;
+      @media(max-width: @screen-sm-960){
+        max-width: 100%;
+      }
       .subject-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding-left: 16px;
         height: 36px;
         &:hover {
           .subject-card {
+            min-width: 202px;
             .subject-text {
               cursor: pointer;
               color: fade(@color-white, 90%);
@@ -779,12 +787,13 @@ section.faq {
           font-family: @fontOpenSans;
           text-align: left;
           position: static;
+          min-width: 200px;
           .subject-text {
             font-size: 16px;
             color: @color-white;
             display: block;
             margin: 0 auto;
-            width: 50%;
+            width: 100%;
             @media (max-width: @screen-mds) {
               width: 100%;
             }
@@ -801,7 +810,7 @@ section.faq {
       margin-bottom: 20px;
     }
     .subject-sub-title {
-      font-size: 18px;
+      font-size: 20px;
       font-family: @fontOpenSans;
       font-weight: normal;
       color: @color-white;

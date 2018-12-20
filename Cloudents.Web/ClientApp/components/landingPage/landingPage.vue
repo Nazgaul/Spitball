@@ -114,6 +114,7 @@
                                 solo
                                 :search-input.sync="searchUni"
                                 :append-icon="''"
+                                :prepend-inner-icon="'sbf-search'"
                                 :clear-icon="'sbf-close'"
                                 @click:clear="clearData(searchUni, university)"
                                 autofocus
