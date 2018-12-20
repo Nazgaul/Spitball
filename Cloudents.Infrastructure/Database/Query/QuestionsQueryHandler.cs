@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Price,
                     s.Text,
                     s.Attachments,
-                    s.AnswerCount,
+                    s.Answers.Count,
                     new UserDto(s.User.Id, s.User.Name, s.User.Score),
                     //{
                     //    Id = s.User.Id,
