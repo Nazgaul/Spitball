@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Application.Attributes;
 using Cloudents.Application.Interfaces;
-using Cloudents.Infrastructure.Interceptor;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -27,19 +26,19 @@ namespace Cloudents.Infrastructure.Database.Query
                 return await _decoratee.GetAsync(query, token);
             }
 
-            var cacheKey = CacheResultInterceptor.GetCacheKey(_decoratee.GetType(), "GetAsync", new object[] { query });
+            //var cacheKey = CacheResultInterceptor.GetCacheKey(_decoratee.GetType(), "GetAsync", new object[] { query });
 
-            var result = _cacheProvider.Value.Get<TQueryResult>(cacheKey, attr.Region);
+            //var result = _cacheProvider.Value.Get<TQueryResult>(cacheKey, attr.Region);
 
-            if (result != null)
-            {
-                return result;
-            }
+            //if (result != null)
+            //{
+                //return result;
+//            }
             
 
-            result = await _decoratee.GetAsync(query, token);
+            var result = await _decoratee.GetAsync(query, token);
 
-            _cacheProvider.Value.Set(cacheKey,attr.Region,result,attr.Duration,attr.Slide);
+           // _cacheProvider.Value.Set(cacheKey,attr.Region,result,attr.Duration,attr.Slide);
             return result;
 
 

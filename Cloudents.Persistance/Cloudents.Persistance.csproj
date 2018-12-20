@@ -11,9 +11,11 @@
     <!--We have a problem with redis nuget packages.-->
     <PackageReference Include="NHibernate.Caches.CoreDistributedCache.Redis" Version="5.5.1" />
     <PackageReference Include="Autofac" Version="4.6.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
     <ProjectReference Include="..\Cloudents.Domain\Cloudents.Domain.csproj" />
   </ItemGroup>
 </Project>
