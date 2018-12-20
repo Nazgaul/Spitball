@@ -44,6 +44,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
                     .Select(s => s.Color).WithAlias(() => dto.Color)
+                    .Select(s => s.Language).WithAlias(() => dto.CultureInfo)
 
                     .Select(Projections.Property(() => questionAlias.Item.VoteCount).As("Vote.Votes"))
                     .Select(Projections.Conditional(
