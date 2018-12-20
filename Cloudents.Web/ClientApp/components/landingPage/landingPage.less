@@ -5,11 +5,13 @@
 @ctaSblColor: #3d5afe;
 @introSubTitleColor: rgba(0, 0, 0, 0.71);
 
-.hebrew-wrap{
-  *{
-    font-family: 'Arial', sans-serif!important;
+.hebrew-wrap {
+  * {
+    font-family: 'Arial', sans-serif !important;
   }
-};
+}
+
+;
 
 .input-holder {
   padding-top: 78px;
@@ -69,19 +71,23 @@
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
-  //@media(max-width: @screen-xs){
-  //  background-image: url('./images/Mobile_Heb_Earn.jpg');
-  //  &.hebrew-flipped{
-  //    background-image: url('./images/Mobile_Eng_Earn.jpg');
-  //  }
-  //}
-  .statistics {
-    width: 105%;
-    @media (max-width: @screen-mds) {
-      width: 110%;
+  @media (max-width: @screen-xs) {
+    background-image: url('./images/mobile_English_earn.jpg');
+    &.hebrew-flipped {
+      background-image: url('./images/mobile_Heb_Earn.jpg');
+      background-position: 56% 0px;
     }
   }
 }
+
+.statistics {
+  width: 105%;
+  @media (max-width: @screen-mds) {
+    width: 110%;
+  }
+}
+
+
 
 ul, nav {
   list-style: none;
@@ -188,7 +194,7 @@ section {
   .hero-text-container {
     height: 190px;
     min-height: 190px;
-    @media(max-width: @screen-xs){
+    @media (max-width: @screen-xs) {
       height: 248px;
     }
     .hero-title {
@@ -398,7 +404,7 @@ section {
     }
     @media (max-width: @screen-xs) {
       margin-bottom: 32px;
-      height:auto;
+      height: auto;
     }
     .title-wrap {
       order: 1;
@@ -490,7 +496,7 @@ section {
     flex-direction: row;
     margin-bottom: 70px;
     @media (max-width: @screen-xs) {
-      height:auto;
+      height: auto;
       margin-bottom: 32px;
     }
     @media (max-width: @screen-mds) {
@@ -594,12 +600,12 @@ section {
     .v-carousel {
       box-shadow: none;
     }
-    .v-carousel__next{
+    .v-carousel__next {
       @media (max-width: @screen-xs) {
         right: 10px;
       }
     }
-    .v-carousel__prev{
+    .v-carousel__prev {
       @media (max-width: @screen-xs) {
         left: 10px;
       }
