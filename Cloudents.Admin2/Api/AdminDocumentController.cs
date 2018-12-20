@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Admin2.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -89,9 +90,9 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpPost]
-        public async Task<IActionResult> ApproveAsync([FromQuery(Name = "id")] IEnumerable<long> ids, CancellationToken token)
+        public async Task<IActionResult> ApproveAsync([FromBody] ApproveDocumentRequest model, CancellationToken token)
         {
-            var command = new ApproveDocumentCommand(ids);
+            var command = new ApproveDocumentCommand(model.id);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -107,10 +108,11 @@ namespace Cloudents.Admin2.Api
             
         }
 
+
         [HttpPost("unFlag")]
-        public async Task<ActionResult> UnFlagAnswerAsync([FromQuery(Name = "id")] long id, CancellationToken token)
+        public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagDocumentRequest model, CancellationToken token)
         {
-            var command = new UnFlagDocumentCommand(id);
+            var command = new UnFlagDocumentCommand(model.id);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }

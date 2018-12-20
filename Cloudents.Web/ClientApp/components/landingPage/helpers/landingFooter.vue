@@ -115,7 +115,7 @@
     @import "../../../styles/mixin.less";
 
     @footerLinksColor: rgba(255, 255, 255, 0.87);
-    @footerBackground: rgba(3, 4, 21, 0.72);
+    @footerBackground: #29313F;
     .footer {
         display: flex;
         flex-direction: column;
@@ -146,7 +146,8 @@
                 justify-content: space-around;
                 height: 80px;
                 border-top: 1px solid #979797;
-                border-bottom: 1px solid #979797;;
+                border-bottom: 1px solid #979797;
+                margin: 48px 0;
                 .social-link {
                     width: 50px;
                     margin-right: 46px;
@@ -165,7 +166,7 @@
             flex-basis: 36%;
             align-items: center;
             justify-content: center;
-            padding: 16px;
+            padding: 16px 16px 8px 16px;
             a {
                 display: inline-block;
                 text-align: left;
