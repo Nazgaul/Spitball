@@ -38,7 +38,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("approve")]
-        public async Task<ActionResult> ApproveAnswerAsync([FromQuery(Name = "id")] Guid id, CancellationToken token)
+        public async Task<ActionResult> ApproveAnswerAsync([FromBody] Guid id, CancellationToken token)
         {
          
             var command = new ApproveAnswerCommand(id);

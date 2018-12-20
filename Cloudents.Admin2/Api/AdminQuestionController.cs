@@ -77,7 +77,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("approve")]
-        public async Task<ActionResult> ApproveQuestionAsync([FromQuery(Name = "id")]IEnumerable<long> ids, CancellationToken token)
+        public async Task<ActionResult> ApproveQuestionAsync([FromBody] IEnumerable<long> ids, CancellationToken token)
         {
          
 
