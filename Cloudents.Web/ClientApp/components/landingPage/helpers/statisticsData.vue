@@ -29,9 +29,7 @@
         name: "statisticsData",
         components: {tweenNumber},
         data() {
-            return {
-
-            };
+            return {};
         },
         computed: {
             isMobileView() {
@@ -55,6 +53,9 @@
     @import "../../../styles/mixin.less";
 
     .stats-wrap {
+        align-items: center;
+        justify-content: center;
+        display: flex;
         width: 115%;
         padding: 26px 100px;
         @media (max-width: @screen-mds) {
@@ -65,6 +66,7 @@
     .stats-container {
         flex-direction: row;
         flex-wrap: nowrap;
+        max-width: 1260px;
         @media (max-width: @screen-mds) {
             /*flex-wrap: wrap;*/
         }
@@ -84,6 +86,9 @@
                     font-size: 16px;
                     text-align: center;
                     color: @color-white;
+                    @media (max-width: @screen-xs) {
+                        font-size: 14px;
+                    }
                 }
                 .stat-text-data {
                     padding-bottom: 4px;
@@ -92,6 +97,10 @@
                     letter-spacing: 2.4px;
                     text-align: center;
                     color: @color-white;
+                    @media (max-width: @screen-xs) {
+                        font-size: 22px;
+                        padding: 4px 4px 12px 4px;
+                    }
                 }
             }
         }

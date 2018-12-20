@@ -12,17 +12,17 @@ export const reviews =  [
         title: LanguageService.getValueByKey("homePage_Testimonial2Title"),
         text: LanguageService.getValueByKey("homePage_Testimonial2"),
         image: './helpers/testimonials/images/testimonial2.jpg'
-    },],
-    [{
+    },
+    {
         name: LanguageService.getValueByKey("homePage_Testimonial3Person"),
         title: LanguageService.getValueByKey("homePage_Testimonial3Title"),
         text: LanguageService.getValueByKey("homePage_Testimonial3"),
         image: './helpers/testimonials/images/testimonial3.jpg'
-    },
-    {
-        name: LanguageService.getValueByKey("homePage_Testimonial4Person"),
-        title: LanguageService.getValueByKey("homePage_Testimonial4Title"),
-        text: LanguageService.getValueByKey("homePage_Testimonial4"),
-        image: './helpers/testimonials/images/testimonial4.jpg'
-    }]
+    }],
+    // [{
+    //     name: LanguageService.getValueByKey("homePage_Testimonial4Person"),
+    //     title: LanguageService.getValueByKey("homePage_Testimonial4Title"),
+    //     text: LanguageService.getValueByKey("homePage_Testimonial4"),
+    //     image: './helpers/testimonials/images/testimonial4.jpg'
+    // }]
 ];
