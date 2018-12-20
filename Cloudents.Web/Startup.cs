@@ -177,6 +177,7 @@ namespace Cloudents.Web
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
+                Assembly.Load("Cloudents.Persistance"),
                 Assembly.GetExecutingAssembly()
             };
             services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
@@ -196,8 +197,9 @@ namespace Cloudents.Web
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
-            containerBuilder.RegisterSystemModules(
-                Application.Enum.System.Web, assembliesOfProgram);
+            containerBuilder.RegisterAssemblyModules(assembliesOfProgram);
+            //containerBuilder.RegisterSystemModules(
+            //    Application.Enum.System.Web, assembliesOfProgram);
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();

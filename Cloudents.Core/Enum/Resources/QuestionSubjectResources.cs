@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Common.Resources
+﻿namespace Cloudents.Core.Enum.Resources
 {
     public class QuestionSubjectResources
     {

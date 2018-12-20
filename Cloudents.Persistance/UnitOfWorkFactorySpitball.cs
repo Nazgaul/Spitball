@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Cloudents.Application.Interfaces;
 using Cloudents.Infrastructure.Database.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
@@ -29,11 +30,11 @@ namespace Cloudents.Infrastructure.Database
         //        select x;
         //}
 
-        public UnitOfWorkFactorySpitball(string dbConnectionString, string redisConnectionString)
+        public UnitOfWorkFactorySpitball(IConfigurationKeys connectionString)
         {
             var configuration = Fluently.Configure()
                 .Database(
-                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(dbConnectionString)
+                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.Db)
                         .DefaultSchema("sb").Dialect<SbDialect>()
 
 #if DEBUG
@@ -57,7 +58,7 @@ namespace Cloudents.Infrastructure.Database
             //Could not load file or assembly 'Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60' or one of its dependencies. The system cannot find the file specified.
             configuration.Cache(c =>
             {
-                CoreDistributedCacheProvider.CacheFactory = new RedisFactory(redisConnectionString, "master");
+                CoreDistributedCacheProvider.CacheFactory = new RedisFactory(connectionString.Db.Redis, "master");
                 c.UseSecondLevelCache().RegionPrefix("nhibernate")
                     .UseQueryCache().ProviderClass<CoreDistributedCacheProvider>();
             });

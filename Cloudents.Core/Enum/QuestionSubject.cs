@@ -4,7 +4,7 @@ using Cloudents.Application.Attributes;
 using Cloudents.Application.Extension;
 using Cloudents.Common.Attributes;
 using Cloudents.Common.Enum;
-using Cloudents.Common.Resources;
+using Cloudents.Core.Enum.Resources;
 
 namespace Cloudents.Application.Enum
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cloudents.Common.Attributes;
-using Cloudents.Common.Resources;
+using Cloudents.Core.Enum.Resources;
 
 namespace Cloudents.Application.DTOs
 {

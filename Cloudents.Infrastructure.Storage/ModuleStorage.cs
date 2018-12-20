@@ -30,16 +30,16 @@ namespace Cloudents.Infrastructure.Storage
         }
     }
 
-    [ModuleRegistration(Application.Enum.System.WorkerRole)]
-    public class ModuleTempStorage : Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.Register(c =>
-            {
-                var key = c.Resolve<IConfigurationKeys>().LocalStorageData;
-                return new TempStorageProvider(c.Resolve<ILogger>(), key);
-            }).As<ITempStorageProvider>();
-        }
-    }
+    //[ModuleRegistration(Application.Enum.System.WorkerRole)]
+    //public class ModuleTempStorage : Module
+    //{
+    //    protected override void Load(ContainerBuilder builder)
+    //    {
+    //        builder.Register(c =>
+    //        {
+    //            var key = c.Resolve<IConfigurationKeys>().LocalStorageData;
+    //            return new TempStorageProvider(c.Resolve<ILogger>(), key);
+    //        }).As<ITempStorageProvider>();
+    //    }
+    //}
 }
