@@ -14,7 +14,7 @@ export const signlaREvents = {
         },
         action: function(arrEventObj){
             let questionActions = {
-                markAsCorrect: function(dataObj){
+                markascorrect: function(dataObj){
                     //feed Object
                     store.dispatch("updateQuestionCorrect", dataObj)
                     //question Object
