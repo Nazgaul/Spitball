@@ -19,10 +19,6 @@
                    :campaignData="campaignData"
                    :isSignIn="isSignInComputed"
                    :isNewUser="isNewUser"></component>
-        <div class="progress" v-if="isShowProgress">
-            <div v-for="page in progressSteps" :class="{highlighted: page===stepNumber}"></div>
-        </div>
-
         <button class="back-button" @click="showDialog = true" v-if="stepNumber !== 6">
             <v-icon right>sbf-close</v-icon>
         </button>

@@ -182,6 +182,7 @@
                 landingPage_spitball_student_title</h3>
             <div class="carousel-holder">
                 <v-carousel
+                        :touchless="isRtl ? true : false"
                         height=""
                         hide-delimiters
                         :prev-icon="isRtl ? 'sbf-arrow-right-carousel right' : 'sbf-arrow-left-carousel left'"
@@ -201,7 +202,10 @@
                             </div>
                         </template>
                     </v-carousel-item>
-                    <v-carousel-item v-for="(item,index) in formattedReviews" v-else>
+                    <v-carousel-item
+                            v-else  v-for="(item,index) in formattedReviews"
+
+                    >
                         <template>
                             <div :key="`innerData_${index}`" class="review-item-wrap">
                                 <div class="review-image-wrap">
