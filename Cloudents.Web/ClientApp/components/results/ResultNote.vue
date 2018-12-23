@@ -239,6 +239,7 @@
             showReportOptions(){
               this.showMenu =true
             },
+            //our docs event
             $_spitball(event, url) {
                 event.preventDefault();
                 this.$router.push(url);
@@ -248,6 +249,7 @@
                     }
                 }, 100);
             },
+            //third party docs event
             $_thirdPartyEvent(event, url){
                 event.preventDefault();
                 global.open(url, '_blank');
