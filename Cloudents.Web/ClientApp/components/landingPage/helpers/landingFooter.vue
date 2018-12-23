@@ -58,7 +58,7 @@
                     {
                         id: 2,
                         linkText: LanguageService.getValueByKey("landingPage_footer_feedback"),
-                        linkValue: '/faq',
+                        linkValue: 'mailto:support@spitball.co?subject=Spitball Web site feedback',
                         linkTarget: '_blank'
                     },
                     {
