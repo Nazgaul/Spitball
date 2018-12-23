@@ -14,6 +14,7 @@ namespace Cloudents.Search.Question
 {
     public class AzureQuestionSearch : IQuestionsSearch
     {
+        private const int PageSize = 20;
         private readonly ISearchIndexClient _client;
 
         public AzureQuestionSearch(ISearchService client)
@@ -57,8 +58,8 @@ namespace Cloudents.Search.Question
             {
                 Filter = string.Join(" and ", filters),
                 Select = new[] { nameof(Entities.Question.Id) },
-                Top = 50,
-                Skip = query.Page * 50,
+                Top = PageSize,
+                Skip = query.Page * PageSize,
                 ScoringProfile = QuestionSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {

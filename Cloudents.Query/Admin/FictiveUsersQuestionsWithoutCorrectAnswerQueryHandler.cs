@@ -18,7 +18,7 @@ namespace Cloudents.Query.Admin
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
-        private const int PageSize = 100;
+        private const int PageSize = 30;
         private readonly ISession _session;
         private readonly IUrlBuilder _urlBuilder;
 

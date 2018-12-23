@@ -28,6 +28,7 @@ export default {
             search: '',
             reviewItems: reviews,
             youTubeVideoId: '',
+            SpitballVideoId: 'nreiplVSrWk',
             playerVisible: false,
             playerWidth: '',
             playerHeight: '',
@@ -51,6 +52,7 @@ export default {
         dictionaryType(){
             return this.getDictionaryPrefix
         },
+
         statsData(){
             return this.statistics();
         },
@@ -158,12 +160,12 @@ export default {
         },
         updateVideoId(videoID) {
             if (this.$vuetify.breakpoint.xs) {
-                // this.playerWidth = '100%';
-                // this.playerHeight = '100%';
+                this.playerWidth = '100%';
+                this.playerHeight = '450';
 
             } else {
-                // this.playerWidth = '1280';
-                // this.playerHeight = '450';
+                this.playerWidth = '640';
+                this.playerHeight = '360';
             }
             this.youTubeVideoId = videoID;
             this.showVideoPlayer()
