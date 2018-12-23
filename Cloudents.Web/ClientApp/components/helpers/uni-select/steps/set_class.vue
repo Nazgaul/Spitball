@@ -104,6 +104,7 @@
             classes() {
                 return this.getClasses()
             },
+            //edge hide placehloder fix
             placeholderVisible() {
                 return this.getSelectedClasses.length < 1
             },
