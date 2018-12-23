@@ -616,14 +616,20 @@ section {
 
     }
     .v-window__container {
+      //TODO removing display flex fix the issue on Edge check other browsers
+
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
       .v-window-item {
+        height: 100%;
+        width: 100%;
         .v-responsive__content {
           display: flex;
           flex-direction: row;
+          align-items: center;
+          justify-content: center;
           .review-item-wrap {
             display: flex;
             flex-direction: column;
