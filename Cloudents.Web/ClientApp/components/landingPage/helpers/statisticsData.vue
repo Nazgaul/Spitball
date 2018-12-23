@@ -5,7 +5,9 @@
                     :key="`3${index}`">
                 <v-card class="stat-card">
                     <v-card-text class="stat-text-title px-0">{{singleStat.title}}</v-card-text>
-                    <v-card-text class="stat-text-data px-0">{{singleStat.data | localeNumber}}</v-card-text>
+                    <v-card-text class="stat-text-data px-0">
+                        <tween-number :item="singleStat" :startValue="500"></tween-number>
+                    </v-card-text>
                 </v-card>
             </v-flex>
         </v-layout>

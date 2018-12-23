@@ -7,6 +7,8 @@ namespace Cloudents.Core.DTOs
 {
     public class QuestionFeedDto
     {
+        private bool _isRtl;
+
         public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text, int files,
             int answers, UserDto user, DateTime dateTime, QuestionColor? color, bool hasCorrectAnswer, 
             CultureInfo culture, int votes)
@@ -30,7 +32,7 @@ namespace Cloudents.Core.DTOs
             DateTime = dateTime;
             Color = color;
             HasCorrectAnswer = hasCorrectAnswer;
-            IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
+            _isRtl = culture?.TextInfo.IsRightToLeft ?? false;
             Vote = new VoteDto()
             {
                 Votes = votes
@@ -58,7 +60,19 @@ namespace Cloudents.Core.DTOs
 
         public bool HasCorrectAnswer { get; set; }
 
-        public bool IsRtl { get; set; }
+        public bool IsRtl
+        {
+            get => _isRtl;
+        }
+
+        public CultureInfo CultureInfo
+        {
+            get => null;
+            set
+            {
+                _isRtl = value?.TextInfo.IsRightToLeft ?? false;
+            }
+        }
 
         public VoteDto Vote { get; set; }
     }

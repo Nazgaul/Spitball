@@ -50,7 +50,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -128,7 +128,7 @@ namespace ConsoleApp
             // var bus = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
             // await bus.CreateOrUpdateAsync(token);
 
-            
+            var t = _container.Resolve<IUnitOfWork>();
             //var z = await t.ItemAsync(6746, default);
             //var z = await t.SearchAsync(new DocumentQuery(null, new UserProfile()
             //{
@@ -1230,7 +1230,10 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 	                                    on UB.BoxId = B.BoxId
                                     where isdeleted = 0
                                     and CourseCode is not null
-                                    and discriminator in (2,3)").ExecuteUpdateAsync();
+                                    and discriminator in (2,3)
+                                    except
+									select * 
+									from [sb].[UsersCourses]").ExecuteUpdateAsync();
 
             await sessin.CreateSQLQuery(@"begin tran
                                     declare @tmp table (CourseId nvarchar(300), userCounter int)

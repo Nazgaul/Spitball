@@ -39,13 +39,13 @@ namespace Cloudents.Query
                     Views = s.Views,
                     Downloads = s.Downloads,
                     
-                    User = new UserDto(s.User.Id,s.User.Name, s.User.Score),
-                    //{
-                    //    Id = s.User.Id,
-                    //    Name = s.User.Name,
+                    User = new UserDto
+                    {
+                        Id = s.User.Id,
+                        Name = s.User.Name,
                     //    Image = s.User.Image,
-                    //    Score = s.User.Score
-                    //},
+                        Score = s.User.Score
+                    },
                     Course = s.Course.Name
                 })
                 .SingleOrDefaultAsync(token);
