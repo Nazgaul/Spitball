@@ -60,7 +60,7 @@ namespace Cloudents.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
-            services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
+            //services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
 
             services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddDataProtection(o =>
