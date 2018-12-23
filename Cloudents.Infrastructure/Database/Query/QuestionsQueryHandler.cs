@@ -45,6 +45,7 @@ namespace Cloudents.Infrastructure.Database.Query
                         .Where(w => w.Question.Id == questionAlias.Id && w.Item.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
+                    .Select(Projections.Property(() => userAlias.Score).As("User.Score"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
                     .Select(s => s.Color).WithAlias(() => dto.Color)
