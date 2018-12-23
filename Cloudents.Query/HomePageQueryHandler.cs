@@ -7,7 +7,7 @@ using NHibernate.Transform;
 
 namespace Cloudents.Query
 {
-    class HomePageQueryHandler : IQueryHandler<HomePageQuery, StatsDto>
+    public class HomePageQueryHandler : IQueryHandler<HomePageQuery, StatsDto>
     {
         private readonly IStatelessSession _session;
 

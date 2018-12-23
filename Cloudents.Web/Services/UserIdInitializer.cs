@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 
 namespace Cloudents.Web.Services
 {
@@ -20,7 +20,8 @@ namespace Cloudents.Web.Services
         private readonly IDataProtectionProvider _dataProtectProvider;
         private readonly ILogger _logger;
 
-        public UserIdInitializer(IHttpContextAccessor httpContextAccessor, UserManager<RegularUser> userManager,IDataProtectionProvider dataProtect, ILogger logger)
+        public UserIdInitializer(IHttpContextAccessor httpContextAccessor, UserManager<RegularUser> userManager,
+            IDataProtectionProvider dataProtect, ILogger logger)
 
         {
             _httpContextAccessor = httpContextAccessor;
@@ -67,7 +68,7 @@ namespace Cloudents.Web.Services
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "UserIdInitializer");
+                        _logger.Exception(ex);
                         // ignored
                     }
 

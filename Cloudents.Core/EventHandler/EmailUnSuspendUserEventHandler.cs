@@ -7,7 +7,7 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
-    class EmailUnSuspendUserEventHandler : EmailEventHandler, IEventHandler<UserUnSuspendEvent>
+   public  class EmailUnSuspendUserEventHandler : EmailEventHandler, IEventHandler<UserUnSuspendEvent>
     {
         public EmailUnSuspendUserEventHandler(IQueueProvider serviceBusProvider) : base(serviceBusProvider)
         {

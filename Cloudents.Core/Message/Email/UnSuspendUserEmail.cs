@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Cloudents.Core.Message.Email
 {
-    class UnSuspendUserEmail : BaseEmail
+    public class UnSuspendUserEmail : BaseEmail
     {
         public UnSuspendUserEmail(string to, CultureInfo info)
             : base(to, "Your account have been unsuspended", info)
