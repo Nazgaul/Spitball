@@ -41,7 +41,7 @@ namespace Cloudents.FunctionsV2
 
             if (existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Running)
             {
-                if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-5))
+                if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-1))
                 {
                     log.LogError($"issue with {syncType}");
                     await starter.TerminateAsync(model.InstanceId, $"issue with {syncType}");
