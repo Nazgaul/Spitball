@@ -1209,7 +1209,10 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 	                                    on UB.BoxId = B.BoxId
                                     where isdeleted = 0
                                     and CourseCode is not null
-                                    and discriminator in (2,3)").ExecuteUpdateAsync();
+                                    and discriminator in (2,3)
+                                    except
+									select * 
+									from [sb].[UsersCourses]").ExecuteUpdateAsync();
 
             await sessin.CreateSQLQuery(@"begin tran
                                     declare @tmp table (CourseId nvarchar(300), userCounter int)
