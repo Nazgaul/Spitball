@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Search
     public class BingSearch : ISearch
     {
         private const string SubscriptionKey = "285e26627c874d28be01859b4fb08a58";
-        private const int PageSize = 50;
+        private const int PageSize = 20;
         private readonly IRestClient _restClient;
         private readonly IMapper _mapper;
         private readonly IShuffle _shuffle;
