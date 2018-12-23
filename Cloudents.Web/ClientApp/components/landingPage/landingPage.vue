@@ -1,15 +1,14 @@
 <template>
-    <div :class="[isRtl ? 'hebrew-wrap' : '']">
-        <div class="wide-parallax" pa-0>
-
+    <div>
+        <div class="wide-parallax"  pa-0>
             <landing-header></landing-header>
 
             <section class="hero">
                 <div class="text-switch-container" v-show="isMobileView">
                     <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}"
-                       class="lp-header-link" @click="changeDictionaryType('learn')">Learn faster</a>
+                       class="lp-header-link" @click="changeDictionaryType('learn')" v-language:inner>landingPage_header_learn_faster</a>
                     <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}"
-                       class="lp-header-link" @click="changeDictionaryType('earn')">Earn money</a>
+                       class="lp-header-link" @click="changeDictionaryType('earn')" v-language:inner>landingPage_header_earn_money</a>
                 </div>
                 <div class="hero-wrap">
                     <div class="hero-text-container">
@@ -19,7 +18,7 @@
                     <router-link :to="{path: '/register'}" class="cta-button" v-language:inner>
                         landingPage_join_spitball
                     </router-link>
-                    <a class="video-link" @click.prevent="updateVideoId('6lt2JfJdGSY')">
+                    <a class="video-link" @click.prevent="updateVideoId(SpitballVideoId)">
                         <v-icon class="play-icon">sbf-play</v-icon>
                         <span v-language:inner>landingPage_how_it_works</span></a>
                 </div>
@@ -183,6 +182,7 @@
                 landingPage_spitball_student_title</h3>
             <div class="carousel-holder">
                 <v-carousel
+                        :touchless="isRtl ? true : false"
                         height=""
                         hide-delimiters
                         :prev-icon="isRtl ? 'sbf-arrow-right-carousel right' : 'sbf-arrow-left-carousel left'"
@@ -202,7 +202,10 @@
                             </div>
                         </template>
                     </v-carousel-item>
-                    <v-carousel-item v-for="(item,index) in formattedReviews" v-else>
+                    <v-carousel-item
+                            v-else  v-for="(item,index) in formattedReviews"
+
+                    >
                         <template>
                             <div :key="`innerData_${index}`" class="review-item-wrap">
                                 <div class="review-image-wrap">
@@ -237,14 +240,19 @@
             <router-link :to="{path: '/register'}" class="join-cta" v-language:inner>landingPage_sign_up</router-link>
         </section>
         <landing-footer></landing-footer>
-        <sb-dialog style="box-shadow: none;" :onclosefn="hideVideoPlayer" class="video-dialog" :isPersistent="false"
-                   :showDialog="playerVisible" :popUpType="'videoPlayer'"
+        <sb-dialog  :onclosefn="hideVideoPlayer" class="video-dialog" :isPersistent="false"
+                   :showDialog="playerVisible"
+                   :popUpType="'videoPlayer'"
                    :content-class="'videoPlayerDialog'">
-            <youtube
-                    :video-id="youTubeVideoId"
-                    :player-vars="{autoplay: 1}" @ready="readyPlayer">
+            <div v-if="$vuetify.breakpoint.xsOnly" class="mb-3 mt-3 d-flex justify-end">
+                    <v-icon class="mr-1 justify-end" style="flex-direction: row; max-width: 50px;" @click="hideVideoPlayer()">sbf-close</v-icon>
 
-            </youtube>
+            </div>
+            <youtube
+                :video-id="youTubeVideoId" :player-width="playerWidth" :player-height="playerHeight"
+                :player-vars="{autoplay: 1}" @ready="readyPlayer">
+
+        </youtube>
         </sb-dialog>
         <sb-dialog class="subjects-dialog" :isPersistent="false" :showDialog="mobileSubjectsDialog"
                    :popUpType="'subject-combobox'"

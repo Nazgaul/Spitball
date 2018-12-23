@@ -20,7 +20,7 @@ import step_11 from "./steps/step_11.vue";
 import { LanguageService } from "../../services/language/languageService";
 
 
-const defaultSubmitRoute = { path: '/ask' };
+const defaultSubmitRoute = { path: '/' };
 const initialPointsNum = 100;
 
 
@@ -82,7 +82,6 @@ export default {
             loading: false,
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
             toUrl: '',
-            progressSteps: 5,
             confirmationCode: '',
             initialPointsNum,
             phone: {
@@ -158,15 +157,6 @@ export default {
         }),
         isSignInComputed() {
             return this.isSignIn
-        },
-        isShowProgress() {
-            //V8Fix  - look at the code below
-            //let steps = [7, 8, 9, 10];
-            //steps.indexOf(this.stepNumber) !== -1
-            //learn : https://frontstuff.io/a-better-way-to-perform-multiple-comparisons-in-javascript
-
-            let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8 && this.stepNumber !== 9 && this.stepNumber !== 10;
-            return filteredSteps
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly

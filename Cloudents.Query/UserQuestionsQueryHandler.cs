@@ -29,7 +29,7 @@ namespace Cloudents.Query
                     s.Price,
                     s.Text,
                     s.Attachments,
-                    s.AnswerCount,
+                    s.Answers.Count,
                     s.Updated,
                     s.Color, s.CorrectAnswer.Id != null, s.Language, s.Item.VoteCount)
                 )

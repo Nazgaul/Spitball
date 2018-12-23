@@ -1,7 +1,5 @@
 ﻿<template>
     <div class="term" v-if="showPage" v-html="privacyHtml"></div>
-
-
     
 </template>
 <script>
@@ -22,4 +20,5 @@
     }
 </script>
 <style lang="less" src="./term.less">
+
 </style>

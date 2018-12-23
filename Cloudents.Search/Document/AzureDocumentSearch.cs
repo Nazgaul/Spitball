@@ -109,13 +109,15 @@ namespace Cloudents.Search.Document
                     filters.Add($"({filterStr})");
                 }
             }
+
+            const int pageSize = 20;
             var searchParameter = new SearchParameters
             {
                 Filter = string.Join(" and ", filters),
                 Select = new[] { nameof(Entities.Document.Id) },
                     //nameof(Entities.Document.MetaContent) },
-                Top = 50,
-                Skip = query.Page * 50,
+                Top = pageSize,
+                Skip = query.Page * pageSize,
                 OrderBy = new List<string> { "search.score() desc", $"{nameof(Entities.Document.DateTime)} desc" },
                 ScoringProfile = DocumentSearchWrite.ScoringProfile,
                 ScoringParameters = new[]

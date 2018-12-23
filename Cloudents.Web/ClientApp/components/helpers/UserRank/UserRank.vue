@@ -12,7 +12,12 @@ import { LanguageService } from '../../../services/language/languageService.js'
 export default {
     data(){
         return {
-            rankNames: [LanguageService.getValueByKey('userRank_begginer'), LanguageService.getValueByKey('userRank_professional'), LanguageService.getValueByKey('userRank_worldClass'), LanguageService.getValueByKey('userRank_spitballer')]
+            rankNames: [
+                LanguageService.getValueByKey('userRank_begginer'),
+                LanguageService.getValueByKey('userRank_professional'),
+                LanguageService.getValueByKey('userRank_worldClass'),
+                LanguageService.getValueByKey('userRank_spitballer')
+            ]
         }
     },
     props:{

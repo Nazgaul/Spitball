@@ -9,7 +9,7 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
-    class UnFlagDocumentCommandHandler : ICommandHandler<UnFlagDocumentCommand>
+    public class UnFlagDocumentCommandHandler : ICommandHandler<UnFlagDocumentCommand>
     {
         private readonly IRepository<Document> _documentRepository;
 

@@ -13,7 +13,7 @@ using NHibernate.Linq;
 namespace Cloudents.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    class PendingAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<PendingAnswerDto>>
+    public class PendingAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<PendingAnswerDto>>
     {
         private readonly IStatelessSession _session;
 
