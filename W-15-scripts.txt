@@ -274,3 +274,6 @@ need to run ReduDocument - to support uni and class search
 
 
 
+Need to put hebrew queue back on.
+
+Delete Noa University bug 11957

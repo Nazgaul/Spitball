@@ -24,20 +24,20 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IList<DocumentFeedDto>> GetAsync(IdsQuery<long> query, CancellationToken token)
         {
             var ids = query.QuestionIds.ToList();
-            return await _session.Query<Document>()
+
+            var z =  await _session.Query<Document>()
                 .Fetch(f => f.User)
                 .Fetch(f => f.University)
                 .Where(w => ids.Contains(w.Id) && w.Item.State == ItemState.Ok)
                 .Select(s => new DocumentFeedDto
                 {
                     Id = s.Id,
-                    User = new UserDto(s.User.Id, s.User.Name, s.User.Score),
-                    //{
-                    //    Id = s.User.Id,
-                    //    Name = s.User.Name,
-                    //    Image = s.User.Image,
-                    //    Score = s.User.Score
-                    //},
+                    User = new UserDto
+                    {
+                        Id = s.User.Id,
+                        Name = s.User.Name,
+                        Score = s.User.Score
+                    },
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Name,
                     TypeStr = s.Type,
@@ -53,6 +53,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     }
                 })
                 .ToListAsync(token);
+            return z;
 
         }
     }

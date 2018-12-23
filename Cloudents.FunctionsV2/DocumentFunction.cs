@@ -36,9 +36,9 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("ReduBlobFunction")]
         public static async Task ReduBlobFunctionAsync(
-            [QueueTrigger("generate-search-preview", Connection = "TempConnectionDev")] string id,
-            [Blob("spitball-files/files/{QueueTrigger}", Connection = "TempConnectionDev")]CloudBlobDirectory dir,// IDictionary<string, string> metadata,
-            [Blob("spitball-files/files/{QueueTrigger}/text.txt", Connection = "TempConnectionDev")]CloudBlockBlob blob,// IDictionary<string, string> metadata,
+            [QueueTrigger("generate-search-preview-poison")] string id,
+            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory dir,// IDictionary<string, string> metadata,
+            [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,// IDictionary<string, string> metadata,
             [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] ICommandBus commandBus,
 
