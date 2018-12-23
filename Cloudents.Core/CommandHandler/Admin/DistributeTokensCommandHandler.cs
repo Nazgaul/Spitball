@@ -1,10 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.Command.Admin;
+using Cloudents.Domain.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
+using Cloudents.Common.Enum;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -12,28 +14,21 @@ namespace Cloudents.Core.CommandHandler.Admin
     [AdminCommandHandler]
     public class DistributeTokensCommandHandler : ICommandHandler<DistributeTokensCommand>
     {
+        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<Transaction> _transactionRepository;
 
-        private readonly IUserRepository _userRepository;
-
-        public DistributeTokensCommandHandler(IUserRepository userRepository)
+        public DistributeTokensCommandHandler(IRepository<RegularUser> userRepository, IRepository<Transaction> transactionRepository)
         {
-
             _userRepository = userRepository;
+            _transactionRepository = transactionRepository;
         }
 
 
         public async Task ExecuteAsync(DistributeTokensCommand message, CancellationToken token)
         {
-
-            var user = await _userRepository.GetAsync(message.UserId, token);
-            if (user == null)
-            {
-                //User not exists not crashing the system.
-                return;
-            }
-            var transaction = Transaction.DistributeTokens(message.ActionType,message.TransactionType, message.Price);
-            user.AddTransaction(transaction);
-            await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);
+            var user = await _userRepository.LoadAsync(message.UserId, token);
+            var transaction = new Transaction(message.ActionType, TransactionType.Earned, message.Price, user);
+            await _transactionRepository.AddAsync(transaction, token);
         }
     }
 }

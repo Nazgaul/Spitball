@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
@@ -11,15 +11,15 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class QuestionController : Controller
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly ILogger _logger;
         private readonly IDataProtect _dataProtect;
 
 
 
 
-        public QuestionController(SignInManager<User> signInManager, UserManager<User> userManager, ILogger logger, IDataProtect dataProtect)
+        public QuestionController(SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager, ILogger logger, IDataProtect dataProtect)
         {
             _signInManager = signInManager;
             _userManager = userManager;

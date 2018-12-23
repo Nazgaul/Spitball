@@ -1,17 +1,25 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Core;
 using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Item.Commands.FlagItem;
 using Cloudents.Core.Query;
+using Cloudents.Core.Votes.Commands.AddVoteAnswer;
+using Cloudents.Domain.Entities;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Hubs;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 
 namespace Cloudents.Web.Api
 {
@@ -23,9 +31,9 @@ namespace Cloudents.Web.Api
         //internal const string CreateAnswerPurpose = "CreateAnswer";
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<AnswerController> _localizer;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
 
-        public AnswerController(ICommandBus commandBus, UserManager<User> userManager, IStringLocalizer<AnswerController> localizer)
+        public AnswerController(ICommandBus commandBus, UserManager<RegularUser> userManager, IStringLocalizer<AnswerController> localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
@@ -35,26 +43,51 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<ActionResult<CreateAnswerResponse>> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
             [FromServices] IQueryBus queryBus,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
+            [FromServices] IHubContext<SbHub> hubContext,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             try
             {
+                var t2 = Task.FromResult<IEnumerable<QuestionFeedDto>>(null);
                 var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files);
                 var t1 = _commandBus.DispatchAsync(command, token);
 
-                var query = new NextQuestionQuery(model.QuestionId, userId);
-                var t2 = queryBus.QueryAsync(query, token);
+
+                if (score >= Privileges.Post)
+                {
+                    var query = new NextQuestionQuery(model.QuestionId, userId);
+                    t2 = queryBus.QueryAsync(query, token);
+                }
+
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
+
+                if (score < Privileges.Post)
+                {
+                    await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
+                    {
+                        new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
+                            {
+                                text = _localizer["CreatePending"].Value
+                            }
+                        )
+                    }, token);
+                }
 
                 return new CreateAnswerResponse
                 {
                     NextQuestions = t2.Result
                 };
             }
-            catch (QuotaExceededException)
+            //catch (QuotaExceededException)
+            //{
+            //    ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
+            //    return BadRequest(ModelState);
+            //}
+            catch (MoreThenOneAnswerException)
             {
-                ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
+                ModelState.AddModelError(nameof(model.Text), _localizer["More then one answer"]);
                 return BadRequest(ModelState);
             }
             catch (QuestionAlreadyAnsweredException)
@@ -83,7 +116,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new DeleteAnswerCommand(model.Id, _userManager.GetLongUserId(User));
-                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
             catch (ArgumentException)
@@ -92,6 +125,54 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
         }
-        
+
+
+        [HttpPost("vote")]
+        public async Task<IActionResult> VoteAsync(
+            [FromBody] AddVoteAnswerRequest model,
+            [FromServices] IStringLocalizer<SharedResource> resource,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new AddVoteAnswerCommand(userId, model.Id, model.VoteType);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NoEnoughScoreException)
+            {
+                string voteMessage = resource[$"{model.VoteType:G}VoteError"];
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
+                return BadRequest(ModelState);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
+                return BadRequest(ModelState);
+            }
+
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost("flag")]
+        public async Task<IActionResult> FlagAsync([FromBody] FlagAnswerRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new FlagAnswerCommand(userId, model.Id, model.FlagReason);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NoEnoughScoreException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
+                return BadRequest(ModelState);
+            }
+        }
     }
 }

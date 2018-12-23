@@ -1,6 +1,6 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using PhoneNumbers;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,16 +25,17 @@ namespace Cloudents.Web.Api
 
     public class SmsController : Controller
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<RegularUser> _signInManager;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
         private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
 
+        private const string SmsTime = "SmsTime";
 
-        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
+        public SmsController(SignInManager<RegularUser> signInManager, UserManager<RegularUser> userManager,
             ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
             ILogger logger, IStringLocalizer<SmsController> smsLocalizer)
         {
@@ -47,6 +49,8 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("code")]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client)]
+
         public async Task<CallingCallResponse> GetCountryCallingCodeAsync(
 
             [FromServices] IIpToLocation service, CancellationToken token)
@@ -109,6 +113,7 @@ namespace Cloudents.Web.Api
 
             if (retVal.Succeeded)
             {
+                TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
                 await _client.SendSmsAsync(user, token);
                 return Ok();
             }
@@ -126,7 +131,7 @@ namespace Cloudents.Web.Api
 
             return BadRequest(ModelState);
         }
-
+        
 
         [HttpPost("verify")]
         public async Task<IActionResult> VerifySmsAsync(
@@ -145,6 +150,7 @@ namespace Cloudents.Web.Api
             if (v.Succeeded)
             {
                 //This is the last step of the registration.
+               
                 return await FinishRegistrationAsync(token, user, country);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
@@ -152,7 +158,7 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user, string country)
+        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, RegularUser user, string country)
         {
             if (TempData[HomeController.Referral] != null)
             {
@@ -191,6 +197,16 @@ namespace Cloudents.Web.Api
         [HttpPost("resend")]
         public async Task<IActionResult> ResendAsync(CancellationToken token)
         {
+            var t = TempData.Peek(SmsTime);
+            if (t != null) {
+                var temp = DateTime.Parse(t.ToString());
+
+                if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+                {
+                    return Ok();
+                }
+            }
+
             if (User.Identity.IsAuthenticated)
             {
                 _logger.Error("Set User Phone number User is already sign in");
@@ -203,6 +219,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
+            TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await _client.SendSmsAsync(user, token).ConfigureAwait(false);
             return Ok();
         }

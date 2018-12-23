@@ -41,15 +41,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Ico", "Cloudents.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Data.Test", "Cloudents.Infrastructure.Data.Test\Cloudents.Infrastructure.Data.Test.csproj", "{0F4CDB18-8825-4D7B-A42C-B87C67813C48}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web.Extensions", "Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj", "{5E402ABD-00DC-4640-ACF5-2C6F948920F6}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Functions", "Cloudents.Functions\Cloudents.Functions.csproj", "{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.MailGunFunctions", "Cloudents.MailgunFunctions\Cloudents.MailGunFunctions.csproj", "{ED2214B7-4259-432D-9130-9CA75385F644}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Admin2", "Cloudents.Admin2\Cloudents.Admin2.csproj", "{B5602629-3162-4099-911C-80C747168599}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.FunctionsV2", "Cloudents.FunctionsV2\Cloudents.FunctionsV2.csproj", "{5210FEAA-E7B4-4E5F-843E-8C7E623718FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.FunctionsV2", "Cloudents.FunctionsV2\Cloudents.FunctionsV2.csproj", "{5210FEAA-E7B4-4E5F-843E-8C7E623718FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,10 +99,6 @@ Global
 		{0F4CDB18-8825-4D7B-A42C-B87C67813C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F4CDB18-8825-4D7B-A42C-B87C67813C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F4CDB18-8825-4D7B-A42C-B87C67813C48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E402ABD-00DC-4640-ACF5-2C6F948920F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E402ABD-00DC-4640-ACF5-2C6F948920F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E402ABD-00DC-4640-ACF5-2C6F948920F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E402ABD-00DC-4640-ACF5-2C6F948920F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -137,17 +131,16 @@ Global
 		{A9838733-C134-4B25-924D-B15DFB0C077F} = {2EB273BF-0342-4FDC-942E-70261335187C}
 		{1E559210-81BD-429D-9D5F-2700F865D361} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{0F4CDB18-8825-4D7B-A42C-B87C67813C48} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
-		{5E402ABD-00DC-4640-ACF5-2C6F948920F6} = {2EB273BF-0342-4FDC-942E-70261335187C}
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{ED2214B7-4259-432D-9130-9CA75385F644} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{B5602629-3162-4099-911C-80C747168599} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{5210FEAA-E7B4-4E5F-843E-8C7E623718FB} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_PrefixTranslations = True
-		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
-		RESX_AutoCreateNewLanguageFiles = True
-		RESX_SortFileContentOnSave = True
 		RESX_ExcelExportMode = MultipleSheets
+		RESX_SortFileContentOnSave = True
+		RESX_AutoCreateNewLanguageFiles = True
+		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
+		RESX_PrefixTranslations = True
 	EndGlobalSection
 EndGlobal

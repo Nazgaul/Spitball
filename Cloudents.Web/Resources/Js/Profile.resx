@@ -129,13 +129,19 @@
   <data name="emptyState_answers_text" xml:space="preserve">
     <value>Help other students and make money by answering questions.</value>
   </data>
-  <data name="emptyState_questions_boldText" xml:space="preserve">
-    <value>Ask Your Question</value>
-  </data>
   <data name="emptyState_questions_btnText" xml:space="preserve">
     <value>Ask Your Question</value>
   </data>
   <data name="emptyState_questions_text" xml:space="preserve">
     <value>Have a question on your homework?</value>
+  </data>
+  <data name="documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="emptyState_documents_btnText" xml:space="preserve">
+    <value>Upload a document</value>
+  </data>
+  <data name="emptyState_documents_text" xml:space="preserve">
+    <value>Share your study documents</value>
   </data>
 </root>

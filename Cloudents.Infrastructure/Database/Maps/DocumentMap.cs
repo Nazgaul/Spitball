@@ -1,8 +1,9 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
+using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
-    public class DocumentMap : SpitballClassMap<Document>
+    public class DocumentMap : ClassMap<Document>
     {
         public DocumentMap()
         {
@@ -10,7 +11,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 $"{nameof(HiLoGenerator.TableName)}='{nameof(Document)}'");
 
             Map(x => x.Name).Length(150).Not.Nullable();
-            Map(x => x.BlobName).Not.Nullable();
+           // Map(x => x.BlobName).Not.Nullable();
             References(x => x.University).Column("UniversityId").ForeignKey("Document_University");
            
             Map(x => x.Type).Not.Nullable();
@@ -23,17 +24,52 @@ namespace Cloudents.Infrastructure.Database.Maps
 
             
             Component(x => x.TimeStamp);
+            Component(x => x.Item, t =>
+            {
+                QuestionMap.ItemComponentPartialMapping(t);
+                t.HasMany(x => x.Votes).KeyColumns.Add("DocumentId")
+                    .Inverse().Cascade.AllDeleteOrphan();
+                t.References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("DocumentFlagged_User");
+            });
             References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
+            Map(x => x.Downloads).Not.Nullable();
             Map(x => x.Professor).Nullable();
             Map(x => x.PageCount).Nullable();
-            Map(x => x.Language).Nullable();
             Map(x => x.Purchased).Not.Nullable();
             Map(x => x.OldId).Nullable();
-            Map(x => x.State).Nullable();
+            Map(x => x.MetaContent).Nullable();
             
             SchemaAction.Update();
+            //DiscriminateSubClassesOnColumn("State");
         }
     }
+
+
+    //public class DocumentDeletedMap : SubclassMap<DocumentDeleted>
+    //{
+    //    public DocumentDeletedMap()
+    //    {
+
+    //        DiscriminatorValue(ItemState.Deleted);
+    //    }
+    //}
+
+    //public class DocumentPendingMap : SubclassMap<DocumentPending>
+    //{
+    //    public DocumentPendingMap()
+    //    {
+
+    //        DiscriminatorValue(ItemState.Pending);
+    //    }
+    //}
+
+    //public class DocumentApprovedMap : SubclassMap<DocumentApproved>
+    //{
+    //    public DocumentApprovedMap()
+    //    {
+    //        DiscriminatorValue(ItemState.Ok);
+    //    }
+    //}
 }

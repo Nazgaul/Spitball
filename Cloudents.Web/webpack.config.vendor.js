@@ -19,7 +19,6 @@ const allModules = [
     "./ClientApp/main.styl",
     "./wwwroot/content/main.less",
     "./ClientApp/myFont.font.js",
-    "vuex-persistedstate",
     "vuetify/es5/components/Vuetify",
     "vuetify/es5/components/VApp",
     "vuetify/es5/components/VGrid",
@@ -52,8 +51,8 @@ const allModules = [
     "vuetify/es5/components/VStepper",
     "vuetify/es5/components/VCombobox",
     "vuetify/es5/components/VCheckbox",
+    "vuetify/es5/components/VParallax",
     "webfontloader",
-   
 
 ];
 

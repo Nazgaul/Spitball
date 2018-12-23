@@ -129,4 +129,7 @@
   <data name="NotAllowed" xml:space="preserve">
     <value>משתמש אינו מורשה</value>
   </data>
+  <data name="TempLockOut" xml:space="preserve">
+    <value>המשתמש נעול, נסה להתחבר שוב בעוד 5 דקות</value>
+  </data>
 </root>

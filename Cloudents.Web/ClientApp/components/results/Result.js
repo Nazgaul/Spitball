@@ -1,17 +1,18 @@
 ﻿import ResultItem from './ResultItem.vue';
 import ResultNote from "./ResultNote.vue"
-import questionCard from './../question/helpers/question-card/question-card.vue';
-import { page, verticalsName } from "../../services/navigation/vertical-navigation/nav";
+import ResultAsk from "./ResultAsk.vue"
+import { verticalsNavbar, verticalsName } from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import { typesPersonalize } from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
-import QuestionCard from "../question/helpers/question-card/question-card";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue';
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin';
 import {LanguageService} from '../../services/language/languageService'
+import soonComponent from './helpers/soon/soon.vue'
+import setUniClass from './helpers/setUniClassItem/setUniClass.vue'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 import notificationCenter from '../notificationCenter/notificationCenter.vue'
@@ -33,15 +34,16 @@ export default {
         ResultTutor,
         ResultJob,
         ResultBook,
-        questionCard,
         faqBlock,
         signupBanner,
-        QuestionCard,
         sbDialog,
         loginToAnswer,
         notificationCenter,
         uploadFilesBtn,
-        askQuestionBtn
+        askQuestionBtn,
+        soonComponent,
+        ResultAsk,
+        setUniClass
     },
     data() {
         return {
@@ -55,7 +57,11 @@ export default {
             showDialog: false,
             placeholder:{
                 whereSchool: LanguageService.getValueByKey("result_where_school")
-            }            
+            },    
+            scrollBehaviour:{
+                isLoading: false,
+                isComplete: false
+            }        
         };
     },
 
@@ -78,9 +84,12 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster', 'getSchoolName']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
-
+        showSelectUni(){
+            let schoolName = this.getSchoolName;
+            return schoolName.length === 0;
+        },
         isNote(){
             return  this.$route.path.slice(1)==='note'
         },
@@ -133,6 +142,11 @@ export default {
         currentSuggest() {
             return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
         },
+        currentNavData(){
+            return verticalsNavbar.filter((navItem) => {
+                return navItem.id === this.name;
+            })[0]
+        },
         userText() {
             return this.query.term
         },
@@ -163,10 +177,11 @@ export default {
             'updateLoginDialogState',
             'updateUserProfileData',
             'updateNewQuestionDialogState',
-            'updateDialogState'
+            'updateDialogState',
+            'nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
-        ...mapGetters(["getCurrentVertical"]),
+        ...mapGetters(["getCurrentVertical", "getNextPageUrl"]),
 
         loadNewQuestions(){
             this.INJECT_QUESTION();
@@ -182,6 +197,21 @@ export default {
                  this.updateNewQuestionDialogState(true);
             }
         },
+        scrollFunc(){
+            this.scrollBehaviour.isLoading = true;
+            let nextPageUrl = this.getNextPageUrl();
+            if(this.name !== this.pageData.vertical) return;
+            this.nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
+                .then((res) => {
+                    if (res.data && res.data.length) {
+                        this.scrollBehaviour.isLoading = false;
+                    } else {
+                        this.scrollBehaviour.isComplete = true;
+                    }
+                }).catch(reason => {
+                this.scrollBehaviour.isComplete = true;
+            })
+        },
         //   2-%%%
         updatePageData(to, from, next) {
             (to.path === from.path && to.q === from.q) ? this.isLoad = true : this.UPDATE_LOADING(true);
@@ -189,6 +219,7 @@ export default {
         },
         //    3-%%%   fetching data and calling updateData func
         updateContentOfPage(to, from, next) {
+            this.scrollBehaviour.isComplete = true;
             const toName = to.path.slice(1);
             let params=  {...to.query, ...to.params, term: to.query.term};
             this.fetchingData({name: toName, params}, true)
@@ -211,6 +242,9 @@ export default {
                     this.isLoad = false;
                     next();
                 }
+            }).finally(()=>{
+                this.scrollBehaviour.isLoading = false;
+                this.scrollBehaviour.isComplete = false;
             });
         },
 

@@ -18,7 +18,11 @@ export default {
     computed: {
         ...mapGetters(['getSort']),
         filterList() {
-            return this.filterOptions.filterChunkList;
+            let result = [];
+            if(!!this.filterOptions){
+                result = this.filterOptions.filterChunkList
+            }
+            return result;
         },
         sortOptions() {
             return this.getSort;
@@ -40,7 +44,7 @@ export default {
     methods: {
         ...mapActions(['setFilteredCourses', 'updateCurrentStep', 'changeSelectUniState']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
-        ...mapGetters(['getAllSteps']),
+        ...mapGetters(['getAllSteps', 'getSchoolName']),
         updateSort(val) {
             this.UPDATE_SEARCH_LOADING(true);
             this.$router.push({query: {...this.$route.query, sort: val}});
@@ -56,8 +60,10 @@ export default {
             });
         },
         openEditClass(){
+            let schoolName = this.getSchoolName();
             let steps = this.getAllSteps();
-            this.updateCurrentStep(steps.set_class);
+            let step = !!schoolName ? steps.set_class : steps.set_school;
+            this.updateCurrentStep(step);
             this.changeSelectUniState(true);
         },
         updateFilter({id, val, name, event}) {

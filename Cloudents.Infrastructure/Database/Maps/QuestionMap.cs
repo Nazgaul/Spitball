@@ -1,11 +1,14 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
+using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
-    public class QuestionMap : SpitballClassMap<Question>
+    public class QuestionMap : ClassMap<Question>
     {
         public QuestionMap()
         {
@@ -18,13 +21,20 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
             Map(x => x.Color);
-            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
+            Component(x => x.Item, t =>
+            {
+                ItemComponentPartialMapping(t);
+                t.HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse().Cascade.AllDeleteOrphan();
+                t.References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("QuestionFlagged_User");
+            });
+            //Component(x => x.Item);
             Map(x => x.Language).Length(5);
-            //References(x => x.Subject).ForeignKey("Question_AskQuestionSubject").Not.Nullable();
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
+            Map(x => x.AnswerCount).Not.Nullable();
 
-            References(x => x.User).Column("UserId").ForeignKey("Question_User").Not.Nullable();
-            //HasOne(x => x.CorrectAnswer).Not.ForeignKey();
+            References(x => x.User).Column("UserId")
+                .ForeignKey("Question_User").Not.Nullable()
+                .LazyLoad(Laziness.NoProxy); // we need this because of inheritance
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
             HasMany(x => x.Answers)
                 .Inverse()
@@ -40,9 +50,18 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .LazyLoad()
                 .Inverse();
 
-            SchemaAction.None();
+            SchemaAction.Update();
+            //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
+        }
 
-
+        public static void ItemComponentPartialMapping(ComponentPart<ItemComponent> t)
+        {
+            t.Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
+            t.Map(m => m.DeletedOn).Nullable();
+            t.Map(m => m.FlagReason).Nullable();
+           
+           // t.Map(m => m.FlaggedUserId).Nullable();
+            t.Map(m => m.VoteCount).Not.Nullable();
         }
     }
 }

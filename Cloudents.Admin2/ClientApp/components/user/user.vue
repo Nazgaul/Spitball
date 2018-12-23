@@ -4,7 +4,7 @@
             <v-tabs-slider color="#3532d5"></v-tabs-slider>
             <v-tab to="/user/token">User token</v-tab>
             <v-tab to="/user/cashout">Cashout List</v-tab>
-            <v-tab to="/user/suspend">Suspend User</v-tab>
+            <v-tab to="/user/suspend">Suspend/Release User</v-tab>
 
         </v-tabs>
 

@@ -2,23 +2,23 @@ import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective";
-import { LanguageService } from './services/language/languageService'
-
-import initSignalRService from './services/signalR/signalrEventService'
+import { LanguageService } from './services/language/languageService';
+import initSignalRService from './services/signalR/signalrEventService';
 
 // clip board copy text
-import VueClipboard from 'vue-clipboard2'
-import lineClamp from 'vue-line-clamp'
+import VueClipboard from 'vue-clipboard2';
+import lineClamp from 'vue-line-clamp';
 import Scroll from "vuetify/es5/directives/scroll";
-
-const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
-
-
-const GeneralPage = () =>
-    import("./components/helpers/generalPage.vue");
+import scrollComponent from './components/helpers/infinateScroll.vue';
+import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
+
+import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/vue-youtube-embed
+
+
+
 
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
@@ -51,8 +51,8 @@ const vuetifyComponents = {
     VDataTable,
     VStepper,
     VCombobox,
-    VCheckbox
-
+    VCheckbox,
+    VParallax
 };
 import {
     Vuetify,
@@ -85,7 +85,9 @@ import {
     VDataTable,
     VStepper,
     VCombobox,
-    VCheckbox
+    VCheckbox,
+    VParallax
+
 
 } from "vuetify";
 import * as route from "./routes";
@@ -95,7 +97,12 @@ import { constants } from "./utilities/constants";
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: ["Open+Sans:300,400,600,700", "Fira+Sans:300,400,600,700", "Assistant:300,400,600,700", "Alef:300,400,600,700"]
+        families: [
+            "Open+Sans:300,400,600,700",
+            "Fira+Sans:300,400,600,700",
+            "Assistant:300,400,600,700",
+            "Alef:300,400,600,700",
+            "Patua+One: 300,400,600,700"]
     }
 });
 
@@ -112,6 +119,7 @@ Vue.use(Vuetify, {
     },
     components: vuetifyComponents
 });
+Vue.use(VueYouTubeEmbed, { global: true });
 Vue.component("scroll-list", scrollComponent);
 //Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
@@ -176,6 +184,13 @@ Vue.filter('capitalize',
 
 //check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
 global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+//check if Edge (using to fix position sticky bugs)
+// if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+//     global.isEdge = true
+//     console.log('isEdge??', global.isEdge);
+// }
+
 Vue.filter('ellipsis',
     function (value, characters, datailedView) {
         value = value || '';
@@ -226,7 +241,8 @@ Vue.filter('fullMonthDate', function (value) {
     }
 // request a weekday along with a long month
     let options = {  year: 'numeric', month: 'short', day: '2-digit' };
-    return date.toLocaleDateString('en-US', options);
+    let languageDate = global.lang.toLowerCase() === 'he' ? 'he-IL' : 'en-US';
+    return date.toLocaleDateString(languageDate, options);
 });
 
 
@@ -268,13 +284,13 @@ Vue.filter('commasFilter', function (value) {
 
 router.beforeEach((to, from, next) => {
     store.dispatch('changeSelectUniState', false)
-    if (!!to.query && Object.keys(to.query).length > 0) {
-        for (let prop in to.query) {
-            if (constants.regExXSSCheck.test(to.query[prop])) {
-                to.query[prop] = "";
-            }
-        }
-    }
+    // if (!!to.query && Object.keys(to.query).length > 0) {
+    //     for (let prop in to.query) {
+    //         if (constants.regExXSSCheck.test(to.query[prop])) {
+    //             to.query[prop] = "";
+    //         }
+    //     }
+    // }
     if (global.innerWidth < 600) {
         intercomSettings.hide_default_launcher = true;
     }

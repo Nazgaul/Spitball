@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CacheManager.Core;
 using Cloudents.Core.Interfaces;
+using StackExchange.Redis;
 
 namespace Cloudents.Infrastructure.Cache
 {
@@ -10,63 +11,130 @@ namespace Cloudents.Infrastructure.Cache
     {
         private readonly ICacheManager<object> _cache;
         private readonly ILogger _logger;
+        private bool _distributedEnabled = true;
 
-        public CacheProvider(ICacheManager<object> cache, ILogger logger)
+        public CacheProvider(IConfigurationKeys keys, ILogger logger)
         {
-            _cache = cache;
             _logger = logger;
+            
+            var multiplexer = ConnectionMultiplexer.Connect(keys.Redis);
+
+            multiplexer.ConnectionFailed += (sender, args) =>
+            {
+                _distributedEnabled = false;
+
+                //Console.WriteLine("Connection failed, disabling redis...");
+            };
+
+            multiplexer.ConnectionRestored += (sender, args) =>
+            {
+                _distributedEnabled = true;
+                
+                //Console.WriteLine("Connection restored, redis is back...");
+            };
+
+            _cache = CacheFactory.Build(
+                s => s
+                    .WithJsonSerializer()
+                    .WithDictionaryHandle()
+                    //.WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
+                    .And
+                    .WithRedisConfiguration("redis", multiplexer)
+                    .WithRedisCacheHandle("redis"));
+
+            //_cache = CacheFactory.Build(settings =>
+            //{
+            //    var key = keys.Redis;
+            //    settings
+            //        .WithRedisConfiguration("redis", key)
+            //        .WithJsonSerializer()
+            //        .WithMaxRetries(1000)
+            //        .WithRetryTimeout(100)
+            //        .WithRedisBackplane("redis")
+            //        .WithRedisCacheHandle("redis");
+            //});
         }
+
+        //public CacheProvider(ICacheManager<object> cache, ILogger logger)
+        //{
+        //    _cache = cache;
+        //    _logger = logger;
+        //}
 
         public object Get(string key, string region)
         {
-            try
+            if (_distributedEnabled)
             {
-                return _cache.Get(key, region);
-            }
-            catch (Exception ex)
-            {
-                _logger.Exception(ex, new Dictionary<string, string>
+                try
                 {
-                    ["Service"] = nameof(Cache),
-                    ["Key"] = key,
-                    ["Region"] = region
-                });
-                _cache.Remove(key, region);
-                return null;
+                    return _cache.Get(key, region);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Exception(ex, new Dictionary<string, string>
+                    {
+                        ["Service"] = nameof(Cache),
+                        ["Key"] = key,
+                        ["Region"] = region
+                    });
+                    _cache.Remove(key, region);
+                    return null;
+                }
             }
+
+            return null;
         }
 
         public T Get<T>(string key, string region)
         {
-            return _cache.Get<T>(key, region);
+            if (_distributedEnabled)
+            {
+                return _cache.Get<T>(key, region);
+            }
+
+            return default;
         }
 
         public bool Exists(string key, string region)
         {
-            return _cache.Exists(key, region);
+            if (_distributedEnabled)
+                return _cache.Exists(key, region);
+            return false;
         }
 
         public void Set(string key, string region, object value, int expire, bool slideExpiration)
         {
-            var obj = ConvertEnumerableToList(value);
-            if (obj == null)
+            if (_distributedEnabled)
             {
-                return;
+                var obj = ConvertEnumerableToList(value);
+                if (obj == null)
+                {
+                    return;
+                }
+
+                var cacheItem = new CacheItem<object>(key, region, obj,
+                    slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
+                    TimeSpan.FromSeconds(expire));
+                _cache.Put(cacheItem);
             }
-            var cacheItem = new CacheItem<object>(key, region, obj, slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
-                TimeSpan.FromSeconds(expire));
-            _cache.Put(cacheItem);
+
             //return obj;
         }
 
         public void DeleteRegion(string region)
         {
-            _cache.ClearRegion(region);
+            if (_distributedEnabled)
+            {
+                _cache.ClearRegion(region);
+            }
         }
 
         public void DeleteKey(string region, string key)
         {
-            _cache.Remove(key, region);
+            if (_distributedEnabled)
+            {
+                _cache.Remove(key, region);
+            }
         }
 
         /// <summary>

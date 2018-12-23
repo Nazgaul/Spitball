@@ -115,7 +115,7 @@
 
     }
     .card-actions {
-      background:  #F7F7F7;
+      background: #F7F7F7;
       width: 100%;
       justify-content: center;
       height: 78px;
@@ -166,7 +166,7 @@
   width: 50px;
   transform: rotate(0deg);
   cursor: pointer;
-  label{
+  label {
     display: none;
   }
   input {
@@ -177,24 +177,24 @@
   }
 }
 
-.upload-files {
-  border-radius: 4px;
-  //TODO ui changes
-  background-color: @Textbooks;
-  color: @color-white;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 40px;
-  letter-spacing: -0.5px;
-  width: 100%;
-  display: block;
-  text-align: center;
-  margin-bottom: 17px;
-  .transition (all .2s ease-in-out);
-  &:hover {
-    background-color: lighten(@Textbooks, 10%);
-  }
-}
+//.upload-files {
+//  border-radius: 4px;
+//  //TODO ui changes
+//  background-color: @Textbooks;
+//  color: @color-white;
+//  font-size: 20px;
+//  font-weight: bold;
+//  line-height: 40px;
+//  letter-spacing: -0.5px;
+//  width: 100%;
+//  display: block;
+//  text-align: center;
+//  margin-bottom: 17px;
+//  .transition (all .2s ease-in-out);
+//  &:hover {
+//    background-color: lighten(@Textbooks, 10%);
+//  }
+//}
 
 .upload-dialog {
   position: relative;
@@ -228,6 +228,7 @@
                 .upload-row-1 {
                   padding: 36px 0;
                 }
+
                 .upload-row-2 {
                   border-top: solid 1px rgba(0, 0, 0, 0.11);
                   padding: 0;
@@ -303,7 +304,6 @@
           height: 100%;
           justify-content: flex-start;
 
-
         }
 
         &.mobile-controls-last {
@@ -342,7 +342,7 @@
           left: 0;
           height: 82px;
           width: auto;
-          min-width: 335px;
+          min-width: 300px;
           padding: 0 32px;
           border-right: 1px solid @borderOpacityGrey;
           @media (max-width: @screen-xs) {
@@ -363,7 +363,7 @@
               margin-right: 12px;
             }
             .sbf {
-              color: @labelColor;
+              color: @labelColorMobile;
               font-size: 22px;
               &.sb-close {
                 font-size: 8px;
@@ -416,7 +416,7 @@
             right: 0;
             left: 0;
             &[disabled] {
-              background-color:@colorDisbaled!important;
+              background-color: @colorDisbaled !important;
               z-index: 9;
               //height: 51px;
             }
@@ -503,10 +503,11 @@
             .placeholder-color(@colorGreyLight);
             font-size: 13px;
             padding: 12px;
-            &:not(.inputPrepIcon){
-              border: solid 1px @colorInputNotFocused;
+            &:not(.inputPrepIcon) {
+              .glowingBorder();
+
               &:focus {
-                border: solid 1px @colorInputFocus;
+              .glowingBorderFocused();
               }
             }
           }
@@ -519,24 +520,27 @@
           }
           &.step-1 {
             margin-bottom: 12px;
-
+            .or-upload {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+              padding-top: 44px;
+            }
             .upload-row-2 {
               flex-grow: 1;
             }
 
           }
-          //background-color: @stepContentBackground;
           .sb-step-card {
-            //background-color: @stepContentBackground;
             background-color: transparent;
-            min-height: 367px;
+            //min-height: 367px;
+            min-height: 275px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            //align-items: center;
             box-shadow: none;
             &.drop-card {
-              //background-color: rgba(0, 0, 0, 0.1);
               transform: scale(1.02);
               z-index: 2
             }
@@ -558,7 +562,7 @@
                 justify-content: center;
               }
               .sbf-upload-cloud {
-                font-size: 24px;
+                font-size: 18px;
                 color: @color-blue-new;
                 @media (max-width: @screen-xs) {
                   color: @colorInputFocus;
@@ -566,7 +570,7 @@
                 }
               }
               .upload-cloud-text {
-                font-size: 22px;
+                font-size: 18px;
                 font-weight: normal;
                 margin-left: 12px;
                 &.text-blue {
@@ -652,8 +656,8 @@
                   height: 48px;
                   width: 48px;
                   box-shadow: none;
-                  border: 1px solid @uploadGrey;
-                  background-color: transparent;
+                  border: none;
+                  background-color: @uploadGreyBackground;
                   align-items: center;
                   border-radius: 50%;
                   display: inline-flex;
@@ -670,21 +674,14 @@
                   position: relative;
                   vertical-align: middle;
                   user-select: none;
-                  @media (max-width: @screen-xs) {
-                    border: none;
-                    background-color: @uploadGreyBackground;
-                  }
-                  &:hover{
+                  &:hover {
                     background-color: #E2E2E5;
                     cursor: pointer;
 
                   }
                   .sbf {
                     font-size: 18px;
-                    color: @color-black;
-                    @media (max-width: @screen-xs) {
-                      color: @color-blue-new;
-                    }
+                    color: @color-blue-new;
                   }
                   //sbf
                 }
@@ -692,10 +689,7 @@
                 .btn-label {
                   padding-top: 10px;
                   font-size: 14px;
-                  color: @textColor;
-                  &.mobile-text{
-                    color: @color-blue-new;
-                  }
+                  color: @color-blue-new;
                 }
                 //btn-label
               }
@@ -856,7 +850,7 @@
                         position: absolute;
                         bottom: -20px;
                         left: 0;
-                        color: @labelColor;
+                        color: @labelColorMobile;
                         font-size: 12px;
 
                       }
@@ -896,7 +890,7 @@
 
                     .sb-wallet-icon {
                       font-size: 26px;
-                      color: @labelColor;
+                      color: @labelColorMobile;
                     }
                     .sb-account-amount {
                       color: @color-grey;
@@ -914,26 +908,20 @@
                   }
                   .steps-form-label {
                     font-family: 'Open Sans', sans-serif;
-                    font-size: 12px;
-                    color: @labelColor;
+                    color: @labelColorMobile;
                     display: flex;
                     justify-content: flex-start;
                     align-items: baseline;
-                    @media (max-width: @screen-xs) {
-                      font-size: 13px;
-                      color: @labelColorMobile;
-                    }
+                    .responsive-property(font-size, 12px, null, 13px);
                   }
                   .sbf {
                     font-size: 12px;
-                    color: @labelColor;
+                    color: @labelColorMobile;
+                    margin-right: 12px;
                     @media (max-width: @screen-xs) {
                       font-size: 13px;
-                      color: @labelColorMobile;
-
                     }
                   }
-
                 }
               }
               //upload-row-2
@@ -947,53 +935,85 @@
                 }
                 .steps-form-label {
                   font-family: 'Open Sans', sans-serif;
-                  font-size: 12px;
-                  color: @labelColor;
+                  .responsive-property(font-size, 12px, null, 13px);
+                  color: @labelColorMobile;
                   width: 100%;
                   display: flex;
                   justify-content: flex-start;
-                  @media (max-width: @screen-xs) {
-                    font-size: 13px;
-                    color: @labelColorMobile;
-
-                  }
                 }
                 .sbf {
                   font-size: 14px;
-                  color: @labelColor;
-                  @media (max-width: @screen-xs) {
-                    color: @labelColorMobile;
-                  }
+                  color: @labelColorMobile;
+                  margin-right: 12px;
                 }
                 .chip-wrap {
-                  .sbf-class-chip {
-                    margin-left: 0;
-                    margin-right: 8px;
-                    font-size: 13px;
-                    border-color: @colorInputNotFocused;
-                    color: @colorBlackNew;
-                    &.v-chip{
-                      .v-chip__content{
-                        //ellipsis for too long class chip
-                        @media (max-width: @screen-xs) {
-                          max-width: 300px;
-                          min-width: 0;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                          display: block;
-                          line-height: 32px;
+                  width: 100%;
+                  max-width: 426px;
+                  @media (max-width: @screen-xs) {
+                  }
+                  .combo-class {
+                    .v-input__slot {
+                      padding:0  12px;
+                      box-shadow: none;
+                      .glowingBorder();
+                      border-radius: 4px;
+                      .sbf-close{
+                        font-size: 6px;
+                        color: @colorBlackNew;
+                      }
+                      .sbf-expand-bottom{
+                        font-size: 22px;
+                      }
+                      .v-input__append-inner{
+                        &:last-child{
+                          &:before{
+                            content: '';
+                            display: block;
+                            background-color: @colorInputFocused;
+                            margin-right: 6px;
+                            width: 1px;
+                          }
                         }
-
                       }
                     }
-                    &.v-chip--selected {
-                      color: @chipActiveColor;
-                      background-color: @uploadGreyBackground;
-                      border: 1px solid @uploadGreyBackground;
-                      box-shadow: none;
+                    &.v-input--is-focused {
+                      .v-input__slot {
+                        box-shadow: none;
+                       .glowingBorderFocused();
+                        border-radius: 4px;
+                      }
+
                     }
                   }
+
+                  //.sbf-class-chip {
+                  //  margin-left: 0;
+                  //  margin-right: 8px;
+                  //  font-size: 13px;
+                  //  border-color: @colorInputNotFocused;
+                  //  color: @colorBlackNew;
+                  //  &.v-chip{
+                  //    .v-chip__content{
+                  //      //ellipsis for too long class chip
+                  //      @media (max-width: @screen-xs) {
+                  //        max-width: 300px;
+                  //        min-width: 0;
+                  //        white-space: nowrap;
+                  //        overflow: hidden;
+                  //        text-overflow: ellipsis;
+                  //        display: block;
+                  //        line-height: 32px;
+                  //      }
+                  //
+                  //    }
+                  //  }
+                  //  &.v-chip--selected {
+                  //    color: @chipActiveColor;
+                  //    background-color: @uploadGreyBackground;
+                  //    border: 1px solid @uploadGreyBackground;
+                  //    box-shadow: none;
+                  //  }
+                  //}
                 }
               }
               //upload-row-3
@@ -1037,7 +1057,7 @@
                   align-items: center;
                   justify-content: space-around;
                   cursor: pointer;
-                  @media (max-width: @screen-xs){
+                  @media (max-width: @screen-xs) {
                     width: 100%;
                     max-width: 254px;
                     margin-bottom: 16px;
@@ -1088,7 +1108,7 @@
 
           }
           //step-three end
-          &.step-4, &.step-5, &.step-6, &.step-7 {
+          &.step-4, &.step-5, &.step-6, &.step-7, &.step-8 {
             //&.step-4, &.step-5, &.step-7, &.step-8{
             border: 1px solid transparent;
             .sb-step-card {
@@ -1378,22 +1398,16 @@
                   }
                   .steps-form-label {
                     font-family: 'Open Sans', sans-serif;
-                    font-size: 12px;
-                    color: @labelColor;
+                    color: @labelColorMobile;
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
-                    @media (max-width: @screen-xs) {
-                      font-size: 13px;
-                      color: @labelColorMobile
-                    }
+                    .responsive-property(font-size, 12px, null, 13px);
                   }
                   .sbf {
+                    margin-right: 12px;
                     font-size: 14px;
-                    color: @labelColor;
-                    @media (max-width: @screen-xs) {
-                      color: @labelColorMobile
-                    }
+                    color: @labelColorMobile;
                   }
                   .sb-combo {
                     //height: 48px;
@@ -1445,7 +1459,7 @@
                       font-size: 18px;
                       height: 24px;
                       width: 24px;
-                      .v-input--selection-controls__ripple{
+                      .v-input--selection-controls__ripple {
                         border-radius: 50%;
                         cursor: pointer;
                         height: 24px;
@@ -1453,15 +1467,15 @@
                         transition: inherit;
                         width: 24px;
                         left: -6px;
-                        top:  ~"calc(50% - 20px)";
+                        top: ~"calc(50% - 20px)";
                         margin: 7px;
                       }
                       .sbf {
                         font-size: 22px;
-                        color: @labelColor;
+                        color: @labelColorMobile;
 
                       }
-                      label{
+                      label {
                         font-size: 12px;
                       }
                     }
@@ -1475,30 +1489,25 @@
                 }
                 .steps-form-label {
                   font-family: 'Open Sans', sans-serif;
-                  font-size: 12px;
-                  color: @labelColor;
+                  color: @labelColorMobile;
                   width: 100%;
                   display: flex;
                   justify-content: flex-start;
-                  @media (max-width: @screen-xs) {
-                    font-size: 13px;
-                    color: @labelColorMobile;
-                  }
+                  .responsive-property(font-size, 12px, null, 13px);
+
                 }
                 .sbf {
+                  margin-right: 12px;
                   font-size: 14px;
-                  color: @labelColor;
-                  @media (max-width: @screen-xs) {
-                    color: @labelColorMobile
-                  }
+                  color: @labelColorMobile;
                 }
                 .chip-wrap {
                   .sbf-class-chip {
                     margin-left: 0;
                     margin-right: 8px;
                     font-size: 12px;
-                    &.v-chip{
-                      .v-chip__content{
+                    &.v-chip {
+                      .v-chip__content {
                         //ellipsis for too long class chip
                         @media (max-width: @screen-xs) {
                           max-width: 300px;

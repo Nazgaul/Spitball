@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
         // GET
         [HttpPost("ask")]
         public async Task<UploadAskFileResponse> UploadFileAsync(UploadAskFileRequest model,
-            [FromServices] UserManager<User> userManager,
+            [FromServices] UserManager<RegularUser> userManager,
             CancellationToken token)
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
@@ -80,6 +80,10 @@ namespace Cloudents.Web.Api
         [HttpPost("file"), FormContentType]
         public async Task<ActionResult<UploadResponse>> Upload([FromForm] UploadRequest2 model, CancellationToken token)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var tempData = TempData.Get<TempData>($"update-{model.session_id}");
 
             var index = (int)(model.start_offset / UploadInnerResponse.BlockSize);

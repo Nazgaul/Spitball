@@ -10,19 +10,25 @@
             </v-flex>
             <v-layout row>
                 <v-flex style="width:inherit;" class="question-data">
-                    
                     <question-thread v-if="questionData" :questionData="questionData"
                                      :cardOwner="cardOwner"
                                      :showDialogSuggestQuestion="showDialogSuggestQuestion"
                                      :hasCorrectAnswer="getCorrectAnswer">
                         
-                        <div v-if="enableAnswer" slot="answer-form" class="mb-3" style="width:inherit;">
+                        
+                        <div slot="currently-watching">
+                            <!-- <div class="viewers-container">{{questionData}} watching now</div> -->
+                        </div>
+                    </question-thread>
+                    <div v-if="enableAnswer" slot="answer-form" class="mb-3" style="width:inherit;">
                             <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
                                                     :error="errorTextArea"
-                                                    :isFocused="showForm" @addFile="addFile"
-                                                    @removeFile="removeFile"></extended-text-area>
+                                                    :isFocused="showForm"
+                                                    @addFile="addFile"
+                                                    @removeFile="removeFile">
+                                </extended-text-area>
                                 <div class="has-answer-error-wrapper">
                                     <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
                                     <span v-if="errorDuplicatedAnswer.length" class="error-message  has-answer-error">{{errorDuplicatedAnswer}}</span>
@@ -38,10 +44,6 @@
                                 <div><b v-language:inner>questionDetails_Know_the_answer</b>&nbsp; <span v-language:inner>questionDetails_Add_it_here</span></div>
                             </div>
                         </div>
-                        <div slot="currently-watching">
-                            <!-- <div class="viewers-container">{{questionData}} watching now</div> -->
-                        </div>
-                    </question-thread>
                 </v-flex>
 
                 <v-flex v-if ="accountUser" class="chat-wrapper">
@@ -64,12 +66,15 @@
                         <v-flex xs12 class="question-data" >
                             <question-thread v-if="questionData" :questionData="questionData" :cardOwner="cardOwner"
                                              :hasCorrectAnswer="getCorrectAnswer">
-                                <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
+                                
+                            </question-thread>
+                            <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                             v-model="textAreaValue"
                                                             :error="errorTextArea"
-                                                            :isFocused="showForm" @addFile="addFile"
+                                                            :isFocused="showForm" 
+                                                            @addFile="addFile"
                                                             @removeFile="removeFile"></extended-text-area>
                                         <div class="has-answer-error-wrapper">
                                             <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
@@ -83,19 +88,17 @@
                                         <div><b v-language:inner>questionDetails_Know_the_answer</b>&nbsp;<span v-language:inner>questionDetails_Add_it_here</span></div>
                                     </div>
                                 </div>
-                            </question-thread>
                         </v-flex>
                 </v-tab-item>
                 <v-tab-item :key="'2'" :id="'tab-2'">
                         <v-flex xs12>
-                            <div ref="chat-area" class="chat-iframe"></div>
+                        <div ref="chat-area" class="chat-iframe"></div>
                         </v-flex>
                 </v-tab-item>
             </v-tabs>
         </div>
-        <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'"  :content-class="'question-suggest'">
-                <question-suggest-pop-up  :user="questionData.user" :cardList="cardList.nextQuestions"></question-suggest-pop-up>
-
+        <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'" :content-class="'question-suggest'">
+                <question-suggest-pop-up  :user="questionData.user" :cardList="cardList"></question-suggest-pop-up>
         </sb-dialog>
 
         <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">

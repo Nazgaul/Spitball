@@ -6,6 +6,8 @@ using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Domain.Entities;
 
 namespace Cloudents.Core.EventHandler
 {
@@ -13,6 +15,7 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<MarkAsCorrectEvent>,
         IEventHandler<QuestionCreatedEvent>,
         IEventHandler<QuestionDeletedEvent>,
+        IEventHandler<QuestionDeletedAdminEvent>,
         IEventHandler<AnswerCreatedEvent>,
         IEventHandler<AnswerDeletedEvent>
     {
@@ -26,28 +29,40 @@ namespace Cloudents.Core.EventHandler
         public Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
             var dbQuestion = eventMessage.Question;
-            var question = new Question(dbQuestion.Id, dbQuestion.Updated, dbQuestion.Text, dbQuestion.User.Country,
-                dbQuestion.Language?.TwoLetterISOLanguageName,
-                dbQuestion.Subject, QuestionFilter.Unanswered);
+            var question = new QuestionSearchDto()
+            {
+                QuestionId = dbQuestion.Id,
+                DateTime = dbQuestion.Updated,
+                Text = dbQuestion.Text,
+                Country = dbQuestion.User.Country,
+                Language = dbQuestion.Language?.TwoLetterISOLanguageName,
+                Subject = dbQuestion.Subject,
+                Filter = QuestionFilter.Unanswered
+            };
+
+
+            //var question = new Question(dbQuestion.Id, dbQuestion.Updated, dbQuestion.Text, dbQuestion.User.Country,
+            //    dbQuestion.Language?.TwoLetterISOLanguageName,
+            //    dbQuestion.Subject, QuestionFilter.Unanswered);
           
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
 
         public Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
         {
-            var question = new Question
+            var question = new QuestionSearchDto
             {
-                Id = eventMessage.Answer.Question.Id.ToString(),
-                State = QuestionFilter.Sold,
+                QuestionId = eventMessage.Answer.Question.Id,
+                Filter = QuestionFilter.Sold,
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
 
         public Task HandleAsync(QuestionDeletedEvent eventMessage, CancellationToken token)
         {
-            var question = new Question
+            var question = new QuestionSearchDto
             {
-                Id = eventMessage.Question.Id.ToString(),
+                QuestionId = eventMessage.Question.Id,
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(false, question), token);
         }
@@ -58,10 +73,10 @@ namespace Cloudents.Core.EventHandler
             {
                 return Task.CompletedTask;
             }
-            var question = new Question
+            var question = new QuestionSearchDto
             {
-                Id = eventMessage.Answer.Question.Id.ToString(),
-                State = QuestionFilter.Answered,
+                QuestionId = eventMessage.Answer.Question.Id,
+                Filter = QuestionFilter.Answered,
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
@@ -72,12 +87,21 @@ namespace Cloudents.Core.EventHandler
             {
                 return Task.CompletedTask;
             }
-            var question = new Question
+            var question = new QuestionSearchDto
             {
-                Id = eventMessage.Answer.Question.Id.ToString(),
-                State = QuestionFilter.Unanswered
+                QuestionId = eventMessage.Answer.Question.Id,
+                Filter = QuestionFilter.Unanswered
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
+        }
+
+        public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
+        {
+            var question = new QuestionSearchDto
+            {
+                QuestionId = eventMessage.Question.Id,
+            };
+            return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(false, question), token);
         }
     }
 }

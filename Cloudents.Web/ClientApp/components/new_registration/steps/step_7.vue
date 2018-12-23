@@ -87,6 +87,7 @@
                         analyticsService.sb_unitedEvent('Login', 'Start');
                         // self.$parent.$emit('updateEmail', self.userEmail);
                         global.isAuth = true;
+                        global.country = response.data.country;
                         let url = self.toUrl || defaultSubmitRoute;
                         //will be always ask cause he came from email
                         self.$router.push({path: `${url.path }`});

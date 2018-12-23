@@ -1,68 +1,81 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Sync;
 using System.Collections.Generic;
+using System.Linq;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
     public class DocumentSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<DocumentSearchDto>,
     IQueryHandler<SyncAzureQuery, (IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>
     {
-        private readonly FluentQueryBuilder _queryBuilder;
-        public DocumentSyncAzureSearchQueryHandler(QuerySession session, FluentQueryBuilder queryBuilder) : base(session)
+      
+
+        public DocumentSyncAzureSearchQueryHandler(QuerySession session) : base(session)
         {
-            _queryBuilder = queryBuilder;
         }
 
         protected override string VersionSql
         {
             get
             {
-                var qb = _queryBuilder;
-                qb.InitTable<Document>();
-                qb.CustomTable(
-                    $"right outer join CHANGETABLE (CHANGES {qb.Table<Document>()}, {qb.Param("Version")}) AS c ON {qb.ColumnAlias<Document>(q => q.Id)} = c.id");
-                SimilarQuery(qb);
-                return qb;
+                const string res = @"select d.Id as ItemId,
+	                            d.Name as Name,
+	                            d.CourseName as Course,
+	                            d.UniversityId as UniversityId,
+	                            d.Type as Type,
+	                            d.State as State,
+	                            d.UpdateTime as DateTime, 
+	                            (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags,
+	                            u.Country as Country,
+								u.Name as UniversityName,
+	                            c.* 
+                            From sb.[Document] d  
+                            right outer join CHANGETABLE (CHANGES sb.[Document], :Version) AS c ON d.Id = c.id 
+                            left join sb.[University] u 
+		                        On u.Id = d.UniversityId  
+                            Order by d.Id 
+                            OFFSET :PageSize * :PageNumber 
+                            ROWS FETCH NEXT :PageSize ROWS ONLY";
+                return res;
             }
         }
-
-        private void SimilarQuery(FluentQueryBuilder qb)
-        {
-            qb.Select<Document>(x => x.Id, nameof(DocumentSearchDto.ItemId));
-            qb.Select<Document>(x => x.Name, nameof(DocumentSearchDto.Name));
-            qb.Select<Document>(x => x.Course, nameof(DocumentSearchDto.Course));
-            qb.Select<Document>(x => x.Language, nameof(DocumentSearchDto.Language));
-            qb.Select<Document>(x => x.University, nameof(DocumentSearchDto.University));
-            qb.Select<Document>(x => x.Type, nameof(DocumentSearchDto.Type));
-            //TODO - we do not implement component as expression
-            qb.Select(
-                $"{qb.TableAlias<Document>()}.{nameof(Document.TimeStamp.UpdateTime)} as {nameof(DocumentSearchDto.DateTime)}");
-           // qb.Select<Document>(x => x.TimeStamp.CreationTime, nameof(DocumentSearchDto.DateTime));
-            qb.Select(
-                $" (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where {qb.ColumnAlias<Document>(x => x.Id)} = dt.DocumentId) AS {nameof(DocumentSearchDto.Tags)}");
-            qb.LeftJoin<Document, University>(q => q.University, u => u.Id);
-
-            qb.Select<University>(x => x.Country, nameof(DocumentSearchDto.Country));
-            qb.Select("c.*")
-                .AddOrder<Document>(q => q.Id)
-                .Paging("PageSize", "PageNumber");
-        }
+        
 
         protected override string FirstQuery
         {
             get
             {
-                var qb = _queryBuilder;
-                qb.InitTable<Document>();
-                qb.CustomTable(
-                    $"CROSS APPLY CHANGETABLE (VERSION {qb.Table<Document>()}, (Id), ({qb.Column<Document>(x => x.Id)})) AS c");
-                SimilarQuery(qb);
-                return qb;
+                const string res = @"select d.Id as ItemId,
+	                            d.Name as Name,
+	                            d.CourseName as Course,
+	                            d.UniversityId as UniversityId,
+	                            d.Type as Type,
+	                            d.State as State,
+	                            d.UpdateTime as DateTime, 
+	                            (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags,
+	                            u.Country as Country,
+								u.Name as UniversityName,
+	                            c.* 
+                            From sb.[Document] d  
+                            CROSS APPLY CHANGETABLE (VERSION sb.[Document], (Id), (Id)) AS c 
+                            left join sb.[University] u 
+	                            On u.Id = d.UniversityId  
+                            Order by d.Id 
+                            OFFSET :PageSize * :PageNumber 
+                            ROWS FETCH NEXT :PageSize ROWS ONLY";
+
+                return res;
             }
         }
 
         protected override int PageSize => 200;
+
+
+        protected override ILookup<bool, AzureSyncBaseDto<DocumentSearchDto>> SeparateUpdateFromDelete(IEnumerable<AzureSyncBaseDto<DocumentSearchDto>> result)
+        {
+            return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.State != ItemState.Ok);
+        }
     }
 }

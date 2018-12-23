@@ -1,14 +1,15 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Query.Sync;
+using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.Sync
 {
     public interface IDbToSearchSync
     {
-        Task CreateIndexAsync(CancellationToken token);
+        //Task CreateIndexAsync(CancellationToken token);
 
-        Task<SyncResponse> DoSyncAsync(SyncAzureQuery query, CancellationToken token);
+        Task<SyncResponse> DoSyncAsync(SyncAzureQuery query, IBinder binder, CancellationToken token);
     }
 
     public class SyncResponse

@@ -9,7 +9,6 @@ namespace Cloudents.FunctionsV2.System
 {
     public class UpdateUserTagOperation : ISystemOperation<AddUserTagMessage>
     {
-
         private readonly ICommandBus _commandBus;
 
         public UpdateUserTagOperation(ICommandBus commandBus)
@@ -17,12 +16,10 @@ namespace Cloudents.FunctionsV2.System
             _commandBus = commandBus;
         }
 
-
         public async Task DoOperationAsync(AddUserTagMessage msg, IBinder binder, CancellationToken token)
         {
             var command = new AddUserTagCommand(msg.UserId, msg.Tag);
             await _commandBus.DispatchAsync(command, token);
         }
-        //AddUserTagCommandHandler
     }
 }

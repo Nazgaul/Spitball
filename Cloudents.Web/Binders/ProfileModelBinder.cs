@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
@@ -17,9 +17,9 @@ namespace Cloudents.Web.Binders
     {
         private readonly IQueryBus _queryBus;
         private readonly ICountryProvider _countryProvider;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
 
-        public ProfileModelBinder(IQueryBus queryBus, ICountryProvider countryProvider, UserManager<User> userManager)
+        public ProfileModelBinder(IQueryBus queryBus, ICountryProvider countryProvider, UserManager<RegularUser> userManager)
         {
             _queryBus = queryBus;
             _countryProvider = countryProvider;

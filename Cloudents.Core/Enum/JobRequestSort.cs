@@ -1,13 +1,14 @@
-﻿using Cloudents.Core.Attributes;
+﻿using Cloudents.Common.Attributes;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum.Resources;
 
 namespace Cloudents.Core.Enum
 {
     public enum JobRequestSort
     {
-        [ResourceDescription(typeof(EnumResources), "SearchRequestSortRelevance")]
+        [ResourceDescription(typeof(EnumResourcesOld), "SearchRequestSortRelevance")]
         Relevance,
-        [ResourceDescription(typeof(EnumResources), "SearchRequestSortDate")]
+        [ResourceDescription(typeof(EnumResourcesOld), "SearchRequestSortDate")]
         Date,
     }
 }

@@ -1,16 +1,17 @@
 ﻿using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
@@ -22,8 +23,8 @@ namespace Cloudents.Web.Api
     public class UniversityController : ControllerBase
     {
         private readonly IUniversitySearch _universityProvider;
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<RegularUser> _userManager;
+        private readonly SignInManager<RegularUser> _signInManager;
         private readonly ICommandBus _commandBus;
 
         /// <inheritdoc />
@@ -34,7 +35,7 @@ namespace Cloudents.Web.Api
         /// <param name="userManager"></param>
         /// <param name="commandBus"></param>
         /// <param name="signInManager"></param>
-        public UniversityController(IUniversitySearch universityProvider, UserManager<User> userManager, ICommandBus commandBus, SignInManager<User> signInManager)
+        public UniversityController(IUniversitySearch universityProvider, UserManager<RegularUser> userManager, ICommandBus commandBus, SignInManager<RegularUser> signInManager)
         {
             _universityProvider = universityProvider;
             _userManager = userManager;
@@ -46,17 +47,18 @@ namespace Cloudents.Web.Api
         /// Get list of universities
         /// </summary>
         /// <param name="model">object of query string</param>
-        /// <param name="country">Not taken from the api</param>
+        /// <param name="profile">Not taken from the api</param>
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(UniversityRequest.Term) })]
+
         public async Task<UniversitySearchDto> GetAsync([FromQuery] UniversityRequest model,
-            [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)]
-            string country,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             var result = await _universityProvider.SearchAsync(model.Term,
-                country, token).ConfigureAwait(false);
+                profile.Country, token);
             return result;
         }
 

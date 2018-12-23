@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using NHibernate;
 using NHibernate.Linq;
 using System.Linq;
@@ -21,7 +21,14 @@ namespace Cloudents.Infrastructure.Database.Repositories
                   .UpdateBuilder()
                   .Set(x => x.Views, x => x.Views + 1)
                   .UpdateAsync(token);
+        }
 
+        public Task UpdateNumberOfDownloads(long id, CancellationToken token)
+        {
+            return Session.Query<Document>().Where(w => w.Id == id)
+                .UpdateBuilder()
+                .Set(x => x.Downloads, x => x.Downloads + 1)
+                .UpdateAsync(token);
         }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -21,7 +22,9 @@ namespace Cloudents.Infrastructure.Database.Query
 
         public async Task<IEnumerable<SiteMapCountDto>> GetAsync(EmptyQuery query, CancellationToken token)
         {
-            var documentCountFuture = _session.QueryOver<Document>().ToRowCountQuery().FutureValue<int>();
+            var documentCountFuture = _session.QueryOver<Document>()
+                .Where(w => w.Item.State == ItemState.Ok)
+                .ToRowCountQuery().FutureValue<int>();
             var flashcardCountQueryFuture = _session.CreateSQLQuery(
                 @"select sum(b.FlashcardCount) as flashcardCount
 from zbox.box b 

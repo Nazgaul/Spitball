@@ -1,8 +1,8 @@
 ﻿<template v-once>
     <general-page>
         <div class="faq">
-            <v-expansion-panel class="elevation-0" popout>
-                <v-expansion-panel-content v-for="(question,i) in questions" :key="i" v-bind:value="i == id">
+            <v-expansion-panel class="elevation-0" popout :value="+id">
+                <v-expansion-panel-content  v-for="(question,i) in questions" :key="i" >
                     <v-icon slot="actions" class="actions">sbf-chevron-down</v-icon>
                     <div slot="header">
                         <div>{{question.question}}</div>
@@ -21,7 +21,8 @@ export default {
   components: { generalPage },
   data() {
     return {
-      questions: null
+      questions: null,
+
     };
   },
     props: {
@@ -35,8 +36,10 @@ export default {
   methods: {
     setData(questions) {
       this.questions = questions;
-    }
-  }
+    },
+
+  },
+
 };
 </script>
 

@@ -3,6 +3,8 @@
         <v-tabs centered  class="document-nav"  color="transparent">
             <v-tabs-slider color="#3532d5"></v-tabs-slider>
             <v-tab to="/document/approveDelete">Approve or Delete</v-tab>
+            <v-tab to="/document/documentDelete">Delete By ID</v-tab>
+            <v-tab to="/document/flaggedDocument">Flagged Documents</v-tab>
         </v-tabs>
         <div class="document-content">
             <router-view></router-view>

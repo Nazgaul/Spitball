@@ -1,6 +1,7 @@
 ﻿<template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
-        <signup-banner  slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
+        <!-- <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner> -->
+        <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
         <div slot="main">
               <div class="d-flex mobile-filter">
                   <askQuestionBtn v-if="$route.path.slice(1)==='ask'"
@@ -32,7 +33,8 @@
                 </div>
             </v-snackbar>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
-                <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical">
+                <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
+                <!-- <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <!-- <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>
@@ -44,52 +46,18 @@
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <!-- Deprecated -->
-                                <!-- <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading"
-                                        class="personalize-wrapper pa-3 mb-3 elevation-1">
-                                    <v-text-field class="elevation-0" type="search" solo flat
-                                                  :placeholder="placeholder.whereSchool" @click="$_openPersonalize"
-                                                  v-language:placeholder></v-text-field>
-                                </v-flex> -->
-
+                                <v-flex v-show="!showSkelaton && isNote && showSelectUni" class="result-cell mb-2" xs-12>
+                                    <set-uni-class class="cell"></set-uni-class>
+                                </v-flex>
+                                
                                 <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component v-if="item.template !== 'ask' " :is="'result-'+item.template"
+                                    <component :is="'result-'+item.template"
                                                :item="item" :key="index" :index="index" class="cell"></component>
-
-                                    <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
-                                        <question-card :cardData="item" :key="index"></question-card>
-                                    </router-link>
-                                    <div>
-                                        <span class="question-viewer"
-                                              v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow === 1 && item.watchingNow !== 0"
-                                              :style="watchinNowStyle(item)"><span v-html="$Ph('result_user_answering', item.watchingNow)"></span></span>
-                                        <span class="question-viewer"
-                                              v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0"
-                                              :style="watchinNowStyle(item)">{{item.watchingNow}} <span
-                                                v-language:inner>result_users_answering</span></span>
-
-                                        <!-- ask only -->
-                                        <div class="show-btn"
-                                             v-show="accountUser && $route.path.slice(1) ==='ask' && !!item.user && accountUser.id !== item.user.id && !item.hasCorrectAnswer"
-                                             :class="'color-'+$route.path.slice(1)" v-language:inner>result_answer
-                                        </div>
-
-                                        <div class="show-btn"
-                                             v-show="!accountUser && item && item.user && name ==='ask'"
-                                             :class="'color-'+$route.path.slice(1)" v-language:inner>
-                                            {{'result_answer'}}
-                                        </div>
-                                        <!-- not ask -->
-   <div class="show-btn" v-show="name !=='ask' && name !=='note' || (name ==='ask' && item.hasCorrectAnswer || name ==='ask'  && accountUser &&  item && item.user && item.user.id && accountUser.id === item.user.id)"
-                                             :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme
-                                        </div>
-                                    </div>
                                 </v-flex>
                                 <router-link tag="v-flex"
                                              class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 "
                                              :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
-                                    <!--:to="{path:'/'+currentSuggest,query:{q:this.userText}}">-->
                                     <suggest-card :name="currentSuggest"></suggest-card>
                                 </router-link>
                             </slot>

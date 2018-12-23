@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Exceptions;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Identity;
@@ -44,9 +44,9 @@ namespace Cloudents.Web.Filters
 
     public class UserLockedExceptionFilter : ExceptionFilterAttribute
     {
-        private readonly SignInManager<User> _signInManager;
+        private readonly SignInManager<RegularUser> _signInManager;
 
-        public UserLockedExceptionFilter(SignInManager<User> signInManager)
+        public UserLockedExceptionFilter(SignInManager<RegularUser> signInManager)
         {
             _signInManager = signInManager;
         }

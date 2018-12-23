@@ -120,14 +120,20 @@
   <data name="Answers" xml:space="preserve">
     <value>תשובות</value>
   </data>
+  <data name="documents" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
   <data name="emptyState_answers_btnText" xml:space="preserve">
     <value>ענה על שאלות</value>
   </data>
   <data name="emptyState_answers_text" xml:space="preserve">
     <value>רוצה להרוויח קצת כסף? עזור לאחרים על ידי מענה על שאלות משיעורי הבית שלהם.</value>
   </data>
-  <data name="emptyState_questions_boldText" xml:space="preserve">
-    <value>שאל שאלה</value>
+  <data name="emptyState_documents_btnText" xml:space="preserve">
+    <value>העלה מסמך</value>
+  </data>
+  <data name="emptyState_documents_text" xml:space="preserve">
+    <value>שתף את מסמכי הלימוד שלך</value>
   </data>
   <data name="emptyState_questions_btnText" xml:space="preserve">
     <value>שאל שאלה</value>

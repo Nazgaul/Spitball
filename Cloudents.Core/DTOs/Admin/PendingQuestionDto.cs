@@ -17,6 +17,8 @@ namespace Cloudents.Core.DTOs.Admin
     {
         public long Id { get; set; }
         public Uri Preview { get; set; }
+
+        public string SiteLink { get; set; }
     }
 
     public class FictivePendingQuestionDto
@@ -27,5 +29,14 @@ namespace Cloudents.Core.DTOs.Admin
         }
 
         public long Id { get;  }
+    }
+
+    public class PendingAnswerDto
+    {
+        public Guid Id { get; set; }
+
+        public long UserId { get; set; }
+        public string Text { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Domain.Entities;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -28,15 +28,15 @@ namespace Cloudents.Web.Api
 
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<RegularUser> _userManager;
+        private readonly SignInManager<RegularUser> _signInManager;
         private readonly IConfiguration _configuration;
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
 
 
-        public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager, IConfiguration configuration, ICommandBus commandBus, IQueryBus queryBus)
+        public AccountController(UserManager<RegularUser> userManager,
+            SignInManager<RegularUser> signInManager, IConfiguration configuration, ICommandBus commandBus, IQueryBus queryBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -49,7 +49,10 @@ namespace Cloudents.Web.Api
         [HttpGet]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<UserAccountDto>> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
+        public async Task<ActionResult<UserAccountDto>> GetAsync(
+            [FromServices] IQueryBus queryBus,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserDataByIdQuery(userId);
@@ -57,10 +60,17 @@ namespace Cloudents.Web.Api
             var talkJs = GetToken();
 
             var user = await taskUser.ConfigureAwait(false);
+
             if (user == null)
             {
                 await _signInManager.SignOutAsync().ConfigureAwait(false);
                 return Unauthorized();
+            }
+
+            if (user.Score != score)
+            {
+                var regularUser = await _userManager.GetUserAsync(User);
+                await _signInManager.RefreshSignInAsync(regularUser);
             }
             user.Token = talkJs;
             return user;

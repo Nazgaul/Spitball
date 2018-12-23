@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Cloudents.Common.Enum;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
@@ -19,6 +21,17 @@ namespace Cloudents.Core.Command
             UserId = userId;
         }
 
+
+
+        public static CreateDocumentCommand DbiOnly(string blobName, string name, DocumentType type, string course,
+            IEnumerable<string> tags, long userId, string professor, Guid universityId)
+        {
+            return new CreateDocumentCommand(blobName,name,type,course,tags,userId,professor)
+            {
+                UniversityId = universityId
+            };
+        }
+
         public string BlobName { get;  }
         public string Name { get; }
         public DocumentType Type { get;  }
@@ -30,6 +43,8 @@ namespace Cloudents.Core.Command
 
         public string Professor { get; set; }
 
-        public long Id { get; set; } 
+        public long Id { get; set; }
+
+        public Guid? UniversityId { get; private set; }
     }
 }

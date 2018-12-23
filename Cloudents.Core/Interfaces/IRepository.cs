@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
@@ -22,21 +23,33 @@ namespace Cloudents.Core.Interfaces
        // Task FlushAsync(CancellationToken token);
     }
 
-
-    public interface IUserRepository : IRepository<User>
+    public interface IFictiveUserRepository : IRepository<SystemUser>
     {
-        Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
+        Task<SystemUser> GetRandomFictiveUserAsync(string country, CancellationToken token);
 
-        Task<User> GetRandomFictiveUserAsync(string country, CancellationToken token);
+    }
+
+
+    public interface IRegularUserRepository : IRepository<RegularUser>
+    {
+        Task<decimal> UserCashableBalanceAsync(long userId, CancellationToken token);
         
-        Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
-        Task<User> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
-        Task UpdateUsersBalance(CancellationToken token);
+
+        //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
+        Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
+       // Task UpdateUsersBalance(CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>
     {
         Task<Course> GetOrAddAsync(string name, CancellationToken token);
+    }
+
+    public interface IVoteRepository : IRepository<Vote>
+    {
+        Task<Vote> GetVoteQuestionAsync(long userId,long questionId,  CancellationToken token);
+        Task<Vote> GetVoteDocumentAsync(long userId,long documentId,  CancellationToken token);
+        Task<Vote> GetVoteAnswerAsync(long userId,Guid answerId,  CancellationToken token);
     }
 
     public interface ITagRepository : IRepository<Tag>
@@ -47,6 +60,7 @@ namespace Cloudents.Core.Interfaces
     public interface IDocumentRepository : IRepository<Document>
     {
         Task UpdateNumberOfViews(long id, CancellationToken token);
+        Task UpdateNumberOfDownloads(long id, CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>
@@ -61,7 +75,15 @@ namespace Cloudents.Core.Interfaces
 
     public interface IAnswerRepository : IRepository<Answer>
     {
-        Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="questionId"></param>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <returns>the user answer otherwise null</returns>
+        Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token);
+        //Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
     }
 
     public interface IUniversityRepository : IRepository<University>
@@ -72,8 +94,11 @@ namespace Cloudents.Core.Interfaces
             CancellationToken token);
 
     }
-
-    public interface IMailGunStudentRepository : IRepository<MailGunStudent>
+    public interface ITransactionRepository : IRepository<Transaction>
     {
+        Task<decimal> GetUserScoreAsync(long userId, CancellationToken token);
+        Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
+        
     }
-}
+
+    }

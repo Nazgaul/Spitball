@@ -66,14 +66,14 @@ export default {
             this.closeSuggestions();
         },
         search() {
-            if (!constants.regExXSSCheck.test(this.msg)) {
+             //if (!constants.regExXSSCheck.test(this.msg)) {
                 //check if query is the same(searching same term), and return if so
                 if (this.msg === this.$route.query.term) {
                     return
                 }
                 this.UPDATE_SEARCH_LOADING(true);
                 this.$router.push({path: this.submitRoute, query: {term: this.msg}});
-            }
+             //}
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
@@ -134,7 +134,7 @@ export default {
         closeSuggestions() {
             this.$el.querySelector('.search-b input').blur();
             this.focusedIndex = -1;
-            this.msg = this.originalMsg;
+            //this.msg = this.originalMsg;
             if (this.showSuggestions) {
                 this.showSuggestions = false;
                 this.$el.querySelector('.search-menu').scrollTop = 0;
@@ -150,11 +150,11 @@ export default {
         // },
         highlightSearch: function (item) {
             if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
-                if (!constants.regExXSSCheck.test(item.text)) {
+                //  if (!constants.regExXSSCheck.test(item.text)) {
                     return item.text
-                } else {
-                    return "";
-                }
+                //  } else {
+                //      return "";
+                //  }
             }
             else {
                 let term = this.msg.toLowerCase();

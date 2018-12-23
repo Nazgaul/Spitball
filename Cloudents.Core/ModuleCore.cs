@@ -3,7 +3,6 @@ using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Command;
 using Cloudents.Core.CommandHandler;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -26,10 +25,6 @@ namespace Cloudents.Core
             builder.RegisterType<CommandBus>().As<ICommandBus>();//.InstancePerLifetimeScope();
 
 
-
-            builder.RegisterType<UpdateMailGunCommandHandler>()
-                .Named<ICommandHandler<UpdateMailGunCommand>>("mailGun");
-
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             builder.RegisterType<QueryBus>().As<IQueryBus>();//.InstancePerLifetimeScope();
 
@@ -40,7 +35,7 @@ namespace Cloudents.Core
             builder.RegisterType<WebSearch>().As<IWebDocumentSearch>().WithParameter("api", CustomApiKey.Documents);
             builder.RegisterType<WebSearch>().As<IWebFlashcardSearch>().WithParameter("api", CustomApiKey.Flashcard);
 
-            builder.RegisterType<DbConnectionStringProvider>().AsSelf();
+            //builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
             builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
                 .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) 
@@ -58,6 +53,7 @@ namespace Cloudents.Core
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IEventHandler<>));
 
             builder.RegisterType<EventPublisher>().As<IEventPublisher>();
+            builder.RegisterType<EventStore>().As<IEventStore>().InstancePerLifetimeScope();
             builder.RegisterType<Logger>().As<ILogger>();
 
         }

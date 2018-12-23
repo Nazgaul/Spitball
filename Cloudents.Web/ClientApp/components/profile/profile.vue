@@ -17,8 +17,10 @@
                                 <li :class="{'active': activeTab === 2}" @click="changeActiveTab(2)">
                                     <span v-if="isMyProfile"></span><span v-language:inner>profile_Answers</span> 
                                 </li>
+                                <li :class="{'active': activeTab === 3}" @click="changeActiveTab(3)">
+                                    <span v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
+                                </li>
                             </ul>
-
                             <v-tabs v-else grow class="tab-padding" xs12>
                                 <v-tabs-slider color="blue"></v-tabs-slider>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
@@ -26,6 +28,9 @@
                                 </v-tab>
                                 <v-tab @click="activeTab = 2" :href="'#tab-2'" :key="2"><span
                                         v-if="isMyProfile"></span><span v-language:inner>profile_Answers</span>
+                                </v-tab>
+                                <v-tab @click="activeTab = 3" :href="'#tab-3'" :key="3"><span
+                                        v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
                                 </v-tab>
                             </v-tabs>
                         </div>
@@ -46,18 +51,34 @@
                         </div>
                         <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">{{emptyStateData.btnText}}</router-link>
                     </div>
-                    <div v-show="activeTab === 1">
-                        <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
-                                     v-for="(questionData,index) in questions" :key="index">
-                            <question-card :cardData="questionData"></question-card>
-                        </router-link>
+                    <div class="empty-state doc-empty-state" v-if="activeTab === 3 && !profileData.documents.length">
+                        <div class="text-block">
+                            <p v-html="emptyStateData.text"></p>
+                            <b>{{emptyStateData.boldText}}</b>
+                        </div> 
+                        <div class="upload-btn-wrap">
+                              <upload-document-btn></upload-document-btn>  
+                        </div>               
+
                     </div>
-                    <div v-show="activeTab === 2">
-                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="(answerData,index) in myAnswers"
+                        <scroll-list v-if="activeTab === 1" :scrollFunc="loadQuestions" :isLoading="questions.isLoading" :isComplete="questions.isComplete">
+                            <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
+                                        v-for="(questionData,index) in profileData.questions" :key="index">
+                                <question-card :cardData="questionData"></question-card>
+                            </router-link>
+                        </scroll-list>
+                        <scroll-list v-if="activeTab === 2" :scrollFunc="loadAnswers" :isLoading="answers.isLoading" :isComplete="answers.isComplete">
+                            <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="(answerData,index) in profileData.answers"
+                                        :key="index" class="mb-3">
+                                <question-card :cardData="answerData" class="mb-3"></question-card>
+                            </router-link>
+                        </scroll-list>
+                    <scroll-list v-if="activeTab === 3" :scrollFunc="loadDocuments" :isLoading="documents.isLoading" :isComplete="documents.isComplete">
+                        <router-link :to="{name:'document',params:{id:document.id}}" v-for="(document ,index) in profileData.documents"
                                      :key="index" class="mb-3">
-                            <question-card :cardData="answerData" class="mb-3"></question-card>
+                            <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>
                         </router-link>
-                    </div>
+                    </scroll-list>
                 </v-flex>
 
             </v-layout>

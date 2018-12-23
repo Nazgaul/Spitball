@@ -1,6 +1,8 @@
-﻿import {SEARCH} from "./mutation-types"
-import {skeletonData} from '../components/results/consts'
-import searchService from "./../services/searchService"
+﻿import {SEARCH} from "./mutation-types";
+import {skeletonData} from '../components/results/consts';
+import searchService from "./../services/searchService";
+import reputationService from './../services/reputationService';
+import reportService from "./../services/cardActionService"
 const LOCATION_VERTICALS= new Map([["tutor",true],["job",true]]);
 const state = {
     loading: false,
@@ -106,17 +108,31 @@ const mutations = {
             }
         }
     },
-    [SEARCH.UPDATE_QUESTION](state, questionToUpdate){
+    [SEARCH.UPDATE_QUESTION_CORRECT](state, questionToCorrect){
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
             for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; questionIndex++ ){
                 let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
-                if(currentQuestion.id === questionToUpdate.id){
+                if(currentQuestion.id === questionToCorrect.questionId){
                     //replace the question from the list
-                    state.itemsPerVertical.ask.data[questionIndex].answers = questionToUpdate.answers;
-                    state.itemsPerVertical.ask.data[questionIndex].hasCorrectAnswer = questionToUpdate.hasCorrectAnswer;
-                    state.itemsPerVertical.ask.data[questionIndex].files = questionToUpdate.files;
-                    state.itemsPerVertical.ask.data[questionIndex].answersNum = questionToUpdate.answers;
-                    state.itemsPerVertical.ask.data[questionIndex].filesNum = questionToUpdate.files;
+                    state.itemsPerVertical.ask.data[questionIndex].hasCorrectAnswer = true;
+                    state.itemsPerVertical.ask.data[questionIndex].correctAnswerId = questionToCorrect.answerId;
+                    return;
+                }
+            }
+        }
+    },
+    [SEARCH.UPDATE_QUESTION_ANSWERS_COUNTER](state, actionObj){
+        let questionId = actionObj.questionId
+        let addAnswersCounter = actionObj.addCounter
+        if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
+            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; questionIndex++ ){
+                let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
+                if(currentQuestion.id === questionId){
+                    if(addAnswersCounter){
+                        state.itemsPerVertical.ask.data[questionIndex].answers += 1;
+                    }else{
+                        state.itemsPerVertical.ask.data[questionIndex].answers -= 1;
+                    }
                     return;
                 }
             }
@@ -144,8 +160,29 @@ const mutations = {
             });
         }
     },
+    [SEARCH.UPDATE_QUESTION_VOTE](state, {id, type}){
+        if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
+            state.itemsPerVertical.ask.data.forEach((question) => {
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            });
+        }
+    },  
+    
     
     //Note Area
+
+    [SEARCH.UPDATE_DOCUMENT_VOTE](state, {id, type}){
+        if(!!state.itemsPerVertical.note && state.itemsPerVertical.note.data && state.itemsPerVertical.note.data.length){
+            state.itemsPerVertical.note.data.forEach((document) => {
+                if(document.id === id){
+                    reputationService.updateVoteCounter(document, type)
+                }
+            });
+        }
+    },  
+
     [SEARCH.UPDATE_COURSES_FILTERS](state, MutationObj){
         if(!!state.itemsPerVertical.note && !!state.itemsPerVertical.note.filters){
             let coursesFiltersIndex = null;
@@ -160,7 +197,20 @@ const mutations = {
                 MutationObj.fnUpdateCourses(filters)
             }
         }
-    }
+    },
+    [SEARCH.REMOVE_DOCUMENT](state, documentToRemove){
+        if(!!state.itemsPerVertical.note && !!state.itemsPerVertical.note.data && state.itemsPerVertical.note.data.length > 0){
+            for(let documentIndex = 0; documentIndex < state.itemsPerVertical.note.data.length; documentIndex++ ){
+                let currentDocument = state.itemsPerVertical.note.data[documentIndex];
+                if(currentDocument.id === documentToRemove.id){
+                    //remove the document from the list
+                    state.itemsPerVertical.note.data.splice(documentIndex, 1);
+                    return;
+                }
+            }
+        }
+    },
+
 };
 
 const getters = {
@@ -176,6 +226,9 @@ const getters = {
             //return data
             return state.itemsPerVertical[getCurrentVertical].data;   
         }
+    },
+    getNextPageUrl: function(state, {getCurrentVertical}){
+        return state.itemsPerVertical[getCurrentVertical].nextPage
     },
     getShowQuestionToaster: function(state, {getCurrentVertical}){
         return !!state.queItemsPerVertical[getCurrentVertical] ? state.queItemsPerVertical[getCurrentVertical].length > 0 : false;
@@ -294,9 +347,15 @@ const actions = {
        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
        commit(SEARCH.REMOVE_QUESTION, questionObj);
     },
-    updateQuestionItem({ commit }, notificationQuestionObject){
-        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
-        commit(SEARCH.UPDATE_QUESTION, questionObj);
+    updateQuestionCorrect({ commit }, notificationQuestionObject){
+        let questionObj = {
+            questionId: notificationQuestionObject.questionId,
+            answerId: notificationQuestionObject.answerId
+        };
+        commit(SEARCH.UPDATE_QUESTION_CORRECT, questionObj);
+    },
+    updateQuestionCounter({ commit }, actionObj){
+        commit(SEARCH.UPDATE_QUESTION_ANSWERS_COUNTER, actionObj)
     },
     addQuestionViewer({ commit }, notificationQuestionObject){
         let questionObj = notificationQuestionObject;
@@ -334,6 +393,53 @@ const actions = {
     },
     resetData({commit}){
         commit(SEARCH.RESET_DATA)
+    },
+    questionVote({commit, dispatch}, data){
+        reputationService.voteQuestion(data.id, data.type).then(()=>{
+            commit(SEARCH.UPDATE_QUESTION_VOTE, data);
+            dispatch('innerQuestionVote', data);
+            dispatch('profileVote', data);
+        }, (err) => {
+            let errorObj = {
+                toasterText:err.response.data.Id[0],
+                showToaster: true,
+            }
+            dispatch('updateToasterParams', errorObj);
+        })
+    },
+    documentVote({commit, dispatch}, data){
+        reputationService.voteDocument(data.id, data.type).then(()=>{
+            commit(SEARCH.UPDATE_DOCUMENT_VOTE, data);
+            dispatch('profileVote', data);
+        }, (err) => {
+            let errorObj = {
+                toasterText:err.response.data.Id[0],
+                showToaster: true,
+            }
+            dispatch('updateToasterParams', errorObj);
+        })
+    },
+
+    removeDocumentItemAction({ commit }, notificationQuestionObject){
+        let documentObj = searchService.createDocumentItem(notificationQuestionObject);
+        commit(SEARCH.REMOVE_DOCUMENT, documentObj);
+     },
+
+    reportQuestion({commit, dispatch}, data){
+        return reportService.reportQuestion(data).then(()=>{
+            let objToRemove = {
+                id: data.id
+            }
+            dispatch('removeQuestionItemAction', objToRemove);
+        })
+    },
+    reportDocument({commit, dispatch}, data){
+        return reportService.reportDocument(data).then(()=>{
+            let objToRemove = {
+                id: data.id
+            }
+            dispatch('removeDocumentItemAction', objToRemove);
+        })
     }
 };
 

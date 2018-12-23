@@ -1,37 +1,38 @@
-﻿using Cloudents.Core.Command.Admin;
+﻿using Autofac;
+using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
-using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
     public class SuspendUserCommandHandler : ICommandHandler<SuspendUserCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRegularUserRepository _userRepository;
         private readonly ILifetimeScope _lifetimeScope;
+        private readonly IEventStore _eventStore;
 
 
-        public SuspendUserCommandHandler(IUserRepository userRepository, ILifetimeScope lifetimeScope)
+        public SuspendUserCommandHandler(IRegularUserRepository userRepository, ILifetimeScope lifetimeScope, IEventStore eventStore)
         {
             _userRepository = userRepository;
             _lifetimeScope = lifetimeScope;
+            _eventStore = eventStore;
         }
 
 
         public async Task ExecuteAsync(SuspendUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, false, token);
-            if (user.Fictive.GetValueOrDefault())
+            //TODO: why????
+            if (!user.LockoutEnabled)
             {
                 return;
             }
-            user.LockoutEnd = DateTimeOffset.MaxValue;
-            user.Events.Add(new UserSuspendEvent(user));
-            //await _userRepository.UpdateAsync(user, token);
+            user.LockoutEnd = message.LockoutEnd;
+            _eventStore.Add(new UserSuspendEvent(user));
+            //user.Events.Add(new UserSuspendEvent(user));
 
 
             if (message.ShouldDeleteData)
@@ -39,20 +40,20 @@ namespace Cloudents.Core.CommandHandler.Admin
 
                 var deleteQuestionCommandHandler = _lifetimeScope.Resolve<DeleteQuestionCommandHandler>();
 
-                foreach (var question in user.Questions)
+                foreach (var question in user.QuestionsReadOnly)
                 {
-                    await deleteQuestionCommandHandler.DeleteQuestionAsync(question, token);
+                    await deleteQuestionCommandHandler.DeleteQuestionAsync(question, user, token);
                 }
 
 
                 var deleteAnswerCommandHandler = _lifetimeScope.Resolve<DeleteAnswerCommandHandler>();
-                foreach (var answer in user.Answers)
+                foreach (var answer in user.AnswersReadOnly)
                 {
                     await deleteAnswerCommandHandler.DeleteAnswerAsync(answer, token);
                 }
             }
-            user.Questions.Clear();
-            user.Answers.Clear();
+           // user.Questions.Clear();
+            //user.Answers.Clear();
             await _userRepository.UpdateAsync(user, token);
         }
     }

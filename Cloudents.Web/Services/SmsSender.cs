@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
@@ -12,11 +12,11 @@ namespace Cloudents.Web.Services
     [UsedImplicitly]
     public class SmsSender : ISmsSender
     {
-        private readonly IQueueProvider _serviceBusProvider;
-        private readonly UserManager<User> _userManager;
+        private readonly IServiceBusProvider _serviceBusProvider;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly ISmsProvider _smsProvider;
 
-        public SmsSender(UserManager<User> userManager, IQueueProvider serviceBusProvider, ISmsProvider smsProvider)
+        public SmsSender(UserManager<RegularUser> userManager, IServiceBusProvider serviceBusProvider, ISmsProvider smsProvider)
         {
             _userManager = userManager;
             _serviceBusProvider = serviceBusProvider;
@@ -34,7 +34,7 @@ namespace Cloudents.Web.Services
             return _smsProvider.ValidateNumberAsync(phoneNumber, token);
         }
 
-        public async Task SendSmsAsync(User user, CancellationToken token)
+        public async Task SendSmsAsync(RegularUser user, CancellationToken token)
         {
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
             await SendSmsAsync(user.PhoneNumber, code, token);

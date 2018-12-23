@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
+using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "assembly loader inject")]
-    public class TransactionMap : SpitballClassMap<Transaction>
+    public class TransactionMap : ClassMap<Transaction>
     {
         public TransactionMap()
         {

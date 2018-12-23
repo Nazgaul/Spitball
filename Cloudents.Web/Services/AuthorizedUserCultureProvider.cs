@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
@@ -19,12 +19,12 @@ namespace Cloudents.Web.Services
             {
                 return null;
             }
-            var userManager = httpContext.RequestServices.GetService<UserManager<User>>();
+            var userManager = httpContext.RequestServices.GetService<UserManager<RegularUser>>();
 
             var userId = userManager.GetLongUserId(httpContext.User);
             var query = new UserDataByIdQuery(userId);
             var queryBus = httpContext.RequestServices.GetService<IQueryBus>();
-            var result = await queryBus.QueryAsync< User>(query, httpContext.RequestAborted);
+            var result = await queryBus.QueryAsync<RegularUser>(query, httpContext.RequestAborted);
             if (result.Culture == null)
             {
                 return null;

@@ -1,10 +1,11 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
+using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
-    public sealed class UniversityMap : SpitballClassMap<University>
+    public sealed class UniversityMap : ClassMap<University>
     {
         public UniversityMap()
         {

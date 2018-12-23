@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
@@ -39,7 +38,7 @@ namespace Cloudents.Infrastructure.Database
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
             builder.RegisterType<QueryBuilder>().AsSelf();
-            builder.RegisterType<FluentQueryBuilder>().AsSelf();
+            
 
             builder.RegisterGenericDecorator(
                 typeof(CacheQueryHandlerDecorator<,>),
@@ -54,30 +53,17 @@ namespace Cloudents.Infrastructure.Database
     }
 
     //[ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.MailGun)]
-    [UsedImplicitly]
-    public class ModuleMailGun : Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterType<UnitOfWorkFactoryMailGun>().SingleInstance();
-            builder.Register(c => c.Resolve<UnitOfWorkFactoryMailGun>().OpenSession()).InstancePerLifetimeScope();
+    //[ModuleRegistration(Core.Enum.System.MailGun)]
+    //[UsedImplicitly]
+    //public class ModuleMailGun : Module
+    //{
+    //    protected override void Load(ContainerBuilder builder)
+    //    {
+    //        builder.RegisterType<UnitOfWorkFactoryMailGun>().SingleInstance();
+    //        builder.Register(c => c.Resolve<UnitOfWorkFactoryMailGun>().OpenSession()).InstancePerLifetimeScope();
 
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
-
-            //builder.Register(c =>
-            //    {
-            //        var session = c.ResolveKeyed<ISession>(Core.Enum.Database.MailGun);
-            //        return new UnitOfWork(session);
-            //    })
-            //    .As<IUnitOfWork>().InstancePerLifetimeScope();
-
-            builder.RegisterType<MailGunStudentRepository>().AsImplementedInterfaces();
-            //builder.Register(c =>
-            //{
-            //    var session = c.ResolveKeyed<ISession>(Core.Enum.Database.MailGun);
-            //    return new MailGunStudentRepository(session);
-            //}).AsImplementedInterfaces();
-        }
-    }
+    //        builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
+    //        builder.RegisterType<MailGunStudentRepository>().AsImplementedInterfaces();
+    //    }
+    //}
 }

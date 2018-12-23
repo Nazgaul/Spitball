@@ -124,7 +124,13 @@
     <value>Answer</value>
   </data>
   <data name="Answer_dot" xml:space="preserve">
-    <value>Answer ·</value>
+    <value>Answer</value>
+  </data>
+  <data name="Answer_placeholder" xml:space="preserve">
+    <value>Answer...</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>SBL</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -132,10 +138,19 @@
   <data name="Earn" xml:space="preserve">
     <value>Earn</value>
   </data>
+  <data name="error_delete" xml:space="preserve">
+    <value>Something went wrong, try again</value>
+  </data>
   <data name="Question_price" xml:space="preserve">
     <value>{1} SBL</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report this item</value>
+  </data>
   <data name="Sold" xml:space="preserve">
-    <value>Sold</value>
+    <value>ACCEPTED</value>
+  </data>
+  <data name="Someone_answering" xml:space="preserve">
+    <value>Someone is answering now…</value>
   </data>
 </root>

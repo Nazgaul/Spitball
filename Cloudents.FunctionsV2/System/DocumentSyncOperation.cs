@@ -1,28 +1,29 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
+using Cloudents.FunctionsV2.Binders;
+using Cloudents.Infrastructure.Write;
+using Cloudents.Search.Document;
+using Cloudents.Search.Entities;
 using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.System
 {
     public class DocumentSyncOperation : ISystemOperation<DocumentSearchMessage>
     {
-        private readonly ISearchServiceWrite<Document> _documentServiceWrite;
-
-        public DocumentSyncOperation(ISearchServiceWrite<Document> documentServiceWrite)
+        public async Task DoOperationAsync(DocumentSearchMessage msg, IBinder binder, CancellationToken token)
         {
-            _documentServiceWrite = documentServiceWrite;
-        }
+            var syncService = await binder.BindAsync<
+                IAsyncCollector<AzureSearchSyncOutput>>(
+                new AzureSearchSyncAttribute(DocumentSearchWrite.IndexName), token);
 
-        public Task DoOperationAsync(DocumentSearchMessage msg, IBinder binder, CancellationToken token)
-        {
-            if (msg.ShouldInsert)
+            var output = new AzureSearchSyncOutput
             {
-                return _documentServiceWrite.UpdateDataAsync(new[] { msg.Document }, token);
-            }
-            return _documentServiceWrite.DeleteDataAsync(new[] { msg.Document.Id }, token);
+                Insert = msg.ShouldInsert,
+                Item = Document.FromDto(msg.Document)
+            };
+           
+            await syncService.AddAsync(output, token);
         }
     }
 }

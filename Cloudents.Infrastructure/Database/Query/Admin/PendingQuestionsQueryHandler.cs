@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -29,7 +30,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         {
             return await _session.Query<Question>()
                 .Fetch(f => f.User)
-                .Where(w => w.User.Fictive != true && w.State == ItemState.Pending)
+                .Where(w => w.User is RegularUser && w.Item.State == ItemState.Pending)
                 .Select(s => new PendingQuestionDto
                 {
                     Id = s.Id,

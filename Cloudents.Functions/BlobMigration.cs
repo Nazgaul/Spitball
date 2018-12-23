@@ -24,17 +24,22 @@ namespace Cloudents.Functions
         {
             await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
         }
-
+        static Dictionary<string, string> mimeTypeConvert = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+        {
+            [".jpg"] = "image/jpeg",
+            [".svg"] = "image/svg+xml"
+        };
 
         [FunctionName("BlobPreview-Queue")]
-        public static async Task BlobPreviewQueueRun([QueueTrigger("generate-blob-preview")] string id,
+        public static async Task BlobPreviewQueueRun(
+            [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
             TraceWriter log, CancellationToken token)
         {
             var t = await directory.ListBlobsSegmentedAsync(null, token);
             var myBlob = (CloudBlockBlob)t.Results.FirstOrDefault(f => f.Uri.Segments.Last().StartsWith("file-"));
-            var name = myBlob.Name.Split('-').Last();
+            var name = myBlob?.Name.Split('-').Last();
 
             await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
         }
@@ -43,15 +48,13 @@ namespace Cloudents.Functions
             CloudBlobDirectory directory, TraceWriter log, CancellationToken token)
         {
             log.Info($"Going to process - {id}");
-            var mimeTypeConvert = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+           
+            //using (var ms = new MemoryStream())
+            //{
+            using (var ms = await myBlob.OpenReadAsync(token))
             {
-                [".jpg"] = "image/jpeg",
-                [".svg"] = "image/svg+xml"
-            };
-            using (var ms = new MemoryStream())
-            {
-                myBlob.DownloadToStream(ms);
-                ms.Seek(0, SeekOrigin.Begin);
+                // myBlob.DownloadToStream(ms);
+                // ms.Seek(0, SeekOrigin.Begin);
                 var f = factory.PreviewFactory(name);
                 if (f != null)
                 {
@@ -71,7 +74,7 @@ namespace Cloudents.Functions
 
                         log.Info($"uploading to {id} preview-{previewName}");
                         return blob.UploadFromStreamAsync(stream, token);
-                    }, (text,pageCount) =>
+                    }, (text, pageCount) =>
                     {
                         var blob = directory.GetBlockBlobReference("text.txt");
                         blob.Properties.ContentType = "text/plain";

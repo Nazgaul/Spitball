@@ -1,7 +1,7 @@
 ﻿@import "./colors.less";
 @import "./sb-buttons";
 
-
+@fontOpenSans: "Open Sans", sans-serif;
 @fontFiraSans: "Fira Sans", sans-serif;
 @fontAssistant: "Assistant", sans-serif;
 @fontAlef: "Alef", sans-serif;
@@ -14,7 +14,18 @@
   align-items: center;
 }
 
-
+.glowingBorder(){
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  border: 1px solid  @colorInputNotFocused;
+}
+.glowingBorderFocused(@color: @colorInputFocused){
+  box-shadow: 0 0 5px @colorInputFocused;
+  border: 1px solid @colorInputFocused;
+}
 .dashed-spaced{
     background-image: linear-gradient(to right, #333 10%, rgba(255, 255, 255, 0) 30%);
     background-position: top;
@@ -22,7 +33,14 @@
     background-repeat: repeat-x;
 }
 
-
+.edgeStatic(){
+  @supports (-ms-ime-align: auto) {
+    //here are style rules
+    & {
+      position: static;
+    }
+  }
+}
 
 //updated version TODO rework and remove previous
 .giveEllipsisUpdated(@fontSize, @lineHeigh, @lines, @maxHeight: 96px){
@@ -114,26 +132,30 @@
 .user-question-style(@names, @colors, @fontColors, @length );
 //end function
 
-.placeholder-color(@color, @opacity:1 ) {
+.placeholder-color(@color, @opacity:1, @fontWeight: 300 ) {
 
   &::-webkit-input-placeholder {
     color: @color !important;
     opacity: @opacity!important;
+    font-weight: @fontWeight!important;
   }
 
   &::-moz-placeholder {
     color: @color !important;
     opacity: @opacity!important;
+    font-weight: @fontWeight!important;
   }
 
   &:-ms-input-placeholder {
     color: @color !important;
     opacity: @opacity!important;
+    font-weight: @fontWeight!important;
   }
 
   &:-moz-placeholder {
     color: @color !important;
     opacity: @opacity!important;
+    font-weight: @fontWeight!important;
   }
 }
 
@@ -309,6 +331,7 @@
 @screen-sm: 959px;
 @screen-sm-960: 960px;
 @screen-xss: 375px;
+@screen-mds: 1024px;
 @screen-md: 1263px;
 @screen-md-plus: 1280px;
 @screen-lg: 1904px;

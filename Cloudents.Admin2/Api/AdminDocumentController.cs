@@ -1,5 +1,4 @@
 ﻿using System;
-using Cloudents.Admin2.Models;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
@@ -10,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Admin2.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,13 +23,15 @@ namespace Cloudents.Admin2.Api
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly ICommandBus _commandBus;
         private readonly IQueueProvider _queueProvider;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public AdminDocumentController(IQueryBus queryBus, IBlobProvider<DocumentContainer> blobProvider, ICommandBus commandBus, IQueueProvider queueProvider)
+        public AdminDocumentController(IQueryBus queryBus, IBlobProvider<DocumentContainer> blobProvider, ICommandBus commandBus, IQueueProvider queueProvider, IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _blobProvider = blobProvider;
             _commandBus = commandBus;
             _queueProvider = queueProvider;
+            _urlBuilder = urlBuilder;
         }
 
         // GET: api/<controller>
@@ -42,21 +44,24 @@ namespace Cloudents.Admin2.Api
             var retVal = await _queryBus.QueryAsync<IList<PendingDocumentDto>>(query, token);
             var tasks = new Lazy<List<Task>>();
             var counter = 0;
-            foreach (var id in retVal)
+            foreach (var document in retVal)
             {
-                var files = await _blobProvider.FilesInDirectoryAsync("preview-", id.Id.ToString(), token);
+
+                var files = await  _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
                 var file = files.FirstOrDefault();
                 if (file != null)
                 {
-                    id.Preview =
+                    document.Preview =
                         blobProvider.GeneratePreviewLink(file,
                             20);
+
+                    document.SiteLink = Url.RouteUrl("DocumentDownload", new {id = document.Id});
                     counter++;
                 }
                 else
                 {
 
-                    var t =  _queueProvider.InsertBlobReprocessAsync(id.Id);
+                    var t =  _queueProvider.InsertBlobReprocessAsync(document.Id);
                     tasks.Value.Add(t);
                 }
 
@@ -85,10 +90,30 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpPost]
-        public async Task<IActionResult> ApproveAsync(ApproveDocumentRequest model, CancellationToken token)
+        public async Task<IActionResult> ApproveAsync([FromBody] ApproveDocumentRequest model, CancellationToken token)
         {
-            var command = new ApproveDocumentCommand(model.Id);
+            var command = new ApproveDocumentCommand(model.id);
             await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpGet("flagged")]
+        public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync([FromServices] IBlobProvider blobProvider, CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            var retVal = await _queryBus.QueryAsync<IList<FlaggedDocumentDto>>(query, token);
+            
+            
+            return retVal;
+            
+        }
+
+
+        [HttpPost("unFlag")]
+        public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagDocumentRequest model, CancellationToken token)
+        {
+            var command = new UnFlagDocumentCommand(model.id);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
     }

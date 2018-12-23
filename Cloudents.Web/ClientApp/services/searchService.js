@@ -40,6 +40,21 @@ const autoComplete = (data) => {
     return connectivityModule.http.get("suggest", {params: {sentence: data.term, vertical: data.vertical}})
 }
 
+function AnswerItem(objInit){
+    this.id = objInit.id;
+    this.text = objInit.text;
+    this.create = objInit.create;
+    this.files = objInit.files;
+    this.user = objInit.user;
+    this.votes = !!objInit.vote ? objInit.vote.votes : undefined;
+    this.upvoted =!!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : undefined;
+    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : undefined;
+}
+
+function createAnswerItem(objInit){
+    return new AnswerItem(objInit)
+}
+
 function QuestionItem(objInit) {
     let oneMinute = 60000;
     let oneHour = oneMinute * 60;
@@ -50,17 +65,19 @@ function QuestionItem(objInit) {
     this.price = objInit.price;
     this.text = objInit.text;
     this.files = objInit.files;
-    this.answers = objInit.answers;
+    this.answers = objInit.answers !== undefined ?  (typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem)) : undefined;
     this.user = objInit.user;
     this.dateTime = objInit.dateTime || objInit.create;
     this.color = !!objInit.color ? objInit.color.toLowerCase() : undefined;
     this.hasCorrectAnswer = objInit.hasCorrectAnswer;
     this.correctAnswerId = objInit.correctAnswerId;
-    this.template = objInit.template;
+    // this.template = objInit.template;
     this.template = "ask";
     this.filesNum = this.files;
-    this.answersNum = this.answers;
     this.isRtl = objInit.isRtl;
+    this.votes = !!objInit.vote ? objInit.vote.votes : undefined;
+    this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : undefined;
+    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : undefined;
     // if the question is younger then 1 minute then watching now will be 0
     //if question is older then threshold, watching now also gonna be 0 other wise random between 0 to 1
     let questionOlderTheOneMinute = (new Date().getTime() - new Date(this.dateTime).getTime()) > oneMinute;
@@ -68,6 +85,29 @@ function QuestionItem(objInit) {
     this.watchingNow = questionOlderTheOneMinute ? (questionYoungerThenThreshHold ? ((Math.random() * 2) | 0) : 0) : 0; //Todo get value from server
 }
 
+function DocumentItem(objInit) {
+    this.id = objInit.id || 1;
+    this.course = objInit.course;
+    this.dateTime = objInit.dateTime;
+    this.downloads= objInit.downloads;
+    this.professor = objInit.professor;
+    this.snippet = objInit.snippet;
+    this.source = objInit.source;
+    this.title = objInit.title;
+    this.type = objInit.type;
+    this.university = objInit.university;
+    this.url = objInit.url;
+    this.user = objInit.user;
+    this.views = objInit.views;
+    this.template = 'note';
+    this.votes = !!objInit.vote ? objInit.vote.votes : null;
+    this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
+    this.downvoted = !!objInit.vote ? ( !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
+}
+
+function createDocumentItem(objInit){
+    return new DocumentItem(objInit)
+}
 
 let transferResultAsk = response => {
     let res = response.data;
@@ -90,9 +130,8 @@ let transferResultNote = response => {
     return {
         sort: res.sort,
         filters: res.filters,
-        data: result.map(val => {
-            return {...val, template: 'note'}
-        }), nextPage: res.nextPageLink
+        data: result.map(createDocumentItem),
+        nextPage: res.nextPageLink
     }
 };
 let transferResultFlashcard = response => {
@@ -241,7 +280,16 @@ export default {
         return new QuestionItem(objInit);
     },
 
+    createAnswerItem: (objInit)=>{
+        return createAnswerItem(objInit);
+    },
+
     createFilters: (objInit)=>{
        return new Filters(objInit)
+    },
+
+    createDocumentItem: (objInit)=>{
+        return createDocumentItem(objInit)
     }
+    
 }

@@ -1,11 +1,12 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
+import userRank from "../../../helpers/UserRank/UserRank.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
 import { mapGetters, mapActions } from 'vuex'
 import timeago from 'timeago.js';
 import { LanguageService } from "../../../../services/language/languageService";
 export default {
     mixins: [disableForm],
-    components: {userBlock},
+    components: {userBlock, userRank},
     props: {
         hasAnswer: false,
         typeAnswer: {
@@ -57,7 +58,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['accountUser', 'getToasterText', 'getShowToaster']),
+        ...mapGetters(['getToasterText', 'getShowToaster']),
         gallery() {
             return this.cardData.files
         },
@@ -65,8 +66,9 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         cardOwner() {
-            if (this.accountUser && this.cardData.user) {
-                return this.accountUser.id === this.cardData.user.id; // will work once API call will also return userId
+            let user = this.accountUser();
+            if (user && this.cardData.user) {
+                return user.id === this.cardData.user.id; // will work once API call will also return userId
             }
         },
         canDelete() {
@@ -97,7 +99,7 @@ export default {
         },
         cardAnswers() {
             return this.cardData.answers
-        }
+        },
     },
     methods: {
         ...mapActions({
@@ -105,9 +107,46 @@ export default {
             correctAnswer: 'correctAnswer',
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
-            updateQuestionSignalR: 'updateQuestionSignalR',
-            removeQuestionItemAction: 'removeQuestionItemAction'
+            removeQuestionItemAction: 'removeQuestionItemAction',
+            manualAnswerRemove: 'answerRemoved',
+            answerVote: 'answerVote',
+            updateLoginDialogState:'updateLoginDialogState'
         }),
+        ...mapGetters(['accountUser']),
+        isAuthUser(){
+            let user = this.accountUser();
+            if (user == null) {
+              this.updateLoginDialogState(true);
+              return false;
+            }
+            return true;
+        },
+        upvoteAnswer(){
+            if (this.isAuthUser()) {
+                let type = "up";
+                if(!!this.cardData.upvoted){
+                    type = "none"; 
+                }
+                let data = {
+                    type,
+                    id: this.cardData.id
+                }
+                this.answerVote(data);
+            }
+        },
+        downvoteAnswer(){
+            if (this.isAuthUser()) {
+                let type = "down";
+                if(!!this.cardData.downvoted){
+                    type = "none"; 
+                }
+                let data = {
+                    type,
+                    id: this.cardData.id
+                }
+                this.answerVote(data);
+            }
+        },
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {
                 return this.cardData.color = 'default';
@@ -128,10 +167,10 @@ export default {
                             toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
                             showToaster: true,
                         });
-                        let objToDelete = {
-                            id: parseInt(this.$route.params.id)
-                        }
                         if (!this.typeAnswer) {
+                            let objToDelete = {
+                                id: parseInt(this.$route.params.id)
+                            }
                             this.updateBalance(this.cardData.price);
                             this.$ga.event("Delete_question", "Homework help");
                             //ToDO change to router link use and not text URL
@@ -140,7 +179,14 @@ export default {
                         } else {
                             //emit to root to update array of answers
                             this.$ga.event("Delete_answer", "Homework help");
-                            this.updateQuestionSignalR(objToDelete);
+
+                            //delete object Manually
+                            let answerToRemove = {
+                                questionId: parseInt(this.$route.params.id),
+                                answer: {
+                                    id: this.cardData.id}
+                            }
+                            this.manualAnswerRemove(answerToRemove);
                             this.isDeleted = true
                         }
                     },

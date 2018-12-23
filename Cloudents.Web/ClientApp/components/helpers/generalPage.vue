@@ -1,5 +1,6 @@
 <template functional>
     <div style="height: 100%;">
+            <slot name="soonComponent"></slot>
             <slot name="signupBanner"></slot>
             <div class="p-result">
                 <v-container fluid class="pa-0 wrap">
@@ -12,7 +13,7 @@
                             <v-flex class="sec-result">
                                 <slot name="main"></slot>
                             </v-flex>
-                            <v-flex class="side-bar" v-if="props.breakPointSideBar">
+                            <v-flex :class="['side-bar']" v-if="props.breakPointSideBar">
                                 <slot name="rightSide">
                                     <!--<div class="side-bar-wrapper">-->
                                     <!--<adsense ad-client="ca-pub-1215688692145777"-->

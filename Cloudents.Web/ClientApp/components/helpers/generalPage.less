@@ -132,16 +132,13 @@
     width: 100%;
     padding: 16px;
     &:not(.studyblue) {
-      &:not(.note-block) {
-        border: 2px solid
-      }
+        border: 2px solid transparent;
     }
     @media (max-width: @screen-sm) {
-      &:not(.note-block) {
         border-color: #fff !important;
-        padding: 8px;
+        padding: 12px;
       }
-    }
+    
   }
 
   .mobile-filter {
@@ -183,8 +180,7 @@
         box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31) !important;
         &.mobile-filter-icon-btn {
           height: 46px;
-          position: absolute;
-          z-index: 4;
+          position: relative;
         }
 
         .sbf-filter {
@@ -215,11 +211,12 @@
   margin-left: 32px;
   max-width: 320px;
   width: 100%;
-
+  .edgeStatic();
   .side-bar-wrapper {
     max-width: 300px;
   }
 }
+
 
 .v-chip.filter-chip {
   margin: 0 8px 8px 0;

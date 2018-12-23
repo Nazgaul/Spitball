@@ -49,6 +49,8 @@
         }
         ul.actions_text {
           &.files-actions{
+            max-height: 28px;
+            position: relative;
             @media (max-width: @screen-xs) {
               margin: 0px 12px 6px 7px;
             }
@@ -89,6 +91,7 @@
               line-height: 25px;
               text-align: center;
               box-sizing: border-box;
+              cursor: pointer;
               @media (max-width: @screen-xs) {
                 width: 20px;
                 height: 20px;
@@ -116,7 +119,14 @@
               }
             }
             #file-input {
-              display: none;
+              //display: block;
+              height: 28px;
+              width: 28px;
+              cursor: pointer;
+            }
+            input[type=file]{
+              height:24px;
+              width: 24px;
             }
             #uploader {
               width: 25px;

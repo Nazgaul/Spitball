@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Query;
 using System.Linq;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Api
 {
@@ -23,7 +24,7 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
 
 
         /// <inheritdoc />
@@ -33,7 +34,7 @@ namespace Cloudents.Web.Api
         /// <param name="queryBus"></param>
         /// <param name="commandBus"></param>
         /// <param name="userManager"></param>
-        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<User> userManager)
+        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<RegularUser> userManager)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
@@ -49,6 +50,7 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet]
+        [ResponseCache(Duration = TimeConst.Hour,Location = ResponseCacheLocation.Any,VaryByQueryKeys = new []{nameof(CourseRequest.Term) })]
         public async Task<CoursesResponse> GetAsync([FromQuery]CourseRequest model,
             CancellationToken token)
         {

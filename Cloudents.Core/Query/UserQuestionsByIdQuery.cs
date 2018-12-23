@@ -1,0 +1,40 @@
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
+using System.Collections.Generic;
+
+namespace Cloudents.Core.Query
+{
+    public class UserDataPagingByIdQuery : IQuery<IEnumerable<QuestionFeedDto>>, IQuery<IEnumerable<DocumentFeedDto>>
+    {
+        public UserDataPagingByIdQuery(long id, int page)
+        {
+            Id = id;
+            Page = page;
+        }
+
+        public long Id { get; }
+        public int Page { get; }
+    }
+
+    //public class UserQuestionsByIdQuery : IQuery<IEnumerable<QuestionFeedDto>>
+    //{
+    //    public UserQuestionsByIdQuery(long id, int page)
+    //    {
+    //        Id = id;
+    //        Page = page;
+    //    }
+
+    //    public long Id { get; }
+    //    public int Page { get; }
+    //}
+
+
+    public class UserAnswersByIdQuery : UserDataPagingByIdQuery
+    {
+        public UserAnswersByIdQuery(long id, int page) : base(id, page)
+        {
+
+        }
+       
+    }
+}

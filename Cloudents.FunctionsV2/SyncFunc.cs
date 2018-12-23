@@ -15,7 +15,7 @@ namespace Cloudents.FunctionsV2
     {
 
         private const string SearchSyncName = "SearchSync";
-        private const string CreateIndexFunctionName = "SearchSyncCreateIndex";
+        //private const string CreateIndexFunctionName = "SearchSyncCreateIndex";
         private const string DoSyncFunctionName = "SearchSyncSync";
         private const string GetSyncStatusFunctionName = "SearchSyncGetProgress";
         private const string SetSyncStatusFunctionName = "SearchSyncSetProgress";
@@ -26,14 +26,6 @@ namespace Cloudents.FunctionsV2
         {
             var model = new SearchSyncInput(syncType);
             var existingInstance = await starter.GetStatusAsync(model.InstanceId);
-            //var startNewInstanceEnum = new[]
-            //{
-            //    OrchestrationRuntimeStatus.Canceled,
-            //    OrchestrationRuntimeStatus.Completed,
-            //    OrchestrationRuntimeStatus.Failed,
-            //    OrchestrationRuntimeStatus.Terminated
-            //};
-
             if (existingInstance == null)
             {
                 log.LogInformation($"start new instance of {syncType}");
@@ -61,28 +53,6 @@ namespace Cloudents.FunctionsV2
                 }
             }
             await starter.StartNewAsync(SearchSyncName, model.InstanceId, model);
-
-            //if (startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
-            //{
-            //    log.LogInformation($"existing instance is in status:{existingInstance.RuntimeStatus} reason {existingInstance.CustomStatus}");
-
-
-            //    if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-5) &&
-            //        existingInstance.RuntimeStatus != OrchestrationRuntimeStatus.Completed)
-            //    {
-            //        log.LogError($"issue with {syncType}");
-            //        await starter.TerminateAsync(model.InstanceId, $"issue with {syncType}");
-            //    }
-
-            //    log.LogInformation($"started {model.InstanceId}");
-
-            //    await starter.StartNewAsync(SearchSyncName, model.InstanceId, model);
-            //}
-            //else
-            //{
-            //    log.LogInformation($"{model.InstanceId} is in status {existingInstance.RuntimeStatus}");
-
-            //}
         }
 
         [FunctionName(SearchSyncName)]
@@ -94,11 +64,11 @@ namespace Cloudents.FunctionsV2
 
             var query = await context.CallActivityAsync<SyncAzureQuery>(GetSyncStatusFunctionName, input.BlobName);
 
-            if (query.Version == 0 && query.Page == 0)
-            {
+            //if (query.Version == 0 && query.Page == 0)
+            //{
 
-                await context.CallActivityAsync(CreateIndexFunctionName, input);
-            }
+            //    await context.CallActivityAsync(CreateIndexFunctionName, input);
+            //}
             input.SyncAzureQuery = query;
 
             bool needContinue;
@@ -123,27 +93,28 @@ namespace Cloudents.FunctionsV2
 
         }
 
-        [FunctionName(CreateIndexFunctionName)]
-        public static async Task CreateSearchIndex(
-            [ActivityTrigger] SearchSyncInput input,
-            [Inject] ILifetimeScope lifetimeScope,
-            CancellationToken token)
-        {
+        //[FunctionName(CreateIndexFunctionName)]
+        //public static async Task CreateSearchIndex(
+        //    [ActivityTrigger] SearchSyncInput input,
+        //    [Inject] ILifetimeScope lifetimeScope,
+        //    CancellationToken token)
+        //{
 
-            var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
-            await syncObject.CreateIndexAsync(token);
-        }
+        //    var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
+        //    await syncObject.CreateIndexAsync(token);
+        //}
 
         [FunctionName(DoSyncFunctionName)]
         public static async Task<SyncResponse> DoSearchSync(
             [ActivityTrigger] SearchSyncInput input,
             [Inject] ILifetimeScope lifetimeScope,
+            IBinder binder,
             ILogger log,
             CancellationToken token)
         {
             log.LogInformation($"Going to sync {input}");
             var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
-            return await syncObject.DoSyncAsync(input.SyncAzureQuery, token);
+            return await syncObject.DoSyncAsync(input.SyncAzureQuery, binder, token);
         }
 
         [FunctionName(GetSyncStatusFunctionName)]

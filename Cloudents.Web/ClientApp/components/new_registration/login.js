@@ -20,7 +20,7 @@ import step_11 from "./steps/step_11.vue";
 import { LanguageService } from "../../services/language/languageService";
 
 
-const defaultSubmitRoute = { path: '/ask' };
+const defaultSubmitRoute = { path: '/' };
 const initialPointsNum = 100;
 
 
@@ -235,7 +235,6 @@ export default {
             this.goBackStep()
         };
         //v8Fix -var self = this and use self. this way we mimify the code
-
         //event liseners for all steps
         this.$on('changeStep', (stepName) => {
             this.changeStepNumber(stepName);

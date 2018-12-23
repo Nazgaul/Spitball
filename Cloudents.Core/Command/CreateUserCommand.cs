@@ -1,15 +1,15 @@
-﻿using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Domain.Entities;
 
 namespace Cloudents.Core.Command
 {
     public class CreateUserCommand : ICommand
     {
-        public CreateUserCommand(User user)
+        public CreateUserCommand(RegularUser user)
         {
             User = user;
         }
 
-        public User User { get; private set; }
+        public RegularUser User { get; private set; }
     }
 }

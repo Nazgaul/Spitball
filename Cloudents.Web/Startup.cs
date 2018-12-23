@@ -2,11 +2,10 @@
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Cloudents.Core;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
@@ -34,6 +33,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Search;
 using Microsoft.AspNetCore.HttpOverrides;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -122,8 +122,8 @@ namespace Cloudents.Web
             services.AddSingleton(physicalProvider);
 
             services.AddDetectionCore().AddDevice();
-            services.AddScoped<SignInManager<User>, SbSignInManager>();
-            services.AddIdentity<User, ApplicationRole>(options =>
+            services.AddScoped<SignInManager<RegularUser>, SbSignInManager>();
+            services.AddIdentity<RegularUser, ApplicationRole>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = true;
@@ -164,13 +164,13 @@ namespace Cloudents.Web
             });
 
 
-            services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
-            services.AddTransient<IUserStore<User>, UserStore>();
+            services.AddScoped<IUserClaimsPrincipalFactory<RegularUser>, AppClaimsPrincipalFactory>();
+            services.AddTransient<IUserStore<RegularUser>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
             services.AddTransient<IProfileUpdater, QueueProfileUpdater>();
             services.AddTransient<ICountryProvider, CountryProvider>();
-            services.AddScoped<RedirectToOldSiteFilterAttribute>();
+            //services.AddScoped<RedirectToOldSiteFilterAttribute>();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
@@ -191,6 +191,7 @@ namespace Cloudents.Web
                     ),
                 Storage = Configuration["Storage"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
+                ServiceBus = Configuration["ServiceBus"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
@@ -200,6 +201,8 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
 
+            containerBuilder.RegisterModule(new SearchModule(Configuration["AzureSearch:SearchServiceName"],
+                Configuration["AzureSearch:SearchServiceAdminApiKey"], !HostingEnvironment.IsProduction()));
 
             containerBuilder.RegisterType<SeoDocumentRepository>()
                 .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>().WithParameter("query", SeoDbQuery.Flashcard);

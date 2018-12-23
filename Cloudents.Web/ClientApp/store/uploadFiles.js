@@ -8,6 +8,7 @@ const state = {
     showDialog: false,
     customFileName : '',
     uploadFullMobile: true,
+    returnToUpload: false
 };
 const mutations = {
     setUploadProgress(state,val){
@@ -32,7 +33,9 @@ const mutations = {
     },
     clearUploadData(state, val){
         state.fileData = val;
-
+    },
+    updateReturnToUpload(state, val){
+        state.returnToUpload = val
     }
 };
 const getters = {
@@ -42,6 +45,7 @@ const getters = {
     getDialogState: (state) => state.showDialog,
     getCustomFileName: (state) => state.customFileName,
     getUploadFullMobile: (state) => state.uploadFullMobile,
+    getReturnToUpload: (state) => state.returnToUpload
 };
 const actions = {
     resetUploadData({commit}, val){
@@ -74,6 +78,9 @@ const actions = {
     },
     updateUploadFullMobile({commit}, val){
       commit('setUploadFullMobile', val)
+    },
+    setReturnToUpload({commit}, val){
+        commit('updateReturnToUpload', val)
     }
 };
 

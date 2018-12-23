@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Query
 {
-    public class UserDataExpressionQuery : IQuery<User>
+    public class UserDataExpressionQuery : IQuery<RegularUser>
     {
-        public UserDataExpressionQuery(Expression<Func<User, bool>> expression)
+        public UserDataExpressionQuery(Expression<Func<RegularUser, bool>> expression)
         {
             QueryExpression = expression;
         }
 
-        public Expression<Func<User, bool>> QueryExpression { get; }
+        public Expression<Func<RegularUser, bool>> QueryExpression { get; }
     }
 
-    public class UserLoginQuery : IQuery<User>
+    public class UserLoginQuery : IQuery<RegularUser>
     {
         public UserLoginQuery(string loginProvider, string providerKey)
         {

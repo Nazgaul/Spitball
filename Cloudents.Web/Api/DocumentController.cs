@@ -1,14 +1,15 @@
-﻿using Cloudents.Core.Attributes;
+﻿using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
+using Cloudents.Core.Votes.Commands.AddVoteDocument;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -22,6 +23,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common.Enum;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Item.Commands.FlagItem;
+using Cloudents.Web.Hubs;
+using Cloudents.Web.Identity;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {
@@ -31,7 +38,7 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IProfileUpdater _profileUpdater;
@@ -39,7 +46,7 @@ namespace Cloudents.Web.Api
 
 
         public DocumentController(IQueryBus queryBus,
-             ICommandBus commandBus, UserManager<User> userManager,
+             ICommandBus commandBus, UserManager<RegularUser> userManager,
             IBlobProvider<DocumentContainer> blobProvider,
             IStringLocalizer<DocumentController> localizer,
             IProfileUpdater profileUpdater)
@@ -56,6 +63,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] IBlobProvider blobProvider,
+
             CancellationToken token)
         {
             var query = new DocumentById(id);
@@ -71,12 +79,21 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
+
+            if (!filesTask.Result.Any())
+            {
+                await queueProvider.InsertBlobReprocessAsync(id);
+                //var queue = queueClient.GetQueueReference("generate-blob-preview");
+                //await queue.AddMessageAsync(new CloudQueueMessage(item.Id.ToString()));
+            }
             return new DocumentPreviewResponse(model, files);
         }
 
         [HttpPost, Authorize]
         public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
+            [FromServices] IHubContext<SbHub> hubContext,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -89,13 +106,17 @@ namespace Cloudents.Web.Api
                 model.Course, model.Tags, userId, model.Professor);
             await _commandBus.DispatchAsync(command, token);
 
-            var url = Url.RouteUrl(SeoTypeString.Document, new
+            var url = Url.DocumentUrl(profile.University.Name, model.Course, command.Id, model.Name);
+
+            var localizerKey = score < Privileges.Post ? "CreatePending" : "CreateOk";
+            await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
             {
-                universityName = profile.University.Name,
-                courseName = model.Course,
-                id = command.Id,
-                name = model.Name
-            });
+                new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
+                    {
+                        text = _localizer[localizerKey].Value
+                    }
+                )
+            }, token);
             return new CreateDocumentResponse(url);
         }
 
@@ -108,7 +129,8 @@ namespace Cloudents.Web.Api
         /// <param name="ilSearchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet(Name = "DocumentSearch")]
+        [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
+        [ResponseCache(Duration = TimeConst.Minute, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
                                 ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
@@ -122,10 +144,24 @@ namespace Cloudents.Web.Api
 
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
-
-
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
-            await Task.WhenAll(resultTask, queueTask);
+
+            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var queryTags = new UserVotesByCategoryQuery(userId);
+                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
+                    .ContinueWith(
+                    t2 =>
+                    {
+                        return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
+                    }, token);
+
+            }
+
+            await Task.WhenAll(resultTask, queueTask, votesTask);
             var result = resultTask.Result;
             var p = result;
             string nextPageLink = null;
@@ -134,18 +170,14 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
 
-            var filters = new List<IFilters>();
-
-            //if (result.Facet != null)
-            //{
-
-            filters.Add(
+            var filters = new List<IFilters>
+            {
                 new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
                     EnumExtension.GetValues<DocumentType>()
                         .Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
                         .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
-            );
-            // }
+            };
+
 
             if (profile.Courses != null)
             {
@@ -160,25 +192,71 @@ namespace Cloudents.Web.Api
                 {
                     if (s.Url == null)
                     {
-                        s.Url = Url.RouteUrl(SeoTypeString.Document, new
-                        {
-                            universityName = s.University,
-                            courseName = s.Course,
-                            id = s.Id,
-                            name = s.Title
-                        });
+                        s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                    }
+
+                    if (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param))
+                    {
+                        s.Vote.Vote = param;
                     }
 
                     return s;
                 }),
-                //Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = filters,
                 NextPageLink = nextPageLink
             };
+        }
 
+        [HttpPost("vote")]
+        public async Task<IActionResult> VoteAsync([FromBody]
+            AddVoteDocumentRequest model,
+            [FromServices] IStringLocalizer<SharedResource> resource,
+            CancellationToken token)
+        {
 
+            var userId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType);
 
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NoEnoughScoreException)
+            {
+                string voteMessage = resource[$"{model.VoteType:G}VoteError"];
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
+                return BadRequest(ModelState);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
+                return BadRequest(ModelState);
+            }
 
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost("flag")]
+        public async Task<IActionResult> FlagAsync([FromBody] FlagDocumentRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new FlagDocumentCommand(userId, model.Id, model.FlagReason);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (NoEnoughScoreException)
+            {
+                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
+                return BadRequest(ModelState);
+            }
         }
     }
+
+
 }

@@ -32,7 +32,9 @@
                 currentVertical: this.currentSelection,
                 isRtl: global.isRtl,
                 supressVerticalDesign:{
-                    wallet: true
+                    wallet: true,
+                    profile: true,
+                    conversations: true
                 }
             }
         },

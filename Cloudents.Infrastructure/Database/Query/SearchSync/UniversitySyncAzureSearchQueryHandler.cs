@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Query.Sync;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
@@ -9,23 +9,25 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
     public class UniversitySyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<UniversitySearchDto>,
         IQueryHandler<SyncAzureQuery, (IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>
     {
-        private readonly FluentQueryBuilder _queryBuilder;
-        public UniversitySyncAzureSearchQueryHandler(QuerySession session, FluentQueryBuilder queryBuilder) : base(session)
+        public UniversitySyncAzureSearchQueryHandler(QuerySession session) : base(session)
         {
-            _queryBuilder = queryBuilder;
         }
 
         protected override string VersionSql
         {
             get
             {
-                var qb = _queryBuilder;
-
-                qb.InitTable<University>();
-                qb.CustomTable(
-                    $"right outer join CHANGETABLE (CHANGES {qb.Table<University>()}, {qb.Param("Version")}) AS c ON {qb.ColumnAlias<University>(q => q.Id)} = c.id");
-                SimilarQuery(qb);
-                return qb;
+                var res = @"select u.Id as UniversityId,
+	                            u.Name as Name,
+	                            u.Extra as Extra,
+	                            u.Country as Country,
+	                            c.* 
+                            From sb.[University] u  
+                            right outer join CHANGETABLE (CHANGES sb.[University], :Version) AS c ON u.Id = c.id   
+                            Order by u.Id 
+                            OFFSET :PageSize * :PageNumber ROWS 
+                            FETCH NEXT :PageSize ROWS ONLY";
+                return res;
             }
         }
 
@@ -33,25 +35,18 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         {
             get
             {
-                var qb = _queryBuilder;
-                qb.InitTable<University>()
-                    .CustomTable(
-                        $"CROSS APPLY CHANGETABLE (VERSION {qb.Table<University>()}, (Id), ({qb.ColumnAlias<University>(x => x.Id)})) AS c"
-                    );
-                SimilarQuery(qb);
-                return qb;
+                var res = @"select u.Id as UniversityId,
+	                            u.Name as Name,
+	                            u.Extra as Extra,
+	                            u.Country as Country,
+	                            c.* 
+                            From sb.[University] u  
+                            CROSS APPLY CHANGETABLE (VERSION sb.[University], (Id), (u.Id)) AS c  
+                            Order by u.Id 
+                            OFFSET :PageSize * :PageNumber ROWS 
+                            FETCH NEXT :PageSize ROWS ONLY";
+                return res;
             }
-        }
-
-        private static void SimilarQuery(FluentQueryBuilder qb)
-        {
-            qb.Select<University>(s => s.Id, nameof(UniversitySearchDto.UniversityId))
-                .Select<University>(s => s.Name, nameof(UniversitySearchDto.Name))
-                .Select<University>(s => s.Extra, nameof(UniversitySearchDto.Extra))
-                .Select<University>(s => s.Country, nameof(UniversitySearchDto.Country))
-                .Select("c.*")
-                .AddOrder<University>(o => o.Id)
-                .Paging("PageSize", "PageNumber");
         }
 
         protected override int PageSize => 500;

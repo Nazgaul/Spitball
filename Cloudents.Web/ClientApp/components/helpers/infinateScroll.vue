@@ -6,66 +6,36 @@
 <script>
 
     export default {
-
-        data() {
-            return {
-                nextPage: null,
-                isLoading: false,
-                isComplete: false
-            }
-        },
-
         props: {
-            url: String,
-            vertical: String
-        },
-
-        created() {
-            this.nextPage = this.url;
-        },
-        watch: {
-            '$route': '$_resetScrolling',
-            url(val) {
-
-                this.nextPage = val;
+            scrollFunc: {
+                type:Function,
+                required: true,
+                default:false
+            },
+            isLoading: {
+                type:Boolean,
+                required: true,
+                default:false
+            },
+            isComplete: {
+                type:Boolean,
+                required: true,
+                default:false
             }
         },
-
         methods: {
             keepLoad() {
                 let totalHeight = this.$el.offsetHeight;
                 let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
                 let scrollOffset = (currentScroll > (0.75 * totalHeight - document.documentElement.clientHeight));
-                let retVal = ((window.pageYOffset > 0 || document.documentElement.scrollTop > 0) && scrollOffset &&
-                    !this.isLoading && !this.isComplete);
-                //console.log(retVal)
+                let retVal = (!this.isLoading && !this.isComplete && (window.pageYOffset > 0 || document.documentElement.scrollTop > 0) && scrollOffset);
                 return retVal
             },
             scrollList() {
                 if (this.keepLoad()) {
-                    this.isLoading = true;
-                    this.$store.dispatch('nextPage', {vertical: this.vertical, url: this.nextPage})
-                        .then((res) => {
-                            if (res.data && res.data.length) {
-                                //this.$emit('scroll', res.data);
-                                this.nextPage = res.nextPage;
-                                this.isLoading = false;
-                            } else {
-                                this.nextPage = null;
-                                this.isComplete = true;
-                            }
-                        }).catch(reason => {
-                        this.isComplete = true;
-                        this.nextPage = null;
-                    })
+                    this.scrollFunc()
                 }
             },
-            $_resetScrolling() {
-                this.nextPage = null;
-                this.isLoading = false;
-                this.isComplete = false;
-            }
-
         }
     }
 </script>

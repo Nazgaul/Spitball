@@ -1,14 +1,6 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
-using Cloudents.Core.Entities.Db;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
-using NHibernate.Hql.Ast;
-using NHibernate.Linq;
-using NHibernate.Linq.Functions;
-using NHibernate.Linq.Visitors;
 
 namespace Cloudents.Infrastructure.Database
 {

@@ -1,10 +1,11 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {
     public class QuestionDeletedEvent : IEvent
     {
+
         public QuestionDeletedEvent(Question question)
         {
             Question = question;

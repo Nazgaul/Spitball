@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Admin2.Models
 {
-    public class SendTokenRequest : IValidatableObject
+    public class SendTokenRequest 
     {
         /// <summary>
         /// User id
@@ -19,21 +15,6 @@ namespace Cloudents.Admin2.Models
         [Required]
         public decimal Tokens { get; set; }
 
-        /// <summary>
-        /// Which token - awarded or earned
-        /// </summary>
-        [Required]
-        public TransactionType TransactionType { get; set; }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            var t = TransactionType.GetAttributeValue<PublicValueAttribute>();
-            if (t == null)
-            {
-                yield return new ValidationResult(
-                    "Not valid transaction type",
-                    new[] { nameof(TransactionType) });
-            }
-        }
+       
     }
 }

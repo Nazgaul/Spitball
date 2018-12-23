@@ -10,33 +10,44 @@
             </div>
             <router-view v-show="!showUniSelect" ref="mainPage"></router-view>
             <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
-              <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
-              <span class="cookie-approve"><button @click="removeCookiesPopup()" style="outline:none;" v-language:inner>app_cookie_toaster_action</button></span>
+                <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
+                <span class="cookie-approve"><button @click="removeCookiesPopup()" style="outline:none;"
+                                                     v-language:inner>app_cookie_toaster_action</button></span>
             </div>
-            <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
+            <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">
                 <login-to-answer></login-to-answer>
             </sb-dialog>
-            <sb-dialog :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'" :onclosefn="closeUniPopDialog" :activateOverlay="true" :content-class="'pop-uniselect-container'">
-                <uni-Select-pop :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
+            <sb-dialog :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"
+                       :onclosefn="closeUniPopDialog" :activateOverlay="true"
+                       :content-class="'pop-uniselect-container'">
+                <uni-Select-pop :showDialog="universitySelectPopup"
+                                :popUpType="'universitySelectPopup'"></uni-Select-pop>
             </sb-dialog>
-            <sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">
+            <sb-dialog :isPersistent="true" :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'"
+                       :content-class="'newQuestionDialog'">
                 <new-question></new-question>
             </sb-dialog>
-            <sb-dialog :showDialog="newIsraeliUser" :popUpType="'newIsraeliUserDialog'" :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
+            <sb-dialog :showDialog="newIsraeliUser" :popUpType="'newIsraeliUserDialog'"
+                       :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
                 <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
             </sb-dialog>
+
             <!--upload dilaog-->
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                        :popUpType="'uploadDialog'"
-                       :fullWidth="true"
+
+                       :maxWidth="'966px'"
                        :onclosefn="setUploadDialogState"
                        :activateOverlay="isUploadAbsoluteMobile"
                        :isPersistent="$vuetify.breakpoint.smAndUp"
                        :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'">
                 <upload-files v-if="getDialogState"></upload-files>
-                </sb-dialog>
+            </sb-dialog>
         </v-content>
+        <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
+            <div class="text-wrap" v-html="getToasterText"></div>
+        </v-snackbar>
     </v-app>
 </template>
 <script>
@@ -45,10 +56,11 @@
     import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
     import NewQuestion from "../question/newQuestion/newQuestion.vue";
     import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue"
-    import {GetDictionary} from '../../services/language/languageService';
+    import { GetDictionary } from '../../services/language/languageService';
     import uniSelectPop from '../helpers/uni-select/uniSelectPop.vue';
     import uniSelect from '../helpers/uni-select/uniSelect.vue';
     import newIsraeliPop from '../dialogs/israeli-pop/newIsraeliPop.vue';
+    import reportItem from '../results/helpers/reportItem/reportItem.vue'
     export default {
         components: {
             NewQuestion,
@@ -57,13 +69,14 @@
             uniSelectPop,
             uniSelect,
             uploadFiles,
-            newIsraeliPop
+            newIsraeliPop,
+            reportItem
         },
-        data(){
+        data() {
             return {
-                acceptedCookies: false,
                 acceptIsraeli: true,
-                isRtl: global.isRtl
+                isRtl: global.isRtl,
+                toasterTimeout: 5000,
             }
         },
         computed: {
@@ -77,53 +90,67 @@
                 "getShowSelectUniInterface",
                 "getDialogState",
                 "getUploadFullMobile",
-                "confirmationDialog"
-
+                "confirmationDialog",
+                "getShowToaster",
+                "getToasterText"
             ]),
-            cookiesShow(){
-                return this.acceptedCookies
+            cookiesShow() {
+                return this.getCookieAccepted()
             },
-            universitySelectPopup(){
+            universitySelectPopup() {
                 return this.getShowSelectUniPopUpInterface;
             },
-            showUniSelect(){
-            return this.getShowSelectUniInterface;
+            showUniSelect() {
+                return this.getShowSelectUniInterface;
             },
-            isUploadAbsoluteMobile(){
+            isUploadAbsoluteMobile() {
                 return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile
             },
-            newIsraeliUser(){
-                return !this.accountUser && global.country.toLowerCase() === "il" && !this.acceptIsraeli && (this.$route.path.indexOf("ask") > -1 || this.$route.path.indexOf("note") > -1);
+            newIsraeliUser() {
+                return false
+                // return !this.accountUser && global.country.toLowerCase() === "il" && !this.acceptIsraeli && (this.$route.path.indexOf("ask") > -1 || this.$route.path.indexOf("note") > -1);
             }
         },
         updated: function () {
             this.$nextTick(function () {
-                dataLayer.push({ 'event': 'optimize.activate' });
+                dataLayer.push({'event': 'optimize.activate'});
                 // Code that will run only after the
                 // entire question-details has been re-rendered
             })
         },
         mounted: function () {
             this.$nextTick(function () {
-                dataLayer.push({ 'event': 'optimize.activate' });
+                dataLayer.push({'event': 'optimize.activate'});
                 // Code that will run only after the
                 // entire question-details has been rendered
             })
         },
-        methods: {
-            ...mapActions([ 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState', 'updateDialogState']),
-            removeCookiesPopup: function(){
-                global.localStorage.setItem("sb-acceptedCookies", true);
-                this.acceptedCookies = true;
+        watch:{
+            getShowToaster: function (val) {
+                if (val) {
+                    var self = this;
+                    setTimeout(function () {
+                        self.updateToasterParams({
+                            showToaster: false
+                        })
+                    }, this.toasterTimeout)
+                }
             },
-            closeUniPopDialog(){
+        },
+        methods: {
+            ...mapActions(['updateToasterParams', 'updateLoginDialogState', 'updateNewQuestionDialogState', 'changeSelectPopUpUniState', 'updateDialogState', 'setCookieAccepted']),
+            ...mapGetters(['getCookieAccepted']),
+            removeCookiesPopup: function () {
+                this.setCookieAccepted();
+            },
+            closeUniPopDialog() {
                 this.changeSelectPopUpUniState(false);
             },
-            
-            setUploadDialogState(){
+
+            setUploadDialogState() {
                 this.updateDialogState(false)
             },
-            closeNewIsraeli(){
+            closeNewIsraeli() {
                 //the set to the local storage happens in the component itself
                 this.acceptIsraeli = true;
             }
@@ -133,20 +160,20 @@
             this.$root.$on('closePopUp', (name) => {
                 if (name === 'suggestions') {
                     this.showDialogSuggestQuestion = false
-                } else if(name === 'newQuestionDialog'){
+                } else if (name === 'newQuestionDialog') {
                     this.updateNewQuestionDialogState(false)
-                }else{
+                } else {
                     this.updateLoginDialogState(false)
                 }
             });
-           
-           this.acceptedCookies = (global.localStorage.getItem("sb-acceptedCookies") === 'true');
-           this.$nextTick(()=>{
-               setTimeout(()=>{
-                this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
-               }, 130)
-           })
-           
+
+            this.acceptedCookies = this.getCookieAccepted();
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    this.acceptIsraeli = !!global.localStorage.getItem("sb-newIsraei");
+                }, 130)
+            })
+
         }
     }
 </script>

@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Specialized;
+﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections;
+using System.Collections.Specialized;
 using IPaging = Cloudents.Web.Models.IPaging;
 
 namespace Cloudents.Web.Extensions
@@ -87,6 +88,18 @@ namespace Cloudents.Web.Extensions
         private static bool IsAnonymous(Type valType)
         {
             return valType.Namespace != null;
+        }
+
+
+        public static string DocumentUrl(this IUrlHelper helper, string university, string course, long id, string name)
+        {
+            return helper.RouteUrl(SeoTypeString.Document, new
+            {
+                universityName = university.Replace("+", "-"),//.Replace("+", string.Empty),
+                courseName = course, //.Replace("+", string.Empty),
+                id,
+                name = name.Replace("+", "-")//.Replace("+", string.Empty)
+            });
         }
     }
 }

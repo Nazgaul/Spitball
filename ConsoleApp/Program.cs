@@ -2,14 +2,15 @@
 using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.CommandHandler;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Domain.Entities;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Infrastructure.Database.Repositories;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
+using Cloudents.Search;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -18,16 +19,21 @@ using Newtonsoft.Json;
 using NHibernate;
 using NHibernate.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-
+using Cloudents.Core.Models;
+using Cloudents.Core.Query;
+using Cloudents.Search.Document;
+using DocumentType = Cloudents.Common.Enum.DocumentType;
 
 namespace ConsoleApp
 {
@@ -51,9 +57,9 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
-                // ProdStorage = ConfigurationManager.AppSettings["OldStrageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://localhost:8545"
+                BlockChainNetwork = "http://localhost:8545",
+                ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
@@ -63,9 +69,13 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
-                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             builder.RegisterModule<ModuleFile>();
+            var module = new SearchModule(ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                ConfigurationManager.AppSettings["AzureSearchKey"], true);
+
+            builder.RegisterModule(module);
+
 
 
 
@@ -92,29 +102,71 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await FixFilesAsync();
-            //var q = _container.Resolve<ISearchServiceWrite<Question>>();
-            //await q.CreateOrUpdateAsync(default);
+            //await ReCopyTransferFiles();
 
-            //var q2 = _container.Resolve<IQuestionSearch>();
+           // var bus = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
+           // await bus.CreateOrUpdateAsync(token);
 
-            //var z = await q2.SearchAsync(new QuestionsQuery(null, null, 0, null, "fr"), default);
-            //293005, Geography
-            var _commandBus = _container.Resolve<IUserRepository>();
-            var z = await _commandBus.LoadAsync(1014L, default);
+            var t = _container.Resolve<AzureDocumentSearch>();
+            var z = await t.ItemAsync(6746, default);
+            //var z = await t.SearchAsync(new DocumentQuery(null, new UserProfile()
+            //{
+            //    Country = "IL"
+            //}, null, 0, null), token);
+
+            //var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
+            //    10, 638, null, QuestionColor.Default);
+            //await bus.DispatchAsync(command, token);
 
 
-            //var command = new AddUserTagCommand(293005L, "Geography");
-            //await _commandBus.DispatchAsync(command, token);
+            //var command2 = new CreateQuestionCommand(QuestionSubject.Arts, "This is verysssssss nice question to check",
+            //    10, 638, null, QuestionColor.Default);
+            //await bus.DispatchAsync(command2, token);
 
-            //await FixPoisonBackground(_commandBus);
 
-            // await UpdateLanguageAsync();
-            //await TransferUniversities();
-            //await TransferUsers();
-            //await MigrateUniversity();
-            //await DeleteOldFiles();
-            // await TransferDocumants();
+
+            //await z.GetById("43958");
+            //
+        }
+
+        private static async Task BuildSearchIndex()
+        {
+            var service = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
+            await service.CreateOrUpdateAsync(default);
+        }
+
+        private static async Task ReduDocument()
+        {
+            var service = _container.Resolve<IStatelessSession>();
+            var storage = _container.Resolve<ICloudStorageProvider>();
+            var queueClient = storage.GetQueueClient();
+            var queue = queueClient.GetQueueReference("generate-search-preview");
+
+
+            var i = 0L;
+            var cont = false;
+            do
+            {
+                var i1 = i;
+                var itemIds = await service.Query<Document>().Where(w => w.Id > i1)
+                    .Take(100).OrderBy(o => o.Id).Select(s => s.Id).ToListAsync();
+
+                var t = new List<Task>();
+                foreach (var itemId in itemIds)
+                {
+                    var msg = new CloudQueueMessage(itemId.ToString());
+                    t.Add(queue.AddMessageAsync(msg));
+                    i = itemId;
+                }
+
+                await Task.WhenAll(t);
+                cont = itemIds.Count > 0;
+
+            } while (cont);
+
+
+            //var service = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
+            //await service.CreateOrUpdateAsync(default);
         }
 
         private static async Task FixPoisonBackground(ICommandBus _commandBus)
@@ -122,6 +174,7 @@ namespace ConsoleApp
             var storage = _container.Resolve<ICloudStorageProvider>();
             var queueClient = storage.GetQueueClient();
             var queue = queueClient.GetQueueReference("background-poison");
+            var newQueue = queueClient.GetQueueReference("background");
 
             do
             {
@@ -157,9 +210,15 @@ namespace ConsoleApp
                         queue.DeleteMessage(msg);
                     }
                 }
+
+                if (msg.AsString.Contains("Cloudents.Core.Message.System.UpdateUserBalanceMessage"))
+                {
+                    queue.DeleteMessage(msg);
+                }
                 else
                 {
-                    Console.WriteLine("different msg");
+                    newQueue.AddMessage(new CloudQueueMessage(msg.AsString));
+                    queue.DeleteMessage(msg);
                 }
             } while (true);
         }
@@ -295,18 +354,18 @@ where left(blobName ,4) != 'file'");
 
         }
 
-        private static async Task CheckSync()
-        {
-            var str =
-                "  {\"$type\":\"Cloudents.Core.Message.System.DocumentSearchMessage, Cloudents.Core\",\"Document\":{\"$type\":\"Cloudents.Core.Entities.Search.Document, Cloudents.Core\",\"Id\":\"52\",\"Name\":\"מבחן תורת הקבוצות א 003.jpg\",\"MetaContent\":null,\"Content\":null,\"Tags\":{\"$type\":\"System.String[], mscorlib\",\"$values\":[]},\"Course\":\"תורת הקבוצות א\",\"Country\":\"IL\",\"Language\":null,\"University\":\"6c19649e-1c27-4095-91e6-a99c008af82e\",\"DateTime\":\"2018-11-19T13:10:46.1653245Z\",\"Type\":0}}";
+        //private static async Task CheckSync()
+        //{
+        //    var str =
+        //        "  {\"$type\":\"Cloudents.Core.Message.System.DocumentSearchMessage, Cloudents.Core\",\"Document\":{\"$type\":\"Cloudents.Core.Entities.Search.Document, Cloudents.Core\",\"Id\":\"52\",\"Name\":\"מבחן תורת הקבוצות א 003.jpg\",\"MetaContent\":null,\"Content\":null,\"Tags\":{\"$type\":\"System.String[], mscorlib\",\"$values\":[]},\"Course\":\"תורת הקבוצות א\",\"Country\":\"IL\",\"Language\":null,\"University\":\"6c19649e-1c27-4095-91e6-a99c008af82e\",\"DateTime\":\"2018-11-19T13:10:46.1653245Z\",\"Type\":0}}";
 
 
-            var val = JsonConvert.DeserializeObject<Cloudents.Core.Message.System.DocumentSearchMessage>(str);
-            val.Document.Type = DocumentType.Lecture;
-            var elem = _container.Resolve<ISearchServiceWrite<Cloudents.Core.Entities.Search.Document>>();
+        //    var val = JsonConvert.DeserializeObject<Cloudents.Core.Message.System.DocumentSearchMessage>(str);
+        //    val.Document.Type = DocumentType.Lecture;
+        //    var elem = _container.Resolve<ISearchServiceWrite<Cloudents.Core.Entities.Search.Document>>();
 
-            await elem.UpdateDataAsync(new[] { val.Document }, default);
-        }
+        //    await elem.UpdateDataAsync(new[] { val.Document }, default);
+        //}
 
 
         private static IEnumerable<string> SplitSentence(string input)
@@ -337,18 +396,11 @@ where left(blobName ,4) != 'file'");
         }
 
 
-
-
-        static IEnumerable<CultureInfo> FindCandidateCultures(RegionInfo region)
-        {
-            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-                .Where(x => (new RegionInfo(x.Name)).GeoId == region.GeoId);
-        }
-
         private static async Task HadarMethod()
         {
+            await MigrateDelta();
 
-            await MigrateUniversity();
+            //await MigrateUniversity();
             //var t = _container.Resolve<IBlockChainErc20Service>();
             //string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
@@ -521,11 +573,7 @@ where left(blobName ,4) != 'file'");
             //}
         }
 
-        private static string TTTT(string input, IEnumerable<string> BAD_WORDS)
-        {
-            return string.Join(" ",
-                input.Split(' ').Select(w => BAD_WORDS.Contains(w) ? "" : w));
-        }
+
         public static Task SendMoneyAsync()
         {
             var t = _container.Resolve<IBlockChainErc20Service>();
@@ -618,12 +666,13 @@ where left(blobName ,4) != 'file'");
             {
                 return await f.QueryAsync(
                     @"SELECT u.UniversityName,u.Country,u.Extra
-                FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
-                ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
+                    FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
+                    ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
                     FROM zbox.University u
-                where isdeleted = 0
-                    ) u
-                WHERE cnt = 1");
+                    where isdeleted = 0
+                    and u.UniversityName not in (select name from sb.University)
+                        ) u
+                    WHERE cnt = 1");
             }, default);
 
             using (var child = _container.BeginLifetimeScope())
@@ -686,7 +735,7 @@ where left(blobName ,4) != 'file'");
                     {
                         using (var unitOfWork = child.Resolve<IUnitOfWork>())
                         {
-                            var repository = child.Resolve<IUserRepository>();
+                            var repository = child.Resolve<IRegularUserRepository>();
 
 
 
@@ -698,7 +747,7 @@ where left(blobName ,4) != 'file'");
 
                                 CultureInfo cultur = new CultureInfo(pair.Culture);
 
-                                var user = new User(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
+                                var user = new RegularUser(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
                                 {
                                     // EmailConfirmed = true,
                                     LockoutEnabled = true,
@@ -722,14 +771,77 @@ where left(blobName ,4) != 'file'");
             } while (true);
         }
 
-        public static async Task TransferDocumants()
+
+        public static async Task ReCopyTransferFiles()
+        {
+            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+            var storageAccount = CloudStorageAccount.Parse(keyNew);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("spitball-files");
+
+            var baseDirectory = container.GetDirectoryReference("files");
+            var queueClient = storageAccount.CreateCloudQueueClient();
+            //var blob = _container.Resolve<IBlobProvider<Document>>();
+            var v = _container.Resolve<IStatelessSession>();
+            var oldIds = 0L;
+            var cont = false;
+            do
+            {
+                cont = false;
+                var result = await v.Query<Document>()
+                    .Where(w => w.Id > oldIds && w.OldId != null)
+
+                    .Take(100).Select(s => new
+                    {
+                        s.Id,
+                        s.OldId
+                    }).OrderBy(o => o.Id).ToListAsync();
+
+                foreach (var item in result)
+                {
+                    cont = true;
+                    oldIds = item.Id;
+
+                    var dir = baseDirectory.GetDirectoryReference(item.Id.ToString());
+                    var blobs = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
+                        2, null, null, null, token).ConfigureAwait(false);
+                    if (blobs.Results.Count() == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("processing " + item.Id);
+                        Console.ResetColor();
+                        var sqlQuery = v.CreateSQLQuery("select BlobName from zbox.item where itemid = :id");
+                        sqlQuery.SetInt64("id", item.OldId.Value);
+                        var blobName = sqlQuery.UniqueResult<string>();
+                        var newBlobName = await CopyBlobFromOldContainerAsync(blobName, item.Id);
+
+                        var newBlob = dir.GetBlockBlobReference(newBlobName);
+                        var pendingBlob = baseDirectory.GetBlockBlobReference(newBlobName);
+                        await newBlob.StartCopyAsync(pendingBlob);
+                    }
+                    if (blobs.Results.Count() == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("processing " + item.Id);
+                        Console.ResetColor();
+                        var queue = queueClient.GetQueueReference("generate-blob-preview");
+                        await queue.AddMessageAsync(new CloudQueueMessage(item.Id.ToString()));
+                    }
+                }
+            } while (cont);
+
+
+
+        }
+
+        public static async Task TransferDocuments()
         {
             var d = _container.Resolve<DapperRepository>();
 
 
-            var key = ConfigurationManager.AppSettings["OldStrageConnectionString"];
-            var productionOldstorageAccount = CloudStorageAccount.Parse(key);
-            var oldBlobClient = productionOldstorageAccount.CreateCloudBlobClient();
+            var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+            var oldBlobClient = productionOldStorageAccount.CreateCloudBlobClient();
             var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");
 
 
@@ -741,7 +853,7 @@ where left(blobName ,4) != 'file'");
 
             //CloudBlobContainer directoryToPutFiles = container.Get .GetDirectoryReference("./files");
 
-            Dictionary<int, DocumentType> DocType = new Dictionary<int, DocumentType>
+            Dictionary<int, DocumentType> docType = new Dictionary<int, DocumentType>
             {
                 { 1, DocumentType.Exam },
                 { 2, DocumentType.Exam },
@@ -754,34 +866,36 @@ where left(blobName ,4) != 'file'");
 
             string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "pptx", "jpg", "png", "gif", "jpeg", "bmp" };
 
-            List<dynamic> z = new List<dynamic>();
-
+            var cacheUsers = new ConcurrentDictionary<string, long?>();
+            List<dynamic> z;
+            long itemId = 631767;
             do
             {
                 z = await d.WithConnectionAsync(async f =>
                 {
                     return (await f.QueryAsync(
-                        @"select top 10 I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views], I.CreationTime,
+                        @" select top 10 I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName, ZUNI.Country,  B.ProfessorName, 
+ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views], I.CreationTime,
 			            STRING_AGG((T.Name), ',') as Tags
                         FROM [Zbox].[Item] I
                         join zbox.Box B
 	                        on I.BoxId = B.BoxId and b.discriminator in (2,3)
                         join Zbox.Users ZU
 	                        on I.UserId = ZU.UserId
-                        join sb.[User] U
-	                        on ZU.Email = U.Email
-                        and U.universityid2 is not null
+                        join Zbox.University ZUNI on B.University = ZUNI.Id
 						left join zbox.ItemTag IT
 							on IT.ItemId = I.ItemId
 						left join zbox.Tag T
 							on IT.TagId = T.Id and len(T.Name) >= 4
                         where I.Discriminator = 'File'
+						and i.itemid > @itemId
 	                        and I.IsDeleted = 0 
 							and I.ItemId not in (select D.OldId from sb.Document D where I.ItemId = D.OldId)
 							and SUBSTRING (I.Name,CHARINDEX ('.',I.Name), 5) in ('.doc', '.docx', '.xls', '.xlsx', '.PDF', '.png', '.jpg', '.ppt', '.pptx', '.jpg', '.png', '.gif', '.jpeg', '.bmp' )
-                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, U.Id, B.ProfessorName, ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
-                       -- order by I.ItemId asc;
-                ")).ToList();
+                        group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
+						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
+						 order by i.itemid
+                ", new { itemId = itemId })).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -799,65 +913,77 @@ where left(blobName ,4) != 'file'");
 
                     foreach (var pair in z)
                     {
+                        itemId = pair.ItemId;
+                        Console.WriteLine($"processing {itemId}");
+
                         string[] blobName = pair.BlobName.Split('.');
                         if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{pair.ItemId} not blob support");
+                            Console.ResetColor();
+                            //itemsAlreadyProcessed.Add(pair.ItemId);
                             continue;
                         }
 
-                        CloudBlockBlob blobDestination =
-                            container.GetBlockBlobReference($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}");
+                        string country = pair.Country, email = pair.Email;
 
-                        CloudBlockBlob srcBlob = oldContainer.GetBlockBlobReference(pair.BlobName);
-
-                        var sharedAccessUri = GetShareAccessUri(pair.BlobName, 360, oldContainer);
-
-                        var blobUri = new Uri(sharedAccessUri);
-
-
-
-
-
-                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
-                        while (blobDestination.CopyState.Status != CopyStatus.Success)
+                        var userId = cacheUsers.GetOrAdd(email, x =>
                         {
-                            Console.WriteLine(blobDestination.CopyState.Status);
-                            await Task.Delay(TimeSpan.FromSeconds(1));
-                            await blobDestination.ExistsAsync();
+                            long? id = GetUserId(x, country);
+                            return id;
+                        });
+                        if (userId == null)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{pair.ItemId} doesn't have userid to assign country {country}");
+                            Console.ResetColor();
+                            continue;
                         }
 
+                        Guid? uniId = GetUniversityId(pair.UniversityName, country);
+                        if (uniId == null)
+                        {
 
-                        string[] words;
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{pair.ItemId} doesn't have uniId to assign");
+                            Console.ResetColor();
+                            continue;
+                        }
+
+                        var newBlobName = await CopyBlobFromOldContainerAsync(pair.BlobName, itemId);
+
+
+                        string[] words = null;
                         if (pair.Tags != null)
                         {
                             words = pair.Tags.Split(',');
                         }
-                        else
+                        DocumentType type = DocumentType.None;
+
+                        if (docType.ContainsKey(pair.DocType))
                         {
-                            words = null;
+                            docType.TryGetValue(pair.DocType, out type);
                         }
 
-                        DocumentType type;
-
-                        if (DocType.ContainsKey(pair.DocType))
+                        string courseName = pair.BoxName;
+                        while (courseName.Length < Course.MinLength)
                         {
-                            DocType.TryGetValue(pair.DocType, out type);
-                        }
-                        else
-                        {
-                            type = DocumentType.None;
+                            courseName += "-";
                         }
 
 
-
-                        var command = new CreateDocumentCommand($"file-{blobName[0]}-{pair.ItemId}.{blobName[1]}",
-                            pair.Name,
-                            type, pair.BoxName, words, pair.Id, pair.ProfessorName);
+                        string itemName = pair.Name;
+                        CreateDocumentCommand command =
+                            CreateDocumentCommand.DbiOnly(newBlobName,
+                            itemName.Truncate(150),
+                            type, courseName, words?.Where(Tag.ValidateTag),
+                            userId.Value, pair.ProfessorName, uniId.Value);
 
                         await commandBus.DispatchAsync(command, default);
 
                         int views = pair.Views;
-                        long? itemId = pair.ItemId;
+                        itemId = pair.ItemId;
                         DateTime updateTime = pair.CreationTime;
 
                         var doc = session.Query<Document>().Where(w => w.Id == command.Id)
@@ -866,13 +992,93 @@ where left(blobName ,4) != 'file'");
                             .Set(x => x.OldId, x => itemId)
                             .Set(x => x.TimeStamp.UpdateTime, x => updateTime)
                             .Update();
-
+                        await Task.Delay(TimeSpan.FromSeconds(0.5));
                     }
 
                 }
             } while (z.Count > 0);
 
             //await TransferDocumants();
+        }
+
+        private static async Task<string> CopyBlobFromOldContainerAsync(string blobName, long itemId)
+        {
+            var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+            var oldBlobClient = productionOldStorageAccount.CreateCloudBlobClient();
+            var oldContainer = oldBlobClient.GetContainerReference("zboxfiles");
+
+
+
+            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+            var storageAccount = CloudStorageAccount.Parse(keyNew);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+
+
+            var container = blobClient.GetContainerReference("spitball-files");
+            var filesBaseDir = container.GetDirectoryReference("files");
+            CloudBlockBlob blobDestination =
+                filesBaseDir.GetBlockBlobReference($"file-{Path.GetFileNameWithoutExtension(blobName)}-{itemId}.{Path.GetExtension(blobName).TrimStart('.')}");
+
+            var sharedAccessUri = GetShareAccessUri(blobName, 360, oldContainer);
+            var blobUri = new Uri(sharedAccessUri);
+
+            await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+            while (blobDestination.CopyState.Status != CopyStatus.Success)
+            {
+                Console.WriteLine(blobDestination.CopyState.Status);
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                await blobDestination.ExistsAsync();
+            }
+
+            return blobDestination.Uri.Segments.Last();
+        }
+
+        private static long? GetUserId(string email, string country)
+        {
+            var d = _container.Resolve<DapperRepository>();
+            return d.WithConnection<long?>(connection =>
+            {
+                const string sql = @"select id from sb.[user] where email = @email;
+select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
+                using (var multi = connection.QueryMultiple(sql, new { email = email, country = country }))
+                {
+                    var val = multi.ReadFirstOrDefault<long?>();
+                    if (val.HasValue)
+                    {
+                        return val.Value;
+                    }
+
+                    val = multi.ReadFirstOrDefault<long?>();
+                    if (val.HasValue)
+                    {
+                        return val.Value;
+                    }
+                    return null;
+                }
+
+
+
+            });
+        }
+
+        private static Guid? GetUniversityId(string name, string country)
+        {
+            //select id from sb.University where Name = N'המכללה האקדמית בית ברל' and country = 'IL'
+            var d = _container.Resolve<DapperRepository>();
+            return d.WithConnection<Guid?>(connection =>
+            {
+                const string sql = @"select id from sb.University where Name = @Name and country = @country";
+                using (var multi = connection.QueryMultiple(sql, new { Name = name, country = country }))
+                {
+                    var val = multi.ReadFirstOrDefault<Guid?>();
+                    if (val.HasValue)
+                    {
+                        return val.Value;
+                    }
+                    return null;
+                }
+            });
         }
 
         private static string GetShareAccessUri(string blobname,
@@ -922,11 +1128,12 @@ where left(blobName ,4) != 'file'");
 
             using (var child = _container.BeginLifetimeScope())
             {
-                var repository = child.Resolve<IUserRepository>();
+                var repository = child.Resolve<IRegularUserRepository>();
                 var uni = child.Resolve<IUniversityRepository>();
+                var transaction = child.Resolve<TransactionRepository>();
                 using (var unitOfWork = child.Resolve<IUnitOfWork>())
                 {
-                    var ch = new AssignUniversityToUserCommandHandler(repository, uni);
+                    var ch = new AssignUniversityToUserCommandHandler(repository, uni, transaction);
                     // List<Task> taskes = new List<Task>();
                     foreach (var pair in z)
                     {
@@ -941,6 +1148,82 @@ where left(blobName ,4) != 'file'");
             await MigrateUniversity();
         }
 
+        public static async Task MigrateDelta()
+        {
+            var sessin = _container.Resolve<IStatelessSession>();
 
+            await TransferUsers();
+            await TransferUniversities();
+            //await TransferDocuments();
+
+
+            //populate courses tags
+            await sessin.CreateSQLQuery(@"insert into sb.Course(Name,Count)
+                                    select distinct BoxName,0 from zbox.box
+                                    where isdeleted = 0
+                                    and discriminator in (2,3)
+                                    except
+                                    select Name,0 from sb.Course;
+                                    insert into sb.Course(Name,Count)
+                                    select distinct CourseCode,0 from zbox.box
+                                    where isdeleted = 0
+                                    and CourseCode is not null
+                                    and discriminator in (2,3)
+                                    except
+                                    select Name,0 from sb.Course;").ExecuteUpdateAsync();
+
+            //Transfer tags
+            await sessin.CreateSQLQuery(@"insert into sb.Tag
+                                    select DISTINCT [Name], 0 
+                                    from Zbox.Tag
+                                    where len(Name) >= 4
+                                    and [Name] not in (select [Name] from sb.Tag)").ExecuteUpdateAsync();
+
+            await MigrateUniversity();
+            //update country to user
+            await sessin.CreateSQLQuery(@"update sb.[user]
+                                    set country = (select country from  sb.University u2 where universityid2 = u2.Id)
+                                    where OldUser = 1 and Cou").ExecuteUpdateAsync();
+
+            //Users - Courses migration
+            await sessin.CreateSQLQuery(@"insert into [sb].[UsersCourses]
+                                    select U.Id, B.BoxName
+                                    from sb.[User] U
+                                    join Zbox.Users ZU
+	                                    on U.Email = ZU.Email
+                                    join [Zbox].[UserBoxRel] UB
+	                                    on ZU.UserId = UB.UserId
+                                    join Zbox.Box B
+	                                    on UB.BoxId = B.BoxId
+                                    where isdeleted = 0
+                                    and CourseCode is not null
+                                    and discriminator in (2,3)
+                                    union
+                                    select U.Id, B.CourseCode
+                                    from sb.[User] U
+                                    join Zbox.Users ZU
+	                                    on U.Email = ZU.Email
+                                    join [Zbox].[UserBoxRel] UB
+	                                    on ZU.UserId = UB.UserId
+                                    join Zbox.Box B
+	                                    on UB.BoxId = B.BoxId
+                                    where isdeleted = 0
+                                    and CourseCode is not null
+                                    and discriminator in (2,3)").ExecuteUpdateAsync();
+
+            await sessin.CreateSQLQuery(@"begin tran
+                                    declare @tmp table (CourseId nvarchar(300), userCounter int)
+                                    insert into @tmp 
+                                    select CourseId, count(1)
+                                    from sb.[UsersCourses]
+                                    group by CourseId
+
+                                    update [sb].[Course]
+                                    set [Count] = t.userCounter
+                                    from sb.[Course] c
+                                    join  @tmp t
+	                                    on c.[Name] = t.CourseId
+                                    commit").ExecuteUpdateAsync();
+        }
     }
 }

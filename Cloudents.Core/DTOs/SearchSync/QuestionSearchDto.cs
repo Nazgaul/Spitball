@@ -1,66 +1,51 @@
 ﻿using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Enum;
 using System;
+using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
     public class QuestionSearchDto
     {
-        //public long UserId { get; set; }
-        //public string UserName { get; set; }
-        //public string UserImage { get; set; }
-
-
+        private QuestionFilter? _filter;
         public long QuestionId { get; set; } //key
 
-        public int AnswerCount { get; set; }
-        public DateTime DateTime { get; set; }
-       // public int FilesCount { get; set; }
-        public bool HasCorrectAnswer { get; set; }
-       // public double Price { get; set; }
+        public int? AnswerCount { get; set; }
+        public DateTime? DateTime { get; set; }
+        public bool? HasCorrectAnswer { get; set; }
         public string Text { get; set; }
-
 
         public string Country { get; set; }
         public string Language { get; set; }
 
-       // public QuestionColor Color { get; set; }
 
-        public QuestionSubject Subject { get; set; } // facetable
+        public Common.QuestionSubject? Subject { get; set; } // facetable
         public ItemState? State { get; set; }
 
-        public Question ToQuestion()
+
+        public QuestionFilter? Filter
         {
-            var state = QuestionFilter.Unanswered;
-            if (AnswerCount > 0)
+            get
             {
-                state = QuestionFilter.Answered;
+                if (_filter.HasValue)
+                {
+                    return _filter.Value;
+                }
+                var state = QuestionFilter.Unanswered;
+                if (AnswerCount > 0)
+                {
+                    state = QuestionFilter.Answered;
+                }
+
+                if (HasCorrectAnswer.HasValue && HasCorrectAnswer.Value)
+                {
+                    state = QuestionFilter.Sold;
+                }
+
+                return state;
             }
 
-            if (HasCorrectAnswer)
-            {
-                state = QuestionFilter.Sold;
-            }
-
-            return new Question(QuestionId, DateTime, Text, Country, Language, Subject, state);
-            //{
-            //    Id = Id,
-            //    DateTime = DateTime,
-            //    Country = Country,
-            //   // UserId = UserId,
-            //    //UserName = UserName,
-            //    Subject = Subject,
-            //    //AnswerCount = AnswerCount,
-            //   // HasCorrectAnswer = HasCorrectAnswer,
-            //    //FilesCount = FilesCount,
-            //    Text = Text,
-            //   // UserImage = UserImage,
-            //   // Price = Price,
-            //   // Color = Color,
-            //    State = state,
-            //    Prefix = new[] { Text },
-            //    Language = Language,
-            //};
+            set => _filter = value;
         }
     }
 }

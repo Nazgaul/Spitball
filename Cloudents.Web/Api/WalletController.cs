@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
@@ -22,10 +22,10 @@ namespace Cloudents.Web.Api
     public class WalletController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly ILogger _logger;
 
-        public WalletController(UserManager<User> userManager, IQueryBus queryBus, ILogger logger)
+        public WalletController(UserManager<RegularUser> userManager, IQueryBus queryBus, ILogger logger)
         {
             _userManager = userManager;
             _queryBus = queryBus;

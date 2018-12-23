@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
@@ -13,17 +13,6 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(m => m.CreationTime).Insert().Not.Update();
             Map(m => m.UpdateTime).Insert();
             Map(m => m.UpdatedUser).Insert();
-        }
-    }
-
-
-    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Fluent nhibernate")]
-    public class DomainTimeStampMap : ComponentMap<DomainTimeStamp>
-    {
-        public DomainTimeStampMap()
-        {
-            Map(m => m.CreationTime).Insert().Not.Update();
-            Map(m => m.UpdateTime).Insert();
         }
     }
 }

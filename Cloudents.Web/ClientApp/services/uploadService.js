@@ -8,10 +8,12 @@ function FileData(ObjInit){
         this.course= ObjInit.course || '';
         this.tags = ObjInit.tags || [];
         this.professor= ObjInit.professor || '';
+        this.price = ObjInit.price || ''
 }
 
 function createFileData(ObjInit){
-    return new FileData(ObjInit)}
+    return new FileData(ObjInit)
+}
 
 
 export default {

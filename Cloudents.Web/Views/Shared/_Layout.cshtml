@@ -1,5 +1,5 @@
 ﻿@using System.Reflection
-@using Cloudents.Web.Extensions
+@using Cloudents.Web.Middleware
 @using Cloudents.Web.Services
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
@@ -85,7 +85,7 @@
     <!-- End Google Tag Manager -->
     <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
 </head>
-<body>
+<body lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
     <div>
         @RenderBody()
     </div>

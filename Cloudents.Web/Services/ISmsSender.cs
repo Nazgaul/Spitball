@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 
 namespace Cloudents.Web.Services
 {
@@ -14,6 +14,6 @@ namespace Cloudents.Web.Services
         /// <param name="user"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        Task SendSmsAsync(User user, CancellationToken token);
+        Task SendSmsAsync(RegularUser user, CancellationToken token);
     }
 }

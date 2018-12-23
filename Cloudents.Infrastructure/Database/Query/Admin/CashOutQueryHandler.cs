@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
@@ -12,6 +12,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common.Enum;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -62,7 +63,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
             var futureDto = _session.Query<Transaction>()
                 .Fetch(f => f.User)
-                .Where(w => w.Action == ActionType.CashOut)
+                .Where(w => w.Action == TransactionActionType.CashOut)
                 .Where(w => w.Created > DateTime.Now - twoWeeks)
                 .Select(s => new SecondQuery
                 {

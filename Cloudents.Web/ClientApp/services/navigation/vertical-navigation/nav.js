@@ -14,6 +14,8 @@ function getPromoQueryFromRoute(path, query){
     }
 }
 
+let nonIsraeliUser = global.country.toUpperCase() !== 'IL';
+
 const nav = {
     ask: {
         banner: getPromoQueryFromRoute,
@@ -22,7 +24,8 @@ const nav = {
             id: routes.questionRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_ask"),
             icon: "sbf-ask-q", //TODO do we need this.....
-            visible: true
+            visible: true,
+            soon: false
         }
     },
     note: {
@@ -34,7 +37,8 @@ const nav = {
             filter: [ { id: "source", name: "sources" }],
             sort: [],
             icon: "sbf-note",
-            visible: true
+            visible: true,
+            soon: false
         }
      },
     flashcard: {
@@ -46,7 +50,8 @@ const nav = {
             filter: [],
             sort: [],
             icon: "sbf-flashcards",
-            visible: global.country.toUpperCase() !== 'IL'
+            visible: true,
+            soon: !nonIsraeliUser
         }
     },
     tutor: {
@@ -58,7 +63,8 @@ const nav = {
             filter: [],
             sort: [],
             icon: "sbf-tutor",
-            visible: global.country.toUpperCase() !== 'IL'
+            visible: true,
+            soon: !nonIsraeliUser
         }
     },
     book: {
@@ -67,7 +73,8 @@ const nav = {
             id: routes.bookRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_book"),
             icon: "sbf-textbooks",
-            visible: global.country.toUpperCase() !== 'IL'
+            visible: true,
+            soon: !nonIsraeliUser
         },
     },
     job: {
@@ -79,7 +86,8 @@ const nav = {
             filter: [],
             sort: [],
             icon: "sbf-job",
-            visible: global.country.toUpperCase() !== 'IL'
+            visible: nonIsraeliUser,
+            soon: !nonIsraeliUser
         }
     }
 };
@@ -118,7 +126,8 @@ if(!!item.visible){
             'id': item.id,
             'name': item.name,
             'icon': item.icon,
-            'visible': item.visible
+            'visible': item.visible,
+            'soon': item.soon
             //image: item.image
         });
 }

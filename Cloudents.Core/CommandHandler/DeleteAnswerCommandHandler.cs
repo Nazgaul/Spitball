@@ -3,9 +3,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -13,21 +15,29 @@ namespace Cloudents.Core.CommandHandler
     public class DeleteAnswerCommandHandler : ICommandHandler<DeleteAnswerCommand>
     {
         private readonly IRepository<Answer> _repository;
+        private readonly IRepository<Question> _questionRepository;
+        private readonly IEventStore _eventStore;
 
-        public DeleteAnswerCommandHandler(IRepository<Answer> repository)
+        public DeleteAnswerCommandHandler(IRepository<Answer> repository, IRepository<Question> questionRepository, IEventStore eventStore)
         {
             _repository = repository;
+            _questionRepository = questionRepository;
+            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
         {
-            var answer = await _repository.GetAsync(message.Id, token).ConfigureAwait(false); //no point in load since next line will do query
+            var answer = await _repository.GetAsync(message.Id, token); //no point in load since next line will do query
             if (answer == null)
             {
                 throw new ArgumentException("answer doesn't exits");
             }
 
-          
+            if (answer.Item.State != ItemState.Ok)
+            {
+                throw new ArgumentException("answer doesn't exits");
+
+            }
 
             if (answer.User.Id != message.UserId)
             {
@@ -37,10 +47,12 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new ArgumentException("this is answer is correct answer");
             }
+            answer.Question.AnswerCount--;
+           // await _questionRepository.UpdateAsync(answer.Question, token);
 
-            answer.Events.Add(new AnswerDeletedEvent(answer));
+            _eventStore.Add(new AnswerDeletedEvent(answer));
             
-            await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
+            await _repository.DeleteAsync(answer, token);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,9 +9,9 @@ namespace Cloudents.Core.CommandHandler
     public class AddUserTagCommandHandler : ICommandHandler<AddUserTagCommand>
     {
         private readonly ITagRepository _tagRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<RegularUser> _userRepository;
 
-        public AddUserTagCommandHandler(ITagRepository tagRepository, IRepository<User> userRepository)
+        public AddUserTagCommandHandler(ITagRepository tagRepository, IRepository<RegularUser> userRepository)
         {
             _tagRepository = tagRepository;
             _userRepository = userRepository;

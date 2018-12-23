@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Cloudents.Common.Enum;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -7,6 +9,7 @@ namespace Cloudents.Core.DTOs
     [DataContract]
     public class DocumentFeedDto
     {
+        [DataMember]
         public long Id { get; set; }
         [DataMember]
         public string University { get; set; }
@@ -29,6 +32,9 @@ namespace Cloudents.Core.DTOs
         public int? Views { get; set; }
 
         [DataMember]
+        public int? Downloads { get; set; }
+
+        [DataMember]
         public string Url { get; set; }
 
         [DataMember]
@@ -36,5 +42,38 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public DateTime? DateTime { get; set; }
+
+        [DataMember] public VoteDto Vote { get; set; }
+    }
+
+    public class VoteDto
+    {
+        public int Votes { get; set; }
+        public VoteType? Vote { get; set; }
+    }
+
+    public abstract class UserVoteDto<T>
+    {
+        public T Id { get; set; }
+        public VoteType Vote { get; set; }
+    }
+
+    public class UserVoteDocumentDto : UserVoteDto<long>
+    {
+     
+    }
+
+    public class UserVoteQuestionDto : UserVoteDto<long>
+    {
+
+    }
+
+    public class UserVoteAnswerDto : UserVoteDto<Guid>
+    {
+        public UserVoteAnswerDto(Guid? id, VoteType vote)
+        {
+            Id = id ?? default;
+            Vote = vote;
+        }
     }
 }

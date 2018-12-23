@@ -178,8 +178,11 @@ reset instructions.</value>
     <value>You're ready to start Spitballing</value>
   </data>
   <data name="generalProfile_register_stepSix_text" xml:space="preserve">
-    <value>We’ve awarded you 100 SBL
- You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money!</value>
+    <value>We've awarded you some SBL to start using
+Spitball immediately! Use them to get help with your
+own homework questions, or answer other student's
+questions to earn more SBL that can be
+redeemed for GiftCards</value>
   </data>
   <data name="generalProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>Create password</value>
@@ -234,9 +237,6 @@ reset instructions.</value>
   <data name="HHP_register_stepFive_heading" xml:space="preserve">
     <value>Enter the confirmation code
  We sent the code to you by SMS</value>
-  </data>
-  <data name="HHP_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>Enter your phone number</value>
   </data>
   <data name="HHP_register_stepFour_heading" xml:space="preserve">
     <value>Enter your phone number
@@ -301,9 +301,6 @@ reset instructions.</value>
   <data name="HHP_register_stepTwo_heading" xml:space="preserve">
     <value>We need to know how to contact you</value>
   </data>
-  <data name="HHP_register_stepTwo_text" xml:space="preserve">
-    <value>We need to know how to contact you</value>
-  </data>
   <data name="makeMoneyProfile_modal_heading" xml:space="preserve">
     <value>Please sign up or
  login to continue.</value>
@@ -324,9 +321,6 @@ reset instructions.</value>
   <data name="makeMoneyProfile_register_stepFive_heading" xml:space="preserve">
     <value>Enter the confirmation code
  We sent the code to you by SMS</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>Enter your phone number</value>
   </data>
   <data name="makeMoneyProfile_register_stepFour_heading" xml:space="preserve">
     <value>Enter your phone number
@@ -369,8 +363,11 @@ reset instructions.</value>
     <value>You’re ready to start making money!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_text" xml:space="preserve">
-    <value>We’ve also awarded you 100 SBL
- (you can use these to get help with your own homework questions)</value>
+    <value>We've awarded you some SBL to start using
+Spitball immediately! Use then to get help with your
+own homework questions, or answer other student's
+questions to earn more SBL that can be
+redeemed for GiftCards</value>
   </data>
   <data name="makeMoneyProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>Create password</value>
@@ -384,9 +381,6 @@ reset instructions.</value>
   <data name="makeMoneyProfile_register_stepTen_resetbtn" xml:space="preserve">
     <value>Reset password</value>
   </data>
-  <data name="makeMoneyProfile_register_stepTen_resettxt" xml:space="preserve">
-    <value>Reset your &lt;b&gt;password&lt;/b&gt;</value>
-  </data>
   <data name="makeMoneyProfile_register_stepThree_boldTextOne" xml:space="preserve">
     <value>activate your account</value>
   </data>
@@ -397,9 +391,6 @@ reset instructions.</value>
     <value>contact you.</value>
   </data>
   <data name="makeMoneyProfile_register_stepTwo_heading" xml:space="preserve">
-    <value>We need to know how to contact you</value>
-  </data>
-  <data name="makeMoneyProfile_register_stepTwo_text" xml:space="preserve">
     <value>We need to know how to contact you</value>
   </data>
 </root>

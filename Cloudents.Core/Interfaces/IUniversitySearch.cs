@@ -1,7 +1,12 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common;
+using Cloudents.Core.Documents.Queries.GetDocumentsList;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Query;
+using Cloudents.Core.Questions.Queries.GetQuestionsList;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
@@ -26,4 +31,17 @@ namespace Cloudents.Core.Interfaces
     {
         Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query, CancellationToken token);
     }
+
+    public interface IQuestionsSearch
+    {
+        Task<(IEnumerable<long> result, IEnumerable<QuestionSubject> facetSubject,  IEnumerable<QuestionFilter> facetFileter)> SearchAsync(QuestionsQuery query, CancellationToken token);
+    }
+
+    public interface IDocumentsSearch
+    {
+        Task<IEnumerable<DocumentSearchResultWithScore>> SearchAsync(DocumentQuery query, CancellationToken token);
+       // Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
+    }
+
+
 }

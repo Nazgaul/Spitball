@@ -15,6 +15,7 @@
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Nethereum.Web3" Version="2.5.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
+    <PackageReference Include="WindowsAzure.ServiceBus" Version="5.0.2" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -28,6 +29,7 @@
     <ProjectReference Include="..\Cloudents.Infrastructure.Framework\Cloudents.Infrastructure.Framework.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
+    <ProjectReference Include="..\Cloudents.Search\Cloudents.Search.csproj" />
   </ItemGroup>
  
 </Project>

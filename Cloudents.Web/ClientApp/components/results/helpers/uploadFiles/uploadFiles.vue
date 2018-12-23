@@ -6,7 +6,7 @@
                 <v-stepper-header class="sb-stepper-header" v-show="currentStep===1">
                     <template>
                         <h2 class="sb-step-title" v-language:inner>upload_files_header_title</h2>
-                        <h4 class="sb-step-subtitle" v-language:inner>upload_files_header_subtitle</h4>
+                        <!--<h4 class="sb-step-subtitle" v-language:inner>upload_files_header_subtitle</h4>-->
                     </template>
                 </v-stepper-header>
                 <v-stepper-items class="sb-stepper-item">
@@ -39,7 +39,7 @@
                             </div>
                             <!--Do not remove pseudo el for bnt centering-->
                             <div style="width: 96px; height: 36px; visibility: hidden; margin: 6px 8px;" v-if="currentStep === 2 && $vuetify.breakpoint.smAndUp"></div>
-                            <v-btn round v-if="currentStep > 2 && currentStep !==7" flat class="sb-back-flat-btn"
+                            <v-btn round v-if="currentStep > 2 && currentStep !==8" flat class="sb-back-flat-btn"
                                    @click="previousStep(step)">
                                 <v-icon left class="arrow-back">sbf-arrow-upward</v-icon>
                                 <span v-language:inner>upload_files_btn_back</span>
@@ -49,8 +49,8 @@
                                 <span v-language:inner>upload_files_btn_next</span>
                             </v-btn>
 
-                            <v-btn v-show="currentStep ===6 && currentStep !==7" round class="next-btn sell"
-                                   @click="sendDocumentData(step)" :disabled="isDisabled">
+                            <v-btn v-show="currentStep ===6" round class="next-btn sell"
+                                   @click="sendDocumentData(7)" :disabled="isDisabled">
                                 <span v-language:inner>upload_files_btn_sell</span>
 
                                 <v-icon right class="credit-card">sbf-credit-card</v-icon>

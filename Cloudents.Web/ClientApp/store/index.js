@@ -1,7 +1,5 @@
 ﻿import Vue from "vue";
 import Vuex from "vuex";
-//This is new vuex
-//import Search from "./session";
 import Search from "./search";
 import User from "./User";
 import Question from "./question";
@@ -13,46 +11,11 @@ import MarketingCampaign from './marketingCampaigns'
 import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
 import document from './document'
-//TODO: server side fix
-import createPersistedState from "vuex-persistedstate"
 import notification from "./notification";
 import uploadFiles from  "./uploadFiles";
-import University from "./university"
+import University from "./university";
+import homeLanding from "./homeLanding"
 
-function canWriteStorage(storage) {
-    try {
-        storage.setItem('@@', 1);
-        storage.removeItem('@@');
-        return true;
-    } catch (e) {
-    }
-
-    return false;
-}
-
-const storageFallback = [{
-    provider: localStorage,
-    enable: true,
-},
-    {
-        provider: sessionStorage,
-        enable: true,
-    }]
-for (let v in storageFallback) {
-    let item = storageFallback[v];
-    item.enable = canWriteStorage(item.provider);
-}
-
-let storage = storageFallback.find(f => f.enable);
-const plugins = [];
-if (storage) {
-    plugins.push(createPersistedState(
-        {
-            paths: ["User"],
-            storage: storage.provider
-        }
-    ));
-}
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -70,8 +33,8 @@ const store = new Vuex.Store({
         notification,
         University,
         uploadFiles,
-        document
-    },
-    //plugins: plugins
+        document,
+        homeLanding
+    }
 });
 export default store;

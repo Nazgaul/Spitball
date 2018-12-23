@@ -1,9 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -24,8 +24,10 @@ namespace Cloudents.Core.CommandHandler.Admin
         public async Task ExecuteAsync(Command.Admin.MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
+
             await _commandHandler.ExecuteAsync(new MarkAnswerAsCorrectCommand(message.AnswerId,
                 question.User.Id), token);
+
         }
     }
 }

@@ -4,7 +4,8 @@ import {debug} from "util";
 import {dollarCalculate} from "./constants";
 import analyticsService from '../services/analytics.service'
 import profileService from "../services/profile/profileService"
-
+import reputationService from '../services/reputationService'
+import { reconnectSignalR } from '../services/signalR/signalrEventService'
 
 function setIntercomSettings(data){
     let app_id = "njmpgayv";
@@ -12,6 +13,7 @@ function setIntercomSettings(data){
     let user_id = null;
     let user_name = null;
     let user_email = null;
+    
     if(!!data){
         user_id = "Sb_" + data.id;
         user_name = data.name;
@@ -49,9 +51,16 @@ const state = {
     unreadMessages: 0,
     fromPath: null,
     lastActiveRoute: null,
-    profileData: profileService.getProfileData('profileGeneral')
+    profileData: profileService.getProfileData('profileGeneral'),
+    profile: null
 }
 const mutations = {
+    setProfile(state, val){
+        state.profile = val;
+    },
+    resetProfile(state){
+        state.profile = null;
+    },
     changeLoginStatus(state, val) {
         state.login = val;
     },
@@ -81,9 +90,29 @@ const mutations = {
     UPDATE_PROFILE_DATA(state, data) {
         state.profileData = data;
     },
+    updateProfileVote(state, {id, type}){
+        if(!!state.profile){
+            state.profile.questions.forEach(question=>{
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            })
+            state.profile.answers.forEach(question=>{
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            })
+            state.profile.documents.forEach(question=>{
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            })
+        }
+    }
 };
 
 const getters = {
+    getProfile: state => state.profile,
     fromPath: state => state.fromPath,
     unreadMessages: state => state.unreadMessages,
     loginStatus: state => state.login,
@@ -102,10 +131,91 @@ const getters = {
         }else{
             return false;
         }
-    },
+    }
 };
 
 const actions = {
+    syncProfile(context, id){
+        //fetch all the data before returning the value to the component
+       let p1 = accountService.getProfile(id);
+       let p2 = accountService.getProfileQuestions(id);
+       let p3 = accountService.getProfileAnswers(id);
+       let p4 = accountService.getProfileDocuments(id);
+       Promise.all([p1,p2,p3, p4]).then((vals)=>{
+        console.log(vals)
+        let profileData = accountService.createProfileData(vals);
+        context.commit('setProfile', profileData)
+       });       
+    },
+    resetProfileData(context){
+        context.commit('resetProfile')
+    },
+    getAnswers(context, answersInfo){
+        let id = answersInfo.id
+        let page = answersInfo.page;
+        return accountService.getProfileAnswers(id, page).then(({data})=>{
+            let maximumElementsRecivedFromServer = 50;
+            if(data.length > 0){
+               data.forEach(answer=>{
+                   //create answer Object and push it to the state
+                    let answerToPush = {
+                        ...answer,
+                        filesNum: answer.files,
+                    }
+                    context.state.profile.answers.push(answerToPush);
+               }) 
+            }
+            //return true if we can call to the server
+            return data.length === maximumElementsRecivedFromServer;
+        }, (err)=>{
+            return false;
+        });
+    },
+    getQuestions(context, questionsInfo){
+        let id = questionsInfo.id
+        let page = questionsInfo.page;
+        let user = questionsInfo.user;
+        return accountService.getProfileQuestions(id, page).then(({data})=>{
+            let maximumElementsRecivedFromServer = 50;
+            if(data.length > 0){
+               data.forEach(question=>{
+                   //create answer Object and push it to the state
+                    let questionToPush = {
+                        ...question,
+                        user: user,
+                        filesNum: question.files,
+                    }
+                    context.state.profile.questions.push(questionToPush);
+               }) 
+            }
+            //return true if we can call to the server
+            return data.length === maximumElementsRecivedFromServer;
+        }, (err)=>{
+            return false;
+        });
+    },
+    getDocuments(context, DocumentsInfo){
+        let id = DocumentsInfo.id;
+        let page = DocumentsInfo.page;
+        let user = DocumentsInfo.user;
+        return accountService.getProfileDocuments(id, page).then(({data})=>{
+            let maximumElementsRecivedFromServer = 50;
+            if(data.length > 0){
+                data.forEach(document=>{
+                    //create answer Object and push it to the state
+                    let documentToPush = {
+                        ...document,
+                        user: user,
+                    };
+                    context.state.profile.documents.push(documentToPush);
+                })
+            }
+            //return true if we can call to the server
+            return data.length === maximumElementsRecivedFromServer;
+        }, (err)=>{
+            return false;
+        });
+    },
     updateUserProfileData(context, name){
         let currentProfile = profileService.getProfileData(name);
         context.commit("UPDATE_PROFILE_DATA", currentProfile );
@@ -133,6 +243,7 @@ const actions = {
                 dispatch("connectToChat");
                 dispatch("syncUniData");
                 analyticsService.sb_setUserId(UserAccount.id);
+                reconnectSignalR();
             }).catch(_ => {
                 setIntercomeData()
                 isRequire ? commit("updateFromPath", to) : '';
@@ -183,9 +294,17 @@ const actions = {
         }
     },
     updateUserBalance({commit, state}, payload) {
+        return;
         let newBalance = state.user.balance + payload;
         // debugger
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
+    },
+    
+    signalR_SetBalance({commit, state}, newBalance){
+        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
+    },
+    profileVote({commit}, data){
+        commit('updateProfileVote', data);
     }
 };
 

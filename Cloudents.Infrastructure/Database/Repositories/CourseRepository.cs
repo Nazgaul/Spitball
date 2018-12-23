@@ -1,8 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {
@@ -16,7 +17,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
             if (name == null)
             {
-                throw new System.ArgumentNullException(nameof(name));
+                throw new ArgumentNullException(nameof(name));
             }
             name = name.Trim();
             var course = await GetAsync(name, token);

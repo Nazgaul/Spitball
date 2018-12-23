@@ -48,6 +48,7 @@ namespace Cloudents.FunctionsV2.Di
                         _configuration["SearchServiceAdminApiKey"],
                     bool.Parse(_configuration["IsDevelop"])
                 ),
+                ServiceBus = _configuration["AzureWebJobsServiceBus"],
                 //MailGunDb = GetEnvironmentVariable("MailGunConnectionString"),
                 //BlockChainNetwork = GetEnvironmentVariable("BlockChainNetwork"),
                 Storage = _configuration["AzureWebJobsStorage"]
@@ -57,7 +58,6 @@ namespace Cloudents.FunctionsV2.Di
 
             builder.RegisterSystemModules(
                 Core.Enum.System.Function,
-                //Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"));
@@ -69,12 +69,9 @@ namespace Cloudents.FunctionsV2.Di
 
             builder.Register(c =>
             {
-
-                // var factory = c.Resolve<ILoggerFactory>();
                 var logger = _loggerFactory.CreateLogger("logger");
                 return new Logger(logger);
             }).As<Core.Interfaces.ILogger>();
-            //builder.RegisterType<Logger>().As<Cloudents.Core.Interfaces.ILogger>();
 
             builder.RegisterType<QuestionDbToSearchSync>()
                 .Keyed<IDbToSearchSync>(SyncType.Question).SingleInstance();
@@ -88,47 +85,7 @@ namespace Cloudents.FunctionsV2.Di
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AsClosedTypesOf(typeof(ISystemOperation<>));
-            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-            //    .AsClosedTypesOf(typeof(ISystemOperation<>))
-            //    .Named(i =>
-            //    {
-            //        return i.GetInterfaces()[0].GetGenericArguments()[0].Name;
-            //    },typeof(ISystemOperation<>));
-                    
-                //.Select(i => {
-                //    return new Autofac.Core.KeyedService(i.GetGenericArguments()[0].Name, i);
-                //}));
-
-
-
-            //builder.RegisterType<SignalROperation>().As<ISystemOperation>().WithMetadata()
-            //    .Keyed<ISystemOperation>(SystemMessageType.SignalR);
-            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-            //    .Where(t => t.IsClosedTypeOf(typeof(ISystemOperation<>)))
-            //    .Select(s=> )
-
-            //    .Named(t => t.Name);
-            //.AsImplementedInterfaces();
-            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-            //    .Where(w =>
-            //    {
-            //        return w.IsAssignableTo<ISystemOperation>();
-            //    })
-            //    .Keyed<SystemMessageType>(x =>
-            //    {
-            //        return x.GetProperty("Type").GetConstantValue();
-            //    });
-            //   // .AssignableTo<ISystemOperation>()
-
-            //   // .Keyed<SystemMessageType>(x =>
-            //   // {
-            //   //    var z = (ISystemOperation)x;
-            //   //    return z.Type;
-            //   //});
-            //builder.RegisterType<SignalROperation>().Keyed<ISystemOperation>(SystemMessageType.SignalR);
-            // builder.RegisterType<QuestionSyncOperation>().Keyed<ISystemOperation>(SystemMessageType.QuestionSearch);
-            // builder.RegisterType<UpdateUserBalanceOperation>().Keyed<ISystemOperation>(SystemMessageType.UpdateBalance);
-
+           
             builder.Populate(services); // Populate is needed to have support for scopes.
             return new AutofacServiceProvider(builder.Build());
         }

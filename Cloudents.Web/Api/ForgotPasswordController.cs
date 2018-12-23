@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -18,13 +18,13 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController]
     public class ForgotPasswordController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<RegularUser> _userManager;
+        private readonly SignInManager<RegularUser> _signInManager;
         private readonly IQueueProvider _queueProvider;
         private const string EmailTempDictionaryKey = "EmailForgotPassword";
         private readonly IStringLocalizer<ForgotPasswordController> _localizer;
 
-        public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager,
+        public ForgotPasswordController(UserManager<RegularUser> userManager, SignInManager<RegularUser> signInManager,
             IQueueProvider queueProvider, IStringLocalizer<ForgotPasswordController> localizer)
         {
             _userManager = userManager;
@@ -53,7 +53,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        private async Task GenerateEmailAsync(User user, CancellationToken token)
+        private async Task GenerateEmailAsync(RegularUser user, CancellationToken token)
         {
             TempData[EmailTempDictionaryKey] = user.Email;
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);

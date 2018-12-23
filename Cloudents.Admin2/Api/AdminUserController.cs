@@ -1,16 +1,16 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Core.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Common.Enum;
+using Cloudents.Core;
 
 
 namespace Cloudents.Admin2.Api
@@ -36,7 +36,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("sendTokens")]
         public async Task<IActionResult> Post(SendTokenRequest model, CancellationToken token)
         {
-            var command = new DistributeTokensCommand(model.UserId, model.Tokens, ActionType.None, model.TransactionType);
+            var command = new DistributeTokensCommand(model.UserId, model.Tokens, TransactionActionType.None);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -69,49 +69,82 @@ namespace Cloudents.Admin2.Api
         {
             foreach (var id in model.Ids)
             {
-                //if (model.DeleteUserQuestions)
-                //{
-                //    var answersQuery = new UserDataByIdQuery(id);
-                //    var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
+                DateTimeOffset lockout;
+                switch (model.SuspendTime)
+                {
+                    case SuspendTime.Day:
+                        
+                        lockout = DateTimeOffset.Now.AddSeconds(TimeConst.Day);
+                        break;
+                    case SuspendTime.Week:
+                        lockout = DateTimeOffset.Now.AddSeconds(TimeConst.Day * 7);
+                        break;
+                    case SuspendTime.Undecided:
+                        lockout = DateTimeOffset.MaxValue;
+                        break;
+                    case null:
+                        lockout = DateTimeOffset.MaxValue;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
 
-                //    foreach (var question in answersInfo.Questions)
-                //    {
-                //        var deleteQuestionCommand = new DeleteQuestionCommand(question);
-                //        await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
-                //    }
-
-                //    foreach (var answer in answersInfo.Answers)
-                //    {
-                //        var deleteAnswerCommand = new DeleteAnswerCommand(answer);
-                //        await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
-                //    }
-
-                //}
-                var command = new SuspendUserCommand(id, model.DeleteUserQuestions);
+                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, lockout);
                 await commandBus.DispatchAsync(command, token);
             }
             return new SuspendUserResponse();
         }
 
+        /// <summary>
+        /// Get a list of user that have been suspended
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns>list of user that have been suspended</returns>
+        [HttpGet("suspended")]
+        public async Task<IEnumerable<SuspendedUsersDto>> GetSuspended(CancellationToken token)
+        {
+            var query = new AdminEmptyQuery();
+            return await _queryBus.QueryAsync<IEnumerable<SuspendedUsersDto>>(query, token);
+        }
+
+        /// <summary>
+        /// UnSuspend a user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="token"></param>
+        /// <response code="200">The User email</response>
+        /// <returns>the user email to show on the ui</returns>
+        [HttpPost("unSuspend")]
+        [ProducesResponseType(200)]
+        public async Task<UnSuspendUserResponse> UnSuspendUserAsync(UnSuspendUserRequest model,
+            CancellationToken token)
+        {
+            foreach (var id in model.Ids)
+            {
+               
+                var command = new UnSuspendUserCommand(id);
+                await _commandBus.DispatchAsync(command, token);
+            }
+            return new UnSuspendUserResponse();
+        }
+
         [HttpPost("country")]
         [ProducesResponseType(200)]
         public async Task ChangeCountryAsync(ChangeCountryRequest model,
-            [FromServices] ICommandBus commandBus,
             CancellationToken token)
         {
             
             var command = new ChangeCountryCommand(model.Id, model.Country);
-            await commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
-        public async Task DeleteUseryAsync(long id,
-            [FromServices] ICommandBus commandBus,
+        public async Task DeleteUserAsync(long id,
             CancellationToken token)
         {
             var command = new DeleteUserCommand(id);
-            await commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
         }
             
     }

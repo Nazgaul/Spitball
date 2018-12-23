@@ -1,4 +1,5 @@
 {
   "version": "2.0",
-  //"functions": [ "UniversitySearchSync", "SearchSync", "SearchSyncCreateIndex", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
+
+  //"functions": [ "DocumentSearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }

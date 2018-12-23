@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {
@@ -31,7 +33,8 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
             //TODO: we can do this better maybe
             return await Session.Query<Question>().Where(w => w.Updated < DateTime.UtcNow.AddDays(4))
-                .Where(w => Session.Query<Answer>().FirstOrDefault(x => x.Question.Id == w.Id) == null)
+                .Where(w => Session.Query<Answer>()
+                                .FirstOrDefault(x => x.Question.Id == w.Id) == null && w.Item.State == ItemState.Ok)
                 .ToListAsync(token).ConfigureAwait(false);
         }
 
@@ -44,7 +47,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token)
         {
-            return Session.Query<Question>().Where(w => w.Text == text.Trim())
+            return Session.Query<Question>().Where(w => w.Text == text.Trim() && w.Item.State == ItemState.Ok)
                 .AnyAsync(token);
         }
     }

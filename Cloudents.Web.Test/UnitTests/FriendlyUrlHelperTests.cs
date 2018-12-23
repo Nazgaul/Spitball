@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Cloudents.Web.Extensions;
+﻿using Cloudents.Web.Extensions;
 using FluentAssertions;
 using Xunit;
 

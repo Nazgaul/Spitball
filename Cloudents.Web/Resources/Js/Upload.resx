@@ -187,7 +187,7 @@
     <value>Document Title</value>
   </data>
   <data name="files_label_legal" xml:space="preserve">
-    <value>I legally own this document, and all its legal rights</value>
+    <value>Users are prohibited from uploading copyright infringing materials. Spitball reserves the right to remove uploaded content that does not add value to the Spitball student community</value>
   </data>
   <data name="files_label_proff_name" xml:space="preserve">
     <value>Professor Name</value>
@@ -277,6 +277,15 @@
     <value>Awesome!</value>
   </data>
   <data name="first_step2_title_partTwo" xml:space="preserve">
-    <value>Get your document ready for upload</value>
+    <value>To what class this Document reffers to?</value>
+  </data>
+  <data name="files_dopHere" xml:space="preserve">
+    <value>Drop your file here</value>
+  </data>
+  <data name="files_options_text" xml:space="preserve">
+    <value>or upload from</value>
+  </data>
+  <data name="class_input_placeholder" xml:space="preserve">
+    <value>Select or Type a class name</value>
   </data>
 </root>

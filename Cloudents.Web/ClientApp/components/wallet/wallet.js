@@ -86,7 +86,8 @@ export default {
                 transactions: []
             },
             items: [],
-            cashOutOptions: cashOutCards
+            cashOutOptions: cashOutCards,
+            walletData: []
         }
     },
     methods: {
@@ -131,6 +132,7 @@ export default {
                         this.cash = Math.min(this.cash, earnedVal);
                         total.value = total.value.toFixed(2);
                         this.items.push(total);
+                        this.walletData = [...this.items];
                     },
                     error => {
                         console.error('error getting balance:', error)
@@ -144,6 +146,10 @@ export default {
                 error => {
                     console.error('error getting transactions:', error)
                 })
+        },
+        recalculate(){
+            this.getBalances();
+            this.cashOut = false;
         }
     },
     computed: {
@@ -157,10 +163,10 @@ export default {
         calculatedEarnedPoints(){
             let typesDictionary = {};
             let earned = 0;
-            this.items.forEach((item) => {
+            this.walletData.forEach((item) => {
                 typesDictionary[item.type] = item.points;
             });
-            let reduce = typesDictionary["Stake"] + typesDictionary["Spent"] + typesDictionary["Awarded"];
+            let reduce = typesDictionary["Stake"] + typesDictionary["Spent"];
             if(reduce < 0){
                 earned = typesDictionary["Earned"] + reduce;
             }else{
@@ -173,13 +179,5 @@ export default {
         this.getBalances();
         this.headers.transactions = this.$vuetify.breakpoint.xsOnly ? this.allTransactionsHeaders.filter(header => header.showOnMobile === true) : this.allTransactionsHeaders;
         this.headers.balances = this.$vuetify.breakpoint.xsOnly ? this.allBalanceHeaders.filter(header => header.showOnMobile === true) : this.allBalanceHeaders;
-        // geo to balances tab and get updated user balance
-        this.$on('updateEarnedPoints', () => {
-            this.getBalances();
-            this.cashOut = false;
-
-
-        })
-
     }
 }

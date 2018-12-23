@@ -124,7 +124,13 @@
     <value>ענה עכשיו</value>
   </data>
   <data name="Answer_dot" xml:space="preserve">
-    <value>תשובה ·</value>
+    <value>תשובה</value>
+  </data>
+  <data name="Answer_placeholder" xml:space="preserve">
+    <value>ענה...</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>SBL</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>מחק</value>
@@ -132,10 +138,19 @@
   <data name="Earn" xml:space="preserve">
     <value>קבל</value>
   </data>
+  <data name="error_delete" xml:space="preserve">
+    <value>אופס, קרתה תקלה, אנא נסה שוב</value>
+  </data>
   <data name="Question_price" xml:space="preserve">
     <value>{1} SBL</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>דווח על פריט זה</value>
+  </data>
   <data name="Sold" xml:space="preserve">
-    <value>נמכר</value>
+    <value>נענתה</value>
+  </data>
+  <data name="Someone_answering" xml:space="preserve">
+    <value>מישהו עונה עכשיו...</value>
   </data>
 </root>

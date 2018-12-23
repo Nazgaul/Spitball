@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Domain.Enums;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -29,8 +30,9 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             foreach (var county in counties)
             {
                 var future = _session.Query<Question>()
+
                       .Fetch(f => f.User)
-                      .Where(w => w.User.Fictive == true && w.User.Country == county && w.State == ItemState.Pending)
+                      .Where(w => w.User is SystemUser && w.User.Country == county && w.Item.State == ItemState.Pending)
                       .OrderBy(o => o.Id)
                       .Take(1)
                       .Select(s => s.Id)

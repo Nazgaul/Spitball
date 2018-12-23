@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.EventHandler;
 
@@ -37,13 +38,18 @@ namespace Cloudents.Web.EventHandler
                 //This can happen if we not in the scope of the website
                 return;
             }
+
+            if (!(eventMessage.Answer.Question.User is RegularUser u))
+            {
+                return;
+            }
             var question = eventMessage.Answer.Question;
             var code = _dataProtect.Protect(CreateAnswer, question.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(2));
             var link = _urlBuilder.BuildQuestionEndPoint(question.Id, new { code });
             await SendEmail(
                    new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link, question.User.Culture)
-                   , eventMessage.Answer.Question.User
+                   , u
                    , token);
         }
     }

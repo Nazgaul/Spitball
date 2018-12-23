@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
@@ -11,7 +11,7 @@ using NHibernate.Linq;
 namespace Cloudents.Infrastructure.Database.Query
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
-    public class UserLoginQueryHandler : IQueryHandler<UserLoginQuery, User>
+    public class UserLoginQueryHandler : IQueryHandler<UserLoginQuery, RegularUser>
     {
         private readonly IStatelessSession _session;
 
@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.StatelessSession;
         }
 
-        public Task<User> GetAsync(UserLoginQuery query, CancellationToken token)
+        public Task<RegularUser> GetAsync(UserLoginQuery query, CancellationToken token)
         {
             return _session.Query<UserLogin>()
                 .Fetch(f => f.User)

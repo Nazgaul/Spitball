@@ -19,11 +19,13 @@ namespace Cloudents.Infrastructure.Database
         private readonly ITransaction _transaction;
         private readonly ISession _session;
         private readonly IEventPublisher _eventPublisher;
+        private readonly IEventStore _eventStore;
 
-        public UnitOfWork(ISession session, IEventPublisher eventPublisher)
+        public UnitOfWork(ISession session, IEventPublisher eventPublisher, IEventStore eventStore)
         {
             _session = session;
             _eventPublisher = eventPublisher;
+            _eventStore = eventStore;
             _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 
@@ -43,7 +45,7 @@ namespace Cloudents.Infrastructure.Database
                     throw new InvalidOperationException("No active transaction");
                 }
 
-                await _transaction.CommitAsync(token).ConfigureAwait(false);
+                await _transaction.CommitAsync(token);
             }
             /*SELECT * FROM sys.messages
 WHERE text like '%duplicate%' and text like '%key%' and language_id = 1033*/
@@ -52,33 +54,15 @@ WHERE text like '%duplicate%' and text like '%key%' and language_id = 1033*/
                 throw new DuplicateRowException("Duplicate row", sql);
             }
 
+
+            foreach (var @event in _eventStore)
+            {
+                await _eventPublisher.PublishAsync(@event, token);
+            }
             //await PublishEventsAsync(token).ConfigureAwait(false);
         }
 
-        public async Task PublishEventsAsync(CancellationToken token)
-        {
-            //TODO :Taken https://gist.github.com/oguzhaneren/202267362af027a6e523 temp solution
-            //We should use Domain event taken from https://enterprisecraftsmanship.com/2018/06/13/ef-core-vs-nhibernate-ddd-perspective/
-            //But currently no async event works.
-            //https://github.com/nhibernate/nhibernate-core/issues/1826
-            var sessionImpl = _session.GetSessionImplementation();
-            var persistenceContext = sessionImpl.PersistenceContext;
-            var changedObjects = (from EntityEntry entityEntry in persistenceContext.EntityEntries.Values
-                                  select persistenceContext.GetEntity(entityEntry.EntityKey))
-                .OfType<IEvents>()
-                .Where(ev => ev.Events.Count > 0)
-                .ToList();
-
-            foreach (var entity in changedObjects)
-            {
-                foreach (var ev in entity.Events)
-                {
-                    await _eventPublisher.PublishAsync(ev, token).ConfigureAwait(false);
-                    // DomainEvents.Publish(ev);
-                }
-                entity.Events.Clear();
-            }
-        }
+       
 
         public async Task RollbackAsync(CancellationToken token)
         {

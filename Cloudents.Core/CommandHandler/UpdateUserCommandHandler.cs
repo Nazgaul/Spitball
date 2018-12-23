@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
+using Cloudents.Domain.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler
@@ -9,9 +10,9 @@ namespace Cloudents.Core.CommandHandler
     [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Ioc resolve")]
     public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<RegularUser> _userRepository;
 
-        public UpdateUserCommandHandler(IUserRepository userRepository)
+        public UpdateUserCommandHandler(IRepository<RegularUser> userRepository)
         {
             _userRepository = userRepository;
         }

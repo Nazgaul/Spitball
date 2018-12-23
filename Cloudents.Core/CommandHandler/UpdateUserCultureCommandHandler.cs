@@ -3,15 +3,16 @@ using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Domain.Entities;
 
 namespace Cloudents.Core.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UpdateUserCultureCommandHandler : ICommandHandler<UpdateUserCultureCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<RegularUser> _userRepository;
 
-        public UpdateUserCultureCommandHandler(IUserRepository userRepository)
+        public UpdateUserCultureCommandHandler(IRepository<RegularUser> userRepository)
         {
             _userRepository = userRepository;
         }

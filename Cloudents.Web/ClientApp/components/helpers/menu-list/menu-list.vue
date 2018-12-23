@@ -62,7 +62,7 @@
         </v-list>
         <!--mobile side menu open template-->
         <v-list class="menu-list" v-else>
-            <user-block :user=user :showExtended="true" :classType="'university'" v-if=isMobile></user-block>
+            <user-block :user=user :showExtended="true" :classType="'university authenticated-user'" v-if=isMobile></user-block>
             <router-link tag="v-list-tile" :to="{name:'wallet'}">
                 <v-list-tile-action>
                     <v-icon>sbf-wallet</v-icon>
@@ -118,7 +118,7 @@
 
                 </v-list-tile-action>
             </v-list-tile>
-            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name"
+            <v-list-tile v-if="!fromUSA" v-for="singleLang in languageChoisesAval" :key="singleLang.name"
                          @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
                     <v-icon>{{singleLang.icon}}</v-icon>
@@ -224,6 +224,7 @@
                 showReferral: false,
                 languagesLocales,
                 languageChoisesAval: [],
+                fromUSA: global.country.toLowerCase() === 'us'
             }
         },
         props: {
@@ -272,7 +273,6 @@
                         }
                     )
             },
-
             startIntercom() {
                 Intercom('showNewMessage')
             },
