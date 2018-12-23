@@ -15,6 +15,12 @@
                             <div>{{answer.text}}</div>
                         </div>
                     </div>
+                    <div class="answer-question-data-body answer-left-body">
+                        <div class="question-data">
+                            <div>Question ID: {{answer.questionData.id}}</div>
+                        </div>
+                        <div class="question-text">{{answer.questionData.text}}</div>
+                    </div>
                     <div class="answer-right-body">
                         <button @click="aproveA(answer, index)">Approve</button>
                         <button class="decline" @click="declineAnswer(answer, index)">Delete</button>
@@ -33,111 +39,116 @@
 <style lang="scss" scoped>
     .page-container {
         display: flex;
-        .deleted-emails
+        .deleted-emails {
+            position: absolute;
+            color: #c25050;
+            .bold {
+                font-weight: 600;
+            }
 
-    {
-        position: absolute;
-        color: #c25050;
-        .bold
+        }
 
-    {
-        font-weight: 600;
-    }
+        .answer-co {
+            flex-grow: 1;
+            .answerItem {
+                display: flex;
+                margin: 0 auto;
+                flex-direction: row;
+                border: 2px solid #c7c7c7;
+                margin-bottom: 10px;
+                width: 70%;
+                min-width: 500px;
+                border-radius: 29px;
+                .answer-left-body {
+                    flex-grow: 10;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    padding: 10px;
+                    padding-left: 15px;
+                    background-color: #c7c7c7;
+                    border-radius: 20px;
+                    margin: 10px;
+                    .user-container {
+                        display: flex;
+                        flex-grow: 1;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        width: 98%;
+                        border-bottom: 1px solid #e0e0e0;
+                    }
 
-    }
+                    .answer-container {
+                        display: flex;
+                        flex-grow: 5;
+                        flex-direction: column;
+                        width: 100%;
+                        text-align: left;
+                        .bottom-border {
+                            border-bottom: 1px solid #c7c7c7;
+                            width: fit-content;
+                        }
 
-    .answer-co {
-        flex-grow: 1;
-        .answerItem
+                        .bold {
+                            font-weight: 600;
+                        }
 
-    {
-        display: flex;
-        margin: 0 auto;
-        flex-direction: row;
-        border: 2px solid #c7c7c7;
-        margin-bottom: 10px;
-        width: 70%;
-        min-width: 500px;
-        border-radius: 29px;
-        .answer-left-body
+                        .bottom-space {
+                            margin-bottom: 5px;
+                        }
 
-    {
-        flex-grow: 10;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 10px;
-        padding-left: 15px;
-        background-color: #c7c7c7;
-        border-radius: 20px;
-        margin: 10px;
-        .user-container
+                    }
+                }
 
-    {
-        display: flex;
-        flex-grow: 1;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 98%;
-        border-bottom: 1px solid #e0e0e0;
-    }
+                .answer-right-body {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    margin: 10px;
+                    justify-content: left;
+                    text-align: left;
+                    background-color: #c7c7c7;
+                    border-radius: 25px;
+                    padding: 7px;
+                    button {
+                        cursor: pointer;
+                        background-color: #affb93;
+                        border-radius: 25px;
+                        border: none;
+                        outline: none;
+                        cursor: pointer;
+                        height: 40px;
+                        margin-bottom: 5px;
+                        margin-top: 5px;
+                        &.decline {
+                            background-color: #fb9393
+                        }
 
-    .answer-container {
-        display: flex;
-        flex-grow: 5;
-        flex-direction: column;
-        width: 100%;
-        text-align: left;
-        .bottom-border
+                    }
+                }
+                .answer-question-data-body {
+                    display: flex;
+                    flex-basis: 20%;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    text-align: left;
+                    padding-top: 0;
+                    .question-data {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        width: 98%;
+                        padding-bottom: 4px;
+                        border-bottom: 1px solid #e0e0e0;
 
-    {
-        border-bottom: 1px solid #c7c7c7;
-        width: fit-content;
-    }
-
-    .bold {
-        font-weight: 600;
-    }
-
-    .bottom-space {
-        margin-bottom: 5px;
-    }
-
-    }
-    }
-
-    .answer-right-body {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        margin: 10px;
-        justify-content: left;
-        text-align: left;
-        background-color: #c7c7c7;
-        border-radius: 25px;
-        padding: 7px;
-        button
-
-    {
-        cursor: pointer;
-        background-color: #affb93;
-        border-radius: 25px;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        height: 40px;
-        margin-bottom: 5px;
-        margin-top: 5px;
-        &.decline
-
-    {
-        background-color: #fb9393
-    }
-
-    }
-    }
-    }
-    }
+                    }
+                    .question-text {
+                        padding-top: 4px;
+                        line-height: 1.4;
+                    }
+                }
+            }
+        }
     }
 </style>
