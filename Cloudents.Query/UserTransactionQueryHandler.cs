@@ -3,12 +3,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Query;
 using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Transform;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserTransactionQueryHandler : IQueryHandler<UserDataByIdQuery, IEnumerable<TransactionDto>>
