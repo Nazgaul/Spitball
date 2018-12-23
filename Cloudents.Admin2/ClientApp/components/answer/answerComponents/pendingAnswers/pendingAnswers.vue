@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="answer-right-body">
-                        <button @click="aproveA(answer, index)">Aprove</button>
+                        <button @click="aproveA(answer, index)">Approve</button>
                         <button class="decline" @click="declineAnswer(answer, index)">Delete</button>
                     </div>
                 </div>
