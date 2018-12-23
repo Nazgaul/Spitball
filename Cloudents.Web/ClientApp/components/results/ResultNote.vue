@@ -1,10 +1,10 @@
 <template>
-    <a
+    <div
             :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
-            @click.native="(isOurs ? $_spitball($event, url): '')"
-            :href="url"
+            @click="(isOurs ? $_spitball($event, url): $_thirdPartyEvent($event, url))"
             id="sb-link"
             :class="['d-block', 'note-block']"
+            :href="url"
     >
         <v-container
                 class="pa-0"
@@ -30,8 +30,8 @@
                         <!--<span>SBL</span>-->
                         <!--</div>-->
                         <div class="menu-area">
-                            <v-menu bottom left content-class="card-user-actions">
-                                <v-btn :depressed="true" @click.prevent slot="activator" icon>
+                            <v-menu bottom left content-class="card-user-actions" v-model="showMenu">
+                                <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()"   slot="activator" icon>
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
@@ -46,11 +46,11 @@
                 </div>
                 <v-flex grow class="top-row">
                     <div class="upvotes-counter" v-if="item.votes !== null">
-            <span class="document-reputation upvote-arrow" @click.prevent="upvoteDocument()">
+            <span class="document-reputation upvote-arrow" @click.stop.prevent="upvoteDocument()">
               <v-icon :class="{'voted': item.upvoted}">sbf-arrow-up</v-icon>
             </span>
                         <span class="document-reputation document-score" :dir="isRtl ? `ltr` : ''">{{item.votes}}</span>
-                        <span class="document-reputation downvote-arrow" @click.prevent="downvoteDocument()">
+                        <span class="document-reputation downvote-arrow" @click.stop.prevent="downvoteDocument()">
               <v-icon :class="{'voted': item.downvoted}">sbf-arrow-down</v-icon>
             </span>
                     </div>
@@ -92,7 +92,7 @@
         >
             <report-item :closeReport="closeReportDialog" :itemType="item.template" :itemId="itemId"></report-item>
         </sb-dialog>
-    </a>
+    </div>
 </template>
 <script>
     import FlashcardDefault from "../helpers/img/flashcard.svg";
@@ -130,7 +130,8 @@
                 ],
                 itemId: 0,
                 showReport: false,
-                isRtl: global.isRtl
+                isRtl: global.isRtl,
+                showMenu: false
             };
         },
         props: {item: {type: Object, required: true}, index: {Number}},
@@ -197,7 +198,7 @@
             isOurs() {
                 let ours;
                 if (this.item && this.item.source) {
-                    ours = this.item.source.toLowerCase().includes("cloudents") || this.item.source.toLowerCase().includes("spitball");
+                    ours = this.item.source.toLowerCase().includes("cloudents");
                 }
                 return ours
             },
@@ -235,15 +236,21 @@
             closeReportDialog() {
                 this.showReport = false;
             },
-            $_spitball(event) {
-                console.log('our event', event);
+            showReportOptions(){
+              this.showMenu =true
+            },
+            $_spitball(event, url) {
                 event.preventDefault();
-                this.$router.push(this.url);
+                this.$router.push(url);
                 setTimeout(() => {
                     if (this.item && this.item.views) {
                         this.item.views = this.item.views + 1;
                     }
                 }, 100);
+            },
+            $_thirdPartyEvent(event, url){
+                event.preventDefault();
+                global.open(url, '_blank');
             },
 
             isAuthUser() {
