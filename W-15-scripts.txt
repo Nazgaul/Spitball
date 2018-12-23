@@ -115,8 +115,36 @@ insert into sb.HomeStats ([users], [answers], SBLs, [money]) VALUES (
 (select sum(Price)/40 from sb.[Transaction] where Type = 'Earned')
 )
 
+alter table sb.[user]
+add  Score int null
+
+
+begin tran
+update D
+set [Views] = NumberOfViews
+from sb.Document D
+join (select ItemId, NumberOfViews from zbox.Item) I
+on D.OldId = I.ItemId
+commit
+
+
+begin tran
+update D
+set Downloads = NumberOfDownloads
+from sb.Document D
+join (select ItemId, NumberOfDownloads from zbox.Item) I
+on D.OldId = I.ItemId
+commit
+
+begin tran
+update sb.[user]
+set SecurityStamp = ''
+where SecurityStamp is null and OldUser = 1
+commit
+
 
 --DONE
+
 --need to add connection string to service bus , in azure function
 
 
@@ -132,8 +160,7 @@ where CourseName like '%+%'
 delete from sb.Course where name like '%+%'
 commit
 
-alter table sb.[user]
-add  Score int null
+
 
 --make sure state in question table is not null
 
@@ -178,30 +205,14 @@ alter table sb.[user]
 
 --Case 11739
 
-begin tran
-update D
-set [Views] = NumberOfViews
-from sb.Document D
-join (select ItemId, NumberOfViews from zbox.Item) I
-on D.OldId = I.ItemId
-commit
 
 
-begin tran
-update D
-set Downloads = NumberOfDownloads
-from sb.Document D
-join (select ItemId, NumberOfDownloads from zbox.Item) I
-on D.OldId = I.ItemId
-commit
+
+
 
 
 --Case 11716
-begin tran
-update sb.[user]
-set SecurityStamp = ''
-where SecurityStamp is null and OldUser = 1
-commit
+
 
 
 --set items state to be not null
