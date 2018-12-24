@@ -60,7 +60,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
 	                             q.Subject_id as Subject,
 	                             c.* 
                             From sb.[Question] q 
-                            CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c 
+                            left join CHANGETABLE (CHANGES sb.[Question], 0) AS c  ON q.Id = c.id 
                             left join sb.[User] u 
 	                            On u.Id = q.UserId
                             Order by q.Id 
