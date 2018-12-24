@@ -23,6 +23,7 @@ namespace Cloudents.FunctionsV2
 
         internal static async Task StartSearchSync(DurableOrchestrationClient starter,
             ILogger log, SyncType syncType)
+
         {
             var model = new SearchSyncInput(syncType);
             var existingInstance = await starter.GetStatusAsync(model.InstanceId);
@@ -80,6 +81,7 @@ namespace Cloudents.FunctionsV2
                 needContinue = result.NeedContinue;
                 nextVersion = Math.Max(nextVersion, result.Version);
                 input.SyncAzureQuery.Page++;
+                await context.CallActivityAsync(SetSyncStatusFunctionName, input);
             } while (needContinue);
 
             if (nextVersion == input.SyncAzureQuery.Version)

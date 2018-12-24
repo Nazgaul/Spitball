@@ -1,13 +1,13 @@
-﻿using System;
-using System.Reflection;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Reflection;
 
 namespace Cloudents.Search.Document
 {
     public class SearchIndexEnumToIntContractResolver : DefaultContractResolver
     {
-        
+
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var p = base.CreateProperty(member, memberSerialization);
@@ -19,6 +19,14 @@ namespace Cloudents.Search.Document
             if (p.PropertyType == typeof(Guid))
             {
                 p.PropertyType = typeof(string);
+            }
+            var nullableType = Nullable.GetUnderlyingType(p.PropertyType);
+            if (nullableType != null)
+            {
+                if (nullableType == typeof(Guid))
+                {
+                    p.PropertyType = typeof(string);
+                }
             }
             return p;
         }
