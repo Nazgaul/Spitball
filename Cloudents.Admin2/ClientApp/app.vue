@@ -23,7 +23,8 @@ export default {
 
 <style lang="scss">
    html,body {
-        height: 100%;
+        /*height: 100%;*/
+       overflow: hidden;
         margin: 0;
         padding: 0;
         background-color: #e0e0e0;
