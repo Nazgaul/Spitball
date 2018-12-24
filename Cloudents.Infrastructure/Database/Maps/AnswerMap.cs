@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .LazyLoad()
                 .Inverse();
 
-            SchemaAction.Update();
+            SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");
         }
 

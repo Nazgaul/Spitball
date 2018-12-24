@@ -24,13 +24,15 @@ namespace Cloudents.Infrastructure.Database.Maps
             Component(x => x.Item, t =>
             {
                 ItemComponentPartialMapping(t);
-                t.HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse().Cascade.AllDeleteOrphan();
-                t.References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("QuestionFlagged_User");
+                t.HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse()
+                    .Cascade.AllDeleteOrphan();
+                t.References(x => x.FlaggedUser)
+                    .Column("FlaggedUserId").ForeignKey("QuestionFlagged_User");
             });
             //Component(x => x.Item);
             Map(x => x.Language).Length(5);
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
-            Map(x => x.AnswerCount).Not.Nullable();
+           // Map(x => x.AnswerCount).Not.Nullable();
 
             References(x => x.User).Column("UserId")
                 .ForeignKey("Question_User").Not.Nullable()

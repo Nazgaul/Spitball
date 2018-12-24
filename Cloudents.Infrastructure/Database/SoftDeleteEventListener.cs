@@ -52,6 +52,7 @@ namespace Cloudents.Infrastructure.Database
 
         private static void DeleteItem(ISoftDelete deletable)
         {
+            deletable.DeleteAssociation();
             deletable.Item = deletable.Item;
             deletable.Item.State = ItemState.Deleted;
             deletable.Item.DeletedOn = DateTime.UtcNow;

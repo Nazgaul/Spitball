@@ -45,9 +45,6 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
-            HasMany(x => x.Answers)
-                .Inverse()
-                .Cascade.AllDeleteOrphan();
 
             HasMany(x => x.Questions)
                 .Inverse()
@@ -91,6 +88,9 @@ namespace Cloudents.Infrastructure.Database.Maps
         public RegularUserMap()
         {
 
+            HasMany(x => x.Answers)
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
             DiscriminatorValue(false);
         }
     }

@@ -82,7 +82,7 @@ namespace Cloudents.Domain.Entities
 
         public virtual QuestionColor? Color { get; set; }
 
-        public virtual int AnswerCount { get; set; }
+       // public virtual int AnswerCount { get; set; }
 
         public virtual Answer AddAnswer(string text, int attachments, RegularUser user)
         {
@@ -111,5 +111,9 @@ namespace Cloudents.Domain.Entities
             Language = info;
         }
 
+        public override void DeleteAssociation()
+        {
+            Item.Votes.Clear();
+        }
     }
 }

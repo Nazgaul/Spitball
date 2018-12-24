@@ -18,6 +18,6 @@ namespace Cloudents.Admin2.Models
 
     public class ApproveAnswerRequest
     {
-        public IEnumerable<Guid> ids { get; set; }
+        public Guid Id { get; set; }
     }
 }

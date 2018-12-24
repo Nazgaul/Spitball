@@ -31,7 +31,7 @@ namespace Cloudents.Core.CommandHandler.Admin
             {
                 var answer = await _answerRepository.LoadAsync(answerId, token);
                 answer.Item.State = ItemState.Ok;
-                answer.Question.AnswerCount++;
+                //answer.Question.AnswerCount++;
                 await _questionRepository.UpdateAsync(answer.Question, token);
                 _eventStore.Add(new AnswerCreatedEvent(answer));
                 await _answerRepository.UpdateAsync(answer, token);

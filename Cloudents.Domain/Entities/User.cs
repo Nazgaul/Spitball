@@ -70,13 +70,12 @@ namespace Cloudents.Domain.Entities
         public virtual IList<Transaction> Transactions { get; protected set; }
         protected internal virtual IList<Question> Questions { get; set; }
 
+       
         
 
         public virtual IList<Question> QuestionsReadOnly => new ReadOnlyCollection<Question>(Questions);
 
-        protected internal virtual IList<Answer> Answers { get; set; }
-
-        public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
+      
 
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
@@ -129,11 +128,25 @@ namespace Cloudents.Domain.Entities
             Created = DateTime.UtcNow;
             //Fictive = false;
 
-        }
 
+
+
+        }
         protected RegularUser()
         {
 
         }
+
+        public virtual void DeleteQuestionAndAnswers()
+        {
+            Questions.Clear();
+            Answers.Clear();
+        }
+
+        protected internal virtual IList<Answer> Answers { get; set; }
+
+        public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
+
+       
     }
 }

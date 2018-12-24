@@ -39,11 +39,17 @@ namespace Cloudents.Domain.Entities
         public virtual ICollection<Vote> Votes { get; protected set; }
 
         public virtual int VoteCount { get; set; }
+
+       
     }
+
+    
 
     public abstract class ItemObject : ISoftDelete
     {
         public virtual ItemComponent Item { get; set; }
+
+        public abstract void DeleteAssociation();
         //public virtual User User { get; set; }
 
     }

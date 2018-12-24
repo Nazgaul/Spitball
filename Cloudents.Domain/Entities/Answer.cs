@@ -42,6 +42,10 @@ namespace Cloudents.Domain.Entities
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
+        public override void DeleteAssociation()
+        {
+            Item.Votes.Clear();
+        }
     }
 
 }
