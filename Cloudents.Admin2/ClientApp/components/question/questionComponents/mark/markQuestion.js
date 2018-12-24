@@ -57,12 +57,12 @@ export default {
     },
     beforeMount () {
         this.$nextTick(function(){
-            let containerElm = document.getElementById('app-body');
+            let containerElm = document.getElementById('question-wrapper-scroll');
             containerElm.addEventListener('scroll', this.handleScroll);
         })
       },
     beforeDestroy () {
-      let containerElm = document.getElementById('app-body');
+      let containerElm = document.getElementById('question-wrapper-scroll');
       containerElm.removeEventListener('scroll', this.handleScroll);
     }
 }

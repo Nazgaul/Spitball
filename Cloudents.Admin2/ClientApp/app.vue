@@ -23,7 +23,8 @@ export default {
 
 <style lang="scss">
    html,body {
-        height: 100%;
+       //breaks scroll, cannot listen scroll if parent is scrolling
+        /*height: 100%;*/
         margin: 0;
         padding: 0;
         background-color: #e0e0e0;
@@ -76,5 +77,6 @@ export default {
     #app-body{
         flex-grow: 1;
         padding: 2px;
+
     }
 </style>
