@@ -196,13 +196,13 @@
     <value>School</value>
   </data>
   <data name="files_label_tags" xml:space="preserve">
-    <value>Tags</value>
+    <value>Keywords</value>
   </data>
   <data name="files_placeholder_proff_name" xml:space="preserve">
     <value>Enter a professor name</value>
   </data>
   <data name="files_placeholder_tags" xml:space="preserve">
-    <value>Type a tag name</value>
+    <value>Type a keyword name</value>
   </data>
   <data name="files_step2_subtitle" xml:space="preserve">
     <value>Filling details will increase this doc. chances to get
@@ -231,7 +231,7 @@
     <value>Please make sure all the details are just right </value>
   </data>
   <data name="files_step6_title" xml:space="preserve">
-    <value>You Rock! you finished sooo fast!</value>
+    <value>You Rock! Review the details, before sale.</value>
   </data>
   <data name="files_step7_subtitle" xml:space="preserve">
     <value>Help others while you are waiting</value>
@@ -287,5 +287,29 @@
   </data>
   <data name="class_input_placeholder" xml:space="preserve">
     <value>Select or Type a class name</value>
+  </data>
+  <data name="files_final_prof_label" xml:space="preserve">
+    <value>Prof.</value>
+  </data>
+  <data name="files_final_title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="files_price_equals" xml:space="preserve">
+    <value>Equals to </value>
+  </data>
+  <data name="files_price_label" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="files_price_subtitle" xml:space="preserve">
+    <value>In spitball platform you can buy and sell with</value>
+  </data>
+  <data name="files_price_title" xml:space="preserve">
+    <value>Set your price</value>
+  </data>
+  <data name="files_price_your_balance" xml:space="preserve">
+    <value>Your balance</value>
+  </data>
+  <data name="files_price_zero_means_free" xml:space="preserve">
+    <value>Price 00.00, means that the doc. will be free</value>
   </data>
 </root>

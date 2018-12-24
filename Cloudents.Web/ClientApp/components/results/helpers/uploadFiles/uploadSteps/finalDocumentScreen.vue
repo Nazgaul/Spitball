@@ -1,9 +1,9 @@
 <template>
     <v-card class="mb-5 sb-step-card">
-        <div class="upload-row-1">
+        <div class="upload-row-1 final-row" row>
             <v-icon class="five">sbf-five</v-icon>
             <h3 class="sb-title" v-language:inner>upload_files_step6_title</h3>
-            <h4 class="sb-subtitle mt-2" v-language:inner>upload_files_step6_subtitle</h4>
+            <!--<h4 class="sb-subtitle mt-2" v-language:inner>upload_files_step6_subtitle</h4>-->
         </div>
         <div class="upload-row-2 final-row " style="padding-top: 32px;">
             <div class="final-item school">
@@ -13,11 +13,10 @@
                 </div>
                 <div>
                     <span class="school-name"
-                          v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getSchoolName}}</span>
+                          v-line-clamp="1">{{getSchoolName}}</span>
                 </div>
-
             </div>
-            <div class="final-item class-selected"  @click="changeStep(2)">
+            <div class="final-item class-selected" @click="changeStep(2)">
                 <div class="edit">
                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                     <span v-language:inner>upload_files_edit</span>
@@ -27,10 +26,33 @@
                     <span class="item-name" v-language:inner>upload_files_class</span>
                 </div>
                 <span class="class-name"
-                      v-line-clamp="$vuetify.breakpoint.xsOnly ? 1 : 2 ">{{getFileData.course}}</span>
+                      v-line-clamp="1">{{getFileData.course}}</span>
             </div>
-        </div>
-        <div class="upload-row-3 final-row">
+            <div class="final-item" @click="changeStep(2)">
+                <div class="edit">
+                    <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                    <span v-language:inner>upload_files_edit</span>
+                </div>
+                <div class="final-item-wrap">
+                    <v-icon class="final-icon">sbf-classes-new</v-icon>
+                    <span class="item-name" v-language:inner>upload_files_final_title</span>
+                </div>
+                <span class="class-name"
+                      v-line-clamp="1">{{getFileData.name}}</span>
+            </div>
+            <div class="final-item" @click="changeStep(2)">
+                <div class="edit">
+                    <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                    <span v-language:inner>upload_files_edit</span>
+                </div>
+                <div class="final-item-wrap">
+                    <v-icon class="final-icon">sbf-professor</v-icon>
+                    <span class="item-name" v-language:inner>upload_files_final_prof_label</span>
+                </div>
+                <span class="class-name"
+                      v-line-clamp="1">{{getFileData.professor}}</span>
+            </div>
+
             <div class="final-item doc-type-selected" @click="changeStep(3)">
                 <div class="edit">
                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>
@@ -50,7 +72,7 @@
                 <div class="final-item-wrap">
                     <v-icon class="final-icon tags">sbf-tag-icon</v-icon>
                     <span class="item-name" v-language:inner>upload_files_label_tags</span>
-
+                    <span class="keywords-length mr-3">{{getFileData.tags.length}}</span>
                 </div>
                 <div class="sb-combo final-tags">
                     <v-chip class="sb-chip-tag" v-for="tag in getFileData.tags" :key="tag">
@@ -59,6 +81,18 @@
                                                    </span>
                     </v-chip>
                 </div>
+            </div>
+            <div class="final-item price" @click="changeStep(6)">
+                <div class="edit">
+                    <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                    <span v-language:inner>upload_files_edit</span>
+                </div>
+                <div class="final-item-wrap">
+                    <v-icon class="final-icon">sbf-credit-card</v-icon>
+                    <span class="item-name" v-language:inner>upload_files_price_label</span>
+                </div>
+                <span class="price"
+                      v-line-clamp="1">{{getFileData.price}} <span class="price-sbl">SBL</span></span>
             </div>
         </div>
         <div class="upload-row-4 final-row">
@@ -105,11 +139,11 @@
                 getSchoolName: 'getSchoolName',
 
             }),
-            legalCheck:{
-                get(){
+            legalCheck: {
+                get() {
                     return this.getLegal;
                 },
-                set(val){
+                set(val) {
                     this.checker = val;
                 }
             },

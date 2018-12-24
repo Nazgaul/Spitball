@@ -116,7 +116,10 @@
                     this.docClass
                 },
                 set(val){
-                    this.updateFile({'course': val.text});
+                    if(!!val){
+                        this.updateFile({'course': val.text});
+                    }
+
                 }
 
             }
