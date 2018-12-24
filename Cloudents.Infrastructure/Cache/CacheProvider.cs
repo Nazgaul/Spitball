@@ -16,30 +16,30 @@ namespace Cloudents.Infrastructure.Cache
         {
             _logger = logger;
             
-            //var multiplexer = StackExchange.Redis.ConnectionMultiplexer.Connect(keys.Redis);
+            var multiplexer = StackExchange.Redis.ConnectionMultiplexer.Connect(keys.Redis);
 
-            //multiplexer.ConnectionFailed += (sender, args) =>
-            //{
-            //    _distributedEnabled = false;
+            multiplexer.ConnectionFailed += (sender, args) =>
+            {
+                _distributedEnabled = false;
 
-            //    //Console.WriteLine("Connection failed, disabling redis...");
-            //};
+                //Console.WriteLine("Connection failed, disabling redis...");
+            };
 
-            //multiplexer.ConnectionRestored += (sender, args) =>
-            //{
-            //    _distributedEnabled = true;
-                
-            //    //Console.WriteLine("Connection restored, redis is back...");
-            //};
+            multiplexer.ConnectionRestored += (sender, args) =>
+            {
+                _distributedEnabled = true;
 
-            //_cache = CacheFactory.Build(
-            //    s => s
-            //        .WithJsonSerializer()
-            //        .WithDictionaryHandle()
-            //        //.WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
-            //        .And
-            //        .WithRedisConfiguration("redis", multiplexer)
-            //        .WithRedisCacheHandle("redis"));
+                //Console.WriteLine("Connection restored, redis is back...");
+            };
+
+            _cache = CacheFactory.Build(
+                s => s
+                    .WithJsonSerializer()
+                    .WithDictionaryHandle()
+                    //.WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
+                    .And
+                    .WithRedisConfiguration("redis", multiplexer)
+                    .WithRedisCacheHandle("redis"));
 
             _cache = CacheFactory.Build(settings =>
             {

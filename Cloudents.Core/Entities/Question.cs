@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -29,7 +30,9 @@ namespace Cloudents.Core.Entities
             {
                 Color = color;
             }
-            Item.State = Privileges.GetItemState(user.Score);
+            ChangeState(Privileges.GetItemState(user.Score));
+            //Item.ChangeState(Privileges.GetItemState(user.Score));
+            //Item.State = Privileges.GetItemState(user.Score);
             Language = language;
         }
 
@@ -49,7 +52,8 @@ namespace Cloudents.Core.Entities
                 Color = color;
             }
 
-            Item.State = ItemState.Pending;
+            ChangeState(ItemState.Pending);
+            //Item.State = ItemState.Pending;
             Language = language;
         }
 
@@ -80,7 +84,7 @@ namespace Cloudents.Core.Entities
 
         public virtual QuestionColor? Color { get; set; }
 
-        public virtual int AnswerCount { get; set; }
+       // public virtual int AnswerCount { get; set; }
 
         public virtual Answer AddAnswer(string text, int attachments, RegularUser user)
         {
@@ -108,6 +112,17 @@ namespace Cloudents.Core.Entities
 
             Language = info;
         }
+
+        public virtual void ChangeState(ItemState state)
+        {
+            Item.ChangeState(state);
+            if (Item.State == ItemState.Pending && state == ItemState.Ok)
+            {
+                this.Updated = DateTime.UtcNow;
+                Events.Add(new QuestionCreatedEvent(this));
+            }
+        }
+
 
     }
 }

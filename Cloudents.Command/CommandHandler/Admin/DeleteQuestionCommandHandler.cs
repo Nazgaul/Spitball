@@ -19,7 +19,9 @@ namespace Cloudents.Command.CommandHandler.Admin
         private readonly IEventStore _eventStore;
 
 
-        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<Transaction> transactionRepository, IEventStore eventStore)
+        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository,
+            IRepository<Transaction> transactionRepository,
+            IEventStore eventStore)
         {
             _questionRepository = questionRepository;
             _transactionRepository = transactionRepository;

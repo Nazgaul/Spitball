@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
@@ -21,7 +23,7 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            Item.State = Privileges.GetItemState(user.Score);
+            ChangeState(Privileges.GetItemState(user.Score));
             
         }
 
@@ -42,6 +44,30 @@ namespace Cloudents.Core.Entities
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
+
+        public virtual void ChangeState(ItemState state)
+        {
+            Item.ChangeState(state);
+        }
+
+        public virtual void DeleteAnswer()
+        {
+
+        }
+
+        public virtual void DeleteAnswerAdmin()
+        {
+            this.Transactions.Clear();
+            this.Events.Add(new AnswerDeletedEvent(this));
+            if (Question.CorrectAnswer != null)
+            {
+                if (Id == Question.CorrectAnswer.Id)
+                {
+                    Question.CorrectAnswer = null;
+                }
+            }
+        }
+        //public override ItemComponent Item { get; set; }
     }
 
 }

@@ -51,7 +51,7 @@ namespace Cloudents.Infrastructure.Stuff
             builder.RegisterAssemblyTypes(typeof(IEventHandler<>).Assembly).AsClosedTypesOf(typeof(IEventHandler<>));
 
             builder.RegisterType<EventPublisher>().As<IEventPublisher>();
-            builder.RegisterType<EventStore>().As<IEventStore>().InstancePerLifetimeScope();
+            //builder.RegisterType<EventStore>().As<IEventStore>().InstancePerLifetimeScope();
             builder.RegisterType<Logger>().As<ILogger>();
 
         }

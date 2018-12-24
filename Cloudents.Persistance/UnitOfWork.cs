@@ -17,13 +17,13 @@ namespace Cloudents.Persistance
         private readonly ITransaction _transaction;
         private readonly ISession _session;
         private readonly IEventPublisher _eventPublisher;
-        private readonly IEventStore _eventStore;
+        //private readonly IEventStore _eventStore;
 
-        public UnitOfWork(ISession session, IEventPublisher eventPublisher, IEventStore eventStore)
+        public UnitOfWork(ISession session, IEventPublisher eventPublisher/*, IEventStore eventStore*/)
         {
             _session = session;
             _eventPublisher = eventPublisher;
-            _eventStore = eventStore;
+            //_eventStore = eventStore;
             _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 
@@ -53,10 +53,10 @@ WHERE text like '%duplicate%' and text like '%key%' and language_id = 1033*/
             }
 
 
-            foreach (var @event in _eventStore)
-            {
-                await _eventPublisher.PublishAsync(@event, token);
-            }
+            //foreach (var @event in _eventStore)
+            //{
+            //    await _eventPublisher.PublishAsync(@event, token);
+            //}
             //await PublishEventsAsync(token).ConfigureAwait(false);
         }
 

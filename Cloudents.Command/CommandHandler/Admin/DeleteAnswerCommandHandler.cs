@@ -18,15 +18,13 @@ namespace Cloudents.Command.CommandHandler.Admin
         private readonly IRepository<Answer> _repository;
         private readonly IRepository<Transaction> _transactionRepository;
         private readonly IRepository<Question> _questionRepository;
-        private readonly IEventStore _eventStore;
 
         public DeleteAnswerCommandHandler(IRepository<Answer> repository,
-            IRepository<Transaction> transactionRepository, IRepository<Question> questionRepository, IEventStore eventStore)
+            IRepository<Transaction> transactionRepository, IRepository<Question> questionRepository)
         {
             _repository = repository;
             _transactionRepository = transactionRepository;
             _questionRepository = questionRepository;
-            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
@@ -55,7 +53,6 @@ namespace Cloudents.Command.CommandHandler.Admin
             
             _eventStore.Add(new AnswerDeletedEvent(answer));
 
-            answer.Question.AnswerCount--;
             if (answer.Question.CorrectAnswer != null)
             {
                 if (answer.Id == answer.Question.CorrectAnswer.Id)
