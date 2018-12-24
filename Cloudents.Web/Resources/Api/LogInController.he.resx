@@ -121,7 +121,7 @@
     <value>כתובת דוא"ל או סיסמה שגויה</value>
   </data>
   <data name="EmailNotFound" xml:space="preserve">
-    <value>לא ניתן למצוא חשבון ספיטבול</value>
+    <value>חשבון לא קיים, בבקשה בצע הרשמה</value>
   </data>
   <data name="LockOut" xml:space="preserve">
     <value>המשתמש נעול</value>
