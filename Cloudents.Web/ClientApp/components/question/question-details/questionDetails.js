@@ -44,7 +44,7 @@ export default {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         ...mapGetters(["getQuestion"]),
         submitAnswer() {
-            if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
+            if (!this.textAreaValue && this.textAreaValue.trim().length < 15) {
                 this.errorTextArea = {
                     errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
                     errorClass: true
