@@ -32,7 +32,7 @@
                     </vue-recaptcha>
                     <v-btn class="continue-btn" value="Login"
                            :loading="loading"
-                           :disabled="(!email && !updatedEmail) || !recaptcha  || !password || !confirmPassword"
+                           :disabled="!email  || !recaptcha  || !password || !confirmPassword"
                            type="submit"
                     ><span v-language:inner>login_continue</span></v-btn>
                     <div class="checkbox-terms">
@@ -78,7 +78,6 @@
                 confirmPassword: '',
                 bottomError: false,
                 submitted: false,
-                updatedEmail: ''
             }
         },
         props: {
@@ -117,7 +116,7 @@
                     return this.userEmail
                 },
                 set(val){
-                    this.updatedEmail = val
+                    this.$parent.$emit('updateEmail',val);
                 }
             }
 
@@ -126,13 +125,14 @@
         methods: {
             ...mapMutations({updateLoading: "UPDATE_LOADING"}),
             emailSend() {
+                let email = this.email;
                 let self = this;
                 self.loading = true;
                 self.sumbitted = true;
-                registrationService.emailRegistration(this.updatedEmail, this.recaptcha, this.password, this.confirmPassword)
+                registrationService.emailRegistration(email, this.recaptcha, this.password, this.confirmPassword)
                     .then(function (resp) {
                         let step = resp.data.step;
-                        self.$parent.$emit('updateEmail', self.updatedEmail);
+                        self.$parent.$emit('updateEmail',email);
                         self.$parent.$emit('changeStep', step);
                         analyticsService.sb_unitedEvent('Registration', 'Start');
                         self.loading = false;
