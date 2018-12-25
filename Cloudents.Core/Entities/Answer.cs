@@ -16,7 +16,8 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Answer : ItemObject
     {
-        public Answer(Question question, string text, int attachments, RegularUser user) : this()
+        public Answer(Question question, string text, int attachments, RegularUser user)
+            : this()
         {
             Question = question;
             Text = text;
@@ -45,10 +46,7 @@ namespace Cloudents.Core.Entities
 
         public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
 
-        public virtual void ChangeState(ItemState state)
-        {
-            Item.ChangeState(state);
-        }
+       
         public override void DeleteAssociation()
         {
             Item.Votes.Clear();

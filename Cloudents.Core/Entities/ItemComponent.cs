@@ -46,6 +46,20 @@ namespace Cloudents.Core.Entities
     {
         public virtual ItemComponent Item { get; set; }
 
+        //protected ItemObject(RegularUser user)
+        //{
+        //    State = ItemState.Pending;
+        //    if (user.Score >= Privileges.Post)
+        //    {
+        //        MakePublic();
+        //    }
+        //     //Privileges.GetItemState(user.Score);
+        //}
+
+        //protected ItemObject()
+        //{
+
+        //}
 
         public abstract void DeleteAssociation();
 
@@ -53,6 +67,21 @@ namespace Cloudents.Core.Entities
         public virtual DateTime? DeletedOn { get; private set; }
 
 
+        public virtual void ChangeState(ItemState state)
+        {
+            switch (state)
+            {
+                case ItemState.Ok:
+                    MakePublic();
+                    break;
+                case ItemState.Deleted:
+                    Delete();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
+            }
+            
+        }
         //public abstract void ChangeState(ItemState state);
         //{
         //    if (state == ItemState.Deleted)
@@ -60,7 +89,7 @@ namespace Cloudents.Core.Entities
         //        DeletedOn = DateTime.UtcNow;
         //    }
         //}
-
+        
         public virtual bool MakePublic()
         {
             if (State == ItemState.Ok)
