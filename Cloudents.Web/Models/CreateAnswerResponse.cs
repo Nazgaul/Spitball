@@ -33,6 +33,7 @@ namespace Cloudents.Web.Models
         EmailPassword,
         ExpiredStep,
         // ReSharper disable once IdentifierTypo - this is because client sucks
-        Loginstep
+        Loginstep,
+        StartStep
     }
 }
