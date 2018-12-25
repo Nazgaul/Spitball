@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     s.Price,
                     s.Text,
                     s.Attachments,
-                    s.Answers.Count,
+                    s.Answers.Where(w => w.Item.State == ItemState.Ok).Count(),
                     s.Updated,
                     s.Color, s.CorrectAnswer.Id != null, s.Language, s.Item.VoteCount)
                 )
