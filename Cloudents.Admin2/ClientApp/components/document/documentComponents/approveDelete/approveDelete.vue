@@ -40,7 +40,7 @@
                                         </v-btn>
 
                                         <v-btn flat color="red" v-bind:href="document.siteLink" target="_blank">
-                                            Link
+                                            Download
                                         </v-btn>
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
