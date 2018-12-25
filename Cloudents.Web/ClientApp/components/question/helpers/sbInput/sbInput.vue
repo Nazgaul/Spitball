@@ -9,8 +9,20 @@
         <v-icon v-if="icon">{{icon}}</v-icon>
         <span v-if="hint"  class="input-hint">{{hint}}</span>
         <span v-if="bottomError" class="error-message relative">{{errorMessage}}</span>
-
     </div>
+
+    <!--TODO refactor to use v-text field with validation rules-->
+    <!--<v-text-field :value="value"-->
+    <!--:label="label"-->
+    <!--outline-->
+    <!--:name="name"-->
+    <!--:class="['input-field', prependInnerIcon ? 'inputPrepIcon': '', {errorMessage :'invalid'}]"-->
+    <!--:type="type"-->
+    <!--:readonly="isReadOnly"-->
+    <!--:rules="rules"-->
+    <!--@input="updateValue($event.target.value)" v-language:placeholder></v-text-field>-->
+
+
 </template>
 <script src="./sbInput.js"></script>
 

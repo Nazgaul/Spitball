@@ -1,6 +1,7 @@
 export default {
     props: {
         value: {type: String},
+        // rules:{},
         icon: {
             type: String,
             default: ''
