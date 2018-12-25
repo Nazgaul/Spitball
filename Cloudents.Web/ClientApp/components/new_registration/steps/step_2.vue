@@ -13,7 +13,7 @@
                 </div>
                 <form @submit.prevent="emailSend" class="form-one">
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email" :bottomError="true"
-                              placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
+                              placeholder="login_placeholder_email" v-model="email" name="email" type="email"
                               :autofocus="true" v-language:placeholder></sb-input>
 
                     <sb-input  :class="['mt-3', hintClass]"  :errorMessage="errorMessage.password" :bottomError="true"
@@ -32,7 +32,7 @@
                     </vue-recaptcha>
                     <v-btn class="continue-btn" value="Login"
                            :loading="loading"
-                           :disabled="!userEmail || !recaptcha  || !password || !confirmPassword"
+                           :disabled="!email || !recaptcha  || !password || !confirmPassword"
                            type="submit"
                     ><span v-language:inner>login_continue</span></v-btn>
                     <div class="checkbox-terms">
@@ -74,7 +74,6 @@
                 },
                 recaptcha: '',
                 loading: false,
-                userEmail: '',
                 password: '',
                 confirmPassword: '',
                 bottomError: false,
@@ -93,7 +92,12 @@
             },
             meta: {},
             campaignData:{
-            }
+            },
+            userEmail: {
+                type: String,
+                default: ''
+            },
+
         },
         computed:{
             passZxcvbn(){
@@ -106,7 +110,16 @@
                 if(this.passZxcvbn){
                     return this.passScoreObj[this.score].className;
                 }
+            },
+            email:{
+                get(){
+                  return this.userEmail
+                },
+                set(){
+
+                }
             }
+
         },
 
         methods: {
@@ -115,10 +128,10 @@
                 let self = this;
                 self.loading = true;
                 self.sumbitted = true;
-                registrationService.emailRegistration(this.userEmail, this.recaptcha, this.password, this.confirmPassword)
+                registrationService.emailRegistration(this.email, this.recaptcha, this.password, this.confirmPassword)
                     .then(function (resp) {
                         let step = resp.data.step;
-                        self.$parent.$emit('updateEmail', self.userEmail);
+                        self.$parent.$emit('updateEmail', self.email);
                         self.$parent.$emit('changeStep', step);
                         analyticsService.sb_unitedEvent('Registration', 'Start');
                         self.loading = false;

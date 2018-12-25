@@ -18,7 +18,7 @@
             <h3 v-show="$vuetify.breakpoint.xsOnly" class="text-blue upload-cloud-text" v-language:inner>upload_files_uploadDoc</h3>
 
         </div>
-        <div class="or-upload"> <span class="options-upload-from" v-language:inner>upload_files_options_text</span></div>
+        <div class="or-upload hidden-xs-only"> <span class="options-upload-from" v-language:inner>upload_files_options_text</span></div>
         <div class="upload-row-2 paddingTopSm">
             <div class="btn-holder" >
                 <v-btn fab class="upload-option-btn" @click="DbFilesList()"
