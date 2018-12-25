@@ -60,7 +60,6 @@ namespace Cloudents.Core.Entities
         protected Question()
         {
             Answers = Answers ?? new List<Answer>();
-            Item = new ItemComponent();
         }
 
         public virtual long Id { get; protected set; }
@@ -126,7 +125,13 @@ namespace Cloudents.Core.Entities
 
         public override void DeleteAssociation()
         {
-            Item.Votes.Clear();
+            Votes.Clear();
+        }
+
+        public void DeleteQuestionAdmin()
+        {
+            Transactions.Clear();
+            Events.Add(new QuestionDeletedAdminEvent(this));
         }
     }
 }

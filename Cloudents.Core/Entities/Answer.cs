@@ -30,7 +30,6 @@ namespace Cloudents.Core.Entities
 
         protected Answer()
         {
-            Item = new ItemComponent();
         }
 
         public virtual Guid Id { get; set; }
@@ -49,7 +48,7 @@ namespace Cloudents.Core.Entities
        
         public override void DeleteAssociation()
         {
-            Item.Votes.Clear();
+            Votes.Clear();
         }
 
 

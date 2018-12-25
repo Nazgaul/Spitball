@@ -26,7 +26,7 @@ namespace Cloudents.Command.Votes.Commands
             _eventStore = eventStore;
         }
 
-        public async Task BaseExecuteAsync(long userId, TId id, VoteType type, CancellationToken token)
+        protected async Task BaseExecuteAsync(long userId, TId id, VoteType type, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(userId, token);
 
@@ -50,9 +50,11 @@ namespace Cloudents.Command.Votes.Commands
             {
                 //vote = new Vote(user, question, message.VoteType);
                 vote = CreateVote(user, question, type);
-                question.Item.VoteCount += (int)vote.VoteType;
                 await VoteRepository.AddAsync(vote, token);
-                if (question.Item.VoteCount < VotesToFlag)
+
+                question.VoteCount += (int)vote.VoteType;
+                
+                if (question.VoteCount < VotesToFlag)
                 {
                     _eventStore.Add(new ItemFlaggedEvent(question));
                 }
@@ -61,8 +63,8 @@ namespace Cloudents.Command.Votes.Commands
 
             if (type == VoteType.None)
             {
-                question.Item.VoteCount -= (int)vote.VoteType;
-                if (question.Item.VoteCount < VotesToFlag)
+                question.VoteCount -= (int)vote.VoteType;
+                if (question.VoteCount < VotesToFlag)
                 {
                     _eventStore.Add(new ItemFlaggedEvent(question));
                 }
@@ -70,9 +72,9 @@ namespace Cloudents.Command.Votes.Commands
                 return;
             }
 
-            question.Item.VoteCount -= (int)vote.VoteType;
-            question.Item.VoteCount += (int)type;
-            if (question.Item.VoteCount < VotesToFlag)
+            question.VoteCount -= (int)vote.VoteType;
+            question.VoteCount += (int)type;
+            if (question.VoteCount < VotesToFlag)
             {
                 _eventStore.Add(new ItemFlaggedEvent(question));
             }

@@ -31,7 +31,7 @@ namespace Cloudents.Query
                     s.Attachments,
                     s.Answers.Count,
                     s.Updated,
-                    s.Color, s.CorrectAnswer.Id != null, s.Language, s.Item.VoteCount)
+                    s.Color, s.CorrectAnswer.Id != null, s.Language, s.VoteCount)
                 )
                 .Take(50).Skip(query.Page * 50)
                 .ToListAsync(token);

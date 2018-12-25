@@ -52,7 +52,7 @@ namespace Cloudents.Query
                         Restrictions.Where(() => questionAlias.CorrectAnswer != null),
                         Projections.Constant(true), Projections.Constant(false))).WithAlias(() => dto.HasCorrectAnswer)
                     .Select(s => s.Language).WithAlias(() => dto.CultureInfo)
-                    .Select(Projections.Property(() => questionAlias.Item.VoteCount).As("Vote.Votes"))
+                    .Select(Projections.Property(() => questionAlias.VoteCount).As("Vote.Votes"))
                 //language
                 //vote count
                 )
