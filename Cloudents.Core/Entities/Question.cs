@@ -113,10 +113,10 @@ namespace Cloudents.Core.Entities
             Language = info;
         }
 
-        public virtual void ChangeState(ItemState state)
+        public override void ChangeState(ItemState state)
         {
-            Item.ChangeState(state);
-            if (Item.State == ItemState.Pending && state == ItemState.Ok)
+            //Item.ChangeState(state);
+            if (State == ItemState.Pending && state == ItemState.Ok)
             {
                 this.Updated = DateTime.UtcNow;
                 Events.Add(new QuestionCreatedEvent(this));

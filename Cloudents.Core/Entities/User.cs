@@ -70,22 +70,20 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         public virtual IList<Transaction> Transactions { get; protected set; }
 
-        private readonly IList<Question> _questions = new List<Question>();
-        private readonly IList<Answer> _answers = new List<Answer>();
-       
-        public virtual void ClearQuestionAndAnswers()
-        {
-            _questions.Clear();
-            _answers.Clear();
-        }
-        
+        protected readonly IList<Question> _questions = new List<Question>();
+        public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+        //public virtual void ClearQuestionAndAnswers()
+        //{
+        //    _questions.Clear();
+        //    _answers.Clear();
+        //}
 
-        
-      
+
+
+
 
         //protected internal virtual IList<Answer> Answers { get; set; }
-
-        public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
+       
 
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
@@ -149,13 +147,16 @@ namespace Cloudents.Core.Entities
 
         public virtual void DeleteQuestionAndAnswers()
         {
-            Questions.Clear();
-            Answers.Clear();
+            _questions.Clear();
+            _answers.Clear();
         }
+        private readonly IList<Answer> _answers = new List<Answer>();
 
-        protected internal virtual IList<Answer> Answers { get; set; }
+        public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
 
-        public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
+       // protected internal virtual IList<Answer> Answers { get; set; }
+
+      //  public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
 
        
     }

@@ -8,38 +8,38 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Infrastructure.Stuff
 {
 
-    //public class EventStore : IEventStore , IEnumerable<IEvent>
-    //{
-    //    private readonly List<IEvent> _events = new List<IEvent>();
-       
+    public class EventStore : IEventStore, IEnumerable<IEvent>
+    {
+        private readonly List<IEvent> _events = new List<IEvent>();
 
-    //    public void Add(IEvent @event)
-    //    {
-    //        _events.Add(@event);
-    //    }
 
-    //    //public IEnumerable<IEvents> Get()
-    //    //{
-    //    //    return _events.AsReadOnly().ToList();
-    //    //    System.Collections.ObjectModel.ReadOnlyCollection<IEvent> t = _events.AsReadOnly();
-    //    //    return t;
-    //    //}
+        public void Add(IEvent @event)
+        {
+            _events.Add(@event);
+        }
 
-    //    public IEnumerator<IEvent> GetEnumerator()
-    //    {
-    //        foreach (var @event in _events.AsReadOnly())
-    //        {
-    //            yield return @event;
-    //        }
-    //    }
+        //public IEnumerable<IEvents> Get()
+        //{
+        //    return _events.AsReadOnly().ToList();
+        //    System.Collections.ObjectModel.ReadOnlyCollection<IEvent> t = _events.AsReadOnly();
+        //    return t;
+        //}
 
-    //    IEnumerator IEnumerable.GetEnumerator()
-    //    {
-    //        return GetEnumerator();
-    //    }
-    //}
+        public IEnumerator<IEvent> GetEnumerator()
+        {
+            foreach (var @event in _events.AsReadOnly())
+            {
+                yield return @event;
+            }
+        }
 
-    
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+
 
 
     public class EventPublisher : IEventPublisher

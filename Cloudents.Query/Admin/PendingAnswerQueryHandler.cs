@@ -27,7 +27,7 @@ namespace Cloudents.Query.Admin
         {
             return await _session.Query<Answer>()
                 .Fetch(f => f.User)
-                .Where(w => w.User is RegularUser && w.Item.State == ItemState.Pending)
+                .Where(w => w.User is RegularUser && w.State == ItemState.Pending)
                 .Select(s => new PendingAnswerDto
                 {
                     Id = s.Id,

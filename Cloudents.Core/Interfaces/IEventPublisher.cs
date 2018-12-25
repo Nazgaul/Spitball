@@ -10,10 +10,10 @@ namespace Cloudents.Core.Interfaces
         Task PublishAsync(IEvent eventMessage, CancellationToken token);
     }
 
-    //public interface IEventStore : IEnumerable<IEvent>
-    //{
-    //    void Add(IEvent @event);
+    public interface IEventStore : IEnumerable<IEvent>
+    {
+        void Add(IEvent @event);
 
-    //    //IEnumerable<IEvents> Get();
-    //}
+        //IEnumerable<IEvents> Get();
+    }
 }

@@ -31,7 +31,7 @@ namespace Cloudents.Query.Admin
 
                       .Fetch(f => f.User)
                       .Where(w => w.User is SystemUser && w.User.Country == county &&
-                                  w.Item.State == ItemState.Pending)
+                                  w.State == ItemState.Pending)
                       .OrderBy(o => o.Id)
                       .Take(1)
                       .Select(s => s.Id)

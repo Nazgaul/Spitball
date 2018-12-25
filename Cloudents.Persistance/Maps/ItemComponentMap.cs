@@ -10,8 +10,8 @@ namespace Cloudents.Persistance.Maps
     {
         public ItemComponentMap()
         {
-            Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
-            Map(m => m.DeletedOn).Nullable();
+           // Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
+           // Map(m => m.DeletedOn).Nullable();
             Map(m => m.FlagReason).Nullable().Length(255);
 
             Map(m => m.VoteCount).Not.Nullable();

@@ -18,13 +18,15 @@ namespace Cloudents.Command.CommandHandler.Admin
         private readonly IRepository<Answer> _repository;
         private readonly IRepository<Transaction> _transactionRepository;
         private readonly IRepository<Question> _questionRepository;
+        private readonly IEventStore _eventStore;
 
         public DeleteAnswerCommandHandler(IRepository<Answer> repository,
-            IRepository<Transaction> transactionRepository, IRepository<Question> questionRepository)
+            IRepository<Transaction> transactionRepository, IRepository<Question> questionRepository, IEventStore eventStore)
         {
             _repository = repository;
             _transactionRepository = transactionRepository;
             _questionRepository = questionRepository;
+            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
@@ -35,7 +37,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                 throw new ArgumentException("answer doesn't exits");
             }
 
-            if (answer.Item.State == ItemState.Deleted)
+            if (answer.State == ItemState.Deleted)
             {
                 throw new ArgumentException("answer doesn't exits");
             }

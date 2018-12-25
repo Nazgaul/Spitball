@@ -19,7 +19,7 @@ namespace Cloudents.Persistance.Repositories
         public Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token)
         {
             return Session.Query<Answer>()
-                .Where(w => w.Question.Id == questionId && w.User.Id == userId && w.Item.State == ItemState.Ok)
+                .Where(w => w.Question.Id == questionId && w.User.Id == userId && w.State == ItemState.Ok)
                 .SingleOrDefaultAsync(token);
 
         }

@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 
@@ -37,17 +36,7 @@ namespace Cloudents.Command.Item.Commands.FlagItem
                 Validate(answer, user);
             }
 
-            
-
-            
-            //if (answer.User.Id == user.Id)
-            //{
-            //    throw new UnauthorizedAccessException("you cannot flag your own document");
-            //}
-
-            answer.Item.State = ItemState.Flagged;
-            answer.Item.FlagReason = message.FlagReason;
-            answer.Item.FlaggedUser = user;
+            answer.Flag(message.FlagReason, user);
             await _repository.UpdateAsync(answer, token);
         }
 

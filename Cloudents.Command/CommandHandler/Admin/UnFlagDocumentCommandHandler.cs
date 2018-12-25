@@ -24,9 +24,9 @@ namespace Cloudents.Command.CommandHandler.Admin
 
             
             var document = await _documentRepository.LoadAsync(id, token);
-            document.Item.State = ItemState.Ok;
+            document.MakePublic();
                
-            if (document.Item.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
+            if (document.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
                 var votes = document.Item.Votes.ToList();
                 foreach (var vote in votes)
@@ -34,7 +34,6 @@ namespace Cloudents.Command.CommandHandler.Admin
                 document.Item.Votes.Remove(vote);
                 }
             }
-            document.Item.FlagReason = null;
             document.Item.VoteCount = document.Item.Votes.Count;
 
             await _documentRepository.UpdateAsync(document, token);

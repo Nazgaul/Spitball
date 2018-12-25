@@ -31,7 +31,7 @@ namespace Cloudents.Query
 
             var detachedQuery = QueryOver.Of<Question>()
                 .Select(s => s.Subject)
-                .Where(w => w.Id == query.QuestionId && w.Item.State == ItemState.Ok)
+                .Where(w => w.Id == query.QuestionId && w.State == ItemState.Ok)
                 .Take(1);
 
             return await _session.QueryOver(() => questionAlias)
@@ -46,7 +46,8 @@ namespace Cloudents.Query
                     .Select(s => s.Color).WithAlias(() => dto.Color)
 
                     .Select(Projections.Property(() => questionAlias.Item.VoteCount).As("Vote.Votes"))
-                    .Select(s => s.AnswerCount).WithAlias(() => dto.Answers)
+                    .SelectSubQuery(QueryOver.Of<Answer>()
+                        .Where(w => w.Question.Id == questionAlias.Id && w.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
                     .Select(Projections.Conditional(
                         Restrictions.Where(() => questionAlias.CorrectAnswer != null),
                         Projections.Constant(true), Projections.Constant(false))).WithAlias(() => dto.HasCorrectAnswer)
@@ -58,10 +59,10 @@ namespace Cloudents.Query
                 .Where(w => w.CorrectAnswer == null)
                 .Where(w => w.User.Id != query.UserId)
                 .Where(w => w.Id != query.QuestionId)
-                .Where(w => w.Item.State == ItemState.Ok)
+                .Where(w => w.State == ItemState.Ok)
                 .WithSubquery.WhereProperty(x => x.Id)
                 .NotIn(QueryOver.Of<Answer>().
-                    Where(w => w.User.Id == query.UserId && w.Item.State == ItemState.Ok).Select(s => s.Question.Id))
+                    Where(w => w.User.Id == query.UserId && w.State == ItemState.Ok).Select(s => s.Question.Id))
                 .TransformUsing(new DeepTransformer<QuestionFeedDto>())
                 .OrderBy(Projections.Conditional(
                     Subqueries.PropertyEq(nameof(Question.Subject), detachedQuery.DetachedCriteria)

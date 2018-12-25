@@ -4,9 +4,9 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
-    public class QuestionMap : ClassMap<Question>
+    public class QuestionMap : ItemMap<Question>
     {
-        public QuestionMap()
+        public QuestionMap() 
         {
             DynamicUpdate();
             //https://stackoverflow.com/a/7084697/1235448
@@ -52,14 +52,23 @@ namespace Cloudents.Persistance.Maps
             //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
         }
 
+        
+
         internal static void ItemComponentPartialMapping(ComponentPart<ItemComponent> t)
         {
-            t.Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
-            t.Map(m => m.DeletedOn).Nullable();
             t.Map(m => m.FlagReason).Nullable();
            
            // t.Map(m => m.FlaggedUserId).Nullable();
             t.Map(m => m.VoteCount).Not.Nullable();
+        }
+    }
+
+    public class ItemMap<T> : ClassMap<T>  where T : ItemObject
+    {
+        public ItemMap()
+        {
+            Map(x=>x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
+            Map(m => m.DeletedOn).Nullable();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Cloudents.Persistance.Maps
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 
-    public class AnswerMap : ClassMap<Answer>
+    public class AnswerMap : ItemMap<Answer>
     {
         public AnswerMap()
         {

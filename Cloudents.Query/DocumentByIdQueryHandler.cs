@@ -26,7 +26,7 @@ namespace Cloudents.Query
                 
                 .Fetch(f=>f.University)
                 .Fetch(f=>f.User)
-                .Where(w => w.Id == query.Id && w.Item.State == ItemState.Ok)
+                .Where(w => w.Id == query.Id && w.State == ItemState.Ok)
                 .Select(s => new DocumentDetailDto
                 {
                     Name = s.Name,

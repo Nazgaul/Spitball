@@ -21,9 +21,10 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
            
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
-       
-            question.Item.State = ItemState.Ok;
-            if (question.Item.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
+
+            question.MakePublic();
+            //question.State = ItemState.Ok;
+            if (question.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
                 var votes = question.Item.Votes.Where(w => w.Answer == null).ToList();
                 foreach (var vote in votes)
@@ -31,7 +32,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                     question.Item.Votes.Remove(vote);
                 }
             }
-            question.Item.FlagReason = null;
+            //question.FlagReason = null;
             question.Item.VoteCount = question.Item.Votes.Count;
             
             await _questionRepository.UpdateAsync(question, token);

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities
 {
@@ -32,29 +32,75 @@ namespace Cloudents.Core.Entities
             return true;
         }
 
-        public virtual ItemState State { get; protected set; }
-        public virtual DateTime? DeletedOn { get; protected set; }
-        public virtual string FlagReason { get; set; }
-        public virtual User FlaggedUser { get; set; }
+
+
 
         public virtual ICollection<Vote> Votes { get; protected set; }
 
         public virtual int VoteCount { get; set; }
 
-        public virtual void ChangeState(ItemState state)
-        {
-            if (state == ItemState.Deleted)
-            {
-                DeletedOn = DateTime.UtcNow;
-            }
-        }
+
     }
 
-    public abstract class ItemObject : AggregateRoot , ISoftDelete
+    public abstract class ItemObject : AggregateRoot, ISoftDelete
     {
         public virtual ItemComponent Item { get; set; }
 
-        //public virtual User User { get; set; }
+
+        public abstract void DeleteAssociation();
+
+        public virtual ItemState State { get; private set; }
+        public virtual DateTime? DeletedOn { get; private set; }
+
+
+        //public abstract void ChangeState(ItemState state);
+        //{
+        //    if (state == ItemState.Deleted)
+        //    {
+        //        DeletedOn = DateTime.UtcNow;
+        //    }
+        //}
+
+        public virtual bool MakePublic()
+        {
+            if (State == ItemState.Ok)
+            {
+                return false;
+            }
+            State = ItemState.Ok;
+            FlagReason = null;
+            FlaggedUser = null;
+            return true;
+        }
+
+        public virtual bool Delete()
+        {
+            if (State == ItemState.Deleted)
+            {
+                return false;
+            }
+            State = ItemState.Deleted;
+            DeletedOn = DateTime.UtcNow;
+            DeleteAssociation();
+            return true;
+        }
+
+
+        public virtual bool Flag(string reason, User user)
+        {
+            if (State == ItemState.Flagged)
+            {
+                return false;
+            }
+            State = ItemState.Flagged;
+            FlagReason = reason;
+            FlaggedUser = user;
+            return true;
+        }
+
+
+        public virtual string FlagReason { get; private set; }
+        public virtual User FlaggedUser { get; private set; }
 
     }
 

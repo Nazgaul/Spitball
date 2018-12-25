@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
@@ -14,7 +14,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Answer :  ItemObject
+    public class Answer : ItemObject
     {
         public Answer(Question question, string text, int attachments, RegularUser user) : this()
         {
@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
             User = user;
             Created = DateTime.UtcNow;
             ChangeState(Privileges.GetItemState(user.Score));
-            
+
         }
 
         protected Answer()
@@ -48,12 +48,12 @@ namespace Cloudents.Core.Entities
         public virtual void ChangeState(ItemState state)
         {
             Item.ChangeState(state);
-            }
+        }
         public override void DeleteAssociation()
         {
             Item.Votes.Clear();
         }
-        }
+
 
         public virtual void DeleteAnswer()
         {
