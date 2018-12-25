@@ -6,9 +6,9 @@
                 <a href="" class="sbl-faq">SBL’s.</a></h4>
         </div>
         <div class="upload-row-2 paddingTopSm">
-            <div class="btn-holder">
+            <div class="btn-holder price-holder">
                 <label :for="'school'" class="steps-form-label school mb-2">
-                    <v-icon >sbf-tag-icon</v-icon>
+                    <v-icon >sbf-credit-card</v-icon>
                     <span v-language:inner>upload_files_price_label</span></label>
                 <div class="wrap-row-price">
                     <div class="price-wrap">
@@ -23,9 +23,7 @@
                         </span>
                         <span class="balance-label" v-show="!uploadPrice"
                               v-language:inner>upload_files_price_zero_means_free
-
                         </span>
-
                     </div>
                     <div class="sb-current-balance">
                         <v-icon class="sb-wallet-icon">sbf-wallet-new</v-icon>
@@ -33,9 +31,6 @@
                         <span class="balance-label account-label"v-language:inner>upload_files_price_your_balance</span>
                     </div>
                 </div>
-            </div>
-            <div class="btn-holder">
-
             </div>
         </div>
     </v-card>

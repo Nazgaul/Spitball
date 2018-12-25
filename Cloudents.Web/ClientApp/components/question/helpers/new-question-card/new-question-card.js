@@ -56,6 +56,9 @@ export default {
         hideAnswerInput() {
             return this.detailedView
         },
+        cursorDefault(){
+            return this.detailedView
+        },
         isSold() {
             return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
         },

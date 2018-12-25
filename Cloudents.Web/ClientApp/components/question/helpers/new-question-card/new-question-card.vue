@@ -1,6 +1,6 @@
 <template>
     <div class="question-container">
-        <router-link :to="{path:'/question/'+cardData.id}">
+        <router-link :to="{path:'/question/'+cardData.id}" :class="[ cursorDefault ? 'cursor-text cursor-modified': '']">
             <div class="question-header-container">
                 <div class="question-header-large-sagment">
                     <div class="avatar-area">
