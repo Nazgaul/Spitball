@@ -103,7 +103,7 @@ namespace Cloudents.Command.CommandHandler
             if (newAnswer.Item.State == ItemState.Ok)
             {
                 _eventStore.Add(new AnswerCreatedEvent(newAnswer));
-                question.AnswerCount++;
+                //question.AnswerCount++;
                 await _questionRepository.UpdateAsync(question, token);
             }
 

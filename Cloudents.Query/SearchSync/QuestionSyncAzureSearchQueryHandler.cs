@@ -25,7 +25,7 @@ namespace Cloudents.Query.SearchSync
                 var res = @"select q.Id as QuestionId,
 	                            q.Language as Language,
 	                            u.Country as Country,
-	                            q.AnswerCount AnswerCount,
+	                            (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
 	                            q.Updated as DateTime,
 	                            CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
 	                            q.Text as Text,
@@ -34,7 +34,7 @@ namespace Cloudents.Query.SearchSync
 	                            c.* 
                             From sb.[Question] q  
                             right outer join CHANGETABLE (CHANGES sb.[Question], :Version) AS c ON q.Id = c.id 
-                            left join sb.[User] u 
+                            join sb.[User] u 
 	                            On u.Id = q.UserId
                             Order by q.Id 
                             OFFSET :PageSize * :PageNumber 
@@ -50,7 +50,7 @@ namespace Cloudents.Query.SearchSync
                 var res = @"select q.Id as QuestionId,
 	                            q.Language as Language,
 	                            u.Country as Country,
-	                            q.AnswerCount AnswerCount,
+	                            (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
 	                            q.Updated as DateTime, 
 	                            CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
 	                            q.Text as Text,
@@ -58,7 +58,7 @@ namespace Cloudents.Query.SearchSync
 	                             q.Subject_id as Subject,
 	                             c.* 
                             From sb.[Question] q 
-                            CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c 
+                            left join CHANGETABLE (CHANGES sb.[Question], 0) AS c  ON q.Id = c.id 
                             left join sb.[User] u 
 	                            On u.Id = q.UserId
                             Order by q.Id 

@@ -8,6 +8,10 @@ function PendingAnswerItem(objInit) {
     this.user = {
         id: objInit.userId,
         email: objInit.email
+    };
+    this.questionData = {
+        id: objInit.questionId,
+        text: objInit.questionText
     }
 }
 

@@ -48,6 +48,11 @@ namespace Cloudents.Core.Entities
         public virtual void ChangeState(ItemState state)
         {
             Item.ChangeState(state);
+            }
+        public override void DeleteAssociation()
+        {
+            Item.Votes.Clear();
+        }
         }
 
         public virtual void DeleteAnswer()

@@ -22,12 +22,12 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using Cloudents.Command;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Enum;
 using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
+using Cloudents.Search.Question;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -76,7 +76,7 @@ namespace ConsoleApp
             //    Assembly.Load("Cloudents.Core"));
             builder.RegisterModule<ModuleFile>();
             var module = new SearchModule(ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                ConfigurationManager.AppSettings["AzureSearchKey"], true);
+                ConfigurationManager.AppSettings["AzureSearchKey"], false);
 
             builder.RegisterModule(module);
 
@@ -127,8 +127,41 @@ namespace ConsoleApp
 
             // var bus = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
             // await bus.CreateOrUpdateAsync(token);
+           var questionRepository = _container.Resolve<IQuestionRepository>();
+           var question = await questionRepository.GetAsync(46904, default);
 
-            var t = _container.Resolve<IUnitOfWork>();
+           var question2 = new QuestionSearchDto()
+           {
+               QuestionId = question.Id,
+               DateTime = question.Updated,
+               Text = question.Text,
+               Country = question.User.Country,
+               Language = question.Language?.TwoLetterISOLanguageName,
+               Subject = question.Subject,
+               Filter = QuestionFilter.Unanswered
+           };
+
+           var question3 = new QuestionSearchDto
+           {
+               QuestionId = question.Id,
+               Filter = QuestionFilter.Sold,
+           };
+
+           var question4 = new QuestionSearchDto
+           {
+               QuestionId = question.Id,
+               Filter = QuestionFilter.Unanswered
+           };
+
+           var question5 = new QuestionSearchDto
+           {
+               QuestionId = question.Id,
+               Filter = QuestionFilter.Answered,
+           };
+
+
+           // var t = _container.Resolve<AzureQuestionSearch>();
+            //await t.GetById("46904");
             //var z = await t.ItemAsync(6746, default);
             //var z = await t.SearchAsync(new DocumentQuery(null, new UserProfile()
             //{

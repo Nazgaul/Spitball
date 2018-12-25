@@ -49,12 +49,13 @@ export default {
             if(!!unsuspendUser){
                 releaseUser(this.serverIds).then((email)=>{
                     this.$toaster.success(`user got released`); 
-                    this.userIds = null;
+                   
                 }, (err)=>{
                     this.$toaster.error(`ERROR: failed to realse user`);
                     console.log(err)
                 }).finally(()=>{
                     this.lock = false;
+                    this.userIds = null;
                     
                 })
             }else{
@@ -62,12 +63,13 @@ export default {
                     this.$toaster.success(`user got suspended, email is: ${email}`)
                     this.showSuspendedDetails = true;
                     this.suspendedMail = email;
-                    this.userIds = null;
+                   
                 }, (err)=>{
                     this.$toaster.error(`ERROR: failed to suspend user`);
                     console.log(err)
                 }).finally(()=>{
                     this.lock = false;
+                    this.userIds = null;
                     
                 })
             }

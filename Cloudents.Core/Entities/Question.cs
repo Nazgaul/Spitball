@@ -124,5 +124,9 @@ namespace Cloudents.Core.Entities
         }
 
 
+        public override void DeleteAssociation()
+        {
+            Item.Votes.Clear();
+        }
     }
 }

@@ -53,6 +53,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             
             _eventStore.Add(new AnswerDeletedEvent(answer));
 
+           // answer.Question.AnswerCount--;
             if (answer.Question.CorrectAnswer != null)
             {
                 if (answer.Id == answer.Question.CorrectAnswer.Id)

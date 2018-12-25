@@ -33,7 +33,9 @@ namespace Cloudents.Query.Admin
                     Id = s.Id,
                     Text = s.Text,
                     Email = s.User.Email,
-                    UserId = s.User.Id
+                    UserId = s.User.Id,
+                    QuestionText = s.Question.Text,
+                    QuestionId = s.Question.Id
                 }).OrderBy(o => o.Id).ToListAsync(token);
         }
     }

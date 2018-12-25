@@ -72,16 +72,16 @@ namespace Cloudents.Core.Entities
 
         private readonly IList<Question> _questions = new List<Question>();
         private readonly IList<Answer> _answers = new List<Answer>();
-
+       
         public virtual void ClearQuestionAndAnswers()
         {
             _questions.Clear();
             _answers.Clear();
         }
-
         
 
-        public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+        
+      
 
         //protected internal virtual IList<Answer> Answers { get; set; }
 
@@ -138,11 +138,25 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
             //Fictive = false;
 
-        }
 
+
+
+        }
         protected RegularUser()
         {
 
         }
+
+        public virtual void DeleteQuestionAndAnswers()
+        {
+            Questions.Clear();
+            Answers.Clear();
+        }
+
+        protected internal virtual IList<Answer> Answers { get; set; }
+
+        public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
+
+       
     }
 }

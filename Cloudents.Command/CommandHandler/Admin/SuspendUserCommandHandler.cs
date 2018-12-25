@@ -24,10 +24,10 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
             var user = await _userRepository.LoadAsync(message.Id, false, token);
             //TODO: why????
-            if (!user.LockoutEnabled)
-            {
-                return;
-            }
+            //if (!user.LockoutEnabled)
+            //{
+            //    return;
+            //}
             user.LockoutEnd = message.LockoutEnd;
             _eventStore.Add(new UserSuspendEvent(user));
 
@@ -48,9 +48,9 @@ namespace Cloudents.Command.CommandHandler.Admin
                 //    {
                 //        await deleteAnswerCommandHandler.DeleteAnswerAsync(answer, token);
                 //    }
-                user.ClearQuestionAndAnswers();
+
+                user.DeleteQuestionAndAnswers();
             }
-            user.ClearQuestionAndAnswers();
             await _userRepository.UpdateAsync(user, token);
         }
     }

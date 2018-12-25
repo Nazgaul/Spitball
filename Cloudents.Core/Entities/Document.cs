@@ -69,5 +69,9 @@ namespace Cloudents.Core.Entities
 
 
         public virtual string MetaContent { get; set; }
+        public override void DeleteAssociation()
+        {
+            Item.Votes.Clear();
+        }
     }
 }
