@@ -55,7 +55,6 @@ namespace Cloudents.Web.Api
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
-            return Ok();
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
             if (user != null)
             {
@@ -268,11 +267,15 @@ namespace Cloudents.Web.Api
             ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
-            var temp = DateTime.Parse(TempData.Peek(emailTime).ToString());
-
-            if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+            var t = TempData.Peek(emailTime);
+            if (t != null)
             {
-                return Ok();
+                var temp = DateTime.Parse(t.ToString());
+
+                if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+                {
+                    return Ok();
+                }
             }
 
             var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");
