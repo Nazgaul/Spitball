@@ -103,7 +103,7 @@
             passZxcvbn(){
                 if(this.password.length !== 0){
                     this.score = zxcvbn(this.password).score;
-                    return this.passScoreObj[this.score].name
+                    return `${this.passScoreObj[this.score].name}`
                 }
             },
             hintClass(){
