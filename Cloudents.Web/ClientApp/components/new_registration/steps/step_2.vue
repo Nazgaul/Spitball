@@ -32,7 +32,7 @@
                     </vue-recaptcha>
                     <v-btn class="continue-btn" value="Login"
                            :loading="loading"
-                           :disabled="!updatedEmail || !recaptcha  || !password || !confirmPassword"
+                           :disabled="!updatedEmail || !recaptcha  || !password || !confirmPassword || !isValidPass"
                            type="submit"
                     ><span v-language:inner>login_continue</span></v-btn>
                     <div class="checkbox-terms">
@@ -119,6 +119,9 @@
                 set(val){
                     this.updatedEmail = val
                 }
+            },
+            isValidPass(){
+                return this.password.length >= 8  && this.confirmPassword.length >= 8
             }
 
         },
