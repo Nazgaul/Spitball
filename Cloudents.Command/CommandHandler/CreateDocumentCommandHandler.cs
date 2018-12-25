@@ -67,7 +67,7 @@ namespace Cloudents.Command.CommandHandler
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);
 
-            if (document.Item.State == ItemState.Ok)
+            if (document.State == ItemState.Ok)
             {
                 _eventStore.Add(new DocumentCreatedEvent(document));
 

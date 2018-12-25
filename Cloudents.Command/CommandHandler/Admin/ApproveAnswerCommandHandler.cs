@@ -25,7 +25,8 @@ namespace Cloudents.Command.CommandHandler.Admin
             foreach (var answerId in message.AnswerIds)
             {
                 var answer = await _answerRepository.LoadAsync(answerId, token);
-                answer.State = ItemState.Ok;
+                answer.MakePublic();
+                //answer.State = ItemState.Ok;
                 //answer.Question.AnswerCount++;
                 //await _questionRepository.UpdateAsync(answer.Question, token);
                 _eventStore.Add(new AnswerCreatedEvent(answer));

@@ -44,7 +44,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new ArgumentException("question doesn't exits");
             }
 
-            if (question.Item.State != ItemState.Ok)
+            if (question.State != ItemState.Ok)
             {
                 throw new ArgumentException("question doesn't exits");
             }
@@ -70,7 +70,7 @@ namespace Cloudents.Command.CommandHandler
             //    }
             //}
             var answers = question.Answers;
-            if (answers.Any(a => a.User.Id == user.Id && a.Item.State != ItemState.Deleted))
+            if (answers.Any(a => a.User.Id == user.Id && a.State != ItemState.Deleted))
             {
                 throw new MoreThenOneAnswerException();
             }
@@ -80,7 +80,7 @@ namespace Cloudents.Command.CommandHandler
             var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
             var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
             foreach (var answer in answers.Where(w=> 
-                w.Item.State == ItemState.Ok
+                w.State == ItemState.Ok
 
             ))
             {
@@ -100,7 +100,7 @@ namespace Cloudents.Command.CommandHandler
             
             var id = newAnswer.Id;
 
-            if (newAnswer.Item.State == ItemState.Ok)
+            if (newAnswer.State == ItemState.Ok)
             {
                 _eventStore.Add(new AnswerCreatedEvent(newAnswer));
                 //question.AnswerCount++;

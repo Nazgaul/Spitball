@@ -22,8 +22,7 @@ namespace Cloudents.Persistance.Maps
                 ItemComponentPartialMapping(t);
                 t.HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse()
                     .Cascade.AllDeleteOrphan();
-                t.References(x => x.FlaggedUser)
-                    .Column("FlaggedUserId").ForeignKey("QuestionFlagged_User");
+               
             });
             //Component(x => x.Item);
             Map(x => x.Language).Length(5);
@@ -48,6 +47,8 @@ namespace Cloudents.Persistance.Maps
                 .LazyLoad()
                 .Inverse();
 
+            References(x => x.FlaggedUser)
+                .Column("FlaggedUserId").ForeignKey("QuestionFlagged_User");
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
         }
@@ -56,7 +57,7 @@ namespace Cloudents.Persistance.Maps
 
         internal static void ItemComponentPartialMapping(ComponentPart<ItemComponent> t)
         {
-            t.Map(m => m.FlagReason).Nullable();
+            
            
            // t.Map(m => m.FlaggedUserId).Nullable();
             t.Map(m => m.VoteCount).Not.Nullable();
@@ -69,6 +70,7 @@ namespace Cloudents.Persistance.Maps
         {
             Map(x=>x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             Map(m => m.DeletedOn).Nullable();
+            Map(m => m.FlagReason).Nullable();
         }
     }
 }

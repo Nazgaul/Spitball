@@ -32,7 +32,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
             var answer = await _answerRepository.LoadAsync(message.AnswerId, token); //false will raise an exception
-            if (answer.Question.Item.State != ItemState.Ok)
+            if (answer.Question.State != ItemState.Ok)
             {
                 throw new InvalidOperationException("only owner can perform this task");
             }

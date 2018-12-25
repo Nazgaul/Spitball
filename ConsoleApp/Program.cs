@@ -119,9 +119,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>());
+           // Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>());
 
-            Mapper.Configuration.AssertConfigurationIsValid();
+           // Mapper.Configuration.AssertConfigurationIsValid();
 
             var queryBus = _container.Resolve<IQueryBus>();
             var query = new UserDataByIdQuery(638);
