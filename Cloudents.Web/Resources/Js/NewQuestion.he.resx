@@ -151,9 +151,9 @@
     <value>יש לך</value>
   </data>
   <data name="max_percent_SBL" xml:space="preserve">
-    <value>אין לך מספיק SBL,  קבל עוד SBL על ידי מתן תשובות לשאלות.</value>
+    <value>אין לך מספיק &lt;bdi&gt;SBL&lt;/bdi&gt;,  קבל עוד &lt;bdi&gt;SBL&lt;/bdi&gt; על ידי מתן תשובות לשאלות.</value>
   </data>
   <data name="sbl_calc" xml:space="preserve">
-    <value>יש לך SBL {1} , אתה יכול להציע עד SBL {2}  לשאלה זו</value>
+    <value>יש לך  &lt;bdi&gt;SBL&lt;/bdi&gt;  {1}, אתה יכול להציע עד &lt;bdi&gt;SBL&lt;/bdi&gt;   {2} לשאלה זו</value>
   </data>
 </root>

@@ -2,10 +2,10 @@
     <div class="cash-out-card" :class="{'active':available}">
         <div class="data points-wrap">
             <div class="points">
-                <div class="num">{{cost | commasFilter}}</div>
                 <div class="data">
                     <div class="text dolar-val" v-language:inner>cashoutcard_SBL</div>
                 </div>
+                <div class="num">{{cost | commasFilter}}</div>
             </div>
             <button class="redeem-btn" @click="redeem(cost)" :disabled="!available" v-language:inner>cashoutcard_Redeem</button>
         </div>
