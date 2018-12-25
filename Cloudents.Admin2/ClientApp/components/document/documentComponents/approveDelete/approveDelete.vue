@@ -19,9 +19,9 @@
                                                      fluid
                                                      pa-2>
                                             <v-layout fill-height>
-                                                <v-flex xs12 align-end flexbox>
-                                                    <span class="headline" v-text="document.id"></span>
-                                                </v-flex>
+                                                <!--<v-flex xs12 align-end flexbox>-->
+                                                    <!--<span class="headline" v-text="document.id"></span>-->
+                                                <!--</v-flex>-->
                                             </v-layout>
                                         </v-container>
                                     </v-img>
