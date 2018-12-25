@@ -79,7 +79,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 s.Url = _urlBuilder.BuildQuestionEndPoint(s.Id);
                 s.Answers = answers[s.Id];
                 return s;
-            });
+            }).Where(s => s.Answers.Count() > 0);
         }
     }
 }
