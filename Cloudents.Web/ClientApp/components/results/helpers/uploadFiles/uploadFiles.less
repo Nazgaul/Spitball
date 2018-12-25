@@ -636,6 +636,7 @@
                   &.price-holder{
                     @media(max-width: @screen-xs){
                       margin-left: unset;
+                      padding-left: unset;
                     }
                   }
                 }
@@ -823,6 +824,9 @@
                     min-width: 134px;
                     align-items: center;
                     justify-content: center;
+                    @media (max-width: @screen-xs) {
+                     flex-direction: column;
+                    }
                     .price-wrap {
                       position: relative;
                       display: flex;
@@ -833,12 +837,16 @@
                       border-radius: 4px;
                       border: 1px solid rgba(0, 0, 0, .25);
                       justify-content: center;
+
                       .balance-label {
                         position: absolute;
                         bottom: -20px;
                         left: 0;
                         color: @labelColorMobile;
                         font-size: 12px;
+                        @media (max-width: @screen-xs) {
+                          padding-top: 24px;
+                        }
 
                       }
                       .sb-input-upload-price {
