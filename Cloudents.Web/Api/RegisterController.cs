@@ -276,7 +276,7 @@ namespace Cloudents.Web.Api
                 {
                     return Ok();
                 }
-                }
+                
             }
 
             var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");
