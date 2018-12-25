@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="question-wrapper-scroll">
         <h1>Questions</h1>
         <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
             <div class="question-header">
@@ -37,7 +37,11 @@
 
 <style lang="scss" scoped>
     
-
+#question-wrapper-scroll{
+    overflow-y: scroll;
+    height: 100%;
+    max-height: 90vh;
+}
     .questionItem{
         display:flex;
         margin:0 auto;

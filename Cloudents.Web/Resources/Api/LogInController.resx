@@ -121,7 +121,7 @@
     <value>Wrong email or password</value>
   </data>
   <data name="EmailNotFound" xml:space="preserve">
-    <value>Couldn't find you Spitball Account</value>
+    <value>Account can not be found, please sign up</value>
   </data>
   <data name="LockOut" xml:space="preserve">
     <value>Your account has been suspended

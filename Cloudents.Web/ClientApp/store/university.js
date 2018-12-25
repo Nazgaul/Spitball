@@ -48,10 +48,13 @@ const actions = {
     changeSelectPopUpUniState({commit}, val){
         commit('setSelectPopUpUniState', val);
     },
-    updateSchoolName({commit}, val){
+    updateSchoolName({commit, dispatch}, val){
         if(!val) return;
         return universityService.assaignUniversity(val).then(()=>{
             commit('setSchoolName', val);
+            //update profile data with new university
+            let currentProfID = this.getters.accountUser.id;
+            dispatch("syncProfile", currentProfID);
             Promise.resolve(true);
         })
     },

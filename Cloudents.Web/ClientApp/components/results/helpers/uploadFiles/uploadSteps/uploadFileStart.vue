@@ -155,8 +155,9 @@
                                     self.progressDone = true;
                                     // generated blob name from server
                                     self.generatedFileName = response.data.fileName ? response.data.fileName : '';
-                                    self.updateFile({'name': singleFile.name, 'blobName': self.generatedFileName});
-                                    self.updateFileName(singleFile.name);
+                                    let fileName = singleFile.name.replace(/\.[^/.]+$/, "");
+                                    self.updateFile({'name': fileName, 'blobName': self.generatedFileName});
+                                    self.updateFileName(fileName);
                                     self.callBackmethods.stopProgress(true);
                                     self.updateUploadFullMobile(false);
                                     self.callBackmethods.next(1);
@@ -188,7 +189,7 @@
                             link: URL.createObjectURL(newFile.file),
                         };
                         //add or replace
-                        let documentTitle = singleFile.name ? singleFile.name : '';
+                        let documentTitle = singleFile.name ? singleFile.name.replace(/\.[^/.]+$/, "") : '';
                         this.filesUploaded.splice(0, 1, singleFile);
                         this.updateFile({'name': documentTitle});
                         this.updateFileName(documentTitle);
@@ -201,7 +202,6 @@
                     if (newFile.progress === 100) {
                         this.callBackmethods.stopProgress(true);
                     }
-                    console.log('progress', newFile.progress, newFile)
                 }
                 // Upload error
                 if (newFile && oldFile && newFile.error !== oldFile.error) {
@@ -209,7 +209,6 @@
                     this.uploadError = true;
                     this.callBackmethods.stopProgress(true);
                     this.callBackmethods.changeStep(1);
-
                     console.log('error', newFile.error, newFile)
                 }
                 // Get response data

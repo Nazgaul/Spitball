@@ -125,7 +125,6 @@
         border-radius: 25px;
         border: none;
         outline: none;
-        cursor: pointer;
         height: 40px;
         margin-bottom: 5px;
         margin-top: 5px;
