@@ -1,5 +1,5 @@
 <template>
-    <div id="question-wrapper-scroll">
+    <div>
         <h1>Questions</h1>
         <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
             <div class="question-header">
@@ -36,11 +36,6 @@
 <script src="./markQuestion.js"></script>
 
 <style lang="scss" scoped>
-    #question-wrapper-scroll{
-        overflow-y: scroll;
-        height: 100%;
-        max-height: 90vh;
-    }
 
     .questionItem{
         display:flex;
@@ -57,7 +52,6 @@
             border-radius: 25px;
             border: none;
             outline: none;
-            cursor:pointer;
             height: 25px;
             color: white;
             font-weight: 600;
