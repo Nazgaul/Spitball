@@ -27,13 +27,15 @@ namespace Cloudents.Query.Admin
         {
             return await _session.Query<Answer>()
                 .Fetch(f => f.User)
-                .Where(w => w.User is RegularUser && w.Item.State == ItemState.Pending)
+                .Where(w => w.User is RegularUser && w.State == ItemState.Pending)
                 .Select(s => new PendingAnswerDto
                 {
                     Id = s.Id,
                     Text = s.Text,
                     Email = s.User.Email,
-                    UserId = s.User.Id
+                    UserId = s.User.Id,
+                    QuestionText = s.Question.Text,
+                    QuestionId = s.Question.Id
                 }).OrderBy(o => o.Id).ToListAsync(token);
         }
     }

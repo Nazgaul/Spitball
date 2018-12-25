@@ -21,9 +21,8 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
         
             var answer = await _answerRepository.LoadAsync(message.AnswerId, token);
-            answer.Item.State = ItemState.Ok;
-
-            if (answer.Item.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
+            answer.MakePublic();
+            if (answer.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
                 var votes = answer.Item.Votes.ToList();
                 foreach (var vote in votes)
@@ -32,7 +31,6 @@ namespace Cloudents.Command.CommandHandler.Admin
                 }
             }
 
-            answer.Item.FlagReason = null;
             answer.Item.VoteCount = answer.Item.Votes.Count;
 
             await _answerRepository.UpdateAsync(answer, token);

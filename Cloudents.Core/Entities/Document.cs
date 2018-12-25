@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
 
-    public class Document :  ItemObject
+    public class Document : ItemObject
     {
         public Document(string name,
             University university,
@@ -17,7 +17,7 @@ namespace Cloudents.Core.Entities
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
             if (name == null) throw new ArgumentNullException(nameof(name));
-            Name = name.Replace("+","-");
+            Name = name.Replace("+", "-");
             University = university ?? throw new ArgumentNullException(nameof(university));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             Type = type;
@@ -26,7 +26,7 @@ namespace Cloudents.Core.Entities
             Views = 0;
             Professor = professor;
 
-            Item.State = Privileges.GetItemState(user.Score);
+            ChangeState(Privileges.GetItemState(user.Score));
 
 
         }
@@ -69,5 +69,14 @@ namespace Cloudents.Core.Entities
 
 
         public virtual string MetaContent { get; set; }
+        public override void DeleteAssociation()
+        {
+            Item.Votes.Clear();
+        }
+
+        public override void ChangeState(ItemState state)
+        {
+            //Item.ChangeState(state);
+        }
     }
 }

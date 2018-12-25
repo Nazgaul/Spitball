@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler.Admin
@@ -12,13 +10,11 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class ApproveQuestionCommandHandler : ICommandHandler<ApproveQuestionCommand>
     {
         private readonly IRepository<Question> _questionRepository;
-        private readonly IEventStore _eventStore;
 
 
-        public ApproveQuestionCommandHandler(IRepository<Question> questionRepository, IEventStore eventStore)
+        public ApproveQuestionCommandHandler(IRepository<Question> questionRepository)
         {
             _questionRepository = questionRepository;
-            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(ApproveQuestionCommand message, CancellationToken token)
@@ -26,10 +22,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             foreach (var questionId in message.QuestionIds)
             {
                 var question = await _questionRepository.LoadAsync(questionId, token);
-                question.Item.State = ItemState.Ok;
-                question.Updated = DateTime.UtcNow;
-
-                _eventStore.Add(new QuestionCreatedEvent(question));
+                question.ChangeState(ItemState.Ok);
                 await _questionRepository.UpdateAsync(question, token);
             }
           

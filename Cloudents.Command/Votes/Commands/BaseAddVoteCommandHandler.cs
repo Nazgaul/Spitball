@@ -35,7 +35,7 @@ namespace Cloudents.Command.Votes.Commands
                 throw new NoEnoughScoreException();
             }
             var question = await _repository.LoadAsync(id, token);
-            if (question.Item.State != ItemState.Ok)
+            if (question.State != ItemState.Ok)
             {
                 throw new NotFoundException();
             }

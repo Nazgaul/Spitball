@@ -43,11 +43,9 @@ namespace Cloudents.Persistance.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
-            HasMany(x => x.Answers)
-                .Inverse()
-                .Cascade.AllDeleteOrphan();
+           
 
-            HasMany(x => x.Questions)
+            HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
@@ -90,6 +88,9 @@ namespace Cloudents.Persistance.Maps
         {
 
             DiscriminatorValue(false);
+
+            HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore).Inverse()
+                .Cascade.AllDeleteOrphan();
         }
     }
 

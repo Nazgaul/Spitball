@@ -21,7 +21,7 @@ namespace Cloudents.Web.Services
             CurrentPage = currentPage;
             _urlHelper = urlHelper;
             DataSource = statelessSession.Query<Document>()
-                .Where(w => w.Item.State == ItemState.Ok)
+                .Where(w => w.State == ItemState.Ok)
                 .Fetch(f => f.University)
                 .Select(s => new DocumentSeoDto
                 {

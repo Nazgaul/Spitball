@@ -26,14 +26,14 @@ namespace Cloudents.Query.Admin
         public async Task<IList<FlaggedDocumentDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
             return await _session.Query<Document>()
-                .Where(w => w.Item.State == ItemState.Flagged)
+                .Where(w => w.State == ItemState.Flagged)
                 .OrderBy(w => w.Id)
                 .Take(100)
                 .Select(s => new FlaggedDocumentDto
                 {
                     Id = s.Id,
-                    Reason = s.Item.FlagReason,
-                    FlaggedUserEmail= s.Item.FlaggedUser.Email
+                    Reason = s.FlagReason,
+                    FlaggedUserEmail= s.FlaggedUser.Email
                 }).ToListAsync(token);
         }
     }

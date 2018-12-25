@@ -99,6 +99,10 @@ namespace Cloudents.Web.Api
 
             if (!user.EmailConfirmed || !user.PhoneNumberConfirmed)
             {
+                if (user.OldUser.GetValueOrDefault())
+                {
+                    return new CheckUserStatusResponse(NextStep.StartStep);
+                }
                 ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
                 return BadRequest(ModelState);
             }

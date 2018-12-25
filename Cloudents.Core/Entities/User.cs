@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
@@ -68,15 +69,21 @@ namespace Cloudents.Core.Entities
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         public virtual IList<Transaction> Transactions { get; protected set; }
-        protected internal virtual IList<Question> Questions { get; set; }
 
-        
+        protected readonly IList<Question> _questions = new List<Question>();
+        public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+        //public virtual void ClearQuestionAndAnswers()
+        //{
+        //    _questions.Clear();
+        //    _answers.Clear();
+        //}
 
-        public virtual IList<Question> QuestionsReadOnly => new ReadOnlyCollection<Question>(Questions);
 
-        protected internal virtual IList<Answer> Answers { get; set; }
 
-        public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
+
+
+        //protected internal virtual IList<Answer> Answers { get; set; }
+       
 
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
@@ -129,11 +136,28 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
             //Fictive = false;
 
-        }
 
+
+
+        }
         protected RegularUser()
         {
 
         }
+
+        public virtual void DeleteQuestionAndAnswers()
+        {
+            _questions.Clear();
+            _answers.Clear();
+        }
+        private readonly IList<Answer> _answers = new List<Answer>();
+
+        public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
+
+       // protected internal virtual IList<Answer> Answers { get; set; }
+
+      //  public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
+
+       
     }
 }

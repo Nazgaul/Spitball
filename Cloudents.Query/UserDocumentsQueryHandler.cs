@@ -24,7 +24,7 @@ namespace Cloudents.Query
             return await _session.Query<Document>()
                 .Fetch(f => f.University)
                 .Fetch(f => f.User)
-                .Where(w => w.User.Id == query.Id && w.Item.State == ItemState.Ok)
+                .Where(w => w.User.Id == query.Id && w.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new DocumentFeedDto()
                 {

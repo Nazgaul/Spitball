@@ -33,7 +33,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new ArgumentException("question doesn't exists");
             }
 
-            if (question.Item.State != ItemState.Ok)
+            if (question.State != ItemState.Ok)
             {
                 throw new ArgumentException("question doesn't exists");
 

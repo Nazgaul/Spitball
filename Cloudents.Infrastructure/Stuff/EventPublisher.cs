@@ -8,10 +8,10 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Infrastructure.Stuff
 {
 
-    public class EventStore : IEventStore , IEnumerable<IEvent>
+    public class EventStore : IEventStore, IEnumerable<IEvent>
     {
         private readonly List<IEvent> _events = new List<IEvent>();
-       
+
 
         public void Add(IEvent @event)
         {
@@ -39,7 +39,7 @@ namespace Cloudents.Infrastructure.Stuff
         }
     }
 
-    
+
 
 
     public class EventPublisher : IEventPublisher

@@ -36,7 +36,7 @@
 <script src="./markQuestion.js"></script>
 
 <style lang="scss" scoped>
-    
+    #question-wrapper-scroll{
 #question-wrapper-scroll{
     overflow-y: scroll;
     height: 100%;

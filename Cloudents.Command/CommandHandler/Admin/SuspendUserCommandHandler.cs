@@ -24,34 +24,33 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
             var user = await _userRepository.LoadAsync(message.Id, false, token);
             //TODO: why????
-            if (!user.LockoutEnabled)
-            {
-                return;
-            }
+            //if (!user.LockoutEnabled)
+            //{
+            //    return;
+            //}
             user.LockoutEnd = message.LockoutEnd;
             _eventStore.Add(new UserSuspendEvent(user));
-            //user.Events.Add(new UserSuspendEvent(user));
 
 
-            //if (message.ShouldDeleteData)
-            //{
+            if (message.ShouldDeleteData)
+            {
 
-            //    var deleteQuestionCommandHandler = _lifetimeScope.Resolve<DeleteQuestionCommandHandler>();
+                //    var deleteQuestionCommandHandler = _lifetimeScope.Resolve<DeleteQuestionCommandHandler>();
 
-            //    foreach (var question in user.QuestionsReadOnly)
-            //    {
-            //        await deleteQuestionCommandHandler.DeleteQuestionAsync(question, user, token);
-            //    }
+                //    foreach (var question in user.QuestionsReadOnly)
+                //    {
+                //        await deleteQuestionCommandHandler.DeleteQuestionAsync(question, user, token);
+                //    }
 
 
-            //    var deleteAnswerCommandHandler = _lifetimeScope.Resolve<DeleteAnswerCommandHandler>();
-            //    foreach (var answer in user.AnswersReadOnly)
-            //    {
-            //        await deleteAnswerCommandHandler.DeleteAnswerAsync(answer, token);
-            //    }
-            //}
-           // user.Questions.Clear();
-            //user.Answers.Clear();
+                //    var deleteAnswerCommandHandler = _lifetimeScope.Resolve<DeleteAnswerCommandHandler>();
+                //    foreach (var answer in user.AnswersReadOnly)
+                //    {
+                //        await deleteAnswerCommandHandler.DeleteAnswerAsync(answer, token);
+                //    }
+
+                user.DeleteQuestionAndAnswers();
+            }
             await _userRepository.UpdateAsync(user, token);
         }
     }

@@ -82,7 +82,7 @@ namespace Cloudents.Command.CommandHandler
                 await Task.WhenAll(l).ConfigureAwait(true);
             }
             
-            if (question.Item.State == ItemState.Ok)
+            if (question.State == ItemState.Ok)
             {
                 _eventStore.Add(new QuestionCreatedEvent(question));
             }

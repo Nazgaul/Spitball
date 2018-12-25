@@ -11,13 +11,12 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class ApproveAnswerCommandHandler : ICommandHandler<ApproveAnswerCommand>
     {
         private readonly IRepository<Answer> _answerRepository;
-        private readonly IRepository<Question> _questionRepository;
         private readonly IEventStore _eventStore;
 
-        public ApproveAnswerCommandHandler(IRepository<Answer> answerRepository, IRepository<Question> questionRepository, IEventStore eventStore)
+        public ApproveAnswerCommandHandler(IRepository<Answer> answerRepository, 
+            IEventStore eventStore)
         {
             _answerRepository = answerRepository;
-            _questionRepository = questionRepository;
             _eventStore = eventStore;
         }
 
@@ -26,9 +25,10 @@ namespace Cloudents.Command.CommandHandler.Admin
             foreach (var answerId in message.AnswerIds)
             {
                 var answer = await _answerRepository.LoadAsync(answerId, token);
-                answer.Item.State = ItemState.Ok;
-                answer.Question.AnswerCount++;
-                await _questionRepository.UpdateAsync(answer.Question, token);
+                answer.MakePublic();
+                //answer.State = ItemState.Ok;
+                //answer.Question.AnswerCount++;
+                //await _questionRepository.UpdateAsync(answer.Question, token);
                 _eventStore.Add(new AnswerCreatedEvent(answer));
                 await _answerRepository.UpdateAsync(answer, token);
             }

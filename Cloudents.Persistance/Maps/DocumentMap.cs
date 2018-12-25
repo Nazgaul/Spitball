@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
-    public class DocumentMap : ClassMap<Document>
+    public class DocumentMap : ItemMap<Document>
     {
         public DocumentMap()
         {
@@ -29,7 +29,7 @@ namespace Cloudents.Persistance.Maps
                 QuestionMap.ItemComponentPartialMapping(t);
                 t.HasMany(x => x.Votes).KeyColumns.Add("DocumentId")
                     .Inverse().Cascade.AllDeleteOrphan();
-                t.References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("DocumentFlagged_User");
+                
             });
             References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
@@ -40,7 +40,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Purchased).Not.Nullable();
             Map(x => x.OldId).Nullable();
             Map(x => x.MetaContent).Nullable();
-            
+            References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("DocumentFlagged_User");
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");
         }

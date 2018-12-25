@@ -37,7 +37,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                 throw new ArgumentException("answer doesn't exits");
             }
 
-            if (answer.Item.State == ItemState.Deleted)
+            if (answer.State == ItemState.Deleted)
             {
                 throw new ArgumentException("answer doesn't exits");
             }
@@ -55,7 +55,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             
             _eventStore.Add(new AnswerDeletedEvent(answer));
 
-            answer.Question.AnswerCount--;
+           // answer.Question.AnswerCount--;
             if (answer.Question.CorrectAnswer != null)
             {
                 if (answer.Id == answer.Question.CorrectAnswer.Id)

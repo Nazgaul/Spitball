@@ -4,9 +4,9 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
-    public class QuestionMap : ClassMap<Question>
+    public class QuestionMap : ItemMap<Question>
     {
-        public QuestionMap()
+        public QuestionMap() 
         {
             DynamicUpdate();
             //https://stackoverflow.com/a/7084697/1235448
@@ -20,13 +20,14 @@ namespace Cloudents.Persistance.Maps
             Component(x => x.Item, t =>
             {
                 ItemComponentPartialMapping(t);
-                t.HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse().Cascade.AllDeleteOrphan();
-                t.References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("QuestionFlagged_User");
+                t.HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse()
+                    .Cascade.AllDeleteOrphan();
+               
             });
             //Component(x => x.Item);
             Map(x => x.Language).Length(5);
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
-            Map(x => x.AnswerCount).Not.Nullable();
+           // Map(x => x.AnswerCount).Not.Nullable();
 
             References(x => x.User).Column("UserId")
                 .ForeignKey("Question_User").Not.Nullable()
@@ -46,18 +47,30 @@ namespace Cloudents.Persistance.Maps
                 .LazyLoad()
                 .Inverse();
 
+            References(x => x.FlaggedUser)
+                .Column("FlaggedUserId").ForeignKey("QuestionFlagged_User");
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
         }
 
+        
+
         internal static void ItemComponentPartialMapping(ComponentPart<ItemComponent> t)
         {
-            t.Map(m => m.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
-            t.Map(m => m.DeletedOn).Nullable();
-            t.Map(m => m.FlagReason).Nullable();
+            
            
            // t.Map(m => m.FlaggedUserId).Nullable();
             t.Map(m => m.VoteCount).Not.Nullable();
+        }
+    }
+
+    public class ItemMap<T> : ClassMap<T>  where T : ItemObject
+    {
+        public ItemMap()
+        {
+            Map(x=>x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
+            Map(m => m.DeletedOn).Nullable();
+            Map(m => m.FlagReason).Nullable();
         }
     }
 }

@@ -51,9 +51,9 @@ namespace Cloudents.Persistance
 
         private static void DeleteItem(ISoftDelete deletable)
         {
-            deletable.Item = deletable.Item;
-            deletable.Item.State = ItemState.Deleted;
-            deletable.Item.DeletedOn = DateTime.UtcNow;
+            //deletable.DeleteAssociation();
+            //deletable.Item = deletable.Item;
+            deletable.Delete();
         }
     }
 }

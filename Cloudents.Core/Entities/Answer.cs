@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
@@ -12,17 +14,18 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Answer :  ItemObject
+    public class Answer : ItemObject
     {
-        public Answer(Question question, string text, int attachments, RegularUser user) : this()
+        public Answer(Question question, string text, int attachments, RegularUser user)
+            : this()
         {
             Question = question;
             Text = text;
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            Item.State = Privileges.GetItemState(user.Score);
-            
+            ChangeState(Privileges.GetItemState(user.Score));
+
         }
 
         protected Answer()
@@ -42,6 +45,32 @@ namespace Cloudents.Core.Entities
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
+
+       
+        public override void DeleteAssociation()
+        {
+            Item.Votes.Clear();
+        }
+
+
+        public virtual void DeleteAnswer()
+        {
+
+        }
+
+        public virtual void DeleteAnswerAdmin()
+        {
+            this.Transactions.Clear();
+            this.Events.Add(new AnswerDeletedEvent(this));
+            if (Question.CorrectAnswer != null)
+            {
+                if (Id == Question.CorrectAnswer.Id)
+                {
+                    Question.CorrectAnswer = null;
+                }
+            }
+        }
+        //public override ItemComponent Item { get; set; }
     }
 
 }
