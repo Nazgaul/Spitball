@@ -55,6 +55,7 @@ namespace Cloudents.Web.Api
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
+            return Ok();
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
             if (user != null)
             {
