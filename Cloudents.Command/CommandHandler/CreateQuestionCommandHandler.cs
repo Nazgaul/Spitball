@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -21,18 +20,16 @@ namespace Cloudents.Command.CommandHandler
         private readonly Lazy< IBlobProvider<QuestionAnswerContainer>> _blobProvider;
         private readonly ITextAnalysis _textAnalysis;
         private readonly ITransactionRepository _transactionRepository;
-        private readonly IEventStore _eventStore;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRegularUserRepository userRepository, ITextAnalysis textAnalysis,
-            ITransactionRepository transactionRepository, IEventStore eventStore,
+            ITransactionRepository transactionRepository, 
             Lazy<IBlobProvider<QuestionAnswerContainer>> blobProvider)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
             _textAnalysis = textAnalysis;
             _transactionRepository = transactionRepository;
-            _eventStore = eventStore;
             _blobProvider = blobProvider;
         }
 
@@ -80,11 +77,6 @@ namespace Cloudents.Command.CommandHandler
                 var l = message.Files?.Select(file => _blobProvider.Value.MoveAsync(file, $"{id}", token)) ??
                         Enumerable.Empty<Task>();
                 await Task.WhenAll(l).ConfigureAwait(true);
-            }
-            
-            if (question.State == ItemState.Ok)
-            {
-                _eventStore.Add(new QuestionCreatedEvent(question));
             }
         }
     }

@@ -13,6 +13,7 @@ namespace Cloudents.Persistance
 {
     public class UnitOfWorkFactorySpitball
     {
+        private readonly IEventPublisher _publisher;
         private readonly ISessionFactory _factory;
 
 
@@ -29,8 +30,9 @@ namespace Cloudents.Persistance
         //        select x;
         //}
 
-        public UnitOfWorkFactorySpitball(IConfigurationKeys connectionString)
+        public UnitOfWorkFactorySpitball(IEventPublisher publisher, IConfigurationKeys connectionString)
         {
+            _publisher = publisher;
             var configuration = Fluently.Configure()
                 .Database(
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.Db)
@@ -88,12 +90,11 @@ namespace Cloudents.Persistance
 #if DEBUG
             config.SetInterceptor(new LoggingInterceptor());
 #endif
-            //var eventPublisherListener = new PublishEventsListener(_lifetimeScope.Resolve<IEventPublisher>());
-            //config.SetListener(ListenerType.PostCommitDelete, eventPublisherListener);
+            var eventPublisherListener = new PublishEventsListener(_publisher);
+            config.SetListener(ListenerType.PostCommitDelete, eventPublisherListener);
             config.SetListener(ListenerType.Delete, new SoftDeleteEventListener());
-
-            //config.SetListener(ListenerType.PostInsert, eventPublisherListener);
-            //config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
+            config.SetListener(ListenerType.PostInsert, eventPublisherListener);
+            config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
 
             //config.LinqToHqlGeneratorsRegistry<MyLinqToHqlGeneratorsRegistry>();
 

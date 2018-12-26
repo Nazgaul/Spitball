@@ -13,13 +13,12 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRepository<RegularUser> _userRepository;
         private readonly IRepository<Transaction> _transactionRepository;
-        private readonly IEventStore _eventStore;
 
-        public ReferringUserCommandHandler(IRepository<RegularUser> userRepository, IRepository<Transaction> transactionRepository, IEventStore eventStore)
+        public ReferringUserCommandHandler(IRepository<RegularUser> userRepository,
+            IRepository<Transaction> transactionRepository)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
-            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(ReferringUserCommand message, CancellationToken token)
@@ -31,7 +30,7 @@ namespace Cloudents.Command.CommandHandler
                 InvitedUser = register
 
             };
-            _eventStore.Add(new TransactionEvent(tx));
+            tx.Events.Add(new TransactionEvent(tx));
             await _transactionRepository.AddAsync(tx, default);
         }
     }

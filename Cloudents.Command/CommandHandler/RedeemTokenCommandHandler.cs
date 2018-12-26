@@ -15,16 +15,14 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<Transaction> _transactionRepository;
-        private readonly IEventStore _eventStore;
 
 
 
         public RedeemTokenCommandHandler(IRegularUserRepository userRepository, 
-            IRepository<Transaction> transactionRepository, IEventStore eventStore)
+            IRepository<Transaction> transactionRepository)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
-            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(RedeemTokenCommand message, CancellationToken token)
@@ -41,7 +39,7 @@ namespace Cloudents.Command.CommandHandler
             var t = new Transaction(TransactionActionType.CashOut, TransactionType.Earned, price, user);
 
             await _transactionRepository.AddAsync(t, token);
-            _eventStore.Add(new RedeemEvent(message.UserId, message.Amount));
+            user.Events.Add(new RedeemEvent(message.UserId, message.Amount));
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -74,9 +75,31 @@ namespace Cloudents.Core.Entities
             Votes.Clear();
         }
 
-        public override void ChangeState(ItemState state)
+        //public override void ChangeState(ItemState state)
+        //{
+        //    //Item.ChangeState(state);
+        //}
+
+        public override bool MakePublic()
         {
-            //Item.ChangeState(state);
+            var t =  base.MakePublic();
+            if (t)
+            {
+                Events.Add(new DocumentCreatedEvent(this));
+            }
+
+            return t;
+        }
+
+        public override bool Delete()
+        {
+            var t = base.Delete();
+            if (t)
+            {
+                Events.Add(new DocumentDeletedEvent(this));
+            }
+
+            return t;
         }
     }
 }

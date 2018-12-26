@@ -25,6 +25,7 @@ namespace Cloudents.Core.Entities
             User = user;
             Created = DateTime.UtcNow;
             MakePublic();
+
         }
 
         protected Answer()
@@ -51,9 +52,20 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual void DeleteAnswer()
-        {
+        //public virtual void DeleteAnswer()
+        //{
+        //    Events.Add(new AnswerDeletedEvent(this));
+        //}
 
+        public override bool Delete()
+        {
+            var t = base.Delete();
+            if (t)
+            {
+                Events.Add(new AnswerDeletedEvent(this));
+            }
+
+            return t;
         }
 
         public virtual void DeleteAnswerAdmin()
@@ -68,6 +80,18 @@ namespace Cloudents.Core.Entities
                 }
             }
         }
+
+        public override bool MakePublic()
+        {
+            var t =  base.MakePublic();
+            if (t)
+            {
+                Events.Add(new AnswerCreatedEvent(this));
+            }
+
+            return t;
+        }
+
         //public override ItemComponent Item { get; set; }
     }
 
