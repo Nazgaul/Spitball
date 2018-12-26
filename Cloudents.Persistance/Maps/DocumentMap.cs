@@ -24,13 +24,7 @@ namespace Cloudents.Persistance.Maps
 
             
             Component(x => x.TimeStamp);
-            Component(x => x.Item, t =>
-            {
-                QuestionMap.ItemComponentPartialMapping(t);
-                t.HasMany(x => x.Votes).KeyColumns.Add("DocumentId")
-                    .Inverse().Cascade.AllDeleteOrphan();
-                
-            });
+           
             References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
@@ -40,7 +34,10 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Purchased).Not.Nullable();
             Map(x => x.OldId).Nullable();
             Map(x => x.MetaContent).Nullable();
+            Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); ;
             References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("DocumentFlagged_User");
+            HasMany(x => x.Votes).KeyColumns.Add("DocumentId")
+                .Inverse().Cascade.AllDeleteOrphan();
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");
         }

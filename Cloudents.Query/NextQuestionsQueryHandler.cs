@@ -45,7 +45,7 @@ namespace Cloudents.Query
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
                     .Select(s => s.Color).WithAlias(() => dto.Color)
 
-                    .Select(Projections.Property(() => questionAlias.Item.VoteCount).As("Vote.Votes"))
+                    .Select(Projections.Property(() => questionAlias.VoteCount).As("Vote.Votes"))
                     .SelectSubQuery(QueryOver.Of<Answer>()
                         .Where(w => w.Question.Id == questionAlias.Id && w.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
                     .Select(Projections.Conditional(

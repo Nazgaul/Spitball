@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
@@ -15,14 +16,13 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRepository<Question> _repository;
         private readonly IRepository<Transaction> _transactionRepository;
-        private readonly IEventStore _eventStore;
 
 
-        public DeleteQuestionCommandHandler(IRepository<Question> repository, IRepository<Transaction> transactionRepository, IEventStore eventStore)
+        public DeleteQuestionCommandHandler(IRepository<Question> repository,
+            IRepository<Transaction> transactionRepository)
         {
             _repository = repository;
             _transactionRepository = transactionRepository;
-            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
@@ -44,7 +44,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("user is not the one who wrote the question");
             }
 
-            if (question.Answers.Count > 0)
+            if (question.Answers.Count(w=>w.State == ItemState.Ok) > 0)
             {
                 throw new InvalidOperationException("cannot delete question with answers");
             }
@@ -67,7 +67,7 @@ namespace Cloudents.Command.CommandHandler
                 TransactionType.Stake, question.Price, user);
             await _transactionRepository.AddAsync(deleteQuestionTransaction, token);
 
-            _eventStore.Add(new QuestionDeletedEvent(question));
+            question.Events.Add(new QuestionDeletedEvent(question));
             await _repository.DeleteAsync(question, token).ConfigureAwait(false);
 
         }

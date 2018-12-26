@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -36,7 +37,6 @@ namespace Cloudents.Core.Entities
         {
             TimeStamp = new DomainTimeStamp();
             Tags = new HashSet<Tag>();
-            Item = new ItemComponent();
         }
 
         public virtual long Id { get; set; }
@@ -67,16 +67,39 @@ namespace Cloudents.Core.Entities
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }
 
-
         public virtual string MetaContent { get; set; }
+
+        public virtual decimal Price { get; set; }
         public override void DeleteAssociation()
         {
-            Item.Votes.Clear();
+            Votes.Clear();
         }
 
-        public override void ChangeState(ItemState state)
+        //public override void ChangeState(ItemState state)
+        //{
+        //    //Item.ChangeState(state);
+        //}
+
+        public override bool MakePublic()
         {
-            //Item.ChangeState(state);
+            var t =  base.MakePublic();
+            if (t)
+            {
+                Events.Add(new DocumentCreatedEvent(this));
+            }
+
+            return t;
+        }
+
+        public override bool Delete()
+        {
+            var t = base.Delete();
+            if (t)
+            {
+                Events.Add(new DocumentDeletedEvent(this));
+            }
+
+            return t;
         }
     }
 }

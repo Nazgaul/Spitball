@@ -12,7 +12,6 @@ namespace Cloudents.Query.Query.Admin
             IQuery<IList<FictivePendingQuestionDto>>,
         IQuery<IEnumerable<SuspendedUsersDto>>,
         IQuery<IList<PendingDocumentDto>>,
-        IQuery<IEnumerable<PendingAnswerDto>>,
         IQuery<IEnumerable<FlaggedAnswerDto>>,
         IQuery<IList<FlaggedDocumentDto>>,
         IQuery<IEnumerable<FlaggedQuestionDto>>

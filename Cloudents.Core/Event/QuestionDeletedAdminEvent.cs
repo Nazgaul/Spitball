@@ -6,16 +6,16 @@ namespace Cloudents.Core.Event
     public class QuestionDeletedAdminEvent : IEvent
     {
 
-        public QuestionDeletedAdminEvent(Question question, RegularUser user)
+        public QuestionDeletedAdminEvent(Question question/*, RegularUser user*/)
         {
             Question = question;
-            User = user;
+          //  User = user;
         }
 
 
 
         public Question Question { get; }
 
-        public RegularUser User { get; }
+        //public RegularUser User { get; }
     }
 }

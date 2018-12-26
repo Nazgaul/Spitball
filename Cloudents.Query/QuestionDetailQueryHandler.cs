@@ -43,7 +43,7 @@ namespace Cloudents.Query
                 //    Score = s.User.Score
                 //},
                     s.Id, s.Text, s.Price, s.Updated, s.CorrectAnswer.Id,
-                    s.Color, s.Subject, s.Language, s.Item.VoteCount)
+                    s.Color, s.Subject, s.Language, s.VoteCount)
                 ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
                 .Where(w => w.Question.Id == id && w.State == ItemState.Ok)
@@ -58,7 +58,7 @@ namespace Cloudents.Query
                     Create = s.Created,
                     Vote = new VoteDto()
                     {
-                        Votes = s.Item.VoteCount
+                        Votes = s.VoteCount
                     },
                     User = new UserDto
                     {

@@ -24,9 +24,9 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
         {
-            if (eventMessage.User != null)
+            if (eventMessage.Question.User is RegularUser u)
             {
-                return SendEmailAsync(eventMessage.User, token);
+                return SendEmailAsync(u, token);
             }
 
             return Task.CompletedTask;

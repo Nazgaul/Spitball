@@ -28,7 +28,8 @@ namespace Cloudents.Search.Question
 
         }
 
-        public async Task<(IEnumerable<long> result, IEnumerable<QuestionSubject> facetSubject, IEnumerable<QuestionFilter> facetFileter)> SearchAsync(QuestionsQuery query, CancellationToken token)
+        public async Task<(IEnumerable<long> result, IEnumerable<QuestionSubject> facetSubject, IEnumerable<QuestionFilter> facetFileter)>
+            SearchAsync(QuestionsQuery query, CancellationToken token)
         {
             var filters = new List<string>
             {

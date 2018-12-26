@@ -29,9 +29,9 @@ namespace Cloudents.Query
                     s.Price,
                     s.Text,
                     s.Attachments,
-                    s.Answers.Count,
+                    s.Answers.Where(w => w.State == ItemState.Ok).Count(),
                     s.Updated,
-                    s.Color, s.CorrectAnswer.Id != null, s.Language, s.Item.VoteCount)
+                    s.Color, s.CorrectAnswer.Id != null, s.Language, s.VoteCount)
                 )
                 .Take(50).Skip(query.Page * 50)
                 .ToListAsync(token);

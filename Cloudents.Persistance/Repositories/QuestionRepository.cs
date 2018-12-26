@@ -31,7 +31,8 @@ namespace Cloudents.Persistance.Repositories
         public async Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token)
         {
             //TODO: we can do this better maybe
-            return await Session.Query<Question>().Where(w => w.Updated < DateTime.UtcNow.AddDays(4))
+            return await Session.Query<Question>()
+                .Where(w => w.Updated < DateTime.UtcNow.AddHours(3))
                 .Where(w => Session.Query<Answer>()
                                 .FirstOrDefault(x => x.Question.Id == w.Id) == null && w.State == ItemState.Ok)
                 .ToListAsync(token).ConfigureAwait(false);

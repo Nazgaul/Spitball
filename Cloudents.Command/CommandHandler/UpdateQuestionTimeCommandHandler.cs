@@ -10,7 +10,7 @@ namespace Cloudents.Command.CommandHandler
     public class UpdateQuestionTimeCommandHandler : ICommandHandler<UpdateQuestionTimeCommand>
     {
         private readonly IQuestionRepository _questionRepository;
-        private readonly Random _randomGenerator = new Random();
+        //private readonly Random _randomGenerator = new Random();
 
         public UpdateQuestionTimeCommandHandler(IQuestionRepository questionRepository)
         {
@@ -21,7 +21,7 @@ namespace Cloudents.Command.CommandHandler
         {
             foreach (var question in await _questionRepository.GetOldQuestionsAsync(token))
             {
-                question.Updated = DateTimeHelpers.NextRandomDate(1, _randomGenerator);
+                question.Updated = DateTime.UtcNow;// DateTimeHelpers.NextRandomDate(1, _randomGenerator);
                 await _questionRepository.UpdateAsync(question, token);
             }
         }

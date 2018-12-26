@@ -26,14 +26,14 @@ namespace Cloudents.Command.CommandHandler.Admin
             //question.State = ItemState.Ok;
             if (question.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
-                var votes = question.Item.Votes.Where(w => w.Answer == null).ToList();
+                var votes = question.Votes.Where(w => w.Answer == null).ToList();
                 foreach (var vote in votes)
                 {
-                    question.Item.Votes.Remove(vote);
+                    question.Votes.Remove(vote);
                 }
             }
             //question.FlagReason = null;
-            question.Item.VoteCount = question.Item.Votes.Count;
+            question.VoteCount = question.Votes.Count;
             
             await _questionRepository.UpdateAsync(question, token);
         }

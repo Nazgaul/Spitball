@@ -5,7 +5,11 @@ namespace Cloudents.Admin2.Models
 {
     public class ApproveQuestionRequest
     {
+<<<<<<< HEAD
+        public long Id { get; set; }
+=======
         public IEnumerable<long> ids { get; set; }
+>>>>>>> master
     }
 
     public class ApproveDocumentRequest

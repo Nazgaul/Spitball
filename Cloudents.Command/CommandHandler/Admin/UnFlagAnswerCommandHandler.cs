@@ -24,14 +24,14 @@ namespace Cloudents.Command.CommandHandler.Admin
             answer.MakePublic();
             if (answer.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
-                var votes = answer.Item.Votes.ToList();
+                var votes = answer.Votes.ToList();
                 foreach (var vote in votes)
                 {
-                    answer.Item.Votes.Remove(vote);
+                    answer.Votes.Remove(vote);
                 }
             }
 
-            answer.Item.VoteCount = answer.Item.Votes.Count;
+            answer.VoteCount = answer.Votes.Count;
 
             await _answerRepository.UpdateAsync(answer, token);
 

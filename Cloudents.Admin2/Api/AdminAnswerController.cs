@@ -25,26 +25,7 @@ namespace Cloudents.Admin2.Api
             _queryBus = queryBus;
         }
 
-        /// <summary>
-        /// Get a list of answers with pending state
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet("Pending")]
-        public async Task<IEnumerable<PendingAnswerDto>> Get(CancellationToken token)
-        {
-            var query = new AdminEmptyQuery();
-            return await _queryBus.QueryAsync<IEnumerable<PendingAnswerDto>>(query, token);
-        }
-
-        [HttpPost("approve")]
-        public async Task<ActionResult> ApproveAnswerAsync([FromBody] ApproveAnswerRequest model, CancellationToken token)
-        {
-         
-            var command = new ApproveAnswerCommand(model.Id);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            return Ok();
-        }
+      
 
         /// <summary>
         /// Delete answer from the system

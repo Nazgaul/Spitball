@@ -24,13 +24,12 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            ChangeState(Privileges.GetItemState(user.Score));
+            MakePublic();
 
         }
 
         protected Answer()
         {
-            Item = new ItemComponent();
         }
 
         public virtual Guid Id { get; set; }
@@ -49,13 +48,24 @@ namespace Cloudents.Core.Entities
        
         public override void DeleteAssociation()
         {
-            Item.Votes.Clear();
+            Votes.Clear();
         }
 
 
-        public virtual void DeleteAnswer()
-        {
+        //public virtual void DeleteAnswer()
+        //{
+        //    Events.Add(new AnswerDeletedEvent(this));
+        //}
 
+        public override bool Delete()
+        {
+            var t = base.Delete();
+            if (t)
+            {
+                Events.Add(new AnswerDeletedEvent(this));
+            }
+
+            return t;
         }
 
         public virtual void DeleteAnswerAdmin()
@@ -70,6 +80,18 @@ namespace Cloudents.Core.Entities
                 }
             }
         }
+
+        public override bool MakePublic()
+        {
+            var t =  base.MakePublic();
+            if (t)
+            {
+                Events.Add(new AnswerCreatedEvent(this));
+            }
+
+            return t;
+        }
+
         //public override ItemComponent Item { get; set; }
     }
 

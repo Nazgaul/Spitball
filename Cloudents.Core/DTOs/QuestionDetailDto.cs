@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -56,6 +58,7 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailAnswerDto
     {
+        [DtoToEntityConnection(nameof(Answer.Id))]
         public Guid Id { get; set; }
 
         public string Text { get; set; }
