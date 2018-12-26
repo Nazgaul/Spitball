@@ -34,7 +34,7 @@ namespace Cloudents.Command.CommandHandler
                                                             .Select(s => s.Action).FirstOrDefault();
             if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
             {
-                var t = new Transaction(TransactionActionType.FirstCourse, TransactionType.Earned, ReputationAction.FirstCourse, user);
+                var t = new Core.Entities.Transaction(TransactionActionType.FirstCourse, TransactionType.Earned, ReputationAction.FirstCourse, user);
                 await _transactionRepository.AddAsync(t, token);
             }
             user.Courses.Clear();

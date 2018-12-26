@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Document.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
 using Cloudents.Core;
@@ -37,7 +38,7 @@ using Microsoft.AspNetCore.SignalR;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"), ApiController]
+    [Route("api/[controller]"), ApiController,Authorize]
     public class DocumentController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -63,7 +64,7 @@ namespace Cloudents.Web.Api
             _profileUpdater = profileUpdater;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"),AllowAnonymous]
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] IBlobProvider blobProvider,
@@ -87,13 +88,11 @@ namespace Cloudents.Web.Api
             if (!filesTask.Result.Any())
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
-                //var queue = queueClient.GetQueueReference("generate-blob-preview");
-                //await queue.AddMessageAsync(new CloudQueueMessage(item.Id.ToString()));
             }
             return new DocumentPreviewResponse(model, files);
         }
 
-        [HttpPost, Authorize]
+        [HttpPost]
         public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
             [FromServices] IHubContext<SbHub> hubContext,
@@ -107,7 +106,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
-                model.Course, model.Tags, userId, model.Professor);
+                model.Course, model.Tags, userId, model.Professor,model.Price);
             await _commandBus.DispatchAsync(command, token);
 
             var url = Url.DocumentUrl(profile.University.Name, model.Course, command.Id, model.Name);
@@ -260,6 +259,19 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
         }
+
+
+        [HttpPost("purchase")]
+        public async Task<IActionResult> PurchaseAsync([FromBody] PurchaseDocumentRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+
+            var command = new PurchaseDocumentCommand(model.Id, userId);
+
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
     }
 
 

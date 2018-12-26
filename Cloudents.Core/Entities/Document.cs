@@ -13,7 +13,7 @@ namespace Cloudents.Core.Entities
         public Document(string name,
             University university,
             Course course, DocumentType type,
-            IEnumerable<Tag> tags, User user, string professor)
+            IEnumerable<Tag> tags, User user, string professor, decimal price)
         : this()
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
@@ -27,6 +27,7 @@ namespace Cloudents.Core.Entities
             Views = 0;
             Professor = professor;
 
+            Price = price;
             ChangeState(Privileges.GetItemState(user.Score));
 
 

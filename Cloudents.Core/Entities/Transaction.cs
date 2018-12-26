@@ -47,5 +47,7 @@ namespace Cloudents.Core.Entities
         public virtual Question Question { get; set; }
         public virtual Answer Answer { get; set; }
         public virtual RegularUser InvitedUser { get; set; }
+
+        public virtual Document Document { get; set; }
     }
 }
