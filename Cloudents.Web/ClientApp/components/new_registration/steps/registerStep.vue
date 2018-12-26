@@ -121,7 +121,7 @@
             },
             isValidPass(){
                 return this.password.length >= 8  && this.confirmPassword.length >= 8
-            }
+            },
 
         },
 
