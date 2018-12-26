@@ -1,5 +1,5 @@
 <template>
-    <div id="question-wrapper-scroll">
+    <div>
         <h1>Questions</h1>
         <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
             <div class="question-header">
@@ -52,7 +52,6 @@
             border-radius: 25px;
             border: none;
             outline: none;
-            cursor:pointer;
             height: 25px;
             color: white;
             font-weight: 600;

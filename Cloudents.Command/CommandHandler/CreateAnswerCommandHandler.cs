@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
+using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
@@ -60,15 +61,15 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("user cannot answer himself");
             }
 
-            //if (!Language.ListOfWhiteListCountries.Contains(user.Country))
-            //{
-            //    var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
-            //    var pendingAnswerAfterThisInsert = pendingAnswers + 1;
-            //    if (pendingAnswerAfterThisInsert > 5)
-            //    {
-            //        throw new QuotaExceededException();
-            //    }
-            //}
+            if (user.Score < Privileges.Post)
+            {
+                var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
+                var pendingAnswerAfterThisInsert = pendingAnswers + 1;
+                if (pendingAnswerAfterThisInsert > 5)
+                {
+                    throw new QuotaExceededException();
+                }
+            }
             var answers = question.Answers;
             if (answers.Any(a => a.User.Id == user.Id && a.State != ItemState.Deleted))
             {

@@ -34,7 +34,7 @@ namespace Cloudents.Query
                     s.Question.Price,
                     s.Question.Text,
                     s.Question.Attachments,
-                    s.Question.Answers.Count,
+                    s.Question.Answers.Where(w => w.State == ItemState.Ok).Count(),
                     new UserDto
                     {
                         Id = s.Question.User.Id,
@@ -45,7 +45,7 @@ namespace Cloudents.Query
                     s.Question.Updated,
                     s.Question.Color, s.Question.CorrectAnswer.Id != null,
                     s.Question.Language,
-                    s.Question.Item.VoteCount))
+                    s.Question.VoteCount))
                 .Take(50).Skip(query.Page * 50).ToListAsync(token);
         }
     }

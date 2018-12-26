@@ -82,7 +82,11 @@ namespace Cloudents.Admin2.Api
         {
          
 
+<<<<<<< HEAD
+            var command = new ApproveQuestionCommand(model.Id);
+=======
             var command = new ApproveQuestionCommand(model.ids);
+>>>>>>> master
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
           
             return Ok();

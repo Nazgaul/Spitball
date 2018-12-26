@@ -114,6 +114,7 @@ namespace Cloudents.Admin2
 
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {

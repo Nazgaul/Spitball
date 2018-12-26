@@ -20,7 +20,7 @@ namespace Cloudents.Command.Item.Commands.FlagItem
         }
         protected async Task ExecuteAsync(BaseFlagItemCommand<TId> message, CancellationToken token)
         {
-            if (!ItemComponent.ValidateFlagReason(message.FlagReason))
+            if (!ItemObject.ValidateFlagReason(message.FlagReason))
             {
                 throw new ArgumentException("reason is too long");
             }

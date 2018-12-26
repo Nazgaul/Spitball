@@ -1,5 +1,5 @@
 ﻿<template>
-    <div>
+    <div  id="answer-wrapper-scroll">
         <h1>Pending Answers</h1>
         <div class="page-container">
             <div class="answer-co">
@@ -37,6 +37,7 @@
 <script src="./pendingAnswers.js"></script>
 
 <style lang="scss" scoped>
+
     .page-container {
         display: flex;
         .deleted-emails {

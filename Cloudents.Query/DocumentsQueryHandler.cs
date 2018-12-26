@@ -48,7 +48,7 @@ namespace Cloudents.Query
                     University = s.University.Name,
                     Vote = new VoteDto()
                     {
-                        Votes = s.Item.VoteCount
+                        Votes = s.VoteCount
                     }
                 })
                 .ToListAsync(token);

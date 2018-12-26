@@ -16,12 +16,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
             //Map(x => x.State).Not.Nullable();
-            Component(x => x.Item, t =>
-            {
-                QuestionMap.ItemComponentPartialMapping(t);
-                t.HasMany(x => x.Votes).KeyColumns.Add("AnswerId")
-                    .Inverse().Cascade.AllDeleteOrphan();
-            });
+            
 
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
@@ -31,7 +26,11 @@ namespace Cloudents.Persistance.Maps
             HasMany(x => x.Transactions)
                 //.Cascade()
                 .LazyLoad()
+               
                 .Inverse();
+
+            HasMany(x => x.Votes).KeyColumns.Add("AnswerId")
+                .Inverse().Cascade.AllDeleteOrphan();
 
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");

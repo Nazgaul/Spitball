@@ -28,13 +28,13 @@ namespace Cloudents.Command.CommandHandler.Admin
                
             if (document.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
-                var votes = document.Item.Votes.ToList();
+                var votes = document.Votes.ToList();
                 foreach (var vote in votes)
                 {
-                document.Item.Votes.Remove(vote);
+                document.Votes.Remove(vote);
                 }
             }
-            document.Item.VoteCount = document.Item.Votes.Count;
+            document.VoteCount = document.Votes.Count;
 
             await _documentRepository.UpdateAsync(document, token);
             }

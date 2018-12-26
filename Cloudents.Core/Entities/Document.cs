@@ -36,7 +36,6 @@ namespace Cloudents.Core.Entities
         {
             TimeStamp = new DomainTimeStamp();
             Tags = new HashSet<Tag>();
-            Item = new ItemComponent();
         }
 
         public virtual long Id { get; set; }
@@ -71,7 +70,7 @@ namespace Cloudents.Core.Entities
         public virtual string MetaContent { get; set; }
         public override void DeleteAssociation()
         {
-            Item.Votes.Clear();
+            Votes.Clear();
         }
 
         public override void ChangeState(ItemState state)

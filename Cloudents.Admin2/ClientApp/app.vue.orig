@@ -23,7 +23,11 @@ export default {
 
 <style lang="scss">
    html,body {
+<<<<<<< HEAD
        //breaks scroll, cannot listen scroll if parent is scrolling
+        /*height: 100%;*/
+=======
+>>>>>>> master
         margin: 0;
         padding: 0;
         background-color: #e0e0e0;

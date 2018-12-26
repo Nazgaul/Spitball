@@ -48,7 +48,7 @@ namespace Cloudents.Query
                     Snippet = s.MetaContent,
                     Vote = new VoteDto()
                     {
-                        Votes = s.Item.VoteCount
+                        Votes = s.VoteCount
                     }
 
                 }
