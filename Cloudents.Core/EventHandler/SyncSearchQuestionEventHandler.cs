@@ -69,10 +69,10 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
         {
-            if (eventMessage.Answer.Question.Answers.Count > 1)
-            {
-                return Task.CompletedTask;
-            }
+            //if (eventMessage.Answer.Question.Answers.Count > 1)
+            //{
+            //    return Task.CompletedTask;
+            //}
             var question = new QuestionSearchDto
             {
                 QuestionId = eventMessage.Answer.Question.Id,
@@ -83,10 +83,10 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(AnswerDeletedEvent eventMessage, CancellationToken token)
         {
-            if (eventMessage.Answer.Question.Answers.Count == 0)
-            {
-                return Task.CompletedTask;
-            }
+            //if (eventMessage.Answer.Question.Answers.Count == 0)
+            //{
+            //    return Task.CompletedTask;
+            //}
             var question = new QuestionSearchDto
             {
                 QuestionId = eventMessage.Answer.Question.Id,
