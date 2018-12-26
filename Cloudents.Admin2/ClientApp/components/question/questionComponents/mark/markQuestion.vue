@@ -59,11 +59,8 @@
     .v-icon {
         &.font-size-16 {
             font-size: 16px;
-
         }
     }
-
-
     .font-size-14 {
         font-size: 14px;
     }
@@ -88,7 +85,6 @@
             white-space: pre-wrap;
             max-width: 80%;
         }
-
     }
 
     .question-toolbar, .v-card {
@@ -110,8 +106,6 @@
                 }
             }
         }
-
-
     }
 
     .question-text-title {

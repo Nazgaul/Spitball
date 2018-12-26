@@ -15,7 +15,6 @@ export default {
 
 
 <style lang="scss" scoped>
-
     .question-content{
         padding: 5px;
         display: flex;
