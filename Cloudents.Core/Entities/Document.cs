@@ -66,8 +66,9 @@ namespace Cloudents.Core.Entities
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; set; }
 
-
         public virtual string MetaContent { get; set; }
+
+        public virtual decimal Price { get; set; }
         public override void DeleteAssociation()
         {
             Votes.Clear();

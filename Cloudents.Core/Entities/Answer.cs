@@ -25,8 +25,6 @@ namespace Cloudents.Core.Entities
             User = user;
             Created = DateTime.UtcNow;
             MakePublic();
-            // Item.State = Privileges.GetItemState(user.Score);
-
         }
 
         protected Answer()

@@ -92,7 +92,7 @@ namespace Cloudents.Search.Document
             if (query.Course != null)
             {
                 var filterStr = string.Join(" or ", query.Course.Select(s =>
-                    $"{nameof(Entities.Document.Course)} eq '{s.ToUpperInvariant()}'"));
+                    $"{nameof(Entities.Document.Course)} eq '{s.ToUpperInvariant().Replace("'","''")})'"));
 
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {

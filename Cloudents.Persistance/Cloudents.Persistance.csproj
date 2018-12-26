@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
     <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Query\" />
-  </ItemGroup>
 </Project>

@@ -37,6 +37,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Search.Document;
 using DocumentType = Cloudents.Core.Enum.DocumentType;
 
 namespace ConsoleApp
@@ -53,7 +54,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -123,44 +124,9 @@ namespace ConsoleApp
 
            // Mapper.Configuration.AssertConfigurationIsValid();
 
-            var queryBus = _container.Resolve<IQueryBus>();
-            var query = new UserDataByIdQuery(638);
-            var taskUser = await queryBus.QueryAsync<UserAccountDto>(query, token);
-            //await ReCopyTransferFiles();
-
-            // var bus = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
-            // await bus.CreateOrUpdateAsync(token);
-           var questionRepository = _container.Resolve<IQuestionRepository>();
-           var question = await questionRepository.GetAsync(46904, default);
-
-           var question2 = new QuestionSearchDto()
-           {
-               QuestionId = question.Id,
-               DateTime = question.Updated,
-               Text = question.Text,
-               Country = question.User.Country,
-               Language = question.Language?.TwoLetterISOLanguageName,
-               Subject = question.Subject,
-               Filter = QuestionFilter.Unanswered
-           };
-
-           var question3 = new QuestionSearchDto
-           {
-               QuestionId = question.Id,
-               Filter = QuestionFilter.Sold,
-           };
-
-           var question4 = new QuestionSearchDto
-           {
-               QuestionId = question.Id,
-               Filter = QuestionFilter.Unanswered
-           };
-
-           var question5 = new QuestionSearchDto
-           {
-               QuestionId = question.Id,
-               Filter = QuestionFilter.Answered,
-           };
+            var queryBus = _container.Resolve<AzureDocumentSearch>();
+            var t = await queryBus.ItemAsync(184151, default);
+          
 
 
            // var t = _container.Resolve<AzureQuestionSearch>();
