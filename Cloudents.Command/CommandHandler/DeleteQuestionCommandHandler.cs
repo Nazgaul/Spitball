@@ -45,7 +45,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("user is not the one who wrote the question");
             }
 
-            if (question.Answers.Count(w=>w.Item.State == ItemState.Ok) > 0)
+            if (question.Answers.Count(w=>w.State == ItemState.Ok) > 0)
             {
                 throw new InvalidOperationException("cannot delete question with answers");
             }

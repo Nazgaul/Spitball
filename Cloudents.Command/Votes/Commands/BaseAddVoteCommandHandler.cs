@@ -56,7 +56,7 @@ namespace Cloudents.Command.Votes.Commands
                 
                 if (question.VoteCount < VotesToFlag)
                 {
-                    _eventStore.Add(new ItemFlaggedEvent(question));
+                   // _eventStore.Add(new ItemFlaggedEvent(question));
                 }
                 return;
             }
@@ -66,7 +66,7 @@ namespace Cloudents.Command.Votes.Commands
                 question.VoteCount -= (int)vote.VoteType;
                 if (question.VoteCount < VotesToFlag)
                 {
-                    _eventStore.Add(new ItemFlaggedEvent(question));
+                   // _eventStore.Add(new ItemFlaggedEvent(question));
                 }
                 await VoteRepository.DeleteAsync(vote, token);
                 return;
@@ -76,7 +76,7 @@ namespace Cloudents.Command.Votes.Commands
             question.VoteCount += (int)type;
             if (question.VoteCount < VotesToFlag)
             {
-                _eventStore.Add(new ItemFlaggedEvent(question));
+               // _eventStore.Add(new ItemFlaggedEvent(question));
             }
             vote.VoteType = type;
 

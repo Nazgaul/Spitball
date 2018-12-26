@@ -30,7 +30,8 @@ namespace Cloudents.Persistance.Repositories
             return Session.Query<Answer>()
                 .Fetch(f => f.Question)
                 .Where(w => w.User.Id == userId)
-                .Where(w => w.Question.CorrectAnswer.Id == null && w.Question.Created > DateTime.UtcNow.AddDays(-7) && w.Item.State == ItemState.Ok)
+                .Where(w => w.Question.CorrectAnswer.Id == null 
+                            && w.Question.Created > DateTime.UtcNow.AddDays(-7) && w.State == ItemState.Ok)
                 .CountAsync(token);
 
         }

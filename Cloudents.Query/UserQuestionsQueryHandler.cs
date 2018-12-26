@@ -29,7 +29,7 @@ namespace Cloudents.Query
                     s.Price,
                     s.Text,
                     s.Attachments,
-                    s.Answers.Where(w => w.Item.State == ItemState.Ok).Count(),
+                    s.Answers.Where(w => w.State == ItemState.Ok).Count(),
                     s.Updated,
                     s.Color, s.CorrectAnswer.Id != null, s.Language, s.VoteCount)
                 )
