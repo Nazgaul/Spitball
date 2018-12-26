@@ -24,21 +24,25 @@ export default {
 <style lang="scss">
    html,body {
        //breaks scroll, cannot listen scroll if parent is scrolling
-        /*height: 100%;*/
         margin: 0;
         padding: 0;
         background-color: #e0e0e0;
+
     }
+   html{
+       overflow-y: hidden;
+   }
     #template-app {
         font-family: 'Roboto', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: rgba(0,0,0,0.87);
-        display: flex;
-        height:100%;
         display:flex;
         justify-content: space-between;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 100vh;
         .nav-container{
             min-width: 200px;
         }

@@ -34,7 +34,7 @@ namespace Cloudents.Query
                     s.Question.Price,
                     s.Question.Text,
                     s.Question.Attachments,
-                    s.Question.Answers.Count,
+                    s.Question.Answers.Where(w => w.Item.State == ItemState.Ok).Count(),
                     new UserDto
                     {
                         Id = s.Question.User.Id,

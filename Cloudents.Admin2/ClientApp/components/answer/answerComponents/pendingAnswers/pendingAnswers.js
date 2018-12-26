@@ -19,7 +19,6 @@ export default {
         declineAnswer(answer, index) {
             let id = answer.id
             deleteAnswer([id]).then(() => {
-
                 this.answers.splice(index, 1);
                 this.$toaster.success(`Answer Declined`);
             }, err => {

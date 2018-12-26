@@ -5,7 +5,7 @@ namespace Cloudents.Admin2.Models
 {
     public class ApproveQuestionRequest
     {
-        public long Id { get; set; }
+        public IEnumerable<long> ids { get; set; }
     }
 
     public class ApproveDocumentRequest
@@ -16,6 +16,6 @@ namespace Cloudents.Admin2.Models
 
     public class ApproveAnswerRequest
     {
-        public Guid Id { get; set; }
+        public IEnumerable<Guid> ids { get; set; }
     }
 }

@@ -1,14 +1,10 @@
 ﻿using Cloudents.Web.Extensions;
-using Cloudents.Web.Hubs;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
@@ -16,7 +12,6 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteAnswer;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
@@ -45,48 +40,48 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<ActionResult<CreateAnswerResponse>> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
             [FromServices] IQueryBus queryBus,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
-            [FromServices] IHubContext<SbHub> hubContext,
+            //[ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
+            //[FromServices] IHubContext<SbHub> hubContext,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             try
             {
-                var t2 = Task.FromResult<IEnumerable<QuestionFeedDto>>(null);
+                //  var t2 = Task.FromResult<IEnumerable<QuestionFeedDto>>(null);
                 var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files);
                 var t1 = _commandBus.DispatchAsync(command, token);
 
 
-                if (score >= Privileges.Post)
-                {
-                    var query = new NextQuestionQuery(model.QuestionId, userId);
-                    t2 = queryBus.QueryAsync(query, token);
-                }
+                //if (score >= Privileges.Post)
+                // {
+                var query = new NextQuestionQuery(model.QuestionId, userId);
+                var t2 = queryBus.QueryAsync(query, token);
+                // }
 
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
 
-                if (score < Privileges.Post)
-                {
-                    await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
-                    {
-                        new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
-                            {
-                                text = _localizer["CreatePending"].Value
-                            }
-                        )
-                    }, token);
-                }
+                //if (score < Privileges.Post)
+                //{
+                //    await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
+                //    {
+                //        new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
+                //            {
+                //                text = _localizer["CreatePending"].Value
+                //            }
+                //        )
+                //    }, token);
+                //}
 
                 return new CreateAnswerResponse
                 {
                     NextQuestions = t2.Result
                 };
             }
-            //catch (QuotaExceededException)
-            //{
-            //    ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
-            //    return BadRequest(ModelState);
-            //}
+            catch (QuotaExceededException)
+            {
+                ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
+                return BadRequest(ModelState);
+            }
             catch (MoreThenOneAnswerException)
             {
                 ModelState.AddModelError(nameof(model.Text), _localizer["More then one answer"]);

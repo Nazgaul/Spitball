@@ -30,10 +30,10 @@ namespace Cloudents.Command.Votes.Commands
         {
             var user = await _userRepository.LoadAsync(userId, token);
 
-            if (!Privileges.CanVote(user.Score, type))
-            {
-                throw new NoEnoughScoreException();
-            }
+            //if (!Privileges.CanVote(user.Score, type))
+            //{
+            //    throw new NoEnoughScoreException();
+            //}
             var question = await _repository.LoadAsync(id, token);
             if (question.State != ItemState.Ok)
             {

@@ -83,7 +83,7 @@ namespace Cloudents.Core.Interfaces
         /// <param name="token"></param>
         /// <returns>the user answer otherwise null</returns>
         Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token);
-        //Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
+        Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
     }
 
     public interface IUniversityRepository : IRepository<University>

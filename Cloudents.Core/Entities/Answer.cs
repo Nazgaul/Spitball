@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Cloudents.Domain.Enums;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
@@ -24,7 +25,8 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            ChangeState(Privileges.GetItemState(user.Score));
+            Item.State = ItemState.Ok;
+            // Item.State = Privileges.GetItemState(user.Score);
 
         }
 
