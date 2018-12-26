@@ -61,15 +61,15 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("user cannot answer himself");
             }
 
-            //if (!Language.ListOfWhiteListCountries.Contains(user.Country))
-            //{
-            //    var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
-            //    var pendingAnswerAfterThisInsert = pendingAnswers + 1;
-            //    if (pendingAnswerAfterThisInsert > 5)
-            //    {
-            //        throw new QuotaExceededException();
-            //    }
-            //}
+            if (user.Score < Privileges.Post)
+            {
+                var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
+                var pendingAnswerAfterThisInsert = pendingAnswers + 1;
+                if (pendingAnswerAfterThisInsert > 5)
+                {
+                    throw new QuotaExceededException();
+                }
+            }
             var answers = question.Answers;
             if (answers.Any(a => a.User.Id == user.Id && a.Item.State != ItemState.Deleted))
             {

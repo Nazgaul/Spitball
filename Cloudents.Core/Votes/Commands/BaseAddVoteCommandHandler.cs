@@ -25,14 +25,14 @@ namespace Cloudents.Core.Votes.Commands
             _eventStore = eventStore;
         }
 
-        public async Task BaseExecuteAsync(long userId, TId id, VoteType type, CancellationToken token)
+        protected async Task BaseExecuteAsync(long userId, TId id, VoteType type, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(userId, token);
 
-            if (!Privileges.CanVote(user.Score, type))
-            {
-                throw new NoEnoughScoreException();
-            }
+            //if (!Privileges.CanVote(user.Score, type))
+            //{
+            //    throw new NoEnoughScoreException();
+            //}
             var question = await _repository.LoadAsync(id, token);
             if (question.Item.State != ItemState.Ok)
             {

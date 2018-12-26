@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Common.Enum;
@@ -46,7 +47,7 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("user is not the one who wrote the question");
             }
 
-            if (question.Answers.Count > 0)
+            if (question.Answers.Count(w=>w.Item.State == ItemState.Ok) > 0)
             {
                 throw new InvalidOperationException("cannot delete question with answers");
             }
