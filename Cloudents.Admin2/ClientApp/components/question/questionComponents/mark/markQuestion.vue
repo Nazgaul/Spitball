@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <v-layout justify-center>
-            <v-flex xs12 style="background: #ffffff; max-width: 960px;">
+            <v-flex xs12 style="background: #ffffff; max-width: 960px; min-width: 960px;">
                 <v-toolbar color="indigo" class="heading-toolbar" :height="'64px'" dark>
                     <v-toolbar-title>Mark as correct</v-toolbar-title>
                 </v-toolbar>
