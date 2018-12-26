@@ -128,7 +128,7 @@ namespace Cloudents.Core.Entities
             Votes.Clear();
         }
 
-        public void DeleteQuestionAdmin()
+        public virtual void DeleteQuestionAdmin()
         {
             Transactions.Clear();
             Events.Add(new QuestionDeletedAdminEvent(this));
