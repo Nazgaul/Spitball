@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Command.Document.PurchaseDocument
+﻿namespace Cloudents.Command.Documents.PurchaseDocument
 {
     public class PurchaseDocumentCommand : ICommand
     {

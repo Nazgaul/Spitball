@@ -6,7 +6,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Command.Document.PurchaseDocument
+namespace Cloudents.Command.Documents.PurchaseDocument
 {
     public class PurchaseDocumentCommandHandler : ICommandHandler<PurchaseDocumentCommand>
     {

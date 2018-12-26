@@ -8,9 +8,9 @@ namespace Cloudents.Command.CommandHandler.Admin
 {
     public class ApproveDocumentCommandHandler : ICommandHandler<ApproveDocumentCommand>
     {
-        private readonly IRepository<Document> _documentRepository;
+        private readonly IRepository<Core.Entities.Document> _documentRepository;
 
-        public ApproveDocumentCommandHandler(IRepository<Document> documentRepository)
+        public ApproveDocumentCommandHandler(IRepository<Core.Entities.Document> documentRepository)
         {
             _documentRepository = documentRepository;
         }
