@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Cloudents.Core.Attributes;
 using Cloudents.Infrastructure.Cache;
 
 namespace Cloudents.Infrastructure

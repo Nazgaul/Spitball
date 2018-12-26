@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
+﻿using Cloudents.Core.Event;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -70,8 +69,8 @@ namespace Cloudents.Core.Entities
 
         public virtual void DeleteAnswerAdmin()
         {
-            this.Transactions.Clear();
-            this.Events.Add(new AnswerDeletedEvent(this));
+            Transactions.Clear();
+            Events.Add(new AnswerDeletedEvent(this));
             if (Question.CorrectAnswer != null)
             {
                 if (Id == Question.CorrectAnswer.Id)

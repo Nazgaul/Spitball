@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Blockchain
@@ -10,7 +9,6 @@ namespace Cloudents.Infrastructure.Blockchain
         {
             builder.RegisterType<Erc20Service>().As<IBlockChainErc20Service>();
             builder.RegisterType<QAndAService>().As<IBlockChainQAndAContract>();
-            //builder.RegisterType<CrowdSaleService>().As<IBlockChainCrowdSaleService>();
         }
     }
 }
