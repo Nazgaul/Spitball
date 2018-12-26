@@ -1,116 +1,122 @@
 <template>
-    <div id="question-wrapper-scroll">
-        <h1>Questions</h1>
-        <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
-            <div class="question-header">
-                <span style="flex-grow:5;" class="question-text-title"  title="Question Text">{{question.text}}</span>
-                <div class="question-actions-container">
-                <span>
-                    <v-btn round value="Open" @click="openQuestion(question.url)" title="Open Question">Open
-                     <v-icon light right>open_in_browser</v-icon>
-                    </v-btn>
-                </span>
-                <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
-                <span title="Number of Attchments">(<b>{{question.imagesCount}}</b>)</span>
+    <div class="container">
+        <v-layout justify-center>
+            <v-flex xs12 style="background: #ffffff; max-width: 960px;">
+                <v-toolbar color="indigo" class="heading-toolbar" :height="'64px'" dark>
+                    <v-toolbar-title>Mark as correct</v-toolbar-title>
+                </v-toolbar>
+                <div>
+                    <div id="question-wrapper-scroll">
+                        <v-card v-show="questions.length > 0" v-for="(question,index) in questions" :key="index">
+                            <v-toolbar class="question-toolbar mt-4 back-color-purple">
+                                <v-toolbar-title class="question-text-title">{{question.text}}</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
+                                <v-btn icon @click="openQuestion(question.url)">
+                                    <v-icon>open_in_browser</v-icon>
+                                </v-btn>
+                            </v-toolbar>
+
+                            <v-list two-line avatar>
+                                <template v-for="(answer, index) in question.answers">
+                                    <v-list-tile>
+                                        <v-list-tile-content class="answers-content">
+                                            <v-list-tile-sub-title class="answer-subtitle">{{answer.text}}</v-list-tile-sub-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action>
+                                            <v-list-tile-action-text></v-list-tile-action-text>
+                                            <span v-show="answer.imagesCount > 0" title="Number of Attchments"
+                                                  class="font-size-14">
+                                                <b>{{answer.imagesCount}}</b>
+                                                <v-icon class="font-size-16">attach_file</v-icon>
+                                            </span>
+
+                                            <v-btn icon @click="acceptQuestion(question, answer)">
+                                                <v-icon color="green">done</v-icon>
+                                            </v-btn>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider
+                                            v-if="index + 1 < question.answers.length"
+                                            :key="index"
+                                    ></v-divider>
+                                </template>
+                            </v-list>
+                        </v-card>
+
+                        <div v-show="questions.length === 0 && !loading">No question to mark as correct</div>
+                        <div v-show="loading">Loading question list, please wait...</div>
+                    </div>
                 </div>
-            </div>
-            <div class="question-body" v-for="answer in question.answers" :key="answer.id">
-                <span class="answer-text" title="Answer Text">{{answer.text}}</span>
-                <span style="justify-content: right;text-align: right; min-width: 65px;">
-                    <span title="Number of Attchments">(<b>{{answer.imagesCount}}</b>)</span>
-                    <v-btn  round color="#97ed82"  value="Open" @click="acceptQuestion(question, answer)" title="Accept answer">
-                        Accept
-                     <v-icon light right>check</v-icon>
-                    </v-btn>
-                </span>
-            </div>
-
-        </div>
-
-        <div v-show="questions.length === 0 && !loading">No question to mark as correct</div>
-        <div v-show="loading">Loading question list, please wait...</div>
-
+            </v-flex>
+        </v-layout>
     </div>
 </template>
 
 <script src="./markQuestion.js"></script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+    .v-icon {
+        &.font-size-16 {
+            font-size: 16px;
 
-    .questionItem{
-        display:flex;
-        margin:0 auto;
-        flex-direction: column;
-        border: 2px solid #c7c7c7;
-        margin-bottom: 10px;
-        width: 70%;
-        min-width:500px;   
-        border-radius: 29px;     
-        .btn-mark{
-            cursor: pointer;
-            background-color: #9d9d9d;
-            border-radius: 25px;
-            border: none;
-            outline: none;
-            cursor:pointer;
-            height: 25px;
-            color: white;
-            font-weight: 600;
-            &:hover{
-               background-color: #9dc08c
-            }
         }
-        .question-header{
-            display: flex;
-            justify-content: center;
-            padding:10px 25px;
-            background-color: #f8f8f8;
-            /*background-color: #c7c7c7;*/
-            border-top-left-radius: 25px;
-            border-top-right-radius: 25px;
-            .question-actions-container{
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-            }
-            span{
-                flex-grow: 1;
-                vertical-align: middle;
-                text-align: center;
-                margin: auto;
-                min-width: 65px;
-                overflow-wrap: break-word;
-                padding: 3px;
+    }
 
-            }
-            .question-text-title{
-                font-size: 16px;
-                font-weight: 600;
-                color: rgba(0,0,0,.87);
-                text-align: left;
-            }
+
+    .font-size-14 {
+        font-size: 14px;
+    }
+
+    #question-wrapper-scroll {
+        overflow-y: scroll;
+        max-height: 98%;
+        height: 98vh;
+        padding: 0 12px;
+    }
+
+    .heading-toolbar {
+        height: 64px;
+        .v-toolbar__content {
+            height: 64px;
         }
-        .question-body{
-            position:relative;
-            display: flex;
-            margin:10px;
-            justify-content: left;
+    }
+
+    .v-toolbar__title {
+        &.question-text-title {
+            font-size: 14px;
+            white-space: pre-wrap;
+            max-width: 80%;
+        }
+
+    }
+
+    .question-toolbar, .v-card {
+        max-width: 1280px;
+    }
+
+    .question-toolbar {
+        .v-toolbar__content {
+            height: auto !important;
             text-align: left;
-            border-bottom: 1px solid #c7c7c7;
-            border-radius: 25px;
-            padding: 7px;
-            align-items: center;
-            &:hover{
-                background-color: #e8e8e8;
-            }
-            span{
-                flex-grow: 1;
-            }
-            .answer-text{
-                word-break: break-all;
-                padding-left: 15px;
-                flex-basis: 85%;
+            padding: 12px 24px;
+        }
+    }
+    .v-list__tile__content {
+        &.answers-content{
+            .v-list__tile__sub-title {
+                &.answer-subtitle {
+                    color: rgba( 0, 0, 0, .87);
+                }
             }
         }
-}
+
+
+    }
+
+    .question-text-title {
+        white-space: pre-line;
+    }
+
+
 </style>

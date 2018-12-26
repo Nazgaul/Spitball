@@ -63,6 +63,7 @@ export default {
       },
     beforeDestroy () {
       let containerElm = document.getElementById('question-wrapper-scroll');
+      if(!containerElm)return
       containerElm.removeEventListener('scroll', this.handleScroll);
     }
 }
