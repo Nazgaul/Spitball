@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Cloudents.Domain.Enums;
 using Cloudents.Domain.Interfaces;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
@@ -21,8 +22,9 @@ namespace Cloudents.Domain.Entities
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            Item.State = Privileges.GetItemState(user.Score);
-            
+            Item.State = ItemState.Ok;
+            // Item.State = Privileges.GetItemState(user.Score);
+
         }
 
         protected Answer()
