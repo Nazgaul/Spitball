@@ -150,7 +150,12 @@ namespace Cloudents.Infrastructure.Storage
             var sourceBlob = GetBlob(blobName);
             var destinationBlob = destinationDirectory.GetBlockBlobReference(blobName);
             await destinationBlob.StartCopyAsync(sourceBlob, AccessCondition.GenerateIfExistsCondition(), AccessCondition.GenerateEmptyCondition(), null, null, token);
-            await sourceBlob.DeleteAsync().ConfigureAwait(false);
+            while (destinationBlob.CopyState.Status != CopyStatus.Success)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(0.2), token);
+                await destinationBlob.ExistsAsync();
+            }
+            await sourceBlob.DeleteAsync();
         }
 
         public async Task DeleteDirectoryAsync(string id)
