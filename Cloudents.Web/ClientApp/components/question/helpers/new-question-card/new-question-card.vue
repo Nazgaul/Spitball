@@ -23,8 +23,9 @@
                         </div>
                     </div>
                     <div class="price-area" :class="{'sold': isSold}">
-                        {{cardPrice}}
-                        <span v-language:inner>questionCard_Currency</span>
+                        <bdi> {{cardPrice}}
+                            <span v-language:inner>questionCard_Currency</span></bdi>
+
                     </div>
                     <div class="menu-area">
                         <v-menu bottom left content-class="card-user-actions">

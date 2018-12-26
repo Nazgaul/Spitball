@@ -32,7 +32,7 @@
                     </vue-recaptcha>
                     <v-btn class="continue-btn" value="Login"
                            :loading="loading"
-                           :disabled="!email  || !recaptcha  || !password || !confirmPassword"
+                           :disabled="!email  || !recaptcha  || !password || !confirmPassword || !isValidPass"
                            type="submit"
                     ><span v-language:inner>login_continue</span></v-btn>
                     <div class="checkbox-terms">
@@ -103,7 +103,7 @@
             passZxcvbn(){
                 if(this.password.length !== 0){
                     this.score = zxcvbn(this.password).score;
-                    return this.passScoreObj[this.score].name
+                    return `${this.passScoreObj[this.score].name}`
                 }
             },
             hintClass(){
@@ -118,7 +118,10 @@
                 set(val){
                     this.$parent.$emit('updateEmail',val);
                 }
-            }
+            },
+            isValidPass(){
+                return this.password.length >= 8  && this.confirmPassword.length >= 8
+            },
 
         },
 

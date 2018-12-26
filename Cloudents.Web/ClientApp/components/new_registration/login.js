@@ -5,17 +5,17 @@ import VueRecaptcha from 'vue-recaptcha';
 
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
-import step_1 from "./steps/step_1.vue";
-import step_2 from "./steps/step_2.vue";
-import step_3 from "./steps/step_3.vue";
-import step_4 from "./steps/step_4.vue";
-import step_5 from "./steps/step_5.vue";
-import step_6 from "./steps/step_6.vue";
-import step_7 from "./steps/step_7.vue";
-import step_8 from "./steps/step_8.vue";
-import step_9 from "./steps/step_9.vue";
-import step_10 from "./steps/step_10.vue";
-import step_11 from "./steps/step_11.vue";
+import step_1 from "./steps/firstStep.vue";
+import step_2 from "./steps/registerStep.vue";
+import step_3 from "./steps/emailSent.vue";
+import step_4 from "./steps/phoneEnter.vue";
+import step_5 from "./steps/confirmationCode.vue";
+import step_6 from "./steps/congrats.vue";
+import step_7 from "./steps/loginStep.vue";
+import step_8 from "./steps/emailedPassReset.vue";
+import step_9 from "./steps/newPassword.vue";
+import step_10 from "./steps/resetPassEmailInput.vue";
+import step_11 from "./steps/validateEmail.vue";
 
 import { LanguageService } from "../../services/language/languageService";
 

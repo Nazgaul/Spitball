@@ -23,10 +23,10 @@ export default {
     data() {
         return {
             textAreaValue: "",
-            errorTextArea: {},
             errorHasAnswer: '',
             errorDuplicatedAnswer:'',
             answerFiles: [],
+            errorLength:{},
             //questionData: null,
             cardList: [],
             showForm: false,
@@ -45,7 +45,7 @@ export default {
         ...mapGetters(["getQuestion"]),
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
-                this.errorTextArea = {
+                this.errorLength= {
                     errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
                     errorClass: true
                 };
@@ -59,7 +59,7 @@ export default {
                 return
             }else{
                 this.errorDuplicatedAnswer = '';
-            };
+            }
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 self.textAreaValue = self.textAreaValue.trim();
@@ -87,7 +87,7 @@ export default {
         hasDuplicatiedAnswer(currentText, answers){  
             let duplicated = answers.filter(answer=>{
                 return answer.text.indexOf(currentText) > -1;
-            })
+            });
             return duplicated.length > 0;
         },
 
@@ -166,6 +166,9 @@ export default {
         questionData(){
             return this.getQuestion();
         },
+        errorTextArea(){
+                return this.errorLength
+        },
         cardOwner(){
             return this.isCardOwner
         },
@@ -180,7 +183,6 @@ export default {
             return val;
         },
         removeViewer() {
-            console.log("leaving question");
             sendEventList.question.removeViewer(this.questionData);
         },
     },

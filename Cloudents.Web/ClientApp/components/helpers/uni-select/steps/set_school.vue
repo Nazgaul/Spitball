@@ -22,7 +22,7 @@
                     @click:clear="clearData(search, university)"
                     autofocus
                     no-filter
-
+                    @keyup.delete="preventFocusLoose($event)"
                     :background-color="'rgba( 255, 255, 255, 1)'"
             >
                 <template slot="no-data">
@@ -110,6 +110,12 @@
                 search = '';
                 university = undefined;
                 this.clearUniversityList();
+            },
+            preventFocusLoose(event){
+                let val = event.target.value;
+                if(val.length===0){
+                    event.preventDefault();
+                }
             },
             getAllUniversities() {
                 //leave space

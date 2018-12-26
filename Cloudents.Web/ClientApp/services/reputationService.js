@@ -18,7 +18,7 @@ export default {
         var data = {
             id,
             voteType
-        }
+        };
         return connectivityModule.http.post("Question/vote", data)
     },
     voteAnswer:(id, voteType) => {
@@ -26,7 +26,7 @@ export default {
         var data = {
             id,
             voteType
-        }
+        };
         return connectivityModule.http.post("Answer/vote", data)
     },
     voteDocument:(id, voteType) => {
@@ -34,7 +34,7 @@ export default {
         var data = {
             id,
             voteType
-        }
+        };
         return connectivityModule.http.post("Document/vote", data)
     },
 

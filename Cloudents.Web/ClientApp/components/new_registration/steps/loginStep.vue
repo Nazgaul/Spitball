@@ -21,7 +21,7 @@
                     <v-btn class="continue-btn loginBtn"
                            value="Login"
                            :loading="loading"
-                           :disabled="!userEmail || !password "
+                           :disabled="!userEmail || !password || !isValidPass"
                            type="submit"
                     > <span v-language:inner>login_login</span>
                     </v-btn>
@@ -103,6 +103,11 @@
                 this.$parent.$emit('changeStep', 'emailpassword');
 
             },
+        },
+        computed:{
+            isValidPass(){
+                return this.password.length >= 8
+            }
         },
         created(){
             this.password = '';

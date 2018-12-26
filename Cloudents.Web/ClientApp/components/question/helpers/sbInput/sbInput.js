@@ -1,6 +1,7 @@
 export default {
     props: {
         value: {type: String},
+        // rules:{},
         icon: {
             type: String,
             default: ''
@@ -63,9 +64,24 @@ export default {
             }
         }
     },
+    computed:{
+        errorTextStr:{
+            get(){
+                return this.errorMessage
+            },
+            set(val){
+
+            }
+
+        }
+    },
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
-        }
-    },
+        },
+        hideError(){
+            return this.errorTextStr = '';
+        },
+    }
+
 }

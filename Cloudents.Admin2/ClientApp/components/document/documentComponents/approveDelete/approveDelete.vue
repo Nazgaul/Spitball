@@ -8,7 +8,8 @@
                 <v-card>
                     <v-container fluid grid-list-md>
                         <v-layout row wrap>
-                            <h3 v-if="!documentsList.length">No documents to display</h3>
+                            <h3 v-if="!documentsList.length && !loading">No documents to display</h3>
+                            <h3 v-if="loading">Loading Documents...</h3>
                             <v-flex v-else v-for="(document, index) in documentsList" :key="document.id">
                                 <v-card>
                                     <v-img :class="[ 'document-preview', proccessedDocuments.includes(document.id) ? 'blured' : '']"
@@ -18,9 +19,9 @@
                                                      fluid
                                                      pa-2>
                                             <v-layout fill-height>
-                                                <v-flex xs12 align-end flexbox>
-                                                    <span class="headline" v-text="document.id"></span>
-                                                </v-flex>
+                                                <!--<v-flex xs12 align-end flexbox>-->
+                                                    <!--<span class="headline" v-text="document.id"></span>-->
+                                                <!--</v-flex>-->
                                             </v-layout>
                                         </v-container>
                                     </v-img>
@@ -39,7 +40,7 @@
                                         </v-btn>
 
                                         <v-btn flat color="red" v-bind:href="document.siteLink" target="_blank">
-                                            Link
+                                            Download
                                         </v-btn>
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
@@ -81,7 +82,8 @@
                 },
                 arrayOfIds: [],
                 proccessedDocuments: [],
-                bottomNav: 'refresh'
+                bottomNav: 'refresh',
+                loading: false
 
             }
         },
@@ -98,6 +100,7 @@
                 //clear proccessed array
                 self.proccessedDocuments = [];
                 self.arrayOfIds = [];
+                self.loading =true;
                 approveDeleteService.getDocuments()
                     .then(resp => {
                         self.documentsList = resp;
@@ -106,6 +109,7 @@
                             return item.id
                         });
                         console.log('docs!', resp)
+                        self.loading =false;
                     },
                         (error) => {
                             self.$toaster.error('Something went wrong');
