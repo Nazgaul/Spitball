@@ -8,9 +8,9 @@ namespace Cloudents.Command.CommandHandler
 {
     public class UpdateDocumentMetaCommandHandler : ICommandHandler<UpdateDocumentMetaCommand>
     {
-        private readonly IRepository<Document> _documentRepository;
+        private readonly IRepository<Core.Entities.Document> _documentRepository;
 
-        public UpdateDocumentMetaCommandHandler(IRepository<Document> documentRepository)
+        public UpdateDocumentMetaCommandHandler(IRepository<Core.Entities.Document> documentRepository)
         {
             _documentRepository = documentRepository;
         }

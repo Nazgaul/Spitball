@@ -14,13 +14,13 @@ namespace Cloudents.Command.CommandHandler
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IRepository<RegularUser> _userRepository;
         private readonly IRepository<University> _universityRepository;
-        private readonly IRepository<Document> _documentRepository;
+        private readonly IRepository<Core.Entities.Document> _documentRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly ITagRepository _tagRepository;
 
         public CreateDocumentCommandHandler(IBlobProvider<DocumentContainer> blobProvider,
             IRepository<RegularUser> userRepository,
-            IRepository<Document> documentRepository, ICourseRepository courseRepository,
+            IRepository<Core.Entities.Document> documentRepository, ICourseRepository courseRepository,
             ITagRepository tagRepository, IRepository<University> universityRepository)
         {
             _blobProvider = blobProvider;
@@ -58,9 +58,9 @@ namespace Cloudents.Command.CommandHandler
             {
                 itemName += message.BlobName;
             }
-            var document = new Document(itemName, /*message.BlobName,*/ university, 
-                course, message.Type, tags, user, message.Professor);
-            await _documentRepository.AddAsync(document, token).ConfigureAwait(true);
+            var document = new Core.Entities.Document(itemName, university, 
+                course, message.Type, tags, user, message.Professor, message.Price);
+            await _documentRepository.AddAsync(document, token);
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);
 

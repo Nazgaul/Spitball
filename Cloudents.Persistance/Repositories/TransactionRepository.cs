@@ -29,7 +29,8 @@ namespace Cloudents.Persistance.Repositories
             return
                 Session.QueryOver<Transaction>()
                     .Where(w => w.User.Id == userId)
-                    .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
+                    .Select(Projections.Sum<Transaction>(x => x.Price))
+                    .SingleOrDefaultAsync<decimal>(token);
         }
         public Task<decimal> GetUserScoreAsync(long userId, CancellationToken token)
         {

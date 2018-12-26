@@ -25,6 +25,8 @@ namespace Cloudents.Web.Models
 
         public string Professor { get; set; }
 
+        public decimal Price { get; set; }
+
 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -36,7 +38,7 @@ namespace Cloudents.Web.Models
             {
                 foreach (var tag in Tags)
                 {
-                    if (tag.Contains(","))
+                    if (!Tag.ValidateTag(tag))
                     {
                         var errorMessage = "Invalid length";
                         if (stringLocalizer != null)
@@ -47,21 +49,21 @@ namespace Cloudents.Web.Models
                         yield return new ValidationResult(
                             errorMessage,
                             new[] { nameof(Tags) });
-                        
                     }
-                    if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
-                    {
+                    
+                    //if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
+                    //{
                       
-                        var errorMessage = "Invalid length";
-                        if (stringLocalizer != null)
-                        {
-                            errorMessage = stringLocalizer["StringLength"];
-                        }
+                    //    var errorMessage = "Invalid length";
+                    //    if (stringLocalizer != null)
+                    //    {
+                    //        errorMessage = stringLocalizer["StringLength"];
+                    //    }
 
-                        yield return new ValidationResult(
-                            errorMessage,
-                            new[] {nameof(Tags)});
-                    }
+                    //    yield return new ValidationResult(
+                    //        errorMessage,
+                    //        new[] {nameof(Tags)});
+                    //}
                 }
             }
         }
