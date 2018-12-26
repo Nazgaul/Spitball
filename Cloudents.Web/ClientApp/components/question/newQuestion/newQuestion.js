@@ -30,7 +30,6 @@ export default {
     },
     watch: {
         price(val) {
-            console.log('price', val)
             if (!val) return;
             let splitLength = val.toString().split('.');
             if (splitLength.length === 2 && splitLength[1].length >= 3) {

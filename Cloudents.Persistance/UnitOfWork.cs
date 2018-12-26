@@ -23,7 +23,7 @@ namespace Cloudents.Persistance
         {
             _session = session;
             _eventPublisher = eventPublisher;
-            //_eventStore = eventStore;
+            _eventStore = eventStore;
             _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 
@@ -59,7 +59,7 @@ WHERE text like '%duplicate%' and text like '%key%' and language_id = 1033*/
             }
         }
 
-       
+
 
         public async Task RollbackAsync(CancellationToken token)
         {
