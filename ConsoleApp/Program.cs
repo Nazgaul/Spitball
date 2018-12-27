@@ -22,24 +22,17 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Command;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Enum;
 using Cloudents.Command.Command;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
-using Cloudents.Search.Question;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
-using Cloudents.Search.Document;
 using DocumentType = Cloudents.Core.Enum.DocumentType;
 
 namespace ConsoleApp
@@ -123,38 +116,17 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
            // Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>());
-
+           var imgProcessor = new ImageProcessor();
+           var sr = File.OpenRead(@"C:\Users\Ram\Downloads\preview-0 (1).jpg");
+           await imgProcessor.ProcessFilesAsync(sr, async (stream, s) =>
+           {
+               var fileStream = File.Create(@"C:\Users\Ram\Downloads\preview-result.jpg");
+               stream.Seek(0, SeekOrigin.Begin);
+               await stream.CopyToAsync(fileStream);
+               fileStream.Close();
+           }, (s, i) => { return Task.CompletedTask; }, default);
            // Mapper.Configuration.AssertConfigurationIsValid();
-           var queryBus = _container.Resolve<IQueryBus>();
-
-           var query = new AdminEmptyQuery();
-           var z = await queryBus.QueryAsync<IList<PendingDocumentDto>>(query, token);
-            //var queryBus = _container.Resolve<AzureDocumentSearch>();
-          //  var t = await queryBus.ItemAsync(184151, default);
           
-
-
-           // var t = _container.Resolve<AzureQuestionSearch>();
-            //await t.GetById("46904");
-            //var z = await t.ItemAsync(6746, default);
-            //var z = await t.SearchAsync(new DocumentQuery(null, new UserProfile()
-            //{
-            //    Country = "IL"
-            //}, null, 0, null), token);
-
-            //var command = new CreateQuestionCommand(QuestionSubject.Accounting, "This is very nice question to check",
-            //    10, 638, null, QuestionColor.Default);
-            //await bus.DispatchAsync(command, token);
-
-
-            //var command2 = new CreateQuestionCommand(QuestionSubject.Arts, "This is verysssssss nice question to check",
-            //    10, 638, null, QuestionColor.Default);
-            //await bus.DispatchAsync(command2, token);
-
-
-
-            //await z.GetById("43958");
-            //
         }
 
         private static async Task BuildSearchIndex()
