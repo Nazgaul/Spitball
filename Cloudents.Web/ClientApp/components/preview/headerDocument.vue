@@ -78,7 +78,7 @@
                                     <div class="buy-text-wrap">
                                         <span class="buy-text-price">
                                             <span class="mobile-buy-text hidden-sm-and-up"  v-language:inner>preview_itemActions_buy</span>
-                                            {{item.price ? item.price.toFixed(2) : ''}}
+                                            {{item.price && item.price ? item.price.toFixed(2) : ''}}
                                             <span class="sbl-suffix">SBL</span>
                                         </span>
                                         <span class="equals-to-dollar hidden-xs-only">
