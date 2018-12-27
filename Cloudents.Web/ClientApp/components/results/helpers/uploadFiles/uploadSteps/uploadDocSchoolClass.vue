@@ -34,6 +34,7 @@
                         :label="classNamePlaceholder"
                         :placeholder="classNamePlaceholder"
                         clearable
+                        @click:clear="updateClass"
                         solo
                         :append-icon="'sbf-expand-bottom'"
                         :clear-icon="'sbf-close'"
@@ -116,21 +117,19 @@
                     this.docClass
                 },
                 set(val){
-                    if(!!val){
+                    // if(!!val){
                         this.updateFile({'course': val.text});
-                    }
-
+                        // }
                 }
-
             }
         },
 
         methods: {
             ...mapActions(['updateFile']),
-            // update data methods
-            // updateClass(singleClass) {
-            //     this.updateFile({'course': singleClass});
-            // },
+            updateClass() {
+                console.log('updated clearrrrr')
+               return this.selectedClass = '';
+            },
         },
         beforeDestroy() {
             console.log('step 2 destroyed')
