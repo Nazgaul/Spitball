@@ -279,7 +279,7 @@
         max-width: 400px;
     }
 
-    .download-action-container {
+    .download-action-container, .buy-action-container {
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
         border-radius: 4px;
         height: 73px;
@@ -299,7 +299,6 @@
             align-items: center;
             justify-content: center;
             display: flex;
-
             .download-text {
                 font-size: 16px;
                 font-weight: 600;
@@ -308,13 +307,43 @@
                     font-size: 18px;
                 }
             }
+            .buy-text-price{
+                color: @color-blue-new;
+                font-size: 24px;
+                font-weight: 500;
+                font-family: @fontFiraSans;
+                @media (max-width: @screen-xs) {
+                    font-size: 18px;
+                }
+            }
+            .equals-to-dollar{
+                font-family: @fontFiraSans;
+                font-size: 12px;
+                color: fade(@color-black, 75%);
+            }
 
             .download-icon-mob {
                 color: @color-blue-new;
                 font-size: 21px;
             }
         }
-
+        .buy-text{
+            font-family: @fontOpenSans;
+            font-size: 16px;
+            font-weight: 600;
+            color: @color-white;
+        }
+        .buy-btn-wrap{
+            border-radius: 0 4px 4px 0;
+            background: @color-blue-new;
+            width: 108px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            @media (max-width: @screen-xs) {
+                display: none;
+            }
+        }
         .btn-wrap {
             border-radius: 0 4px 4px 0;
             background: @color-blue-new;
