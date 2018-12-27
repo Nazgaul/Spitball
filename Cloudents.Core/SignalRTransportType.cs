@@ -23,12 +23,11 @@ namespace Cloudents.Core
             Type = type;
             Action = SignalRAction.Action;
 
-            Data = new[]
+            Data = new object[]
             {
                 new
                 {
-                    type = action.ToString("G").ToLowerInvariant(),
-                    data = data
+                    type = action.ToString("G").ToLowerInvariant(), data
                 }
             };
         }

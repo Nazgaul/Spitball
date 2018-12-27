@@ -6,7 +6,7 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.Item.Commands.FlagItem
 {
-    public class FlagDocumentCommandHandler : BaseFlagItemCommandHandler<Core.Entities.Document,long>, ICommandHandler<FlagDocumentCommand>
+    public class FlagDocumentCommandHandler : BaseFlagItemCommandHandler<Document,long>, ICommandHandler<FlagDocumentCommand>
     {
 
         public FlagDocumentCommandHandler(IRepository<RegularUser> userRepository,

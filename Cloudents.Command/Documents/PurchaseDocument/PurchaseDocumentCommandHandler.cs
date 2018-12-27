@@ -12,9 +12,9 @@ namespace Cloudents.Command.Documents.PurchaseDocument
     {
         private readonly IRegularUserRepository _userRepository;
         private readonly ITransactionRepository _transactionRepository;
-        private readonly IRepository<Core.Entities.Document> _documentRepository;
+        private readonly IRepository<Document> _documentRepository;
 
-        public PurchaseDocumentCommandHandler(IRegularUserRepository userRepository, ITransactionRepository transactionRepository, IRepository<Core.Entities.Document> documentRepository)
+        public PurchaseDocumentCommandHandler(IRegularUserRepository userRepository, ITransactionRepository transactionRepository, IRepository<Document> documentRepository)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
@@ -36,7 +36,7 @@ namespace Cloudents.Command.Documents.PurchaseDocument
             }
 
             var purchaseUser = await _userRepository.LoadAsync(message.UserId, token);
-            var t = new Core.Entities.Transaction(TransactionActionType.PurchaseDocument, TransactionType.Spent,
+            var t = new Transaction(TransactionActionType.PurchaseDocument, TransactionType.Spent,
                 -document.Price, purchaseUser)
             {
                 Document = document
@@ -44,7 +44,7 @@ namespace Cloudents.Command.Documents.PurchaseDocument
             await _transactionRepository.AddAsync(t, token);
             if (document.User.Actual is RegularUser p)
             {
-                var t2 = new Core.Entities.Transaction(TransactionActionType.SoldDocument, TransactionType.Earned,
+                var t2 = new Transaction(TransactionActionType.SoldDocument, TransactionType.Earned,
                     document.Price,p)
                 {
                     Document = document
