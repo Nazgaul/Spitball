@@ -11,7 +11,6 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteAnswer;
-using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;

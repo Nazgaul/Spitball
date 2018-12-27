@@ -1,11 +1,5 @@
 <template>
     <div>
-        <v-tabs centered  class="document-nav"  color="transparent">
-            <v-tabs-slider color="#3532d5"></v-tabs-slider>
-            <v-tab to="/document/approveDelete">Approve or Delete</v-tab>
-            <v-tab to="/document/documentDelete">Delete By ID</v-tab>
-            <v-tab to="/document/flaggedDocument">Flagged Documents</v-tab>
-        </v-tabs>
         <div class="document-content">
             <router-view></router-view>
         </div>
@@ -13,33 +7,31 @@
 </template>
 
 <script>
-    export default {
-
-    }
+    export default {}
 </script>
 
 
-
 <style lang="scss" scoped>
-    .document-nav{
-        display:flex;
+    .document-nav {
+        display: flex;
         justify-content: center;
-        .v-tabs__bar{
+        .v-tabs__bar {
             background-color: transparent;
         }
-        a{
-            margin:2px;
+        a {
+            margin: 2px;
             text-decoration: none;
             font-size: 15px;
             border-radius: 25px;
             padding: 5px;
             font-weight: bold;
         }
-        .router-link-active{
-            color: rgba(0,0,0,0.87);
+        .router-link-active {
+            color: rgba(0, 0, 0, 0.87);
         }
     }
-    .document-content{
+
+    .document-content {
         padding: 5px;
     }
 </style>

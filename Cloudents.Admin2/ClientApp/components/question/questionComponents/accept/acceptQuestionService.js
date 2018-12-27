@@ -5,10 +5,10 @@ import {connectivityModule} from '../../../../services/connectivity.module'
         if(!ids) return "";
         let arrIds = {
             ids:[]
-        }
+        };
         ids.forEach(function(id, index){
             arrIds.ids.push(id)
-        })
+        });
         return arrIds;
     }
 
@@ -17,10 +17,10 @@ import {connectivityModule} from '../../../../services/connectivity.module'
         let url = 'AdminQuestion/approve'
         return connectivityModule.http.post(`${url}`, idsQueryString)
         .then((resp)=>{
-            console.log(resp, 'success deleted')
+            console.log(resp, 'success accepted')
             return Promise.resolve(resp) 
         }, (error)=>{
-            console.log(error, 'error deleted')
+            console.log(error, 'error accepted')
             return Promise.reject(error) 
         })
     }

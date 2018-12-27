@@ -10,9 +10,9 @@ namespace Cloudents.Command.Votes.Commands.AddVoteDocument
     {
         public AddVoteDocumentCommandHandler(IVoteRepository voteRepository,
             IRepository<RegularUser> userRepository,
-            IRepository<Document> questionRepository,
-            IEventStore eventStore)
-            : base(userRepository, voteRepository, questionRepository, eventStore)
+            IRepository<Document> questionRepository
+            )
+            : base(userRepository, voteRepository, questionRepository)
         {
         }
 

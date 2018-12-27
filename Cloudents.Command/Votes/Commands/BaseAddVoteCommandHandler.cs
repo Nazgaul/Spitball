@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 
@@ -16,14 +14,13 @@ namespace Cloudents.Command.Votes.Commands
         private readonly IRepository<RegularUser> _userRepository;
         protected readonly IVoteRepository VoteRepository;
         private readonly IRepository<T> _repository;
-        private readonly IEventStore _eventStore;
 
-        protected BaseAddVoteCommandHandler(IRepository<RegularUser> userRepository, IVoteRepository voteRepository, IRepository<T> repository, IEventStore eventStore)
+        protected BaseAddVoteCommandHandler(IRepository<RegularUser> userRepository, IVoteRepository voteRepository,
+            IRepository<T> repository)
         {
             _userRepository = userRepository;
             VoteRepository = voteRepository;
             _repository = repository;
-            _eventStore = eventStore;
         }
 
         protected async Task BaseExecuteAsync(long userId, TId id, VoteType type, CancellationToken token)

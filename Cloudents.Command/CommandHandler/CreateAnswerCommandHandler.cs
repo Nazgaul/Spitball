@@ -7,7 +7,6 @@ using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -22,18 +21,16 @@ namespace Cloudents.Command.CommandHandler
         private readonly IAnswerRepository _answerRepository;
         private readonly IRepository<RegularUser> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
-        private readonly IEventStore _eventStore;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
             IAnswerRepository answerRepository, IRepository<RegularUser> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider, IEventStore eventStore)
+            IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
-            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
@@ -101,12 +98,12 @@ namespace Cloudents.Command.CommandHandler
             
             var id = newAnswer.Id;
 
-            if (newAnswer.State == ItemState.Ok)
-            {
-                _eventStore.Add(new AnswerCreatedEvent(newAnswer));
-                //question.AnswerCount++;
-                await _questionRepository.UpdateAsync(question, token);
-            }
+            //if (newAnswer.State == ItemState.Ok)
+            //{
+            //    _eventStore.Add(new AnswerCreatedEvent(newAnswer));
+            //    //question.AnswerCount++;
+            //    await _questionRepository.UpdateAsync(question, token);
+            //}
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 

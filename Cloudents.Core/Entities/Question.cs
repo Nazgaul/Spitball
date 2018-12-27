@@ -53,7 +53,6 @@ namespace Cloudents.Core.Entities
             }
 
             ChangeState(ItemState.Pending);
-            //Item.State = ItemState.Pending;
             Language = language;
         }
 
@@ -112,14 +111,25 @@ namespace Cloudents.Core.Entities
             Language = info;
         }
 
-        public override void ChangeState(ItemState state)
+        //public override void ChangeState(ItemState state)
+        //{
+        //    //Item.ChangeState(state);
+        //    if (State == ItemState.Pending && state == ItemState.Ok)
+        //    {
+        //        this.Updated = DateTime.UtcNow;
+        //        Events.Add(new QuestionCreatedEvent(this));
+        //    }
+        //}
+
+        public override bool MakePublic()
         {
-            //Item.ChangeState(state);
-            if (State == ItemState.Pending && state == ItemState.Ok)
+            var t = base.MakePublic();
+            if (t)
             {
-                this.Updated = DateTime.UtcNow;
                 Events.Add(new QuestionCreatedEvent(this));
             }
+
+            return t;
         }
 
 

@@ -15,9 +15,8 @@ namespace Cloudents.Command.Votes.Commands.AddVoteQuestion
 
         public AddVoteQuestionCommandHandler(IVoteRepository voteRepository,
             IRepository<RegularUser> userRepository,
-            IRepository<Question> questionRepository,
-            IEventStore eventStore)
-            : base(userRepository, voteRepository, questionRepository, eventStore)
+            IRepository<Question> questionRepository)
+            : base(userRepository, voteRepository, questionRepository)
         {
         }
 

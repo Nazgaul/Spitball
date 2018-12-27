@@ -19,7 +19,8 @@ namespace Cloudents.Persistance.Maps
             References(x => x.Question).Column("QuestionId").ForeignKey("Transaction_Question").Nullable();
             References(x => x.Answer).Column("AnswerId").ForeignKey("Transaction_Answer").Nullable();
             References(x => x.InvitedUser).Column("InvitedUserId").ForeignKey("Transaction_InvitedUser").Nullable();
-            SchemaAction.None();
+            References(x => x.Document).Column("DocumentId").ForeignKey("Transaction_Document").Nullable();
+            SchemaAction.Update();
         }
     }
 }

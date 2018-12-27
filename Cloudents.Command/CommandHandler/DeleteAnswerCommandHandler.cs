@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
@@ -14,12 +13,10 @@ namespace Cloudents.Command.CommandHandler
     public class DeleteAnswerCommandHandler : ICommandHandler<DeleteAnswerCommand>
     {
         private readonly IRepository<Answer> _repository;
-        private readonly IEventStore _eventStore;
 
-        public DeleteAnswerCommandHandler(IRepository<Answer> repository, IEventStore eventStore)
+        public DeleteAnswerCommandHandler(IRepository<Answer> repository)
         {
             _repository = repository;
-            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
@@ -44,8 +41,6 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new ArgumentException("this is answer is correct answer");
             }
-           // answer.Question.AnswerCount--;
-            _eventStore.Add(new AnswerDeletedEvent(answer));
             
             await _repository.DeleteAsync(answer, token);
         }

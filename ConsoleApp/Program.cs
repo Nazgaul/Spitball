@@ -29,6 +29,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Search.Question;
 using Cloudents.Core.Exceptions;
@@ -37,6 +38,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Query.Query.Admin;
 using Cloudents.Search.Document;
 using DocumentType = Cloudents.Core.Enum.DocumentType;
 
@@ -123,9 +125,12 @@ namespace ConsoleApp
            // Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>());
 
            // Mapper.Configuration.AssertConfigurationIsValid();
+           var queryBus = _container.Resolve<IQueryBus>();
 
-            var queryBus = _container.Resolve<AzureDocumentSearch>();
-            var t = await queryBus.ItemAsync(184151, default);
+           var query = new AdminEmptyQuery();
+           var z = await queryBus.QueryAsync<IList<PendingDocumentDto>>(query, token);
+            //var queryBus = _container.Resolve<AzureDocumentSearch>();
+          //  var t = await queryBus.ItemAsync(184151, default);
           
 
 

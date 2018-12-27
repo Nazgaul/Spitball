@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -12,7 +13,7 @@ namespace Cloudents.Core.Entities
         public Document(string name,
             University university,
             Course course, DocumentType type,
-            IEnumerable<Tag> tags, User user, string professor)
+            IEnumerable<Tag> tags, User user, string professor, decimal price)
         : this()
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
@@ -26,6 +27,7 @@ namespace Cloudents.Core.Entities
             Views = 0;
             Professor = professor;
 
+            Price = price;
             ChangeState(Privileges.GetItemState(user.Score));
 
 
@@ -74,9 +76,31 @@ namespace Cloudents.Core.Entities
             Votes.Clear();
         }
 
-        public override void ChangeState(ItemState state)
+        //public override void ChangeState(ItemState state)
+        //{
+        //    //Item.ChangeState(state);
+        //}
+
+        public override bool MakePublic()
         {
-            //Item.ChangeState(state);
+            var t =  base.MakePublic();
+            if (t)
+            {
+                Events.Add(new DocumentCreatedEvent(this));
+            }
+
+            return t;
+        }
+
+        public override bool Delete()
+        {
+            var t = base.Delete();
+            if (t)
+            {
+                Events.Add(new DocumentDeletedEvent(this));
+            }
+
+            return t;
         }
     }
 }

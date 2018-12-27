@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="wide-parallax"  pa-0>
+        <div class="wide-parallax" pa-0>
             <landing-header></landing-header>
 
             <section class="hero">
@@ -19,8 +19,9 @@
                         landingPage_join_spitball
                     </router-link>
                     <a class="video-link" @click.prevent="updateVideoId(SpitballVideoId)">
-                        <v-icon class="play-icon">sbf-play</v-icon>
-                        <span v-language:inner>landingPage_how_it_works</span></a>
+                        <v-icon class="play-icon ml-2">sbf-play</v-icon>
+                        <span v-language:inner>landingPage_how_it_works</span>
+                    </a>
                 </div>
                 <statistics class="statistics" :statsData="statsData"></statistics>
             </section>
@@ -203,7 +204,7 @@
                         </template>
                     </v-carousel-item>
                     <v-carousel-item
-                            v-else  v-for="(item,index) in formattedReviews"
+                            v-else v-for="(item,index) in formattedReviews"
 
                     >
                         <template>
@@ -240,19 +241,21 @@
             <router-link :to="{path: '/register'}" class="join-cta" v-language:inner>landingPage_sign_up</router-link>
         </section>
         <landing-footer></landing-footer>
-        <sb-dialog  :onclosefn="hideVideoPlayer" class="video-dialog" :isPersistent="false"
+        <sb-dialog :onclosefn="hideVideoPlayer" class="video-dialog" :isPersistent="false"
                    :showDialog="playerVisible"
                    :popUpType="'videoPlayer'"
                    :content-class="'videoPlayerDialog'">
             <div v-if="$vuetify.breakpoint.xsOnly" class="mb-3 mt-3 d-flex justify-end">
-                    <v-icon class="mr-1 justify-end" style="flex-direction: row; max-width: 50px;" @click="hideVideoPlayer()">sbf-close</v-icon>
+                <v-icon class="mr-1 justify-end" style="flex-direction: row; max-width: 50px;"
+                        @click="hideVideoPlayer()">sbf-close
+                </v-icon>
 
             </div>
             <youtube
-                :video-id="youTubeVideoId" :player-width="playerWidth" :player-height="playerHeight"
-                :player-vars="{autoplay: 1}" @ready="readyPlayer">
+                    :video-id="youTubeVideoId" :player-width="playerWidth" :player-height="playerHeight"
+                    :player-vars="{autoplay: 1}" @ready="readyPlayer">
 
-        </youtube>
+            </youtube>
         </sb-dialog>
         <sb-dialog class="subjects-dialog" :isPersistent="false" :showDialog="mobileSubjectsDialog"
                    :popUpType="'subject-combobox'"

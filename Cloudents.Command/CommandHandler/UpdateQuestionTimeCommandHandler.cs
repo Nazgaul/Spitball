@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler

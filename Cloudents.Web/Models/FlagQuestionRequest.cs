@@ -45,4 +45,10 @@ namespace Cloudents.Web.Models
         public string FlagReason { get; set; }
     }
 
+    public class PurchaseDocumentRequest
+    {
+        public long Id { get; set; }
+    }
+
+
 }

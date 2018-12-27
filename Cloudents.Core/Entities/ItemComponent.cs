@@ -2,7 +2,6 @@
 using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Cloudents.Core.Entities
@@ -13,6 +12,7 @@ namespace Cloudents.Core.Entities
     {
         protected ItemObject()
         {
+            State = ItemState.Pending;
             Votes = new List<Vote>();
         }
         //protected ItemObject(RegularUser user)
@@ -51,13 +51,6 @@ namespace Cloudents.Core.Entities
             }
             
         }
-        //public abstract void ChangeState(ItemState state);
-        //{
-        //    if (state == ItemState.Deleted)
-        //    {
-        //        DeletedOn = DateTime.UtcNow;
-        //    }
-        //}
         
         public virtual bool MakePublic()
         {

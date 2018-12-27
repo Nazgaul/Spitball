@@ -56,7 +56,7 @@
                 </div>
                 <div class="views details">
                     <v-layout column  fill-height justify-space-between>
-                        <v-flex>
+                        <v-flex v-show="isPurchased">
                             <a target="_blank" @click="downloadDoc()">
                                 <div class="download-action-container">
                                     <div class="text-wrap">
@@ -64,10 +64,26 @@
                                         <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.xsOnly">
                                             sbf-download-cloud
                                         </v-icon>
-
                                     </div>
                                     <div class="btn-wrap">
                                         <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
+                                    </div>
+                                </div>
+                            </a>
+                        </v-flex>
+                        <v-flex v-show="!isPurchased">
+                            <a target="_blank" @click="purchaseDocument()">
+                                <div class="buy-action-container">
+                                    <div class="text-wrap">
+                                        <span class="buy-text-price" >40.00 SBL</span>
+                                        <span class="equals-to-dollar">{{40 | dollarVal}}$</span>
+                                        <!--<v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.xsOnly">-->
+                                            <!--sbf-download-cloud-->
+                                        <!--</v-icon>-->
+                                    </div>
+                                    <div class="buy-btn-wrap">
+                                        <span class="buy-text" v-language:inner>preview_itemActions_buy</span>
+                                        <!--<v-icon class="sb-download-icon">sbf-download-cloud</v-icon>-->
                                     </div>
                                 </div>
                             </a>
@@ -106,6 +122,11 @@
             itemActions,
             documentDetails
         },
+        data() {
+            return {
+                isPurchased: false
+            }
+        },
         methods: {
             ...mapActions([
                 'updateLoginDialogState',
@@ -119,6 +140,10 @@
                     this.updateLoginDialogState(true)
                 }
             },
+            purchaseDocument(){
+                this.isPurchased = true;
+                console.log(this.item)
+            }
         },
         computed: {
             ...mapGetters(['getDocumentDetails']),

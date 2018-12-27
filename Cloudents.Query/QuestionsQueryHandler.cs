@@ -9,7 +9,6 @@ using Cloudents.Query.Query;
 using Cloudents.Query.Stuff;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 
 namespace Cloudents.Query
 {

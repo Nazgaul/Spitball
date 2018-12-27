@@ -72,7 +72,7 @@ namespace Cloudents.Admin2.Api
 
                 var command = new DeleteQuestionCommand(id);
 
-                await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.Value.DispatchAsync(command, token);
             }
             return Ok();
         }
@@ -82,8 +82,8 @@ namespace Cloudents.Admin2.Api
         {
          
 
-            var command = new ApproveQuestionCommand(model.ids);
-            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+            var command = new ApproveQuestionCommand(model.Id);
+            await _commandBus.Value.DispatchAsync(command, token);
           
             return Ok();
         }

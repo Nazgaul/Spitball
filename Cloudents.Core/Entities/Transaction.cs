@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using System;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "nHibernate Proxy")]
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nHibernate Proxy")]
-    public class Transaction 
+    public class Transaction : AggregateRoot
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
         public Transaction(TransactionActionType action, TransactionType type, decimal price, RegularUser user)
@@ -18,7 +18,7 @@ namespace Cloudents.Core.Entities
             User = user;
 
         }
-       // [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
+        // [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 
         //public Transaction(TransactionActionType action, TransactionType type, ReputationAction price, RegularUser user)
         //{
@@ -47,5 +47,7 @@ namespace Cloudents.Core.Entities
         public virtual Question Question { get; set; }
         public virtual Answer Answer { get; set; }
         public virtual RegularUser InvitedUser { get; set; }
+
+        public virtual Document Document { get; set; }
     }
 }

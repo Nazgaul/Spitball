@@ -89,7 +89,7 @@ export const routes = [
         children: [
             {
               path: '',
-              redirect: 'delete',
+              redirect: 'pendingAnswers',
             },
             {
                 path: 'delete',

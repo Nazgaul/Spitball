@@ -4,8 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 
@@ -19,11 +17,11 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<Document> _documentRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly ITagRepository _tagRepository;
-        private readonly IEventStore _eventStore;
 
         public CreateDocumentCommandHandler(IBlobProvider<DocumentContainer> blobProvider,
             IRepository<RegularUser> userRepository,
-            IRepository<Document> documentRepository, ICourseRepository courseRepository, ITagRepository tagRepository, IRepository<University> universityRepository, IEventStore eventStore)
+            IRepository<Document> documentRepository, ICourseRepository courseRepository,
+            ITagRepository tagRepository, IRepository<University> universityRepository)
         {
             _blobProvider = blobProvider;
             _userRepository = userRepository;
@@ -31,7 +29,6 @@ namespace Cloudents.Command.CommandHandler
             _courseRepository = courseRepository;
             _tagRepository = tagRepository;
             _universityRepository = universityRepository;
-            _eventStore = eventStore;
         }
 
         public async Task ExecuteAsync(CreateDocumentCommand message, CancellationToken token)
@@ -61,17 +58,13 @@ namespace Cloudents.Command.CommandHandler
             {
                 itemName += message.BlobName;
             }
-            var document = new Document(itemName, /*message.BlobName,*/ university, 
-                course, message.Type, tags, user, message.Professor);
-            await _documentRepository.AddAsync(document, token).ConfigureAwait(true);
+            var document = new Document(itemName, university, 
+                course, message.Type, tags, user, message.Professor, message.Price);
+            await _documentRepository.AddAsync(document, token);
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);
 
-            if (document.State == ItemState.Ok)
-            {
-                _eventStore.Add(new DocumentCreatedEvent(document));
-
-            }
+           
 
             message.Id = id;
         }

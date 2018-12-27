@@ -810,6 +810,11 @@
                 flex-direction: column;
                 flex-wrap: wrap;
                 align-content: center;
+                &.price-row{
+                  @media (max-width: @screen-xs) {
+                  max-width: 270px;
+                  }
+                }
                 @media (max-width: @screen-xs) {
                   padding-top: @rowMobileTopPadding;
                 }
@@ -819,11 +824,14 @@
                   width: 100%;
                   flex-wrap: wrap;
                   align-items: flex-start;
+                  &.price-holder{
+                    padding-left: 0;
+                  }
                   .wrap-row-price {
                     display: flex;
                     min-width: 134px;
                     align-items: center;
-                    justify-content: center;
+                    //justify-content: center;
                     @media (max-width: @screen-xs) {
                      flex-direction: column;
                     }
@@ -837,7 +845,9 @@
                       border-radius: 4px;
                       border: 1px solid rgba(0, 0, 0, .25);
                       justify-content: center;
-
+                      &:focus-within {
+                        border: 2px solid rgba(68, 82, 252, 0.54);
+                      }
                       .balance-label {
                         position: absolute;
                         bottom: -20px;
@@ -871,7 +881,7 @@
                     }
                   }
                   .sb-current-balance {
-                    background-color: @uploadGreyBackground;
+                    //background-color: @uploadGreyBackground;
                     height: 92px;
                     min-width: 134px;
                     border-radius: 4px;
