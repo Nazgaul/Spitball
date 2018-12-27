@@ -3,7 +3,7 @@
         <div class="upload-row-1">
             <h3 class="upload-cloud-text sb-title" v-language:inner>upload_files_price_title</h3>
             <h4 class="sb-subtitle mt-2"><span v-language:inner>upload_files_price_subtitle</span>
-                <a href="" class="sbl-faq">SBL’s.</a></h4>
+                <a href="/faq?id=3" target="_blank" class="sbl-faq">&nbsp;SBL’s.</a></h4>
         </div>
         <div class="upload-row-2 price-row paddingTopSm">
             <div class="btn-holder price-holder">
@@ -47,7 +47,8 @@
         data() {
             return {
                 uploadPrice: null,
-                isRtl: global.isRtl
+                isRtl: global.isRtl,
+                currentHost: global.location.hostname
             }
         },
         computed: {
