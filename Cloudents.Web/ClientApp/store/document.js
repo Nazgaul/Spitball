@@ -45,7 +45,8 @@ const actions = {
         commit('updateDownload');
     },
     purchaseAction({commit, dispatch}, item) {
-        return documentService.purchaseDocument(item)
+        let id = item.id ? item.id : '';
+        return documentService.purchaseDocument(id)
             .then((resp) => {
                     console.log('purchased success', resp);
                     dispatch('setDocumentPreview', item);
