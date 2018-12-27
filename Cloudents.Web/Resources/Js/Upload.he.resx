@@ -199,6 +199,12 @@
     <value>העלה קובץ</value>
     <comment>קבל כסף ממסמכי הלימודים שלך</comment>
   </data>
+  <data name="files_final_prof_label" xml:space="preserve">
+    <value>מרצה</value>
+  </data>
+  <data name="files_final_title" xml:space="preserve">
+    <value>כותרת</value>
+  </data>
   <data name="files_header_subtitle" xml:space="preserve">
     <value>קבל כסף ממסמכי הלימודים שלך</value>
     <comment>היכון, הכן, צא!</comment>
@@ -232,6 +238,21 @@
   </data>
   <data name="files_placeholder_tags" xml:space="preserve">
     <value>הכנס תגיות</value>
+  </data>
+  <data name="files_price_equals" xml:space="preserve">
+    <value>שווה ערך ל-</value>
+  </data>
+  <data name="files_price_label" xml:space="preserve">
+    <value>מחיר</value>
+  </data>
+  <data name="files_price_subtitle" xml:space="preserve">
+    <value>בספיטבול אתה יכול לקנות ולמכור ב-</value>
+  </data>
+  <data name="files_price_title" xml:space="preserve">
+    <value>קבע מחיר</value>
+  </data>
+  <data name="files_price_zero_means_free" xml:space="preserve">
+    <value>מחיר 00.00 אומר שהמסמך יהיה חינם</value>
   </data>
   <data name="files_proccesing" xml:space="preserve">
     <value>אנו מעבדים את המסמך ובקרוב הוא יעלה לאתר.</value>
