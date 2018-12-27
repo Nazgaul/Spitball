@@ -24,7 +24,7 @@ namespace Cloudents.Query
         {
             var ids = query.QuestionIds.ToList();
 
-            var z =  await _session.Query<Document>()
+            var z = await _session.Query<Document>()
                 .Fetch(f => f.User)
                 .Fetch(f => f.University)
                 .Where(w => ids.Contains(w.Id) && w.State == ItemState.Ok)
@@ -46,6 +46,8 @@ namespace Cloudents.Query
                     Views = s.Views,
                     Downloads = s.Downloads,
                     University = s.University.Name,
+                    Price = s.Price,
+                    IsSold = s.Transactions.Count > 0 ? true : false,
                     Vote = new VoteDto()
                     {
                         Votes = s.VoteCount

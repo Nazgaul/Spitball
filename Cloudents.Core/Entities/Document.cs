@@ -71,6 +71,7 @@ namespace Cloudents.Core.Entities
         public virtual string MetaContent { get; set; }
 
         public virtual decimal Price { get; set; }
+        public virtual IList<Transaction> Transactions { get; set; }
         public override void DeleteAssociation()
         {
             Votes.Clear();

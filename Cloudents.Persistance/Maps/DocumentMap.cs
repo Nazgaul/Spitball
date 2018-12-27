@@ -36,6 +36,13 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); ;
             References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("DocumentFlagged_User");
+
+            //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
+            HasMany(x => x.Transactions)
+                //.Cascade.()
+                .LazyLoad()
+                .Inverse();
+
             HasMany(x => x.Votes).KeyColumns.Add("DocumentId")
                 .Inverse().Cascade.AllDeleteOrphan();
             SchemaAction.None();
