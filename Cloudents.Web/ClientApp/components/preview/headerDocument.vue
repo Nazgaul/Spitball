@@ -73,15 +73,16 @@
                         </v-flex>
                         <v-flex v-show="!isPurchased">
                             <a target="_blank" @click="purchaseDocument()">
-                                <div class="download-action-container">
+                                <div class="buy-action-container">
                                     <div class="text-wrap">
-                                        <span class="download-text" >40.00 SBL</span>
+                                        <span class="buy-text-price" >40.00 SBL</span>
+                                        <span class="equals-to-dollar">{{40 | dollarVal}}$</span>
                                         <!--<v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.xsOnly">-->
                                             <!--sbf-download-cloud-->
                                         <!--</v-icon>-->
                                     </div>
-                                    <div class="btn-wrap">
-                                        <span class="download-text" v-language:inner>preview_itemActions_buy</span>
+                                    <div class="buy-btn-wrap">
+                                        <span class="buy-text" v-language:inner>preview_itemActions_buy</span>
                                         <!--<v-icon class="sb-download-icon">sbf-download-cloud</v-icon>-->
                                     </div>
                                 </div>
