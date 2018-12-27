@@ -156,6 +156,9 @@ export default {
                 this.buildChat();
             }
         },
+        textAreaValue(){
+            this.errorLength = {};
+        },
         //fix for chat dissapearing on screen resize
         '$vuetify.breakpoint.smAndDown': 'buildChat',
         //watch route(url query) update, and het question data from server
