@@ -240,7 +240,6 @@
                     return ''
                 }
             },
-
         },
 
         filters: {

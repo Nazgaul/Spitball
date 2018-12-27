@@ -180,12 +180,12 @@
             },
             docViews() {
                 if (this.item) {
-                    return this.item.views || 0;
+                    return this.item.views;
                 }
             },
             docDownloads() {
                 if (this.item) {
-                    return this.item.downloads || 0;
+                    return this.item.downloads;
                 }
             },
             uploadDate() {
