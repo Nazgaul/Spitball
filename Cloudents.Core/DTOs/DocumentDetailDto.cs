@@ -8,6 +8,7 @@ namespace Cloudents.Core.DTOs
     [DataContract]
     public class DocumentDetailDto
     {
+        public long Id{ get; set; }
         [DataMember]
         public string Name { get; set; }
 
@@ -47,6 +48,11 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public int Downloads { get; set; }
 
+        [DataMember]
+        public decimal? Price { get; set; }
+
+        [DataMember]
+        public bool IsPurchased { get; set; }
 
         //[DataMember]
         //public string Blob { get; set; }

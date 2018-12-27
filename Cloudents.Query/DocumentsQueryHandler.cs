@@ -47,7 +47,7 @@ namespace Cloudents.Query
                     Downloads = s.Downloads,
                     University = s.University.Name,
                     Price = s.Price,
-                    IsSold = s.Transactions.Count > 0 ? true : false,
+                    IsPurchased = s.Transactions.Count > 0 ? true : false,
                     Vote = new VoteDto()
                     {
                         Votes = s.VoteCount

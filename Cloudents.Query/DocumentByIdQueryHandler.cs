@@ -29,6 +29,7 @@ namespace Cloudents.Query
                 .Where(w => w.Id == query.Id && w.State == ItemState.Ok)
                 .Select(s => new DocumentDetailDto
                 {
+                    Id = s.Id,
                     Name = s.Name,
                     Date = s.TimeStamp.UpdateTime,
                    // Blob = s.BlobName,
@@ -38,7 +39,8 @@ namespace Cloudents.Query
                     Professor = s.Professor,
                     Views = s.Views,
                     Downloads = s.Downloads,
-                    
+                    Price = s.Price,
+                    IsPurchased = s.Transactions.Count > 0 ? true : false,
                     User = new UserDto
                     {
                         Id = s.User.Id,
