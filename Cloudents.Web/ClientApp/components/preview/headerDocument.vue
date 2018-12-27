@@ -186,9 +186,8 @@
             },
             purchaseDocument() {
                 let item = this.item;
-                item.id = 6646;
                 this.purchaseAction(item);
-                this.isPurchased = true;
+                // this.isPurchased = true;
                 // .then((success) => {
                     //         console.log(success, 'success purchase header doc')
                     //         this.isPurchased = true;

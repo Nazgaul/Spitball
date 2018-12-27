@@ -51,7 +51,6 @@ const actions = {
                     dispatch('setDocumentPreview', id);
                 },
                 (error) => {
-                    dispatch('setDocumentPreview', item);
                     console.log('purchased success', error);
 
                 }

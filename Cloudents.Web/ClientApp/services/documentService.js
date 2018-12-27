@@ -15,7 +15,7 @@ function DocumentItem(ObjInit) {
     this.isPlaceholder = ObjInit.isPlaceholder || false;
     this.professor = ObjInit.professor || '';
     this.price = ObjInit.price || '00.00';
-    this.isPurchased = ObjInit.isPurchased || true;
+    this.isPurchased = ObjInit.isPurchased || false;
 };
 
 function createDocumentItem(ObjInit) {
