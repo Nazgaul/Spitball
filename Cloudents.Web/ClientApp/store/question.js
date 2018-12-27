@@ -71,10 +71,11 @@ const actions = {
         commit('updateDeleted', false);
     },
     deleteQuestion(context, id) {
-        if (id.type === 'Answer') {
-            context.commit('updateDeleted', true)
-        }
-        return questionService.deleteQuestion(id);
+        return questionService.deleteQuestion(id).then(()=>{
+            if (id.type === 'Answer') {
+                context.commit('updateDeleted', true)
+            }
+        });
     },
     correctAnswer(context, id) {
         return questionService.markAsCorrectAnswer(id)

@@ -38,6 +38,9 @@ export default {
 
 
         },
+        textAreaValue(){
+            this.errorTextArea = {};
+        },
         //watch selected to clear custom price field
         selectedPrice(val) {
             if (val && val > 0) {

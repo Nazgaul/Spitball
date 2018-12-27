@@ -92,7 +92,7 @@
                     <span class="item-name" v-language:inner>upload_files_price_label</span>
                 </div>
                 <span class="price"
-                      v-line-clamp="1">{{getFileData.price}} <span class="price-sbl">SBL</span></span>
+                      v-line-clamp="1">{{getFileData.price || '00.00'}} <span class="price-sbl">SBL</span></span>
             </div>
         </div>
         <div class="upload-row-4 final-row">

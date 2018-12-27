@@ -123,6 +123,9 @@
   <data name="flashcard_beginText_start_over" xml:space="preserve">
     <value>Start Over</value>
   </data>
+  <data name="itemActions_buy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
   <data name="itemActions_download" xml:space="preserve">
     <value>Download</value>
   </data>
