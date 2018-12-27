@@ -187,15 +187,6 @@
             purchaseDocument() {
                 let item = this.item;
                 this.purchaseAction(item);
-                // this.isPurchased = true;
-                // .then((success) => {
-                    //         console.log(success, 'success purchase header doc')
-                    //         this.isPurchased = true;
-                    //     },
-                    //     (error) => {
-                    //         console.log(error, 'error purchase header doc')
-                    //     });
-                console.log(this.item, 'id', item);
                 this.confirmPurchaseDialog = false;
             }
         },
