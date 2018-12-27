@@ -148,7 +148,15 @@ export default {
             this.player.pauseVideo()
         },
         changeDictionaryType(val){
+            this.scrollTop();
             this.switchLandingPageText(val);
+        },
+        scrollTop(){
+            setTimeout(()=>{
+                this.$nextTick(() => {
+                    global.scrollTo(0, 0);
+                })
+            }, 200)
         },
         getAllUniversities() {
             //leave space
@@ -201,11 +209,7 @@ export default {
         if(!user){
             this.getAllSubjects();
             this.getStatistics();
-            setTimeout(()=>{
-                this.$nextTick(() => {
-                    global.scrollTo(0, 0);
-                })
-            }, 200)
+            this.scrollTop();
         }else{
             this.$router.push({path: '/ask'})
         }
