@@ -78,7 +78,7 @@
                                     <div class="buy-text-wrap">
                                         <span class="buy-text-price">
                                             <span class="mobile-buy-text hidden-sm-and-up"  v-language:inner>preview_itemActions_buy</span>
-                                            {{item ? item.price : ''}}
+                                            {{item.price && item.price ? item.price.toFixed(2) : ''}}
                                             <span class="sbl-suffix">SBL</span>
                                         </span>
                                         <span class="equals-to-dollar hidden-xs-only">
@@ -118,7 +118,7 @@
             <v-card class="confirm-purchase-card">
                 <v-card-title class="confirm-headline">
                     <span v-language:inner>preview_about_to_buy</span>
-                    <span>{{doc ? doc.title: ''}}</span>
+                    <span>&nbsp;{{doc ? doc.title: ''}}</span>
                 </v-card-title>
                 <v-card-actions class="card-actions">
                     <div class="doc-details">
@@ -134,7 +134,7 @@
                         <v-btn flat class="cancel" @click.native="confirmPurchaseDialog = false"><span>Cancel</span>
                         </v-btn>
                         <v-btn round class="submit-purchase" @click.native="purchaseDocument(item.id)">
-                            <span class="hidden-xs-only" v-language:inner>preview_buy_download_btn</span>
+                            <span class="hidden-xs-only" v-language:inner>preview_buy_btn</span>
                             <span class="hidden-sm-and-up text-uppercase" v-language:inner>preview_itemActions_buy</span>
                         </v-btn>
                     </div>
@@ -186,17 +186,7 @@
             },
             purchaseDocument() {
                 let item = this.item;
-                item.id = 6646;
                 this.purchaseAction(item);
-                this.isPurchased = true;
-                // .then((success) => {
-                    //         console.log(success, 'success purchase header doc')
-                    //         this.isPurchased = true;
-                    //     },
-                    //     (error) => {
-                    //         console.log(error, 'error purchase header doc')
-                    //     });
-                console.log(this.item, 'id', item);
                 this.confirmPurchaseDialog = false;
             }
         },

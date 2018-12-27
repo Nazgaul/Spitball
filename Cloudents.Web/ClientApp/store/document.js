@@ -48,10 +48,9 @@ const actions = {
         return documentService.purchaseDocument(item)
             .then((resp) => {
                     console.log('purchased success', resp);
-                    dispatch('setDocumentPreview', id);
+                    dispatch('setDocumentPreview', item);
                 },
                 (error) => {
-                    dispatch('setDocumentPreview', item);
                     console.log('purchased success', error);
 
                 }

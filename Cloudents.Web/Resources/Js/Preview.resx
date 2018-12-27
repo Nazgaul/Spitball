@@ -120,6 +120,9 @@
   <data name="about_to_buy" xml:space="preserve">
     <value>You’r about to buy a great</value>
   </data>
+  <data name="buy_btn" xml:space="preserve">
+    <value>Buy &amp; Download</value>
+  </data>
   <data name="buy_full_btn" xml:space="preserve">
     <value>Buy to view full document</value>
   </data>
