@@ -84,9 +84,9 @@ namespace Cloudents.Core.Entities
 
        // public virtual int AnswerCount { get; set; }
 
-        public virtual Answer AddAnswer(string text, int attachments, RegularUser user)
+        public virtual Answer AddAnswer(string text, int attachments, RegularUser user, CultureInfo language)
         {
-            var answer = new Answer(this, text, attachments, user);
+            var answer = new Answer(this, text, attachments, user, language);
             Answers.Add(answer);
             return answer;
         }
@@ -95,31 +95,7 @@ namespace Cloudents.Core.Entities
         public virtual CultureInfo Language { get; protected set; }
 
 
-        //for dbi only
-        public virtual void SetLanguage(CultureInfo info)
-        {
-            if (info.Equals(CultureInfo.InvariantCulture))
-            {
-                return;
-            }
-
-            if (Language != null)
-            {
-                throw new InvalidOperationException("Cannot change language of question");
-            }
-
-            Language = info;
-        }
-
-        //public override void ChangeState(ItemState state)
-        //{
-        //    //Item.ChangeState(state);
-        //    if (State == ItemState.Pending && state == ItemState.Ok)
-        //    {
-        //        this.Updated = DateTime.UtcNow;
-        //        Events.Add(new QuestionCreatedEvent(this));
-        //    }
-        //}
+      
 
         public override bool MakePublic()
         {

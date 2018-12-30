@@ -27,7 +27,7 @@ namespace Cloudents.Persistance.Maps
                 .LazyLoad()
                
                 .Inverse();
-
+            Map(x => x.Language).Length(5);
             HasMany(x => x.Votes).KeyColumns.Add("AnswerId")
                 .Inverse().Cascade.AllDeleteOrphan();
 
