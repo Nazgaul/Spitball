@@ -24,7 +24,7 @@ const mutations = {
                 answerIndex = index;
                 return;
             }
-        })
+        });
         if(answerIndex > -1){
             state.question.answers.splice(answerIndex, 1);
         }
@@ -126,7 +126,7 @@ const actions = {
             let errorObj = {
                 toasterText:err.response.data.Id[0],
                 showToaster: true,
-            }
+            };
             dispatch('updateToasterParams', errorObj);
         })
     },

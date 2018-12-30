@@ -24,7 +24,7 @@
                         <div class="text-container">
                             <div class="text">
                                 <span class="user-date" v-language:inner>questionCard_Answer</span>
-                                <user-rank style="margin-top: 1px;" :score="cardData.user.score"></user-rank>
+                                <user-rank  style="margin-top: 1px; margin-left: 12px; margin-right: 8px;" :score="cardData.user.score"></user-rank>
                                 <span class="timeago"
                                       :datetime="cardData.dateTime||cardData.create"></span><span
                                     v-if="typeAnswer"
@@ -38,6 +38,19 @@
                                 <span class="choosen-answer right" v-if="flaggedAsCorrect">
                                     <v-icon>sbf-check-circle</v-icon></span>
                                 </span>
+                                <v-spacer></v-spacer>
+                                <div class="menu-area">
+                                    <v-menu bottom left content-class="card-user-actions">
+                                        <v-btn :depressed="true" @click.prevent slot="activator" icon>
+                                            <v-icon>sbf-3-dot</v-icon>
+                                        </v-btn>
+                                        <v-list>
+                                            <v-list-tile v-show="item.isVisible" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
+                                                <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
+                                            </v-list-tile>
+                                        </v-list>
+                                    </v-menu>
+                                </div>
                             </div>
 
                             <p class="q-text" :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'answer': typeAnswer}]">{{cardData.text}}</p>
@@ -54,15 +67,22 @@
                     </div>
                 </div>
             </div>
-            <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}"
-                    v-if="detailedView && canDelete" @click="deleteQuestion()" v-language:inner>questionCard_Delete
-            </button>
+            <!--<button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}"-->
+                    <!--v-if="detailedView && canDelete" @click="deleteQuestion()" v-language:inner>questionCard_Delete-->
+            <!--</button>-->
             <!-- TODO strange behaviour check why is being added tab index-1 to DOM-->
             <v-dialog v-model="showDialog" max-width="720px"
                       transition="scale-transition" content-class="zoom-image">
                 <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
             </v-dialog>
         </div>
+        <sb-dialog
+                :showDialog="showReport"
+                :maxWidth="'438px'"
+                :popUpType="'reportDialog'"
+                :content-class="`reportDialog ${isRtl? 'rtl': ''}` ">
+            <report-item  :closeReport="closeReportDialog" :itemType="'answer'" :answerDelData="answerToDeletObj" :itemId="itemId"></report-item>
+        </sb-dialog>
     </v-flex>
 </template>
 <style src="./question-card.less" lang="less"></style>

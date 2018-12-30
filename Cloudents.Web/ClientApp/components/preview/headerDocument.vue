@@ -57,21 +57,6 @@
                 </div>
                 <div class="views details">
                     <v-layout column fill-height justify-space-between>
-                        <v-flex v-show="isPurchased">
-                            <a target="_blank" @click="downloadDoc()">
-                                <div class="download-action-container">
-                                    <div class="text-wrap">
-                                        <span class="download-text" v-language:inner>preview_itemActions_download</span>
-                                        <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.xsOnly">
-                                            sbf-download-cloud
-                                        </v-icon>
-                                    </div>
-                                    <div class="btn-wrap">
-                                        <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
-                                    </div>
-                                </div>
-                            </a>
-                        </v-flex>
                         <v-flex v-show="!isPurchased">
                             <a target="_blank" @click="showPurchaseConfirm()">
                                 <div class="buy-action-container">
@@ -87,6 +72,21 @@
                                     </div>
                                     <div class="buy-btn-wrap">
                                         <span class="buy-text" v-language:inner>preview_itemActions_buy</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </v-flex>
+                        <v-flex v-show="isPurchased">
+                            <a target="_blank" @click="downloadDoc()">
+                                <div class="download-action-container">
+                                    <div class="text-wrap">
+                                        <span class="download-text" v-language:inner>preview_itemActions_download</span>
+                                        <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.xsOnly">
+                                            sbf-download-cloud
+                                        </v-icon>
+                                    </div>
+                                    <div class="btn-wrap">
+                                        <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
                                     </div>
                                 </div>
                             </a>
@@ -182,7 +182,13 @@
                 }
             },
             showPurchaseConfirm() {
-                this.confirmPurchaseDialog = true;
+                let isLogedIn = this.accountUser();
+                if(isLogedIn){
+                    this.confirmPurchaseDialog = true;
+                }else{
+                    this.updateLoginDialogState(true);
+                }
+
             },
             purchaseDocument() {
                 let item = this.item;
