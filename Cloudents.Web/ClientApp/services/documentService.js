@@ -14,7 +14,7 @@ function DocumentItem(ObjInit) {
     this.docType = ObjInit.type || '';
     this.isPlaceholder = ObjInit.isPlaceholder || false;
     this.professor = ObjInit.professor || '';
-    this.price = ObjInit.price || '00.00';
+    this.price = ObjInit.price || 0;
     this.isPurchased = ObjInit.isPurchased || false;
 };
 
