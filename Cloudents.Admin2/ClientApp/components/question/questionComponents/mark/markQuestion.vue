@@ -9,31 +9,37 @@
                     <div id="question-wrapper-scroll">
                         <v-card v-show="questions.length > 0" v-for="(question,index) in questions" :key="index">
                             <v-toolbar class="question-toolbar mt-4 back-color-purple">
-                                <v-toolbar-title class="question-text-title" @click="openQuestion(question.url)">{{question.text}}</v-toolbar-title>
+                                <v-toolbar-title class="question-text-title" @click="openQuestion(question.url)">
+                                    {{question.text}}
+                                </v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <span title="Fictive Or Original Question ">{{question}}</span>
+
+                                <span title="date mr-2">{{question.create | dateFromISO}}&nbsp;&nbsp;</span>
                                 <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
-                                <v-btn icon @click="deleteQuestionByID(question)">
-                                    <v-icon>close</v-icon>
-                                </v-btn>
+                                <div class="question-actions-container">
+                                    <v-btn icon @click="deleteQuestionByID(question)">
+                                        <v-icon color="red">close</v-icon>
+                                    </v-btn>
+                                </div>
                                 <!--<v-btn icon @click="openQuestion(question.url)">-->
-                                    <!--<v-icon>open_in_browser</v-icon>-->
+                                <!--<v-icon>open_in_browser</v-icon>-->
                                 <!--</v-btn>-->
                             </v-toolbar>
 
                             <v-list two-line avatar>
                                 <template v-for="(answer, index) in question.answers">
-                                    <v-list-tile>
+                                    <v-list-tile class="answers-list-tile">
                                         <v-list-tile-content class="answers-content">
-                                            <v-list-tile-sub-title class="answer-subtitle">{{answer.text}}</v-list-tile-sub-title>
+                                            <v-list-tile-sub-title class="answer-subtitle">{{answer.text}}
+                                            </v-list-tile-sub-title>
                                         </v-list-tile-content>
-                                        <v-list-tile-action>
+                                        <v-list-tile-action class="answer-action">
                                             <v-list-tile-action-text></v-list-tile-action-text>
                                             <v-btn icon @click="deleteAnswerByID(question, answer)">
                                                 <v-icon color="red">close</v-icon>
                                             </v-btn>
                                         </v-list-tile-action>
-                                        <v-list-tile-action>
+                                        <v-list-tile-action  class="answer-action">
                                             <v-list-tile-action-text></v-list-tile-action-text>
                                             <span v-show="answer.imagesCount > 0" title="Number of Attchments"
                                                   class="font-size-14">
@@ -44,8 +50,6 @@
                                                 <v-icon color="green">done</v-icon>
                                             </v-btn>
                                         </v-list-tile-action>
-
-
 
                                     </v-list-tile>
                                     <v-divider
@@ -73,6 +77,7 @@
             font-size: 16px;
         }
     }
+
     .font-size-14 {
         font-size: 14px;
     }
@@ -96,14 +101,34 @@
             font-size: 14px;
             white-space: pre-wrap;
             max-width: 80%;
-            &:hover{
+            &:hover {
                 cursor: pointer;
             }
         }
     }
 
+    .answers-list-tile {
+        .answer-action {
+            visibility: hidden;
+        }
+        &:hover{
+            .answer-action {
+                visibility: visible;
+            }
+        }
+    }
+
+    .question-actions-container {
+        visibility: hidden;
+    }
+
     .question-toolbar, .v-card {
         max-width: 1280px;
+        &:hover {
+            .question-actions-container {
+                visibility: visible;
+            }
+        }
     }
 
     .question-toolbar {
@@ -113,11 +138,12 @@
             padding: 12px 24px;
         }
     }
+
     .v-list__tile__content {
-        &.answers-content{
+        &.answers-content {
             .v-list__tile__sub-title {
                 &.answer-subtitle {
-                    color: rgba( 0, 0, 0, .87);
+                    color: rgba(0, 0, 0, .87);
                 }
             }
         }
