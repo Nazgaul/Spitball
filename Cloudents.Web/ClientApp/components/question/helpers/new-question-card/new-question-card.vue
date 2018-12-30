@@ -36,9 +36,9 @@
                             <v-list class="report-list">
                                 <v-list-tile v-show="item.isVisible" :disabled="item.isDisabled()" class="report-list-item"
                                              v-for="(item, i) in actions" :key="i">
-                                    <v-list-tile-action>
-                                        <v-icon class="list-item-icon">{{ item.icon }}</v-icon>
-                                    </v-list-tile-action>
+                                    <!--<v-list-tile-action>-->
+                                        <!--<v-icon class="list-item-icon">{{ item.icon }}</v-icon>-->
+                                    <!--</v-list-tile-action>-->
                                     <v-list-tile-content>
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile-content>
