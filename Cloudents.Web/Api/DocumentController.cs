@@ -85,7 +85,7 @@ namespace Cloudents.Web.Api
             var prefix = "preview-";
             if (!model.IsPurchased)
             {
-                prefix = "preview-blur";
+                prefix = "blur-";
             }
             var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
 
