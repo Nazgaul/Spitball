@@ -66,8 +66,14 @@
                         title: LanguageService.getValueByKey("reportItem_reason_inappropriateLanguage"),
                         id: "inappropriateLanguage"
                     },
-                    {title: LanguageService.getValueByKey("reportItem_reason_plagiarism"), id: "plagiarism"},
-                    {title: LanguageService.getValueByKey("reportItem_reason_spam"), id: "spam"},
+                    {
+                        title: LanguageService.getValueByKey("reportItem_reason_plagiarism"),
+                        id: "plagiarism"
+                    },
+                    {
+                        title: LanguageService.getValueByKey("reportItem_reason_spam"),
+                        id: "spam"
+                    },
                 ],
                 preDefinedReason: '',
                 customReason: '',
@@ -132,7 +138,7 @@
                 let self = this;
                 this.callRelevantAction(this.itemType, data).then(() => {
                     //in case answer is flaged
-                    if(this.itemType ==="answer"){
+                    if (this.itemType === "answer") {
                         //after successfull flag remove answer from client side
                         self.answerRemoved(this.answerDelData);
                     }
@@ -221,7 +227,7 @@
                             font-size: 16px;
                             letter-spacing: -0.3px;
                             color: @colorBlackNew;
-                            padding-left: 8px;
+                            padding-left: 16px;
                         }
                     }
                 }

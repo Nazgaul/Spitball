@@ -19,13 +19,15 @@ export default {
                     title: LanguageService.getValueByKey("questionCard_Report"),
                     action: this.reportItem,
                     isDisabled: this.isDisabled,
-                    isVisible: true
+                    isVisible: true,
+                    icon: 'sbf-flag'
                 },
                 {
                     title: LanguageService.getValueByKey("questionCard_Delete"),
                     action: this.deleteQuestion,
                     isDisabled: this.canDelete,
-                    isVisible: true
+                    isVisible: true,
+                    icon: 'sbf-delete'
                 }
             ],
             showReportReasons: false,
