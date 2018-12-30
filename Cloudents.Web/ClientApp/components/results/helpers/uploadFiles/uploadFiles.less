@@ -633,8 +633,8 @@
                 align-items: center;
                 &:last-child {
                   padding-left: 48px;
-                  &.price-holder{
-                    @media(max-width: @screen-xs){
+                  &.price-holder {
+                    @media (max-width: @screen-xs) {
                       margin-left: unset;
                       padding-left: unset;
                     }
@@ -810,6 +810,11 @@
                 flex-direction: column;
                 flex-wrap: wrap;
                 align-content: center;
+                &.price-row {
+                  @media (max-width: @screen-xs) {
+                    max-width: 270px;
+                  }
+                }
                 @media (max-width: @screen-xs) {
                   padding-top: @rowMobileTopPadding;
                 }
@@ -819,13 +824,16 @@
                   width: 100%;
                   flex-wrap: wrap;
                   align-items: flex-start;
+                  &.price-holder {
+                    padding-left: 0;
+                  }
                   .wrap-row-price {
                     display: flex;
                     min-width: 134px;
                     align-items: center;
-                    justify-content: center;
+                    //justify-content: center;
                     @media (max-width: @screen-xs) {
-                     flex-direction: column;
+                      flex-direction: column;
                     }
                     .price-wrap {
                       position: relative;
@@ -837,7 +845,12 @@
                       border-radius: 4px;
                       border: 1px solid rgba(0, 0, 0, .25);
                       justify-content: center;
-
+                      &.reversed{
+                        flex-direction: row-reverse;
+                      }
+                      &:focus-within {
+                        border: 2px solid rgba(68, 82, 252, 0.54);
+                      }
                       .balance-label {
                         position: absolute;
                         bottom: -20px;
@@ -847,11 +860,11 @@
                         @media (max-width: @screen-xs) {
                           padding-top: 24px;
                         }
-
                       }
                       .sb-input-upload-price {
                         max-width: 125px;
                         height: 90px;
+                        order: 1;
                         .input-field {
                           .placeholder-color(@placeholderGrey, 1);
                           font-size: 36px;
@@ -867,11 +880,12 @@
                       .sbl-suffix {
                         color: @colorBlackNew;
                         font-size: 14px;
+                        order: 2;
                       }
                     }
                   }
                   .sb-current-balance {
-                    background-color: @uploadGreyBackground;
+                    //background-color: @uploadGreyBackground;
                     height: 92px;
                     min-width: 134px;
                     border-radius: 4px;
@@ -1109,6 +1123,7 @@
                 width: 100%;
                 padding: 12px 0 12px 12px;
                 position: relative;
+                cursor: pointer;
                 &.price {
                   background-color: #eeefff;
                   border: none;
@@ -1218,7 +1233,7 @@
                 @media (max-width: @screen-xs) {
                   padding-top: 44px;
                 }
-                &.final-row{
+                &.final-row {
                   flex-direction: row;
                   align-items: center;
                   justify-content: flex-start;

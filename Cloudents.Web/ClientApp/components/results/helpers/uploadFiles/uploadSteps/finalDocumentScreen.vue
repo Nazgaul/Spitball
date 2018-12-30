@@ -28,7 +28,7 @@
                 <span class="class-name"
                       v-line-clamp="1">{{getFileData.course}}</span>
             </div>
-            <div class="final-item" @click="changeStep(2)">
+            <div class="final-item" @click="changeStep(4)">
                 <div class="edit">
                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                     <span v-language:inner>upload_files_edit</span>
@@ -40,7 +40,7 @@
                 <span class="class-name"
                       v-line-clamp="1">{{getFileData.name}}</span>
             </div>
-            <div class="final-item" @click="changeStep(2)">
+            <div class="final-item" @click="changeStep(4)">
                 <div class="edit">
                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                     <span v-language:inner>upload_files_edit</span>
@@ -92,7 +92,7 @@
                     <span class="item-name" v-language:inner>upload_files_price_label</span>
                 </div>
                 <span class="price"
-                      v-line-clamp="1">{{getFileData.price}} <span class="price-sbl">SBL</span></span>
+                      v-line-clamp="1"><bdi>{{getFileData.price || '00.00'}} <span class="price-sbl">SBL</span></bdi></span>
             </div>
         </div>
         <div class="upload-row-4 final-row">

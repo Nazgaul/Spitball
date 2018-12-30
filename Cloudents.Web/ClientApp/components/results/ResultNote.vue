@@ -24,11 +24,11 @@
                             <div class="date-area">{{uploadDate}}</div>
                         </div>
                     </div>
-                    <div class="document-header-small-sagment">
-                        <!--<div class="price-area" :class="{'sold': isSold}">-->
-                        <!--{{item.price.toFixed(2)}}-->
-                        <!--<span>SBL</span>-->
-                        <!--</div>-->
+                    <div class="document-header-small-sagment" v-show="item.price">
+                        <div class="price-area" :class="{'isPurchased': isPurchased}">
+                        {{item.price ? item.price.toFixed(2): ''}}
+                        <span>SBL</span>
+                        </div>
                         <div class="menu-area">
                             <v-menu bottom left content-class="card-user-actions" v-model="showMenu">
                                 <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()"   slot="activator" icon>
@@ -141,7 +141,9 @@
                     return this.item.user.score;
                 }
             },
-
+            isPurchased(){
+                return this.item.isPurchased
+            },
             type() {
                 let self = this;
                 if (!!self.item.type) {
@@ -180,12 +182,12 @@
             },
             docViews() {
                 if (this.item) {
-                    return this.item.views || 0;
+                    return this.item.views;
                 }
             },
             docDownloads() {
                 if (this.item) {
-                    return this.item.downloads || 0;
+                    return this.item.downloads;
                 }
             },
             uploadDate() {

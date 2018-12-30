@@ -39,11 +39,7 @@ namespace Cloudents.Query
 
         private ITransaction _transaction;
 
-
-        private void OpenTransaction()
-        {
-
-        }
+        
 
         public QuerySession(Lazy<ISession> session, Lazy<IStatelessSession> statelessSession)
         {

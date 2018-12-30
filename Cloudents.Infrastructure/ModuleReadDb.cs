@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Autofac;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Data;
 using Module = Autofac.Module;

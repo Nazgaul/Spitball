@@ -44,7 +44,7 @@ export default {
             },
             handleScroll(event){
                 let offset = 2000;
-                if(event.target.scrollHeight- offset < event.target.scrollTop){
+                if(event.target.scrollHeight - offset < event.target.scrollTop){
                     if(!this.scrollLock){
                         this.scrollLock = true;
                         this.getQuestions();
@@ -57,12 +57,13 @@ export default {
     },
     beforeMount () {
         this.$nextTick(function(){
-             let containerElm = document.getElementById('template-app');
+            let containerElm = document.getElementById('question-wrapper-scroll');
             containerElm.addEventListener('scroll', this.handleScroll);
         })
       },
     beforeDestroy () {
-       let containerElm = document.getElementById('template-app');
-       containerElm.removeEventListener('scroll', this.handleScroll);
+      let containerElm = document.getElementById('question-wrapper-scroll');
+      if(!containerElm)return
+      containerElm.removeEventListener('scroll', this.handleScroll);
     }
 }

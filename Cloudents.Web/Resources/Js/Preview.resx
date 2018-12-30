@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="about_to_buy" xml:space="preserve">
+    <value>You’r about to buy a great</value>
+  </data>
+  <data name="buy_btn" xml:space="preserve">
+    <value>Buy &amp; Download</value>
+  </data>
+  <data name="buy_full_btn" xml:space="preserve">
+    <value>Buy to view full document</value>
+  </data>
+  <data name="doc_placeholder_text" xml:space="preserve">
+    <value>Preview will be avaliable soon</value>
+  </data>
   <data name="flashcard_beginText_start" xml:space="preserve">
     <value>Start</value>
   </data>
   <data name="flashcard_beginText_start_over" xml:space="preserve">
     <value>Start Over</value>
+  </data>
+  <data name="itemActions_buy" xml:space="preserve">
+    <value>Buy</value>
   </data>
   <data name="itemActions_download" xml:space="preserve">
     <value>Download</value>
@@ -140,5 +155,8 @@
   </data>
   <data name="item_school" xml:space="preserve">
     <value>School</value>
+  </data>
+  <data name="price_equals_to" xml:space="preserve">
+    <value>Equals to</value>
   </data>
 </root>

@@ -11,7 +11,6 @@ using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Search.Document;

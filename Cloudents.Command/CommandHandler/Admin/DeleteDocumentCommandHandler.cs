@@ -1,17 +1,16 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
     public class DeleteDocumentCommandHandler : ICommandHandler<DeleteDocumentCommand>
     {
-        private readonly IRepository<Document> _documentRepository;
+        private readonly IRepository<Core.Entities.Document> _documentRepository;
 
 
-        public DeleteDocumentCommandHandler(IRepository<Document> documentRepository)
+        public DeleteDocumentCommandHandler(IRepository<Core.Entities.Document> documentRepository)
         {
             _documentRepository = documentRepository;
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -50,6 +49,7 @@ namespace Cloudents.Core.Entities
 
         public virtual int Score { get; set; }
 
+        public virtual object Actual => this;
 
         /// <summary>
         /// To be reused for (NHibernate) Linq generator

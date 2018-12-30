@@ -58,9 +58,9 @@ namespace Cloudents.Command.CommandHandler
             {
                 itemName += message.BlobName;
             }
-            var document = new Document(itemName, /*message.BlobName,*/ university, 
-                course, message.Type, tags, user, message.Professor);
-            await _documentRepository.AddAsync(document, token).ConfigureAwait(true);
+            var document = new Document(itemName, university, 
+                course, message.Type, tags, user, message.Professor, message.Price);
+            await _documentRepository.AddAsync(document, token);
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);
 
