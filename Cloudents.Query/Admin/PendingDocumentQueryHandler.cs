@@ -29,7 +29,8 @@ namespace Cloudents.Query.Admin
                 .Take(100)
                 .Select(s => new PendingDocumentDto
                 {
-                    Id = s.Id
+                    Id = s.Id,
+                    Name = s.Name
                 }).ToListAsync(token);
         }
     }

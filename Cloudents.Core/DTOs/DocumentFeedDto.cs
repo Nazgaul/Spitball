@@ -47,8 +47,6 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public decimal? Price { get; set; }
 
-        [DataMember]
-        public bool IsPurchased  { get; set; }
     }
 
     public class VoteDto

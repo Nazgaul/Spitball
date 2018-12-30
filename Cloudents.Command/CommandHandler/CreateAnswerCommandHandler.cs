@@ -20,17 +20,20 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<Question> _questionRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly IRepository<RegularUser> _userRepository;
+        private readonly ITextAnalysis _textAnalysis;
+
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
             IAnswerRepository answerRepository, IRepository<RegularUser> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider)
+            IBlobProvider<QuestionAnswerContainer> blobProvider, ITextAnalysis textAnalysis)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
+            _textAnalysis = textAnalysis;
         }
 
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
@@ -93,8 +96,10 @@ namespace Cloudents.Command.CommandHandler
                     throw new DuplicateRowException("Duplicate answer");
                 }
             }
-            var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
-            await _answerRepository.AddAsync(newAnswer, token).ConfigureAwait(false);
+
+            var language = await _textAnalysis.DetectLanguageAsync(message.Text, token);
+            var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user, language);
+            await _answerRepository.AddAsync(newAnswer, token);
             
             var id = newAnswer.Id;
 

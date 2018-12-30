@@ -1,4 +1,12 @@
 ﻿using Autofac;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
@@ -22,17 +30,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Core;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.System;
-using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
 using DocumentType = Cloudents.Core.Enum.DocumentType;
 
 namespace ConsoleApp
@@ -116,7 +113,9 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-            await ReduWordProcessing();
+            await RemoveBlobs();
+            //await UpdateLanguageAsync();
+            //await ReduWordProcessing();
 
 
         }
@@ -215,7 +214,7 @@ namespace ConsoleApp
             } while (true);
         }
 
-       
+
 
         private static async Task FixFilesAsync()
         {
@@ -262,8 +261,8 @@ where left(blobName ,4) != 'file'");
             //var dir = container.GetDirectoryReference(
             //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
 
-           
-           var  container = blobClient.GetContainerReference("spitball-files");
+
+            var container = blobClient.GetContainerReference("spitball-files");
             var dir = container.GetDirectoryReference("files");
             var queue = queueClient.GetQueueReference("generate-blob-preview");
             var extensions = WordProcessor.Extensions;
@@ -294,8 +293,8 @@ where left(blobName ,4) != 'file'");
                                 // var blobToDelete = (CloudBlockBlob)blob;
                             }
                         }
-                       
-                      
+
+
                         //var blobToDelete = (CloudBlockBlob)blob;
                     }
 
@@ -309,7 +308,7 @@ where left(blobName ,4) != 'file'");
                 blobToken = result.ContinuationToken;
             } while (blobToken != null);
 
-            
+
 
 
         }
@@ -358,22 +357,10 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-            var _bus = _container.Resolve<ICloudStorageProvider>();
-            var blobClient = _bus.GetBlobClient();
-            var queueClient = _bus.GetQueueClient();
-            var container = blobClient.GetContainerReference("azure-webjobs-hosts");
+        
 
-            //var dir = container.GetDirectoryReference(
-            //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
-            container = blobClient.GetContainerReference("spitball-files");
-            var dir = container.GetDirectoryReference("files");
-            //var queue = queueClient.GetQueueReference("generate-blob-preview");
-            
 
-            await RemoveBlobs(dir, async blob =>
-             {
-                 await blob.DeleteAsync();
-             });
+           
 
 
             //await MigrateDelta();
@@ -597,37 +584,39 @@ where left(blobName ,4) != 'file'");
         public static async Task UpdateLanguageAsync()
         {
             var t = _container.Resolve<ITextAnalysis>();
-            var i = 0;
             bool continueLoop = false;
             do
             {
                 using (var child = _container.BeginLifetimeScope())
                 {
 
+                    var sts = child.Resolve<IStatelessSession>();
 
                     using (var unitOfWork = child.Resolve<IUnitOfWork>())
                     {
-                        var repository = child.Resolve<IQuestionRepository>();
-                        var questions = await repository.GetAllQuestionsAsync(i).ConfigureAwait(false);
-                        continueLoop = questions.Count > 0;
+                        var repository = child.Resolve<IRepository<Answer>>();
+                        var questions = await sts.Query<Answer>().Where(w => w.Language == null).Take(100)
+                            .OrderBy(o => o.Id).ToListAsync();// repository.GetAllQuestionsAsync(i).ConfigureAwait(false);
+                         continueLoop = questions.Count > 0;
                         if (!continueLoop)
                         {
                             break;
                         }
                         var result = await t.DetectLanguageAsync(
                             questions.Where(w => w.Language == null)
-                                .Select(s => new KeyValuePair<long, string>(s.Id, s.Text)), default);
+                                .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Text)), default);
 
                         foreach (var pair in result.Where(w => !w.Value.Equals(CultureInfo.InvariantCulture)))
                         {
-                            var q = await repository.LoadAsync(pair.Key, default);
+                            var q = await repository.LoadAsync(Guid.Parse(pair.Key), default);
 
+                            
                             q.SetLanguage(pair.Value);
 
                             await repository.UpdateAsync(q, default);
                         }
 
-                        await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                        await unitOfWork.CommitAsync(default);
                     }
 
                 }
@@ -1082,52 +1071,52 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 
 
 
-      //  public static async Task MigrateUniversity()
-      //  {
-      //      var d = _container.Resolve<DapperRepository>();
+        //  public static async Task MigrateUniversity()
+        //  {
+        //      var d = _container.Resolve<DapperRepository>();
 
-      //      var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-      //      {
+        //      var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+        //      {
 
-      //          return await f.QueryAsync(
-      //              @"
-      //            select top 100 U.Id, Un.UniversityName, Un.Country
-      //                  from sb.[User] U
-						//join zbox.Users ZU
-						//	on U.Email = ZU.Email
-      //                  join [Zbox].[University] Un
-      //                      on Un.Id = ZU.UniversityId
-      //                    where u.OldUser = 1
-      //                      and IsEmailVerified = 1 
-						//	and U.UniversityId2 is null
-      //                      and Un.isdeleted = 0; 
-      //            ");
-      //      }, default);
+        //          return await f.QueryAsync(
+        //              @"
+        //            select top 100 U.Id, Un.UniversityName, Un.Country
+        //                  from sb.[User] U
+        //join zbox.Users ZU
+        //	on U.Email = ZU.Email
+        //                  join [Zbox].[University] Un
+        //                      on Un.Id = ZU.UniversityId
+        //                    where u.OldUser = 1
+        //                      and IsEmailVerified = 1 
+        //	and U.UniversityId2 is null
+        //                      and Un.isdeleted = 0; 
+        //            ");
+        //      }, default);
 
-      //      if (z.Count() == 0)
-      //      { return; }
+        //      if (z.Count() == 0)
+        //      { return; }
 
-      //      using (var child = _container.BeginLifetimeScope())
-      //      {
-      //          var repository = child.Resolve<IRegularUserRepository>();
-      //          var uni = child.Resolve<IUniversityRepository>();
-      //       //   var transaction = child.Resolve<TransactionRepository>();
-      //          using (var unitOfWork = child.Resolve<IUnitOfWork>())
-      //          {
-      //              var ch = new AssignUniversityToUserCommandHandler(repository, uni);
-      //              // List<Task> taskes = new List<Task>();
-      //              foreach (var pair in z)
-      //              {
-      //                  var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
-      //                  await ch.ExecuteAsync(command, default);
-      //                  // taskes.Add(ch.ExecuteAsync(t, default));
-      //              }
-      //              //await Task.WhenAll(taskes);
-      //              await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-      //          }
-      //      }
-      //      await MigrateUniversity();
-      //  }
+        //      using (var child = _container.BeginLifetimeScope())
+        //      {
+        //          var repository = child.Resolve<IRegularUserRepository>();
+        //          var uni = child.Resolve<IUniversityRepository>();
+        //       //   var transaction = child.Resolve<TransactionRepository>();
+        //          using (var unitOfWork = child.Resolve<IUnitOfWork>())
+        //          {
+        //              var ch = new AssignUniversityToUserCommandHandler(repository, uni);
+        //              // List<Task> taskes = new List<Task>();
+        //              foreach (var pair in z)
+        //              {
+        //                  var command = new AssignUniversityToUserCommand(pair.Id, pair.UniversityName, pair.Country);
+        //                  await ch.ExecuteAsync(command, default);
+        //                  // taskes.Add(ch.ExecuteAsync(t, default));
+        //              }
+        //              //await Task.WhenAll(taskes);
+        //              await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+        //          }
+        //      }
+        //      await MigrateUniversity();
+        //  }
 
         public static async Task MigrateDelta()
         {
@@ -1160,7 +1149,7 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                                     where len(Name) >= 4
                                     and [Name] not in (select [Name] from sb.Tag)").ExecuteUpdateAsync();
 
-           //await MigrateUniversity();
+            //await MigrateUniversity();
             //update country to user
             await sessin.CreateSQLQuery(@"update sb.[user]
                                     set country = (select country from  sb.University u2 where universityid2 = u2.Id)
@@ -1210,8 +1199,16 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                                     commit").ExecuteUpdateAsync();
         }
 
-        private static async Task RemoveBlobs(CloudBlobDirectory dir, Func<CloudBlockBlob, Task> func)
+        private static async Task RemoveBlobs()
         {
+            var _bus = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = _bus.GetBlobClient();
+
+            //var dir = container.GetDirectoryReference(
+            //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
+           var container = blobClient.GetContainerReference("spitball-files");
+            var dir = container.GetDirectoryReference("files");
+
             var sessin = _container.Resolve<IStatelessSession>();
             BlobContinuationToken blobToken = null;
             do
@@ -1232,9 +1229,10 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                     if (t == null)
                     {
                         var blobToDelete = (CloudBlockBlob)blob;
-                        await func(blobToDelete);
+                        Console.WriteLine(blobToDelete.Name);
+                        await blobToDelete.DeleteAsync();
                     }
-                    
+
                 }
 
                 blobToken = result.ContinuationToken;
