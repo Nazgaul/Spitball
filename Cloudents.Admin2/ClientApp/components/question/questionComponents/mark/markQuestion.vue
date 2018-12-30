@@ -11,6 +11,7 @@
                             <v-toolbar class="question-toolbar mt-4 back-color-purple">
                                 <v-toolbar-title class="question-text-title" @click="openQuestion(question.url)">{{question.text}}</v-toolbar-title>
                                 <v-spacer></v-spacer>
+                                <span title="Fictive Or Original Question ">{{question}}</span>
                                 <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
                                 <v-btn icon @click="deleteQuestionByID(question)">
                                     <v-icon>close</v-icon>
