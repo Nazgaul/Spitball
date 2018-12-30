@@ -93,19 +93,20 @@ namespace Cloudents.Core.EventHandler
         {
             var user = new UserDto(eventMessage.Answer.User.Id, eventMessage.Answer.User.Name,
                 eventMessage.Answer.User.Score);
-           
+
             var answerDto = new QuestionDetailAnswerDto
-            {
-                Create = eventMessage.Answer.Created,
-                Files = null,
-                Id = eventMessage.Answer.Id,
-                User = user,
-                Text = eventMessage.Answer.Text,
-                Vote = new VoteDto
+            (
+                eventMessage.Answer.Id,
+                eventMessage.Answer.Text,
+                user,
+                eventMessage.Answer.Created,
+
+                new VoteDto
                 {
                     Votes = 0
-                }
-            };
+                },
+                eventMessage.Answer.Language
+            );
             var dto = new
             {
                 QuestionId = eventMessage.Answer.Question.Id,

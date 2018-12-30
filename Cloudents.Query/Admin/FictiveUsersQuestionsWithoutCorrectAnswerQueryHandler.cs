@@ -50,6 +50,7 @@ namespace Cloudents.Query.Admin
                     l =>
                         l.Select(p => p.Id).WithAlias(() => dtoAlias.Id)
                             .Select(p => p.Text).WithAlias(() => dtoAlias.Text)
+                            .Select(p => p.Updated).WithAlias(() => dtoAlias.Create)
                             .Select(p => p.Attachments).WithAlias(() => dtoAlias.ImagesCount)
                             .Select(_ => userAlias.Fictive).WithAlias(() => dtoAlias.IsFictive)
                 )
