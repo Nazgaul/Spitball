@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Aspose.Words;
+using Aspose.Words.Saving;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Aspose.Words;
-using Aspose.Words.Saving;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Framework
         }
 
         public static readonly string[] Extensions = { ".rtf", ".docx", ".doc", ".odt" };
-        
+
 
         private static string ExtractDocumentText(Document doc)
         {
@@ -41,6 +41,7 @@ namespace Cloudents.Infrastructure.Framework
             Func<string, int, Task> metaCallback,
             CancellationToken token)
         {
+
             var word = new Document(stream);
             var txt = ExtractDocumentText(word);
 
@@ -52,6 +53,7 @@ namespace Cloudents.Infrastructure.Framework
                 //ShowPageBorder = false,
                 //FitToViewPort = true,
                 JpegQuality = 90,
+                Scale = 1.2F,
                 //ExportEmbeddedImages = true,
                 PageCount = 1
             };
@@ -60,9 +62,12 @@ namespace Cloudents.Infrastructure.Framework
                 var ms = new MemoryStream();
                 word.Save(ms, svgOptions);
                 ms.Seek(0, SeekOrigin.Begin);
-                t.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_=> ms.Dispose(), token));
+                t.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
             }
+
             await Task.WhenAll(t);
+
+
 
         }
     }
