@@ -113,7 +113,8 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-            await UpdateLanguageAsync();
+            await RemoveBlobs();
+            //await UpdateLanguageAsync();
             //await ReduWordProcessing();
 
 
@@ -356,22 +357,10 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-            var _bus = _container.Resolve<ICloudStorageProvider>();
-            var blobClient = _bus.GetBlobClient();
-            var queueClient = _bus.GetQueueClient();
-            var container = blobClient.GetContainerReference("azure-webjobs-hosts");
-
-            //var dir = container.GetDirectoryReference(
-            //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
-            container = blobClient.GetContainerReference("spitball-files");
-            var dir = container.GetDirectoryReference("files");
-            //var queue = queueClient.GetQueueReference("generate-blob-preview");
+        
 
 
-            await RemoveBlobs(dir, async blob =>
-             {
-                 await blob.DeleteAsync();
-             });
+           
 
 
             //await MigrateDelta();
@@ -1210,8 +1199,16 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                                     commit").ExecuteUpdateAsync();
         }
 
-        private static async Task RemoveBlobs(CloudBlobDirectory dir, Func<CloudBlockBlob, Task> func)
+        private static async Task RemoveBlobs()
         {
+            var _bus = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = _bus.GetBlobClient();
+
+            //var dir = container.GetDirectoryReference(
+            //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
+           var container = blobClient.GetContainerReference("spitball-files");
+            var dir = container.GetDirectoryReference("files");
+
             var sessin = _container.Resolve<IStatelessSession>();
             BlobContinuationToken blobToken = null;
             do
@@ -1232,7 +1229,8 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                     if (t == null)
                     {
                         var blobToDelete = (CloudBlockBlob)blob;
-                        await func(blobToDelete);
+                        Console.WriteLine(blobToDelete.Name);
+                        await blobToDelete.DeleteAsync();
                     }
 
                 }
