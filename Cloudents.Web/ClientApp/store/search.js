@@ -448,7 +448,6 @@ const actions = {
     reportAnswer({commit, dispatch}, data) {
         return reportService.reportAnswer(data).then((success) => {
                 console.log(success, 'reported answer');
-                // dispatch('answerRemoved', data);
             },
             (error) => {
                 console.log(error, 'error report answer')

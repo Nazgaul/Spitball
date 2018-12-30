@@ -61,7 +61,7 @@ export default {
                 {
                     title: LanguageService.getValueByKey("questionCard_Delete"),
                     action: this.deleteQuestion,
-                    isDisabled: this.checkDeleteDisabled,
+                    isDisabled: this.isDeleteDisabled,
                     isVisible: true
                 }
             ],
@@ -134,14 +134,17 @@ export default {
             updateLoginDialogState: 'updateLoginDialogState'
         }),
         ...mapGetters(['accountUser']),
-        checkDeleteDisabled(){
-            return !this.canDelete
-        },
+
         cardOwner() {
             let user = this.accountUser();
             if (user && this.cardData.user) {
                 return user.id === this.cardData.user.id; // will work once API call will also return userId
             }
+        },
+        isDeleteDisabled(){
+            let isDeleteble = this.canDelete();
+            return !isDeleteble
+
         },
         isDisabled() {
             let isOwner, account, notEnough;
@@ -163,7 +166,7 @@ export default {
                 }
             };
             //assign to obj passed as prop to report component
-            this.answerToDeletObj = answerToHide;
+            this.answerToDeletObj =  Object.assign(answerToHide);
             this.showReport = !this.showReport;
         },
         closeReportDialog() {
@@ -186,7 +189,7 @@ export default {
                 let data = {
                     type,
                     id: this.cardData.id
-                }
+                };
                 this.answerVote(data);
             }
         },
@@ -214,8 +217,8 @@ export default {
         },
 
         canDelete() {
-            let isOwner = this.cardOwner();
-            return isOwner
+           let isOwner = this.cardOwner();
+           return !this.flaggedAsCorrect && isOwner
 
         },
         markAsCorrect() {
