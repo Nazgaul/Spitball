@@ -62,7 +62,7 @@ export default {
     },
     getProfilePurchasedDocuments:(id, page)=>{
         let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/purchasedDocuments/${strPage}`)
+        return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`)
 
 
     },

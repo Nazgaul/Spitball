@@ -1,4 +1,5 @@
 ﻿using Cloudents.Infrastructure.Mapper;
+using Cloudents.Query.Stuff;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Test
@@ -8,7 +9,12 @@ namespace Cloudents.Infrastructure.Test
         [Fact]
         public void AssertConfigurationIsValid()
         {
-            AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile(new MapperProfile()));
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile(new MapperProfile());
+                cfg.AddProfile<ConfigureMapper>();
+            });
+
             AutoMapper.Mapper.Configuration.AssertConfigurationIsValid();
 
            // Assert.True(true);
