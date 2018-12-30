@@ -98,13 +98,44 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("flagged")]
-        public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync([FromServices] IBlobProvider blobProvider, CancellationToken token)
+        public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync
+            ([FromServices] IBlobProvider blobProvider, CancellationToken token)
         {
             var query = new AdminEmptyQuery();
             var retVal = await _queryBus.QueryAsync<IList<FlaggedDocumentDto>>(query, token);
-            
-            
-            return retVal;
+            var tasks = new Lazy<List<Task>>();
+         
+            foreach (var document in retVal)
+            {
+
+                var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
+                var file = files.FirstOrDefault();
+                if (file != null)
+                {
+                    document.Preview =
+                        blobProvider.GeneratePreviewLink(file,
+                            20);
+
+                    document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
+                   
+                }
+                else
+                {
+
+                    var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
+                    tasks.Value.Add(t);
+                }
+
+              
+            }
+
+            if (tasks.IsValueCreated)
+            {
+                await Task.WhenAll(tasks.Value);
+            }
+
+            return retVal.Where(w => w.Preview != null);
+            //return retVal;
             
         }
 

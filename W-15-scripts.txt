@@ -11,3 +11,9 @@ add Language nvarchar(5)
 
 need to run UpdateLanguageAsync in program
 need to upload both functions
+
+
+
+
+alter table sb.Answer
+drop column [User_Id]

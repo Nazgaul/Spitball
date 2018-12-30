@@ -16,6 +16,7 @@ namespace Cloudents.Core.DTOs.Admin
     public class PendingDocumentDto
     {
         public long Id { get; set; }
+        public string Name { get; set; }
         public Uri Preview { get; set; }
 
         public string SiteLink { get; set; }
