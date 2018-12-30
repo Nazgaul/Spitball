@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Exceptions;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -124,7 +125,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("DocumentDeleteOld")]
-        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *", RunOnStartup = true)] TimerInfo _,
+        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *", RunOnStartup = true)] TimerInfo timer,
             [Blob("spitball-files/files")]CloudBlobDirectory directory,
             ILogger log,
             CancellationToken token)
@@ -166,18 +167,38 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("Finish delete items");
         }
 
-        [FunctionName("FlagPreviewFailed")]
-        public static async Task FlagPreviewFailedAsync(
-            [QueueTrigger("generate-blob-preview-poison")] string id,
-            [Inject] ICommandBus bus,
-            CancellationToken token
-            )
-        {
+        //[FunctionName("FlagPreviewFailed")]
+        //public static async Task FlagPreviewFailedAsync(
+        //    [QueueTrigger("generate-blob-preview-poison",Connection = "TempConnectionDev")] string id,
+        //    [Inject] ICommandBus bus,
+        //    CancellationToken token
+        //    )
+        //{
 
-            var command = new FlagDocumentCommand(null, long.Parse(id), "Preview failed");
-            await bus.DispatchAsync(command, token);
+        //    var command = new FlagDocumentCommand(null, long.Parse(id), "Preview failed");
+        //    await bus.DispatchAsync(command, token);
 
-        }
+        //}
+
+
+        //[FunctionName("FlagPreviewFailed2")]
+        //public static async Task FlagPreviewFailedAsync2(
+        //    [TimerTrigger("0 0 0 1 * *", RunOnStartup = true)] TimerInfo timer,
+        //    [Inject] ICommandBus bus,
+        //    CancellationToken token
+        //)
+        //{
+        //    try
+        //    {
+        //        var command = new FlagDocumentCommand(null, 187836, "Preview failed");
+        //        await bus.DispatchAsync(command, token);
+        //    }
+        //    catch (NotFoundException)
+        //    {
+
+        //    }
+
+        //}
 
     }
 }

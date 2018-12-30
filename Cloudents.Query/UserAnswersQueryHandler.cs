@@ -13,11 +13,11 @@ namespace Cloudents.Query
 {
     public class UserAnswersQueryHandler : IQueryHandler<UserAnswersByIdQuery, IEnumerable<QuestionFeedDto>>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
         public UserAnswersQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
         public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserAnswersByIdQuery query, CancellationToken token)
         {

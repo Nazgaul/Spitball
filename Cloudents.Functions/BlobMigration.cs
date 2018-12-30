@@ -4,6 +4,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,65 +16,74 @@ namespace Cloudents.Functions
 {
     public static class BlobMigration
     {
-        [FunctionName("BlobPreview")]
-        public static async Task Run([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
-            CloudBlockBlob myBlob, string id, string name,
-            [Inject] IFactoryProcessor factory,
-            [Blob("spitball-files/files/{id}")]CloudBlobDirectory directory,
-            TraceWriter log, CancellationToken token)
-        {
-            await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
-        }
+        //[FunctionName("BlobPreview")]
+        //public static async Task Run([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
+        //    CloudBlockBlob myBlob, string id, string name,
+        //    [Queue("generate-blob-preview")] IAsyncCollector<string> collector,
+        //    TraceWriter log,
+        //    CancellationToken token)
+        //{
+        //    log.Info($"pushing to queue {id}");
+        //    await collector.AddAsync(id, token);
+        //}
 
 
 
 
-        [FunctionName("BlobBlur")]
-        public static async Task Run2([BlobTrigger("spitball-files/files/{id}/preview-{idx}.jpg")]
-            CloudBlockBlob myBlob, string id, string idx,
-            [Inject] IBlurProcessor processor,
-            [Blob("spitball-files/files/{id}")]CloudBlobDirectory directory,
-            TraceWriter log, CancellationToken token)
-        {
-            await GenerateBlurAsync(myBlob, id, idx, processor, directory, log, token);
-        }
+        //[FunctionName("BlobBlur")]
+        //public static async Task Run2([BlobTrigger("spitball-files/files/{id}/preview-{idx}.jpg")]
+        //    CloudBlockBlob myBlob, string id, string idx,
+        //    [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collector,
+        //    TraceWriter log, CancellationToken token)
+        //{
+        //    log.Info($"pushing to queue {id}");
+        //    await collector.AddAsync("id", token);
+        //}
 
-        private static async Task GenerateBlurAsync(CloudBlockBlob myBlob, string id, string idx, IBlurProcessor processor,
-            CloudBlobDirectory directory, TraceWriter log, CancellationToken token)
-        {
-            var page = int.Parse(idx);
-            using (var ms = await myBlob.OpenReadAsync(token))
-            {
-                await processor.ProcessBlurPreviewAsync(ms, page == 0, stream =>
-                {
-                    stream.Seek(0, SeekOrigin.Begin);
-                    var blob = directory.GetBlockBlobReference($"preview-blur-{idx}.jpg");
-                    blob.Properties.ContentType = "image/jpeg";
-                    log.Info($"uploading to {id} {blob.Name}");
-                    return blob.UploadFromStreamAsync(stream, token);
-                }, token);
-            }
-        }
+
 
 
         [FunctionName("BlobPreview-Blur-Queue")]
         public static async Task BlobPreviewQueueRun2(
-            [QueueTrigger("generate-blob-preview-blur")]
+            [QueueTrigger("generate-blob-preview-blur",Connection ="LocalStorage")]
             string id,
             [Inject] IBlurProcessor factory,
             [Blob("spitball-files/files/{QueueTrigger}")]
             CloudBlobDirectory directory,
             TraceWriter log, CancellationToken token)
         {
+            log.Info($"receive blur for {id}");
+            var tasks = new List<Task>();
             foreach (var blob in directory.ListBlobs())
             {
                 var myBlob = (CloudBlockBlob)blob;
                 if (Regex.IsMatch(myBlob.Name, "preview-\\d*.jpg", RegexOptions.IgnoreCase))
                 {
-                    var idx = Path.GetFileNameWithoutExtension(myBlob?.Name.Split('-').Last());
-                    await GenerateBlurAsync(myBlob, id, idx, factory, directory, log, token);
+                    var idx = Path.GetFileNameWithoutExtension(myBlob.Name.Split('-').Last());
+                    var blurBlob = directory.GetBlockBlobReference($"preview-blur-{idx}.jpg");
+                    if (blurBlob.Exists())
+                    {
+                        continue;
+                    }
+                    var page = int.Parse(idx);
+                    using (var ms = await myBlob.OpenReadAsync(token))
+                    {
+
+                        var t = factory.ProcessBlurPreviewAsync(ms, page == 0, stream =>
+                       {
+                           stream.Seek(0, SeekOrigin.Begin);
+
+                           blurBlob.Properties.ContentType = "image/jpeg";
+                           log.Info($"uploading to {id} {blurBlob.Name}");
+                           return blurBlob.UploadFromStreamAsync(stream, token);
+                       }, token);
+                        tasks.Add(t);
+                    }
                 }
             }
+
+            await Task.WhenAll(tasks);
+            log.Info($"finish to  blur {id}");
         }
 
 
@@ -82,57 +92,68 @@ namespace Cloudents.Functions
             [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
+            [Queue("generate-blob-preview-poison")] IAsyncCollector<string> collector,
+            [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
             TraceWriter log, CancellationToken token)
         {
+            log.Info($"receive preview for {id}");
             var t = await directory.ListBlobsSegmentedAsync(null, token);
             var myBlob = (CloudBlockBlob)t.Results.FirstOrDefault(f => f.Uri.Segments.Last().StartsWith("file-"));
+            if (myBlob == null)
+            {
+                return;
+            }
             var name = myBlob?.Name.Split('-').Last();
 
-            await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
 
-        }
-
-        private static async Task ProcessBlobPreview(CloudBlob myBlob,
-            string id,
-            string name,
-            IFactoryProcessor factory,
-            CloudBlobDirectory directory,
-            TraceWriter log,
-            CancellationToken token)
-        {
             log.Info($"Going to process - {id}");
 
-            using (var ms = await myBlob.OpenReadAsync(token))
+            try
             {
-                var f = factory.PreviewFactory(name);
-                if (f != null)
+                using (var ms = await myBlob.OpenReadAsync(token))
                 {
-                    await f.ProcessFilesAsync(ms, (stream, previewName) =>
+                    var f = factory.PreviewFactory(name);
+                    if (f != null)
                     {
-                        stream.Seek(0, SeekOrigin.Begin);
-                        var blob = directory.GetBlockBlobReference($"preview-{previewName}");
-                        blob.Properties.ContentType = "image/jpeg";
+                        await f.ProcessFilesAsync(ms, (stream, previewName) =>
+                        {
 
-                        log.Info($"uploading to {id} preview-{previewName}");
-                        return blob.UploadFromStreamAsync(stream, token);
-                    }, (text, pageCount) =>
+                            stream.Seek(0, SeekOrigin.Begin);
+                            var blob = directory.GetBlockBlobReference($"preview-{previewName}");
+                            if (blob.Exists())
+                            {
+                                log.Info($"uploading to {id} preview-{previewName}");
+                                //if we want to reprocess this file we need to remove this line of code.
+                                return Task.CompletedTask;
+                            }
+                            blob.Properties.ContentType = "image/jpeg";
+
+                            log.Info($"uploading to {id} preview-{previewName}");
+                            return blob.UploadFromStreamAsync(stream, token);
+                        }, (text, pageCount) =>
+                        {
+                            var blob = directory.GetBlockBlobReference("text.txt");
+                            blob.Properties.ContentType = "text/plain";
+                            text = StripUnwantedChars(text);
+                            blob.Metadata["PageCount"] = pageCount.ToString();
+                            return blob.UploadTextAsync(text ?? string.Empty, token);
+                        }, token);
+                    }
+                    else
                     {
-                        var blob = directory.GetBlockBlobReference("text.txt");
-                        blob.Properties.ContentType = "text/plain";
-                        text = StripUnwantedChars(text);
-                        blob.Metadata["PageCount"] = pageCount.ToString();
-                        return blob.UploadTextAsync(text ?? string.Empty, token);
-                    }, token);
-                }
-                else
-                {
-                    throw new ArgumentException("did not process id:{id}");
-                    //return false;
-                    //log.Warning($"did not process id:{id}");
-                }
+                        log.Error($"did not process id:{id}");
+                        await collector.AddAsync(id, token);
+                    }
 
+                    await collectorBlur.AddAsync(id, token);
+                    log.Info("C# Blob trigger function Processed");
 
-                log.Info("C# Blob trigger function Processed");
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error($"did not process id:{id}", ex);
+                await collector.AddAsync(id, token);
             }
 
 

@@ -17,6 +17,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string Url { get; set; }
 
         public bool IsFictive { get; set; }
+        public DateTime Create { get; set; }
 
         public int ImagesCount { get; set; }
 

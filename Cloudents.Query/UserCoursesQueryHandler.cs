@@ -11,11 +11,11 @@ namespace Cloudents.Query
 {
     public class UserCoursesQueryHandler : IQueryHandler<UserWithUniversityQuery, UserProfile>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
         public UserCoursesQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         //the query cache key is - CacheResultInterceptor.GetCacheKey(_decoratee.GetType(), "GetAsync", new object[] { query });

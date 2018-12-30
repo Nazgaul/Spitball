@@ -19,13 +19,13 @@ namespace Cloudents.Query.Admin
     public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
         private const int PageSize = 30;
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
         private readonly IUrlBuilder _urlBuilder;
 
         public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
         {
             _urlBuilder = urlBuilder;
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminPageQuery query, CancellationToken token)
@@ -50,6 +50,7 @@ namespace Cloudents.Query.Admin
                     l =>
                         l.Select(p => p.Id).WithAlias(() => dtoAlias.Id)
                             .Select(p => p.Text).WithAlias(() => dtoAlias.Text)
+                            .Select(p => p.Updated).WithAlias(() => dtoAlias.Create)
                             .Select(p => p.Attachments).WithAlias(() => dtoAlias.ImagesCount)
                             .Select(_ => userAlias.Fictive).WithAlias(() => dtoAlias.IsFictive)
                 )

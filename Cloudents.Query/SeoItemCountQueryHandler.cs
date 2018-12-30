@@ -11,11 +11,11 @@ namespace Cloudents.Query
 {
     public class SeoItemCountQueryHandler : IQueryHandler<EmptyQuery, IEnumerable<SiteMapCountDto>>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
         public SeoItemCountQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<IEnumerable<SiteMapCountDto>> GetAsync(EmptyQuery query, CancellationToken token)
