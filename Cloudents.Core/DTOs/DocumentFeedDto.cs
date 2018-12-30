@@ -43,6 +43,12 @@ namespace Cloudents.Core.DTOs
         public DateTime? DateTime { get; set; }
 
         [DataMember] public VoteDto Vote { get; set; }
+
+        [DataMember]
+        public decimal? Price { get; set; }
+
+        [DataMember]
+        public bool IsPurchased  { get; set; }
     }
 
     public class VoteDto

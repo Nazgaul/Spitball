@@ -100,6 +100,8 @@ function DocumentItem(objInit) {
     this.user = objInit.user;
     this.views = objInit.views;
     this.template = 'note';
+    this.price = objInit.price;
+    this.isPurchased = objInit.isPurchased;
     this.votes = !!objInit.vote ? objInit.vote.votes : null;
     this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
     this.downvoted = !!objInit.vote ? ( !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;

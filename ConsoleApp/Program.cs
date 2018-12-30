@@ -399,7 +399,25 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-            await MigrateDelta();
+            var _bus = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = _bus.GetBlobClient();
+            var queueClient = _bus.GetQueueClient();
+            var container = blobClient.GetContainerReference("azure-webjobs-hosts");
+
+            //var dir = container.GetDirectoryReference(
+            //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
+            container = blobClient.GetContainerReference("spitball-files");
+            var dir = container.GetDirectoryReference("files");
+            //var queue = queueClient.GetQueueReference("generate-blob-preview");
+            
+
+            await RemoveBlobs(dir, async blob =>
+             {
+                 await blob.DeleteAsync();
+             });
+
+
+            //await MigrateDelta();
 
             //await MigrateUniversity();
             //var t = _container.Resolve<IBlockChainErc20Service>();
@@ -1231,6 +1249,37 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                                     join  @tmp t
 	                                    on c.[Name] = t.CourseId
                                     commit").ExecuteUpdateAsync();
+        }
+
+        private static async Task RemoveBlobs(CloudBlobDirectory dir, Func<CloudBlockBlob, Task> func)
+        {
+            var sessin = _container.Resolve<IStatelessSession>();
+            BlobContinuationToken blobToken = null;
+            do
+            {
+                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
+                    new BlobRequestOptions(),
+                    new OperationContext(), default);
+
+                Console.WriteLine("Receiving a new batch of blobs");
+                foreach (IListBlobItem blob in result.Results)
+                {
+                    var prefix = blob.Parent.Prefix.Split('/');
+
+                    var t = sessin.Query<Document>()
+                        .Where(w => w.Id == System.Convert.ToInt64(prefix[1]))
+                        .FirstOrDefault();
+
+                    if (t == null)
+                    {
+                        var blobToDelete = (CloudBlockBlob)blob;
+                        await func(blobToDelete);
+                    }
+                    
+                }
+
+                blobToken = result.ContinuationToken;
+            } while (blobToken != null);
         }
     }
 }
