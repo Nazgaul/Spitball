@@ -49,11 +49,8 @@ namespace Cloudents.Infrastructure.Framework
             var t = new List<Task>();
             var svgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
             {
-                //ShowPageBorder = false,
-                //FitToViewPort = true,
                 JpegQuality = 90,
                 Scale = 1.2F,
-                //ExportEmbeddedImages = true,
                 PageCount = 1
             };
             for (var i = 0; i < word.PageCount; i++)

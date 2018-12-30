@@ -1,12 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -17,6 +9,16 @@ using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Controllers
 {
@@ -24,6 +26,7 @@ namespace Cloudents.Web.Controllers
     public class DocumentController : Controller
     {
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
+        private readonly UserManager<RegularUser> _userManager;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IQueryBus _queryBus;
@@ -35,13 +38,14 @@ namespace Cloudents.Web.Controllers
             IBlobProvider<DocumentContainer> blobProvider,
             IStringLocalizer<SharedResource> sharedLocalizer,
             IStringLocalizer<DocumentController> localizer,
-            IQueryBus queryBus, IQueueProvider queueProvider)
+            IQueryBus queryBus, IQueueProvider queueProvider, UserManager<RegularUser> userManager)
         {
             _blobProvider = blobProvider;
             _sharedLocalizer = sharedLocalizer;
             _localizer = localizer;
             _queryBus = queryBus;
             _queueProvider = queueProvider;
+            _userManager = userManager;
         }
 
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
@@ -58,7 +62,7 @@ namespace Cloudents.Web.Controllers
             });
         }
 
-        [Route("document/{base62}",Name = "ShortDocumentLink")]
+        [Route("document/{base62}", Name = "ShortDocumentLink")]
         public async Task<IActionResult> ShortUrl(string base62,
             CancellationToken token)
         {
@@ -70,7 +74,7 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            var query = new DocumentById(id);
+            var query = new DocumentSeoById(id);
             var model = await _queryBus.QueryAsync<DocumentSeoDto>(query, token);
             if (model == null)
             {
@@ -90,9 +94,9 @@ namespace Cloudents.Web.Controllers
         public async Task<IActionResult> IndexAsync(long id, string courseName, string name, string universityName,
             CancellationToken token)
         {
-            var query = new DocumentById(id);
+            var query = new DocumentSeoById(id);
 
-            var model = await _queryBus.QueryAsync<DocumentSeoDto>(query, token);
+            var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
             {
                 return NotFound();
@@ -108,7 +112,7 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (compareNameResult ==FriendlyUrlHelper.TitleCompareResult.EqualNotFriendly ||
+            if (compareNameResult == FriendlyUrlHelper.TitleCompareResult.EqualNotFriendly ||
                 compareNameResult == FriendlyUrlHelper.TitleCompareResult.EqualNotFriendly)
             {
                 return RedirectToRoutePermanent(SeoTypeString.Document, new
@@ -147,9 +151,9 @@ namespace Cloudents.Web.Controllers
         [Authorize]
         public async Task<ActionResult> DownloadAsync(long id, [FromServices] IBlobProvider blobProvider2, CancellationToken token)
         {
-            
-            var query = new DocumentById(id);
-            var tItem = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
+            var user = _userManager.GetLongUserId(User);
+            var query = new DocumentById(id, user);
+            var tItem = _queryBus.QueryAsync(query, token);
             var tFiles = _blobProvider.FilesInDirectoryAsync("file-", id.ToString(), token);
             await Task.WhenAll(tItem, tFiles);
 
@@ -157,6 +161,11 @@ namespace Cloudents.Web.Controllers
             if (item == null)
             {
                 return NotFound();
+            }
+
+            if (!item.IsPurchased)
+            {
+                return Unauthorized();
             }
 
             var files = tFiles.Result;

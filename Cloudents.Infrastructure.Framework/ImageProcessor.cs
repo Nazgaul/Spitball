@@ -1,6 +1,7 @@
 ﻿using ImageResizer;
 using ImageResizer.Configuration;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,6 +53,7 @@ namespace Cloudents.Infrastructure.Framework
             Func<Stream, Task> pagePreviewCallback,
             CancellationToken token)
         {
+            
             using (var ms = new MemoryStream())
             {
                 var settings2 = new ResizeSettings

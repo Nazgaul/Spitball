@@ -13,11 +13,11 @@ namespace Cloudents.Query.Admin
 {
     public class FictivePendingQuestionQueryHandler : IQueryHandler<AdminEmptyQuery, IList<FictivePendingQuestionDto>>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
         public FictivePendingQuestionQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
         public async Task<IList<FictivePendingQuestionDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {

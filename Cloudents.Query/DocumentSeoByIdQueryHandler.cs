@@ -10,7 +10,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query
 {
-    public class DocumentSeoByIdQueryHandler : IQueryHandler<DocumentById, DocumentSeoDto>
+    public class DocumentSeoByIdQueryHandler : IQueryHandler<DocumentSeoById, DocumentSeoDto>
     {
         private readonly IStatelessSession _session;
 
@@ -18,7 +18,7 @@ namespace Cloudents.Query
         {
             _session = session.StatelessSession;
         }
-        public Task<DocumentSeoDto> GetAsync(DocumentById query, CancellationToken token)
+        public Task<DocumentSeoDto> GetAsync(DocumentSeoById query, CancellationToken token)
         {
             return _session.Query<Document>()
                 .Fetch(f => f.University)

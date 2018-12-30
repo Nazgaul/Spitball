@@ -17,7 +17,7 @@ namespace Cloudents.Query.Admin
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class CashOutQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<CashOutDto>>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
         private class FirstQuery
         {
@@ -37,7 +37,7 @@ namespace Cloudents.Query.Admin
 
         public CashOutQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<IEnumerable<CashOutDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)

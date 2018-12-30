@@ -31,8 +31,6 @@ namespace Cloudents.Core.Entities
                 Color = color;
             }
             ChangeState(Privileges.GetItemState(user.Score));
-            //Item.ChangeState(Privileges.GetItemState(user.Score));
-            //Item.State = Privileges.GetItemState(user.Score);
             Language = language;
         }
 
