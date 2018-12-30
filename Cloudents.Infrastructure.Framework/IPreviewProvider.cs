@@ -20,4 +20,11 @@ namespace Cloudents.Infrastructure.Framework
             Func<string, int, Task> metaCallback,
             CancellationToken token);
     }
+
+    public interface IBlurProcessor
+    {
+        Task ProcessBlurPreviewAsync(Stream stream, bool firstPage,
+            Func<Stream, Task> pagePreviewCallback,
+            CancellationToken token);
+    }
 }

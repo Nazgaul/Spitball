@@ -47,12 +47,12 @@ namespace Cloudents.Infrastructure.Framework
             await metaCallback(txt, word.PageCount);
 
             var t = new List<Task>();
-            var svgOptions = new SvgSaveOptions
+            var svgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
             {
-                ShowPageBorder = false,
-                FitToViewPort = true,
-                JpegQuality = 85,
-                ExportEmbeddedImages = true,
+                //ShowPageBorder = false,
+                //FitToViewPort = true,
+                JpegQuality = 90,
+                //ExportEmbeddedImages = true,
                 PageCount = 1
             };
             for (var i = 0; i < word.PageCount; i++)
@@ -60,7 +60,7 @@ namespace Cloudents.Infrastructure.Framework
                 var ms = new MemoryStream();
                 word.Save(ms, svgOptions);
                 ms.Seek(0, SeekOrigin.Begin);
-                t.Add(pagePreviewCallback(ms, $"{i}.svg").ContinueWith(_=> ms.Dispose(), token));
+                t.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_=> ms.Dispose(), token));
             }
             await Task.WhenAll(t);
 

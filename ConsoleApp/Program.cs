@@ -115,16 +115,17 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            
            // Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>());
-           var imgProcessor = new ImageProcessor();
+           var imgProcessor = _container.Resolve<IBlurProcessor>();
            var sr = File.OpenRead(@"C:\Users\Ram\Downloads\preview-0 (1).jpg");
-           await imgProcessor.ProcessFilesAsync(sr, async (stream, s) =>
+           await imgProcessor.ProcessBlurPreviewAsync(sr,true, async (stream) =>
            {
                var fileStream = File.Create(@"C:\Users\Ram\Downloads\preview-result.jpg");
                stream.Seek(0, SeekOrigin.Begin);
                await stream.CopyToAsync(fileStream);
                fileStream.Close();
-           }, (s, i) => { return Task.CompletedTask; }, default);
+           },  default);
            // Mapper.Configuration.AssertConfigurationIsValid();
           
         }

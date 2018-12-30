@@ -4,7 +4,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,11 +23,58 @@ namespace Cloudents.Functions
         {
             await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
         }
-        static Dictionary<string, string> mimeTypeConvert = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+
+
+
+
+        [FunctionName("BlobBlur")]
+        public static async Task Run2([BlobTrigger("spitball-files/files/{id}/preview-{idx}.jpg")]CloudBlockBlob myBlob, string id, string idx,
+            [Inject] IBlurProcessor processor,
+            [Blob("spitball-files/files/{id}")]CloudBlobDirectory directory,
+            TraceWriter log, CancellationToken token)
         {
-            [".jpg"] = "image/jpeg",
-            [".svg"] = "image/svg+xml"
-        };
+            await GenerateBlurAsync(myBlob, id, idx, processor, directory, log, token);
+
+
+            //await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
+        }
+
+        private static async Task GenerateBlurAsync(CloudBlockBlob myBlob, string id, string idx, IBlurProcessor processor,
+            CloudBlobDirectory directory, TraceWriter log, CancellationToken token)
+        {
+            var page = int.Parse(idx);
+            using (var ms = await myBlob.OpenReadAsync(token))
+            {
+                await processor.ProcessBlurPreviewAsync(ms, page == 0, stream =>
+                {
+                    stream.Seek(0, SeekOrigin.Begin);
+                    var blob = directory.GetBlockBlobReference($"preview-blur-{idx}.jpg");
+                    blob.Properties.ContentType = "image/jpeg";
+                    log.Info($"uploading to {id} {blob.Name}");
+                    return blob.UploadFromStreamAsync(stream, token);
+                }, token);
+            }
+        }
+        
+
+        [FunctionName("BlobPreview-Blur-Queue")]
+        public static async Task BlobPreviewQueueRun(
+            [QueueTrigger("generate-blob-preview-blur")] string id,
+            [Inject] IBlurProcessor factory,
+            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
+            TraceWriter log, CancellationToken token)
+        {
+            foreach (var blob in directory.ListBlobs())
+            {
+                var myBlob = (CloudBlockBlob)blob;
+                if (myBlob.Name.StartsWith("preview", StringComparison.OrdinalIgnoreCase))
+                {
+                    var idx = Path.GetFileNameWithoutExtension(myBlob?.Name.Split('-').Last());
+                    await GenerateBlurAsync(myBlob, id, idx, factory, directory, log, token);
+                }
+            }
+        }
+
 
         [FunctionName("BlobPreview-Queue")]
         public static async Task BlobPreviewQueueRun(
@@ -48,7 +94,7 @@ namespace Cloudents.Functions
             CloudBlobDirectory directory, TraceWriter log, CancellationToken token)
         {
             log.Info($"Going to process - {id}");
-           
+
             //using (var ms = new MemoryStream())
             //{
             using (var ms = await myBlob.OpenReadAsync(token))
@@ -62,15 +108,15 @@ namespace Cloudents.Functions
                     {
                         stream.Seek(0, SeekOrigin.Begin);
                         var blob = directory.GetBlockBlobReference($"preview-{previewName}");
-                        if (previewName != null &&
-                            mimeTypeConvert.TryGetValue(Path.GetExtension(previewName), out var mimeValue))
-                        {
-                            blob.Properties.ContentType = mimeValue;
-                        }
-                        else
-                        {
-                            log.Warning("no mime type");
-                        }
+                        //if (previewName != null &&
+                        //    mimeTypeConvert.TryGetValue(Path.GetExtension(previewName), out var mimeValue))
+                        //{
+                        blob.Properties.ContentType = "image/jpeg";
+                        //}
+                        //else
+                        //{
+                        //log.Warning("no mime type");
+                        //}
 
                         log.Info($"uploading to {id} preview-{previewName}");
                         return blob.UploadFromStreamAsync(stream, token);
