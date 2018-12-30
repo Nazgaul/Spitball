@@ -17,13 +17,13 @@ namespace Cloudents.Query
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Injected")]
     public class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly IBlobProvider _blobProvider2;
 
         public QuestionDetailQueryHandler(QuerySession session, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlobProvider blobProvider2)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
             _blobProvider = blobProvider;
             _blobProvider2 = blobProvider2;
         }

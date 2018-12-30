@@ -10,6 +10,7 @@ add Language nvarchar(5)
 
 
 need to run UpdateLanguageAsync in program
+need to upload both functions
 
 
 

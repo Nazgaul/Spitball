@@ -13,11 +13,11 @@ namespace Cloudents.Query
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserProfileQueryHandler : IQueryHandler<UserDataByIdQuery, UserProfileDto>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
         public UserProfileQueryHandler(QuerySession session)
         {
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<UserProfileDto> GetAsync(UserDataByIdQuery query, CancellationToken token)

@@ -19,13 +19,13 @@ namespace Cloudents.Query.Admin
     public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminPageQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
         private const int PageSize = 30;
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
         private readonly IUrlBuilder _urlBuilder;
 
         public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
         {
             _urlBuilder = urlBuilder;
-            _session = session.Session;
+            _session = session.StatelessSession;
         }
 
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminPageQuery query, CancellationToken token)

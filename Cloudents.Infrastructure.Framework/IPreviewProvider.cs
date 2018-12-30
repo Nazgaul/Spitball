@@ -19,6 +19,9 @@ namespace Cloudents.Infrastructure.Framework
             Func<Stream, string, Task> pagePreviewCallback,
             Func<string, int, Task> metaCallback,
             CancellationToken token);
+
+
+
     }
 
     public interface IBlurProcessor

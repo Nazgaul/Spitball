@@ -12,19 +12,6 @@ namespace Cloudents.Search.Entities
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global", Justification = "json.net need public set")]
     public class Question : ISearchObject
     {
-        //public Question(long id, DateTime dateTime, string text, string country, string language,
-        //    QuestionSubject subject, QuestionFilter state)
-        //{
-        //    Id = id.ToString();
-        //    DateTime = dateTime;
-        //    Text = text;
-        //    Prefix = new[] { text }.Union(subject.GetEnumLocalizationAllValues()).ToArray();
-        //    Country = country.ToUpperInvariant();
-        //    Language = language.ToLowerInvariant();
-        //    Subject = subject;
-        //    State = state;
-        //}
-
         public Question(QuestionSearchDto dto)
         {
             Id = dto.QuestionId.ToString();

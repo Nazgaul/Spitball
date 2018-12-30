@@ -73,18 +73,28 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new DocumentById(id, userId);
-            var tModel = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
-            var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
+           
 
-            var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
-            await Task.WhenAll(tModel, filesTask, tQueue);
 
-            var model = tModel.Result;
-            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
+            var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
             {
                 return NotFound();
             }
+            var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
+            var prefix = "preview-";
+            if (!model.IsPurchased)
+            {
+                prefix = "preview-blur";
+            }
+            var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
+
+
+
+            await Task.WhenAll(filesTask, tQueue);
+
+            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
+            
 
             if (!filesTask.Result.Any())
             {
