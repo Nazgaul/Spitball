@@ -36,7 +36,6 @@
                         clearable
                         @click:clear="updateClass"
                         solo
-                        @mouseleave="mouseLeave"
                         :append-icon="'sbf-expand-bottom'"
                         :clear-icon="'sbf-close'"
                         autofocus
@@ -114,7 +113,7 @@
             },
             selectedClass: {
                 get() {
-                    this.docClass
+                   return this.docClass
                 },
                 set(val) {
                     if (!!val) {
@@ -126,14 +125,7 @@
 
         methods: {
             ...mapActions(['updateFile']),
-            //mouse leave to validate value is not empty
-            mouseLeave(){
-                if(!this.selectedClass){
-                   this.updateClass()
-                }else{
-                    console.log('not empty')
-                }
-            },
+
             //clear icon click, clear class
             updateClass() {
                 return this.selectedClass = {text: ''};
