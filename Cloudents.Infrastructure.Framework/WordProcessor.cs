@@ -41,7 +41,6 @@ namespace Cloudents.Infrastructure.Framework
             Func<string, int, Task> metaCallback,
             CancellationToken token)
         {
-
             var word = new Document(stream);
             var txt = ExtractDocumentText(word);
 
@@ -66,8 +65,6 @@ namespace Cloudents.Infrastructure.Framework
             }
 
             await Task.WhenAll(t);
-
-
 
         }
     }

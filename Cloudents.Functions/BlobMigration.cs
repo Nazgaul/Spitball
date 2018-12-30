@@ -36,9 +36,6 @@ namespace Cloudents.Functions
             TraceWriter log, CancellationToken token)
         {
             await GenerateBlurAsync(myBlob, id, idx, processor, directory, log, token);
-
-
-            //await ProcessBlobPreview(myBlob, id, name, factory, directory, log, token);
         }
 
         private static async Task GenerateBlurAsync(CloudBlockBlob myBlob, string id, string idx, IBlurProcessor processor,

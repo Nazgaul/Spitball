@@ -1,2 +1,3 @@
 ﻿Alter table sb.document
 add Price smallmoney
+need to run ReduWordProcessing in program 

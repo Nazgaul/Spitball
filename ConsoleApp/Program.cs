@@ -75,7 +75,7 @@ namespace ConsoleApp
             //    Assembly.Load("Cloudents.Core"));
             builder.RegisterModule<ModuleFile>();
             var module = new SearchModule(ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                ConfigurationManager.AppSettings["AzureSearchKey"], false);
+                ConfigurationManager.AppSettings["AzureSearchKey"], true);
 
             builder.RegisterModule(module);
 
@@ -115,19 +115,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            
-           // Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>());
-           var imgProcessor = _container.Resolve<IBlurProcessor>();
-           var sr = File.OpenRead(@"C:\Users\Ram\Downloads\preview-0 (1).jpg");
-           await imgProcessor.ProcessBlurPreviewAsync(sr,true, async (stream) =>
-           {
-               var fileStream = File.Create(@"C:\Users\Ram\Downloads\preview-result.jpg");
-               stream.Seek(0, SeekOrigin.Begin);
-               await stream.CopyToAsync(fileStream);
-               fileStream.Close();
-           },  default);
-           // Mapper.Configuration.AssertConfigurationIsValid();
-          
+
+            await ReduWordProcessing();
+
+
         }
 
         private static async Task BuildSearchIndex()
@@ -224,45 +215,7 @@ namespace ConsoleApp
             } while (true);
         }
 
-        private static async Task DoStuffToFiles(CloudBlobDirectory dir, Func<CloudBlockBlob, Task> func)
-        {
-            BlobContinuationToken blobToken = null;
-            do
-            {
-                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
-                    new BlobRequestOptions(),
-                    new OperationContext(), default);
-
-                Console.WriteLine("Receiving a new batch of blobs");
-                foreach (IListBlobItem blob in result.Results)
-                {
-
-                    var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri);
-
-
-
-                    if (fileNameWithoutDirectory.ToString().StartsWith("file-", StringComparison.OrdinalIgnoreCase))
-                    {
-                        var blobToDelete = (CloudBlockBlob)blob;
-                        await func(blobToDelete);
-                    }
-
-                    //foreach (var extension in WordProcessor.WordExtensions)
-                    //{
-                    //    //if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
-                    //    //{
-                    //    //    var blobToDelete = (CloudBlockBlob)blob;
-
-                    //    //    await func(blobToDelete);
-                    //    //    //Console.WriteLine("Deleting" + blobToDelete.Name);
-                    //    //    //await blobToDelete.DeleteAsync();
-                    //    //}
-                    //}
-                }
-
-                blobToken = result.ContinuationToken;
-            } while (blobToken != null);
-        }
+       
 
         private static async Task FixFilesAsync()
         {
@@ -295,7 +248,7 @@ where left(blobName ,4) != 'file'");
 
         }
 
-        private static async Task ReduProcessing()
+        private static async Task ReduWordProcessing()
         {
 
 
@@ -303,54 +256,60 @@ where left(blobName ,4) != 'file'");
             var _bus = _container.Resolve<ICloudStorageProvider>();
             var blobClient = _bus.GetBlobClient();
             var queueClient = _bus.GetQueueClient();
-            var container = blobClient.GetContainerReference("azure-webjobs-hosts");
+            //var container = blobClient.GetContainerReference("spitball-files");
             //azure-webjobs-hosts/blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/
 
-            var dir = container.GetDirectoryReference(
-                "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
+            //var dir = container.GetDirectoryReference(
+            //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
 
-            //await DoStuffToFiles(dir, async blob =>
-            //{
-            //    foreach (var extension in WordProcessor.WordExtensions)
-            //    {
-            //        if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
-            //        {
-            //            await blob.DeleteAsync();
-            //        }
-            //    }
-            //});
-            container = blobClient.GetContainerReference("spitball-files");
-            dir = container.GetDirectoryReference("files");
+           
+           var  container = blobClient.GetContainerReference("spitball-files");
+            var dir = container.GetDirectoryReference("files");
             var queue = queueClient.GetQueueReference("generate-blob-preview");
-            var extensions = ImageProcessor.Extensions.Union(ExcelProcessor.Extensions);
-            await DoStuffToFiles(dir, async blob =>
+            var extensions = WordProcessor.Extensions;
+
+
+            BlobContinuationToken blobToken = null;
+            do
             {
-                if (blob.Uri.Segments.Length != 5)
+                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
+                    new BlobRequestOptions(),
+                    new OperationContext(), default);
+
+                Console.WriteLine("Receiving a new batch of blobs");
+                foreach (IListBlobItem blob in result.Results)
                 {
-                    return;
-                }
-                foreach (var extension in extensions)
-                {
-                    if (blob.Uri.AbsolutePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+
+                    var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
+
+                    if (fileNameWithoutDirectory.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
                     {
+                        foreach (var extension in extensions)
+                        {
+                            if (Path.GetExtension(fileNameWithoutDirectory) == extension)
+                            {
+                                var id = blob.Uri.Segments[3].TrimEnd('/');
+                                var msg = new CloudQueueMessage(id);
+                                await queue.AddMessageAsync(msg);
+                                // var blobToDelete = (CloudBlockBlob)blob;
+                            }
+                        }
+                       
+                      
+                        //var blobToDelete = (CloudBlockBlob)blob;
+                    }
 
-                        var id = blob.Uri.Segments[3].TrimEnd('/');
-
-                        await queue.AddMessageAsync(new CloudQueueMessage(id));
-                        Console.WriteLine($"Send queue message {id}");
-                        //await blob.FetchAttributesAsync();
-                        //int v = 0;
-                        //if (blob.Metadata.TryGetValue("process", out var p) && int.TryParse(p, out v))
-                        //{
-                        //    v += 1;
-                        //}
-
-                        //blob.Metadata["process"] = v.ToString();
-                        //await blob.SetMetadataAsync();
-                        //await blob.DeleteAsync();
+                    if (fileNameWithoutDirectory.EndsWith("svg") && fileNameWithoutDirectory.StartsWith("preview"))
+                    {
+                        var blobToDelete = (CloudBlockBlob)blob;
+                        await blobToDelete.DeleteAsync();
                     }
                 }
-            });
+
+                blobToken = result.ContinuationToken;
+            } while (blobToken != null);
+
+            
 
 
         }
