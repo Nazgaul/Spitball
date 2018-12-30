@@ -4,7 +4,7 @@
             <v-flex xs12>
                 <div class="report-head">
                     <v-icon class="flag-icon">sbf-flag</v-icon>
-                    <span class="text-head"  v-language:inner>reportItem_report_title</span>
+                    <span class="text-head" v-language:inner>reportItem_report_title</span>
                     <v-icon class="report-close-icon" @click.prevent="closeReportPop()">sbf-close</v-icon>
                 </div>
                 <div class="reasons-wrap">
@@ -24,7 +24,8 @@
 
                         <v-list-tile class="reason-tile" @click="toogleOtherInput()">
                             <v-list-tile-content class="reason-tile-content">
-                                <v-list-tile-title class="reason-name" v-language:inner>reportItem_report_other</v-list-tile-title>
+                                <v-list-tile-title class="reason-name" v-language:inner>reportItem_report_other
+                                </v-list-tile-title>
                             </v-list-tile-content>
                         </v-list-tile>
 
@@ -37,7 +38,9 @@
                 </div>
             </v-flex>
             <v-layout justify-center align-content-center xs12 class="report-footer">
-                <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()" v-language:inner>reportItem_report_btn</button>
+                <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()" v-language:inner>
+                    reportItem_report_btn
+                </button>
             </v-layout>
         </v-layout>
     </div>
@@ -55,8 +58,14 @@
         data() {
             return {
                 reasons: [
-                    {title: LanguageService.getValueByKey("reportItem_reason_inappropriateContent"), id: "inappropriateContent"},
-                    {title: LanguageService.getValueByKey("reportItem_reason_inappropriateLanguage"), id: "inappropriateLanguage"},
+                    {
+                        title: LanguageService.getValueByKey("reportItem_reason_inappropriateContent"),
+                        id: "inappropriateContent"
+                    },
+                    {
+                        title: LanguageService.getValueByKey("reportItem_reason_inappropriateLanguage"),
+                        id: "inappropriateLanguage"
+                    },
                     {title: LanguageService.getValueByKey("reportItem_reason_plagiarism"), id: "plagiarism"},
                     {title: LanguageService.getValueByKey("reportItem_reason_spam"), id: "spam"},
                 ],
@@ -78,6 +87,11 @@
             itemType: {
                 type: String,
                 required: true,
+            },
+            //only for type answer, passing additional props(question id and answer id)
+            answerDelData: {
+                type: Object,
+                required: false
             }
         },
         computed: {
@@ -86,13 +100,15 @@
             },
         },
         methods: {
-            ...mapActions(['reportQuestion', 'reportDocument']),
+            ...mapActions(['reportQuestion', 'reportDocument', 'reportAnswer', 'answerRemoved']),
             callRelevantAction(type, data) {
                 let actions = {
                     "ask": this.reportQuestion,
-                    "note": this.reportDocument
+                    "note": this.reportDocument,
+                    "answer": this.reportAnswer
                 };
-                return actions[type](data)
+                return actions[type](data);
+
             },
             isSelected(reason) {
                 return (this.preDefinedReason === reason) && !this.isOtherInputVisible
@@ -107,13 +123,19 @@
                 this.isOtherInputVisible = !this.isOtherInputVisible;
             },
             sendItemReport() {
+                let data;
                 let reasonToSend = this.preDefinedReason !== '' ? this.preDefinedReason : this.customReason;
-                let data = {
+                data = {
                     "id": this.itemId,
                     "flagReason": reasonToSend
                 };
                 let self = this;
                 this.callRelevantAction(this.itemType, data).then(() => {
+                    //in case answer is flaged
+                    if(this.itemType ==="answer"){
+                        //after successfull flag remove answer from client side
+                        self.answerRemoved(this.answerDelData);
+                    }
                     self.closeReportPop()
                 })
 

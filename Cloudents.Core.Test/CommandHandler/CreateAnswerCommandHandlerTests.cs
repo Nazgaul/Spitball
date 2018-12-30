@@ -1,13 +1,13 @@
 ﻿using Autofac.Extras.Moq;
-using Moq;
-using System;
-using System.Globalization;
-using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Command.CommandHandler;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Moq;
+using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Core.Test.CommandHandler
@@ -26,7 +26,7 @@ namespace Cloudents.Core.Test.CommandHandler
             var question = new Question(
                 new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default, CultureInfo.InvariantCulture);
 
-            question.Answers.Add(new Answer(question, "some text", 0, user));
+            question.Answers.Add(new Answer(question, "some text", 0, user, CultureInfo.InvariantCulture));
 
             using (var mock = AutoMock.GetLoose())
             {
@@ -36,7 +36,7 @@ namespace Cloudents.Core.Test.CommandHandler
 
                 var command = new CreateAnswerCommand(questionId, "someText", userId, null);
 
-                await Assert.ThrowsAsync<InvalidOperationException>(()=> instance.ExecuteAsync(command, default));
+                await Assert.ThrowsAsync<InvalidOperationException>(() => instance.ExecuteAsync(command, default));
             }
         }
 

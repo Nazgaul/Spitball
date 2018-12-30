@@ -87,7 +87,6 @@ namespace Cloudents.Search.Document
             var filters = new List<string>
             {
                 $"({nameof(Entities.Document.Country)} eq '{query.Profile.Country.ToUpperInvariant()}')" 
-               // $" or {nameof(Entities.Document.Language)} eq 'en')"
             };
             if (query.Course != null)
             {
@@ -137,12 +136,11 @@ namespace Cloudents.Search.Document
             {
                 Id = Convert.ToInt64(s.Document.Id),
                 Score = s.Score,
-               // MetaContent = s.Document.MetaContent
             });
 
         }
 
-        public static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
+        private static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
         {
             if (input == null)
             {

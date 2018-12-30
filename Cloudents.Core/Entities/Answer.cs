@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
@@ -15,7 +16,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Answer : ItemObject
     {
-        public Answer(Question question, string text, int attachments, RegularUser user)
+        public Answer(Question question, string text, int attachments, RegularUser user, CultureInfo language)
             : this()
         {
             Question = question;
@@ -24,6 +25,7 @@ namespace Cloudents.Core.Entities
             User = user;
             Created = DateTime.UtcNow;
             MakePublic();
+            Language = language;
 
         }
 
@@ -50,11 +52,22 @@ namespace Cloudents.Core.Entities
             Votes.Clear();
         }
 
+        public virtual CultureInfo Language { get; protected set; }
+        //for dbi only
+        public virtual void SetLanguage(CultureInfo info)
+        {
+            if (info.Equals(CultureInfo.InvariantCulture))
+            {
+                return;
+            }
 
-        //public virtual void DeleteAnswer()
-        //{
-        //    Events.Add(new AnswerDeletedEvent(this));
-        //}
+            if (Language != null)
+            {
+                throw new InvalidOperationException("Cannot change language of answer");
+            }
+
+            Language = info;
+        }
 
         public override bool Delete()
         {

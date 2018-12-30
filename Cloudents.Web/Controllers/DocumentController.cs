@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -57,32 +58,32 @@ namespace Cloudents.Web.Controllers
             });
         }
 
-        //[Route("document/{base62}")]
-        //public async Task<IActionResult> ShortUrl(string base62,
-        //    CancellationToken token)
-        //{
-        //    if (string.IsNullOrEmpty(base62))
-        //    {
-        //        return NotFound();
-        //    }
-        //    if (!Base62.TryParse(base62, out var id))
-        //    {
-        //        return NotFound();
-        //    }
-        //    var query = new DocumentById(id);
-        //    var model = await _queryBus.QueryAsync<DocumentSeoDto>(query, token);
-        //    if (model == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return RedirectToRoutePermanent(SeoTypeString.Document, new
-        //    {
-        //        universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
-        //        courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
-        //        id,
-        //        name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
-        //    });
-        //}
+        [Route("document/{base62}",Name = "ShortDocumentLink")]
+        public async Task<IActionResult> ShortUrl(string base62,
+            CancellationToken token)
+        {
+            if (string.IsNullOrEmpty(base62))
+            {
+                return NotFound();
+            }
+            if (!Base62.TryParse(base62, out var id))
+            {
+                return NotFound();
+            }
+            var query = new DocumentById(id);
+            var model = await _queryBus.QueryAsync<DocumentSeoDto>(query, token);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return RedirectToRoutePermanent(SeoTypeString.Document, new
+            {
+                universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
+                courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
+                id,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
+            });
+        }
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}", Name = SeoTypeString.Document)]
         [ActionName("Index")]

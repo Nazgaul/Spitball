@@ -110,7 +110,10 @@ namespace Cloudents.Web.Api
                 model.Course, model.Tags, userId, model.Professor,model.Price);
             await _commandBus.DispatchAsync(command, token);
 
-            var url = Url.DocumentUrl(profile.University.Name, model.Course, command.Id, model.Name);
+            var url = Url.RouteUrl("ShortDocumentLink",new
+            {
+                base62 = new Base62(command.Id).ToString()
+            });
 
             var localizerKey = score < Privileges.Post ? "CreatePending" : "CreateOk";
             await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
