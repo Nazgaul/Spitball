@@ -52,22 +52,27 @@ namespace Cloudents.Query
                 //.ThenByDescending(x => x.Item.VoteCount)
                 //.ThenBy(x=>x.Id)
                 .Select(s => new QuestionDetailAnswerDto
-                {
-                    Id = s.Id,
-                    Text = s.Text,
-                    Create = s.Created,
-                    Vote = new VoteDto()
-                    {
-                        Votes = s.VoteCount
-                    },
-                    User = new UserDto
+                (
+                    s.Id,
+                    s.Text,
+                    new UserDto
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                    //    Image = s.User.Image,
+                        //    Image = s.User.Image,
                         Score = s.User.Score
-                    }
-                }).ToFuture();
+                    },
+                    s.Created,
+                    
+                    new VoteDto()
+                    {
+                        Votes = s.VoteCount
+                    },
+                    
+                    s.Language
+
+
+        )).ToFuture();
 
             var dto = await questionFuture.GetValueAsync(token);
             if (dto == null)
