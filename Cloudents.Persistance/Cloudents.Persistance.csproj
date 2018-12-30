@@ -11,7 +11,7 @@
     <!--We have a problem with redis nuget packages.-->
     <PackageReference Include="NHibernate.Caches.CoreDistributedCache.Redis" Version="5.5.1" />
     <PackageReference Include="Autofac" Version="4.6.1" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.3.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>

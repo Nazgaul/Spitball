@@ -47,13 +47,13 @@ namespace Cloudents.Query
                     Downloads = s.Downloads,
                     University = s.University.Name,
                     Price = s.Price,
-                    IsPurchased = s.Transactions.Count > 0 ? true : false,
                     Vote = new VoteDto()
                     {
                         Votes = s.VoteCount
                     }
                 })
                 .ToListAsync(token);
+
             return z;
 
         }

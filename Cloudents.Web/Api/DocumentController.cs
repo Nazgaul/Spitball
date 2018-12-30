@@ -71,7 +71,8 @@ namespace Cloudents.Web.Api
 
             CancellationToken token)
         {
-            var query = new DocumentById(id);
+            var userId = _userManager.GetLongUserId(User);
+            var query = new DocumentById(id, userId);
             var tModel = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
             var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
 
@@ -144,6 +145,7 @@ namespace Cloudents.Web.Api
             [FromServices] IDocumentSearch ilSearchProvider,
             CancellationToken token)
         {
+           
             model = model ?? new DocumentRequest();
             var query = new DocumentQuery(model.Course, profile, model.Term,
                 model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
