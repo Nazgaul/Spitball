@@ -9,15 +9,15 @@
                     <div id="question-wrapper-scroll">
                         <v-card v-show="questions.length > 0" v-for="(question,index) in questions" :key="index">
                             <v-toolbar class="question-toolbar mt-4 back-color-purple">
-                                <v-toolbar-title class="question-text-title">{{question.text}}</v-toolbar-title>
+                                <v-toolbar-title class="question-text-title" @click="openQuestion(question.url)">{{question.text}}</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <v-btn icon @click="deleteQuestionByID(question)">
-                                    <v-icon>delete</v-icon>
-                                </v-btn>
                                 <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
-                                <v-btn icon @click="openQuestion(question.url)">
-                                    <v-icon>open_in_browser</v-icon>
+                                <v-btn icon @click="deleteQuestionByID(question)">
+                                    <v-icon>close</v-icon>
                                 </v-btn>
+                                <!--<v-btn icon @click="openQuestion(question.url)">-->
+                                    <!--<v-icon>open_in_browser</v-icon>-->
+                                <!--</v-btn>-->
                             </v-toolbar>
 
                             <v-list two-line avatar>
@@ -29,7 +29,7 @@
                                         <v-list-tile-action>
                                             <v-list-tile-action-text></v-list-tile-action-text>
                                             <v-btn icon @click="deleteAnswerByID(question, answer)">
-                                                <v-icon color="red">delete</v-icon>
+                                                <v-icon color="red">close</v-icon>
                                             </v-btn>
                                         </v-list-tile-action>
                                         <v-list-tile-action>
@@ -95,6 +95,9 @@
             font-size: 14px;
             white-space: pre-wrap;
             max-width: 80%;
+            &:hover{
+                cursor: pointer;
+            }
         }
     }
 
