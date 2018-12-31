@@ -114,6 +114,31 @@ const mutations = {
             })
 
         }
+    },
+    deleteItemFromProfile(state, {id, type}){
+        if(!!state.profile){
+            state.profile.questions.forEach((item, index)=>{
+                if(item.id === id){
+                    state.profile.questions.splice(index, 1)
+                }
+            })
+            state.profile.answers.forEach((item, index)=>{
+                if(item.id === id){
+                    state.profile.answers.splice(index, 1)
+                }
+            })
+            state.profile.documents.forEach((item, index)=>{
+                if(item.id === id){
+                    state.profile.documents.splice(index, 1)
+                }
+            })
+            state.profile.purchasedDocuments.forEach((item, index)=>{
+                if(item.id === id){
+                    state.profile.purchasedDocuments.splice(index, 1)
+                }
+            })
+
+        }
     }
 };
 
@@ -153,6 +178,9 @@ const actions = {
         let profileData = accountService.createProfileData(vals);
         context.commit('setProfile', profileData)
        });       
+    },
+    removeItemFromProfile({commit}, data){
+        commit('deleteItemFromProfile', data)
     },
     resetProfileData(context){
         context.commit('resetProfile')

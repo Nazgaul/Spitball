@@ -435,6 +435,7 @@ const actions = {
                 id: data.id
             };
             dispatch('removeQuestionItemAction', objToRemove);
+            dispatch('removeItemFromProfile', objToRemove);
         })
     },
     reportDocument({commit, dispatch}, data) {
@@ -443,11 +444,16 @@ const actions = {
                 id: data.id
             };
             dispatch('removeDocumentItemAction', objToRemove);
+            dispatch('removeItemFromProfile', objToRemove);
         })
     },
     reportAnswer({commit, dispatch}, data) {
+        let objToRemove = {
+            id: data.id
+        };
         return reportService.reportAnswer(data).then((success) => {
                 console.log(success, 'reported answer');
+                dispatch('removeItemFromProfile', objToRemove);
             },
             (error) => {
                 console.log(error, 'error report answer')
