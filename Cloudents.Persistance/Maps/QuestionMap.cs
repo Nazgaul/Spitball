@@ -6,7 +6,7 @@ namespace Cloudents.Persistance.Maps
 {
     public class QuestionMap : ItemMap<Question>
     {
-        public QuestionMap() 
+        public QuestionMap()
         {
             DynamicUpdate();
             //https://stackoverflow.com/a/7084697/1235448
@@ -17,22 +17,15 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
             Map(x => x.Color);
-           
-            //Component(x => x.Item);
             Map(x => x.Language).Length(5);
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
-           // Map(x => x.AnswerCount).Not.Nullable();
 
             References(x => x.User).Column("UserId")
-                .ForeignKey("Question_User").Not.Nullable()
-                .LazyLoad(Laziness.NoProxy); // we need this because of inheritance
+                .ForeignKey("Question_User").Not.Nullable();
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
             HasMany(x => x.Answers)
                 .Inverse()
                 .ExtraLazyLoad()
-                //TODO: this is generate exception when creating new answer. need to figure it out
-                //    .Not.KeyNullable()
-                //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
 
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
@@ -50,11 +43,11 @@ namespace Cloudents.Persistance.Maps
         }
     }
 
-    public class ItemMap<T> : ClassMap<T>  where T : ItemObject
+    public class ItemMap<T> : ClassMap<T> where T : ItemObject
     {
         public ItemMap()
         {
-            Map(x=>x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
+            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             Map(m => m.DeletedOn).Nullable();
             Map(m => m.FlagReason).Nullable();
             Map(m => m.VoteCount).Not.Nullable();

@@ -14,8 +14,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Text).Length(8000);
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
-            //Map(x => x.State).Not.Nullable();
-            
+            Map(x => x.Language).Length(5);
 
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
@@ -27,7 +26,6 @@ namespace Cloudents.Persistance.Maps
                 .LazyLoad()
                
                 .Inverse();
-            Map(x => x.Language).Length(5);
             HasMany(x => x.Votes).KeyColumns.Add("AnswerId")
                 .Inverse().Cascade.AllDeleteOrphan();
 

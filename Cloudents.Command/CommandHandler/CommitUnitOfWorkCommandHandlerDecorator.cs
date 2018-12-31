@@ -20,22 +20,8 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(TCommand message, CancellationToken token)
         {
-            //try
-            // {
             await _decoratee.ExecuteAsync(message, token);
             await _unitOfWork.CommitAsync(token);
-
-            //foreach (var @event in _store)
-            //{
-            //    await _eventPublisher.PublishAsync(@event, token);
-            //}
-            
-            // }
-            //catch (Exception)
-            //{
-            //   // await _unitOfWork.PublishEventsAsync(token);
-            //    throw;
-            //}
         }
     }
 }
