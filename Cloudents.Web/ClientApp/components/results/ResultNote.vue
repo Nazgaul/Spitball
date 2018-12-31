@@ -225,9 +225,9 @@
                 let isOwner, account, notEnough;
                 isOwner = this.cardOwner();
                 account = this.accountUser();
-                if (account && account.score) {
-                    notEnough = account.score < 400
-                }
+                // if (account && account.score) {
+                //     notEnough = account.score < 400
+                // }
                 if (isOwner || !account || notEnough) {
                     return true
                 }
