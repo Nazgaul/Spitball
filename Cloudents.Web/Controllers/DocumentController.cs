@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Message.System;
@@ -9,6 +10,7 @@ using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
@@ -17,8 +19,6 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Controllers
 {
@@ -80,13 +80,14 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            return RedirectToRoutePermanent(SeoTypeString.Document, new
+            var t = RedirectToRoutePermanent(SeoTypeString.Document, new
             {
                 universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
-                id,
+                id = id.Value,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
             });
+            return t;
         }
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}", Name = SeoTypeString.Document)]

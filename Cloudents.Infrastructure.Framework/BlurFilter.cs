@@ -10,6 +10,10 @@ namespace Cloudents.Infrastructure.Framework
         protected override RequestedAction PostRenderImage(ImageState s)
         {
             var bitmap = s.destBitmap;
+            if (s.settings["r.blur"] == null)
+            {
+                return RequestedAction.None;
+            }
             var blurLevel = int.Parse(s.settings["r.blur"] ?? 10.ToString());
             var startOfPage = bool.Parse(s.settings["r.blurStart"] ?? bool.FalseString);
 
