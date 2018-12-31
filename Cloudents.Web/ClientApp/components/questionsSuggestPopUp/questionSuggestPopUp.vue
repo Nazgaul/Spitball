@@ -23,7 +23,7 @@
                                 :fromCarousel="true"
                                 :cardData="item"
                                 :typeAnswer="typeAnswer"
-                                :suggestion="true" class="user-question mb-1 mt-1" detailed-view ></question-card>
+                                :suggestion="true" class="user-question mb-1 mt-1" detailed-view></question-card>
                 </v-carousel-item>
             </v-carousel>
         </div>

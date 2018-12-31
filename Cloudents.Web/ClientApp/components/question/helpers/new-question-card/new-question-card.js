@@ -45,9 +45,22 @@ export default {
         detailedView: {
             type: Boolean,
             default: false
+        },
+        suggestion:{
+            type: Boolean,
+            default: false
         }
     },
     computed: {
+        lineClampValue(){
+           if(this.detailedView && !this.suggestion){
+               return 0
+           }else if(this.suggestion){
+               return 5
+           }else{
+               return 8
+           }
+        },
         uploadDate() {
             if (this.cardData && this.cardData.dateTime) {
                 return this.$options.filters.fullMonthDate(this.cardData.dateTime);
