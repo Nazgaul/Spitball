@@ -29,9 +29,9 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AssignCoursesToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            //TODO fix that.
-            var firstCourseTransaction = user.Transactions.Where(w => w.Action == TransactionActionType.FirstCourse)
-                                                            .Select(s => s.Action).FirstOrDefault();
+            
+            var firstCourseTransaction = await _transactionRepository.GetFirstCourseTransaction(message.UserId, token);
+
             if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
             {
                 var t = new Transaction(TransactionActionType.FirstCourse, TransactionType.Earned, ReputationAction.FirstCourse, user);

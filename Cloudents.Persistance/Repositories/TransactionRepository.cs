@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -39,6 +40,17 @@ namespace Cloudents.Persistance.Repositories
                        .Where(w => w.User.Id == userId)
                        .Where(w => w.Type == TransactionType.Earned && w.Price > 0)
                        .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
+        }
+
+        public async Task<TransactionActionType> GetFirstCourseTransaction (long userId, CancellationToken token)
+        {
+            return await Session.QueryOver<Transaction>()
+                .Where(w => w.User.Id == userId)
+                .Where(w => w.Action == TransactionActionType.FirstCourse)
+                .Select(s => s.Action).SingleOrDefaultAsync<TransactionActionType>(token);
+
+                //user.Transactions.Where(w => w.Action == TransactionActionType.FirstCourse)
+               //                                             .Select(s => s.Action).FirstOrDefault();
         }
     }
 }
