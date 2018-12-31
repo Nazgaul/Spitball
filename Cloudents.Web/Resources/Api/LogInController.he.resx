@@ -127,7 +127,7 @@
     <value>המשתמש נעול</value>
   </data>
   <data name="NotAllowed" xml:space="preserve">
-    <value>משתמש אינו מורשה</value>
+    <value>אנא סיים את תהליך ההרשמה</value>
   </data>
   <data name="TempLockOut" xml:space="preserve">
     <value>המשתמש נעול, נסה להתחבר שוב בעוד 5 דקות</value>
