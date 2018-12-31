@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Enum;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
@@ -102,6 +103,15 @@ namespace Cloudents.Core.Entities
             }
 
             return t;
+        }
+
+        public override void ChangeState(ItemState state)
+        {
+            base.ChangeState(state);
+            if (State == ItemState.Pending)
+            {
+                throw new ArgumentOutOfRangeException(nameof(state), state, null);
+            }
         }
 
         //public override ItemComponent Item { get; set; }
