@@ -67,6 +67,7 @@ body{
         min-width: 200px;
         top: 0;
         border-radius: 25px;
+        
         a {
             font-weight: bold;
             color: #5d5d5d;
