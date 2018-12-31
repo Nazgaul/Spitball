@@ -107,6 +107,11 @@ const mutations = {
                     reputationService.updateVoteCounter(question, type)
                 }
             })
+            state.profile.purchasedDocuments.forEach(question=>{
+                if(question.id === id){
+                    reputationService.updateVoteCounter(question, type)
+                }
+            })
 
         }
     }
