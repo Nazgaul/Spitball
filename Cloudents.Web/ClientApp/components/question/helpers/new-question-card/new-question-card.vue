@@ -66,7 +66,7 @@
                             class="question-body-content-container"
                             :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`]"
                     >
-                        <span class="question-text" v-line-clamp="8">{{cardData.text}}</span>
+                        <span class="question-text" v-line-clamp="detailedView ? 0 : 8">{{cardData.text}}</span>
                     </div>
                     <div class="gallery" v-if="cardData.files && cardData.files.length">
                         <v-carousel :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
