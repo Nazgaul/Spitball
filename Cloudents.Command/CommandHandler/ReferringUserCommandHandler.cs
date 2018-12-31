@@ -30,7 +30,7 @@ namespace Cloudents.Command.CommandHandler
                 InvitedUser = register
 
             };
-            tx.Events.Add(new TransactionEvent(tx));
+            //tx.Events.Add(new TransactionEvent(tx));
             await _transactionRepository.AddAsync(tx, default);
         }
     }

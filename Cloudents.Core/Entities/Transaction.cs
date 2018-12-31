@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Enum;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -16,6 +17,7 @@ namespace Cloudents.Core.Entities
             Price = price;
             Created = DateTime.UtcNow;
             User = user;
+            Events.Add(new TransactionEvent(this));
 
         }
         // [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]

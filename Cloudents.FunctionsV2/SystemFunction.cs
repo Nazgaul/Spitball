@@ -44,13 +44,16 @@ namespace Cloudents.FunctionsV2
             string receivedMessage,
             IDictionary<string, object> userProperties,
             [SignalR(HubName = "SbHub")] IAsyncCollector<SignalRMessage> outMessage,
+            ILogger log,
             CancellationToken token
             )
         {
+            var msg = JObject.Parse(receivedMessage);
+            log.LogInformation($"Receive signalr message {msg}");
             var p = new SignalRMessage
             {
                 Target = "Message",
-                Arguments = new object[] { JObject.Parse(receivedMessage) },
+                Arguments = new object[] { msg },
 
             };
             if (userProperties.TryGetValue("userId",out var userId))
