@@ -39,11 +39,16 @@ export default {
                 isLoading: false,
                 isComplete: false,
                 page: 1
+            },
+            purchasedDocuments: {
+                isLoading: false,
+                isComplete: false,
+                page: 1
             }
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions', 'getDocuments', 'resetProfileData']),
+        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions', 'getDocuments', 'resetProfileData', 'getPurchasedDocuments']),
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
@@ -114,6 +119,27 @@ export default {
                 this.documents.page++;
             }, (err) => {
                 this.documents.isComplete = true;
+            })
+        },
+        loadPurchasedDocuments() {
+            if (this.profileData.purchasedDocuments.length < this.itemsPerTab) {
+                this.purchasedDocuments.isComplete = true;
+                return;
+            }
+            this.documents.isLoading = true;
+            let DocumentsInfo = {
+                id: this.id,
+                page: this.purchasedDocuments.page,
+                user: this.profileData.user
+            }
+            this.getPurchasedDocuments(DocumentsInfo).then((hasData) => {
+                if (!hasData) {
+                    this.purchasedDocuments.isComplete = true;
+                }
+                this.purchasedDocuments.isLoading = false;
+                this.purchasedDocuments.page++;
+            }, (err) => {
+                this.purchasedDocuments.isComplete = true;
             })
         }
     },

@@ -218,6 +218,28 @@ const actions = {
             return false;
         });
     },
+    getPurchasedDocuments(context, DocumentsInfo){
+        let id = DocumentsInfo.id;
+        let page = DocumentsInfo.page;
+        let user = DocumentsInfo.user;
+        return accountService.getProfilePurchasedDocuments(id, page).then(({data})=>{
+            let maximumElementsRecivedFromServer = 50;
+            if(data.length > 0){
+                data.forEach(document=>{
+                    //create answer Object and push it to the state
+                    let documentToPush = {
+                        ...document,
+                        user: user,
+                    };
+                    context.state.profile.purchasedDocuments.push(documentToPush);
+                })
+            }
+            //return true if we can call to the server
+            return data.length === maximumElementsRecivedFromServer;
+        }, (err)=>{
+            return false;
+        });
+    },
     updateUserProfileData(context, name){
         let currentProfile = profileService.getProfileData(name);
         context.commit("UPDATE_PROFILE_DATA", currentProfile );
