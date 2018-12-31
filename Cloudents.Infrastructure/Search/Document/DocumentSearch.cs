@@ -62,7 +62,6 @@ namespace Cloudents.Infrastructure.Search.Document
 
             if (retVal.Count == 0)
             {
-                Task<ResultWithFacetDto<SearchResult>> taskWebResult = Task.FromResult<ResultWithFacetDto<SearchResult>>(null);
                 //need to bring university Name , need to use sources
                 if (!query.Filters.Any())
                 {
