@@ -27,18 +27,6 @@ namespace Cloudents.Search.University
             _client = client.GetClient(UniversitySearchWrite.IndexName);
         }
 
-
-        //private static readonly string[] StopWordsList = { "university","university of",
-        //    "college",
-        //    "school",
-        //    "Community",
-        //    "High",
-        //    "Uni",
-        //    "State",
-        //    "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
-        //};
-
-
         public async Task<UniversitySearchDto> SearchAsync(string term, string country,
             CancellationToken token)
         {
@@ -46,7 +34,6 @@ namespace Cloudents.Search.University
             {
                 Select = _listOfSelectParams,
                 Top = 15,
-                //QueryType = QueryType.Full,
                 OrderBy = new List<string> { "search.score() desc", nameof(Entities.University.DisplayName) },
                 ScoringProfile = UniversitySearchWrite.ScoringProfile,
                 ScoringParameters = new[]
@@ -60,7 +47,7 @@ namespace Cloudents.Search.University
             term = term?.Replace("\"", "\\");
             var result = await
                 _client.Documents.SearchAsync<Entities.University>(term, searchParameter,
-                    cancellationToken: token).ConfigureAwait(false);
+                    cancellationToken: token);
             return new UniversitySearchDto(result.Results.Select(s =>
                 new UniversityDto(Guid.Parse(s.Document.Id), s.Document.DisplayName, s.Document.Country)));
         }

@@ -46,6 +46,8 @@ namespace Cloudents.Core.Entities
                 case ItemState.Deleted:
                     Delete();
                     break;
+                case ItemState.Pending:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }

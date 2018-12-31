@@ -147,7 +147,8 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
-        [ResponseCache(Duration = TimeConst.Minute, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
+        //TODO:We have issue in here because of changing course we need to invalidate the query.
+        //[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
                                 ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]

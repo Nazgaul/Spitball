@@ -38,7 +38,7 @@ namespace Cloudents.Search.University
 
             //Client.SynonymMaps.CreateOrUpdate(synonymMap);
 
-            await base.CreateOrUpdateAsync(token).ConfigureAwait(false);
+            await base.CreateOrUpdateAsync(token);
         }
 
         protected override Index GetIndexStructure(string indexName)
