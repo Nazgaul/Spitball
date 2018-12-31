@@ -12,16 +12,20 @@
                         <div class="menu">
                             <ul class="tabs" v-if="!isMobile" xs3>
                                 <li :class="{'active': activeTab === 1}" @click="changeActiveTab(1)">
-                                    <span v-if="isMyProfile"></span><span v-language:inner>profile_Questions</span> 
+                                    <!-- <span v-if="isMyProfile"></span> -->
+                                    <span v-language:inner>profile_Questions</span> 
                                 </li>
                                 <li :class="{'active': activeTab === 2}" @click="changeActiveTab(2)">
-                                    <span v-if="isMyProfile"></span><span v-language:inner>profile_Answers</span> 
+                                    <!-- <span v-if="isMyProfile"></span> -->
+                                    <span v-language:inner>profile_Answers</span> 
                                 </li>
                                 <li :class="{'active': activeTab === 3}" @click="changeActiveTab(3)">
-                                    <span v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
+                                    <!-- <span v-if="isMyProfile"></span> -->
+                                    <span v-language:inner>profile_documents</span>
                                 </li>
                                 <li :class="{'active': activeTab === 4}" @click="changeActiveTab(4)">
-                                    <span v-if="isMyProfile"></span><span v-language:inner>profile_purchased_documents</span>
+                                    <!-- <span v-if="isMyProfile"></span> -->
+                                    <span v-language:inner>profile_purchased_documents</span>
                                 </li>
                             </ul>
                             <v-tabs v-else grow class="tab-padding" xs12>
@@ -85,7 +89,7 @@
                             <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>
                         </router-link>
                     </scroll-list>
-                    <scroll-list v-if="activeTab === 4" :scrollFunc="loadDocuments" :isLoading="purchasedDocuments.isLoading" :isComplete="purchasedDocuments.isComplete">
+                    <scroll-list v-if="activeTab === 4" :scrollFunc="loadPurchasedDocuments" :isLoading="purchasedDocuments.isLoading" :isComplete="purchasedDocuments.isComplete">
                         <router-link :to="{name:'document',params:{id:document.id}}" v-for="(document ,index) in profileData.purchasedDocuments"
                                      :key="index" class="mb-3">
                             <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>
