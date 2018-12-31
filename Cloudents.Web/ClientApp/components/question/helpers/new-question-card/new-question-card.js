@@ -45,9 +45,22 @@ export default {
         detailedView: {
             type: Boolean,
             default: false
+        },
+        suggestion:{
+            type: Boolean,
+            default: false
         }
     },
     computed: {
+        lineClampValue(){
+           if(this.detailedView && !this.suggestion){
+               return 0
+           }else if(this.suggestion){
+               return 5
+           }else{
+               return 8
+           }
+        },
         uploadDate() {
             if (this.cardData && this.cardData.dateTime) {
                 return this.$options.filters.fullMonthDate(this.cardData.dateTime);
@@ -155,9 +168,9 @@ export default {
             let isOwner, account, notEnough;
             isOwner = this.cardOwner();
             account = this.accountUser();
-            if (account && account.score) {
-                notEnough = account.score < 400
-            }
+            // if (account && account.score) {
+            //     notEnough = account.score < 400
+            // }
             if (isOwner || !account || notEnough) {
                 return true
             }

@@ -75,7 +75,7 @@
                     </div>
                 </v-flex>
 
-                <v-flex grow class="doc-details">
+                <v-flex v-show="isOurs" grow class="doc-details">
                     <div class="doc-actions-info">
                         <v-icon class="sb-doc-icon mr-1">sbf-download-cloud</v-icon>
                         <span class="sb-doc-info downloads">{{docDownloads}}</span>
@@ -225,9 +225,9 @@
                 let isOwner, account, notEnough;
                 isOwner = this.cardOwner();
                 account = this.accountUser();
-                if (account && account.score) {
-                    notEnough = account.score < 400
-                }
+                // if (account && account.score) {
+                //     notEnough = account.score < 400
+                // }
                 if (isOwner || !account || notEnough) {
                     return true
                 }
