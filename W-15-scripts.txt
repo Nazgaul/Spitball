@@ -13,7 +13,7 @@ need to run UpdateLanguageAsync in program
 need to upload both functions
 
 
-
+need to run BuildSearchIndex
 
 alter table sb.Answer
 drop column [User_Id]

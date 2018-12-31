@@ -141,6 +141,9 @@
   <data name="emptyState_questions_text" xml:space="preserve">
     <value>יש לך שאלה לגבי שיעורי הבית?</value>
   </data>
+  <data name="purchased_documents" xml:space="preserve">
+    <value>מסמכים שנרכשו</value>
+  </data>
   <data name="Questions" xml:space="preserve">
     <value>שאלות</value>
   </data>
