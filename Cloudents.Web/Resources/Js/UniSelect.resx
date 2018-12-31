@@ -168,7 +168,7 @@ and all of the selected classes will be deleted</value>
     <value>You can select school &amp; classes at any time from your user menu.</value>
   </data>
   <data name="select_school_now" xml:space="preserve">
-    <value>Select School now</value>
+    <value>Select now</value>
   </data>
   <data name="select_school_placeholder" xml:space="preserve">
     <value>Select Your School</value>

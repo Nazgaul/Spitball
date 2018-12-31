@@ -167,7 +167,7 @@
     <value>באפשרותך להגדיר מוסד לימודים וקורסים בכל עת בתפריט הצד</value>
   </data>
   <data name="select_school_now" xml:space="preserve">
-    <value>בחר מוסד לימודים עכשיו</value>
+    <value>הגדר עכשיו</value>
   </data>
   <data name="select_school_placeholder" xml:space="preserve">
     <value>בחר את מוסד הלימודים שלך</value>
