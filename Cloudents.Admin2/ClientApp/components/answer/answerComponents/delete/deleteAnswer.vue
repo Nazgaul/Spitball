@@ -47,8 +47,6 @@
                             this.$toaster.success(`Answer were deleted: ${this.answersIdString}`);
                             this.answersIdString = '';
                             this.answersIds = [];
-
-
                             },
                             (error) => {
                                 this.$toaster.error('Something went wrong');

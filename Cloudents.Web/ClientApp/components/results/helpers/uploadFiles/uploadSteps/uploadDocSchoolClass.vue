@@ -83,7 +83,6 @@
             }
         },
 
-
         computed: {
             ...mapGetters({
                 getSchoolName: 'getSchoolName',
@@ -114,7 +113,7 @@
             },
             selectedClass: {
                 get() {
-                    this.docClass
+                   return this.docClass
                 },
                 set(val) {
                     if (!!val) {
@@ -126,6 +125,7 @@
 
         methods: {
             ...mapActions(['updateFile']),
+
             //clear icon click, clear class
             updateClass() {
                 return this.selectedClass = {text: ''};

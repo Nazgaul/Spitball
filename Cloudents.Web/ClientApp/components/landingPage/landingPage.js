@@ -57,7 +57,17 @@ export default {
             return this.statistics();
         },
         formattedReviews(){
-           return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
+            let rev;
+            if(this.$vuetify.breakpoint.xsOnly ){
+                 rev = [].concat(...this.reviewItems);
+                console.log(rev)
+            }else{
+               rev = this.reviewItems
+            }
+            return rev
+
+           // return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
+           // console.log(this.reviewItems);
 
         },
         showBox() {

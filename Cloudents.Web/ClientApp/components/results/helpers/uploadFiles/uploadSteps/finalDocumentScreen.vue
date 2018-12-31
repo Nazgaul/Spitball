@@ -98,14 +98,6 @@
         <div class="upload-row-4 final-row">
             <div class="legal-wrap">
                 <span>{{CheckboxLabel}}</span>
-                <!--<v-checkbox class="legal-ownership"
-                            :color="'#4452fc'"
-                            off-icon="sbf-checkboxOff"
-                            on-icon="sbf-checkboxActive"
-                            :label="CheckboxLabel"
-                            v-model="legalCheck"
-                            @change="updateLegal()"></v-checkbox>-->
-
             </div>
         </div>
     </v-card>
@@ -134,21 +126,11 @@
         },
         computed: {
             ...mapGetters({
-                getLegal: 'getLegal',
                 getFileData: 'getFileData',
                 getSchoolName: 'getSchoolName',
 
             }),
-            legalCheck: {
-                get() {
-                    return this.getLegal;
-                },
-                set(val) {
-                    this.checker = val;
-                }
-            },
-
-            selectedType() {
+               selectedType() {
                 if (this.getFileData.type) {
                     return this.selected = documentTypes.find((item) => {
                         return item.id === this.getFileData.type;
@@ -157,15 +139,10 @@
             }
         },
         methods: {
-            ...mapActions(['updateLegalAgreement']),
-
             changeStep(step) {
                 this.callBackmethods.changeStep(step)
             },
-            updateLegal() {
-                this.updateLegalAgreement(this.checker);
-            },
-        },
+          },
 
     }
 </script>

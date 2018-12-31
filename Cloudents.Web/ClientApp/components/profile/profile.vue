@@ -20,6 +20,9 @@
                                 <li :class="{'active': activeTab === 3}" @click="changeActiveTab(3)">
                                     <span v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
                                 </li>
+                                <li :class="{'active': activeTab === 4}" @click="changeActiveTab(4)">
+                                    <span v-if="isMyProfile"></span><span v-language:inner>profile_purchased_documents</span>
+                                </li>
                             </ul>
                             <v-tabs v-else grow class="tab-padding" xs12>
                                 <v-tabs-slider color="blue"></v-tabs-slider>
@@ -31,6 +34,9 @@
                                 </v-tab>
                                 <v-tab @click="activeTab = 3" :href="'#tab-3'" :key="3"><span
                                         v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
+                                </v-tab>
+                                <v-tab @click="activeTab = 4" :href="'#tab-4'" :key="4"><span
+                                        v-if="isMyProfile"></span><span v-language:inner>profile_purchased_documents</span>
                                 </v-tab>
                             </v-tabs>
                         </div>
@@ -75,6 +81,12 @@
                         </scroll-list>
                     <scroll-list v-if="activeTab === 3" :scrollFunc="loadDocuments" :isLoading="documents.isLoading" :isComplete="documents.isComplete">
                         <router-link :to="{name:'document',params:{id:document.id}}" v-for="(document ,index) in profileData.documents"
+                                     :key="index" class="mb-3">
+                            <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>
+                        </router-link>
+                    </scroll-list>
+                    <scroll-list v-if="activeTab === 4" :scrollFunc="loadDocuments" :isLoading="purchasedDocuments.isLoading" :isComplete="purchasedDocuments.isComplete">
+                        <router-link :to="{name:'document',params:{id:document.id}}" v-for="(document ,index) in profileData.purchasedDocuments"
                                      :key="index" class="mb-3">
                             <result-note style="padding: 16px;" :item="document" class="mb-3"></result-note>
                         </router-link>

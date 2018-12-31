@@ -55,7 +55,6 @@ export default {
             getSchoolName: 'getSchoolName',
             getSelectedClasses: 'getSelectedClasses',
             getFileData: 'getFileData',
-            getLegal: 'getLegal',
             getUploadProgress: 'getUploadProgress',
             getDialogState: 'getDialogState',
             getCustomFileName: "getCustomFileName"
@@ -91,10 +90,10 @@ export default {
             // else if (this.currentStep === 6 && !this.getFileData.price) {
             //     return true
             // }
-            else if (this.currentStep === 6 /*&& !this.getLegal*/) {
+            else if (this.currentStep === 6 ) {
                 return false
             }
-            else if (this.currentStep === 7/* && !this.getLegal*/) {
+            else if (this.currentStep === 7) {
                 return false
             } else {
                 return false

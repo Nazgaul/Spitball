@@ -24,8 +24,8 @@
                             <div class="date-area">{{uploadDate}}</div>
                         </div>
                     </div>
-                    <div class="document-header-small-sagment" v-show="item.price">
-                        <div class="price-area" :class="{'isPurchased': isPurchased}">
+                    <div class="document-header-small-sagment">
+                        <div  v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
                         {{item.price ? item.price.toFixed(2): ''}}
                         <span>SBL</span>
                         </div>

@@ -46,7 +46,8 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                    ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -114,6 +115,7 @@ namespace ConsoleApp
         {
 
             await RemoveBlobs();
+            //await RemoveBlobs();
             //await UpdateLanguageAsync();
             //await ReduWordProcessing();
 
@@ -300,7 +302,7 @@ where left(blobName ,4) != 'file'");
 
                     if (fileNameWithoutDirectory.EndsWith("svg") && fileNameWithoutDirectory.StartsWith("preview"))
                     {
-                        var blobToDelete = (CloudBlockBlob)blob;
+                        var blobToDelete = (CloudBlockBlob) blob;
                         await blobToDelete.DeleteAsync();
                     }
                 }
@@ -330,7 +332,7 @@ where left(blobName ,4) != 'file'");
         private static IEnumerable<string> SplitSentence(string input)
         {
             //TODO: Check environment newline
-            return input.Split(new[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            return input.Split(new[] {"\r\n\r\n"}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         public static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
@@ -357,10 +359,10 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-        
 
 
-           
+
+
 
 
             //await MigrateDelta();
@@ -596,12 +598,14 @@ where left(blobName ,4) != 'file'");
                     {
                         var repository = child.Resolve<IRepository<Answer>>();
                         var questions = await sts.Query<Answer>().Where(w => w.Language == null).Take(100)
-                            .OrderBy(o => o.Id).ToListAsync();// repository.GetAllQuestionsAsync(i).ConfigureAwait(false);
-                         continueLoop = questions.Count > 0;
+                            .OrderBy(o => o.Id)
+                            .ToListAsync(); // repository.GetAllQuestionsAsync(i).ConfigureAwait(false);
+                        continueLoop = questions.Count > 0;
                         if (!continueLoop)
                         {
                             break;
                         }
+
                         var result = await t.DetectLanguageAsync(
                             questions.Where(w => w.Language == null)
                                 .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Text)), default);
@@ -610,7 +614,7 @@ where left(blobName ,4) != 'file'");
                         {
                             var q = await repository.LoadAsync(Guid.Parse(pair.Key), default);
 
-                            
+
                             q.SetLanguage(pair.Value);
 
                             await repository.UpdateAsync(q, default);
@@ -709,12 +713,13 @@ where left(blobName ,4) != 'file'");
                             foreach (var pair in z)
                             {
                                 Console.WriteLine($"Processing id {pair.UserId}");
-                                var name = pair.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                                var name = pair.Email.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
                                 var (privateKey, _) = erc.CreateAccount();
 
                                 CultureInfo cultur = new CultureInfo(pair.Culture);
 
-                                var user = new RegularUser(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey, cultur)
+                                var user = new RegularUser(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey,
+                                    cultur)
                                 {
                                     // EmailConfirmed = true,
                                     LockoutEnabled = true,
@@ -786,6 +791,7 @@ where left(blobName ,4) != 'file'");
                         var pendingBlob = baseDirectory.GetBlockBlobReference(newBlobName);
                         await newBlob.StartCopyAsync(pendingBlob);
                     }
+
                     if (blobs.Results.Count() == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -822,16 +828,17 @@ where left(blobName ,4) != 'file'");
 
             Dictionary<int, DocumentType> docType = new Dictionary<int, DocumentType>
             {
-                { 1, DocumentType.Exam },
-                { 2, DocumentType.Exam },
-                { 7, DocumentType.Exam },
-                { 8, DocumentType.Exam },
-                { 9, DocumentType.Lecture },
-                { 10, DocumentType.Lecture},
-                { 5, DocumentType.Textbook }
+                {1, DocumentType.Exam},
+                {2, DocumentType.Exam},
+                {7, DocumentType.Exam},
+                {8, DocumentType.Exam},
+                {9, DocumentType.Lecture},
+                {10, DocumentType.Lecture},
+                {5, DocumentType.Textbook}
             };
 
-            string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "pptx", "jpg", "png", "gif", "jpeg", "bmp" };
+            string[] supportedFiles =
+                {"doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "pptx", "jpg", "png", "gif", "jpeg", "bmp"};
 
             var cacheUsers = new ConcurrentDictionary<string, long?>();
             List<dynamic> z;
@@ -865,7 +872,7 @@ ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views]
                         group by I.ItemId, I.BlobName, I.Name,  B.BoxName, ZU.Email,ZUni.UniversityName,ZUNI.Country, B.ProfessorName,
 						 ISNULL(I.DocType,0),I.NumberOfViews + I.NumberOfDownloads, I.CreationTime
 						 order by i.itemid
-                ", new { itemId = itemId })).ToList();
+                ", new {itemId = itemId})).ToList();
                 }, default);
 
                 //if (z.Count() == 0)
@@ -929,6 +936,7 @@ ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views]
                         {
                             words = pair.Tags.Split(',');
                         }
+
                         DocumentType type = DocumentType.None;
 
                         if (docType.ContainsKey(pair.DocType))
@@ -946,9 +954,9 @@ ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views]
                         string itemName = pair.Name;
                         CreateDocumentCommand command =
                             CreateDocumentCommand.DbiOnly(newBlobName,
-                            itemName.Truncate(150),
-                            type, courseName, words?.Where(Tag.ValidateTag),
-                            userId.Value, pair.ProfessorName, uniId.Value);
+                                itemName.Truncate(150),
+                                type, courseName, words?.Where(Tag.ValidateTag),
+                                userId.Value, pair.ProfessorName, uniId.Value);
 
                         await commandBus.DispatchAsync(command, default);
 
@@ -988,7 +996,8 @@ ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views]
             var container = blobClient.GetContainerReference("spitball-files");
             var filesBaseDir = container.GetDirectoryReference("files");
             CloudBlockBlob blobDestination =
-                filesBaseDir.GetBlockBlobReference($"file-{Path.GetFileNameWithoutExtension(blobName)}-{itemId}.{Path.GetExtension(blobName).TrimStart('.')}");
+                filesBaseDir.GetBlockBlobReference(
+                    $"file-{Path.GetFileNameWithoutExtension(blobName)}-{itemId}.{Path.GetExtension(blobName).TrimStart('.')}");
 
             var sharedAccessUri = GetShareAccessUri(blobName, 360, oldContainer);
             var blobUri = new Uri(sharedAccessUri);
@@ -1011,7 +1020,7 @@ ISNULL(I.DocType,0) as DocType, I.NumberOfViews + I.NumberOfDownloads as [Views]
             {
                 const string sql = @"select id from sb.[user] where email = @email;
 select top 1 id from sb.[user] where Fictive = 1 and country = @country order by newid()";
-                using (var multi = connection.QueryMultiple(sql, new { email = email, country = country }))
+                using (var multi = connection.QueryMultiple(sql, new {email = email, country = country}))
                 {
                     var val = multi.ReadFirstOrDefault<long?>();
                     if (val.HasValue)
@@ -1024,6 +1033,7 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                     {
                         return val.Value;
                     }
+
                     return null;
                 }
 
@@ -1039,21 +1049,22 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
             return d.WithConnection<Guid?>(connection =>
             {
                 const string sql = @"select id from sb.University where Name = @Name and country = @country";
-                using (var multi = connection.QueryMultiple(sql, new { Name = name, country = country }))
+                using (var multi = connection.QueryMultiple(sql, new {Name = name, country = country}))
                 {
                     var val = multi.ReadFirstOrDefault<Guid?>();
                     if (val.HasValue)
                     {
                         return val.Value;
                     }
+
                     return null;
                 }
             });
         }
 
         private static string GetShareAccessUri(string blobname,
-                                 int validityPeriodInMinutes,
-                                 CloudBlobContainer container)
+            int validityPeriodInMinutes,
+            CloudBlobContainer container)
         {
             var toDateTime = DateTime.Now.AddMinutes(validityPeriodInMinutes);
 
@@ -1203,10 +1214,7 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
         {
             var _bus = _container.Resolve<ICloudStorageProvider>();
             var blobClient = _bus.GetBlobClient();
-
-            //var dir = container.GetDirectoryReference(
-            //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
-           var container = blobClient.GetContainerReference("spitball-files");
+            var container = blobClient.GetContainerReference("spitball-files");
             var dir = container.GetDirectoryReference("files");
 
             var sessin = _container.Resolve<IStatelessSession>();
@@ -1228,11 +1236,38 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
 
                     if (t == null)
                     {
-                        var blobToDelete = (CloudBlockBlob)blob;
+                        var blobToDelete = (CloudBlockBlob) blob;
                         Console.WriteLine(blobToDelete.Name);
                         await blobToDelete.DeleteAsync();
                     }
 
+                }
+
+                blobToken = result.ContinuationToken;
+            } while (blobToken != null);
+        }
+
+
+        private static async Task RemoveBlobs2()
+        {
+            var _bus = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = _bus.GetBlobClient();
+            var container = blobClient.GetContainerReference("spitball-files");
+            var dir = container.GetDirectoryReference("files");
+            BlobContinuationToken blobToken = null;
+            do
+            {
+                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
+                    new BlobRequestOptions(),
+                    new OperationContext(), default);
+                foreach (IListBlobItem blob in result.Results)
+                {
+
+                    var blobToDelete = (CloudBlockBlob)blob;
+                    if (blobToDelete.Name.Contains("preview-blur-"))
+                    {
+                        blobToDelete.Delete();
+                    }
                 }
 
                 blobToken = result.ContinuationToken;

@@ -107,6 +107,7 @@ const mutations = {
                     reputationService.updateVoteCounter(question, type)
                 }
             })
+
         }
     }
 };
@@ -141,7 +142,8 @@ const actions = {
        let p2 = accountService.getProfileQuestions(id);
        let p3 = accountService.getProfileAnswers(id);
        let p4 = accountService.getProfileDocuments(id);
-       Promise.all([p1,p2,p3, p4]).then((vals)=>{
+       let p5 = accountService.getProfilePurchasedDocuments(id);
+       Promise.all([p1,p2,p3, p4, p5]).then((vals)=>{
         console.log(vals)
         let profileData = accountService.createProfileData(vals);
         context.commit('setProfile', profileData)

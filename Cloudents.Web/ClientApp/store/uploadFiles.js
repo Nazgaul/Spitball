@@ -3,7 +3,6 @@ import uploadService from '../services/uploadService'
 
 const state = {
     fileData: uploadService.createFileData({}),
-    legalCheck: false,
     uploadProgress: 0,
     showDialog: false,
     customFileName : '',
@@ -13,9 +12,6 @@ const state = {
 const mutations = {
     setUploadProgress(state,val){
         state.uploadProgress = val;
-    },
-    setLegal(state,  val) {
-        state.legalCheck = val;
     },
     setFile(state, data){
         let assignData = Object.assign(state.fileData, data);
@@ -40,7 +36,6 @@ const mutations = {
 };
 const getters = {
     getFileData: (state) => state.fileData,
-    getLegal: (state) => state.legalCheck,
     getUploadProgress: (state) => state.uploadProgress,
     getDialogState: (state) => state.showDialog,
     getCustomFileName: (state) => state.customFileName,
@@ -50,11 +45,8 @@ const getters = {
 const actions = {
     resetUploadData({commit}, val){
       commit('clearUploadData', val);
-      commit('setLegal', false);
     },
-    updateLegalAgreement({commit},  val) {
-        commit('setLegal', val);
-    },
+
     updateFileName({commit}, data){
         commit('setFileName',  data);
     },

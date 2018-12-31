@@ -54,7 +54,7 @@ namespace Cloudents.Query
             if (query.UserId.HasValue)
             {
                 purchaseFuture = _session.Query<Transaction>()
-                    .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id)
+                    .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.Type == TransactionType.Spent)
                     .ToFutureValue();
 
 
@@ -65,6 +65,7 @@ namespace Cloudents.Query
             result.IsPurchased = true;
             if (result.Price.GetValueOrDefault() > 0)
             {
+                
                 if (purchaseFuture == null)
                 {
                     result.IsPurchased = false;
@@ -72,14 +73,22 @@ namespace Cloudents.Query
                 }
                 else
                 {
-                    var transactionResult = await purchaseFuture.GetValueAsync(token);
-                    if (transactionResult == null)
+                    if (result.User.Id == query.UserId.Value)
                     {
-                        result.IsPurchased = false;
+
+                        result.IsPurchased = true;
                     }
                     else
                     {
-                        result.IsPurchased = true;
+                        var transactionResult = await purchaseFuture.GetValueAsync(token);
+                        if (transactionResult == null)
+                        {
+                            result.IsPurchased = false;
+                        }
+                        else
+                        {
+                            result.IsPurchased = true;
+                        }
                     }
                 }
 

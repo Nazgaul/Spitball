@@ -88,7 +88,7 @@
                     {
                         id: 7,
                         linkText: LanguageService.getValueByKey("landingPage_footer_pr"),
-                        linkValue: '/partners',
+                        linkValue: 'mailto:support@spitball.co?subject=Spitball Web site PR',
                         linkTarget: '_blank'
                     },
                     {

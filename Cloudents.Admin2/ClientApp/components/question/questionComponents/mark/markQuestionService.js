@@ -20,6 +20,7 @@ function createAnswers(arrobjInit){
 
 function QuestionItem(objInit){
     this.id = objInit.id;
+    this.create= objInit.create;
     this.answerId = objInit.answerId;
     this.text = objInit.text;
     this.answers = createAnswers(objInit.answers);

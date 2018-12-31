@@ -76,7 +76,7 @@
         },
         watch: {
             search: debounce(function () {
-                if (!!this.search && this.search.length > 2) {
+                if (!!this.search && this.search.length >= 2) {
                     this.updateUniversities(this.search);
                 }
                 if (this.search === "") {
