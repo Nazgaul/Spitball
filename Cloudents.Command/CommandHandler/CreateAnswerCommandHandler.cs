@@ -85,11 +85,6 @@ namespace Cloudents.Command.CommandHandler
 
             ))
             {
-                //if (answer.User.Id == user.Id)
-                //{
-                //    throw new MoreThenOneAnswerException();
-                //    //throw new InvalidOperationException("user cannot give more then one answer");
-                //}
                 var check = Regex.Replace(answer.Text, regex.ToString(), "");
                 if (nakedString == check)
                 {
@@ -102,13 +97,7 @@ namespace Cloudents.Command.CommandHandler
             await _answerRepository.AddAsync(newAnswer, token);
             
             var id = newAnswer.Id;
-
-            //if (newAnswer.State == ItemState.Ok)
-            //{
-            //    _eventStore.Add(new AnswerCreatedEvent(newAnswer));
-            //    //question.AnswerCount++;
-            //    await _questionRepository.UpdateAsync(question, token);
-            //}
+          
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
