@@ -75,7 +75,7 @@
                     </div>
                 </v-flex>
 
-                <v-flex grow class="doc-details">
+                <v-flex v-show="isOurs" grow class="doc-details">
                     <div class="doc-actions-info">
                         <v-icon class="sb-doc-icon mr-1">sbf-download-cloud</v-icon>
                         <span class="sb-doc-info downloads">{{docDownloads}}</span>
