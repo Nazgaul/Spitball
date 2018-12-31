@@ -49,7 +49,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("cannot delete question with answers");
             }
 
-            if (!(question.User is RegularUser user))
+            if (!(question.User.Actual is RegularUser user))
             {
                 throw new InvalidOperationException("cannot delete fictive user");
 
