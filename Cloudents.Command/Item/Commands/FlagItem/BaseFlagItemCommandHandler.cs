@@ -29,10 +29,10 @@ namespace Cloudents.Command.Item.Commands.FlagItem
             if (message.UserId.HasValue)
             {
                 user = await _userRepository.LoadAsync(message.UserId, token);
-                if (!Privileges.CanFlag(user.Score))
-                {
-                    throw new NoEnoughScoreException();
-                }
+                //if (!Privileges.CanFlag(user.Score))
+                //{
+                //    throw new NoEnoughScoreException();
+                //}
                 Validate(answer, user);
             }
 
