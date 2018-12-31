@@ -55,7 +55,7 @@ namespace Cloudents.Web.Controllers
 
             if (!Uri.TryCreate(referer, UriKind.Absolute, out var refererUri))
             {
-                throw new ArgumentException("invalid referer");
+                return RedirectToAction("Index", "Home");
             }
 
             if (refererUri.PathAndQuery.Contains(new[] { "flashcard", "note" }, StringComparison.OrdinalIgnoreCase))
@@ -64,12 +64,7 @@ namespace Cloudents.Web.Controllers
                 if (!Domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
                     throw new ArgumentException("invalid url");
             }
-         
-            //var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());
-            
-              
             _queueProvider.InsertMessageAsync(new RedirectUserMessage(model.Host, model.Url, referer, model.Location, userIp.ToString()), token);
-           // await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
 
             if (model.Url.Host.Contains("courseHero", StringComparison.OrdinalIgnoreCase))
             {

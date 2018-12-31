@@ -130,7 +130,7 @@ namespace Cloudents.Search.Document
 
             var result = await
                 _client.Documents.SearchAsync<Entities.Document>(query.Term, searchParameter,
-                    cancellationToken: token).ConfigureAwait(false);
+                    cancellationToken: token);
 
            return result.Results.Select(s => new DocumentSearchResultWithScore
             {
