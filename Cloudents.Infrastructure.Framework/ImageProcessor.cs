@@ -21,15 +21,9 @@ namespace Cloudents.Infrastructure.Framework
 
         public async Task ProcessFilesAsync(Stream stream,
             Func<Stream, string, Task> pagePreviewCallback,
-
             Func<string, int, Task> metaCallback,
             CancellationToken token)
         {
-
-
-            //TODO: we can do it faster
-
-
             await metaCallback(null, 1);
             using (var ms = new MemoryStream())
             {
@@ -39,12 +33,8 @@ namespace Cloudents.Infrastructure.Framework
                     Width = 1024,
                     Height = 768,
                     Quality = 90,
-
                 };
-
                 ImageBuilder.Current.Build(stream, ms, settings2, false);
-
-
                 await pagePreviewCallback(ms, "0.jpg");
             }
         }
