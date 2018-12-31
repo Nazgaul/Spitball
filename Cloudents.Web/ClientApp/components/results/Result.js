@@ -167,6 +167,12 @@ export default {
         //             this.filterObject[courseIndex].data = val;
         //     }
         // }
+        getSchoolName(){
+            console.log("school name changed")
+            if(this.getResultLockForSchoolNameChange()){
+                this.reloadContentOfPage();
+            }
+        },
     },
     methods: {
         ...mapActions([
@@ -181,7 +187,7 @@ export default {
             'nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
-        ...mapGetters(["getCurrentVertical", "getNextPageUrl"]),
+        ...mapGetters(["getCurrentVertical", "getNextPageUrl", "getResultLockForSchoolNameChange"]),
 
         loadNewQuestions(){
             this.INJECT_QUESTION();
@@ -231,23 +237,28 @@ export default {
                 }).catch(reason => {
                 //when error from fetching data remove the loader
                 if (to.path === from.path && to.query.term === from.query.term) {
-                    this.isLoad = false;
-                    this.UPDATE_LOADING(false);
-                    this.UPDATE_SEARCH_LOADING(false);
                     this.showFilterNotApplied = true;
                 }
                 else {
-                    this.UPDATE_LOADING(false);
-                    this.UPDATE_SEARCH_LOADING(false);
-                    this.isLoad = false;
                     next();
                 }
             }).finally(()=>{
+                //error handler
+                this.UPDATE_SEARCH_LOADING(false);
+                this.isLoad = false;
+                this.UPDATE_LOADING(false);
+                //scroll handler
                 this.scrollBehaviour.isLoading = false;
                 this.scrollBehaviour.isComplete = false;
             });
         },
-
+        reloadContentOfPage(){
+            let noop = function (){};
+            let to = this.$route;
+            let from = this.$route;
+            this.UPDATE_SEARCH_LOADING(true);
+            this.updateContentOfPage(to, from, noop);
+        },
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject() {
             this.filterObject = this.getFilters;
