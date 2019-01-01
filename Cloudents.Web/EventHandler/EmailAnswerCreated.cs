@@ -39,7 +39,7 @@ namespace Cloudents.Web.EventHandler
                 return;
             }
 
-            if (!(eventMessage.Answer.Question.User is RegularUser u))
+            if (!(eventMessage.Answer.Question.User.Actual is RegularUser u))
             {
                 return;
             }
