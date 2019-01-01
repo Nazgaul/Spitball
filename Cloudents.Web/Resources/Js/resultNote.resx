@@ -122,6 +122,5 @@
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>You do not have sufficient SBL</value>
-    <comment>אין לך מספיק SBL</comment>
   </data>
 </root>
