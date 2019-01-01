@@ -286,7 +286,6 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new PurchaseDocumentCommand(model.Id, userId);
-
                 await _commandBus.DispatchAsync(command, token);
             }
             catch (InsufficientFundException)
