@@ -13,7 +13,7 @@ namespace Cloudents.Query.Stuff
                 .ForMember(m => m.Snippet, x => x.MapFrom(z => z.MetaContent))
                 .ForMember(m => m.Title, x => x.MapFrom(z => z.Name))
                 .ForMember(m => m.TypeStr, x => x.MapFrom(z => z.Type))
-                .ForMember(m => m.User, x => x.MapFrom(z => z.Type))
+                //.ForMember(m => m.User, x => x.MapFrom(z => z.Type))
                 ;
             //CreateMap<GoogleGeoCodeDto, (Address address, GeoPoint point)>().ConvertUsing<GoogleGeoConverter>();
             //CreateMap<BingWebPage, SearchResult>().ConvertUsing<BingConverter>();
