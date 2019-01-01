@@ -120,4 +120,7 @@
   <data name="free" xml:space="preserve">
     <value>Free</value>
   </data>
+  <data name="unsufficient_fund" xml:space="preserve">
+    <value>You do not have sufficient SBL</value>
+  </data>
 </root>
