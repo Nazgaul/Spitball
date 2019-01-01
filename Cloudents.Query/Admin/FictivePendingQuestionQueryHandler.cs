@@ -7,6 +7,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Admin;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 
 namespace Cloudents.Query.Admin
@@ -21,22 +22,25 @@ namespace Cloudents.Query.Admin
         }
         public async Task<IList<FictivePendingQuestionDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            var counties = new[] { "us"/*, "il" */};
+            var counties = new[] { "us", /*"il"*/ };
 
             var list = new List<IFutureValue<long>>();
             // ReSharper disable once LoopCanBeConvertedToQuery - nhibernate doesn't response well for this
             foreach (var county in counties)
             {
-                var future = _session.Query<Question>()
+                Question questionAlias = null;
+                SystemUser userAlias = null;
 
-                      .Fetch(f => f.User)
-                      .Where(w => w.User is SystemUser && w.User.Country == county &&
-                                  w.State == ItemState.Pending)
-                      .OrderBy(o => o.Id)
-                      .Take(1)
-                      .Select(s => s.Id)
-                      .ToFutureValue();
+                var future = _session.QueryOver(() => questionAlias)
+                        .JoinAlias(x => x.User, () => userAlias)
+                        .Select(s => s.Id)
+                        .Where(() => userAlias.Country == county)
+                        .And(w=>w.State == ItemState.Pending)
+                        .OrderBy(Projections.SqlFunction("random_Order", NHibernateUtil.Guid)).Asc
+                        .Take(1)
+                        .FutureValue<long>();
                 list.Add(future);
+                
             }
 
             var retVal = new List<FictivePendingQuestionDto>();
