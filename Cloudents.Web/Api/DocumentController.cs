@@ -1,17 +1,4 @@
-﻿using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
-using Cloudents.Web.Models;
-using Cloudents.Web.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
@@ -30,15 +17,28 @@ using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
+using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
+using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Localization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"), ApiController,Authorize]
+    [Route("api/[controller]"), ApiController, Authorize]
     public class DocumentController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -64,7 +64,7 @@ namespace Cloudents.Web.Api
             _profileUpdater = profileUpdater;
         }
 
-        [HttpGet("{id}"),AllowAnonymous]
+        [HttpGet("{id}"), AllowAnonymous]
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] IBlobProvider blobProvider,
@@ -73,7 +73,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new DocumentById(id, userId);
-           
+
 
 
             var model = await _queryBus.QueryAsync(query, token);
@@ -94,7 +94,7 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(filesTask, tQueue);
 
             var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
-            
+
 
             if (!filesTask.Result.Any())
             {
@@ -117,10 +117,12 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
-                model.Course, model.Tags, userId, model.Professor,model.Price);
+                model.Course, model.Tags, userId, model.Professor, model.Price);
             await _commandBus.DispatchAsync(command, token);
 
-            var url = Url.RouteUrl("ShortDocumentLink",new
+
+
+            var url = Url.RouteUrl("ShortDocumentLink", new
             {
                 base62 = new Base62(command.Id).ToString()
             });
@@ -156,7 +158,7 @@ namespace Cloudents.Web.Api
             [FromServices] IDocumentSearch ilSearchProvider,
             CancellationToken token)
         {
-           
+
             model = model ?? new DocumentRequest();
             var query = new DocumentQuery(model.Course, profile, model.Term,
                 model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
@@ -281,10 +283,18 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> PurchaseAsync([FromBody] PurchaseDocumentRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new PurchaseDocumentCommand(model.Id, userId);
 
-            var command = new PurchaseDocumentCommand(model.Id, userId);
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (InsufficientFundException)
+            {
+                ModelState.AddModelError(string.Empty, _localizer["InSufficientFunds"]);
+                return BadRequest(ModelState);
+            }
 
-            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
