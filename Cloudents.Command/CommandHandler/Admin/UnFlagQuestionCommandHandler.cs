@@ -21,8 +21,6 @@ namespace Cloudents.Command.CommandHandler.Admin
            
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
 
-            question.MakePublic();
-            //question.State = ItemState.Ok;
             if (question.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
                 var votes = question.Votes.Where(w => w.Answer == null).ToList();
@@ -31,7 +29,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                     question.Votes.Remove(vote);
                 }
             }
-            //question.FlagReason = null;
+            question.MakePublic();
             question.VoteCount = question.Votes.Count;
             
             await _questionRepository.UpdateAsync(question, token);

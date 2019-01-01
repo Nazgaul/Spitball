@@ -22,17 +22,14 @@ namespace Cloudents.Command.CommandHandler.Admin
 
             
             var document = await _documentRepository.LoadAsync(id, token);
-            document.MakePublic();
                
             if (document.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
-                var votes = document.Votes.ToList();
-                foreach (var vote in votes)
-                {
-                document.Votes.Remove(vote);
-                }
+                document.Votes.Clear();
             }
-            document.VoteCount = document.Votes.Count;
+            document.MakePublic();
+
+                document.VoteCount = document.Votes.Count;
 
             await _documentRepository.UpdateAsync(document, token);
             }
