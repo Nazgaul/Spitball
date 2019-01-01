@@ -20,16 +20,12 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
         
             var answer = await _answerRepository.LoadAsync(message.AnswerId, token);
-            answer.MakePublic();
+           
             if (answer.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
             {
-                var votes = answer.Votes.ToList();
-                foreach (var vote in votes)
-                {
-                    answer.Votes.Remove(vote);
-                }
+                answer.Votes.Clear();
             }
-
+            answer.MakePublic();
             answer.VoteCount = answer.Votes.Count;
 
             await _answerRepository.UpdateAsync(answer, token);
