@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="free" xml:space="preserve">
-    <value>Free</value>
+    <value>חינם</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
-    <value>You do not have sufficient SBL</value>
+    <value>אין לך מספיק SBL</value>
   </data>
 </root>
