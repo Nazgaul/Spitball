@@ -71,7 +71,12 @@ namespace Cloudents.Web.Api
 
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
+            long? userId = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                userId = _userManager.GetLongUserId(User);
+            }
+
             var query = new DocumentById(id, userId);
 
 
