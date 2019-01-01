@@ -34,9 +34,13 @@ const getters = {
 };
 
 const actions = {
-    syncUniData({commit}){
+    syncUniData({commit, dispatch}){
         universityService.getProfileUniversity().then((university)=>{
             commit('setSchoolName', university.text);
+            setTimeout(()=>{
+                dispatch('releaseResultLock');
+            }, 2000);
+            
 
         });
         universityService.getProfileCourses().then((courses)=>{
