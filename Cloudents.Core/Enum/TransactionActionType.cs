@@ -23,8 +23,9 @@ namespace Cloudents.Core.Enum
         Awarded,
         [ResourceDescription(typeof(EnumResources), "ActionTypeAwarded")]
         FirstCourse,
-       // [ResourceDescription(typeof(EnumResources), "ActionTypeAwarded")]
+        [ResourceDescription(typeof(EnumResources), "ActionTypePurchaseDocument")]
         PurchaseDocument,
+        [ResourceDescription(typeof(EnumResources), "ActionTypeSoldDocument")]
         SoldDocument,
 
     }
