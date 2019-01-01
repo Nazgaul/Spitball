@@ -127,7 +127,7 @@
 
                 ],
                 answerNavs: [
-                    {name :'Pending Answers', link: '/answer/pendingAnswers' , icon: 'notifications_paused'},
+                    {name :'Flagged Answers', link: '/answer/flaggedAnswers' , icon: 'notifications_paused'},
                     {name :'Delete Answer', link: '/answer/delete' , icon: 'delete_outline'},
                     {name :'Accept Pending', link: '/answer/acceptAnswer' , icon: 'done'},
                 ],

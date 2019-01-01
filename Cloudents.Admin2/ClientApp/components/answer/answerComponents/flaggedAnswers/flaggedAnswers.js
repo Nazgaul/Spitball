@@ -1,4 +1,4 @@
-﻿import { getAllAnswers, aproveAnswer } from './pendingAnswersService'
+﻿import { getAllAnswers, aproveAnswer } from './flaggedAnswersService'
 import { deleteAnswer} from '../delete/deleteAnswerService'
 export default {
     data() {
