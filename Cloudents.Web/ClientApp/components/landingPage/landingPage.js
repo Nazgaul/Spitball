@@ -216,6 +216,13 @@ export default {
     },
     created() {
         let user = this.accountUser();
+        if(!!this.$route.query && this.$route.query.hasOwnProperty('type')){
+            let dictionaryuType = this.$route.query.type;
+            //check if valid query type
+            if(!!this.dictionaryTypesEnum[dictionaryuType]){
+                this.changeDictionaryType(this.dictionaryTypesEnum[dictionaryuType])
+            }
+        }
         if(!user){
             this.getAllSubjects();
             this.getStatistics();
