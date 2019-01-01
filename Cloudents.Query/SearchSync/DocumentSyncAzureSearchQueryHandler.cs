@@ -60,8 +60,8 @@ select d.Id as ItemId,
 				 	u.Name as UniversityName,	     
 				 c.*                  
 				  From sb.[Document] d     
-				  left join CHANGETABLE (CHANGES  sb.[Document], 0) c on d.id = c.id
-					 left join sb.[University] u 	                  
+                CROSS APPLY CHANGETABLE (VERSION sb.[Document], (Id), (Id)) AS c
+			     join sb.[University] u 	                  
 				           On u.Id = d.UniversityId 
 				 Order by d.Id                     
 				 OFFSET :PageSize * :PageNumber                      
