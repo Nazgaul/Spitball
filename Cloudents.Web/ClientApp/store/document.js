@@ -1,5 +1,6 @@
 import documentService from "../services/documentService";
 import { PREVIEW } from "./mutation-types";
+import { LanguageService } from "../services/language/languageService";
 
 const state = {
     item: {details: {}}
@@ -44,18 +45,29 @@ const actions = {
     updateDownloadsCount({commit}){
         commit('updateDownload');
     },
-    purchaseAction({commit, dispatch}, item) {
+    purchaseAction({commit, dispatch, getters}, item) {
+        let userBalance = 0;
         let id = item.id ? item.id : '';
-        return documentService.purchaseDocument(id)
+        if(!!getters.accountUser && getters.accountUser.balance){
+            userBalance = getters.accountUser.balance
+        }
+        if(userBalance > item.price){
+            return documentService.purchaseDocument(id)
             .then((resp) => {
                     console.log('purchased success', resp);
                     dispatch('setDocumentPreview', item);
                 },
                 (error) => {
-                    console.log('purchased success', error);
+                    console.log('purchased Error', error);
 
                 }
             )
+        }else{
+            dispatch('updateToasterParams', {
+                toasterText: LanguageService.getValueByKey("resultNote_unsufficient_fund"),
+                showToaster: true,
+            });
+        }
     }
 
 };
