@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.Event;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
@@ -47,7 +47,7 @@ namespace Cloudents.Core.Entities
 
         public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
 
-       
+
         public override void DeleteAssociation()
         {
             Votes.Clear();
@@ -96,11 +96,8 @@ namespace Cloudents.Core.Entities
 
         public override bool MakePublic()
         {
-            var t =  base.MakePublic();
-            if (t)
-            {
-                Events.Add(new AnswerCreatedEvent(this));
-            }
+            var t = base.MakePublic();
+            Events.Add(new AnswerCreatedEvent(this));
 
             return t;
         }
