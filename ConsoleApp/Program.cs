@@ -2,6 +2,7 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
@@ -10,6 +11,8 @@ using Cloudents.Core.Message.System;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
+using Cloudents.Query;
+using Cloudents.Query.Query.Admin;
 using Cloudents.Search;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
@@ -359,8 +362,8 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-
-
+            var queryBus = _container.Resolve<IQueryBus> ();
+            var questions = await queryBus.QueryAsync<IList<FictivePendingQuestionDto>>(new AdminEmptyQuery(), token);
 
 
 
