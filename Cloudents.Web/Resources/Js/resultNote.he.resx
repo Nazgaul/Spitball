@@ -120,4 +120,7 @@
   <data name="free" xml:space="preserve">
     <value>חינם</value>
   </data>
+  <data name="unsufficient_fund" xml:space="preserve">
+    <value>אין לך מספיק SBL</value>
+  </data>
 </root>
