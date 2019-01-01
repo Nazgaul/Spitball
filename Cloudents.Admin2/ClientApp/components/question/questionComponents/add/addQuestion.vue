@@ -171,6 +171,7 @@
 
 <style lang="scss" scoped>
     .add-question-container {
+            margin: 0 auto;
         span.select-subject{
             font-size: 16px;
             margin-top: 25px;

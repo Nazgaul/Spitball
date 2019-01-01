@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="delete-question-container">
         <h1>Delete Question</h1>
         <div class="wrap">
             <div class="info">
@@ -66,20 +66,24 @@
 </script>
 
 <style lang="scss" scoped>
+    .delete-question-container{
+        margin: 0 auto;
     .input-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        .id-input {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 25px;
-            border: none;
-            outline: none;
-            padding-top: 12px;
-            /*padding-left: 10px;*/
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .id-input {
+                width: 100%;
+                max-width: 400px;
+                border-radius: 25px;
+                border: none;
+                outline: none;
+                padding-top: 12px;
+                /*padding-left: 10px;*/
+            }
         }
     }
+    
 
 </style>

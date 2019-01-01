@@ -171,4 +171,7 @@
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
+  <data name="you_have_redeemable_sbl" xml:space="preserve">
+    <value>You have {1} redeemable SBL</value>
+  </data>
 </root>

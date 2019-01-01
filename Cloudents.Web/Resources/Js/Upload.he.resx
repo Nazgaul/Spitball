@@ -251,6 +251,9 @@
   <data name="files_price_title" xml:space="preserve">
     <value>קבע מחיר</value>
   </data>
+  <data name="files_price_your_balance" xml:space="preserve">
+    <value>היתרה שלך</value>
+  </data>
   <data name="files_price_zero_means_free" xml:space="preserve">
     <value>מחיר 00.00 אומר שהמסמך יהיה חינם</value>
   </data>

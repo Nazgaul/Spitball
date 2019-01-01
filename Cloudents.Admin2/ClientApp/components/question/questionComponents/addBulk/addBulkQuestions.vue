@@ -160,11 +160,11 @@ export default {
 
 <style lang="scss" scoped>
 .add-question-container{
+    display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
+    width: 100%;
     .legend-menu{
-        padding-left: 8%;
-        position: absolute;
         padding-top: 5%;
     }
     .added-questions-legend{

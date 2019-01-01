@@ -21,8 +21,7 @@ export default {
             earnedPoints: 0,
             pagination: {
                 rowsPerPage: 6
-            },
-
+            },          
             selected: [],
             allTransactionsHeaders: [{
                 text: LanguageService.getValueByKey('wallet_Date'),
@@ -173,7 +172,8 @@ export default {
                 earned = typesDictionary["Earned"]
             }
             return earned;
-        }
+        },
+        
     },
     created() {
         this.getBalances();

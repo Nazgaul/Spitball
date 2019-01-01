@@ -154,7 +154,7 @@
 
 <style  lang="scss">
 .nav-card{
-    min-width: 300px;
+    min-width: 260px !important;
 }
     .v-list__tile--active{
             color: green;

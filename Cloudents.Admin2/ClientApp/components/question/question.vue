@@ -18,5 +18,6 @@ export default {
     .question-content{
         padding: 5px;
         display: flex;
+        width:100%;
     }
 </style>
