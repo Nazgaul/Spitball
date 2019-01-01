@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="purchase-actions">
-                        <v-btn flat class="cancel" @click.native="confirmPurchaseDialog = false"><span>Cancel</span>
+                        <v-btn flat class="cancel" @click.native="confirmPurchaseDialog = false"><span v-language:inner>preview_cancel</span>
                         </v-btn>
                         <v-btn round class="submit-purchase" @click.native="purchaseDocument(item.id)">
                             <span class="hidden-xs-only" v-language:inner>preview_buy_btn</span>

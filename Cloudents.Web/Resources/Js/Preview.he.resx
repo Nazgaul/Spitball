@@ -126,6 +126,9 @@
   <data name="buy_full_btn" xml:space="preserve">
     <value>רכוש לצפייה במסמך המלא</value>
   </data>
+  <data name="cancel" xml:space="preserve">
+    <value>חזור</value>
+  </data>
   <data name="doc_placeholder_text" xml:space="preserve">
     <value>תצוגה המקדימה תהיה זמינה בקרוב</value>
   </data>
