@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using FluentNHibernate;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
@@ -48,7 +49,7 @@ namespace Cloudents.Persistance.Maps
             HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
-
+            
             HasMany(x => x.UserLogins)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();

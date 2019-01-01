@@ -4,6 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Message.Email;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 namespace Cloudents.Core.Entities
@@ -72,11 +75,7 @@ namespace Cloudents.Core.Entities
 
         protected readonly IList<Question> _questions = new List<Question>();
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();
-        //public virtual void ClearQuestionAndAnswers()
-        //{
-        //    _questions.Clear();
-        //    _answers.Clear();
-        //}
+       
 
 
 
@@ -154,10 +153,32 @@ namespace Cloudents.Core.Entities
 
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
 
-       // protected internal virtual IList<Answer> Answers { get; set; }
 
-      //  public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
+        public virtual void SuspendUser(DateTimeOffset lockTime)
+        {
+            LockoutEnd = lockTime;
+            AddEvent(new UserSuspendEvent(this));
+        }
 
-       
+        public virtual void UnSuspendUser()
+        {
+            LockoutEnd = null;
+            AddEvent(new UserUnSuspendEvent(this));
+        }
+
+        public virtual void UpdateUserBalance(decimal balance, int score)
+        {
+            Balance = balance;
+            Score = score;
+
+            AddEvent(new UpdateBalanceEvent(this));
+        }
+
+        public virtual void CashOutMoney(decimal price)
+        {
+            price = -Math.Abs(price);
+            var t = new Transaction(TransactionActionType.CashOut, TransactionType.Earned, price, this);
+            AddEvent(new RedeemEvent(Id, price));
+        }
     }
 }

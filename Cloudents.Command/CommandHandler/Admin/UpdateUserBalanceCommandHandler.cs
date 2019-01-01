@@ -1,5 +1,4 @@
 ﻿using Cloudents.Command.Command.Admin;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
@@ -25,12 +24,13 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
             foreach (var id in message.UsersIds)
             {
+                //TODO: we can do it better
                 var user = await _userRepository.LoadAsync(id, token);
-                user.Balance = await _transactionRepository.GetBalanceAsync(id, token);
-                user.Score = (int)(await _transactionRepository.GetUserScoreAsync(id, token));
-
+                var balance = await _transactionRepository.GetBalanceAsync(id, token);
+                var score = (int)(await _transactionRepository.GetUserScoreAsync(id, token));
+                user.UpdateUserBalance(balance, score);
                 await _userRepository.UpdateAsync(user, token);
-                user.Events.Add(new UpdateBalanceEvent(user));
+
             }
         }
     }
