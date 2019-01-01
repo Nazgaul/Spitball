@@ -1,28 +1,20 @@
 ﻿<template>
     <div  id="answer-wrapper-scroll">
-        <h1>Pending Answers</h1>
+        <h1>Flagged Answers</h1>
         <div class="page-container">
             <div class="answer-co">
                 <div class="answerItem" v-for="(answer,index) in answers" :key="index">
                     <div class="answer-left-body">
                         <div class="user-container">
-                            <div>User Id: {{answer.user.id}}</div>
-                            <div title="Number of Attachments">Attachments: (<b>{{answer.imagesCount}}</b>)</div>
-                            <div>User Email: {{answer.user.email}}</div>
+                            <div>User Email: {{answer.flaggedUserEmail}}</div>
                         </div>
                         <div class="answer-container">
                             <div class="bottom-border bold bottom-space">Answer Id: {{answer.id}}</div>
-                            <div>{{answer.text}}</div>
+                            <div>{{answer.reason}}</div>
                         </div>
-                    </div>
-                    <div class="answer-question-data-body answer-left-body">
-                        <div class="question-data">
-                            <div>Question ID: {{answer.questionData.id}}</div>
-                        </div>
-                        <div class="question-text">{{answer.questionData.text}}</div>
                     </div>
                     <div class="answer-right-body">
-                        <button @click="aproveA(answer, index)">Approve</button>
+                        <button @click="aproveA(answer, index)">Unflag</button>
                         <button class="decline" @click="declineAnswer(answer, index)">Delete</button>
                     </div>
                 </div>
@@ -34,7 +26,7 @@
     </div>
 </template>
 
-<script src="./pendingAnswers.js"></script>
+<script src="./flaggedAnswers.js"></script>
 
 <style lang="scss" scoped>
 
@@ -57,7 +49,7 @@
                 flex-direction: row;
                 border: 2px solid #c7c7c7;
                 margin-bottom: 10px;
-                width: 70%;
+                width: 50%;
                 min-width: 500px;
                 border-radius: 29px;
                 .answer-left-body {

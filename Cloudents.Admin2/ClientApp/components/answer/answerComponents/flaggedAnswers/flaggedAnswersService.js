@@ -1,32 +1,24 @@
 ﻿import { connectivityModule } from '../../../../services/connectivity.module'
 
 
-function PendingAnswerItem(objInit) {
+function FlaggedAnswerItem(objInit) {
     this.id = objInit.id;
-    this.text = objInit.text;
-    this.imagesCount = objInit.imagesCount;
-    this.user = {
-        id: objInit.userId,
-        email: objInit.email
-    };
-    this.questionData = {
-        id: objInit.questionId,
-        text: objInit.questionText
-    }
+    this.reason = objInit.reason;
+    this.flaggedUserEmail = objInit.flaggedUserEmail;
 }
 
 
-function createPendingAnswerItem(objInit) {
-    return new PendingAnswerItem(objInit);
+function createFlaggedAnswerItem(objInit) {
+    return new FlaggedAnswerItem(objInit);
 }
 
 const getAllAnswers = function () {
-    let path = 'AdminAnswer/Pending'
+    let path = 'AdminAnswer/flagged'
     return connectivityModule.http.get(path).then((answers) => {
         let arrAnswers = [];
         if (answers.length > 0) {
             answers.forEach(function (answer) {
-                arrAnswers.push(createPendingAnswerItem(answer));
+                arrAnswers.push(createFlaggedAnswerItem(answer));
             })
         }
         return Promise.resolve(arrAnswers)
@@ -36,7 +28,7 @@ const getAllAnswers = function () {
 }
 
 const aproveAnswer = function (id) {
-    let path = 'AdminAnswer/approve'
+    let path = 'AdminAnswer/unFlag'
     let idObj = {
         id: id
     }
