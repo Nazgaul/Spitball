@@ -33,7 +33,7 @@
                                     <div v-else class="load-container">
                                         <div class="dot-flashing"></div>
                                     </div>
-                                    <span class="upload-file-name mr-3">{{getFileData.name}}</span>
+                                    <span class="text-truncate upload-file-name mr-3">{{getFileData.name}}</span>
                                     <!--<v-icon class="sb-close">sbf-close</v-icon>-->
                                 </div>
                             </div>
