@@ -58,34 +58,32 @@
                     },
                     {
                             setting: {
-                                title: 'Question Actions',
-                                path: '/home'
+                                title: 'Questions/Answers Actions',
+                                path: '/question'
                             },
                             childrens: [
                                 {name: 'Mark as correct', link: '/question/mark', icon: 'people_outline'},
+                                {name: 'Pending Questions', link: '/question/pendingQuestions', icon: 'notifications_paused'},
+                                {name: 'Flagged Questions', link: '/question/flaggedQuestions', icon: 'outlined_flag'},
                                 {name: 'Delete', link: '/question/delete', icon: 'delete_outline'},
                                 {name: 'Add', link: '/question/add', icon: 'add'},
                                 {name: 'Add Multiple', link: '/question/addBulk', icon: 'add_circle_outline'},
-                                {
-                                    name: 'Pending Questions',
-                                    link: '/question/pendingQuestions',
-                                    icon: 'notifications_paused'
-                                },
-                                {name: 'Accept Question', link: '/question/acceptQuestion', icon: 'done'},
-                                {name: 'Flagged Questions', link: '/question/flaggedQuestions', icon: 'outlined_flag'}
-                            ]
-                    },
-                    {
-                            setting: {
-                                title: 'Answer Actions',
-                                path: '/answer'
-                            },
-                            childrens: [
+                                // {name: 'Accept Question', link: '/question/acceptQuestion', icon: 'done'}    
                                 {name: 'Flagged Answers', link: '/answer/flaggedAnswers', icon: 'notifications_paused'},
-                                {name: 'Delete Answer', link: '/answer/delete', icon: 'delete_outline'},
-                                {name: 'Accept Pending', link: '/answer/acceptAnswer', icon: 'done'}
+                                {name: 'Accept Pending', link: '/answer/acceptAnswer', icon: 'done'}                            
                             ]
                     },
+                    // {
+                    //         setting: {
+                    //             title: 'Answer Actions',
+                    //             path: '/answer'
+                    //         },
+                    //         childrens: [
+                    //             {name: 'Flagged Answers', link: '/answer/flaggedAnswers', icon: 'notifications_paused'},
+                    //             {name: 'Delete Answer', link: '/answer/delete', icon: 'delete_outline'},
+                    //             {name: 'Accept Pending', link: '/answer/acceptAnswer', icon: 'done'}
+                    //         ]
+                    // },
                     {
                             setting: {
                                 title: 'Document Actions',
