@@ -17,11 +17,11 @@
         >
             <v-list>
                 <div v-for="(singleNav, i) in nav">
-                    <v-list-group  no-action value="" v-for="item in singleNav">
-                        <v-list-tile slot="activator" :to="item.setting.path" @click="">
-                            <v-list-tile-title>{{item.setting.title}}</v-list-tile-title>
+                    <v-list-group  no-action value="">
+                        <v-list-tile slot="activator" :to="singleNav.setting.path" @click="">
+                            <v-list-tile-title>{{singleNav.setting.title}}</v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile v-for="child in item.childrens"
+                        <v-list-tile v-for="child in singleNav.childrens"
                                      :key="`child-link-${child.name}`"
                                      @click=""
                                      :to="child.link">
@@ -47,7 +47,6 @@
             return {
                 nav: [
                     {
-                        home: {
                             setting: {
                                 title: 'Home',
                                 path: '/home'
@@ -55,10 +54,9 @@
                             childrens: [
                                 {name: 'Management', link: '', icon: 'people_outline'},
                             ]
-                        }
+
                     },
                     {
-                        questionNavs: {
                             setting: {
                                 title: 'Question Actions',
                                 path: '/home'
@@ -76,12 +74,8 @@
                                 {name: 'Accept Question', link: '/question/acceptQuestion', icon: 'done'},
                                 {name: 'Flagged Questions', link: '/question/flaggedQuestions', icon: 'outlined_flag'}
                             ]
-                        },
-
-
                     },
                     {
-                        answerNavs: {
                             setting: {
                                 title: 'Answer Actions',
                                 path: '/answer'
@@ -91,11 +85,8 @@
                                 {name: 'Delete Answer', link: '/answer/delete', icon: 'delete_outline'},
                                 {name: 'Accept Pending', link: '/answer/acceptAnswer', icon: 'done'}
                             ]
-                        }
-
                     },
                     {
-                        documentNavs: {
                             setting: {
                                 title: 'Document Actions',
                                 path: '/document'
@@ -105,10 +96,8 @@
                                 {name: 'Delete by ID', link: '/document/documentDelete', icon: 'delete_outline'},
                                 {name: 'Flaged Docs', link: '/document/flaggedDocument', icon: 'outlined_flag'},
                             ]
-                        }
                     },
                     {
-                        userNavs: {
                             setting: {
                                 title: 'User Actions',
                                 path: '/user'
@@ -118,11 +107,8 @@
                                 {name: 'Delete by ID', link: '/document/documentDelete', icon: 'delete_outline'},
                                 {name: 'Flaged Docs', link: '/document/flaggedDocument', icon: 'outlined_flag'},
                             ]
-                        }
-
                     },
                     {
-                        dev: {
                             setting: {
                                 title: 'Dev Actions',
                                 path: '/dev'
@@ -130,7 +116,6 @@
                             childrens: [
                                 {name: 'Management', link: '', icon: 'people_outline'},
                             ]
-                        }
                     },
                 ]
             }
