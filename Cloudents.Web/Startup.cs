@@ -38,6 +38,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
+
 namespace Cloudents.Web
 {
     public class Startup
@@ -177,8 +178,17 @@ namespace Cloudents.Web
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
                 Assembly.Load("Cloudents.Persistance"),
+                Assembly.Load("Cloudents.Query"),
                 Assembly.GetExecutingAssembly()
             };
+
+            /*var assembliesOfProgram = Assembly
+            .GetExecutingAssembly()
+            .GetReferencedAssemblies()
+            .Select(Assembly.Load)
+            .Where(t => t.FullName.Split('.')[0] == "Cloudents");*/
+
+
             services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();

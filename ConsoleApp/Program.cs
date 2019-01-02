@@ -2,6 +2,7 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
@@ -12,7 +13,9 @@ using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Stuff;
 using Cloudents.Search;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
@@ -62,6 +65,7 @@ namespace ConsoleApp
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
             };
+            
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -362,10 +366,18 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<ConfigureMapper>();
+            });
             var queryBus = _container.Resolve<IQueryBus> ();
-            var questions = await queryBus.QueryAsync<IList<FictivePendingQuestionDto>>(new AdminEmptyQuery(), token);
+            
+            var questions = await queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(new UserPurchaseDocumentByIdQuery(159907, 1), token);
 
-
+            foreach (var item in questions)
+            {
+                Console.WriteLine(item.Id);
+            }
 
 
             //await MigrateDelta();

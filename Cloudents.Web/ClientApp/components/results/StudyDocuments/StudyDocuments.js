@@ -1,6 +1,5 @@
 import ResultItem from '../ResultItem.vue';
 import ResultNote from "../ResultNote.vue"
-import ResultAsk from "../ResultAsk.vue"
 import { verticalsNavbar, verticalsName } from "../../../services/navigation/vertical-navigation/nav";
 import SuggestCard from '../suggestCard.vue'
 import emptyState from "../svg/no-match-icon.svg";
@@ -16,9 +15,6 @@ import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 
 import faqBlock from '../helpers/faq-block/faq-block.vue'
 import notificationCenter from '../../notificationCenter/notificationCenter.vue'
-const ResultTutor = () => import('../ResultTutor.vue');
-const ResultBook = () => import('../ResultBook.vue');
-const ResultJob = () => import('../ResultJob.vue');
 
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "../helpers/uploadFilesBtn/uploadFilesBtn.vue"
@@ -31,9 +27,6 @@ export default {
         ResultItem,
         ResultNote,
         SuggestCard,
-        ResultTutor,
-        ResultJob,
-        ResultBook,
         faqBlock,
         signupBanner,
         sbDialog,
@@ -42,7 +35,6 @@ export default {
         uploadFilesBtn,
         askQuestionBtn,
         soonComponent,
-        ResultAsk,
         setUniClass
     },
     data() {
@@ -84,8 +76,8 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster', 'getSchoolName']),
-        ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getSchoolName']),
+        ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'StudyDocuments_getItems'}),
         showSelectUni(){
             let schoolName = this.getSchoolName;
             return schoolName.length === 0;
@@ -96,9 +88,6 @@ export default {
         //not interesting
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)
-        },
-        showQuestionToaster(){
-            return this.getShowQuestionToaster;
         },
         content: {
             get() {
@@ -159,14 +148,6 @@ export default {
     },
 
     watch: {
-        //update the course list of filters if have in page while the course list changes
-        // myCourses(val) {
-        //     if (this.filterObject) {
-        //         const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
-        //         if (courseIndex > -1)
-        //             this.filterObject[courseIndex].data = val;
-        //     }
-        // }
         getSchoolName(){
             console.log("school name changed")
             if(this.getResultLockForSchoolNameChange()){
@@ -176,7 +157,7 @@ export default {
     },
     methods: {
         ...mapActions([
-            'fetchingData',
+            'StudyDocuments_fetchingData',
             'setFilteredCourses',
             'cleanData',
             'updateFilters',
@@ -184,10 +165,10 @@ export default {
             'updateUserProfileData',
             'updateNewQuestionDialogState',
             'updateDialogState',
-            'nextPage'
+            'StudyDocuments_nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING"]),
-        ...mapGetters(["getCurrentVertical", "getNextPageUrl", "getResultLockForSchoolNameChange"]),     
+        ...mapGetters(["getCurrentVertical", "StudyDocuments_getNextPageUrl", "getResultLockForSchoolNameChange"]),     
         goToAskQuestion(){
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);
@@ -200,9 +181,9 @@ export default {
         },
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
-            let nextPageUrl = this.getNextPageUrl();
+            let nextPageUrl = this.StudyDocuments_getNextPageUrl();
             if(this.name !== this.pageData.vertical) return;
-            this.nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
+            this.StudyDocuments_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
                     if (res.data && res.data.length) {
                         this.scrollBehaviour.isLoading = false;
@@ -223,7 +204,7 @@ export default {
             this.scrollBehaviour.isComplete = true;
             const toName = to.path.slice(1);
             let params=  {...to.query, ...to.params, term: to.query.term};
-            this.fetchingData({name: toName, params}, true)
+            this.StudyDocuments_fetchingData({name: toName, params}, true)
                 .then((data) => {
                     //update data for this page
                     this.showFilterNotApplied = false;
@@ -295,7 +276,7 @@ export default {
         $_showSelectedFilter({value, key}) {
             return value;
         },
-        watchinNowStyle(item){
+        /*watchinNowStyle(item){
             let sameUser = false;
             let userId = this.accountUser ? this.accountUser.id : -1;
             if(!!item.user){
@@ -309,7 +290,7 @@ export default {
             'color': item.color !== 'default' ? 'white' : '',
             //'bottom' : sameUser ? '15px' : ''
             }
-        },
+        },*/
     },
 
     created() {
@@ -317,7 +298,7 @@ export default {
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
         //fetch data with the params
-            this.fetchingData({
+            this.StudyDocuments_fetchingData({
                 name: this.name,
                 params: {...this.query, ...this.params, term: this.userText},
                 skipLoad: this.$route.path.indexOf("question") > -1
