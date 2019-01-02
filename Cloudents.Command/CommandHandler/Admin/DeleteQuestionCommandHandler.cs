@@ -29,7 +29,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
             
 
-            if (!(question.User is RegularUser _))
+            if (!(question.User.Actual is RegularUser _))
             {
                 return;
             }
