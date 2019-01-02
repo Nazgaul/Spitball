@@ -55,8 +55,6 @@ namespace Cloudents.Command.CommandHandler
 
             }
 
-
-            //question.Transactions = null;
             foreach (var transaction in question.Transactions)
             {
                 transaction.Question = null;
@@ -67,8 +65,8 @@ namespace Cloudents.Command.CommandHandler
                 TransactionType.Stake, question.Price, user);
             await _transactionRepository.AddAsync(deleteQuestionTransaction, token);
 
-            question.Events.Add(new QuestionDeletedEvent(question));
-            await _repository.DeleteAsync(question, token).ConfigureAwait(false);
+            //question.Events.Add(new QuestionDeletedEvent(question));
+            await _repository.DeleteAsync(question, token);
 
         }
     }

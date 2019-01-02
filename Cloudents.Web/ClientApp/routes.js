@@ -1,6 +1,8 @@
 import * as RouteTypes from "./routeTypes";
 
 import resultContent from './components/results/Result.vue';
+import HomeworkHelpComponent from './components/results/HomeworkHelp/HomeworkHelp.vue';
+import StudyDocumentsComponent from './components/results/StudyDocuments/StudyDocuments.vue';
 import pageHeader from './components/header/header.vue';
 // import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
@@ -56,6 +58,14 @@ const resultProps = {
     default: dynamicPropsFn,
     header: headerResultPageFn
 };
+const homeworkHelpPage = {
+    default: HomeworkHelpComponent,
+    header: pageHeader,
+};
+const studyDocumentsPage = {
+    default: StudyDocumentsComponent,
+    header: pageHeader,
+};
 
 const bookDetailsProps = {
     default: dynamicDetailsPropsFn,
@@ -81,14 +91,50 @@ let routes2 = [
         name: "result",
         alias: [
             "/" + RouteTypes.marketRoute,
-            "/" + RouteTypes.questionRoute,
+            // "/" + RouteTypes.questionRoute,
             "/" + RouteTypes.flashcardRoute,
-            "/" + RouteTypes.notesRoute,
+            // "/" + RouteTypes.notesRoute,
             "/" + RouteTypes.tutorRoute,
             "/" + RouteTypes.bookRoute,
             "/" + RouteTypes.jobRoute
         ],
         components: resultPage,
+        props: resultProps,
+        meta: {
+            isAcademic: true,
+            analytics: {
+                pageviewTemplate(route) {
+                    return {
+                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
+                        path: route.path,
+                        location: window.location.href
+                    }
+                }
+            }
+        }
+    },
+    {
+        path: "/" + RouteTypes.questionRoute,
+        name: "ask",
+        components: homeworkHelpPage,
+        props: resultProps,
+        meta: {
+            isAcademic: true,
+            analytics: {
+                pageviewTemplate(route) {
+                    return {
+                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
+                        path: route.path,
+                        location: window.location.href
+                    }
+                }
+            }
+        }
+    },
+    {
+        path: "/" + RouteTypes.notesRoute,
+        name: "note",
+        components: studyDocumentsPage,
         props: resultProps,
         meta: {
             isAcademic: true,

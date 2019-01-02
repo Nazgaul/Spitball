@@ -5,7 +5,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IEventPublisher
     {
-        Task PublishAsync<T>(T eventMessage, CancellationToken token) where T : IEvent;
+       // Task PublishAsync<T>(T eventMessage, CancellationToken token) where T : IEvent;
         Task PublishAsync(IEvent eventMessage, CancellationToken token);
     }
 

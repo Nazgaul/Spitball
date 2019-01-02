@@ -29,10 +29,10 @@ export const signlaREvents = {
             })          
         },
         addviewr: function(question){
-            store.dispatch("addQuestionViewer", question);
+            store.dispatch("HomeworkHelp_addQuestionViewer", question);
         },
         removeviewer: function(question){
-            store.dispatch("removeQuestionViewer", question);
+            store.dispatch("HomeworkHelp_removeQuestionViewer", question);
         },
     },
     answer:{
@@ -46,7 +46,7 @@ export const signlaREvents = {
                     questionId: addedAnswerObj.questionId,
                     addCounter: true
                 }
-                store.dispatch('updateQuestionCounter', actionObj);
+                store.dispatch('HomeworkHelp_updateCounter', actionObj);
             })
         },
         delete: function(arrEventObj){
@@ -59,7 +59,7 @@ export const signlaREvents = {
                     questionId: removedAnswerObj.questionId,
                     addCounter: false
                 }
-                store.dispatch('updateQuestionCounter', actionObj);
+                store.dispatch('HomeworkHelp_updateCounter', actionObj);
             })
         }
     },
