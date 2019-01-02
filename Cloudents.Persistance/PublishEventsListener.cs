@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
@@ -26,7 +27,7 @@ namespace Cloudents.Persistance
         {
             if (entity is AggregateRoot p)
             {
-                foreach (var ev in p.Events)
+                foreach (var ev in p.Events.Distinct())
                 {
                     //Nhibernate doesn't support multiple async
                     await _eventPublisher.PublishAsync(ev, cancellationToken);

@@ -60,12 +60,14 @@ namespace Cloudents.Query
     public class UserPurchasedDocumentsQueryHandler : IQueryHandler<UserPurchaseDocumentByIdQuery, IEnumerable<DocumentFeedDto>>
     {
         private readonly DapperRepository _dapper;
+       // private readonly IMapper _mapper;
 
         
 
-        public UserPurchasedDocumentsQueryHandler(DapperRepository dapper)
+        public UserPurchasedDocumentsQueryHandler(DapperRepository dapper/*, IMapper mapper*/)
         {
             _dapper = dapper;
+//            _mapper = mapper;
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(UserPurchaseDocumentByIdQuery query, CancellationToken token)
         {
@@ -94,6 +96,7 @@ join sb.[User] u2 on u2.Id = d.UserId
 where t.User_id = @userId", new { userId = query.Id });
             }, token);
 
+            //return _mapper.Map<IEnumerable<DocumentFeedDto>>(result);
             return result.Select(s => new DocumentFeedDto()
             {
                 Price = s.Price,

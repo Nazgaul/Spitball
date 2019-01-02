@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using FluentNHibernate;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
@@ -11,10 +12,9 @@ namespace Cloudents.Persistance.Maps
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
             Map(e => e.Email)/*.Not.Nullable()*/.Unique();
             Map(e => e.PrivateKey);
-            Map(e => e.PhoneNumber).Column("PhoneNumberHash");
             Map(e => e.Name).Not.Nullable().Unique();
             Map(e => e.EmailConfirmed);
-            Map(e => e.PhoneNumberConfirmed);
+            
             Map(e => e.NormalizedName);
             Map(e => e.NormalizedEmail);
             Map(e => e.SecurityStamp);
@@ -26,12 +26,8 @@ namespace Cloudents.Persistance.Maps
 
             Map(e => e.Created).Insert().Not.Update();
             Map(e => e.Fictive).ReadOnly();
-            Map(e => e.FraudScore);
 
-            Map(e => e.PasswordHash).Nullable();
-            Map(e => e.LockoutEnd).Nullable();
-            Map(e => e.AccessFailedCount);
-            Map(e => e.LockoutEnabled);
+          
             Map(e => e.OldUser).Nullable();
 
             Map(e => e.Score);
@@ -48,10 +44,8 @@ namespace Cloudents.Persistance.Maps
             HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
-
-            HasMany(x => x.UserLogins)
-                .Inverse()
-                .Cascade.AllDeleteOrphan();
+            
+          
 
             //Map(x => x.Languages).CustomType<JsonType<ISet<CultureInfo>>>();
 
@@ -88,8 +82,17 @@ namespace Cloudents.Persistance.Maps
         {
 
             DiscriminatorValue(false);
-
+            Map(e => e.FraudScore);
+            Map(e => e.PhoneNumber).Column("PhoneNumberHash");
+            Map(e => e.PhoneNumberConfirmed);
+            Map(e => e.PasswordHash).Nullable();
+            Map(e => e.LockoutEnd).Nullable();
+            Map(e => e.AccessFailedCount);
+            Map(e => e.LockoutEnabled);
             HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore).Inverse()
+                .Cascade.AllDeleteOrphan();
+            HasMany(x => x.UserLogins)
+                .Inverse()
                 .Cascade.AllDeleteOrphan();
         }
     }
