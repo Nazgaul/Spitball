@@ -6,11 +6,15 @@ import reportService from "./../services/cardActionService"
 
 const LOCATION_VERTICALS = new Map([["tutor", true], ["job", true]]);
 const state = {
+    //< -----keep this area ----
     loading: false,
     serachLoading: false,
+    // -----keep this area ---->
+
+
     search: {},
     queItemsPerVertical: {
-        ask: [],
+        //ask: [],
         note: [],
         flashcard: [],
         tutor: [],
@@ -18,7 +22,7 @@ const state = {
         job: []
     },
     itemsPerVertical: {
-        ask: [],
+        //ask: [],
         note: [],
         flashcard: [],
         tutor: [],
@@ -26,7 +30,7 @@ const state = {
         job: []
     },
     itemsSkeletonPerVertical: {
-        ask: skeletonData.ask,
+        //ask: skeletonData.ask,
         note: skeletonData.note,
         flashcard: skeletonData.flashcard,
         tutor: skeletonData.tutor,
@@ -216,6 +220,7 @@ const mutations = {
 
 const getters = {
     getIsLoading: state => state.loading,
+    getSearchLoading: state => state.serachLoading,
     getSearchItems: function (state, {getCurrentVertical}) {
         if (getCurrentVertical === "") {
             return [];
@@ -398,19 +403,19 @@ const actions = {
     resetData({commit}) {
         commit(SEARCH.RESET_DATA)
     },
-    questionVote({commit, dispatch}, data) {
-        reputationService.voteQuestion(data.id, data.type).then(() => {
-            commit(SEARCH.UPDATE_QUESTION_VOTE, data);
-            dispatch('innerQuestionVote', data);
-            dispatch('profileVote', data);
-        }, (err) => {
-            let errorObj = {
-                toasterText: err.response.data.Id[0],
-                showToaster: true,
-            }
-            dispatch('updateToasterParams', errorObj);
-        })
-    },
+    // questionVote({commit, dispatch}, data) {
+    //     reputationService.voteQuestion(data.id, data.type).then(() => {
+    //         commit(SEARCH.UPDATE_QUESTION_VOTE, data);
+    //         dispatch('innerQuestionVote', data);
+    //         dispatch('profileVote', data);
+    //     }, (err) => {
+    //         let errorObj = {
+    //             toasterText: err.response.data.Id[0],
+    //             showToaster: true,
+    //         }
+    //         dispatch('updateToasterParams', errorObj);
+    //     })
+    // },
     documentVote({commit, dispatch}, data) {
         reputationService.voteDocument(data.id, data.type).then(() => {
             commit(SEARCH.UPDATE_DOCUMENT_VOTE, data);

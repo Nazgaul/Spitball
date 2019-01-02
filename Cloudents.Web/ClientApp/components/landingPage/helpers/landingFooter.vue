@@ -146,17 +146,18 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                justify-content: space-around;
+                justify-content: space-between;
                 height: 80px;
                 border-top: 1px solid #979797;
                 border-bottom: 1px solid #979797;
                 margin: 48px 0;
+                width: 40%;
+                max-width: 576px;
+                @media (max-width: @screen-xs) {
+                   width: 100%;
+                }
                 .social-link {
                     width: 50px;
-                    margin-right: 46px;
-                    @media (max-width: @screen-xs) {
-                        margin-right: 8px;
-                    }
                     i {
                         color: @color-white;
                         font-size: 22px;

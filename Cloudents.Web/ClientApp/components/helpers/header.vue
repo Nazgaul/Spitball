@@ -186,17 +186,7 @@
             },
 
             resetItems(){
-                if(this.$route.path === '/ask'){
-                    if(this.$route.fullPath === '/ask'){
-                        global.location.reload();
-                    }else{
-                        this.resetData();
-                        this.$router.push('/');
-                    }
-                }else{
-                    this.resetData();
-                    this.$router.push('/');
-                }
+                this.$router.push('/');
             },
             closeDrawer(){
                 this.drawer = !this.drawer;
