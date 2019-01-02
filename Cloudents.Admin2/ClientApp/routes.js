@@ -12,7 +12,7 @@ import QFlagged from './components/question/questionComponents/flaggedQuestions/
 import Answer from './components/answer/answer.vue'
 import ADelete from './components/answer/answerComponents/delete/deleteAnswer.vue'
 import AAccept from './components/answer/answerComponents/accept/acceptAnswer.vue'
-import APending from './components/answer/answerComponents/pendingAnswers/pendingAnswers.vue'
+import AFlagged from './components/answer/answerComponents/flaggedAnswers/flaggedAnswers.vue'
 
 import User from './components/user/user.vue'
 import UToken from './components/user/token/tokenUser.vue'
@@ -89,7 +89,7 @@ export const routes = [
         children: [
             {
               path: '',
-              redirect: 'delete',
+              redirect: 'flaggedAnswers',
             },
             {
                 path: 'delete',
@@ -101,8 +101,8 @@ export const routes = [
                 component: AAccept
             },
             {
-                path: 'pendingAnswers',
-                component: APending
+                path: 'flaggedAnswers',
+                component: AFlagged
             },
             {
               path: '*',

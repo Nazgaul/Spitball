@@ -26,6 +26,8 @@
                 <v-icon >sbf-professor</v-icon>
                 <span v-language:inner>upload_files_label_proff_name</span></label>
             <sb-input :bottomError="true"
+                      :autofocus="true"
+                      :focus="true"
                       v-model="professor" placeholder="upload_files_placeholder_proff_name" name="professor"
                       :type="'text'"
                       >
@@ -45,6 +47,7 @@
         },
         data() {
             return {
+
             }
         },
         computed: {

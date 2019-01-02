@@ -1,12 +1,12 @@
-﻿namespace Cloudents.Core.Event
-{
-    //public class QuestionRejectEvent : IEvent
-    //{
-    //    public QuestionRejectEvent(RegularUser user)
-    //    {
-    //        User = user;
-    //    }
+﻿//namespace Cloudents.Core.Event
+//{
+//    //public class QuestionRejectEvent : IEvent
+//    //{
+//    //    public QuestionRejectEvent(RegularUser user)
+//    //    {
+//    //        User = user;
+//    //    }
 
-    //    public RegularUser User { get; }
-    //}
-}
+//    //    public RegularUser User { get; }
+//    //}
+//}

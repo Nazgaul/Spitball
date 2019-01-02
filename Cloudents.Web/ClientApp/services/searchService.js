@@ -46,6 +46,7 @@ function AnswerItem(objInit){
     this.create = objInit.create;
     this.files = objInit.files;
     this.user = objInit.user;
+    this.isRtl = objInit.isRtl;
     this.votes = !!objInit.vote ? objInit.vote.votes : undefined;
     this.upvoted =!!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : undefined;
     this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : undefined;
@@ -100,6 +101,8 @@ function DocumentItem(objInit) {
     this.user = objInit.user;
     this.views = objInit.views;
     this.template = 'note';
+    this.price = objInit.price;
+    this.isPurchased = objInit.isPurchased;
     this.votes = !!objInit.vote ? objInit.vote.votes : null;
     this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
     this.downvoted = !!objInit.vote ? ( !!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;

@@ -1,5 +1,4 @@
-﻿using Cloudents.Common.Attributes;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum.Resources;
 
 namespace Cloudents.Core.Enum
@@ -8,13 +7,13 @@ namespace Cloudents.Core.Enum
     {
         All,
         [PublicValue]
-        [ResourceDescription(typeof(EnumResourcesOld), "QuestionFilterUnanswered")]
+        [ResourceDescription(typeof(EnumResources), "QuestionFilterUnanswered")]
         Unanswered,
         [PublicValue]
-        [ResourceDescription(typeof(EnumResourcesOld), "QuestionFilterAnswered")]
+        [ResourceDescription(typeof(EnumResources), "QuestionFilterAnswered")]
         Answered,
         [PublicValue]
-        [ResourceDescription(typeof(EnumResourcesOld), "QuestionFilterSold")]
+        [ResourceDescription(typeof(EnumResources), "QuestionFilterSold")]
         Sold
     }
 }

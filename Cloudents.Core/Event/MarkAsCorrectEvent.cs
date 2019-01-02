@@ -1,4 +1,4 @@
-﻿using Cloudents.Domain.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event

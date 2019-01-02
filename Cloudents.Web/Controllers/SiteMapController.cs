@@ -1,10 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using Cloudents.Core.Request;
-using Cloudents.Web.Services;
+﻿using Cloudents.Web.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
@@ -14,6 +8,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using Cloudents.Core;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 
 namespace Cloudents.Web.Controllers
 {
@@ -90,14 +91,14 @@ namespace Cloudents.Web.Controllers
                 await WriteTagAsync("1", "Daily", url, writer).ConfigureAwait(false);
                 if (iterator == 100)
                 {
-                    await writer.FlushAsync().ConfigureAwait(false);
+                    await writer.FlushAsync();
                     iterator = 0;
                 }
             }
-            await writer.WriteEndElementAsync().ConfigureAwait(false);
-            await writer.WriteEndDocumentAsync().ConfigureAwait(false);
-            await writer.FlushAsync().ConfigureAwait(false);
-            await response.Body.FlushAsync(token).ConfigureAwait(false);
+            await writer.WriteEndElementAsync();
+            await writer.WriteEndDocumentAsync();
+            await writer.FlushAsync();
+            await response.Body.FlushAsync(token);
         }
 
         [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription", Order = 2)]

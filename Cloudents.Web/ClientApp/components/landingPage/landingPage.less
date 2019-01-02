@@ -328,14 +328,14 @@ section {
       background-position-y: top;
       @media (max-width: @screen-xs) {
         background: url('./images/gif/earn_answer_question.gif') no-repeat;
-        background-size: contain;
+        background-size: cover;
       }
       &.learn {
         background: url('./images/gif/learn_answer_question.gif') no-repeat center center;
         background-position-y: top;
         @media (max-width: @screen-xs) {
           background: url('./images/gif/learn_answer_question.gif') no-repeat;
-          background-size: contain;
+          background-size: cover;
         }
       }
     }
@@ -347,14 +347,14 @@ section {
       background-position-y: top;
       @media (max-width: @screen-xs) {
         background: url('./images/gif/earn_upload.gif') no-repeat;
-        background-size: contain;
+        background-size: cover;
       }
       &.learn {
         background: url('./images/gif/learn_upload.gif') no-repeat center center;
         background-position-y: top;
         @media (max-width: @screen-xs) {
           background: url('./images/gif/learn_upload.gif') no-repeat;
-          background-size: contain;
+          background-size: cover;
         }
       }
     }
@@ -635,14 +635,20 @@ section {
 
     }
     .v-window__container {
+      //TODO removing display flex fix the issue on Edge check other browsers
+
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
       .v-window-item {
+        height: 100%;
+        width: 100%;
         .v-responsive__content {
           display: flex;
           flex-direction: row;
+          align-items: center;
+          justify-content: center;
           .review-item-wrap {
             display: flex;
             flex-direction: column;
@@ -752,7 +758,7 @@ section.faq {
     .faq-title {
       font-family: @fontPatua;
       font-size: 28px;
-      font-weight: normal;
+      font-weight: 600;
       margin-bottom: 8px;
       @media (max-width: @screen-xs) {
         font-size: 20px;

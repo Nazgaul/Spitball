@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Extensions

@@ -23,10 +23,10 @@ export default {
     data() {
         return {
             textAreaValue: "",
-            errorTextArea: {},
             errorHasAnswer: '',
             errorDuplicatedAnswer:'',
             answerFiles: [],
+            errorLength:{},
             //questionData: null,
             cardList: [],
             showForm: false,
@@ -45,7 +45,7 @@ export default {
         ...mapGetters(["getQuestion"]),
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
-                this.errorTextArea = {
+                this.errorLength= {
                     errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
                     errorClass: true
                 };
@@ -59,7 +59,7 @@ export default {
                 return
             }else{
                 this.errorDuplicatedAnswer = '';
-            };
+            }
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 self.textAreaValue = self.textAreaValue.trim();
@@ -87,7 +87,7 @@ export default {
         hasDuplicatiedAnswer(currentText, answers){  
             let duplicated = answers.filter(answer=>{
                 return answer.text.indexOf(currentText) > -1;
-            })
+            });
             return duplicated.length > 0;
         },
 
@@ -156,6 +156,9 @@ export default {
                 this.buildChat();
             }
         },
+        textAreaValue(){
+            this.errorLength = {};
+        },
         //fix for chat dissapearing on screen resize
         '$vuetify.breakpoint.smAndDown': 'buildChat',
         //watch route(url query) update, and het question data from server
@@ -165,6 +168,9 @@ export default {
         ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
         questionData(){
             return this.getQuestion();
+        },
+        errorTextArea(){
+                return this.errorLength
         },
         cardOwner(){
             return this.isCardOwner
@@ -180,7 +186,6 @@ export default {
             return val;
         },
         removeViewer() {
-            console.log("leaving question");
             sendEventList.question.removeViewer(this.questionData);
         },
     },

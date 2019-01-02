@@ -16,7 +16,8 @@ const state = {
     universityPopStorage:{
         session: !!window.sessionStorage.getItem('sb_uniSelectPoped_s'), //boolean
         local: window.localStorage.getItem('sb_uniSelectPoped_l') || 0 //integer
-    }
+    },
+    resultLockForSchoolNameChange: false
 };
 
 const getters = {
@@ -28,13 +29,19 @@ const getters = {
     getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
     getAllSteps: state => state.stepsEnum,
     getCurrentStep: state => state.currentStep,
-    getUniversityPopStorage: state => state.universityPopStorage
+    getUniversityPopStorage: state => state.universityPopStorage,
+    getResultLockForSchoolNameChange: state => state.resultLockForSchoolNameChange
 };
 
 const actions = {
-    syncUniData({commit}){
+    syncUniData({commit, dispatch}){
         universityService.getProfileUniversity().then((university)=>{
             commit('setSchoolName', university.text);
+            setTimeout(()=>{
+                dispatch('releaseResultLock');
+            }, 2000);
+            
+
         });
         universityService.getProfileCourses().then((courses)=>{
             if(courses.length > 0){
@@ -48,10 +55,14 @@ const actions = {
     changeSelectPopUpUniState({commit}, val){
         commit('setSelectPopUpUniState', val);
     },
-    updateSchoolName({commit}, val){
+    updateSchoolName({commit, dispatch}, val){
         if(!val) return;
         return universityService.assaignUniversity(val).then(()=>{
             commit('setSchoolName', val);
+            //update profile data with new university
+            let currentProfID = this.getters.accountUser.id;
+            
+            //dispatch("syncProfile", currentProfID);
             Promise.resolve(true);
         })
     },
@@ -93,7 +104,10 @@ const actions = {
             localPopedItem++;
             commit('setUniversityPopStorage', localPopedItem);
         }        
-    }
+    },
+    releaseResultLock({commit}){
+        commit('openResultLockForSchoolNameChange');
+    },
 };
 
 const mutations = {
@@ -124,6 +138,9 @@ const mutations = {
         state.universityPopStorage.session = true;
         state.universityPopStorage.local = val;
 
+    },
+    openResultLockForSchoolNameChange(state){
+        state.resultLockForSchoolNameChange = true;
     }
 };
 

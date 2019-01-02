@@ -1,10 +1,10 @@
 <template>
-    <a
+    <div
             :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
-            @click.native="(isOurs ? $_spitball($event, url): '')"
-            :href="url"
+            @click="(isOurs ? $_spitball($event, url): $_thirdPartyEvent($event, url))"
             id="sb-link"
             :class="['d-block', 'note-block']"
+            :href="url"
     >
         <v-container
                 class="pa-0"
@@ -25,13 +25,14 @@
                         </div>
                     </div>
                     <div class="document-header-small-sagment">
-                        <!--<div class="price-area" :class="{'sold': isSold}">-->
-                        <!--{{item.price.toFixed(2)}}-->
-                        <!--<span>SBL</span>-->
-                        <!--</div>-->
+                        <div  v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
+                        {{item.price ? item.price.toFixed(2): ''}}
+                        <span>SBL</span>
+                        </div>
+                        <div  v-show="!item.price" class="price-area" :class="{'isPurchased': isPurchased}" v-language:inner>resultNote_free</div>
                         <div class="menu-area">
-                            <v-menu bottom left content-class="card-user-actions">
-                                <v-btn :depressed="true" @click.prevent slot="activator" icon>
+                            <v-menu bottom left content-class="card-user-actions" v-model="showMenu">
+                                <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()"   slot="activator" icon>
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
@@ -46,11 +47,11 @@
                 </div>
                 <v-flex grow class="top-row">
                     <div class="upvotes-counter" v-if="item.votes !== null">
-            <span class="document-reputation upvote-arrow" @click.prevent="upvoteDocument()">
+            <span class="document-reputation upvote-arrow" @click.stop.prevent="upvoteDocument()">
               <v-icon :class="{'voted': item.upvoted}">sbf-arrow-up</v-icon>
             </span>
                         <span class="document-reputation document-score" :dir="isRtl ? `ltr` : ''">{{item.votes}}</span>
-                        <span class="document-reputation downvote-arrow" @click.prevent="downvoteDocument()">
+                        <span class="document-reputation downvote-arrow" @click.stop.prevent="downvoteDocument()">
               <v-icon :class="{'voted': item.downvoted}">sbf-arrow-down</v-icon>
             </span>
                     </div>
@@ -74,7 +75,7 @@
                     </div>
                 </v-flex>
 
-                <v-flex grow class="doc-details">
+                <v-flex v-show="isOurs" grow class="doc-details">
                     <div class="doc-actions-info">
                         <v-icon class="sb-doc-icon mr-1">sbf-download-cloud</v-icon>
                         <span class="sb-doc-info downloads">{{docDownloads}}</span>
@@ -92,7 +93,7 @@
         >
             <report-item :closeReport="closeReportDialog" :itemType="item.template" :itemId="itemId"></report-item>
         </sb-dialog>
-    </a>
+    </div>
 </template>
 <script>
     import FlashcardDefault from "../helpers/img/flashcard.svg";
@@ -130,7 +131,8 @@
                 ],
                 itemId: 0,
                 showReport: false,
-                isRtl: global.isRtl
+                isRtl: global.isRtl,
+                showMenu: false
             };
         },
         props: {item: {type: Object, required: true}, index: {Number}},
@@ -140,7 +142,9 @@
                     return this.item.user.score;
                 }
             },
-
+            isPurchased(){
+                return this.item.isPurchased
+            },
             type() {
                 let self = this;
                 if (!!self.item.type) {
@@ -179,12 +183,12 @@
             },
             docViews() {
                 if (this.item) {
-                    return this.item.views || 0;
+                    return this.item.views;
                 }
             },
             docDownloads() {
                 if (this.item) {
-                    return this.item.downloads || 0;
+                    return this.item.downloads;
                 }
             },
             uploadDate() {
@@ -197,7 +201,7 @@
             isOurs() {
                 let ours;
                 if (this.item && this.item.source) {
-                    ours = this.item.source.toLowerCase().includes("cloudents") || this.item.source.toLowerCase().includes("spitball");
+                    ours = this.item.source.toLowerCase().includes("cloudents");
                 }
                 return ours
             },
@@ -221,9 +225,9 @@
                 let isOwner, account, notEnough;
                 isOwner = this.cardOwner();
                 account = this.accountUser();
-                if (account && account.score) {
-                    notEnough = account.score < 400
-                }
+                // if (account && account.score) {
+                //     notEnough = account.score < 400
+                // }
                 if (isOwner || !account || notEnough) {
                     return true
                 }
@@ -235,15 +239,23 @@
             closeReportDialog() {
                 this.showReport = false;
             },
-            $_spitball(event) {
-                console.log('our event', event);
+            showReportOptions(){
+              this.showMenu =true
+            },
+            //our docs event
+            $_spitball(event, url) {
                 event.preventDefault();
-                this.$router.push(this.url);
+                this.$router.push(url);
                 setTimeout(() => {
                     if (this.item && this.item.views) {
                         this.item.views = this.item.views + 1;
                     }
                 }, 100);
+            },
+            //third party docs event
+            $_thirdPartyEvent(event, url){
+                event.preventDefault();
+                global.open(url, '_blank');
             },
 
             isAuthUser() {

@@ -144,4 +144,7 @@
   <data name="emptyState_documents_text" xml:space="preserve">
     <value>Share your study documents</value>
   </data>
+  <data name="purchased_documents" xml:space="preserve">
+    <value>Purchased Documents</value>
+  </data>
 </root>

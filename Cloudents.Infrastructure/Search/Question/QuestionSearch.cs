@@ -1,15 +1,16 @@
-﻿using Cloudents.Core.Attributes;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Common;
 using Cloudents.Core.Questions.Queries.GetQuestionsList;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 
 namespace Cloudents.Infrastructure.Search.Question
 {

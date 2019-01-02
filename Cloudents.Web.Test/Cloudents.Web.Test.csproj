@@ -36,12 +36,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Autofac.Extras.Moq" Version="4.3.0" />
-    <PackageReference Include="FluentAssertions" Version="5.5.0" />
+    <PackageReference Include="FluentAssertions" Version="5.5.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core.Test\Cloudents.Core.Test.csproj" />
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
+    <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
     <ProjectReference Include="..\Cloudents.Web\Cloudents.Web.csproj" />
   </ItemGroup>
  </Project>

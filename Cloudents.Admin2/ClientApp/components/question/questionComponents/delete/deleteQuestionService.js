@@ -6,7 +6,7 @@ import {connectivityModule} from '../../../../services/connectivity.module'
         let query = "";
         ids.forEach(function(id, index){
             query += index === 0 ? `?id=${id}` : `&id=${id}`
-        })
+        });
         return query;
     }
 

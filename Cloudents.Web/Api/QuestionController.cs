@@ -1,16 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.Command;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Item.Commands.FlagItem;
-using Cloudents.Core.Models;
-using Cloudents.Core.Query;
-using Cloudents.Core.Votes.Commands.AddVoteQuestion;
-using Cloudents.Domain.Entities;
-using Cloudents.Web.Binders;
+﻿using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -25,7 +13,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Command.Item.Commands.FlagItem;
+using Cloudents.Command.Votes.Commands.AddVoteQuestion;
+using Cloudents.Core;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
+using Cloudents.Core.Query;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 using Cloudents.Web.Hubs;
+using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
@@ -235,7 +239,7 @@ namespace Cloudents.Web.Api
             {
                 Result = result.Result.Select(s =>
                 {
-                    if (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param))
+                    if (s != null && (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param)))
                     {
                         s.Vote.Vote = param;
                     }

@@ -1,6 +1,4 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Entities.Search;
 
 namespace Cloudents.Core.Message.System
 {

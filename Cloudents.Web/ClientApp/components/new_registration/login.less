@@ -356,42 +356,7 @@
       }
     }
   }
-  .progress {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    position: absolute;
-    right: 0;
-    .responsive-property(bottom, 64px, null, 16px);
 
-    @media only screen
-    and (min-device-width: 768px)
-    and (max-device-width: 1024px)
-    and (orientation: portrait) {
-      width: 100%;
-      left: 0;
-      right: 0;
-    }
-
-    @media (max-width: @screen-xs) {
-      width: 100%;
-    }
-
-    div {
-      background: #d8d8d8;
-      width: 12px;
-      height: 12px;
-      border-radius: 100%;
-      margin: 6px;
-
-      &.highlighted {
-        background: @color-main-purple;
-        width: 16px;
-        height: 16px;
-      }
-    }
-  }
   .signin-strip {
     color: #888b8e;
     font-size: 16px;

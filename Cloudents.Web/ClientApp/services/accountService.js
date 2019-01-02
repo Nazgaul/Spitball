@@ -26,6 +26,8 @@ function ProfileData(arrInit){
         }
     }) || [];
     this.documents= arrInit[3].data.map(searchService.createDocumentItem) || [];
+    this.purchasedDocuments= arrInit[4].data.map(searchService.createDocumentItem) || [];
+
 }
 
 export default {
@@ -47,16 +49,22 @@ export default {
         return connectivityModule.http.get(`/Profile/${id}`)
     },
     getProfileQuestions:(id, page) => {
-        let strPage = page ? `?page=${page}` : ""
+        let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`Profile/${id}/questions/${strPage}`)
     },
     getProfileAnswers:(id, page) => {
-        let strPage = page ? `?page=${page}` : ""
+        let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`)
     },
     getProfileDocuments:(id, page) => {
-        let strPage = page ? `?page=${page}` : ""
+        let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`)
+    },
+    getProfilePurchasedDocuments:(id, page)=>{
+        let strPage = page ? `?page=${page}` : "";
+        return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`)
+
+
     },
     createProfileData: (arrInit)=>{
         return new ProfileData(arrInit);

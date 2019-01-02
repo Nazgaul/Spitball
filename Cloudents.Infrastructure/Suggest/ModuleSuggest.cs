@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
@@ -8,9 +7,6 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Suggest
 {
-    [ModuleRegistration(Core.Enum.System.Console)]
-    //[ModuleRegistration(Core.Enum.System.Api)]
-    [ModuleRegistration(Core.Enum.System.Web)]
     [UsedImplicitly]
     public class ModuleSuggest : Module
     {

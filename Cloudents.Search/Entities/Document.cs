@@ -1,10 +1,10 @@
-﻿using Cloudents.Common.Enum;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Search.Interfaces;
+﻿using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Search.Entities
 {
@@ -13,6 +13,8 @@ namespace Cloudents.Search.Entities
 
     public class Document : ISearchObject
     {
+        public const string CourseNameField = "Course2";
+        public const string UniversityIdFieldName = "University";
 
         public static Document FromDto(DocumentSearchDto obj)
         {
@@ -43,14 +45,14 @@ namespace Cloudents.Search.Entities
 
         [IsSearchable, IsFilterable]
         public string[] Tags { get; set; }
-        [IsFilterable, IsSearchable, JsonProperty("Course2")]
+        [IsFilterable, IsSearchable, JsonProperty(CourseNameField)]
         public string Course { get; set; }
         [IsFilterable, IsFacetable]
         public string Country { get; set; }
         [IsFilterable, IsSearchable, JsonProperty("University2")]
         public string UniversityName { get; set; }
 
-        [IsFilterable,  JsonProperty("University")]
+        [IsFilterable,  JsonProperty(UniversityIdFieldName)]
         public Guid? UniversityId { get; set; }
 
         [IsSortable, IsFilterable]

@@ -3,7 +3,8 @@
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <h1 class="item-name">{{itemName}} <span class="doc-extension" v-show="item && item.extension">({{item ? item.extension : ''}})</span></h1>
+                    <h1 class="item-name" >{{itemName}} <span class="doc-extension" v-show="item && item.extension">({{item ? item.extension : ''}})</span>
+                    </h1>
                     <div class="doc-details">
                         <div class="author">
                         <span class="upload-by">
@@ -33,7 +34,7 @@
                     </div>
                     <div class="ml-4 downloaded">
                         <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
-                        <span class="downloaded-text">{{item.views}}</span>
+                        <span class="downloaded-text">{{item.downloads}}</span>
                     </div>
                 </div>
                 <div class="details" v-if="$vuetify.breakpoint.smAndUp">
@@ -55,8 +56,27 @@
                     </div>
                 </div>
                 <div class="views details">
-                    <v-layout column  fill-height justify-space-between>
-                        <v-flex>
+                    <v-layout column fill-height justify-space-between>
+                        <v-flex v-show="!isPurchased">
+                            <a target="_blank" @click="showPurchaseConfirm()">
+                                <div class="buy-action-container">
+                                    <div class="buy-text-wrap">
+                                        <span class="buy-text-price">
+                                            <span class="mobile-buy-text hidden-sm-and-up"  v-language:inner>preview_itemActions_buy</span>
+                                            {{item.price && item.price ? item.price.toFixed(2) : '00.00'}}
+                                            <span class="sbl-suffix">SBL</span>
+                                        </span>
+                                        <span class="equals-to-dollar hidden-xs-only">
+                                            <span v-language:inner>preview_price_equals_to</span>
+                                            {{item.price ? item.price : 0 | dollarVal}}$</span>
+                                    </div>
+                                    <div class="buy-btn-wrap">
+                                        <span class="buy-text" v-language:inner>preview_itemActions_buy</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </v-flex>
+                        <v-flex v-show="isPurchased">
                             <a target="_blank" @click="downloadDoc()">
                                 <div class="download-action-container">
                                     <div class="text-wrap">
@@ -64,7 +84,6 @@
                                         <v-icon class="download-icon-mob ml-2" v-if="$vuetify.breakpoint.xsOnly">
                                             sbf-download-cloud
                                         </v-icon>
-
                                     </div>
                                     <div class="btn-wrap">
                                         <v-icon class="sb-download-icon">sbf-download-cloud</v-icon>
@@ -75,22 +94,54 @@
                     </v-layout>
                 </div>
             </v-layout>
-            <v-layout row  fill-height justify-end>
-            <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.smAndUp">
-                <div class="viewed">
-                    <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
-                    <span class="viewed-text">{{item  ? item.views : ''}}</span>
+            <v-layout row fill-height justify-end class="pt-4" v-if="$vuetify.breakpoint.smAndUp">
+                <div class="detail-cell views-cell" >
+                    <div class="viewed">
+                        <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
+                        <span class="viewed-text">{{item  ? item.views : ''}}</span>
+                    </div>
+                    <div class="ml-4 downloaded">
+                        <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
+                        <span class="downloaded-text">{{item? item.downloads: ''}}</span>
+                    </div>
                 </div>
-                <div class="ml-4 downloaded">
-                    <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
-                    <span class="downloaded-text">{{item? item.downloads: ''}}</span>
-                </div>
-            </div>
             </v-layout>
             <div class="details mobile" v-if="!$vuetify.breakpoint.smAndUp">
                 <document-details :item="item"></document-details>
             </div>
         </div>
+        <sb-dialog :showDialog="confirmPurchaseDialog"
+                   :popUpType="'purchaseConfirmation'"
+                   :isPersistent="true"
+                   :activateOverlay="true"
+                   :content-class="'confirmation-purchase-dialog'">
+            <v-card class="confirm-purchase-card">
+                <v-card-title class="confirm-headline">
+                    <span v-language:inner>preview_about_to_buy</span>
+                    <span>&nbsp;{{doc ? doc.title: ''}}</span>
+                </v-card-title>
+                <v-card-actions class="card-actions">
+                    <div class="doc-details">
+                        <div class="doc-type">
+                            <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
+                            <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
+                        </div>
+                        <div class="doc-title">
+                            <span v-line-clamp="1">{{itemName  ? itemName : ''}}</span>
+                        </div>
+                    </div>
+                    <div class="purchase-actions">
+                        <v-btn flat class="cancel" @click.native="confirmPurchaseDialog = false"><span v-language:inner>preview_cancel</span>
+                        </v-btn>
+                        <v-btn round class="submit-purchase" @click.native="purchaseDocument(item.id)">
+                            <span class="hidden-xs-only" v-language:inner>preview_buy_btn</span>
+                            <span class="hidden-sm-and-up text-uppercase" v-language:inner>preview_itemActions_buy</span>
+                        </v-btn>
+                    </div>
+                </v-card-actions>
+            </v-card>
+
+        </sb-dialog>
     </div>
 </template>
 <script>
@@ -98,41 +149,75 @@
     import mainHeader from '../helpers/header.vue';
     import { mapGetters, mapActions } from 'vuex';
     import { documentTypes } from '../results/helpers/uploadFiles/consts';
-    import documentDetails from '../results/helpers/documentDetails/documentDetails.vue'
+    import documentDetails from '../results/helpers/documentDetails/documentDetails.vue';
+    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 
     export default {
         components: {
             mainHeader,
             itemActions,
-            documentDetails
+            documentDetails,
+            sbDialog
         },
+        data() {
+            return {
+                 confirmPurchaseDialog: false
+            }
+        },
+
         methods: {
             ...mapActions([
                 'updateLoginDialogState',
+                'purchaseAction',
+                'updateDownloadsCount'
             ]),
             ...mapGetters(['accountUser']),
             downloadDoc() {
                 let url = this.$route.path + '/download';
                 if (!!this.accountUser()) {
                     global.location.href = url;
+                    this.updateDownloadsCount()
                 } else {
                     this.updateLoginDialogState(true)
                 }
             },
+            showPurchaseConfirm() {
+                let isLogedIn = this.accountUser();
+                if(isLogedIn){
+                    this.confirmPurchaseDialog = true;
+                }else{
+                    this.updateLoginDialogState(true);
+                }
+
+            },
+            purchaseDocument() {
+                let item = this.item;
+                this.purchaseAction(item);
+                this.confirmPurchaseDialog = false;
+            }
         },
         computed: {
             ...mapGetters(['getDocumentDetails']),
             item() {
+                if(!!this.getDocumentDetails)
                 return this.getDocumentDetails
             },
-            itemName(){
-                if(this.item && this.item.name)
-                return this.item.name.replace(/\.[^/.]+$/, "")
+            itemName() {
+                if (this.item && this.item.name)
+                    return this.item.name.replace(/\.[^/.]+$/, "")
             },
+            isPurchased:{
+                get(){
+                    return this.item && this.item.isPurchased
+                },
+                set(val){
+                    return this.item.isPurchased = val
+                }
 
+            },
             doc() {
                 let self = this;
-                if(self.item && self.item.docType && documentTypes) {
+                if (self.item && self.item.docType && documentTypes) {
                     return self.item.docType = documentTypes.find((singleType) => {
                         if (singleType.id.toLowerCase() === self.item.docType.toLowerCase()) {
                             return singleType
@@ -144,14 +229,13 @@
                 if (this.item && this.item.user && this.item.user.name)
                     return this.item.user.name
             },
-             uploadDate(){
-              if(this.item && this.item.date){
-                 return this.$options.filters.fullMonthDate(this.item.date);
-              }else{
-                  return ''
-              }
+            uploadDate() {
+                if (this.item && this.item.date) {
+                    return this.$options.filters.fullMonthDate(this.item.date);
+                } else {
+                    return ''
+                }
             },
-
         },
 
         filters: {

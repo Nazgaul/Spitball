@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
+﻿//using System.Collections.Generic;
+//using Cloudents.Application.DTOs;
+//using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Query
-{
-    public class EmptyQuery : IQuery<IEnumerable<SiteMapCountDto>>
-    {
+//namespace Cloudents.Application.Query
+//{
+//    public class EmptyQuery : IQuery<IEnumerable<SiteMapCountDto>>
+//    {
         
-    }
-}
+//    }
+//}

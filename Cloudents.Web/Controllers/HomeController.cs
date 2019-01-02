@@ -1,7 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Domain.Entities;
-using Cloudents.Web.Filters;
-using Cloudents.Web.Hubs;
+﻿using Cloudents.Web.Hubs;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +6,8 @@ using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.Controllers
 {

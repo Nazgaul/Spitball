@@ -1,14 +1,11 @@
-﻿using System;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
-using Cloudents.Domain.Enums;
+﻿using Cloudents.Core.Enum;
 
 namespace Cloudents.Core
 {
     public static class Privileges
     {
         public const int Post = 150;
-        public const int Flag = 400;
+        //public const int Flag = 400;
         //public const int UpVote = 200;
         //public const int DownVote = 250;
 
@@ -37,9 +34,9 @@ namespace Cloudents.Core
         //    }
         //}
 
-        public static bool CanFlag(int score)
-        {
-            return score >= Flag;
-        }
+        //public static bool CanFlag(int score)
+        //{
+        //    return score >= Flag;
+        //}
     }
 }

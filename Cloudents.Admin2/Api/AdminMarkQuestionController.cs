@@ -1,13 +1,15 @@
 ﻿using Cloudents.Admin2.Models;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Query;
+using Cloudents.Query.Query;
+using Cloudents.Query.Query.Admin;
 
 namespace Cloudents.Admin2.Api
 {
@@ -50,9 +52,12 @@ namespace Cloudents.Admin2.Api
 
             Debug.Assert(model.AnswerId != null, "Model.AnswerId != null");
             Debug.Assert(model.QuestionId != null, "Model.QuestionId != null");
-            var command = new MarkAnswerAsCorrectCommand(model.AnswerId.Value, model.QuestionId.Value);
 
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            var query = new QuestionDataByIdQuery(model.QuestionId.Value);
+            var questionDto = await _queryBus.QueryAsync(query, token);
+            var command = new MarkAnswerAsCorrectCommand(model.AnswerId.Value, questionDto.User.Id);
+
+            await _commandBus.DispatchAsync(command, token);
         }
 
 

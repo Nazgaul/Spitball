@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.System;
-using Cloudents.Core.Storage;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {

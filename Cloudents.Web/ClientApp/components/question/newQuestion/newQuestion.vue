@@ -56,7 +56,7 @@
                                      v-if="index<3" :key="index">
                                     <input :disabled="pricey > thirtyPercent" :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
                                            :value="pricey" v-model="selectedPrice">
-                                    <label :for="`${pricey}pts`">{{pricey}} SBL</label>
+                                    <label :for="`${pricey}pts`"><bdi>{{pricey}} SBL</bdi></label>
                                 </div>
                             </div>
                             <div class="points-line">
@@ -64,8 +64,8 @@
                                      v-if="index>=3" :key="index">
                                     <input :disabled="pricey > thirtyPercent" :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
                                            :value="pricey" v-model="selectedPrice">
-                                    <label :for="`${pricey}pts`">{{pricey}} <span
-                                            v-language:inner>newQuestion_SBL</span></label>
+                                    <label :for="`${pricey}pts`"><bdi>{{pricey}} <span
+                                            v-language:inner>newQuestion_SBL</span></bdi></label>
                                 </div>
                                 <div class="point-btn other inputBorder">
                                     <input type="number" placeholder="newQuestion_otherAmount_placeholder"

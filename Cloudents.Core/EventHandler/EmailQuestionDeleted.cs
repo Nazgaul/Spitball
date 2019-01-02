@@ -1,12 +1,12 @@
-﻿using Cloudents.Domain.Entities;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
@@ -24,9 +24,9 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
         {
-            if (eventMessage.User != null)
+            if (eventMessage.Question.User is RegularUser u)
             {
-                return SendEmailAsync(eventMessage.User, token);
+                return SendEmailAsync(u, token);
             }
 
             return Task.CompletedTask;

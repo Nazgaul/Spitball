@@ -10,18 +10,8 @@
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
-    <PackageReference Include="Autofac" Version="4.6.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cloudents.Common\Cloudents.Common.csproj" />
-    <ProjectReference Include="..\Cloudents.Domain\Cloudents.Domain.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Enum\Resources\EnumResourcesOld.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Enum\Resources\QuestionSubjectResources.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
+    <Folder Include="Entities\Entities\" />
   </ItemGroup>
 </Project>

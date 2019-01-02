@@ -1,7 +1,5 @@
-﻿using Cloudents.Core.Entities.Search;
-using System;
+﻿using System;
 using Cloudents.Core.Enum;
-using Cloudents.Domain.Enums;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
@@ -19,7 +17,7 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string Language { get; set; }
 
 
-        public Common.QuestionSubject? Subject { get; set; } // facetable
+        public QuestionSubject? Subject { get; set; } // facetable
         public ItemState? State { get; set; }
 
 

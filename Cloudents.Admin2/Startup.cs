@@ -1,15 +1,14 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Admin2.Extensions;
-using Cloudents.Core;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,8 +17,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Reflection;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Admin2
 {
@@ -59,7 +58,7 @@ namespace Cloudents.Admin2
                         .Build();
                     config.Filters.Add(new AuthorizeFilter(policy));
                 }
-              
+
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             if (HostingEnvironment.IsDevelopment())
@@ -71,6 +70,7 @@ namespace Cloudents.Admin2
                 Assembly.Load("Cloudents.Core"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Persistance"),
                 Assembly.GetExecutingAssembly()
             };
 
@@ -85,9 +85,10 @@ namespace Cloudents.Admin2
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
-            containerBuilder.RegisterSystemModules(
-                Core.Enum.System.Admin, assembliesOfProgram);
 
+            //containerBuilder.RegisterSystemModules(
+            //    Application.Enum.System.Admin, assembliesOfProgram);
+            containerBuilder.RegisterAssemblyModules(assembliesOfProgram);
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
@@ -110,7 +111,7 @@ namespace Cloudents.Admin2
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                
+
             }
 
             app.UseHttpsRedirection();
@@ -119,7 +120,7 @@ namespace Cloudents.Admin2
             {
                 app.UseAuthentication();
             }
-           
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

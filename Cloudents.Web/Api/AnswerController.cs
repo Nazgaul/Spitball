@@ -1,11 +1,4 @@
-﻿using Cloudents.Core.Command;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Item.Commands.FlagItem;
-using Cloudents.Core.Query;
-using Cloudents.Core.Votes.Commands.AddVoteAnswer;
-using Cloudents.Domain.Entities;
-using Cloudents.Web.Extensions;
+﻿using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +7,15 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Command.Item.Commands.FlagItem;
+using Cloudents.Command.Votes.Commands.AddVoteAnswer;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
+using Cloudents.Query;
+using Cloudents.Query.Query;
+using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Api
 {

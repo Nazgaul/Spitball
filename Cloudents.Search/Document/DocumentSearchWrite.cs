@@ -1,8 +1,7 @@
-﻿using System;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
+using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
-using Microsoft.Azure.Search;
 
 namespace Cloudents.Search.Document
 {
@@ -23,7 +22,7 @@ namespace Cloudents.Search.Document
 
         protected override Index GetIndexStructure(string indexName)
         {
-            var index =  new Index
+            var index = new Index
             {
                 Name = indexName,
                 Fields = FieldBuilder.BuildForType<Entities.Document>(new SearchIndexEnumToIntContractResolver()),
@@ -40,8 +39,8 @@ namespace Cloudents.Search.Document
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new TagScoringFunction(nameof(Entities.Document.Course),2, new TagScoringParameters(TagsCourseParameter)),
-                            new TagScoringFunction("University",3, new TagScoringParameters(TagsUniversityParameter)),
+                            new TagScoringFunction(Entities.Document.CourseNameField,2, new TagScoringParameters(TagsCourseParameter)),
+                            new TagScoringFunction(Entities.Document.UniversityIdFieldName,3, new TagScoringParameters(TagsUniversityParameter)),
                             new TagScoringFunction(nameof(Entities.Document.Tags),1.5, new TagScoringParameters(TagsTagsParameter)),
                         }
                     }
@@ -52,10 +51,6 @@ namespace Cloudents.Search.Document
             {
                 IsFilterable = true
             });
-            //index.Fields.Add(new Field("University", DataType.String)
-            //{
-            //    IsFilterable = true
-            //});
             index.Fields.Add(new Field("Course", DataType.String)
             {
                 IsFilterable = true

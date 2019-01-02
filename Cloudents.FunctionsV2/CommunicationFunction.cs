@@ -1,5 +1,3 @@
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -11,7 +9,9 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 

@@ -182,7 +182,7 @@ let routes2 = [
         },
         name: "wallet",
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         },
         props: {
             header: () => ({

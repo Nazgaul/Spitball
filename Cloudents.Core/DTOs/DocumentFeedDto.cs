@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Cloudents.Common.Enum;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -44,6 +43,10 @@ namespace Cloudents.Core.DTOs
         public DateTime? DateTime { get; set; }
 
         [DataMember] public VoteDto Vote { get; set; }
+
+        [DataMember]
+        public decimal? Price { get; set; }
+
     }
 
     public class VoteDto

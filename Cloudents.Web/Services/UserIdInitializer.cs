@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Claims;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -16,15 +17,17 @@ namespace Cloudents.Web.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<RegularUser> _userManager;
-        // private readonly ILogger _signInManager;
         private readonly IDataProtectionProvider _dataProtectProvider;
+        private readonly ILogger _logger;
 
-        public UserIdInitializer(IHttpContextAccessor httpContextAccessor, UserManager<RegularUser> userManager,IDataProtectionProvider dataProtect)
+        public UserIdInitializer(IHttpContextAccessor httpContextAccessor, UserManager<RegularUser> userManager,
+            IDataProtectionProvider dataProtect, ILogger logger)
 
         {
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
             _dataProtectProvider = dataProtect;
+            _logger = logger;
         }
 
         public void Initialize(ITelemetry telemetry)
@@ -63,30 +66,14 @@ namespace Cloudents.Web.Services
                             telemetry.Context.Session.Id = val.Value;
                         }
                     }
-                    catch(Exception ex) 
+                    catch (Exception ex)
                     {
-                        
+                        _logger.Exception(ex);
+                        // ignored
                     }
 
-                    // return ticket.Principal.Claims;
                 }
-                //return null;
-                //var z = _httpContextAccessor.HttpContext.AuthenticateAsync(IdentityConstants.TwoFactorUserIdScheme).Result;
-
-                //if (z.Succeeded)
-                //{
-
-                //}
-
-                //var val = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Name);
-                //if (val != null)
-                //{
-                //    telemetry.Context.User.Id = val.Value;
-                //    telemetry.Context.Session.Id = val.Value;
-                //}
-
-
-                //if (_userManager.Get)
+              
             }
         }
     }

@@ -12,10 +12,7 @@ namespace Cloudents.FunctionsV2.Binders
 
         private static readonly ConcurrentDictionary<string, ISearchIndexClient> IndexClients =
             new ConcurrentDictionary<string, ISearchIndexClient>();
-        public AzureSearchSyncProvider()
-        {
 
-        }
         public void Initialize(ExtensionConfigContext context)
         {
             context

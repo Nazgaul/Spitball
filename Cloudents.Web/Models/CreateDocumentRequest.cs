@@ -1,9 +1,9 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Cloudents.Common.Enum;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Web.Resources;
 using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
@@ -18,12 +18,14 @@ namespace Cloudents.Web.Models
         public DocumentType Type { get; set; }
 
         [Required]
-        [StringLength(Domain.Entities.Course.MaxLength,ErrorMessage = "StringLength", MinimumLength = Domain.Entities.Course.MinLength)]
+        [StringLength(Core.Entities.Course.MaxLength,ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
         public string Course { get; set; }
         [CanBeNull]
         public string[] Tags { get; set; }
 
         public string Professor { get; set; }
+
+        public decimal Price { get; set; }
 
 
 
@@ -36,7 +38,7 @@ namespace Cloudents.Web.Models
             {
                 foreach (var tag in Tags)
                 {
-                    if (tag.Contains(","))
+                    if (!Tag.ValidateTag(tag))
                     {
                         var errorMessage = "Invalid length";
                         if (stringLocalizer != null)
@@ -47,21 +49,21 @@ namespace Cloudents.Web.Models
                         yield return new ValidationResult(
                             errorMessage,
                             new[] { nameof(Tags) });
-                        
                     }
-                    if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
-                    {
+                    
+                    //if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
+                    //{
                       
-                        var errorMessage = "Invalid length";
-                        if (stringLocalizer != null)
-                        {
-                            errorMessage = stringLocalizer["StringLength"];
-                        }
+                    //    var errorMessage = "Invalid length";
+                    //    if (stringLocalizer != null)
+                    //    {
+                    //        errorMessage = stringLocalizer["StringLength"];
+                    //    }
 
-                        yield return new ValidationResult(
-                            errorMessage,
-                            new[] {nameof(Tags)});
-                    }
+                    //    yield return new ValidationResult(
+                    //        errorMessage,
+                    //        new[] {nameof(Tags)});
+                    //}
                 }
             }
         }

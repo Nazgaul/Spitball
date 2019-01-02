@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization;
-using Cloudents.Common.Enum;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -9,6 +8,8 @@ namespace Cloudents.Core.DTOs
     [DataContract]
     public class DocumentDetailDto
     {
+        [DataMember]
+        public long Id{ get; set; }
         [DataMember]
         public string Name { get; set; }
 
@@ -48,6 +49,11 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public int Downloads { get; set; }
 
+        [DataMember]
+        public decimal? Price { get; set; }
+
+        [DataMember]
+        public bool IsPurchased { get; set; }
 
         //[DataMember]
         //public string Blob { get; set; }

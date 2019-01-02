@@ -1,16 +1,15 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Storage;
-using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {

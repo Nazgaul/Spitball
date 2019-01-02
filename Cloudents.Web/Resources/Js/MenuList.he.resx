@@ -120,9 +120,6 @@
   <data name="about_spitball" xml:space="preserve">
     <value>אודות ספיטבול</value>
   </data>
-  <data name="Change" xml:space="preserve">
-    <value>ערוך</value>
-  </data>
   <data name="changeCourse" xml:space="preserve">
     <value>קורסים</value>
   </data>

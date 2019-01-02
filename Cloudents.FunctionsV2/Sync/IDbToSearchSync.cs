@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Query.Sync;
+using Cloudents.Query.Query.Sync;
 using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.Sync

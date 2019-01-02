@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
+﻿using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Write
 {

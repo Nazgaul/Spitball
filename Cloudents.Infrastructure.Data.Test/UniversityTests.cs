@@ -1,4 +1,4 @@
-﻿using Cloudents.Domain.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Testing;
 using Xunit;
 

@@ -1,0 +1,54 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Query.Query;
+using NHibernate;
+using NHibernate.Linq;
+
+namespace Cloudents.Query
+{
+    public class UserAnswersQueryHandler : IQueryHandler<UserAnswersByIdQuery, IEnumerable<QuestionFeedDto>>
+    {
+        private readonly IStatelessSession _session;
+
+        public UserAnswersQueryHandler(QuerySession session)
+        {
+            _session = session.StatelessSession;
+        }
+        public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserAnswersByIdQuery query, CancellationToken token)
+        {
+
+            var answerQuery = _session.Query<Answer>()
+                .Fetch(f => f.Question);
+
+            answerQuery.ThenFetch(f => f.User);
+
+            return await answerQuery
+                .Where(w =>
+                    w.User.Id == query.Id && w.State == ItemState.Ok && w.Question.State == ItemState.Ok)
+                .OrderByDescending(o => o.Question.Id)
+                .Select(s => new QuestionFeedDto(s.Question.Id,
+                    s.Question.Subject,
+                    s.Question.Price,
+                    s.Question.Text,
+                    s.Question.Attachments,
+                    s.Question.Answers.Where(w => w.State == ItemState.Ok).Count(),
+                    new UserDto
+                    {
+                        Id = s.Question.User.Id,
+                        Name = s.Question.User.Name,
+                    //    Image = s.Question.User.Image,
+                        Score = s.Question.User.Score
+                    },
+                    s.Question.Updated,
+                    s.Question.Color, s.Question.CorrectAnswer.Id != null,
+                    s.Question.Language,
+                    s.Question.VoteCount))
+                .Take(50).Skip(query.Page * 50).ToListAsync(token);
+        }
+    }
+}

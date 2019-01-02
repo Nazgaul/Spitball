@@ -1,11 +1,11 @@
 import { connectivityModule } from "./connectivity.module"
 
-function DocumentItem(ObjInit){
+function DocumentItem(ObjInit) {
     this.name = ObjInit.name || '';
     this.date = ObjInit.date || '';
     this.course = ObjInit.course || '';
-    this.id= ObjInit.id || '';
-    this.university= ObjInit.university || '';
+    this.id = ObjInit.id || '';
+    this.university = ObjInit.university || '';
     this.user = ObjInit.user || {};
     this.views = ObjInit.views || 0;
     this.downloads = ObjInit.downloads || 0;
@@ -14,13 +14,17 @@ function DocumentItem(ObjInit){
     this.docType = ObjInit.type || '';
     this.isPlaceholder = ObjInit.isPlaceholder || false;
     this.professor = ObjInit.professor || '';
+    this.price = ObjInit.price || 0;
+    this.isPurchased = ObjInit.isPurchased || false;
 };
-function createDocumentItem(ObjInit){
+
+function createDocumentItem(ObjInit) {
     return new DocumentItem(ObjInit)
 }
 
 export default {
     sendDocumentData: (data) => connectivityModule.http.post("/Document", data),
-    getDocument : (id) => connectivityModule.http.get(`/Document/${id}`),
+    purchaseDocument: (id) => connectivityModule.http.post("/Document/purchase", {id}),
+    getDocument: (id) => connectivityModule.http.get(`/Document/${id}`),
     createDocumentItem
 }

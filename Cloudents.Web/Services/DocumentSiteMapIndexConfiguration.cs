@@ -1,14 +1,13 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Enum;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using NHibernate.Linq;
 using SimpleMvcSitemap;
 using SimpleMvcSitemap.StyleSheets;
 using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Domain.Enums;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Web.Extensions;
 
 namespace Cloudents.Web.Services
@@ -22,7 +21,7 @@ namespace Cloudents.Web.Services
             CurrentPage = currentPage;
             _urlHelper = urlHelper;
             DataSource = statelessSession.Query<Document>()
-                .Where(w => w.Item.State == ItemState.Ok)
+                .Where(w => w.State == ItemState.Ok)
                 .Fetch(f => f.University)
                 .Select(s => new DocumentSeoDto
                 {

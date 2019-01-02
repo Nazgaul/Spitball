@@ -1,8 +1,5 @@
-﻿using Cloudents.Core.Interfaces;
-using Cloudents.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {

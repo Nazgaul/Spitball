@@ -1,39 +1,44 @@
-﻿using Cloudents.Core;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Command.Documents.PurchaseDocument;
+using Cloudents.Command.Item.Commands.FlagItem;
+using Cloudents.Command.Votes.Commands.AddVoteDocument;
+using Cloudents.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
-using Cloudents.Core.Votes.Commands.AddVoteDocument;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Hubs;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
+using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Common.Enum;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Item.Commands.FlagItem;
-using Cloudents.Web.Hubs;
-using Cloudents.Web.Identity;
-using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"), ApiController]
+    [Route("api/[controller]"), ApiController, Authorize]
     public class DocumentController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -59,37 +64,51 @@ namespace Cloudents.Web.Api
             _profileUpdater = profileUpdater;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), AllowAnonymous]
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] IBlobProvider blobProvider,
 
             CancellationToken token)
         {
-            var query = new DocumentById(id);
-            var tModel = _queryBus.QueryAsync<DocumentDetailDto>(query, token);
-            var filesTask = _blobProvider.FilesInDirectoryAsync("preview-", query.Id.ToString(), token);
+            long? userId = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                userId = _userManager.GetLongUserId(User);
+            }
 
-            var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
-            await Task.WhenAll(tModel, filesTask, tQueue);
+            var query = new DocumentById(id, userId);
 
-            var model = tModel.Result;
-            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
+
+
+            var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
             {
                 return NotFound();
             }
+            var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
+            var prefix = "preview-";
+            if (!model.IsPurchased)
+            {
+                prefix = "blur-";
+            }
+            var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
+
+
+
+            await Task.WhenAll(filesTask, tQueue);
+
+            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
+
 
             if (!filesTask.Result.Any())
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
-                //var queue = queueClient.GetQueueReference("generate-blob-preview");
-                //await queue.AddMessageAsync(new CloudQueueMessage(item.Id.ToString()));
             }
             return new DocumentPreviewResponse(model, files);
         }
 
-        [HttpPost, Authorize]
+        [HttpPost]
         public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
             [FromServices] IHubContext<SbHub> hubContext,
@@ -103,10 +122,15 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
-                model.Course, model.Tags, userId, model.Professor);
+                model.Course, model.Tags, userId, model.Professor, model.Price);
             await _commandBus.DispatchAsync(command, token);
 
-            var url = Url.DocumentUrl(profile.University.Name, model.Course, command.Id, model.Name);
+
+
+            var url = Url.RouteUrl("ShortDocumentLink", new
+            {
+                base62 = new Base62(command.Id).ToString()
+            });
 
             var localizerKey = score < Privileges.Post ? "CreatePending" : "CreateOk";
             await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
@@ -130,7 +154,8 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
-        [ResponseCache(Duration = TimeConst.Minute, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
+        //TODO:We have issue in here because of changing course we need to invalidate the query.
+        //[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
             [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
                                 ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
@@ -138,6 +163,7 @@ namespace Cloudents.Web.Api
             [FromServices] IDocumentSearch ilSearchProvider,
             CancellationToken token)
         {
+
             model = model ?? new DocumentRequest();
             var query = new DocumentQuery(model.Course, profile, model.Term,
                 model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
@@ -256,6 +282,26 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
         }
+
+
+        [HttpPost("purchase")]
+        public async Task<IActionResult> PurchaseAsync([FromBody] PurchaseDocumentRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new PurchaseDocumentCommand(model.Id, userId);
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (InsufficientFundException)
+            {
+                ModelState.AddModelError(string.Empty, _localizer["InSufficientFunds"]);
+                return BadRequest(ModelState);
+            }
+
+            return Ok();
+        }
+
     }
 
 

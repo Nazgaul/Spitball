@@ -1,8 +1,4 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
-using Cloudents.Web.Controllers;
+﻿using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
@@ -17,6 +13,10 @@ using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Web.Api
 {
@@ -34,7 +34,7 @@ namespace Cloudents.Web.Api
         private readonly ILogger _logger;
 
         internal const string Email = "email2";
-        public const string emailTime = "EmailTime";
+        private const string EmailTime = "EmailTime";
 
         public RegisterController(UserManager<RegularUser> userManager, SbSignInManager signInManager,
             IBlockChainErc20Service blockChainErc20Service, IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger)
@@ -254,7 +254,7 @@ namespace Cloudents.Web.Api
             {
                 url = null;
             }
-            TempData[emailTime] = DateTime.UtcNow.ToString();
+            TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
 
             var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url, referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
@@ -267,15 +267,16 @@ namespace Cloudents.Web.Api
             ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
-            var t = TempData.Peek(emailTime);
-            if (t != null)
+            var data = TempData.Peek(EmailTime);
+            if (data != null)
             {
-                var temp = DateTime.Parse(t.ToString());
+                var temp = DateTime.Parse(TempData.Peek(EmailTime).ToString());
 
                 if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
                 {
                     return Ok();
                 }
+                
             }
 
             var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");
@@ -291,7 +292,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            TempData[emailTime] = DateTime.UtcNow.ToString();
+            TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
             return Ok();
         }

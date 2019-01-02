@@ -1,8 +1,7 @@
 import colorsSet from '../colorsSet';
-//import Vue from 'vue';
-import FileUpload from 'vue-upload-component/src';
-//docs here https://lian-yue.github.io/vue-upload-component   --vue-upload-component--
-//Vue.component('file-upload', FileUpload);
+import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
+
+
 export default {
     props: {
         value: {type: String},
@@ -133,6 +132,6 @@ export default {
 
     },
 created(){
-    console.log(`router path: ${this.$route.fullPath} component`, this)
+    console.log(`Oneeee!! !!!router path: ${this.$route.fullPath} component`, this)
 }
 }

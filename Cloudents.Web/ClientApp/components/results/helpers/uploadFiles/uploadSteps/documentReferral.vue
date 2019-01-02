@@ -51,7 +51,6 @@
         },
         computed: {
             ...mapGetters({
-                getLegal: 'getLegal',
                 getFileData: 'getFileData',
                 getSchoolName: 'getSchoolName',
             }),
@@ -64,7 +63,7 @@
                 accountUser: 'accountUser'
 
             }),
-            ...mapActions(['updateLegalAgreement', 'askQuestion', 'updateDialogState']),
+            ...mapActions(['askQuestion', 'updateDialogState']),
             closeAndGoTo() {
                 this.askQuestion(false)
             },

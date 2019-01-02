@@ -10,6 +10,11 @@ const reportDocumentItem = (data) => {
     return connectivityModule.http.post("Document/flag", data)
 };
 
+const reportAnswerItem = (data) => {
+    console.log('got to send report stuff answer flag');
+    return connectivityModule.http.post("Answer/flag", data)
+};
+
 
 export default {
     reportQuestion(data) {
@@ -17,5 +22,8 @@ export default {
     },
     reportDocument(data) {
         return reportDocumentItem(data)
+    },
+    reportAnswer(data) {
+        return reportAnswerItem(data)
     },
 }

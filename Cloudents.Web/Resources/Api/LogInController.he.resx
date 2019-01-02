@@ -121,13 +121,13 @@
     <value>כתובת דוא"ל או סיסמה שגויה</value>
   </data>
   <data name="EmailNotFound" xml:space="preserve">
-    <value>חשבון לא נמצא, בבקשה הרשם</value>
+    <value>חשבון לא קיים, בבקשה הרשם</value>
   </data>
   <data name="LockOut" xml:space="preserve">
     <value>המשתמש נעול</value>
   </data>
   <data name="NotAllowed" xml:space="preserve">
-    <value>משתמש אינו מורשה</value>
+    <value>אנא סיים את תהליך ההרשמה</value>
   </data>
   <data name="TempLockOut" xml:space="preserve">
     <value>המשתמש נעול, נסה להתחבר שוב בעוד 5 דקות</value>

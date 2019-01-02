@@ -1,10 +1,9 @@
-﻿using Cloudents.Core.Interfaces;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Infrastructure.BlockChain;
 using System.Collections.Generic;
 using System.Numerics;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using JetBrains.Annotations;
 

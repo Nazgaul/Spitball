@@ -24,7 +24,7 @@ const mutations = {
                 answerIndex = index;
                 return;
             }
-        })
+        });
         if(answerIndex > -1){
             state.question.answers.splice(answerIndex, 1);
         }
@@ -71,10 +71,11 @@ const actions = {
         commit('updateDeleted', false);
     },
     deleteQuestion(context, id) {
-        if (id.type === 'Answer') {
-            context.commit('updateDeleted', true)
-        }
-        return questionService.deleteQuestion(id);
+        return questionService.deleteQuestion(id).then(()=>{
+            if (id.type === 'Answer') {
+                context.commit('updateDeleted', true)
+            }
+        });
     },
     correctAnswer(context, id) {
         return questionService.markAsCorrectAnswer(id)
@@ -125,7 +126,7 @@ const actions = {
             let errorObj = {
                 toasterText:err.response.data.Id[0],
                 showToaster: true,
-            }
+            };
             dispatch('updateToasterParams', errorObj);
         })
     },

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cloudents.Web.Models
 {
@@ -47,5 +44,11 @@ namespace Cloudents.Web.Models
         [StringLength(255)]
         public string FlagReason { get; set; }
     }
+
+    public class PurchaseDocumentRequest
+    {
+        public long Id { get; set; }
+    }
+
 
 }

@@ -1,5 +1,4 @@
-﻿using Cloudents.Common;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Models
 {

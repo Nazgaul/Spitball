@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search;
 
 namespace Cloudents.Search

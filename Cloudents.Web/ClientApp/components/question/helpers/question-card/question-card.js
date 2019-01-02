@@ -1,12 +1,20 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import userRank from "../../../helpers/UserRank/UserRank.vue";
+import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
+import reportItem from "../../../results/helpers/reportItem/reportItem.vue"
 import disableForm from "../../../mixins/submitDisableMixin"
 import { mapGetters, mapActions } from 'vuex'
 import timeago from 'timeago.js';
 import { LanguageService } from "../../../../services/language/languageService";
+
 export default {
     mixins: [disableForm],
-    components: {userBlock, userRank},
+    components: {
+        userBlock,
+        userRank,
+        sbDialog,
+        reportItem
+    },
     props: {
         hasAnswer: false,
         typeAnswer: {
@@ -43,6 +51,23 @@ export default {
     },
     data() {
         return {
+            actions: [
+                {
+                    title: LanguageService.getValueByKey("questionCard_Report"),
+                    action: this.reportItem,
+                    isDisabled: this.isDisabled,
+                    isVisible: true
+                },
+                {
+                    title: LanguageService.getValueByKey("questionCard_Delete"),
+                    action: this.deleteQuestion,
+                    isDisabled: this.isDeleteDisabled,
+                    isVisible: true
+                }
+            ],
+            showReport: false,
+            itemId: 0,
+            answerToDeletObj: {},
             isDeleted: false,
             showActionToaster: false,
             localMarkedAsCorrect: false,
@@ -65,18 +90,14 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
-        cardOwner() {
-            let user = this.accountUser();
-            if (user && this.cardData.user) {
-                return user.id === this.cardData.user.id; // will work once API call will also return userId
-            }
-        },
-        canDelete() {
-            if (!this.cardOwner) {
-                return false;
-            }
-            return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
-        },
+
+        // canDelete() {
+        //     if (!this.cardOwner) {
+        //         return false;
+        //     }
+        //     return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
+        //
+        // },
         limitedCardAnswers() {
             if (typeof  this.cardData.answers === "number") {
                 if (this.cardData.answers > 3) {
@@ -110,35 +131,73 @@ export default {
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
             answerVote: 'answerVote',
-            updateLoginDialogState:'updateLoginDialogState'
+            updateLoginDialogState: 'updateLoginDialogState'
         }),
         ...mapGetters(['accountUser']),
-        isAuthUser(){
+
+        cardOwner() {
+            let user = this.accountUser();
+            if (user && this.cardData.user) {
+                return user.id === this.cardData.user.id; // will work once API call will also return userId
+            }
+        },
+        isDeleteDisabled(){
+            let isDeleteble = this.canDelete();
+            return !isDeleteble
+
+        },
+        isDisabled() {
+            let isOwner, account, notEnough;
+            isOwner = this.cardOwner();
+            account = this.accountUser();
+            // if (account && account.score) {
+            //     notEnough = account.score < 400
+            // }
+            if (isOwner || !account || notEnough) {
+                return true
+            }
+        },
+        reportItem() {
+            this.itemId = this.cardData.id;
+            let answerToHide = {
+                questionId: parseInt(this.$route.params.id),
+                answer: {
+                    id: this.itemId
+                }
+            };
+            //assign to obj passed as prop to report component
+            this.answerToDeletObj =  Object.assign(answerToHide);
+            this.showReport = !this.showReport;
+        },
+        closeReportDialog() {
+            this.showReport = false
+        },
+        isAuthUser() {
             let user = this.accountUser();
             if (user == null) {
-              this.updateLoginDialogState(true);
-              return false;
+                this.updateLoginDialogState(true);
+                return false;
             }
             return true;
         },
-        upvoteAnswer(){
+        upvoteAnswer() {
             if (this.isAuthUser()) {
                 let type = "up";
-                if(!!this.cardData.upvoted){
-                    type = "none"; 
+                if (!!this.cardData.upvoted) {
+                    type = "none";
                 }
                 let data = {
                     type,
                     id: this.cardData.id
-                }
+                };
                 this.answerVote(data);
             }
         },
-        downvoteAnswer(){
+        downvoteAnswer() {
             if (this.isAuthUser()) {
                 let type = "down";
-                if(!!this.cardData.downvoted){
-                    type = "none"; 
+                if (!!this.cardData.downvoted) {
+                    type = "none";
                 }
                 let data = {
                     type,
@@ -155,6 +214,12 @@ export default {
         showBigImage(src) {
             this.showDialog = true;
             this.selectedImage = src;
+        },
+
+        canDelete() {
+           let isOwner = this.cardOwner();
+           return !this.flaggedAsCorrect && isOwner
+
         },
         markAsCorrect() {
             this.localMarkedAsCorrect = true;
@@ -184,8 +249,9 @@ export default {
                             let answerToRemove = {
                                 questionId: parseInt(this.$route.params.id),
                                 answer: {
-                                    id: this.cardData.id}
-                            }
+                                    id: this.cardData.id
+                                }
+                            };
                             this.manualAnswerRemove(answerToRemove);
                             this.isDeleted = true
                         }
@@ -196,7 +262,7 @@ export default {
                 );
         },
         renderQuestionTime(className) {
-            const hebrewLang = function(number, index) {
+            const hebrewLang = function (number, index) {
                 return [
                     ['זה עתה', 'עכשיו'],
                     ['לפני %s שניות', 'בעוד %s שניות'],
@@ -220,7 +286,7 @@ export default {
             timeAgoRef.render(document.querySelectorAll(className), locale);
         }
     },
-    created(){
+    created() {
         this.getQuestionColor();
     },
     mounted() {

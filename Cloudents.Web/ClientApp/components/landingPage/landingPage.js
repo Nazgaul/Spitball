@@ -57,7 +57,17 @@ export default {
             return this.statistics();
         },
         formattedReviews(){
-           return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
+            let rev;
+            if(this.$vuetify.breakpoint.xsOnly ){
+                 rev = [].concat(...this.reviewItems);
+                console.log(rev)
+            }else{
+               rev = this.reviewItems
+            }
+            return rev
+
+           // return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
+           // console.log(this.reviewItems);
 
         },
         showBox() {
@@ -148,7 +158,15 @@ export default {
             this.player.pauseVideo()
         },
         changeDictionaryType(val){
+            this.scrollTop();
             this.switchLandingPageText(val);
+        },
+        scrollTop(){
+            setTimeout(()=>{
+                this.$nextTick(() => {
+                    global.scrollTo(0, 0);
+                })
+            }, 200)
         },
         getAllUniversities() {
             //leave space
@@ -198,14 +216,17 @@ export default {
     },
     created() {
         let user = this.accountUser();
+        if(!!this.$route.query && this.$route.query.hasOwnProperty('type')){
+            let dictionaryuType = this.$route.query.type;
+            //check if valid query type
+            if(!!this.dictionaryTypesEnum[dictionaryuType]){
+                this.changeDictionaryType(this.dictionaryTypesEnum[dictionaryuType])
+            }
+        }
         if(!user){
             this.getAllSubjects();
             this.getStatistics();
-            setTimeout(()=>{
-                this.$nextTick(() => {
-                    global.scrollTo(0, 0);
-                })
-            }, 200)
+            this.scrollTop();
         }else{
             this.$router.push({path: '/ask'})
         }

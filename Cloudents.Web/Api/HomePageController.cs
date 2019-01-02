@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.DTOs;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 
 namespace Cloudents.Web.Api
 {
@@ -18,7 +18,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<StatsDto>> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var query = new HomePageQuery();
-            return await queryBus.QueryAsync<StatsDto>(query, token);
+            return await queryBus.QueryAsync(query, token);
         }
     }
 }

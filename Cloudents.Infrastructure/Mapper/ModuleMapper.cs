@@ -1,14 +1,11 @@
 ﻿using System.Reflection;
 using Autofac;
 using AutoMapper;
-using Cloudents.Core.Attributes;
 using JetBrains.Annotations;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure.Mapper
 {
-    [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.WorkerRole)]
     [UsedImplicitly]
     public class ModuleMapper : Module
     {

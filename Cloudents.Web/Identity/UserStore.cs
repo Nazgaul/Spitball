@@ -1,15 +1,16 @@
-﻿using Cloudents.Core.Command;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Exceptions;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
+using Cloudents.Query;
+using Cloudents.Query.Query;
 
 namespace Cloudents.Web.Identity
 {

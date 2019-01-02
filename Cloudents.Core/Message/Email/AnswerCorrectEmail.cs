@@ -14,8 +14,8 @@ namespace Cloudents.Core.Message.Email
             : base(to, "Congratulations, your answer has been accepted",
                 info)
         {
-            QuestionText = questionText.Truncate(40, true);
-            AnswerText = answerText.Truncate(40, true);
+            QuestionText = questionText.Replace("\n","<br>").Truncate(40, true);
+            AnswerText = answerText.Replace("\n", "<br>").Truncate(40, true);
             Link = link;
             Tokens = tokens.ToString("#.##");
         }

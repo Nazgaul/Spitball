@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using FluentAssertions;
 using Xunit;
 
@@ -83,5 +84,24 @@ namespace Cloudents.Core.Test
             result.Should().BeEquivalentTo(list);
             //CollectionAssert.AreEqual(result, list);
         }
+
+        [Fact]
+        public void DoShuffle_Array2_RightResult222()
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>().ReverseMap());
+            Mapper.Configuration.AssertConfigurationIsValid();
+        }
     }
+
+    public class Order
+    {
+        public int Id { get; set; }
+    }
+
+    public class OrderDto
+    {
+        public int Ids { get; set; }
+    }
+
+
 }

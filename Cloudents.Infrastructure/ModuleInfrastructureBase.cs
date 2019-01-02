@@ -3,7 +3,6 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search;
@@ -13,10 +12,6 @@ using Module = Autofac.Module;
 namespace Cloudents.Infrastructure
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc Module registration by reflection")]
-    [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.Web)]
-    [ModuleRegistration(Core.Enum.System.WorkerRole)]
-    [ModuleRegistration(Core.Enum.System.Admin)]
     public class ModuleInfrastructureBase : Module
     {
        protected override void Load(ContainerBuilder builder)

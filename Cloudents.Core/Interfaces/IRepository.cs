@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Domain.Entities;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
@@ -98,7 +99,8 @@ namespace Cloudents.Core.Interfaces
     {
         Task<decimal> GetUserScoreAsync(long userId, CancellationToken token);
         Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
-        
+        Task<TransactionActionType> GetFirstCourseTransaction(long userId, CancellationToken token);
+
     }
 
     }

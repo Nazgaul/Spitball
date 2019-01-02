@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Interfaces;
-using Microsoft.Azure.CognitiveServices.Language.TextAnalytics;
+﻿using Microsoft.Azure.CognitiveServices.Language.TextAnalytics;
 using Microsoft.Azure.CognitiveServices.Language.TextAnalytics.Models;
 using Microsoft.Rest;
 using System;
@@ -10,6 +9,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure
 {

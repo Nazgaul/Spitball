@@ -1,16 +1,16 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
+﻿//using Cloudents.Application.DTOs;
+//using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Query
-{
-    public class QuestionDataByIdQuery : IQuery<QuestionDetailDto>
+//namespace Cloudents.Application.Query
+//{
+//    public class QuestionDataByIdQuery : IQuery<QuestionDetailDto>
 
-    {
-        public QuestionDataByIdQuery(long id)
-        {
-            Id = id;
-        }
+//    {
+//        public QuestionDataByIdQuery(long id)
+//        {
+//            Id = id;
+//        }
 
-        public long Id { get; }
-    }
-}
+//        public long Id { get; }
+//    }
+//}

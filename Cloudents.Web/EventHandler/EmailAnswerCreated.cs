@@ -1,14 +1,14 @@
-﻿using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
-using Cloudents.Web.Services;
+﻿using Cloudents.Web.Services;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Domain.Entities;
-using Cloudents.Core.Message.Email;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Event;
 using Cloudents.Core.EventHandler;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Web.EventHandler
 {
@@ -39,7 +39,7 @@ namespace Cloudents.Web.EventHandler
                 return;
             }
 
-            if (!(eventMessage.Answer.Question.User is RegularUser u))
+            if (!(eventMessage.Answer.Question.User.Actual is RegularUser u))
             {
                 return;
             }

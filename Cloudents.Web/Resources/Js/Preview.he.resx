@@ -117,11 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="about_to_buy" xml:space="preserve">
+    <value>אתה עומד לרכוש אחלה</value>
+  </data>
+  <data name="buy_btn" xml:space="preserve">
+    <value>לרכישה והורדה</value>
+  </data>
+  <data name="buy_full_btn" xml:space="preserve">
+    <value>רכוש לצפייה במסמך המלא</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>חזור</value>
+  </data>
+  <data name="doc_placeholder_text" xml:space="preserve">
+    <value>תצוגה המקדימה תהיה זמינה בקרוב</value>
+  </data>
   <data name="flashcard_beginText_start" xml:space="preserve">
     <value>התחל</value>
   </data>
   <data name="flashcard_beginText_start_over" xml:space="preserve">
     <value>התחל מחדש</value>
+  </data>
+  <data name="itemActions_buy" xml:space="preserve">
+    <value>קנה</value>
   </data>
   <data name="itemActions_download" xml:space="preserve">
     <value>הורד</value>
@@ -140,5 +158,8 @@
   </data>
   <data name="item_school" xml:space="preserve">
     <value>מוסד לימודים</value>
+  </data>
+  <data name="price_equals_to" xml:space="preserve">
+    <value>שווה ל </value>
   </data>
 </root>

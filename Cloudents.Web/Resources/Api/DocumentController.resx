@@ -126,6 +126,9 @@
   <data name="CreatePending" xml:space="preserve">
     <value>Your document is pending approval, please do not resubmit this document</value>
   </data>
+  <data name="InSufficientFunds" xml:space="preserve">
+    <value>You do not have sufficient SBL</value>
+  </data>
   <data name="TypeFilterTitle" xml:space="preserve">
     <value>Type</value>
   </data>

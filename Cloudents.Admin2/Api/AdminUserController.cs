@@ -1,16 +1,16 @@
 ﻿using Cloudents.Admin2.Models;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Common.Enum;
+using Cloudents.Command;
+using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
+using Cloudents.Query;
+using Cloudents.Query.Query.Admin;
 
 
 namespace Cloudents.Admin2.Api

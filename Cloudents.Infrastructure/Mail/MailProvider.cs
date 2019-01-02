@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,6 +11,8 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 
 namespace Cloudents.Infrastructure.Mail
 {

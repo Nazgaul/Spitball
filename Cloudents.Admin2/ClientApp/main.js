@@ -15,6 +15,15 @@ Vue.use(VueRouter);
 Vue.use(Toaster, {timeout: 5000});
 Vue.use(Vuetify);
 console.log(routes);
+// 10/12/2018
+Vue.filter('dateFromISO', function (value) {
+    let d = new Date(value);
+    //return load if no data
+    if (!value) {
+        return LanguageService.getValueByKey('wallet_Loading');
+    }
+    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
+});
 
 const router = new VueRouter({
     mode: "history",

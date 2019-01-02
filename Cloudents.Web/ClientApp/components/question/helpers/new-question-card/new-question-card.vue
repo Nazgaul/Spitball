@@ -1,6 +1,7 @@
 <template>
     <div class="question-container">
-        <router-link :to="{path:'/question/'+cardData.id}">
+        <router-link :to="{path:'/question/'+cardData.id}"
+                     :class="[ cursorDefault ? 'cursor-text cursor-modified': '']">
             <div class="question-header-container">
                 <div class="question-header-large-sagment">
                     <div class="avatar-area">
@@ -11,7 +12,7 @@
                             <user-rank :score="cardData.user.score"></user-rank>
                         </div>
                         <div class="date-area">{{uploadDate}}</div>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="question-header-small-sagment">
                     <div class="sold-area" v-if="isSold">
@@ -23,17 +24,24 @@
                         </div>
                     </div>
                     <div class="price-area" :class="{'sold': isSold}">
-                        {{cardPrice}}
-                        <span v-language:inner>questionCard_Currency</span>
+                        <bdi> {{cardPrice}}
+                            <span v-language:inner>questionCard_Currency</span></bdi>
+
                     </div>
                     <div class="menu-area">
                         <v-menu bottom left content-class="card-user-actions">
                             <v-btn :depressed="true" @click.prevent slot="activator" icon>
                                 <v-icon>sbf-3-dot</v-icon>
                             </v-btn>
-                            <v-list>
-                                <v-list-tile v-show="item.isVisible" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
-                                    <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
+                            <v-list class="report-list">
+                                <v-list-tile v-show="item.isVisible" :disabled="item.isDisabled()" class="report-list-item"
+                                             v-for="(item, i) in actions" :key="i">
+                                    <!--<v-list-tile-action>-->
+                                        <!--<v-icon class="list-item-icon">{{ item.icon }}</v-icon>-->
+                                    <!--</v-list-tile-action>-->
+                                    <v-list-tile-content>
+                                        <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
+                                    </v-list-tile-content>
                                 </v-list-tile>
                             </v-list>
                         </v-menu>
@@ -45,8 +53,8 @@
           <span class="question-raputation upvote-arrow" @click.prevent="upvoteQuestion()">
             <v-icon :class="{'voted': cardData.upvoted}">sbf-arrow-up</v-icon>
           </span>
-          <span class="question-raputation question-score" :dir="isRtl ? `ltr` : ''">{{cardData.votes}}</span>
-          <span class="question-raputation downvote-arrow" @click.prevent="downvoteQuestion()">
+                    <span class="question-raputation question-score" :dir="isRtl ? `ltr` : ''">{{cardData.votes}}</span>
+                    <span class="question-raputation downvote-arrow" @click.prevent="downvoteQuestion()">
             <v-icon :class="{'voted': cardData.downvoted}">sbf-arrow-down</v-icon>
           </span>
                 </div>
@@ -58,11 +66,11 @@
                             class="question-body-content-container"
                             :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`]"
                     >
-                        <span class="question-text">{{cardData.text}}</span>
+                        <span class="question-text" v-line-clamp="lineClampValue">{{cardData.text}}</span>
                     </div>
                     <div class="gallery" v-if="cardData.files && cardData.files.length">
                         <v-carousel :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
-                                     :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right right'"
+                                    :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right right'"
                                     interval="600000" cycle full-screen
                                     hide-delimiters :hide-controls="cardData.files.length===1">
                             <v-carousel-item v-for="(item,i) in cardData.files" v-bind:src="item" :key="i"
@@ -71,8 +79,8 @@
                     </div>
                 </div>
                 <v-dialog v-model="showDialog" max-width="720px"
-                      transition="scale-transition" content-class="zoom-image">
-                <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
+                          transition="scale-transition" content-class="zoom-image">
+                    <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
                 </v-dialog>
             </div>
             <div class="question-footer-container">
@@ -119,7 +127,7 @@
                 :maxWidth="'438px'"
                 :popUpType="'reportDialog'"
                 :content-class="`reportDialog ${isRtl? 'rtl': ''}` ">
-            <report-item  :closeReport="closeReportDialog" :itemType="cardData.template" :itemId="itemId"></report-item>
+            <report-item :closeReport="closeReportDialog" :itemType="cardData.template" :itemId="itemId"></report-item>
         </sb-dialog>
     </div>
 </template>

@@ -51,7 +51,7 @@ namespace Cloudents.Search.Document
                     await
                         _client.Documents.GetAsync<Entities.Document>
                         (itemId.ToString(CultureInfo.InvariantCulture),
-                            cancellationToken: cancelToken).ConfigureAwait(false);
+                            cancellationToken: cancelToken);
                 return item;
             }
             //item may not exists in the search....
@@ -87,12 +87,11 @@ namespace Cloudents.Search.Document
             var filters = new List<string>
             {
                 $"({nameof(Entities.Document.Country)} eq '{query.Profile.Country.ToUpperInvariant()}')" 
-               // $" or {nameof(Entities.Document.Language)} eq 'en')"
             };
             if (query.Course != null)
             {
                 var filterStr = string.Join(" or ", query.Course.Select(s =>
-                    $"{nameof(Entities.Document.Course)} eq '{s.ToUpperInvariant().Replace("'","''")}'"));
+                    $"{Entities.Document.CourseNameField} eq '{s.ToUpperInvariant().Replace("'","''")}'"));
 
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
@@ -131,18 +130,17 @@ namespace Cloudents.Search.Document
 
             var result = await
                 _client.Documents.SearchAsync<Entities.Document>(query.Term, searchParameter,
-                    cancellationToken: token).ConfigureAwait(false);
+                    cancellationToken: token);
 
            return result.Results.Select(s => new DocumentSearchResultWithScore
             {
                 Id = Convert.ToInt64(s.Document.Id),
                 Score = s.Score,
-               // MetaContent = s.Document.MetaContent
             });
 
         }
 
-        public static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
+        private static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
         {
             if (input == null)
             {

@@ -11,8 +11,8 @@ namespace Cloudents.Core.Message.Email
         public GotAnswerEmail(string questionText, string to, string answerText, string link, CultureInfo info)
             : base(to, "Someone has answered your question", info)
         {
-            QuestionText = questionText.Truncate(40, true);
-            AnswerText = answerText.Truncate(40, true);
+            QuestionText = questionText.Replace("\n", "<br>").Truncate(40, true);
+            AnswerText = answerText.Replace("\n", "<br>").Truncate(40, true);
             Link = link;
         }
 

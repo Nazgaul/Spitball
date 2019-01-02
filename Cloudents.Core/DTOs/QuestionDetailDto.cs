@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.Enum;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Common;
-using Cloudents.Domain.Enums;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
@@ -58,6 +58,16 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailAnswerDto
     {
+        public QuestionDetailAnswerDto(Guid id, string text, UserDto user, DateTime create, VoteDto vote, CultureInfo culture)
+        {
+            Id = id;
+            Text = text;
+            User = user;
+            Create = create;
+            Vote = vote;
+            IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
+        }
+        [DtoToEntityConnection(nameof(Answer.Id))]
         public Guid Id { get; set; }
 
         public string Text { get; set; }
@@ -67,6 +77,7 @@ namespace Cloudents.Core.DTOs
 
         public IEnumerable<Uri> Files { get; set; }
         public VoteDto Vote { get; set; }
+        public bool IsRtl { get; set; }
 
     }
 }

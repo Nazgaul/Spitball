@@ -85,7 +85,15 @@
             ]),
             ...mapGetters(["getDictionaryPrefixEnum"]),
             changeDictionaryType(val) {
+                this.scrollTop();
                 this.switchLandingPageText(val);
+            },
+            scrollTop(){
+                setTimeout(()=>{
+                this.$nextTick(() => {
+                    global.scrollTo(0, 0);
+                })
+            }, 200)
             },
             goToLogin() {
                 console.log('login sdfsdf')

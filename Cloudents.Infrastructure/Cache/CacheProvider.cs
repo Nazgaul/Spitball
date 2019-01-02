@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using CacheManager.Core;
 using Cloudents.Core.Interfaces;
-using StackExchange.Redis;
 
 namespace Cloudents.Infrastructure.Cache
 {
@@ -17,7 +16,7 @@ namespace Cloudents.Infrastructure.Cache
         {
             _logger = logger;
             
-            var multiplexer = ConnectionMultiplexer.Connect(keys.Redis);
+            var multiplexer = StackExchange.Redis.ConnectionMultiplexer.Connect(keys.Redis);
 
             multiplexer.ConnectionFailed += (sender, args) =>
             {
@@ -29,7 +28,7 @@ namespace Cloudents.Infrastructure.Cache
             multiplexer.ConnectionRestored += (sender, args) =>
             {
                 _distributedEnabled = true;
-                
+
                 //Console.WriteLine("Connection restored, redis is back...");
             };
 
@@ -42,17 +41,17 @@ namespace Cloudents.Infrastructure.Cache
                     .WithRedisConfiguration("redis", multiplexer)
                     .WithRedisCacheHandle("redis"));
 
-            //_cache = CacheFactory.Build(settings =>
-            //{
-            //    var key = keys.Redis;
-            //    settings
-            //        .WithRedisConfiguration("redis", key)
-            //        .WithJsonSerializer()
-            //        .WithMaxRetries(1000)
-            //        .WithRetryTimeout(100)
-            //        .WithRedisBackplane("redis")
-            //        .WithRedisCacheHandle("redis");
-            //});
+            _cache = CacheFactory.Build(settings =>
+            {
+                var key = keys.Redis;
+                settings
+                    .WithRedisConfiguration("redis", key)
+                    .WithJsonSerializer()
+                    .WithMaxRetries(1000)
+                    .WithRetryTimeout(100)
+                    .WithRedisBackplane("redis")
+                    .WithRedisCacheHandle("redis");
+            });
         }
 
         //public CacheProvider(ICacheManager<object> cache, ILogger logger)
@@ -63,24 +62,24 @@ namespace Cloudents.Infrastructure.Cache
 
         public object Get(string key, string region)
         {
-            if (_distributedEnabled)
-            {
-                try
-                {
-                    return _cache.Get(key, region);
-                }
-                catch (Exception ex)
-                {
-                    _logger.Exception(ex, new Dictionary<string, string>
-                    {
-                        ["Service"] = nameof(Cache),
-                        ["Key"] = key,
-                        ["Region"] = region
-                    });
-                    _cache.Remove(key, region);
-                    return null;
-                }
-            }
+            //if (_distributedEnabled)
+            //{
+            //    try
+            //    {
+            //        return _cache.Get(key, region);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        _logger.Exception(ex, new Dictionary<string, string>
+            //        {
+            //            ["Service"] = nameof(Cache),
+            //            ["Key"] = key,
+            //            ["Region"] = region
+            //        });
+            //        _cache.Remove(key, region);
+            //        return null;
+            //    }
+            //}
 
             return null;
         }

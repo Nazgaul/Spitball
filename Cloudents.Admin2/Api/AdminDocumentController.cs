@@ -1,15 +1,16 @@
 ﻿using System;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query.Admin;
-using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
+using Cloudents.Command;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Storage;
+using Cloudents.Query;
+using Cloudents.Query.Query.Admin;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,15 +24,14 @@ namespace Cloudents.Admin2.Api
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly ICommandBus _commandBus;
         private readonly IQueueProvider _queueProvider;
-        private readonly IUrlBuilder _urlBuilder;
 
-        public AdminDocumentController(IQueryBus queryBus, IBlobProvider<DocumentContainer> blobProvider, ICommandBus commandBus, IQueueProvider queueProvider, IUrlBuilder urlBuilder)
+        public AdminDocumentController(IQueryBus queryBus, IBlobProvider<DocumentContainer> blobProvider,
+            ICommandBus commandBus, IQueueProvider queueProvider)
         {
             _queryBus = queryBus;
             _blobProvider = blobProvider;
             _commandBus = commandBus;
             _queueProvider = queueProvider;
-            _urlBuilder = urlBuilder;
         }
 
         // GET: api/<controller>
@@ -92,19 +92,50 @@ namespace Cloudents.Admin2.Api
         [HttpPost]
         public async Task<IActionResult> ApproveAsync([FromBody] ApproveDocumentRequest model, CancellationToken token)
         {
-            var command = new ApproveDocumentCommand(model.id);
+            var command = new ApproveDocumentCommand(model.Id);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
         [HttpGet("flagged")]
-        public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync([FromServices] IBlobProvider blobProvider, CancellationToken token)
+        public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync
+            ([FromServices] IBlobProvider blobProvider, CancellationToken token)
         {
             var query = new AdminEmptyQuery();
             var retVal = await _queryBus.QueryAsync<IList<FlaggedDocumentDto>>(query, token);
-            
-            
-            return retVal;
+            var tasks = new Lazy<List<Task>>();
+         
+            foreach (var document in retVal)
+            {
+
+                var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
+                var file = files.FirstOrDefault();
+                if (file != null)
+                {
+                    document.Preview =
+                        blobProvider.GeneratePreviewLink(file,
+                            20);
+
+                    document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
+                   
+                }
+                else
+                {
+
+                    var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
+                    tasks.Value.Add(t);
+                }
+
+              
+            }
+
+            if (tasks.IsValueCreated)
+            {
+                await Task.WhenAll(tasks.Value);
+            }
+
+            return retVal.Where(w => w.Preview != null);
+            //return retVal;
             
         }
 
@@ -112,7 +143,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("unFlag")]
         public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagDocumentRequest model, CancellationToken token)
         {
-            var command = new UnFlagDocumentCommand(model.id);
+            var command = new UnFlagDocumentCommand(model.Id);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }

@@ -1,10 +1,10 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Web.Models;
+﻿using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.Controllers
 {

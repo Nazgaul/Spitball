@@ -7,7 +7,7 @@
             <div class="ml-1 wrap-text">
                 <h2 class="text-md-left" v-language:inner>questionSuggestPopUp_Great_Job</h2>
                 <p>
-                    <span v-language:inner>questionSuggestPopUp_Lets_wait_for</span><span class="user-name"> {{ user.name}}</span> &nbsp; <span v-language:inner>questionSuggestPopUp_accepts_your_answer</span>
+                    <span v-language:inner>questionSuggestPopUp_Lets_wait_for</span><span class="user-name"> {{ user.name}}</span>&nbsp;<span v-language:inner>questionSuggestPopUp_accepts_your_answer</span>
                 </p>
                 <p>
                    <span v-language:inner>questionSuggestPopUp_below_question_should_help</span> 
@@ -23,7 +23,7 @@
                                 :fromCarousel="true"
                                 :cardData="item"
                                 :typeAnswer="typeAnswer"
-                                :suggestion="true" class="user-question mb-1 mt-1" detailed-view ></question-card>
+                                :suggestion="true" class="user-question mb-1 mt-1" detailed-view></question-card>
                 </v-carousel-item>
             </v-carousel>
         </div>

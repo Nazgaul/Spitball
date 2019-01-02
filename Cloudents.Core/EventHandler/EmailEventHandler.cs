@@ -1,9 +1,9 @@
-﻿using Cloudents.Domain.Entities;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {

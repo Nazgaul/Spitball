@@ -25,6 +25,8 @@ export let documentTypes = [
 
 export let currencyValidator = {
     format: function (number) {
+        if(number < 0)return
+        if(number > 1000)return
         return (Math.trunc(number * 1000000000000) / 1000000000000).toFixed(2);
     },
     parse: function (newString, oldNumber) {

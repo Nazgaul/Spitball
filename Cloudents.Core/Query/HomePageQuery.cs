@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
+﻿//using Cloudents.Application.DTOs;
+//using Cloudents.Application.Interfaces;
 
-namespace Cloudents.Core.Query
-{
-    public class HomePageQuery : IQuery<StatsDto>
-    {
+//namespace Cloudents.Application.Query
+//{
+//    public class HomePageQuery : IQuery<StatsDto>
+//    {
       
-    }
-}
+//    }
+//}

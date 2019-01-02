@@ -1,13 +1,9 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Interceptor;
-using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Question;
@@ -15,6 +11,8 @@ using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Search.Document;
 using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
 using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
@@ -22,9 +20,6 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
-    [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.Web)]
-    [ModuleRegistration(Core.Enum.System.Admin)]
     [UsedImplicitly]
     public sealed class ModuleRead : Module
     {
@@ -79,7 +74,6 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
-            //builder.RegisterType<DocumentSearch>().AsImplementedInterfaces();
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
         }

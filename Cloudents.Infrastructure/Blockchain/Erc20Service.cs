@@ -1,9 +1,8 @@
 ﻿using System;
-using Cloudents.Core.Interfaces;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Infrastructure.BlockChain;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
