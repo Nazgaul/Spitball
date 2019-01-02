@@ -122,7 +122,7 @@
                     {name :'Add', link: '/question/add' , icon: 'add'},
                     {name :'Add Multiple', link: '/question/addBulk' , icon: 'add_circle_outline'},
                     {name :'Pending Questions', link: '/question/pendingQuestions' , icon: 'notifications_paused'},
-                    {name :'Accept Question', link: '/question/acceptQuestion' , icon: 'done'},
+                    //{name :'Accept Question', link: '/question/acceptQuestion' , icon: 'done'},
                     {name :'Flagged Questions', link: '/question/flaggedQuestions' , icon: 'outlined_flag'},
 
                 ],
