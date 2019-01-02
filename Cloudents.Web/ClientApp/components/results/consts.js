@@ -8,7 +8,7 @@ const dummyItemObj = {
     template: "item",
     skelaton:true,
     title: "________________________________________________",
-    url: ""
+    url: "",
 };
 const dummyTutorObj = {
     city: "________________________________________",

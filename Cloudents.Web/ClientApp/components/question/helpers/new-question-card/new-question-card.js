@@ -126,7 +126,7 @@ export default {
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
-            questionVote: "questionVote",
+            questionVote: "HomeworkHelp_questionVote",
             updateLoginDialogState: "updateLoginDialogState"
         }),
         ...mapGetters(['accountUser']),
