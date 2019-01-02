@@ -14,7 +14,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Text).Length(8000);
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
-            Map(x => x.Language).Length(5);
+            Map(x => x.Language).Length(10);
 
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
