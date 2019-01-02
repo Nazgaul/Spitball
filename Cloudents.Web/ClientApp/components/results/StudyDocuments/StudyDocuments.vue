@@ -4,16 +4,12 @@
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
         <div slot="main">
               <div class="d-flex mobile-filter">
-                  <askQuestionBtn v-if="$route.path.slice(1)==='ask'"
-                           :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] ">
-                  </askQuestionBtn>
+                  <upload-files-btn class="upload-card hidden-md-and-up"></upload-files-btn>
 
-                  <upload-files-btn class="upload-card hidden-md-and-up"  v-show="isNote"></upload-files-btn>
-
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
+                <v-btn icon :color="`color-note`" flat slot="mobileFilter" @click="showFilters=true"
                        class="mobile-filter-icon-btn text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
-                    <div :class="'counter fixedLocation color-'+$route.path.slice(1)"
+                    <div :class="'counter fixedLocation color-note'"
                          v-if="this.filterSelection.length">{{this.filterSelection.length}}
                     </div>
                 </v-btn>
@@ -28,8 +24,6 @@
             </div>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
-                <!-- <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
-                    <!-- <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
@@ -40,14 +34,13 @@
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <v-flex v-show="!showSkelaton && isNote && showSelectUni" class="result-cell mb-2" xs-12>
+                                <v-flex v-show="!showSkelaton && showSelectUni" class="result-cell mb-2" xs-12>
                                     <set-uni-class class="cell"></set-uni-class>
                                 </v-flex>
                                 
                                 <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component :is="'result-'+item.template"
-                                               :item="item" :key="index" :index="index" class="cell"></component>
+                                    <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                                 </v-flex>
                                 <router-link tag="v-flex"
                                              class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 "
@@ -58,15 +51,6 @@
                         </v-layout>
                     </v-container>
                 </scroll-list>
-                <div v-else-if="!items.length && $route.path.slice(1)==='ask' ">
-                    <div class="result-cell elevation-1 mb-2 empty-state tri-right right-in" xs-12>
-                        <v-layout row class="pa-3">
-                            <v-flex>
-                                <p class="empty-state" v-language:inner>result_answer_not_found</p>
-                            </v-flex>
-                        </v-layout>
-                    </div>
-                </div>
                 <div v-else>
                     <div class="result-cell elevation-1 mb-2 empty-state" xs-12>
                         <v-layout row class="pa-3">
@@ -100,10 +84,8 @@
 
         <template slot="rightSide">
             <slot name="rightSide">
-                <faq-block :isAsk="name==='ask'" :isNotes="name ==='note'" :name="currentSuggest" :text="userText"></faq-block>
-                <!--<notificationCenter v-else :isAsk="name==='ask'"></notificationCenter>-->
+                <faq-block :isAsk="false" :isNotes="true" :name="currentSuggest" :text="userText"></faq-block>
             </slot>
-
         </template>
         <slot name="suggestCell">
             <router-link slot="suggestCell" tag="v-flex"
@@ -113,7 +95,6 @@
                 <suggest-card :name="currentSuggest"></suggest-card>
             </router-link>
         </slot>
-
     </general-page>
 </template>
 

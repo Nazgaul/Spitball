@@ -4,7 +4,6 @@ import reputationService from './../services/reputationService';
 import reportService from "./../services/cardActionService"
 
 const state = {
-    search: {},
     queItems: [],
     items: {},
     itemsSkeleton: skeletonData.ask

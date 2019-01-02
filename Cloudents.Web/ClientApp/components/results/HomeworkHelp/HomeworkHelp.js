@@ -14,9 +14,6 @@ import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 
 import faqBlock from '../helpers/faq-block/faq-block.vue'
 import notificationCenter from '../../notificationCenter/notificationCenter.vue'
-const ResultTutor = () => import('../ResultTutor.vue');
-const ResultBook = () => import('../ResultBook.vue');
-const ResultJob = () => import('../ResultJob.vue');
 
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 
@@ -25,9 +22,6 @@ export default {
     components: {
         emptyState,
         SuggestCard,
-        ResultTutor,
-        ResultJob,
-        ResultBook,
         faqBlock,
         sbDialog,
         loginToAnswer,
@@ -243,6 +237,7 @@ export default {
             let to = this.$route;
             let from = this.$route;
             this.UPDATE_SEARCH_LOADING(true);
+            this.UPDATE_LOADING(true);
             this.updateContentOfPage(to, from, noop);
         },
         //Function for update the filter object(when term or vertical change)
@@ -283,7 +278,7 @@ export default {
         $_showSelectedFilter({value, key}) {
             return value;
         },
-        watchinNowStyle(item){
+        /*watchinNowStyle(item){
             let sameUser = false;
             let userId = this.accountUser ? this.accountUser.id : -1;
             if(!!item.user){
@@ -297,7 +292,7 @@ export default {
             'color': item.color !== 'default' ? 'white' : '',
             //'bottom' : sameUser ? '15px' : ''
             }
-        },
+        },*/
     },
 
     created() {

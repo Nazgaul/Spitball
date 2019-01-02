@@ -156,7 +156,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'resetData', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData']),
+            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
                         this.updateLoginDialogState(true);
