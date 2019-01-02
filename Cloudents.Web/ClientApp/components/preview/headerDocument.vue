@@ -4,7 +4,7 @@
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
                     <h1 class="item-name" >
-                        <span class="doc-name text-truncate">{{itemName}} </span>
+                        <span class=" text-truncate">{{itemName}} </span>
                         <span class="doc-extension" v-show="item && item.extension">({{item ? item.extension : ''}})</span>
                     </h1>
                     <div class="doc-details">
