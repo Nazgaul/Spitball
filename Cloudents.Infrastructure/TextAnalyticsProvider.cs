@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Infrastructure
 {
@@ -41,7 +42,8 @@ namespace Cloudents.Infrastructure
                 Endpoint = "https://northeurope.api.cognitive.microsoft.com"
             };
 
-            var b = new BatchInput(texts.Where(w=>!string.IsNullOrEmpty(w.Value)).Select(s => new Input(s.Key.ToString(), s.Value))
+            var b = new BatchInput(texts.Where(w=>!string.IsNullOrEmpty(w.Value))
+                .Select(s => new Input(s.Key.ToString(), s.Value.Truncate(4000,false)))
                 .ToList());
             if (b.Documents.Count == 0)
             {
@@ -57,7 +59,7 @@ namespace Cloudents.Infrastructure
                  var t = Language.English.Culture;
                  if (x.DetectedLanguages[0].Score > 0)
                  {
-                     t = new CultureInfo(x.DetectedLanguages[0].Iso6391Name);
+                     t = new CultureInfo(x.DetectedLanguages[0].Iso6391Name.Replace("_","-"));
                  }
 
                  return new KeyValuePair<T, CultureInfo>((T)Convert.ChangeType(x.Id, typeof(T)), t);

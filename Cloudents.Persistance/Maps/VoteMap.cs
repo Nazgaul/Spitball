@@ -8,7 +8,7 @@ namespace Cloudents.Persistance.Maps
         public VoteMap()
         {
             // nhibernate doesn't support multiple unique key on the same column
-            Id(x => x.Id).GeneratedBy.Guid();
+            Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.User)
                 //.UniqueKey("uq_VotesUserDocument")
                 //.UniqueKey("uq_VotesUserAnswer")
