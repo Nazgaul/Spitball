@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Query.Stuff;
 
 namespace Cloudents.Query
 {
@@ -60,17 +61,41 @@ namespace Cloudents.Query
     public class UserPurchasedDocumentsQueryHandler : IQueryHandler<UserPurchaseDocumentByIdQuery, IEnumerable<DocumentFeedDto>>
     {
         private readonly DapperRepository _dapper;
-       // private readonly IMapper _mapper;
+        private readonly IMapper _mapper;
 
         
 
-        public UserPurchasedDocumentsQueryHandler(DapperRepository dapper/*, IMapper mapper*/)
+        public UserPurchasedDocumentsQueryHandler(DapperRepository dapper, IMapper mapper)
         {
             _dapper = dapper;
-//            _mapper = mapper;
+            _mapper = mapper;
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(UserPurchaseDocumentByIdQuery query, CancellationToken token)
         {
+            /*Mapper.Initialize(cfg => {
+                cfg.CreateMap<DocumentFeedDto, UserPurchasedDocumentsQueryResult>()
+                .ForMember(m => m.University, x => x.MapFrom(z => z.University))
+                .ForMember(m => m.Course, x => x.MapFrom(z => z.Course))
+                .ForMember(m => m.Snippet, x => x.MapFrom(z => z.Snippet))
+                .ForMember(m => m.Title, x => x.MapFrom(z => z.Title))
+                .ForMember(m => m.TypeStr, x => x.MapFrom(z => z.TypeStr))
+                .ForMember(m => m.UserId, x => x.MapFrom(z => z.User.Id))
+                .ForMember(m => m.UserName, x => x.MapFrom(z => z.User.Name))
+                .ForMember(m => m.UserScore, x => x.MapFrom(z => z.User.Score))
+                .ForMember(m => m.Id, x => x.MapFrom(z => z.Id))
+                .ForMember(m => m.DateTime, x => x.MapFrom(z => z.DateTime))
+                .ForMember(m => m.Professor, x => x.MapFrom(z => z.Professor))
+                .ForMember(m => m.Views, x => x.MapFrom(z => z.Views))
+                .ForMember(m => m.Price, x => x.MapFrom(z => z.Price))
+                .ForMember(m => m.Downloads, x => x.MapFrom(z => z.Downloads))
+                .ForMember(m => m.VoteCount, x => x.MapFrom(z => z.Vote.Votes))
+                .ReverseMap()
+                .ForPath(s => s.User.Id, opt => opt.MapFrom(src => src.UserId))
+                .ForPath(s => s.User.Name, opt => opt.MapFrom(src => src.UserName))
+                .ForPath(s => s.User.Score, opt => opt.MapFrom(src => src.UserScore))
+                .ForPath(s => s.Source, opt => opt.Ignore())
+                .ForPath(s => s.Url, opt => opt.Ignore());
+            });*/
 
             var result = await _dapper.WithConnectionAsync(async connection =>
             {
@@ -78,15 +103,15 @@ namespace Cloudents.Query
 u2.id as userId,
 u2.Name as userName,
 u2.Score as userScore,
-d.UpdateTime,
-d.CourseName,
-d.Type,
+d.UpdateTime as 'DateTime',
+d.CourseName as 'Course',
+d.Type as 'TypeStr',
 d.Professor,
-d.Name,
+d.Name as Title,
 d.Views,
 d.Downloads,
-u.Name as universityName,
-d.MetaContent,
+u.Name as University,
+d.MetaContent as Snippet,
 d.VoteCount,
 d.Price
  from sb.[Transaction] t
@@ -97,7 +122,7 @@ where t.User_id = @userId", new { userId = query.Id });
             }, token);
 
             //return _mapper.Map<IEnumerable<DocumentFeedDto>>(result);
-            return result.Select(s => new DocumentFeedDto()
+            /*return result.Select(s => new DocumentFeedDto()
             {
                 Price = s.Price,
                 User = new UserDto(s.UserId, s.UserName, s.UserScore),
@@ -116,8 +141,13 @@ where t.User_id = @userId", new { userId = query.Id });
                 {
                     Votes = s.VoteCount
                 }
-            });
-            //return _mapper.Map<IEnumerable<DocumentFeedDto>>(result);
+            });*/
+            var test = new List<DocumentFeedDto>();
+           
+            var orderDto = _mapper.Map<IEnumerable<UserPurchasedDocumentsQueryResult>, IEnumerable<DocumentFeedDto>>(result);
+            return _mapper.Map(result, test);
+            //_mapper.Map<IEnumerable<DocumentFeedDto>>(result);
+            // return Mapper.Map<DocumentFeedDto, UserPurchasedDocumentsQueryResult>(result);
 
         }
 
@@ -134,16 +164,16 @@ where t.User_id = @userId", new { userId = query.Id });
         public long UserId { get; set; }
         public string UserName { get; set; }
         public int UserScore { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public string CourseName { get; set; }
-        public DocumentType Type { get; set; }
+        public DateTime? DateTime { get; set; }
+        public string Course { get; set; }
+        public DocumentType? TypeStr { get; set; }
         public string Professor { get; set; }
-        public string Name { get; set; }
-        public int Views { get; set; }
-        public decimal Price { get; set; }
-        public int Downloads { get; set; }
-        public string UniversityName { get; set; }
-        public string MetaContent { get; set; }
+        public string Title { get; set; }
+        public int? Views { get; set; }
+        public decimal? Price { get; set; }
+        public int? Downloads { get; set; }
+        public string University { get; set; }
+        public string Snippet { get; set; }
         public int VoteCount { get; set; }
     }
 }
