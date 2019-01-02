@@ -22,7 +22,7 @@ namespace Cloudents.Query.Admin
         }
         public async Task<IList<FictivePendingQuestionDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            var counties = new[] { "us", /*"il"*/ };
+            var counties = new[] { "us", "il" };
 
             var list = new List<IFutureValue<long>>();
             // ReSharper disable once LoopCanBeConvertedToQuery - nhibernate doesn't response well for this
