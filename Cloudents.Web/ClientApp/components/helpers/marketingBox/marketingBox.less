@@ -1,19 +1,25 @@
 @import "../../../styles/mixin.less";
-.marketing-box-component{
+
+.marketing-box-component {
   //position: relative;
   width: 100%;
+  max-width: 314px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   justify-content: center;
   height: 100%;
+  @media (max-width: @screen-xs) {
+    max-width: unset;
+  }
 }
-.heading{
+
+.heading {
   height: 56px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  .heading-text{
+  .heading-text {
     font-family: @fontOpenSans;
     font-size: 18px;
     font-weight: bold;
@@ -22,11 +28,19 @@
     padding: 21px 16px 16px 16px;
   }
 }
-.main-marketing-content{
-  padding: 8px;
+
+.main-marketing-content {
+  padding: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.22);
+  box-shadow: none;
+  .marketing-box-image {
+    border-radius: 4px;
+  }
+  @media (max-width: @screen-sm) {
+    padding: 8px;
+    box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.22);
+  }
 }

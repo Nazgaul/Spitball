@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.DTOs;
+using Cloudents.Infrastructure.Data;
 using Cloudents.Query.Query;
 using Dapper;
 

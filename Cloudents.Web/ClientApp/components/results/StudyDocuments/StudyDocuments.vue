@@ -84,6 +84,7 @@
         <template slot="rightSide">
             <slot name="rightSide">
                 <faq-block :isAsk="false" :isNotes="true" :name="currentSuggest" :text="userText"></faq-block>
+
             </slot>
         </template>
         <slot name="suggestCell">
