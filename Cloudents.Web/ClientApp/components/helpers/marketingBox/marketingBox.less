@@ -2,13 +2,14 @@
 
 .marketing-box-component {
   //position: relative;
-  width: 100%;
-  max-width: 314px;
   display: flex;
-  flex-direction: column;
-  margin: 0 auto;
+  flex-direction: column;  
   justify-content: center;
   height: 100%;
+  width: 100%;
+  max-width: 314px;
+  margin: 0 auto;
+  
   @media (max-width: @screen-xs) {
     max-width: unset;
   }
@@ -38,6 +39,7 @@
   box-shadow: none;
   .marketing-box-image {
     border-radius: 4px;
+    cursor: pointer;
   }
   @media (max-width: @screen-sm) {
     padding: 8px;
