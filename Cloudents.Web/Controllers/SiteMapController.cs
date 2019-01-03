@@ -72,7 +72,7 @@ namespace Cloudents.Web.Controllers
             {
                 Async = true
             });
-            await writer.WriteStartDocumentAsync().ConfigureAwait(false);
+            await writer.WriteStartDocumentAsync();
             writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
             var iterator = 0;
             var query = new SeoQuery(index);
@@ -88,7 +88,7 @@ namespace Cloudents.Web.Controllers
                     name = UrlConst.NameToQueryString(entity.Name)
                 }, Request.GetUri().Scheme);
 
-                await WriteTagAsync("1", "Daily", url, writer).ConfigureAwait(false);
+                await WriteTagAsync("1", "Daily", url, writer);
                 if (iterator == 100)
                 {
                     await writer.FlushAsync();
@@ -124,21 +124,21 @@ namespace Cloudents.Web.Controllers
 
             myWriter.WriteStartElement("loc");
             myWriter.WriteValue(navigation);
-            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+            await myWriter.WriteEndElementAsync();
 
             myWriter.WriteStartElement("lastmod");
             myWriter.WriteValue(DateTime.Now.ToString("yyyy-MM-dd"));
-            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+            await myWriter.WriteEndElementAsync();
 
             myWriter.WriteStartElement("changefreq");
             myWriter.WriteValue(freq);
-            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+            await myWriter.WriteEndElementAsync();
 
             myWriter.WriteStartElement("priority");
             myWriter.WriteValue(priority);
-            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+            await myWriter.WriteEndElementAsync();
 
-            await myWriter.WriteEndElementAsync().ConfigureAwait(false);
+            await myWriter.WriteEndElementAsync();
         }
     }
 }

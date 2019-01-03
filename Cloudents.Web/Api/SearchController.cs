@@ -47,7 +47,7 @@ namespace Cloudents.Web.Api
             [FromServices] IWebFlashcardSearch searchProvider, CancellationToken token)
         {
             var query = SearchQuery.Flashcard(model.Query, profile.University?.ExtraName, model.Course, model.Source, model.Page.GetValueOrDefault());
-            var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
+            var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, token).ConfigureAwait(false);
             string nextPageLink = null;
             var p = result.Result?.ToList();
             if (p?.Any() == true)

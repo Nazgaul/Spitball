@@ -14,6 +14,7 @@ using System.Reflection;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Search.Document;
+using Cloudents.Infrastructure.Suggest;
 using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
 using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
 using Module = Autofac.Module;
@@ -76,6 +77,14 @@ namespace Cloudents.Infrastructure
                 .InterceptedBy(typeof(CacheResultInterceptor));
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
+
+
+            builder.RegisterType<BingSuggest>()
+                .As<ISuggestions>()
+                //.WithMetadata<SuggestMetadata>(m => m.For(am => am.AppenderName, Enum.GetValues(typeof(Vertical)).Cast<Vertical>().Where(w => w != Vertical.Tutor)))
+                //.WithMetadata<SuggestMetadata>(m=>Enum.GetValues(typeof(Vertical)).Cast<Vertical>())
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(CacheResultInterceptor));
         }
     }
 }

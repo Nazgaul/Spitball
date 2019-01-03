@@ -75,7 +75,7 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
             var query = new DocumentSeoById(id);
-            var model = await _queryBus.QueryAsync<DocumentSeoDto>(query, token);
+            var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
             {
                 return NotFound();

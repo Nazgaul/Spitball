@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Cloudents.Core.DTOs;
+using System.Collections.Generic;
 
 namespace Cloudents.Query.Stuff
 {
@@ -7,15 +8,12 @@ namespace Cloudents.Query.Stuff
     {
         public ConfigureMapper()
         {
-            /* CreateMap<UserPurchasedDocumentsQueryResult, DocumentFeedDto>()
-                 .ForMember(m => m.University, x => x.MapFrom(z => z.UniversityName))
-                 .ForMember(m => m.Course, x => x.MapFrom(z => z.CourseName))
-                 .ForMember(m => m.Snippet, x => x.MapFrom(z => z.MetaContent))
-                 .ForMember(m => m.Title, x => x.MapFrom(z => z.Name))
-                 .ForMember(m => m.TypeStr, x => x.MapFrom(z => z.Type))
-                 //.ForMember(m => m.User, x => x.MapFrom(z => z.Type))
-                 ;*/
+         
 
+            CreateMap<(long, IEnumerable<LeaderBoardDto>), LeaderBoardQueryResult>()
+                
+                .ForMember(m => m.LeaderBoard, x => x.MapFrom(z => z.Item2))
+                .ForMember(m => m.SBL, x => x.MapFrom(z => z.Item1)).ReverseMap();
 
             CreateMap<DocumentFeedDto, UserPurchasedDocumentsQueryResult>()
                 .ForMember(m => m.University, x => x.MapFrom(z => z.University))

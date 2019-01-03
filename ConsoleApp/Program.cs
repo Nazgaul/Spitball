@@ -72,6 +72,7 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistance"),
                 Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Search"),
                 Assembly.Load("Cloudents.Core"));
             //    Cloudents.Core.Enum.System.Console,
             //    Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -79,10 +80,10 @@ namespace ConsoleApp
             //    Assembly.Load("Cloudents.Infrastructure"),
             //    Assembly.Load("Cloudents.Core"));
             builder.RegisterModule<ModuleFile>();
-            var module = new SearchModule(ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                ConfigurationManager.AppSettings["AzureSearchKey"], false);
+            //var module = new SearchModule(ConfigurationManager.AppSettings["AzureSearchServiceName"],
+            //    ConfigurationManager.AppSettings["AzureSearchKey"], false);
 
-            builder.RegisterModule(module);
+            //builder.RegisterModule(module);
 
 
 

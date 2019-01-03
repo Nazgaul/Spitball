@@ -9,12 +9,12 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Write.Job;
+using Cloudents.Infrastructure.Search.Job;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
-namespace Cloudents.Infrastructure.Search.Job
+namespace Cloudents.Search.Job
 {
     [UsedImplicitly]
     public class AzureJobSearch : IJobProvider
@@ -38,25 +38,25 @@ namespace Cloudents.Infrastructure.Search.Job
 
             if (jobProviderRequest.Sort == JobRequestSort.Date)
             {
-                sortQuery.Add($"{nameof(Core.Entities.Search.Job.DateTime)} desc");
+                sortQuery.Add($"{nameof(Entities.Job.DateTime)} desc");
             }
             var searchParams = new SearchParameters
             {
                 Select = new[]
                 {
-                    nameof(Core.Entities.Search.Job.Title),
-                    nameof(Core.Entities.Search.Job.Description),
-                    nameof(Core.Entities.Search.Job.DateTime),
-                    nameof(Core.Entities.Search.Job.City),
-                    nameof(Core.Entities.Search.Job.State),
-                    nameof(Core.Entities.Search.Job.JobType),
-                    nameof(Core.Entities.Search.Job.Url),
-                    nameof(Core.Entities.Search.Job.Company),
-                    nameof(Core.Entities.Search.Job.Source)
+                    nameof(Entities.Job.Title),
+                    nameof(Entities.Job.Description),
+                    nameof(Entities.Job.DateTime),
+                    nameof(Entities.Job.City),
+                    nameof(Entities.Job.State),
+                    nameof(Entities.Job.JobType),
+                    nameof(Entities.Job.Url),
+                    nameof(Entities.Job.Company),
+                    nameof(Entities.Job.Source)
                 },
                 Facets = filterQuery.Count == 0 ? new[]
                 {
-                    nameof(Core.Entities.Search.Job.JobType)
+                    nameof(Entities.Job.JobType)
                 } : null,
                 Top = JobSearch.PageSize,
                 Skip = JobSearch.PageSize * jobProviderRequest.Page,
@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.Search.Job
             };
 
             var retVal = await
-                _client.Documents.SearchAsync<Core.Entities.Search.Job>(jobProviderRequest.Term, searchParams, cancellationToken: token).ConfigureAwait(false);
+                _client.Documents.SearchAsync<Entities.Job>(jobProviderRequest.Term, searchParams, cancellationToken: token).ConfigureAwait(false);
             if (retVal.Results.Count == 0)
             {
                 return null;
@@ -79,7 +79,7 @@ namespace Cloudents.Infrastructure.Search.Job
             if (filters != null)
             {
                 var filterStr = string.Join(" or ", filters.Select(s =>
-                    $"{nameof(Core.Entities.Search.Job.JobType)} eq '{s.GetDescription()}'"));
+                    $"{nameof(Entities.Job.JobType)} eq '{s.GetDescription()}'"));
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
                    // filterStr = $"({filterStr})";
@@ -90,7 +90,7 @@ namespace Cloudents.Infrastructure.Search.Job
             if (location?.Point != null)
             {
                 filterQuery.Add(
-                    $"geo.distance({nameof(Core.Entities.Search.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
+                    $"geo.distance({nameof(Entities.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
             }
 
             return filterQuery;
