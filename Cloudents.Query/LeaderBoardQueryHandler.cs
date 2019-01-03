@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using AutoMapper;
+using Cloudents.Infrastructure.Data;
 
 namespace Cloudents.Query
 {
