@@ -19,13 +19,13 @@
             <!--</div>-->
         </v-flex>
         <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-3">
-            <div class="header" v-language:inner>faqBlock_spitball</div>
-            <div class="content">
-                <p>{{suggestList[name]}}</p>
-            </div>
-            <div class="footer">
-                <router-link class="footer-btn" tag="button" :to="{path:'/'+name,query:{term:text}}" v-language:inner>faqBlock_show_me</router-link>
-            </div>
+            <!--<div class="header" v-language:inner>faqBlock_spitball</div>-->
+            <!--<div class="content">-->
+                <!--<p>{{suggestList[name]}}</p>-->
+            <!--</div>-->
+            <!--<div class="footer">-->
+                <!--<router-link class="footer-btn" tag="button" :to="{path:'/'+name,query:{term:text}}" v-language:inner>faqBlock_show_me</router-link>-->
+            <!--</div>-->
         </v-flex>
     </v-flex>
 </template>

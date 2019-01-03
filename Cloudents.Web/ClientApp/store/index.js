@@ -18,6 +18,8 @@ import homeLanding from "./homeLanding"
 import homeworkHelpStore from './homeworkHelp_store'
 import studyDocumentsStore from './studyDocuments_store';
 import marketingBox from './marketingBox'
+import leaderBoard from './leaderBoard'
+
 
 
 
@@ -41,7 +43,8 @@ const store = new Vuex.Store({
         homeLanding,
         homeworkHelpStore,
         studyDocumentsStore,
-        marketingBox
+        marketingBox,
+        leaderBoard
     }
 });
 export default store;

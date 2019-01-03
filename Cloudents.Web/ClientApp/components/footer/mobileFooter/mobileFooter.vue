@@ -4,9 +4,10 @@
                 :active.sync="activeBtn"
                 :value="true"
                 fixed
+                app
                 color="white"
         >
-            <v-btn flat color="teal" value="feed">
+            <v-btn flat color="teal" value="feed" @click="closeActive()">
                 <span class="mob-footer-title">Feed</span>
                 <v-icon v-if="activeBtn !== 'feed'">sbf-icon-feed</v-icon>
                 <v-icon v-else>sbf-icon-feed-selected</v-icon>
@@ -18,7 +19,7 @@
                 <v-icon v-else>sbf-icon-earners-selected</v-icon>
             </v-btn>
 
-            <v-btn flat color="teal"  value="promotions" @click="changemobileMarketingBoxState()">
+            <v-btn flat color="teal"  value="promotions" @click="changemobileMarketingBoxState(true)">
                 <span class="mob-footer-title">Promotions</span>
                 <v-icon v-if="activeBtn !== 'promotions'">sbf-icon-promotions</v-icon>
                 <v-icon v-else>sbf-icon-promotions-selected</v-icon>
@@ -28,34 +29,22 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex'
-
+    import { mapActions } from 'vuex';
     export default {
         name: "mobileFooter",
         data() {
             return {
-                activeBtn: '',
+                activeBtn: 'feed',
                 showNav: true
             }
         },
 
         computed: {},
-        // watch: {
-        //     'activeBtn': function () {
-        //         this.relevantAction()
-        //     }
-        // },
         methods: {
             ...mapActions(['changemobileMarketingBoxState']),
-            // relevantAction() {
-            //     if (this.activeBtn === 'promotions') {
-            //         this.changemobileMarketingBoxState()
-            //     } else if (this.activeBtn === 'earners') {
-            //         console.log('earners')
-            //     } else {
-            //         console.log('feed')
-            //     }
-            // }
+            closeActive(){
+            this.changemobileMarketingBoxState(false);
+            }
         },
     }
 </script>
@@ -66,15 +55,16 @@
     .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
         color: @color-blue-new;
     }
-
+    .v-item-group.v-bottom-nav .v-btn--active{
+        /*padding-top: 0;*/
+    }
     .mob-footer-title {
         opacity: 0.9;
         font-family: @fontOpenSans;
-        font-size: 9px;
+        /*font-size: 9px;*/
         font-weight: 600;
         letter-spacing: -0.1px;
         text-align: center;
-
     }
 
 </style>
