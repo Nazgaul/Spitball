@@ -103,4 +103,9 @@ namespace Cloudents.Core.Interfaces
 
     }
 
+    public interface IStatsRepository : IRepository<Stats>
+    {
+        Task UpdateTableAsync(CancellationToken token);
+    }
+
     }
