@@ -43,7 +43,7 @@
         methods: {
             ...mapActions(['changemobileMarketingBoxState']),
             closeActive(){
-            this.changemobileMarketingBoxState(false)
+            this.changemobileMarketingBoxState(false);
             }
         },
     }
