@@ -71,6 +71,7 @@ namespace Cloudents.Admin2
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Persistance"),
+               
                 Assembly.GetExecutingAssembly()
             };
 

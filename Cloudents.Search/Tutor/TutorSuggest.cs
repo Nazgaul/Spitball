@@ -3,16 +3,16 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
+using Cloudents.Infrastructure.Suggest;
 using Cloudents.Infrastructure.Write;
+using Cloudents.Search.AutoComplete;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
-namespace Cloudents.Infrastructure.Suggest
+namespace Cloudents.Search.Tutor
 {
     [UsedImplicitly]
     public class TutorSuggest : ITutorSuggestion
@@ -34,12 +34,12 @@ namespace Cloudents.Infrastructure.Suggest
         {
             var searchParameter = new SearchParameters
             {
-                Select = new List<string> { nameof(AutoComplete.Key) },
-                Filter = $"{nameof(AutoComplete.Vertical)} eq {(int)_vertical}",
+                Select = new List<string> { nameof(Entities.AutoComplete.Key) },
+                Filter = $"{nameof(Entities.AutoComplete.Vertical)} eq {(int)_vertical}",
                 Top = BingSuggest.NumberOfEntries,
                 ScoringProfile = AutoCompleteSearchWrite.ScoringProfile
             };
-            var result = await _client.Documents.SearchAsync<AutoComplete>(query, searchParameter, cancellationToken: token).ConfigureAwait(false);
+            var result = await _client.Documents.SearchAsync<Entities.AutoComplete>(query, searchParameter, cancellationToken: token).ConfigureAwait(false);
 
             return result.Results.Select(s => s.Document.Key);
         }
@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.Suggest
             try
             {
                 var result = await _client.Documents
-                    .GetAsync<AutoComplete>(key, new[] { nameof(AutoComplete.Value) }, cancellationToken: token)
+                    .GetAsync<Entities.AutoComplete>(key, new[] { nameof(Entities.AutoComplete.Value) }, cancellationToken: token)
                     .ConfigureAwait(false);
                 return result?.Value;
             }

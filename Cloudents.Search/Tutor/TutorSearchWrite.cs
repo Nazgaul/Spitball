@@ -4,13 +4,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
-namespace Cloudents.Infrastructure.Write.Tutor
+namespace Cloudents.Search.Tutor
 {
-    public class TutorSearchWrite : SearchServiceWrite<Core.Entities.Search.Tutor>
+    public class TutorSearchWrite : SearchServiceWrite<Entities.Tutor>
     {
         public const string IndexName = "tutors4";
 
@@ -27,53 +26,53 @@ namespace Cloudents.Infrastructure.Write.Tutor
                 Name = indexName,
                 Fields = new List<Field>
                 {
-                    new Field(nameof(Core.Entities.Search.Tutor.Id), DataType.String)
+                    new Field(nameof(Entities.Tutor.Id), DataType.String)
                     {
                         IsKey = true
                     },
-                    new Field(nameof(Core.Entities.Search.Tutor.Name), DataType.String)
+                    new Field(nameof(Entities.Tutor.Name), DataType.String)
                     ,
-                    new Field(nameof(Core.Entities.Search.Tutor.Image), DataType.String)
+                    new Field(nameof(Entities.Tutor.Image), DataType.String)
                     ,
-                    new Field(nameof(Core.Entities.Search.Tutor.Url), DataType.String)
+                    new Field(nameof(Entities.Tutor.Url), DataType.String)
                     ,
-                    new Field(nameof(Core.Entities.Search.Tutor.Description), DataType.String)
+                    new Field(nameof(Entities.Tutor.Description), DataType.String)
                     {
                         IsSearchable = true
                     },
-                    new Field(nameof(Core.Entities.Search.Tutor.City), DataType.String)
+                    new Field(nameof(Entities.Tutor.City), DataType.String)
                     {
                         IsSearchable = true
                     },
-                    new Field(nameof(Core.Entities.Search.Tutor.State), DataType.String)
+                    new Field(nameof(Entities.Tutor.State), DataType.String)
                     {
                         IsSearchable = true
                     },
-                    new Field(nameof(Core.Entities.Search.Tutor.Location), DataType.GeographyPoint)
+                    new Field(nameof(Entities.Tutor.Location), DataType.GeographyPoint)
                     {
                         IsFilterable = true,
                         IsSortable = true
                     },
-                    new Field(nameof(Core.Entities.Search.Tutor.Fee), DataType.Double)
+                    new Field(nameof(Entities.Tutor.Fee), DataType.Double)
                     {
                         IsSortable = true,
                         IsFilterable = true
                     },
-                    new Field(nameof(Core.Entities.Search.Tutor.TutorFilter), DataType.Int32)
+                    new Field(nameof(Entities.Tutor.TutorFilter), DataType.Int32)
                     {
                         IsFilterable = true
                     },
 
-                    new Field(nameof(Core.Entities.Search.Tutor.Source), DataType.String)
+                    new Field(nameof(Entities.Tutor.Source), DataType.String)
                     {
                         IsFilterable = true
                     },
-                    new Field(nameof(Core.Entities.Search.Tutor.Extra), DataType.Collection(DataType.String))
+                    new Field(nameof(Entities.Tutor.Extra), DataType.Collection(DataType.String))
                     {
                         IsSearchable = true
                     },
 
-                    new Field(nameof(Core.Entities.Search.Tutor.InsertDate), DataType.DateTimeOffset)
+                    new Field(nameof(Entities.Tutor.InsertDate), DataType.DateTimeOffset)
                     {
                         IsFilterable = true
                     }
@@ -86,14 +85,14 @@ namespace Cloudents.Infrastructure.Write.Tutor
             const int top = 1000;
             var parameters = new SearchParameters
             {
-                Filter = $"{nameof(Core.Entities.Search.Tutor.InsertDate)} lt {timeToDelete.ToUniversalTime():yyyy-MM-dd'T'hh:mm:ss'Z'} and {nameof(Core.Entities.Search.Tutor.Source)} eq '{source}'",
-                Select = new[] { nameof(Core.Entities.Search.Tutor.Id) },
+                Filter = $"{nameof(Entities.Tutor.InsertDate)} lt {timeToDelete.ToUniversalTime():yyyy-MM-dd'T'hh:mm:ss'Z'} and {nameof(Entities.Tutor.Source)} eq '{source}'",
+                Select = new[] { nameof(Entities.Tutor.Id) },
                 Top = top
             };
-            IList<SearchResult<Core.Entities.Search.Tutor>> result;
+            IList<SearchResult<Entities.Tutor>> result;
             do
             {
-                var searchRetVal = await IndexClient.Documents.SearchAsync<Core.Entities.Search.Tutor>("*", parameters, cancellationToken: token)
+                var searchRetVal = await IndexClient.Documents.SearchAsync<Entities.Tutor>("*", parameters, cancellationToken: token)
                     .ConfigureAwait(false);
                 result = searchRetVal.Results;
 

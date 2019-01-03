@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search.Models;
 
-namespace Cloudents.Infrastructure.Write
+namespace Cloudents.Search.AutoComplete
 {
-    public class AutoCompleteSearchWrite : SearchServiceWrite<AutoComplete>
+    public class AutoCompleteSearchWrite : SearchServiceWrite<Entities.AutoComplete>
     {
         public const string IndexName = "auto-complete";
         public const string ScoringProfile = "auto-complete-default";
@@ -23,27 +21,27 @@ namespace Cloudents.Infrastructure.Write
                 Name = indexName,
                 Fields = new List<Field>
                 {
-                    new Field(nameof(AutoComplete.Id), DataType.String)
+                    new Field(nameof(Entities.AutoComplete.Id), DataType.String)
                     {
                         IsKey = true
                     },
-                    new Field(nameof(AutoComplete.Key), DataType.String)
+                    new Field(nameof(Entities.AutoComplete.Key), DataType.String)
                     {
                         IsSearchable = true,
                         Analyzer = AnalyzerName.StandardLucene,
                     },
-                    new Field(nameof(AutoComplete.Prefix), DataType.String)
+                    new Field(nameof(Entities.AutoComplete.Prefix), DataType.String)
                     {
                         IsSearchable = true,
                         SearchAnalyzer = AnalyzerName.StandardLucene,
                         IndexAnalyzer = AnalyzerName.Create("prefix"),
                     },
-                    new Field(nameof(AutoComplete.Value), DataType.String)
+                    new Field(nameof(Entities.AutoComplete.Value), DataType.String)
                     {
                         IsSearchable = true,
                         Analyzer = AnalyzerName.StandardLucene,
                     },
-                    new Field(nameof(AutoComplete.Vertical), DataType.Int32)
+                    new Field(nameof(Entities.AutoComplete.Vertical), DataType.Int32)
                     {
                         IsFilterable = true
                     }
@@ -66,8 +64,8 @@ namespace Cloudents.Infrastructure.Write
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(AutoComplete.Key)] = 2,
-                            [nameof(AutoComplete.Prefix)] = 1,
+                            [nameof(Entities.AutoComplete.Key)] = 2,
+                            [nameof(Entities.AutoComplete.Prefix)] = 1,
                         })
                     }
                 }
