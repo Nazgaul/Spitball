@@ -20,7 +20,6 @@ namespace Cloudents.Query
         {
             _dapper = dapper;
             _mapper = mapper;
-            this.connection = connection;
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(UserPurchaseDocumentByIdQuery query, CancellationToken token)
         {
