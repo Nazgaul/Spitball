@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-    public abstract class User  : AggregateRoot
+    public abstract class User : AggregateRoot
     {
 
 
@@ -66,8 +66,10 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         public virtual IList<Transaction> Transactions { get; protected set; }
 
-        protected readonly IList<Question> _questions = new List<Question>();
+        private readonly IList<Question> _questions = new List<Question>();
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();
+        //public virtual IList<Question> Questions { get; set; }
+
        
 
         
@@ -91,6 +93,11 @@ namespace Cloudents.Core.Entities
         public virtual CultureInfo Culture { get; set; }
 
         public virtual string Country { get; set; }
+
+        protected virtual void DeleteQuestion()
+        {
+            _questions.Clear();
+        }
 
     }
 }
