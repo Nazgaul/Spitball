@@ -4,7 +4,6 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using JetBrains.Annotations;
-using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
@@ -13,22 +12,11 @@ namespace Cloudents.Infrastructure.Search.Job
     {
         public Mapper()
         {
-            CreateMap<DocumentSearchResult<Core.Entities.Search.Job>, ResultWithFacetDto<JobProviderDto>>()
-                .ConvertUsing<AzureJobSearchConverter>();
+          
 
             CreateMap<JobProviderDto, JobDto>();
 
-            CreateMap<Core.Entities.Search.Job, JobProviderDto>().ConvertUsing(jo => new JobProviderDto
-            {
-                Url = jo.Url,
-                CompensationType = "Paid",
-                Company = jo.Company,
-                DateTime = jo.DateTime.GetValueOrDefault(),
-                Address = $"{jo.City}, {jo.State}",
-                Title = jo.Title,
-                Responsibilities = jo.Description,
-                PrioritySource = PrioritySource.JobWayUp,
-            });
+          
 
             CreateMap<Jobs2CareersProvider.Job, JobProviderDto>()
                 .ConvertUsing(s=> new JobProviderDto

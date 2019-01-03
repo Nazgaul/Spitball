@@ -9,11 +9,11 @@ using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Search.Tutor
 {
-    public class TutorSearchWrite : Infrastructure.Write.SearchServiceWrite<Entities.Tutor>
+    public class TutorSearchWrite : SearchServiceWrite<Entities.Tutor>
     {
         public const string IndexName = "tutors4";
 
-        public TutorSearchWrite(Infrastructure.Search.SearchService client, ILogger logger)
+        public TutorSearchWrite(SearchService client, ILogger logger)
             : base(client, IndexName,logger)
         {
 
