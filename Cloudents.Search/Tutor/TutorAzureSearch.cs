@@ -9,12 +9,12 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Extensions;
+using Cloudents.Infrastructure.Search.Tutor;
 using Cloudents.Infrastructure.Write.Tutor;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using TutorObj = Cloudents.Core.Entities.Search.Tutor;
 
-namespace Cloudents.Infrastructure.Search.Tutor
+namespace Cloudents.Search.Tutor
 {
     public class TutorAzureSearch : ITutorProvider
     {
@@ -37,12 +37,9 @@ namespace Cloudents.Infrastructure.Search.Tutor
             switch (sort)
             {
                 case TutorRequestSort.Price:
-                    sortQuery.Add(nameof(TutorObj.Fee));
+                    sortQuery.Add(nameof(Entities.Tutor.Fee));
                     break;
-                    //case TutorRequestSort.Distance:
-                    //    sortQuery.Add(
-                    //        $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
-                    //    break;
+                  
             }
 
 
@@ -52,25 +49,25 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 Skip = PageSize * page,
                 Select = new[]
                 {
-                    nameof(TutorObj.Name),
-                    nameof(TutorObj.Image),
-                    nameof(TutorObj.Url),
-                    nameof(TutorObj.City),
-                    nameof(TutorObj.State),
-                    nameof(TutorObj.Fee),
-                    nameof(TutorObj.TutorFilter),
-                    nameof(TutorObj.Location),
-                    nameof(TutorObj.Description),
-                    nameof(TutorObj.Source)
+                    nameof(Entities.Tutor.Name),
+                    nameof(Entities.Tutor.Image),
+                    nameof(Entities.Tutor.Url),
+                    nameof(Entities.Tutor.City),
+                    nameof(Entities.Tutor.State),
+                    nameof(Entities.Tutor.Fee),
+                    nameof(Entities.Tutor.TutorFilter),
+                    nameof(Entities.Tutor.Location),
+                    nameof(Entities.Tutor.Description),
+                    nameof(Entities.Tutor.Source)
                 },
                 Filter = string.Join(" or ", filterQuery),
                 OrderBy = sortQuery
 
             };
             var retVal = await
-                _client.Documents.SearchAsync<TutorObj>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
+                _client.Documents.SearchAsync<Entities.Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
 
-            return _mapper.MapWithPriority<TutorObj, TutorDto>(retVal.Results.Select(s => s.Document));
+            return _mapper.MapWithPriority<Entities.Tutor, TutorDto>(retVal.Results.Select(s => s.Document));
         }
 
         private static IEnumerable<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)
@@ -88,14 +85,14 @@ namespace Cloudents.Infrastructure.Search.Tutor
                         filterResult |= TutorFilter.InPerson;
                         const double distance = 50 * 1.6;
                         filterQuery.Add(
-                            $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
+                            $"geo.distance({nameof(Entities.Tutor.Location)}, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
                         break;
                 }
             }
 
             if (filterResult != TutorFilter.None)
             {
-                filterQuery.Add($"{nameof(TutorObj.TutorFilter)} eq {(int)filterResult}");
+                filterQuery.Add($"{nameof(Entities.Tutor.TutorFilter)} eq {(int)filterResult}");
             }
 
             return filterQuery;

@@ -24,6 +24,8 @@ using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Core;
@@ -171,13 +173,27 @@ namespace Cloudents.Web
             services.AddTransient<ISmsSender, SmsSender>();
             services.AddTransient<IProfileUpdater, QueueProfileUpdater>();
             services.AddTransient<ICountryProvider, CountryProvider>();
-            //services.AddScoped<RedirectToOldSiteFilterAttribute>();
+
+
+            
+            //var z = AppDomain.CurrentDomain.GetAssemblies().Where(w =>
+            //        w.FullName.StartsWith("Cloudents", StringComparison.OrdinalIgnoreCase))
+            //    .ToList();
+            ////var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //var assembliesOfProgram = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Where(w =>
+            //        w.Name.StartsWith("Cloudents", StringComparison.OrdinalIgnoreCase))
+            //    .Select(Assembly.Load)
+            //    .ToList();
+            //assembliesOfProgram.Add(Assembly.GetExecutingAssembly());
+
+
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
                 Assembly.Load("Cloudents.Persistance"),
+                Assembly.Load("Cloudents.Search"),
                 Assembly.Load("Cloudents.Query"),
                 Assembly.GetExecutingAssembly()
             };
@@ -206,15 +222,15 @@ namespace Cloudents.Web
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
-            containerBuilder.RegisterAssemblyModules(assembliesOfProgram);
+            containerBuilder.RegisterAssemblyModules(assembliesOfProgram.ToArray());
             //containerBuilder.RegisterSystemModules(
             //    Application.Enum.System.Web, assembliesOfProgram);
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
 
-            containerBuilder.RegisterModule(new SearchModule(Configuration["AzureSearch:SearchServiceName"],
-                Configuration["AzureSearch:SearchServiceAdminApiKey"], !HostingEnvironment.IsProduction()));
+            //containerBuilder.RegisterModule(new SearchModule(Configuration["AzureSearch:SearchServiceName"],
+            //    Configuration["AzureSearch:SearchServiceAdminApiKey"], !HostingEnvironment.IsProduction()));
 
             containerBuilder.RegisterType<SeoDocumentRepository>()
                 .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>().WithParameter("query", SeoDbQuery.Flashcard);

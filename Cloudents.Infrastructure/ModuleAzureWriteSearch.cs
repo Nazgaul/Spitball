@@ -24,11 +24,11 @@ namespace Cloudents.Infrastructure
         }
     }
 
-    public class ModuleInfrastructure : Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
-        }
-    }
+    //public class ModuleInfrastructure : Module
+    //{
+    //    protected override void Load(ContainerBuilder builder)
+    //    {
+    //        builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
+    //    }
+    //}
 }

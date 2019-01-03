@@ -11,11 +11,6 @@ namespace Cloudents.Infrastructure.Search.Tutor
     {
         public Mapper()
         {
-            CreateMap<Core.Entities.Search.Tutor, TutorDto>()
-                .ForMember(m => m.Online, opt =>
-                    opt.MapFrom(src => src.TutorFilter == TutorFilter.Online))
-
-                .ForMember(m => m.PrioritySource, opt => opt.MapFrom(_ => PrioritySource.TutorWyzant));
             CreateMap<TutorMeSearch.Result, TutorDto>().ConvertUsing(source => new TutorDto
             {
                 Description = source.About,
