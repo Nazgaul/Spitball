@@ -21,7 +21,6 @@ namespace Cloudents.Infrastructure
 
 
             builder.RegisterType<SearchService>().AsSelf().As<ISearchService>().SingleInstance();
-            builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>();
         }
     }
 
@@ -29,7 +28,7 @@ namespace Cloudents.Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>();
+            builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
         }
     }
 }

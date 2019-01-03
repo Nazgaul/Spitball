@@ -35,21 +35,7 @@ namespace Cloudents.Infrastructure.Search
             return _indexClients.GetOrAdd(indexName, Client.Indexes.GetClient(indexName));
         }
 
-        /// <summary>
-        /// Obtains a new IndexClient and avoids Socket Exhaustion by reusing previous clients.
-        /// </summary>
-        /// <param name="indexName"></param>
-        /// <returns></returns>
-        public ISearchIndexClient GetClient(string indexName)
-        {
-            if (_isDevelop)
-            {
-                indexName += "-dev";
-            }
-
-            return _indexClients.GetOrAdd(indexName, x => Client.Indexes.GetClient(x)
-            );
-        }
+       
 
         internal SearchServiceClient Client { get; }
 

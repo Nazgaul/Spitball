@@ -17,12 +17,6 @@ namespace Cloudents.Web.Models
         /// </summary>
         public string[] Course { get; set; }
 
-        /// <summary>
-        /// Format of result
-        /// </summary>
-        [DefaultValue(0)]
-        public HighlightTextFormat Format { get; set; }
-
         /// <inheritdoc />
         /// <summary>
         /// Page for paging
