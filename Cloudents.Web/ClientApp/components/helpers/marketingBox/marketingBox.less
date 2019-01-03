@@ -1,0 +1,32 @@
+@import "../../../styles/mixin.less";
+.marketing-box-component{
+  //position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  justify-content: center;
+  height: 100%;
+}
+.heading{
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .heading-text{
+    font-family: @fontOpenSans;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: -0.2px;
+    color: @textColor;
+    padding: 21px 16px 16px 16px;
+  }
+}
+.main-marketing-content{
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.22);
+}

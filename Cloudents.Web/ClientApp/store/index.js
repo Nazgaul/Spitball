@@ -16,7 +16,9 @@ import uploadFiles from  "./uploadFiles";
 import University from "./university";
 import homeLanding from "./homeLanding"
 import homeworkHelpStore from './homeworkHelp_store'
-import studyDocumentsStore from './studyDocuments_store'
+import studyDocumentsStore from './studyDocuments_store';
+import marketingBox from './marketingBox'
+
 
 
 Vue.use(Vuex);
@@ -38,7 +40,8 @@ const store = new Vuex.Store({
         document,
         homeLanding,
         homeworkHelpStore,
-        studyDocumentsStore
+        studyDocumentsStore,
+        marketingBox
     }
 });
 export default store;
