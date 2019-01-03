@@ -8,7 +8,11 @@
             <div v-show="showUniSelect" style="height: 100%;">
                 <uni-select></uni-select>
             </div>
-            <router-view v-show="!showUniSelect" ref="mainPage"></router-view>
+            <div  v-show="showMobMarketingBox">
+            <marketing-box></marketing-box>
+            </div>
+
+            <router-view v-show="!showUniSelect && !showMobMarketingBox" ref="mainPage"></router-view>
             <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
                 <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
                 <span class="cookie-approve"><button @click="removeCookiesPopup()" style="outline:none;"
@@ -44,6 +48,7 @@
                        :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'">
                 <upload-files v-if="getDialogState"></upload-files>
             </sb-dialog>
+            <mobile-footer v-show="$vuetify.breakpoint.xsOnly"></mobile-footer>
         </v-content>
         <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
@@ -60,7 +65,9 @@
     import uniSelectPop from '../helpers/uni-select/uniSelectPop.vue';
     import uniSelect from '../helpers/uni-select/uniSelect.vue';
     import newIsraeliPop from '../dialogs/israeli-pop/newIsraeliPop.vue';
-    import reportItem from '../results/helpers/reportItem/reportItem.vue'
+    import reportItem from '../results/helpers/reportItem/reportItem.vue';
+    import mobileFooter from '../footer/mobileFooter/mobileFooter.vue';
+    import marketingBox from '../helpers/marketingBox/marketingBox.vue'
     export default {
         components: {
             NewQuestion,
@@ -70,7 +77,9 @@
             uniSelect,
             uploadFiles,
             newIsraeliPop,
-            reportItem
+            reportItem,
+            mobileFooter,
+            marketingBox
         },
         data() {
             return {
@@ -92,7 +101,8 @@
                 "getUploadFullMobile",
                 "confirmationDialog",
                 "getShowToaster",
-                "getToasterText"
+                "getToasterText",
+                "getMobMarketingState"
             ]),
             cookiesShow() {
                 return this.getCookieAccepted()
@@ -103,8 +113,11 @@
             showUniSelect() {
                 return this.getShowSelectUniInterface;
             },
+            showMobMarketingBox(){
+                return this.$vuetify.breakpoint.smAndDown && this.getMobMarketingState
+            },
             isUploadAbsoluteMobile() {
-                return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile
+                return this.$vuetify.breakpoint.smAndDown && this.getShowMobMarketingBox
             },
             newIsraeliUser() {
                 return false

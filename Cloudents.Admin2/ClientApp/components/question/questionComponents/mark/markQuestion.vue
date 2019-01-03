@@ -39,7 +39,7 @@
                                                 <v-icon color="red">close</v-icon>
                                             </v-btn>
                                         </v-list-tile-action>
-                                        <v-list-tile-action  class="answer-action">
+                                        <v-list-tile-action class="answer-action">
                                             <v-list-tile-action-text></v-list-tile-action-text>
                                             <span v-show="answer.imagesCount > 0" title="Number of Attchments"
                                                   class="font-size-14">
@@ -108,11 +108,16 @@
         }
     }
 
+
+
     .answers-list-tile {
+        .v-list__tile {
+            height: 100% !important;
+        }
         .answer-action {
             visibility: hidden;
         }
-        &:hover{
+        &:hover {
             .answer-action {
                 visibility: visible;
             }
@@ -145,6 +150,8 @@
             .v-list__tile__sub-title {
                 &.answer-subtitle {
                     color: rgba(0, 0, 0, .87);
+                    white-space: pre-line;
+                    padding: 8px;
                 }
             }
         }

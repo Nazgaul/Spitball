@@ -52,7 +52,8 @@ const vuetifyComponents = {
     VStepper,
     VCombobox,
     VCheckbox,
-    VParallax
+    VParallax,
+    VBottomNav
 };
 import {
     Vuetify,
@@ -86,7 +87,8 @@ import {
     VStepper,
     VCombobox,
     VCheckbox,
-    VParallax
+    VParallax,
+    VBottomNav
 
 
 } from "vuetify";
@@ -184,7 +186,8 @@ Vue.filter('capitalize',
 
 //check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
 global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-
+//is country Israel
+global.isIsrael = global.country.toLowerCase() === "il";
 //check if Edge (using to fix position sticky bugs)
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     global.isEdge = true;
