@@ -126,7 +126,14 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'getShowSelectUniInterface']),
+            ...mapGetters([
+                'accountUser',
+                'unreadMessages',
+                'getShowToaster',
+                'getToasterText',
+                'getShowSelectUniInterface',
+                'getMobMarketingState'
+            ]),
 
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
@@ -135,7 +142,7 @@
                 return this.accountUser !== null
             },
             hideHeader(){
-                return this.getShowSelectUniInterface && this.$vuetify.breakpoint.xsOnly;
+                return this.getShowSelectUniInterface || this.getMobMarketingState && this.$vuetify.breakpoint.xsOnly;
             }
             //myMoney(){return this.accountUser.balance / 40}
 
