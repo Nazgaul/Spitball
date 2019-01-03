@@ -142,13 +142,11 @@ where t.User_id = @userId", new { userId = query.Id });
                     Votes = s.VoteCount
                 }
             });*/
-            var test = new List<DocumentFeedDto>();
+            var destination = new List<DocumentFeedDto>();
            
             var orderDto = _mapper.Map<IEnumerable<UserPurchasedDocumentsQueryResult>, IEnumerable<DocumentFeedDto>>(result);
-            return _mapper.Map(result, test);
-            //_mapper.Map<IEnumerable<DocumentFeedDto>>(result);
-            // return Mapper.Map<DocumentFeedDto, UserPurchasedDocumentsQueryResult>(result);
-
+            return _mapper.Map(result, destination);
+     
         }
 
 
