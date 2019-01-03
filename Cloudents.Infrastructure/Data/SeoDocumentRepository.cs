@@ -2,6 +2,7 @@
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
+using Cloudents.Query;
 using Dapper;
 using JetBrains.Annotations;
 
