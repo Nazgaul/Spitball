@@ -4,7 +4,7 @@
                 :active.sync="activeBtn"
                 :value="true"
                 fixed
-                app
+                :app="$vuetify.breakpoint.xsOnly && this.getMobileFooterState"
                 color="white"
         >
             <v-btn flat color="teal" value="feed" @click="changeActiveTab(tabs.feed)">
@@ -46,7 +46,7 @@
         },
         methods: {
             ...mapActions(['changemobileMarketingBoxState', 'changeFooterActiveTab']),
-            ...mapGetters(["getFooterEnumsState"]),
+            ...mapGetters(["getFooterEnumsState", "getMobileFooterState"]),
 
             changeActiveTab(val){
                 this.activeBtn = val;
