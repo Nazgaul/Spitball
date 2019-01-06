@@ -72,7 +72,7 @@ export default {
             return this.detailedView
         },
         cursorDefault(){
-            return this.detailedView
+            return this.detailedView && !this.suggestion
         },
         isSold() {
             return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
