@@ -5,7 +5,7 @@ namespace Cloudents.Core.DTOs.Admin
     public class FlaggedQuestionDto
     {
         public long Id { get; set; }
-
+        public string Text { get; set; }
         public string Reason { get; set; }
         public string FlaggedUserEmail { get; set; }
     }
@@ -22,6 +22,7 @@ namespace Cloudents.Core.DTOs.Admin
     public class FlaggedAnswerDto
     {
         public Guid Id { get; set; }
+        public string Text { get; set; }
         public string Reason { get; set; }
         public string FlaggedUserEmail { get; set; }
     }
