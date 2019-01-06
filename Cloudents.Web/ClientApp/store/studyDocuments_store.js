@@ -88,7 +88,7 @@ const actions = {
         let verticalItems = context.state.items;
         //when entering a question and going back stay on the same position.
         //can be removed only when question page willo be part of ask question page
-        if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading)) {
+        if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.getters.getSearchLoading)) {
             let filtersData = !!verticalItems.filters ? searchService.createFilters(verticalItems.filters) : null;
             let sortData = !!verticalItems.sort ? verticalItems.sort : null;
             context.dispatch('updateSort', sortData);
