@@ -17,7 +17,7 @@ namespace Cloudents.Query
 
 
 
-        public UserPurchasedDocumentsQueryHandler(DapperRepository dapper, IMapper mapper, SqlConnection connection)
+        public UserPurchasedDocumentsQueryHandler(DapperRepository dapper, IMapper mapper)
         {
             _dapper = dapper;
             _mapper = mapper;
