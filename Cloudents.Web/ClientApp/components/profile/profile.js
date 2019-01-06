@@ -9,6 +9,7 @@ import {
     LanguageService
 } from "../../services/language/languageService";
 import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue"
+
 export default {
     components: {
         questionCard,
@@ -48,7 +49,15 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions', 'getDocuments', 'resetProfileData', 'getPurchasedDocuments']),
+        ...mapActions([
+            'updateNewQuestionDialogState',
+            'syncProfile',
+            'getAnswers',
+            'getQuestions',
+            'getDocuments',
+            'resetProfileData',
+            'getPurchasedDocuments'
+        ]),
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
@@ -146,14 +155,17 @@ export default {
     computed: {
         ...mapGetters(["accountUser", "getProfile"]),
         profileData() {
-            return this.getProfile
-
+            if (!!this.getProfile) {
+                return this.getProfile
+            }
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
         isMyProfile() {
-            return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
+            if (!!this.profileData) {
+            return  false  // return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
+            }
         },
         emptyStateData() {
             let questions = {
@@ -193,7 +205,7 @@ export default {
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {
-        this.resetProfileData();   
+        this.resetProfileData();
         next()
     },
     created() {
