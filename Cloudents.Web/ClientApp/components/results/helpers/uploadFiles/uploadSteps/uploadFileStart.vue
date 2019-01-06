@@ -68,6 +68,7 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import uploadService from "../../../../../services/uploadService";
+    import analyticsService from '../../../../../services/analytics.service';
     import Vue from 'vue';
     import FileUpload from 'vue-upload-component/src';
     import { LanguageService } from "../../../../../services/language/languageService";
@@ -257,7 +258,8 @@
         },
         created() {
             this.loadDropBoxSrc(); // load Drop box script
-
+            analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_START');
+            console.log('DOC_UPLOAD_START');
         }
     }
 </script>

@@ -1,6 +1,7 @@
 import documentService from "../services/documentService";
 import { PREVIEW } from "./mutation-types";
 import { LanguageService } from "../services/language/languageService";
+import analyticsService from '../services/analytics.service';
 
 const state = {
     item: {details: {}}
@@ -55,6 +56,7 @@ const actions = {
             return documentService.purchaseDocument(id)
             .then((resp) => {
                     console.log('purchased success', resp);
+                    analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED');
                     dispatch('setDocumentPreview', item);
                 },
                 (error) => {

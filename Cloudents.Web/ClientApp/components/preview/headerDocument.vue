@@ -152,7 +152,8 @@
     import { mapGetters, mapActions } from 'vuex';
     import { documentTypes } from '../results/helpers/uploadFiles/consts';
     import documentDetails from '../results/helpers/documentDetails/documentDetails.vue';
-    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
+    import analyticsService from '../../services/analytics.service';
 
     export default {
         components: {
@@ -176,6 +177,7 @@
             ...mapGetters(['accountUser']),
             downloadDoc() {
                 let url = this.$route.path + '/download';
+                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD');
                 if (!!this.accountUser()) {
                     global.location.href = url;
                     this.updateDownloadsCount()
@@ -187,6 +189,7 @@
                 let isLogedIn = this.accountUser();
                 if(isLogedIn){
                     this.confirmPurchaseDialog = true;
+                     analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASE_INTENT');
                 }else{
                     this.updateLoginDialogState(true);
                 }

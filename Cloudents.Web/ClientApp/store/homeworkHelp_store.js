@@ -164,7 +164,7 @@ const actions = {
         let haveQueItems = context.state.queItems.length;
         //when entering a question and going back stay on the same position.
         //can be removed only when question page willo be part of ask question page
-        if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip) {
+        if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.getters.getSearchLoading) || skip) {
             if (haveQueItems) {
                 context.commit('HomeworkHelp_injectQuestion')
             }
