@@ -1,5 +1,5 @@
 const state = {
-    mobileFooterState: true,
+    mobileFooterState: true,//defined on the meta object of the routes
     stater: 'feed',
     statesEnum: {
         feed: 'feed',
@@ -8,7 +8,13 @@ const state = {
     }
 };
 const getters = {
-    getMobileFooterState: state => state.mobileFooterState,
+    getMobileFooterState: (state, val, {route}) => {
+        if(!!route.meta && route.meta.hasOwnProperty('showMobileFooter')){
+            return true
+        }else{
+            return false
+        }
+    },
     getFooterEnumsState: state => state.statesEnum,
     showMarketingBox: (state) => {
         return state.stater === state.statesEnum['promotions']

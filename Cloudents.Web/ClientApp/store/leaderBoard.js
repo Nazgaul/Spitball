@@ -27,11 +27,12 @@ const actions = {
     updateLeaderBoardState({commit}, val) {
         commit('setLeaderBoardState', val);
     },
-    getLeadeBoardData({commit}) {
+    getLeadeBoardData({commit, rootState}) {
         let data = {
             leaders: [],
             total: 0
         };
+        console.log(rootState.route);
        return leaderBoardService.getLeaderBoardItems().then(
             (resp) => {
                 data.leaders = resp.data.leaderBoard.map((leaderBoardService.createLeaderBoardItem));

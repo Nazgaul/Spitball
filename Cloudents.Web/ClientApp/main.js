@@ -1,10 +1,10 @@
 import Vue from "vue";
 import App from "./components/app/app.vue";
+import { sync } from 'vuex-router-sync'
 import store from "./store";
 import { Language } from "./services/language/langDirective";
 import { LanguageService } from './services/language/languageService';
 import initSignalRService from './services/signalR/signalrEventService';
-
 // clip board copy text
 import VueClipboard from 'vue-clipboard2';
 import lineClamp from 'vue-line-clamp';
@@ -114,6 +114,7 @@ WebFont.load({
 //    attempt: 1
 //});
 
+
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
@@ -121,6 +122,8 @@ Vue.use(Vuetify, {
     },
     components: vuetifyComponents
 });
+
+
 Vue.use(VueYouTubeEmbed, { global: true });
 Vue.component("scroll-list", scrollComponent);
 //Vue.component("adsense", vueAdsense);
@@ -339,6 +342,9 @@ initSignalRService();
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch
+
+//injects the route to the store via the rootState.route
+sync(store, router);
 
 export {
     app,

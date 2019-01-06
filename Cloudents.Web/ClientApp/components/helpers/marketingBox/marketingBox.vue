@@ -52,7 +52,7 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'getMobMarketingState']),
+            ...mapGetters(['accountUser']),
             isIsrael() {
                 return global.isIsrael;
             },

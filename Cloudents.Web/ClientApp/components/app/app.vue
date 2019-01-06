@@ -8,10 +8,10 @@
             <div v-show="showUniSelect" style="height: 100%;">
                 <uni-select></uni-select>
             </div>
-            <div v-show="showMarketingBox">
+            <div v-show="showMarketingMobile && getMobileFooterState">
                 <marketing-box></marketing-box>
             </div>
-            <div v-show="showLeaderBoard">
+            <div v-show="showLeadersMobile && getMobileFooterState">
                 <leaders-board></leaders-board>
             </div>
 
@@ -116,7 +116,7 @@
             ]),
             showFeed(){
                 if(this.$vuetify.breakpoint.smAndDown){
-                    return this.getMobileFooterState && this.showMobileFeed
+                    return this.showMobileFeed
                 }else{
                     return true;
                 }
@@ -131,8 +131,11 @@
             showUniSelect() {
                 return this.getShowSelectUniInterface;
             },
-            showMobMarketingBox() {
-                return this.$vuetify.breakpoint.smAndDown && this.getMobMarketingState
+            showMarketingMobile() {
+                return this.$vuetify.breakpoint.smAndDown && this.showMarketingBox
+            },
+            showLeadersMobile() {
+                return this.$vuetify.breakpoint.smAndDown && this.showLeaderBoard
             },
             isUploadAbsoluteMobile() {
                 return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile

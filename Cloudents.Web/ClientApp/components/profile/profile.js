@@ -126,7 +126,7 @@ export default {
                 this.purchasedDocuments.isComplete = true;
                 return;
             }
-            this.documents.isLoading = true;
+            this.purchasedDocuments.isLoading = true;
             let DocumentsInfo = {
                 id: this.id,
                 page: this.purchasedDocuments.page,
@@ -145,13 +145,8 @@ export default {
     },
     computed: {
         ...mapGetters(["accountUser", "getProfile"]),
-        profileData: {
-            get() {
-                return this.getProfile;
-            },
-            set(val) {
-
-            }
+        profileData() {
+            return this.getProfile
 
         },
         isMobile() {
@@ -176,7 +171,7 @@ export default {
             let answers = {
                 text: LanguageService.getValueByKey("profile_emptyState_answers_text"),
                 btnText: LanguageService.getValueByKey("profile_emptyState_answers_btnText"),
-                btnUrl: 'home'
+                btnUrl: 'ask'
             };
             let documents = {
                 text: LanguageService.getValueByKey("profile_emptyState_documents_text"),

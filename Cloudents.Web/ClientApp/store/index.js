@@ -1,5 +1,7 @@
-﻿import Vue from "vue";
+﻿
+import Vue from "vue";
 import Vuex from "vuex";
+
 import Search from "./search";
 import User from "./User";
 import Question from "./question";
@@ -20,7 +22,6 @@ import studyDocumentsStore from './studyDocuments_store';
 import marketingBox from './marketingBox'
 import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
-
 
 
 Vue.use(Vuex);
@@ -47,5 +48,6 @@ const store = new Vuex.Store({
         leaderBoard,
         mobileFooter
     }
-});
+})
+
 export default store;
