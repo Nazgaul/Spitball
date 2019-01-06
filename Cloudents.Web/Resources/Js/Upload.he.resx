@@ -121,7 +121,7 @@
     <value>העלה מסמכים</value>
   </data>
   <data name="class_input_placeholder" xml:space="preserve">
-    <value>בחר או הקלד את שם הקורס</value>
+    <value>בחר את שם הקורס</value>
   </data>
   <data name="confirm_btn_cancel" xml:space="preserve">
     <value>חזור</value>
