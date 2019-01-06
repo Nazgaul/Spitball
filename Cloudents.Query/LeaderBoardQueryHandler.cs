@@ -29,13 +29,13 @@ namespace Cloudents.Query
         {
             var leaderBoardResult = await _dapper.WithConnectionAsync(async connection =>
             {
-                var grid = connection.QueryMultiple(@"select top 10 U.Name, Score, Un.Name as University
+                var grid = connection.QueryMultiple(@"select top 10 U.Id, U.Name, Score, Un.Name as University
                                                                         from sb.[user] U
                                                                         join sb.University UN
-
                                                                             on U.UniversityId2 = UN.Id
                                                                         where LockoutEnd is null
                                                                         order by Score desc;
+
                                                                         select top 1 [SBLs]
                                                                         from sb.HomeStats"
                                                     );
