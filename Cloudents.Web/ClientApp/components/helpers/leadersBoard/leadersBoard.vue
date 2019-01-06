@@ -9,7 +9,7 @@
             </div>
 
             <v-list two-line class="leaders-list">
-                <div class="icon-rounded">
+                <div class="icon-rounded" v-if="$vuetify.breakpoint.smAndUp">
                     <v-icon class="earn-icon">sbf-icon-earners</v-icon>
                 </div>
                 <template>
@@ -21,7 +21,7 @@
                                  class="leader-tile"
                     >
                         <v-list-tile-avatar class="leader-avatar">
-                            <user-avatar :user-name="leader.name" :user-id="'777'"></user-avatar>
+                            <user-avatar :user-name="leader.name" :user-id="leader.userId"></user-avatar>
                         </v-list-tile-avatar>
                         <v-list-tile-content>
                             <v-list-tile-title class="leader-rank">
@@ -41,8 +41,8 @@
             </v-list>
             <div class="total-data">
                 <bdi>
-                    <span class="total-label mr-2" v-language:inner>leadersBoard_total</span>
-                    <span class="total-sum">{{total | currencyLocalyFilter}}</span>
+                    <span class="total-label" :class="$vuetify.breakpoint.xsOnly ? 'mr-5' : 'mr-2'" v-language:inner>leadersBoard_total</span>
+                    <span class="total-sum">{{total | commasFilter}} SBL</span>
                 </bdi>
 
             </div>
@@ -84,7 +84,7 @@
                 return this.LeaderBoardData.total
             },
             leadersLimit() {
-                return this.$vuetify.breakpoint.smAndUp ? 5 : 7
+                return this.$vuetify.breakpoint.smAndUp ? 5 : 10
             }
         },
         methods: {
