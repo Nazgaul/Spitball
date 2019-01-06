@@ -19,7 +19,7 @@ import homeworkHelpStore from './homeworkHelp_store'
 import studyDocumentsStore from './studyDocuments_store';
 import marketingBox from './marketingBox'
 import leaderBoard from './leaderBoard'
-
+import mobileFooter from './mobileFooter';
 
 
 
@@ -44,7 +44,8 @@ const store = new Vuex.Store({
         homeworkHelpStore,
         studyDocumentsStore,
         marketingBox,
-        leaderBoard
+        leaderBoard,
+        mobileFooter
     }
 });
 export default store;

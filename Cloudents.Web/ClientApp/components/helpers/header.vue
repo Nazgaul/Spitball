@@ -132,7 +132,7 @@
                 'getShowToaster',
                 'getToasterText',
                 'getShowSelectUniInterface',
-                'getMobMarketingState'
+                'showMobileFeed'
             ]),
 
             isMobile() {
@@ -142,7 +142,7 @@
                 return this.accountUser !== null
             },
             hideHeader(){
-                return this.getShowSelectUniInterface || this.getMobMarketingState && this.$vuetify.breakpoint.xsOnly;
+                return this.getShowSelectUniInterface || !this.showMobileFeed && this.$vuetify.breakpoint.xsOnly;
             }
             //myMoney(){return this.accountUser.balance / 40}
 

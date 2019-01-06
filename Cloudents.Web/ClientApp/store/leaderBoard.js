@@ -1,22 +1,48 @@
+import leaderBoardService from '../services/leadersBoardService';
+
 const state = {
-   leaderBoardState: false
+    leaderBoardMobState: false,
+
+    leaderBoardData:{
+        leaders:[],
+        total: 0
+    }
 };
 
 const getters = {
-    getLeaderBoardState:  state => state.leaderBoardState,
+    getLeaderBoardState: state => state.leaderBoardMobState,
+    LeaderBoardData: state => state.leaderBoardData
 };
 
 const mutations = {
     setLeaderBoardState(state, val) {
-        state.leaderBoardState = val
+        state.leaderBoardMobState = val
     },
+    updateLeaders(state, data) {
+        state.leaderBoardData = {...data};
+    }
 };
 
-
 const actions = {
-    updateLeaderBoardState({commit}, val){
+    updateLeaderBoardState({commit}, val) {
         commit('setLeaderBoardState', val);
     },
+    getLeadeBoardData({commit}) {
+        let data = {
+            leaders: [],
+            total: 0
+        };
+       return leaderBoardService.getLeaderBoardItems().then(
+            (resp) => {
+                data.leaders = resp.data.leaderBoard.map((leaderBoardService.createLeaderBoardItem));
+                data.total = resp.data.sbl;
+                commit("updateLeaders", data)
+            },
+            (error) => {
+
+            }
+        )
+    }
 };
 export default {
     state,
