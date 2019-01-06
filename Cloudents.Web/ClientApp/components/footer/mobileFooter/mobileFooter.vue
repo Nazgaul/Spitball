@@ -4,7 +4,7 @@
                 :active.sync="activeBtn"
                 :value="true"
                 fixed
-                :app="$vuetify.breakpoint.xsOnly && this.getMobileFooterState"
+                :app="$vuetify.breakpoint.xsOnly && this.getMobileFooterState()"
                 color="white"
         >
             <v-btn flat color="teal" value="feed" @click="changeActiveTab(tabs.feed)">

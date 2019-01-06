@@ -165,7 +165,7 @@
                         box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.36);
                         position: fixed;
                         right: 25px;
-                        bottom: 25px;
+                        bottom: 60px;
                         background-color: @color-blue-new;
                         border-radius: 50%;
                         height: 56px;
