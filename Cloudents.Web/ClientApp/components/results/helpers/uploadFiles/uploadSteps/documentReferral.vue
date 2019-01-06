@@ -72,8 +72,7 @@
                 this.updateDialogState(false)
             }
 
-        },
-
+        }
     }
 </script>
 

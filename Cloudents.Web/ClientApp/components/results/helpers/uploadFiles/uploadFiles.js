@@ -2,6 +2,7 @@ import { mapGetters, mapActions } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 
 import documentService from "../../../../services/documentService";
+import analyticsService from '../../../../services/analytics.service';
 import uploadStep_1 from "./uploadSteps/uploadFileStart.vue";
 import uploadStep_2 from "./uploadSteps/uploadDocSchoolClass.vue";
 import uploadStep_3 from "./uploadSteps/documentType.vue";
@@ -74,7 +75,6 @@ export default {
         },
         // button disabled for each step and enabled once everything filled
         isDisabled() {
-            debugger;
             if (this.currentStep === 2 && !this.getFileData.course) {
                 return true
             }
@@ -128,6 +128,8 @@ export default {
                         if (resp.data.url) {
                             self.docReferral = resp.data.url
                         }
+                        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
+                        console.log('DOC_UPLOAD_COMPLETE')
                         self.nextStep(step)
                     },
                     (error) => {
