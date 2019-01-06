@@ -117,7 +117,7 @@
                 return this.$vuetify.breakpoint.smAndDown && this.getMobMarketingState
             },
             isUploadAbsoluteMobile() {
-                return this.$vuetify.breakpoint.smAndDown && this.getShowMobMarketingBox
+                return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile
             },
             newIsraeliUser() {
                 return false

@@ -1,24 +1,31 @@
 <template>
     <div class="marketing-box-component">
-        <div class="heading">
+        <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
             <span class="heading-text">Promotions</span>
         </div>
         <v-card class="main-marketing-content">
-            <img :src="require(`${imgSrc}`)" alt="" @click="relevantAction()">
+            <img class="marketing-box-image" :src="require(`${imgSrc}`)" alt="" @click="promotionOpen()">
         </v-card>
-        <referral-dialog :isTransparent="false" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
+        <sb-dialog :showDialog="showReferral"
+                   :popUpType="'referralPop'"
+                   :content-class="'login-popup'"
+                   :onclosefn="closeRefDialog">
+            <referral-dialog :closeDialog="closeRefDialog" :isTransparent="false" :userReferralLink="userReferralLink"
+                             :popUpType="'referralPop'"></referral-dialog>
+        </sb-dialog>
 
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import referralDialog from "../../question/helpers/referralDialog/referral-dialog.vue";
     import Base62 from "base62"
+    import SbDialog from "../../wrappers/sb-dialog/sb-dialog.vue"
 
     export default {
         name: "marketingBox",
-        components:{referralDialog},
+        components: {referralDialog, SbDialog},
         data() {
             return {
                 showReferral: false,
@@ -35,7 +42,7 @@
                 mobile: {
                     hebrew: {
                         logedIn: './images/mobile_Hebrew_LogedIn.png',
-                        mobile_Not_logedIn: './images/mobile_Hebrew_Not_LogedIn.png',
+                        not_logedIn: './images/mobile_Hebrew_Not_LogedIn.png',
                     },
                     english: {
                         logedIn: './images/mobile_English_LogedIn.png',
@@ -53,7 +60,7 @@
                 return this.$vuetify.breakpoint.xsOnly
             },
             isLogedIn() {
-                return this.accountUser;
+                return (this.accountUser !=null)
             },
             imgSrc() {
                 let imageSrc = '';
@@ -62,25 +69,30 @@
                 imageSrc = this.isLogedIn ? imagesSet["logedIn"] : imagesSet["not_logedIn"];
                 return imageSrc
             },
-            userReferralLink(){
-                return `${global.location.origin}` +"?referral=" + Base62.encode(this.accountUser.id) + "&promo=referral";
+            userReferralLink() {
+                if (!this.isLogedIn) {
+                    return `${global.location.origin}` + "?promo=referral";
+                } else {
+                    return `${global.location.origin}` + "?referral=" + Base62.encode(this.accountUser.id) + "&promo=referral";
+                }
             },
+
 
         },
         methods: {
-            getRelevanImage(){
-                let imageSrc = '';
-                let imagesSet = this.$vuetify.breakpoint.xsOnly ? this.mobile : this.desktop;
-                imagesSet = this.isIsrael ? imagesSet.hebrew : imagesSet.english;
-                imageSrc = this.isLogedIn ? imagesSet["logedIn"] : imagesSet["not_logedIn"];
-                return imageSrc
+            ...mapActions(['changemobileMarketingBoxState']),
+            closeRefDialog() {
+                this.showReferral = false
             },
-            relevantAction(){
-            return  this.isLogedIn ?   this.updateRefState() : this.$router.push({path: '/register' + result, query: query});
+            promotionOpen() {
+                return this.isLogedIn ? this.openRefDialog() : this.goToRegister();
             },
-            updateRefState(){
-                console.log('showing reffff')
-                this.showReferral = !this.showReferral
+            goToRegister(){
+                this.changemobileMarketingBoxState();
+                this.$router.push({path: '/register'});
+            },
+            openRefDialog() {
+                this.showReferral = true
             }
 
         },

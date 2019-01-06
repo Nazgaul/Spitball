@@ -93,6 +93,10 @@
                 type: Boolean,
                 default: false,
                 required: false
+            },
+            closeDialog:{
+                required:false,
+                type: Function
             }
         },
         watch: {
@@ -107,6 +111,7 @@
             requestDialogClose() {
                 this.isCopied = false;
                 this.$root.$emit('closePopUp', this.popUpType);
+                this.closeDialog()
             },
             doCopy() {
                 let self = this;

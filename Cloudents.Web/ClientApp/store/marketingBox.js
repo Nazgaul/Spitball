@@ -7,15 +7,15 @@ const getters = {
 };
 
 const mutations = {
-    setMarketingMobileState(state) {
-        state.mobileMarketingBoxState = !state.mobileMarketingBoxState;
+    setMarketingMobileState(state, val) {
+        state.mobileMarketingBoxState = val
     },
 };
 
 
 const actions = {
-    changemobileMarketingBoxState({commit}){
-        commit('setMarketingMobileState');
+    changemobileMarketingBoxState({commit}, val){
+        commit('setMarketingMobileState', val);
     },
 };
 export default {

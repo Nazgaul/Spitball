@@ -4,53 +4,67 @@
                 :active.sync="activeBtn"
                 :value="true"
                 fixed
+                app
                 color="white"
         >
-            <v-btn flat color="teal">
-                <span>Recents</span>
-                <v-icon>sbf-icon-earners</v-icon>
+            <v-btn flat color="teal" value="feed" @click="closeActive()">
+                <span class="mob-footer-title">Feed</span>
+                <v-icon v-if="activeBtn !== 'feed'">sbf-icon-feed</v-icon>
+                <v-icon v-else>sbf-icon-feed-selected</v-icon>
+
+            </v-btn>
+            <v-btn flat color="teal" value="earners">
+                <span class="mob-footer-title">Earners</span>
+                <v-icon v-if="activeBtn !== 'earners'">sbf-icon-earners</v-icon>
+                <v-icon v-else>sbf-icon-earners-selected</v-icon>
             </v-btn>
 
-            <v-btn flat color="teal">
-                <span>Favorites</span>
-                <v-icon>sbf-icon-promotions</v-icon>
-            </v-btn>
+            <v-btn flat color="teal"  value="promotions" @click="changemobileMarketingBoxState(true)">
+                <span class="mob-footer-title">Promotions</span>
+                <v-icon v-if="activeBtn !== 'promotions'">sbf-icon-promotions</v-icon>
+                <v-icon v-else>sbf-icon-promotions-selected</v-icon>
 
-            <v-btn flat color="teal" @click="changemobileMarketingBoxState()">
-                <span>Nearby</span>
-                <v-icon>sbf-icon</v-icon>
             </v-btn>
         </v-bottom-nav>
     </div>
 </template>
 <script>
-    import { mapActions, mapGetters } from 'vuex'
+    import { mapActions } from 'vuex';
     export default {
         name: "mobileFooter",
         data() {
             return {
-                activeBtn: 1,
+                activeBtn: 'feed',
                 showNav: true
-            }                
+            }
         },
-        props: {
-            propName: {
-                type: Number,
-                default: 0
-            },
-        },
-        computed: {
 
-        },
+        computed: {},
         methods: {
             ...mapActions(['changemobileMarketingBoxState']),
-            name() {
-                
+            closeActive(){
+            this.changemobileMarketingBoxState(false);
             }
         },
     }
 </script>
 
-<style scoped>
+<style lang="less">
+    @import "../../../styles/mixin.less";
+
+    .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
+        color: @color-blue-new;
+    }
+    .v-item-group.v-bottom-nav .v-btn--active{
+        /*padding-top: 0;*/
+    }
+    .mob-footer-title {
+        opacity: 0.9;
+        font-family: @fontOpenSans;
+        /*font-size: 9px;*/
+        font-weight: 600;
+        letter-spacing: -0.1px;
+        text-align: center;
+    }
 
 </style>
