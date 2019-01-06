@@ -286,7 +286,7 @@
     <value>or upload from</value>
   </data>
   <data name="class_input_placeholder" xml:space="preserve">
-    <value>Select or Type a class name</value>
+    <value>Select a class name</value>
   </data>
   <data name="files_final_prof_label" xml:space="preserve">
     <value>Prof.</value>
