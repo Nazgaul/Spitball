@@ -8,7 +8,16 @@ export default {
             loading: true
         }
     },
-    methods:{     
+    methods:{
+        doCopy(id, type){
+            let dataType = type || '';
+            let self = this;
+            this.$copyText(id).then((e) => {
+                self.$toaster.success(`${dataType} Copied` );
+            }, (e) => {
+            })
+
+        },
         unflagQ(question, index){
             unflagQuestion(question.id).then(()=>{
                 this.questions.splice(index, 1);

@@ -12,7 +12,6 @@
                                 {{question.text}}
                             </v-toolbar-title>
                             <v-spacer></v-spacer>
-                            <!--<span title="Fictive Or Original Question" class="mr-3">Answer id: {{question.user.id}}</span>-->
                             <div class="user-email"  @click="doCopy(question.user.email, 'User Email')">
                                 <span>{{question.user.email}}</span>
                             </div>
@@ -48,7 +47,6 @@
                                         <!--<v-icon color="green">done</v-icon>-->
                                         <!--</v-btn>-->
                                     </v-list-tile-action>
-
                                 </v-list-tile>
                             </template>
                         </v-list>
@@ -68,7 +66,6 @@
     .user-id, .user-email {
         cursor: pointer;
     }
-
     .v-list__tile__content {
         &.answers-content {
             .v-list__tile__sub-title {
@@ -93,7 +90,6 @@
             }
         }
     }
-
     .question-toolbar {
         .v-toolbar__content {
             height: auto !important;

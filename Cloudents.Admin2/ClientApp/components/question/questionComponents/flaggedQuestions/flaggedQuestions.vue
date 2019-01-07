@@ -11,7 +11,12 @@
               {{question.text}}
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <span title="Fictive Or Original Question ">{{question.flaggedUserEmail}}</span>
+            <div class="user-email"  @click="doCopy(question.flaggedUserEmail, 'Flagged User Email')">
+              <span>{{question.flaggedUserEmail}}</span>
+            </div>
+            <div class="question-id ml-2"  @click="doCopy(question.id, 'Question ID')">
+              <span>Question ID:{{question.id}}</span>
+            </div>
             <div class="question-actions-container">
             </div>
           </v-toolbar>
@@ -50,6 +55,9 @@
 <script src="./flaggedQuestions.js"></script>
 
 <style lang="scss" scoped>
+  .user-email, .question-id{
+    cursor: pointer;
+  }
   .v-toolbar__title {
     &.question-text-title {
       font-size: 14px;
