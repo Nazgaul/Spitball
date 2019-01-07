@@ -29,7 +29,7 @@
     font-weight: 600;
     letter-spacing: -0.2px;
     color:  @textColor;
-    padding: 21px 16px 8px 16px;
+    padding: 8px 16px;
     @media (max-width: @screen-xs) {
       font-size: 18px;
       font-family: @fontOpenSans;
@@ -39,7 +39,7 @@
   }
 }
 .icon-rounded{
-  height: 50px;
+  height: 32px;
   width: 50px;
   display: flex;
   align-items: flex-end;
@@ -120,9 +120,10 @@
 .total-data {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
-  padding: 12px 24px;
+  padding: 12px 12px;
+  padding-right: 16px;
   @media(max-width: @screen-xs){
    margin-top: 4px;
    box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.05);

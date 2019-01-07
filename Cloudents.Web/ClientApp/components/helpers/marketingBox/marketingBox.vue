@@ -89,7 +89,7 @@
             },
             goToRegister(){
                 this.changemobileMarketingBoxState();
-                this.$router.push({path: '/register'});
+                this.$router.push({name: 'registration'});
             },
             openRefDialog() {
                 this.showReferral = true

@@ -8,10 +8,10 @@
       <div v-show="showUniSelect" style="height: 100%;">
         <uni-select></uni-select>
       </div>
-      <div v-show="showMarketingMobile && getMobileFooterState">
+      <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
         <marketing-box></marketing-box>
       </div>
-      <div v-show="showLeadersMobile && getMobileFooterState">
+      <div  v-show="showLeadersMobile && getMobileFooterState">
         <leaders-board></leaders-board>
       </div>
 
