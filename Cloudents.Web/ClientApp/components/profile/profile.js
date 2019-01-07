@@ -156,11 +156,6 @@ export default {
         ...mapGetters(["accountUser", "getProfile"]),
         profileData() {
             if(!!this.getProfile){
-                this.$nextTick(function(){
-                    //because of the async call 
-                    let profileContainerElm = document.getElementById('profilePageContainer');
-                    profileContainerElm.style.display = '';
-                })
                 return this.getProfile
             }
         },
