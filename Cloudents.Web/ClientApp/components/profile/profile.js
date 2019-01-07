@@ -9,6 +9,7 @@ import {
     LanguageService
 } from "../../services/language/languageService";
 import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue"
+
 export default {
     components: {
         questionCard,
@@ -48,7 +49,15 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState', 'syncProfile', 'getAnswers', 'getQuestions', 'getDocuments', 'resetProfileData', 'getPurchasedDocuments']),
+        ...mapActions([
+            'updateNewQuestionDialogState',
+            'syncProfile',
+            'getAnswers',
+            'getQuestions',
+            'getDocuments',
+            'resetProfileData',
+            'getPurchasedDocuments'
+        ]),
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
@@ -126,7 +135,7 @@ export default {
                 this.purchasedDocuments.isComplete = true;
                 return;
             }
-            this.documents.isLoading = true;
+            this.purchasedDocuments.isLoading = true;
             let DocumentsInfo = {
                 id: this.id,
                 page: this.purchasedDocuments.page,
@@ -145,20 +154,23 @@ export default {
     },
     computed: {
         ...mapGetters(["accountUser", "getProfile"]),
-        profileData: {
-            get() {
-                return this.getProfile;
-            },
-            set(val) {
-
+        profileData() {
+            if(!!this.getProfile){
+                this.$nextTick(function(){
+                    //because of the async call 
+                    let profileContainerElm = document.getElementById('profilePageContainer');
+                    profileContainerElm.style.display = '';
+                })
+                return this.getProfile
             }
-
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
         isMyProfile() {
-            return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
+            if (!!this.profileData) {
+            return  false  // return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
+            }
         },
         emptyStateData() {
             let questions = {
@@ -176,7 +188,7 @@ export default {
             let answers = {
                 text: LanguageService.getValueByKey("profile_emptyState_answers_text"),
                 btnText: LanguageService.getValueByKey("profile_emptyState_answers_btnText"),
-                btnUrl: 'home'
+                btnUrl: 'ask'
             };
             let documents = {
                 text: LanguageService.getValueByKey("profile_emptyState_documents_text"),
@@ -198,7 +210,7 @@ export default {
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {
-        this.resetProfileData();   
+        this.resetProfileData();
         next()
     },
     created() {

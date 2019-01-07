@@ -1,6 +1,6 @@
 <template>
   <div class="flagged-question-container">
-    <h1>Pending Questions</h1>
+    <h1>Flagged Questions</h1>
     <div class="page-container">
       <div class="question-co">
         <div

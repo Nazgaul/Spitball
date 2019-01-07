@@ -5,6 +5,7 @@
         <upload-files-btn v-if="isNotes" @click="openUploaderDialog()"></upload-files-btn>
         <!--<a class="upload-files" v-if="isNotes" @click="openUploaderDialog()" v-language:inner>upload_btn_open</a>-->
         <v-flex xs12 class="card-block">
+            <leaders-board></leaders-board>
             <marketing-box></marketing-box>
             <!--<div class="header" v-language:inner>faqBlock_faq</div>-->
             <!--<div class="content">-->
@@ -38,14 +39,15 @@
     import askQuestionBtn from '../askQuestionBtn/askQuestionBtn.vue';
     import uploadFiles from "../../helpers/uploadFiles/uploadFiles.vue"
     import uploadFilesBtn from "../uploadFilesBtn/uploadFilesBtn.vue";
-    import marketingBox from "../../../helpers/marketingBox/marketingBox.vue"
-
+    import marketingBox from "../../../helpers/marketingBox/marketingBox.vue";
+    import leadersBoard from "../../../helpers/leadersBoard/leadersBoard.vue";
     export default {
         components:{
             askQuestionBtn,
             uploadFiles,
             uploadFilesBtn,
-            marketingBox
+            marketingBox,
+            leadersBoard
         },
         data() {
             return {

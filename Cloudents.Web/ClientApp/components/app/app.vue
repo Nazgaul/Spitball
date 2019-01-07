@@ -8,11 +8,14 @@
             <div v-show="showUniSelect" style="height: 100%;">
                 <uni-select></uni-select>
             </div>
-            <div  v-show="showMobMarketingBox">
-            <marketing-box></marketing-box>
+            <div v-show="showMarketingMobile && getMobileFooterState">
+                <marketing-box></marketing-box>
+            </div>
+            <div v-show="showLeadersMobile && getMobileFooterState">
+                <leaders-board></leaders-board>
             </div>
 
-            <router-view v-show="!showUniSelect && !showMobMarketingBox" ref="mainPage"></router-view>
+            <router-view v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
             <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
                 <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
                 <span class="cookie-approve"><button @click="removeCookiesPopup()" style="outline:none;"
@@ -48,7 +51,7 @@
                        :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'">
                 <upload-files v-if="getDialogState"></upload-files>
             </sb-dialog>
-            <mobile-footer v-show="$vuetify.breakpoint.xsOnly"></mobile-footer>
+            <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState"></mobile-footer>
         </v-content>
         <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
@@ -67,7 +70,9 @@
     import newIsraeliPop from '../dialogs/israeli-pop/newIsraeliPop.vue';
     import reportItem from '../results/helpers/reportItem/reportItem.vue';
     import mobileFooter from '../footer/mobileFooter/mobileFooter.vue';
-    import marketingBox from '../helpers/marketingBox/marketingBox.vue'
+    import marketingBox from '../helpers/marketingBox/marketingBox.vue';
+    import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
+
     export default {
         components: {
             NewQuestion,
@@ -79,7 +84,8 @@
             newIsraeliPop,
             reportItem,
             mobileFooter,
-            marketingBox
+            marketingBox,
+            leadersBoard
         },
         data() {
             return {
@@ -102,8 +108,20 @@
                 "confirmationDialog",
                 "getShowToaster",
                 "getToasterText",
-                "getMobMarketingState"
+                "getMobileFooterState",
+                "showMarketingBox",
+                "showLeaderBoard",
+                "showMobileFeed"
+
             ]),
+            showFeed(){
+                if(this.$vuetify.breakpoint.smAndDown){
+                    return this.showMobileFeed
+                }else{
+                    return true;
+                }
+
+            },
             cookiesShow() {
                 return this.getCookieAccepted()
             },
@@ -113,8 +131,11 @@
             showUniSelect() {
                 return this.getShowSelectUniInterface;
             },
-            showMobMarketingBox(){
-                return this.$vuetify.breakpoint.smAndDown && this.getMobMarketingState
+            showMarketingMobile() {
+                return this.$vuetify.breakpoint.smAndDown && this.showMarketingBox
+            },
+            showLeadersMobile() {
+                return this.$vuetify.breakpoint.smAndDown && this.showLeaderBoard
             },
             isUploadAbsoluteMobile() {
                 return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile
@@ -138,7 +159,7 @@
                 // entire question-details has been rendered
             })
         },
-        watch:{
+        watch: {
             getShowToaster: function (val) {
                 if (val) {
                     var self = this;

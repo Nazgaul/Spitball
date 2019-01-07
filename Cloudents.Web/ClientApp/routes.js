@@ -102,6 +102,7 @@ let routes2 = [
         props: resultProps,
         meta: {
             isAcademic: true,
+            showMobileFooter: true,
             analytics: {
                 pageviewTemplate(route) {
                     return {
@@ -120,6 +121,7 @@ let routes2 = [
         props: resultProps,
         meta: {
             isAcademic: true,
+            showMobileFooter: true,
             analytics: {
                 pageviewTemplate(route) {
                     return {
@@ -138,6 +140,7 @@ let routes2 = [
         props: resultProps,
         meta: {
             isAcademic: true,
+            showMobileFooter: true,
             analytics: {
                 pageviewTemplate(route) {
                     return {
