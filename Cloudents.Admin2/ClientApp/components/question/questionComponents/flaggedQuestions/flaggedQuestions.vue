@@ -1,40 +1,80 @@
 <template>
-  <div class="flagged-question-container">
-    <h1>Flagged Questions</h1>
-    <div class="page-container">
-      <div class="question-co">
-        <div
-          v-show="questions.length > 0"
-          class="questionItem"
-          v-for="(question,index) in questions"
-          :key="index"
-        >
-          <div class="question-left-body">
-            <div class="user-container">
-              <!-- <div>User Id: {{question.user.id}}</div> -->
-              <!-- <div title="Number of Attachments">Attachments: (<b>{{question.imagesCount}}</b>)</div> -->
-              <div>Flagged Email: {{question.flaggedUserEmail}}</div>
+  <div class="container">
+    <v-layout justify-center>
+        <v-flex xs12 style="background: #ffffff; max-width: 960px; min-width: 960px;">
+          <v-toolbar color="indigo" class="heading-toolbar" :height="'64px'" dark>
+            <v-toolbar-title>Flagged Questions</v-toolbar-title>
+          </v-toolbar>
+        <v-card v-for="(question, index) in questions" :key="index" style="padding: 0 12px;">
+          <v-toolbar class="question-toolbar mt-4 back-color-purple">
+            <v-toolbar-title class="question-text-title">
+              {{question.text}}
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <span title="Fictive Or Original Question ">{{question.flaggedUserEmail}}</span>
+            <div class="question-actions-container">
             </div>
-            <div class="question-container">
-              <div class="bottom-border bold bottom-space">Flagged Question Id: {{question.id}}</div>
-              <div>{{question.reason}}</div>
-            </div>
-          </div>
-          <div class="question-right-body">
-            <button @click="unflagQ(question, index)">Unflag</button>
-            <button class="decline" @click="declineQuestion(question, index)">Delete</button>
-          </div>
-        </div>
+          </v-toolbar>
+
+          <v-list two-line avatar>
+            <template>
+              <v-list-tile class="answers-list-tile">
+                <v-list-tile-content class="answers-content">
+                  <v-list-tile-sub-title class="answer-subtitle">{{question.reason}}
+                  </v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action class="answer-action">
+                  <v-list-tile-action-text></v-list-tile-action-text>
+                  <v-btn icon @click="declineQuestion(question, index)">
+                    <v-icon color="red">close</v-icon>
+                  </v-btn>
+                </v-list-tile-action>
+                <v-list-tile-action class="answer-action">
+                  <v-list-tile-action-text></v-list-tile-action-text>
+                  <v-btn icon  @click="unflagQ(question, index)">
+                    <v-icon color="green">done</v-icon>
+                  </v-btn>
+                </v-list-tile-action>
+
+              </v-list-tile>
+            </template>
+          </v-list>
+        </v-card>
+          </v-flex>
+    </v-layout>
         <div v-if="loading">Loading questions, please wait...</div>
         <div v-show="questions.length === 0 && !loading">No more flagged questions</div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script src="./flaggedQuestions.js"></script>
 
 <style lang="scss" scoped>
+  .v-toolbar__title {
+    &.question-text-title {
+      font-size: 14px;
+      white-space: normal;
+      text-align: left;
+      max-width: 85%;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .question-text-title {
+    white-space: pre-line;
+  }
+
+  .question-toolbar {
+    .v-toolbar__content {
+      height: auto !important;
+      text-align: left;
+      padding: 12px 24px;
+    }
+  }
+
+
 .flagged-question-container {
     margin:0 auto;
   .page-container {

@@ -20,7 +20,6 @@ export default {
         declineQuestion(question, index){
             let id = question.id
             deleteQuestion([id]).then(()=>{
-                
                 this.questions.splice(index, 1);
                 this.$toaster.success(`Question Declined`);
             }, err=>{

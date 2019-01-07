@@ -8,6 +8,14 @@ export default {
         }
     },
     methods: {
+        doCopy(id){
+                let self = this;
+                this.$copyText(id).then((e) => {
+                    self.$toaster.success(`ID Copied`);
+                }, (e) => {
+                })
+
+        },
         aproveA(answer, index) {
             aproveAnswer(answer.id).then(() => {
                 this.answers.splice(index, 1);

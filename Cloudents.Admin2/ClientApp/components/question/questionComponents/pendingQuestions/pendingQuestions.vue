@@ -1,129 +1,113 @@
 <template>
-  <div class="panding-question-container">
-    <h1>Pending Questions</h1>
-    <div class="page-container">
-      <div class="question-co">
-        <div
-          v-show="questions.length > 0"
-          class="questionItem"
-          v-for="(question,index) in questions"
-          :key="index"
-        >
-          <div class="question-left-body">
-            <div class="user-container">
-              <div>User Id: {{question.user.id}}</div>
-              <div title="Number of Attachments">Attachments: (
-                <b>{{question.imagesCount}}</b>)
-              </div>
-              <div>User Email: {{question.user.email}}</div>
-            </div>
-            <div class="question-container">
-              <div class="bottom-border bold bottom-space">Question Id: {{question.id}}</div>
-              <div>{{question.text}}</div>
-            </div>
-          </div>
-          <div class="question-right-body">
-            <button @click="aproveQ(question, index)">Aprove</button>
-            <button class="decline" @click="declineQuestion(question, index)">Delete</button>
-          </div>
+    <div class="panding-question-container">
+        <div class="container">
+            <v-layout justify-center>
+                <v-flex xs12 style="background: #ffffff; max-width: 960px; min-width: 960px;">
+                    <v-toolbar color="indigo" class="heading-toolbar" :height="'64px'" dark>
+                        <v-toolbar-title>Pending Questions</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card v-for="(question, index) in questions" :key="index" style="padding: 0 12px;">
+                        <v-toolbar class="question-toolbar mt-4 back-color-purple">
+                            <v-toolbar-title class="question-text-title">
+                                {{question.text}}
+                            </v-toolbar-title>
+                            <v-spacer></v-spacer>
+                            <!--<span title="Fictive Or Original Question" class="mr-3">Answer id: {{question.user.id}}</span>-->
+                            <div class="user-email"  @click="doCopy(question.user.email, 'User Email')">
+                                <span>{{question.user.email}}</span>
+                            </div>
+                            <div class="user-id ml-2"  @click="doCopy(question.user.id, 'User ID')">
+                                <span>User ID:{{question.user.id}}</span>
+                            </div>
+                            <div class="question-actions-container">
+                                <v-btn icon @click="declineQuestion(question, index)">
+                                    <v-icon color="red">close</v-icon>
+                                </v-btn>
+                                <v-btn icon @click="aproveQ(question, index)">
+                                    <v-icon color="green">done</v-icon>
+                                </v-btn>
+                            </div>
+                        </v-toolbar>
+
+                        <v-list two-line avatar>
+                            <template>
+                                <v-list-tile class="answers-list-tile">
+                                    <v-list-tile-content class="answers-content">
+                                        <!--<v-list-tile-sub-title class="answer-subtitle">{{question.reason}}-->
+                                        <!--</v-list-tile-sub-title>-->
+                                    </v-list-tile-content>
+                                    <v-list-tile-action class="answer-action">
+                                        <v-list-tile-action-text></v-list-tile-action-text>
+                                        <!--<v-btn icon  @click="declineQuestion(question, index)">-->
+                                        <!--<v-icon color="red">close</v-icon>-->
+                                        <!--</v-btn>-->
+                                    </v-list-tile-action>
+                                    <v-list-tile-action class="answer-action">
+                                        <v-list-tile-action-text></v-list-tile-action-text>
+                                        <!--<v-btn icon @click="aproveQ(question, index)">-->
+                                        <!--<v-icon color="green">done</v-icon>-->
+                                        <!--</v-btn>-->
+                                    </v-list-tile-action>
+
+                                </v-list-tile>
+                            </template>
+                        </v-list>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+            <div v-if="loading">Loading questions, please wait...</div>
+            <div v-show="questions.length === 0 && !loading">No more flagged questions</div>
         </div>
-        <div v-if="loading">Loading questions, please wait...</div>
-        <div v-show="questions.length === 0 && !loading">No more question to approve</div>
-      </div>
+
     </div>
-  </div>
 </template>
 
 <script src="./pendingQuestions.js"></script>
 
 <style lang="scss" scoped>
-.panding-question-container {
-    margin:0 auto;
-  .page-container {
-    display: flex;
-    .deleted-emails {
-      position: absolute;
-      color: #c25050;
-      .bold {
-        font-weight: 600;
-      }
+    .user-id, .user-email {
+        cursor: pointer;
     }
-    .question-co {
-      flex-grow: 1;
-      .questionItem {
-        display: flex;
-        margin: 0 auto;
-        flex-direction: row;
-        border: 2px solid #c7c7c7;
-        margin-bottom: 10px;
-        width: 70%;
-        min-width: 500px;
-        border-radius: 29px;
 
-        .question-left-body {
-          flex-grow: 10;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding: 10px;
-          padding-left: 15px;
-          background-color: #c7c7c7;
-          border-radius: 20px;
-          margin: 10px;
-          .user-container {
-            display: flex;
-            flex-grow: 1;
-            flex-direction: row;
-            justify-content: space-between;
-            width: 98%;
-            border-bottom: 1px solid #e0e0e0;
-          }
-          .question-container {
-            display: flex;
-            flex-grow: 5;
-            flex-direction: column;
-            width: 100%;
-            text-align: left;
-            .bottom-border {
-              border-bottom: 1px solid #c7c7c7;
-              width: fit-content;
+    .v-list__tile__content {
+        &.answers-content {
+            .v-list__tile__sub-title {
+                &.answer-subtitle {
+                    color: rgba(0, 0, 0, .87);
+                    white-space: pre-line;
+                    padding: 8px;
+                }
             }
-            .bold {
-              font-weight: 600;
-            }
-            .bottom-space {
-              margin-bottom: 5px;
-            }
-          }
         }
-        .question-right-body {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          flex-grow: 1;
-          margin: 10px;
-          justify-content: left;
-          text-align: left;
-          background-color: #c7c7c7;
-          border-radius: 25px;
-          padding: 7px;
-          button {
-            cursor: pointer;
-            background-color: #affb93;
-            border-radius: 25px;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            height: 40px;
-            margin-bottom: 5px;
-            margin-top: 5px;
-            &.decline {
-              background-color: #fb9393;
-            }
-          }
-        }
-      }
     }
-  }
-}
+
+    .question-actions-container {
+        visibility: hidden;
+    }
+
+    .question-toolbar, .v-card {
+        max-width: 1280px;
+        &:hover {
+            .question-actions-container {
+                visibility: visible;
+            }
+        }
+    }
+
+    .question-toolbar {
+        .v-toolbar__content {
+            height: auto !important;
+            text-align: left;
+            padding: 12px 24px;
+        }
+    }
+
+    .question-text-title {
+        white-space: pre-line;
+    }
+
+    .panding-question-container {
+        margin: 0 auto;
+    }
+
 </style>
