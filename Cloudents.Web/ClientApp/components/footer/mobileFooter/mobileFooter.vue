@@ -6,8 +6,8 @@
                 :value="true"
                 fixed
                 :app="$vuetify.breakpoint.xsOnly && this.getMobileFooterState()"
-                color="white"
-                class="notransition"
+                color="#f5f5f5"
+                class="notransition mob-footer-navigation"
         >
             <v-btn flat color="teal" value="feed" @click="changeActiveTab(tabs.feed)">
                 <span class="mob-footer-title">Feed</span>
@@ -60,6 +60,13 @@
 
 <style lang="less">
     @import "../../../styles/mixin.less";
+    .v-bottom-nav{
+        &.mob-footer-navigation{
+            box-shadow: none;
+            border-top: 1px solid #d7d7d7!important;
+        }
+    }
+
     .mob-footer-icon{
         font-size: 20px;
     }
