@@ -135,7 +135,7 @@ export default {
       "showMobileFeed"
     ]),
     showFeed() {
-      if (this.$vuetify.breakpoint.smAndDown) {
+      if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
         return this.showMobileFeed;
       } else {
         return true;
