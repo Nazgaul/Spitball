@@ -169,6 +169,7 @@ Vue.use(VueAnalytics, {
     }
 });
 
+
 Vue.directive('language', Language);
 // Register a global custom directive called `v-focus`
 
