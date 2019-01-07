@@ -4,7 +4,7 @@
             <v-layout justify-center>
                 <v-flex xs12 style="background: #ffffff; max-width: 960px; min-width: 960px;">
                     <v-toolbar color="indigo" class="heading-toolbar" :height="'64px'" dark>
-                        <v-toolbar-title>Flagged Questions</v-toolbar-title>
+                        <v-toolbar-title>Flagged Answers</v-toolbar-title>
                     </v-toolbar>
                     <v-card v-for="(answer, index) in answers" :key="index" style="padding: 0 12px;">
                         <v-toolbar class="question-toolbar mt-4 back-color-purple">
@@ -46,7 +46,7 @@
                 </v-flex>
             </v-layout>
             <div v-if="loading">Loading questions, please wait...</div>
-            <div v-show="answers.length === 0 && !loading">No more flagged questions</div>
+            <div v-show="answers.length === 0 && !loading">No more flagged answers</div>
         </div>
     </div>
 </template>
