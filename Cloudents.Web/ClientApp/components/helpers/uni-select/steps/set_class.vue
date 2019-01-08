@@ -98,7 +98,7 @@
             ...mapGetters(['getSelectedClasses']),
             dropDownAlphaHeight(){
                 return {
-                    maxHeight: this.$vuetify.breakpoint.xsOnly ? this.global.innerHeight - 500 : 300
+                    maxHeight: this.$vuetify.breakpoint.xsOnly ? this.global.innerHeight - 470 : 300
                 }
             },
             schoolName() {

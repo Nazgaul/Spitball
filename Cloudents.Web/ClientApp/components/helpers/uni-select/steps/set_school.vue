@@ -174,7 +174,7 @@
         },
         computed: {
             dropDownAlphaHeight(){
-                return this.globalHeight - 500
+                return this.globalHeight - 470
             },
             showBox() {
                 if (this.search && this.search > 0) {
