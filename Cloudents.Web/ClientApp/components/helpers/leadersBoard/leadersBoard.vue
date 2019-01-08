@@ -40,10 +40,12 @@
                 </template>
             </v-list>
             <div class="total-data">
-                <bdi>
-                    <span class="total-label" :class="$vuetify.breakpoint.xsOnly ? 'mr-5' : 'mr-2'" v-language:inner>leadersBoard_total</span>
-                    <span class="total-sum">{{total  | dollarVal | commasFilter}}$</span>
-                </bdi>
+                    <div class="ml-2">
+                        <span class="total-label" :class="$vuetify.breakpoint.xsOnly ? 'mr-5' : 'mr-2'" v-language:inner>leadersBoard_total</span>
+                    </div>
+                    <div>
+                        <span class="total-sum">{{total  | dollarVal | commasFilter}}$</span>
+                    </div>
 
             </div>
 

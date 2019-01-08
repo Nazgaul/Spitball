@@ -7,7 +7,7 @@ import sbInput from "../question/helpers/sbInput/sbInput.vue"
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
 import { LanguageService } from "../../services/language/languageService";
-import { reviews } from "./helpers/testimonials/testimonialsData"
+import { reviews, mobileReviews } from "./helpers/testimonials/testimonialsData"
 
 export default {
     name: "landingPage",
@@ -27,6 +27,7 @@ export default {
             selectedSubject: '',
             search: '',
             reviewItems: reviews,
+            mobileReviewItems: mobileReviews,
             youTubeVideoId: '',
             SpitballVideoId: 'nreiplVSrWk',
             playerVisible: false,
@@ -55,20 +56,6 @@ export default {
 
         statsData(){
             return this.statistics();
-        },
-        formattedReviews(){
-            let rev;
-            if(this.$vuetify.breakpoint.xsOnly ){
-                 rev = [].concat(...this.reviewItems);
-                console.log(rev)
-            }else{
-               rev = this.reviewItems
-            }
-            return rev
-
-           // return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
-           // console.log(this.reviewItems);
-
         },
         showBox() {
             if (this.search && this.search.length > 0) {

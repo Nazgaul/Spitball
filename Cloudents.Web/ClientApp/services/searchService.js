@@ -86,6 +86,16 @@ function QuestionItem(objInit) {
     this.watchingNow = questionOlderTheOneMinute ? (questionYoungerThenThreshHold ? ((Math.random() * 2) | 0) : 0) : 0; //Todo get value from server
 }
 
+function extractTitle(title){
+    let index = title.indexOf('file-')
+    if(index > -1){
+        return title.substring(1, index)
+    }else{
+        return title;
+    }
+    
+}
+
 function DocumentItem(objInit) {
     this.id = objInit.id || 1;
     this.course = objInit.course;
@@ -94,7 +104,7 @@ function DocumentItem(objInit) {
     this.professor = objInit.professor;
     this.snippet = objInit.snippet;
     this.source = objInit.source;
-    this.title = objInit.title;
+    this.title = extractTitle(objInit.title);
     this.type = objInit.type;
     this.university = objInit.university;
     this.url = objInit.url;

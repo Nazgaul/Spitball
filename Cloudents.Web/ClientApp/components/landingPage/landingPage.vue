@@ -184,14 +184,13 @@
             <div class="carousel-holder">
                 <v-carousel
                         :touchless="isRtl ? true : false"
-                        height=""
+                        :height="$vuetify.breakpoint.xsOnly ? 470 : 500"
                         hide-delimiters
                         :prev-icon="isRtl ? 'sbf-arrow-right-carousel right' : 'sbf-arrow-left-carousel left'"
                         :next-icon="isRtl ?  'sbf-arrow-left-carousel left': 'sbf-arrow-right-carousel right'"
                         :cycle="false"
                         :max="'250'">
-                    <v-carousel-item  v-if="!$vuetify.breakpoint.xsOnly" v-for="(items,i) in formattedReviews" :key="`desktop-${i}`"
-                                    >
+                    <v-carousel-item v-if="!$vuetify.breakpoint.xsOnly" v-for="(items,i) in reviewItems" :key="`desktop-${i}`">
                         <template v-for="(data, index) in items">
                             <div :key="`innerData_${index}`" class="review-item-wrap">
                                 <div class="review-image-wrap">
@@ -203,9 +202,8 @@
                             </div>
                         </template>
                     </v-carousel-item>
-                    <v-carousel-item v-else v-for="(item,index) in formattedReviews">
-                        <template>
-                            <div  class="review-item-wrap">
+                    <v-carousel-item v-else v-for="(item, index) in mobileReviewItems" :key="`mobile-testimonials-${index}`">
+                            <div class="review-item-wrap">
                                 <div class="review-image-wrap">
                                     <img class="review-image" :src="require(`${item.image}`)" :alt="item.title">
                                 </div>
@@ -213,7 +211,6 @@
                                 <span class="review-title">{{item.title}}</span>
                                 <span class="review-text">{{item.text}}</span>
                             </div>
-                        </template>
                     </v-carousel-item>
 
                 </v-carousel>
