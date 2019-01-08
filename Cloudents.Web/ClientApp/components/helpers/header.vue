@@ -142,7 +142,12 @@
                 return this.accountUser !== null
             },
             hideHeader(){
-                return this.getShowSelectUniInterface || !this.showMobileFeed && this.$vuetify.breakpoint.xsOnly;
+                if(this.$vuetify.breakpoint.xsOnly){
+                    return this.getShowSelectUniInterface || !this.showMobileFeed;
+                }else{
+                    return false;
+                }
+                
             }
             //myMoney(){return this.accountUser.balance / 40}
 

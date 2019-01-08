@@ -5,7 +5,6 @@
                 :active.sync="activeBtn"
                 :value="true"
                 fixed
-                :app="$vuetify.breakpoint.xsOnly && this.getMobileFooterState()"
                 color="#f5f5f5"
                 class="notransition mob-footer-navigation"
         >
@@ -16,13 +15,13 @@
 
             </v-btn>
             <v-btn flat color="teal" value="earners"  @click="changeActiveTab(tabs.earners)">
-                <span class="mob-footer-title"v-language:inner>mobileFooter_action_earners</span>
+                <span class="mob-footer-title" v-language:inner>mobileFooter_action_earners</span>
                 <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.earners">sbf-icon-earners</v-icon>
                 <v-icon class="mob-footer-icon" v-else>sbf-icon-earners-selected</v-icon>
             </v-btn>
 
             <v-btn flat color="teal" value="promotions"  @click="changeActiveTab(tabs.promotions)">
-                <span class="mob-footer-title"v-language:inner>mobileFooter_action_promotion</span>
+                <span class="mob-footer-title" v-language:inner>mobileFooter_action_promotion</span>
                 <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.promotions">sbf-icon-promotions</v-icon>
                 <v-icon class="mob-footer-icon" v-else>sbf-icon-promotions-selected</v-icon>
 
