@@ -22,7 +22,6 @@
                                 <span class="doc-type-text type-document" v-else>{{item.source}}</span>
                             </div>
                             <div class="date-area">{{uploadDate}}</div>
-                            <div class="date-area">{{uploadDate}}</div>
                         </div>
                     </div>
                     <div class="document-header-small-sagment">

@@ -39,7 +39,10 @@ export default {
             mobileUniDialog: false,
             isRtl: global.isRtl,
             dictionaryTypesEnum: this.getDictionaryPrefixEnum(),
-            player: null
+            player: null,
+            openDropdownUniMobile: false,
+            openDropdownSubjectMobile: false,
+
         }
     },
     props: {
@@ -189,10 +192,20 @@ export default {
             this.$router.push({path: '/note', query: {term: val.text}});
         },
         showMobileSubjectInput() {
-            this.mobileSubjectsDialog = true
+            this.mobileSubjectsDialog = true;
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    this.openDropdownSubjectMobile = true;
+                    }, 500);
+            });
         },
         showMobileUniInput() {
-            this.mobileUniDialog = true
+            this.mobileUniDialog = true;
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    this.openDropdownUniMobile = true;
+                }, 500);
+            });
         },
         closeSubjectInputDialog() {
             this.mobileSubjectsDialog = false
@@ -213,7 +226,6 @@ export default {
         if(!user){
             this.getAllSubjects();
             this.getStatistics();
-            this.scrollTop();
         }else{
             this.$router.push({path: '/ask'})
         }

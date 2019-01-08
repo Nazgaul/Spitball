@@ -11,7 +11,7 @@
       <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
         <marketing-box></marketing-box>
       </div>
-      <div  v-show="showLeadersMobile && getMobileFooterState">
+      <div  v-if="showLeadersMobile && getMobileFooterState">
         <leaders-board></leaders-board>
       </div>
 
