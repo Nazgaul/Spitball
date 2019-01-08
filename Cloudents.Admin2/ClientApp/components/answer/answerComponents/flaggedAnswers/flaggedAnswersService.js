@@ -5,6 +5,7 @@ function FlaggedAnswerItem(objInit) {
     this.id = objInit.id;
     this.reason = objInit.reason;
     this.flaggedUserEmail = objInit.flaggedUserEmail;
+    this.text = objInit.text || '';
 }
 
 
