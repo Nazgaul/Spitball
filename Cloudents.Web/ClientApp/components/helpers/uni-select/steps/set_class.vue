@@ -29,6 +29,7 @@
                     autofocus
                     multiple
                     chips
+                    :menu-props="dropDownAlphaHeight"
                     :color="`gray`"
             >
                 <template slot="no-data">
@@ -52,7 +53,7 @@
                         <v-icon class="chip-close" @click="parent.selectItem(item)">sbf-close</v-icon>
                     </v-chip>
                 </template>
-                <template slot="item" slot-scope="{ index, item, parent }">
+                <template style="background-color:black" slot="item" slot-scope="{ index, item, parent }">
                     <v-list-tile-content style="max-width:385px;">
                         <span v-html="$options.filters.boldText(item.text, search)">{{ item.text }}</span>
                     </v-list-tile-content>
@@ -81,7 +82,8 @@
             return {
                 search: '',
                 classNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_class_name_placeholder'),
-                isRtl: global.isRtl
+                isRtl: global.isRtl,
+                global: global
             }
 
         },
@@ -94,6 +96,11 @@
         },
         computed: {
             ...mapGetters(['getSelectedClasses']),
+            dropDownAlphaHeight(){
+                return {
+                    maxHeight: this.$vuetify.breakpoint.xsOnly ? this.global.innerHeight - 500 : 300
+                }
+            },
             schoolName() {
                 return this.getSchoolName()
             },
