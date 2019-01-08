@@ -39,7 +39,10 @@ export default {
             mobileUniDialog: false,
             isRtl: global.isRtl,
             dictionaryTypesEnum: this.getDictionaryPrefixEnum(),
-            player: null
+            player: null,
+            openDropdownUniMobile: false,
+            openDropdownSubjectMobile: false,
+
         }
     },
     props: {
@@ -103,6 +106,7 @@ export default {
     },
     watch: {
         search: debounce(function () {
+            this.openDropdownSubjectMobile = true;
             if (!!this.search && this.search.length > 2) {
                 this.selectedSubject = this.search;
             }
@@ -112,6 +116,7 @@ export default {
         }, 250),
 
         searchUni: debounce(function () {
+            this.openDropdownUniMobile =true;
             if (!!this.searchUni && this.searchUni.length > 2) {
                 this.updateUniversities(this.searchUni);
             }
