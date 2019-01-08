@@ -106,7 +106,6 @@ export default {
     },
     watch: {
         search: debounce(function () {
-            this.openDropdownSubjectMobile = true;
             if (!!this.search && this.search.length > 2) {
                 this.selectedSubject = this.search;
             }
@@ -116,7 +115,6 @@ export default {
         }, 250),
 
         searchUni: debounce(function () {
-            this.openDropdownUniMobile =true;
             if (!!this.searchUni && this.searchUni.length > 2) {
                 this.updateUniversities(this.searchUni);
             }
@@ -194,10 +192,20 @@ export default {
             this.$router.push({path: '/note', query: {term: val.text}});
         },
         showMobileSubjectInput() {
-            this.mobileSubjectsDialog = true
+            this.mobileSubjectsDialog = true;
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    this.openDropdownSubjectMobile = true;
+                    }, 500);
+            });
         },
         showMobileUniInput() {
-            this.mobileUniDialog = true
+            this.mobileUniDialog = true;
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    this.openDropdownUniMobile = true;
+                }, 500);
+            });
         },
         closeSubjectInputDialog() {
             this.mobileSubjectsDialog = false
