@@ -74,11 +74,17 @@ const getters = {
             return state.itemsSkeletonPerVertical[getCurrentVertical];
         } else {
             //return data
+            if(!!state.itemsPerVertical[getCurrentVertical]){
             return state.itemsPerVertical[getCurrentVertical].data;
+            }
         }
     },
     getNextPageUrl: function (state, {getCurrentVertical}) {
-        return state.itemsPerVertical[getCurrentVertical].nextPage
+        if(getCurrentVertical !== ""){
+            if(!!state.itemsPerVertical[getCurrentVertical]){
+                return state.itemsPerVertical[getCurrentVertical].nextPage
+            }
+        }
     },
     getShowQuestionToaster: function (state, {getCurrentVertical}) {
         return !!state.queItemsPerVertical[getCurrentVertical] ? state.queItemsPerVertical[getCurrentVertical].length > 0 : false;
