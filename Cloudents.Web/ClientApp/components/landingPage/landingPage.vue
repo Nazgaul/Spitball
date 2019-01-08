@@ -190,7 +190,8 @@
                         :next-icon="isRtl ?  'sbf-arrow-left-carousel left': 'sbf-arrow-right-carousel right'"
                         :cycle="false"
                         :max="'250'">
-                    <v-carousel-item v-if="!$vuetify.breakpoint.xsOnly" v-for="(items,i) in reviewItems" :key="`desktop-${i}`">
+                    <v-carousel-item v-if="!$vuetify.breakpoint.xsOnly" v-for="(items,i) in reviewItems"
+                                     :key="`desktop-${i}`">
                         <template v-for="(data, index) in items">
                             <div :key="`innerData_${index}`" class="review-item-wrap">
                                 <div class="review-image-wrap">
@@ -202,15 +203,16 @@
                             </div>
                         </template>
                     </v-carousel-item>
-                    <v-carousel-item v-else v-for="(item, index) in mobileReviewItems" :key="`mobile-testimonials-${index}`">
-                            <div class="review-item-wrap">
-                                <div class="review-image-wrap">
-                                    <img class="review-image" :src="require(`${item.image}`)" :alt="item.title">
-                                </div>
-                                <span class="review-name">{{item.name}}</span>
-                                <span class="review-title">{{item.title}}</span>
-                                <span class="review-text">{{item.text}}</span>
+                    <v-carousel-item v-else v-for="(item, index) in mobileReviewItems"
+                                     :key="`mobile-testimonials-${index}`">
+                        <div class="review-item-wrap">
+                            <div class="review-image-wrap">
+                                <img class="review-image" :src="require(`${item.image}`)" :alt="item.title">
                             </div>
+                            <span class="review-name">{{item.name}}</span>
+                            <span class="review-title">{{item.title}}</span>
+                            <span class="review-text">{{item.text}}</span>
+                        </div>
                     </v-carousel-item>
 
                 </v-carousel>
@@ -251,7 +253,9 @@
 
             </youtube>
         </sb-dialog>
-        <sb-dialog class="subjects-dialog" :isPersistent="false" :showDialog="mobileSubjectsDialog"
+        <sb-dialog class="subjects-dialog"
+                   :isPersistent="false"
+                   :showDialog="mobileSubjectsDialog"
                    :popUpType="'subject-combobox'"
                    :content-class="'subjects-combo-pop'">
 
@@ -299,7 +303,10 @@
             </div>
 
         </sb-dialog>
-        <sb-dialog class="uni-dialog" :isPersistent="false" :showDialog="mobileUniDialog" :popUpType="'uni-combobox'"
+        <sb-dialog class="uni-dialog"
+                   :isPersistent="false"
+                   :showDialog="mobileUniDialog"
+                   :popUpType="'uni-combobox'"
                    :content-class="'uni-combo-pop'">
 
             <v-icon class="dialog-action close-icon" @click="closeUniInputDialog()">sbf-close</v-icon>
