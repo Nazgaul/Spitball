@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Query.Query;
 using Dapper;
@@ -42,7 +43,8 @@ d.Downloads,
 u.Name as University,
 d.MetaContent as Snippet,
 d.VoteCount,
-d.Price
+d.Price,
+'Cloudents' as Source
  from sb.[Transaction] t
 Join sb.Document d on t.DocumentId = d.Id and d.state = 'ok'
 join sb.University u on u.Id = d.UniversityId
@@ -54,10 +56,27 @@ where t.User_id = @userId", new { userId = query.Id });
 
         }
 
+    }
 
 
-
-       
+    public class UserPurchasedDocumentsQueryResult
+    {
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public string UserName { get; set; }
+        public int UserScore { get; set; }
+        public DateTime? DateTime { get; set; }
+        public string Course { get; set; }
+        public DocumentType? TypeStr { get; set; }
+        public string Professor { get; set; }
+        public string Title { get; set; }
+        public int? Views { get; set; }
+        public decimal? Price { get; set; }
+        public int? Downloads { get; set; }
+        public string University { get; set; }
+        public string Snippet { get; set; }
+        public int VoteCount { get; set; }
+        public string Source { get; set; }
 
     }
 }

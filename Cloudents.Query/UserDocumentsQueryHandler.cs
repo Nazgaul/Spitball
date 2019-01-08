@@ -4,12 +4,10 @@ using Cloudents.Core.Enum;
 using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Stuff;
 
 namespace Cloudents.Query
 {
@@ -56,22 +54,4 @@ namespace Cloudents.Query
     }
 
 
-    public class UserPurchasedDocumentsQueryResult
-    {
-        public long Id { get; set; }
-        public long UserId { get; set; }
-        public string UserName { get; set; }
-        public int UserScore { get; set; }
-        public DateTime? DateTime { get; set; }
-        public string Course { get; set; }
-        public DocumentType? TypeStr { get; set; }
-        public string Professor { get; set; }
-        public string Title { get; set; }
-        public int? Views { get; set; }
-        public decimal? Price { get; set; }
-        public int? Downloads { get; set; }
-        public string University { get; set; }
-        public string Snippet { get; set; }
-        public int VoteCount { get; set; }
-    }
 }
