@@ -226,7 +226,6 @@ export default {
         if(!user){
             this.getAllSubjects();
             this.getStatistics();
-            this.scrollTop();
         }else{
             this.$router.push({path: '/ask'})
         }

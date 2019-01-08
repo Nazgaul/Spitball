@@ -62,7 +62,7 @@
                                 :prepend-inner-icon="'sbf-search'"
                                 :clear-icon="'sbf-close'"
                                 @click:clear="clearData(search, selectedSubject)"
-                                autofocus
+                                
                                 no-filter
                                 :background-color="'rgba( 255, 255, 255, 1)'"
                     >
@@ -124,7 +124,7 @@
                                 :prepend-inner-icon="'sbf-search'"
                                 :clear-icon="'sbf-close'"
                                 @click:clear="clearData(searchUni, university)"
-                                autofocus
+                                
                                 no-filter
 
                                 :background-color="'rgba( 255, 255, 255, 1)'"
@@ -280,7 +280,7 @@
                         :prepend-inner-icon="'sbf-search'"
                         :clear-icon="'sbf-close'"
                         @click:clear="clearData(search, selectedSubject)"
-                        autofocus
+                        :autofocus="mobileSubjectsDialog"
                         no-filter
                         :background-color="'rgba( 255, 255, 255, 1)'"
                 >
@@ -327,7 +327,7 @@
                         :prepend-inner-icon="'sbf-search'"
                         :clear-icon="'sbf-close'"
                         @click:clear="clearData(searchUni, university)"
-                        autofocus
+                        :autofocus="mobileUniDialog"
                         no-filter
                         :background-color="'rgba( 255, 255, 255, 1)'"
                 >
