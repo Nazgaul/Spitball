@@ -262,14 +262,15 @@
 
             <v-icon class="dialog-action close-icon" @click="closeSubjectInputDialog()">sbf-close</v-icon>
             <div class="combo-wrap">
-
                 <v-combobox
+                        style="z-index: 999;"
                         class="input-subject"
                         v-model="selectedSubject"
                         :items="subjectList"
                         :label="subjectsPlaceholder"
                         :item-text="'subject'"
                         :item-value="'id'"
+                        :menu-props="{value: openDropdownSubjectMobile}"
                         :placeholder="subjectsPlaceholder"
                         clearable
                         solo
@@ -287,16 +288,16 @@
                         <v-list-tile v-show="showBox">
                             <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
                         </v-list-tile>
-                        <v-list-tile>
+                        <v-list-tile >
                             <div style="cursor:pointer;" @click="getAllSubjects()" class="subheading dark"
                                  v-language:inner>uniSelect_show_all_schools
                             </div>
                         </v-list-tile>
                     </template>
-                    <template slot="item" slot-scope="{ index, item, parent }">
+                    <template slot="item" slot-scope="{ index, item, parent }" >
                         <v-list-tile-content @click="goToResulstQuestionsPage(item)" style="max-width:385px;">
                                 <span v-html="$options.filters.boldText(item, search)"
-                                >{{ item }}</span>
+                                >{{ item }} {{openDropdownSubjectMobile}}</span>
                         </v-list-tile-content>
                     </template>
                 </v-combobox>
@@ -312,10 +313,12 @@
             <v-icon class="dialog-action close-icon" @click="closeUniInputDialog()">sbf-close</v-icon>
             <div class="combo-wrap">
                 <v-combobox
+                        style="z-index: 999;"
                         class="input-uni"
                         v-model="university"
                         :items="universities"
                         :label="schoolNamePlaceholder"
+                        :menu-props="{value: openDropdownUniMobile}"
                         :placeholder="schoolNamePlaceholder"
                         clearable
                         solo
