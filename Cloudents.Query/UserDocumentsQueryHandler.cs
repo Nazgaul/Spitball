@@ -4,12 +4,10 @@ using Cloudents.Core.Enum;
 using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Stuff;
 
 namespace Cloudents.Query
 {
