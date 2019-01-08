@@ -270,7 +270,6 @@
                         :label="subjectsPlaceholder"
                         :item-text="'subject'"
                         :item-value="'id'"
-
                         :placeholder="subjectsPlaceholder"
                         clearable
                         solo
@@ -317,7 +316,6 @@
                         v-model="university"
                         :items="universities"
                         :label="schoolNamePlaceholder"
-
                         :placeholder="schoolNamePlaceholder"
                         clearable
                         solo
