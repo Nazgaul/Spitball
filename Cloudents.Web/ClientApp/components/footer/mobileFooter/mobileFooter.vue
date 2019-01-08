@@ -6,6 +6,7 @@
                 :value="true"
                 fixed
                 color="#f5f5f5"
+                :app="$vuetify.breakpoint.xsOnly && getMobileFooterState()"
                 class="notransition mob-footer-navigation"
         >
             <v-btn flat color="teal" value="feed" @click="changeActiveTab(tabs.feed)">

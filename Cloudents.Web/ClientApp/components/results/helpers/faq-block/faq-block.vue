@@ -47,7 +47,7 @@
             uploadFiles,
             uploadFilesBtn,
             marketingBox,
-            leadersBoard
+            leadersBoard,
         },
         data() {
             return {
