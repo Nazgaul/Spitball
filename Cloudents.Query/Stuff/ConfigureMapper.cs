@@ -31,11 +31,11 @@ namespace Cloudents.Query.Stuff
                 .ForMember(m => m.Price, x => x.MapFrom(z => z.Price))
                 .ForMember(m => m.Downloads, x => x.MapFrom(z => z.Downloads))
                 .ForMember(m => m.VoteCount, x => x.MapFrom(z => z.Vote.Votes))
+                .ForMember(m => m.Source, x => x.MapFrom(z => z.Source))
                 .ReverseMap()
                 .ForPath(s => s.User.Id, opt => opt.MapFrom(src => src.UserId))
                 .ForPath(s => s.User.Name, opt => opt.MapFrom(src => src.UserName))
                 .ForPath(s => s.User.Score, opt => opt.MapFrom(src => src.UserScore))
-                .ForPath(s => s.Source, opt => opt.Ignore())
                 .ForPath(s => s.Url, opt => opt.Ignore());
            
 
