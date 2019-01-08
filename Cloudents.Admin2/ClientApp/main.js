@@ -7,6 +7,8 @@ import 'v-toaster/dist/v-toaster.css'
 import store from "./store";
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import VueClipboard from 'vue-clipboard2'
+
 const VueUploadComponent = require('vue-upload-component')
 Vue.component('file-upload', VueUploadComponent)
 
@@ -14,6 +16,7 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(Toaster, {timeout: 5000});
 Vue.use(Vuetify);
+Vue.use(VueClipboard)
 console.log(routes);
 // 10/12/2018
 Vue.filter('dateFromISO', function (value) {
@@ -25,6 +28,8 @@ Vue.filter('dateFromISO', function (value) {
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
 
+
+Vue.use(VueClipboard)
 const router = new VueRouter({
     mode: "history",
     routes: routes,

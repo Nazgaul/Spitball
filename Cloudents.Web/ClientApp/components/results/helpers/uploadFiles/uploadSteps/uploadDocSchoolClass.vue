@@ -35,7 +35,7 @@
                         clearable
                         single-line
                         :append-icon="'sbf-expand-bottom'"
-                        :label="classNamePlaceholder"
+                        :placeholder="classNamePlaceholder"
                         autofocus
                         @input="updateClass()"
                         v-model="selectedClass"

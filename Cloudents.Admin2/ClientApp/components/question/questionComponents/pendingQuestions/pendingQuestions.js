@@ -8,7 +8,16 @@ export default {
             loading: true
         }
     },
-    methods:{     
+    methods:{
+        doCopy(id, type){
+            let dataType = type || '';
+            let self = this;
+            this.$copyText(id).then((e) => {
+                self.$toaster.success(`${dataType} Copied` );
+            }, (e) => {
+            })
+
+        },
         aproveQ(question, index){
             aproveQuestion(question.id).then(()=>{
                 this.questions.splice(index, 1);
@@ -20,7 +29,6 @@ export default {
         declineQuestion(question, index){
             let id = question.id
             deleteQuestion([id]).then(()=>{
-                
                 this.questions.splice(index, 1);
                 this.$toaster.success(`Question Declined`);
             }, err=>{

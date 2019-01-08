@@ -117,63 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Action" xml:space="preserve">
-    <value>סוג פעולה</value>
-  </data>
-  <data name="Amount" xml:space="preserve">
-    <value>סכום</value>
-  </data>
-  <data name="Balance" xml:space="preserve">
-    <value>מצב חשבון</value>
-  </data>
-  <data name="Balances" xml:space="preserve">
-    <value>תמונת מצב</value>
-  </data>
-  <data name="Cash_Out" xml:space="preserve">
-    <value>מימוש</value>
-  </data>
-  <data name="currency" xml:space="preserve">
-    <value>$</value>
-  </data>
-  <data name="Date" xml:space="preserve">
-    <value>תאריך</value>
-  </data>
-  <data name="Loading" xml:space="preserve">
-    <value>טוען...</value>
-  </data>
-  <data name="more_SBL_more_valuable" xml:space="preserve">
-    <value>ככל שתצבור יותר  SBL, כך הערך שלהן יגדל.</value>
-  </data>
-  <data name="My_Wallet" xml:space="preserve">
-    <value>הארנק שלי</value>
-  </data>
-  <data name="redeemable_SBL" xml:space="preserve">
-    <value>למימוש</value>
-  </data>
-  <data name="SBL" xml:space="preserve">
-    <value> SBL</value>
-  </data>
-  <data name="Tokens" xml:space="preserve">
-    <value>טוקנים</value>
-  </data>
-  <data name="Total" xml:space="preserve">
-    <value>סך הכל</value>
-  </data>
-  <data name="Transaction" xml:space="preserve">
-    <value>עסקאות</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>סוג טוקנים</value>
-  </data>
-  <data name="Value" xml:space="preserve">
-    <value>שווי ב-$</value>
-  </data>
-  <data name="You_have" xml:space="preserve">
-    <value>יש לך  SBL</value>
-  </data>
-  <data name="you_have_redeemable_sbl" xml:space="preserve">
-    <value>&lt;bdi&gt;
-יש לך  {1} SBL למימוש
-&lt;/bdi&gt;</value>
+  <data name="title" xml:space="preserve">
+    <value>הצעות</value>
   </data>
 </root>

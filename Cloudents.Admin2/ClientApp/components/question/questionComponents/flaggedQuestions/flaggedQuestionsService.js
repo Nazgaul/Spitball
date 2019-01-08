@@ -2,9 +2,11 @@ import {connectivityModule} from '../../../../services/connectivity.module'
 
 
 function FlaggedQuestionItem(objInit){
-    this.id = objInit.id,
-    this.reason = objInit.reason
-    this.flaggedUserEmail = objInit.flaggedUserEmail || "none"
+    this.id = objInit.id;
+    this.reason = objInit.reason;
+    this.flaggedUserEmail = objInit.flaggedUserEmail || "none";
+    this.text = objInit.text || '';
+
 }
 
 
