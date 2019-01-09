@@ -211,7 +211,7 @@
     <value>Awesome! get your document ready for upload</value>
   </data>
   <data name="files_step3_title" xml:space="preserve">
-    <value>Which type of document are you uploading.</value>
+    <value>Which type of document are you uploading?</value>
   </data>
   <data name="files_step4_title" xml:space="preserve">
     <value>Create a title or use the one we created for
@@ -228,7 +228,7 @@
     <value>Please make sure all the details are just right </value>
   </data>
   <data name="files_step6_title" xml:space="preserve">
-    <value>You Rock! Review the details, before sale.</value>
+    <value>You Rock! Review the details, before uploading.</value>
   </data>
   <data name="files_step7_subtitle" xml:space="preserve">
     <value>Help others while you are waiting</value>
