@@ -307,6 +307,6 @@
     <value>Your balance</value>
   </data>
   <data name="files_price_zero_means_free" xml:space="preserve">
-    <value>Price 00.00, means that the doc. will be free</value>
+    <value>Price 00.00, means that the doc will be free.</value>
   </data>
 </root>
