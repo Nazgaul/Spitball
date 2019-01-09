@@ -145,7 +145,7 @@
     <value>Close</value>
   </data>
   <data name="files_btn_desktop" xml:space="preserve">
-    <value>Your Dekstop</value>
+    <value>Your Desktop</value>
   </data>
   <data name="files_btn_drop" xml:space="preserve">
     <value>Or just drop your file here</value>
@@ -205,26 +205,23 @@
     <value>Type a keyword name</value>
   </data>
   <data name="files_step2_subtitle" xml:space="preserve">
-    <value>Filling details will increase this doc. chances to get
-                found</value>
+    <value>Adding details will allow more students to find your document.</value>
   </data>
   <data name="files_step2_title" xml:space="preserve">
     <value>Awesome! get your document ready for upload</value>
   </data>
   <data name="files_step3_title" xml:space="preserve">
-    <value>Choose document type, it would be easier to
-                find it</value>
+    <value>Which type of document are you uploading.</value>
   </data>
   <data name="files_step4_title" xml:space="preserve">
     <value>Create a title or use the one we created for
                 you</value>
   </data>
   <data name="files_step5_subtitle" xml:space="preserve">
-    <value>It will help other to find you in more than one
-                way</value>
+    <value>Accurate keywords will help you sell the doc to more students.</value>
   </data>
   <data name="files_step5_title" xml:space="preserve">
-    <value>Add any keyword you think is relevant for this
+    <value>Add any keywords you think are relevant for this
                 doc.</value>
   </data>
   <data name="files_step6_subtitle" xml:space="preserve">
@@ -277,7 +274,7 @@
     <value>Awesome!</value>
   </data>
   <data name="first_step2_title_partTwo" xml:space="preserve">
-    <value>To what class this Document reffers to?</value>
+    <value>To what class does this document refer?</value>
   </data>
   <data name="files_dopHere" xml:space="preserve">
     <value>Drop your file here</value>
@@ -304,7 +301,7 @@
     <value>In Spitball platform you can buy and sell with</value>
   </data>
   <data name="files_price_title" xml:space="preserve">
-    <value>Set your price</value>
+    <value>Set your price per download</value>
   </data>
   <data name="files_price_your_balance" xml:space="preserve">
     <value>Your balance</value>
