@@ -90,14 +90,6 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
-
-        // canDelete() {
-        //     if (!this.cardOwner) {
-        //         return false;
-        //     }
-        //     return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
-        //
-        // },
         limitedCardAnswers() {
             if (typeof  this.cardData.answers === "number") {
                 if (this.cardData.answers > 3) {

@@ -78,8 +78,11 @@
                         </v-carousel>
                     </div>
                 </div>
-                <v-dialog v-model="showDialog" max-width="720px"
-                          transition="scale-transition" content-class="zoom-image">
+                <v-dialog  v-if="showDialog"
+                           v-model="showDialog"
+                           max-width="720px"
+                          transition="scale-transition"
+                           content-class="zoom-image">
                     <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
                 </v-dialog>
             </div>
