@@ -1,6 +1,5 @@
 <template>
     <div class="notification-center-wrap">
-        <ask-question-btn v-show="isAsk"></ask-question-btn>
         <div class="notification-container">
             <v-subheader class="notification-center-header" :key="'header'">
                 <span v-language:inner>notificationCenter_title</span>

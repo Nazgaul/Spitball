@@ -8,8 +8,8 @@ const state = {
     }
 };
 const getters = {
-    getMobileFooterState: (state, val, {route}) => {
-        if(!!route.meta && route.meta.hasOwnProperty('showMobileFooter')){
+    getMobileFooterState: (state, val, {route}, {getShowSelectUniInterface}) => {
+        if(!!route.meta && route.meta.hasOwnProperty('showMobileFooter') && !getShowSelectUniInterface){
             return true
         }else{
             return false
