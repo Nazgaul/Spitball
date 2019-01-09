@@ -33,7 +33,7 @@ namespace Cloudents.Search.Question
         {
             var filters = new List<string>
             {
-                $"({nameof(Entities.Question.Country)} eq '{query.Country.ToUpperInvariant()}' or {nameof(Entities.Question.Language)} eq 'en')"
+                $"({nameof(Entities.Question.Language)} eq 'en')"
             };
             if (query.Source != null)
             {
