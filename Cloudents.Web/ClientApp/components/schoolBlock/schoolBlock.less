@@ -3,14 +3,47 @@
 @purpleColor: #3e45a0;
 @chipBorderColor: #7278c8;
 @backgroundGrey: #ececec;
+
+
+.fade-total-enter-active  {
+  transition: all 0.1s;
+}
+.fade-total-leave-active {
+  transition: all 0.1s
+}
+.fade-total-enter, .fade-total-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.list-enter-active {
+  transition: all 0.6s;
+}
+.list-leave-active {
+  transition: all 0.6s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  //transform: translateY(30px);
+}
+
+
 .border-none {
   border: none;
 }
-
+.wrap-it{
+  flex-wrap: wrap;
+}
 .school-block {
+  .transition (all .2s ease-in-out);
   background: @purpleColor;
   padding-top: 42px;
   padding-bottom: 16px;
+  display: flex;
+  @media(max-width: @screen-xs){
+    padding-top: 12px;
+    flex-direction: column;
+    padding-bottom: 0px;
+  }
 }
 
 .empty-school {
@@ -44,6 +77,11 @@
   height: 100%;
   flex-direction: column;
   justify-content: space-between;
+  @media(max-width: @screen-xs){
+    align-items: center;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
 }
 
 .university-holder {
@@ -51,18 +89,35 @@
     color: @color-white;
     margin-right: 12px;
     font-size: 32px;
-
+    @media(max-width: @screen-xs){
+      font-size: 20px;
+    }
   }
   .university-name {
     color: @color-white;
     font-family: @fontFiraSans;
     font-size: 28px;
     letter-spacing: -0.7px;
+    @media(max-width: @screen-xs){
+      font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+  }
+  .filter-text{
+    font-family: @fontOpenSans;
+    font-size: 16px;
+    letter-spacing: -0.6px;
+    color: @color-white;
   }
 }
 
 .classes-holder {
   padding-top: 32px;
+  min-height: 79px;
+  @media(max-width: @screen-xs){
+    padding-top: 16px;
+    min-height: 49px;
+  }
   .sbf-class-chip {
     &.v-chip {
       cursor: pointer;
@@ -74,6 +129,21 @@
       background-color: @purpleColor;
       text-transform: capitalize;
       border-radius: 16px;
+      margin-bottom: 0;
+      margin-top: 0;
+
+      @media(max-width: @screen-xs){
+        max-width: 94px;
+        //mobile filter open
+        &.full-width-chip{
+          max-width: unset;
+          flex-grow: 0!important; //vuetify ovewrite
+          .v-chip__content {
+            //ellipsis for too long class chip
+            max-width: 280px;
+          }
+        }
+      }
       .v-chip__content {
         //ellipsis for too long class chip
         max-width: 94px;
@@ -84,9 +154,11 @@
         display: block;
         line-height: 32px;
         cursor: pointer;
-        &.total {
-          padding-left: 0;
-        }
+
+      }
+      &.total {
+        padding-left: 0;
+        border-radius: 50%;
       }
     }
     &.v-chip--selected {
@@ -94,8 +166,8 @@
       color: @purpleColor;
       border: 1px solid @color-white;
       box-shadow: none;
-      &:after{
-       background-color: @color-white;
+      &:after {
+        background-color: @color-white;
       }
     }
   }
@@ -117,16 +189,17 @@
   }
 }
 
+//desktop only when open all classes
 .all-classes {
   position: absolute;
   z-index: 99;
   width: 100%;
   max-width: 690px;
-  padding: 12px 12px 0 12px;
   background: @color-white;
   border-radius: 4px;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.28);
   .classes-list-wrap {
+    padding: 12px;
     .class-chip-item {
       cursor: pointer;
       margin-left: 0;
@@ -135,10 +208,11 @@
       color: fade(@color-white, 90%);
       //border-color: @chipBorderColor;
       text-transform: capitalize;
-      background: @purpleColor; //vuetify ovewrite they use important
+      background: @purpleColor;
+
       .v-chip__content {
         //ellipsis for too long class chip
-        max-width: 94px;
+        max-width:unset;
         min-width: 0;
         white-space: nowrap;
         overflow: hidden;
@@ -151,17 +225,36 @@
         background-color: @color-white;
         border: 1px solid @purpleColor;
         box-shadow: none;
-        &:after{
+        &:after {
           background-color: @color-white;
         }
-        .v-chip__content{
+        .v-chip__content {
           color: @purpleColor;
         }
       }
     }
-
-    .edit-action-block {
-      background-color: @backgroundGrey;
-    }
+  }
+}
+.edit-action-block {
+  background-color: @backgroundGrey;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  @media(max-width: @screen-xs){
+    box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.43);
+  }
+  .edit-action {
+    cursor: pointer;
+  }
+  .edit-icon {
+    font-size: 16px;
+  }
+  .edit-class {
+    font-family: @fontFiraSans;
+    font-size: 13px;
+    letter-spacing: -0.3px;
+    color: @colorBlackNew;
   }
 }
