@@ -5,14 +5,17 @@ import reportService from "./../services/cardActionService"
 
 const state = {
     items: {},
-    itemsSkeleton: skeletonData.note
+    itemsSkeleton: skeletonData.note,
+    dataLoaded: false
 };
 
 const mutations = {
     StudyDocuments_setItems(state, data) {
         state.items = data;
     },
-    
+    StudyDocuments_setDataLoaded(state, data){
+        state.dataLoaded = data;
+    },
     StudyDocuments_updateItems(state, data) {
         state.items.data = state.items.data.concat(data.data)
         state.items.nextPage = data.nextPage
@@ -70,6 +73,9 @@ const getters = {
     },
     StudyDocuments_getNextPageUrl: function (state, {getCurrentVertical}) {
         return state.items.nextPage
+    },
+    StudyDocuments_isDataLoaded: function(state){
+        return state.dataLoaded;
     }
 };
 
@@ -80,10 +86,14 @@ const actions = {
             return data;
         });
     },
+    StudyDocuments_updateDataLoaded({commit}, data){
+        commit('StudyDocuments_setDataLoaded', data)
+    },
     StudyDocuments_fetchingData(context, {name, params, page}) {
         let paramsList = {...context.state.search, ...params, page};
         //update box terms
         context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
+        context.dispatch('StudyDocuments_updateDataLoaded', false);
         //get location if needed
         let verticalItems = context.state.items;
         //when entering a question and going back stay on the same position.
@@ -93,7 +103,7 @@ const actions = {
             let sortData = !!verticalItems.sort ? verticalItems.sort : null;
             context.dispatch('updateSort', sortData);
             context.dispatch('updateFilters', filtersData);
-
+            context.dispatch('StudyDocuments_updateDataLoaded', true);
             return verticalItems
         } else {
             return getData();
@@ -109,6 +119,7 @@ const actions = {
                     context.dispatch('updateSort', sortData);
                     let filtersData = !!data.filters ? searchService.createFilters(data.filters) : null;
                     context.dispatch('updateFilters', filtersData);
+                    context.dispatch('StudyDocuments_updateDataLoaded', true);
                     return data;
                 }, (err) => {
                     return Promise.reject(err);
