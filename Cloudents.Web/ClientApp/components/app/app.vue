@@ -1,6 +1,7 @@
 ﻿<template>
   <v-app>
     <router-view name="header"></router-view>
+
     <v-content class="site-content" :class="{'loading':getIsLoading}">
       <div class="loader" v-show="getIsLoading">
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
@@ -11,10 +12,10 @@
       <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
         <marketing-box></marketing-box>
       </div>
-      <div  v-if="showLeadersMobile && getMobileFooterState">
+      <div v-if="showLeadersMobile && getMobileFooterState">
         <leaders-board></leaders-board>
       </div>
-
+      <v-tour name="myTour" :steps="tourObject.tourSteps" :options="tourObject.toursOptions" :callbacks="tourObject.tourCallbacks"></v-tour>
       <router-view v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
       <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
         <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
@@ -84,7 +85,11 @@ import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
 import NewQuestion from "../question/newQuestion/newQuestion.vue";
 import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
-import { GetDictionary } from "../../services/language/languageService";
+import {
+  GetDictionary,
+  LanguageService
+} from "../../services/language/languageService";
+import tourService from "../../services/tourService";
 import uniSelectPop from "../helpers/uni-select/uniSelectPop.vue";
 import uniSelect from "../helpers/uni-select/uniSelect.vue";
 import newIsraeliPop from "../dialogs/israeli-pop/newIsraeliPop.vue";
@@ -112,7 +117,14 @@ export default {
       acceptIsraeli: true,
       isRtl: global.isRtl,
       toasterTimeout: 5000,
-      hideFooter: false
+      hideFooter: false,
+      tourObject: {
+        tourCallbacks: {
+          onStop: this.tourClosed
+        },
+        toursOptions: tourService.toursOptions,
+        tourSteps: tourService.tourSteps
+      }
     };
   },
   computed: {
@@ -132,7 +144,8 @@ export default {
       "getMobileFooterState",
       "showMarketingBox",
       "showLeaderBoard",
-      "showMobileFeed"
+      "showMobileFeed",
+      "HomeworkHelp_isDataLoaded"
     ]),
     showFeed() {
       if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
@@ -148,6 +161,9 @@ export default {
       return this.getShowSelectUniPopUpInterface;
     },
     showUniSelect() {
+      if(this.getShowSelectUniInterface){
+        this.tourTempClose();
+      }
       return this.getShowSelectUniInterface;
     },
     showMarketingMobile() {
@@ -188,6 +204,17 @@ export default {
           });
         }, this.toasterTimeout);
       }
+    },
+    HomeworkHelp_isDataLoaded: function(val) {
+      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+      if (val && !supressed) {
+        if (this.$route.name === "ask") {
+          this.$tours["myTour"].start();
+        }
+      }
+    },
+    $route: function() {
+      this.tourTempClose()
     }
   },
   methods: {
@@ -200,6 +227,13 @@ export default {
       "setCookieAccepted"
     ]),
     ...mapGetters(["getCookieAccepted"]),
+    tourClosed: function() {
+      console.log("tourClosed");
+      global.localStorage.setItem("sb_walkthrough_supressed", true);
+    },
+    tourTempClose: function(){
+      this.$tours["myTour"].close();
+    },
     removeCookiesPopup: function() {
       this.setCookieAccepted();
     },
@@ -235,7 +269,10 @@ export default {
 
     global.addEventListener("resize", event => {
       if (global.isMobileAgent) {
-        if ((document && document.activeElement.tagName == "INPUT") || document.activeElement.tagName == "TEXTAREA") {
+        if (
+          (document && document.activeElement.tagName == "INPUT") ||
+          document.activeElement.tagName == "TEXTAREA"
+        ) {
           this.hideFooter = true;
         } else {
           this.hideFooter = false;
