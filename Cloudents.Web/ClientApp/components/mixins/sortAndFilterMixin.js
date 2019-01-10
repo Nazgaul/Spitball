@@ -19,7 +19,11 @@ export default {
         params: {type: Object}
     },
     computed: {
-        ...mapGetters({'loading': 'getIsLoading', 'getFilters': 'getFilters', 'getSort': 'getSort'}),
+        ...mapGetters({
+            'loading': 'getIsLoading',
+            'getFilters': 'getFilters',
+            'getSort': 'getSort'
+            }),
         page() {
             return page[this.name]
         },

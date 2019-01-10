@@ -187,7 +187,7 @@
     <value>Document Title</value>
   </data>
   <data name="files_label_legal" xml:space="preserve">
-    <value>Users are prohibited from uploading copyright infringing materials. Spitball reserves the right to remove uploaded content that does not add value to the Spitball student community</value>
+    <value>Users are prohibited from uploading copyright infringing materials. Spitball reserves the right to remove uploaded content that does not add value to the Spitball student community.</value>
   </data>
   <data name="files_label_proff_name" xml:space="preserve">
     <value>Professor Name</value>
@@ -199,10 +199,10 @@
     <value>Keywords</value>
   </data>
   <data name="files_placeholder_proff_name" xml:space="preserve">
-    <value>Enter a professor name</value>
+    <value>Enter the professor’s name...</value>
   </data>
   <data name="files_placeholder_tags" xml:space="preserve">
-    <value>Type a keyword name</value>
+    <value>Type a keyword name and press Enter to add</value>
   </data>
   <data name="files_step2_subtitle" xml:space="preserve">
     <value>Filling details will increase this doc. chances to get
@@ -216,22 +216,19 @@
                 find it</value>
   </data>
   <data name="files_step4_title" xml:space="preserve">
-    <value>Create a title or use the one we created for
-                you</value>
+    <value>Keep this title or create a better one for your document</value>
   </data>
   <data name="files_step5_subtitle" xml:space="preserve">
-    <value>It will help other to find you in more than one
-                way</value>
+    <value>Multiple keywords will help you sell the document to more students</value>
   </data>
   <data name="files_step5_title" xml:space="preserve">
-    <value>Add any keyword you think is relevant for this
-                doc.</value>
+    <value>Add keywords you think is relevant for this document</value>
   </data>
   <data name="files_step6_subtitle" xml:space="preserve">
     <value>Please make sure all the details are just right </value>
   </data>
   <data name="files_step6_title" xml:space="preserve">
-    <value>You Rock! Review the details, before sale.</value>
+    <value>You Rock! Review the details before sale.</value>
   </data>
   <data name="files_step7_subtitle" xml:space="preserve">
     <value>Help others while you are waiting</value>
@@ -240,13 +237,13 @@
     <value>Spread the Word</value>
   </data>
   <data name="files_type_exam" xml:space="preserve">
-    <value>Exam note</value>
+    <value>Exam notes</value>
   </data>
   <data name="files_type_lecture" xml:space="preserve">
-    <value>Lecture note</value>
+    <value>Lecture notes</value>
   </data>
   <data name="files_type_textbook" xml:space="preserve">
-    <value>Textbook note</value>
+    <value>Textbook notes</value>
     <comment>Ram Change</comment>
   </data>
   <data name="files_uploadDoc" xml:space="preserve">
@@ -277,7 +274,7 @@
     <value>Awesome!</value>
   </data>
   <data name="first_step2_title_partTwo" xml:space="preserve">
-    <value>To what class this Document reffers to?</value>
+    <value>What class is this document from?</value>
   </data>
   <data name="files_dopHere" xml:space="preserve">
     <value>Drop your file here</value>
@@ -301,15 +298,15 @@
     <value>Price</value>
   </data>
   <data name="files_price_subtitle" xml:space="preserve">
-    <value>In Spitball platform you can buy and sell with</value>
+    <value>On Spitball you can buy and sell with</value>
   </data>
   <data name="files_price_title" xml:space="preserve">
-    <value>Set your price</value>
+    <value>Set your price per download</value>
   </data>
   <data name="files_price_your_balance" xml:space="preserve">
     <value>Your balance</value>
   </data>
   <data name="files_price_zero_means_free" xml:space="preserve">
-    <value>Price 00.00, means that the doc. will be free</value>
+    <value>Price 0.00, means that the document will be free.</value>
   </data>
 </root>
