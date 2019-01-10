@@ -1,6 +1,7 @@
 ﻿<template>
     <v-app>
         <router-view name="header"></router-view>
+
         <v-content class="site-content" :class="{'loading':getIsLoading}">
             <school-block app></school-block>
             <div class="loader" v-show="getIsLoading">
@@ -12,10 +13,10 @@
             <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
                 <marketing-box></marketing-box>
             </div>
-            <div v-if="showLeadersMobile && getMobileFooterState">
+      <div v-if="showLeadersMobile && getMobileFooterState">
                 <leaders-board></leaders-board>
             </div>
-
+      <v-tour name="myTour" :steps="tourObject.tourSteps" :options="tourObject.toursOptions" :callbacks="tourObject.tourCallbacks"></v-tour>
             <router-view v-show="!showUniSelect && showFeed" ref="mainPage">
 
             </router-view>
@@ -89,7 +90,8 @@
     import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
     import NewQuestion from "../question/newQuestion/newQuestion.vue";
     import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
-    import { GetDictionary } from "../../services/language/languageService";
+    import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
+import tourService from "../../services/tourService";
     import uniSelectPop from "../helpers/uni-select/uniSelectPop.vue";
     import uniSelect from "../helpers/uni-select/uniSelect.vue";
     import newIsraeliPop from "../dialogs/israeli-pop/newIsraeliPop.vue";
@@ -119,7 +121,14 @@
                 acceptIsraeli: true,
                 isRtl: global.isRtl,
                 toasterTimeout: 5000,
-                hideFooter: false
+      hideFooter: false,
+      tourObject: {
+        tourCallbacks: {
+          onStop: this.tourClosed
+        },
+        toursOptions: tourService.toursOptions,
+        tourSteps: tourService.tourSteps
+      }
             };
         },
         computed: {
@@ -139,7 +148,8 @@
                 "getMobileFooterState",
                 "showMarketingBox",
                 "showLeaderBoard",
-                "showMobileFeed"
+      "showMobileFeed",
+      "HomeworkHelp_isDataLoaded"
             ]),
             showFeed() {
                 if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
@@ -155,6 +165,9 @@
                 return this.getShowSelectUniPopUpInterface;
             },
             showUniSelect() {
+      if(this.getShowSelectUniInterface){
+        this.tourTempClose();
+      }
                 return this.getShowSelectUniInterface;
             },
             showMarketingMobile() {
@@ -195,6 +208,17 @@
                         });
                     }, this.toasterTimeout);
                 }
+    },
+    HomeworkHelp_isDataLoaded: function(val) {
+      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+      if (val && !supressed) {
+        if (this.$route.name === "ask") {
+          this.$tours["myTour"].start();
+        }
+      }
+    },
+    $route: function() {
+      this.tourTempClose()
             }
         },
         methods: {
@@ -207,6 +231,13 @@
                 "setCookieAccepted"
             ]),
             ...mapGetters(["getCookieAccepted"]),
+    tourClosed: function() {
+      console.log("tourClosed");
+      global.localStorage.setItem("sb_walkthrough_supressed", true);
+    },
+    tourTempClose: function(){
+      this.$tours["myTour"].close();
+    },
             removeCookiesPopup: function () {
                 this.setCookieAccepted();
             },
@@ -242,7 +273,10 @@
 
             global.addEventListener("resize", event => {
                 if (global.isMobileAgent) {
-                    if ((document && document.activeElement.tagName == "INPUT") || document.activeElement.tagName == "TEXTAREA") {
+        if (
+          (document && document.activeElement.tagName == "INPUT") ||
+          document.activeElement.tagName == "TEXTAREA"
+        ) {
                         this.hideFooter = true;
                     } else {
                         this.hideFooter = false;

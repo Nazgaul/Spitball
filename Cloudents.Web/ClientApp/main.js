@@ -14,7 +14,8 @@ import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-
+import CloudentsTour from 'cloudents-tour';
+require('cloudents-tour/dist/cloudents-tour.css');
 import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/vue-youtube-embed
 
 
@@ -115,6 +116,7 @@ WebFont.load({
 //});
 
 
+Vue.use(CloudentsTour);
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
