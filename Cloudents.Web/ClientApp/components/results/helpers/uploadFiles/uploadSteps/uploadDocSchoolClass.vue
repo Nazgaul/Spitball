@@ -109,7 +109,6 @@
             ...mapActions(['updateFile']),
             updateClass(){
                 this.updateFile({'course': this.selectedClass});
-
             },
             //clear icon click, clear class
             clearClass() {

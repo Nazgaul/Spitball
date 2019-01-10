@@ -1,0 +1,167 @@
+@import "../../styles/mixin.less";
+
+@purpleColor: #3e45a0;
+@chipBorderColor: #7278c8;
+@backgroundGrey: #ececec;
+.border-none {
+  border: none;
+}
+
+.school-block {
+  background: @purpleColor;
+  padding-top: 42px;
+  padding-bottom: 16px;
+}
+
+.empty-school {
+  width: 100%;
+  max-width: 690px;
+  padding: 8px 14px;
+  background: @color-white;
+  border-radius: 4px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.28);
+  .empty-university-icon {
+    color: @purpleColor;
+    margin-right: 12px;
+  }
+  .empty-university-name {
+    font-family: @fontFiraSans;
+    font-size: 28px;
+    letter-spacing: -0.7px;
+    color: @purpleColor;
+
+  }
+}
+
+.content-wrap {
+  width: 100%;
+  max-width: 1304px;
+  padding-right: 24px;
+  padding-left: 24px;
+  margin: 0 auto;
+  padding-top: 10px;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.university-holder {
+  .university-icon {
+    color: @color-white;
+    margin-right: 12px;
+    font-size: 32px;
+
+  }
+  .university-name {
+    color: @color-white;
+    font-family: @fontFiraSans;
+    font-size: 28px;
+    letter-spacing: -0.7px;
+  }
+}
+
+.classes-holder {
+  padding-top: 32px;
+  .sbf-class-chip {
+    &.v-chip {
+      cursor: pointer;
+      margin-left: 0;
+      margin-right: 8px;
+      font-size: 13px;
+      color: fade(@color-white, 90%);
+      border-color: @chipBorderColor;
+      background-color: @purpleColor;
+      text-transform: capitalize;
+      border-radius: 16px;
+      .v-chip__content {
+        //ellipsis for too long class chip
+        max-width: 94px;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        line-height: 32px;
+        cursor: pointer;
+        &.total {
+          padding-left: 0;
+        }
+      }
+    }
+    &.v-chip--selected {
+      background-color: @color-white;
+      color: @purpleColor;
+      border: 1px solid @color-white;
+      box-shadow: none;
+      &:after{
+       background-color: @color-white;
+      }
+    }
+  }
+  .sbf-class-chip {
+    &.empty-state-class {
+      max-width: 160px;
+      .v-chip__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 160px;
+      }
+      .edit-icon {
+        color: @color-white;
+        margin-right: 12px;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.all-classes {
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  max-width: 690px;
+  padding: 12px 12px 0 12px;
+  background: @color-white;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.28);
+  .classes-list-wrap {
+    .class-chip-item {
+      cursor: pointer;
+      margin-left: 0;
+      margin-right: 8px;
+      font-size: 13px;
+      color: fade(@color-white, 90%);
+      //border-color: @chipBorderColor;
+      text-transform: capitalize;
+      background: @purpleColor; //vuetify ovewrite they use important
+      .v-chip__content {
+        //ellipsis for too long class chip
+        max-width: 94px;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        line-height: 32px;
+        cursor: pointer;
+      }
+      &.v-chip--selected {
+        background-color: @color-white;
+        border: 1px solid @purpleColor;
+        box-shadow: none;
+        &:after{
+          background-color: @color-white;
+        }
+        .v-chip__content{
+          color: @purpleColor;
+        }
+      }
+    }
+
+    .edit-action-block {
+      background-color: @backgroundGrey;
+    }
+  }
+}

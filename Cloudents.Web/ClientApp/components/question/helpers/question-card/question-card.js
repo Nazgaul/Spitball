@@ -79,7 +79,7 @@ export default {
             selectedImage: '',
             showDialog: false,
             isFirefox: false,
-            isRtl: global.isRtl
+            isRtl: global.isRtl,
         }
     },
     computed: {

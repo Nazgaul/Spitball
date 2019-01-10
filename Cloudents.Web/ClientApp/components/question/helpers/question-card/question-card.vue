@@ -40,18 +40,14 @@
                     <button
                             class="accept-btn right"
                             @click="markAsCorrect"
-                            v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer"
-                    >
-                      <v-icon>sbf-check-circle</v-icon>
+                            v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
+                        <v-icon>sbf-check-circle</v-icon>
                       <span v-language:inner>questionCard_Accept</span>
                     </button>
-                  </span>
-                                    <span class="choosen-answer right" v-if="flaggedAsCorrect">
+                  </span>                                    <span class="choosen-answer right" v-if="flaggedAsCorrect">
                     <v-icon>sbf-check-circle</v-icon>
                   </span>
                                 </div>
-
-
                                 <v-spacer></v-spacer>
                                 <div class="menu-area">
                                     <v-menu bottom left content-class="card-user-actions">
