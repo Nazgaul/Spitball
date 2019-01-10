@@ -149,7 +149,8 @@ import tourService from "../../services/tourService";
                 "showMarketingBox",
                 "showLeaderBoard",
       "showMobileFeed",
-      "HomeworkHelp_isDataLoaded"
+      "HomeworkHelp_isDataLoaded",
+      "StudyDocuments_isDataLoaded"
             ]),
             showFeed() {
                 if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
@@ -213,6 +214,14 @@ import tourService from "../../services/tourService";
       let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
       if (val && !supressed) {
         if (this.$route.name === "ask") {
+          this.$tours["myTour"].start();
+        }
+      }
+    },
+    StudyDocuments_isDataLoaded: function(val){
+      let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
+      if (val && !supressed) {
+        if (this.$route.name === "note") {
           this.$tours["myTour"].start();
         }
       }

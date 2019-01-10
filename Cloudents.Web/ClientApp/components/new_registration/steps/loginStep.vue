@@ -37,7 +37,8 @@
 </template>
 
 <script>
-    const defaultSubmitRoute = {path: '/ask'};
+    const isIl = global.country.toLowerCase() === 'il';
+    const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
     import stepTemplate from '../helpers/stepTemplate.vue'
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
