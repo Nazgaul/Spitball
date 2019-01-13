@@ -130,9 +130,11 @@
     <value>Don't show again</value>
   </data>
   <data name="vote_content" xml:space="preserve">
-    <value>Voting increases your chances of winning rewards.</value>
+    <value>Upvote or Downvote Questions, Answers and Documents.</value>
+    <comment>הצבע בעד או נגד שאלות, תשובות ומסמכים.</comment>
   </data>
   <data name="vote_title" xml:space="preserve">
-    <value>You just Upvoted for 1SBL.</value>
+    <value>Point other students to quality content on Spitball.</value>
+    <comment>הפנה סטודנטים אחרים לתוכן איכותי בספיטבול.</comment>
   </data>
 </root>
