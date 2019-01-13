@@ -145,7 +145,7 @@
     <value>Close</value>
   </data>
   <data name="files_btn_desktop" xml:space="preserve">
-    <value>Your Dekstop</value>
+    <value>Your Computer</value>
   </data>
   <data name="files_btn_drop" xml:space="preserve">
     <value>Or just drop your file here</value>

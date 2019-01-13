@@ -163,7 +163,7 @@
     <value>סגור</value>
   </data>
   <data name="files_btn_desktop" xml:space="preserve">
-    <value>שולחן עבודה</value>
+    <value>המחשב שלך</value>
   </data>
   <data name="files_btn_drop" xml:space="preserve">
     <value>או פשוט גרור את הקובץ שלך לכאן</value>
