@@ -25,8 +25,31 @@ export default {
             actionType: "question",
             selectedColor: {},
             errorWaitTime: '',
-            loading: false
+            loading: false,
         }
+    },
+    computed: {
+        ...mapGetters(['accountUser', 'newQuestionDialogSate']),
+        currentSum() {
+            if (this.accountUser) {
+                // Gaby - Deprecated!
+                // let val = this.selectedPrice || this.price || 0;
+                // this.selectedPrice ? this.price = null : "";
+                // return this.accountUser.balance - val;
+                return this.accountUser.balance.toFixed(2);
+            }
+        },
+
+        thirtyPercent() {
+            let notRounded = this.currentSum * 30 / 100;
+            if (notRounded > 100) {
+                notRounded = 100;
+            }
+            return parseFloat(notRounded.toFixed(2));
+        },
+        validForm() {
+            return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);
+        },
     },
     watch: {
         price(val) {
@@ -48,8 +71,8 @@ export default {
             }
         },
         // if question dialog state is false reset question form data to default
-        newQuestionDialogSate() {
-            if (!this.newQuestionDialogSate) {
+        newQuestionDialogSate(val) {
+            if (!val) {
                 this.textAreaValue = '';
                 this.errorTextArea = {};
                 this.subject = '';
@@ -170,28 +193,7 @@ export default {
     beforeDestroy() {
         this.updateNewQuestionDialogState(false)
     },
-    computed: {
-        ...mapGetters(['accountUser', 'newQuestionDialogSate']),
-        currentSum() {
-            if (this.accountUser) {
-                // Gaby - Deprecated!
-                // let val = this.selectedPrice || this.price || 0;
-                // this.selectedPrice ? this.price = null : "";
-                // return this.accountUser.balance - val;
-                return this.accountUser.balance.toFixed(2);
-            }
-        },
-        thirtyPercent() {
-            let notRounded = this.currentSum * 30 / 100;
-            if (notRounded > 100) {
-                notRounded = 100;
-            }
-            return parseFloat(notRounded.toFixed(2));
-        },
-        validForm() {
-            return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);
-        },
-    },
+
     created() {
         this.$on('colorSelected', (activeColor) => {
             this.selectedColor.name = activeColor.name;
