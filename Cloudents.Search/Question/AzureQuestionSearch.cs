@@ -33,7 +33,7 @@ namespace Cloudents.Search.Question
         {
             var filters = new List<string>
             {
-                $"({nameof(Entities.Question.Language)} eq 'en')"
+                $"({nameof(Entities.Question.Country)} eq '{query.Country.ToUpperInvariant()}' or {nameof(Entities.Question.Language)} eq 'en')"
             };
             if (query.Source != null)
             {
@@ -81,7 +81,7 @@ namespace Cloudents.Search.Question
 
             var result = await
                 _client.Documents.SearchAsync<Entities.Question>(query.Term, searchParameter,
-                    cancellationToken: token).ConfigureAwait(false);
+                    cancellationToken: token);
 
             IEnumerable<QuestionSubject> facetSubject = null;
             IEnumerable<QuestionFilter> questionFilter = null;

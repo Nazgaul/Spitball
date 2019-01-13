@@ -205,15 +205,13 @@
     <value>Type a keyword name and press Enter to add</value>
   </data>
   <data name="files_step2_subtitle" xml:space="preserve">
-    <value>Filling details will increase this document chances to get
-                found</value>
+    <value>Filling details will increase this document chances to get</value>
   </data>
   <data name="files_step2_title" xml:space="preserve">
     <value>Awesome! get your document ready for upload</value>
   </data>
   <data name="files_step3_title" xml:space="preserve">
-    <value>Choose document type, it would be easier to
-                find it</value>
+    <value>Which type of document are you uploading?</value>
   </data>
   <data name="files_step4_title" xml:space="preserve">
     <value>Keep this title or create a better one for your document</value>

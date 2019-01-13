@@ -34,50 +34,50 @@ namespace Cloudents.Persistance.Repositories
         }
 
 
-        public override async Task<RegularUser> GetAsync(object id, CancellationToken token)
-        {
-            var user = await base.GetAsync(id, token);
-            CheckUserLockout(user);
+        //public override async Task<RegularUser> GetAsync(object id, CancellationToken token)
+        //{
+        //    var user = await base.GetAsync(id, token);
+        //    CheckUserLockout(user);
 
-            return user;
-        }
+        //    return user;
+        //}
 
-        public override RegularUser Load(object id)
-        {
-            var user = base.Load(id);
-            CheckUserLockout(user);
+        //public override RegularUser Load(object id)
+        //{
+        //    var user = base.Load(id);
+        //    CheckUserLockout(user);
 
-            return user;
-        }
+        //    return user;
+        //}
 
-        public override Task<RegularUser> LoadAsync(object id, CancellationToken token)
-        {
-            return LoadAsync(id, true, token);
-        }
+        //public override Task<RegularUser> LoadAsync(object id, CancellationToken token)
+        //{
+        //    return LoadAsync(id, true, token);
+        //}
 
-        public async Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token)
-        {
-            var user = await base.LoadAsync(id, token);
-            if (checkUserLocked)
-            {
-                CheckUserLockout(user);
-            }
+        //public async Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token)
+        //{
+        //    var user = await base.LoadAsync(id, token);
+        //    if (checkUserLocked)
+        //    {
+        //        CheckUserLockout(user);
+        //    }
 
-            return user;
-        }
+        //    return user;
+        //}
 
-        private static void CheckUserLockout([NotNull] RegularUser user)
-        {
-            if (user == null) throw new ArgumentNullException(nameof(user));
-            if (!user.LockoutEnabled)
-            {
-                return;
-            }
-            if (user.LockoutEnd.HasValue && DateTime.UtcNow < user.LockoutEnd.Value)
-            {
-                throw new UserLockoutException();
-            }
-        }
+        //private static void CheckUserLockout([NotNull] RegularUser user)
+        //{
+        //    if (user == null) throw new ArgumentNullException(nameof(user));
+        //    if (!user.LockoutEnabled)
+        //    {
+        //        return;
+        //    }
+        //    if (user.LockoutEnd.HasValue && DateTime.UtcNow < user.LockoutEnd.Value)
+        //    {
+        //        throw new UserLockoutException();
+        //    }
+        //}
 
         public Task<decimal> UserCashableBalanceAsync(long userId, CancellationToken token)
         {

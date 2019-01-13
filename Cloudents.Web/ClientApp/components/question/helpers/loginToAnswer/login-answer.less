@@ -25,10 +25,14 @@ div.login-popup {
     position: relative;
     @media (max-width: @screen-xs) {
       padding: 56px 24px 48px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
       .wrap-text{
         //width: 416px;
         margin-bottom: 58px;
+        text-align: center;
         h2{
           font-size: 40px;
           font-weight: 300;
@@ -40,21 +44,23 @@ div.login-popup {
           @media(max-width: @screen-xs){
             font-size: 48px;
             font-weight: 300;
-            line-height: 42px;
+            line-height: 50px;
             letter-spacing: -0.5px;
           }
         }
         .wrapper-body-text{
-          max-width: 323px;
+          max-width: 445px;
+          margin: 0 auto;
         }
         .dialog-body-text{
           margin-top: 22px;
           //width: 323px;
           font-size: 24px;
-          font-weight: 300;
-          line-height: 1;
+          font-weight: 500;
+          line-height: 1.2;
           letter-spacing: -0.3px;
-          color:@color-grey;
+          color: #aeaeae;
+          text-align: center;
           @media(max-width: @screen-xs){
             font-size: 24px;
           }
@@ -68,6 +74,7 @@ div.login-popup {
       }
       .btn-container{
         display: flex;
+        justify-content: center;
         @media (max-width: @screen-xs) {
           justify-content: space-around;
         }

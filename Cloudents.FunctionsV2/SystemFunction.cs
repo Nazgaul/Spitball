@@ -50,6 +50,11 @@ namespace Cloudents.FunctionsV2
         {
             var msg = JObject.Parse(receivedMessage);
             log.LogInformation($"Receive signalr message {msg}");
+
+            
+            
+
+
             var p = new SignalRMessage
             {
                 Target = "Message",
@@ -60,39 +65,13 @@ namespace Cloudents.FunctionsV2
             {
                 p.UserId = userId?.ToString();
             }
+            if (userProperties.TryGetValue("group", out var group))
+            {
+                p.GroupName = group?.ToString();
+            }
+
 
             await outMessage.AddAsync(p, token);
         }
-
-
-        //[FunctionName("SystemFunctionServiceBus")]
-        //public static async Task Run2(
-        //    [ServiceBusTrigger("background2", "default", Connection = "AzureWebJobsServiceBus")]Message receivedMessage,
-        //    [Inject] ILifetimeScope lifetimeScope,
-        //    IBinder binder,
-        //    CancellationToken token)
-        //{
-
-        //    //var typeStr = receivedMessage.UserProperties["messageType"].ToString();
-
-        //    //var asm = typeof(SignalRMessageTransport).Assembly;
-        //    //var messageBodyType = asm.GetType(typeStr);
-
-        //    var json = Encoding.UTF8.GetString(receivedMessage.Body);
-
-        //    var message = JsonConvert.DeserializeObject<ISystemQueueMessage>(json, new JsonSerializerSettings()
-        //    {
-        //        TypeNameHandling = TypeNameHandling.All
-        //    });
-
-        //    var handlerType =
-        //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
-        //    using (var child = lifetimeScope.BeginLifetimeScope())
-        //    {
-        //        dynamic operation = child.Resolve(handlerType);
-        //        await operation.DoOperationAsync((dynamic)message, binder, token);
-        //    }
-
-        //}
     }
 }
