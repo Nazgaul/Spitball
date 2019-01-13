@@ -5,7 +5,8 @@
                 <v-flex xs12>
                     <div class="content-wrap">
                         <div class="university-holder d-flex" row>
-                            <div v-show="schoolName && !mobileFilterState">
+                            <div class="uni-holder" v-show="schoolName && !mobileFilterState"
+                                 @click="openPersonalizeUniversity()">
                                 <v-icon class="university-icon">sbf-university-columns</v-icon>
                                 <span class="university-name">{{schoolName}}</span>
                             </div>
@@ -18,7 +19,7 @@
                                       v-language:inner>schoolBlock_school_empty_text</span>
                             </div>
                         </div>
-                        <div class="classes-holder" >
+                        <div class="classes-holder">
                             <div v-show="!showAllClassesBlock"
                                  :class="[$vuetify.breakpoint.xsOnly ? 'd-flex  wrap-it align-start' : '']">
                                 <transition-group name="list">
@@ -63,13 +64,14 @@
                                             :key="index">{{singleClass.text}}
                                     </v-chip>
                                 </div>
-                                <edit-action-block  @click.prevent.stop="openPersonalizeCourse()"></edit-action-block>
+                                <edit-action-block @click.prevent.stop="openPersonalizeCourse()"></edit-action-block>
                             </div>
                         </div>
                     </div>
                 </v-flex>
             </v-layout>
-            <edit-action-block id="edit-mobile-target" v-show="mobileFilterState"  @click.prevent="openPersonalizeCourse()"></edit-action-block>
+            <edit-action-block id="edit-mobile-target" v-show="mobileFilterState"
+                               @click.native="openPersonalizeCourse()"></edit-action-block>
         </div>
     </transition>
 </template>
@@ -78,8 +80,9 @@
     import { mapGetters, mapActions, mapMutations } from 'vuex';
     import schoolBlockService from '../../services/schoolBlockService'
     import editActionBlock from './helpers/editActionBlock.vue'
+
     export default {
-        components:{editActionBlock},
+        components: {editActionBlock},
         name: "schoolBlock",
         data() {
             return {
@@ -128,6 +131,7 @@
                         }
                     })
                 }
+                this.sortClassesByIsSelected(result, 'isSelected');
                 return result;
             },
         },
@@ -144,6 +148,7 @@
                     val.isSelected = true;
                     this.selectedChips[val.text] = true;
                 }
+                this.sortClassesByIsSelected(this.classesList, 'isSelected');
                 this.updateFilter();
                 this.$forceUpdate();
             },
@@ -154,6 +159,12 @@
                     Course: newQueryArr
                 };
                 this.$router.push({query: newQueryObject});
+            },
+            sortClassesByIsSelected(arr, sortBy) {
+                arr.sort(function (obj1, obj2,) {
+                    // Ascending: first age less than the previous
+                    return obj2[sortBy] - obj1[sortBy];
+                });
             },
             openAllClasses() {
                 if (this.$vuetify.breakpoint.smAndUp) {
@@ -166,6 +177,7 @@
             closeAllClasses() {
                 this.showAllClassesBlock = false;
             },
+
             openPersonalizeCourse() {
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
@@ -186,18 +198,23 @@
                 }
             },
             detectOutsideClick(event) {
-                let specifiedElement = document.getElementById('school_block_classesList');
-                let isClickInside = specifiedElement.contains(event.target);
-                if (this.$vuetify.breakpoint.smAndUp && this.showAllClassesBlock && !isClickInside) {
-                    this.closeAllClasses();
+                let isClickInside = false;
+                let ignoredElements = null;
+                if (this.$vuetify.breakpoint.smAndUp) {
+                    ignoredElements = document.querySelector('#school_block_classesList');
+                    isClickInside = ignoredElements.contains(event.target);
+                    if (this.showAllClassesBlock && !isClickInside) {
+                        this.closeAllClasses();
+                    }
                 } else {
-                    if(event.target.id && event.target.id ==="edit-mobile-target"){
-                        this.openPersonalizeCourse()
-                    }else{
+                    ignoredElements = document.querySelector('.school-block');
+                    isClickInside = ignoredElements.contains(event.target);
+                    if (!isClickInside) {
                         this.classesToShow = 3;
                         this.mobileFilterState = false;
                     }
                 }
+
             }
         },
         beforeMount: function () {
@@ -215,7 +232,7 @@
                 let courses = [].concat(this.$route.query.Course);
                 courses.forEach(courseName => {
                     this.selectedChips[courseName] = true;
-                })
+                });
             }
         }
 
