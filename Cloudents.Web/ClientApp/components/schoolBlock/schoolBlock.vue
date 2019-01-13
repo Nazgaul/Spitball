@@ -37,7 +37,7 @@
                                     </v-chip>
                                 </transition-group>
                                 <transition name="fade-total">
-                                    <v-chip name="sbf-class-chip" key="chip_twoe"
+                                    <v-chip name="sbf-class-chip"
                                             class="sbf-class-chip total"
                                             :class="[$vuetify.breakpoint.smAndUp ? 'border-none' : '' ]"
                                             v-show="minMode ? classesList.length > classesToShow : false"
