@@ -42,7 +42,7 @@
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
-                                    <v-list-tile :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
+                                    <v-list-tile v-show="item.isVisible(item.visible)"  :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
                                                  :key="i">
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
@@ -168,13 +168,16 @@
                         title: LanguageService.getValueByKey("questionCard_Report"),
                         action: this.reportItem,
                         isDisabled: this.isDisabled,
+                        isVisible: this.isVisible,
+                        visible: true,
                     },
                     {
                         title: LanguageService.getValueByKey("resultNote_change_price"),
                         action: this.showPriceChangeDialog,
                         isDisabled: this.isDisablePriceChange,
-                        isVisible: true,
-                        icon: 'sbf-delete'
+                        isVisible:this.isVisible,
+                        icon: 'sbf-delete',
+                        visible: false,
                     }
                 ],
                 itemId: 0,
@@ -275,6 +278,9 @@
                 } else {
                     return false
                 }
+            },
+            isVisible(val){
+                return val
             },
             showEvent(event){
                 console.log(event)
