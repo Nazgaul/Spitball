@@ -4,7 +4,7 @@ import { sync } from 'vuex-router-sync'
 import store from "./store";
 import { Language } from "./services/language/langDirective";
 import { LanguageService } from './services/language/languageService';
-import initSignalRService from './services/signalR/signalrEventService';
+// import initSignalRService from './services/signalR/signalrEventService';
 // clip board copy text
 import VueClipboard from 'vue-clipboard2';
 import lineClamp from 'vue-line-clamp';
@@ -347,7 +347,7 @@ global.isMobileAgent = function() {
      })(navigator.userAgent||navigator.vendor||window.opera);
     return check;
   };
-initSignalRService();
+// initSignalRService();
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch
