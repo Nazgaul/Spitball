@@ -9,6 +9,7 @@
             :full-width="fullWidth"
             :max-width="fullWidth ? '1280px' : maxWidth"
             scrollable
+            :attach="attach"
             :content-class="contentClass"
             :persistent="isPersistent">
         <slot></slot>

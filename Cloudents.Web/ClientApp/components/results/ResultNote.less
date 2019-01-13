@@ -1,6 +1,68 @@
 @import "../../styles/mixin.less";
 @colorUploadDate: rgba( 0,0,0,0.38);
+
+//price-change dialog
+.price-change-wrap {
+  padding: 12px 0 0 0;
+  position: relative;
+  z-index: 999;
+
+  .price-input{
+    max-width: 142px;
+    position: absolute;
+    .v-input__slot {
+      &:focus-within {
+        .glowingBorderFocused();
+
+      }
+    }
+  }
+  .title-wrap {
+    padding-top: 16px;
+    padding-bottom: 74px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    .change-title {
+      font-family: @fontOpenSans;
+      font-size: 16px;
+      letter-spacing: -0.4px;
+      color: @textColor;
+
+    }
+  }
+  .change-price-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 0 16px 0;
+    background: #eaeaea;
+    .change-price {
+      .sb-rounded-btn();
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .cancel {
+      border-radius: 16px;
+      border: 1px solid #979797;
+      color: @colorBlackNew;
+      display: flex;
+      align-items: center;
+      padding: 6px 22px 6px 22px;
+      outline: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+    }
+  }
+}
+
+
 .note-block {
+
+
   min-height: auto;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
   background: @color-white;

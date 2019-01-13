@@ -30,7 +30,6 @@
     },
     methods: {
         ...mapActions(['updateFile']),
-
         updateValue: function (value) {
             var result = currencyValidator.parse(value, this.value);
             if (result.warning) {

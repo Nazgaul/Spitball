@@ -26,16 +26,19 @@
                     </div>
                     <div class="document-header-small-sagment">
 
-                        <div  v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
+                        <div v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
                             <bdi>
-                        {{item.price ? item.price.toFixed(2): ''}}
-                        <span>SBL</span>
+                                {{item.price ? item.price.toFixed(2): ''}}
+                                <span>SBL</span>
                             </bdi>
                         </div>
-                        <div  v-show="!item.price" class="price-area" :class="{'isPurchased': isPurchased}" v-language:inner>resultNote_free</div>
+                        <div v-show="!item.price" class="price-area" :class="{'isPurchased': isPurchased}"
+                             v-language:inner>resultNote_free
+                        </div>
                         <div class="menu-area">
                             <v-menu bottom left content-class="card-user-actions" v-model="showMenu">
-                                <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()"   slot="activator" icon>
+                                <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()"
+                                       slot="activator" icon>
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
@@ -96,6 +99,39 @@
         >
             <report-item :closeReport="closeReportDialog" :itemType="item.template" :itemId="itemId"></report-item>
         </sb-dialog>
+        <sb-dialog
+                @click.native
+                :showDialog="priceDialog"
+                :maxWidth="'438px'"
+                :popUpType="'priceUpdate'"
+                :onclosefn="closeNewPriceDialog"
+                :content-class="`priceUpdate ${isRtl? 'rtl': ''}` ">
+            <v-card class="price-change-wrap">
+                <v-flex align-center justify-center>
+                    <div class="title-wrap">
+                        <span class="change-title" v-language:inner>resultNote_change_for</span>
+                        <span class="change-title">&nbsp;"{{item.title}}"</span>
+                    </div>
+                    <div class="input-wrap d-flex row align-center justify-center">
+                        <v-text-field
+                                class="price-input"
+                                solo
+                                return-masked-value
+                                suffix="SBL"
+                                v-model="newPrice"
+                                placeholder="00.00"
+                                :rules="[rules.required, rules.max]"
+                                mask="##.##"
+                        ></v-text-field>
+                    </div>
+                </v-flex>
+                <div class="change-price-actions">
+                    <button @click="closeNewPriceDialog()" class="cancel mr-2"><span v-language:inner>resultNote_action_cancel</span></button>
+                    <button @click="submitNewPrice()" class="change-price"><span v-language:inner>resultNote_action_apply_price</span>
+                    </button>
+                </div>
+            </v-card>
+        </sb-dialog>
     </div>
 </template>
 <script>
@@ -110,9 +146,11 @@
     import reportItem from "./helpers/reportItem/reportItem.vue";
     import { mapGetters, mapActions } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
+    import SbInput from "../question/helpers/sbInput/sbInput";
 
     export default {
         components: {
+            SbInput,
             AskDefault,
             NoteDefault,
             FlashcardDefault,
@@ -120,7 +158,8 @@
             sbDialog,
             reportItem,
             userAvatar,
-            userRank
+            userRank,
+
         },
         data() {
             return {
@@ -130,12 +169,25 @@
                         title: LanguageService.getValueByKey("questionCard_Report"),
                         action: this.reportItem,
                         isDisabled: this.isDisabled,
+                    },
+                    {
+                        title: LanguageService.getValueByKey("resultNote_change_price"),
+                        action: this.showPriceChangeDialog,
+                        isDisabled: this.isDisablePriceChange,
+                        isVisible: true,
+                        icon: 'sbf-delete'
                     }
                 ],
                 itemId: 0,
                 showReport: false,
                 isRtl: global.isRtl,
-                showMenu: false
+                showMenu: false,
+                priceDialog: false,
+                newPrice: 0,
+                rules: {
+                    required: value => !!value || 'Required.',
+                    max: value => value.length <= 1000 || 'max is 1000',
+                }
             };
         },
         props: {item: {type: Object, required: true}, index: {Number}},
@@ -145,7 +197,7 @@
                     return this.item.user.score;
                 }
             },
-            isPurchased(){
+            isPurchased() {
                 return this.item.isPurchased
             },
             type() {
@@ -224,6 +276,20 @@
                     return false
                 }
             },
+            submitNewPrice() {
+                console.log('sending new price', this.newPrice)
+            },
+            closeNewPriceDialog() {
+                this.priceDialog = false;
+            },
+            isDisablePriceChange() {
+                let owner = this.cardOwner();
+                return owner ? false : true
+            },
+            showPriceChangeDialog() {
+                this.priceDialog = true;
+
+            },
             isDisabled() {
                 let isOwner, account, notEnough;
                 isOwner = this.cardOwner();
@@ -242,8 +308,8 @@
             closeReportDialog() {
                 this.showReport = false;
             },
-            showReportOptions(){
-              this.showMenu =true
+            showReportOptions() {
+                this.showMenu = true
             },
             //our docs event
             $_spitball(event, url) {
@@ -256,7 +322,7 @@
                 }, 100);
             },
             //third party docs event
-            $_thirdPartyEvent(event, url){
+            $_thirdPartyEvent(event, url) {
                 event.preventDefault();
                 global.open(url, '_blank');
             },
