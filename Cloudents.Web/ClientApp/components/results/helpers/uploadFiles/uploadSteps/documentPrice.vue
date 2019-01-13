@@ -13,7 +13,7 @@
                 <div class="wrap-row-price">
                     <div :class="['price-wrap', isRtl ? 'reversed' : '']">
                         <!--updating document obj inside -->
-                        <sbl-currency v-model="uploadPrice"
+                        <sbl-currency v-model="uploadPrice" :functionCallBacks="updateFile"
                                       class="sb-input-upload-price">
                         </sbl-currency>
                         <div class="sbl-suffix">SBL</div>

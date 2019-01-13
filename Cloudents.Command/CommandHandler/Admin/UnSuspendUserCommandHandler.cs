@@ -16,7 +16,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         }
         public async Task ExecuteAsync(UnSuspendUserCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.Id, false, token);
+            var user = await _userRepository.LoadAsync(message.Id,  token);
             user.UnSuspendUser();
             await _userRepository.UpdateAsync(user, token);
         }
