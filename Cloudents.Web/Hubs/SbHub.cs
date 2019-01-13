@@ -21,6 +21,14 @@ namespace Cloudents.Web.Hubs
             await Clients.All.SendAsync(MethodName, entity);
         }
 
+        //public async Task SetCountry(string country)
+        //{
+        //    await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
+        //    await Clients.Group($"country_{country.ToLowerInvariant()}").SendAsync(MethodName, "hi ram ram ram");
+        //    await Clients.Caller.SendAsync(MethodName, "hi ram ram ram2");
+        //    // await Clients.All.SendAsync(MethodName, entity);
+        //}
+
         public override async Task OnConnectedAsync()
         {
             var country = Context.User.Claims.FirstOrDefault(f =>
@@ -29,7 +37,7 @@ namespace Cloudents.Web.Hubs
             if (country != null)
             {
 
-                await Groups.AddToGroupAsync(Context.ConnectionId, $"country-{country.ToLowerInvariant()}");
+                await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
             }
 
             //await base.OnConnectedAsync();
@@ -43,7 +51,7 @@ namespace Cloudents.Web.Hubs
             if (country != null)
             {
 
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"country-{country.ToLowerInvariant()}");
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
             }
 
             await base.OnDisconnectedAsync(exception);

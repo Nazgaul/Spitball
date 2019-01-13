@@ -49,7 +49,7 @@ namespace Cloudents.Core.EventHandler
             else
             {
                 await _queueProvider.InsertMessageAsync(
-                    new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), $"country-{eventMessage.Question.User.Country.ToLowerInvariant()}", token);
+                    new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), $"country_{eventMessage.Question.User.Country.ToLowerInvariant()}", token);
             }
         }
 
