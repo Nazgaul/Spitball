@@ -104,6 +104,7 @@
                 :maxWidth="'438px'"
                 :popUpType="'priceUpdate'"
                 :onclosefn="closeNewPriceDialog"
+                :activateOverlay="true"
                 :content-class="`priceUpdate ${isRtl? 'rtl': ''}` ">
             <v-card class="price-change-wrap">
                 <v-flex align-center justify-center class="relative-pos" >
@@ -285,9 +286,9 @@
                 this.priceDialog = false;
             },
             isDisablePriceChange() {
-                return true
-                // let owner = this.cardOwner();
-                // return owner ? false : true
+                // return true
+                let owner = this.cardOwner();
+                return owner ? false : true
             },
             showPriceChangeDialog() {
                 this.priceDialog = true;
