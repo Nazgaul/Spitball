@@ -1,15 +1,15 @@
-﻿using Microsoft.Azure.ServiceBus;
+﻿using Cloudents.Core;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
+using Cloudents.Core.Storage;
+using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
-using Newtonsoft.Json.Converters;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Storage
     {
         private readonly string _connectionString;
 
-        private readonly ConcurrentDictionary<string, TopicClient> _topicClients = new ConcurrentDictionary<string, TopicClient>();
+        //private readonly ConcurrentDictionary<string, TopicClient> _topicClients = new ConcurrentDictionary<string, TopicClient>();
         private readonly ConcurrentDictionary<string, QueueClient> _queueClients = new ConcurrentDictionary<string, QueueClient>();
 
         public ServiceBusProvider(IConfigurationKeys keys)
@@ -39,8 +39,6 @@ namespace Cloudents.Infrastructure.Storage
             {
                 Body = Encoding.UTF8.GetBytes(json),
                 ContentType = "application/json",
-                //   UserProperties = { ["messageType"] = obj.GetType().AssemblyQualifiedName }
-
             });
         }
 
@@ -49,19 +47,29 @@ namespace Cloudents.Infrastructure.Storage
             return InsertQueueMessageAsync("sms", message, token);
         }
 
-        public Task InsertMessageAsync(SignalRTransportType obj,  CancellationToken token)
+        public Task InsertMessageAsync(SignalRTransportType obj, string groupId, CancellationToken token)
         {
-            return InsertMessageAsync(obj, null, token);
+            return InsertMessageAsync(obj, null, groupId, token);
+
+        }
+
+        public Task InsertMessageAsync(SignalRTransportType obj, CancellationToken token)
+        {
+            return InsertMessageAsync(obj, null,null, token);
         }
         public Task InsertMessageAsync(SignalRTransportType obj, long? userId, CancellationToken token)
+        {
+            return InsertMessageAsync(obj, userId, null, token);
+        }
+
+
+        private Task InsertMessageAsync(SignalRTransportType obj, long? userId, string group, CancellationToken token)
         {
             var queueClient = _queueClients.GetOrAdd("signalr", x => new QueueClient(_connectionString, x));
 
             var jsonSerializerSettings = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
-                //We need this for now because other wise inner mapping wont convert to object
-                //TypeNameHandling = TypeNameHandling.All,
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
             jsonSerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
@@ -71,30 +79,14 @@ namespace Cloudents.Infrastructure.Storage
             return queueClient.SendAsync(new Message()
             {
                 Body = Encoding.UTF8.GetBytes(json),
-                UserProperties = { ["userId"] = userId },
+                UserProperties =
+                {
+                    ["userId"] = userId,
+                    ["group"] =group
+                },
                 ContentType = "application/json",
-                //   UserProperties = { ["messageType"] = obj.GetType().AssemblyQualifiedName }
 
             });
-
-            // return InsertQueueMessageAsync("signalr", obj, token);
-            //var topicClient = _topicClients.GetOrAdd("background2", x => new TopicClient(_connectionString, x));
-            //var jsonSerializerSettings = new JsonSerializerSettings
-            //{
-            //    NullValueHandling = NullValueHandling.Ignore,
-            //    //We need this for now because other wise inner mapping wont convert to object
-            //    //TypeNameHandling = TypeNameHandling.All,
-            //    ContractResolver = new CamelCasePropertyNamesContractResolver()
-            //};
-            //jsonSerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-            //var json = JsonConvert.SerializeObject(obj, jsonSerializerSettings);
-
-            //return topicClient.SendAsync(new Message()
-            //{
-            //    Body = Encoding.UTF8.GetBytes(json),
-            //    ContentType = "application/json",
-            //    UserProperties = { ["messageType"] = "SignalR" }
-            //});
         }
 
         //public Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token)

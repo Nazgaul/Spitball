@@ -81,7 +81,7 @@ namespace Cloudents.Search.Question
 
             var result = await
                 _client.Documents.SearchAsync<Entities.Question>(query.Term, searchParameter,
-                    cancellationToken: token).ConfigureAwait(false);
+                    cancellationToken: token);
 
             IEnumerable<QuestionSubject> facetSubject = null;
             IEnumerable<QuestionFilter> questionFilter = null;
