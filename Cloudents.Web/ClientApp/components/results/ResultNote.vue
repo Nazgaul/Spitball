@@ -286,9 +286,9 @@
                 this.priceDialog = false;
             },
             isDisablePriceChange() {
-                // return true
-                let owner = this.cardOwner();
-                return owner ? false : true
+                 return true
+                // let owner = this.cardOwner();
+                // return owner ? false : true
             },
             showPriceChangeDialog() {
                 this.priceDialog = true;
