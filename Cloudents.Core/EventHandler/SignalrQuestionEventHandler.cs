@@ -40,8 +40,8 @@ namespace Cloudents.Core.EventHandler
                 eventMessage.Question.Color,
                 false,
                 eventMessage.Question.Language,
-                eventMessage.Question.VoteCount);
-            if (eventMessage.Question.Language.Name.Equals("us", StringComparison.OrdinalIgnoreCase))
+                0);
+            if (eventMessage.Question.Language.Name.Equals("en", StringComparison.OrdinalIgnoreCase))
             {
                 await _queueProvider.InsertMessageAsync(
                     new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), token);
@@ -49,7 +49,7 @@ namespace Cloudents.Core.EventHandler
             else
             {
                 await _queueProvider.InsertMessageAsync(
-                    new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), $"country-{ eventMessage.Question.User.Country}", token);
+                    new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), $"country-{eventMessage.Question.User.Country.ToLowerInvariant()}", token);
             }
         }
 

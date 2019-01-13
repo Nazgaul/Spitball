@@ -55,7 +55,7 @@ namespace Cloudents.Infrastructure.Storage
 
         public Task InsertMessageAsync(SignalRTransportType obj, CancellationToken token)
         {
-            return InsertMessageAsync(obj, null,null, token);
+            return InsertMessageAsync(obj, null, null, token);
         }
         public Task InsertMessageAsync(SignalRTransportType obj, long? userId, CancellationToken token)
         {
@@ -76,16 +76,15 @@ namespace Cloudents.Infrastructure.Storage
             var json = JsonConvert.SerializeObject(obj, jsonSerializerSettings);
 
             token.ThrowIfCancellationRequested();
-            return queueClient.SendAsync(new Message()
+            return queueClient.SendAsync(new Message
             {
                 Body = Encoding.UTF8.GetBytes(json),
                 UserProperties =
                 {
                     ["userId"] = userId,
-                    ["group"] =group
+                    ["group"] = group
                 },
                 ContentType = "application/json",
-
             });
         }
 
