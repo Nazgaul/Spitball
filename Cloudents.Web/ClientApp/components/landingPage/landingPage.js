@@ -227,7 +227,9 @@ export default {
             this.getAllSubjects();
             this.getStatistics();
         }else{
-            this.$router.push({path: '/ask'})
+            const isIl = global.country.toLowerCase() === 'il';
+            const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
+            this.$router.push(defaultSubmitRoute)
         }
 
         

@@ -1,13 +1,15 @@
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from '../../../services/questionService';
 import disableForm from "../../mixins/submitDisableMixin"
-import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { LanguageService } from "../../../services/language/languageService";
+import {mapGetters,mapMutations,mapActions} from 'vuex'
+import {LanguageService} from "../../../services/language/languageService";
 import analyticsService from '../../../services/analytics.service';
 
 export default {
     mixins: [disableForm],
-    components: {extendedTextArea},
+    components: {
+        extendedTextArea
+    },
 
     data() {
         return {
@@ -25,31 +27,8 @@ export default {
             actionType: "question",
             selectedColor: {},
             errorWaitTime: '',
-            loading: false,
+            loading: false
         }
-    },
-    computed: {
-        ...mapGetters(['accountUser', 'newQuestionDialogSate']),
-        currentSum() {
-            if (this.accountUser) {
-                // Gaby - Deprecated!
-                // let val = this.selectedPrice || this.price || 0;
-                // this.selectedPrice ? this.price = null : "";
-                // return this.accountUser.balance - val;
-                return this.accountUser.balance.toFixed(2);
-            }
-        },
-
-        thirtyPercent() {
-            let notRounded = this.currentSum * 30 / 100;
-            if (notRounded > 100) {
-                notRounded = 100;
-            }
-            return parseFloat(notRounded.toFixed(2));
-        },
-        validForm() {
-            return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);
-        },
     },
     watch: {
         price(val) {
@@ -61,7 +40,7 @@ export default {
 
 
         },
-        textAreaValue(){
+        textAreaValue() {
             this.errorTextArea = {};
         },
         //watch selected to clear custom price field
@@ -71,35 +50,40 @@ export default {
             }
         },
         // if question dialog state is false reset question form data to default
-        newQuestionDialogSate(val) {
-            if (!val) {
-                this.textAreaValue = '';
-                this.errorTextArea = {};
-                this.subject = '';
-                this.price = null;
-                this.selectedPrice = null;
-                this.errorMessage = '';
-                this.errorMessageSubject = '';
-                this.errorSelectPrice = '';
-                this.pricesList = [10, 20, 40, 80];
-                this.loading = false;
-                this.selectedColor = {
-                    name: 'default'
-                };
-                this.$root.$emit("colorReset");
-                this.$root.$emit('previewClean', 'true');
-                this.files = [];
-                this.errorWaitTime = '';
-            } else {
-                // get subject if questionDialog state is true(happens only if accountUser is true)
-                questionService.getSubjects().then((response) => {
-                    this.subjectList = response.data
-                });
-            }
+        newQuestionDialogSate: {
+            immediate: true,
+            handler(val) {
+                if (!val) {
+                    this.textAreaValue = '';
+                    this.errorTextArea = {};
+                    this.subject = '';
+                    this.price = null;
+                    this.selectedPrice = null;
+                    this.errorMessage = '';
+                    this.errorMessageSubject = '';
+                    this.errorSelectPrice = '';
+                    this.pricesList = [10, 20, 40, 80];
+                    this.loading = false;
+                    this.selectedColor = {
+                        name: 'default'
+                    };
+                    this.$root.$emit("colorReset");
+                    this.$root.$emit('previewClean', 'true');
+                    this.files = [];
+                    this.errorWaitTime = '';
+                } else {
+                    // get subject if questionDialog state is true(happens only if accountUser is true)
+                    questionService.getSubjects().then((response) => {
+                        this.subjectList = response.data
+                    });
+                }
+            },
         },
     },
     methods: {
-        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapMutations({
+            updateLoading: "UPDATE_LOADING"
+        }),
         ...mapActions(['updateUserBalance', 'updateToasterParams', 'updateNewQuestionDialogState']),
 
         submitQuestion() {
@@ -144,7 +128,12 @@ export default {
                             self.updateUserBalance(-val);
                             //close dialog after question submitted
                             self.requestNewQuestionDialogClose(false);
-                            self.$router.push({path: '/ask', query: {term: ''}});
+                            self.$router.push({
+                                path: '/ask',
+                                query: {
+                                    term: ''
+                                }
+                            });
                             self.updateLoading(false);
                             // self.updateToasterParams({
                             //     toasterText: response.data.toasterText, // LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
@@ -193,7 +182,28 @@ export default {
     beforeDestroy() {
         this.updateNewQuestionDialogState(false)
     },
-
+    computed: {
+        ...mapGetters(['accountUser', 'newQuestionDialogSate']),
+        currentSum() {
+            if (this.accountUser) {
+                // Gaby - Deprecated!
+                // let val = this.selectedPrice || this.price || 0;
+                // this.selectedPrice ? this.price = null : "";
+                // return this.accountUser.balance - val;
+                return this.accountUser.balance.toFixed(2);
+            }
+        },
+        thirtyPercent() {
+            let notRounded = this.currentSum * 30 / 100;
+            if (notRounded > 100) {
+                notRounded = 100;
+            }
+            return parseFloat(notRounded.toFixed(2));
+        },
+        validForm() {
+            return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);
+        },
+    },
     created() {
         this.$on('colorSelected', (activeColor) => {
             this.selectedColor.name = activeColor.name;
