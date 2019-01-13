@@ -123,29 +123,23 @@ namespace Cloudents.Core.Entities
 
     }
 
-    //public class ItemDelete : ValueObject
-    //{
-    //    public virtual ItemState State { get; protected set; }
-    //    public virtual DateTime? DeletedOn { get; protected set; }
-    //    protected override IEnumerable<object> GetEqualityComponents()
-    //    {
-    //        yield return State;
-    //        yield return DeletedOn;
-    //    }
-
-    //    public virtual void ChangeState(ItemState state)
-    //    {
-
-    //    }
-    //}
+   
 
     public abstract class AggregateRoot
     {
-        public AggregateRoot()
+
+        private readonly List<IEvent> _domainEvents = new List<IEvent>();
+        public virtual IReadOnlyList<IEvent> Events => _domainEvents;
+        //protected AggregateRoot()
+        //{
+        //    Events = new List<IEvent>();
+        //}
+        //public virtual IList<IEvent> Events { get; set; }
+
+        protected virtual void AddEvent(IEvent newEvent)
         {
-            Events = new List<IEvent>();
+            _domainEvents.Add(newEvent);
         }
-        public virtual IList<IEvent> Events { get; set; }
     }
 
 

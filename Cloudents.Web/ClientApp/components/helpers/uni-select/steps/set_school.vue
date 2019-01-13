@@ -16,6 +16,7 @@
                     :placeholder="schoolNamePlaceholder"
                     clearable
                     solo
+                    :menu-props="{maxHeight: $vuetify.breakpoint.xsOnly ? dropDownAlphaHeight : 300}"
                     :search-input.sync="search"
                     :append-icon="''"
                     :clear-icon="'sbf-close'"
@@ -72,6 +73,7 @@
                 universityModel: '',
                 search: '',
                 schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
+                globalHeight: global.innerHeight
             }
         },
         watch: {
@@ -171,6 +173,9 @@
             }
         },
         computed: {
+            dropDownAlphaHeight(){
+                return this.globalHeight - 470
+            },
             showBox() {
                 if (this.search && this.search > 0) {
                     return true

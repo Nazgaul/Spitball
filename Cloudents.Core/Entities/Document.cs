@@ -87,7 +87,7 @@ namespace Cloudents.Core.Entities
             var t =  base.MakePublic();
             if (t)
             {
-                Events.Add(new DocumentCreatedEvent(this));
+                AddEvent(new DocumentCreatedEvent(this));
             }
 
             return t;
@@ -98,7 +98,7 @@ namespace Cloudents.Core.Entities
             var t = base.Delete();
             if (t)
             {
-                Events.Add(new DocumentDeletedEvent(this));
+                AddEvent(new DocumentDeletedEvent(this));
             }
 
             return t;

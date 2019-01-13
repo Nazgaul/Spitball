@@ -2,13 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Query
 {
     public interface ISearch
     {
-        Task<IEnumerable<SearchResult>> SearchAsync(SearchModel model,int page, HighlightTextFormat format,
+        Task<IEnumerable<SearchResult>> SearchAsync(SearchModel model,int page,
             CancellationToken token);
     }
 }

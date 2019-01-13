@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,9 +55,9 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var itemName = message.Name;
-            if (Path.GetExtension(itemName) != Path.GetExtension(message.BlobName))
+            if (!Path.GetExtension(itemName).Equals(Path.GetExtension(message.BlobName), StringComparison.CurrentCultureIgnoreCase))
             {
-                itemName += message.BlobName;
+                itemName += Path.GetExtension(message.BlobName);
             }
             var document = new Document(itemName, university, 
                 course, message.Type, tags, user, message.Professor, message.Price);

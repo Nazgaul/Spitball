@@ -1,5 +1,5 @@
 ﻿<template>
-    <main-header ref="mainHeader" :toolbarHeight="$vuetify.breakpoint.smAndUp ? 104 : 144">
+    <main-header ref="mainHeader" :userText="userText" :submitRoute="submitRoute" :currentSelection="currentSelection" :toolbarHeight="$vuetify.breakpoint.smAndUp ? 104 : 144">
         <v-flex class="line sat-header-container" slot="extraHeader">
             <v-layout row>
               <!--keep this way for blog new tab open-->
@@ -27,6 +27,11 @@
     import mainHeader from "../helpers/header.vue";
     import { staticRoutes } from "./satellite-routes"
     export default {
+        props: {
+            currentSelection: {type: String},
+            submitRoute: {String},
+            userText: {String}
+        },
         components: {
             logo, mainHeader
         },

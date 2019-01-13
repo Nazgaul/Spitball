@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
@@ -19,7 +18,6 @@ namespace Cloudents.Infrastructure.Converters
         private readonly IReplaceImageProvider _imageProvider;
         private readonly IDomainParser _domainParser;
 
-        public const string KeyTermHighlight = "query";
         public const string KeyPriority = "priority";
 
         public BingConverter(IKeyGenerator keyGenerator, IReplaceImageProvider imageProvider, IDomainParser domainParser)
@@ -32,11 +30,11 @@ namespace Cloudents.Infrastructure.Converters
         public SearchResult Convert(BingWebPage source, SearchResult destination, ResolutionContext context)
         {
             var url = new Uri(source.Url);
-            var highlight = Enumerable.Empty<string>();
-            if (context.Items.TryGetValue(KeyTermHighlight, out var p) && p is IEnumerable<string> z)
-            {
-                highlight = z;
-            }
+            //var highlight = Enumerable.Empty<string>();
+            //if (context.Items.TryGetValue(KeyTermHighlight, out var p) && p is IEnumerable<string> z)
+            //{
+            //    highlight = z;
+            //}
             var domain = _domainParser.GetDomain(url.Host);
             var priority = PrioritySource.Unknown;
             if (Uri.TryCreate(source.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image))
@@ -64,7 +62,7 @@ namespace Cloudents.Infrastructure.Converters
                 Url = source.Url,
                 Id = _keyGenerator.GenerateKey(source.Url),
                 Image = _imageProvider.ChangeImageIfNeeded(domain, image),
-                Snippet = source.Snippet.HighlightKeyWords(highlight, false),
+                Snippet = source.Snippet,//.HighlightKeyWords(highlight, false),
                 Source = domain,
                 Title = source.Name,
                 PrioritySource = priority,

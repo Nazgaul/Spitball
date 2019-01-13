@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-page" v-if="profileData">
+    <div class="profile-page" id="profilePageContainer" v-if="profileData">
         <div>
             <v-layout class="data-wrapper" :class="{'column': isMobile}" wrap justify-start>
                 <div>
@@ -30,17 +30,13 @@
                             </ul>
                             <v-tabs v-else grow class="tab-padding" xs12>
                                 <v-tabs-slider color="blue"></v-tabs-slider>
-                                <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
-                                        v-if="isMyProfile"></span><span v-language:inner>profile_Questions</span>
+                                <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span v-language:inner>profile_Questions</span>
                                 </v-tab>
-                                <v-tab @click="activeTab = 2" :href="'#tab-2'" :key="2"><span
-                                        v-if="isMyProfile"></span><span v-language:inner>profile_Answers</span>
+                                <v-tab @click="activeTab = 2" :href="'#tab-2'" :key="2"><span v-language:inner>profile_Answers</span>
                                 </v-tab>
-                                <v-tab @click="activeTab = 3" :href="'#tab-3'" :key="3"><span
-                                        v-if="isMyProfile"></span><span v-language:inner>profile_documents</span>
+                                <v-tab @click="activeTab = 3" :href="'#tab-3'" :key="3"><span v-language:inner>profile_documents</span>
                                 </v-tab>
-                                <v-tab @click="activeTab = 4" :href="'#tab-4'" :key="4"><span
-                                        v-if="isMyProfile"></span><span v-language:inner>profile_purchased_documents</span>
+                                <v-tab @click="activeTab = 4" :href="'#tab-4'" :key="4"><span v-language:inner>profile_purchased_documents</span>
                                 </v-tab>
                             </v-tabs>
                         </div>

@@ -25,9 +25,12 @@
                         </div>
                     </div>
                     <div class="document-header-small-sagment">
+
                         <div  v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
+                            <bdi>
                         {{item.price ? item.price.toFixed(2): ''}}
                         <span>SBL</span>
+                            </bdi>
                         </div>
                         <div  v-show="!item.price" class="price-area" :class="{'isPurchased': isPurchased}" v-language:inner>resultNote_free</div>
                         <div class="menu-area">

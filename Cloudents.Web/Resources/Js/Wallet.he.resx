@@ -172,6 +172,8 @@
     <value>יש לך  SBL</value>
   </data>
   <data name="you_have_redeemable_sbl" xml:space="preserve">
-    <value>יש לך {1} SBL למימוש</value>
+    <value>&lt;bdi&gt;
+יש לך  {1} SBL למימוש
+&lt;/bdi&gt;</value>
   </data>
 </root>

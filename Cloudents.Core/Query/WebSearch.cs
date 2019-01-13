@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using JetBrains.Annotations;
@@ -23,14 +22,14 @@ namespace Cloudents.Core.Query
         }
 
         public async Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model,
-            HighlightTextFormat format, CancellationToken token)
+             CancellationToken token)
         {
             //var queryDb = new UniversityCoursesSynonymQuery(model.University, model.Courses);
             //var resultDb = await _queryBus.QueryAsync(queryDb, token);
 
             var cseModel = new SearchModel(model.Query, BuildSources(model.Source),
                 _api, model.Courses, model.University);
-            var result = await _search.SearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
+            var result = await _search.SearchAsync(cseModel, model.Page,  token).ConfigureAwait(false);
             var facets = _api.Priority.Select(s => s.Key).OrderBy(s => s);
             return new ResultWithFacetDto<SearchResult>
             {

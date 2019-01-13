@@ -84,13 +84,13 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest(ModelState);
             }
-            var tempData = TempData.Get<TempData>($"update-{model.session_id}");
+            var tempData = TempData.Get<TempData>($"update-{model.SessionId}");
 
-            var index = (int)(model.start_offset / UploadInnerResponse.BlockSize);
+            var index = (int)(model.StartOffset / UploadInnerResponse.BlockSize);
             await _documentBlobProvider.UploadBlockFileAsync(tempData.BlobName, model.Chunk.OpenReadStream(),
                 index, token);
 
-            TempData.Put($"update-{model.session_id}", tempData);
+            TempData.Put($"update-{model.SessionId}", tempData);
             return new UploadResponse();
         }
 

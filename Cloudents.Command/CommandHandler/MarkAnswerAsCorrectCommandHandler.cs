@@ -51,7 +51,6 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("Already have correct answer");
             }
 
-            question.CorrectAnswer = answer;
             if (question.User is RegularUser questionUser)
             {
                 var t1 = CorrectAnswer(TransactionType.Stake, question,
@@ -65,8 +64,7 @@ namespace Cloudents.Command.CommandHandler
             var t4 = new Transaction(TransactionActionType.Awarded, TransactionType.Earned, ReputationAction.AcceptItemUser, answer.User);
 
             await _transactionRepository.AddAsync(new[] { tAnswer, t4 }, token);
-
-            answer.Events.Add(new MarkAsCorrectEvent(answer));
+            question.AcceptAnswer(answer);
 
             //TODO: need to put it as event
             // await FraudDetectionAsync(question, answer, token);

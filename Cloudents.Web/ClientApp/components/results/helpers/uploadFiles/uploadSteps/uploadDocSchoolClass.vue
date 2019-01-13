@@ -26,42 +26,22 @@
                 <span v-language:inner>upload_files_label_class</span>
             </label>
             <div class="chip-wrap">
-                <v-combobox
+                <v-select
                         class="combo-class"
-                        v-model="selectedClass"
                         :items="classesList"
-                        allow-overflow
-                        :label="classNamePlaceholder"
-                        :placeholder="classNamePlaceholder"
-                        clearable
-                        @click:clear="updateClass"
+                        label=""
                         solo
-                        :append-icon="'sbf-expand-bottom'"
                         :clear-icon="'sbf-close'"
+                        clearable
+                        single-line
+                        :append-icon="'sbf-expand-bottom'"
+                        :placeholder="classNamePlaceholder"
                         autofocus
-                        no-filter
-                        :color="`gray`"
-                >
-                    <template slot="no-data">
-                        <v-list-tile>
-                            <div class="subheading" v-language:inner>uniSelect_keep_typing</div>
-                        </v-list-tile>
-                        <v-list-tile>
-                            <!--<div style="cursor:pointer;" @click="getAllUniversities()" class="subheading dark" v-language:inner>uniSelect_show_all_schools</div>-->
-                        </v-list-tile>
-                    </template>
-                    <template slot="item" slot-scope="{ index, item, parent }">
-                        <v-list-tile-content style="max-width:385px;">
-                            <span>{{ item.text }}</span>
-                        </v-list-tile-content>
-                    </template>
-                </v-combobox>
-                <!--<v-chip name="sbf-class-chip" class="sbf-class-chip mb-2" outline-->
-                <!--v-for="(singleClass, index) in classesList"-->
-                <!--@click="updateClass(singleClass.text)"-->
-                <!--:selected="selectedClass ===singleClass.text"-->
-                <!--:key="index">{{singleClass.text}}-->
-                <!--</v-chip>-->
+                        @input="updateClass()"
+                        v-model="selectedClass"
+                        @click:clear="clearClass"
+                ></v-select>
+
             </div>
         </div>
     </v-card>
@@ -78,9 +58,11 @@
         data() {
             return {
                 docClass: '',
-                classNamePlaceholder: LanguageService.getValueByKey("upload_class_input_placeholder")
+                classNamePlaceholder: LanguageService.getValueByKey("upload_class_input_placeholder"),
+                selectedClass: '',
 
             }
+
         },
 
         computed: {
@@ -111,24 +93,27 @@
                 }
                 return result;
             },
-            selectedClass: {
-                get() {
-                   return this.docClass
-                },
-                set(val) {
-                    if (!!val) {
-                        this.updateFile({'course': val.text});
-                    }
-                }
-            }
+            // selectedClass: {
+            //     // get() {
+            //     //    return this.docClass
+            //     // },
+            //     // set(val) {
+            //     //     if (!!val) {
+            //     //         this.updateFile({'course': val});
+            //     //     }
+            //     // }
+            // }
         },
 
         methods: {
             ...mapActions(['updateFile']),
+            updateClass(){
+                this.updateFile({'course': this.selectedClass});
 
+            },
             //clear icon click, clear class
-            updateClass() {
-                return this.selectedClass = {text: ''};
+            clearClass() {
+                return this.selectedClass ='';
             },
         },
         beforeDestroy() {

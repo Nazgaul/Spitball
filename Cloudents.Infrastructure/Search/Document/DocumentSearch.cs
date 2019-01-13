@@ -26,16 +26,6 @@ namespace Cloudents.Infrastructure.Search.Document
             _documentSearch = documentSearch;
         }
 
-        //public Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
-        //{
-        //    return _client.ItemContentAsync(itemId, cancelToken);
-        //}
-
-        //public Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
-        //{
-        //    return _client.ItemMetaContentAsync(itemId, cancelToken);
-        //}
-
         public async Task<IList<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken token)
         {
@@ -68,7 +58,7 @@ namespace Cloudents.Infrastructure.Search.Document
                     //case 12148
                     var webQuery = SearchQuery.Document(query.Term, query.Profile.University?.ExtraName, query.Course, query.Page);
                     var webResult = await 
-                        _documentSearch.SearchWithUniversityAndCoursesAsync(webQuery, HighlightTextFormat.None, token);
+                        _documentSearch.SearchWithUniversityAndCoursesAsync(webQuery, token);
                     if (webResult.Result != null)
                     {
                         retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()

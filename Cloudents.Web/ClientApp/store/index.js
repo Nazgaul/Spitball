@@ -1,5 +1,7 @@
-﻿import Vue from "vue";
+﻿
+import Vue from "vue";
 import Vuex from "vuex";
+
 import Search from "./search";
 import User from "./User";
 import Question from "./question";
@@ -15,6 +17,11 @@ import notification from "./notification";
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
 import homeLanding from "./homeLanding"
+import homeworkHelpStore from './homeworkHelp_store'
+import studyDocumentsStore from './studyDocuments_store';
+import marketingBox from './marketingBox'
+import leaderBoard from './leaderBoard'
+import mobileFooter from './mobileFooter';
 
 
 Vue.use(Vuex);
@@ -34,7 +41,13 @@ const store = new Vuex.Store({
         University,
         uploadFiles,
         document,
-        homeLanding
+        homeLanding,
+        homeworkHelpStore,
+        studyDocumentsStore,
+        marketingBox,
+        leaderBoard,
+        mobileFooter
     }
-});
+})
+
 export default store;

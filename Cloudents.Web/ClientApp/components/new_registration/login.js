@@ -135,11 +135,13 @@ export default {
                 }, this.toasterTimeout)
             }
         },
-        '$route': function (form, to) {
+
+        '$route': function (from, to, next) {
             //V8Fix - you should use $route.name and not path - what happen if we change the path?
             //Also why not const and in one place
             if (this.$route.path === '/signin') {
                 return this.isSignIn = true;
+
             } else {
                 return this.isSignIn = false;
             }

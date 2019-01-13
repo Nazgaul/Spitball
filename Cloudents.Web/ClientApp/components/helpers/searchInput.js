@@ -53,7 +53,13 @@ export default {
             else {
                 this.msg = this.suggestList[this.focusedIndex].text;
             }
-        }
+        },
+        '$route'(val){
+            if(!!val.query && !val.query.term){
+                console.log('reset search')
+                this.msg = '';
+            }
+        },
     },
     methods: {
         ...mapActions(['getAutocmplete', 'changeSelectPopUpUniState', 'setUniversityPopStorage_session']),
