@@ -100,29 +100,25 @@
             <report-item :closeReport="closeReportDialog" :itemType="item.template" :itemId="itemId"></report-item>
         </sb-dialog>
         <sb-dialog
-                @click.native
                 :showDialog="priceDialog"
                 :maxWidth="'438px'"
                 :popUpType="'priceUpdate'"
                 :onclosefn="closeNewPriceDialog"
                 :content-class="`priceUpdate ${isRtl? 'rtl': ''}` ">
             <v-card class="price-change-wrap">
-                <v-flex align-center justify-center>
+                <v-flex align-center justify-center class="relative-pos" >
                     <div class="title-wrap">
                         <span class="change-title" v-language:inner>resultNote_change_for</span>
                         <span class="change-title">&nbsp;"{{item.title}}"</span>
                     </div>
                     <div class="input-wrap d-flex row align-center justify-center">
-                        <v-text-field
-                                class="price-input"
-                                solo
-                                return-masked-value
-                                suffix="SBL"
-                                v-model="newPrice"
-                                placeholder="00.00"
-                                :rules="[rules.required, rules.max]"
-                                mask="##.##"
-                        ></v-text-field>
+                        <div :class="['price-wrap', isRtl ? 'reversed' : '']">
+                            <!--updating document obj inside -->
+                            <sbl-currency v-model="newPrice"
+                                          class="sb-input-upload-price">
+                            </sbl-currency>
+                            <div class="sbl-suffix">SBL</div>
+                        </div>
                     </div>
                 </v-flex>
                 <div class="change-price-actions">
@@ -147,6 +143,7 @@
     import { mapGetters, mapActions } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
     import SbInput from "../question/helpers/sbInput/sbInput";
+    import  sblCurrency  from "./helpers/uploadFiles/sbl-currency.vue";
 
     export default {
         components: {
@@ -159,6 +156,7 @@
             reportItem,
             userAvatar,
             userRank,
+            sblCurrency
 
         },
         data() {
@@ -183,15 +181,16 @@
                 isRtl: global.isRtl,
                 showMenu: false,
                 priceDialog: false,
-                newPrice: 0,
+                newPrice: this.item.price ?  this.item.price : 0,
                 rules: {
                     required: value => !!value || 'Required.',
-                    max: value => value.length <= 1000 || 'max is 1000',
+                    max: value => value.$options.filter <= 1000 || 'max is 1000',
                 }
             };
         },
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
+
             userRank() {
                 if (!!this.item.user) {
                     return this.item.user.score;
@@ -276,6 +275,9 @@
                     return false
                 }
             },
+            showEvent(event){
+                console.log(event)
+            },
             submitNewPrice() {
                 console.log('sending new price', this.newPrice)
             },
@@ -283,8 +285,9 @@
                 this.priceDialog = false;
             },
             isDisablePriceChange() {
-                let owner = this.cardOwner();
-                return owner ? false : true
+                return true
+                // let owner = this.cardOwner();
+                // return owner ? false : true
             },
             showPriceChangeDialog() {
                 this.priceDialog = true;
@@ -294,9 +297,6 @@
                 let isOwner, account, notEnough;
                 isOwner = this.cardOwner();
                 account = this.accountUser();
-                // if (account && account.score) {
-                //     notEnough = account.score < 400
-                // }
                 if (isOwner || !account || notEnough) {
                     return true
                 }

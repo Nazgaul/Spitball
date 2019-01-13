@@ -35,11 +35,7 @@ export default {
             default: '720px',
             required: false
         },
-        attach:{
-            type: String,
-            default: '',
-            required: false
-        },
+
     },
     data: function () {
         return {

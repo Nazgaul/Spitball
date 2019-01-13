@@ -1,25 +1,76 @@
 @import "../../styles/mixin.less";
-@colorUploadDate: rgba( 0,0,0,0.38);
+
+@colorUploadDate: rgba(0, 0, 0, 0.38);
+@placeholderGrey: rgba(74, 74, 74, 0.25);
+@colorPrice: rgba(74, 74, 74, 0.87);
+.relative-pos {
+  position: relative;
+}
+
+
 
 //price-change dialog
 .price-change-wrap {
   padding: 12px 0 0 0;
   position: relative;
-  z-index: 999;
 
-  .price-input{
-    max-width: 142px;
+
+  //sbl-currency style start
+  .price-wrap {
     position: absolute;
-    .v-input__slot {
-      &:focus-within {
-        .glowingBorderFocused();
-
+    bottom: -12px;
+    background: @color-white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 164px;
+    min-width: 164px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, .25);
+    justify-content: center;
+    &.reversed {
+      flex-direction: row-reverse;
+    }
+    &:focus-within {
+      .glowingBorderFocused();
+    }
+    .balance-label {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      color: @labelColorMobile;
+      font-size: 12px;
+      @media (max-width: @screen-xs) {
+        padding-top: 24px;
       }
     }
+    .sb-input-upload-price {
+      max-width: 76px;
+      height: 44px;
+      order: 1;
+      .input-field {
+        .placeholder-color(@placeholderGrey, 1);
+        font-size: 16px;
+        color: @colorPrice;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .sbl-suffix {
+      color: @colorBlackNew;
+      font-size: 14px;
+      order: 2;
+    }
   }
+
+
   .title-wrap {
     padding-top: 16px;
-    padding-bottom: 74px;
+    padding-bottom: 48px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -41,8 +92,9 @@
     background: #eaeaea;
     .change-price {
       .sb-rounded-btn();
+      padding: 8px 20px 8px 20px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 400;
     }
     .cancel {
       border-radius: 16px;
@@ -59,9 +111,7 @@
   }
 }
 
-
 .note-block {
-
 
   min-height: auto;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
@@ -76,7 +126,7 @@
     font-weight: 600;
     font-family: @fontFiraSans;
   }
-  
+
   i, .doc-type-text {
     &.type-lecture {
       color: @colorTypeLecture;
@@ -104,7 +154,7 @@
       flex-grow: 1;
       .rank-date-container {
         display: flex;
-        @media(max-width: @screen-xs) {
+        @media (max-width: @screen-xs) {
           flex-direction: column-reverse;
           margin-left: 12px;
           margin-top: -12px;
@@ -112,10 +162,10 @@
         }
         .rank-area {
           margin: 0 12px;
-          &.thirdParty{
+          &.thirdParty {
             margin: 0;
           }
-          @media(max-width: @screen-xs) {
+          @media (max-width: @screen-xs) {
             margin: 0 0;
           }
         }
@@ -189,7 +239,7 @@
         justify-content: space-between;
         height: 80px;
         padding-left: 8px;
-        .document-reputation{
+        .document-reputation {
           font-size: 12px;
           font-family: @fontOpenSans;
           font-weight: bold;
@@ -219,7 +269,7 @@
         display: flex;
         flex-direction: column;
         padding-left: 12px;
-        &.thirdPartyItem{
+        &.thirdPartyItem {
           padding-left: 0;
         }
       }
@@ -250,7 +300,7 @@
       align-items: center;
       height: 100%;
       margin: 20px 0 30px 0;
-      &.thirdParty{
+      &.thirdParty {
         margin-top: 12px;
       }
       .content-wrap {
@@ -266,20 +316,20 @@
           background: fade(@colorTypeLecture, 12%)
         }
         &.type-textbook {
-          background:  fade(@color-blue-new, 9%);
+          background: fade(@color-blue-new, 9%);
 
         }
         &.type-exam {
-          background:  fade(@colorTypeExam, 10%);
+          background: fade(@colorTypeExam, 10%);
         }
         &.type-document {
-          background:  fade(@colorTypeDocDefault, 7%);
+          background: fade(@colorTypeDocDefault, 7%);
         }
         .title-wrap {
           display: flex;
           align-items: flex-start;
           word-break: break-all;
-          word-break: break-word;   
+          word-break: break-word;
           i.doc {
             color: @colorBlackNew;
             font-size: 14px;
@@ -294,12 +344,12 @@
             flex-grow: 1;
             display: inline-flex;
             //firefox fix for line clamp, needs specific max-height
-            &.foxLineClamp{
-              max-height: 56px!important;
-              display: block!important;
+            &.foxLineClamp {
+              max-height: 56px !important;
+              display: block !important;
             }
             @media (max-width: @screen-xs) {
-             line-height: 20px;
+              line-height: 20px;
             }
           }
         }
@@ -311,7 +361,7 @@
             line-height: 1.5;
             letter-spacing: -0.2px;
             word-break: break-all;
-            word-break: break-word;   
+            word-break: break-word;
           }
         }
       }
@@ -335,7 +385,7 @@
           font-size: 11px;
           opacity: 0.9;
           font-family: @fontFiraSans;
-          &.downloads{
+          &.downloads {
             margin-right: 12px;
           }
         }
