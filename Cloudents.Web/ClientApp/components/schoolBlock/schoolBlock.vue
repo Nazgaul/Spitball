@@ -19,7 +19,7 @@
                                       v-language:inner>schoolBlock_school_empty_text</span>
                             </div>
                         </div>
-                        <div class="classes-holder">
+                        <div :class="['classes-holder', isClassesSet ? '' : 'emptyState' ]">
                             <div v-show="!showAllClassesBlock"
                                  :class="[$vuetify.breakpoint.xsOnly ? 'd-flex  wrap-it align-start' : '']">
                                 <transition-group name="list">
@@ -48,7 +48,7 @@
                                     </v-chip>
                                 </transition>
 
-                                <v-chip v-if="!isClassesSet" name="add class" class="sbf-class-chip empty-state-class"
+                                <v-chip v-if="!isClassesSet && isClassesSet" name="add class" class="sbf-class-chip empty-state-class"
 
                                         @click="openPersonalizeCourse()">
                                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>

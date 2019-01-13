@@ -55,12 +55,19 @@
   .empty-university-icon {
     color: @purpleColor;
     margin-right: 12px;
+    @media(max-width: @screen-xs){
+      font-size: 20px;
+    }
+
   }
   .empty-university-name {
     font-family: @fontFiraSans;
     font-size: 28px;
     letter-spacing: -0.7px;
     color: @purpleColor;
+    @media(max-width: @screen-xs){
+      font-size: 20px;
+    }
 
   }
 }
@@ -84,6 +91,9 @@
 }
 
 .university-holder {
+  @media(max-width: @screen-xs){
+   width: 100%;
+  }
   .uni-holder{
     cursor: pointer;
   }
@@ -119,6 +129,10 @@
   @media(max-width: @screen-xs){
     padding-top: 16px;
     min-height: 49px;
+
+  }
+  &.emptyState{
+    min-height: unset;
   }
   .sbf-class-chip {
     &.v-chip {
