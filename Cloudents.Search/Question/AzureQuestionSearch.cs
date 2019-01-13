@@ -32,10 +32,10 @@ namespace Cloudents.Search.Question
             SearchAsync(QuestionsQuery query, CancellationToken token)
         {
             var filters = new List<string>();
-            var filter1 = $"{nameof(Entities.Question.Language)} eq 'en')";
+            var filter1 = $"{nameof(Entities.Question.Language)} eq 'en'";
             if (query.Country != null)
             {
-                filter1 += $" or {nameof(Entities.Question.Country)} eq '{query.Country.ToUpperInvariant()}";
+                filter1 += $" or {nameof(Entities.Question.Country)} eq '{query.Country.ToUpperInvariant()}'";
             }
             filters.Add($"({filter1})");
             if (query.Source != null)

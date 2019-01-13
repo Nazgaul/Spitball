@@ -206,12 +206,12 @@ namespace Cloudents.Web.Api
             };
 
 
-            if (profile.Courses != null)
-            {
-                filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
-                    _localizer["CoursesFilterTitle"],
-                    profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
-            }
+            //if (profile.Courses != null)
+            //{
+            //    filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
+            //        _localizer["CoursesFilterTitle"],
+            //        profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
+            //}
 
             return new WebResponseWithFacet<DocumentFeedDto>
             {
