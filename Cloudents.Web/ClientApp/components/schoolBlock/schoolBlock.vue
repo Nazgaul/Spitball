@@ -133,7 +133,7 @@
                         if (chip.text) {
                             chip.isSelected = !!this.selectedChips[chip.text];
                             chipItem = schoolBlockService.createChipItem(chip);
-                            result.push(chipItem)
+                            result.push(chipItem);
                         } else {
                             let newChip = {
                                 text: chip,
