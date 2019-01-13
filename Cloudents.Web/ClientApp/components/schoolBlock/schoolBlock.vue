@@ -1,6 +1,6 @@
 <template>
-    <transition name="fade">
-        <div style="" :class="['school-block', isClassesSet ? 'pb-0' : '']">
+
+        <div style="" :class="['school-block', isClassesSet ? 'pb-0' : '', minMode ? '' : 'expand' ]">
             <v-layout row>
                 <v-flex xs12>
                     <div class="content-wrap">
@@ -19,7 +19,7 @@
                                       v-language:inner>schoolBlock_school_empty_text</span>
                             </div>
                         </div>
-                        <div :class="['classes-holder', isClassesSet ? '' : 'emptyState' ]">
+                        <div :class="['classes-holder', isClassesSet ? '' : 'emptyState' ]"  >
                             <div v-show="!showAllClassesBlock"
                                  :class="[$vuetify.breakpoint.xsOnly ? 'd-flex  wrap-it align-start' : '']">
                                 <transition-group name="list">
@@ -37,7 +37,7 @@
                                     </v-chip>
                                 </transition-group>
                                 <transition name="fade-total">
-                                    <v-chip name="sbf-class-chip" key="chip_two"
+                                    <v-chip name="sbf-class-chip" key="chip_twoe"
                                             class="sbf-class-chip total"
                                             :class="[$vuetify.breakpoint.smAndUp ? 'border-none' : '' ]"
                                             v-show="minMode ? classesList.length > classesToShow : false"
@@ -77,7 +77,7 @@
             <edit-action-block id="edit-mobile-target" v-show="mobileFilterState && $vuetify.breakpoint.xsOnly"
                                @click.native="openPersonalizeCourse()"></edit-action-block>
         </div>
-    </transition>
+
 </template>
 
 <script>
