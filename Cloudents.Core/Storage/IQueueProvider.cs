@@ -24,6 +24,7 @@ namespace Cloudents.Core.Storage
         //Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token);
         //SignalRMessageTransport
         Task InsertMessageAsync(SignalRTransportType obj, long? userId, CancellationToken token);
+        Task InsertMessageAsync(SignalRTransportType obj, string groupId, CancellationToken token);
         Task InsertMessageAsync(SignalRTransportType obj, CancellationToken token);
 
     }
