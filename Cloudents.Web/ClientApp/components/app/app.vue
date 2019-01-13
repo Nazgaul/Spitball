@@ -3,7 +3,6 @@
         <router-view name="header"></router-view>
 
         <v-content class="site-content" :class="{'loading':getIsLoading}">
-            <school-block app></school-block>
             <div class="loader" v-show="getIsLoading">
                 <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
             </div>
@@ -99,7 +98,6 @@ import tourService from "../../services/tourService";
     import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
     import marketingBox from "../helpers/marketingBox/marketingBox.vue";
     import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
-    import schoolBlock from '../schoolBlock/schoolBlock.vue'
 
     export default {
         components: {
@@ -114,7 +112,6 @@ import tourService from "../../services/tourService";
             mobileFooter,
             marketingBox,
             leadersBoard,
-            schoolBlock
         },
         data() {
             return {

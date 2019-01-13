@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div style="" class="school-block">
+        <div style="" :class="['school-block', isClassesSet ? 'pb-0' : '']">
             <v-layout row>
                 <v-flex xs12>
                     <div class="content-wrap">
@@ -29,9 +29,10 @@
                                             class="sbf-class-chip"
                                             :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : '',
                                             mobileFilterState ?  'full-width-chip' : '']"
-                                            @click="updateClass(singleClass)"
+                                            @click="isDisabled ? '' : updateClass(singleClass)"
+                                            :disabled="isDisabled"
                                             :selected="singleClass.isSelected"
-                                            v-show="index < classesToShow"
+                                            v-show="minMode ? index < classesToShow : true"
                                             :key="index">{{singleClass.text}}
                                     </v-chip>
                                 </transition-group>
@@ -39,7 +40,7 @@
                                     <v-chip name="sbf-class-chip" key="chip_two"
                                             class="sbf-class-chip total"
                                             :class="[$vuetify.breakpoint.smAndUp ? 'border-none' : '' ]"
-                                            v-show="classesList.length > classesToShow"
+                                            v-show="minMode ? classesList.length > classesToShow : false"
                                             @click.prevent.stop="openAllClasses()">
                                         <span>
                                            {{classesPlus}}
@@ -54,23 +55,26 @@
                                     <span v-language:inner>schoolBlock_add_class</span>
                                 </v-chip>
                             </div>
-                            <div class="all-classes" v-show="showAllClassesBlock" transition="fade-transition"
+                            <transition name="slide-y-transition">
+                            <div class="all-classes" v-show="showAllClassesBlock && !$vuetify.breakpoint.xsOnly"
                                  id="school_block_classesList">
                                 <div class="classes-list-wrap">
                                     <v-chip class="class-chip-item"
                                             v-for="(singleClass, index) in classesList"
-                                            @click="updateClass(singleClass)"
+                                             @click="isDisabled ? '' : updateClass(singleClass)"
+                                            :disabled="isDisabled"
                                             :selected="singleClass.isSelected"
                                             :key="index">{{singleClass.text}}
                                     </v-chip>
                                 </div>
-                                <edit-action-block @click.prevent.stop="openPersonalizeCourse()"></edit-action-block>
+                                <edit-action-block @click.native="openPersonalizeCourse()"></edit-action-block>
                             </div>
+                            </transition>
                         </div>
                     </div>
                 </v-flex>
             </v-layout>
-            <edit-action-block id="edit-mobile-target" v-show="mobileFilterState"
+            <edit-action-block id="edit-mobile-target" v-show="mobileFilterState && $vuetify.breakpoint.xsOnly"
                                @click.native="openPersonalizeCourse()"></edit-action-block>
         </div>
     </transition>
@@ -88,9 +92,15 @@
             return {
                 showAllClassesBlock: false,
                 selectedChips: {},
-                classesToShow: this.$vuetify.breakpoint.smAndUp ? 5 : 3,
-                mobileFilterState: false
+                mobileFilterState: false,
+                minMode: true
             }
+        },
+        props: {
+            isDisabled: {
+                type: Boolean,
+                default: false
+            },
         },
         computed: {
             ...mapGetters([
@@ -99,6 +109,9 @@
                 "getAllSteps",
                 "accountUser"
             ]),
+            classesToShow(){
+                return this.$vuetify.breakpoint.smAndUp ? 5 : 3;
+            },
             classesPlus() {
                 if (!!this.classesList)
                     return `+${this.classesList.length - this.classesToShow}`
@@ -170,7 +183,8 @@
                 if (this.$vuetify.breakpoint.smAndUp) {
                     this.showAllClassesBlock = true
                 } else {
-                    this.classesToShow = this.classesList.length;
+                    //this.classesToShow = this.classesList.length;
+                    this.minMode = false;
                     this.mobileFilterState = true;
                 }
             },
@@ -210,7 +224,8 @@
                     ignoredElements = document.querySelector('.school-block');
                     isClickInside = ignoredElements.contains(event.target);
                     if (!isClickInside) {
-                        this.classesToShow = 3;
+                        //this.classesToShow = 3;
+                        this.minMode = true;
                         this.mobileFilterState = false;
                     }
                 }
