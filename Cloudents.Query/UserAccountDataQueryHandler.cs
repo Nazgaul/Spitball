@@ -26,7 +26,7 @@ namespace Cloudents.Query
         {
             //TODO check this query
             return await _session.Query<RegularUser>()
-                .Where(w => w.Id == query.Id && w.LockoutEnd.HasValue && DateTime.UtcNow < w.LockoutEnd.Value)
+                .Where(w => w.Id == query.Id && (!w.LockoutEnd.HasValue || DateTime.UtcNow >= w.LockoutEnd.Value))
                 .Select(s => new UserAccountDto
                 {
                     Id = s.Id,
