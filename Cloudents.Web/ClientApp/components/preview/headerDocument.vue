@@ -29,7 +29,7 @@
                     <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
                     <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
                 </div>
-                <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.smAndDown">
+                <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.xsOnly">
                     <div class="viewed">
                         <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
                         <span class="viewed-text">{{item.views}}</span>

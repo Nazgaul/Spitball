@@ -1,48 +1,31 @@
 @import "../../styles/mixin.less";
-
+@import "./animationSet.less";
 @purpleColor: #3e45a0;
 @chipBorderColor: #7278c8;
 @backgroundGrey: #ececec;
 
 
-.fade-total-enter-active  {
-  transition: all 0.1s;
-}
-.fade-total-leave-active {
-  transition: all 0.1s
-}
-.fade-total-enter, .fade-total-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-
-.list-enter-active {
-  transition: all 0.6s;
-}
-.list-leave-active {
-  transition: all 0.6s;
-}
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  //transform: translateY(30px);
-}
-
-
 .border-none {
   border: none;
 }
-.wrap-it{
+
+.wrap-it {
   flex-wrap: wrap;
 }
+
 .school-block {
-  .transition (all .2s ease-in-out);
   background: @purpleColor;
   padding-top: 42px;
   padding-bottom: 16px;
   display: flex;
-  @media(max-width: @screen-xs){
+  max-height: 250px;
+  @media (max-width: @screen-xs) {
     padding-top: 12px;
     flex-direction: column;
-    padding-bottom: 0px;
+    padding-bottom: 12px;
+    &.expand{
+      max-height: 1250px;
+    }
   }
 }
 
@@ -56,12 +39,19 @@
   .empty-university-icon {
     color: @purpleColor;
     margin-right: 12px;
+    @media (max-width: @screen-xs) {
+      font-size: 20px;
+    }
+
   }
   .empty-university-name {
     font-family: @fontFiraSans;
     font-size: 28px;
     letter-spacing: -0.7px;
     color: @purpleColor;
+    @media (max-width: @screen-xs) {
+      font-size: 20px;
+    }
 
   }
 }
@@ -77,19 +67,28 @@
   height: 100%;
   flex-direction: column;
   justify-content: space-between;
-  @media(max-width: @screen-xs){
+
+
+  @media (max-width: @screen-xs) {
     align-items: center;
     padding-right: 12px;
     padding-left: 12px;
+
   }
 }
 
 .university-holder {
+  @media (max-width: @screen-xs) {
+    width: 100%;
+  }
+  .uni-holder {
+    cursor: pointer;
+  }
   .university-icon {
     color: @color-white;
     margin-right: 12px;
     font-size: 32px;
-    @media(max-width: @screen-xs){
+    @media (max-width: @screen-xs) {
       font-size: 20px;
     }
   }
@@ -98,12 +97,12 @@
     font-family: @fontFiraSans;
     font-size: 28px;
     letter-spacing: -0.7px;
-    @media(max-width: @screen-xs){
+    @media (max-width: @screen-xs) {
       font-size: 20px;
       letter-spacing: -0.5px;
     }
   }
-  .filter-text{
+  .filter-text {
     font-family: @fontOpenSans;
     font-size: 16px;
     letter-spacing: -0.6px;
@@ -114,9 +113,13 @@
 .classes-holder {
   padding-top: 32px;
   min-height: 79px;
-  @media(max-width: @screen-xs){
+  @media (max-width: @screen-xs) {
     padding-top: 16px;
     min-height: 49px;
+
+  }
+  &.emptyState {
+    min-height: unset;
   }
   .sbf-class-chip {
     &.v-chip {
@@ -132,12 +135,12 @@
       margin-bottom: 0;
       margin-top: 0;
 
-      @media(max-width: @screen-xs){
+      @media (max-width: @screen-xs) {
         max-width: 94px;
         //mobile filter open
-        &.full-width-chip{
+        &.full-width-chip {
           max-width: unset;
-          flex-grow: 0!important; //vuetify ovewrite
+          flex-grow: 0 !important; //vuetify ovewrite
           .v-chip__content {
             //ellipsis for too long class chip
             max-width: 280px;
@@ -212,7 +215,7 @@
 
       .v-chip__content {
         //ellipsis for too long class chip
-        max-width:unset;
+        max-width: unset;
         min-width: 0;
         white-space: nowrap;
         overflow: hidden;
@@ -235,6 +238,7 @@
     }
   }
 }
+
 .edit-action-block {
   background-color: @backgroundGrey;
   display: flex;
@@ -242,7 +246,7 @@
   align-items: center;
   justify-content: center;
   padding: 8px;
-  @media(max-width: @screen-xs){
+  @media (max-width: @screen-xs) {
     box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.43);
   }
   .edit-action {

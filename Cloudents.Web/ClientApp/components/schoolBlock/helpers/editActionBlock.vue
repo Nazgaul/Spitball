@@ -24,6 +24,7 @@
         align-items: center;
         justify-content: center;
         padding: 8px;
+        cursor: pointer;
         @media(max-width: @screen-xs){
             box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.43);
             z-index: 9;

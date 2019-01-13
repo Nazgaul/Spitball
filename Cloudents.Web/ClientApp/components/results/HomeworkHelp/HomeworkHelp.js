@@ -16,6 +16,7 @@ import faqBlock from '../helpers/faq-block/faq-block.vue'
 import notificationCenter from '../../notificationCenter/notificationCenter.vue'
 
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
+import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 
 //The vue functionality for result page
 export default {
@@ -29,7 +30,8 @@ export default {
         askQuestionBtn,
         ResultAsk,
         setUniClass,
-        ResultItem
+        ResultItem,
+        schoolBlock
     },
     data() {
         return {

@@ -37,8 +37,6 @@
 </template>
 
 <script>
-    const isIl = global.country.toLowerCase() === 'il';
-    const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
     import stepTemplate from '../helpers/stepTemplate.vue'
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
@@ -89,6 +87,8 @@
                         // self.$parent.$emit('updateEmail', self.userEmail);
                         global.isAuth = true;
                         global.country = response.data.country;
+                        const isIl = global.country.toLowerCase() === 'il';
+                        const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
                         let url = self.toUrl || defaultSubmitRoute;
                         //will be always ask cause he came from email
                         self.$router.push({path: `${url.path }`});

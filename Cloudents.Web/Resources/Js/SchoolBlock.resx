@@ -117,24 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label_next" xml:space="preserve">
-    <value>Next</value>
+  <data name="add_class" xml:space="preserve">
+    <value>Add  your classes</value>
   </data>
-  <data name="label_previous" xml:space="preserve">
-    <value>Previous</value>
+  <data name="edit_classes" xml:space="preserve">
+    <value>Edit Classes</value>
   </data>
-  <data name="label_skip" xml:space="preserve">
-    <value>Skip</value>
+  <data name="filter_classes" xml:space="preserve">
+    <value>Filter Courses</value>
   </data>
-  <data name="label_stop" xml:space="preserve">
-    <value>Don't show again</value>
-  </data>
-  <data name="vote_content" xml:space="preserve">
-    <value>Upvote or Downvote Questions, Answers and Documents.</value>
-    <comment>הצבע בעד או נגד שאלות, תשובות ומסמכים.</comment>
-  </data>
-  <data name="vote_title" xml:space="preserve">
-    <value>Point other students to quality content on Spitball.</value>
-    <comment>הפנה סטודנטים אחרים לתוכן איכותי בספיטבול.</comment>
+  <data name="school_empty_text" xml:space="preserve">
+    <value>What is your school?</value>
   </data>
 </root>
