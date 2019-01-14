@@ -94,99 +94,99 @@ namespace Cloudents.Core.Entities
         }
     }
 
-    public abstract class ItemObject : AggregateRoot, ISoftDelete
-    {
-        protected ItemObject()
-        {
-            State = ItemState2.Pending();// ItemState.Pending;
-            Votes = new List<Vote>();
-        }
+    //public abstract class ItemObject : AggregateRoot, ISoftDelete
+    //{
+    //    protected ItemObject()
+    //    {
+    //        State = ItemState2.Pending();// ItemState.Pending;
+    //        Votes = new List<Vote>();
+    //    }
 
 
-        public abstract void DeleteAssociation();
+    //    public abstract void DeleteAssociation();
 
-        public virtual ItemState2 State { get; private set; }
-        //public virtual DateTime? DeletedOn { get; private set; }
-
-
-        public virtual void ChangeState(ItemState state)
-        {
-            switch (state)
-            {
-                case ItemState.Ok:
-                    MakePublic();
-                    break;
-                case ItemState.Deleted:
-                    Delete();
-                    break;
-                case ItemState.Pending:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
-            }
-
-        }
-
-        public virtual bool MakePublic()
-        {
-            if (State == ItemState.Ok)
-            {
-                return false;
-            }
-
-            State = ItemState2.Public();
-            return true;
-        }
-
-        public virtual void Delete()
-        {
-            if (State == ItemState.Deleted)
-            {
-                return;
-            }
-
-            State = ItemState2.Delete();
-            DeleteAssociation();
-        }
+    //    public virtual ItemState2 State { get; private set; }
+    //    //public virtual DateTime? DeletedOn { get; private set; }
 
 
-        public virtual bool Flag(string reason, User user)
-        {
-            if (State == ItemState.Flagged)
-            {
-                return false;
-            }
-            State = State.Flag(reason,user);
-            return true;
-        }
+    //    public virtual void ChangeState(ItemState state)
+    //    {
+    //        switch (state)
+    //        {
+    //            case ItemState.Ok:
+    //                MakePublic();
+    //                break;
+    //            case ItemState.Deleted:
+    //                Delete();
+    //                break;
+    //            case ItemState.Pending:
+    //                break;
+    //            default:
+    //                throw new ArgumentOutOfRangeException(nameof(state), state, null);
+    //        }
+
+    //    }
+
+    //    public virtual bool MakePublic()
+    //    {
+    //        if (State == ItemState.Ok)
+    //        {
+    //            return false;
+    //        }
+
+    //        State = ItemState2.Public();
+    //        return true;
+    //    }
+
+    //    public virtual void Delete()
+    //    {
+    //        if (State == ItemState.Deleted)
+    //        {
+    //            return;
+    //        }
+
+    //        State = ItemState2.Delete();
+    //        DeleteAssociation();
+    //    }
 
 
-
-
-        public virtual ICollection<Vote> Votes { get; protected set; }
-
-        public virtual int VoteCount { get; set; }
-
-    }
+    //    public virtual bool Flag(string reason, User user)
+    //    {
+    //        if (State == ItemState.Flagged)
+    //        {
+    //            return false;
+    //        }
+    //        State = State.Flag(reason,user);
+    //        return true;
+    //    }
 
 
 
-    public abstract class AggregateRoot
-    {
 
-        private readonly List<IEvent> _domainEvents = new List<IEvent>();
-        public virtual IReadOnlyList<IEvent> Events => _domainEvents;
-        //protected AggregateRoot()
-        //{
-        //    Events = new List<IEvent>();
-        //}
-        //public virtual IList<IEvent> Events { get; set; }
+    //    public virtual ICollection<Vote> Votes { get; protected set; }
 
-        protected virtual void AddEvent(IEvent newEvent)
-        {
-            _domainEvents.Add(newEvent);
-        }
-    }
+    //    public virtual int VoteCount { get; set; }
+
+    //}
+
+
+
+    //public abstract class AggregateRoot
+    //{
+
+    //    private readonly List<IEvent> _domainEvents = new List<IEvent>();
+    //    public virtual IReadOnlyList<IEvent> Events => _domainEvents;
+    //    //protected AggregateRoot()
+    //    //{
+    //    //    Events = new List<IEvent>();
+    //    //}
+    //    //public virtual IList<IEvent> Events { get; set; }
+
+    //    protected virtual void AddEvent(IEvent newEvent)
+    //    {
+    //        _domainEvents.Add(newEvent);
+    //    }
+    //}
 
 
     public abstract class ValueObject

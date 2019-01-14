@@ -45,14 +45,14 @@ namespace Cloudents.Persistance.Maps
         }
     }
 
-    public class ItemMap<T> : ClassMap<T> where T : ItemObject
-    {
-        public ItemMap()
-        {
-            Map(m => m.VoteCount).Not.Nullable();
-            Component(x => x.State);
-        }
-    }
+    //public class ItemMap<T> : ClassMap<T> where T : ItemObject
+    //{
+    //    public ItemMap()
+    //    {
+    //        Map(m => m.VoteCount).Not.Nullable();
+    //        Component(x => x.State);
+    //    }
+    //}
 
     public class ItemStateMap : ComponentMap<ItemState2>
     {

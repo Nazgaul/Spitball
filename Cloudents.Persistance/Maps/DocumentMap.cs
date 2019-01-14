@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
-    public class DocumentMap : ItemMap<Document>
+    public class DocumentMap : ClassMap<Document>
     {
         public DocumentMap()
         {
@@ -44,6 +44,8 @@ namespace Cloudents.Persistance.Maps
 
             HasMany(x => x.Votes).KeyColumns.Add("DocumentId")
                 .Inverse().Cascade.AllDeleteOrphan();
+            Map(m => m.VoteCount).Not.Nullable();
+            //        Component(x => x.State);
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");
         }

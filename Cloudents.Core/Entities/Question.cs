@@ -14,7 +14,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question : AggregateRoot<long>, ISoftDelete
+    public class Question : AggregateRoot, ISoftDelete
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             RegularUser user,
@@ -51,7 +51,7 @@ namespace Cloudents.Core.Entities
             {
                 Color = color;
             }
-            State = ItemState2.Pending();
+            State = Pending();
             //ChangeState(ItemState.Pending);
             Language = language;
         }

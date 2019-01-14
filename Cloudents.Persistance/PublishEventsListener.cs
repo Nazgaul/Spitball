@@ -27,7 +27,7 @@ namespace Cloudents.Persistance
         {
             if (entity is AggregateRoot p)
             {
-                foreach (var ev in p.Events.Distinct())
+                foreach (var ev in p.DomainEvents.Distinct())
                 {
                     //Nhibernate doesn't support multiple async
                     await _eventPublisher.PublishAsync(ev, cancellationToken);
