@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PowerPoint2007Processor : IPreviewProvider2
+    public class PowerPoint2007Processor : IPreviewProvider2, IDisposable
     {
         public PowerPoint2007Processor()
         {
@@ -37,7 +38,7 @@ namespace Cloudents.Infrastructure.Framework
 
 
 
-        private string ExtractStringFromPpt(Presentation ppt)
+        private static string ExtractStringFromPpt(Presentation ppt)
         {
             try
             {
@@ -63,32 +64,46 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
+        private Presentation _pptx;
 
+        public void Init(Stream stream)
+        {
+            _pptx = new Presentation(stream);
+            
+        }
 
-        public async Task ProcessFilesAsync(Stream stream,
-            Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, int, Task> metaCallback,
+        public (string text, int pagesCount) ExtractMetaContent()
+        {
+            var txt = ExtractStringFromPpt(_pptx);
+            return (txt, _pptx.Slides.Count);
+        }
+
+       
+
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            var pptx = new Presentation(stream);
+            var tasksList = new List<Task>();
 
-            var t = ExtractStringFromPpt(pptx);
-            var tasksList = new List<Task>()
+            var diff = Enumerable.Range(0, _pptx.Slides.Count);
+            diff = diff.Except(previewDelta);
+
+            foreach (var item in diff)
             {
-                metaCallback(t, pptx.Slides.Count)
-            };
-            for (int i = 0; i < pptx.Slides.Count; i++)
-            {
-                using (var img = pptx.Slides[0].GetThumbnail(1, 1))
+                using (var img = _pptx.Slides[0].GetThumbnail(1, 1))
                 {
                     var ms = new MemoryStream();
                     img.Save(ms, ImageFormat.Jpeg);
-                    tasksList.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
+                    tasksList.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
                 }
             }
-
             await Task.WhenAll(tasksList);
 
+        }
+
+        public void Dispose()
+        {
+            _pptx?.Dispose();
         }
     }
 }

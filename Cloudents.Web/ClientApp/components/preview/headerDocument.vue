@@ -70,7 +70,7 @@
                                         </span>
                                         <span class="equals-to-dollar hidden-xs-only">
                                             <span v-language:inner>preview_price_equals_to</span>
-                                            {{item.price ? item.price : 0 | dollarVal}}$</span>
+                                            ${{item.price ? item.price : 0 | dollarVal}}</span>
                                     </div>
                                     <div class="buy-btn-wrap">
                                         <span class="buy-text" v-language:inner>preview_itemActions_buy</span>

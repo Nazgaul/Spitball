@@ -1,8 +1,9 @@
 <template>
     <div class="edit-action-block" >
         <div class="edit-action d-flex align-baseline">
+            <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
             <span  class="edit-class mr-2" v-language:inner>schoolBlock_edit_classes</span>
-            <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+
         </div>
     </div>
 </template>
@@ -18,7 +19,7 @@
     @backgroundGrey: #ececec;
 
     .edit-action-block {
-        background-color: @backgroundGrey;
+        background-color: @color-white;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -34,7 +35,7 @@
             z-index: 1;
         }
         .edit-icon {
-            font-size: 16px;
+            font-size: 12px;
         }
         .edit-class {
             font-family: @fontFiraSans;
