@@ -6,34 +6,96 @@ using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
+    public sealed class ItemState2 : ValueObject
+    {
+        public ItemState State { get; }
+        public DateTime? DeletedOn { get; }
 
-   
+        public string FlagReason { get; }
+        public User FlaggedUser { get; }
+
+
+        private const int MaxReasonLength = 255;
+
+
+        private static bool ValidateFlagReason(string flagReason)
+        {
+            if (string.IsNullOrEmpty(flagReason))
+            {
+                return false;
+            }
+
+            if (flagReason.Length > MaxReasonLength)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public const string TooManyVotesReason = "Too many down vote";
+
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return State;
+        }
+
+        private ItemState2()
+        {
+
+        }
+        private ItemState2(ItemState state, DateTime? deletedOn, string flagReason, User flaggedUser) : this()
+        {
+            State = state;
+            DeletedOn = deletedOn;
+            FlagReason = flagReason;
+            FlaggedUser = flaggedUser;
+        }
+
+        public ItemState2 Flag(string reason, User user)
+        {
+            if (!ValidateFlagReason(reason))
+            {
+                throw new ArgumentException("reason is too long");
+            }
+            return new ItemState2(ItemState.Flagged, null, reason, user);
+        }
+
+        public static ItemState2 Public()
+        {
+            return new ItemState2(ItemState.Ok, null, null, null);
+        }
+
+        public static ItemState2 Pending()
+        {
+            return new ItemState2(ItemState.Pending, null, null, null);
+        }
+
+        public static ItemState2 Delete()
+        {
+            return new ItemState2(ItemState.Deleted, DateTime.UtcNow, null, null);
+        }
+
+
+        public static implicit operator ItemState(ItemState2 state)
+        {
+            return state.State;
+        }
+    }
+
     public abstract class ItemObject : AggregateRoot, ISoftDelete
     {
         protected ItemObject()
         {
-            State = ItemState.Pending;
+            State = ItemState2.Pending();// ItemState.Pending;
             Votes = new List<Vote>();
         }
-        //protected ItemObject(RegularUser user)
-        //{
-        //    State = ItemState.Pending;
-        //    if (user.Score >= Privileges.Post)
-        //    {
-        //        MakePublic();
-        //    }
-        //     //Privileges.GetItemState(user.Score);
-        //}
 
-        //protected ItemObject()
-        //{
-
-        //}
 
         public abstract void DeleteAssociation();
 
-        public virtual ItemState State { get; private set; }
-        public virtual DateTime? DeletedOn { get; private set; }
+        public virtual ItemState2 State { get; private set; }
+        //public virtual DateTime? DeletedOn { get; private set; }
 
 
         public virtual void ChangeState(ItemState state)
@@ -51,31 +113,29 @@ namespace Cloudents.Core.Entities
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
-            
+
         }
-        
+
         public virtual bool MakePublic()
         {
             if (State == ItemState.Ok)
             {
                 return false;
             }
-            State = ItemState.Ok;
-            FlagReason = null;
-            FlaggedUser = null;
+
+            State = ItemState2.Public();
             return true;
         }
 
-        public virtual bool Delete()
+        public virtual void Delete()
         {
             if (State == ItemState.Deleted)
             {
-                return false;
+                return;
             }
-            State = ItemState.Deleted;
-            DeletedOn = DateTime.UtcNow;
+
+            State = ItemState2.Delete();
             DeleteAssociation();
-            return true;
         }
 
 
@@ -85,32 +145,7 @@ namespace Cloudents.Core.Entities
             {
                 return false;
             }
-            State = ItemState.Flagged;
-            FlagReason = reason;
-            FlaggedUser = user;
-            return true;
-        }
-
-
-        public virtual string FlagReason { get; private set; }
-        public virtual User FlaggedUser { get; private set; }
-
-
-       
-        private const int MaxReasonLength = 255;
-
-
-        public static bool ValidateFlagReason(string flagReason)
-        {
-            if (string.IsNullOrEmpty(flagReason))
-            {
-                return false;
-            }
-
-            if (flagReason.Length > MaxReasonLength)
-            {
-                return false;
-            }
+            State = State.Flag(reason,user);
             return true;
         }
 
@@ -123,7 +158,7 @@ namespace Cloudents.Core.Entities
 
     }
 
-   
+
 
     public abstract class AggregateRoot
     {

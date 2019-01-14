@@ -5,7 +5,7 @@ namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 
-    public class Vote
+    public class Vote : Entity<Guid>
     {
         public Vote(RegularUser user, Document document, VoteType voteType) : this()
         {
@@ -34,7 +34,7 @@ namespace Cloudents.Core.Entities
             TimeStamp = new DomainTimeStamp();
         }
 
-        public virtual Guid Id { get; set; }
+        //public virtual Guid Id { get; set; }
         public virtual RegularUser User { get; set; }
         public virtual Document Document { get; set; }
         public virtual Answer Answer { get; set; }

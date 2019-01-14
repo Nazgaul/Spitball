@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Interfaces;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.Command.Admin;
-using Cloudents.Core.Interfaces;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
@@ -19,19 +19,17 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
             foreach (var id in message.DocumentIds)
             {
+                var document = await _documentRepository.LoadAsync(id, token);
 
-            
-            var document = await _documentRepository.LoadAsync(id, token);
-               
-            if (document.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
-            {
-                document.Votes.Clear();
-            }
-            document.MakePublic();
+                if (document.State.FlagReason.Equals(ItemState2.TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    document.Votes.Clear();
+                }
+                document.MakePublic();
 
                 document.VoteCount = document.Votes.Count;
 
-            await _documentRepository.UpdateAsync(document, token);
+                await _documentRepository.UpdateAsync(document, token);
             }
         }
     }

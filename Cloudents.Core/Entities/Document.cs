@@ -1,8 +1,8 @@
 ﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -44,9 +44,6 @@ namespace Cloudents.Core.Entities
         public virtual string Name { get; set; }
 
 
-        //public virtual RowDetail RowDetail { get; protected set; }
-        //  public virtual string BlobName { get; protected set; }
-
         public virtual University University { get; set; }
 
         public virtual Course Course { get; set; }
@@ -84,7 +81,7 @@ namespace Cloudents.Core.Entities
 
         public override bool MakePublic()
         {
-            var t =  base.MakePublic();
+            var t = base.MakePublic();
             if (t)
             {
                 AddEvent(new DocumentCreatedEvent(this));
@@ -93,15 +90,10 @@ namespace Cloudents.Core.Entities
             return t;
         }
 
-        public override bool Delete()
+        public override void Delete()
         {
-            var t = base.Delete();
-            if (t)
-            {
-                AddEvent(new DocumentDeletedEvent(this));
-            }
-
-            return t;
+            base.Delete();
+            AddEvent(new DocumentDeletedEvent(this));
         }
     }
 }

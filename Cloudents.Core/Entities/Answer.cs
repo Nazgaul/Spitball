@@ -15,7 +15,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Answer : ItemObject
+    public class Answer : Entity<Guid>, ISoftDelete
     {
         public Answer(Question question, string text, int attachments, RegularUser user, CultureInfo language)
             : this()
@@ -25,8 +25,9 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            MakePublic();
+            //MakePublic();
             Language = language;
+            State = ItemState2.Public();
 
         }
 
@@ -34,7 +35,7 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual Guid Id { get; set; }
+       // public virtual Guid Id { get; set; }
         public virtual Question Question { get; set; }
 
         public virtual string Text { get; set; }
@@ -48,10 +49,14 @@ namespace Cloudents.Core.Entities
         public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
 
 
-        public override void DeleteAssociation()
-        {
-            Votes.Clear();
-        }
+        public virtual ItemState2 State { get; set; }
+
+       
+
+
+        public virtual ICollection<Vote> Votes { get; protected set; }
+
+        public virtual int VoteCount { get;  set; }
 
         public virtual CultureInfo Language { get; protected set; }
         //for dbi only
@@ -70,21 +75,38 @@ namespace Cloudents.Core.Entities
             Language = info;
         }
 
-        public override bool Delete()
+        public virtual void UnFlag()
         {
-            var t = base.Delete();
-            if (t)
+            if (State.FlagReason.Equals(ItemState2.TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
             {
-                AddEvent(new AnswerDeletedEvent(this));
+                Votes.Clear();
+                VoteCount = 0;
             }
+            State = ItemState2.Public();
+           
+        }
 
-            return t;
+        public virtual void Delete()
+        {
+            if (State == ItemState2.Delete())
+            {
+                return;
+            }
+            Votes.Clear();
+            State = ItemState2.Delete();
+            //var t = base.Delete();
+            //if (t)
+            //{
+            //    AddEvent(new AnswerDeletedEvent(this));
+            //}
+
+            //return t;
         }
 
         public virtual void DeleteAnswerAdmin()
         {
             Transactions.Clear();
-            AddEvent(new AnswerDeletedEvent(this));
+           // AddEvent(new AnswerDeletedEvent(this));
             if (Question.CorrectAnswer != null)
             {
                 if (Id == Question.CorrectAnswer.Id)
@@ -94,24 +116,26 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public override bool MakePublic()
+        //public override bool MakePublic()
+        //{
+        //    var t = base.MakePublic();
+        //    AddEvent(new AnswerCreatedEvent(this));
+
+        //    return t;
+        //}
+
+        //public override void ChangeState(ItemState state)
+        //{
+        //    base.ChangeState(state);
+        //    if (State == ItemState.Pending)
+        //    {
+        //        throw new ArgumentOutOfRangeException(nameof(state), state, null);
+        //    }
+        //}
+        public virtual void  Flag(string messageFlagReason, User user)
         {
-            var t = base.MakePublic();
-            AddEvent(new AnswerCreatedEvent(this));
-
-            return t;
+            State = State.Flag(messageFlagReason, user);
         }
-
-        public override void ChangeState(ItemState state)
-        {
-            base.ChangeState(state);
-            if (State == ItemState.Pending)
-            {
-                throw new ArgumentOutOfRangeException(nameof(state), state, null);
-            }
-        }
-
-        //public override ItemComponent Item { get; set; }
     }
 
 }

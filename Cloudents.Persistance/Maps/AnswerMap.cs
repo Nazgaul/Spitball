@@ -1,11 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Entities;
+using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 
-    public class AnswerMap : ItemMap<Answer>
+    public class AnswerMap : ClassMap<Answer>
     {
         public AnswerMap()
         {
@@ -19,7 +20,8 @@ namespace Cloudents.Persistance.Maps
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
 
-            References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("AnswerFlagged_User");
+            Component(x => x.State);
+            //References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("AnswerFlagged_User");
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
                 //.Cascade()

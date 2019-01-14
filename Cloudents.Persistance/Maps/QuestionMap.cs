@@ -33,9 +33,7 @@ namespace Cloudents.Persistance.Maps
                 //.Cascade.()
                 .LazyLoad()
                 .Inverse();
-
-            References(x => x.FlaggedUser)
-                .Column("FlaggedUserId").ForeignKey("QuestionFlagged_User");
+            
             HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse()
                 .Cascade.AllDeleteOrphan();
             SchemaAction.None();
@@ -47,10 +45,19 @@ namespace Cloudents.Persistance.Maps
     {
         public ItemMap()
         {
+            Map(m => m.VoteCount).Not.Nullable();
+            Component(x => x.State);
+        }
+    }
+
+    public class ItemStateMap : ComponentMap<ItemState2>
+    {
+        public ItemStateMap()
+        {
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             Map(m => m.DeletedOn).Nullable();
             Map(m => m.FlagReason).Nullable();
-            Map(m => m.VoteCount).Not.Nullable();
+            References(x => x.FlaggedUser).Column("FlaggedUserId");
         }
     }
 }

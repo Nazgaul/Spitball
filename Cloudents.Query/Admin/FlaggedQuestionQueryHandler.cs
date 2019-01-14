@@ -32,9 +32,9 @@ namespace Cloudents.Query.Admin
                 .Select(s => new FlaggedQuestionDto
                 {
                     Id = s.Id,
-                    Reason = s.FlagReason,
+                    Reason = s.State.FlagReason,
                     Text = s.Text,
-                    FlaggedUserEmail = s.FlaggedUser.Email
+                    FlaggedUserEmail = s.State.FlaggedUser.Email
                 }).OrderBy(o => o.Id).ToListAsync(token);
         }
     }

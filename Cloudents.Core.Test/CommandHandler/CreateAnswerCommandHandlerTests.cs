@@ -19,10 +19,11 @@ namespace Cloudents.Core.Test.CommandHandler
         {
             long questionId = 1, userId = 1;
             var user = new RegularUser("some Email", "some name", "some private key", CultureInfo.InvariantCulture);
-            var questionUser = new RegularUser("other email", "other name", "other private key", CultureInfo.InvariantCulture)
-            {
-                Id = 2
-            };
+            var questionUser = new RegularUser("other email", "other name", "other private key",
+                CultureInfo.InvariantCulture);
+            //{
+            //    Id = 2
+            //};
             var question = new Question(
                 new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default, CultureInfo.InvariantCulture);
 
@@ -45,10 +46,11 @@ namespace Cloudents.Core.Test.CommandHandler
         {
             long questionId = 1, userId = 1;
             var user = new RegularUser("some Email", "some name", "some private key", CultureInfo.InvariantCulture);
-            var questionUser = new RegularUser("other email", "other name", "other private key", CultureInfo.InvariantCulture)
-            {
-                Id = 2
-            };
+            var questionUser = new RegularUser("other email", "other name", "other private key",
+                CultureInfo.InvariantCulture);
+            //{
+            //    Id = 2
+            //};
             var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default, CultureInfo.InvariantCulture);
 
             //question.Answers.Add(new Answer(question, "some text", 0, user));

@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class UserLogin
+    public class UserLogin 
     {
         public UserLogin(string loginProvider, string providerKey, string providerDisplayName,
             RegularUser user)

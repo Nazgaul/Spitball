@@ -121,10 +121,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-
+            var z = _container.Resolve<IUnitOfWork>();
             //await RemoveBlobs();
             //await RemoveBlobs();
-            await UpdateLanguageAsync();
             //await ReduWordProcessing();
 
 

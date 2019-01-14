@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-    public abstract class User : AggregateRoot
+    public abstract class User : AggregateRoot<long>
     {
 
 
@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
             Tags = new HashSet<Tag>();
         }
 
-        public virtual long Id { get; set; }
+        //public virtual long Id { get; set; }
        
 
         public virtual string Name { get; set; }

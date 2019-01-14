@@ -20,19 +20,11 @@ namespace Cloudents.Command.Item.Commands.FlagItem
         }
         protected async Task ExecuteAsync(BaseFlagItemCommand<TId> message, CancellationToken token)
         {
-            if (!ItemObject.ValidateFlagReason(message.FlagReason))
-            {
-                throw new ArgumentException("reason is too long");
-            }
             var answer = await _repository.LoadAsync(message.Id, token);
             User user = null;
             if (message.UserId.HasValue)
             {
                 user = await _userRepository.LoadAsync(message.UserId, token);
-                //if (!Privileges.CanFlag(user.Score))
-                //{
-                //    throw new NoEnoughScoreException();
-                //}
                 Validate(answer, user);
             }
 

@@ -21,7 +21,7 @@ namespace Cloudents.Command.CommandHandler.Admin
            
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
 
-            if (question.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
+            if (question.State.FlagReason.Equals(ItemState2.TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
             {
                 var votes = question.Votes.Where(w => w.Answer == null).ToList();
                 foreach (var vote in votes)

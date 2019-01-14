@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -30,6 +30,7 @@ namespace Cloudents.Core.Entities
             {
                 Color = color;
             }
+
             ChangeState(Privileges.GetItemState(user.Score));
             Language = language;
         }
@@ -80,7 +81,7 @@ namespace Cloudents.Core.Entities
 
         public virtual QuestionColor? Color { get; set; }
 
-       // public virtual int AnswerCount { get; set; }
+        // public virtual int AnswerCount { get; set; }
 
         public virtual Answer AddAnswer(string text, int attachments, RegularUser user, CultureInfo language)
         {
@@ -93,7 +94,7 @@ namespace Cloudents.Core.Entities
         public virtual CultureInfo Language { get; protected set; }
 
 
-      
+
 
         public override bool MakePublic()
         {
@@ -118,15 +119,12 @@ namespace Cloudents.Core.Entities
             AddEvent(new QuestionDeletedAdminEvent(this));
         }
 
-        public override bool Delete()
+        public override void Delete()
         {
-            var t = base.Delete();
-            if (t)
-            {
-                AddEvent(new QuestionDeletedEvent(this));
-            }
+            base.Delete();
 
-            return t;
+            AddEvent(new QuestionDeletedEvent(this));
+
         }
 
         public virtual void AcceptAnswer(Answer answer)

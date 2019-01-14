@@ -35,30 +35,8 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
 
             answer.DeleteAnswerAdmin();
-            await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
+            await _repository.DeleteAsync(answer, token);
             //await DeleteAnswerAsync(answer, token);
         }
-
-        //internal async Task DeleteAnswerAsync(Answer answer, CancellationToken token)
-        //{
-        //        foreach (var transaction in answer.TransactionsReadOnly)
-        //        {
-        //            await _transactionRepository.DeleteAsync(transaction, token);
-        //        }
-            
-            
-        //    _eventStore.Add(new AnswerDeletedEvent(answer));
-
-        //   // answer.Question.AnswerCount--;
-        //    if (answer.Question.CorrectAnswer != null)
-        //    {
-        //        if (answer.Id == answer.Question.CorrectAnswer.Id)
-        //        {
-        //            answer.Question.CorrectAnswer = null;
-        //        }
-        //    }
-        //    await _questionRepository.UpdateAsync(answer.Question, token);
-        //    await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
-        //}
     }
 }

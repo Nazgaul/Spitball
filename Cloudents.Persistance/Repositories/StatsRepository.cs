@@ -22,7 +22,7 @@ namespace Cloudents.Persistance.Repositories
 	                        ,[answers] = (select count(1) from sb.Answer)
 	                        ,[SBLs] = (select sum(price) from sb.[Transaction] where[Type] = 'Earned')
 	                        ,[money] = (select sum(price)/40 from sb.[Transaction] where[Type] = 'Earned')"
-                            ).ExecuteUpdateAsync();
+                            ).ExecuteUpdateAsync(token);
 
         }
     }

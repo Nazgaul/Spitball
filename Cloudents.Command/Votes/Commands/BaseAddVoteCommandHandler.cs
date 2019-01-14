@@ -10,7 +10,7 @@ namespace Cloudents.Command.Votes.Commands
 {
     public abstract class BaseAddVoteCommandHandler<T, TId> where T : ItemObject
     {
-        private const int VotesToFlag = -2;
+        internal const int VotesToFlag = -2;
         private readonly IRepository<RegularUser> _userRepository;
         protected readonly IVoteRepository VoteRepository;
         private readonly IRepository<T> _repository;
