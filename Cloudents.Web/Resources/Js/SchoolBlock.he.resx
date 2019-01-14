@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="action_apply_price" xml:space="preserve">
-    <value>אישור מחיר חדש</value>
+  <data name="add_class" xml:space="preserve">
+    <value>הוסף את הקורסים שלך</value>
   </data>
-  <data name="action_cancel" xml:space="preserve">
-    <value>בטל</value>
+  <data name="edit_classes" xml:space="preserve">
+    <value>ערוך את רשימת הקורסים שלך</value>
   </data>
-  <data name="change_for" xml:space="preserve">
-    <value>שנה מחיר ל-</value>
+  <data name="filter_classes" xml:space="preserve">
+    <value>סנן לפי הקורסים שלך</value>
   </data>
-  <data name="change_price" xml:space="preserve">
-    <value>שנה מחיר</value>
-  </data>
-  <data name="free" xml:space="preserve">
-    <value>חינם</value>
-  </data>
-  <data name="unsufficient_fund" xml:space="preserve">
-    <value>אין לך מספיק SBL</value>
+  <data name="school_empty_text" xml:space="preserve">
+    <value>היכן אתה לומד?</value>
   </data>
 </root>
