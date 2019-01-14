@@ -220,8 +220,6 @@
             detectOutsideClick(event) {
                 let isClickInside = false;
                 let ignoredElements = null;
-                event.preventDefault();
-
                 if (this.$vuetify.breakpoint.smAndUp) {
                     ignoredElements = document.querySelector('#school_block_classesList');
                     isClickInside = ignoredElements.contains(event.target);
