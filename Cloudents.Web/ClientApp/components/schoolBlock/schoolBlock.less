@@ -4,11 +4,6 @@
 @chipBorderColor: #7278c8;
 @backgroundGrey: #ececec;
 
-
-.border-none {
-  border: none;
-}
-
 .wrap-it {
   flex-wrap: wrap;
 }
@@ -63,6 +58,7 @@
   padding-left: 24px;
   margin: 0 auto;
   padding-top: 10px;
+  //padding-bottom: 8px;
   display: flex;
   height: 100%;
   flex-direction: column;
@@ -71,9 +67,7 @@
 
   @media (max-width: @screen-xs) {
     align-items: center;
-    padding-right: 12px;
-    padding-left: 12px;
-
+    padding: 8px 12px 8px 12px;
   }
 }
 
@@ -82,11 +76,17 @@
     width: 100%;
   }
   .uni-holder {
+    display: flex;
+    align-items: baseline;
     cursor: pointer;
+    @media (max-width: @screen-xs) {
+     justify-content: center;
+    }
   }
   .university-icon {
     color: @color-white;
     margin-right: 12px;
+    margin-left: 4px;
     font-size: 32px;
     @media (max-width: @screen-xs) {
       font-size: 20px;
@@ -111,7 +111,7 @@
 }
 
 .classes-holder {
-  padding-top: 32px;
+  padding-top: 26px;
   min-height: 79px;
   @media (max-width: @screen-xs) {
     padding-top: 16px;
@@ -122,6 +122,7 @@
     min-height: unset;
   }
   .sbf-class-chip {
+
     &.v-chip {
       cursor: pointer;
       margin-left: 0;
@@ -149,7 +150,7 @@
       }
       .v-chip__content {
         //ellipsis for too long class chip
-        max-width: 94px;
+        max-width: 124px;
         min-width: 0;
         white-space: nowrap;
         overflow: hidden;
@@ -158,10 +159,6 @@
         line-height: 32px;
         cursor: pointer;
 
-      }
-      &.total {
-        padding-left: 0;
-        border-radius: 50%;
       }
     }
     &.v-chip--selected {
@@ -173,6 +170,14 @@
         background-color: @color-white;
       }
     }
+  }
+  .classes-total-chip{
+    min-height: 32px;
+    display:  inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: fade(@color-white, 90%);
   }
   .sbf-class-chip {
     &.empty-state-class {
@@ -209,7 +214,6 @@
       margin-right: 8px;
       font-size: 13px;
       color: fade(@color-white, 90%);
-      //border-color: @chipBorderColor;
       text-transform: capitalize;
       background: @purpleColor;
 
