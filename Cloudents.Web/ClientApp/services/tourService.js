@@ -1,7 +1,6 @@
 import { LanguageService } from './language/languageService'
 
    const toursOptions = {
-        startTimeout: 3000,
         labels:{
           buttonSkip: LanguageService.getValueByKey('tour_label_skip'),
           buttonPrevious: LanguageService.getValueByKey('tour_label_previous'),
