@@ -91,10 +91,11 @@ export default {
   },
   watch: {
     search(val) {
-      if (!!val) {
-        let searchVal = val.trim();
-        if (val.length >= 3) {
-          this.updateClasses(val);
+        let searchVal;
+        if (!!val) {
+        searchVal = val.trim();
+        if (searchVal.length >= 3) {
+          this.updateClasses(searchVal);
         }
       }
     }

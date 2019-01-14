@@ -1,7 +1,7 @@
 <template>
     <div>
         <label>{{label}}</label>
-        <input ref="input" class="input-field" placeholder="00.00"
+        <input ref="input" class="input-field" placeholder="0.00"
        :value="value"
         @input="updateValue($event.target.value)"
         @focus="selectAll"
@@ -12,7 +12,6 @@
 
 <script>
     import { currencyValidator } from "./consts";
-    import { mapActions } from 'vuex';
     export default {
         props: {
             value: {

@@ -19,7 +19,7 @@
                         <div class="sbl-suffix">SBL</div>
                         <span class="balance-label" v-show="uploadPrice">
                             <span v-language:inner>upload_files_price_equals</span>
-                            {{uploadPrice | dollarVal}}$
+                            ${{uploadPrice | dollarVal}}
                         </span>
                         <span class="balance-label" v-show="!uploadPrice"
                               v-language:inner>upload_files_price_zero_means_free

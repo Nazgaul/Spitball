@@ -24,7 +24,7 @@ namespace Cloudents.Command.Documents.PurchaseDocument
         public async Task ExecuteAsync(PurchaseDocumentCommand message, CancellationToken token)
         {
             var document = await _documentRepository.LoadAsync(message.DocumentId, token);
-            if (document.Price == 0)
+            if (document.Price == 0 || document.User.Id == message.UserId)
             {
                 throw new ArgumentException();
             }
@@ -34,6 +34,7 @@ namespace Cloudents.Command.Documents.PurchaseDocument
             {
                 throw new InsufficientFundException();
             }
+          
 
             var purchaseUser = await _userRepository.LoadAsync(message.UserId, token);
             var t = new Transaction(TransactionActionType.PurchaseDocument, TransactionType.Spent,

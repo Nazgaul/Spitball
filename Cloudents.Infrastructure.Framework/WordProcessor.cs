@@ -3,6 +3,7 @@ using Aspose.Words.Saving;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,17 +36,24 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
+        private Document _word;
 
-        public async Task ProcessFilesAsync(Stream stream,
-            Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, int, Task> metaCallback,
+        public void Init(Stream stream)
+        {
+            _word = new Document(stream);
+        }
+        public (string text, int pagesCount) ExtractMetaContent()
+        {
+            var txt = ExtractDocumentText(_word);
+            return (txt, _word.PageCount);
+        }
+
+       
+
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            var word = new Document(stream);
-            var txt = ExtractDocumentText(word);
-
-            await metaCallback(txt, word.PageCount);
-
+            
             var t = new List<Task>();
             var svgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
             {
@@ -53,12 +61,20 @@ namespace Cloudents.Infrastructure.Framework
                 Scale = 1.2F,
                 PageCount = 1
             };
-            for (var i = 0; i < word.PageCount; i++)
+
+            var diff = Enumerable.Range(0, _word.PageCount);
+            diff = diff.Except(previewDelta);
+            foreach (var item in diff)
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+
                 var ms = new MemoryStream();
-                word.Save(ms, svgOptions);
+                _word.Save(ms, svgOptions);
                 ms.Seek(0, SeekOrigin.Begin);
-                t.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
+                t.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
             }
 
             await Task.WhenAll(t);

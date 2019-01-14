@@ -45,7 +45,8 @@ export default {
                 // closeAndOpenAsk: this.closeAndOpenAsk
             },
             clearChildrenData: false,
-            docReferral: ''
+            docReferral: '',
+            loading: false,
         }
     },
     props: {},
@@ -116,6 +117,7 @@ export default {
             return this.progressDone = val;
         },
         sendDocumentData(step) {
+            this.loading = true;
             let docData = this.getFileData;
             // create Immutable copy, to prevent file name update in UI
             let docDataCopy = Object.assign({}, docData);
@@ -130,6 +132,7 @@ export default {
                         }
                         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
                         console.log('DOC_UPLOAD_COMPLETE')
+                        self.loading = true;
                         self.nextStep(step)
                     },
                     (error) => {
