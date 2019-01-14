@@ -52,9 +52,6 @@ body{
     }
 
     .navigation-wrap {
-        position: fixed!important;
-        position: -webkit-sticky!important;
-        top: 0;
         min-height: 100%;
         flex-basis: 15%;
         order: -1;
