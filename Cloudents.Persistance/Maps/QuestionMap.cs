@@ -4,7 +4,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
-    public class QuestionMap : ItemMap<Question>
+    public class QuestionMap : ClassMap<Question>
     {
         public QuestionMap()
         {
@@ -36,6 +36,10 @@ namespace Cloudents.Persistance.Maps
             
             HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse()
                 .Cascade.AllDeleteOrphan();
+
+            Map(m => m.VoteCount).Not.Nullable();
+            Component(x => x.State);
+
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
         }

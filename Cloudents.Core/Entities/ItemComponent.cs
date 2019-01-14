@@ -61,6 +61,17 @@ namespace Cloudents.Core.Entities
             return new ItemState2(ItemState.Flagged, null, reason, user);
         }
 
+        public static ItemState2 GetInitState(User user)
+        {
+            if (user.Score < Privileges.Post)
+            {
+                return Pending();
+            }
+
+            return Public();
+        }
+    
+
         public static ItemState2 Public()
         {
             return new ItemState2(ItemState.Ok, null, null, null);

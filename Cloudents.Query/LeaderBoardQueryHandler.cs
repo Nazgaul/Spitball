@@ -40,14 +40,14 @@ namespace Cloudents.Query
                                                                         from sb.HomeStats"
                                                     );
                
-                var leaderBoardDto = grid.Read<LeaderBoardDto>();
-                var stats = grid.ReadFirst<long>();
+                var leaderBoardDto = await grid.ReadAsync<LeaderBoardDto>();
+                var stats = await grid.ReadFirstAsync<long>();
                 return (stats, leaderBoardDto);
             }, token);
 
             var destination = new LeaderBoardQueryResult();
 
-            var orderDto = _mapper.Map<(long, IEnumerable<LeaderBoardDto>), LeaderBoardQueryResult>(leaderBoardResult);
+           // var orderDto = _mapper.Map<(long, IEnumerable<LeaderBoardDto>), LeaderBoardQueryResult>(leaderBoardResult);
             return _mapper.Map(leaderBoardResult, destination);
         }
        

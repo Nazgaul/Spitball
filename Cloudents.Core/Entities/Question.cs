@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+using static Cloudents.Core.Entities.ItemState2;
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
 namespace Cloudents.Core.Entities
@@ -13,7 +14,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question : ItemObject
+    public class Question : AggregateRoot<long>, ISoftDelete
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             RegularUser user,
@@ -31,7 +32,7 @@ namespace Cloudents.Core.Entities
                 Color = color;
             }
 
-            ChangeState(Privileges.GetItemState(user.Score));
+            State = GetInitState(user);
             Language = language;
         }
 
@@ -50,17 +51,20 @@ namespace Cloudents.Core.Entities
             {
                 Color = color;
             }
-
-            ChangeState(ItemState.Pending);
+            State = ItemState2.Pending();
+            //ChangeState(ItemState.Pending);
             Language = language;
         }
 
         protected Question()
         {
             Answers = Answers ?? new List<Answer>();
+            Votes = Votes ?? new List<Vote>();
         }
 
-        public virtual long Id { get; protected set; }
+        public virtual ItemState2 State { get; protected set; }
+
+        //public virtual long Id { get; protected set; }
         public virtual QuestionSubject Subject { get; protected set; }
         public virtual string Text { get; protected set; }
         public virtual decimal Price { get; protected set; }
@@ -93,24 +97,15 @@ namespace Cloudents.Core.Entities
 
         public virtual CultureInfo Language { get; protected set; }
 
+        public virtual ICollection<Vote> Votes { get; protected set; }
+
+        public virtual int VoteCount { get; set; }
 
 
-
-        public override bool MakePublic()
+        public virtual void MakePublic()
         {
-            var t = base.MakePublic();
-            if (t)
-            {
-                AddEvent(new QuestionCreatedEvent(this));
-            }
-
-            return t;
-        }
-
-
-        public override void DeleteAssociation()
-        {
-            Votes.Clear();
+            State = Public();
+            AddEvent(new QuestionCreatedEvent(this));
         }
 
         public virtual void DeleteQuestionAdmin()
@@ -119,10 +114,10 @@ namespace Cloudents.Core.Entities
             AddEvent(new QuestionDeletedAdminEvent(this));
         }
 
-        public override void Delete()
+        public virtual void Delete()
         {
-            base.Delete();
-
+            Votes.Clear();
+            //Transactions.Clear();
             AddEvent(new QuestionDeletedEvent(this));
 
         }
@@ -136,6 +131,11 @@ namespace Cloudents.Core.Entities
 
             CorrectAnswer = answer;
             AddEvent(new MarkAsCorrectEvent(answer));
+        }
+
+        public virtual void Flag(string messageFlagReason, User user)
+        {
+            State = State.Flag(messageFlagReason, user);
         }
     }
 }
