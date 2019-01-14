@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Aspose.Pdf;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +9,10 @@ namespace Cloudents.Infrastructure.Framework
 {
     public interface IPreviewProvider2
     {
+
+        void Init(Stream stream);
+        (string text, int pagesCount) ExtractMetaContent();
+        int ExtractPagesCount();
         /// <summary>
         /// Process file upload in the system
         /// </summary>
@@ -15,12 +21,9 @@ namespace Cloudents.Infrastructure.Framework
         /// <param name="metaCallback">meta to add to the document, arg1 the text extracted arg2 the number of document</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        Task ProcessFilesAsync(Stream stream,
+        Task ProcessFilesAsync(List<int> previewDelta,
             Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, int, Task> metaCallback,
             CancellationToken token);
-
-
 
     }
 

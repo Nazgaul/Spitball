@@ -17,14 +17,25 @@ namespace Cloudents.Infrastructure.Framework
             new BlurFilter().Install(
                 Config.Current);
         }
+        Stream sr;
+        public void Init(Stream stream)
+        {
+            sr = stream;
+        }
 
+        public (string text, int pagesCount) ExtractMetaContent()
+        {
 
-        public async Task ProcessFilesAsync(Stream stream,
-            Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, int, Task> metaCallback,
+            return (null, 1);
+        }
+        public int ExtractPagesCount()
+        {
+            return 1;
+        }
+
+        public async Task ProcessFilesAsync(List<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            await metaCallback(null, 1);
             using (var ms = new MemoryStream())
             {
                 var settings2 = new ResizeSettings
@@ -34,8 +45,8 @@ namespace Cloudents.Infrastructure.Framework
                     Height = 768,
                     Quality = 90,
                 };
-                ImageBuilder.Current.Build(stream, ms, settings2, false);
-                await pagePreviewCallback(ms, "0.jpg");
+                ImageBuilder.Current.Build(sr, ms, settings2, false);
+                await pagePreviewCallback(ms, $"0.jpg");
             }
         }
 

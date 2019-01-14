@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -63,30 +64,41 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
+        Presentation pptx;
 
+        public void Init(Stream stream)
+        {
+            pptx = new Presentation(stream);
+        }
 
-        public async Task ProcessFilesAsync(Stream stream,
-            Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, int, Task> metaCallback,
+        public (string text, int pagesCount) ExtractMetaContent()
+        {
+            var txt = ExtractStringFromPpt(pptx);
+            return (txt, pptx.Slides.Count);
+        }
+
+        public int ExtractPagesCount()
+        {
+            return pptx.Slides.Count;
+        }
+
+        public async Task ProcessFilesAsync(List<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            var pptx = new Presentation(stream);
+            var tasksList = new List<Task>();
 
-            var t = ExtractStringFromPpt(pptx);
-            var tasksList = new List<Task>()
-            {
-                metaCallback(t, pptx.Slides.Count)
-            };
-            for (int i = 0; i < pptx.Slides.Count; i++)
+            var diff = Enumerable.Range(0, pptx.Slides.Count);
+            diff = diff.Except(previewDelta);
+
+            foreach (var item in diff)
             {
                 using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                 {
                     var ms = new MemoryStream();
                     img.Save(ms, ImageFormat.Jpeg);
-                    tasksList.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
+                    tasksList.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
                 }
             }
-
             await Task.WhenAll(tasksList);
 
         }

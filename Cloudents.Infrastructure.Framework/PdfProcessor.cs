@@ -5,6 +5,7 @@ using Aspose.Pdf.Text.TextOptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,28 +23,41 @@ namespace Cloudents.Infrastructure.Framework
                 license.SetLicense(sr);
             }
         }
+        Document doc;
 
+        public void Init(Stream stream)
+        {
+            doc = new Document(stream);
+        }
 
-        public async Task ProcessFilesAsync(Stream stream,
-            Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, int, Task> metaCallback,
+        public (string text, int pagesCount) ExtractMetaContent()
+        {
+            var txt = ExtractPdfText(doc);
+            return (txt , doc.Pages.Count - 1);
+        }
+
+        public int ExtractPagesCount()
+        {
+            return (doc.Pages.Count - 1);
+        }
+
+        public async Task ProcessFilesAsync(List<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            var pdf = new Document(stream);
-            var txt = ExtractPdfText(pdf);
-
-            await metaCallback(txt, pdf.Pages.Count - 1);
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
             var t = new List<Task>();
-            for (var j = 1; j < pdf.Pages.Count; j++)
+
+            var diff = Enumerable.Range(0, doc.Pages.Count - 1);
+            diff = diff.Except(previewDelta);
+            foreach (int item in diff)
             {
-                var page = pdf.Pages[j];
+                var page = doc.Pages[item + 1];
                 var ms = new MemoryStream();
                 jpegDevice.Process(page, ms);
-                t.Add(pagePreviewCallback(ms, $"{j - 1}.jpg").ContinueWith(_ => ms.Dispose(), token));
-
+                t.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
             }
+
             await Task.WhenAll(t);
         }
 
