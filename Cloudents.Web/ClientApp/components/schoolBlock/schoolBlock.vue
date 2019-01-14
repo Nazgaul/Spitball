@@ -48,7 +48,7 @@
                                         </span>
                                         <span class="d-flex"
                                               @click.prevent.stop="openPersonalizeCourse()"
-                                              v-if="minMode ? classesList.length <= classesToShow : true">
+                                              v-if="minMode ? classesList.length <= classesToShow : false">
                                             <v-icon class="small-font" color="white" >sbf-edit-icon</v-icon>
                                         </span>
                                     </span>
