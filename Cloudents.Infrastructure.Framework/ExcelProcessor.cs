@@ -32,38 +32,39 @@ namespace Cloudents.Infrastructure.Framework
         }
 
 
-        Workbook excel;
+        Workbook _excel;
 
         public void Init(Stream stream)
         {
-            excel = new Workbook(stream);
+            _excel = new Workbook(stream);
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
         {
             
-            return (null, excel.Worksheets.Count);
+            return (null, _excel.Worksheets.Count);
         }
 
-        public int ExtractPagesCount()
-        {
-            return excel.Worksheets.Count;
-        }
+      
 
         public static readonly string[] Extensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
-        public async Task ProcessFilesAsync(List<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
 
             var t = new List<Task>();
 
-            var diff = Enumerable.Range(0, excel.Worksheets.Count);
+            var diff = Enumerable.Range(0, _excel.Worksheets.Count);
             diff = diff.Except(previewDelta);
             
             foreach (var item in diff)
             {
-                var wb = excel.Worksheets[item];
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+                var wb = _excel.Worksheets[item];
                 ScalePageSetupToFitPage(wb);
                 var sr = new SheetRender(wb, imgOptions);
                 using (var img = sr.ToImage(0))

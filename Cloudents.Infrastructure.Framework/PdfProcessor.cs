@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PdfProcessor : IPreviewProvider2 //: Processor, IPreviewProvider
+    public class PdfProcessor : IPreviewProvider2, IDisposable //: Processor, IPreviewProvider
     {
 
         public PdfProcessor()
@@ -23,36 +23,36 @@ namespace Cloudents.Infrastructure.Framework
                 license.SetLicense(sr);
             }
         }
-        Document doc;
+
+        private Document _doc;
 
         public void Init(Stream stream)
         {
-            doc = new Document(stream);
+            _doc = new Document(stream);
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
         {
-            var txt = ExtractPdfText(doc);
-            return (txt , doc.Pages.Count - 1);
+            var txt = ExtractPdfText(_doc);
+            return (txt , _doc.Pages.Count - 1);
         }
 
-        public int ExtractPagesCount()
-        {
-            return (doc.Pages.Count - 1);
-        }
-
-        public async Task ProcessFilesAsync(List<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
             var t = new List<Task>();
 
-            var diff = Enumerable.Range(0, doc.Pages.Count - 1);
+            var diff = Enumerable.Range(0, _doc.Pages.Count - 1);
             diff = diff.Except(previewDelta);
             foreach (int item in diff)
             {
-                var page = doc.Pages[item + 1];
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+                var page = _doc.Pages[item + 1];
                 var ms = new MemoryStream();
                 jpegDevice.Process(page, ms);
                 t.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
@@ -91,5 +91,9 @@ namespace Cloudents.Infrastructure.Framework
 
         public static readonly string[] Extensions = { ".pdf" };
 
+        public void Dispose()
+        {
+            _doc?.Dispose();
+        }
     }
 }

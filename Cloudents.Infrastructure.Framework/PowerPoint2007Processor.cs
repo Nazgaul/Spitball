@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PowerPoint2007Processor : IPreviewProvider2
+    public class PowerPoint2007Processor : IPreviewProvider2, IDisposable
     {
         public PowerPoint2007Processor()
         {
@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Framework
 
 
 
-        private string ExtractStringFromPpt(Presentation ppt)
+        private static string ExtractStringFromPpt(Presentation ppt)
         {
             try
             {
@@ -64,35 +64,33 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        Presentation pptx;
+        private Presentation _pptx;
 
         public void Init(Stream stream)
         {
-            pptx = new Presentation(stream);
+            _pptx = new Presentation(stream);
+            
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
         {
-            var txt = ExtractStringFromPpt(pptx);
-            return (txt, pptx.Slides.Count);
+            var txt = ExtractStringFromPpt(_pptx);
+            return (txt, _pptx.Slides.Count);
         }
 
-        public int ExtractPagesCount()
-        {
-            return pptx.Slides.Count;
-        }
+       
 
-        public async Task ProcessFilesAsync(List<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
             var tasksList = new List<Task>();
 
-            var diff = Enumerable.Range(0, pptx.Slides.Count);
+            var diff = Enumerable.Range(0, _pptx.Slides.Count);
             diff = diff.Except(previewDelta);
 
             foreach (var item in diff)
             {
-                using (var img = pptx.Slides[0].GetThumbnail(1, 1))
+                using (var img = _pptx.Slides[0].GetThumbnail(1, 1))
                 {
                     var ms = new MemoryStream();
                     img.Save(ms, ImageFormat.Jpeg);
@@ -101,6 +99,11 @@ namespace Cloudents.Infrastructure.Framework
             }
             await Task.WhenAll(tasksList);
 
+        }
+
+        public void Dispose()
+        {
+            _pptx?.Dispose();
         }
     }
 }

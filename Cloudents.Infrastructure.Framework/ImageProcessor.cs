@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class ImageProcessor : IPreviewProvider2, IBlurProcessor
+    public class ImageProcessor : IPreviewProvider2, IBlurProcessor, IDisposable
     {
         public static readonly string[] Extensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
 
@@ -17,10 +17,11 @@ namespace Cloudents.Infrastructure.Framework
             new BlurFilter().Install(
                 Config.Current);
         }
-        Stream sr;
+
+        private Stream _sr;
         public void Init(Stream stream)
         {
-            sr = stream;
+            _sr = stream;
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
@@ -28,12 +29,9 @@ namespace Cloudents.Infrastructure.Framework
 
             return (null, 1);
         }
-        public int ExtractPagesCount()
-        {
-            return 1;
-        }
+       
 
-        public async Task ProcessFilesAsync(List<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
             using (var ms = new MemoryStream())
@@ -45,7 +43,7 @@ namespace Cloudents.Infrastructure.Framework
                     Height = 768,
                     Quality = 90,
                 };
-                ImageBuilder.Current.Build(sr, ms, settings2, false);
+                ImageBuilder.Current.Build(_sr, ms, settings2, false);
                 await pagePreviewCallback(ms, $"0.jpg");
             }
         }
@@ -72,6 +70,10 @@ namespace Cloudents.Infrastructure.Framework
         }
 
 
+        public void Dispose()
+        {
+            _sr?.Dispose();
+        }
     }
 
 

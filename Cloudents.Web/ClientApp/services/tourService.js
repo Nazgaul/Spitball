@@ -17,8 +17,10 @@ import { LanguageService } from './language/languageService'
           },
           content: LanguageService.getValueByKey('tour_vote_content'),
           params: {
-            placement: "top"
+            placement: "top",
+            enableScrolling: true
           },
+          offset: -450,
           arrowStyle: {
             borderTopColor: '#4870fd',
             borderBottomColor: '#4870fd',

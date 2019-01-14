@@ -36,24 +36,21 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        Document word;
+        private Document _word;
 
         public void Init(Stream stream)
         {
-            word = new Document(stream);
+            _word = new Document(stream);
         }
         public (string text, int pagesCount) ExtractMetaContent()
         {
-            var txt = ExtractDocumentText(word);
-            return (txt, word.PageCount);
+            var txt = ExtractDocumentText(_word);
+            return (txt, _word.PageCount);
         }
 
-        public int ExtractPagesCount()
-        {
-            return word.PageCount;
-        }
+       
 
-        public async Task ProcessFilesAsync(List<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
             
@@ -65,12 +62,17 @@ namespace Cloudents.Infrastructure.Framework
                 PageCount = 1
             };
 
-            var diff = Enumerable.Range(0, word.PageCount);
+            var diff = Enumerable.Range(0, _word.PageCount);
             diff = diff.Except(previewDelta);
             foreach (var item in diff)
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+
                 var ms = new MemoryStream();
-                word.Save(ms, svgOptions);
+                _word.Save(ms, svgOptions);
                 ms.Seek(0, SeekOrigin.Begin);
                 t.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
             }
