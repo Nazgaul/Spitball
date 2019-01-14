@@ -130,9 +130,9 @@
     <value>אל תציג שוב</value>
   </data>
   <data name="vote_content" xml:space="preserve">
-    <value>Voting increases your chances of winning rewards.</value>
+    <value>הצבע בעד או נגד שאלות, תשובות ומסמכים.</value>
   </data>
   <data name="vote_title" xml:space="preserve">
-    <value>You just Upvoted for 1SBL.</value>
+    <value>הפנה סטודנטים אחרים לתוכן איכותי בספיטבול.</value>
   </data>
 </root>
