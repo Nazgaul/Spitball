@@ -96,8 +96,9 @@ export default {
             else if (this.currentStep === 6) {
                 return false
             }
-            else if (this.currentStep === 7) {
-                return false
+            //disable if loading not done yet
+            else if (this.currentStep === 7 && !this.progressDone) {
+                return true
             } else {
                 return false
             }
