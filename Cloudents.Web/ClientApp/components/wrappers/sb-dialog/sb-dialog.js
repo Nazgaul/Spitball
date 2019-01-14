@@ -34,7 +34,8 @@ export default {
             type: String,
             default: '720px',
             required: false
-        }
+        },
+
     },
     data: function () {
         return {

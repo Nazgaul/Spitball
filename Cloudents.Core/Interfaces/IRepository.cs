@@ -37,7 +37,7 @@ namespace Cloudents.Core.Interfaces
         
 
         //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
-        Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
+        //Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
        // Task UpdateUsersBalance(CancellationToken token);
     }
 

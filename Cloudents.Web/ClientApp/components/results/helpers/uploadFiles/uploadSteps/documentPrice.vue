@@ -13,13 +13,13 @@
                 <div class="wrap-row-price">
                     <div :class="['price-wrap', isRtl ? 'reversed' : '']">
                         <!--updating document obj inside -->
-                        <sbl-currency v-model="uploadPrice"
+                        <sbl-currency v-model="uploadPrice" :functionCallBacks="updateFile"
                                       class="sb-input-upload-price">
                         </sbl-currency>
                         <div class="sbl-suffix">SBL</div>
                         <span class="balance-label" v-show="uploadPrice">
                             <span v-language:inner>upload_files_price_equals</span>
-                            {{uploadPrice | dollarVal}}$
+                            ${{uploadPrice | dollarVal}}
                         </span>
                         <span class="balance-label" v-show="!uploadPrice"
                               v-language:inner>upload_files_price_zero_means_free

@@ -20,6 +20,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Cloudents.Web.Api
 {
@@ -48,8 +49,9 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(Status400BadRequest)]
+        [ProducesResponseType(Status401Unauthorized)]
+        [ProducesResponseType(Status200OK)]
         public async Task<ActionResult<UserAccountDto>> GetAsync(
             [FromServices] IQueryBus queryBus,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
@@ -60,11 +62,11 @@ namespace Cloudents.Web.Api
             var taskUser = queryBus.QueryAsync<UserAccountDto>(query, token);
             var talkJs = GetToken();
 
-            var user = await taskUser.ConfigureAwait(false);
+            var user = await taskUser;
 
             if (user == null)
             {
-                await _signInManager.SignOutAsync().ConfigureAwait(false);
+                await _signInManager.SignOutAsync();
                 return Unauthorized();
             }
 

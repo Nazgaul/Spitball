@@ -1,5 +1,7 @@
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
+        <school-block slot="schoolBlock" :isDisabled="true"></school-block>
+
         <div slot="main">
               <div class="d-flex mobile-filter">
                   <askQuestionBtn :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "></askQuestionBtn>

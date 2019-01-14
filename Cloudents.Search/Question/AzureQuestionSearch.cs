@@ -31,10 +31,13 @@ namespace Cloudents.Search.Question
         public async Task<(IEnumerable<long> result, IEnumerable<QuestionSubject> facetSubject, IEnumerable<QuestionFilter> facetFileter)>
             SearchAsync(QuestionsQuery query, CancellationToken token)
         {
-            var filters = new List<string>
+            var filters = new List<string>();
+            var filter1 = $"{nameof(Entities.Question.Language)} eq 'en'";
+            if (query.Country != null)
             {
-                $"({nameof(Entities.Question.Language)} eq 'en')"
-            };
+                filter1 += $" or {nameof(Entities.Question.Country)} eq '{query.Country.ToUpperInvariant()}'";
+            }
+            filters.Add($"({filter1})");
             if (query.Source != null)
             {
                 var filterStr = string.Join(" or ", query.Source.Select(s =>
@@ -81,7 +84,7 @@ namespace Cloudents.Search.Question
 
             var result = await
                 _client.Documents.SearchAsync<Entities.Question>(query.Term, searchParameter,
-                    cancellationToken: token).ConfigureAwait(false);
+                    cancellationToken: token);
 
             IEnumerable<QuestionSubject> facetSubject = null;
             IEnumerable<QuestionFilter> questionFilter = null;

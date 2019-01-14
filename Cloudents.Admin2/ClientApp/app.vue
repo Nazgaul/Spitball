@@ -52,6 +52,7 @@ body{
     }
 
     .navigation-wrap {
+        min-height: 100%;
         flex-basis: 15%;
         order: -1;
     }

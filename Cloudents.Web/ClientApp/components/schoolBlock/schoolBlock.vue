@@ -1,11 +1,12 @@
 <template>
-    <transition name="fade">
-        <div style="" class="school-block">
+
+        <div style="" :class="['school-block', isClassesSet ? 'pb-0' : '', minMode ? '' : 'expand' ]">
             <v-layout row>
                 <v-flex xs12>
                     <div class="content-wrap">
                         <div class="university-holder d-flex" row>
-                            <div v-show="schoolName && !mobileFilterState">
+                            <div class="uni-holder" v-show="schoolName && !mobileFilterState"
+                                 @click="openPersonalizeUniversity()">
                                 <v-icon class="university-icon">sbf-university-columns</v-icon>
                                 <span class="university-name">{{schoolName}}</span>
                             </div>
@@ -18,7 +19,7 @@
                                       v-language:inner>schoolBlock_school_empty_text</span>
                             </div>
                         </div>
-                        <div class="classes-holder" >
+                        <div :class="['classes-holder', isClassesSet ? '' : 'emptyState' ]" >
                             <div v-show="!showAllClassesBlock"
                                  :class="[$vuetify.breakpoint.xsOnly ? 'd-flex  wrap-it align-start' : '']">
                                 <transition-group name="list">
@@ -28,66 +29,77 @@
                                             class="sbf-class-chip"
                                             :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : '',
                                             mobileFilterState ?  'full-width-chip' : '']"
-                                            @click="updateClass(singleClass)"
+                                            @click="isDisabled ? '' : updateClass(singleClass)"
+                                            :disabled="isDisabled"
                                             :selected="singleClass.isSelected"
-                                            v-show="index < classesToShow"
+                                            v-show="minMode ? index < classesToShow : true"
                                             :key="index">{{singleClass.text}}
                                     </v-chip>
                                 </transition-group>
-                                <transition name="fade-total">
-                                    <v-chip name="sbf-class-chip" key="chip_two"
-                                            class="sbf-class-chip total"
-                                            :class="[$vuetify.breakpoint.smAndUp ? 'border-none' : '' ]"
-                                            v-show="classesList.length > classesToShow"
+                                <transition-group name="dissapear-total-chip">
+                                <!--<transition name="dissapear-total-chip">-->
+                                    <span name=" sbf-class-chip" key="dfgdfg"
+                                            class="sbf-class-chip total classes-total-chip"
+                                            v-show="minMode ? classesList.length > classesToShow : false"
                                             @click.prevent.stop="openAllClasses()">
                                         <span>
                                            {{classesPlus}}
                                         </span>
-                                    </v-chip>
-                                </transition>
-
-                                <v-chip v-if="!isClassesSet" name="add class" class="sbf-class-chip empty-state-class"
-
+                                    </span>
+                                <!--</transition>-->
+                                </transition-group>
+                                <v-chip v-if="!isClassesSet && schoolName" name="add class" class="sbf-class-chip empty-state-class"
                                         @click="openPersonalizeCourse()">
                                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                                     <span v-language:inner>schoolBlock_add_class</span>
                                 </v-chip>
                             </div>
-                            <div class="all-classes" v-show="showAllClassesBlock" transition="fade-transition"
+                            <transition name="slide-y-transition">
+                            <div class="all-classes" v-show="showAllClassesBlock && !$vuetify.breakpoint.xsOnly"
                                  id="school_block_classesList">
                                 <div class="classes-list-wrap">
                                     <v-chip class="class-chip-item"
                                             v-for="(singleClass, index) in classesList"
-                                            @click="updateClass(singleClass)"
+                                             @click="isDisabled ? '' : updateClass(singleClass)"
+                                            :disabled="isDisabled"
                                             :selected="singleClass.isSelected"
                                             :key="index">{{singleClass.text}}
                                     </v-chip>
                                 </div>
-                                <edit-action-block  @click.prevent.stop="openPersonalizeCourse()"></edit-action-block>
+                                <edit-action-block @click.native="openPersonalizeCourse()"></edit-action-block>
                             </div>
+                            </transition>
                         </div>
                     </div>
                 </v-flex>
             </v-layout>
-            <edit-action-block id="edit-mobile-target" v-show="mobileFilterState"  @click.prevent="openPersonalizeCourse()"></edit-action-block>
+            <edit-action-block id="edit-mobile-target" v-show="mobileFilterState && $vuetify.breakpoint.xsOnly"
+                               @click.native="openPersonalizeCourse()"></edit-action-block>
         </div>
-    </transition>
+
 </template>
 
 <script>
     import { mapGetters, mapActions, mapMutations } from 'vuex';
     import schoolBlockService from '../../services/schoolBlockService'
     import editActionBlock from './helpers/editActionBlock.vue'
+
     export default {
-        components:{editActionBlock},
+        components: {editActionBlock},
         name: "schoolBlock",
         data() {
             return {
                 showAllClassesBlock: false,
                 selectedChips: {},
-                classesToShow: this.$vuetify.breakpoint.smAndUp ? 5 : 3,
-                mobileFilterState: false
+                mobileFilterState: false,
+                minMode: true
             }
+        },
+        props: {
+            isDisabled: {
+                type: Boolean,
+                default: false
+            },
         },
         computed: {
             ...mapGetters([
@@ -96,6 +108,9 @@
                 "getAllSteps",
                 "accountUser"
             ]),
+            classesToShow(){
+                return this.$vuetify.breakpoint.smAndUp ? 5 : 3;
+            },
             classesPlus() {
                 if (!!this.classesList)
                     return `+${this.classesList.length - this.classesToShow}`
@@ -117,7 +132,7 @@
                         if (chip.text) {
                             chip.isSelected = !!this.selectedChips[chip.text];
                             chipItem = schoolBlockService.createChipItem(chip);
-                            result.push(chipItem)
+                            result.push(chipItem);
                         } else {
                             let newChip = {
                                 text: chip,
@@ -128,6 +143,7 @@
                         }
                     })
                 }
+                this.sortClassesByIsSelected(result, 'isSelected');
                 return result;
             },
         },
@@ -144,6 +160,8 @@
                     val.isSelected = true;
                     this.selectedChips[val.text] = true;
                 }
+
+                this.sortClassesByIsSelected(this.classesList, 'isSelected');
                 this.updateFilter();
                 this.$forceUpdate();
             },
@@ -155,17 +173,25 @@
                 };
                 this.$router.push({query: newQueryObject});
             },
+            sortClassesByIsSelected(arr, sortBy) {
+                arr.sort(function (obj1, obj2,) {
+                    // Ascending: first age less than the previous
+                    return obj2[sortBy] - obj1[sortBy];
+                });
+            },
             openAllClasses() {
                 if (this.$vuetify.breakpoint.smAndUp) {
                     this.showAllClassesBlock = true
                 } else {
-                    this.classesToShow = this.classesList.length;
+                    //this.classesToShow = this.classesList.length;
+                    this.minMode = false;
                     this.mobileFilterState = true;
                 }
             },
             closeAllClasses() {
                 this.showAllClassesBlock = false;
             },
+
             openPersonalizeCourse() {
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
@@ -186,18 +212,24 @@
                 }
             },
             detectOutsideClick(event) {
-                let specifiedElement = document.getElementById('school_block_classesList');
-                let isClickInside = specifiedElement.contains(event.target);
-                if (this.$vuetify.breakpoint.smAndUp && this.showAllClassesBlock && !isClickInside) {
-                    this.closeAllClasses();
+                let isClickInside = false;
+                let ignoredElements = null;
+                if (this.$vuetify.breakpoint.smAndUp) {
+                    ignoredElements = document.querySelector('#school_block_classesList');
+                    isClickInside = ignoredElements.contains(event.target);
+                    if (this.showAllClassesBlock && !isClickInside) {
+                        this.closeAllClasses();
+                    }
                 } else {
-                    if(event.target.id && event.target.id ==="edit-mobile-target"){
-                        this.openPersonalizeCourse()
-                    }else{
-                        this.classesToShow = 3;
+                    ignoredElements = document.querySelector('.school-block');
+                    isClickInside = ignoredElements.contains(event.target);
+                    if (!isClickInside) {
+                        //this.classesToShow = 3;
+                        this.minMode = true;
                         this.mobileFilterState = false;
                     }
                 }
+
             }
         },
         beforeMount: function () {
@@ -215,7 +247,7 @@
                 let courses = [].concat(this.$route.query.Course);
                 courses.forEach(courseName => {
                     this.selectedChips[courseName] = true;
-                })
+                });
             }
         }
 

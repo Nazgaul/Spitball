@@ -18,6 +18,7 @@ import notificationCenter from '../../notificationCenter/notificationCenter.vue'
 
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "../helpers/uploadFilesBtn/uploadFilesBtn.vue"
+import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
 //The vue functionality for result page
@@ -35,7 +36,8 @@ export default {
         uploadFilesBtn,
         askQuestionBtn,
         soonComponent,
-        setUniClass
+        setUniClass,
+        schoolBlock
     },
     data() {
         return {

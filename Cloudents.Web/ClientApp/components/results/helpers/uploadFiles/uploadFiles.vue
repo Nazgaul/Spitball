@@ -50,7 +50,9 @@
                             </v-btn>
 
                             <v-btn v-show="currentStep ===7" round class="next-btn sell"
-                                   @click="sendDocumentData(7)" :disabled="isDisabled">
+                                   @click="sendDocumentData(7)"
+                                   :disabled="isDisabled"
+                                   :loading="loading">
                                 <span v-language:inner>upload_files_btn_sell</span>
 
                                 <v-icon right class="credit-card">sbf-credit-card</v-icon>
