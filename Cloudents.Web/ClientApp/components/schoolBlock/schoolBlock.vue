@@ -4,7 +4,7 @@
             <v-layout row>
                 <v-flex xs12>
                     <div class="content-wrap">
-                        <div class="university-holder d-flex" row>
+                        <div class="university-holder" row>
                             <div class="uni-holder" v-show="schoolName && !mobileFilterState"
                                  @click="openPersonalizeUniversity()">
                                 <v-icon class="university-icon">sbf-university-columns</v-icon>
@@ -38,12 +38,18 @@
                                 </transition-group>
                                 <transition-group name="dissapear-total-chip">
                                 <!--<transition name="dissapear-total-chip">-->
-                                    <span name=" sbf-class-chip" key="dfgdfg"
+                                    <span name=" sbf-class-chip" key="chip-total"
                                             class="sbf-class-chip total classes-total-chip"
-                                            v-show="minMode ? classesList.length > classesToShow : false"
-                                            @click.prevent.stop="openAllClasses()">
-                                        <span>
+                                         >
+                                        <span
+                                              @click.prevent.stop="openAllClasses()"
+                                              v-show="minMode ? classesList.length > classesToShow : false">
                                            {{classesPlus}}
+                                        </span>
+                                        <span class="d-flex"
+                                              @click.prevent.stop="openPersonalizeCourse()"
+                                              v-if="minMode ? classesList.length <= classesToShow : true">
+                                            <v-icon class="small-font" color="white" >sbf-edit-icon</v-icon>
                                         </span>
                                     </span>
                                 <!--</transition>-->
@@ -214,6 +220,8 @@
             detectOutsideClick(event) {
                 let isClickInside = false;
                 let ignoredElements = null;
+                event.preventDefault();
+
                 if (this.$vuetify.breakpoint.smAndUp) {
                     ignoredElements = document.querySelector('#school_block_classesList');
                     isClickInside = ignoredElements.contains(event.target);
