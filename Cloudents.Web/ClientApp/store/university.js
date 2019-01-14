@@ -4,6 +4,7 @@ const state = {
     classes: [],
     schoolName: '',
     selectedClasses: [],
+    selectedClassesCache: [],
     showSelectUniInterface: false,
     showSelectUniPopUpInterface: false,
     currentStep: 'SetSchoolLanding',
@@ -25,6 +26,7 @@ const getters = {
     getSchoolName:  state => state.schoolName,
     getClasses: state => state.classes,
     getSelectedClasses: state => state.selectedClasses,
+    getSelectedClassesCache: state => state.selectedClassesCache,
     getShowSelectUniInterface: state => state.showSelectUniInterface,
     getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
     getAllSteps: state => state.stepsEnum,
@@ -95,6 +97,9 @@ const actions = {
             Promise.resolve(true);
         })
     },
+    assignSelectedClassesCache({dispatch}, data){
+        dispatch("setSelectedClassesCahce", data);
+    },
     updateCurrentStep({commit}, val){
         commit("setCurrentStep", val);
     },
@@ -122,6 +127,9 @@ const mutations = {
     },
     setSelectedClasses(state, val){
         state.selectedClasses = val;
+    },
+    setSelectedClassesCahce(state, val){
+        state.selectedClassesCahce = val;
     },
     setSelectUniState(state, val){
         state.showSelectUniInterface = val;
