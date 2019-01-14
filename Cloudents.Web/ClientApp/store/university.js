@@ -28,7 +28,7 @@ const getters = {
     getSelectedClasses: state => state.selectedClasses,
     getSelectedClassesCache: state => state.selectedClassesCache,
     getShowSelectUniInterface: state => state.showSelectUniInterface,
-    getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
+    getShowSelectUniPopUpInterface: state => state.showSelectWUniPopUpInterface,
     getAllSteps: state => state.stepsEnum,
     getCurrentStep: state => state.currentStep,
     getUniversityPopStorage: state => state.universityPopStorage,
@@ -48,10 +48,14 @@ const actions = {
         universityService.getProfileCourses().then((courses)=>{
             if(courses.length > 0){
                 commit('setSelectedClasses', courses);
+                dispatch('assignSelectedClassesCache', courses);
             }
         })
     },
-    changeSelectUniState({commit}, val){
+    changeSelectUniState({commit, dispatch}, val){
+        if(!val){
+            dispatch('changeClassesToCachedClasses')
+        }
         commit('setSelectUniState', val);
     },
     changeSelectPopUpUniState({commit}, val){
@@ -97,8 +101,13 @@ const actions = {
             Promise.resolve(true);
         })
     },
-    assignSelectedClassesCache({dispatch}, data){
-        dispatch("setSelectedClassesCahce", data);
+    assignSelectedClassesCache({commit, state}){
+        commit("setSelectedClassesCahce", state.selectedClasses);
+    },
+    changeClassesToCachedClasses({commit, state}){
+        if(state.selectedClassesCache.length > 0){
+            commit('setSelectedClasses', [].concat(state.selectedClassesCache))
+        }
     },
     updateCurrentStep({commit}, val){
         commit("setCurrentStep", val);
@@ -129,7 +138,7 @@ const mutations = {
         state.selectedClasses = val;
     },
     setSelectedClassesCahce(state, val){
-        state.selectedClassesCahce = val;
+        state.selectedClassesCache = [].concat(val);
     },
     setSelectUniState(state, val){
         state.showSelectUniInterface = val;
