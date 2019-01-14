@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IRepository<T>  where T : class
+    public interface IRepository<T> where T : class
     {
-       Task<object> AddAsync(T entity, CancellationToken token);
-       Task AddAsync(IEnumerable<T> entities, CancellationToken token);
+        Task<object> AddAsync(T entity, CancellationToken token);
+        Task AddAsync(IEnumerable<T> entities, CancellationToken token);
 
         Task<T> LoadAsync(object id, CancellationToken token);
         Task<T> GetAsync(object id, CancellationToken token);
@@ -21,7 +21,7 @@ namespace Cloudents.Core.Interfaces
         Task DeleteAsync(T entity, CancellationToken token);
         Task UpdateAsync(T entity, CancellationToken token);
 
-       // Task FlushAsync(CancellationToken token);
+        // Task FlushAsync(CancellationToken token);
     }
 
     public interface IFictiveUserRepository : IRepository<SystemUser>
@@ -34,11 +34,11 @@ namespace Cloudents.Core.Interfaces
     public interface IRegularUserRepository : IRepository<RegularUser>
     {
         Task<decimal> UserCashableBalanceAsync(long userId, CancellationToken token);
-        
+
 
         //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
         //Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
-       // Task UpdateUsersBalance(CancellationToken token);
+        // Task UpdateUsersBalance(CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>
@@ -48,9 +48,9 @@ namespace Cloudents.Core.Interfaces
 
     public interface IVoteRepository : IRepository<Vote>
     {
-        Task<Vote> GetVoteQuestionAsync(long userId,long questionId,  CancellationToken token);
-        Task<Vote> GetVoteDocumentAsync(long userId,long documentId,  CancellationToken token);
-        Task<Vote> GetVoteAnswerAsync(long userId,Guid answerId,  CancellationToken token);
+        Task<Vote> GetVoteQuestionAsync(long userId, long questionId, CancellationToken token);
+        Task<Vote> GetVoteDocumentAsync(long userId, long documentId, CancellationToken token);
+        Task<Vote> GetVoteAnswerAsync(long userId, Guid answerId, CancellationToken token);
     }
 
     public interface ITagRepository : IRepository<Tag>
@@ -72,7 +72,7 @@ namespace Cloudents.Core.Interfaces
         Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
     }
 
-   
+
 
     public interface IAnswerRepository : IRepository<Answer>
     {
@@ -90,7 +90,7 @@ namespace Cloudents.Core.Interfaces
     public interface IUniversityRepository : IRepository<University>
     {
         [ItemCanBeNull]
-        Task<University> GetUniversityByNameAsync(string name, 
+        Task<University> GetUniversityByNameAsync(string name,
             string country,
             CancellationToken token);
 
@@ -108,4 +108,4 @@ namespace Cloudents.Core.Interfaces
         Task UpdateTableAsync(CancellationToken token);
     }
 
-    }
+}
