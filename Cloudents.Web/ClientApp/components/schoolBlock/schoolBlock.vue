@@ -155,7 +155,7 @@
         },
         methods: {
             ...mapActions(["updateLoginDialogState", "updateCurrentStep", "changeSelectUniState"]),
-            ...mapMutations(['UPDATE_SEARCH_LOADING']),
+            ...mapMutations(['UPDATE_SEARCH_LOADING', 'UPDATE_LOADING']),
             updateClass(val) {
                 if (!!this.selectedChips[val.text]) {
                     //remove from selected chips dictionary
@@ -173,6 +173,7 @@
             },
             updateFilter() {
                 this.UPDATE_SEARCH_LOADING(true);
+                this.UPDATE_LOADING(true);
                 let newQueryArr = Object.keys(this.selectedChips);
                 let newQueryObject = {
                     Course: newQueryArr
