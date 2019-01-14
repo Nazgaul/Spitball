@@ -94,27 +94,21 @@ namespace Cloudents.Core.Entities
             }
             Votes.Clear();
             State = ItemState2.Delete();
-            //var t = base.Delete();
-            //if (t)
-            //{
-            //    AddEvent(new AnswerDeletedEvent(this));
-            //}
-
-            //return t;
+           
         }
 
-        public virtual void DeleteAnswerAdmin()
-        {
-            Transactions.Clear();
-           // AddEvent(new AnswerDeletedEvent(this));
-            if (Question.CorrectAnswer != null)
-            {
-                if (Id == Question.CorrectAnswer.Id)
-                {
-                    Question.CorrectAnswer = null;
-                }
-            }
-        }
+        //public virtual void DeleteAnswerAdmin()
+        //{
+        //    Transactions.Clear();
+        //   // AddEvent(new AnswerDeletedEvent(this));
+        //    if (Question.CorrectAnswer != null)
+        //    {
+        //        if (Id == Question.CorrectAnswer.Id)
+        //        {
+        //            Question.CorrectAnswer = null;
+        //        }
+        //    }
+        //}
 
         //public override bool MakePublic()
         //{

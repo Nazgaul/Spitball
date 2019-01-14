@@ -31,7 +31,8 @@ namespace Cloudents.Command.CommandHandler.Admin
                 }
                 foreach (var answer in user.Answers)
                 {
-                    answer.DeleteAnswerAdmin();
+                    answer.Question.RemoveAnswer(answer, true);
+                    //answer.DeleteAnswerAdmin();
                 }
 
                 user.DeleteQuestionAndAnswers();

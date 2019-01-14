@@ -24,7 +24,7 @@ namespace Cloudents.Persistance.Maps
                 .ForeignKey("Question_User").Not.Nullable();
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
             HasMany(x => x.Answers)
-                .Inverse()
+                //.Inverse()
                 .ExtraLazyLoad()
                 .Cascade.AllDeleteOrphan();
 

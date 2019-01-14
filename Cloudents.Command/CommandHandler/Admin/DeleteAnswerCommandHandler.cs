@@ -33,8 +33,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             {
                 throw new ArgumentException("answer doesn't exits");
             }
-
-            answer.DeleteAnswerAdmin();
+            answer.Question.RemoveAnswer(answer,true);
             await _repository.DeleteAsync(answer, token);
             //await DeleteAnswerAsync(answer, token);
         }

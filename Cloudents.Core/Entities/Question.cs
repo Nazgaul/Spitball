@@ -91,8 +91,28 @@ namespace Cloudents.Core.Entities
         {
             var answer = new Answer(this, text, attachments, user, language);
             Answers.Add(answer);
+            AddEvent(new AnswerCreatedEvent(answer));
             return answer;
         }
+
+        public virtual void RemoveAnswer(Answer answer, bool admin = false)
+        {
+            Answers.Remove(answer);
+            if (admin)
+            {
+                Transactions.Clear();
+                AddEvent(new AnswerDeletedEvent(answer));
+                if (CorrectAnswer != null)
+                {
+                    if (answer == CorrectAnswer)
+                    {
+                        CorrectAnswer = null;
+                    }
+                }
+            }
+        }
+
+        
 
 
         public virtual CultureInfo Language { get; protected set; }
