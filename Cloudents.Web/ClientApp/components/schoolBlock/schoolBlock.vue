@@ -19,7 +19,7 @@
                                       v-language:inner>schoolBlock_school_empty_text</span>
                             </div>
                         </div>
-                        <div :class="['classes-holder', isClassesSet ? '' : 'emptyState' ]"  >
+                        <div :class="['classes-holder', isClassesSet ? '' : 'emptyState' ]" >
                             <div v-show="!showAllClassesBlock"
                                  :class="[$vuetify.breakpoint.xsOnly ? 'd-flex  wrap-it align-start' : '']">
                                 <transition-group name="list">
@@ -36,20 +36,19 @@
                                             :key="index">{{singleClass.text}}
                                     </v-chip>
                                 </transition-group>
-                                <transition name="fade-total">
-                                    <v-chip name="sbf-class-chip"
-                                            class="sbf-class-chip total"
-                                            :class="[$vuetify.breakpoint.smAndUp ? 'border-none' : '' ]"
+                                <transition-group name="dissapear-total-chip">
+                                <!--<transition name="dissapear-total-chip">-->
+                                    <span name=" sbf-class-chip" key="dfgdfg"
+                                            class="sbf-class-chip total classes-total-chip"
                                             v-show="minMode ? classesList.length > classesToShow : false"
                                             @click.prevent.stop="openAllClasses()">
                                         <span>
                                            {{classesPlus}}
                                         </span>
-                                    </v-chip>
-                                </transition>
-
-                                <v-chip v-if="!isClassesSet && isClassesSet" name="add class" class="sbf-class-chip empty-state-class"
-
+                                    </span>
+                                <!--</transition>-->
+                                </transition-group>
+                                <v-chip v-if="!isClassesSet && schoolName" name="add class" class="sbf-class-chip empty-state-class"
                                         @click="openPersonalizeCourse()">
                                     <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                                     <span v-language:inner>schoolBlock_add_class</span>
@@ -161,6 +160,7 @@
                     val.isSelected = true;
                     this.selectedChips[val.text] = true;
                 }
+
                 this.sortClassesByIsSelected(this.classesList, 'isSelected');
                 this.updateFilter();
                 this.$forceUpdate();
