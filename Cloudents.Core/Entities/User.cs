@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Message.Email;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 namespace Cloudents.Core.Entities

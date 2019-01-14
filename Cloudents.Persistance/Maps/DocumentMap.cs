@@ -42,7 +42,9 @@ namespace Cloudents.Persistance.Maps
                 .LazyLoad()
                 .Inverse();
 
-            HasMany(x => x.Votes).KeyColumns.Add("DocumentId")
+            HasMany(x => x.Votes)
+                .Access.CamelCaseField(Prefix.Underscore)
+                .KeyColumns.Add("DocumentId")
                 .Inverse().Cascade.AllDeleteOrphan();
             Map(m => m.VoteCount).Not.Nullable();
             //        Component(x => x.State);

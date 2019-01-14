@@ -45,7 +45,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new ArgumentException("question doesn't exits");
             }
 
-            if (question.State != ItemState.Ok)
+            if (question.Status != ItemStatus.Public)
             {
                 throw new ArgumentException("question doesn't exits");
             }
@@ -71,7 +71,7 @@ namespace Cloudents.Command.CommandHandler
                 }
             }
             var answers = question.Answers;
-            if (answers.Any(a => a.User.Id == user.Id && a.State != ItemState.Deleted))
+            if (answers.Any(a => a.User.Id == user.Id && a.Status.State != ItemState.Deleted))
             {
                 throw new MoreThenOneAnswerException();
             }
@@ -81,7 +81,7 @@ namespace Cloudents.Command.CommandHandler
             var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
             var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
             foreach (var answer in answers.Where(w=> 
-                w.State == ItemState.Ok
+                w.Status.State == ItemState.Ok
 
             ))
             {

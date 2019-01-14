@@ -1,19 +1,4 @@
-﻿using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
-using Cloudents.Web.Identity;
-using Cloudents.Web.Models;
-using Cloudents.Web.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteQuestion;
@@ -28,9 +13,24 @@ using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Hubs;
+using Cloudents.Web.Identity;
+using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
+using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Localization;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -271,8 +271,8 @@ namespace Cloudents.Web.Api
             {
                 var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);
 
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
             }
             catch (NoEnoughScoreException)
             {
@@ -302,7 +302,7 @@ namespace Cloudents.Web.Api
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
-            catch(NoEnoughScoreException)
+            catch (NoEnoughScoreException)
             {
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
                 return BadRequest(ModelState);

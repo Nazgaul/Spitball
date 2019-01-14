@@ -22,7 +22,7 @@ namespace Cloudents.Query
         {
             return _session.Query<Document>()
                 .Fetch(f => f.University)
-                 .Where(w => w.Id == query.Id && w.State == ItemState.Ok)
+                 .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
 
                  .Select(s => new DocumentSeoDto
                  {

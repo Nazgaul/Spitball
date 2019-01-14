@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -33,7 +32,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new ArgumentException("question doesn't exists");
             }
 
-            if (question.State != ItemState.Ok)
+            if (question.Status.State != ItemState.Ok)
             {
                 throw new ArgumentException("question doesn't exists");
 
@@ -44,7 +43,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("user is not the one who wrote the question");
             }
 
-            if (question.Answers.Count(w=>w.State == ItemState.Ok) > 0)
+            if (question.Answers.Count(w=>w.Status.State == ItemState.Ok) > 0)
             {
                 throw new InvalidOperationException("cannot delete question with answers");
             }

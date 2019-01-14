@@ -20,7 +20,7 @@ namespace Cloudents.Persistance.Maps
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
 
-            Component(x => x.State);
+            Component(x => x.Status);
             //References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("AnswerFlagged_User");
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
@@ -28,9 +28,11 @@ namespace Cloudents.Persistance.Maps
                 .LazyLoad()
                
                 .Inverse();
-            HasMany(x => x.Votes).KeyColumns.Add("AnswerId")
+            HasMany(x => x.Votes)
+                .Access.CamelCaseField(Prefix.Underscore)
+                .KeyColumns.Add("AnswerId")
                 .Inverse().Cascade.AllDeleteOrphan();
-
+            Map(x => x.VoteCount);
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");
         }

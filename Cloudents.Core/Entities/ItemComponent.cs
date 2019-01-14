@@ -1,12 +1,10 @@
 ﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
-    public sealed class ItemState2 : ValueObject
+    public sealed class ItemStatus : ValueObject
     {
         public ItemState State { get; }
         public DateTime? DeletedOn { get; }
@@ -40,11 +38,11 @@ namespace Cloudents.Core.Entities
             yield return State;
         }
 
-        private ItemState2()
+        private ItemStatus()
         {
 
         }
-        private ItemState2(ItemState state, DateTime? deletedOn, string flagReason, User flaggedUser) : this()
+        private ItemStatus(ItemState state, DateTime? deletedOn, string flagReason, User flaggedUser) : this()
         {
             State = state;
             DeletedOn = deletedOn;
@@ -52,94 +50,44 @@ namespace Cloudents.Core.Entities
             FlaggedUser = flaggedUser;
         }
 
-        public ItemState2 Flag(string reason, User user)
+        public static readonly ItemStatus Public = new ItemStatus(ItemState.Ok, null, null, null);
+        public static readonly ItemStatus Pending = new ItemStatus(ItemState.Pending, null, null, null);
+        public static readonly ItemStatus Flagged = new ItemStatus(ItemState.Flagged, null, null, null);
+        //public static readonly ItemStatus FlagStatus = new ItemStatus(ItemState.Deleted, null, null, null);
+
+        public ItemStatus Flag(string reason, User user)
         {
             if (!ValidateFlagReason(reason))
             {
                 throw new ArgumentException("reason is too long");
             }
-            return new ItemState2(ItemState.Flagged, null, reason, user);
+
+            if (this != Public)
+            {
+                throw new ArgumentException("Not Flagged state");
+
+            }
+            return new ItemStatus(ItemState.Flagged, null, reason, user);
         }
 
-        public static ItemState2 GetInitState(User user)
+        public static ItemStatus GetInitState(User user)
         {
             if (user.Score < Privileges.Post)
             {
-                return Pending();
+                return Pending;
             }
 
-            return Public();
+            return Public;
         }
-    
 
-        public static ItemState2 Public()
+        public static ItemStatus Delete()
         {
-            return new ItemState2(ItemState.Ok, null, null, null);
+            return new ItemStatus(ItemState.Deleted, DateTime.UtcNow, null, null);
         }
 
-        public static ItemState2 Pending()
-        {
-            return new ItemState2(ItemState.Pending, null, null, null);
-        }
-
-        public static ItemState2 Delete()
-        {
-            return new ItemState2(ItemState.Deleted, DateTime.UtcNow, null, null);
-        }
-
-
-        public static implicit operator ItemState(ItemState2 state)
-        {
-            return state.State;
-        }
-    }
-
-   
-
-
-    public abstract class ValueObject
-    {
-        protected abstract IEnumerable<object> GetEqualityComponents();
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-
-            if (GetType() != obj.GetType())
-                throw new ArgumentException($"Invalid comparison of Value Objects of different types: {GetType()} and {obj.GetType()}");
-
-            var valueObject = (ValueObject)obj;
-
-            return GetEqualityComponents().SequenceEqual(valueObject.GetEqualityComponents());
-        }
-
-        public override int GetHashCode()
-        {
-            return GetEqualityComponents()
-                .Aggregate(1, (current, obj) =>
-                {
-                    unchecked
-                    {
-                        return current * 23 + (obj?.GetHashCode() ?? 0);
-                    }
-                });
-        }
-
-        public static bool operator ==(ValueObject a, ValueObject b)
-        {
-            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
-                return true;
-
-            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
-                return false;
-
-            return a.Equals(b);
-        }
-
-        public static bool operator !=(ValueObject a, ValueObject b)
-        {
-            return !(a == b);
-        }
+        //public static implicit operator ItemState(ItemState2 state)
+        //{
+        //    return state.State;
+        //}
     }
 }

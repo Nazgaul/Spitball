@@ -1,12 +1,15 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
+using Cloudents.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using static Cloudents.Core.Entities.ItemStatus;
+using static Cloudents.Core.Entities.Vote;
 
-using static Cloudents.Core.Entities.ItemState2;
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
 namespace Cloudents.Core.Entities
@@ -32,7 +35,7 @@ namespace Cloudents.Core.Entities
                 Color = color;
             }
 
-            State = GetInitState(user);
+            Status = GetInitState(user);
             Language = language;
         }
 
@@ -51,18 +54,18 @@ namespace Cloudents.Core.Entities
             {
                 Color = color;
             }
-            State = Pending();
+            Status = Pending;
             //ChangeState(ItemState.Pending);
             Language = language;
         }
 
         protected Question()
         {
-            Answers = Answers ?? new List<Answer>();
-            Votes = Votes ?? new List<Vote>();
+            _answers = _answers ?? new List<Answer>();
+            _votes = _votes ?? new List<Vote>();
         }
 
-        public virtual ItemState2 State { get; protected set; }
+        public virtual ItemStatus Status { get; protected set; }
 
         //public virtual long Id { get; protected set; }
         public virtual QuestionSubject Subject { get; protected set; }
@@ -78,7 +81,9 @@ namespace Cloudents.Core.Entities
 
         public virtual Answer CorrectAnswer { get; set; }
 
-        public virtual IList<Answer> Answers { get; protected set; }
+        private readonly IList<Answer> _answers = new List<Answer>();
+
+        public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
 
 
         public virtual IList<Transaction> Transactions { get; protected set; }
@@ -90,14 +95,14 @@ namespace Cloudents.Core.Entities
         public virtual Answer AddAnswer(string text, int attachments, RegularUser user, CultureInfo language)
         {
             var answer = new Answer(this, text, attachments, user, language);
-            Answers.Add(answer);
+            _answers.Add(answer);
             AddEvent(new AnswerCreatedEvent(answer));
             return answer;
         }
 
         public virtual void RemoveAnswer(Answer answer, bool admin = false)
         {
-            Answers.Remove(answer);
+            _answers.Remove(answer);
             if (admin)
             {
                 Transactions.Clear();
@@ -112,20 +117,49 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        
+        public virtual void Vote(VoteType type, RegularUser user)
+        {
+            if (Status != Public)
+            {
+                throw new NotFoundException();
+            }
+            if (User == user)
+            {
+                throw new UnauthorizedAccessException("you cannot vote you own question");
+            }
+            var vote = Votes.FirstOrDefault(w => w.User == user);
+            if (vote == null)
+            {
+                vote = new Vote(user, this, type);
+                _votes.Add(vote);
+                
+            }
+
+            vote.VoteType = type;
+            VoteCount = Votes.Sum(s => (int)s.VoteType);
+            if (VoteCount < VoteCountToFlag)
+            {
+                Status = Status.Flag(TooManyVotesReason, user);
+            }
+        }
 
 
         public virtual CultureInfo Language { get; protected set; }
 
-        public virtual ICollection<Vote> Votes { get; protected set; }
+        private readonly IList<Vote> _votes = new List<Vote>();
 
-        public virtual int VoteCount { get; set; }
+        public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
+
+        public virtual int VoteCount { get; protected set; }
 
 
         public virtual void MakePublic()
         {
-            State = Public();
-            AddEvent(new QuestionCreatedEvent(this));
+            if (Status == Pending)
+            {
+                Status = Public;
+                AddEvent(new QuestionCreatedEvent(this));
+            }
         }
 
         public virtual void DeleteQuestionAdmin()
@@ -136,8 +170,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void Delete()
         {
-            Votes.Clear();
-            //Transactions.Clear();
+            _votes.Clear();
             AddEvent(new QuestionDeletedEvent(this));
 
         }
@@ -153,9 +186,33 @@ namespace Cloudents.Core.Entities
             AddEvent(new MarkAsCorrectEvent(answer));
         }
 
+
+
         public virtual void Flag(string messageFlagReason, User user)
         {
-            State = State.Flag(messageFlagReason, user);
+            if (User.Id == user.Id)
+            {
+                throw new UnauthorizedAccessException("you cannot flag your own question");
+            }
+
+            Status = Status.Flag(messageFlagReason, user);
+
+        }
+
+        public virtual void UnFlag()
+        {
+            if (Status.State != ItemState.Flagged)
+            {
+                throw new ArgumentException();
+            }
+            Status = Public;
+            if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
+            {
+                _votes.Clear();
+                VoteCount = 0;
+            }
         }
     }
+
+
 }

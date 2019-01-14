@@ -1,11 +1,14 @@
 ﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Exceptions;
+using static Cloudents.Core.Entities.ItemStatus;
+using static Cloudents.Core.Entities.Vote;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
@@ -25,9 +28,8 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            //MakePublic();
             Language = language;
-            State = ItemState2.Public();
+            Status = Public;
 
         }
 
@@ -49,52 +51,75 @@ namespace Cloudents.Core.Entities
         public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
 
 
-        public virtual ItemState2 State { get; set; }
+        public virtual ItemStatus Status { get; set; }
 
        
 
 
-        public virtual ICollection<Vote> Votes { get; protected set; }
+       private readonly ICollection<Vote> _votes = new List<Vote>();
+       public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
 
         public virtual int VoteCount { get;  set; }
 
         public virtual CultureInfo Language { get; protected set; }
-        //for dbi only
-        public virtual void SetLanguage(CultureInfo info)
-        {
-            if (info.Equals(CultureInfo.InvariantCulture))
-            {
-                return;
-            }
-
-            if (Language != null)
-            {
-                throw new InvalidOperationException("Cannot change language of answer");
-            }
-
-            Language = info;
-        }
+       
 
         public virtual void UnFlag()
         {
-            if (State.FlagReason.Equals(ItemState2.TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
+            if (Status.State != ItemState.Flagged) return;
+
+            if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
             {
-                Votes.Clear();
+                _votes.Clear();
                 VoteCount = 0;
             }
-            State = ItemState2.Public();
-           
+            Status = Public;
+
+        }
+        public virtual void Flag(string messageFlagReason, RegularUser user)
+        {
+            if (User == user)
+            {
+                throw new UnauthorizedAccessException("you cannot flag your own question");
+            }
+            Status = Status.Flag(messageFlagReason, user);
+        }
+
+        public virtual void Vote(VoteType type, RegularUser user)
+        {
+            if (Status != Public)
+            {
+                throw new NotFoundException();
+            }
+            if (User == user)
+            {
+                throw new UnauthorizedAccessException("you cannot vote you own answer");
+            }
+
+            if (Question.Answers.Any(w => w.Status == Public && w.User == user))
+            {
+                throw new UnauthorizedAccessException("you cannot vote if you gave answer");
+            }
+            var vote = Votes.FirstOrDefault(w => w.User == user);
+            if (vote == null)
+            {
+                vote = new Vote(user, this, type);
+                _votes.Add(vote);
+
+            }
+
+            vote.VoteType = type;
+            VoteCount = Votes.Sum(s => (int) s.VoteType);
+            if (VoteCount < VoteCountToFlag)
+            {
+                Status = Status.Flag(TooManyVotesReason, user);
+            }
         }
 
         public virtual void Delete()
         {
-            if (State == ItemState2.Delete())
-            {
-                return;
-            }
-            Votes.Clear();
-            State = ItemState2.Delete();
-           
+            _votes.Clear();
+            Status = ItemStatus.Delete();
         }
 
         //public virtual void DeleteAnswerAdmin()
@@ -126,10 +151,7 @@ namespace Cloudents.Core.Entities
         //        throw new ArgumentOutOfRangeException(nameof(state), state, null);
         //    }
         //}
-        public virtual void  Flag(string messageFlagReason, User user)
-        {
-            State = State.Flag(messageFlagReason, user);
-        }
+        
     }
 
 }

@@ -35,7 +35,7 @@ namespace Cloudents.Query.Admin
                         .JoinAlias(x => x.User, () => userAlias)
                         .Select(s => s.Id)
                         .Where(() => userAlias.Country == county)
-                        .And(w=>w.State == ItemState.Pending)
+                        .And(w=>w.Status.State == ItemState.Pending)
                         .OrderBy(Projections.SqlFunction("random_Order", NHibernateUtil.Guid)).Asc
                         .Take(1)
                         .FutureValue<long>();

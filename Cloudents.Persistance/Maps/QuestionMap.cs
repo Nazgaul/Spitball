@@ -23,7 +23,7 @@ namespace Cloudents.Persistance.Maps
             References(x => x.User).Column("UserId")
                 .ForeignKey("Question_User").Not.Nullable();
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
-            HasMany(x => x.Answers)
+            HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore)
                 //.Inverse()
                 .ExtraLazyLoad()
                 .Cascade.AllDeleteOrphan();
@@ -34,11 +34,12 @@ namespace Cloudents.Persistance.Maps
                 .LazyLoad()
                 .Inverse();
             
-            HasMany(x => x.Votes).KeyColumns.Add("QuestionId").Inverse()
+            HasMany(x => x.Votes).Access.CamelCaseField(Prefix.Underscore)
+                .KeyColumns.Add("QuestionId")
                 .Cascade.AllDeleteOrphan();
 
             Map(m => m.VoteCount).Not.Nullable();
-            Component(x => x.State);
+            Component(x => x.Status);
 
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
@@ -54,7 +55,7 @@ namespace Cloudents.Persistance.Maps
     //    }
     //}
 
-    public class ItemStateMap : ComponentMap<ItemState2>
+    public class ItemStateMap : ComponentMap<ItemStatus>
     {
         public ItemStateMap()
         {

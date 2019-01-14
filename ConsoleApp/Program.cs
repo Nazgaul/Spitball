@@ -36,6 +36,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command.Votes.Commands.AddVoteQuestion;
 using DocumentType = Cloudents.Core.Enum.DocumentType;
 
 namespace ConsoleApp
@@ -52,7 +53,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -121,7 +122,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var z = _container.Resolve<IUnitOfWork>();
+            var _commandBus = _container.Resolve<ICommandBus>();
+            var command = new AddVoteQuestionCommand(638, 3817, VoteType.Down);
+
+            await _commandBus.DispatchAsync(command, token);
             //await RemoveBlobs();
             //await RemoveBlobs();
             //await ReduWordProcessing();
@@ -598,52 +602,52 @@ where left(blobName ,4) != 'file'");
         /// This is dbi for update question language
         /// </summary>
         /// <returns></returns>
-        public static async Task UpdateLanguageAsync()
-        {
-            var t = _container.Resolve<ITextAnalysis>();
-            bool continueLoop = false;
-            do
-            {
-                using (var child = _container.BeginLifetimeScope())
-                {
+        //public static async Task UpdateLanguageAsync()
+        //{
+        //    var t = _container.Resolve<ITextAnalysis>();
+        //    bool continueLoop = false;
+        //    do
+        //    {
+        //        using (var child = _container.BeginLifetimeScope())
+        //        {
 
-                    var sts = child.Resolve<IStatelessSession>();
+        //            var sts = child.Resolve<IStatelessSession>();
 
-                    using (var unitOfWork = child.Resolve<IUnitOfWork>())
-                    {
-                        var repository = child.Resolve<IRepository<Answer>>();
-                        var questions = await sts.Query<Answer>().Where(w => w.Language == null).Take(100)
-                            .OrderBy(o => o.Id)
-                            .ToListAsync(); // repository.GetAllQuestionsAsync(i).ConfigureAwait(false);
-                        continueLoop = questions.Count > 0;
-                        if (!continueLoop)
-                        {
-                            break;
-                        }
+        //            using (var unitOfWork = child.Resolve<IUnitOfWork>())
+        //            {
+        //                var repository = child.Resolve<IRepository<Answer>>();
+        //                var questions = await sts.Query<Answer>().Where(w => w.Language == null).Take(100)
+        //                    .OrderBy(o => o.Id)
+        //                    .ToListAsync(); // repository.GetAllQuestionsAsync(i).ConfigureAwait(false);
+        //                continueLoop = questions.Count > 0;
+        //                if (!continueLoop)
+        //                {
+        //                    break;
+        //                }
 
-                        var result = await t.DetectLanguageAsync(
-                            questions.Where(w => w.Language == null)
-                                .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Text)), default);
+        //                var result = await t.DetectLanguageAsync(
+        //                    questions.Where(w => w.Language == null)
+        //                        .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Text)), default);
 
-                        foreach (var pair in result.Where(w => !w.Value.Equals(CultureInfo.InvariantCulture)))
-                        {
-                            var q = await repository.LoadAsync(Guid.Parse(pair.Key), default);
+        //                foreach (var pair in result.Where(w => !w.Value.Equals(CultureInfo.InvariantCulture)))
+        //                {
+        //                    var q = await repository.LoadAsync(Guid.Parse(pair.Key), default);
 
 
-                            q.SetLanguage(pair.Value);
+        //                    q.SetLanguage(pair.Value);
 
-                            await repository.UpdateAsync(q, default);
-                        }
+        //                    await repository.UpdateAsync(q, default);
+        //                }
 
-                        await unitOfWork.CommitAsync(default);
-                    }
+        //                await unitOfWork.CommitAsync(default);
+        //            }
 
-                }
+        //        }
 
-                //i++;
-            } while (continueLoop);
+        //        //i++;
+        //    } while (continueLoop);
 
-        }
+        //}
 
         public static async Task TransferUniversities()
         {

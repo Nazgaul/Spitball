@@ -35,7 +35,6 @@ namespace Cloudents.Core.Entities
 
         public virtual void DeleteQuestionAndAnswers()
         {
-            //_questions.Clear();
             DeleteQuestion();
             _answers.Clear();
         }

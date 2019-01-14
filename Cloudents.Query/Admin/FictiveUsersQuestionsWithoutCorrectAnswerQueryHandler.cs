@@ -39,7 +39,7 @@ namespace Cloudents.Query.Admin
             var questions = await _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .Where(w => w.CorrectAnswer == null)
-                .Where(w => w.State == ItemState.Ok)
+                .Where(w => w.Status.State == ItemState.Ok)
                 .WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
                     .Select(s => s.Id))
                 .And(Restrictions.Or(
@@ -62,7 +62,7 @@ namespace Cloudents.Query.Admin
 
             var answersResult = await _session.QueryOver<Answer>()
                 .Where(w => w.Question.Id.IsIn(questions.Select(s => s.Id).ToArray()))
-                .Where(w=>w.State == ItemState.Ok)
+                .Where(w=>w.Status.State == ItemState.Ok)
                 .SelectList(
                             l =>
                                 l.Select(s => s.Id).WithAlias(() => dtoAnswerAlias.Id)

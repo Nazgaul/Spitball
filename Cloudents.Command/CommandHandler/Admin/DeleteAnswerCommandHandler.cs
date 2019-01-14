@@ -29,7 +29,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                 throw new ArgumentException("answer doesn't exits");
             }
 
-            if (answer.State == ItemState.Deleted)
+            if (answer.Status.State == ItemState.Deleted)
             {
                 throw new ArgumentException("answer doesn't exits");
             }

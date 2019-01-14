@@ -34,7 +34,7 @@ namespace Cloudents.Persistance.Repositories
             return await Session.Query<Question>()
                 .Where(w => w.Updated < DateTime.UtcNow.AddHours(3))
                 .Where(w => Session.Query<Answer>()
-                                .FirstOrDefault(x => x.Question.Id == w.Id) == null && w.State == ItemState.Ok)
+                                .FirstOrDefault(x => x.Question.Id == w.Id) == null && w.Status.State == ItemState.Ok)
                 .ToListAsync(token).ConfigureAwait(false);
         }
 
@@ -47,7 +47,7 @@ namespace Cloudents.Persistance.Repositories
 
         public Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token)
         {
-            return Session.Query<Question>().Where(w => w.Text == text.Trim() && w.State == ItemState.Ok)
+            return Session.Query<Question>().Where(w => w.Text == text.Trim() && w.Status.State == ItemState.Ok)
                 .AnyAsync(token);
         }
     }

@@ -22,14 +22,14 @@ namespace Cloudents.Query
         public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
         {
             return await _session.Query<Question>()
-                .Where(w => w.User.Id == query.Id && w.State == ItemState.Ok)
+                .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new QuestionFeedDto(s.Id,
                     s.Subject,
                     s.Price,
                     s.Text,
                     s.Attachments,
-                    s.Answers.Where(w => w.State == ItemState.Ok).Count(),
+                    s.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
                     s.Updated,
                     s.Color, s.CorrectAnswer.Id != null, s.Language, s.VoteCount)
                 )

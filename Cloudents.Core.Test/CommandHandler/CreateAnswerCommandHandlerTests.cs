@@ -27,7 +27,7 @@ namespace Cloudents.Core.Test.CommandHandler
             var question = new Question(
                 new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default, CultureInfo.InvariantCulture);
 
-            question.Answers.Add(new Answer(question, "some text", 0, user, CultureInfo.InvariantCulture));
+            question.AddAnswer("some text", 0, user, CultureInfo.InvariantCulture);
 
             using (var mock = AutoMock.GetLoose())
             {

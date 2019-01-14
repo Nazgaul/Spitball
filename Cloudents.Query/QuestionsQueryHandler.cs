@@ -32,7 +32,7 @@ namespace Cloudents.Query
             return await _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .Where(w => w.Id.IsIn(ids))
-                .And(w => w.State == ItemState.Ok)
+                .And(w => w.Status.State == ItemState.Ok)
                 .SelectList(l => l
                     .Select(s => s.Id).WithAlias(() => dto.Id)
                     .Select(s => s.Subject).WithAlias(() => dto.Subject)
@@ -40,7 +40,7 @@ namespace Cloudents.Query
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
                     .SelectSubQuery(QueryOver.Of<Answer>()
-                        .Where(w => w.Question.Id == questionAlias.Id && w.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
+                        .Where(w => w.Question.Id == questionAlias.Id && w.Status.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
                     .Select(Projections.Property(() => userAlias.Score).As("User.Score"))

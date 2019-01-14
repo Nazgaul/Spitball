@@ -29,14 +29,14 @@ namespace Cloudents.Query
 
             return await answerQuery
                 .Where(w =>
-                    w.User.Id == query.Id && w.State == ItemState.Ok && w.Question.State == ItemState.Ok)
+                    w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
                 .OrderByDescending(o => o.Question.Id)
                 .Select(s => new QuestionFeedDto(s.Question.Id,
                     s.Question.Subject,
                     s.Question.Price,
                     s.Question.Text,
                     s.Question.Attachments,
-                    s.Question.Answers.Where(w => w.State == ItemState.Ok).Count(),
+                    s.Question.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
                     new UserDto
                     {
                         Id = s.Question.User.Id,

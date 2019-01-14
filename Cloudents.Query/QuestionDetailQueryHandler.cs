@@ -32,7 +32,7 @@ namespace Cloudents.Query
         {
             //TODO: this is left join query need to fix that
             var questionFuture = _session.Query<Question>()
-                .Where(w => w.Id == id && w.State == ItemState.Ok)
+                .Where(w => w.Id == id && w.Status.State == ItemState.Ok)
                 .Fetch(f => f.User)
                 .Select(s => new QuestionDetailDto(
                     new UserDto(s.User.Id, s.User.Name, s.User.Score),
@@ -46,7 +46,7 @@ namespace Cloudents.Query
                     s.Color, s.Subject, s.Language, s.VoteCount)
                 ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
-                .Where(w => w.Question.Id == id && w.State == ItemState.Ok)
+                .Where(w => w.Question.Id == id && w.Status.State == ItemState.Ok)
                 .Fetch(f => f.User)
                 
                 //.ThenByDescending(x => x.Item.VoteCount)
@@ -64,7 +64,7 @@ namespace Cloudents.Query
                     },
                     s.Created,
                     
-                    new VoteDto()
+                    new VoteDto
                     {
                         Votes = s.VoteCount
                     },

@@ -5,7 +5,6 @@ using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -31,7 +30,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
             var answer = await _answerRepository.LoadAsync(message.AnswerId, token); //false will raise an exception
-            if (answer.Question.State != ItemState.Ok)
+            if (answer.Question.Status.State != ItemState.Ok)
             {
                 throw new InvalidOperationException("only owner can perform this task");
             }

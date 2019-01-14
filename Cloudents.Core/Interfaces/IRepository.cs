@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using JetBrains.Annotations;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,11 +33,6 @@ namespace Cloudents.Core.Interfaces
     public interface IRegularUserRepository : IRepository<RegularUser>
     {
         Task<decimal> UserCashableBalanceAsync(long userId, CancellationToken token);
-
-
-        //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
-        //Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
-        // Task UpdateUsersBalance(CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>
@@ -46,12 +40,7 @@ namespace Cloudents.Core.Interfaces
         Task<Course> GetOrAddAsync(string name, CancellationToken token);
     }
 
-    public interface IVoteRepository : IRepository<Vote>
-    {
-        Task<Vote> GetVoteQuestionAsync(long userId, long questionId, CancellationToken token);
-        Task<Vote> GetVoteDocumentAsync(long userId, long documentId, CancellationToken token);
-        Task<Vote> GetVoteAnswerAsync(long userId, Guid answerId, CancellationToken token);
-    }
+   
 
     public interface ITagRepository : IRepository<Tag>
     {

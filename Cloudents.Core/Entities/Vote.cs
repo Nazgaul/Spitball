@@ -7,6 +7,7 @@ namespace Cloudents.Core.Entities
 
     public class Vote : Entity<Guid>
     {
+        public const int VoteCountToFlag = -2;
         public Vote(RegularUser user, Document document, VoteType voteType) : this()
         {
             User = user;
@@ -18,7 +19,6 @@ namespace Cloudents.Core.Entities
         {
             User = user;
             Answer = answer;
-            Question = answer.Question;
             VoteType = voteType;
         }
 
@@ -35,12 +35,12 @@ namespace Cloudents.Core.Entities
         }
 
         //public virtual Guid Id { get; set; }
-        public virtual RegularUser User { get; set; }
-        public virtual Document Document { get; set; }
-        public virtual Answer Answer { get; set; }
-        public virtual Question Question { get; set; }
-        public virtual DomainTimeStamp TimeStamp { get; set; }
-        public virtual VoteType VoteType { get; set; }
+        public virtual RegularUser User { get;protected set; }
+        public virtual Document Document { get; protected set; }
+        public virtual Answer Answer { get; protected set; }
+        public virtual Question Question { get; protected set; }
+        public virtual DomainTimeStamp TimeStamp { get; protected set; }
+        public virtual VoteType VoteType { get;  set; }
     }
 
     public enum VoteType : int
