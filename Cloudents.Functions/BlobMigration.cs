@@ -55,6 +55,10 @@ namespace Cloudents.Functions
             var tasks = new List<Task>();
             foreach (var blob in directory.ListBlobs())
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
                 var myBlob = (CloudBlockBlob)blob;
                 if (Regex.IsMatch(myBlob.Name, "preview-\\d*.jpg", RegexOptions.IgnoreCase))
                 {
@@ -88,9 +92,9 @@ namespace Cloudents.Functions
 
         [FunctionName("BlobPreview-Queue")]
         public static async Task BlobPreviewQueueRun(
-            [QueueTrigger("generate-blob-preview"/*,Connection = "LocalStorage"*/)] string id,
+            [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,
-            [Blob("spitball-files/files/{QueueTrigger}"/*, Connection = "ProdStorage"*/)]CloudBlobDirectory directory,
+            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
             [Queue("generate-blob-preview-poison")] IAsyncCollector<string> collector,
             [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
             TraceWriter log, CancellationToken token)
@@ -102,7 +106,7 @@ namespace Cloudents.Functions
             {
                 return;
             }
-            var name = myBlob?.Name.Split('-').Last();
+            var name = myBlob.Name.Split('-').Last();
 
 
             const string contentType = "text/plain";

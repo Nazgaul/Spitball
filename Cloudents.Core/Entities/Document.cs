@@ -5,12 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using static Cloudents.Core.Entities.ItemStatus;
 using static Cloudents.Core.Entities.Vote;
+
+[assembly: InternalsVisibleTo("Cloudents.Persistance")]
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberante proxy")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
 
     public class Document : AggregateRoot, ISoftDelete
     {
@@ -35,7 +39,6 @@ namespace Cloudents.Core.Entities
             Status = GetInitState(user);
         }
 
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected Document()
         {
             TimeStamp = new DomainTimeStamp();
@@ -46,31 +49,31 @@ namespace Cloudents.Core.Entities
         public virtual string Name { get; set; }
 
 
-        public virtual University University { get; set; }
+        public virtual University University { get; protected set; }
 
-        public virtual Course Course { get; set; }
+        public virtual Course Course { get; protected set; }
 
-        public virtual DocumentType Type { get; set; }
+        public virtual DocumentType Type { get; protected set; }
 
-        public virtual ISet<Tag> Tags { get; set; }
+        public virtual ISet<Tag> Tags { get; protected set; }
 
-        public virtual DomainTimeStamp TimeStamp { get; set; }
+        public virtual DomainTimeStamp TimeStamp { get; protected set; }
 
-        public virtual User User { get; set; }
+        public virtual User User { get; protected set; }
 
 
-        public virtual string Professor { get; set; }
+        public virtual string Professor { get; protected set; }
 
-        public virtual int Views { get; set; }
+        public virtual int Views { get; protected set; }
         public virtual int Downloads { get; set; }
         public virtual int Purchased { get; set; }
         public virtual int? PageCount { get; set; }
-        public virtual long? OldId { get; set; }
+        //public virtual long? OldId { get; set; }
 
         public virtual string MetaContent { get; set; }
 
-        public virtual decimal Price { get; set; }
-        public virtual IList<Transaction> Transactions { get; set; }
+        public virtual decimal Price { get; protected set; }
+        protected internal virtual IList<Transaction> Transactions { get; set; }
         public virtual ItemStatus Status { get; protected set; }
 
 
@@ -109,11 +112,9 @@ namespace Cloudents.Core.Entities
 
         public virtual void MakePublic()
         {
-            if (Status == Pending)
-            {
-                Status = Public;
-                AddEvent(new DocumentCreatedEvent(this));
-            }
+            if (Status != Pending) return;
+            Status = Public;
+            AddEvent(new DocumentCreatedEvent(this));
         }
 
         public virtual void Delete()

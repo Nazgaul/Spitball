@@ -3,7 +3,7 @@
         <v-layout v-if="isMobileView" text-xs-center class="stats-container">
             <v-flex v-if="singleStat.id > 1" class="stats-single-item" v-for="(singleStat, index) in statsData"
                     :key="`3${index}`">
-                <v-card class="stat-card">
+                <v-card elevation="0" class="stat-card">
                     <v-card-text class="stat-text-title px-0">{{singleStat.title}}</v-card-text>
                     <v-card-text class="stat-text-data px-0">
                         <tween-number :item="singleStat" :startValue="500"></tween-number>
@@ -13,7 +13,7 @@
         </v-layout>
         <v-layout v-else text-xs-center class="stats-container">
             <v-flex class="stats-single-item" v-for="(singleStat, index) in statsData" :key="`3${index}`">
-                <v-card class="stat-card">
+                <v-card elevation="0" class="stat-card">
                     <v-card-text class="stat-text-title px-0">{{singleStat.title}}</v-card-text>
                     <v-card-text class="stat-text-data px-0">
                         <tween-number :item="singleStat" :startValue="500"></tween-number>

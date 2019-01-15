@@ -1,9 +1,9 @@
 <template>
     <footer class="footer">
-        <v-card class="footer-card">
+        <v-card elevation="0" class="footer-card">
             <white-logo></white-logo>
         </v-card>
-        <v-card class="footer-card social-card">
+        <v-card elevation="0" class="footer-card social-card">
             <a href="https://medium.com/@spitballstudy" class="social-link" target="_blank">
                 <v-icon>sbf-social-medium</v-icon>
             </a>
@@ -25,7 +25,7 @@
             </a>
 
         </v-card>
-        <v-card class="footer-card links-card">
+        <v-card elevation="0" class="footer-card links-card">
             <div class="footer-links" v-for="(singleLink, index) in footerLinks" :key="singleLink.id">
                 <a :href="singleLink.linkValue" class="footer-link">{{singleLink.linkText}}</a>
             </div>
