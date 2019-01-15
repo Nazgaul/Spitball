@@ -34,6 +34,7 @@ export default {
             progressDone: false,
             steps: 8,
             currentStep: 1,
+            //TODO V13 currentStep: this.$store.state.uploadFiles.uploadStep || 1,
             step: 1,
             stepsProgress: 100 / 7,
             gotoAsk: false,
@@ -59,7 +60,8 @@ export default {
             getFileData: 'getFileData',
             getUploadProgress: 'getUploadProgress',
             getDialogState: 'getDialogState',
-            getCustomFileName: "getCustomFileName"
+            getCustomFileName: "getCustomFileName",
+            uploadStep: 'uploadStep'
         }),
         showUploadDialog() {
             return this.getDialogState
@@ -76,32 +78,38 @@ export default {
         },
         // button disabled for each step and enabled once everything filled
         isDisabled() {
+            // TODO V13 !this.isUploadActiveProcess add in check if disabled for all
             if (this.currentStep === 2 && !this.getFileData.course) {
                 return true
             }
-            else if (this.currentStep === 3 && Object.keys(this.getFileData.type).length === 0) {
+            else if (this.currentStep === 3 && Object.keys(this.getFileData.type || '').length === 0) {
                 return true
             } else if (this.currentStep === 4 && (!this.getFileData.name || this.getCustomFileName.length === 0)) {
-                console.log('title',this.getFileData.name)
                 return true
             }
-            else if (this.currentStep === 5) {
+            else if (this.currentStep === 5 ) {
                 return false
             }
             // else if (this.currentStep === 6 && !this.getFileData.price) {
             //     return true
             // }
-            else if (this.currentStep === 6 ) {
+            else if (this.currentStep === 6) {
                 return false
             }
-            else if (this.currentStep === 7) {
-                return false
+            //disable if loading not done yet
+            else if (this.currentStep === 7 && !this.progressDone) {
+                return true
             } else {
                 return false
             }
         }
     },
-
+    watch: {
+        //TODO V13 update step in store to take user back to upload ifexited to change class
+        currentStep(newValue, oldValue) {
+            this.updateStepInStore(newValue);
+        }
+    },
     methods: {
         ...mapActions([
             'updateFile',
@@ -110,7 +118,9 @@ export default {
             'updateUploadFullMobile',
             'updateDialogState',
             'resetUploadData',
-            'setReturnToUpload'
+            'setReturnToUpload',
+            'updateStep',
+            'isUploadActiveProcess'
         ]),
 
         stopProgress(val) {
@@ -177,6 +187,10 @@ export default {
             }
 
         },
+        //update step in store to take back if needed to step left from
+        updateStepInStore(){
+            this.updateStep(this.currentStep)
+        },
         //resets mobile first step to mobile design
         resetFirstStepMobile() {
             if (this.$vuetify.breakpoint.smAndDown) {
@@ -192,4 +206,11 @@ export default {
             this.currentStep = step;
         }
     },
+    created(){
+        //TODO V13 stop progress animation if came from classes set
+        // if(!!this.isUploadActiveProcess){
+        //     this.progressDone = true;
+        // }
+        console.log(this.currentStep)
+    }
 }
