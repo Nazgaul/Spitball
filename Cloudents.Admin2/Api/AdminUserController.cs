@@ -146,6 +146,13 @@ namespace Cloudents.Admin2.Api
             var command = new DeleteUserCommand(id);
             await _commandBus.DispatchAsync(command, token);
         }
-            
+        
+        [HttpGet("Info")]
+        public async Task<UserInfoDto> GetUserInfo(long userIdentifier, CancellationToken token)
+        {
+            var query = new AdminUserInfoQuery(userIdentifier);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
     }
 }

@@ -7,6 +7,17 @@
 .wrap-it {
   flex-wrap: wrap;
 }
+.small-font{
+  font-size: 12px;
+}
+//vuetify ovewrite
+.v-chip:focus:not(.v-chip--disabled):after, .v-chip--active:after, .v-chip--selected:after{
+  opacity: 0;
+}
+.v-chip:focus:not(.v-chip--disabled), .v-chip--active, .v-chip--selected{
+  box-shadow: none;
+}
+// end vuetify ovewrite
 
 .school-block {
   background: @purpleColor;
@@ -51,7 +62,7 @@
   }
 }
 
-.content-wrap {
+.school-content-wrap{
   width: 100%;
   max-width: 1304px;
   padding-right: 24px;
@@ -63,8 +74,6 @@
   height: 100%;
   flex-direction: column;
   justify-content: space-between;
-
-
   @media (max-width: @screen-xs) {
     align-items: center;
     padding: 8px 12px 8px 12px;
@@ -72,11 +81,14 @@
 }
 
 .university-holder {
+  display: flex;
   @media (max-width: @screen-xs) {
     width: 100%;
+    justify-content: center;
   }
   .uni-holder {
-    display: flex;
+    display: inline-flex;
+    flex-grow: 0;
     align-items: baseline;
     cursor: pointer;
     @media (max-width: @screen-xs) {
@@ -124,18 +136,24 @@
   .sbf-class-chip {
 
     &.v-chip {
-      cursor: pointer;
       margin-left: 0;
       margin-right: 8px;
+      margin-bottom: 0;
+      margin-top: 0;
       font-size: 13px;
       color: fade(@color-white, 90%);
       border-color: @chipBorderColor;
       background-color: @purpleColor;
       text-transform: capitalize;
       border-radius: 16px;
-      margin-bottom: 0;
-      margin-top: 0;
-
+      .v-chip__content {
+        cursor: pointer;
+      }
+      &.cursor-default{
+        .v-chip__content {
+          cursor: unset;
+        }
+      }
       @media (max-width: @screen-xs) {
         max-width: 94px;
         //mobile filter open
@@ -157,7 +175,7 @@
         text-overflow: ellipsis;
         display: block;
         line-height: 32px;
-        cursor: pointer;
+
 
       }
     }
@@ -166,7 +184,7 @@
       color: @purpleColor;
       border: 1px solid @color-white;
       box-shadow: none;
-      &:after {
+       &:after {
         background-color: @color-white;
       }
     }
@@ -203,7 +221,7 @@
   z-index: 99;
   width: 100%;
   max-width: 690px;
-  background: @color-white;
+  background: #565DBB;
   border-radius: 4px;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.28);
   .classes-list-wrap {

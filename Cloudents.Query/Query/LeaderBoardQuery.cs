@@ -1,6 +1,8 @@
-﻿namespace Cloudents.Query.Query
+﻿using Cloudents.Core.DTOs;
+
+namespace Cloudents.Query.Query
 {
-    public class LeaderBoardQuery : IQuery<LeaderBoardQueryResult>
+    public class LeaderBoardQuery : IQuery<LeaderBoardResultDto>
     {
     }
 }

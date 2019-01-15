@@ -10,7 +10,7 @@ namespace Cloudents.Query.Stuff
         {
          
 
-            CreateMap<(long, IEnumerable<LeaderBoardDto>), LeaderBoardQueryResult>()
+            CreateMap<(long, IEnumerable<LeaderBoardDto>), LeaderBoardResultDto>()
                 
                 .ForMember(m => m.LeaderBoard, x => x.MapFrom(z => z.Item2))
                 .ForMember(m => m.SBL, x => x.MapFrom(z => z.Item1)).ReverseMap();

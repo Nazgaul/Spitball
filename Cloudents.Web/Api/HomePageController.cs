@@ -24,7 +24,7 @@ namespace Cloudents.Web.Api
 
         [HttpGet("LeaderBoard")]
         [ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Any)]
-        public async Task<ActionResult<LeaderBoardQueryResult>> GetLeaderBoard
+        public async Task<ActionResult<LeaderBoardResultDto>> GetLeaderBoard
             ([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var query = new LeaderBoardQuery();

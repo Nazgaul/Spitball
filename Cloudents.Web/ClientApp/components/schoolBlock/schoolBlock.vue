@@ -3,8 +3,8 @@
         <div style="" :class="['school-block', isClassesSet ? 'pb-0' : '', minMode ? '' : 'expand' ]">
             <v-layout row>
                 <v-flex xs12>
-                    <div class="content-wrap">
-                        <div class="university-holder d-flex" row>
+                    <div class="school-content-wrap">
+                        <div class="university-holder" row>
                             <div class="uni-holder" v-show="schoolName && !mobileFilterState"
                                  @click="openPersonalizeUniversity()">
                                 <v-icon class="university-icon">sbf-university-columns</v-icon>
@@ -23,27 +23,34 @@
                             <div v-show="!showAllClassesBlock"
                                  :class="[$vuetify.breakpoint.xsOnly ? 'd-flex  wrap-it align-start' : '']">
                                 <transition-group name="list">
-                                    <v-chip name="sbf-class-chip list-item" key="chip_one"
+                                    <v-chip name="sbf-class-chip list-item" :key="index"
                                             v-for="(singleClass, index) in classesList"
                                             v-if="isClassesSet"
                                             class="sbf-class-chip"
                                             :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : '',
+                                            isDisabled ? 'cursor-default' : '',
                                             mobileFilterState ?  'full-width-chip' : '']"
                                             @click="isDisabled ? '' : updateClass(singleClass)"
                                             :disabled="isDisabled"
                                             :selected="singleClass.isSelected"
                                             v-show="minMode ? index < classesToShow : true"
-                                            :key="index">{{singleClass.text}}
+                                            >{{singleClass.text}}
                                     </v-chip>
                                 </transition-group>
                                 <transition-group name="dissapear-total-chip">
                                 <!--<transition name="dissapear-total-chip">-->
-                                    <span name=" sbf-class-chip" key="dfgdfg"
+                                    <span name=" sbf-class-chip" key="chip-total" v-show="isLoggedIn"
                                             class="sbf-class-chip total classes-total-chip"
-                                            v-show="minMode ? classesList.length > classesToShow : false"
-                                            @click.prevent.stop="openAllClasses()">
-                                        <span>
+                                         >
+                                        <span
+                                              @click.prevent.stop="openAllClasses()"
+                                              v-show="minMode ? classesList.length > classesToShow : false">
                                            {{classesPlus}}
+                                        </span>
+                                        <span class="d-flex"
+                                              @click.prevent.stop="openPersonalizeCourse()"
+                                              v-if="minMode ? classesList.length <= classesToShow && isClassesSet : false">
+                                            <v-icon class="small-font" color="white" >sbf-edit-icon</v-icon>
                                         </span>
                                     </span>
                                 <!--</transition>-->
@@ -149,7 +156,7 @@
         },
         methods: {
             ...mapActions(["updateLoginDialogState", "updateCurrentStep", "changeSelectUniState"]),
-            ...mapMutations(['UPDATE_SEARCH_LOADING']),
+            ...mapMutations(['UPDATE_SEARCH_LOADING', 'UPDATE_LOADING']),
             updateClass(val) {
                 if (!!this.selectedChips[val.text]) {
                     //remove from selected chips dictionary
@@ -167,6 +174,7 @@
             },
             updateFilter() {
                 this.UPDATE_SEARCH_LOADING(true);
+                this.UPDATE_LOADING(true);
                 let newQueryArr = Object.keys(this.selectedChips);
                 let newQueryObject = {
                     Course: newQueryArr

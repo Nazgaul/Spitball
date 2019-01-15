@@ -55,11 +55,16 @@
     export default {
         name: "uploadStep_2",
         components: {sbInput},
+
+
+
         data() {
             return {
                 docClass: '',
                 classNamePlaceholder: LanguageService.getValueByKey("upload_class_input_placeholder"),
                 selectedClass: '',
+                // TODO V13 for classes change from upload and get back
+                // selectedClass:  this.$store.state.University.selectedClasses.slice(-1)[0] || '',
 
             }
 

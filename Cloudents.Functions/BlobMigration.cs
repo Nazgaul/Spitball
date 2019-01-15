@@ -55,6 +55,10 @@ namespace Cloudents.Functions
             var tasks = new List<Task>();
             foreach (var blob in directory.ListBlobs())
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
                 var myBlob = (CloudBlockBlob)blob;
                 if (Regex.IsMatch(myBlob.Name, "preview-\\d*.jpg", RegexOptions.IgnoreCase))
                 {
@@ -102,7 +106,7 @@ namespace Cloudents.Functions
             {
                 return;
             }
-            var name = myBlob?.Name.Split('-').Last();
+            var name = myBlob.Name.Split('-').Last();
 
 
             const string contentType = "text/plain";

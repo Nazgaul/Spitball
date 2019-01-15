@@ -15,6 +15,9 @@ const getters = {
             return false
         }
     },
+    getIsFeedTabActive: state => {
+        return state.stater === state.statesEnum['feed']
+    },
     getFooterEnumsState: state => state.statesEnum,
     showMarketingBox: (state) => {
         return state.stater === state.statesEnum['promotions']
