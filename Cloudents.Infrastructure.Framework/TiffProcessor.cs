@@ -1,149 +1,78 @@
-﻿//using System.Threading;
-//using Aspose.Imaging;
-//using Aspose.Imaging.FileFormats.Jpeg;
-//using Aspose.Imaging.FileFormats.Tiff;
-//using Aspose.Imaging.ImageOptions;
-//using Aspose.Imaging.Sources;
-//using System;
-//using System.Collections.Generic;
-//using System.IO;
-//using System.Threading.Tasks;
-//using Cloudents.Core;
-//using Image = Aspose.Imaging.Image;
+﻿using Aspose.Imaging;
+using Aspose.Imaging.FileFormats.Jpeg;
+using Aspose.Imaging.FileFormats.Tiff;
+using Aspose.Imaging.ImageOptions;
+using Aspose.Imaging.Sources;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
-//namespace Cloudents.Infrastructure.Framework
-//{
-//    public class TiffProcessor : Processor, IPreviewProvider
-//    {
-//        public TiffProcessor(
-//                string blobUri,
-//                IBlobProvider<OldSbFilesContainerName> blobProvider,
-//                IBlobProvider<OldCacheContainer> blobProviderCache)
-//            //: base(blobProvider, blobProviderPreview, blobProviderCache)
-//            : base(blobProvider, blobProviderCache, blobUri)
-//        {
-//            SetLicense();
-//        }
+namespace Cloudents.Infrastructure.Framework
+{
+    public class TiffProcessor : IPreviewProvider2
+    {
+        public TiffProcessor()
 
-//        private static void SetLicense()
-//        {
-//            var license = new License();
-//            license.SetLicense("Aspose.Total.lic");
-//        }
+        {
+            using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
+            {
+                var license = new License();
+                license.SetLicense(sr);
+            }
+        }
 
-//        public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum, CancellationToken cancelToken = default(CancellationToken))
-//        {
-//           // var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
-//            Stream blobStr = null;
-//            var tiff = new AsyncLazy<TiffImage>(async () =>
-//           {
-//               //SetLicense();
-//               blobStr = await BlobProvider.DownloadFileAsync(BlobUri, cancelToken).ConfigureAwait(false);
+        private TiffImage _image;
+        public void Init(Stream stream)
+        {
+            _image = (TiffImage)Image.Load(stream);
+        }
 
-//               return (TiffImage)Image.Load(blobStr);
-//           });
-//            var blobsNamesInCache = new List<string>();
-//            var parallelTask = new List<Task>();
-//            var jpgCreateOptions = new JpegOptions();
+        public (string text, int pagesCount) ExtractMetaContent()
+        {
+            return (null, _image.Frames.Length);
+        }
 
-//            for (var pageIndex = indexNum; pageIndex < indexNum + 15; pageIndex++)
-//            {
-//                var cacheBlobName = CreateCacheFileName(BlobUri, pageIndex);
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback, CancellationToken token)
+        {
+            var jpgCreateOptions = new JpegOptions();
 
-//                if (await BlobProviderCache.ExistsAsync(cacheBlobName, cancelToken).ConfigureAwait(false))
-//                {
-//                    blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 30));
-//                    continue;
-//                }
-//                try
-//                {
-//                    var activeTiff = await tiff.Instance.Value.ConfigureAwait(false);
-//                    activeTiff.ActiveFrame = activeTiff.Frames[pageIndex];// tiffFrame;
-//                    //Load Pixels of TiffFrame into an array of Colors
-//                    var pixels = activeTiff.LoadPixels(activeTiff.Bounds);
+            var diff = Enumerable.Range(0, _image.Frames.Length);
+            diff = diff.Except(previewDelta);
 
-//                    //Set the Source of bmpCreateOptions as FileCreateSource by specifying the location where output will be saved
-//                    using (var ms = new MemoryStream())
-//                    {
-//                        jpgCreateOptions.Source = new StreamSource(ms);
-//                        using (var jpgImage =
-//                  (JpegImage)Image.Create(jpgCreateOptions, activeTiff.Width, activeTiff.Height))
-//                        {
-//                            //Save the bmpImage with pixels from TiffFrame
-//                            jpgImage.SavePixels(activeTiff.Bounds, pixels);
-//                            jpgImage.Save();
-//                        }
-//                        var gzipSr = await Compress.CompressToGzipAsync(ms, cancelToken).ConfigureAwait(false);
-//                        parallelTask.Add(BlobProviderCache.UploadStreamAsync(cacheBlobName, gzipSr, "image/jpg", true, 30, cancelToken));
-//                        blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 30));
-//                    }
-//                }
-//                catch (IndexOutOfRangeException)
-//                {
-//                    break;
-//                }
-//            }
-//            await Task.WhenAll(parallelTask).ConfigureAwait(false);
-//            if (tiff.Instance.IsValueCreated)
-//            {
-//                tiff.Instance.Value.Dispose();
-//                blobStr.Dispose();
-//            }
-//            return blobsNamesInCache;
-//        }
+            var t = new List<Task>();
+            foreach (var item in diff)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+                _image.ActiveFrame = _image.Frames[item];// tiffFrame;
+                var pixels = _image.LoadPixels(_image.Bounds);
+                //bmpCreateOptions as FileCreateSource saved
+                var ms = new MemoryStream();
+                jpgCreateOptions.Source = new StreamSource(ms);
+                using (var jpgImage =
+                    (JpegImage)Image.Create(jpgCreateOptions, _image.Width, _image.Height))
+                {
+                    //TiffFrame
+                    jpgImage.SavePixels(_image.Bounds, pixels);
+                    jpgImage.Save();
+                }
 
-//        protected static string CreateCacheFileName(string blobName, int index)
-//        {
-//            return $"{Path.GetFileNameWithoutExtension(blobName)}V4_{index}_{Path.GetExtension(blobName)}.jpg";
-//        }
+                var task = pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token);
+                t.Add(task);
+            }
+            await Task.WhenAll(t);
+        }
+      
+        public static readonly string[] Extensions = { ".tiff", ".tif" };
 
-//        public static readonly string[] TiffExtensions = { ".tiff", ".tif" };
 
-//        //public override bool CanProcessFile(Uri blobName)
-//        //{
-//        //    if (blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl))
-//        //    {
-//        //        return TiffExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-//        //    }
-//        //    return false;
-//        //}
+        
 
-//        //public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
-//        //{
-//        //    try
-//        //    {
-//        //        var blobName = GetBlobNameFromUri(blobUri);
-//        //        if (await m_BlobProviderPreview.ExistsAsync(blobName + ".jpg", cancelToken).ConfigureAwait(false))
-//        //        {
-//        //            return null;
-//        //        }
-
-//        //        using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false))
-//        //        {
-//        //            using (var ms = new MemoryStream())
-//        //            {
-//        //                var settings2 = new ResizeSettings
-//        //                {
-//        //                    Format = "jpg"
-//        //                };
-//        //                ImageBuilder.Current.Build(stream, ms, settings2, false);
-
-//        //                await m_BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken).ConfigureAwait(false);
-//        //            }
-//        //        }
-
-//        //        return null;
-//        //    }
-//        //    catch (Exception ex)
-//        //    {
-//        //        m_Logger.Exception(ex);
-//        //    }
-//        //    return null;
-//        //}
-
-//        //public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
-//        //{
-//        //    return Task.FromResult<string>(null);
-//        //}
-//    }
-//}
+    }
+}

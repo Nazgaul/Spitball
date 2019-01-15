@@ -1,9 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Autofac;
+﻿using Autofac;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Autofac module")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Autofac module")]
     public class ModuleFile : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Framework
             builder.RegisterType<ExcelProcessor>().As<IPreviewProvider2>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, ExcelProcessor.Extensions));
             builder.RegisterType<PowerPoint2007Processor>().As<IPreviewProvider2>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, PowerPoint2007Processor.Extensions));
             //builder.RegisterType<TextProcessor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, TextProcessor.TxtExtensions));
-            //builder.RegisterType<TiffProcessor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, TiffProcessor.TiffExtensions));
+            builder.RegisterType<TiffProcessor>().As<IPreviewProvider2>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, TiffProcessor.Extensions));
             base.Load(builder);
         }
     }
