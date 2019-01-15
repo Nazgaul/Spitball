@@ -35,7 +35,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.OldId).Nullable();
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); ;
-
+            //Map(x => x.Status).Not.Nullable();
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
                 //.Cascade.()
@@ -47,6 +47,7 @@ namespace Cloudents.Persistance.Maps
                 .KeyColumns.Add("DocumentId")
                 .Inverse().Cascade.AllDeleteOrphan();
             Map(m => m.VoteCount).Not.Nullable();
+            Component(x => x.Status);
             //        Component(x => x.State);
             SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");
