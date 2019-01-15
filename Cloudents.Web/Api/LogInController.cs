@@ -67,11 +67,9 @@ namespace Cloudents.Web.Api
                     ModelState.AddModelError(nameof(model.Password), _localizer["LockOut"]);
                     return BadRequest(ModelState);
                 }
-                else
-                {
-                    ModelState.AddModelError(nameof(model.Password), _localizer["TempLockOut"]);
-                    return BadRequest(ModelState);
-                }
+
+                ModelState.AddModelError(nameof(model.Password), _localizer["TempLockOut"]);
+                return BadRequest(ModelState);
             }
 
 
