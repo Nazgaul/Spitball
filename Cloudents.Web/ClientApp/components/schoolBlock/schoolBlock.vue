@@ -23,17 +23,18 @@
                             <div v-show="!showAllClassesBlock"
                                  :class="[$vuetify.breakpoint.xsOnly ? 'd-flex  wrap-it align-start' : '']">
                                 <transition-group name="list">
-                                    <v-chip name="sbf-class-chip list-item" key="chip_one"
+                                    <v-chip name="sbf-class-chip list-item" :key="index"
                                             v-for="(singleClass, index) in classesList"
                                             v-if="isClassesSet"
                                             class="sbf-class-chip"
                                             :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : '',
+                                            isDisabled ? 'cursor-default' : '',
                                             mobileFilterState ?  'full-width-chip' : '']"
                                             @click="isDisabled ? '' : updateClass(singleClass)"
                                             :disabled="isDisabled"
                                             :selected="singleClass.isSelected"
                                             v-show="minMode ? index < classesToShow : true"
-                                            :key="index">{{singleClass.text}}
+                                            >{{singleClass.text}}
                                     </v-chip>
                                 </transition-group>
                                 <transition-group name="dissapear-total-chip">
