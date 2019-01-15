@@ -90,10 +90,20 @@
             height: 60px;
             display: flex;
             justify-content: space-around;
+            padding-top: 10px;
             .v-text-field{
                 .v-input__control{
                     .v-input__slot{
                         min-height: unset;
+                        border: 1px solid rgba(0,0,0,0.3);
+                        &:hover &:focus{
+                            border: 1px solid rgba(0,0,0,0.3);
+                        }
+                        .v-select__slot{
+                            label{
+                                top:unset;
+                            }
+                        }
                     }
                 }
             }
