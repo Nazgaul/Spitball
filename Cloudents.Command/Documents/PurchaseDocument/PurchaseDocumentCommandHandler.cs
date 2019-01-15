@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.Documents.PurchaseDocument
 {
@@ -29,12 +29,12 @@ namespace Cloudents.Command.Documents.PurchaseDocument
                 throw new ArgumentException();
             }
 
-            var balance = await _transactionRepository.GetBalanceAsync(message.UserId,token);
+            var balance = await _transactionRepository.GetBalanceAsync(message.UserId, token);
             if (balance < document.Price)
             {
                 throw new InsufficientFundException();
             }
-          
+
 
             var purchaseUser = await _userRepository.LoadAsync(message.UserId, token);
             var t = new Transaction(TransactionActionType.PurchaseDocument, TransactionType.Spent,
@@ -46,7 +46,7 @@ namespace Cloudents.Command.Documents.PurchaseDocument
             if (document.User.Actual is RegularUser p)
             {
                 var t2 = new Transaction(TransactionActionType.SoldDocument, TransactionType.Earned,
-                    document.Price,p)
+                    document.Price, p)
                 {
                     Document = document
                 };

@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class RegularUser : User
     {
-        public RegularUser(string email, string name, string privateKey, CultureInfo culture)
+        public RegularUser(string email, string name, string privateKey, CultureInfo culture) :this()
         {
             Email = email;
             Name = name;
@@ -27,6 +27,7 @@ namespace Cloudents.Core.Entities
         protected RegularUser()
         {
             UserLogins = new List<UserLogin>();
+            Transactions = new List<Transaction>();
 
         }
 
@@ -55,6 +56,12 @@ namespace Cloudents.Core.Entities
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
 
+        public virtual decimal Balance { get; set; }
+
+        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
+        public virtual IList<Transaction> Transactions { get; protected set; }
+
+
         public virtual void SuspendUser(DateTimeOffset lockTime)
         {
             LockoutEnd = lockTime;
@@ -79,6 +86,7 @@ namespace Cloudents.Core.Entities
         {
             price = -Math.Abs(price);
             var t = new Transaction(TransactionActionType.CashOut, TransactionType.Earned, price, this);
+            Transactions.Add(t);
             AddEvent(new RedeemEvent(Id, price));
         }
 

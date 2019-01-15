@@ -33,11 +33,7 @@ namespace Cloudents.Persistance.Maps
             Map(e => e.Score);
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
 
-            Map(x => x.Balance).CustomSqlType("smallmoney");
-
-            HasMany(x => x.Transactions)
-                .Inverse()
-                .Cascade.AllDeleteOrphan();
+         
 
            
 
@@ -92,6 +88,12 @@ namespace Cloudents.Persistance.Maps
             HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore).Inverse()
                 .Cascade.AllDeleteOrphan();
             HasMany(x => x.UserLogins)
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
+            Map(x => x.Balance).CustomSqlType("smallmoney");
+
+            HasMany(x => x.Transactions)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
         }

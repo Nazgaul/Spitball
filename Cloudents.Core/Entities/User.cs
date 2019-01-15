@@ -17,7 +17,7 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
         {
-            Transactions = new List<Transaction>();
+            
            
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
@@ -60,10 +60,7 @@ namespace Cloudents.Core.Entities
         //}
 
 
-        public virtual decimal Balance { get; set; }
-
-        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
-        public virtual IList<Transaction> Transactions { get; protected set; }
+      
 
         private readonly IList<Question> _questions = new List<Question>();
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();
