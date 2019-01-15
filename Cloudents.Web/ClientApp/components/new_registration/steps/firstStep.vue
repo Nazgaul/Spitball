@@ -95,7 +95,8 @@
     import { mapActions,  mapMutations } from 'vuex'
     import registrationService from "../../../services/registrationService";
     var auth2;
-    const defaultSubmitRoute = {path: '/ask'};
+    const isIl = global.country.toLowerCase() === 'il';
+    const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
 
     export default {
         components: {stepTemplate, SbInput},

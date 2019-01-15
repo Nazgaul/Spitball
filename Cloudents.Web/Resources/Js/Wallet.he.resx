@@ -169,11 +169,9 @@
     <value>שווי ב-$</value>
   </data>
   <data name="You_have" xml:space="preserve">
-    <value>יש לך  SBL</value>
+    <value>יש לך </value>
   </data>
   <data name="you_have_redeemable_sbl" xml:space="preserve">
-    <value>&lt;bdi&gt;
-יש לך  {1} SBL למימוש
-&lt;/bdi&gt;</value>
+    <value>למימוש</value>
   </data>
 </root>

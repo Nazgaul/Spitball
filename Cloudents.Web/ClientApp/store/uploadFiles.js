@@ -7,7 +7,9 @@ const state = {
     showDialog: false,
     customFileName : '',
     uploadFullMobile: true,
-    returnToUpload: false
+    returnToUpload: false,
+    uploadStep: 1,
+    uploadState: false
 };
 const mutations = {
     setUploadProgress(state,val){
@@ -32,6 +34,12 @@ const mutations = {
     },
     updateReturnToUpload(state, val){
         state.returnToUpload = val
+    },
+    setUploadStep(state, val){
+        state.uploadStep = val;
+    },
+    updateUploadProcessState(state, val){
+        state.uploadState = val
     }
 };
 const getters = {
@@ -40,19 +48,25 @@ const getters = {
     getDialogState: (state) => state.showDialog,
     getCustomFileName: (state) => state.customFileName,
     getUploadFullMobile: (state) => state.uploadFullMobile,
-    getReturnToUpload: (state) => state.returnToUpload
+    getReturnToUpload: (state) => state.returnToUpload,
+    isUploadActiveProcess: (state) => state.uploadState
 };
 const actions = {
     resetUploadData({commit}, val){
       commit('clearUploadData', val);
     },
-
+    changeUploadState({commit}, val){
+        commit("updateUploadProcessState", val)
+    },
     updateFileName({commit}, data){
         commit('setFileName',  data);
     },
     updateFile({commit}, data){
         commit('setFile',  data);
 
+    },
+    updateStep({commit}, val){
+        commit('setUploadStep',val)
     },
     updateUploadProgress({commit}, val){
         commit('setUploadProgress',val)

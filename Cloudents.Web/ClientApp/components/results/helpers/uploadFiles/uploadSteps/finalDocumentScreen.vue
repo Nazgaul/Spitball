@@ -75,7 +75,7 @@
                     <span class="keywords-length mr-3">{{getFileData.tags.length}}</span>
                 </div>
                 <div class="sb-combo final-tags">
-                    <v-chip class="sb-chip-tag" v-for="tag in getFileData.tags" :key="tag">
+                    <v-chip class="sb-chip-tag" v-for="tag in getFileData.tags" :key="tag" v-if="getFileData.tags">
                                                    <span class="chip-button px-1">
                                                        {{tag}}
                                                    </span>
