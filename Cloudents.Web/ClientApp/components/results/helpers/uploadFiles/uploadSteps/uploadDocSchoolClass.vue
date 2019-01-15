@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mb-5 sb-step-card">
+    <v-card elevation="0" class="mb-5 sb-step-card">
         <div class="upload-row-1">
             <h3 class="upload-cloud-text sb-title"><span v-language:inner>upload_first_step2_title_partOne</span><br/>
                 <span v-language:inner>upload_first_step2_title_partTwo</span>

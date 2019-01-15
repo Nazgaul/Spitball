@@ -1,5 +1,5 @@
 <template>
-    <v-card :class="['sb-step-card', $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
+    <v-card elevation="0" :class="['sb-step-card', $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
         <div class="error-block" v-show="extensionErrror || uploadError">
             <div class="error-container">
             <h3 class="error-title" v-show="extensionErrror" v-language:inner>upload_error_extension_title</h3>

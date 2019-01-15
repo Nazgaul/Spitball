@@ -3,15 +3,17 @@
 .marketing-box-component {
   //position: relative;
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   justify-content: center;
   height: 100%;
+  //height: ~"calc(100vh - 48px)";
   width: 100%;
   max-width: 314px;
   margin: 0 auto;
-  
+
   @media (max-width: @screen-xs) {
     max-width: unset;
+    height: ~"calc(100vh - 48px)";
   }
 }
 
@@ -31,7 +33,8 @@
 }
 
 .main-marketing-content {
-  height: 100%;
+  //height: 100%;
+  height:  ~"calc(100% - 56px)";
   padding: 0;
   display: flex;
   flex-direction: row;
@@ -39,11 +42,13 @@
   justify-content: center;
   box-shadow: none;
   .marketing-box-image {
+    height: 100%;
+    //height:  ~"calc(100% - 56px)";
     border-radius: 4px;
     cursor: pointer;
   }
-  @media (max-width: @screen-sm) {
-    padding: 8px;
+  @media (max-width: @screen-xs) {
+    //padding: 8px;
     align-items: flex-end;
     box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.22);
   }

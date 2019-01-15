@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mb-3 sb-step-card">
+    <v-card elevation="0" class="mb-3 sb-step-card">
         <div class="upload-row-1 referal-row-1">
             <!--<v-icon class="five">sbf-spread-loud</v-icon>-->
             <i class="five">
