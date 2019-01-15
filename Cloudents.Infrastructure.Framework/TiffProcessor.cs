@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class TiffProcessor : IPreviewProvider2
+    public class TiffProcessor : IPreviewProvider2,IDisposable
     {
         public TiffProcessor()
 
@@ -72,7 +72,9 @@ namespace Cloudents.Infrastructure.Framework
         public static readonly string[] Extensions = { ".tiff", ".tif" };
 
 
-        
-
+        public void Dispose()
+        {
+            _image?.Dispose();
+        }
     }
 }
