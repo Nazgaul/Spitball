@@ -18,7 +18,7 @@ namespace Cloudents.Core
             var initBalance = 100;
             if (Tier1Users.Contains(country))
             {
-                initBalance = 150;
+                initBalance = 750;
             }
 
             return initBalance;

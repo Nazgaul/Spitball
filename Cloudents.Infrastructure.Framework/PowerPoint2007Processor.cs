@@ -90,6 +90,10 @@ namespace Cloudents.Infrastructure.Framework
 
             foreach (var item in diff)
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
                 using (var img = _pptx.Slides[0].GetThumbnail(1, 1))
                 {
                     var ms = new MemoryStream();

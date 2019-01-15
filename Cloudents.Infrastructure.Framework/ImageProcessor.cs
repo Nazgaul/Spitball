@@ -44,7 +44,7 @@ namespace Cloudents.Infrastructure.Framework
                     Quality = 90,
                 };
                 ImageBuilder.Current.Build(_sr, ms, settings2, false);
-                await pagePreviewCallback(ms, $"0.jpg");
+                await pagePreviewCallback(ms, "0.jpg");
             }
         }
 
