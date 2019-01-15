@@ -57,7 +57,11 @@ namespace Cloudents.Core.Entities
         }
     }
 
-    public abstract class AggregateRoot: Entity<long> //where T : IEquatable<T>
+    public abstract class AggregateRoot : AggregateRoot<long>
+    {
+
+    }
+    public abstract class AggregateRoot<T>: Entity<T> where T : IEquatable<T>
     {
      
 

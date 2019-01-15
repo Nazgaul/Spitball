@@ -35,6 +35,12 @@
 
     export default {
         name: "mobileFooter",
+        props: {
+            onStepChange: {
+                type: Function,
+                required: false
+            },
+        },
         data() {
             return {
                 activeBtn: 'feed',
@@ -49,8 +55,8 @@
         methods: {
             ...mapActions(['changemobileMarketingBoxState', 'changeFooterActiveTab']),
             ...mapGetters(["getFooterEnumsState", "getMobileFooterState"]),
-
             changeActiveTab(val){
+                this.onStepChange();
                 this.activeBtn = val;
                 this.changeFooterActiveTab(val);
             }

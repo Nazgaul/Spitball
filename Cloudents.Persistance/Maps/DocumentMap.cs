@@ -32,7 +32,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Professor).Nullable();
             Map(x => x.PageCount).Nullable();
             Map(x => x.Purchased).Not.Nullable();
-            Map(x => x.OldId).Nullable();
+            //Map(x => x.OldId).Nullable();
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); ;
             //Map(x => x.Status).Not.Nullable();
