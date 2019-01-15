@@ -3,7 +3,7 @@
         <div style="" :class="['school-block', isClassesSet ? 'pb-0' : '', minMode ? '' : 'expand' ]">
             <v-layout row>
                 <v-flex xs12>
-                    <div class="content-wrap">
+                    <div class="school-content-wrap">
                         <div class="university-holder" row>
                             <div class="uni-holder" v-show="schoolName && !mobileFilterState"
                                  @click="openPersonalizeUniversity()">
