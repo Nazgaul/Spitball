@@ -51,10 +51,11 @@ export default {
     },
 
     methods:{
-        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setUniversityPopStorage_session', 'updateDialogState']),
+        ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setUniversityPopStorage_session', 'updateDialogState', 'assignSelectedClassesCache']),
         ...mapGetters(['getAllSteps','getCurrentStep', 'getReturnToUpload', 'getSelectedClasses']),
         changeStep(step){
             if(step === this.enumSteps.done){
+                this.assignSelectedClassesCache();
                 this.changeSelectUniState(false);
                 let isReturnToUpload = this.getReturnToUpload();
                 let isClasses = this.getSelectedClasses();
@@ -62,7 +63,7 @@ export default {
                 if(isReturnToUpload && isClasses.length > 0){
                     this.updateDialogState(true);
                 }
-
+                
             }else{
                 console.log(`step changed to ${step}`);
                 this.updateCurrentStep(step);
