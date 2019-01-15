@@ -38,7 +38,7 @@
                                 </transition-group>
                                 <transition-group name="dissapear-total-chip">
                                 <!--<transition name="dissapear-total-chip">-->
-                                    <span name=" sbf-class-chip" key="chip-total"
+                                    <span name=" sbf-class-chip" key="chip-total" v-show="isLoggedIn"
                                             class="sbf-class-chip total classes-total-chip"
                                          >
                                         <span
