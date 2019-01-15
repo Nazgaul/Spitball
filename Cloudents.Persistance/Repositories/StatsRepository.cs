@@ -15,8 +15,9 @@ namespace Cloudents.Persistance.Repositories
         {
         }
 
-        public async Task UpdateTableAsync(CancellationToken token)
+        public async Task UpdateStatsAsync(CancellationToken token)
         {
+           
             await Session.CreateSQLQuery(@"update sb.[HomeStats]
                             set[users] = (select count(1) from sb.[User])
 	                        ,[answers] = (select count(1) from sb.Answer)

@@ -16,7 +16,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(UpdateHomeStatsCommand message, CancellationToken token)
         {
-            await _statsRepository.UpdateTableAsync(token);
+            await _statsRepository.UpdateStatsAsync(token);
         }
 
     }
