@@ -6,12 +6,16 @@ import reportService from "./../services/cardActionService"
 const state = {
     queItems: [],
     items: {},
-    itemsSkeleton: skeletonData.ask
+    itemsSkeleton: skeletonData.ask,
+    dataLoaded: false
 };
 
 const mutations = {
     HomeworkHelp_SetItems(state, data) {
         state.items = data;
+    },
+    HomeworkHelp_setDataLoaded(state, data){
+        state.dataLoaded = data;
     },
     HomeworkHelp_UpdateItems(state, data) {
         state.items.data = state.items.data.concat(data.data)
@@ -141,6 +145,9 @@ const getters = {
     },
     HomeworkHelp_getShowQuestionToaster: function (state) {
         return !!state.queItems ? state.queItems.length > 0 : false;
+    },
+    HomeworkHelp_isDataLoaded: function(state){
+        return state.dataLoaded;
     }
 };
 
@@ -152,11 +159,14 @@ const actions = {
         });
     },
 
-
+    HomeworkHelp_updateDataLoaded({commit}, data){
+        commit('HomeworkHelp_setDataLoaded', data)
+    },
     HomeworkHelp_fetchingData(context, {name, params, page, skipLoad}) {
         let paramsList = {...context.state.search, ...params, page};
         //update box terms
         context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
+        context.dispatch('HomeworkHelp_updateDataLoaded', false);
         //get location if needed
         let VerticalName = 'ask';
         let verticalItems = context.state.items;
@@ -173,7 +183,7 @@ const actions = {
             let sortData = !!verticalItems.sort ? verticalItems.sort : null;
             context.dispatch('updateSort', sortData);
             context.dispatch('updateFilters', filtersData);
-
+            context.dispatch('HomeworkHelp_updateDataLoaded', true);
             return verticalItems
         } else {
             context.commit('HomeworkHelp_ResetQue');
@@ -203,6 +213,7 @@ const actions = {
                     context.dispatch('updateSort', sortData);
                     let filtersData = !!data.filters ? searchService.createFilters(data.filters) : null;
                     context.dispatch('updateFilters', filtersData);
+                    context.dispatch('HomeworkHelp_updateDataLoaded', true);
                     return data;
                 }, (err) => {
                     return Promise.reject(err);

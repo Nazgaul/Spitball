@@ -26,20 +26,23 @@
                     </div>
                     <div class="document-header-small-sagment">
 
-                        <div  v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
+                        <div v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
                             <bdi>
-                        {{item.price ? item.price.toFixed(2): ''}}
-                        <span>SBL</span>
+                                {{item.price ? item.price.toFixed(2): ''}}
+                                <span>SBL</span>
                             </bdi>
                         </div>
-                        <div  v-show="!item.price" class="price-area" :class="{'isPurchased': isPurchased}" v-language:inner>resultNote_free</div>
+                        <div v-show="!item.price" class="price-area" :class="{'isPurchased': isPurchased}"
+                             v-language:inner>resultNote_free
+                        </div>
                         <div class="menu-area">
                             <v-menu bottom left content-class="card-user-actions" v-model="showMenu">
-                                <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()"   slot="activator" icon>
+                                <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()"
+                                       slot="activator" icon>
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
-                                    <v-list-tile :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
+                                    <v-list-tile v-show="item.isVisible(item.visible)"  :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
                                                  :key="i">
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
@@ -96,6 +99,37 @@
         >
             <report-item :closeReport="closeReportDialog" :itemType="item.template" :itemId="itemId"></report-item>
         </sb-dialog>
+        <sb-dialog
+                :showDialog="priceDialog"
+                :maxWidth="'438px'"
+                :popUpType="'priceUpdate'"
+                :onclosefn="closeNewPriceDialog"
+                :activateOverlay="true"
+                :isPersistent="true"
+                :content-class="`priceUpdate ${isRtl? 'rtl': ''}` ">
+            <v-card class="price-change-wrap">
+                <v-flex align-center justify-center class="relative-pos" >
+                    <div class="title-wrap">
+                        <span class="change-title" v-language:inner>resultNote_change_for</span>
+                        <span class="change-title">&nbsp;"{{item.title}}"</span>
+                    </div>
+                    <div class="input-wrap d-flex row align-center justify-center">
+                        <div :class="['price-wrap', isRtl ? 'reversed' : '']">
+                            <!--updating document obj inside -->
+                            <sbl-currency v-model="newPrice"
+                                          class="sb-input-upload-price">
+                            </sbl-currency>
+                            <div class="sbl-suffix">SBL</div>
+                        </div>
+                    </div>
+                </v-flex>
+                <div class="change-price-actions">
+                    <button @click="closeNewPriceDialog()" class="cancel mr-2"><span v-language:inner>resultNote_action_cancel</span></button>
+                    <button @click="submitNewPrice()" class="change-price"><span v-language:inner>resultNote_action_apply_price</span>
+                    </button>
+                </div>
+            </v-card>
+        </sb-dialog>
     </div>
 </template>
 <script>
@@ -110,9 +144,12 @@
     import reportItem from "./helpers/reportItem/reportItem.vue";
     import { mapGetters, mapActions } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
+    import SbInput from "../question/helpers/sbInput/sbInput";
+    import  sblCurrency  from "./helpers/uploadFiles/sbl-currency.vue";
 
     export default {
         components: {
+            SbInput,
             AskDefault,
             NoteDefault,
             FlashcardDefault,
@@ -120,7 +157,9 @@
             sbDialog,
             reportItem,
             userAvatar,
-            userRank
+            userRank,
+            sblCurrency
+
         },
         data() {
             return {
@@ -130,22 +169,39 @@
                         title: LanguageService.getValueByKey("questionCard_Report"),
                         action: this.reportItem,
                         isDisabled: this.isDisabled,
+                        isVisible: this.isVisible,
+                        visible: true,
+                    },
+                    {
+                        title: LanguageService.getValueByKey("resultNote_change_price"),
+                        action: this.showPriceChangeDialog,
+                        isDisabled: this.isDisablePriceChange,
+                        isVisible:this.isVisible,
+                        icon: 'sbf-delete',
+                        visible: false,
                     }
                 ],
                 itemId: 0,
                 showReport: false,
                 isRtl: global.isRtl,
-                showMenu: false
+                showMenu: false,
+                priceDialog: false,
+                newPrice: this.item.price ?  this.item.price : 0,
+                rules: {
+                    required: value => !!value || 'Required.',
+                    max: value => value.$options.filter <= 1000 || 'max is 1000',
+                }
             };
         },
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
+
             userRank() {
                 if (!!this.item.user) {
                     return this.item.user.score;
                 }
             },
-            isPurchased(){
+            isPurchased() {
                 return this.item.isPurchased
             },
             type() {
@@ -224,13 +280,31 @@
                     return false
                 }
             },
+            isVisible(val){
+                return val
+            },
+            showEvent(event){
+                console.log(event)
+            },
+            submitNewPrice() {
+                console.log('sending new price', this.newPrice)
+            },
+            closeNewPriceDialog() {
+                this.priceDialog = false;
+            },
+            isDisablePriceChange() {
+                 return true
+                // let owner = this.cardOwner();
+                // return !owner
+            },
+            showPriceChangeDialog() {
+                this.priceDialog = true;
+
+            },
             isDisabled() {
                 let isOwner, account, notEnough;
                 isOwner = this.cardOwner();
                 account = this.accountUser();
-                // if (account && account.score) {
-                //     notEnough = account.score < 400
-                // }
                 if (isOwner || !account || notEnough) {
                     return true
                 }
@@ -242,8 +316,8 @@
             closeReportDialog() {
                 this.showReport = false;
             },
-            showReportOptions(){
-              this.showMenu =true
+            showReportOptions() {
+                this.showMenu = true
             },
             //our docs event
             $_spitball(event, url) {
@@ -256,7 +330,7 @@
                 }, 100);
             },
             //third party docs event
-            $_thirdPartyEvent(event, url){
+            $_thirdPartyEvent(event, url) {
                 event.preventDefault();
                 global.open(url, '_blank');
             },

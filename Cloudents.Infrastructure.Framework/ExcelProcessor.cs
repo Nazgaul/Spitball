@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,23 +32,39 @@ namespace Cloudents.Infrastructure.Framework
         }
 
 
+        Workbook _excel;
+
+        public void Init(Stream stream)
+        {
+            _excel = new Workbook(stream);
+        }
+
+        public (string text, int pagesCount) ExtractMetaContent()
+        {
+            
+            return (null, _excel.Worksheets.Count);
+        }
+
+      
+
         public static readonly string[] Extensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
-        public async Task ProcessFilesAsync(Stream stream,
-            Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, int, Task> metaCallback,
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            var excel = new Workbook(stream);
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
 
-            var t = new List<Task>
-            {
-                metaCallback(null, excel.Worksheets.Count)
-            };
+            var t = new List<Task>();
 
-            for (int i = 0; i < excel.Worksheets.Count; i++)
+            var diff = Enumerable.Range(0, _excel.Worksheets.Count);
+            diff = diff.Except(previewDelta);
+            
+            foreach (var item in diff)
             {
-                var wb = excel.Worksheets[i];
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+                var wb = _excel.Worksheets[item];
                 ScalePageSetupToFitPage(wb);
                 var sr = new SheetRender(wb, imgOptions);
                 using (var img = sr.ToImage(0))
@@ -59,11 +76,9 @@ namespace Cloudents.Infrastructure.Framework
 
                     var ms = new MemoryStream();
                     img.Save(ms, ImageFormat.Jpeg);
-                    t.Add(pagePreviewCallback(ms, $"{i}.jpg").ContinueWith(_ => ms.Dispose(), token));
-
+                    t.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
                 }
             }
-
             await Task.WhenAll(t);
         }
     }

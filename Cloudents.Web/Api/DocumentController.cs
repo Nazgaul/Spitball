@@ -31,6 +31,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -100,7 +101,7 @@ namespace Cloudents.Web.Api
 
             var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
 
-
+            model.Name = Path.GetFileNameWithoutExtension(model.Name);
             if (!filesTask.Result.Any())
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
@@ -205,12 +206,12 @@ namespace Cloudents.Web.Api
             };
 
 
-            if (profile.Courses != null)
-            {
-                filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
-                    _localizer["CoursesFilterTitle"],
-                    profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
-            }
+            //if (profile.Courses != null)
+            //{
+            //    filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
+            //        _localizer["CoursesFilterTitle"],
+            //        profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
+            //}
 
             return new WebResponseWithFacet<DocumentFeedDto>
             {
@@ -225,7 +226,7 @@ namespace Cloudents.Web.Api
                     {
                         s.Vote.Vote = param;
                     }
-
+                    s.Title = Path.GetFileNameWithoutExtension(s.Title);
                     return s;
                 }),
                 Filters = filters,

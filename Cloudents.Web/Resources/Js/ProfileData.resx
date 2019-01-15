@@ -119,10 +119,10 @@
   </resheader>
   <data name="generalProfile_modal_heading" xml:space="preserve">
     <value>Please sign up or
- login to continue.</value>
+ login to continue</value>
   </data>
   <data name="generalProfile_modal_text" xml:space="preserve">
-    <value>You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!</value>
+    <value>You are only a couple clicks away from learning and earning with Spitball.</value>
   </data>
   <data name="generalProfile_register_stepEight_heading" xml:space="preserve">
     <value>Check your &lt;b&gt;email&lt;/b&gt;</value>
@@ -216,10 +216,10 @@ redeemed for GiftCards</value>
   </data>
   <data name="HHP_modal_heading" xml:space="preserve">
     <value>Please sign up or
- login to continue.</value>
+ login to continue</value>
   </data>
   <data name="HHP_modal_text" xml:space="preserve">
-    <value>You are only a couple of mouse clicks away from instant Homework Help and FREE SBL.</value>
+    <value>You are only a couple clicks away from learning and earning with Spitball.</value>
   </data>
   <data name="HHP_register_stepEight_boldText" xml:space="preserve">
     <value>email</value>
@@ -303,10 +303,10 @@ reset instructions.</value>
   </data>
   <data name="makeMoneyProfile_modal_heading" xml:space="preserve">
     <value>Please sign up or
- login to continue.</value>
+ login to continue</value>
   </data>
   <data name="makeMoneyProfile_modal_text" xml:space="preserve">
-    <value>You are a couple of mouse clicks away from FREE access to making serious money.</value>
+    <value>You are only a couple clicks away from learning and earning with Spitball.</value>
   </data>
   <data name="makeMoneyProfile_register_stepEight_heading" xml:space="preserve">
     <value>Check your &lt;b&gt;email&lt;/b&gt;</value>

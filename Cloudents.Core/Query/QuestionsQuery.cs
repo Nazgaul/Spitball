@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Query
 {
@@ -22,6 +23,7 @@ namespace Cloudents.Core.Query
         }
 
         public string Term { get; }
+        [CanBeNull]
         public string Country { get; }
 
         public QuestionSubject[] Source { get; }

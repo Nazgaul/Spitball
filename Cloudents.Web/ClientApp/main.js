@@ -4,7 +4,7 @@ import { sync } from 'vuex-router-sync'
 import store from "./store";
 import { Language } from "./services/language/langDirective";
 import { LanguageService } from './services/language/languageService';
-// import initSignalRService from './services/signalR/signalrEventService';
+//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
 // clip board copy text
 import VueClipboard from 'vue-clipboard2';
 import lineClamp from 'vue-line-clamp';
@@ -14,7 +14,8 @@ import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-
+import CloudentsTour from 'cloudents-tour';
+require('cloudents-tour/dist/cloudents-tour.css');
 import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/vue-youtube-embed
 
 
@@ -115,6 +116,7 @@ WebFont.load({
 //});
 
 
+Vue.use(CloudentsTour);
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
@@ -347,7 +349,7 @@ global.isMobileAgent = function() {
      })(navigator.userAgent||navigator.vendor||window.opera);
     return check;
   };
-// initSignalRService();
+//initSignalRService();
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch

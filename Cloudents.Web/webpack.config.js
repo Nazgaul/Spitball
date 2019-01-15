@@ -76,7 +76,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.js$/,
-                    loader: "babel-loader",
+                    loader: "babel-loader"
                 },
                 {
                     test: /\.vue$/,

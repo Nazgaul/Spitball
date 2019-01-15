@@ -29,7 +29,7 @@
                     <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
                     <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
                 </div>
-                <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.smAndDown">
+                <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.xsOnly">
                     <div class="viewed">
                         <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
                         <span class="viewed-text">{{item.views}}</span>
@@ -70,7 +70,7 @@
                                         </span>
                                         <span class="equals-to-dollar hidden-xs-only">
                                             <span v-language:inner>preview_price_equals_to</span>
-                                            {{item.price ? item.price : 0 | dollarVal}}$</span>
+                                            ${{item.price ? item.price : 0 | dollarVal}}</span>
                                     </div>
                                     <div class="buy-btn-wrap">
                                         <span class="buy-text" v-language:inner>preview_itemActions_buy</span>

@@ -1,6 +1,7 @@
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
+        <school-block slot="schoolBlock"></school-block>
         <div slot="main">
               <div class="d-flex mobile-filter">
                   <upload-files-btn class="upload-card hidden-md-and-up"></upload-files-btn>
@@ -39,7 +40,7 @@
                                 
                                 <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
+                                    <component :id="index == 1 ? 'tour_vote' : ''" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
                                 </v-flex>
                                 <router-link tag="v-flex"
                                              class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 "

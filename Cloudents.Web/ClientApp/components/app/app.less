@@ -4,6 +4,42 @@
   display:none;
 }
 
+.v-tour{
+  .v-step{
+    z-index: 1;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.35);
+    background-image: linear-gradient(93deg, #4b8ffe, #4452fc) !important;
+    text-align: left !important;
+    .v-step__header{
+      background-color: none !important;
+      font-size: 16px;
+      margin-left: 0;
+      padding-left: 0;
+      padding-top: 1.5rem;
+    }
+    .v-step__content{
+      font-size: 13px;
+      font-weight: 100;
+    }
+    .v-step__buttons{
+      text-align: right;
+      .v-step__button{
+        margin:0;
+        color: #4452fc;
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 0.35rem 1.4rem;
+      }
+    }
+    .v-step__arrow{
+      .v-step__arrow--dark{
+        border-color: #4870fd;
+      }
+    }
+    
+  }
+}
+
 .voted{
   color:#FBB205 !important;
 }

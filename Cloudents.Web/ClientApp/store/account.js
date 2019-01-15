@@ -5,7 +5,8 @@ import {dollarCalculate} from "./constants";
 import analyticsService from '../services/analytics.service'
 import profileService from "../services/profile/profileService"
 import reputationService from '../services/reputationService'
-import initSignalRService from '../services/signalR/signalrEventService';
+import initSignalRService from '../services/signalR/signalrEventService'
+
 
 function setIntercomSettings(data){
     let app_id = "njmpgayv";

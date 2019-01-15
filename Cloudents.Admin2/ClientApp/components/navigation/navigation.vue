@@ -14,6 +14,7 @@
         <v-navigation-drawer
                 stateless
                 value="true"
+                fixed
         >
             <v-list>
                 <div v-for="(singleNav, i) in nav">

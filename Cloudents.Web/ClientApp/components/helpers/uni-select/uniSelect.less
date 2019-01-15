@@ -5,13 +5,19 @@
     margin-top: -4px;
     border-bottom-left-radius: 4px !important;
     border-bottom-right-radius: 4px !important;
-    .v-list .v-list__tile .v-list__tile__content .v-list__tile__title{
-        .v-list__tile__mask{
-            color: unset;
-            background: transparent;
-            font-weight: bold;
+    .v-list{
+        .v-list__tile .v-list__tile__content .v-list__tile__title{
+            .v-list__tile__mask{
+                color: unset;
+                background: transparent;
+                font-weight: bold;
+            }
         }
-    }
+        .v-list__tile--active{ 
+            display: none;
+        }
+    } 
+    
 }
 .uni-select-component{
     position: relative;
