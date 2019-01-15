@@ -16,29 +16,29 @@ namespace Cloudents.Functions
 {
     public static class BlobMigration
     {
-        //[FunctionName("BlobPreview")]
-        //public static async Task Run([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
-        //    CloudBlockBlob myBlob, string id, string name,
-        //    [Queue("generate-blob-preview")] IAsyncCollector<string> collector,
-        //    TraceWriter log,
-        //    CancellationToken token)
-        //{
-        //    log.Info($"pushing to queue {id}");
-        //    await collector.AddAsync(id, token);
-        //}
+        [FunctionName("BlobPreview")]
+        public static async Task Run([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
+            CloudBlockBlob myBlob, string id, string name,
+            [Queue("generate-blob-preview")] IAsyncCollector<string> collector,
+            TraceWriter log,
+            CancellationToken token)
+        {
+            log.Info($"pushing to queue {id}");
+            await collector.AddAsync(id, token);
+        }
 
 
 
 
-        //[FunctionName("BlobBlur")]
-        //public static async Task Run2([BlobTrigger("spitball-files/files/{id}/preview-{idx}.jpg")]
-        //    CloudBlockBlob myBlob, string id, string idx,
-        //    [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collector,
-        //    TraceWriter log, CancellationToken token)
-        //{
-        //    log.Info($"pushing to queue {id}");
-        //    await collector.AddAsync(id, token);
-        //}
+        [FunctionName("BlobBlur")]
+        public static async Task Run2([BlobTrigger("spitball-files/files/{id}/preview-{idx}.jpg")]
+            CloudBlockBlob myBlob, string id, string idx,
+            [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collector,
+            TraceWriter log, CancellationToken token)
+        {
+            log.Info($"pushing to queue {id}");
+            await collector.AddAsync(id, token);
+        }
 
 
 
@@ -55,6 +55,10 @@ namespace Cloudents.Functions
             var tasks = new List<Task>();
             foreach (var blob in directory.ListBlobs())
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
                 var myBlob = (CloudBlockBlob)blob;
                 if (Regex.IsMatch(myBlob.Name, "preview-\\d*.jpg", RegexOptions.IgnoreCase))
                 {
@@ -88,9 +92,9 @@ namespace Cloudents.Functions
 
         [FunctionName("BlobPreview-Queue")]
         public static async Task BlobPreviewQueueRun(
-            [QueueTrigger("generate-blob-preview", Connection = "LocalStorage")] string id,
+            [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,
-            [Blob("spitball-files/files/{QueueTrigger}", Connection = "ProdStorage")]CloudBlobDirectory directory,
+            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
             [Queue("generate-blob-preview-poison")] IAsyncCollector<string> collector,
             [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
             TraceWriter log, CancellationToken token)
