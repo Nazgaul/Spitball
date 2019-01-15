@@ -127,16 +127,16 @@ namespace Cloudents.Core.Entities
             {
                 throw new UnauthorizedAccessException("you cannot vote you own question");
             }
-            var vote = Votes.FirstOrDefault(w => w.User == user);
+            var vote = Votes.FirstOrDefault(w => w.User == user && w.Answer == null);
             if (vote == null)
             {
                 vote = new Vote(user, this, type);
                 _votes.Add(vote);
-                
+
             }
 
             vote.VoteType = type;
-            VoteCount = Votes.Sum(s => (int)s.VoteType);
+            VoteCount = Votes.Where(w => w.Answer == null).Sum(s => (int)s.VoteType);
             if (VoteCount < VoteCountToFlag)
             {
                 Status = Status.Flag(TooManyVotesReason, user);
