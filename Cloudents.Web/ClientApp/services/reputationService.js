@@ -2,13 +2,18 @@ import { connectivityModule } from "./connectivity.module"
 
 export default {
     calculateRankByScore: (score) => {
-        if (score <= 300) {
+        const scoreRange= {
+            first: 1000,
+            second: 2000,
+            third: 3000
+        }
+        if (score <= scoreRange.first) {
             return 0;
-        } else if (score > 300 && score <= 700) {
+        } else if (score > scoreRange.first && score <= scoreRange.second) {
             return 1;
-        } else if (score > 700 && score <= 1000) {
+        } else if (score > scoreRange.second && score <= scoreRange.third) {
             return 2;
-        } else if (score > 1000) {
+        } else if (score > scoreRange.third) {
             return 3;
         }
     },
