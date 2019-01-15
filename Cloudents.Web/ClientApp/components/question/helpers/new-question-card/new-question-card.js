@@ -72,7 +72,7 @@ export default {
             return this.detailedView
         },
         cursorDefault(){
-            return this.detailedView
+            return this.detailedView && !this.suggestion
         },
         isSold() {
             return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
@@ -126,7 +126,7 @@ export default {
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
-            questionVote: "questionVote",
+            questionVote: "HomeworkHelp_questionVote",
             updateLoginDialogState: "updateLoginDialogState"
         }),
         ...mapGetters(['accountUser']),

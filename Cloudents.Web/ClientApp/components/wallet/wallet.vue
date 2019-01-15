@@ -60,13 +60,19 @@
                                       :prev-icon="`sbf-arrow-right ${ isRtl ? '': 'left' }`"></v-pagination>
                     </div>
                 </v-tab-item>
-
                 <v-tab-item :key="'3'" :id="'tab-3'" class="tab-padding" v-if="activeTab === 3">
                     <div class="cash-out-wrapper">
                         <div class="text-wrap">
                             <div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div>
-                            <!-- <div class="points-text"><span v-language:inner>wallet_You_have</span>&nbsp;<span>{{calculatedEarnedPoints ? calculatedEarnedPoints.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00' : '0.00'}}</span>&nbsp;<span v-language:inner>wallet_redeemable_SBL</span> -->
-                            <div class="points-text"><span v-html="$Ph('wallet_you_have_redeemable_sbl', calculatedEarnedPoints ? calculatedEarnedPoints.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00' : '0.00')"></span>
+                            <div class="points-text">
+                                <span>
+                                    <span v-language:inner>wallet_You_have</span>
+                                         <bdi>
+                                    <span>{{calculatedEarnedPoints ? `${calculatedEarnedPoints.toLocaleString(undefined,
+                                        { minimumFractionDigits: 2, maximumFractionDigits: 2 })} SBL` || '0.00' : '0.00'}}&nbsp;</span>
+                                              </bdi>
+                                    <span  v-language:inner>wallet_you_have_redeemable_sbl</span>
+                                </span>
                             </div>
                         </div>
                         <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions"

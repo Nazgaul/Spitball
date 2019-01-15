@@ -16,6 +16,7 @@
                     :placeholder="schoolNamePlaceholder"
                     clearable
                     solo
+                    :menu-props="{maxHeight: $vuetify.breakpoint.xsOnly ? dropDownAlphaHeight : 300}"
                     :search-input.sync="search"
                     :append-icon="''"
                     :clear-icon="'sbf-close'"
@@ -72,12 +73,15 @@
                 universityModel: '',
                 search: '',
                 schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
+                globalHeight: global.innerHeight
             }
         },
         watch: {
             search: debounce(function () {
-                if (!!this.search && this.search.length >= 2) {
-                    this.updateUniversities(this.search);
+                if (!!this.search) {
+                    let searchVal = this.search.trim();
+                    if(searchVal.length >= 2)
+                    this.updateUniversities(searchVal);
                 }
                 if (this.search === "") {
                     this.clearData();
@@ -171,6 +175,9 @@
             }
         },
         computed: {
+            dropDownAlphaHeight(){
+                return this.globalHeight - 470
+            },
             showBox() {
                 if (this.search && this.search > 0) {
                     return true

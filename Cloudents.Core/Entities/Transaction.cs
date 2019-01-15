@@ -17,20 +17,9 @@ namespace Cloudents.Core.Entities
             Price = price;
             Created = DateTime.UtcNow;
             User = user;
-            Events.Add(new TransactionEvent(this));
+            AddEvent(new TransactionEvent(this));
 
         }
-        // [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-
-        //public Transaction(TransactionActionType action, TransactionType type, ReputationAction price, RegularUser user)
-        //{
-        //    Action = action;
-        //    Type = type;
-        //    Price = price;
-        //    Created = DateTime.UtcNow;
-        //    User = user;
-
-        //}
 
         protected Transaction()
         {
@@ -51,5 +40,7 @@ namespace Cloudents.Core.Entities
         public virtual RegularUser InvitedUser { get; set; }
 
         public virtual Document Document { get; set; }
+
+      
     }
 }

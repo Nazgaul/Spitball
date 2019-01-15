@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
+using static Cloudents.Core.TimeConst;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -76,7 +77,7 @@ namespace Cloudents.Infrastructure.Storage
 
             if (cacheControlSeconds.HasValue)
             {
-                blob.Properties.CacheControl = "private, max-age=" + (TimeConst.Second * cacheControlSeconds.Value);
+                blob.Properties.CacheControl = "private, max-age=" + (Second * cacheControlSeconds.Value);
             }
 
             return blob.UploadFromStreamAsync(fileContent);
@@ -182,7 +183,7 @@ namespace Cloudents.Infrastructure.Storage
         {
             var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
             var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
-                1000, null, null, null, token).ConfigureAwait(false);
+                1000, null, null, null, token);
             return result.Results.Select(s => s.Uri);
 
         }
@@ -191,7 +192,8 @@ namespace Cloudents.Infrastructure.Storage
         public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token)
         {
             var path = $"{_container.Container.RelativePath}/{directory}/{prefix}";
-            var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, BlobListingDetails.None, 1000, null, null, null, token);
+            var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, 
+                BlobListingDetails.None, 1000, null, null, null, token);
             return result.Results.Select(s => s.Uri);
         }
 
@@ -199,7 +201,7 @@ namespace Cloudents.Infrastructure.Storage
         {
             var blob = GetBlob(blobUrl);
             var ms = new MemoryStream();
-            await blob.DownloadToStreamAsync(ms).ConfigureAwait(false);
+            await blob.DownloadToStreamAsync(ms);
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
         }

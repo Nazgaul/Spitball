@@ -66,7 +66,7 @@
                             class="question-body-content-container"
                             :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`]"
                     >
-                        <span class="question-text" v-line-clamp="lineClampValue">{{cardData.text}}</span>
+                        <span class="question-text" v-line-clamp:18="lineClampValue">{{cardData.text}}</span>
                     </div>
                     <div class="gallery" v-if="cardData.files && cardData.files.length">
                         <v-carousel :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
@@ -78,8 +78,11 @@
                         </v-carousel>
                     </div>
                 </div>
-                <v-dialog v-model="showDialog" max-width="720px"
-                          transition="scale-transition" content-class="zoom-image">
+                <v-dialog  v-if="showDialog"
+                           v-model="showDialog"
+                           max-width="720px"
+                          transition="scale-transition"
+                           content-class="zoom-image">
                     <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
                 </v-dialog>
             </div>

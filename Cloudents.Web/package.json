@@ -89,9 +89,11 @@
   },
   "dependencies": {
     "@aspnet/signalr": "1.0.3",
+    "cloudents-tour": "1.2.5",
     "timeago.js": "^4.0.0-beta.1",
     "tslib": "^1.9.3",
     "vue-clipboard2": "^0.2.1",
-    "vue-youtube-embed": "^2.2.1"
+    "vue-youtube-embed": "^2.2.1",
+    "vuex-router-sync": "^5.0.0"
   }
 }

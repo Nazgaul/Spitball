@@ -7,7 +7,7 @@ import sbInput from "../question/helpers/sbInput/sbInput.vue"
 import { mapGetters, mapActions } from 'vuex';
 import debounce from "lodash/debounce";
 import { LanguageService } from "../../services/language/languageService";
-import { reviews } from "./helpers/testimonials/testimonialsData"
+import { reviews, mobileReviews } from "./helpers/testimonials/testimonialsData"
 
 export default {
     name: "landingPage",
@@ -27,6 +27,7 @@ export default {
             selectedSubject: '',
             search: '',
             reviewItems: reviews,
+            mobileReviewItems: mobileReviews,
             youTubeVideoId: '',
             SpitballVideoId: 'nreiplVSrWk',
             playerVisible: false,
@@ -38,7 +39,10 @@ export default {
             mobileUniDialog: false,
             isRtl: global.isRtl,
             dictionaryTypesEnum: this.getDictionaryPrefixEnum(),
-            player: null
+            player: null,
+            openDropdownUniMobile: false,
+            openDropdownSubjectMobile: false,
+
         }
     },
     props: {
@@ -55,20 +59,6 @@ export default {
 
         statsData(){
             return this.statistics();
-        },
-        formattedReviews(){
-            let rev;
-            if(this.$vuetify.breakpoint.xsOnly ){
-                 rev = [].concat(...this.reviewItems);
-                console.log(rev)
-            }else{
-               rev = this.reviewItems
-            }
-            return rev
-
-           // return  this.$vuetify.breakpoint.xsOnly ? [].concat(...this.reviewItems) :  this.reviewItems;
-           // console.log(this.reviewItems);
-
         },
         showBox() {
             if (this.search && this.search.length > 0) {
@@ -202,10 +192,20 @@ export default {
             this.$router.push({path: '/note', query: {term: val.text}});
         },
         showMobileSubjectInput() {
-            this.mobileSubjectsDialog = true
+            this.mobileSubjectsDialog = true;
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    this.openDropdownSubjectMobile = true;
+                    }, 500);
+            });
         },
         showMobileUniInput() {
-            this.mobileUniDialog = true
+            this.mobileUniDialog = true;
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    this.openDropdownUniMobile = true;
+                }, 500);
+            });
         },
         closeSubjectInputDialog() {
             this.mobileSubjectsDialog = false
@@ -226,9 +226,10 @@ export default {
         if(!user){
             this.getAllSubjects();
             this.getStatistics();
-            this.scrollTop();
         }else{
-            this.$router.push({path: '/ask'})
+            const isIl = global.country.toLowerCase() === 'il';
+            const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
+            this.$router.push(defaultSubmitRoute)
         }
 
         

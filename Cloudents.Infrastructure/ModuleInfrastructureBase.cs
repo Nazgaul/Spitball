@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterType<SearchService>().As<ISearchService>().SingleInstance();
+           // builder.RegisterType<SearchService>().As<ISearchService>().SingleInstance();
 
             builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));

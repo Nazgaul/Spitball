@@ -1198,6 +1198,11 @@
         }
       }
     },
+    "clipboard": {
+      "version": "2.0.4",
+      "from": "clipboard@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/clipboard/-/clipboard-2.0.4.tgz"
+    },
     "cliui": {
       "version": "4.1.0",
       "from": "cliui@https://registry.npmjs.org/cliui/-/cliui-4.1.0.tgz",
@@ -1491,6 +1496,11 @@
       "from": "delayed-stream@https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz",
       "resolved": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz",
       "dev": true
+    },
+    "delegate": {
+      "version": "3.2.0",
+      "from": "delegate@>=3.1.2 <4.0.0",
+      "resolved": "https://registry.npmjs.org/delegate/-/delegate-3.2.0.tgz"
     },
     "delegates": {
       "version": "1.0.0",
@@ -2484,6 +2494,11 @@
       "from": "globule@https://registry.npmjs.org/globule/-/globule-1.2.1.tgz",
       "resolved": "https://registry.npmjs.org/globule/-/globule-1.2.1.tgz",
       "dev": true
+    },
+    "good-listener": {
+      "version": "1.2.2",
+      "from": "good-listener@>=1.2.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/good-listener/-/good-listener-1.2.2.tgz"
     },
     "graceful-fs": {
       "version": "4.1.11",
@@ -4198,6 +4213,11 @@
         }
       }
     },
+    "select": {
+      "version": "1.1.2",
+      "from": "select@>=1.1.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/select/-/select-1.1.2.tgz"
+    },
     "semver": {
       "version": "5.3.0",
       "from": "semver@https://registry.npmjs.org/semver/-/semver-5.3.0.tgz",
@@ -4602,6 +4622,11 @@
       "resolved": "https://registry.npmjs.org/timers-browserify/-/timers-browserify-2.0.10.tgz",
       "dev": true
     },
+    "tiny-emitter": {
+      "version": "2.0.2",
+      "from": "tiny-emitter@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/tiny-emitter/-/tiny-emitter-2.0.2.tgz"
+    },
     "to-arraybuffer": {
       "version": "1.0.1",
       "from": "to-arraybuffer@https://registry.npmjs.org/to-arraybuffer/-/to-arraybuffer-1.0.1.tgz",
@@ -4996,6 +5021,11 @@
       "version": "6.2.0",
       "from": "vue-class-component@https://registry.npmjs.org/vue-class-component/-/vue-class-component-6.2.0.tgz",
       "resolved": "https://registry.npmjs.org/vue-class-component/-/vue-class-component-6.2.0.tgz"
+    },
+    "vue-clipboard2": {
+      "version": "0.2.1",
+      "from": "vue-clipboard2@latest",
+      "resolved": "https://registry.npmjs.org/vue-clipboard2/-/vue-clipboard2-0.2.1.tgz"
     },
     "vue-hot-reload-api": {
       "version": "2.3.0",

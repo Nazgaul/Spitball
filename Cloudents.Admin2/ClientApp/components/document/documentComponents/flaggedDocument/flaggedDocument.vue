@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <v-layout justify-center>
-            <v-flex xs12 sm6>
+            <v-flex xs12 sm12>
                 <v-toolbar color="indigo" dark>
                     <v-toolbar-title>Documents List</v-toolbar-title>
                 </v-toolbar>

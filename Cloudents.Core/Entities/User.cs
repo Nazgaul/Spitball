@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Message.Email;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 namespace Cloudents.Core.Entities
@@ -18,17 +19,13 @@ namespace Cloudents.Core.Entities
         protected User()
         {
             Transactions = new List<Transaction>();
-            UserLogins = new List<UserLogin>();
+           
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
         }
 
         public virtual long Id { get; set; }
-        public virtual string Email { get; set; }
-        public virtual bool EmailConfirmed { get; set; }
-        public virtual string PhoneNumber { get; set; }
-
-        public virtual bool PhoneNumberConfirmed { get; set; }
+       
 
         public virtual string Name { get; set; }
         public virtual string NormalizedName { get; set; }
@@ -44,7 +41,6 @@ namespace Cloudents.Core.Entities
         public virtual string AuthenticatorKey { get; set; }
 
         public virtual string PrivateKey { get; set; }
-        public virtual int FraudScore { get; set; }
         public virtual bool? OldUser { get; set; }
 
         public virtual int Score { get; set; }
@@ -74,20 +70,9 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();
         //public virtual IList<Question> Questions { get; set; }
 
-        //public virtual void ClearQuestionAndAnswers()
-        //{
-        //    _questions.Clear();
-        //    _answers.Clear();
-        //}
+       
 
-
-
-
-
-        //protected internal virtual IList<Answer> Answers { get; set; }
-
-
-        protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
+        
 
 
         public virtual ISet<Course> Courses { get; protected set; }
@@ -96,19 +81,12 @@ namespace Cloudents.Core.Entities
 
         public virtual DateTime Created { get; protected set; }
 
-        public override string ToString()
-        {
-            return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
-        }
+        public virtual string Email { get; set; }
+        public virtual bool EmailConfirmed { get; set; }
 
         public virtual bool Fictive { get; protected set; }
 
-        public virtual string PasswordHash { get; set; }
-        public virtual DateTimeOffset? LockoutEnd { get; set; }
-
-        public virtual int AccessFailedCount { get; set; }
-
-        public virtual bool LockoutEnabled { get; set; }
+       
 
 
 
@@ -120,51 +98,6 @@ namespace Cloudents.Core.Entities
         {
             _questions.Clear();
         }
-
-    }
-
-
-    public class SystemUser : User
-    {
-
-    }
-
-
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-    public class RegularUser : User
-    {
-        public RegularUser(string email, string name, string privateKey, CultureInfo culture)
-        {
-            Email = email;
-            Name = name;
-            TwoFactorEnabled = true;
-            Culture = culture;
-            PrivateKey = privateKey;
-            Created = DateTime.UtcNow;
-            //Fictive = false;
-
-
-
-
-        }
-        protected RegularUser()
-        {
-
-        }
-
-        public virtual void DeleteQuestionAndAnswers()
-        {
-            DeleteQuestion();
-            _answers.Clear();
-        }
-        private readonly IList<Answer> _answers = new List<Answer>();
-
-        public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
-
-        // protected internal virtual IList<Answer> Answers { get; set; }
-
-        //  public virtual IList<Answer> AnswersReadOnly => new ReadOnlyCollection<Answer>(Answers);
-
 
     }
 }

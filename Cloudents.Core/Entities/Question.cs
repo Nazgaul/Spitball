@@ -100,7 +100,7 @@ namespace Cloudents.Core.Entities
             var t = base.MakePublic();
             if (t)
             {
-                Events.Add(new QuestionCreatedEvent(this));
+                AddEvent(new QuestionCreatedEvent(this));
             }
 
             return t;
@@ -115,7 +115,29 @@ namespace Cloudents.Core.Entities
         public virtual void DeleteQuestionAdmin()
         {
             Transactions.Clear();
-            Events.Add(new QuestionDeletedAdminEvent(this));
+            AddEvent(new QuestionDeletedAdminEvent(this));
+        }
+
+        public override bool Delete()
+        {
+            var t = base.Delete();
+            if (t)
+            {
+                AddEvent(new QuestionDeletedEvent(this));
+            }
+
+            return t;
+        }
+
+        public virtual void AcceptAnswer(Answer answer)
+        {
+            if (CorrectAnswer != null)
+            {
+                throw new InvalidOperationException("Already have correct answer");
+            }
+
+            CorrectAnswer = answer;
+            AddEvent(new MarkAsCorrectEvent(answer));
         }
     }
 }

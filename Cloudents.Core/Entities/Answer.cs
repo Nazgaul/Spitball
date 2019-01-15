@@ -75,7 +75,7 @@ namespace Cloudents.Core.Entities
             var t = base.Delete();
             if (t)
             {
-                Events.Add(new AnswerDeletedEvent(this));
+                AddEvent(new AnswerDeletedEvent(this));
             }
 
             return t;
@@ -84,7 +84,7 @@ namespace Cloudents.Core.Entities
         public virtual void DeleteAnswerAdmin()
         {
             Transactions.Clear();
-            Events.Add(new AnswerDeletedEvent(this));
+            AddEvent(new AnswerDeletedEvent(this));
             if (Question.CorrectAnswer != null)
             {
                 if (Id == Question.CorrectAnswer.Id)
@@ -97,7 +97,7 @@ namespace Cloudents.Core.Entities
         public override bool MakePublic()
         {
             var t = base.MakePublic();
-            Events.Add(new AnswerCreatedEvent(this));
+            AddEvent(new AnswerCreatedEvent(this));
 
             return t;
         }

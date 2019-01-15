@@ -5,13 +5,14 @@ using Aspose.Pdf.Text.TextOptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PdfProcessor : IPreviewProvider2 //: Processor, IPreviewProvider
+    public class PdfProcessor : IPreviewProvider2, IDisposable //: Processor, IPreviewProvider
     {
 
         public PdfProcessor()
@@ -23,27 +24,40 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
+        private Document _doc;
 
-        public async Task ProcessFilesAsync(Stream stream,
-            Func<Stream, string, Task> pagePreviewCallback,
-            Func<string, int, Task> metaCallback,
+        public void Init(Stream stream)
+        {
+            _doc = new Document(stream);
+        }
+
+        public (string text, int pagesCount) ExtractMetaContent()
+        {
+            var txt = ExtractPdfText(_doc);
+            return (txt , _doc.Pages.Count - 1);
+        }
+
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            var pdf = new Document(stream);
-            var txt = ExtractPdfText(pdf);
-
-            await metaCallback(txt, pdf.Pages.Count - 1);
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
             var t = new List<Task>();
-            for (var j = 1; j < pdf.Pages.Count; j++)
+
+            var diff = Enumerable.Range(0, _doc.Pages.Count - 1);
+            diff = diff.Except(previewDelta);
+            foreach (int item in diff)
             {
-                var page = pdf.Pages[j];
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+                var page = _doc.Pages[item + 1];
                 var ms = new MemoryStream();
                 jpegDevice.Process(page, ms);
-                t.Add(pagePreviewCallback(ms, $"{j - 1}.jpg").ContinueWith(_ => ms.Dispose(), token));
-
+                t.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
             }
+
             await Task.WhenAll(t);
         }
 
@@ -77,5 +91,9 @@ namespace Cloudents.Infrastructure.Framework
 
         public static readonly string[] Extensions = { ".pdf" };
 
+        public void Dispose()
+        {
+            _doc?.Dispose();
+        }
     }
 }

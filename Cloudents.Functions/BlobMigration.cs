@@ -42,7 +42,6 @@ namespace Cloudents.Functions
 
 
 
-
         [FunctionName("BlobPreview-Blur-Queue")]
         public static async Task BlobPreviewQueueRun2(
             [QueueTrigger("generate-blob-preview-blur")]
@@ -97,8 +96,8 @@ namespace Cloudents.Functions
             TraceWriter log, CancellationToken token)
         {
             log.Info($"receive preview for {id}");
-            var t = await directory.ListBlobsSegmentedAsync(null, token);
-            var myBlob = (CloudBlockBlob)t.Results.FirstOrDefault(f => f.Uri.Segments.Last().StartsWith("file-"));
+            var segment = await directory.ListBlobsSegmentedAsync(null, token);
+            var myBlob = (CloudBlockBlob)segment.Results.FirstOrDefault(f => f.Uri.Segments.Last().StartsWith("file-"));
             if (myBlob == null)
             {
                 return;
@@ -106,49 +105,78 @@ namespace Cloudents.Functions
             var name = myBlob?.Name.Split('-').Last();
 
 
+            const string contentType = "text/plain";
+
+
+            var document = segment.Results.Where(w => w.Uri.Segments.Last().StartsWith("preview-"))
+                .OrderBy(o => o.Uri, new OrderPreviewComparer());
+
+            List<int> previewDelta = new List<int>();
+
+            foreach (var item in document)
+            {
+                int.TryParse(
+                    Path.GetFileNameWithoutExtension(item.Uri.ToString())
+                    .Split('-').Last(), out var temp
+                    );
+                previewDelta.Add(temp);
+            }
+
             log.Info($"Going to process - {id}");
 
             try
             {
-                using (var ms = await myBlob.OpenReadAsync(token))
+
+                var f = factory.PreviewFactory(name);
+                if (f != null)
                 {
-                    var f = factory.PreviewFactory(name);
-                    if (f != null)
+                    using (var ms = await myBlob.OpenReadAsync(token))
                     {
-                        await f.ProcessFilesAsync(ms, (stream, previewName) =>
-                        {
+                        f.Init(ms);
+                        int pageCount;
 
-                            stream.Seek(0, SeekOrigin.Begin);
-                            var blob = directory.GetBlockBlobReference($"preview-{previewName}");
-                            if (blob.Exists())
-                            {
-                                log.Info($"uploading to {id} preview-{previewName}");
-                                //if we want to reprocess this file we need to remove this line of code.
-                                return Task.CompletedTask;
-                            }
-                            blob.Properties.ContentType = "image/jpeg";
-
-                            log.Info($"uploading to {id} preview-{previewName}");
-                            return blob.UploadFromStreamAsync(stream, token);
-                        }, (text, pageCount) =>
+                        const string blobTextName = "text.txt";
+                        if (segment.Results.FirstOrDefault(d => d.Uri.Segments.Last().StartsWith(blobTextName)) == null)
                         {
-                            var blob = directory.GetBlockBlobReference("text.txt");
-                            blob.Properties.ContentType = "text/plain";
+                            var (text, pagesCount) = f.ExtractMetaContent();
+                            var blob = directory.GetBlockBlobReference(blobTextName);
+                            blob.Properties.ContentType = contentType;
                             text = StripUnwantedChars(text);
-                            blob.Metadata["PageCount"] = pageCount.ToString();
-                            return blob.UploadTextAsync(text ?? string.Empty, token);
-                        }, token);
-                    }
-                    else
-                    {
-                        log.Error($"did not process id:{id}");
-                        await collector.AddAsync(id, token);
-                    }
+                            blob.Metadata["PageCount"] = pagesCount.ToString();
+                            await blob.UploadTextAsync(text ?? string.Empty, token);
+                            pageCount = pagesCount;
+                        }
+                        else
+                        {
+                            log.Info("found text file");
 
-                    await collectorBlur.AddAsync(id, token);
-                    log.Info("C# Blob trigger function Processed");
+                            var blob = directory.GetBlockBlobReference(blobTextName);
+                            await blob.FetchAttributesAsync(token);
+                            pageCount = int.Parse(blob.Metadata["PageCount"]);
+                        }
 
+                        if (pageCount != previewDelta.Count || previewDelta.Count == 0)
+                        {
+                            await f.ProcessFilesAsync(previewDelta, (stream, previewName) =>
+                            {
+                                stream.Seek(0, SeekOrigin.Begin);
+                                var blob = directory.GetBlockBlobReference($"preview-{previewName}");
+                                blob.Properties.ContentType = "image/jpeg";
+                                log.Info($"uploading to {id} preview-{previewName}");
+                                return blob.UploadFromStreamAsync(stream, token);
+                            }, token);
+                        }
+                    }
                 }
+                else
+                {
+                    log.Error($"did not process id:{id}");
+                    await collector.AddAsync(id, token);
+                }
+
+                await collectorBlur.AddAsync(id, token);
+                log.Info("C# Blob trigger function Processed");
+
             }
             catch (Exception ex)
             {
@@ -181,6 +209,31 @@ namespace Cloudents.Functions
         }
 
 
+
+    }
+    public class OrderPreviewComparer : IComparer<Uri>
+    {
+        public int Compare(Uri s1, Uri s2)
+        {
+
+            string GetNumberStr(Uri x)
+            {
+                return Regex.Replace(x?.Segments.Last() ?? string.Empty, "[^\\d]", string.Empty);
+            }
+
+            var z = GetNumberStr(s1);
+            var z2 = GetNumberStr(s2);
+
+            if (int.TryParse(z, out var i1) && int.TryParse(z2, out var i2))
+            {
+                if (i1 > i2) return 1;
+                if (i1 < i2) return -1;
+                if (i1 == i2) return 0;
+            }
+
+            return 0;
+            //return string.Compare(s1, s2, true);
+        }
 
     }
 }

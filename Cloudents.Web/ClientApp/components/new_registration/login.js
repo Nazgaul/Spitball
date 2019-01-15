@@ -22,7 +22,7 @@ import { LanguageService } from "../../services/language/languageService";
 
 const defaultSubmitRoute = { path: '/' };
 const initialPointsNum = 100;
-
+const signInStr = '/signin';
 
 var auth2;
 export default {
@@ -135,11 +135,11 @@ export default {
                 }, this.toasterTimeout)
             }
         },
-        '$route': function (form, to) {
-            //V8Fix - you should use $route.name and not path - what happen if we change the path?
-            //Also why not const and in one place
-            if (this.$route.path === '/signin') {
+
+        '$route': function (from, to, next) {
+            if (this.$route.path === signInStr) {
                 return this.isSignIn = true;
+
             } else {
                 return this.isSignIn = false;
             }
@@ -220,59 +220,57 @@ export default {
     },
 
     created() {
+        let self = this;
         //history update event, fires when back btn clicked
         global.onpopstate = (event) => {
-            this.goBackStep()
+            self.goBackStep()
         };
-        //v8Fix -var self = this and use self. this way we mimify the code
+
         //event liseners for all steps
-        this.$on('changeStep', (stepName) => {
-            this.changeStepNumber(stepName);
+        self.$on('changeStep', (stepName) => {
+            self.changeStepNumber(stepName);
         });
-        this.$on('updateEmail', (email) => {
-            this.userEmail = email;
+        self.$on('updateEmail', (email) => {
+            self.userEmail = email;
         });
-        this.$on('updatePhone', (phone) => {
-            this.phone = phone;
+        self.$on('updatePhone', (phone) => {
+            self.phone = phone;
         });
-        this.$on('updateIsNewUser', (isNew) => {
-            this.isNewUser = isNew;
+        self.$on('updateIsNewUser', (isNew) => {
+            self.isNewUser = isNew;
         });
-        this.$on('fromCreate', (create) => {
+        self.$on('fromCreate', (create) => {
             if (create === 'create') {
-                this.camefromCreate = true
+                self.camefromCreate = true
             } else if (create === 'forgot') {
-                this.camefromCreate = false
+                self.camefromCreate = false
             }
         });
-        this.$on('updateCountryCodeList', (countryCodes) => {
-            this.phone.countryCode = countryCodes;
-        })
+        self.$on('updateCountryCodeList', (countryCodes) => {
+            self.phone.countryCode = countryCodes;
+        });
         
-        let path = this.$route.path.toLowerCase();
+        let path = self.$route.path.toLowerCase();
         //check if returnUrl exists
-        if (!!this.$route.query.returnUrl) {
-            this.toUrl = { path: `${this.$route.query.returnUrl}`, query: { term: '' } };
+        if (!!self.$route.query.returnUrl) {
+            self.toUrl = { path: `${self.$route.query.returnUrl}`, query: { term: '' } };
         }
-        if (this.$route.query && this.$route.query.step) {
-            let step = this.$route.query.step;
-            this.changeStepNumber(step);
-              //V8Fix - you should use $route.name and not path - what happen if we change the path?
-            //why noe use var in line 263?
-        } else if (this.$route.path === '/signin') {
-            this.isSignIn = true;
-            this.changeStepNumber('termandstart', true);
-  //V8Fix - you should use $route.name and not path - what happen if we change the path?
+        if (self.$route.query && self.$route.query.step) {
+            let step = self.$route.query.step;
+            self.changeStepNumber(step);
+        } else if (self.$route.path === signInStr) {
+            self.isSignIn = true;
+            self.changeStepNumber('termandstart', true);
         } else if (path === '/resetpassword') {
 
             //v8Fix - please use js convension this.$route.query['id'] || ''
-            this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
-            this.ID = this.$route.query['Id'] ? this.$route.query['Id'] : '';
-            this.changeStepNumber('createpassword', true);
+            self.passResetCode = self.$route.query['code'] ? self.$route.query['code'] : '';
+            self.ID = self.$route.query['Id'] ? self.$route.query['Id'] : '';
+            self.changeStepNumber('createpassword', true);
         }
         //check if new user param exists in email url
-        this.isNewUser = this.$route.query['isNew'] !== undefined;
-        if (this.isNewUser && this.stepNumber === 4) {
+        self.isNewUser = self.$route.query['isNew'] !== undefined;
+        if (self.isNewUser && self.stepNumber === 4) {
             analyticsService.sb_unitedEvent('Registration', 'Email Verified');
 
         }

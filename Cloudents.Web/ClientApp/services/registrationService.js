@@ -41,6 +41,6 @@ export default {
         return connectivityModule.http.post("ForgotPassword/reset", {id, code, password, confirmPassword})
     },
     validateEmail: (email) => {
-        return connectivityModule.http.post("LogIn/ValidateEmail", {email})
+        return connectivityModule.http.get(`LogIn/ValidateEmail?email=${email}`,)
     },
 }

@@ -37,7 +37,7 @@ namespace Cloudents.Core.Interfaces
         
 
         //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
-        Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
+        //Task<RegularUser> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
        // Task UpdateUsersBalance(CancellationToken token);
     }
 
@@ -101,6 +101,11 @@ namespace Cloudents.Core.Interfaces
         Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
         Task<TransactionActionType> GetFirstCourseTransaction(long userId, CancellationToken token);
 
+    }
+
+    public interface IStatsRepository : IRepository<Stats>
+    {
+        Task UpdateTableAsync(CancellationToken token);
     }
 
     }

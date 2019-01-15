@@ -17,7 +17,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
             Map(x => x.Color);
-            Map(x => x.Language).Length(5);
+            Map(x => x.Language).Length(10);
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
 
             References(x => x.User).Column("UserId")

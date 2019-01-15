@@ -1,17 +1,18 @@
-﻿using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core;
+using Cloudents.Core.Entities;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Core.Entities;
+using System.Threading;
+using System.Threading.Tasks;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Cloudents.Web.Api
 {
@@ -55,7 +56,7 @@ namespace Cloudents.Web.Api
             if (result == SignInResult.Success)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Ok(new {user.Country });
+                return Ok(new { user.Country });
             }
 
 
@@ -66,11 +67,9 @@ namespace Cloudents.Web.Api
                     ModelState.AddModelError(nameof(model.Password), _localizer["LockOut"]);
                     return BadRequest(ModelState);
                 }
-                else
-                {
-                    ModelState.AddModelError(nameof(model.Password), _localizer["TempLockOut"]);
-                    return BadRequest(ModelState);
-                }
+
+                ModelState.AddModelError(nameof(model.Password), _localizer["TempLockOut"]);
+                return BadRequest(ModelState);
             }
 
 
@@ -87,8 +86,9 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("ValidateEmail")]
-        public async Task<ActionResult<CheckUserStatusResponse>> CheckUserStatus([FromBody] EmailValidateRequest model)
+        [HttpGet("ValidateEmail")]
+        [ResponseCache(Duration = TimeConst.Minute * 2, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(EmailValidateRequest.Email) })]
+        public async Task<ActionResult<CheckUserStatusResponse>> CheckUserStatus([FromQuery] EmailValidateRequest model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)

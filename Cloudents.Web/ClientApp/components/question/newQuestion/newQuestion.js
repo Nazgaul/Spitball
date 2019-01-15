@@ -1,13 +1,15 @@
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from '../../../services/questionService';
 import disableForm from "../../mixins/submitDisableMixin"
-import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { LanguageService } from "../../../services/language/languageService";
+import {mapGetters,mapMutations,mapActions} from 'vuex'
+import {LanguageService} from "../../../services/language/languageService";
 import analyticsService from '../../../services/analytics.service';
 
 export default {
     mixins: [disableForm],
-    components: {extendedTextArea},
+    components: {
+        extendedTextArea
+    },
 
     data() {
         return {
@@ -38,7 +40,7 @@ export default {
 
 
         },
-        textAreaValue(){
+        textAreaValue() {
             this.errorTextArea = {};
         },
         //watch selected to clear custom price field
@@ -48,35 +50,40 @@ export default {
             }
         },
         // if question dialog state is false reset question form data to default
-        newQuestionDialogSate() {
-            if (!this.newQuestionDialogSate) {
-                this.textAreaValue = '';
-                this.errorTextArea = {};
-                this.subject = '';
-                this.price = null;
-                this.selectedPrice = null;
-                this.errorMessage = '';
-                this.errorMessageSubject = '';
-                this.errorSelectPrice = '';
-                this.pricesList = [10, 20, 40, 80];
-                this.loading = false;
-                this.selectedColor = {
-                    name: 'default'
-                };
-                this.$root.$emit("colorReset");
-                this.$root.$emit('previewClean', 'true');
-                this.files = [];
-                this.errorWaitTime = '';
-            } else {
-                // get subject if questionDialog state is true(happens only if accountUser is true)
-                questionService.getSubjects().then((response) => {
-                    this.subjectList = response.data
-                });
-            }
+        newQuestionDialogSate: {
+            immediate: true,
+            handler(val) {
+                if (!val) {
+                    this.textAreaValue = '';
+                    this.errorTextArea = {};
+                    this.subject = '';
+                    this.price = null;
+                    this.selectedPrice = null;
+                    this.errorMessage = '';
+                    this.errorMessageSubject = '';
+                    this.errorSelectPrice = '';
+                    this.pricesList = [10, 20, 40, 80];
+                    this.loading = false;
+                    this.selectedColor = {
+                        name: 'default'
+                    };
+                    this.$root.$emit("colorReset");
+                    this.$root.$emit('previewClean', 'true');
+                    this.files = [];
+                    this.errorWaitTime = '';
+                } else {
+                    // get subject if questionDialog state is true(happens only if accountUser is true)
+                    questionService.getSubjects().then((response) => {
+                        this.subjectList = response.data
+                    });
+                }
+            },
         },
     },
     methods: {
-        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapMutations({
+            updateLoading: "UPDATE_LOADING"
+        }),
         ...mapActions(['updateUserBalance', 'updateToasterParams', 'updateNewQuestionDialogState']),
 
         submitQuestion() {
@@ -121,7 +128,12 @@ export default {
                             self.updateUserBalance(-val);
                             //close dialog after question submitted
                             self.requestNewQuestionDialogClose(false);
-                            self.$router.push({path: '/ask', query: {term: ''}});
+                            self.$router.push({
+                                path: '/ask',
+                                query: {
+                                    term: ''
+                                }
+                            });
                             self.updateLoading(false);
                             // self.updateToasterParams({
                             //     toasterText: response.data.toasterText, // LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),

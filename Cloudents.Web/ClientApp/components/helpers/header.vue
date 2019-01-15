@@ -126,7 +126,14 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'getShowSelectUniInterface']),
+            ...mapGetters([
+                'accountUser',
+                'unreadMessages',
+                'getShowToaster',
+                'getToasterText',
+                'getShowSelectUniInterface',
+                'showMobileFeed'
+            ]),
 
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
@@ -135,7 +142,12 @@
                 return this.accountUser !== null
             },
             hideHeader(){
-                return this.getShowSelectUniInterface && this.$vuetify.breakpoint.xsOnly;
+                if(this.$vuetify.breakpoint.xsOnly){
+                    return this.getShowSelectUniInterface || !this.showMobileFeed;
+                }else{
+                    return false;
+                }
+                
             }
             //myMoney(){return this.accountUser.balance / 40}
 
@@ -156,7 +168,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'resetData', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData']),
+            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
                         this.updateLoginDialogState(true);
@@ -186,17 +198,7 @@
             },
 
             resetItems(){
-                if(this.$route.path === '/ask'){
-                    if(this.$route.fullPath === '/ask'){
-                        global.location.reload();
-                    }else{
-                        this.resetData();
-                        this.$router.push('/');
-                    }
-                }else{
-                    this.resetData();
-                    this.$router.push('/');
-                }
+                this.$router.push('/');
             },
             closeDrawer(){
                 this.drawer = !this.drawer;

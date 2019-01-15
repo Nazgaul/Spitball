@@ -121,7 +121,7 @@
     <value>העלה מסמכים</value>
   </data>
   <data name="class_input_placeholder" xml:space="preserve">
-    <value>בחר או הקלד את שם הקורס</value>
+    <value>בחר את שם הקורס</value>
   </data>
   <data name="confirm_btn_cancel" xml:space="preserve">
     <value>חזור</value>
@@ -163,7 +163,7 @@
     <value>סגור</value>
   </data>
   <data name="files_btn_desktop" xml:space="preserve">
-    <value>שולחן עבודה</value>
+    <value>המחשב שלך</value>
   </data>
   <data name="files_btn_drop" xml:space="preserve">
     <value>או פשוט גרור את הקובץ שלך לכאן</value>
@@ -273,7 +273,7 @@
     <value>צור כותרת או השתמש בכותרת שיצרנו עבורך</value>
   </data>
   <data name="files_step5_subtitle" xml:space="preserve">
-    <value>זה יעזור לאחרים למצוא אותך ביותר מדרך אחת</value>
+    <value>הוספת תגיות יעזור לך להגדיל את הסיכויים למכור את המסמך </value>
   </data>
   <data name="files_step5_title" xml:space="preserve">
     <value>הוסף כל תגית שלדעתך רלוונטית עבור מסמך זה</value>

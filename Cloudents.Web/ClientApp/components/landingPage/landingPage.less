@@ -18,10 +18,11 @@
     i{
       font-size: 16px;
     }
-
   }
 }
-
+.v-select-list{
+  opacity: 1;
+}
 .input-holder {
   padding-top: 78px;
   width: 60%;
@@ -644,84 +645,89 @@ section {
       .v-window-item {
         height: 100%;
         width: 100%;
-        .v-responsive__content {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: center;
-          .review-item-wrap {
+        .v-responsive{
+          height: auto !important;
+          .v-responsive__content {
             display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 306px;
-            position: relative;
+            flex-direction: row;
             align-items: center;
-            margin-right: 120px;
-            &:last-child {
-              margin-right: 0;
-            }
-            @media (max-width: @screen-xs) {
-              &:first-child {
-                margin-right: unset;
-              }
-            }
-            .review-image-wrap {
+            justify-content: center;
+            height:auto;
+            .review-item-wrap {
               display: flex;
+              flex-direction: column;
+              width: 100%;
+              max-width: 306px;
+              position: relative;
               align-items: center;
-              justify-content: center;
-              height: 180px;
-              min-width: 306px;
-              background-color: @color-white;
-              border-radius: 4px 4px 0 0;
-              box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
-              .review-image {
-                border-radius: 4px;
-
+              margin-right: 120px;
+              &:last-child {
+                margin-right: 0;
               }
-            }
-            .review-name {
-              position: absolute;
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-items: center;
-              top: 0;
-              right: 0;
-              left: 0;
-              height: 38px;
-              background-color: rgba(0, 0, 0, 0.53);
-              border-radius: 4px 4px 0 0;
-              color: fade(@color-white, 87%);
-              font-size: 14px;
-              font-family: @fontOpenSans;
-            }
-            .review-title {
-              display: flex;
-              height: 56px;
-              align-items: center;
-              justify-content: center;
-              font-size: 14px;
-              font-family: @fontOpenSans;
-              color: @textColor;
-              font-weight: 600;
-
-            }
-            .review-text {
-              font-size: 18px;
-              font-weight: normal;
-              font-style: italic;
-              font-family: @fontOpenSans;
-              color: @textColor;
-              line-height: 1.45;
-              &:before {
-                content: open-quote;
+              @media (max-width: @screen-xs) {
+                &:first-child {
+                  margin-right: unset;
+                }
               }
-              &::after {
-                content: close-quote;
+              .review-image-wrap {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 180px;
+                min-width: 306px;
+                background-color: @color-white;
+                border-radius: 4px 4px 0 0;
+                box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
+                .review-image {
+                  border-radius: 4px;
+  
+                }
+              }
+              .review-name {
+                position: absolute;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                top: 0;
+                right: 0;
+                left: 0;
+                height: 38px;
+                background-color: rgba(0, 0, 0, 0.53);
+                border-radius: 4px 4px 0 0;
+                color: fade(@color-white, 87%);
+                font-size: 14px;
+                font-family: @fontOpenSans;
+              }
+              .review-title {
+                display: flex;
+                height: 56px;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                font-family: @fontOpenSans;
+                color: @textColor;
+                font-weight: 600;
+  
+              }
+              .review-text {
+                font-size: 18px;
+                font-weight: normal;
+                font-style: italic;
+                font-family: @fontOpenSans;
+                color: @textColor;
+                line-height: 1.45;
+                &:before {
+                  content: open-quote;
+                }
+                &::after {
+                  content: close-quote;
+                }
               }
             }
           }
         }
+        
       }
     }
 

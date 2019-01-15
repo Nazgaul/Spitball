@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Search
         [Cache(TimeConst.Day, "bing4", false)]
         [BuildLocalUrl(null, PageSize, "page")]
         public async Task<IEnumerable<SearchResult>> SearchAsync(SearchModel model,
-            int page, HighlightTextFormat format, CancellationToken token)
+            int page, CancellationToken token)
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
 
@@ -72,10 +72,10 @@ namespace Cloudents.Infrastructure.Search
 
             var retVal = _mapper.Map<IEnumerable<BingWebPage>, IEnumerable<SearchResult>>(response.WebPages.Value, a =>
              {
-                 if (format == HighlightTextFormat.Html)
-                 {
-                     a.Items[BingConverter.KeyTermHighlight] = model.Query;
-                 }
+                 //if (format == HighlightTextFormat.Html)
+                 //{
+                 //    a.Items[BingConverter.KeyTermHighlight] = model.Query;
+                 //}
 
                  a.Items[BingConverter.KeyPriority] = model.Key.Priority;
              });

@@ -52,6 +52,7 @@ const allModules = [
     "vuetify/es5/components/VCombobox",
     "vuetify/es5/components/VCheckbox",
     "vuetify/es5/components/VParallax",
+    "vuetify/es5/components/VBottomNav",
     "webfontloader",
 
 ];

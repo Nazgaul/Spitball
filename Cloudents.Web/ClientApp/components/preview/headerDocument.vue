@@ -3,7 +3,9 @@
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <h1 class="item-name" >{{itemName}} <span class="doc-extension" v-show="item && item.extension">({{item ? item.extension : ''}})</span>
+                    <h1 class="item-name" >
+                        <span class=" text-truncate">{{itemName}} </span>
+                        <span class="doc-extension" v-show="item && item.extension">({{item ? item.extension : ''}})</span>
                     </h1>
                     <div class="doc-details">
                         <div class="author">
@@ -27,7 +29,7 @@
                     <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
                     <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
                 </div>
-                <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.smAndDown">
+                <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.xsOnly">
                     <div class="viewed">
                         <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
                         <span class="viewed-text">{{item.views}}</span>
@@ -68,7 +70,7 @@
                                         </span>
                                         <span class="equals-to-dollar hidden-xs-only">
                                             <span v-language:inner>preview_price_equals_to</span>
-                                            {{item.price ? item.price : 0 | dollarVal}}$</span>
+                                            ${{item.price ? item.price : 0 | dollarVal}}</span>
                                     </div>
                                     <div class="buy-btn-wrap">
                                         <span class="buy-text" v-language:inner>preview_itemActions_buy</span>
@@ -150,7 +152,8 @@
     import { mapGetters, mapActions } from 'vuex';
     import { documentTypes } from '../results/helpers/uploadFiles/consts';
     import documentDetails from '../results/helpers/documentDetails/documentDetails.vue';
-    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
+    import analyticsService from '../../services/analytics.service';
 
     export default {
         components: {
@@ -174,6 +177,7 @@
             ...mapGetters(['accountUser']),
             downloadDoc() {
                 let url = this.$route.path + '/download';
+                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD');
                 if (!!this.accountUser()) {
                     global.location.href = url;
                     this.updateDownloadsCount()
@@ -185,6 +189,7 @@
                 let isLogedIn = this.accountUser();
                 if(isLogedIn){
                     this.confirmPurchaseDialog = true;
+                     analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASE_INTENT');
                 }else{
                     this.updateLoginDialogState(true);
                 }

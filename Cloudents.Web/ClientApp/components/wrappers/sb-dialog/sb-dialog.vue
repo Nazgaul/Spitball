@@ -1,7 +1,17 @@
 <template>
-    <v-dialog class="sb-dialog-back"  :origin ="'bottom center'" :transition="transitionAnimation" v-model="show" :fullscreen="OverlayActive"
-               :full-width="fullWidth" :max-width="fullWidth ? '1280px' : maxWidth" scrollable :content-class="contentClass" :persistent="isPersistent">
-     <slot></slot>
+    <v-dialog
+            v-model="show"
+            v-if="show"
+            class="sb-dialog-back"
+            :origin="'bottom center'"
+            :transition="transitionAnimation"
+            :fullscreen="OverlayActive"
+            :full-width="fullWidth"
+            :max-width="fullWidth ? '1280px' : maxWidth"
+            scrollable
+            :content-class="contentClass"
+            :persistent="isPersistent">
+        <slot></slot>
     </v-dialog>
 </template>
 

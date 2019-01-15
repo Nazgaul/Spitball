@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,21 +26,21 @@ namespace Cloudents.Query
         {
             //TODO check this query
             return await _session.Query<RegularUser>()
-                .Where(w => w.Id == query.Id).Select(s => new UserAccountDto
+                .Where(w => w.Id == query.Id && (!w.LockoutEnd.HasValue || DateTime.UtcNow >= w.LockoutEnd.Value))
+                .Select(s => new UserAccountDto
                 {
                     Id = s.Id,
-                    Balance = s.Balance, // s.LastTransaction.Balance,
+                    Balance = s.Balance, 
                     Name = s.Name,
                     Image = s.Image,
                     Email = s.Email,
                     UniversityExists = s.University != null,
                     Score = s.Score
-                    //UniversityId = s.University.Id
                 }).WithOptions(o =>
                 {
                     o.SetCacheable(true)
                         .SetReadOnly(true);
-                }).SingleOrDefaultAsync(token).ConfigureAwait(false);
+                }).SingleOrDefaultAsync(token);
         }
     }
 }

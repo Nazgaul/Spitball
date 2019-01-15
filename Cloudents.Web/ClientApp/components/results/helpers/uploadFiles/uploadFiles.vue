@@ -33,7 +33,7 @@
                                     <div v-else class="load-container">
                                         <div class="dot-flashing"></div>
                                     </div>
-                                    <span class="upload-file-name mr-3">{{getFileData.name}}</span>
+                                    <span class="text-truncate upload-file-name mr-3">{{getFileData.name}}</span>
                                     <!--<v-icon class="sb-close">sbf-close</v-icon>-->
                                 </div>
                             </div>
@@ -50,7 +50,9 @@
                             </v-btn>
 
                             <v-btn v-show="currentStep ===7" round class="next-btn sell"
-                                   @click="sendDocumentData(7)" :disabled="isDisabled">
+                                   @click="sendDocumentData(7)"
+                                   :disabled="isDisabled"
+                                   :loading="loading">
                                 <span v-language:inner>upload_files_btn_sell</span>
 
                                 <v-icon right class="credit-card">sbf-credit-card</v-icon>
