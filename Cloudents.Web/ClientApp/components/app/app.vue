@@ -56,7 +56,8 @@
                     :popUpType="'newQuestion'"
                     :content-class="'newQuestionDialog'"
             >
-        <Add-Question></Add-Question>
+        <!-- <Add-Question></Add-Question> -->
+        <New-Question></New-Question>
             </sb-dialog>
             <sb-dialog
                     :showDialog="newIsraeliUser"
@@ -91,8 +92,8 @@
     import { mapGetters, mapActions } from "vuex";
     import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
     import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
-// import NewQuestion from "../question/newQuestion/newQuestion.vue";
-import AddQuestion from "../question/addQuestion/addQuestion.vue";
+    import NewQuestion from "../question/newQuestion/newQuestion.vue";
+    import AddQuestion from "../question/addQuestion/addQuestion.vue";
     import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
     import {
         GetDictionary,
@@ -109,7 +110,8 @@ import AddQuestion from "../question/addQuestion/addQuestion.vue";
 
     export default {
         components: {
-    AddQuestion,
+            AddQuestion,
+            NewQuestion,
             sbDialog,
             loginToAnswer,
             uniSelectPop,
