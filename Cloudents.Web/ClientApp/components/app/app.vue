@@ -56,8 +56,8 @@
                     :popUpType="'newQuestion'"
                     :content-class="'newQuestionDialog'"
             >
-        <!-- <Add-Question></Add-Question> -->
-        <New-Question></New-Question>
+        <Add-Question></Add-Question>
+        <!-- <New-Question></New-Question> -->
             </sb-dialog>
             <sb-dialog
                     :showDialog="newIsraeliUser"
