@@ -4,9 +4,6 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Query.Query.Admin;
 using Dapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,14 +12,12 @@ namespace Cloudents.Query.Admin
     public class AdminUserInfoQueryHandler : IQueryHandler<AdminUserInfoQuery, UserInfoDto>
     {
         private readonly DapperRepository _dapper;
-        private readonly IMapper _mapper;
 
 
 
-        public AdminUserInfoQueryHandler(DapperRepository dapper, IMapper mapper)
+        public AdminUserInfoQueryHandler(DapperRepository dapper)
         {
             _dapper = dapper;
-            _mapper = mapper;
         }
 
         public async Task<UserInfoDto> GetAsync(AdminUserInfoQuery query, CancellationToken token)
