@@ -30,16 +30,29 @@ namespace Cloudents.Query.Admin
                 var result = await _dapper.WithConnectionAsync(async connection =>
                 {
                     var grid = connection.QueryMultiple(@"
-                select Id, Name, Score from sb.[User] where Id = @Id;
-                select Id, Text, Created from sb.Question where UserId = @Id;
-                select Id, Text, Created, QuestionId from sb.Answer where UserId = @Id;
-                select D.Id, D.Name, D.CreationTime as Created, U.Name as University, D.CourseName as Course, D.Price
+                select U.Id, U.Name, Email, PhoneNumberHash, Un.Name as University, U.Country, U.Score, U.FraudScore, count(distinct T.Id) as ReferredCount, U.Balance
+                from sb.[User] U
+                join sb.University Un
+	                on U.UniversityId2 = Un.Id
+                left join sb.[Transaction] T
+	                on U.Id = T.[User_id] and T.[Action] = 'ReferringUser'
+                where U.Id = @Id
+                group by U.Id, U.Name, Email, PhoneNumberHash, Un.Name, U.Country, U.Score, U.FraudScore, U.Balance;
+                select Id, Text, Created, [State]
+                from sb.Question 
+                where UserId = @Id;
+                select A.Id, A.Text, A.Created, A.QuestionId, Q.Text as QuestionText, A.[State]
+                from sb.Answer A
+                join sb.Question Q
+	                on A.QuestionId = Q.Id
+                where A.UserId = @Id;
+                select D.Id, D.Name, D.CreationTime as Created, U.Name as University, D.CourseName as Course, D.Price, D.[state]
                 from sb.Document D
                 join sb.University U
 	                on D.UniversityId = U.Id
                 where UserId = @Id;", new {Id = query.UserId } );
 
-                    var user = await grid.ReadFirstAsync<UserDto>();
+                    var user = await grid.ReadFirstAsync<UserDetailsDto>();
                     var questions = await grid.ReadAsync<UserQuestionsDto>();
                     var answers = await grid.ReadAsync<UserAnswersDto>();
                     var documents = await grid.ReadAsync<UserDocumentsDto>();

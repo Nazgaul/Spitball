@@ -79,6 +79,7 @@ namespace Cloudents.Core.Entities
         {
             price = -Math.Abs(price);
             var t = new Transaction(TransactionActionType.CashOut, TransactionType.Earned, price, this);
+            Transactions.Add(t);
             AddEvent(new RedeemEvent(Id, price));
         }
 
