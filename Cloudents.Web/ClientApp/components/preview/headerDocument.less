@@ -48,6 +48,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
         .doc-type {
           display: flex;
           flex-direction: row;
@@ -128,9 +129,14 @@
       }
     }
     .item-header-content {
-      max-width: 880px;
-      width: 100%;
-      margin: 0 auto;
+      .limited-width();
+      //max-width: 880px;
+      //width: 100%;
+      //margin: 0 auto;
+      .gap {
+        width: @logoWidth;
+        .flexSameSize();
+      }
       @media (max-width: @screen-xs) {
         padding: 0 8px;
       }
@@ -155,6 +161,7 @@
           flex-direction: row;
           justify-content: center;
           align-items: baseline;
+          margin-right: auto;
           .author {
             display: flex;
             flex-direction: row;
@@ -186,6 +193,7 @@
         }
         .item-name {
           .responsive-property(font-size, 22px, null, 18px);
+          margin-right: auto;
           font-weight: 600;
           display: flex;
           font-family: @fontFiraSans;
@@ -195,7 +203,7 @@
           text-transform: lowercase;
           flex-grow: 1;
           .giveMeEllipsisOne;
-          max-width: 580px;
+          max-width: 532px;
           @media (max-width: @screen-xs) {
             width: 90%;
             display: flex;
