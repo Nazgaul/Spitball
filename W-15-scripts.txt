@@ -8,6 +8,19 @@ PRIMARY KEY CLUSTERED
 
 
 insert into sb.[Language] values ('en'),('he')
+CREATE VIEW [dbo].[vwLeaderBoard] WITH SCHEMABINDING 
+    AS
+
+    select U.Id, U.Name, Score, Un.Name as University
+    from sb.[user] U
+    join sb.University UN
+        on U.UniversityId2 = UN.Id
+    where LockoutEnd is null
+    
+GO
+
+CREATE UNIQUE CLUSTERED INDEX IX_vwLeadewrBoard
+       ON [dbo].[vwLeadewrBoard] (Id, Score);
 
 
 Alter table sb.[user]
