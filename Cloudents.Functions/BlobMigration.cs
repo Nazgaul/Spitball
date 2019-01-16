@@ -99,37 +99,38 @@ namespace Cloudents.Functions
             [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
             TraceWriter log, CancellationToken token)
         {
-            log.Info($"receive preview for {id}");
-            var segment = await directory.ListBlobsSegmentedAsync(null, token);
-            var myBlob = (CloudBlockBlob)segment.Results.FirstOrDefault(f => f.Uri.Segments.Last().StartsWith("file-"));
-            if (myBlob == null)
-            {
-                return;
-            }
-            var name = myBlob.Name.Split('-').Last();
-
-
-            const string contentType = "text/plain";
-
-
-            var document = segment.Results.Where(w => w.Uri.Segments.Last().StartsWith("preview-"))
-                .OrderBy(o => o.Uri, new OrderPreviewComparer());
-
-            List<int> previewDelta = new List<int>();
-
-            foreach (var item in document)
-            {
-                int.TryParse(
-                    Path.GetFileNameWithoutExtension(item.Uri.ToString())
-                    .Split('-').Last(), out var temp
-                    );
-                previewDelta.Add(temp);
-            }
-
-            log.Info($"Going to process - {id}");
-
             try
             {
+                log.Info($"receive preview for {id}");
+                var segment = await directory.ListBlobsSegmentedAsync(null, token);
+                var myBlob = (CloudBlockBlob)segment.Results.FirstOrDefault(f2 => f2.Uri.Segments.Last().StartsWith("file-"));
+                if (myBlob == null)
+                {
+                    return;
+                }
+                var name = myBlob.Name.Split('-').Last();
+
+
+                const string contentType = "text/plain";
+
+
+                var document = segment.Results.Where(w => w.Uri.Segments.Last().StartsWith("preview-"))
+                    .OrderBy(o => o.Uri, new OrderPreviewComparer());
+
+                var previewDelta = new List<int>();
+
+                foreach (var item in document)
+                {
+                    int.TryParse(
+                        Path.GetFileNameWithoutExtension(item.Uri.ToString())
+                        .Split('-').Last(), out var temp
+                        );
+                    previewDelta.Add(temp);
+                }
+
+                log.Info($"Going to process - {id}");
+
+
 
                 var f = factory.PreviewFactory(name);
                 if (f != null)
