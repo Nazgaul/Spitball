@@ -1,5 +1,5 @@
 @import "../../../styles/mixin.less";
-.newQuestionDialogDev {
+.newQuestionDialog {
     box-shadow: none;
     justify-content: center;
     background:#eeeeee;
@@ -91,6 +91,17 @@
             display: flex;
             justify-content: space-around;
             padding-top: 10px;
+            div{
+                max-width: 235px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                .v-select__selection--comma{
+                    display: unset;
+                    width: 180px; // Very important, for very long strings this prop is required!
+                    line-height: 20px;
+                }
+            }
             .v-text-field{
                 .v-input__control{
                     .v-input__slot{
@@ -102,6 +113,10 @@
                         .v-select__slot{
                             label{
                                 top:unset;
+                                font-family: @fontOpenSans;
+                                font-size: 14px;
+                                letter-spacing: -0.4px;
+                                color: rgba(0, 0, 0, 0.87);
                             }
                         }
                     }

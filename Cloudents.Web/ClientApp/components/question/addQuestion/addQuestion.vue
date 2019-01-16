@@ -32,10 +32,10 @@
       </div>
       <div class="question-subject-class-container">
         <div>
-          <v-select height="40" single-line :items="['a','b','c','d','e','f','g','h']" label="Select the subject" :append-icon="''" outline></v-select>
+          <v-select height="40" single-line item-value="id" item-text="subject" :items="subjectList" label="Select the subject" :append-icon="''" outline></v-select>
         </div>
         <div>
-          <v-select height="40" single-line :items="['a','b','c','d','e','f','g','h']" label="For what class?" :append-icon="''" outline></v-select>
+          <v-select height="40" single-line :items="getSelectedClasses" label="For what class?" :append-icon="''" outline></v-select>
         </div>
       </div>
     </div>
