@@ -27,7 +27,7 @@ namespace Cloudents.Core.Entities
         {
             UserLogins = new List<UserLogin>();
             //Transactions = new List<Transaction>();
-            Transactions = this.Transactions ?? new UserTransactions();
+            Transactions = Transactions ?? new UserTransactions();
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
 

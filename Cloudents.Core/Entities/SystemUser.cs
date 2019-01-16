@@ -1,7 +1,4 @@
-﻿using System;
-using Cloudents.Core.Enum;
-
-namespace Cloudents.Core.Entities
+﻿namespace Cloudents.Core.Entities
 {
     public class SystemUser : User
     {

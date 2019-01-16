@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Extension
 {

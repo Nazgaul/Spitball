@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Cloudents.Core
+﻿namespace Cloudents.Core
 {
     //public sealed class ReputationAction
     //{
