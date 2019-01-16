@@ -85,7 +85,7 @@ namespace Cloudents.Core.Entities
         //public abstract IList<Transaction> Transactions { get; set; }
         public abstract decimal Balance { get; }
 
-        public abstract int Score { get;  }
+        public abstract int Score { get; protected set; }
 
         //public abstract void AddTransaction(Transaction t);
 

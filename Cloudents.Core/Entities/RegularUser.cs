@@ -186,7 +186,7 @@ namespace Cloudents.Core.Entities
         //}
 
 
-        public override int Score => Transactions.Score;
+        public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
     }
 

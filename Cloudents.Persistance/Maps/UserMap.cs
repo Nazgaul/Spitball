@@ -39,14 +39,15 @@ namespace Cloudents.Persistance.Maps
             HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
-            
-          
+
+
 
             //Map(x => x.Languages).CustomType<JsonType<ISet<CultureInfo>>>();
 
 
-        
 
+            //Map(x => x.Balance).CustomSqlType("smallmoney");
+            Map(x => x.Score).ReadOnly();
             Table("[User]");
 
             
