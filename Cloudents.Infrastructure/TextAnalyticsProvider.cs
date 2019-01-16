@@ -8,9 +8,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Extension;
+using static Cloudents.Core.Entities.Language;
 
 namespace Cloudents.Infrastructure
 {
@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure
             };
 
             var b = new BatchInput(texts.Where(w=>!string.IsNullOrEmpty(w.Value))
-                .Select(s => new Input(s.Key.ToString(), s.Value.Truncate(4000,false)))
+                .Select(s => new Input(s.Key.ToString(), s.Value.Truncate(4000)))
                 .ToList());
             if (b.Documents.Count == 0)
             {
@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure
 
             return result.Documents.Select(x =>
              {
-                 var t = Language.English.Culture;
+                 CultureInfo t = English;
                  if (x.DetectedLanguages[0].Score > 0)
                  {
                      t = new CultureInfo(x.DetectedLanguages[0].Iso6391Name.Replace("_","-"));
@@ -70,10 +70,10 @@ namespace Cloudents.Infrastructure
         {
             if (string.IsNullOrEmpty(text))
             {
-                return Language.English;
+                return English;
             }
             var result = await DetectLanguageAsync(new[] { new KeyValuePair<string, string>("1", text) }, token);
-            return result.FirstOrDefault().Value ?? Language.English;
+            return result.FirstOrDefault().Value ?? English;
         }
     }
 }

@@ -92,7 +92,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual CultureInfo Culture { get; set; }
+        public virtual Language Language { get; set; }
 
         public virtual string Country { get; set; }
 

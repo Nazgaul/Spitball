@@ -25,11 +25,11 @@ namespace Cloudents.Web.Services
             var query = new UserDataByIdQuery(userId);
             var queryBus = httpContext.RequestServices.GetService<IQueryBus>();
             var result = await queryBus.QueryAsync<RegularUser>(query, httpContext.RequestAborted);
-            if (result.Culture == null)
+            if (result.Language == null)
             {
                 return null;
             }
-            return new ProviderCultureResult(new StringSegment(result.Culture.Name));
+            return new ProviderCultureResult(new StringSegment(result.Language.Id));
         }
     }
 }

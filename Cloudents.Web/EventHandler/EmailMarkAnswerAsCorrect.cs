@@ -45,7 +45,7 @@ namespace Cloudents.Web.EventHandler
             await SendEmail(
                 new AnswerCorrectEmail(answer.User.Email, answer.Question.Text,
                     answer.Text, link,
-                    answer.Question.Price, answer.User.Culture), answer.User, token).ConfigureAwait(false);
+                    answer.Question.Price, answer.User.Language), answer.User, token).ConfigureAwait(false);
         }
     }
 }
