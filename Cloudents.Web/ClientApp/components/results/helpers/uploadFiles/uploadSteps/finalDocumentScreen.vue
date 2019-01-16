@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mb-5 sb-step-card">
+    <v-card elevation="0" class="mb-5 sb-step-card">
         <div class="upload-row-1 final-row" row>
             <v-icon class="five">sbf-five</v-icon>
             <h3 class="sb-title" v-language:inner>upload_files_step6_title</h3>

@@ -3,17 +3,25 @@
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <h1 class="item-name" >
+                    <div class="gap ma-0"></div>
+                    <h1 class="item-name">
                         <span class=" text-truncate">{{itemName}} </span>
-                        <span class="doc-extension" v-show="item && item.extension">({{item ? item.extension : ''}})</span>
+                        <span class="doc-extension"
+                              v-show="item && item.extension">({{item ? item.extension : ''}})</span>
                     </h1>
                     <div class="doc-details">
                         <div class="author">
-                        <span class="upload-by">
-                            <v-icon class="sb-person mr-1" v-if="$vuetify.breakpoint.smAndUp">sbf-person</v-icon>
-                            <span v-if="$vuetify.breakpoint.smAndUp" class="mr-2" v-language:inner>headerDocument_item_by</span>
-                            <span class="name mr-2">{{uploaderName}},</span>
-                        </span>
+                        <!--<span class="upload-by">-->
+                            <div>
+                              <user-avatar class="avatar-circle width24 mr-2" :user-name="uploaderName" :user-id="uploaderID"/>
+                            </div>
+                            <user-rank class="mr-2"
+                                       :score="uploaderScore"></user-rank>
+
+                            <!--<v-icon class="sb-person mr-1" v-if="$vuetify.breakpoint.smAndUp">sbf-person</v-icon>-->
+                            <!--<span v-if="$vuetify.breakpoint.smAndUp" class="mr-2" v-language:inner>headerDocument_item_by</span>-->
+                            <!--<span class="name mr-2">{{uploaderName}},</span>-->
+                        <!--</span>-->
                         </div>
                         <div class="date">
                             {{uploadDate}}
@@ -32,11 +40,11 @@
                 <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.xsOnly">
                     <div class="viewed">
                         <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
-                        <span class="viewed-text">{{item.views}}</span>
+                        <span class="viewed-text">{{ item && item.views ? item.views : 0}}</span>
                     </div>
                     <div class="ml-4 downloaded">
                         <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
-                        <span class="downloaded-text">{{item.downloads}}</span>
+                        <span class="downloaded-text">{{item && item.downloads ? item.downloads : 0}}</span>
                     </div>
                 </div>
                 <div class="details" v-if="$vuetify.breakpoint.smAndUp">
@@ -64,13 +72,13 @@
                                 <div class="buy-action-container">
                                     <div class="buy-text-wrap">
                                         <span class="buy-text-price">
-                                            <span class="mobile-buy-text hidden-sm-and-up"  v-language:inner>preview_itemActions_buy</span>
-                                            {{item.price && item.price ? item.price.toFixed(2) : '00.00'}}
+                                            <span class="mobile-buy-text hidden-sm-and-up" v-language:inner>preview_itemActions_buy</span>
+                                            {{item && item.price ? item.price.toFixed(2) : '00.00'}}
                                             <span class="sbl-suffix">SBL</span>
                                         </span>
                                         <span class="equals-to-dollar hidden-xs-only">
                                             <span v-language:inner>preview_price_equals_to</span>
-                                            ${{item.price ? item.price : 0 | dollarVal}}</span>
+                                            ${{item && item.price ? item.price : 0 | dollarVal}}</span>
                                     </div>
                                     <div class="buy-btn-wrap">
                                         <span class="buy-text" v-language:inner>preview_itemActions_buy</span>
@@ -97,7 +105,7 @@
                 </div>
             </v-layout>
             <v-layout row fill-height justify-end class="pt-4" v-if="$vuetify.breakpoint.smAndUp">
-                <div class="detail-cell views-cell" >
+                <div class="detail-cell views-cell">
                     <div class="viewed">
                         <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
                         <span class="viewed-text">{{item  ? item.views : ''}}</span>
@@ -137,7 +145,8 @@
                         </v-btn>
                         <v-btn round class="submit-purchase" @click.native="purchaseDocument(item.id)">
                             <span class="hidden-xs-only" v-language:inner>preview_buy_btn</span>
-                            <span class="hidden-sm-and-up text-uppercase" v-language:inner>preview_itemActions_buy</span>
+                            <span class="hidden-sm-and-up text-uppercase"
+                                  v-language:inner>preview_itemActions_buy</span>
                         </v-btn>
                     </div>
                 </v-card-actions>
@@ -154,17 +163,21 @@
     import documentDetails from '../results/helpers/documentDetails/documentDetails.vue';
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import analyticsService from '../../services/analytics.service';
+    import userAvatar from '../helpers/UserAvatar/UserAvatar.vue';
+    import userRank from '../helpers/UserRank/UserRank.vue'
 
     export default {
         components: {
             mainHeader,
             itemActions,
             documentDetails,
-            sbDialog
+            sbDialog,
+            userAvatar,
+            userRank
         },
         data() {
             return {
-                 confirmPurchaseDialog: false
+                confirmPurchaseDialog: false
             }
         },
 
@@ -187,10 +200,10 @@
             },
             showPurchaseConfirm() {
                 let isLogedIn = this.accountUser();
-                if(isLogedIn){
+                if (isLogedIn) {
                     this.confirmPurchaseDialog = true;
-                     analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASE_INTENT');
-                }else{
+                    analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASE_INTENT');
+                } else {
                     this.updateLoginDialogState(true);
                 }
 
@@ -204,18 +217,18 @@
         computed: {
             ...mapGetters(['getDocumentDetails']),
             item() {
-                if(!!this.getDocumentDetails)
-                return this.getDocumentDetails
+                if (!!this.getDocumentDetails)
+                    return this.getDocumentDetails
             },
             itemName() {
                 if (this.item && this.item.name)
                     return this.item.name.replace(/\.[^/.]+$/, "")
             },
-            isPurchased:{
-                get(){
+            isPurchased: {
+                get() {
                     return this.item && this.item.isPurchased
                 },
-                set(val){
+                set(val) {
                     return this.item.isPurchased = val
                 }
 
@@ -233,6 +246,14 @@
             uploaderName() {
                 if (this.item && this.item.user && this.item.user.name)
                     return this.item.user.name
+            },
+            uploaderID() {
+                if (this.item && this.item.user && this.item.user.id)
+                    return this.item.user.id
+            },
+            uploaderScore(){
+                if (this.item && this.item.user && this.item.user.score)
+                    return this.item.user.score
             },
             uploadDate() {
                 if (this.item && this.item.date) {

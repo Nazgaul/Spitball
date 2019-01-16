@@ -224,7 +224,7 @@
             <span class="subject-sub-title" v-language:inner>landingPage_find_by_subject_desc</span>
             <v-layout row wrap v-bind="binding" class="layout-subject">
                 <v-flex v-for="subjectItem in subjectList" class="subject-item" :key="`${subjectItem.id}`" xs3>
-                    <v-card class="subject-card">
+                    <v-card elevation="0" class="subject-card">
                         <v-card-text class="subject-text" @click="goToResulstQuestionsPage(subjectItem)">
                             {{subjectItem.subject}}
                         </v-card-text>
