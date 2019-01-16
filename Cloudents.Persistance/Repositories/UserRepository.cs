@@ -101,8 +101,8 @@ namespace Cloudents.Persistance.Repositories
             return
               Session.QueryOver<Transaction>()
                   .Where(w => w.User.Id == userId)
-                  .Where(w => w.Type == type)
-                  .Select(Projections.Sum<Transaction>(x => x.Price));
+                  .Where(w => w.TransactionType.Type == type)
+                  .Select(Projections.Sum<Transaction>(x => x.TransactionType.Price));
         }
 
         internal IQueryOver<Transaction, Transaction> UserAvailableBalance(long userId)
@@ -110,8 +110,8 @@ namespace Cloudents.Persistance.Repositories
             return
               Session.QueryOver<Transaction>()
                   .Where(w => w.User.Id == userId)
-                  .Where(w => w.Type == TransactionType.Earned || w.Type == TransactionType.Stake)
-                  .Select(Projections.Sum<Transaction>(x => x.Price));
+                  .Where(w => w.TransactionType.Type == TransactionType.Earned || w.TransactionType.Type == TransactionType.Stake)
+                  .Select(Projections.Sum<Transaction>(x => x.TransactionType.Price));
         }
 
        /* public Task UpdateUsersBalance(CancellationToken token)

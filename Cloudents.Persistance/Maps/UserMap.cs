@@ -30,7 +30,6 @@ namespace Cloudents.Persistance.Maps
           
             Map(e => e.OldUser).Nullable();
 
-            Map(e => e.Score);
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
 
          
@@ -46,21 +45,11 @@ namespace Cloudents.Persistance.Maps
             //Map(x => x.Languages).CustomType<JsonType<ISet<CultureInfo>>>();
 
 
-            HasManyToMany(x => x.Courses)
-                .ParentKeyColumn("UserId")
-                .ChildKeyColumn("CourseId")
-                .ForeignKeyConstraintNames("User_Courses","Courses_User")
-                .Table("UsersCourses").AsSet();
-
-
-            HasManyToMany(x => x.Tags)
-                .ParentKeyColumn("UserId")
-                .ChildKeyColumn("TagId")
-                .ForeignKeyConstraintNames("User_Tags", "Tags_User")
-                .Table("UsersTags").AsSet();
+        
 
             Table("[User]");
 
+            
             SchemaAction.None();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
@@ -91,11 +80,31 @@ namespace Cloudents.Persistance.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
-            Map(x => x.Balance).CustomSqlType("smallmoney");
+            Component(x => x.Transactions, y =>
+            {
+                y.Map(x => x.Score);
+                y.Map(x => x.Balance).CustomSqlType("smallmoney");
+                y.HasMany(x => x.Transactions)
+                    .Cascade.AllDeleteOrphan();
+            });
+            //Map(x => x.Balance).CustomSqlType("smallmoney");
+            //Map(x => x.Score);
+            
 
-            HasMany(x => x.Transactions)
-                .Inverse()
-                .Cascade.AllDeleteOrphan();
+
+
+            HasManyToMany(x => x.Courses)
+                .ParentKeyColumn("UserId")
+                .ChildKeyColumn("CourseId")
+                .ForeignKeyConstraintNames("User_Courses", "Courses_User")
+                .Table("UsersCourses").AsSet();
+
+
+            HasManyToMany(x => x.Tags)
+                .ParentKeyColumn("UserId")
+                .ChildKeyColumn("TagId")
+                .ForeignKeyConstraintNames("User_Tags", "Tags_User")
+                .Table("UsersTags").AsSet();
         }
     }
 

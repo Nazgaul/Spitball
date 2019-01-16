@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using static Cloudents.Core.Entities.ItemStatus;
 using static Cloudents.Core.Entities.Vote;
 
-[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
+//[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
 namespace Cloudents.Core.Entities
 {

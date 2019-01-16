@@ -123,9 +123,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            QuestionSubject x = QuestionSubject.Accounting;
-
-            var z = x.GetEnumLocalizationAllValues();
+            var service = _container.Resolve<IUnitOfWork>();
         }
 
        
