@@ -30,12 +30,12 @@ namespace Cloudents.Query
                 .Select(s => new UserAccountDto
                 {
                     Id = s.Id,
-                    Balance = s.Balance, 
+                    Balance = s.Transactions.Balance, 
                     Name = s.Name,
                     Image = s.Image,
                     Email = s.Email,
                     UniversityExists = s.University != null,
-                    Score = s.Score
+                    Score = s.Transactions.Score
                 }).WithOptions(o =>
                 {
                     o.SetCacheable(true)

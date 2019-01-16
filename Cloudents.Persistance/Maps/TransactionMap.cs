@@ -12,9 +12,13 @@ namespace Cloudents.Persistance.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.User).ForeignKey("Transaction_User").Not.Nullable();
             Map(x => x.Created).Not.Nullable();
-            Map(x => x.Action).Not.Nullable();
-            Map(x => x.Type).Not.Nullable();
-            Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney");
+            Component(x => x.TransactionType, y =>
+            {
+                y.Map(z => z.Action).Not.Nullable();
+                y.Map(z => z.Type).Not.Nullable();
+                y.Map(z => z.Price).Not.Nullable().CustomSqlType("smallmoney");
+            });
+            
 
             References(x => x.Question).Column("QuestionId").ForeignKey("Transaction_Question").Nullable();
             References(x => x.Answer).Column("AnswerId").ForeignKey("Transaction_Answer").Nullable();

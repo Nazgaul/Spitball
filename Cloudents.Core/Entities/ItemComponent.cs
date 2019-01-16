@@ -70,9 +70,9 @@ namespace Cloudents.Core.Entities
             return new ItemStatus(ItemState.Flagged, null, reason, user);
         }
 
-        public static ItemStatus GetInitState(User user)
+        public static ItemStatus GetInitState(RegularUser user)
         {
-            if (user.Score < Privileges.Post)
+            if (user.Transactions.Score < Privileges.Post)
             {
                 return Pending;
             }

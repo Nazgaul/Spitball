@@ -61,7 +61,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("user cannot answer himself");
             }
 
-            if (user.Score < Privileges.Post)
+            if (user.Transactions.Score < Privileges.Post)
             {
                 var pendingAnswers = await _answerRepository.GetNumberOfPendingAnswer(user.Id, token);
                 var pendingAnswerAfterThisInsert = pendingAnswers + 1;

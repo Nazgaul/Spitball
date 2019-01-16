@@ -5,8 +5,8 @@
         <upload-files-btn v-if="isNotes" @click="openUploaderDialog()"></upload-files-btn>
         <!--<a class="upload-files" v-if="isNotes" @click="openUploaderDialog()" v-language:inner>upload_btn_open</a>-->
         <v-flex xs12 class="card-block">
-            <leaders-board></leaders-board>
-            <marketing-box></marketing-box>
+            <marketing-box class="mb-3"></marketing-box>
+            <leaders-board ></leaders-board>
             <!--<div class="header" v-language:inner>faqBlock_faq</div>-->
             <!--<div class="content">-->
                 <!--<ul class="list">-->
