@@ -36,7 +36,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("sendTokens")]
         public async Task<IActionResult> Post(SendTokenRequest model, CancellationToken token)
         {
-            var command = new DistributeTokensCommand(model.UserId, model.Tokens, TransactionActionType.None);
+            var command = new DistributeTokensCommand(model.UserId, model.Tokens);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
