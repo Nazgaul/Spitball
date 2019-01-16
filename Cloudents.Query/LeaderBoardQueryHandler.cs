@@ -28,7 +28,7 @@ namespace Cloudents.Query
             var leaderBoardResult = await _dapper.WithConnectionAsync(async connection =>
             {
                 var grid = connection.QueryMultiple(@"select top 10 Id, Name, Score, University
-                                                                        from [dbo].[vwLeadewrBoard]
+                                                                        from [dbo].[vwLeaderBoard]
                                                                         order by Score desc;
 
                                                                         select top 1 [SBLs]
