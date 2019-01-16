@@ -5,7 +5,6 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Query;
-using System.Collections.Generic;
 
 namespace Cloudents.Web.Api
 {

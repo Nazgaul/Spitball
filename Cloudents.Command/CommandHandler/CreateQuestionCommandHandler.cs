@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -36,12 +35,6 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
-            //var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
-
-            //if (oldQuestion?.Created.AddSeconds(20) > DateTime.UtcNow)
-            //{
-            //    throw new QuotaExceededException("You need to wait before asking more questions");
-            //}
 
             if (await _questionRepository.GetSimilarQuestionAsync(message.Text, token))
             {
@@ -62,13 +55,10 @@ namespace Cloudents.Command.CommandHandler
             var question = new Question(message.SubjectId,
                 message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color, textLanguage);
 
+            user.MakeTransaction(TransactionType2.StakeMoney(question.Price),question);
+            await _userRepository.UpdateAsync(user, default);
+           
 
-            var transaction = new Transaction(TransactionActionType.Question, TransactionType.Stake, -question.Price,user)
-            {
-                Question = question
-            };
-
-            await _transactionRepository.AddAsync(transaction, token);
             await _questionRepository.AddAsync(question, token);
             var id = question.Id;
 

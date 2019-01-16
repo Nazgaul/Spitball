@@ -5,11 +5,11 @@ namespace Cloudents.Core.Event
 {
     public class UpdateBalanceEvent : IEvent
     {
-        public UpdateBalanceEvent(User user)
+        public UpdateBalanceEvent(RegularUser user)
         {
             User = user;
         }
 
-        public User User { get; set; }
+        public RegularUser User { get; set; }
     }
 }

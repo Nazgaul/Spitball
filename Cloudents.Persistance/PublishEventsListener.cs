@@ -8,7 +8,7 @@ using NHibernate.Event;
 namespace Cloudents.Persistance
 {
     public class PublishEventsListener : IPostDeleteEventListener
-        , IPostInsertEventListener, IPostUpdateEventListener
+        , IPostInsertEventListener, IPostUpdateEventListener, IPostCollectionUpdateEventListener
 
     {
         private readonly IEventPublisher _eventPublisher;
@@ -23,18 +23,7 @@ namespace Cloudents.Persistance
             await PublishEvents(@event.Entity, cancellationToken);
         }
 
-        private async Task PublishEvents(object entity, CancellationToken cancellationToken)
-        {
-            if (entity is AggregateRoot p)
-            {
-                foreach (var ev in p.DomainEvents.Distinct())
-                {
-                    //Nhibernate doesn't support multiple async
-                    await _eventPublisher.PublishAsync(ev, cancellationToken);
-
-                }
-            }
-        }
+       
 
         public void OnPostDelete(PostDeleteEvent @event)
         {
@@ -50,6 +39,8 @@ namespace Cloudents.Persistance
 
         public void OnPostInsert(PostInsertEvent @event)
         {
+            var t = PublishEvents(@event.Entity, CancellationToken.None);
+            Task.WaitAll(t);
         }
 
         public async Task OnPostUpdateAsync(PostUpdateEvent @event, CancellationToken cancellationToken)
@@ -59,6 +50,34 @@ namespace Cloudents.Persistance
 
         public void OnPostUpdate(PostUpdateEvent @event)
         {
+            var t = PublishEvents(@event.Entity, CancellationToken.None);
+            Task.WaitAll(t);
+        }
+
+        public async Task OnPostUpdateCollectionAsync(PostCollectionUpdateEvent @event, CancellationToken cancellationToken)
+        {
+            await PublishEvents(@event.AffectedOwnerOrNull, cancellationToken);
+        }
+
+        public void OnPostUpdateCollection(PostCollectionUpdateEvent @event)
+        {
+            var t =  PublishEvents(@event.AffectedOwnerOrNull, CancellationToken.None);
+            Task.WaitAll(t);
+        }
+
+
+        private async Task PublishEvents(object entity, CancellationToken cancellationToken)
+        {
+            if (entity is AggregateRoot p)
+            {
+                foreach (var ev in p.DomainEvents.Distinct())
+                {
+                    //Nhibernate doesn't support multiple async
+                    await _eventPublisher.PublishAsync(ev, cancellationToken);
+
+                }
+                p.ClearEvents();
+            }
         }
     }
 }

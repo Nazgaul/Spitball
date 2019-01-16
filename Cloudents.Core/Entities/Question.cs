@@ -6,11 +6,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using static Cloudents.Core.Entities.ItemStatus;
 using static Cloudents.Core.Entities.Vote;
 
-[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
+//[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
 namespace Cloudents.Core.Entities
 {

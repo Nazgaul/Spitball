@@ -5,6 +5,7 @@ using Cloudents.Core.Storage;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.EventHandler
 {
@@ -26,8 +27,13 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
+            var score = 0;
+            if (eventMessage.Question.User.Actual is RegularUser p)
+            {
+                score = p.Transactions.Score;
+            }
             var user = new UserDto(eventMessage.Question.User.Id, eventMessage.Question.User.Name,
-                eventMessage.Question.User.Score);
+                score);
 
             var dto = new QuestionFeedDto(eventMessage.Question.Id,
                 eventMessage.Question.Subject,
@@ -99,8 +105,9 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
         {
+           
             var user = new UserDto(eventMessage.Answer.User.Id, eventMessage.Answer.User.Name,
-                eventMessage.Answer.User.Score);
+                eventMessage.Answer.User.Transactions.Score);
 
             var answerDto = new QuestionDetailAnswerDto
             (
@@ -138,7 +145,7 @@ namespace Cloudents.Core.EventHandler
         public Task HandleAsync(UpdateBalanceEvent eventMessage, CancellationToken token)
         {
             var message = new SignalRTransportType(SignalRType.User,
-                SignalRAction.Update, new { balance = eventMessage.User.Balance });
+                SignalRAction.Update, new { balance = eventMessage.User.Transactions.Balance });
 
             return _queueProvider.InsertMessageAsync
                 (message, eventMessage.User.Id, token);

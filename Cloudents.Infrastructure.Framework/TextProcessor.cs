@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,6 +49,8 @@ namespace Cloudents.Infrastructure.Framework
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback, CancellationToken token)
         {
+            var enumerable = previewDelta.ToList();
+
             //first, create a dummy bitmap just to get a graphics object
             using (Image img = new Bitmap(1, 1))
             {
@@ -57,7 +60,10 @@ namespace Cloudents.Infrastructure.Framework
                     var i = 0;
                     foreach (var splitInPart in SplitInParts(_text, 1000))
                     {
-
+                        if (enumerable.Contains(i))
+                        {
+                            continue;
+                        }
                         SizeF textSize = drawing.MeasureString(splitInPart, font);
                         using (var img2 = new Bitmap((int)textSize.Width, (int)textSize.Height))
                         {
