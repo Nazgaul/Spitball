@@ -40,11 +40,11 @@
                 <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.xsOnly">
                     <div class="viewed">
                         <v-icon class="views-icon icon mr-2">sbf-views</v-icon>
-                        <span class="viewed-text">{{item.views}}</span>
+                        <span class="viewed-text">{{ item && item.views ? item.views : 0}}</span>
                     </div>
                     <div class="ml-4 downloaded">
                         <v-icon class="upload-icon icon mr-2">sbf-download-cloud</v-icon>
-                        <span class="downloaded-text">{{item.downloads}}</span>
+                        <span class="downloaded-text">{{item && item.downloads ? item.downloads : 0}}</span>
                     </div>
                 </div>
                 <div class="details" v-if="$vuetify.breakpoint.smAndUp">
