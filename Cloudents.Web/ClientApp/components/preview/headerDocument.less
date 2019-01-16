@@ -155,17 +155,28 @@
           flex-direction: row;
           justify-content: center;
           align-items: baseline;
-          .upload-by {
+          .author {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
             color: @color-blue-new;
             font-size: 13px;
             line-height: 13px;
-            .sbf, &.sb-person {
-              font-size: 15px;
-              color: @color-blue-new;
+            .width24{
+              font-family: @fontFiraSans;
+              .user-avatar{
+                font-size: 10px!important;
+                width: 24px!important;
+                height: 24px!important;
+              }
             }
-            .name {
-              color: @colorBlackNew;
-            }
+            //.sbf, &.sb-person {
+            //  font-size: 15px;
+            //  color: @color-blue-new;
+            //}
+            //.name {
+            //  color: @colorBlackNew;
+            //}
           }
           .date {
             color: @colorInputFocus;
