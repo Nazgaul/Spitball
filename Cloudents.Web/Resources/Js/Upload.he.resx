@@ -260,9 +260,6 @@
   <data name="files_proccesing" xml:space="preserve">
     <value>אנו מעבדים את המסמך ובקרוב הוא יעלה לאתר.</value>
   </data>
-  <data name="files_step2_subtitle" xml:space="preserve">
-    <value>מלא פרטים על המסמך והגדל את הסיכויים שלו להימצא</value>
-  </data>
   <data name="files_step2_title" xml:space="preserve">
     <value>נהדר! הכן את המסמך שלך להעלאה</value>
   </data>
