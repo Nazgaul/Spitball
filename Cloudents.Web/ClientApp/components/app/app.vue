@@ -56,7 +56,8 @@
                     :popUpType="'newQuestion'"
                     :content-class="'newQuestionDialog'"
             >
-                <new-question></new-question>
+        <!-- <Add-Question></Add-Question> -->
+        <New-Question></New-Question>
             </sb-dialog>
             <sb-dialog
                     :showDialog="newIsraeliUser"
@@ -92,6 +93,7 @@
     import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
     import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
     import NewQuestion from "../question/newQuestion/newQuestion.vue";
+    import AddQuestion from "../question/addQuestion/addQuestion.vue";
     import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
     import {
         GetDictionary,
@@ -108,6 +110,7 @@
 
     export default {
         components: {
+            AddQuestion,
             NewQuestion,
             sbDialog,
             loginToAnswer,
