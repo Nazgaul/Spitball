@@ -1,16 +1,13 @@
 @import "../../../styles/mixin.less";
 
 .marketing-box-component {
-  //position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  //height: ~"calc(100vh - 48px)";
   width: 100%;
   max-width: 314px;
   margin: 0 auto;
-
   @media (max-width: @screen-xs) {
     max-width: unset;
     height: ~"calc(100vh - 48px)";
@@ -51,19 +48,4 @@
     box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.22);
 
   }
-  //.marketing-box-image {
-  //  height: 100%;
-  //  border-radius: 4px;
-  //  cursor: pointer;
-  //}
-  //@media (max-width: @screen-xs) {
-  //  //padding: 8px;
-  //  align-items: flex-end;
-  //  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.22);
-  //}
-  //@media (max-width: @screen-sm) {
-  //  padding: 8px;
-  //  align-items: center;
-  //  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.22);
-  //}
 }

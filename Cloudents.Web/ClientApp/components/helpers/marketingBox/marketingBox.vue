@@ -4,7 +4,6 @@
             <span class="heading-text">Promotions</span>
         </div>
         <v-card class="main-marketing-content"  :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
-            <!--<img class="marketing-box-image" :src="require(`${imgSrc}`)" alt="" @click="promotionOpen()">-->
         </v-card>
         <sb-dialog :showDialog="showReferral"
                    :popUpType="'referralPop'"
