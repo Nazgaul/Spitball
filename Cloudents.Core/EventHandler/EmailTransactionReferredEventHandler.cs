@@ -23,7 +23,7 @@ namespace Cloudents.Core.EventHandler
             if (eventMessage.Transaction.TransactionType.Action == TransactionActionType.ReferringUser)
             {
                 return SendEmail(
-                    new ReferralBonusEmail(eventMessage.Transaction.User.Email, eventMessage.Transaction.User.Culture)
+                    new ReferralBonusEmail(eventMessage.Transaction.User.Email, eventMessage.Transaction.User.Language)
                     , eventMessage.Transaction.User, token);
             }
 

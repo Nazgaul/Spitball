@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -19,7 +20,7 @@ namespace Cloudents.Core.Message.Email
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             
-            {Language.English.Culture ,"5560b10d-bb82-43bf-85eb-1f2947bdb2d8" }
+            {Language.English ,"5560b10d-bb82-43bf-85eb-1f2947bdb2d8" }
         };
     }
 } 

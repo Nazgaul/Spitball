@@ -1,1 +1,45 @@
-﻿
+﻿CREATE TABLE [sb].[Language](
+	[Name] [nvarchar](100) NOT NULL
+PRIMARY KEY CLUSTERED 
+(
+	[Name] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+insert into sb.[Language] values ('en'),('he')
+CREATE VIEW [dbo].[vwLeaderBoard] WITH SCHEMABINDING 
+    AS
+
+    select U.Id, U.Name, Score, Un.Name as University
+    from sb.[user] U
+    join sb.University UN
+        on U.UniversityId2 = UN.Id
+    where LockoutEnd is null
+    
+GO
+
+CREATE UNIQUE CLUSTERED INDEX IX_vwLeadewrBoard
+       ON [dbo].[vwLeadewrBoard] (Id, Score);
+
+
+Alter table sb.[user]
+add  [Language] nvarchar(100)
+
+
+ALTER TABLE [sb].[User]  WITH CHECK ADD  CONSTRAINT User_Language FOREIGN KEY([Language])
+REFERENCES sb.[Language] ([Name])
+GO
+
+ALTER TABLE [sb].[User] CHECK CONSTRAINT User_Language
+GO
+
+--TODO need to check before running this update
+--Select distinct culture  from sb.[user]
+update sb.[user]
+set Language = 'en'
+where Culture in ('en','en-US','en-GB','ar-SA','ar-AE','ru-RU')
+
+update sb.[user]
+set Language = 'he'
+where Culture in ('he','he-IL')

@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using System.Globalization;
+using Cloudents.Core.Entities;
 using FluentNHibernate;
 using FluentNHibernate.Mapping;
 
@@ -21,7 +22,10 @@ namespace Cloudents.Persistance.Maps
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
-            Map(e => e.Culture);
+           // Map(e => e.Culture);
+
+           
+
             Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();
@@ -31,7 +35,7 @@ namespace Cloudents.Persistance.Maps
             Map(e => e.OldUser).Nullable();
 
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
-
+            References(x => x.Language).Column("Language").ForeignKey("User_Language").Nullable();
          
 
            
@@ -85,7 +89,7 @@ namespace Cloudents.Persistance.Maps
             {
                 y.Map(x => x.Score);
                 y.Map(x => x.Balance).CustomSqlType("smallmoney");
-                y.HasMany(x => x.Transactions)
+                y.HasMany(x => x.Transactions).KeyColumn("User_id")
                     .Cascade.AllDeleteOrphan();
             });
             //Map(x => x.Balance).CustomSqlType("smallmoney");
@@ -115,6 +119,14 @@ namespace Cloudents.Persistance.Maps
         {
 
             DiscriminatorValue(true);
+        }
+    }
+
+    public class LanguageMap : ClassMap<Language>
+    {
+        public LanguageMap()
+        {
+            Id(x => x.Id).Column("Name").Length(100).GeneratedBy.Assigned();
         }
     }
 }

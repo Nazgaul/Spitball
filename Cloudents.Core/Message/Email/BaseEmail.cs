@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using Cloudents.Core.Entities;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Message.Email
@@ -50,7 +51,7 @@ namespace Cloudents.Core.Message.Email
                 }
                 info = info.Parent;
             }
-            if (Templates.TryGetValue(Language.English.Culture, out var template2))
+            if (Templates.TryGetValue(Language.English, out var template2))
             {
                 return template2;
             }

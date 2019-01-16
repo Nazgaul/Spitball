@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Enum;
-
-namespace Cloudents.Core.Message.System
+﻿namespace Cloudents.Core.Message.System
 {
     public class UpdateDocumentNumberOfViews : ISystemQueueMessage
     {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 //[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 namespace Cloudents.Core.Entities
@@ -93,7 +92,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual CultureInfo Culture { get; set; }
+        public virtual Language Language { get; set; }
 
         public virtual string Country { get; set; }
 

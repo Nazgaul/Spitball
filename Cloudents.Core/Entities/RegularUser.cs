@@ -10,12 +10,12 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class RegularUser : User
     {
-        public RegularUser(string email, string name, string privateKey, CultureInfo culture) : this()
+        public RegularUser(string email, string name, string privateKey, Language language ) : this()
         {
             Email = email;
             Name = name;
             TwoFactorEnabled = true;
-            Culture = culture;
+            Language = language;
             PrivateKey = privateKey;
             Created = DateTime.UtcNow;
             //Fictive = false;
@@ -27,7 +27,7 @@ namespace Cloudents.Core.Entities
         {
             UserLogins = new List<UserLogin>();
             //Transactions = new List<Transaction>();
-            Transactions = this.Transactions ?? new UserTransactions();
+            Transactions = Transactions ?? new UserTransactions();
             Courses = new HashSet<Course>();
             Tags = new HashSet<Tag>();
 

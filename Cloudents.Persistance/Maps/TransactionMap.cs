@@ -10,7 +10,7 @@ namespace Cloudents.Persistance.Maps
         public TransactionMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            References(x => x.User).ForeignKey("Transaction_User").Not.Nullable();
+            References(x => x.User).Column("User_id").ForeignKey("Transaction_User").Not.Nullable();
             Map(x => x.Created).Not.Nullable();
             Component(x => x.TransactionType, y =>
             {

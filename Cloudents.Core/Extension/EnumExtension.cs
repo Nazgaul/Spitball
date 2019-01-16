@@ -57,7 +57,7 @@ namespace Cloudents.Core.Extension
                 else
                 {
                     var x = new System.Resources.ResourceManager(val.ResourceType);
-                    foreach (var cultureInfo in Language.SystemSupportLanguage)
+                    foreach (var cultureInfo in Language.SystemSupportLanguage())
                     {
                         yield return x.GetString(val.ResourceName, cultureInfo);
                     }
