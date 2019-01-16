@@ -15,7 +15,7 @@
                                 <search-input v-if="$vuetify.breakpoint.smAndUp" :user-text="userText"
                                               :placeholder="this.$options.placeholders[currentSelection]"
                                               :submit-route="submitRoute"></search-input>
-                                <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
+                                <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <!--<div class="header-ask-btn hidden-sm-and-down mr-2">-->
                                     <!--<button class="ask-question-button" @click="openNewQuestionDialog()">-->
