@@ -54,10 +54,10 @@
                     :isPersistent="true"
                     :showDialog="newQuestionDialogSate"
                     :popUpType="'newQuestion'"
-                    :content-class="'newQuestionDialog'"
+                    :content-class="'newQuestionDialogOld'"
             >
-        <Add-Question></Add-Question>
-        <!-- <New-Question></New-Question> -->
+        <!-- <Add-Question></Add-Question> -->
+        <New-Question></New-Question>
             </sb-dialog>
             <sb-dialog
                     :showDialog="newIsraeliUser"
