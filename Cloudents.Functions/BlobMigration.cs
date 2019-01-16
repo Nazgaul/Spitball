@@ -98,6 +98,7 @@ namespace Cloudents.Functions
             [Queue("generate-blob-preview-poison")] IAsyncCollector<string> collector,
             [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
             TraceWriter log, CancellationToken token)
+
         {
             try
             {
@@ -110,6 +111,13 @@ namespace Cloudents.Functions
                 }
                 var name = myBlob.Name.Split('-').Last();
 
+                myBlob.FetchAttributes();
+                if (myBlob.Metadata.TryGetValue("CantProcess", out var s) && bool.TryParse(s, out var b) && b)
+                {
+                    log.Error($"aborting process CantProcess attribute - {id}");
+                    return;
+                }
+                
 
                 const string contentType = "text/plain";
 
@@ -118,7 +126,7 @@ namespace Cloudents.Functions
                     .OrderBy(o => o.Uri, new OrderPreviewComparer());
 
                 var previewDelta = new List<int>();
-
+                var workHasBeenDone = false;
                 foreach (var item in document)
                 {
                     int.TryParse(
@@ -126,50 +134,88 @@ namespace Cloudents.Functions
                         .Split('-').Last(), out var temp
                         );
                     previewDelta.Add(temp);
+                    workHasBeenDone = true;
                 }
 
                 log.Info($"Going to process - {id}");
 
-
+                
 
                 var f = factory.PreviewFactory(name);
                 if (f != null)
                 {
-                    using (var ms = await myBlob.OpenReadAsync(token))
+                    //var wait = new ManualResetEvent(false);
+                    using (var wait = new ManualResetEventSlim(false))
                     {
-                        f.Init(ms);
-                        int pageCount;
-
-                        const string blobTextName = "text.txt";
-                        if (segment.Results.FirstOrDefault(d => d.Uri.Segments.Last().StartsWith(blobTextName)) == null)
+                        //wait2.Wait()
+                        var work = new Thread(async () =>
                         {
-                            var (text, pagesCount) = f.ExtractMetaContent();
-                            var blob = directory.GetBlockBlobReference(blobTextName);
-                            blob.Properties.ContentType = contentType;
-                            text = StripUnwantedChars(text);
-                            blob.Metadata["PageCount"] = pagesCount.ToString();
-                            await blob.UploadTextAsync(text ?? string.Empty, token);
-                            pageCount = pagesCount;
-                        }
-                        else
-                        {
-                            log.Info("found text file");
-
-                            var blob = directory.GetBlockBlobReference(blobTextName);
-                            await blob.FetchAttributesAsync(token);
-                            pageCount = int.Parse(blob.Metadata["PageCount"]);
-                        }
-
-                        if (pageCount != previewDelta.Count || previewDelta.Count == 0)
-                        {
-                            await f.ProcessFilesAsync(previewDelta, (stream, previewName) =>
+                            try
                             {
-                                stream.Seek(0, SeekOrigin.Begin);
-                                var blob = directory.GetBlockBlobReference($"preview-{previewName}");
-                                blob.Properties.ContentType = "image/jpeg";
-                                log.Info($"uploading to {id} preview-{previewName}");
-                                return blob.UploadFromStreamAsync(stream, token);
-                            }, token);
+                                using (var ms = await myBlob.OpenReadAsync(token))
+                                {
+                                    f.Init(ms);
+                                    int pageCount;
+
+                                    const string blobTextName = "text.txt";
+                                    if (segment.Results.FirstOrDefault(d =>
+                                            d.Uri.Segments.Last().StartsWith(blobTextName)) == null)
+                                    {
+                                        var (text, pagesCount) = f.ExtractMetaContent();
+                                        var blob = directory.GetBlockBlobReference(blobTextName);
+                                        blob.Properties.ContentType = contentType;
+                                        text = StripUnwantedChars(text);
+                                        blob.Metadata["PageCount"] = pagesCount.ToString();
+                                        await blob.UploadTextAsync(text ?? string.Empty, token);
+                                        pageCount = pagesCount;
+                                    }
+                                    else
+                                    {
+                                        log.Info("found text file");
+
+                                        var blob = directory.GetBlockBlobReference(blobTextName);
+                                        await blob.FetchAttributesAsync(token);
+                                        pageCount = int.Parse(blob.Metadata["PageCount"]);
+                                    }
+
+                                    if (pageCount != previewDelta.Count || previewDelta.Count == 0)
+                                    {
+                                        await f.ProcessFilesAsync(previewDelta, (stream, previewName) =>
+                                        {
+                                            workHasBeenDone = true;
+                                            stream.Seek(0, SeekOrigin.Begin);
+                                            var blob = directory.GetBlockBlobReference($"preview-{previewName}");
+                                            blob.Properties.ContentType = "image/jpeg";
+                                            log.Info($"uploading to {id} preview-{previewName}");
+                                            return blob.UploadFromStreamAsync(stream, token);
+                                        }, token);
+                                    }
+                                }
+
+                                wait.Set();
+                            }
+                            catch (Exception ex)
+                            {
+                                wait.Set();
+                                log.Error($"did not process id:{id}", ex);
+
+                                await collector.AddAsync(id, token);
+                            }
+                        });
+                        work.Start();
+
+                        var signal = wait.Wait(TimeSpan.FromMinutes(9), token);
+                        //var signal = wait.WaitOne(TimeSpan.FromMinutes(9));
+                        if (!signal)
+                        {
+                            work.Abort();
+                            if (!workHasBeenDone)
+                            {
+                                myBlob.Metadata["CantProcess"] = true.ToString();
+                                await myBlob.SetMetadataAsync(token);
+                            }
+
+                            log.Error($"aborting process - {id}");
                         }
                     }
                 }
