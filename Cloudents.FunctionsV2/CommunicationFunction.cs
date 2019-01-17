@@ -1,17 +1,16 @@
+using Cloudents.Core.Message;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 
@@ -43,24 +42,57 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("finish sending email");
         }
 
-       // [FunctionName("FunctionEmailTest")]
-        //public static async Task EmailFunctionTimerAsync(
-        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
-        //    IAsyncCollector<SendGridMessage> emailProvider,
-        //    ILogger log,
-        //    CancellationToken token)
-        //{
-        //    var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
-        //     "https://www.spitball.co", 456.23424M, CultureInfo.InvariantCulture);
-        //    await ProcessEmail(emailProvider, log, topicMessage, token);
-        //}
+        [FunctionName("FunctionEmailTest")]
+        public static async Task EmailFunctionTimerAsync(
+            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
+            IAsyncCollector<SendGridMessage> emailProvider,
+            ILogger log,
+            CancellationToken token)
+        {
+            var message = new SendGridMessage();
+           
+            message.TemplateId = "d-91a839096c8547f9a028134744e78ecb";
+            var personalization = new Personalization();
+            personalization.TemplateData = new TemplateData()
+            {
+                Referral = new Referral()
+                {
+                    Lang = new Lang()
+                    {
+                        //English = true
+                        Hebrew = true
+                    },
+                    
+                },
+                Blocks = new Block[]
+                {
+                    new Block()
+                    {
+                        Url = "https://www.spitball.co",
+                        Body = "this is ram",
+                        Subtitle = "this is elad",
+                        Title = "this is ram Ram",
+                        Cta = "YO YO YO"
+                    }, 
+                }
+            };
+            
+            message.Personalizations = new List<Personalization>()
+            {
+                personalization
+            };
+            message.AddTo("ram@cloudents.com");
+            await emailProvider.AddAsync(message, token);
+            //var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
+            // "https://www.spitball.co", 456.23424M, CultureInfo.InvariantCulture);
+            //await ProcessEmail(emailProvider, log, topicMessage, token);
+        }
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
         {
             var message = new SendGridMessage();
-           
             var personalization = new Personalization();
             //personalization.AddTo(new Email(topicMessage.To));
             message.Asm = new ASM
@@ -110,34 +142,33 @@ namespace Cloudents.FunctionsV2
             };
             message.AddTo(topicMessage.To);
 
-            await emailProvider.AddAsync(message, token).ConfigureAwait(false);
+            await emailProvider.AddAsync(message, token);
         }
 
 
 
-        //TODO: remove this on v10
-        [FunctionName("FunctionSms")]
-        public static async Task SmsStorageQueueAsync(
-            [QueueTrigger(QueueName.SmsQueueName)] SmsMessage2 msg,
-            DateTimeOffset insertionTime,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
-            ILogger log,
-            CancellationToken token
-        )
-        {
-            if (insertionTime < DateTime.UtcNow.AddMinutes(-30))
-            {
-                log.LogWarning("Too late of a message");
-                return;
-            }
+        //[FunctionName("FunctionSms")]
+        //public static async Task SmsStorageQueueAsync(
+        //    [QueueTrigger(QueueName.SmsQueueName)] SmsMessage2 msg,
+        //    DateTimeOffset insertionTime,
+        //    [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
+        //    ILogger log,
+        //    CancellationToken token
+        //)
+        //{
+        //    if (insertionTime < DateTime.UtcNow.AddMinutes(-30))
+        //    {
+        //        log.LogWarning("Too late of a message");
+        //        return;
+        //    }
 
-            await ProcessSmsMessageAsync(msg, options, log, token);
-        }
+        //    await ProcessSmsMessageAsync(msg, options, log, token);
+        //}
 
 
         [FunctionName("FunctionSmsServiceBus")]
         public static async Task SmsServiceBusAsync(
-            [ServiceBusTrigger("sms",Connection = "AzureWebJobsServiceBus")] SmsMessage2 msg,
+            [ServiceBusTrigger("sms", Connection = "AzureWebJobsServiceBus")] SmsMessage2 msg,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
             ILogger log,
             CancellationToken token
@@ -167,4 +198,43 @@ namespace Cloudents.FunctionsV2
             }, token).ConfigureAwait(false);
         }
     }
+
+    public class TemplateData
+    {
+        [JsonProperty("blocks")]
+        public Block[] Blocks { get; set; }
+        [JsonProperty("referral")]
+        public Referral Referral { get; set; }
+    }
+
+    public class Referral
+    {
+        [JsonProperty("lang")]
+
+        public Lang Lang { get; set; }
+    }
+
+    public class Lang
+    {
+        [JsonProperty("english")]
+        public bool English { get; set; }
+        [JsonProperty("hebrew")]
+        public bool Hebrew { get; set; }
+    }
+
+    public class Block
+    {
+        [JsonProperty("title")]
+
+        public string Title { get; set; }
+        [JsonProperty("subtitle")]
+        public string Subtitle { get; set; }
+        [JsonProperty("body")]
+        public string Body { get; set; }
+        [JsonProperty("cta")]
+        public string Cta { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+    }
+
 }
