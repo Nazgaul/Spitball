@@ -1,29 +1,40 @@
 import { connectivityModule } from '../../services/connectivity.module'
 
 function UserData(objInit) {
-    this.userInfo = objInit.user || {};
+    this.userInfo = createUserInfoItem(objInit.user);
     this.userAnswers =  createAnswertItem(objInit.answers);
     this.userQuestions = createQuestionItem(objInit.questions);
     this.userDocuments = createDocumentItem(objInit.documents);
-    // this.answers = new AnswerItem(objInit.answers);
-    // this.fraudScore = objInit.fraudScore;
-    // this.userQueryRatio = objInit.userQueryRatio;
-    // this.isSuspect = objInit.isSuspect;
-    // this.isIsrael = objInit.isIsrael;
+}
+
+function UserInfo(objInit) {
+    this.id=  {value: objInit.id || 0, label: 'User ID' };
+    this.name = {value: objInit.name || '', label: 'User Name' };
+    this.email =  {value: objInit.email || '', label: 'User Email' };
+    this.phoneNumber = {value: objInit.phoneNumber ||  'Not Added', label: 'Phone Number' };
+    this.university = {value: objInit.university ||  '', label: 'University' };
+    this.country =  {value: objInit.country ||  '', label: 'Country' };
+    this.score =  {value: objInit.score ||  0, label: 'Score' };
+    this.fraudScore = {value: objInit.fraudScore ||  0, label: 'Fraud Score' };
+    this.referredCount = {value: objInit.referredCount ||  0, label: 'People Referred' };
+    this.balance = {value: objInit.balance ||  0, label: 'Balance' };
+}
+
+function createUserInfoItem(data) {
+   return new UserInfo(data);
 }
 
 function QuestionItem(objInit) {
     this.id = objInit.id || 0;
-    this.created = objInit.created;
+    this.create = objInit.created;
     this.text = objInit.text;
     this.state = objInit.state;
-
 }
 
 function DocumentItem(objInit) {
     this.name = objInit.name;
     this.id = objInit.id;
-    this.created = objInit.created;
+    this.create = objInit.created;
     this.university = objInit.university;
     this.course = objInit.course;
     this.price = objInit.price;
@@ -33,7 +44,7 @@ function DocumentItem(objInit) {
 function AnswerItem(objInit) {
     this.id = objInit.id;
     this.questionId = objInit.questionId;
-    this.created = objInit.created;
+    this.create = objInit.created;
     this.text = objInit.text;
     this.questionText = objInit.questionText;
     this.state = objInit.state;
