@@ -1,0 +1,107 @@
+<template>
+    <div class="question-item-wrap">
+        <v-card v-show="questions.length > 0" v-for="(question, index) in questions" :key="index">
+            <v-toolbar class="question-toolbar mt-4 back-color-purple">
+                <v-toolbar-title class="question-text-title" @click="openQuestion(question.url)">
+                    {{question.text}}
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+
+                <span>{{question.create | dateFromISO}}&nbsp;&nbsp;</span>
+
+                <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
+                <div class="question-actions-container">
+                    <v-tooltip top absolute allow-overflow
+                    >
+                        <v-btn   slot="activator" icon @click="deleteQuestionByID(question)">
+                            <v-icon color="red">close</v-icon>
+                        </v-btn>
+                        <span>Delete Question</span>
+                    </v-tooltip>
+
+                </div>
+            </v-toolbar>
+
+            <v-list two-line avatar>
+                <template v-for="(answer, index) in question.answers">
+                    <v-list-tile class="answers-list-tile">
+                        <v-list-tile-content class="answers-content">
+                            <v-list-tile-sub-title class="answer-subtitle">{{answer.text}}
+                            </v-list-tile-sub-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action class="answer-action">
+                            <v-list-tile-action-text></v-list-tile-action-text>
+                            <v-btn icon @click="deleteAnswerByID(question, answer)">
+                                <v-icon color="red">close</v-icon>
+                            </v-btn>
+                        </v-list-tile-action>
+                        <v-list-tile-action class="answer-action">
+                            <v-list-tile-action-text></v-list-tile-action-text>
+                            <span v-show="answer.imagesCount > 0" title="Number of Attchments"
+                                  class="font-size-14">
+                                                <b>{{answer.imagesCount}}</b>
+                                                <v-icon class="font-size-16">attach_file</v-icon>
+                                            </span>
+                            <v-btn icon @click="acceptQuestion(question, answer)">
+                                <v-icon color="green">done</v-icon>
+                            </v-btn>
+                        </v-list-tile-action>
+
+                    </v-list-tile>
+                    <v-divider
+                            v-if="index + 1 < question.answers.length"
+                            :key="index"
+                    ></v-divider>
+                </template>
+            </v-list>
+        </v-card>
+    </div>
+</template>
+
+<script>
+    import { deleteQuestion } from '../../question/questionComponents/delete/deleteQuestionService'
+
+    export default {
+
+        name: "questionIitem",
+        props: {
+            questions: {},
+            updateData: {
+                type: Function,
+                required: false
+            }
+        },
+        methods: {
+            deleteQuestionByID(question) {
+                let id = question.id;
+                let numberArr = [];
+                numberArr.push(id);
+                let self = this;
+                deleteQuestion(numberArr)
+                    .then(resp => {
+                            self.$toaster.success(`Questions were deleted: ${id}`);
+                            let questionIndex = self.questions.indexOf(question);
+                            self.updateData(questionIndex)
+                            // return self.questions = self.questions.splice(questionIndex, 1);
+                        },
+                        (error) => {
+                            self.$toaster.error('Something went wrong');
+                            console.log('component delete error', error)
+                        }
+                    )
+            },
+        },
+    }
+</script>
+
+<style  lang="scss">
+    .question-item-wrap{
+        .question-toolbar{
+            max-width: 100%;
+        }
+        .v-card{
+            max-width: 100%;
+        }
+    }
+
+</style>

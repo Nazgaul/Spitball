@@ -38,7 +38,7 @@
                     <span class="item-name" v-language:inner>upload_files_final_title</span>
                 </div>
                 <span class="class-name"
-                      v-line-clamp="1">{{getFileData.name}}</span>
+                      v-line-clamp="1">{{fileName}}</span>
             </div>
             <div class="final-item" @click="changeStep(4)">
                 <div class="edit">
@@ -128,8 +128,24 @@
             ...mapGetters({
                 getFileData: 'getFileData',
                 getSchoolName: 'getSchoolName',
+                getCustomFileName: 'getCustomFileName',
+
 
             }),
+            fileName(){
+                let name = this.getFileData.name;
+                let customName = this.getCustomFileName;
+                //will be 0 if even
+                if(name.localeCompare(customName) === 0){
+                    console.log('even');
+                   return name;
+
+                }else{
+                    console.log('different');
+                    return customName;
+
+                }
+            },
                selectedType() {
                 if (this.getFileData.type) {
                     return this.selected = documentTypes.find((item) => {
