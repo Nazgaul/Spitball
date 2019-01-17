@@ -34,7 +34,13 @@ namespace Cloudents.Core.Entities
                 Color = color;
             }
 
-            Status = GetInitState(user);
+            var status = GetInitState(user);
+            if (status == Public)
+            {
+                MakePublic();
+            }
+
+            Status = status;
             Language = language;
         }
 
@@ -154,6 +160,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void MakePublic()
         {
+            //TODO: maybe put an event to that
             if (Status == Pending)
             {
                 Status = Public;
