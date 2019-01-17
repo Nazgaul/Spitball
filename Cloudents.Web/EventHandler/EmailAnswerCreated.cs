@@ -48,8 +48,9 @@ namespace Cloudents.Web.EventHandler
                 DateTimeOffset.UtcNow.AddDays(2));
             var link = _urlBuilder.BuildQuestionEndPoint(question.Id, new { code });
             await SendEmail(
-                   new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link, question.User.Culture)
-                   , u
+                   new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link,
+                       question.User.Language)
+                  
                    , token);
         }
     }

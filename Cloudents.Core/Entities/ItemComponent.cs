@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Cloudents.Core.Entities
 {
@@ -69,14 +70,12 @@ namespace Cloudents.Core.Entities
             }
             return new ItemStatus(ItemState.Flagged, null, reason, user);
         }
-
         public static ItemStatus GetInitState(RegularUser user)
         {
             if (user.Transactions.Score < Privileges.Post)
             {
                 return Pending;
             }
-
             return Public;
         }
 

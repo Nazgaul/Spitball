@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
@@ -16,27 +15,27 @@ namespace Cloudents.Core.EventHandler
             _serviceBusProvider = serviceBusProvider;
         }
 
-        protected Task SendEmail(BaseEmail obj, RegularUser user, CancellationToken token)
+        protected Task SendEmail(BaseEmail obj, CancellationToken token)
         {
-            if (!EmailValidate(user)) return Task.CompletedTask;
+            //if (!EmailValidate(user)) return Task.CompletedTask;
             return _serviceBusProvider.InsertMessageAsync(obj, token);
 
         }
 
-        protected Task SendEmail(BaseEmail obj, TimeSpan delay, RegularUser user, CancellationToken token)
+        protected Task SendEmail(BaseEmail obj, TimeSpan delay, CancellationToken token)
         {
-            if (!EmailValidate(user)) return Task.CompletedTask;
+            // if (!EmailValidate(user)) return Task.CompletedTask;
             return _serviceBusProvider.InsertMessageAsync(obj, delay, token);
 
         }
 
-        private static bool EmailValidate(RegularUser user)
-        {
-            if (!user.EmailConfirmed)
-            {
-                return false;
-            }
-            return true;
-        }
+        //private static bool EmailValidate(RegularUser user)
+        //{
+        //    if (!user.EmailConfirmed)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
     }
 }

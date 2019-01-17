@@ -123,7 +123,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var service = _container.Resolve<IUnitOfWork>();
+            var service = _container.Resolve<ISystemEventRepository>();
+            var t = await service.GetEmailAsync(SystemEvent.DocumentPurchased, Language.English, default);
         }
 
        
@@ -676,79 +677,79 @@ where left(blobName ,4) != 'file'");
 
         }
 
-        public static async Task TransferUsers()
-        {
-            var d = _container.Resolve<DapperRepository>();
-            var erc = _container.Resolve<IBlockChainErc20Service>();
+      //  public static async Task TransferUsers()
+      //  {
+      //      var d = _container.Resolve<DapperRepository>();
+      //      var erc = _container.Resolve<IBlockChainErc20Service>();
 
 
-            do
-            {
-                var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-                {
-                    return await f.QueryAsync(
-                        @"select top 200 UserId
-		                    ,ZU.Email
-		                    ,ZU.Culture
-                      from zbox.Users ZU
-					  join [Zbox].[University] U
-						on U.Id = ZU.UniversityId
-                      where LastAccessTime > DATEADD(YEAR,-2,GETDATE())  
-	                    and ZU.Email not in (select Email from sb.[User] where Email = ZU.Email)
-	                    and Email like '%@%'
-	                    and ZU.Email not like '%facebook.com'
-						and IsEmailVerified = 1;  
-                ");
-                }, default);
+      //      do
+      //      {
+      //          var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+      //          {
+      //              return await f.QueryAsync(
+      //                  @"select top 200 UserId
+		    //                ,ZU.Email
+		    //                ,ZU.Culture
+      //                from zbox.Users ZU
+					 // join [Zbox].[University] U
+						//on U.Id = ZU.UniversityId
+      //                where LastAccessTime > DATEADD(YEAR,-2,GETDATE())  
+	     //               and ZU.Email not in (select Email from sb.[User] where Email = ZU.Email)
+	     //               and Email like '%@%'
+	     //               and ZU.Email not like '%facebook.com'
+						//and IsEmailVerified = 1;  
+      //          ");
+      //          }, default);
 
-                if (z.Count() == 0)
-                {
-                    break;
-                    //return;
-                }
+      //          if (z.Count() == 0)
+      //          {
+      //              break;
+      //              //return;
+      //          }
 
-                using (var child = _container.BeginLifetimeScope())
-                {
-                    try
-                    {
-                        using (var unitOfWork = child.Resolve<IUnitOfWork>())
-                        {
-                            var repository = child.Resolve<IRegularUserRepository>();
+      //          using (var child = _container.BeginLifetimeScope())
+      //          {
+      //              try
+      //              {
+      //                  using (var unitOfWork = child.Resolve<IUnitOfWork>())
+      //                  {
+      //                      var repository = child.Resolve<IRegularUserRepository>();
 
 
 
-                            foreach (var pair in z)
-                            {
-                                Console.WriteLine($"Processing id {pair.UserId}");
-                                var name = pair.Email.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
-                                var (privateKey, _) = erc.CreateAccount();
+      //                      foreach (var pair in z)
+      //                      {
+      //                          Console.WriteLine($"Processing id {pair.UserId}");
+      //                          var name = pair.Email.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
+      //                          var (privateKey, _) = erc.CreateAccount();
 
-                                CultureInfo cultur = new CultureInfo(pair.Culture);
+      //                          CultureInfo cultur = new CultureInfo(pair.Culture);
 
-                                var user = new RegularUser(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey,
-                                    cultur)
-                                {
-                                    // EmailConfirmed = true,
-                                    LockoutEnabled = true,
-                                    NormalizedEmail = pair.Email.ToUpper(),
-                                    OldUser = true
-                                };
-                                user.NormalizedName = user.Name.ToUpper();
-                                await repository.AddAsync(user, default);
-                            }
+      //                          var user = new RegularUser(pair.Email, $"{name}.{random.Next(1000, 9999)}", privateKey,
+      //                              cultur)
+      //                          {
+      //                              // EmailConfirmed = true,
+      //                              LockoutEnabled = true,
+      //                              NormalizedEmail = pair.Email.ToUpper(),
+      //                              OldUser = true
+      //                          };
+      //                          user.NormalizedName = user.Name.ToUpper();
+      //                          await repository.AddAsync(user, default);
+      //                      }
 
-                            await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-                            await Task.Delay(TimeSpan.FromSeconds(0.5));
-                        }
-                    }
-                    catch (DuplicateRowException)
-                    {
-                        //Do nothing
-                    }
+      //                      await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+      //                      await Task.Delay(TimeSpan.FromSeconds(0.5));
+      //                  }
+      //              }
+      //              catch (DuplicateRowException)
+      //              {
+      //                  //Do nothing
+      //              }
 
-                }
-            } while (true);
-        }
+      //          }
+      //      } while (true);
+      //  }
 
 
         //public static async Task ReCopyTransferFiles()
@@ -1140,7 +1141,7 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
         {
             var sessin = _container.Resolve<IStatelessSession>();
 
-            await TransferUsers();
+            //await TransferUsers();
             await TransferUniversities();
             //await TransferDocuments();
 

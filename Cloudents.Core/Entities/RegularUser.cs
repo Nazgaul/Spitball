@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
 
 namespace Cloudents.Core.Entities
@@ -10,12 +9,12 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class RegularUser : User
     {
-        public RegularUser(string email, string name, string privateKey, CultureInfo culture) : this()
+        public RegularUser(string email, string name, string privateKey, Language language) : this()
         {
             Email = email;
             Name = name;
             TwoFactorEnabled = true;
-            Culture = culture;
+            Language = language;
             PrivateKey = privateKey;
             Created = DateTime.UtcNow;
             //Fictive = false;
@@ -102,48 +101,40 @@ namespace Cloudents.Core.Entities
 
 
 
-        public override void MakeTransaction(TransactionType2 transaction, Question question = null, Document document = null)
+        public override void MakeTransaction(TransactionType2 transaction, Question question = null,
+            Document document = null)
         {
+            MakeTransaction(transaction, question, document, null);
 
+        }
+
+        protected virtual void MakeTransaction(TransactionType2 transaction, Question question,
+            Document document, RegularUser user)
+        {
             var t = new Transaction(transaction, this)
             {
                 Question = question,
-                Document = document
+                Document = document,
+                InvitedUser = user
             };
             Transactions.Add(t);
-            AddEvent(new TransactionEvent(t));
+            AddEvent(new TransactionEvent(t, this));
         }
 
         public virtual void AwardMoney(decimal price)
         {
-            var t = new Transaction(TransactionType2.AwardToken(price), this);
-            Transactions.Add(t);
-            //Transactions.Add(t);
-            //Balance += t.TransactionType.Price;
-            AddEvent(new TransactionEvent(t));
+            MakeTransaction(TransactionType2.AwardToken(price));
         }
 
         public virtual void CashOutMoney(decimal price)
         {
-            var t = new Transaction(TransactionType2.CashOut(price), this);
-            Transactions.Add(t);
-            // Transactions.Add(t);
-            AddEvent(new RedeemEvent(Id, price));
-            //Balance += t.TransactionType.Price;
-            AddEvent(new TransactionEvent(t));
+            MakeTransaction(TransactionType2.CashOut(price));
+            //AddEvent(new RedeemEvent(Id, price));
         }
-
-
 
         public virtual void ReferUser(RegularUser user)
         {
-            var t = new Transaction(TransactionType2.ReferUser, this)
-            {
-                InvitedUser = user
-            };
-            Transactions.Add(t);
-            //Balance += t.TransactionType.Price;
-            AddEvent(new TransactionEvent(t));
+            MakeTransaction(TransactionType2.ReferUser,null,null, user);
         }
 
 

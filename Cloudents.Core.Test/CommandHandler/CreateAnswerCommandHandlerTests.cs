@@ -18,9 +18,9 @@ namespace Cloudents.Core.Test.CommandHandler
         public async Task ExecuteAsync_QuestionWithAlreadyUserAnswer_Error()
         {
             long questionId = 1, userId = 1;
-            var user = new RegularUser("some Email", "some name", "some private key", CultureInfo.InvariantCulture);
+            var user = new RegularUser("some Email", "some name", "some private key", Language.English);
             var questionUser = new RegularUser("other email", "other name", "other private key",
-                CultureInfo.InvariantCulture);
+                Language.English);
             //{
             //    Id = 2
             //};
@@ -45,9 +45,9 @@ namespace Cloudents.Core.Test.CommandHandler
         public async Task ExecuteAsync_DefaultProcess_Ok()
         {
             long questionId = 1, userId = 1;
-            var user = new RegularUser("some Email", "some name", "some private key", CultureInfo.InvariantCulture);
+            var user = new RegularUser("some Email", "some name", "some private key", Language.English);
             var questionUser = new RegularUser("other email", "other name", "other private key",
-                CultureInfo.InvariantCulture);
+                Language.English);
             //{
             //    Id = 2
             //};

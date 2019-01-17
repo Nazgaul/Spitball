@@ -1,10 +1,11 @@
 ﻿using System.Globalization;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.Command
 {
     public class UpdateUserCultureCommand : ICommand
     {
-        public UpdateUserCultureCommand(long userId, CultureInfo cultureInfo)
+        public UpdateUserCultureCommand(long userId, Language cultureInfo)
         {
             UserId = userId;
             CultureInfo = cultureInfo;
@@ -12,6 +13,6 @@ namespace Cloudents.Command.Command
 
         public long UserId { get;  }
 
-        public CultureInfo CultureInfo { get; }
+        public Language CultureInfo { get; }
     }
 }

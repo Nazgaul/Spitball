@@ -12,9 +12,8 @@ namespace Cloudents.Core.EventHandler
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class EmailTransactionReferredEventHandler : EmailEventHandler, IEventHandler<TransactionEvent>
     {
-
-
-        public EmailTransactionReferredEventHandler(IQueueProvider serviceBusProvider): base(serviceBusProvider)
+        public EmailTransactionReferredEventHandler(IQueueProvider serviceBusProvider):
+            base(serviceBusProvider)
         {
         }
 
@@ -23,8 +22,8 @@ namespace Cloudents.Core.EventHandler
             if (eventMessage.Transaction.TransactionType.Action == TransactionActionType.ReferringUser)
             {
                 return SendEmail(
-                    new ReferralBonusEmail(eventMessage.Transaction.User.Email, eventMessage.Transaction.User.Culture)
-                    , eventMessage.Transaction.User, token);
+                    new ReferralBonusEmail(eventMessage.User.Email, eventMessage.User.Language)
+                    ,  token);
             }
 
             return Task.CompletedTask;

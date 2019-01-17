@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -21,8 +22,8 @@ namespace Cloudents.Core.Message.Email
         public override string Campaign => "Confirm Email";
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
-            { Language.Hebrew.Culture,"85cd5e1c-241c-4a19-9410-7e4c4ca21cbf"},
-            {Language.English.Culture ,"3668b0b3-dc87-4f93-bf96-cd227a5be004" }
+            { Language.Hebrew,"85cd5e1c-241c-4a19-9410-7e4c4ca21cbf"},
+            {Language.English ,"3668b0b3-dc87-4f93-bf96-cd227a5be004" }
         };
     }
 }
