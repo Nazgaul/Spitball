@@ -1,11 +1,14 @@
 <template>
     <div>
       <h1>Welcome to the ADMIN portal</h1>
+        <user-main-view></user-main-view>
     </div>
 </template>
 
 <script>
+    import userMainView from '../components/userMainView/userMainView.vue'
 export default {
+        components:{userMainView}
 }
 </script>
 
