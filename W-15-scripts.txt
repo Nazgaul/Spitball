@@ -43,3 +43,80 @@ where Culture in ('en','en-US','en-GB','ar-SA','ar-AE','ru-RU')
 update sb.[user]
 set Language = 'he'
 where Culture in ('he','he-IL')
+
+
+/****** Object:  Table [sb].[SystemEvent]    Script Date: 17/01/2019 10:09:06 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[SystemEvent](
+	[Name] [nvarchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Name] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+/****** Object:  Table [sb].[Email]    Script Date: 17/01/2019 10:09:27 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[Email](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Language] [nvarchar](100) NULL,
+	[Event] [nvarchar](100) NULL,
+	[SocialShare] [bit] NOT NULL,
+	[Subject] [nvarchar](255) NOT NULL,
+	[Title1] [nvarchar](255) NULL,
+	[Subtitle1] [nvarchar](255) NULL,
+	[Body1] [nvarchar](1000) NULL,
+	[Cta1] [nvarchar](255) NULL,
+	[Title2] [nvarchar](255) NULL,
+	[Subtitle2] [nvarchar](255) NULL,
+	[Body2] [nvarchar](1000) NULL,
+	[Cta2] [nvarchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[Email]  WITH CHECK ADD  CONSTRAINT [Email_Event] FOREIGN KEY([Event])
+REFERENCES [sb].[SystemEvent] ([Name])
+GO
+
+ALTER TABLE [sb].[Email] CHECK CONSTRAINT [Email_Event]
+GO
+
+ALTER TABLE [sb].[Email]  WITH CHECK ADD  CONSTRAINT [Email_Language] FOREIGN KEY([Language])
+REFERENCES [sb].[Language] ([Name])
+GO
+
+ALTER TABLE [sb].[Email] CHECK CONSTRAINT [Email_Language]
+GO
+
+insert into sb.SystemEvent values('DocumentPurchased')
+
+
+insert into sb.Email values(
+'en',
+'DocumentPurchased',
+1,
+'Awesome you just earned -Tokens- SBL',
+'Great job, you helped someone with your knowledge!',
+'You earned -Tokens- SBL',
+'A student from {CourseName} just purchased your document {DocumentName}.',
+'Check your balance',
+'Want to earn more SBL?',
+'Share Spitball with your friends',null,null)
+
+

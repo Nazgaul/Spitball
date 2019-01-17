@@ -51,22 +51,22 @@ namespace Cloudents.Infrastructure.Stuff
             _container = subscriptionService;
         }
 
-        public async Task PublishAsync<T>(T eventMessage, CancellationToken token) where T : IEvent
-        {
-            var handlerType = typeof(IEventHandler<>).MakeGenericType(eventMessage.GetType());
-            var handlerCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
+        //public async Task PublishAsync<T>(T eventMessage, CancellationToken token) where T : IEvent
+        //{
+        //    var handlerType = typeof(IEventHandler<>).MakeGenericType(eventMessage.GetType());
+        //    var handlerCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
 
 
-            var tasks = new List<Task>();
-            if (_container.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
-                foreach (dynamic handler in eventHandlers)
-                {
-                    var t = handler.HandleAsync((dynamic) eventMessage, token);
-                    tasks.Add(t);
-                }
+        //    var tasks = new List<Task>();
+        //    if (_container.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
+        //        foreach (dynamic handler in eventHandlers)
+        //        {
+        //            var t = handler.HandleAsync((dynamic) eventMessage, token);
+        //            tasks.Add(t);
+        //        }
 
-            await Task.WhenAll(tasks);
-        }
+        //    await Task.WhenAll(tasks);
+        //}
 
         public async Task PublishAsync(IEvent eventMessage, CancellationToken token)
         {

@@ -40,7 +40,7 @@ namespace Cloudents.Command.Documents.PurchaseDocument
 
             purchaseUser.MakeTransaction(TransactionType2.Spend(document.Price,TransactionActionType.PurchaseDocument),document: document);
             document.User.MakeTransaction(TransactionType2.Earn(document.Price,TransactionActionType.SoldDocument),document:document);
-
+            
             await _userRepository.UpdateAsync(purchaseUser, token);
             await _userRepository.UpdateAsync(document.User, token);
 

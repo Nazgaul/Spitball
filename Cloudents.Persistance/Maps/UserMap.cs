@@ -121,12 +121,4 @@ namespace Cloudents.Persistance.Maps
             DiscriminatorValue(true);
         }
     }
-
-    public class LanguageMap : ClassMap<Language>
-    {
-        public LanguageMap()
-        {
-            Id(x => x.Id).Column("Name").Length(100).GeneratedBy.Assigned();
-        }
-    }
 }

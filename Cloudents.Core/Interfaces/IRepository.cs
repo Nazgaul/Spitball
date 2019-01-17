@@ -55,9 +55,9 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionRepository : IRepository<Question>
     {
-        Task<IList<Question>> GetAllQuestionsAsync(int page);
+        //Task<IList<Question>> GetAllQuestionsAsync(int page);
         Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
-        Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
+        //Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
         Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
     }
 
@@ -65,14 +65,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IAnswerRepository : IRepository<Answer>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="questionId"></param>
-        /// <param name="userId"></param>
-        /// <param name="token"></param>
-        /// <returns>the user answer otherwise null</returns>
-        Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token);
+        //Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token);
         Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token);
     }
 
@@ -95,6 +88,11 @@ namespace Cloudents.Core.Interfaces
     public interface IStatsRepository : IRepository<Stats>
     {
         Task UpdateStatsAsync(CancellationToken token);
+    }
+
+    public interface ISystemEventRepository : IRepository<SystemEvent>
+    {
+        Task<Email> GetEmailAsync(SystemEvent @event, Language language, CancellationToken token);
     }
 
 }

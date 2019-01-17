@@ -22,9 +22,6 @@ console.log(routes);
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
     //return load if no data
-    if (!value) {
-        return LanguageService.getValueByKey('wallet_Loading');
-    }
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
 

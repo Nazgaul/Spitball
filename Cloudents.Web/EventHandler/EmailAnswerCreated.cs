@@ -50,7 +50,7 @@ namespace Cloudents.Web.EventHandler
             await SendEmail(
                    new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link,
                        question.User.Language)
-                   , u
+                  
                    , token);
         }
     }

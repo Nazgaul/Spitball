@@ -36,7 +36,12 @@ namespace Cloudents.Core.Entities
             Professor = professor;
 
             Price = price;
-            Status = GetInitState(user);
+            var status = GetInitState(user);
+            if (status == Public)
+            {
+                MakePublic();
+            }
+            Status = status;
         }
 
         protected Document()

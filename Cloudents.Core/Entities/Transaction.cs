@@ -148,8 +148,6 @@ namespace Cloudents.Core.Entities
         public static readonly TransactionType2 ReferUser = new TransactionType2(TransactionActionType.ReferringUser, TransactionType.Earned, 10);
         public static readonly TransactionType2 QuestionOwnerBonus = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 1);
         public static readonly TransactionType2 QuestionAnswererBonus = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 10);
-        //    public static readonly ReputationAction AcceptItemOwner = new ReputationAction(1);
-        //    public static readonly ReputationAction AcceptItemUser = new ReputationAction(10);
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
