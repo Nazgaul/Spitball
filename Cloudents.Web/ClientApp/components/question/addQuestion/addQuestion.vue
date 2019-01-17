@@ -7,7 +7,7 @@
           <v-icon right>sbf-close</v-icon>
         </button>
       </div>
-      <div class="question-textarea-container">
+      <div class="question-textarea-container" :class="{'textArea-error': hasTextAreaError}">
         <div class="question-textarea-upper-part">
           <div class="question-profile-data-container">
             <user-avatar :user-name="accountUser.name"></user-avatar>
@@ -19,48 +19,59 @@
             label="Ask your question here…"
             class="question-textarea"
             :rows="7"
+            v-model="questionMessage"
           ></v-textarea>
         </div>
         <div class="question-textarea-lower-part">
           <div class="question-options-part">
             <span><v-icon>sbf-close</v-icon></span>
             <span><v-icon>sbf-close</v-icon></span>
-            <span><v-icon>sbf-close</v-icon></span>
+            <span>
+              <v-icon>sbf-close</v-icon>
+              <file-upload
+                id="file-input"
+                :input-id="uploadProp.componentUniqueId"
+                ref="upload"
+                :drop="false"
+                v-model="uploadProp.uploadedFiles"
+                :multiple="true"
+                :maximum="uploadProp.MAX_FILES_AMOUNT"
+                :post-action="uploadProp.uploadUrl"
+                accept="image/*"
+                :extensions="uploadProp.extensions"
+                @input-file="inputFile"
+                @input-filter="inputFilter">
+              </file-upload>
+            </span>
           </div>
-          <div class="question-thumbnails-part" :class="{'show-tumbnails': uploadProp.showTumbnails}">
-            <div class="question-attachment-box horizontal-border vertical-border">
-              <div class="question-thumb-close-container" :class="{'populated': uploadProp.populatedThumnbailBox.boxA}">
+          <div class="question-thumbnails-part" :class="{'show-tumbnails': uploadProp.uploadedFiles.length > 0}">
+            <div v-for="thumbnailBox in [0,1,2,3]" :key="thumbnailBox" class="question-attachment-box horizontal-border vertical-border">
+              <div @click="removeImage(uploadProp.populatedThumnbailBox['box_'+thumbnailBox])" class="question-thumb-close-container" :class="{'populated': uploadProp.populatedThumnbailBox['box_'+thumbnailBox].populated}">
                 <v-icon>sbf-close</v-icon>
               </div>
-            </div>
-            <div class="question-attachment-box horizontal-border vertical-border">
-              <div class="question-thumb-close-container" :class="{'populated': uploadProp.populatedThumnbailBox.boxB}">
-                <v-icon>sbf-close</v-icon>
+              <div class="question-thumb-plus-container">
+                <v-icon @click="openUploadInterface()">sbf-close</v-icon>
               </div>
-            </div>
-            <div class="question-attachment-box horizontal-border vertical-border">
-              <div class="question-thumb-close-container" :class="{'populated': uploadProp.populatedThumnbailBox.boxC}">
-                <v-icon>sbf-close</v-icon>
-              </div>
-            </div>
-            <div class="question-attachment-box horizontal-border vertical-border">
-              <div class="question-thumb-close-container" :class="{'populated': uploadProp.populatedThumnbailBox.boxD}">
-                <v-icon>sbf-close</v-icon>
+              <div class="question-thumb-img-container">
+                <img v-show="uploadProp.populatedThumnbailBox['box_'+thumbnailBox].populated" :src="uploadProp.populatedThumnbailBox['box_'+thumbnailBox].src">
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="question-subject-class-container">
-        <div class="question-select">
-          <v-select height="40" single-line item-value="id" item-text="subject" :items="subjectList" label="Select the subject" :append-icon="''" outline></v-select>
+        <div class="question-select" :class="{'subject-error': hasSubjectError}">
+          <v-select height="40" v-model="questionSubjct" single-line item-value="id" item-text="subject" :items="subjectList" label="Select the subject" :append-icon="''" outline></v-select>
         </div>
         <div class="question-select">
-          <v-select height="40" single-line :items="getSelectedClasses" label="For what class?" :append-icon="''" outline></v-select>
+          <v-select height="40" v-model="questionClass" single-line :items="getSelectedClasses" label="For what class?" :append-icon="''" outline></v-select>
         </div>
       </div>
       <div class="question-component-container">
-        <component :is="`question-${currentComponentselected}`"></component>
+        <component :is="`question-${currentComponentselected.name}`" :callback="currentComponentselected.callback"></component>
+      </div>
+      <div class="question-add-button-container">
+        <button class="question-add-button" @click="addQuestion()">Add Question</button>
       </div>
     </div>
   </transition>

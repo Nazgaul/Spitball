@@ -16,7 +16,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+    props:{
+        callback:{
+            type: Function,
+            required: true
+        }
+    },
     data(){
         return {
             amountPicked: null,
@@ -26,10 +33,22 @@ export default {
                 second: 40,
                 third: 60,
             },
-            limitOfferRange: 39
+            limitOfferRange: parseFloat(this.accountUser().balance * 30 / 100),
+            maxLimitOffer: 100,
+            errors: {
+                passedOfferLimit: 'offer limit reached',
+                passedMaxLimit: 'max limit reached',
+                invalidValue: 'invalid value'
+            },
+            returnedValue: {
+                hasError: false,
+                message: '',
+                result: 0
+            }
         }
     },
     methods:{
+        ...mapGetters(['accountUser']),
         checkCustomValue(){
             this.amountPicked = null;
         },
@@ -44,28 +63,34 @@ export default {
             }
         },
         checkValidity(val){
+            this.returnedValue.message = '';
             if(val === null){
-                return false;
+                this.returnedValue.hasError = true;
+                this.returnedValue.message = this.errors.invalidValue;
+                return this.returnedValue;
             }else if(Number(val) > this.limitOfferRange){
-                return false;
+                this.returnedValue.hasError = true;
+                this.returnedValue.message = this.errors.passedOfferLimit;
+                return this.returnedValue;
+            }else if(Number(val) > this.maxLimitOffer){
+                this.returnedValue.hasError = true;
+                this.returnedValue.message = this.errors.passedMaxLimit;
+                return this.returnedValue;
             }else{
-                return true;
+                this.returnedValue.hasError = false;
+                return this.returnedValue;
             }
         }
     },
     computed:{
         selectedPrice(){
             //TODO callback function for valid and invalid
-            if(this.checkValidity(this.amountPicked || this.customValue)){
-                console.log(this.amountPicked || this.customValue);
-                return this.amountPicked || this.customValue
-            }else{
-                console.log("null");
-                return null
-            }
+            let isValid = this.checkValidity(this.amountPicked || this.customValue);
+            isValid.result = this.amountPicked || this.customValue;
+            this.callback(isValid);
+            return isValid;
         }
     }
-
 };
 </script>
 
