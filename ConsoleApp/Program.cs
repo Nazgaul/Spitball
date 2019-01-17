@@ -123,7 +123,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var service = _container.Resolve<IUnitOfWork>();
+            var service = _container.Resolve<ISystemEventRepository>();
+            var t = await service.GetEmailAsync(SystemEvent.DocumentPurchased, Language.English, default);
         }
 
        

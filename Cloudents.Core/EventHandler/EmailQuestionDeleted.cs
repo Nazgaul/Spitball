@@ -37,7 +37,7 @@ namespace Cloudents.Core.EventHandler
             var invisibleTime = _random.Next(10, 20);
             return SendEmail(
                 new QuestionDeletedEmail(user.Email, user.Language),
-                TimeSpan.FromMinutes(invisibleTime), user, token);
+                TimeSpan.FromMinutes(invisibleTime),  token);
         }
 
         //public Task HandleAsync(QuestionRejectEvent eventMessage, CancellationToken token)
