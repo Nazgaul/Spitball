@@ -1,12 +1,10 @@
-function errorObj(hasError,message,targetElement,ref){
+function errorObj(hasError,message){
     this.hasError = hasError;
     this.message = message;
-    this.targetElement = targetElement;
-    this.ref = ref;
 };
 
-function createErrorObj(hasError,message,targetElement,ref){
-    return new errorObj(hasError,message,targetElement,ref)
+function createErrorObj(hasError,message){
+    return new errorObj(hasError,message)
 }
 
 export default{

@@ -8,6 +8,10 @@
         </button>
       </div>
       <div class="question-textarea-container" :class="{'textArea-error': hasTextAreaError}">
+        <div class="question-textarea-floating-error" v-show="hasTextAreaError">
+          {{addQuestionValidtionObj.errors["textArea"].message}}
+          <span class="textArea-error-triangle"></span>
+        </div>
         <div class="question-textarea-upper-part">
           <div class="question-profile-data-container">
             <user-avatar :user-name="accountUser.name"></user-avatar>
@@ -60,6 +64,10 @@
         </div>
       </div>
       <div class="question-subject-class-container">
+        <div class="question-select-floating-error" v-show="hasSubjectError">
+          {{addQuestionValidtionObj.errors["subject"].message}}
+          <span class="select-error-triangle"></span>
+        </div>
         <div class="question-select" :class="{'subject-error': hasSubjectError}">
           <v-select height="40" v-model="questionSubjct" single-line item-value="id" item-text="subject" :items="subjectList" label="Select the subject" :append-icon="''" outline></v-select>
         </div>
@@ -68,6 +76,10 @@
         </div>
       </div>
       <div class="question-component-container">
+        <div class="question-component-floating-error" v-show="hasExternalError">
+          {{currentComponentselected.returnedObj.message}}
+          <span class="component-error-triangle"></span>
+        </div>
         <component :is="`question-${currentComponentselected.name}`" :callback="currentComponentselected.callback"></component>
       </div>
       <div class="question-add-button-container">

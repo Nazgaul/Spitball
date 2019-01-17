@@ -22,6 +22,7 @@ export default {
                 name: "regular",
                 callback: this.handleResult,
                 returnedObj: {},
+                showError: false
             },
             uploadProp: {
                 populatedThumnbailBox: {
@@ -63,6 +64,9 @@ export default {
         },
         hasSubjectError(){
             return !!this.addQuestionValidtionObj.errors['subject'] && this.addQuestionValidtionObj.errors['subject'].hasError
+        },
+        hasExternalError(){
+            return !!this.currentComponentselected.showError
         }
 
     },
@@ -102,30 +106,31 @@ export default {
             };
         },
         canAddQuestion(){
+            let canAddQuestion = true;
             this.resetErrorObject();
             let trimmedMessage = this.questionMessage.trim();
             let externalComponent = this.currentComponentselected.returnedObj;
 
             if(trimmedMessage.length < 15){
                 const message = 'There is a minimum of 15 characters for a question';
-                let errorObj = addQuestionUtilities.createErrorObj(true, message, 'textArea', '.v-input__slot')
+                let errorObj = addQuestionUtilities.createErrorObj(true, message)
                 this.addQuestionValidtionObj.errors['textArea'] = errorObj
+                canAddQuestion = false;
                 
             }if(!this.questionSubjct){
                 const message = 'Don’t forget to select the subject for your question';
-                let errorObj = addQuestionUtilities.createErrorObj(true, message, 'questionSubject', '.question-select')
+                let errorObj = addQuestionUtilities.createErrorObj(true, message)
                 this.addQuestionValidtionObj.errors['subject'] = errorObj
+                canAddQuestion = false;
             }
             if(!!externalComponent.hasError){
-                let errorObj = addQuestionUtilities.createErrorObj(true, externalComponent.message, this.currentComponentselected.name, '.question-component-container')
-                this.addQuestionValidtionObj.errors[this.currentComponentselected.name] = errorObj;
+                this.currentComponentselected.showError = true;
+                canAddQuestion = false;
             }
+            return canAddQuestion;
         },
         addQuestion(){
-            this.canAddQuestion();
-            if(this.addQuestionValidtionObj.hasError){
-                console.log(this.addQuestionValidtionObj.message);
-            }else{
+            if(this.canAddQuestion()){
                 console.log('add question');
             }
         },
@@ -137,6 +142,7 @@ export default {
                     result: number
                 }
             */
+           this.currentComponentselected.showError = false;
             this.currentComponentselected.returnedObj = obj;
         },
         removeImage(img){
