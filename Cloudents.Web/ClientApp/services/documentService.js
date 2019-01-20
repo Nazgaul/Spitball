@@ -25,6 +25,7 @@ function createDocumentItem(ObjInit) {
 export default {
     sendDocumentData: (data) => connectivityModule.http.post("/Document", data),
     purchaseDocument: (id) => connectivityModule.http.post("/Document/purchase", {id}),
+    changeDocumentPrice: (data) => connectivityModule.http.post("/Document/price", data),
     getDocument: (id) => connectivityModule.http.get(`/Document/${id}`),
     createDocumentItem
 }
