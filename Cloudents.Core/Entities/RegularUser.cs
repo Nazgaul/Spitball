@@ -87,7 +87,7 @@ namespace Cloudents.Core.Entities
         public virtual void UpdateUserBalance(decimal balance, int score)
         {
             Transactions.UpdateBalance(balance, score);
-            AddEvent(new UpdateBalanceEvent(this));
+            //AddEvent(new UpdateBalanceEvent(this));
         }
 
 

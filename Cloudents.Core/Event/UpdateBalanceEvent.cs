@@ -1,15 +1,15 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
+﻿//using Cloudents.Core.Entities;
+//using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Core.Event
-{
-    public class UpdateBalanceEvent : IEvent
-    {
-        public UpdateBalanceEvent(RegularUser user)
-        {
-            User = user;
-        }
+//namespace Cloudents.Core.Event
+//{
+//    public class UpdateBalanceEvent : IEvent
+//    {
+//        public UpdateBalanceEvent(RegularUser user)
+//        {
+//            User = user;
+//        }
 
-        public RegularUser User { get; set; }
-    }
-}
+//        public RegularUser User { get; set; }
+//    }
+//}
