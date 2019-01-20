@@ -28,10 +28,10 @@
         </div>
         <div class="question-textarea-lower-part">
           <div class="question-options-part">
-            <span><v-icon>sbf-close</v-icon></span>
-            <span><v-icon>sbf-close</v-icon></span>
+            <span><v-icon>sbf-equazion-i</v-icon></span>
+            <span><v-icon>sbf-symbols-i</v-icon></span>
             <span>
-              <v-icon>sbf-close</v-icon>
+              <v-icon>sbf-upload-i</v-icon>
               <file-upload
                 id="file-input"
                 :input-id="uploadProp.componentUniqueId"
