@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="add_question_button_content" xml:space="preserve">
+    <value>אל דאגה, שאל כל שאלה בספיטבול וקבל תשובה תוך דקות</value>
+  </data>
+  <data name="add_question_button_title" xml:space="preserve">
+    <value>נתקעת עם שיעורי בית?</value>
+  </data>
+  <data name="classes_content" xml:space="preserve">
+    <value>מוכן להשתלט על החומר?</value>
+  </data>
+  <data name="classes_title" xml:space="preserve">
+    <value>לחץ על הקורס כדי לגשת למשאבים שיעזרו לך לקבל מאיות.</value>
+  </data>
   <data name="label_next" xml:space="preserve">
     <value>הבא</value>
   </data>
@@ -128,6 +140,24 @@
   </data>
   <data name="label_stop" xml:space="preserve">
     <value>אל תציג שוב</value>
+  </data>
+  <data name="question_ticket_content" xml:space="preserve">
+    <value>אתה יכול להרוויח כסף מהידע שלך! הוסף את התשובה הנכונה לשאלה ותרוויח</value>
+  </data>
+  <data name="question_ticket_title" xml:space="preserve">
+    <value>יודע את התשובה?</value>
+  </data>
+  <data name="sbl_currency_content" xml:space="preserve">
+    <value>ממש את את הנקודות שלך (SBL) כדי לקבל כרטיסי מתנה מ- BuyMe. ככל שתחסוך יותר SBL זה יהיה שווה לך יותר כסף במימוש</value>
+  </data>
+  <data name="sbl_currency_title" xml:space="preserve">
+    <value>פדה כרטיסי מתנה מ- BuyMe</value>
+  </data>
+  <data name="upload_button_content" xml:space="preserve">
+    <value>מעולה! תעלה מסמכי לימוד מהקורס שלך ותרוויח כסף בכל פעם שמישהו רוכש אותם.</value>
+  </data>
+  <data name="upload_button_title" xml:space="preserve">
+    <value>יש לך מסמכי לימוד?</value>
   </data>
   <data name="vote_content" xml:space="preserve">
     <value>הצבע בעד או נגד שאלות, תשובות ומסמכים.</value>

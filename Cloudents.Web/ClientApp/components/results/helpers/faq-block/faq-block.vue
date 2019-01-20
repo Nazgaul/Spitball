@@ -1,8 +1,8 @@
 <template>
     <v-flex class="right-sidebar">
-        <askQuestionBtn v-if="isAsk"></askQuestionBtn>
+        <askQuestionBtn class="ask-question-button" v-if="isAsk"></askQuestionBtn>
         <!--open upload-->
-        <upload-files-btn v-if="isNotes" @click="openUploaderDialog()"></upload-files-btn>
+        <upload-files-btn class="upload-document-button" v-if="isNotes" @click="openUploaderDialog()"></upload-files-btn>
         <!--<a class="upload-files" v-if="isNotes" @click="openUploaderDialog()" v-language:inner>upload_btn_open</a>-->
         <v-flex xs12 class="card-block">
             <marketing-box class="mb-3"></marketing-box>
