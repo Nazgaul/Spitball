@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
       <!--<h1>Welcome to the ADMIN portal</h1>-->
         <user-main-view></user-main-view>
     </div>

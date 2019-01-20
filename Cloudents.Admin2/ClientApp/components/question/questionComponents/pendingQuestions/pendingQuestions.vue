@@ -19,12 +19,18 @@
                                 <span>User ID:{{question.user.id}}</span>
                             </div>
                             <div class="question-actions-container">
-                                <v-btn icon @click="declineQuestion(question, index)">
+                                <v-tooltip left>
+                                <v-btn slot="activator" icon @click="declineQuestion(question, index)">
                                     <v-icon color="red">close</v-icon>
                                 </v-btn>
-                                <v-btn icon @click="aproveQ(question, index)">
+                                    <span>Decline Question</span>
+                                </v-tooltip>
+                                <v-tooltip left>
+                                <v-btn slot="activator" icon @click="aproveQ(question, index)">
                                     <v-icon color="green">done</v-icon>
                                 </v-btn>
+                                    <span>Accept Question</span>
+                                </v-tooltip>
                             </div>
                         </v-toolbar>
 

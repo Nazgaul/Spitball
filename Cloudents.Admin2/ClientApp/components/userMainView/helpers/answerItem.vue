@@ -41,6 +41,8 @@
 </template>
 
 <script>
+    import { deleteAnswer} from '../../answer/answerComponents/delete/deleteAnswerService'
+
     export default {
         name: "answerItem",
         props: {
@@ -50,6 +52,18 @@
                 required: false
 
             },
+        },
+        methods: {
+            declineAnswer(answer, index) {
+                let self = this;
+                let id = answer.id;
+                deleteAnswer([id]).then(() => {
+                    self.updateData(index);
+                    self.$toaster.success(`Answer Deleted`);
+                }, err => {
+                    this.$toaster.error(`Answer Delete Failed`);
+                })
+            }
         },
         created(){
             console.log(this.answers)
