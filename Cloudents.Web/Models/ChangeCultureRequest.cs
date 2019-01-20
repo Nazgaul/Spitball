@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
@@ -15,7 +16,12 @@ namespace Cloudents.Web.Models
         public RequestCulture Culture { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (!Language.SystemSupportLanguage().Any(a => Equals(a, Culture.Culture)))
+            if (!Language.SystemSupportLanguage().Any(a=>
+                {
+                    CultureInfo b = a;
+                    return Culture.Culture.Equals(b);
+                })) 
+            //if (!Language.SystemSupportLanguage().Any(a => Equals(a, Culture.Culture)))
             {
                 var stringLocalizer = validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as IStringLocalizer<DataAnnotationSharedResource>;
                 var errorMessage = "Invalid Culture";
