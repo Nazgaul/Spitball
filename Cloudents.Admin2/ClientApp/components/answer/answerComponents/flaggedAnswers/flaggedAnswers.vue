@@ -28,15 +28,21 @@
                                     </v-list-tile-content>
                                     <v-list-tile-action class="answer-action">
                                         <v-list-tile-action-text></v-list-tile-action-text>
-                                        <v-btn icon @click="declineAnswer(answer, index)">
+                                        <v-tooltip left>
+                                        <v-btn slot="activator" icon @click="declineAnswer(answer, index)">
                                             <v-icon color="red">close</v-icon>
                                         </v-btn>
+                                            <span>Decline Answer</span>
+                                        </v-tooltip>
                                     </v-list-tile-action>
                                     <v-list-tile-action class="answer-action">
                                         <v-list-tile-action-text></v-list-tile-action-text>
-                                        <v-btn icon @click="aproveA(answer, index)">
+                                        <v-tooltip left>
+                                        <v-btn  slot="activator" icon @click="aproveA(answer, index)">
                                             <v-icon color="green">done</v-icon>
                                         </v-btn>
+                                            <span>Approve Answer</span>
+                                        </v-tooltip>
                                     </v-list-tile-action>
 
                                 </v-list-tile>

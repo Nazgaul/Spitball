@@ -11,8 +11,7 @@
 
                 <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
                 <div class="question-actions-container">
-                    <v-tooltip top absolute allow-overflow
-                    >
+                    <v-tooltip left>
                         <v-btn   slot="activator" icon @click="deleteQuestionByID(question)">
                             <v-icon color="red">close</v-icon>
                         </v-btn>

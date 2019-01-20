@@ -1,5 +1,6 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Documents.ChangePrice;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
@@ -303,7 +304,20 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPost("price")]
+        public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
+        {
+            
+            if (model.price < 0)
+            {
+                ModelState.AddModelError(string.Empty, _localizer["PriceNeedToBeGreaterOrEqualZero"]);
+                return BadRequest(ModelState);
+            }
+            var userId = _userManager.GetLongUserId(User);
+            var command = new ChangePriceCommand(model.Id, userId, model.price);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
     }
-
-
 }

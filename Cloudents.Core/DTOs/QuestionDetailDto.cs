@@ -11,6 +11,7 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailDto
     {
+
         public QuestionDetailDto(UserDto user, long id, string text, decimal price,
              DateTime create,
             Guid? correctAnswerId, QuestionColor? color, QuestionSubject subject, 
@@ -58,6 +59,8 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailAnswerDto
     {
+        public QuestionDetailAnswerDto()
+        { }
         public QuestionDetailAnswerDto(Guid id, string text, UserDto user, DateTime create, VoteDto vote, CultureInfo culture)
         {
             Id = id;

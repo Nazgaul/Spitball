@@ -1,21 +1,28 @@
-import { mapActions, mapGetters } from 'vuex'
+import {
+    mapActions,
+    mapGetters,
+    mapMutations
+} from 'vuex'
 import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue'
 import questionService from '../../../services/questionService'
 import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 import addQuestionUtilities from './addQuestionUtilities'
 import QuestionRegular from './helpers/question-regular.vue'
+import analyticsService from '../../../services/analytics.service';
 
 export default {
     data() {
         return {
+            addQuestionButtonLoading: false,
             questionMessage: '',
             questionSubjct: '',
             questionClass: '',
             subjectList: [],
             addQuestionValidtionObj: {
-                errors:{
-                    textArea:{},
-                    subject:{}
+                errors: {
+                    textArea: {},
+                    subject: {},
+                    server: {}
                 }
             },
             currentComponentselected: {
@@ -27,21 +34,21 @@ export default {
             uploadProp: {
                 populatedThumnbailBox: {
                     box_0: {
-                       populated: false,
-                       src: ''
+                        populated: false,
+                        src: ''
                     },
                     box_1: {
                         populated: false,
                         src: ''
-                     },
-                     box_2: {
+                    },
+                    box_2: {
                         populated: false,
                         src: ''
-                     },
-                     box_3: {
+                    },
+                    box_3: {
                         populated: false,
                         src: ''
-                     },
+                    },
                 },
                 componentUniqueId: `instance-${this._uid}`,
                 extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp'],
@@ -59,22 +66,24 @@ export default {
     },
     computed: {
         ...mapGetters(['accountUser', 'getSelectedClasses', 'newQuestionDialogSate']),
-        hasTextAreaError(){
+        hasTextAreaError() {
             return !!this.addQuestionValidtionObj.errors['textArea'] && this.addQuestionValidtionObj.errors['textArea'].hasError
         },
-        hasSubjectError(){
+        hasSubjectError() {
             return !!this.addQuestionValidtionObj.errors['subject'] && this.addQuestionValidtionObj.errors['subject'].hasError
         },
-        hasExternalError(){
+        hasExternalError() {
             return !!this.currentComponentselected.showError
+        },
+        isMobile(){
+            return this.$vuetify.breakpoint.xsOnly
         }
-
     },
     watch: {
-        questionMessage(){
+        questionMessage() {
             this.addQuestionValidtionObj.errors['textArea'] = {}
         },
-        questionSubjct(){
+        questionSubjct() {
             this.addQuestionValidtionObj.errors['subject'] = {}
         },
         newQuestionDialogSate: {
@@ -91,47 +100,87 @@ export default {
     },
     methods: {
         ...mapActions(['updateNewQuestionDialogState']),
+        ...mapMutations(['UPDATE_LOADING']),
         requestNewQuestionDialogClose() {
             this.updateNewQuestionDialogState(false)
         },
-        openUploadInterface(){
+        openUploadInterface() {
             let uploadFileElement = document.querySelector(`#${this.uploadProp.componentUniqueId}`);
             uploadFileElement.click();
         },
-        resetErrorObject(){
+        resetErrorObject() {
             //should be the same as the data object
             this.addQuestionValidtionObj.errors = {
-                textArea:{},
-                subject:{}
+                textArea: {},
+                subject: {},
+                server: {}
             };
         },
-        canAddQuestion(){
+        canAddQuestion() {
             let canAddQuestion = true;
             this.resetErrorObject();
             let trimmedMessage = this.questionMessage.trim();
             let externalComponent = this.currentComponentselected.returnedObj;
 
-            if(trimmedMessage.length < 15){
+            if (trimmedMessage.length < 15) {
                 const message = 'There is a minimum of 15 characters for a question';
                 let errorObj = addQuestionUtilities.createErrorObj(true, message)
                 this.addQuestionValidtionObj.errors['textArea'] = errorObj
                 canAddQuestion = false;
-                
-            }if(!this.questionSubjct){
+
+            }
+            if (!this.questionSubjct) {
                 const message = 'Don’t forget to select the subject for your question';
                 let errorObj = addQuestionUtilities.createErrorObj(true, message)
                 this.addQuestionValidtionObj.errors['subject'] = errorObj
                 canAddQuestion = false;
             }
-            if(!!externalComponent.hasError){
+            if (!!externalComponent.hasError) {
                 this.currentComponentselected.showError = true;
                 canAddQuestion = false;
             }
             return canAddQuestion;
         },
-        addQuestion(){
-            if(this.canAddQuestion()){
+        addQuestion() {
+            if (this.canAddQuestion()) {
+                this.addQuestionButtonLoading = true;
                 console.log('add question');
+                this.UPDATE_LOADING(true);
+                let price = 0;
+                if(this.currentComponentselected.name === 'regular'){
+                    price = this.currentComponentselected.returnedObj.result;
+                }
+                let serverQuestionObj = {
+                    text:this.questionMessage,
+                    subjectId:this.questionSubjct,
+                    classId:this.questionClass,
+                    price,
+                    files:this.uploadProp.uploadedFileNames
+                }
+                questionService.postQuestion(serverQuestionObj).then((response) => {
+                    analyticsService.sb_unitedEvent("Submit_question", "Homework help")
+                    // let val = self.selectedPrice || this.price;
+                    // this.updateUserBalance(-val);
+                    //close dialog after question submitted
+                    this.requestNewQuestionDialogClose(false);
+                    this.$router.push({
+                        path: '/ask',
+                        query: {
+                            term: ''
+                        }
+                    });
+                    this.UPDATE_LOADING(false);
+                }, (error) => {
+                    let errorMessage = 'Something went wrong, try again.';
+                    if (error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]) {
+                        errorMessage = error.response.data[""][0];
+                    }
+                    this.UPDATE_LOADING(false);
+                    this.addQuestionValidtionObj.errors.server = addQuestionUtilities.createErrorObj(true, errorMessage);
+                    console.error(error);
+                }).finally(()=>{
+                    this.addQuestionButtonLoading = false;
+                });
             }
         },
         handleResult(obj) {
@@ -142,25 +191,25 @@ export default {
                     result: number
                 }
             */
-           this.currentComponentselected.showError = false;
+            this.currentComponentselected.showError = false;
             this.currentComponentselected.returnedObj = obj;
         },
-        removeImage(img){
+        removeImage(img) {
             img.populated = false;
             //remove file
-            this.uploadProp.uploadedFiles.forEach((file, index)=>{
-                if(file.blob == img.src){
+            this.uploadProp.uploadedFiles.forEach((file, index) => {
+                if (file.blob == img.src) {
                     this.uploadProp.uploadedFiles.splice(index, 1);
                 }
             })
             //remove file from filenames array
             let filenameIndex = this.uploadProp.uploadedFileNames.indexOf(img.fileName)
-            if(filenameIndex > -1){
+            if (filenameIndex > -1) {
                 this.uploadProp.uploadedFileNames.splice(filenameIndex, 1);
             }
         },
-        populatThumbnailBoxes(){
-            this.uploadProp.uploadedFiles.forEach((file, index)=>{
+        populatThumbnailBoxes() {
+            this.uploadProp.uploadedFiles.forEach((file, index) => {
                 this.uploadProp.populatedThumnbailBox[`box_${index}`].populated = true;
                 this.uploadProp.populatedThumnbailBox[`box_${index}`].src = file.blob;
                 this.uploadProp.populatedThumnbailBox[`box_${index}`].fileName = this.uploadProp.uploadedFileNames[index];
@@ -192,7 +241,7 @@ export default {
                             }
                             this.populatThumbnailBoxes();
                         }
-                    } 
+                    }
                 }
             }
             if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {

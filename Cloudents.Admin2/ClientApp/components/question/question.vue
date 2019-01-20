@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="question-content">
+        <div class="question-content" data-app>
             <router-view></router-view>
         </div>
     </div>

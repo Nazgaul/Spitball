@@ -77,7 +77,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string MetaContent { get; set; }
 
-        public virtual decimal Price { get; protected set; }
+        public virtual decimal Price { get; set; }
         protected internal virtual IList<Transaction> Transactions { get; set; }
         public virtual ItemStatus Status { get; protected set; }
 

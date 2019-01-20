@@ -1,14 +1,14 @@
 <template>
     <div class="answer-item-wrap">
-        <v-card v-for="(answer, index) in answers" :key="index">
-            <v-toolbar class="question-toolbar mt-4 back-color-purple">
-                <v-toolbar-title class="question-text-title">
+        <v-card class="answer-card" v-for="(answer, index) in answers" :key="index">
+            <v-toolbar class="answer-toolbar mt-4 back-color-purple">
+                <v-toolbar-title class="answer-text-title">
                     {{answer.text}}
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <span title="Fictive Or Original Question ">{{answer.flaggedUserEmail}}</span>
                 <v-spacer></v-spacer>
-                <div class="answer-id" @click="doCopy(answer.id)">
+                <div class="answer-id" @click="doCopy(answer.id, 'Answer ID')">
                     <span>Answer Id: {{answer.id}}</span>
                 </div>
             </v-toolbar>
@@ -22,15 +22,21 @@
                         </v-list-tile-content>
                         <v-list-tile-action class="answer-action">
                             <v-list-tile-action-text></v-list-tile-action-text>
-                            <v-btn icon @click="declineAnswer(answer, index)">
+                            <v-tooltip left>
+                            <v-btn slot="activator" icon @click="declineAnswer(answer, index)">
                                 <v-icon color="red">close</v-icon>
                             </v-btn>
+                                <span>Decline Answer</span>
+                            </v-tooltip>
                         </v-list-tile-action>
                         <v-list-tile-action class="answer-action">
                             <v-list-tile-action-text></v-list-tile-action-text>
-                            <v-btn icon @click="aproveA(answer, index)">
+                            <v-tooltip left>
+                            <v-btn slot="activator" icon @click="aproveA(answer, index)">
                                 <v-icon color="green">done</v-icon>
                             </v-btn>
+                                <span>Approve Answer</span>
+                            </v-tooltip>
                         </v-list-tile-action>
 
                     </v-list-tile>
@@ -41,6 +47,8 @@
 </template>
 
 <script>
+    import { deleteAnswer} from '../../answer/answerComponents/delete/deleteAnswerService'
+
     export default {
         name: "answerItem",
         props: {
@@ -51,6 +59,27 @@
 
             },
         },
+        methods: {
+            doCopy(id, type){
+                let dataType = type || '';
+                let self = this;
+                this.$copyText(id).then((e) => {
+                    self.$toaster.success(`${dataType} Copied` );
+                }, (e) => {
+                })
+
+            },
+            declineAnswer(answer, index) {
+                let self = this;
+                let id = answer.id;
+                deleteAnswer([id]).then(() => {
+                    self.updateData(index);
+                    self.$toaster.success(`Answer Deleted`);
+                }, err => {
+                    this.$toaster.error(`Answer Delete Failed`);
+                })
+            }
+        },
         created(){
             console.log(this.answers)
         }
@@ -58,6 +87,27 @@
 </script>
 
 <style scoped lang="scss">
+    .answer-item-wrap{
+        .answer-id{
+            cursor: pointer;
+        }
 
+        .answer-card{
+            max-width: 1280px;
+        }
+        .answer-text-title{
+            max-width: 1280px;
+            font-size: 14px;
+        }
+        .answer-toolbar{
+            max-width: 100%;
+            .answer-text-title{
+
+            }
+        }
+        .v-card{
+            max-width: 100%;
+        }
+    }
 
 </style>
