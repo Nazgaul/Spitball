@@ -1,5 +1,5 @@
 <template>
-    <v-layout justify-center class="user-page-wrap"d>
+    <v-layout justify-center class="user-page-wrap" data-app>
         <v-flex xs12 sm12 md12 style="background: #ffffff; padding: 24px 24px;">
             <h1>Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">
@@ -29,6 +29,7 @@
             <div class="questions-answers-wrap">
                 <div class="filters">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
+                           :color="searchQuery === filter.value ? '#00bcd4' : ''  "
                            :key="'filter_'+index">{{filter.name}}
                     </v-btn>
                 </div>

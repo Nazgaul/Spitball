@@ -1,8 +1,8 @@
 <template>
     <div class="answer-item-wrap">
-        <v-card v-for="(answer, index) in answers" :key="index">
-            <v-toolbar class="question-toolbar mt-4 back-color-purple">
-                <v-toolbar-title class="question-text-title">
+        <v-card class="answer-card" v-for="(answer, index) in answers" :key="index">
+            <v-toolbar class="answer-toolbar mt-4 back-color-purple">
+                <v-toolbar-title class="answer-text-title">
                     {{answer.text}}
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -22,15 +22,21 @@
                         </v-list-tile-content>
                         <v-list-tile-action class="answer-action">
                             <v-list-tile-action-text></v-list-tile-action-text>
-                            <v-btn icon @click="declineAnswer(answer, index)">
+                            <v-tooltip left>
+                            <v-btn slot="activator" icon @click="declineAnswer(answer, index)">
                                 <v-icon color="red">close</v-icon>
                             </v-btn>
+                                <span>Decline Answer</span>
+                            </v-tooltip>
                         </v-list-tile-action>
                         <v-list-tile-action class="answer-action">
                             <v-list-tile-action-text></v-list-tile-action-text>
-                            <v-btn icon @click="aproveA(answer, index)">
+                            <v-tooltip left>
+                            <v-btn slot="activator" icon @click="aproveA(answer, index)">
                                 <v-icon color="green">done</v-icon>
                             </v-btn>
+                                <span>Approve Answer</span>
+                            </v-tooltip>
                         </v-list-tile-action>
 
                     </v-list-tile>
@@ -72,6 +78,24 @@
 </script>
 
 <style scoped lang="scss">
+    .answer-item-wrap{
 
+        .answer-card{
+            max-width: 1280px;
+        }
+        .answer-text-title{
+            max-width: 1280px;
+            font-size: 14px;
+        }
+        .answer-toolbar{
+            max-width: 100%;
+            .answer-text-title{
+
+            }
+        }
+        .v-card{
+            max-width: 100%;
+        }
+    }
 
 </style>
