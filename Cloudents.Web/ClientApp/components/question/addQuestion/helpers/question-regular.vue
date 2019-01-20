@@ -36,9 +36,11 @@ export default {
             },
             limitOfferRange: parseFloat(this.accountUser().balance * 30 / 100),
             maxLimitOffer: 100,
+            minLimitOffer: 1,
             errors: {
                 passedOfferLimit: 'offer limit reached',
                 passedMaxLimit: 'max limit reached',
+                passedMinLimit: 'minimum 1 sbl required',
                 invalidValue: 'invalid value'
             },
             returnedValue: {
@@ -76,6 +78,10 @@ export default {
             }else if(Number(val) > this.maxLimitOffer){
                 this.returnedValue.hasError = true;
                 this.returnedValue.message = this.errors.passedMaxLimit;
+                return this.returnedValue;
+            }else if(Number(val) < this.minLimitOffer){
+                this.returnedValue.hasError = true;
+                this.returnedValue.message = this.errors.passedMinLimit;
                 return this.returnedValue;
             }else{
                 this.returnedValue.hasError = false;
