@@ -65,8 +65,9 @@ order by ek.orderBlock ";
                         SocialShare = result.SocialShare,
                         Subject = result.Subject,
                         DocumentName = result.DocumentName,
-                        ToEmailAddress = result.Email
-
+                        ToEmailAddress = result.Email,
+                        UserId = result.UserId
+                        
 
                     };
                     foreach (var block in results)
