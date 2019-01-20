@@ -308,9 +308,9 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
         {
             
-            if (model.price <= 0)
+            if (model.price < 0)
             {
-                ModelState.AddModelError(string.Empty, _localizer["PriceNeedToBeGreaterThenZero"]);
+                ModelState.AddModelError(string.Empty, _localizer["PriceNeedToBeGreaterOrEqualZero"]);
                 return BadRequest(ModelState);
             }
             var userId = _userManager.GetLongUserId(User);
