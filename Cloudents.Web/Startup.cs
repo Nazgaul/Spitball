@@ -32,6 +32,7 @@ using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -289,7 +290,7 @@ namespace Cloudents.Web
 
                 o.DefaultRequestCulture = new RequestCulture(Language.English);
                 // Formatting numbers, dates, etc.
-                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().ToList();// SupportedCultures;
+                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
                 // UI strings that we have localized.
                 //o.SupportedUICultures = Language.SystemSupportLanguage().ToList();
                 o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());

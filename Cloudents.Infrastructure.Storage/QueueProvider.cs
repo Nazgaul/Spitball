@@ -1,14 +1,14 @@
-﻿using JetBrains.Annotations;
+﻿using Cloudents.Core.Message;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
+using JetBrains.Annotations;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Message.System;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -40,13 +40,23 @@ namespace Cloudents.Infrastructure.Storage
                 new OperationContext(), token);
         }
 
+        //public Task InsertMessageAsync(IEmailMessage obj, CancellationToken token)
+        //{
+        //    var queue = _queueClient.GetQueueReference(QueueName.EmailQueue2.Name);
+        //    var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
+        //    {
+        //        TypeNameHandling = TypeNameHandling.All
+        //    });
+        //    var cloudMessage = new CloudQueueMessage(json);
+        //    return queue.AddMessageAsync(cloudMessage, null, null, new QueueRequestOptions(), new OperationContext(), token);
+        //}
 
 
-        public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
-        {
+        //public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
+        //{
 
-            return InsertMessageAsync(message, QueueName.SmsQueue, token);
-        }
+        //    return InsertMessageAsync(message, QueueName.SmsQueue, token);
+        //}
 
         public Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token)
         {
@@ -61,17 +71,17 @@ namespace Cloudents.Infrastructure.Storage
         }
 
 
-        private Task InsertMessageAsync(object obj, QueueName queueName, CancellationToken token)
-        {
-            var queue = _queueClient.GetQueueReference(queueName.Name);
-            var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            var cloudMessage = new CloudQueueMessage(json);
-            token.ThrowIfCancellationRequested();
-            return queue.AddMessageAsync(cloudMessage);
-        }
+        //private Task InsertMessageAsync(object obj, QueueName queueName, CancellationToken token)
+        //{
+        //    var queue = _queueClient.GetQueueReference(queueName.Name);
+        //    var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
+        //    {
+        //        TypeNameHandling = TypeNameHandling.Auto
+        //    });
+        //    var cloudMessage = new CloudQueueMessage(json);
+        //    token.ThrowIfCancellationRequested();
+        //    return queue.AddMessageAsync(cloudMessage);
+        //}
 
 
         public async Task InsertBlobReprocessAsync(long id)

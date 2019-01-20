@@ -33,27 +33,43 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.SocialShare).Not.Nullable();
             References(x => x.Language, "Language").ForeignKey("Email_Language");
             References(x => x.Event, "Event").ForeignKey("Email_Event");
+            HasMany(x => x.EmailBlock);
 
+            //Component(x => x.EmailBlock1, y =>
+            //{
+            //    y.Map(x => x.Title).Column("Title1");
+            //    y.Map(x => x.Subtitle).Column("Subtitle1");
+            //    y.Map(x => x.Body).Column("Body1").Length(1000);
+            //    y.Map(x => x.Cta).Column("cta1");
+            //});
 
-            Component(x => x.EmailBlock1, y =>
-            {
-                y.Map(x => x.Title).Column("Title1");
-                y.Map(x => x.Subtitle).Column("Subtitle1");
-                y.Map(x => x.Body).Column("Body1").Length(1000);
-                y.Map(x => x.Cta).Column("cta1");
-            });
-
-            Component(x => x.EmailBlock2, y =>
-            {
-                y.Map(x => x.Title).Column("Title2");
-                y.Map(x => x.Subtitle).Column("Subtitle2");
-                y.Map(x => x.Body).Column("Body2").Length(1000);
-                y.Map(x => x.Cta).Column("cta2");
-            });
+            //Component(x => x.EmailBlock2, y =>
+            //{
+            //    y.Map(x => x.Title).Column("Title2");
+            //    y.Map(x => x.Subtitle).Column("Subtitle2");
+            //    y.Map(x => x.Body).Column("Body2").Length(1000);
+            //    y.Map(x => x.Cta).Column("cta2");
+            //});
            
 
-            SchemaAction.Validate();
+            SchemaAction.Update();
 
+        }
+    }
+
+    public class EmailBlockMap : ClassMap<EmailBlock>
+    {
+        public EmailBlockMap()
+        {
+            Id(x => x.Id).GeneratedBy.Native();
+            Map(x => x.Title);
+            Map(x => x.Subtitle);
+            Map(x => x.Body).Length(1000);
+            Map(x => x.Cta);
+            Map(x => x.Order).Column("OrderBlock");
+
+            ReadOnly();
+            SchemaAction.Update();
         }
     }
 }

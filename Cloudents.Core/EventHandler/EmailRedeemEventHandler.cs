@@ -6,19 +6,18 @@ using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message.Email;
 
 namespace Cloudents.Core.EventHandler
 {
     public class EmailRedeemEventHandler : IEventHandler<TransactionEvent>
     {
         private readonly IQueueProvider _serviceBusProvider;
-        private readonly ISystemEventRepository _eventRepository;
 
 
-        public EmailRedeemEventHandler(IQueueProvider serviceBusProvider, ISystemEventRepository eventRepository)
+        public EmailRedeemEventHandler(IQueueProvider serviceBusProvider)
         {
             _serviceBusProvider = serviceBusProvider;
-            _eventRepository = eventRepository;
         }
 
         public async Task HandleAsync(TransactionEvent redeemEventMessage, CancellationToken token)
@@ -31,8 +30,9 @@ namespace Cloudents.Core.EventHandler
 
             if (redeemEventMessage.Transaction.TransactionType.Action == TransactionActionType.SoldDocument)
             {
-                var email = await _eventRepository.GetEmailAsync(SystemEvent.DocumentPurchased, redeemEventMessage.User.Language, token);
+                var message = new DocumentPurchasedMessage(redeemEventMessage.Transaction.Id);
 
+                await _serviceBusProvider.InsertMessageAsync(message, token);
             }
         }
     }
