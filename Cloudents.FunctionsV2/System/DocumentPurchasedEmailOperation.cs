@@ -1,20 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Cloudents.FunctionsV2.System
 {
     public class DocumentPurchasedEmailOperation : ISystemOperation<DocumentPurchasedMessage>
     {
         private readonly IQueryBus _queryBus;
+        private readonly IDataProtectionProvider _dataProtectProvider;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public DocumentPurchasedEmailOperation(IQueryBus queryBus)
+        public DocumentPurchasedEmailOperation(IQueryBus queryBus, IDataProtectionProvider dataProtectProvider, IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
+            _dataProtectProvider = dataProtectProvider;
+            _urlBuilder = urlBuilder;
         }
 
         //DocumentPurchasedMessage
@@ -23,6 +30,11 @@ namespace Cloudents.FunctionsV2.System
             var query = new GetDocumentPurchasedEmail(msg.TransactionId);
             var result = await _queryBus.QueryAsync(query, token);
 
+            var dataProtector = _dataProtectProvider.CreateProtector("MarkAnswerAsCorrect")
+                .ToTimeLimitedDataProtector();
+            var code = dataProtector.Protect(result.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+
+
             foreach (var block in result.Blocks)
             {
                 block.Body = block.Body.Inject(new
@@ -30,8 +42,15 @@ namespace Cloudents.FunctionsV2.System
                     result.CourseName,
                     result.DocumentName
                 });
+                if (block.Cta != null)
+                {
+                    block.Url = _urlBuilder.BuildWalletEndPoint(new { code });
+                }
+                
 
             }
+
+           
 
             var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
             {

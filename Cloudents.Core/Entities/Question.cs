@@ -161,7 +161,7 @@ namespace Cloudents.Core.Entities
         public virtual void MakePublic()
         {
             //TODO: maybe put an event to that
-            if (Status == Pending)
+            if (Status == null || Status == Pending)
             {
                 Status = Public;
                 AddEvent(new QuestionCreatedEvent(this));
@@ -176,6 +176,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void Delete()
         {
+            Status = ItemStatus.Delete();
             _votes.Clear();
             AddEvent(new QuestionDeletedEvent(this));
 

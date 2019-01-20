@@ -1,7 +1,10 @@
+using Autofac;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
-using Microsoft.AspNetCore.DataProtection;
+using Cloudents.FunctionsV2.System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -14,11 +17,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.FunctionsV2.System;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -57,17 +55,14 @@ namespace Cloudents.FunctionsV2
             [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
             IAsyncCollector<SendGridMessage> emailProvider,
-            [Inject]  IDataProtectionProvider dataProtectProvider,
-            [Inject] IUrlBuilder _urlBuilder,
+
             [Inject] ILifetimeScope lifetimeScope,
             IBinder binder,
             ILogger log,
             CancellationToken token)
         {
 
-            var dataProtector = dataProtectProvider.CreateProtector("MarkAnswerAsCorrect")
-                .ToTimeLimitedDataProtector();
-            var code = dataProtector.Protect("638", DateTimeOffset.UtcNow.AddDays(5));
+
             var message = new DocumentPurchasedMessage(Guid.Parse("439B602A-421F-40F8-8A97-A9C60102D069"));
 
             var handlerType =
@@ -232,14 +227,15 @@ namespace Cloudents.FunctionsV2
 
     public class TemplateData
     {
-        public TemplateData(IEnumerable<EmailBlockDto> blocks,bool socialShare, Language language)
+        public TemplateData(IEnumerable<EmailBlockDto> blocks, bool socialShare, Language language)
         {
-            Blocks = blocks.Select(s=> new Block()
+            Blocks = blocks.Select(s => new Block()
             {
                 Body = s.Body,
                 Cta = s.Cta,
                 Subtitle = s.Subtitle,
-                Title = s.Title
+                Title = s.Title,
+                Url = s.Url
             });
             if (socialShare)
             {
@@ -279,7 +275,7 @@ namespace Cloudents.FunctionsV2
         }
 
         [JsonProperty("english")]
-        public bool English { get;private set; }
+        public bool English { get; private set; }
         [JsonProperty("hebrew")]
         public bool Hebrew { get; private set; }
     }

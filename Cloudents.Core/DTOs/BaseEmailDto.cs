@@ -17,6 +17,8 @@ namespace Cloudents.Core.DTOs
         public string Subject { get; set; }
 
         public IList<EmailBlockDto> Blocks { get; set; }
+
+        public long UserId { get; set; }
     }
 
     public class DocumentPurchaseEmailDto : EmailDto
@@ -31,5 +33,6 @@ namespace Cloudents.Core.DTOs
         public string Subtitle { get; set; }
         public string Body { get; set; }
         public string Cta { get; set; }
+        public string Url { get; set; }
     }
 }

@@ -4,11 +4,11 @@
             <h1>Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">
                 <v-flex xs3>
-                    <v-text-field solo v-model="userIdentifier" type="text" class="user-id-input"
+                    <v-text-field autocomplete solo v-model="userIdentifier" type="text" class="user-id-input"
                                   placeholder="Insert user identifier..."/>
                 </v-flex>
                 <v-flex xs1>
-                    <v-btn :disabled="!userIdentifier" primary @click="getUserData()">Get User</v-btn>
+                    <v-btn :disabled="!userIdentifier"  primary @click="getUserData()">Get User</v-btn>
                 </v-flex>
                 <v-spacer></v-spacer>
                 <v-flex xs4>
