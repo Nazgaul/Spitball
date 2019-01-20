@@ -40,7 +40,7 @@ function DocumentItem(objInit) {
     this.price = objInit.price;
     this.state = objInit.state;
     this.preview = objInit.preview || '';
-    this.url = objInit.url || 'some url';
+    this.siteLink = objInit.siteLink || 'some url';
 }
 
 function AnswerItem(objInit) {

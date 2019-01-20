@@ -130,6 +130,7 @@
                 toasterTimeout: 5000,
                 hideFooter: false,
                 tourObject: {
+                    region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
                     tourCallbacks: {
                         onStop: this.tourClosed
                     },
@@ -223,13 +224,13 @@
                     setTimeout(() => {
                         if (this.$route.name === "ask") {
                             if(this.$vuetify.breakpoint.xsOnly){
-                                this.tourObject.tourSteps = tourService.ilTours.HWSteps.mobile;
+                                this.tourObject.tourSteps = tourService[this.tourObject.region].HWSteps.mobile;
                                if(this.getIsFeedTabActive()){
                                    
                                    this.$tours["myTour"].start();
                                }
                             }else{
-                                this.tourObject.tourSteps = tourService.ilTours.HWSteps.desktop;
+                                this.tourObject.tourSteps = tourService[this.tourObject.region].HWSteps.desktop;
                                 this.$tours["myTour"].start();
                             }
                         }
@@ -242,12 +243,12 @@
                     setTimeout(() => {
                         if (this.$route.name === "note") {
                             if(this.$vuetify.breakpoint.xsOnly){
-                                this.tourObject.tourSteps = tourService.ilTours.StudyDocumentsSteps.mobile;
+                                this.tourObject.tourSteps = tourService[this.tourObject.region].StudyDocumentsSteps.mobile;
                                 if(this.getIsFeedTabActive()){
                                     this.$tours["myTour"].start();
                                 }
                             }else{
-                                this.tourObject.tourSteps = tourService.ilTours.StudyDocumentsSteps.desktop;
+                                this.tourObject.tourSteps = tourService[this.tourObject.region].StudyDocumentsSteps.desktop;
                                 this.$tours["myTour"].start();
                             }
 
