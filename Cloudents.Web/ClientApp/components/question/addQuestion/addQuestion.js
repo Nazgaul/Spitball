@@ -13,6 +13,7 @@ import analyticsService from '../../../services/analytics.service';
 export default {
     data() {
         return {
+            addQuestionButtonLoading: false,
             questionMessage: '',
             questionSubjct: '',
             questionClass: '',
@@ -142,6 +143,7 @@ export default {
         },
         addQuestion() {
             if (this.canAddQuestion()) {
+                this.addQuestionButtonLoading = true;
                 console.log('add question');
                 this.UPDATE_LOADING(true);
                 let price = 0;
@@ -176,6 +178,8 @@ export default {
                     this.UPDATE_LOADING(false);
                     this.addQuestionValidtionObj.errors.server = addQuestionUtilities.createErrorObj(true, errorMessage);
                     console.error(error);
+                }).finally(()=>{
+                    this.addQuestionButtonLoading = false;
                 });
             }
         },

@@ -83,7 +83,7 @@
         <component :is="`question-${currentComponentselected.name}`" :callback="currentComponentselected.callback"></component>
       </div>
       <div class="question-add-button-container">
-        <button class="question-add-button" @click="addQuestion()">Add Question</button>
+        <v-btn :loading="addQuestionButtonLoading" class="question-add-button" @click="addQuestion()">Add Question</v-btn>
       </div>
     </div>
   </transition>
