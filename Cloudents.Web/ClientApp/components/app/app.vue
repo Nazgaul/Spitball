@@ -134,7 +134,7 @@
                         onStop: this.tourClosed
                     },
                     toursOptions: tourService.toursOptions,
-                    tourSteps: tourService.tourSteps
+                    tourSteps: []
                 }
             };
         },
@@ -223,10 +223,13 @@
                     setTimeout(() => {
                         if (this.$route.name === "ask") {
                             if(this.$vuetify.breakpoint.xsOnly){
+                                this.tourObject.tourSteps = tourService.ilTours.HWSteps.mobile;
                                if(this.getIsFeedTabActive()){
+                                   
                                    this.$tours["myTour"].start();
                                }
                             }else{
+                                this.tourObject.tourSteps = tourService.ilTours.HWSteps.desktop;
                                 this.$tours["myTour"].start();
                             }
                         }
@@ -239,10 +242,12 @@
                     setTimeout(() => {
                         if (this.$route.name === "note") {
                             if(this.$vuetify.breakpoint.xsOnly){
+                                this.tourObject.tourSteps = tourService.ilTours.StudyDocumentsSteps.mobile;
                                 if(this.getIsFeedTabActive()){
                                     this.$tours["myTour"].start();
                                 }
                             }else{
+                                this.tourObject.tourSteps = tourService.ilTours.StudyDocumentsSteps.desktop;
                                 this.$tours["myTour"].start();
                             }
 

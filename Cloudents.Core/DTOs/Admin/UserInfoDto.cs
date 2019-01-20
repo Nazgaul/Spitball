@@ -63,5 +63,8 @@ namespace Cloudents.Core.DTOs.Admin
         public decimal? Price { get; set; }
         [DtoToEntityConnection(nameof(Document.Status.State))]
         public string State { get; set; }
+        
+        public Uri Preview { get; set; }
+        public string SiteLink { get; set; }
     }
 }
