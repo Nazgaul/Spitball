@@ -62,7 +62,11 @@ PRIMARY KEY CLUSTERED
 GO
 
 
-/****** Object:  Table [sb].[Email]    Script Date: 17/01/2019 10:09:27 ******/
+
+
+
+
+/****** Object:  Table [sb].[Email]    Script Date: 20/01/2019 13:53:13 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -71,18 +75,10 @@ GO
 
 CREATE TABLE [sb].[Email](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Subject] [nvarchar](255) NOT NULL,
+	[SocialShare] [bit] NOT NULL,
 	[Language] [nvarchar](100) NULL,
 	[Event] [nvarchar](100) NULL,
-	[SocialShare] [bit] NOT NULL,
-	[Subject] [nvarchar](255) NOT NULL,
-	[Title1] [nvarchar](255) NULL,
-	[Subtitle1] [nvarchar](255) NULL,
-	[Body1] [nvarchar](1000) NULL,
-	[Cta1] [nvarchar](255) NULL,
-	[Title2] [nvarchar](255) NULL,
-	[Subtitle2] [nvarchar](255) NULL,
-	[Body2] [nvarchar](1000) NULL,
-	[Cta2] [nvarchar](255) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -90,33 +86,59 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [sb].[Email]  WITH CHECK ADD  CONSTRAINT [Email_Event] FOREIGN KEY([Event])
-REFERENCES [sb].[SystemEvent] ([Name])
+
+
+/****** Object:  Table [sb].[EmailBlock]    Script Date: 20/01/2019 13:50:28 ******/
+SET ANSI_NULLS ON
 GO
 
-ALTER TABLE [sb].[Email] CHECK CONSTRAINT [Email_Event]
+SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER TABLE [sb].[Email]  WITH CHECK ADD  CONSTRAINT [Email_Language] FOREIGN KEY([Language])
-REFERENCES [sb].[Language] ([Name])
+CREATE TABLE [sb].[EmailBlock](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Title] [nvarchar](255) NULL,
+	[Subtitle] [nvarchar](255) NULL,
+	[Body] [nvarchar](1000) NULL,
+	[Cta] [nvarchar](255) NULL,
+	[OrderBlock] [int] NULL,
+	[Email_id] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-ALTER TABLE [sb].[Email] CHECK CONSTRAINT [Email_Language]
+ALTER TABLE [sb].[EmailBlock]  WITH CHECK ADD  CONSTRAINT [FK_47B2DBD] FOREIGN KEY([Email_id])
+REFERENCES [sb].[Email] ([Id])
 GO
+
+ALTER TABLE [sb].[EmailBlock] CHECK CONSTRAINT [FK_47B2DBD]
+GO
+
+
+
+
 
 insert into sb.SystemEvent values('DocumentPurchased')
 
 
 insert into sb.Email values(
-'en',
-'DocumentPurchased',
-1,
 'Awesome you just earned -Tokens- SBL',
+1,
+'en',
+'DocumentPurchased')
+
+insert into sb.emailblock values(
 'Great job, you helped someone with your knowledge!',
 'You earned -Tokens- SBL',
 'A student from {CourseName} just purchased your document {DocumentName}.',
-'Check your balance',
-'Want to earn more SBL?',
-'Share Spitball with your friends',null,null)
+'Check your balance'
+,1
+,1
+)
+
+
 
 

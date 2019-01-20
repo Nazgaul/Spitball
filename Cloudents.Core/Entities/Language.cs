@@ -20,24 +20,56 @@ namespace Cloudents.Core.Entities
         public static readonly Language Hebrew = new Language(new CultureInfo("he"));
 
 
-        public static IEnumerable<CultureInfo> SystemSupportLanguage()
+        public static IEnumerable<Language> SystemSupportLanguage()
         {
-            yield return English;
-            yield return Hebrew;
+            yield return English;// new CultureInfo(English.Id);
+            yield return Hebrew;// new CultureInfo(Hebrew.Id);
 
         }
+
+
 
         public static implicit operator CultureInfo(Language tb)
         {
             return new CultureInfo(tb.Id);
         }
 
-        public static implicit operator Language(CultureInfo tb)
+        //public static implicit operator Language(string tb)
+        //{
+        //    if (SystemSupportLanguage()
+        //    {
+        //        return tb;
+        //    }
+
+        //    return English;
+        //}
+        public static implicit operator Language(CultureInfo info)
         {
-            if (SystemSupportLanguage().Contains(tb))
+            var result = SystemSupportLanguage().FirstOrDefault(f => f.Id == info.Name);
+            if (result != null)
             {
-                return tb;
+                return result;
             }
+            //if (SystemSupportLanguage().Contains(info.Name))
+            //{
+            //    return tb;
+            //}
+
+            return English;
+        }
+
+        public static implicit operator Language(string tb)
+        {
+            var result = SystemSupportLanguage().FirstOrDefault(f=>f.Id == tb);
+            if (result != null)
+            {
+                return result;
+            }
+
+            //if (SystemSupportLanguage().Contains(tb))
+            //{
+            //    return tb;
+            //}
 
             return English;
         }
@@ -56,25 +88,11 @@ namespace Cloudents.Core.Entities
         }
 
         public static readonly SystemEvent DocumentPurchased = new SystemEvent("DocumentPurchased");
-    }
 
-    public class Email : Entity<int>
-    {
-        public virtual string Subject { get; set; }
-        public virtual EmailBlock EmailBlock1 { get; set; }
-        public virtual EmailBlock EmailBlock2 { get; set; }
-        public virtual bool SocialShare { get; set; }
-        public virtual SystemEvent Event { get; set; }
-        public virtual Language Language { get; set; }
 
-    }
-
-    public class EmailBlock
-    {
-        public string Title { get; set; }
-        public string Subtitle { get; set; }
-        public string Body { get; set; }
-
-        public string Cta { get; set; }
+        public static implicit operator string(SystemEvent tb)
+        {
+            return tb.Id;
+        }
     }
 }

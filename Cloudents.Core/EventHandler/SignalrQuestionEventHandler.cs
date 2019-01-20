@@ -80,25 +80,6 @@ namespace Cloudents.Core.EventHandler
                     answerId = eventMessage.Answer.Id
                 });
 
-            //var question = eventMessage.Answer.Question;
-            //var user = new UserDto
-            //{
-            //    Id = question.User.Id,
-            //    Name = question.User.Name,
-            //    Image = question.User.Image
-            //};
-            //var dto = new QuestionFeedDto(question.Id,
-            //    question.Subject,
-            //    question.Price,
-            //    question.Text,
-            //    question.Attachments,
-            //    question.Answers.Count,
-            //    user,
-            //    question.Updated,
-            //    question.Color,
-            //    question.CorrectAnswer?.Id != null,
-            //    question.Language);
-
 
             return _queueProvider.InsertMessageAsync(message, token);
         }
