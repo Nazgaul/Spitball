@@ -41,7 +41,7 @@ namespace Cloudents.Query.Admin
                 .Where(w => w.CorrectAnswer == null)
                 .Where(w => w.Status.State == ItemState.Ok)
                 .WithSubquery.WhereExists(QueryOver.Of<Answer>().Where(w => w.Question.Id == questionAlias.Id)
-                    .And(x=>x.State == ItemState.Ok)
+                    .And(x=>x.Status.State == ItemState.Ok)
                     .Select(s => s.Id))
                 .And(Restrictions.Or(
                     Restrictions.Where(() => userAlias.Fictive),

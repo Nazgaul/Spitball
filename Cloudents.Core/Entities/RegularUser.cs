@@ -130,7 +130,6 @@ namespace Cloudents.Core.Entities
         {
             MakeTransaction(TransactionType2.CashOut(price));
             //AddEvent(new RedeemEvent(Id, price));
-            Transactions.Add(t);
         }
 
         public virtual void ReferUser(RegularUser user)
