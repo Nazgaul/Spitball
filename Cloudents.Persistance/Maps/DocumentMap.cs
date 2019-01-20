@@ -46,7 +46,9 @@ namespace Cloudents.Persistance.Maps
                 .Access.CamelCaseField(Prefix.Underscore)
                 .KeyColumns.Add("DocumentId")
                 .Inverse().Cascade.AllDeleteOrphan();
-            Map(m => m.VoteCount).Not.Nullable();
+            Map(m => m.VoteCount);
+
+   
             Component(x => x.Status);
             //        Component(x => x.State);
             SchemaAction.None();

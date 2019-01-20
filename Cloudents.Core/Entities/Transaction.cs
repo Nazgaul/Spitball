@@ -105,6 +105,7 @@ namespace Cloudents.Core.Entities
         }
         public static TransactionType2 StakeMoney(decimal money)
         {
+            money = -Math.Abs(money);
             return new TransactionType2(TransactionActionType.Question, TransactionType.Stake, money);
         }
 

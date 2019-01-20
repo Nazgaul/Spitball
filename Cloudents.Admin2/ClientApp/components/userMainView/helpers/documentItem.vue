@@ -66,8 +66,8 @@
         </v-list>
         <v-dialog :max-width="'1280px'" :origin="'bottom center'" :fullscreen="false" v-if="showBigImageDialog"
                   v-model="showBigImageDialog">
-            <div class="d-flex" justify-center>
-                <v-card class="d-flex justify-center"  column>
+            <div class="" justify-center>
+                <v-card class="justify-center"  column>
                     <v-icon @click="closeImageView()" class="close-dialog">close</v-icon>
                     <img :src="imageBigSrc" alt="">
                 </v-card>

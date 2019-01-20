@@ -170,7 +170,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void DeleteQuestionAdmin()
         {
-            Transactions.Clear();
+            Delete();
             AddEvent(new QuestionDeletedAdminEvent(this));
         }
 
