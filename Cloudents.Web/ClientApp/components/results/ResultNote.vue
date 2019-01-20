@@ -42,7 +42,8 @@
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
-                                    <v-list-tile v-show="item.isVisible(item.visible)"  :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
+                                    <v-list-tile v-show="item.isVisible(item.visible)"
+                                                 :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
                                                  :key="i">
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
@@ -108,7 +109,7 @@
                 :isPersistent="true"
                 :content-class="`priceUpdate ${isRtl? 'rtl': ''}` ">
             <v-card class="price-change-wrap">
-                <v-flex align-center justify-center class="relative-pos" >
+                <v-flex align-center justify-center class="relative-pos">
                     <div class="title-wrap">
                         <span class="change-title" v-language:inner>resultNote_change_for</span>
                         <span class="change-title">&nbsp;"{{item.title}}"</span>
@@ -124,7 +125,8 @@
                     </div>
                 </v-flex>
                 <div class="change-price-actions">
-                    <button @click="closeNewPriceDialog()" class="cancel mr-2"><span v-language:inner>resultNote_action_cancel</span></button>
+                    <button @click="closeNewPriceDialog()" class="cancel mr-2"><span v-language:inner>resultNote_action_cancel</span>
+                    </button>
                     <button @click="submitNewPrice()" class="change-price"><span v-language:inner>resultNote_action_apply_price</span>
                     </button>
                 </div>
@@ -145,7 +147,9 @@
     import { mapGetters, mapActions } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
     import SbInput from "../question/helpers/sbInput/sbInput";
-    import  sblCurrency  from "./helpers/uploadFiles/sbl-currency.vue";
+    import sblCurrency from "./helpers/uploadFiles/sbl-currency.vue";
+    import documentService from "../../services/documentService";
+
 
     export default {
         components: {
@@ -176,9 +180,9 @@
                         title: LanguageService.getValueByKey("resultNote_change_price"),
                         action: this.showPriceChangeDialog,
                         isDisabled: this.isDisablePriceChange,
-                        isVisible:this.isVisible,
+                        isVisible: this.isVisible,
                         icon: 'sbf-delete',
-                        visible: false,
+                        visible: true,
                     }
                 ],
                 itemId: 0,
@@ -186,7 +190,7 @@
                 isRtl: global.isRtl,
                 showMenu: false,
                 priceDialog: false,
-                newPrice: this.item.price ?  this.item.price : 0,
+                newPrice: this.item.price ? this.item.price : 0,
                 rules: {
                     required: value => !!value || 'Required.',
                     max: value => value.$options.filter <= 1000 || 'max is 1000',
@@ -280,22 +284,35 @@
                     return false
                 }
             },
-            isVisible(val){
+            updateItemPrice(val) {
+                if (val) {
+                    return this.item.price = val;
+                }
+            },
+            isVisible(val) {
                 return val
             },
-            showEvent(event){
+            showEvent(event) {
                 console.log(event)
             },
             submitNewPrice() {
-                console.log('sending new price', this.newPrice)
+                let data = {id: this.item.id, price: this.newPrice};
+                documentService.changeDocumentPrice(data).then(
+                    (success) => {
+                        this.updateItemPrice(this.newPrice);
+                        this.closeNewPriceDialog();
+                    },
+                    (error) => {
+                        console.error('erros change price', error)
+                    });
             },
             closeNewPriceDialog() {
                 this.priceDialog = false;
             },
             isDisablePriceChange() {
-                 return true
-                // let owner = this.cardOwner();
-                // return !owner
+                // return true
+                let owner = this.cardOwner();
+                return !owner
             },
             showPriceChangeDialog() {
                 this.priceDialog = true;
