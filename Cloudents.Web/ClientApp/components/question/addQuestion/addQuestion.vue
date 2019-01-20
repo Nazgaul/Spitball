@@ -28,8 +28,8 @@
         </div>
         <div class="question-textarea-lower-part">
           <div class="question-options-part">
-            <span><v-icon>sbf-equazion-i</v-icon></span>
-            <span><v-icon>sbf-symbols-i</v-icon></span>
+            <span v-show="!isMobile"><v-icon>sbf-equazion-i</v-icon></span>
+            <span v-show="!isMobile"><v-icon>sbf-symbols-i</v-icon></span>
             <span>
               <v-icon>sbf-upload-i</v-icon>
               <file-upload
@@ -69,7 +69,7 @@
           <span class="select-error-triangle"></span>
         </div>
         <div class="question-select" :class="{'subject-error': hasSubjectError}">
-          <v-select height="40" v-model="questionSubjct" single-line item-value="id" item-text="subject" :items="subjectList" label="Select the subject" :append-icon="''" outline></v-select>
+          <v-select height="40" v-model="questionSubjct" single-line item-value="id" item-text="subject" :items="subjectList" label="Select the subject" :append-icon="'sbf-arrow-down'" outline></v-select>
         </div>
         <div class="question-select">
           <v-select height="40" v-model="questionClass" single-line :items="getSelectedClasses" label="For what class?" :append-icon="''" outline></v-select>

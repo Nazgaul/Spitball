@@ -4,10 +4,14 @@
     justify-content: center;
     background:#eeeeee;
     width: 500px;
+    @media (max-width: @screen-xs) {
+        width: 100%;
+    }
     .add-question-container{
         display:flex;
         flex-direction: column;
         width:100%;
+        justify-content: space-between;
         .question-header{
             padding-top:17px;
             padding-left:16px;
@@ -112,7 +116,8 @@
                     display: flex;
                     background-color: hsla(0,0%,85%,.27);
                     border-radius: 4px;
-                    width: 100%;
+                    padding-left: 8px;
+                    padding-right: 8px;
                     max-width: 98px;
                     justify-content: space-around;
                     margin-bottom: 1px;
@@ -126,6 +131,12 @@
                     span{
                         cursor: pointer;
                         position: relative;
+                        margin-left: 6px;
+                        margin-right: 6px;
+                        @media (max-width: @screen-xs) {
+                            margin-left: 0;
+                            margin-right: 0;
+                        }
                         .file-uploads{
                             width: 18px;
                             height: 18px;
@@ -240,8 +251,9 @@
                 }   
             }   
             .question-select{
-                max-width: 235px;
-                min-width: 235px;
+                margin-left: 5px;
+                margin-right: 5px;
+                width: 100%;
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 overflow: hidden;
@@ -254,7 +266,7 @@
                 }
                 .v-select__selection--comma{
                     display: unset;
-                    width: 200px;
+                    // width: 200px;
                     line-height: 20px;
                     text-overflow: ellipsis;
                     overflow: hidden;
@@ -283,6 +295,22 @@
                             .v-select__selections{
                                 :not(:first-child){
                                     display: none; //remove the label element from taking mass
+                                }
+                            }
+                            .v-input__append-inner{
+                                //select arrow
+                                position: absolute;
+                                right: -7px;
+                                margin-top:3px;
+                                align-self:unset;
+                                display:unset;
+                                .v-input__icon{
+                                    i{
+                                        color: rgba(0,0,0,0.54) !important;
+                                        &.primary--text{
+                                            //display: none;
+                                        }
+                                    }
                                 }
                             }
                         }

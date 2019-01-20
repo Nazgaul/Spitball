@@ -73,8 +73,10 @@ export default {
         },
         hasExternalError() {
             return !!this.currentComponentselected.showError
+        },
+        isMobile(){
+            return this.$vuetify.breakpoint.xsOnly
         }
-
     },
     watch: {
         questionMessage() {
