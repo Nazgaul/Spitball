@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Message.System;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Message.Email
@@ -15,7 +16,6 @@ namespace Cloudents.Core.Message.Email
             To = to;
             Subject = subject;
             TemplateId = AssignTemplate(info);
-            //Campaign = campaign;
         }
 
         [DebuggerDisplay("To = {To}")]
@@ -25,9 +25,6 @@ namespace Cloudents.Core.Message.Email
         public string TemplateId { get; private set; }
         public string Subject { get; private set; }
         [CanBeNull] public abstract string Campaign { get; }
-
-        //public abstract string TemplateEnglishId { get; }
-        //public abstract string TemplateHebrewId { get; }
 
         [CanBeNull] protected abstract IDictionary<CultureInfo, string> Templates { get;  }
 
@@ -57,7 +54,20 @@ namespace Cloudents.Core.Message.Email
             }
             return null;
         }
+    }
+
+   //public interface IEmailMessage {
+
+   //}
+
+    public class DocumentPurchasedMessage : ISystemQueueMessage
+    {
+        public DocumentPurchasedMessage(Guid transactionId)
+        {
+            TransactionId = transactionId;
+        }
 
 
+        public Guid TransactionId { get; private set; }
     }
 }

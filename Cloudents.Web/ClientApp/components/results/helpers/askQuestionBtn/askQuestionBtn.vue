@@ -8,7 +8,7 @@
                     <!--</p>-->
                     <button round :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]"
                             @click="goToAskQuestion()">
-                        <v-icon class="sb-edit-icon" right>sbf-edit-icon</v-icon>
+                        <v-icon class="sb-edit-icon">sbf-edit-icon</v-icon>
                         <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
                     </button>
                 </div>

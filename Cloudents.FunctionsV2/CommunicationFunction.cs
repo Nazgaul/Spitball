@@ -1,18 +1,28 @@
 using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.FunctionsV2.System;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
+using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
 {
@@ -47,43 +57,64 @@ namespace Cloudents.FunctionsV2
             [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
             IAsyncCollector<SendGridMessage> emailProvider,
+            [Inject]  IDataProtectionProvider dataProtectProvider,
+            [Inject] IUrlBuilder _urlBuilder,
+            [Inject] ILifetimeScope lifetimeScope,
+            IBinder binder,
             ILogger log,
             CancellationToken token)
         {
-            var message = new SendGridMessage();
-           
-            message.TemplateId = "d-91a839096c8547f9a028134744e78ecb";
-            var personalization = new Personalization();
-            personalization.TemplateData = new TemplateData()
+
+            var dataProtector = dataProtectProvider.CreateProtector("MarkAnswerAsCorrect")
+                .ToTimeLimitedDataProtector();
+            var code = dataProtector.Protect("638", DateTimeOffset.UtcNow.AddDays(5));
+            var message = new DocumentPurchasedMessage(Guid.Parse("439B602A-421F-40F8-8A97-A9C60102D069"));
+
+            var handlerType =
+                typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+            using (var child = lifetimeScope.BeginLifetimeScope())
             {
-                Referral = new Referral()
-                {
-                    Lang = new Lang()
-                    {
-                        //English = true
-                        Hebrew = true
-                    },
-                    
-                },
-                Blocks = new Block[]
-                {
-                    new Block()
-                    {
-                        Url = "https://www.spitball.co",
-                        Body = "this is ram",
-                        Subtitle = "this is elad",
-                        Title = "this is ram Ram",
-                        Cta = "YO YO YO"
-                    }, 
-                }
-            };
-            
-            message.Personalizations = new List<Personalization>()
-            {
-                personalization
-            };
-            message.AddTo("ram@cloudents.com");
-            await emailProvider.AddAsync(message, token);
+                dynamic operation = child.Resolve(handlerType);
+                await operation.DoOperationAsync((dynamic)message, binder, token);
+            }
+
+            //var link = _urlBuilder.BuildWalletEndPoint(new { code });
+
+            //var message = new SendGridMessage();
+
+            //message.TemplateId = "d-91a839096c8547f9a028134744e78ecb";
+            //var personalization = new Personalization();
+
+            //personalization.TemplateData = new TemplateData()
+            //{
+            //    Referral = new Referral()
+            //    {
+            //        Lang = new Lang(Language.Hebrew)
+            //        {
+            //            //English = true
+            //            //Hebrew = true
+            //        },
+
+            //    },
+            //    Blocks = new Block[]
+            //    {
+            //        new Block()
+            //        {
+            //            Url = link,
+            //            Body = "this is ram",
+            //            Subtitle = "this is elad",
+            //            Title = "this is ram Ram",
+            //            Cta = "YO YO YO"
+            //        },
+            //    }
+            //};
+
+            //message.Personalizations = new List<Personalization>()
+            //{
+            //    personalization
+            //};
+            //message.AddTo("ram@cloudents.com");
+            //await emailProvider.AddAsync(message, token);
             //var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
             // "https://www.spitball.co", 456.23424M, CultureInfo.InvariantCulture);
             //await ProcessEmail(emailProvider, log, topicMessage, token);
@@ -94,7 +125,6 @@ namespace Cloudents.FunctionsV2
         {
             var message = new SendGridMessage();
             var personalization = new Personalization();
-            //personalization.AddTo(new Email(topicMessage.To));
             message.Asm = new ASM
             {
                 GroupId = 10926
@@ -114,7 +144,8 @@ namespace Cloudents.FunctionsV2
                         {
                             UtmCampaign = topicMessage.Campaign,
                             UtmSource = "SendGrid",
-                            UtmMedium = "Email"
+                            UtmMedium = "Email",
+                            Enable = true
                         }
                     };
                     message.TrackingSettings.Ganalytics.Enable = true;
@@ -195,31 +226,62 @@ namespace Cloudents.FunctionsV2
             await options.AddAsync(new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
                 Body = "Your code to enter into Spitball is: " + msg.Message
-            }, token).ConfigureAwait(false);
+            }, token);
         }
     }
 
     public class TemplateData
     {
+        public TemplateData(IEnumerable<EmailBlockDto> blocks,bool socialShare, Language language)
+        {
+            Blocks = blocks.Select(s=> new Block()
+            {
+                Body = s.Body,
+                Cta = s.Cta,
+                Subtitle = s.Subtitle,
+                Title = s.Title
+            });
+            if (socialShare)
+            {
+                Referral = new Referral(language);
+            }
+        }
+
         [JsonProperty("blocks")]
-        public Block[] Blocks { get; set; }
+        public IEnumerable<Block> Blocks { get; set; }
         [JsonProperty("referral")]
         public Referral Referral { get; set; }
     }
 
     public class Referral
     {
-        [JsonProperty("lang")]
+        public Referral(Language language)
+        {
+            Lang = new Lang(language);
+        }
 
+        [JsonProperty("lang")]
         public Lang Lang { get; set; }
     }
 
     public class Lang
     {
+        public Lang(Language language)
+        {
+            if (language == Language.English)
+            {
+                English = true;
+            }
+            else
+            {
+                Hebrew = true;
+            }
+        }
+
         [JsonProperty("english")]
-        public bool English { get; set; }
+        public bool English { get;private set; }
         [JsonProperty("hebrew")]
-        public bool Hebrew { get; set; }
+        public bool Hebrew { get; private set; }
     }
 
     public class Block
