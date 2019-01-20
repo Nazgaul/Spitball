@@ -9,10 +9,10 @@
                              @click=""
                 >
                     <v-list-tile-avatar>
-                        <img :src="'https://placeimg.com/640/480'"
+                        <img :src="document.preview ?  document.preview : ''"
                              :class=" [ 'document-preview',
                              proccessedDocuments.includes(document.id) ? 'blured' : '',
-                             ]" @click="imageView('https://placeimg.com/640/480')">
+                             ]" @click="imageView(document.preview)">
                     </v-list-tile-avatar>
 
                     <v-list-tile-content>
@@ -34,27 +34,31 @@
 
                     <v-list-tile-action>
                         <v-tooltip left>
-                            <v-btn slot="activator" flat
+                            <v-btn slot="activator" flat class="doc-action"
                                    @click="unflagSingleDocument(document, index)"
                                    :disabled="proccessedDocuments.includes(document.id)">
-                                Unflag
+
                                 <v-icon>check</v-icon>
                             </v-btn>
                             <span>UnFlag Document</span>
                         </v-tooltip>
                         <v-tooltip left>
-                            <v-btn slot="activator" flat color="purple"
+                            <v-btn slot="activator" flat color="purple" class="doc-action"
                                    :disabled="proccessedDocuments.includes(document.id)"
                                    @click="deleteDocument(document, index)">
-                                Delete
+
                                 <v-icon>delete</v-icon>
                             </v-btn>
                             <span>Delete Document</span>
                         </v-tooltip>
+                        <v-tooltip left>
+                            <v-btn slot="activator" class="doc-action" flat  :href="document.siteLink"
+                                   target="_blank">
 
-                        <!-- <v-btn flat color="red" v-bind:href="document.siteLink" target="_blank">
-                            Link
-                        </v-btn> -->
+                                <v-icon>link</v-icon>
+                            </v-btn>
+                            <span>Download</span>
+                        </v-tooltip>
                         <v-spacer></v-spacer>
                     </v-list-tile-action>
                 </v-list-tile>
@@ -63,9 +67,8 @@
         <v-dialog :max-width="'1280px'" :origin="'bottom center'" :fullscreen="false" v-if="showBigImageDialog"
                   v-model="showBigImageDialog">
             <div class="d-flex" justify-center>
-                <v-card class="d-flex" column>
+                <v-card class="d-flex justify-center"  column>
                     <v-icon @click="closeImageView()" class="close-dialog">close</v-icon>
-
                     <img :src="imageBigSrc" alt="">
                 </v-card>
             </div>
@@ -172,14 +175,18 @@
     }
 
     .document-item-wrap {
+
+        .doc-action {
+            height: 24px;
+        }
         .docs-list {
             .document-tile {
                 height: 100%;
                 .v-list--two-line {
-                    height: 100%!important;
+                    height: 100% !important;
                     &.v-list__tile {
-                        height: 100%!important;
-                        &:hover{
+                        height: 100% !important;
+                        &:hover {
                             background: #00bcd4;
                         }
 
