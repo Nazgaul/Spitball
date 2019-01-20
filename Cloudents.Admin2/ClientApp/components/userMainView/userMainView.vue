@@ -1,5 +1,5 @@
 <template>
-    <v-layout justify-center class="user-page-wrap">
+    <v-layout justify-center class="user-page-wrap" data-app>
         <v-flex xs12 sm12 md12 style="background: #ffffff; padding: 24px 24px;">
             <h1>Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">
@@ -10,14 +10,23 @@
                 <v-flex xs1>
                     <v-btn :disabled="!userIdentifier" primary @click="getUserData()">Get User</v-btn>
                 </v-flex>
+                <v-spacer></v-spacer>
+                <v-flex xs4>
+                    <v-btn :disabled="!userData" class="suspend" @click="suspendUser()">Suspend</v-btn>
+                    <v-btn :disabled="!userData" class="cash" @click="setUserComponent('userCashout')">Pay Cashout</v-btn>
+                    <v-btn :disabled="!userData" class="grant" @click="setUserComponent('userTokens')">Grant Tokens</v-btn>
+                    <div v-show="activeUserComponent && userComponentsShow">
+                        <component :is="activeUserComponent ?  activeUserComponent : ''" :userId="userId"></component>
+                    </div>
+                </v-flex>
             </div>
-            <div class="general-info d-flex" column>
+            <div class="general-info d-flex elevation-2 mb-2" column v-if="userData && userData.userInfo">
                 <div class="info-item" v-for="(infoItem, index) in userData.userInfo" :key="index">
                     <v-flex>
-                        <div  class="user-info-label">
+                        <div class="user-info-label">
                             <span>{{infoItem.label}}</span>
                         </div>
-                        <div  class="user-info-value">
+                        <div class="user-info-value">
                             <span>{{infoItem.value}}</span>
                         </div>
 
@@ -27,8 +36,9 @@
 
             </div>
             <div class="questions-answers-wrap">
-                <div class="filters">
+                <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
+                           :color="searchQuery === filter.value ? '#00bcd4' : ''  "
                            :key="'filter_'+index">{{filter.name}}
                     </v-btn>
                 </div>
@@ -61,7 +71,7 @@
                         </v-tab-item>
                         <v-tab-item :key="'3'" :value="'userDocuments'">
                             <v-flex xs12>
-                                <div>Test3</div>
+                                <document-item :updateData="updateData" :documents="filteredData"></document-item>
                             </v-flex>
                         </v-tab-item>
                     </v-tabs>
@@ -77,11 +87,21 @@
     import { grantTokens } from '../user/token/tokenUserService';
     import questionItem from './helpers/questionIitem.vue';
     import answerItem from './helpers/answerItem.vue'
+    import documentItem from './helpers/documentItem.vue'
+    import userTokens from './helpers/sendTokens.vue'
+    // import userSuspend from '../user/suspend/suspendUser.vue';
+    import userCashout from '../user/cashout/cashoutUser.vue';
 
 
     export default {
         name: "userMainView",
-        components: {questionItem, answerItem},
+        components: {
+            questionItem,
+            answerItem,
+            documentItem,
+            userTokens,
+            userCashout
+        },
         data() {
             return {
                 userData: {},
@@ -111,7 +131,9 @@
                     },
                 ],
                 activeTab: '',
-                searchQuery: 'Ok'
+                searchQuery: 'Ok',
+                userComponentsShow: false,
+                activeUserComponent: ''
 
             }
         },
@@ -124,8 +146,17 @@
                     })
                 }
             },
+            userId(){
+                if(this.userData && this.userData.userInfo){
+                    return this.userData.userInfo.id.value
+                }
+            }
         },
         methods: {
+            setUserComponent(val){
+              this.userComponentsShow =true;
+              return this.activeUserComponent =val
+            },
             updateData(index) {
                 this.userData[`${this.activeTab}`].splice(index, 1);
             },
@@ -155,7 +186,7 @@
             },
 
             suspendUser() {
-                suspendUser(this.serverIds, this.deleteUserQuestions).then((email) => {
+                suspendUser(this.userId, this.deleteUserQuestions).then((email) => {
                     this.$toaster.success(`user got suspended, email is: ${email}`)
                     this.showSuspendedDetails = true;
                     this.suspendedMail = email;
@@ -213,17 +244,17 @@
     .user-page-wrap {
         .general-info {
             padding: 8px 16px;
-            .user-info-label, .user-info-value{
+            .user-info-label, .user-info-value {
                 text-align: left;
             }
-            .user-info-label{
+            .user-info-label {
                 min-width: 15%;
                 font-size: 16px;
                 font-weight: 500;
                 border-bottom: 1px solid grey;
                 padding-bottom: 8px;
             }
-            .user-info-value{
+            .user-info-value {
                 padding-top: 8px;
                 font-size: 16px;
                 font-weight: 400;

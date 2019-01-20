@@ -2,6 +2,7 @@
   <div class="q-regular-container">
     <div class="q-regular-center-wrapper">
       <div class="q-regular-left-container">
+        <span><v-icon>sbf-offer-i</v-icon></span>
         <span class="q-regular-offer">Offer a Reward</span>
       </div>
       <div class="q-regular-right-container">

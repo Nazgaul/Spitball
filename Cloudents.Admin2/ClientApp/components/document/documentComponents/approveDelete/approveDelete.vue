@@ -23,22 +23,30 @@
                                         </v-container>
                                     </v-img>
                                     <v-card-actions>
-                                        <v-btn flat
+                                        <v-tooltip left>
+                                        <v-btn slot="activator" flat
                                                @click="approveSingleDocument(document)"
                                                :disabled="proccessedDocuments.includes(document.id)">
                                             Approve
                                             <v-icon>check</v-icon>
+                                            <span>Approve Document</span>
                                         </v-btn>
-                                        <v-btn flat color="purple"
+                                        </v-tooltip>
+                                        <v-tooltip left>
+                                        <v-btn slot="activator" flat color="purple"
                                                :disabled="proccessedDocuments.includes(document.id)"
                                                @click="deleteDocument(document)">
                                             Delete
                                             <v-icon>delete</v-icon>
+                                            <span>Delete Document</span>
                                         </v-btn>
-
-                                        <v-btn flat color="red" v-bind:href="document.siteLink" target="_blank">
+                                        </v-tooltip>
+                                        <v-tooltip left>
+                                        <v-btn slot="activator" flat color="red" v-bind:href="document.siteLink" target="_blank">
                                             Download
                                         </v-btn>
+                                            <span>Download Document</span>
+                                        </v-tooltip>
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
                                 </v-card>
