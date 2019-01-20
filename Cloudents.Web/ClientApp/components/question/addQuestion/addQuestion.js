@@ -9,6 +9,7 @@ import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.
 import addQuestionUtilities from './addQuestionUtilities'
 import QuestionRegular from './helpers/question-regular.vue'
 import analyticsService from '../../../services/analytics.service';
+import {LanguageService} from "../../../services/language/languageService";
 
 export default {
     data() {
@@ -56,6 +57,12 @@ export default {
                 uploadedFiles: [],
                 uploadedFileNames: [],
                 MAX_FILES_AMOUNT: 4,
+            },
+            dictionary:{
+                askPlaceholder: LanguageService.getValueByKey('addQuestion_ask_your_question_placeholder'),
+                selectSubjectPlaceholder: LanguageService.getValueByKey('addQuestion_select_subject_placeholder'),
+                classPlaceholder: LanguageService.getValueByKey('addQuestion_class_placeholder'),
+
             }
         }
     },
@@ -123,14 +130,14 @@ export default {
             let externalComponent = this.currentComponentselected.returnedObj;
 
             if (trimmedMessage.length < 15) {
-                const message = 'There is a minimum of 15 characters for a question';
+                const message = LanguageService.getValueByKey('addQuestion_error_minimum_chars');
                 let errorObj = addQuestionUtilities.createErrorObj(true, message)
                 this.addQuestionValidtionObj.errors['textArea'] = errorObj
                 canAddQuestion = false;
 
             }
             if (!this.questionSubjct) {
-                const message = 'Don’t forget to select the subject for your question';
+                const message = LanguageService.getValueByKey('addQuestion_error_select_subject');
                 let errorObj = addQuestionUtilities.createErrorObj(true, message)
                 this.addQuestionValidtionObj.errors['subject'] = errorObj
                 canAddQuestion = false;
@@ -171,7 +178,7 @@ export default {
                     });
                     this.UPDATE_LOADING(false);
                 }, (error) => {
-                    let errorMessage = 'Something went wrong, try again.';
+                    let errorMessage = LanguageService.getValueByKey('addQuestion_error_general');
                     if (error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]) {
                         errorMessage = error.response.data[""][0];
                     }
