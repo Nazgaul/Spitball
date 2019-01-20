@@ -8,7 +8,7 @@
                 <v-spacer></v-spacer>
                 <span title="Fictive Or Original Question ">{{answer.flaggedUserEmail}}</span>
                 <v-spacer></v-spacer>
-                <div class="answer-id" @click="doCopy(answer.id)">
+                <div class="answer-id" @click="doCopy(answer.id, 'Answer ID')">
                     <span>Answer Id: {{answer.id}}</span>
                 </div>
             </v-toolbar>
@@ -60,6 +60,15 @@
             },
         },
         methods: {
+            doCopy(id, type){
+                let dataType = type || '';
+                let self = this;
+                this.$copyText(id).then((e) => {
+                    self.$toaster.success(`${dataType} Copied` );
+                }, (e) => {
+                })
+
+            },
             declineAnswer(answer, index) {
                 let self = this;
                 let id = answer.id;
@@ -79,6 +88,9 @@
 
 <style scoped lang="scss">
     .answer-item-wrap{
+        .answer-id{
+            cursor: pointer;
+        }
 
         .answer-card{
             max-width: 1280px;
