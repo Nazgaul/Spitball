@@ -140,5 +140,22 @@ insert into sb.emailblock values(
 )
 
 
+insert into sb.Email values(
+N'מעולה - הרגע הרווחת - Tokens - SBL',
+1,
+'he',
+'DocumentPurchased')
+
+
+insert into sb.emailblock values(
+N'שיחקת אותה - עזרת למישהו אחר עם הידע שלך',
+N'הרווחת - Token - SBL',
+N'סטודנט מ{Class Name} רכש את המסמך שלך {DocumentName}',
+N'הארנק שלי '
+,1
+,2
+)
+
+
 
 
