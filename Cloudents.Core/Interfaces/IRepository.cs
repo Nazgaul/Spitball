@@ -26,7 +26,6 @@ namespace Cloudents.Core.Interfaces
     public interface IFictiveUserRepository : IRepository<SystemUser>
     {
         Task<SystemUser> GetRandomFictiveUserAsync(string country, CancellationToken token);
-
     }
 
 

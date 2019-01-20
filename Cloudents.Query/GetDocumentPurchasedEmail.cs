@@ -38,7 +38,8 @@ namespace Cloudents.Query
  ek.Cta,
  d.CourseName,
   d.Name as documentName ,
-u.Email
+u.Email,
+ u.id as userId
   from  sb.[Transaction] t
 join sb.[User] u on t.User_id = u.Id
 join sb.Email e on u.Language = e.Language and e.Event=@e
@@ -64,8 +65,9 @@ order by ek.orderBlock ";
                         SocialShare = result.SocialShare,
                         Subject = result.Subject,
                         DocumentName = result.DocumentName,
-                        ToEmailAddress = result.Email
-
+                        ToEmailAddress = result.Email,
+                        UserId = result.UserId
+                        
 
                     };
                     foreach (var block in results)
@@ -96,6 +98,8 @@ order by ek.orderBlock ";
             public string CourseName { get; set; }
             public string DocumentName { get; set; }
             public string Email { get; set; }
+            public long UserId { get; set; }
+            
         }
 
 

@@ -13,6 +13,7 @@ using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Storage;
 using System.Linq;
+using Cloudents.Persistance.Repositories;
 
 namespace Cloudents.Admin2.Api
 {
@@ -23,6 +24,7 @@ namespace Cloudents.Admin2.Api
         private readonly IQueryBus _queryBus;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IQueueProvider _queueProvider;
+       
 
         public AdminUserController(ICommandBus commandBus, IQueryBus queryBus, 
             IBlobProvider<DocumentContainer> blobProvider, IQueueProvider queueProvider)
@@ -154,10 +156,22 @@ namespace Cloudents.Admin2.Api
         }
         
         [HttpGet("info")]
-        public async Task<UserInfoDto> GetUserInfo(long userIdentifier, [FromServices] IBlobProvider blobProvider,
+        public async Task<UserInfoDto> GetUserInfo(string userIdentifier, [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
-            var query = new AdminUserInfoQuery(userIdentifier);
+            long Id;
+            AdminUserInfoQuery query;
+            if (long.TryParse(userIdentifier, out Id))
+            {
+                query = new AdminUserInfoQuery(Id);
+            }
+            else
+            {
+                var userQuery = new AdminUserIdFromEmailQuery(userIdentifier);
+                Id = await _queryBus.QueryAsync(userQuery, token);
+                query = new AdminUserInfoQuery(Id);
+            }
+           
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
             
