@@ -3,7 +3,7 @@
     <div class="q-regular-center-wrapper">
       <div class="q-regular-left-container">
         <span><v-icon>sbf-offer-i</v-icon></span>
-        <span class="q-regular-offer">Offer a Reward</span>
+        <span class="q-regular-offer" v-language:inner>addQuestion_regular_offer_reward</span>
       </div>
       <div class="q-regular-right-container">
           <button class="q-regular-select-button" :class="{'q-regular-selected': amountPicked === sblPrices.first, 'q-regular-disabled': limitOfferRange < sblPrices.first}" @click="cheackStaticValue(sblPrices.first)">{{sblPrices.first}} SBL</button>
@@ -18,6 +18,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import {LanguageService} from "../../../../services/language/languageService";
 export default {
     props:{
         callback:{
@@ -38,10 +39,10 @@ export default {
             maxLimitOffer: 100,
             minLimitOffer: 1,
             errors: {
-                passedOfferLimit: 'offer limit reached',
-                passedMaxLimit: 'max limit reached',
-                passedMinLimit: 'minimum 1 sbl required',
-                invalidValue: 'invalid value'
+                passedOfferLimit: LanguageService.getValueByKey('addQuestion_regular_error_offerLimit'),
+                passedMaxLimit: LanguageService.getValueByKey('addQuestion_regular_error_maxLimit'),
+                passedMinLimit: LanguageService.getValueByKey('addQuestion_regular_error_minRequired'),
+                invalidValue: LanguageService.getValueByKey('addQuestion_regular_error_invalidValue')
             },
             returnedValue: {
                 hasError: false,
