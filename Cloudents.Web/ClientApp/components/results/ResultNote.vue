@@ -1,7 +1,7 @@
 <template>
     <!--conditional type of tag to fix the profile click from study feed bug-->
     <component :is="isOurs ? 'router-link' : 'div'"
-               :href="isOurs ? '' : url"
+               :href="url"
                :class="['d-block', 'note-block']"
                :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
                @click="(isOurs ? $_spitball($event, url): $_thirdPartyEvent($event, url))"
