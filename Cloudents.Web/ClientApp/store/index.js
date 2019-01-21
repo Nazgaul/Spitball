@@ -22,6 +22,8 @@ import studyDocumentsStore from './studyDocuments_store';
 import marketingBox from './marketingBox'
 import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
+import onBoardGuide from './onBoardGuide';
+
 
 
 Vue.use(Vuex);
@@ -46,8 +48,9 @@ const store = new Vuex.Store({
         studyDocumentsStore,
         marketingBox,
         leaderBoard,
-        mobileFooter
+        mobileFooter,
+        onBoardGuide
     }
-})
+});
 
 export default store;

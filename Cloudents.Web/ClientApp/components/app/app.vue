@@ -23,6 +23,8 @@
             ></v-tour>
             <router-view v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
 
+            <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
+
             <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
                 <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
                 <span class="cookie-approve">
@@ -50,14 +52,7 @@
                 <uni-Select-pop :showDialog="universitySelectPopup"
                                 :popUpType="'universitySelectPopup'"></uni-Select-pop>
             </sb-dialog>
-            <!--<sb-dialog-->
-                    <!--:showDialog="true"-->
-                    <!--:popUpType="'onBoardGuide'"-->
-                    <!--:activateOverlay="true"-->
-                    <!--:content-class="'onboard-guide-container'"-->
-            <!--&gt;-->
-               <!--<onboard-guide></onboard-guide>-->
-            <!--</sb-dialog>-->
+
 
             <sb-dialog
                     :isPersistent="true"
@@ -89,6 +84,17 @@
             >
                 <upload-files v-if="getDialogState"></upload-files>
             </sb-dialog>
+            <sb-dialog
+                    :showDialog="getOnBoardState"
+                    :popUpType="'onBoardGuide'"
+                    :content-class="'onboard-guide-container'"
+                    :maxWidth="'1280px'"
+                    :activateOverlay="true"
+
+            >
+                <board-guide></board-guide>
+            </sb-dialog>
+
             <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
                            :onStepChange="onFooterStepChange"></mobile-footer>
         </v-content>
@@ -116,7 +122,7 @@
     import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
     import marketingBox from "../helpers/marketingBox/marketingBox.vue";
     import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
-    // import onBoardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
+    import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
 
 
     export default {
@@ -133,7 +139,7 @@
             mobileFooter,
             marketingBox,
             leadersBoard,
-            // onBoardGuide
+            boardGuide
         },
         data() {
             return {
@@ -141,6 +147,7 @@
                 isRtl: global.isRtl,
                 toasterTimeout: 5000,
                 hideFooter: false,
+                showOnBoardGuide: true,
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
                     tourCallbacks: {
@@ -171,6 +178,7 @@
                 "showMobileFeed",
                 "HomeworkHelp_isDataLoaded",
                 "StudyDocuments_isDataLoaded",
+                "getOnBoardState"
             ]),
             showFeed() {
                 if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
@@ -252,6 +260,7 @@
             StudyDocuments_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
                 let self = this;
+                // self.updateOnBoardState(true);
                 if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
                         if (self.$route.name === "note") {
@@ -280,7 +289,8 @@
                 "updateNewQuestionDialogState",
                 "changeSelectPopUpUniState",
                 "updateDialogState",
-                "setCookieAccepted"
+                "setCookieAccepted",
+                "updateOnBoardState"
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
             onFooterStepChange() {
