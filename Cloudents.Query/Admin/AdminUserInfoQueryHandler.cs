@@ -33,7 +33,7 @@ namespace Cloudents.Query.Admin
 	                            on U.UniversityId2 = Un.Id
                             left join sb.[Transaction] T
 	                            on U.Id = T.[User_id] and T.[Action] = 'ReferringUser'
-                            where U.Id = 159907
+                            where U.Id = @Id
                 group by U.Id, U.Name, Email, PhoneNumberHash, Un.Name, U.Country, U.Score, U.FraudScore, U.Balance, 
                 case when U.LockOutEnd is null or U.LockOutEnd < getutcdate() then 1
 	                else 0 end;
