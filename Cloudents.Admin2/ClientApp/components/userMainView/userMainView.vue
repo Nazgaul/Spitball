@@ -1,20 +1,26 @@
 <template>
     <v-layout justify-center class="user-page-wrap" data-app>
         <v-flex xs12 sm12 md12 style="background: #ffffff; padding: 24px 24px;">
-            <h1>Welcome to Admin</h1>
+            <h1 >Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">
                 <v-flex xs3>
                     <v-text-field autocomplete solo v-model="userIdentifier" type="text" class="user-id-input"
                                   placeholder="Insert user identifier..."/>
                 </v-flex>
                 <v-flex xs1>
-                    <v-btn :disabled="!userIdentifier"  primary @click="getUserData()">Get User</v-btn>
+                    <v-btn :disabled="!userIdentifier" primary @click="getUserData()">Get User</v-btn>
                 </v-flex>
                 <v-spacer></v-spacer>
                 <v-flex xs4>
-                    <v-btn :disabled="!userData" class="suspend" @click="suspendUser()">Suspend</v-btn>
-                    <v-btn :disabled="!userData" class="cash" @click="setUserComponent('userCashout')">Pay Cashout</v-btn>
-                    <v-btn :disabled="!userData" class="grant" @click="setUserComponent('userTokens')">Grant Tokens</v-btn>
+                    <v-btn v-if="userStatusActive" :disabled="!userData" class="suspend" @click="suspendUser()">
+                        Suspend
+                    </v-btn>
+                    <v-btn v-else :disabled="!userData" class="suspend" @click="releaseUser()">Release</v-btn>
+
+                    <v-btn :disabled="!userData" class="cash" @click="setUserComponent('userCashout')">Pay Cashout
+                    </v-btn>
+                    <v-btn :disabled="!userData" class="grant" @click="setUserComponent('userTokens')">Grant Tokens
+                    </v-btn>
                     <div v-show="activeUserComponent && userComponentsShow">
                         <component :is="activeUserComponent ?  activeUserComponent : ''" :userId="userId"></component>
                     </div>
@@ -29,9 +35,7 @@
                         <div class="user-info-value">
                             <span>{{infoItem.value}}</span>
                         </div>
-
                     </v-flex>
-
                 </div>
 
             </div>
@@ -107,9 +111,10 @@
                 userData: {},
                 userIdentifier: '',
                 filters: [
-                    {name: 'All', value: 'all'},
+                    {name: 'All', value: 'ok'},
                     {name: 'Pending', value: 'pending'},
-                    {name: 'Deleted', value: 'deleted'}
+                    {name: 'Deleted', value: 'deleted'},
+                    {name: 'Flagged', value: 'flagged'}
                 ],
                 userActions: [
                     {
@@ -131,10 +136,10 @@
                     },
                 ],
                 activeTab: '',
-                searchQuery: 'Ok',
+                searchQuery: 'ok',
                 userComponentsShow: false,
-                activeUserComponent: ''
-
+                activeUserComponent: '',
+                deleteUserQuestions: false
             }
         },
         computed: {
@@ -146,26 +151,30 @@
                     })
                 }
             },
-            userId(){
-                if(this.userData && this.userData.userInfo){
+            userStatusActive() {
+                if (this.userData && this.userData.userInfo) {
+                    return this.userData.userInfo.status.value === 'active'
+                }
+            },
+
+            userId() {
+                if (this.userData && this.userData.userInfo) {
                     return this.userData.userInfo.id.value
                 }
             }
         },
         methods: {
-            setUserComponent(val){
-              this.userComponentsShow =true;
-              return this.activeUserComponent =val
+            setUserComponent(val) {
+                this.userComponentsShow = true;
+                return this.activeUserComponent = val
             },
             updateData(index) {
                 this.userData[`${this.activeTab}`].splice(index, 1);
             },
-
             setActiveTab() {
                 console.log(this.activeTab)
             },
             updateFilter(val) {
-                console.log('updated filter')
                 return this.searchQuery = val
             },
             getUserData() {
@@ -180,17 +189,14 @@
                     }
                 )
             },
-
-            payCashOut() {
-                console.log('cahsout')
-            },
-
             suspendUser() {
-                suspendUser(this.userId, this.deleteUserQuestions).then((email) => {
-                    this.$toaster.success(`user got suspended, email is: ${email}`)
+                let idArr = [];
+                idArr.push(this.userId);
+                suspendUser(idArr, this.deleteUserQuestions).then((email) => {
+                    this.$toaster.success(`user got suspended, email is: ${email}`);
                     this.showSuspendedDetails = true;
                     this.suspendedMail = email;
-
+                    // this.userData.userInfo.status.value ='suspended'
                 }, (err) => {
                     this.$toaster.error(`ERROR: failed to suspend user`);
                     console.log(err)
@@ -201,15 +207,18 @@
                 })
             },
             releaseUser() {
-                releaseUser(this.serverIds).then((email) => {
-                    this.$toaster.success(`user got released`);
-
+                let self = this;
+                let idArr = [];
+                idArr.push(this.userId);
+                releaseUser(idArr).then((email) => {
+                    self.$toaster.success(`user got released`);
+                    // self.userData.userInfo.status.value === 'active'
                 }, (err) => {
-                    this.$toaster.error(`ERROR: failed to realse user`);
+                    self.$toaster.error(`ERROR: failed to realse user`);
                     console.log(err)
                 }).finally(() => {
-                    this.lock = false;
-                    this.userIds = null;
+                    self.lock = false;
+                    self.userIds = null;
 
                 })
             },

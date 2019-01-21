@@ -18,6 +18,7 @@ function UserInfo(objInit) {
     this.fraudScore = {value: objInit.fraudScore ||  0, label: 'Fraud Score' };
     this.referredCount = {value: objInit.referredCount ||  0, label: 'People Referred' };
     this.balance = {value: objInit.balance ||  0, label: 'Balance' };
+    this.status = {value: objInit.status || 'active', label: 'User Status' };
 }
 
 function createUserInfoItem(data) {
@@ -28,7 +29,7 @@ function QuestionItem(objInit) {
     this.id = objInit.id || 0;
     this.create = objInit.created;
     this.text = objInit.text;
-    this.state = objInit.state;
+    this.state =  objInit.state ? objInit.state.toLowerCase() : 'ok';
 }
 
 function DocumentItem(objInit) {
@@ -38,7 +39,7 @@ function DocumentItem(objInit) {
     this.university = objInit.university;
     this.course = objInit.course;
     this.price = objInit.price;
-    this.state = objInit.state;
+    this.state =  objInit.state ? objInit.state.toLowerCase() : 'ok';
     this.preview = objInit.preview || '';
     this.siteLink = objInit.siteLink || 'some url';
 }
@@ -49,7 +50,7 @@ function AnswerItem(objInit) {
     this.create = objInit.created;
     this.text = objInit.text;
     this.questionText = objInit.questionText;
-    this.state = objInit.state;
+    this.state = objInit.state ? objInit.state.toLowerCase() : 'ok';
 }
 
 function createUserItem(objInit) {

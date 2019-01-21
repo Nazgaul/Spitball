@@ -2,7 +2,7 @@
   <transition name="fade">
     <div class="add-question-container">
       <div class="question-header">
-        <h1 class="question-header-title">Add a question</h1>
+        <h1 class="question-header-title" v-language:inner>addQuestion_title</h1>
         <button class="back-button" @click="requestNewQuestionDialogClose()">
           <v-icon right>sbf-close</v-icon>
         </button>
@@ -20,7 +20,7 @@
             solo
             no-resize
             name="add-question-textarea"
-            label="Ask your question here…"
+            :label="dictionary.askPlaceholder"
             class="question-textarea"
             :rows="7"
             v-model="questionMessage"
@@ -69,10 +69,10 @@
           <span class="select-error-triangle"></span>
         </div>
         <div class="question-select" :class="{'subject-error': hasSubjectError}">
-          <v-select height="40" v-model="questionSubjct" single-line item-value="id" item-text="subject" :items="subjectList" label="Select the subject" :append-icon="'sbf-arrow-down'" outline></v-select>
+          <v-select height="40" v-model="questionSubjct" single-line item-value="id" item-text="subject" :items="subjectList" :label="dictionary.selectSubjectPlaceholder" :append-icon="'sbf-arrow-down'" outline></v-select>
         </div>
         <div class="question-select">
-          <v-select height="40" v-model="questionClass" single-line :items="getSelectedClasses" label="For what class?" :append-icon="''" outline></v-select>
+          <v-select height="40" v-model="questionClass" single-line :items="getSelectedClasses" :label="dictionary.classPlaceholder" :append-icon="''" outline></v-select>
         </div>
       </div>
       <div class="question-component-container">
@@ -83,7 +83,7 @@
         <component :is="`question-${currentComponentselected.name}`" :callback="currentComponentselected.callback"></component>
       </div>
       <div class="question-add-button-container">
-        <v-btn :loading="addQuestionButtonLoading" class="question-add-button" @click="addQuestion()">Add Question</v-btn>
+        <v-btn :loading="addQuestionButtonLoading" class="question-add-button" @click="addQuestion()"><span v-language:inner>addQuestion_add_button</span></v-btn>
       </div>
     </div>
   </transition>
