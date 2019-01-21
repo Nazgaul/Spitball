@@ -83,7 +83,7 @@ namespace Cloudents.Core.Entities
 
         private readonly ICollection<Vote> _votes = new List<Vote>();
 
-        public virtual IReadOnlyCollection<Vote> Votes => Votes.ToList();
+        public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
 
         public virtual int VoteCount { get; protected set; }
 
@@ -93,6 +93,7 @@ namespace Cloudents.Core.Entities
             {
                 throw new NotFoundException();
             }
+
             if (User == user)
             {
                 throw new UnauthorizedAccessException("you cannot vote you own answer");
