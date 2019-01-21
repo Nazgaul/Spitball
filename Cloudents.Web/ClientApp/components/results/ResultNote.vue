@@ -144,7 +144,7 @@
     import documentDetails from "./helpers/documentDetails/documentDetails.vue";
     import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
     import reportItem from "./helpers/reportItem/reportItem.vue";
-    import { mapGetters, mapActions } from "vuex";
+    import { mapGetters, mapActions, mapMutations } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
     import SbInput from "../question/helpers/sbInput/sbInput";
     import sblCurrency from "./helpers/uploadFiles/sbl-currency.vue";
@@ -206,7 +206,9 @@
         },
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
-
+            isProfile() {
+                return this.$route.name === "profile"
+            },
             userRank() {
                 if (!!this.item.user) {
                     return this.item.user.score;
@@ -281,10 +283,12 @@
             },
         },
         methods: {
+            ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading: "UPDATE_SEARCH_LOADING",}),
             ...mapActions([
                 "documentVote",
                 "updateLoginDialogState",
-                "updateToasterParams"
+                "updateToasterParams",
+                "syncProfile"
             ]),
             ...mapGetters(["accountUser"]),
             cardOwner() {
@@ -341,6 +345,15 @@
                 this.itemId = this.item.id;
                 this.showReport = !this.showReport;
             },
+            //check if profile and refetch data after doc deleted
+            updateProfile(){
+                let account, id;
+                if(this.isProfile){
+                    account = this.accountUser();
+                    id = account.id ? account.id : '';
+                    this.syncProfile(id);
+                }
+            },
             deleteDocument() {
                 documentService.deleteDoc(this.item.id).then(
                     (success) => {
@@ -348,12 +361,15 @@
                             toasterText: LanguageService.getValueByKey("resultNote_deleted_success"),
                             showToaster: true,
                         });
+                        this.updateProfile();
+
                     },
                     (error) => {
                         this.updateToasterParams({
                             toasterText: LanguageService.getValueByKey("resultNote_error_delete"),
                             showToaster: true,
                         });
+
 
                     }
                 )
