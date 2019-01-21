@@ -179,11 +179,18 @@
                     {
                         title: LanguageService.getValueByKey("resultNote_change_price"),
                         action: this.showPriceChangeDialog,
-                        isDisabled: this.isDisablePriceChange,
+                        isDisabled: this.isOwner,
                         isVisible: this.isVisible,
                         icon: 'sbf-delete',
                         visible: true,
-                    }
+                    },
+                    {
+                        title: LanguageService.getValueByKey("resultNote_action_delete_doc"),
+                        action: this.deleteDocument,
+                        isDisabled: this.isOwner,
+                        isVisible: this.isVisible,
+                        visible: true,
+                    },
                 ],
                 itemId: 0,
                 showReport: false,
@@ -274,7 +281,11 @@
             },
         },
         methods: {
-            ...mapActions(["documentVote", "updateLoginDialogState"]),
+            ...mapActions([
+                "documentVote",
+                "updateLoginDialogState",
+                "updateToasterParams"
+            ]),
             ...mapGetters(["accountUser"]),
             cardOwner() {
                 let userAccount = this.accountUser();
@@ -309,7 +320,7 @@
             closeNewPriceDialog() {
                 this.priceDialog = false;
             },
-            isDisablePriceChange() {
+            isOwner() {
                 // return true
                 let owner = this.cardOwner();
                 return !owner
@@ -329,6 +340,23 @@
             reportItem() {
                 this.itemId = this.item.id;
                 this.showReport = !this.showReport;
+            },
+            deleteDocument() {
+                documentService.deleteDoc(this.item.id).then(
+                    (success) => {
+                        this.updateToasterParams({
+                            toasterText: LanguageService.getValueByKey("resultNote_deleted_success"),
+                            showToaster: true,
+                        });
+                    },
+                    (error) => {
+                        this.updateToasterParams({
+                            toasterText: LanguageService.getValueByKey("resultNote_error_delete"),
+                            showToaster: true,
+                        });
+
+                    }
+                )
             },
             closeReportDialog() {
                 this.showReport = false;
