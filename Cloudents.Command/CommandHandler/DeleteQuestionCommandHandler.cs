@@ -53,7 +53,6 @@ namespace Cloudents.Command.CommandHandler
             if (!(question.User.Actual is RegularUser user))
             {
                 throw new InvalidOperationException("cannot delete fictive user");
-
             }
 
             foreach (var transaction in question.Transactions)
@@ -63,11 +62,6 @@ namespace Cloudents.Command.CommandHandler
             }
             user.MakeTransaction(TransactionType2.UnStakeMoney(question.Price,TransactionActionType.DeleteQuestion));
             await _userRepository.UpdateAsync(user, token);
-            //var deleteQuestionTransaction = new Transaction(TransactionActionType.DeleteQuestion,
-            //    TransactionType.Stake, question.Price, user);
-            //await _transactionRepository.AddAsync(deleteQuestionTransaction, token);
-
-            //question.Events.Add(new QuestionDeletedEvent(question));
             await _repository.DeleteAsync(question, token);
 
         }
