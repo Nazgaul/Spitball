@@ -155,7 +155,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_add_question_button_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,

@@ -24,6 +24,7 @@ function createDocumentItem(ObjInit) {
 
 export default {
     sendDocumentData: (data) => connectivityModule.http.post("/Document", data),
+    deleteDoc: (id) => connectivityModule.http.delete(`/Document/${id}`),
     purchaseDocument: (id) => connectivityModule.http.post("/Document/purchase", {id}),
     changeDocumentPrice: (data) => connectivityModule.http.post("/Document/price", data),
     getDocument: (id) => connectivityModule.http.get(`/Document/${id}`),

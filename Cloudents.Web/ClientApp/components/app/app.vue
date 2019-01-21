@@ -220,13 +220,12 @@
             },
             HomeworkHelp_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-                if (val && !supressed) {
+                if (val && !supressed && !!this.accountUser) {
                     setTimeout(() => {
                         if (this.$route.name === "ask") {
                             if(this.$vuetify.breakpoint.xsOnly){
                                 this.tourObject.tourSteps = tourService[this.tourObject.region].HWSteps.mobile;
                                if(this.getIsFeedTabActive()){
-                                   
                                    this.$tours["myTour"].start();
                                }
                             }else{
@@ -239,7 +238,7 @@
             },
             StudyDocuments_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-                if (val && !supressed) {
+                if (val && !supressed && !!this.accountUser) {
                     setTimeout(() => {
                         if (this.$route.name === "note") {
                             if(this.$vuetify.breakpoint.xsOnly){
