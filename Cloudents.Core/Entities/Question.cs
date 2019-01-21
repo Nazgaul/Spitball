@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             RegularUser user,
-            QuestionColor color, CultureInfo language)
+            QuestionColor color, CultureInfo language, Course course)
         : this()
         {
             Subject = subject;
@@ -41,6 +41,7 @@ namespace Cloudents.Core.Entities
             }
 
             Status = status;
+            Course = course;
             Language = language;
         }
 
@@ -62,6 +63,7 @@ namespace Cloudents.Core.Entities
             Status = Pending;
             //ChangeState(ItemState.Pending);
             Language = language;
+            
         }
 
         protected Question()
@@ -84,6 +86,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime Updated { get; set; }
 
+        public virtual Course Course { get; set; }
         public virtual Answer CorrectAnswer { get; set; }
 
         private readonly IList<Answer> _answers = new List<Answer>();

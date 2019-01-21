@@ -19,6 +19,8 @@ namespace Cloudents.Web.Models
         public string[] Files { get; set; }
 
         public QuestionColor? Color { get; set; }
+
+        public string Course { get; set; }
     }
 }
     
