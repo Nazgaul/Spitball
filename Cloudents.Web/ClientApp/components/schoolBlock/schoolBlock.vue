@@ -5,9 +5,10 @@
                 <v-flex xs12>
                     <div class="school-content-wrap">
                         <div class="university-holder" row>
+                            <span class="tour-inject"></span>
                             <div class="uni-holder" v-show="schoolName && !mobileFilterState"
                                  @click="openPersonalizeUniversity()">
-                                <v-icon class="university-icon">sbf-university-columns</v-icon>
+                                <v-icon class="university-icon ">sbf-university-columns</v-icon>
                                 <span class="university-name">{{schoolName}}</span>
                             </div>
                             <div v-show="mobileFilterState">
@@ -15,7 +16,7 @@
                             </div>
                             <div class="empty-school" v-show="!schoolName" @click="openPersonalizeUniversity()">
                                 <v-icon class="empty-university-icon">sbf-university-columns</v-icon>
-                                <span class="empty-university-name"
+                                <span class="empty-university-name "
                                       v-language:inner>schoolBlock_school_empty_text</span>
                             </div>
                         </div>

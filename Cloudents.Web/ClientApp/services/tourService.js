@@ -74,8 +74,8 @@ import { LanguageService } from './language/languageService'
     
     studyDocumentsPage:{
       uniClasses:{
-        target: ".classes-holder .v-chip",
-       
+        // target: ".classes-holder .v-chip",university-holder
+         target: ".university-holder .tour-inject",
         header: {
           title: LanguageService.getValueByKey('tour_classes_title'),
         },
@@ -143,7 +143,7 @@ import { LanguageService } from './language/languageService'
       },
     }
     
-  };
+  }
 
   const mobileStepsEnum= {
     homeworkPage:{
@@ -252,7 +252,7 @@ import { LanguageService } from './language/languageService'
         }
       }
     }
-  };
+  }
 
    const toursOptions = {
         labels:{
@@ -261,7 +261,7 @@ import { LanguageService } from './language/languageService'
           buttonNext: LanguageService.getValueByKey('tour_label_next'),
           buttonStop: LanguageService.getValueByKey('tour_label_stop')
         }
-      };
+      }
       
       const ilTours = {
         HWSteps:{

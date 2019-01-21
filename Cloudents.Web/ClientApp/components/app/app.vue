@@ -50,14 +50,23 @@
                 <uni-Select-pop :showDialog="universitySelectPopup"
                                 :popUpType="'universitySelectPopup'"></uni-Select-pop>
             </sb-dialog>
+            <!--<sb-dialog-->
+                    <!--:showDialog="true"-->
+                    <!--:popUpType="'onBoardGuide'"-->
+                    <!--:activateOverlay="true"-->
+                    <!--:content-class="'onboard-guide-container'"-->
+            <!--&gt;-->
+               <!--<onboard-guide></onboard-guide>-->
+            <!--</sb-dialog>-->
+
             <sb-dialog
                     :isPersistent="true"
                     :showDialog="newQuestionDialogSate"
                     :popUpType="'newQuestion'"
                     :content-class="'newQuestionDialog'"
             >
-        <Add-Question></Add-Question>
-        <!-- <New-Question></New-Question> -->
+                <Add-Question></Add-Question>
+                <!-- <New-Question></New-Question> -->
             </sb-dialog>
             <sb-dialog
                     :showDialog="newIsraeliUser"
@@ -107,6 +116,8 @@
     import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
     import marketingBox from "../helpers/marketingBox/marketingBox.vue";
     import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
+    // import onBoardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
+
 
     export default {
         components: {
@@ -121,7 +132,8 @@
             reportItem,
             mobileFooter,
             marketingBox,
-            leadersBoard
+            leadersBoard,
+            // onBoardGuide
         },
         data() {
             return {
@@ -224,12 +236,12 @@
                 if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
                         if (self.$route.name === "ask") {
-                            if(self.$vuetify.breakpoint.xsOnly){
+                            if (self.$vuetify.breakpoint.xsOnly) {
                                 self.tourObject.tourSteps = tourService[self.tourObject.region].HWSteps.mobile;
-                               if(self.getIsFeedTabActive()){
-                                   self.$tours["myTour"].start();
-                               }
-                            }else{
+                                if (self.getIsFeedTabActive()) {
+                                    self.$tours["myTour"].start();
+                                }
+                            } else {
                                 self.tourObject.tourSteps = tourService[self.tourObject.region].HWSteps.desktop;
                                 self.$tours["myTour"].start();
                             }
@@ -243,12 +255,12 @@
                 if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
                         if (self.$route.name === "note") {
-                            if(self.$vuetify.breakpoint.xsOnly){
+                            if (self.$vuetify.breakpoint.xsOnly) {
                                 self.tourObject.tourSteps = tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
-                                if(self.getIsFeedTabActive()){
+                                if (self.getIsFeedTabActive()) {
                                     self.$tours["myTour"].start();
                                 }
-                            }else{
+                            } else {
                                 self.tourObject.tourSteps = tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
                                 self.$tours["myTour"].start();
                             }
