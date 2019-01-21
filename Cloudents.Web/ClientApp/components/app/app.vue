@@ -220,18 +220,18 @@
             },
             HomeworkHelp_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-                if (val && !supressed) {
+                let self = this;
+                if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
-                        if (this.$route.name === "ask") {
-                            if(this.$vuetify.breakpoint.xsOnly){
-                                this.tourObject.tourSteps = tourService[this.tourObject.region].HWSteps.mobile;
-                               if(this.getIsFeedTabActive()){
-                                   
-                                   this.$tours["myTour"].start();
+                        if (self.$route.name === "ask") {
+                            if(self.$vuetify.breakpoint.xsOnly){
+                                self.tourObject.tourSteps = tourService[self.tourObject.region].HWSteps.mobile;
+                               if(self.getIsFeedTabActive()){
+                                   self.$tours["myTour"].start();
                                }
                             }else{
-                                this.tourObject.tourSteps = tourService[this.tourObject.region].HWSteps.desktop;
-                                this.$tours["myTour"].start();
+                                self.tourObject.tourSteps = tourService[self.tourObject.region].HWSteps.desktop;
+                                self.$tours["myTour"].start();
                             }
                         }
                     }, 3000)
@@ -239,17 +239,18 @@
             },
             StudyDocuments_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-                if (val && !supressed) {
+                let self = this;
+                if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
-                        if (this.$route.name === "note") {
-                            if(this.$vuetify.breakpoint.xsOnly){
-                                this.tourObject.tourSteps = tourService[this.tourObject.region].StudyDocumentsSteps.mobile;
-                                if(this.getIsFeedTabActive()){
-                                    this.$tours["myTour"].start();
+                        if (self.$route.name === "note") {
+                            if(self.$vuetify.breakpoint.xsOnly){
+                                self.tourObject.tourSteps = tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
+                                if(self.getIsFeedTabActive()){
+                                    self.$tours["myTour"].start();
                                 }
                             }else{
-                                this.tourObject.tourSteps = tourService[this.tourObject.region].StudyDocumentsSteps.desktop;
-                                this.$tours["myTour"].start();
+                                self.tourObject.tourSteps = tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
+                                self.$tours["myTour"].start();
                             }
 
                         }

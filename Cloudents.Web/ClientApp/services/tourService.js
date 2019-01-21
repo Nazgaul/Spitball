@@ -143,7 +143,7 @@ import { LanguageService } from './language/languageService'
       },
     }
     
-  }
+  };
 
   const mobileStepsEnum= {
     homeworkPage:{
@@ -155,7 +155,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_add_question_button_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -252,7 +252,7 @@ import { LanguageService } from './language/languageService'
         }
       }
     }
-  }
+  };
 
    const toursOptions = {
         labels:{
@@ -261,7 +261,7 @@ import { LanguageService } from './language/languageService'
           buttonNext: LanguageService.getValueByKey('tour_label_next'),
           buttonStop: LanguageService.getValueByKey('tour_label_stop')
         }
-      }
+      };
       
       const ilTours = {
         HWSteps:{
@@ -287,7 +287,7 @@ import { LanguageService } from './language/languageService'
           mobileStepsEnum.studyDocumentsPage.vote,          
         ]
         }
-      }
+      };
 
       const usTours = {
         HWSteps:{
@@ -314,7 +314,7 @@ import { LanguageService } from './language/languageService'
             mobileStepsEnum.studyDocumentsPage.uploadButton,
           ]
         }
-      }
+      };
      
 export default {
     toursOptions,

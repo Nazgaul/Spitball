@@ -17,7 +17,7 @@ const mutations = {
         state.dataLoaded = data;
     },
     StudyDocuments_updateItems(state, data) {
-        state.items.data = state.items.data.concat(data.data)
+        state.items.data = state.items.data.concat(data.data);
         state.items.nextPage = data.nextPage
     },    
     

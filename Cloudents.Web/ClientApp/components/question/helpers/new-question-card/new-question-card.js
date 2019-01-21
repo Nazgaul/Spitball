@@ -127,7 +127,9 @@ export default {
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
             questionVote: "HomeworkHelp_questionVote",
-            updateLoginDialogState: "updateLoginDialogState"
+            updateLoginDialogState: "updateLoginDialogState",
+            syncProfile: "syncProfile"
+
         }),
         ...mapGetters(['accountUser']),
         isAuthUser() {
@@ -168,9 +170,6 @@ export default {
             let isOwner, account, notEnough;
             isOwner = this.cardOwner();
             account = this.accountUser();
-            // if (account && account.score) {
-            //     notEnough = account.score < 400
-            // }
             if (isOwner || !account || notEnough) {
                 return true
             }
@@ -197,6 +196,14 @@ export default {
             this.showDialog = true;
             this.selectedImage = src;
         },
+        updateProfile(){
+            let account, id;
+            if(this.$route.name === "profile"){
+                account = this.accountUser();
+                id = account.id ? account.id : '';
+                this.syncProfile(id);
+            }
+        },
         deleteQuestion() {
             this.delete({id: this.cardData.id, type: 'Question'})
                 .then((success) => {
@@ -205,16 +212,17 @@ export default {
                             showToaster: true,
                         });
                         let objToDelete = {
-                            id: parseInt(this.$route.params.id)
-                        }
+                            id: parseInt(this.cardData.id)
+                        };
                         this.updateBalance(this.cardData.price);
                         this.$ga.event("Delete_question", "Homework help");
-                        //ToDO change to router link use and not text URL
                         this.removeQuestionItemAction(objToDelete);
                         if (this.$route.name === 'question') {
                             //redirect only if question got deleted from the question page
                             this.$router.push('/ask')
                         }
+                        //if profile refresh profile data
+                        this.updateProfile();
                     },
                     (error) => {
                         console.error(error)

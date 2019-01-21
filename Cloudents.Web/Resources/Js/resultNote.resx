@@ -123,11 +123,20 @@
   <data name="action_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="action_delete_doc" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="change_for" xml:space="preserve">
     <value>Change Price for</value>
   </data>
   <data name="change_price" xml:space="preserve">
     <value>Change Price</value>
+  </data>
+  <data name="deleted_success" xml:space="preserve">
+    <value>Document deleted</value>
+  </data>
+  <data name="error_delete" xml:space="preserve">
+    <value>Can't delete document, try again later</value>
   </data>
   <data name="free" xml:space="preserve">
     <value>Free</value>

@@ -49,7 +49,7 @@ namespace Cloudents.Command.CommandHandler
             }
             question.AcceptAnswer(answer);
 
-            question.User.MakeTransaction(TransactionType2.UnStakeMoney(question.Price, TransactionActionType.AnswerCorrect));
+            question.User.MakeTransaction(TransactionType2.UnStakeMoney(question.Price, TransactionActionType.AnswerCorrect), question);
             question.User.MakeTransaction(TransactionType2.Spend(question.Price, TransactionActionType.AnswerCorrect), question);
             question.User.MakeTransaction(TransactionType2.QuestionOwnerBonus, question);
 
