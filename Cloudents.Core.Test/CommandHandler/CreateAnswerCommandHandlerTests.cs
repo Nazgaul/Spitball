@@ -25,7 +25,10 @@ namespace Cloudents.Core.Test.CommandHandler
             //    Id = 2
             //};
             var question = new Question(
-                new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default, CultureInfo.InvariantCulture);
+                new QuestionSubject(), "some text",
+                0, 0, questionUser,
+                QuestionColor.Default,
+                CultureInfo.InvariantCulture,null);
 
             question.AddAnswer("some text", 0, user, CultureInfo.InvariantCulture);
 
@@ -51,7 +54,8 @@ namespace Cloudents.Core.Test.CommandHandler
             //{
             //    Id = 2
             //};
-            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default, CultureInfo.InvariantCulture);
+            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser,
+                QuestionColor.Default, CultureInfo.InvariantCulture, null);
 
             //question.Answers.Add(new Answer(question, "some text", 0, user));
 
