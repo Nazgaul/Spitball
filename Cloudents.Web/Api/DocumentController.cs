@@ -1,6 +1,7 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Documents.ChangePrice;
+using Cloudents.Command.Documents.Delete;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
@@ -317,6 +318,23 @@ namespace Cloudents.Web.Api
             var command = new ChangePriceCommand(model.Id, userId, model.price);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> DeleteDocumentAsync([FromRoute]DeleteDocumentRequest model, CancellationToken token)
+        {
+            try
+            {
+                var command = new DeleteDocumentCommand(model.Id, _userManager.GetLongUserId(User));
+                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
 
     }
