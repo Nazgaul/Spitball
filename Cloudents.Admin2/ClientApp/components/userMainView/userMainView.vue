@@ -153,7 +153,7 @@
             },
             userStatusActive() {
                 if (this.userData && this.userData.userInfo) {
-                    return this.userData.userInfo.status.value === 'active'
+                    return this.userData.userInfo.status.value
                 }
             },
 

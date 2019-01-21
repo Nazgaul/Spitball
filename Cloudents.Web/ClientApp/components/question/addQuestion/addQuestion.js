@@ -160,10 +160,10 @@ export default {
                 let serverQuestionObj = {
                     text:this.questionMessage,
                     subjectId:this.questionSubjct,
-                    classId:this.questionClass,
+                    course : this.questionClass,
                     price,
                     files:this.uploadProp.uploadedFileNames
-                }
+                };
                 questionService.postQuestion(serverQuestionObj).then((response) => {
                     analyticsService.sb_unitedEvent("Submit_question", "Homework help")
                     // let val = self.selectedPrice || this.price;

@@ -269,6 +269,9 @@
   <data name="stats_users" xml:space="preserve">
     <value>סטודנטים מרוצים</value>
   </data>
+  <data name="upload_and_earn" xml:space="preserve">
+    <value>להרוויח עכשיו</value>
+  </data>
   <data name="upload_section_subTitle" xml:space="preserve">
     <value>אז זהו, שיש. עכשיו צריך רק למצוא אותו!</value>
   </data>
