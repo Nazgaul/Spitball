@@ -96,18 +96,15 @@ namespace Cloudents.Web.Api
                 prefix = "blur-";
             }
             var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
+            var fileNameTask = _blobProvider.FilesInDirectoryAsync("file-", query.Id.ToString(), token);
 
-
-
-            await Task.WhenAll(filesTask, tQueue);
-
+            await Task.WhenAll(filesTask, tQueue, fileNameTask);
             var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
-
-            model.Name = Path.GetFileNameWithoutExtension(model.Name);
             if (!filesTask.Result.Any())
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
             }
+            
             return new DocumentPreviewResponse(model, files);
         }
 
