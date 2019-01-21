@@ -47,7 +47,8 @@ namespace Cloudents.Query
                     s.Question.Updated,
                     s.Question.Color, s.Question.CorrectAnswer.Id != null,
                     s.Question.Language,
-                    s.Question.VoteCount))
+                    s.Question.VoteCount,
+                    s.Question.Course.Name))
                 .Take(50).Skip(query.Page * 50).ToListAsync(token);
         }
     }

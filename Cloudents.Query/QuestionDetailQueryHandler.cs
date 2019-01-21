@@ -40,7 +40,7 @@ namespace Cloudents.Query
                                                         Q.Id, Q.Text,  Q.Price, 
 	                                                    Q.Updated as 'Create', Q.CorrectAnswer_id as CorrectAnswerId, 
                                                         Q.color as Color, Q.Subject_id as Subject, 
-	                                                    Q.Language, Q.VoteCount as Votes
+	                                                    Q.Language, Q.VoteCount as Votes, Q.CourseId as Course
                                                     from sb.Question Q
                                                     join sb.[user] U
 	                                                    on Q.UserId = U.Id
@@ -60,7 +60,7 @@ namespace Cloudents.Query
                 var questionDetailDto = new QuestionDetailDto(
                      new UserDto(res.UserId, res.UserName, res.UserScore),
                     res.Id, res.Text, res.Price, res.Create, res.CorrectAnswerId, res.Color, res.Subject,
-                    new CultureInfo(res.Language), res.Votes
+                    new CultureInfo(res.Language), res.Votes, res.Course
                     );
 
                 var answers = await grid.ReadAsync<QuestionDetailAnswerFlatDto>();

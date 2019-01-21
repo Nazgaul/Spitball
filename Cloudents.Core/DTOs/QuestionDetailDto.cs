@@ -15,7 +15,7 @@ namespace Cloudents.Core.DTOs
         public QuestionDetailDto(UserDto user, long id, string text, decimal price,
              DateTime create,
             Guid? correctAnswerId, QuestionColor? color, QuestionSubject subject, 
-            CultureInfo culture, int votes)
+            CultureInfo culture, int votes, string course)
         {
             Subject = subject;
             Vote = new VoteDto
@@ -29,6 +29,7 @@ namespace Cloudents.Core.DTOs
             Create = create;
             CorrectAnswerId = correctAnswerId;
             Color = color;
+            Course = course;
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
             Answers = new List<QuestionDetailAnswerDto>();
         }
@@ -40,7 +41,7 @@ namespace Cloudents.Core.DTOs
         public string Text { get; }
 
         public decimal Price { get; }
-
+        public string Course { get; set; }
         public UserDto User { get; }
         public IList<QuestionDetailAnswerDto> Answers { get; set; }
 

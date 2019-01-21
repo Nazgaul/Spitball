@@ -8,10 +8,17 @@ namespace Cloudents.Core.DTOs
     [DataContract]
     public class DocumentDetailDto
     {
+        private string _name;
+
         [DataMember]
         public long Id{ get; set; }
+
         [DataMember]
-        public string Name { get; set; }
+        public string Name
+        {
+            get => Path.GetFileNameWithoutExtension(_name);
+            set => _name = value;
+        }
 
         [DataMember]
         public DateTime Date { get; set; }
@@ -32,7 +39,7 @@ namespace Cloudents.Core.DTOs
         public UserDto User { get; set; }
 
         [DataMember]
-        public string Extension => Path.GetExtension(Name)?.TrimStart('.');
+        public string Extension => Path.GetExtension(_name)?.TrimStart('.');
 
         //[DataMember]
         public DocumentType? TypeStr { get; set; }

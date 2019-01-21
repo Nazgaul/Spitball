@@ -39,6 +39,7 @@ namespace Cloudents.Query
                     .Select(s => s.Price).WithAlias(() => dto.Price)
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
+                    .Select(s => s.Course.Name).WithAlias(() => dto.Course)
                     .SelectSubQuery(QueryOver.Of<Answer>()
                         .Where(w => w.Question.Id == questionAlias.Id && w.Status.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
