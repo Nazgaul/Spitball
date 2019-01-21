@@ -267,6 +267,9 @@
   <data name="stats_users" xml:space="preserve">
     <value>Happy Students</value>
   </data>
+  <data name="upload_and_earn" xml:space="preserve">
+    <value>Upload and Earn</value>
+  </data>
   <data name="upload_section_subTitle" xml:space="preserve">
     <value>Class Notes, Study Guides, Exams Preparations</value>
   </data>

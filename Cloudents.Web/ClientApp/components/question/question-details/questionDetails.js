@@ -125,7 +125,7 @@ export default {
                 conversation.setParticipant(other1);
                 conversation.setAttributes({
                     photoUrl: `${location.origin}/images/conversation.png`,
-                    subject: `<${location.href}|${subject}>`
+                    subject: `<${location.href }|${subject}>`
                 });
                     var chatbox = this.talkSession.createChatbox(conversation, {
                     showChatHeader: false
