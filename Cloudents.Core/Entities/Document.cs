@@ -3,6 +3,7 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -77,12 +78,12 @@ namespace Cloudents.Core.Entities
         public virtual string MetaContent { get; set; }
 
         public virtual decimal Price { get; set; }
-        protected internal virtual IList<Transaction> Transactions { get; set; }
+        private readonly IList<Transaction> _transactions = new List<Transaction>();
+        public virtual IReadOnlyCollection<Transaction> Transactions => _transactions.ToList();
+
         public virtual ItemStatus Status { get; protected set; }
-
-
+        
         private readonly ICollection<Vote> _votes = new List<Vote>();
-
         public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
 
         public virtual int VoteCount { get; protected set; }

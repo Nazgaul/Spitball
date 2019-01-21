@@ -36,6 +36,7 @@ namespace Cloudents.Persistance.Maps
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
                 //.Cascade.()
+                .Access.CamelCaseField(Prefix.Underscore)
                 .LazyLoad()
                 .Inverse();
 
