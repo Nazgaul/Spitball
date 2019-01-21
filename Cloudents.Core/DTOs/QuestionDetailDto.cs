@@ -30,6 +30,7 @@ namespace Cloudents.Core.DTOs
             CorrectAnswerId = correctAnswerId;
             Color = color;
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
+            Answers = new List<QuestionDetailAnswerDto>();
         }
 
         public QuestionSubject Subject { get; }
@@ -41,7 +42,7 @@ namespace Cloudents.Core.DTOs
         public decimal Price { get; }
 
         public UserDto User { get; }
-        public IEnumerable<QuestionDetailAnswerDto> Answers { get; set; }
+        public IList<QuestionDetailAnswerDto> Answers { get; set; }
 
         public DateTime Create { get; }
 
@@ -59,8 +60,9 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailAnswerDto
     {
-        public QuestionDetailAnswerDto()
-        { }
+        public QuestionDetailAnswerDto() { }
+
+
         public QuestionDetailAnswerDto(Guid id, string text, UserDto user, DateTime create, VoteDto vote, CultureInfo culture)
         {
             Id = id;
@@ -70,6 +72,17 @@ namespace Cloudents.Core.DTOs
             Vote = vote;
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
         }
+        public QuestionDetailAnswerDto(Guid id, string text, long userId, string userName, int userScore, DateTime create, int vote, CultureInfo culture)
+        {
+            Id = id;
+            Text = text;
+            User = new UserDto(userId, userName, userScore);
+            Create = create;
+            Vote = new VoteDto { Votes = vote };
+            IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
+        }
+
+       
         [DtoToEntityConnection(nameof(Answer.Id))]
         public Guid Id { get; set; }
 

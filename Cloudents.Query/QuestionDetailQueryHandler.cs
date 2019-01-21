@@ -19,7 +19,7 @@ namespace Cloudents.Query
     public class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
     {
         private readonly DapperRepository _dapper;
-        
+
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly IBlobProvider _blobProvider2;
 
@@ -44,35 +44,42 @@ namespace Cloudents.Query
                                                     from sb.Question Q
                                                     join sb.[user] U
 	                                                    on Q.UserId = U.Id
-                                                    left join sb.Answer A
-	                                                    on A.QuestionId = Q.Id and A.State = 'ok'
                                                     where Q.Id = @id;
 
-                                                    select A.Id, A.Text, U.Id, U.Name, U.Score, 
-                                                        A.Created, A.VoteCount, A.Language
+                                                    select A.Id, A.Text, U.Id as UserId, U.Name as UserName, 
+                                                    U.Score as UserScore, A.Created, A.VoteCount, A.Language
                                                     from sb.Answer A
                                                     join sb.[user] U
 	                                                    on A.UserId = U.Id
                                                     where A.State = 'ok' and A.QuestionId = @id;", new { id = id });
 
 
-           
+
                 var res = await grid.ReadFirstAsync<QuestionDetailQueryFlatDto>();
-            
+
                 var questionDetailDto = new QuestionDetailDto(
                      new UserDto(res.UserId, res.UserName, res.UserScore),
                     res.Id, res.Text, res.Price, res.Create, res.CorrectAnswerId, res.Color, res.Subject,
                     new CultureInfo(res.Language), res.Votes
-                    )
+                    );
+
+                var answers = await grid.ReadAsync<QuestionDetailAnswerFlatDto>();
+
+              
+                foreach (var a in answers)
                 {
-                    Answers = await grid.ReadAsync<QuestionDetailAnswerDto>()
-                };
+                    questionDetailDto.Answers.Add(new QuestionDetailAnswerDto(a.Id, a.Text,
+                    a.UserId, a.UserName, a.UserScore, a.Created,
+                    a.VoteCount, new CultureInfo(a.Language)));
+                }
+             
+
 
                 return questionDetailDto;
             }, token);
 
             return questionDetailResult;
-       
+
         }
 
         public async Task<QuestionDetailDto> GetAsync(QuestionDataByIdQuery query, CancellationToken token)
@@ -97,7 +104,7 @@ namespace Cloudents.Query
             {
                 s.Files = aggregateFiles[s.Id];
                 return s;
-            });
+            }).ToList();
 
             return dto;
         }
@@ -116,4 +123,18 @@ namespace Cloudents.Query
             return aggregateFiles;
         }
     }
+
+
+    public class QuestionDetailAnswerFlatDto
+    {
+        public Guid Id { get; set; }
+        public string Text { get; set; }
+        public long UserId { get; set; }
+        public string UserName { get; set; }
+        public int UserScore { get; set; }
+        public DateTime Created { get; set; }
+        public int VoteCount { get; set; }
+        public string Language { get; set; }
+    }
+
 }
