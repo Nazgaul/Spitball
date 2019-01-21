@@ -50,70 +50,29 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("finish sending email");
         }
 
-        [FunctionName("FunctionEmailTest")]
-        public static async Task EmailFunctionTimerAsync(
-            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
-            IAsyncCollector<SendGridMessage> emailProvider,
+        //[FunctionName("FunctionEmailTest")]
+        //public static async Task EmailFunctionTimerAsync(
+        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
+        //    IAsyncCollector<SendGridMessage> emailProvider,
 
-            [Inject] ILifetimeScope lifetimeScope,
-            IBinder binder,
-            ILogger log,
-            CancellationToken token)
-        {
+        //    [Inject] ILifetimeScope lifetimeScope,
+        //    IBinder binder,
+        //    ILogger log,
+        //    CancellationToken token)
+        //{
 
 
-            var message = new DocumentPurchasedMessage(Guid.Parse("439B602A-421F-40F8-8A97-A9C60102D069"));
+        //    var message = new DocumentPurchasedMessage(Guid.Parse("439B602A-421F-40F8-8A97-A9C60102D069"));
 
-            var handlerType =
-                typeof(ISystemOperation<>).MakeGenericType(message.GetType());
-            using (var child = lifetimeScope.BeginLifetimeScope())
-            {
-                dynamic operation = child.Resolve(handlerType);
-                await operation.DoOperationAsync((dynamic)message, binder, token);
-            }
-
-            //var link = _urlBuilder.BuildWalletEndPoint(new { code });
-
-            //var message = new SendGridMessage();
-
-            //message.TemplateId = "d-91a839096c8547f9a028134744e78ecb";
-            //var personalization = new Personalization();
-
-            //personalization.TemplateData = new TemplateData()
-            //{
-            //    Referral = new Referral()
-            //    {
-            //        Lang = new Lang(Language.Hebrew)
-            //        {
-            //            //English = true
-            //            //Hebrew = true
-            //        },
-
-            //    },
-            //    Blocks = new Block[]
-            //    {
-            //        new Block()
-            //        {
-            //            Url = link,
-            //            Body = "this is ram",
-            //            Subtitle = "this is elad",
-            //            Title = "this is ram Ram",
-            //            Cta = "YO YO YO"
-            //        },
-            //    }
-            //};
-
-            //message.Personalizations = new List<Personalization>()
-            //{
-            //    personalization
-            //};
-            //message.AddTo("ram@cloudents.com");
-            //await emailProvider.AddAsync(message, token);
-            //var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
-            // "https://www.spitball.co", 456.23424M, CultureInfo.InvariantCulture);
-            //await ProcessEmail(emailProvider, log, topicMessage, token);
-        }
+        //    var handlerType =
+        //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+        //    using (var child = lifetimeScope.BeginLifetimeScope())
+        //    {
+        //        dynamic operation = child.Resolve(handlerType);
+        //        await operation.DoOperationAsync((dynamic)message, binder, token);
+        //    }
+        //}
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)

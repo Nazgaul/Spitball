@@ -1,8 +1,8 @@
 ﻿namespace Cloudents.Command.Command
 {
-    public class RedeemTokenCommand : ICommand
+    public class CashOutCommand : ICommand
     {
-        public RedeemTokenCommand(long userId, decimal amount)
+        public CashOutCommand(long userId, decimal amount)
         {
             UserId = userId;
             Amount = amount;
