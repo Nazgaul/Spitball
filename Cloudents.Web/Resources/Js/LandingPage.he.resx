@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="earn_knowledge_subTitle" xml:space="preserve">
-    <value>הירשמו, ענו על שאלות, צברו נקודות SBL ופדו אותם לקופונים של BuyMe!</value>
+    <value>פשוט להעלות מסמכי לימוד מהקורס שלך ולהתחיל להרוויח כסף</value>
   </data>
   <data name="earn_knowledge_title" xml:space="preserve">
-    <value>בואו להרוויח מהידע האקדמי שלכם</value>
+    <value>מסמכי הלימוד שלך שווים כסף</value>
   </data>
   <data name="earn_question_section_subTitle" xml:space="preserve">
     <value>צברו נקודות SBL וממשו אותן ב- BuyMe</value>
