@@ -1,11 +1,11 @@
 <template>
-    <div
-            :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
-            @click="(isOurs ? $_spitball($event, url): $_thirdPartyEvent($event, url))"
-            id="sb-link"
-            :class="['d-block', 'note-block']"
-            :href="url"
-    >
+    <!--conditional type of tag to fix the profile click from study feed bug-->
+    <component :is="isOurs ? 'router-link' : 'div'"
+               :href="isOurs ? '' : url"
+               :class="['d-block', 'note-block']"
+               :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
+               @click="(isOurs ? $_spitball($event, url): $_thirdPartyEvent($event, url))"
+               :to="isOurs ? url : ''">
         <v-container
                 class="pa-0"
                 @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)"
@@ -132,7 +132,7 @@
                 </div>
             </v-card>
         </sb-dialog>
-    </div>
+    </component>
 </template>
 <script>
     import FlashcardDefault from "../helpers/img/flashcard.svg";
