@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -11,8 +12,8 @@ namespace Cloudents.Core.DTOs
 
         public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text, int files,
             int answers, UserDto user, DateTime dateTime, QuestionColor? color, bool hasCorrectAnswer, 
-            CultureInfo culture, int votes)
-        :this(id,subject,price,text,files,answers,dateTime,color,hasCorrectAnswer,culture, votes)
+            CultureInfo culture, int votes, string course)
+        :this(id,subject,price,text,files,answers,dateTime,color,hasCorrectAnswer,culture, votes, course)
         {
           
             User = user;
@@ -21,7 +22,7 @@ namespace Cloudents.Core.DTOs
 
         public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text,
             int files, int answers, DateTime dateTime, QuestionColor? color, bool hasCorrectAnswer, CultureInfo culture,
-            int votes)
+            int votes, string course)
         {
             Id = id;
             Subject = subject;
@@ -37,6 +38,7 @@ namespace Cloudents.Core.DTOs
             {
                 Votes = votes
             };
+            Course = course;
         }
 
         
@@ -57,6 +59,7 @@ namespace Cloudents.Core.DTOs
         public DateTime DateTime { get; set; }
 
         public QuestionColor? Color { get; set; }
+        public string Course { get; set; }
 
         public bool HasCorrectAnswer { get; set; }
 

@@ -20,5 +20,6 @@ namespace Cloudents.Core.DTOs
         public QuestionSubject Subject { get; set; }
         public string Language { get; set; }
         public int Votes { get; set; }
+        public string Course { get; set; }
     }
 }
