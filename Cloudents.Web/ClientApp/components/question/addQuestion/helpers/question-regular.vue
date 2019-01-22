@@ -6,24 +6,18 @@
                 <span class="q-regular-offer" v-language:inner>addQuestion_regular_offer_reward</span>
             </div>
             <div class="q-regular-right-container">
-                <bdi>
                     <button class="q-regular-select-button"
                             :class="{'q-regular-selected': amountPicked === sblPrices.first, 'q-regular-disabled': limitOfferRange < sblPrices.first}"
                             @click="cheackStaticValue(sblPrices.first)">{{sblPrices.first}} SBL
                     </button>
-                </bdi>
-                <bdi>
                     <button class="q-regular-select-button"
                             :class="{'q-regular-selected': amountPicked === sblPrices.second, 'q-regular-disabled': limitOfferRange < sblPrices.second}"
                             @click="cheackStaticValue(sblPrices.second)">{{sblPrices.second}} SBL
                     </button>
-                </bdi>
-                <bdi>
                     <button class="q-regular-select-button"
                             :class="{'q-regular-selected': amountPicked === sblPrices.third, 'q-regular-disabled': limitOfferRange < sblPrices.third}"
                             @click="cheackStaticValue(sblPrices.third)">{{sblPrices.third}} SBL
                     </button>
-                </bdi>
                 <input type="number" :class="{'q-custom-selected': customValue !== null}" class="q-regular-custom-input"
                        :placeholder="dictionary.other" @click="checkCustomValue" @input="checkCustomInputValidity"
                        v-model="customValue">
@@ -47,6 +41,7 @@
         },
         data() {
             return {
+                isRtl: global.isRtl,
                 amountPicked: null,
                 customValue: null,
                 sblPrices: {
