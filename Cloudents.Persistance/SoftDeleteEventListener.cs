@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -9,6 +10,7 @@ using NHibernate.Persister.Entity;
 
 namespace Cloudents.Persistance
 {
+    [Serializable]
     internal class SoftDeleteEventListener : DefaultDeleteEventListener
     {
         protected override void DeleteEntity(IEventSource session, object entity, EntityEntry entityEntry, bool isCascadeDeleteEnabled,

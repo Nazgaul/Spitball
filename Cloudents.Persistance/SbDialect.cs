@@ -1,9 +1,11 @@
-﻿using NHibernate;
+﻿using System;
+using NHibernate;
 using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
 
 namespace Cloudents.Persistance
 {
+    [Serializable]
     public class SbDialect : MsSql2012Dialect
     {
         internal const string RandomOrder = "random_Order";
@@ -21,6 +23,7 @@ namespace Cloudents.Persistance
         
     }
 
+    [Serializable]
     public class MySqliteDialect : SQLiteDialect
     {
         protected override void RegisterFunctions()

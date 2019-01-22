@@ -3,6 +3,7 @@ using NHibernate.Type;
 
 namespace Cloudents.Persistance
 {
+    [Serializable]
     public class GenericEnumStringType<TEnum> : EnumStringType where TEnum : Enum
     {
         public GenericEnumStringType()
