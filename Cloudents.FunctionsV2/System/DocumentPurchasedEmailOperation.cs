@@ -6,6 +6,7 @@ using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace Cloudents.FunctionsV2.System
 
             foreach (var block in result.Blocks)
             {
-                block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", result.Tokens.ToString("c2"));
+                block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", result.Tokens.ToString("f2"));
                 block.Body = block.Body.Inject(new
                 {
                     result.CourseName,
@@ -65,8 +66,9 @@ namespace Cloudents.FunctionsV2.System
                         .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
                             _urlBuilder.BuildWalletEndPoint(code))),
                     Referral = new Referral(result.Language, _urlBuilder.BuildShareEndPoint(code)),
-                    Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("c2")),
-                    To = result.ToEmailAddress
+                    Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
+                    To = result.ToEmailAddress,
+                    Direction = ((CultureInfo)result.Language).TextInfo.IsRightToLeft ? "rtl" : "ltr"
                 }
             };
 
