@@ -260,7 +260,7 @@
             StudyDocuments_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
                 let self = this;
-                // self.updateOnBoardState(true);
+                 self.updateOnBoardState(true);
                 if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
                         if (self.$route.name === "note") {

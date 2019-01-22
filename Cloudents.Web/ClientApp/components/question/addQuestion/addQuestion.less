@@ -12,6 +12,9 @@
         flex-direction: column;
         width:100%;
         justify-content: space-between;
+        @media (max-width: @screen-xs) {
+            justify-content: unset;
+        }
         .question-header{
             padding-top:17px;
             padding-left:16px;
@@ -84,8 +87,8 @@
             .question-textarea-upper-part{
                 display: flex;
                 .question-profile-data-container{
-                    padding-top: 7px;
-                    padding-left: 11px;
+                    padding-top: 12px;
+                    padding-left: 12px;
                 }
                 .question-textarea{
                     font-family: @fontOpenSans;
@@ -121,8 +124,8 @@
                     display: flex;
                     background-color: hsla(0,0%,85%,.27);
                     border-radius: 4px;
-                    padding-left: 8px;
-                    padding-right: 8px;
+                    padding-left: 4px;
+                    padding-right: 4px;
                     max-width: 98px;
                     justify-content: space-around;
                     margin-bottom: 1px;
@@ -136,12 +139,9 @@
                     span{
                         cursor: pointer;
                         position: relative;
-                        margin-left: 6px;
+                        margin-left: 5px;
                         margin-right: 6px;
-                        @media (max-width: @screen-xs) {
-                            margin-left: 0;
-                            margin-right: 0;
-                        }
+                        margin-top: 2px;
                         .file-uploads{
                             width: 18px;
                             height: 18px;
@@ -170,6 +170,10 @@
                         border: 1px dashed gray;
                         margin-left: 8px;
                         position: relative;
+                        @media (max-width: @screen-xs) {
+                            width: 56px;
+                            height: 48px;
+                        }
                         .question-thumb-close-container{
                             display: none;
                             width: 16px;
@@ -227,12 +231,12 @@
         .question-subject-class-container{
             width: 100%;
             background-color: #fff;
-            margin-top: 12px;
-            height: 72px;
+            margin-top: 16px;
+            max-height: 72px;
             display: flex;
             justify-content: space-around;
-            padding-top: 16px;
             position: relative;
+            align-items: center;
             .question-select-floating-error{
                 position: absolute;
                 box-shadow: 0 3px 8px 0 rgba(0,0,0,.19);
@@ -260,14 +264,22 @@
                 }   
             }   
             .question-select{
-                margin-left: 5px;
-                margin-right: 5px;
                 width: 100%;
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 overflow: hidden;
                 height: 40px;
                 border-radius: 4px;
+                margin-top: 32px;
+                margin-bottom: 32px;
+                &.left{
+                    margin-left: 8px;
+                    margin-right: 4px;
+                }
+                &.right{
+                    margin-left: 4px;
+                    margin-right: 8px;
+                }
                 &.subject-error{
                     -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54);
                     -moz-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54);
@@ -300,6 +312,8 @@
                                 font-size: 14px;
                                 letter-spacing: -0.4px;
                                 color: rgba(0, 0, 0, 0.87);
+                                left:auto !important;
+                                right:auto !important;
                             }
                             .v-select__selections{
                                 :not(:first-child){
@@ -375,6 +389,7 @@
                 outline: none;
                 padding-left: 44px;
                 padding-right: 44px;
+                text-transform: unset;
             }
         }
     }

@@ -150,6 +150,9 @@
   <data name="regular_offer_reward" xml:space="preserve">
     <value>Offer a Reward</value>
   </data>
+  <data name="regular_other" xml:space="preserve">
+    <value>Other</value>
+  </data>
   <data name="select_subject_placeholder" xml:space="preserve">
     <value>Select the subject</value>
   </data>
