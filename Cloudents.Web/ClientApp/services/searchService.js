@@ -72,7 +72,7 @@ function QuestionItem(objInit) {
     this.color = !!objInit.color ? objInit.color.toLowerCase() : undefined;
     this.hasCorrectAnswer = objInit.hasCorrectAnswer;
     this.correctAnswerId = objInit.correctAnswerId;
-    // this.template = objInit.template;
+    this.course = objInit.course;
     this.template = "ask";
     this.filesNum = this.files;
     this.isRtl = objInit.isRtl;
