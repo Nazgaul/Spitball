@@ -89,8 +89,6 @@
                     :popUpType="'onBoardGuide'"
                     :content-class="'onboard-guide-container'"
                     :maxWidth="'1280px'"
-                    :activateOverlay="true"
-
             >
                 <board-guide></board-guide>
             </sb-dialog>

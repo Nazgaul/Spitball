@@ -3,8 +3,8 @@
         <div class="back-img"></div>
         <div class="guide-container">
             <v-stepper v-model="currentStep">
-                <v-stepper-header class="elevation-0">
-                </v-stepper-header>
+                <!--<v-stepper-header class="elevation-0">-->
+                <!--</v-stepper-header>-->
                 <v-stepper-items>
                     <v-stepper-content
                             v-for="n in steps"
@@ -17,17 +17,21 @@
                 <div class="progress-background">
                     <div class="progress-wrap">
                         <v-btn class="btn sb-btn-flat close" :class="{'visibility-hidden' : isFinished}"
-                               @click="closeGuide()">Skip
+                               @click="skipSteps()">Skip
                         </v-btn>
+                        <div class="steps-circle-wrap d-flex">
                         <v-stepper-step
                                 :complete-icon="''"
                                 :color="'#5158af'"
                                 v-for="n in steps"
                                 :class="[currentStep === n ? 'active-step-progress' : 'inactive-step']"
                                 step=""></v-stepper-step>
+                        </div>
+                        <div class="actions-wrap">
                         <v-btn class="btn sb-btn-flat continue" v-show="!isFinished" @click="nextStep()">Continue
                         </v-btn>
-                        <v-btn class="btn sb-btn-flat finish" v-show="isFinished" @click="nextStep()">Finish</v-btn>
+                        <v-btn class="btn sb-btn-flat finish" v-show="isFinished" @click="closeGuide()">Finish</v-btn>
+                        </div>
                     </div>
                 </div>
 
@@ -39,6 +43,7 @@
 
 <script>
     import { mapGetters, mapActions } from "vuex";
+    import analyticsService from '../../../services/analytics.service';
 
     export default {
         name: "onBoardGuide",
@@ -101,6 +106,7 @@
         methods: {
             ...mapActions(['updateOnBoardState']),
             nextStep() {
+                analyticsService.sb_unitedEvent('WALKTHROUGH', `${this.currentStep}_CONTINUE`);
                 if (this.currentStep === this.steps) {
                     return this.currentStep
                 } else {
@@ -109,7 +115,14 @@
                 console.log('after', this.currentStep);
             },
             closeGuide() {
+                analyticsService.sb_unitedEvent('WALKTHROUGH', 'CLOSE');
+                global.localStorage.setItem("sb-closed-onboard", true);
+                // let supressed = global.localStorage.getItem("sb-closed-onboard");
                 this.updateOnBoardState(false);
+            },
+            skipSteps() {
+                analyticsService.sb_unitedEvent('WALKTHROUGH', 'SKIP_STEPS');
+                this.currentStep = this.steps;
             }
         },
     }
@@ -162,6 +175,9 @@
             width: 100%;
             background-color: #f9f9f9;
             border-radius: 0 0 12px 12px;
+            @media (max-width: @screen-xs) {
+                background-color: transparent;
+            }
 
         }
         .progress-wrap {
@@ -174,9 +190,30 @@
             padding: 32px;
             @media (max-width: @screen-xs) {
                 width: 100%;
+                flex-direction: column;
+                padding: 12px;
             }
-            .close {
-                margin-right: auto;
+            .btn{
+                &.close {
+                    margin-right: auto;
+                    @media (max-width: @screen-xs) {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        border: none;
+                        background-color: transparent;
+                        box-shadow: none;
+                        font-size: 16px;
+                        letter-spacing: -0.3px;
+                        color: rgba(0, 0, 0, 0.38);
+                    }
+                }
+            }
+            .actions-wrap{
+                margin-left: auto;
+                @media (max-width: @screen-xs) {
+                    margin: 0 auto;
+                }
             }
             .continue, .finish {
                 margin-left: auto;
