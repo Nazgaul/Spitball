@@ -28,8 +28,8 @@
                 </div>
                 <div class="question-textarea-lower-part">
                     <div class="question-options-part">
-                        <span v-show="!isMobile"><v-icon>sbf-equazion-i</v-icon></span>
-                        <span v-show="!isMobile"><v-icon>sbf-symbols-i</v-icon></span>
+                        <!--<span v-show="!isMobile"><v-icon>sbf-equazion-i</v-icon></span>-->
+                        <!--<span v-show="!isMobile"><v-icon>sbf-symbols-i</v-icon></span>-->
                         <span>
               <v-icon>sbf-upload-i</v-icon>
               <file-upload
