@@ -8,19 +8,19 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Command.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class RedeemTokenCommandHandler : ICommandHandler<RedeemTokenCommand>
+    public class CashOutCommandHandler : ICommandHandler<CashOutCommand>
     {
         private readonly IRegularUserRepository _userRepository;
 
 
 
-        public RedeemTokenCommandHandler(IRegularUserRepository userRepository
+        public CashOutCommandHandler(IRegularUserRepository userRepository
            )
         {
             _userRepository = userRepository;
         }
 
-        public async Task ExecuteAsync(RedeemTokenCommand message, CancellationToken token)
+        public async Task ExecuteAsync(CashOutCommand message, CancellationToken token)
         {
             var balance = await _userRepository.UserCashableBalanceAsync(message.UserId, token);
             if (balance < message.Amount)

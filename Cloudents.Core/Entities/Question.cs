@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             RegularUser user,
-            QuestionColor color, CultureInfo language)
+             CultureInfo language, Course course)
         : this()
         {
             Subject = subject;
@@ -29,10 +29,7 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-            if (color != QuestionColor.Default)
-            {
-                Color = color;
-            }
+          
 
             var status = GetInitState(user);
             if (status == Public)
@@ -41,12 +38,13 @@ namespace Cloudents.Core.Entities
             }
 
             Status = status;
+            Course = course;
             Language = language;
         }
 
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             SystemUser user,
-            QuestionColor color, CultureInfo language)
+             CultureInfo language)
             : this()
         {
             Subject = subject;
@@ -55,13 +53,11 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-            if (color != QuestionColor.Default)
-            {
-                Color = color;
-            }
+            
             Status = Pending;
             //ChangeState(ItemState.Pending);
             Language = language;
+            
         }
 
         protected Question()
@@ -84,6 +80,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime Updated { get; set; }
 
+        public virtual Course Course { get; set; }
         public virtual Answer CorrectAnswer { get; set; }
 
         private readonly IList<Answer> _answers = new List<Answer>();
@@ -93,7 +90,6 @@ namespace Cloudents.Core.Entities
 
         public virtual IList<Transaction> Transactions { get; protected set; }
 
-        public virtual QuestionColor? Color { get; set; }
 
         // public virtual int AnswerCount { get; set; }
 

@@ -92,6 +92,7 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException();
 
             }
+            price = -Math.Abs(price);
             return new TransactionType2(TransactionActionType.CashOut, TransactionType.Earned, price);
         }
 

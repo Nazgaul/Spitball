@@ -28,12 +28,12 @@ namespace Cloudents.Core.EventHandler
                     new SupportRedeemEmail(redeemEventMessage.Transaction.TransactionType.Price, redeemEventMessage.User.Id), token);
             }
 
-            if (redeemEventMessage.Transaction.TransactionType.Action == TransactionActionType.SoldDocument)
-            {
-                var message = new DocumentPurchasedMessage(redeemEventMessage.Transaction.Id);
+            //if (redeemEventMessage.Transaction.TransactionType.Action == TransactionActionType.SoldDocument)
+            //{
+            //    var message = new DocumentPurchasedMessage(redeemEventMessage.Transaction.Id);
 
-                await _serviceBusProvider.InsertMessageAsync(message, token);
-            }
+            //    await _serviceBusProvider.InsertMessageAsync(message, token);
+            //}
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Cloudents.Command.Command
 {
@@ -32,7 +33,7 @@ namespace Cloudents.Command.Command
         }
 
         public string BlobName { get; }
-        public string Name { get; }
+        [NotNull] public string Name { get; }
         public DocumentType Type { get; }
 
         public string Course { get; }

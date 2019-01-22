@@ -39,6 +39,7 @@ namespace Cloudents.Query
                     .Select(s => s.Price).WithAlias(() => dto.Price)
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
+                    .Select(s => s.Course.Name).WithAlias(() => dto.Course)
                     .SelectSubQuery(QueryOver.Of<Answer>()
                         .Where(w => w.Question.Id == questionAlias.Id && w.Status.State == ItemState.Ok).ToRowCountQuery()).WithAlias(() => dto.Answers)
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
@@ -46,7 +47,6 @@ namespace Cloudents.Query
                     .Select(Projections.Property(() => userAlias.Score).As("User.Score"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
-                    .Select(s => s.Color).WithAlias(() => dto.Color)
                     .Select(Projections.Conditional(
                         Restrictions.Where(() => questionAlias.CorrectAnswer != null),
                         Projections.Constant(true), Projections.Constant(false))).WithAlias(() => dto.HasCorrectAnswer)

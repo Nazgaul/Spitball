@@ -16,13 +16,13 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
-            Map(x => x.Color);
             Map(x => x.Language).Length(10);
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
 
             References(x => x.User).Column("UserId")
                 .ForeignKey("Question_User").Not.Nullable();
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
+            References(x => x.Course).Column("CourseId").ForeignKey("Question_Course").Nullable();
             HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore)
                 //.Inverse()
                 .ExtraLazyLoad()
@@ -41,19 +41,10 @@ namespace Cloudents.Persistance.Maps
             Map(m => m.VoteCount).Not.Nullable();
             Component(x => x.Status);
 
-            SchemaAction.None();
+            SchemaAction.Update();
             //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
         }
     }
-
-    //public class ItemMap<T> : ClassMap<T> where T : ItemObject
-    //{
-    //    public ItemMap()
-    //    {
-    //        Map(m => m.VoteCount).Not.Nullable();
-    //        Component(x => x.State);
-    //    }
-    //}
 
     public class ItemStateMap : ComponentMap<ItemStatus>
     {

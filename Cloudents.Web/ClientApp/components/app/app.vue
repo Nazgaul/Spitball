@@ -23,6 +23,8 @@
             ></v-tour>
             <router-view v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
 
+            <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
+
             <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
                 <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
                 <span class="cookie-approve">
@@ -50,14 +52,16 @@
                 <uni-Select-pop :showDialog="universitySelectPopup"
                                 :popUpType="'universitySelectPopup'"></uni-Select-pop>
             </sb-dialog>
+
+
             <sb-dialog
                     :isPersistent="true"
                     :showDialog="newQuestionDialogSate"
                     :popUpType="'newQuestion'"
                     :content-class="'newQuestionDialog'"
             >
-        <Add-Question></Add-Question>
-        <!-- <New-Question></New-Question> -->
+                <Add-Question></Add-Question>
+                <!-- <New-Question></New-Question> -->
             </sb-dialog>
             <sb-dialog
                     :showDialog="newIsraeliUser"
@@ -80,6 +84,17 @@
             >
                 <upload-files v-if="getDialogState"></upload-files>
             </sb-dialog>
+            <sb-dialog
+                    :showDialog="getOnBoardState"
+                    :popUpType="'onBoardGuide'"
+                    :content-class="'onboard-guide-container'"
+                    :maxWidth="'1280px'"
+                    :activateOverlay="true"
+
+            >
+                <board-guide></board-guide>
+            </sb-dialog>
+
             <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
                            :onStepChange="onFooterStepChange"></mobile-footer>
         </v-content>
@@ -107,6 +122,8 @@
     import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
     import marketingBox from "../helpers/marketingBox/marketingBox.vue";
     import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
+    import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
+
 
     export default {
         components: {
@@ -121,7 +138,8 @@
             reportItem,
             mobileFooter,
             marketingBox,
-            leadersBoard
+            leadersBoard,
+            boardGuide
         },
         data() {
             return {
@@ -129,6 +147,7 @@
                 isRtl: global.isRtl,
                 toasterTimeout: 5000,
                 hideFooter: false,
+                showOnBoardGuide: true,
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
                     tourCallbacks: {
@@ -159,6 +178,7 @@
                 "showMobileFeed",
                 "HomeworkHelp_isDataLoaded",
                 "StudyDocuments_isDataLoaded",
+                "getOnBoardState"
             ]),
             showFeed() {
                 if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
@@ -220,18 +240,18 @@
             },
             HomeworkHelp_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-                if (val && !supressed) {
+                let self = this;
+                if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
-                        if (this.$route.name === "ask") {
-                            if(this.$vuetify.breakpoint.xsOnly){
-                                this.tourObject.tourSteps = tourService[this.tourObject.region].HWSteps.mobile;
-                               if(this.getIsFeedTabActive()){
-                                   
-                                   this.$tours["myTour"].start();
-                               }
-                            }else{
-                                this.tourObject.tourSteps = tourService[this.tourObject.region].HWSteps.desktop;
-                                this.$tours["myTour"].start();
+                        if (self.$route.name === "ask") {
+                            if (self.$vuetify.breakpoint.xsOnly) {
+                                self.tourObject.tourSteps = tourService[self.tourObject.region].HWSteps.mobile;
+                                if (self.getIsFeedTabActive()) {
+                                    self.$tours["myTour"].start();
+                                }
+                            } else {
+                                self.tourObject.tourSteps = tourService[self.tourObject.region].HWSteps.desktop;
+                                self.$tours["myTour"].start();
                             }
                         }
                     }, 3000)
@@ -239,17 +259,19 @@
             },
             StudyDocuments_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
-                if (val && !supressed) {
+                let self = this;
+                // self.updateOnBoardState(true);
+                if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
-                        if (this.$route.name === "note") {
-                            if(this.$vuetify.breakpoint.xsOnly){
-                                this.tourObject.tourSteps = tourService[this.tourObject.region].StudyDocumentsSteps.mobile;
-                                if(this.getIsFeedTabActive()){
-                                    this.$tours["myTour"].start();
+                        if (self.$route.name === "note") {
+                            if (self.$vuetify.breakpoint.xsOnly) {
+                                self.tourObject.tourSteps = tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
+                                if (self.getIsFeedTabActive()) {
+                                    self.$tours["myTour"].start();
                                 }
-                            }else{
-                                this.tourObject.tourSteps = tourService[this.tourObject.region].StudyDocumentsSteps.desktop;
-                                this.$tours["myTour"].start();
+                            } else {
+                                self.tourObject.tourSteps = tourService[self.tourObject.region].StudyDocumentsSteps.desktop;
+                                self.$tours["myTour"].start();
                             }
 
                         }
@@ -267,7 +289,8 @@
                 "updateNewQuestionDialogState",
                 "changeSelectPopUpUniState",
                 "updateDialogState",
-                "setCookieAccepted"
+                "setCookieAccepted",
+                "updateOnBoardState"
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
             onFooterStepChange() {

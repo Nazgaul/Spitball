@@ -74,8 +74,8 @@ import { LanguageService } from './language/languageService'
     
     studyDocumentsPage:{
       uniClasses:{
-        target: ".classes-holder .v-chip",
-       
+        // target: ".classes-holder .v-chip",university-holder
+         target: ".university-holder .tour-inject",
         header: {
           title: LanguageService.getValueByKey('tour_classes_title'),
         },
@@ -155,7 +155,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_add_question_button_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -287,7 +287,7 @@ import { LanguageService } from './language/languageService'
           mobileStepsEnum.studyDocumentsPage.vote,          
         ]
         }
-      }
+      };
 
       const usTours = {
         HWSteps:{
@@ -314,7 +314,7 @@ import { LanguageService } from './language/languageService'
             mobileStepsEnum.studyDocumentsPage.uploadButton,
           ]
         }
-      }
+      };
      
 export default {
     toursOptions,

@@ -19,17 +19,19 @@ namespace Cloudents.Command.CommandHandler
         private readonly Lazy< IBlobProvider<QuestionAnswerContainer>> _blobProvider;
         private readonly ITextAnalysis _textAnalysis;
         private readonly ITransactionRepository _transactionRepository;
+        private readonly ICourseRepository _courseRepository;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRegularUserRepository userRepository, ITextAnalysis textAnalysis,
             ITransactionRepository transactionRepository, 
-            Lazy<IBlobProvider<QuestionAnswerContainer>> blobProvider)
+            Lazy<IBlobProvider<QuestionAnswerContainer>> blobProvider, ICourseRepository courseRepository)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
             _textAnalysis = textAnalysis;
             _transactionRepository = transactionRepository;
             _blobProvider = blobProvider;
+            _courseRepository = courseRepository;
         }
 
         public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
@@ -51,9 +53,15 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
+            Course course = null;
+            if (message.Course != null)
+            {
+                course = await _courseRepository.LoadAsync(message.Course, token);
+            }
 
             var question = new Question(message.SubjectId,
-                message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color, textLanguage);
+                message.Text, message.Price, message.Files?.Count() ?? 0,
+                user, textLanguage, course);
 
             user.MakeTransaction(TransactionType2.StakeMoney(question.Price),question);
             await _userRepository.UpdateAsync(user, default);
@@ -66,7 +74,7 @@ namespace Cloudents.Command.CommandHandler
             {
                 var l = message.Files?.Select(file => _blobProvider.Value.MoveAsync(file, $"{id}", token)) ??
                         Enumerable.Empty<Task>();
-                await Task.WhenAll(l).ConfigureAwait(true);
+                await Task.WhenAll(l);
             }
         }
     }

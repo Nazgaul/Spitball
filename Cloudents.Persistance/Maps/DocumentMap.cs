@@ -11,7 +11,6 @@ namespace Cloudents.Persistance.Maps
                 $"{nameof(HiLoGenerator.TableName)}='{nameof(Document)}'");
 
             Map(x => x.Name).Length(150).Not.Nullable();
-           // Map(x => x.BlobName).Not.Nullable();
             References(x => x.University).Column("UniversityId").ForeignKey("Document_University");
            
             Map(x => x.Type).Not.Nullable();
@@ -32,13 +31,12 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Professor).Nullable();
             Map(x => x.PageCount).Nullable();
             Map(x => x.Purchased).Not.Nullable();
-            //Map(x => x.OldId).Nullable();
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); ;
-            //Map(x => x.Status).Not.Nullable();
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
                 //.Cascade.()
+                .Access.CamelCaseField(Prefix.Underscore)
                 .LazyLoad()
                 .Inverse();
 
@@ -50,9 +48,7 @@ namespace Cloudents.Persistance.Maps
 
    
             Component(x => x.Status);
-            //        Component(x => x.State);
             SchemaAction.None();
-            //DiscriminateSubClassesOnColumn("State");
         }
     }
 

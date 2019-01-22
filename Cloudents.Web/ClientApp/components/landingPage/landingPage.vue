@@ -15,8 +15,11 @@
                         <h1 class="hero-title" v-html="$Ph(`landingPage_${dictionaryType}_knowledge_title`)"></h1>
                         <h3 v-html="$Ph(`landingPage_${dictionaryType}_knowledge_subTitle`)"></h3>
                     </div>
-                    <router-link :to="{path: '/register'}" class="cta-button" v-language:inner>
-                        landingPage_join_spitball
+                    <router-link :to="dictionaryType === dictionaryTypesEnum.earn ? {path: '/note'} : {path: '/register'}"
+                                 class="cta-button">
+                        <span v-show="dictionaryType === dictionaryTypesEnum.earn" v-language:inner>landingPage_upload_and_earn</span>
+                        <span v-show="dictionaryType === dictionaryTypesEnum.learn"  v-language:inner>landingPage_join_spitball</span>
+
                     </router-link>
                     <a class="video-link" @click.prevent="updateVideoId(SpitballVideoId)">
                         <v-icon class="play-icon ml-2">sbf-play</v-icon>

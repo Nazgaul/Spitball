@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler.Admin
@@ -13,27 +14,29 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _questionRepository;
+        private readonly IRegularUserRepository _userRepository;
 
 
-        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository)
+
+        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository, IRegularUserRepository userRepository)
         {
             _questionRepository = questionRepository;
+            _userRepository = userRepository;
         }
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
         {
-            var question = await _questionRepository.GetAsync(message.QuestionId, token);
-            if (question == null)
-            {
-                return;
-            }
-            
-
-            if (!(question.User.Actual is RegularUser _))
+            var question = await _questionRepository.LoadAsync(message.QuestionId, token);
+            if (!(question.User.Actual is RegularUser t))
             {
                 return;
             }
             question.DeleteQuestionAdmin();
+            if (question.CorrectAnswer == null)
+            {    
+                t.MakeTransaction(TransactionType2.UnStakeMoney(question.Price, TransactionActionType.DeleteQuestion));
+                await _userRepository.UpdateAsync(t, token);
+            }
             
             await _questionRepository.DeleteAsync(question, token);
         }

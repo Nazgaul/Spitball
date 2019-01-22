@@ -25,14 +25,18 @@ namespace Cloudents.Query.Admin
                 var result = await _dapper.WithConnectionAsync(async connection =>
                 {
                     var grid = connection.QueryMultiple(@"
-                select U.Id, U.Name, Email, PhoneNumberHash, Un.Name as University, U.Country, U.Score, U.FraudScore, count(distinct T.Id) as ReferredCount, U.Balance
-                from sb.[User] U
-                join sb.University Un
-	                on U.UniversityId2 = Un.Id
-                left join sb.[Transaction] T
-	                on U.Id = T.[User_id] and T.[Action] = 'ReferringUser'
-                where U.Id = @Id
-                group by U.Id, U.Name, Email, PhoneNumberHash, Un.Name, U.Country, U.Score, U.FraudScore, U.Balance;
+                select U.Id, U.Name, Email, PhoneNumberHash, Un.Name as University, U.Country, U.Score, U.FraudScore, count(distinct T.Id) as ReferredCount, U.Balance, 
+	            case when U.LockOutEnd is null or U.LockOutEnd < getutcdate() then 1
+	            else 0 end as IsActive
+                            from sb.[User] U
+                            join sb.University Un
+	                            on U.UniversityId2 = Un.Id
+                            left join sb.[Transaction] T
+	                            on U.Id = T.[User_id] and T.[Action] = 'ReferringUser'
+                            where U.Id = @Id
+                group by U.Id, U.Name, Email, PhoneNumberHash, Un.Name, U.Country, U.Score, U.FraudScore, U.Balance, 
+                case when U.LockOutEnd is null or U.LockOutEnd < getutcdate() then 1
+	                else 0 end;
                 select Id, Text, Created, [State]
                 from sb.Question 
                 where UserId = @Id;
