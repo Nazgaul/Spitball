@@ -229,7 +229,8 @@ export default {
         }else{
             const isIl = global.country.toLowerCase() === 'il';
             const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
-            this.$router.push(defaultSubmitRoute)
+            defaultSubmitRoute.query = this.$route.query;
+            this.$router.push(defaultSubmitRoute);
         }
 
         
