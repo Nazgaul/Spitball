@@ -89,6 +89,7 @@
                     :popUpType="'onBoardGuide'"
                     :content-class="'onboard-guide-container'"
                     :maxWidth="'1280px'"
+                    :isPersistent="$vuetify.breakpoint.smAndUp"
             >
                 <board-guide></board-guide>
             </sb-dialog>
@@ -239,7 +240,7 @@
             HomeworkHelp_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
                 let self = this;
-                if (val && !supressed && !!self.accountUser) {
+                if (val && !supressed && !!self.accountUser && !this.showUniSelect) {
                     setTimeout(() => {
                         if (self.$route.name === "ask") {
                             if (self.$vuetify.breakpoint.xsOnly) {
@@ -258,8 +259,7 @@
             StudyDocuments_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
                 let self = this;
-                 self.updateOnBoardState(true);
-                if (val && !supressed && !!self.accountUser) {
+                if (val && !supressed && !!self.accountUser && !this.showUniSelect) {
                     setTimeout(() => {
                         if (self.$route.name === "note") {
                             if (self.$vuetify.breakpoint.xsOnly) {
@@ -278,6 +278,7 @@
             },
             $route: function () {
                 this.tourTempClose();
+                this.openOnboardGuide();
             }
         },
         methods: {
@@ -288,11 +289,23 @@
                 "changeSelectPopUpUniState",
                 "updateDialogState",
                 "setCookieAccepted",
-                "updateOnBoardState"
+                "updateOnBoardState",
+
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
             onFooterStepChange() {
                 this.tourTempClose();
+            },
+            openOnboardGuide(){
+                let isLogedIn = this.accountUser;
+                let supressed = global.localStorage.getItem("sb-onboard-supressed");
+                let validRoutesNames = ['ask', 'note'].indexOf(this.$route.name) > -1;
+                if(isLogedIn && !supressed && validRoutesNames){
+                  setTimeout(()=>{
+                      this.updateOnBoardState(true);
+                  }, 3000)
+
+              }
             },
             tourClosed: function () {
                 console.log("tourClosed");
@@ -317,6 +330,7 @@
             }
         },
         created() {
+            this.openOnboardGuide();
             this.$root.$on("closePopUp", name => {
                 if (name === "suggestions") {
                     this.showDialogSuggestQuestion = false;

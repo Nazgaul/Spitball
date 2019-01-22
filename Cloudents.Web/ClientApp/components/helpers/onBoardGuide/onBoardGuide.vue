@@ -2,7 +2,7 @@
     <div class="onboard-component">
         <div class="back-img"></div>
         <div class="guide-container">
-            <v-stepper v-model="currentStep">
+            <v-stepper v-model="currentStep" class="on-board-stepper">
                 <!--<v-stepper-header class="elevation-0">-->
                 <!--</v-stepper-header>-->
                 <v-stepper-items>
@@ -20,17 +20,18 @@
                                @click="skipSteps()">Skip
                         </v-btn>
                         <div class="steps-circle-wrap d-flex">
-                        <v-stepper-step
-                                :complete-icon="''"
-                                :color="'#5158af'"
-                                v-for="n in steps"
-                                :class="[currentStep === n ? 'active-step-progress' : 'inactive-step']"
-                                step=""></v-stepper-step>
+                            <v-stepper-step
+                                    :complete-icon="''"
+                                    :color="'#5158af'"
+                                    v-for="n in steps"
+                                    :class="[currentStep === n ? 'active-step-progress' : 'inactive-step']"
+                                    step=""></v-stepper-step>
                         </div>
                         <div class="actions-wrap">
-                        <v-btn class="btn sb-btn-flat continue" v-show="!isFinished" @click="nextStep()">Continue
-                        </v-btn>
-                        <v-btn class="btn sb-btn-flat finish" v-show="isFinished" @click="closeGuide()">Finish</v-btn>
+                            <v-btn class="btn sb-btn-flat continue" v-show="!isFinished" @click="nextStep()">Continue
+                            </v-btn>
+                            <v-btn class="btn sb-btn-flat finish" v-show="isFinished" @click="closeGuide()">Finish
+                            </v-btn>
                         </div>
                     </div>
                 </div>
@@ -116,8 +117,7 @@
             },
             closeGuide() {
                 analyticsService.sb_unitedEvent('WALKTHROUGH', 'CLOSE');
-                global.localStorage.setItem("sb-closed-onboard", true);
-                // let supressed = global.localStorage.getItem("sb-closed-onboard");
+                global.localStorage.setItem("sb-onboard-supressed", true);
                 this.updateOnBoardState(false);
             },
             skipSteps() {
@@ -162,7 +162,9 @@
         margin: 0 auto;
         justify-content: center;
         height: 100%;
-
+        .on-board-stepper {
+            height: 100%;
+        }
         .guide-container {
             width: 100%;
             height: 100%;
@@ -193,7 +195,7 @@
                 flex-direction: column;
                 padding: 12px;
             }
-            .btn{
+            .btn {
                 &.close {
                     margin-right: auto;
                     @media (max-width: @screen-xs) {
@@ -209,7 +211,7 @@
                     }
                 }
             }
-            .actions-wrap{
+            .actions-wrap {
                 margin-left: auto;
                 @media (max-width: @screen-xs) {
                     margin: 0 auto;
