@@ -72,7 +72,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price,
-                    userId, model.Files, model.Color.GetValueOrDefault(),model.Course);
+                    userId, model.Files, model.Course);
                 await _commandBus.DispatchAsync(command, token);
             }
             catch (DuplicateRowException)
