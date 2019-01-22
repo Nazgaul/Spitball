@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_button" xml:space="preserve">
-    <value>שאל שאלה</value>
+    <value>הוסף שאלה</value>
   </data>
   <data name="ask_your_question_placeholder" xml:space="preserve">
     <value>כתוב את השאלה שלך כאן...</value>
