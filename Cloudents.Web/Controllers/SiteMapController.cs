@@ -102,7 +102,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("sitemap-flashcard-{index:int}.xml",Order = 1)]
-        public async Task<IActionResult> FlashcardSeoAsync(int index,
+        public IActionResult FlashcardSeoAsync(int index,
             [FromServices] IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery> query2,
             CancellationToken token)
         {
