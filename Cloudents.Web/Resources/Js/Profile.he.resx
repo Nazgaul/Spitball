@@ -121,7 +121,7 @@
     <value>תשובות</value>
   </data>
   <data name="documents" xml:space="preserve">
-    <value>מסמכים</value>
+    <value>מסמכים שהועלו</value>
   </data>
   <data name="emptyState_answers_btnText" xml:space="preserve">
     <value>ענה על שאלות</value>
