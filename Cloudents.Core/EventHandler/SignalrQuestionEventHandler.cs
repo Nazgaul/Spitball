@@ -43,7 +43,6 @@ namespace Cloudents.Core.EventHandler
                 0,
                 user,
                 DateTime.UtcNow,
-                eventMessage.Question.Color,
                 false,
                 eventMessage.Question.Language,
                 0, eventMessage.Question.Course.Name);

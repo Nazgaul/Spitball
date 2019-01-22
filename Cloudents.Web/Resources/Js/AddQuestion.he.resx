@@ -150,6 +150,9 @@
   <data name="regular_offer_reward" xml:space="preserve">
     <value>הצע תמורה</value>
   </data>
+  <data name="regular_other" xml:space="preserve">
+    <value>אחר</value>
+  </data>
   <data name="select_subject_placeholder" xml:space="preserve">
     <value>בחר נושא</value>
   </data>

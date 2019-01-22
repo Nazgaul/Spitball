@@ -313,6 +313,13 @@
                     this.showReferral = false;
                 }
             })
+            if(!!this.$route.query && !!this.$route.query.open && this.$route.query.open === 'referral'){
+                this.$nextTick(function(){
+                    this.showReferral = true;
+                    
+                })
+                
+            }
         }
     }
 </script>

@@ -10,14 +10,13 @@ namespace Cloudents.Command.Command
     public class CreateQuestionCommand : ICommand
     {
         public CreateQuestionCommand(QuestionSubject subjectId, string text, decimal price, long userId,
-            [CanBeNull] IEnumerable<string> files, QuestionColor color, string course)
+            [CanBeNull] IEnumerable<string> files,  string course)
         {
             SubjectId = subjectId;
             Text = text;
             Price = price;
             UserId = userId;
             Files = files;
-            Color = color;
             Course = course;
         }
 
@@ -31,7 +30,6 @@ namespace Cloudents.Command.Command
         [CanBeNull]
         public IEnumerable<string> Files { get; }
 
-        public QuestionColor Color { get; }
         public string Course { get; }
 
     }
