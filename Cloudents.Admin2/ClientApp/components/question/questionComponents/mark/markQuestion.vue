@@ -108,7 +108,7 @@
     .v-toolbar__title {
         &.question-text-title {
             font-size: 14px;
-            white-space: normal;
+            white-space: pre-line;
             text-align: left;
             max-width: 80%;
             &:hover {
