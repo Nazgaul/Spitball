@@ -170,7 +170,6 @@ namespace Cloudents.FunctionsV2
 
     public class TemplateData
     {
-
         [JsonProperty("blocks")]
         public IEnumerable<Block> Blocks { get; set; }
         [JsonProperty("referral")]
@@ -181,42 +180,22 @@ namespace Cloudents.FunctionsV2
 
         [JsonProperty("to")]
         public string To { get; set; }
+       
     }
 
     public class Referral
     {
-        public Referral(Language language, string link)
+        public Referral( string link)
         {
-            Lang = new Lang(language);
             Link = link;
         }
 
-        [JsonProperty("lang")]
-        public Lang Lang { get; set; }
-
+       
         [JsonProperty("link")]
         public string Link { get; set; }
     }
 
-    public class Lang
-    {
-        public Lang(Language language)
-        {
-            if (language == Language.English)
-            {
-                English = true;
-            }
-            else
-            {
-                Hebrew = true;
-            }
-        }
-
-        [JsonProperty("english")]
-        public bool English { get; private set; }
-        [JsonProperty("hebrew")]
-        public bool Hebrew { get; private set; }
-    }
+  
 
     public class Block
     {

@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.FunctionsV2.System
 {
@@ -56,7 +57,7 @@ namespace Cloudents.FunctionsV2.System
             var message = new SendGridMessage
             {
                 Asm = new ASM { GroupId = 10926 },
-                TemplateId = "d-91a839096c8547f9a028134744e78ecb"
+                TemplateId = result.Language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
             };
             var personalization = new Personalization
             {
@@ -65,10 +66,10 @@ namespace Cloudents.FunctionsV2.System
                     Blocks = result.Blocks
                         .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
                             _urlBuilder.BuildWalletEndPoint(code))),
-                    Referral = new Referral(result.Language, _urlBuilder.BuildShareEndPoint(code)),
+                    Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
                     Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
                     To = result.ToEmailAddress,
-                    Direction = ((CultureInfo)result.Language).TextInfo.IsRightToLeft ? "rtl" : "ltr"
+                    //Direction = ((CultureInfo)result.Language).TextInfo.IsRightToLeft ? "rtl" : "ltr"
                 }
             };
 
