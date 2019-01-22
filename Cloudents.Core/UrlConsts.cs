@@ -22,10 +22,17 @@ namespace Cloudents.Core
             _webSiteEndPoint = new Uri(siteEndpoint);
         }
 
-        public string BuildWalletEndPoint(object parameters = null)
+        public string BuildWalletEndPoint(string token)
         {
             var builder = new UriBuilder(_webSiteEndPoint) { Path = "wallet" };
-            builder.AddQuery(parameters);
+            builder.AddQuery(new {token});
+            return builder.ToString();
+        }
+
+        public string BuildShareEndPoint(string token)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint);
+            builder.AddQuery(new { token, open= "referral" });
             return builder.ToString();
         }
 
