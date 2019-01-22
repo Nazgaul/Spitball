@@ -32,7 +32,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                 return;
             }
             question.DeleteQuestionAdmin();
-            if (question.CorrectAnswer != null)
+            if (question.CorrectAnswer == null)
             {    
                 t.MakeTransaction(TransactionType2.UnStakeMoney(question.Price, TransactionActionType.DeleteQuestion));
                 await _userRepository.UpdateAsync(t, token);
