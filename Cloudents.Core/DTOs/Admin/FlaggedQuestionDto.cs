@@ -25,5 +25,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string Text { get; set; }
         public string Reason { get; set; }
         public string FlaggedUserEmail { get; set; }
+        public long QuestionId { get; set; }
+        public string QuestionText { get; set; }
     }
 }

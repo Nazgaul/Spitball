@@ -6,7 +6,7 @@
                     <div class="gap ma-0"></div>
                     <h1 class="item-name">
                         <span class=" text-truncate">{{itemName}} </span>
-                        <span class="doc-extension"
+                        <span class="doc-extension ml-1"
                               v-show="item && item.extension">({{item ? item.extension : ''}})</span>
                     </h1>
                     <div class="doc-details">

@@ -117,31 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="action_apply_price" xml:space="preserve">
-    <value>אישור מחיר חדש</value>
+  <data name="add_button" xml:space="preserve">
+    <value>שאל שאלה</value>
   </data>
-  <data name="action_cancel" xml:space="preserve">
-    <value>בטל</value>
+  <data name="ask_your_question_placeholder" xml:space="preserve">
+    <value>כתוב את השאלה שלך כאן...</value>
   </data>
-  <data name="action_delete_doc" xml:space="preserve">
-    <value>מחק</value>
+  <data name="class_placeholder" xml:space="preserve">
+    <value>איזה קורס?</value>
   </data>
-  <data name="change_for" xml:space="preserve">
-    <value>שנה מחיר ל-</value>
+  <data name="error_general" xml:space="preserve">
+    <value>משהו השתבש, נסה שוב</value>
   </data>
-  <data name="change_price" xml:space="preserve">
-    <value>שנה מחיר</value>
+  <data name="error_minimum_chars" xml:space="preserve">
+    <value>שאלה חייבת להכיל לפחות 15 תווים</value>
   </data>
-  <data name="deleted_success" xml:space="preserve">
-    <value>המסמך נמחק</value>
+  <data name="error_select_subject" xml:space="preserve">
+    <value>אל תשכח לבחור נושא לשאלה שלך</value>
   </data>
-  <data name="error_delete" xml:space="preserve">
-    <value>לא ניתן למחוק מסמך, נסה שנית מאוחר יותר</value>
+  <data name="regular_error_invalidValue" xml:space="preserve">
+    <value>ערך שגוי</value>
   </data>
-  <data name="free" xml:space="preserve">
-    <value>חינם</value>
+  <data name="regular_error_maxLimit" xml:space="preserve">
+    <value>הגעת למקסימום</value>
   </data>
-  <data name="unsufficient_fund" xml:space="preserve">
-    <value>אין לך מספיק SBL</value>
+  <data name="regular_error_minRequired" xml:space="preserve">
+    <value>נדרש לפחות 1 SBL</value>
+  </data>
+  <data name="regular_error_offerLimit" xml:space="preserve">
+    <value>מעבר לכמות שניתן להציע</value>
+  </data>
+  <data name="regular_offer_reward" xml:space="preserve">
+    <value>הצע תמורה</value>
+  </data>
+  <data name="select_subject_placeholder" xml:space="preserve">
+    <value>בחר נושא</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>שאל שאלה</value>
   </data>
 </root>

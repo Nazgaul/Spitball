@@ -34,7 +34,9 @@ namespace Cloudents.Query.Admin
                     Id = s.Id,
                     Text = s.Text,
                     Reason = s.Status.FlagReason,
-                    FlaggedUserEmail = s.Status.FlaggedUser.Email
+                    FlaggedUserEmail = s.Status.FlaggedUser.Email,
+                    QuestionId = s.Question.Id,
+                    QuestionText = s.Question.Text
                 }).OrderBy(o => o.Id).ToListAsync(token);
         }
     }

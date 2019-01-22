@@ -30,18 +30,22 @@ namespace Cloudents.Command.Documents.Delete
             var document = await _repository.GetAsync(message.Id, token).ConfigureAwait(false); // no point in load next line will do a query
             if (document == null)
             {
-                throw new ArgumentException("question doesn't exists");
+                throw new ArgumentException("document doesn't exists");
             }
 
             if (document.Status.State != ItemState.Ok)
             {
-                throw new ArgumentException("question doesn't exists");
+                throw new ArgumentException("document doesn't exists");
 
+            }
+            if (document.Transactions.Count > 0)
+            {
+                throw new InvalidOperationException("document already purchased");
             }
 
             if (document.User.Id != message.UserId)
             {
-                throw new InvalidOperationException("user is not the one who wrote the question");
+                throw new InvalidOperationException("user is not the one who uploaded the document");
             }
 
 
