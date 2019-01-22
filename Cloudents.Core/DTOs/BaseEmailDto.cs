@@ -25,6 +25,7 @@ namespace Cloudents.Core.DTOs
     {
         public string CourseName { get; set; }
         public string DocumentName { get; set; }
+        public decimal Tokens { get; set; }
     }
 
     public class EmailBlockDto 
@@ -34,5 +35,6 @@ namespace Cloudents.Core.DTOs
         public string Body { get; set; }
         public string Cta { get; set; }
         public string Url { get; set; }
+        public string MinorTitle{ get; set; }
     }
 }

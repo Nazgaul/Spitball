@@ -7,7 +7,8 @@ namespace Cloudents.Core.Interfaces
         string BuildRedirectUrl(string url, string host, int? location);
 
 
-        string BuildWalletEndPoint(object parameters = null);
+        string BuildWalletEndPoint(string token);
+        string BuildShareEndPoint(string token);
 
         string BuildQuestionEndPoint(long id, object parameters = null);
         //string BuildDocumentEndPoint(long id, object parameters = null);

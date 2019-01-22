@@ -40,7 +40,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
             var question = new Question(message.SubjectId, message.Text, message.Price, message.Files?.Count() ?? 0,
                 user,
-                QuestionColor.Default, textLanguage);
+                textLanguage);
            
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;

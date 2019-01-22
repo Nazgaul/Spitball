@@ -43,7 +43,6 @@ namespace Cloudents.Query
                     .Select(s => s.Price).WithAlias(() => dto.Price)
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
-                    .Select(s => s.Color).WithAlias(() => dto.Color)
                     .Select(s => s.Language).WithAlias(() => dto.CultureInfo)
                     .Select(s => s.Course.Name).WithAlias(() => dto.Course)
                     .Select(Projections.Property(() => questionAlias.VoteCount).As("Vote.Votes"))

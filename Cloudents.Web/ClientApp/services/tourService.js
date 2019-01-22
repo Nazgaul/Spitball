@@ -75,7 +75,7 @@ import { LanguageService } from './language/languageService'
     studyDocumentsPage:{
       uniClasses:{
         // target: ".classes-holder .v-chip",university-holder
-         target: ".university-holder .tour-inject",
+        target: ".university-holder .tour-inject",
         header: {
           title: LanguageService.getValueByKey('tour_classes_title'),
         },

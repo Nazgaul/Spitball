@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Microsoft.AspNetCore.DataProtection;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.FunctionsV2.System
 {
@@ -30,27 +33,19 @@ namespace Cloudents.FunctionsV2.System
             var query = new GetDocumentPurchasedEmail(msg.TransactionId);
             var result = await _queryBus.QueryAsync(query, token);
 
-            var dataProtector = _dataProtectProvider.CreateProtector("MarkAnswerAsCorrect")
+            var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
             var code = dataProtector.Protect(result.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
 
-
             foreach (var block in result.Blocks)
             {
+                block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", result.Tokens.ToString("f2"));
                 block.Body = block.Body.Inject(new
                 {
                     result.CourseName,
                     result.DocumentName
                 });
-                if (block.Cta != null)
-                {
-                    block.Url = _urlBuilder.BuildWalletEndPoint(new { code });
-                }
-                
-
             }
-
-           
 
             var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
             {
@@ -59,21 +54,31 @@ namespace Cloudents.FunctionsV2.System
             }, token);
 
 
-            var message = new SendGridMessage();
-            message.Asm = new ASM
+            var message = new SendGridMessage
             {
-                GroupId = 10926
+                Asm = new ASM { GroupId = 10926 },
+                TemplateId = result.Language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
             };
-            message.TemplateId = "d-91a839096c8547f9a028134744e78ecb";
-            var personalization = new Personalization();
+            var personalization = new Personalization
+            {
+                TemplateData = new TemplateData()
+                {
+                    Blocks = result.Blocks
+                        .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
+                            _urlBuilder.BuildWalletEndPoint(code))),
+                    Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
+                    Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
+                    To = result.ToEmailAddress,
+                    //Direction = ((CultureInfo)result.Language).TextInfo.IsRightToLeft ? "rtl" : "ltr"
+                }
+            };
 
-            personalization.TemplateData = new TemplateData(result.Blocks, result.SocialShare, result.Language);
 
             message.Personalizations = new List<Personalization>()
             {
                 personalization
             };
-            message.Subject = result.Subject;
+            //message.Subject = result.Subject.InjectSingleValue("Tokens",result.Tokens);
             message.AddCategory("DocumentPurchased");
             message.TrackingSettings = new TrackingSettings
             {

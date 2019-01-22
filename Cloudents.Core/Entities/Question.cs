@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             RegularUser user,
-            QuestionColor color, CultureInfo language, Course course)
+             CultureInfo language, Course course)
         : this()
         {
             Subject = subject;
@@ -29,10 +29,7 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-            if (color != QuestionColor.Default)
-            {
-                Color = color;
-            }
+          
 
             var status = GetInitState(user);
             if (status == Public)
@@ -47,7 +44,7 @@ namespace Cloudents.Core.Entities
 
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             SystemUser user,
-            QuestionColor color, CultureInfo language)
+             CultureInfo language)
             : this()
         {
             Subject = subject;
@@ -56,10 +53,7 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-            if (color != QuestionColor.Default)
-            {
-                Color = color;
-            }
+            
             Status = Pending;
             //ChangeState(ItemState.Pending);
             Language = language;
@@ -96,7 +90,6 @@ namespace Cloudents.Core.Entities
 
         public virtual IList<Transaction> Transactions { get; protected set; }
 
-        public virtual QuestionColor? Color { get; set; }
 
         // public virtual int AnswerCount { get; set; }
 

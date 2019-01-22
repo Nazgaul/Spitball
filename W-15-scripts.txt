@@ -98,6 +98,7 @@ GO
 CREATE TABLE [sb].[EmailBlock](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Title] [nvarchar](255) NULL,
+	[MinorTitle] [nvarchar](255) NULL,
 	[Subtitle] [nvarchar](255) NULL,
 	[Body] [nvarchar](1000) NULL,
 	[Cta] [nvarchar](255) NULL,
@@ -125,37 +126,40 @@ insert into sb.SystemEvent values('DocumentPurchased')
 
 
 insert into sb.Email values(
-'Awesome you just earned -Tokens- SBL',
+'Awesome you just earned {Tokens} SBL',
 1,
 'en',
 'DocumentPurchased')
 
-insert into sb.emailblock values(
-'Great job, you helped someone with your knowledge!',
-'You earned -Tokens- SBL',
-'A student from {CourseName} just purchased your document {DocumentName}.',
-'Check your balance'
-,1
-,1
-)
 
 
 insert into sb.Email values(
-N'מעולה - הרגע הרווחת - Tokens - SBL',
+N'מעולה - הרגע הרווחת {Tokens} SBL',
 1,
 'he',
 'DocumentPurchased')
 
 
-insert into sb.emailblock values(
-N'שיחקת אותה - עזרת למישהו אחר עם הידע שלך',
-N'הרווחת - Token - SBL',
-N'סטודנט מ{Class Name} רכש את המסמך שלך {DocumentName}',
-N'הארנק שלי '
+insert into sb.emailblock (title,minortitle,subtitle,body,cta,email_id,orderblock) values
+(
+'Great job!', 
+'you helped someone with your knowledge!',
+'You earned {Tokens} SBL',
+'A student from {CourseName} just purchased your document {DocumentName}.',
+'Check your balance'
 ,1
-,2
+,1
 )
-
+insert into sb.emailblock (title,minortitle,subtitle,body,cta,email_id,orderblock) values
+(
+N'שיחקת אותה!', 
+N'עזרת למישהו אחר עם הידע שלך',
+N'הרווחת {Tokens} SBL',
+N'סטודנט מ{CourseName} רכש את המסמך שלך {DocumentName}',
+N'הארנק שלי '
+,2
+,1
+)
 
 
 

@@ -47,7 +47,6 @@ namespace Cloudents.Query
                     .Select(Projections.Property(() => userAlias.Score).As("User.Score"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
-                    .Select(s => s.Color).WithAlias(() => dto.Color)
                     .Select(Projections.Conditional(
                         Restrictions.Where(() => questionAlias.CorrectAnswer != null),
                         Projections.Constant(true), Projections.Constant(false))).WithAlias(() => dto.HasCorrectAnswer)

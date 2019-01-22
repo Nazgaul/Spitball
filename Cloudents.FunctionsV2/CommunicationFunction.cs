@@ -63,7 +63,7 @@ namespace Cloudents.FunctionsV2
         //{
 
 
-        //    var message = new DocumentPurchasedMessage(Guid.Parse("439B602A-421F-40F8-8A97-A9C60102D069"));
+        //    var message = new DocumentPurchasedMessage(Guid.Parse("03467747-BB06-438F-9F53-A9C600F2FABC"));
 
         //    var handlerType =
         //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
@@ -132,23 +132,7 @@ namespace Cloudents.FunctionsV2
 
 
 
-        //[FunctionName("FunctionSms")]
-        //public static async Task SmsStorageQueueAsync(
-        //    [QueueTrigger(QueueName.SmsQueueName)] SmsMessage2 msg,
-        //    DateTimeOffset insertionTime,
-        //    [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
-        //    ILogger log,
-        //    CancellationToken token
-        //)
-        //{
-        //    if (insertionTime < DateTime.UtcNow.AddMinutes(-30))
-        //    {
-        //        log.LogWarning("Too late of a message");
-        //        return;
-        //    }
-
-        //    await ProcessSmsMessageAsync(msg, options, log, token);
-        //}
+        
 
 
         [FunctionName("FunctionSmsServiceBus")]
@@ -186,63 +170,54 @@ namespace Cloudents.FunctionsV2
 
     public class TemplateData
     {
-        public TemplateData(IEnumerable<EmailBlockDto> blocks, bool socialShare, Language language)
-        {
-            Blocks = blocks.Select(s => new Block()
-            {
-                Body = s.Body,
-                Cta = s.Cta,
-                Subtitle = s.Subtitle,
-                Title = s.Title,
-                Url = s.Url
-            });
-            if (socialShare)
-            {
-                Referral = new Referral(language);
-            }
-        }
-
         [JsonProperty("blocks")]
         public IEnumerable<Block> Blocks { get; set; }
         [JsonProperty("referral")]
         public Referral Referral { get; set; }
+
+        [JsonProperty("subject")]
+        public string Subject { get; set; }
+
+        [JsonProperty("to")]
+        public string To { get; set; }
+       
     }
 
     public class Referral
     {
-        public Referral(Language language)
+        public Referral( string link)
         {
-            Lang = new Lang(language);
+            Link = link;
         }
 
-        [JsonProperty("lang")]
-        public Lang Lang { get; set; }
+       
+        [JsonProperty("link")]
+        public string Link { get; set; }
     }
 
-    public class Lang
-    {
-        public Lang(Language language)
-        {
-            if (language == Language.English)
-            {
-                English = true;
-            }
-            else
-            {
-                Hebrew = true;
-            }
-        }
-
-        [JsonProperty("english")]
-        public bool English { get; private set; }
-        [JsonProperty("hebrew")]
-        public bool Hebrew { get; private set; }
-    }
+  
 
     public class Block
     {
-        [JsonProperty("title")]
+        public Block(string title, string subtitle, string body, string minorTitle)
+        {
+            Title = title;
+            Subtitle = subtitle;
+            Body = body;
+            MinorTitle = minorTitle;
+        }
 
+        public Block(string title, string subtitle, string body, string minorTitle, string cta, string url )
+        {
+            Title = title;
+            Subtitle = subtitle;
+            Body = body;
+            Cta = cta;
+            Url = url;
+            MinorTitle = minorTitle;
+        }
+
+        [JsonProperty("title")]
         public string Title { get; set; }
         [JsonProperty("subtitle")]
         public string Subtitle { get; set; }
@@ -252,6 +227,8 @@ namespace Cloudents.FunctionsV2
         public string Cta { get; set; }
         [JsonProperty("url")]
         public string Url { get; set; }
+        [JsonProperty("minorTitle")]
+        public string MinorTitle { get; set; }
     }
 
 }
