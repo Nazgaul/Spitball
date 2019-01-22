@@ -35,7 +35,7 @@ namespace Cloudents.Web.EventHandler
 
             var code = _dataProtect.Protect(answer.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(5));
-            var link = _urlBuilder.BuildWalletEndPoint(new { token=code });
+            var link = _urlBuilder.BuildWalletEndPoint(code);
             await SendEmail(
                 new AnswerCorrectEmail(answer.User.Email, answer.Question.Text,
                     answer.Text, link,
