@@ -5,7 +5,7 @@
         </div>
         <v-card class="main-leaders-content">
             <div class="heading" v-show="$vuetify.breakpoint.smAndUp">
-                <span class="heading-text"v-language:inner>leadersBoard_title</span>
+                <span class="heading-text" v-language:inner>leadersBoard_title</span>
             </div>
 
             <v-list two-line class="leaders-list">
