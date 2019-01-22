@@ -117,7 +117,7 @@ namespace Cloudents.Functions
                     log.Error($"aborting process CantProcess attribute - {id}");
                     return;
                 }
-                
+
 
                 const string contentType = "text/plain";
 
@@ -139,7 +139,7 @@ namespace Cloudents.Functions
 
                 log.Info($"Going to process - {id}");
 
-                
+
 
                 var f = factory.PreviewFactory(name);
                 if (f != null)
@@ -147,61 +147,62 @@ namespace Cloudents.Functions
                     //var wait = new ManualResetEvent(false);
                     using (var wait = new ManualResetEventSlim(false))
                     {
+
                         //wait2.Wait()
                         var work = new Thread(async () =>
-                        {
-                            try
-                            {
-                                using (var ms = await myBlob.OpenReadAsync(token))
-                                {
-                                    f.Init(ms);
-                                    int pageCount;
-
-                                    const string blobTextName = "text.txt";
-                                    if (segment.Results.FirstOrDefault(d =>
-                                            d.Uri.Segments.Last().StartsWith(blobTextName)) == null)
-                                    {
-                                        var (text, pagesCount) = f.ExtractMetaContent();
-                                        var blob = directory.GetBlockBlobReference(blobTextName);
-                                        blob.Properties.ContentType = contentType;
-                                        text = StripUnwantedChars(text);
-                                        blob.Metadata["PageCount"] = pagesCount.ToString();
-                                        await blob.UploadTextAsync(text ?? string.Empty, token);
-                                        pageCount = pagesCount;
-                                    }
-                                    else
-                                    {
-                                        log.Info("found text file");
-
-                                        var blob = directory.GetBlockBlobReference(blobTextName);
-                                        await blob.FetchAttributesAsync(token);
-                                        pageCount = int.Parse(blob.Metadata["PageCount"]);
-                                    }
-
-                                    if (pageCount != previewDelta.Count || previewDelta.Count == 0)
-                                    {
-                                        await f.ProcessFilesAsync(previewDelta, (stream, previewName) =>
                                         {
-                                            workHasBeenDone = true;
-                                            stream.Seek(0, SeekOrigin.Begin);
-                                            var blob = directory.GetBlockBlobReference($"preview-{previewName}");
-                                            blob.Properties.ContentType = "image/jpeg";
-                                            log.Info($"uploading to {id} preview-{previewName}");
-                                            return blob.UploadFromStreamAsync(stream, token);
-                                        }, token);
-                                    }
-                                }
+                                            try
+                                            {
+                                                using (var ms = await myBlob.OpenReadAsync(token))
+                                                {
+                                                    f.Init(ms);
+                                                    int pageCount;
 
-                                wait.Set();
-                            }
-                            catch (Exception ex)
-                            {
-                                wait.Set();
-                                log.Error($"did not process id:{id}", ex);
+                                                    const string blobTextName = "text.txt";
+                                                    if (segment.Results.FirstOrDefault(d =>
+                                                            d.Uri.Segments.Last().StartsWith(blobTextName)) == null)
+                                                    {
+                                                        var (text, pagesCount) = f.ExtractMetaContent();
+                                                        var blob = directory.GetBlockBlobReference(blobTextName);
+                                                        blob.Properties.ContentType = contentType;
+                                                        text = StripUnwantedChars(text);
+                                                        blob.Metadata["PageCount"] = pagesCount.ToString();
+                                                        await blob.UploadTextAsync(text ?? string.Empty, token);
+                                                        pageCount = pagesCount;
+                                                    }
+                                                    else
+                                                    {
+                                                        log.Info("found text file");
 
-                                await collector.AddAsync(id, token);
-                            }
-                        });
+                                                        var blob = directory.GetBlockBlobReference(blobTextName);
+                                                        await blob.FetchAttributesAsync(token);
+                                                        pageCount = int.Parse(blob.Metadata["PageCount"]);
+                                                    }
+
+                                                    if (pageCount != previewDelta.Count || previewDelta.Count == 0)
+                                                    {
+                                                        await f.ProcessFilesAsync(previewDelta, (stream, previewName) =>
+                                                        {
+                                                            workHasBeenDone = true;
+                                                            stream.Seek(0, SeekOrigin.Begin);
+                                                            var blob = directory.GetBlockBlobReference($"preview-{previewName}");
+                                                            blob.Properties.ContentType = "image/jpeg";
+                                                            log.Info($"uploading to {id} preview-{previewName}");
+                                                            return blob.UploadFromStreamAsync(stream, token);
+                                                        }, token);
+                                                    }
+                                                }
+
+                                                wait.Set();
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                wait.Set();
+                                                log.Error($"did not process id:{id}", ex);
+
+                                                await collector.AddAsync(id, token);
+                                            }
+                                        });
                         work.Start();
 
                         var signal = wait.Wait(TimeSpan.FromMinutes(9), token);

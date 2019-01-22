@@ -12,7 +12,6 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
-using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
 using Microsoft.ApplicationInsights.Extensibility;

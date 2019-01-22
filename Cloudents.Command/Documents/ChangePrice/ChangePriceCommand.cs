@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Command.Documents.ChangePrice
+﻿namespace Cloudents.Command.Documents.ChangePrice
 {
     public class ChangePriceCommand : ICommand
     {

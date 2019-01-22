@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using NHibernate.Engine;
 using NHibernate.Event;
 using NHibernate.Event.Default;

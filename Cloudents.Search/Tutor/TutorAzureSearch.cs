@@ -10,7 +10,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Extensions;
 using Cloudents.Infrastructure.Search.Tutor;
-using Cloudents.Infrastructure.Write.Tutor;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 

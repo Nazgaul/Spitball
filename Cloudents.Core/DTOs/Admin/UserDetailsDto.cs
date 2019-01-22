@@ -1,17 +1,11 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Cloudents.Core.DTOs.Admin
 {
     public class UserDetailsDto
     {
-        public UserDetailsDto()
-        {
-        }
+        
         [DtoToEntityConnection(nameof(RegularUser.Id))]
         public long Id { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.Name))]

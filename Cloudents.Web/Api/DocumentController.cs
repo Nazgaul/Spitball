@@ -306,13 +306,13 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
         {
             
-            if (model.price < 0)
+            if (model.Price < 0)
             {
                 ModelState.AddModelError(string.Empty, _localizer["PriceNeedToBeGreaterOrEqualZero"]);
                 return BadRequest(ModelState);
             }
             var userId = _userManager.GetLongUserId(User);
-            var command = new ChangePriceCommand(model.Id, userId, model.price);
+            var command = new ChangePriceCommand(model.Id, userId, model.Price);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

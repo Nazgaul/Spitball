@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using Cloudents.Core.Entities;
-using FluentNHibernate;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps

@@ -8,12 +8,10 @@ using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Storage;
 using System.Linq;
-using Cloudents.Persistance.Repositories;
 
 namespace Cloudents.Admin2.Api
 {

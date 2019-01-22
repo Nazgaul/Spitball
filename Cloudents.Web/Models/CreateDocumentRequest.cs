@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Web.Resources;
 using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models

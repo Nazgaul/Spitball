@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.DTOs.Admin;
+﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Query.Query.Admin;
 using Dapper;
