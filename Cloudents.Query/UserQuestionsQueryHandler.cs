@@ -31,7 +31,7 @@ namespace Cloudents.Query
                     s.Attachments,
                     s.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
                     s.Updated,
-                    s.Color, s.CorrectAnswer.Id != null, s.Language, s.VoteCount, s.Course.Name)
+                    s.CorrectAnswer.Id != null, s.Language, s.VoteCount, s.Course.Name)
                     
                 )
                 .Take(50).Skip(query.Page * 50)

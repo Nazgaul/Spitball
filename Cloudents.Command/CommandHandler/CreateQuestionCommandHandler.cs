@@ -61,7 +61,7 @@ namespace Cloudents.Command.CommandHandler
 
             var question = new Question(message.SubjectId,
                 message.Text, message.Price, message.Files?.Count() ?? 0,
-                user, message.Color, textLanguage, course);
+                user, textLanguage, course);
 
             user.MakeTransaction(TransactionType2.StakeMoney(question.Price),question);
             await _userRepository.UpdateAsync(user, default);

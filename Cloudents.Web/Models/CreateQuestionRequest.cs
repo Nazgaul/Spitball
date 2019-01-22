@@ -18,7 +18,6 @@ namespace Cloudents.Web.Models
         [MaxLength(4, ErrorMessage = "MaxLength")]
         public string[] Files { get; set; }
 
-        public QuestionColor? Color { get; set; }
 
         public string Course { get; set; }
     }

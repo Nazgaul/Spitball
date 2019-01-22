@@ -11,9 +11,9 @@ namespace Cloudents.Core.DTOs
         private bool _isRtl;
 
         public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text, int files,
-            int answers, UserDto user, DateTime dateTime, QuestionColor? color, bool hasCorrectAnswer, 
+            int answers, UserDto user, DateTime dateTime,  bool hasCorrectAnswer, 
             CultureInfo culture, int votes, string course)
-        :this(id,subject,price,text,files,answers,dateTime,color,hasCorrectAnswer,culture, votes, course)
+        :this(id,subject,price,text,files,answers,dateTime,hasCorrectAnswer,culture, votes, course)
         {
           
             User = user;
@@ -21,7 +21,7 @@ namespace Cloudents.Core.DTOs
         }
 
         public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text,
-            int files, int answers, DateTime dateTime, QuestionColor? color, bool hasCorrectAnswer, CultureInfo culture,
+            int files, int answers, DateTime dateTime,  bool hasCorrectAnswer, CultureInfo culture,
             int votes, string course)
         {
             Id = id;
@@ -31,7 +31,6 @@ namespace Cloudents.Core.DTOs
             Files = files;
             Answers = answers;
             DateTime = dateTime;
-            Color = color;
             HasCorrectAnswer = hasCorrectAnswer;
             _isRtl = culture?.TextInfo.IsRightToLeft ?? false;
             Vote = new VoteDto()
@@ -58,7 +57,6 @@ namespace Cloudents.Core.DTOs
 
         public DateTime DateTime { get; set; }
 
-        public QuestionColor? Color { get; set; }
         public string Course { get; set; }
 
         public bool HasCorrectAnswer { get; set; }
