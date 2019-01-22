@@ -112,7 +112,7 @@
                 <v-flex align-center justify-center class="relative-pos">
                     <div class="title-wrap">
                         <span class="change-title" v-language:inner>resultNote_change_for</span>
-                        <span class="change-title">&nbsp;"{{item.title}}"</span>
+                        <span class="change-title" style="max-width: 150px;" v-line-clamp="1">&nbsp;"{{item.title}}"</span>
                     </div>
                     <div class="input-wrap d-flex row align-center justify-center">
                         <div :class="['price-wrap', isRtl ? 'reversed' : '']">
