@@ -72,7 +72,7 @@ namespace Cloudents.Query
 
 
 
-                    var res = await grid.ReadFirstAsync<QuestionDetailQueryFlatDto>();
+                    var res = await grid.ReadFirstOrDefaultAsync<QuestionDetailQueryFlatDto>();
                     if (res == null)
                     {
                         return null;

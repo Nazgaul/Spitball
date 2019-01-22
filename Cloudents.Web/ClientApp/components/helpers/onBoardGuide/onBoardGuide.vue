@@ -19,7 +19,7 @@
                         <v-btn class="btn sb-btn-flat close" :class="{'visibility-hidden' : isFinished}"
                                @click="skipSteps()">Skip
                         </v-btn>
-                        <div class="steps-circle-wrap d-flex">
+                        <div class="steps-circle-wrap d-flex"  v-show="!isFinished">
                             <v-stepper-step
                                     :complete-icon="''"
                                     :color="'#5158af'"
@@ -113,7 +113,6 @@
                 } else {
                     this.currentStep = this.currentStep + 1;
                 }
-                console.log('after', this.currentStep);
             },
             closeGuide() {
                 analyticsService.sb_unitedEvent('WALKTHROUGH', 'CLOSE');
