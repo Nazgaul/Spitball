@@ -173,7 +173,7 @@
     <value>כל הכבוד!</value>
   </data>
   <data name="generalProfile_register_stepSix_subheading" xml:space="preserve">
-    <value>אתה מוכן להתחיל לספטבל</value>
+    <value>אתה מוכן להתחיל להשתמש בספיטבול</value>
   </data>
   <data name="generalProfile_register_stepSix_text" xml:space="preserve">
     <value>!לשימוש מיידי בספיטבול SBL הענקנו לך נקודות
@@ -357,10 +357,11 @@ GiftCards -שניתנים להמרה ל SBL עוד</value>
     <value>אתה מוכן ומזומן להתחיל להרוויח!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_text" xml:space="preserve">
-    <value>!לשימוש מיידי בספיטבול SBL הענקנו לך נקודות
-השתמש בהם כדי לקבל עזרה עם שיעורי הבית שלך
-או ענה על שאלות של סטודנטים אחרים כדי להרוויח 
-GiftCards -שניתנים להמרה ל SBL עוד</value>
+    <value>אנו ממליצים לקרוא את מסכי ההדרכה הקצרים
+ שהכנו לכם בשביל לגלות איך ספיטבול עובד.
+מתנה מחכה לך במסך האחרון!
+בנוסף, וודא שהוספת את מוסד הלימודים
+ והקורסים שלך לחווית ספיטבול אולטימטיבית!</value>
   </data>
   <data name="makeMoneyProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>צור סיסמה</value>
