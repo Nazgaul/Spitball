@@ -124,10 +124,10 @@
     <value>נתקעת עם שיעורי בית?</value>
   </data>
   <data name="classes_content" xml:space="preserve">
-    <value>מוכן להשתלט על החומר?</value>
+    <value>הוסף מוסד לימודים ובחר קורסים כדי לגשת למשאבים שיעזרו לך לקבל מאיות.</value>
   </data>
   <data name="classes_title" xml:space="preserve">
-    <value>לחץ על הקורס כדי לגשת למשאבים שיעזרו לך לקבל מאיות.</value>
+    <value>מוכן להשתלט על החומר?</value>
   </data>
   <data name="label_next" xml:space="preserve">
     <value>הבא</value>
@@ -148,7 +148,7 @@
     <value>יודע את התשובה?</value>
   </data>
   <data name="sbl_currency_content" xml:space="preserve">
-    <value>ממש את את הנקודות שלך (SBL) כדי לקבל כרטיסי מתנה מ- BuyMe. ככל שתחסוך יותר SBL זה יהיה שווה לך יותר כסף במימוש</value>
+    <value>ממש את את הנקודות שלך (SBL) כדי לקבל כרטיסי מתנה מ- BuyMe. ככל שתחסוך יותר SBL זה יהיה שווה לך יותר כסף במימוש.</value>
   </data>
   <data name="sbl_currency_title" xml:space="preserve">
     <value>פדה כרטיסי מתנה מ- BuyMe</value>
