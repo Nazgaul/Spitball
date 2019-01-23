@@ -36,7 +36,7 @@ namespace Cloudents.FunctionsV2.System
             foreach (var block in result.Blocks)
             {
                 block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", result.Tokens.ToString("f2"));
-                block.Body = block.Body.Inject(result);
+                block.Body = block.Body.Replace("\n","<br>").Inject(result);
             }
 
             var templateData = new TemplateData()
