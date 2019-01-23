@@ -3,6 +3,12 @@ update sb.[user]
 set balance = (Select sum(price) from sb.[Transaction] where User_id = sb.[User].id)
 where balance != (Select sum(price) from sb.[Transaction] where User_id = sb.[User].id)
 
+--update user score
+update top(1000) sb.[user]
+set score = (select sum(price) from sb.[Transaction] where Type = 'Earned' and price > 0 and User_id = sb.[User].id)
+where score != (select sum(price) from sb.[Transaction] where Type = 'Earned' and price > 0 and User_id = sb.[User].id)
+
+
 --delete user
 begin tran
 declare @UserId bigint = 160052
