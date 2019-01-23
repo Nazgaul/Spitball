@@ -19,7 +19,8 @@
                 <div class="progress-background" :class="{'background-purple': isFinished}">
                     <div class="progress-wrap">
                         <v-btn class="btn sb-btn-flat close elevation-0" :class="{'visibility-hidden' : isFinished}"
-                               @click="skipSteps()">Skip
+                               @click="skipSteps()">
+                            <span v-language:inner>onboard_btn_skip</span>
                         </v-btn>
                         <div class="steps-circle-wrap d-flex">
                             <v-stepper-step
@@ -32,10 +33,11 @@
                         </div>
                         <div class="actions-wrap">
                             <v-btn class="btn sb-btn-flat continue elevation-0" v-show="!isFinished"
-                                   @click="nextStep()">Continue
+                                   @click="nextStep()">
+                                <span v-language:inner>onboard_btn_continue</span>
                             </v-btn>
                             <v-btn class="btn sb-btn-flat finish elevation-0" v-show="isFinished" @click="closeGuide()">
-                                Finish
+                               <span v-language:inner>onboard_btn_finish</span>
                             </v-btn>
                         </div>
                     </div>
