@@ -103,13 +103,13 @@
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly
             },
-            isIsrael() {
-                return global.isIsrael;
+            isHebrew() {
+                return global.lang.toLowerCase() === 'he';
             },
             imgSrc() {
                 let imageSrc = '';
                 let imagesSet = this.$vuetify.breakpoint.xsOnly ? this.mobile : this.desktop;
-                imagesSet = this.isIsrael ? imagesSet.hebrew : imagesSet.english;
+                imagesSet = this.isHebrew ? imagesSet.hebrew : imagesSet.english;
                 return imagesSet[this.currentStep]
             },
         },
