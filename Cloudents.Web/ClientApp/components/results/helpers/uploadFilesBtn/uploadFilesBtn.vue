@@ -7,7 +7,7 @@
                         <!--upload_files_component_share_study-->
                     <!--</p>-->
                     <button round :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]" @click="openUploaderDialog()">
-                        <v-icon class="sb-cloud-upload-icon" right>sbf-upload-cloud</v-icon>
+                        <v-icon class="sb-cloud-upload-icon">sbf-upload-cloud</v-icon>
                         <span class="btn-text" v-language:inner>upload_files_file_upload</span>
                     </button>
                 </div>

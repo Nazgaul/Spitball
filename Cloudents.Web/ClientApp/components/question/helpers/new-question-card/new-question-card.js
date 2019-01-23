@@ -205,16 +205,18 @@ export default {
             }
         },
         deleteQuestion() {
-            this.delete({id: this.cardData.id, type: 'Question'})
+            let questionId = this.cardData.id;
+            let questionPrice = this.cardData.price;
+            this.delete({id: questionId, type: 'Question'})
                 .then((success) => {
                         this.updateToasterParams({
                             toasterText: LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
                             showToaster: true,
                         });
                         let objToDelete = {
-                            id: parseInt(this.cardData.id)
+                            id: parseInt(questionId)
                         };
-                        this.updateBalance(this.cardData.price);
+                        this.updateBalance(questionPrice);
                         this.$ga.event("Delete_question", "Homework help");
                         this.removeQuestionItemAction(objToDelete);
                         if (this.$route.name === 'question') {
