@@ -127,18 +127,21 @@
     <value>Skip</value>
   </data>
   <data name="final_added" xml:space="preserve">
-    <value>We’ve added</value>
+    <value>You have</value>
   </data>
   <data name="final_away" xml:space="preserve">
     <value>away from your first cashout!</value>
+  </data>
+  <data name="final_enter_wallet" xml:space="preserve">
+    <value>Enter your wallet now and cashout</value>
   </data>
   <data name="final_only" xml:space="preserve">
     <value>You’re only</value>
   </data>
   <data name="final_title" xml:space="preserve">
-    <value>You got a gift!</value>
+    <value>Your points status</value>
   </data>
   <data name="final_to_wallet" xml:space="preserve">
-    <value>to your wallet</value>
+    <value>points</value>
   </data>
 </root>

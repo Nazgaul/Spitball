@@ -17,11 +17,16 @@
         </div>
         <v-divider class="divider-line"></v-divider>
         <div class="sml-text-row">
-            <div class="">
+            <div class="" v-show="sblAway < 1000">
                 <bdi>
                     <span v-language:inner>onboard_final_only</span>
                     <span>{{sblAway}} SBL</span>
                     <span v-language:inner>onboard_final_away</span>
+                </bdi>
+            </div>
+            <div class="" v-show="sblAway >= 1000">
+                <bdi>
+                    <span v-language:inner>onboard_final_enter_wallet</span>
                 </bdi>
             </div>
         </div>
@@ -38,7 +43,9 @@
         name: "onBoardFinal",
         components: {presentStars, presentStarsMobile},
         data() {
-            return {}
+            return {
+
+            }
         },
         props: {},
         computed: {
@@ -50,7 +57,7 @@
                 if(this.tokensAmmount < 1000){
                     return 1000 - this.tokensAmmount;
                 }else{
-                    return 483
+                    return this.tokensAmmount;
                 }
             },
 
