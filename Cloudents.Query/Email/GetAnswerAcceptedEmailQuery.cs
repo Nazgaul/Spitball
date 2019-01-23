@@ -93,7 +93,7 @@ order by ek.orderBlock ";
         private class DbClass
         {
             [DtoToEntityConnection(nameof(Core.Entities.Email.Language))]
-            public string Language { get; set; }
+            public string Language { get; private set; }
             [DtoToEntityConnection(nameof(Core.Entities.Email.SocialShare))]
             public bool SocialShare { get; set; }
             [DtoToEntityConnection(nameof(Core.Entities.Email.Subject))]

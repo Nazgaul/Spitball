@@ -1,19 +1,19 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
-using Dapper;
-using System;
+﻿using System;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Dapper;
 
-namespace Cloudents.Query
+namespace Cloudents.Query.Email
 {
-    public class GetDocumentPurchasedEmail : IQuery<DocumentPurchaseEmailDto>
+    public class GetDocumentPurchasedEmailQuery : IQuery<DocumentPurchaseEmailDto>
     {
-        public GetDocumentPurchasedEmail(Guid transactionId)
+        public GetDocumentPurchasedEmailQuery(Guid transactionId)
         {
             TransactionId = transactionId;
         }
@@ -22,7 +22,7 @@ namespace Cloudents.Query
 
 
 
-        internal sealed class GetDocumentPurchasedEmailQueryHandler : IQueryHandler<GetDocumentPurchasedEmail, DocumentPurchaseEmailDto>
+        internal sealed class GetDocumentPurchasedEmailQueryHandler : IQueryHandler<GetDocumentPurchasedEmailQuery, DocumentPurchaseEmailDto>
         {
             private readonly IConfigurationKeys _provider;
 
@@ -31,7 +31,7 @@ namespace Cloudents.Query
                 _provider = provider;
             }
 
-            public async Task<DocumentPurchaseEmailDto> GetAsync(GetDocumentPurchasedEmail query, CancellationToken token)
+            public async Task<DocumentPurchaseEmailDto> GetAsync(GetDocumentPurchasedEmailQuery query, CancellationToken token)
             {
                 const string sql = @"Select e.language, e.SocialShare,e.Subject,
  ek.Title,

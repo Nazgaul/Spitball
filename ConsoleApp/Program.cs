@@ -30,6 +30,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query.Email;
 
 namespace ConsoleApp
 {
@@ -116,7 +117,7 @@ namespace ConsoleApp
         {
             // var service1 = _container.Resolve<IUnitOfWork>();
             var service = _container.Resolve<IQueryBus>();
-            var query = new GetDocumentPurchasedEmail(Guid.Parse("439B602A-421F-40F8-8A97-A9C60102D069"));
+            var query = new GetDocumentPurchasedEmailQuery(Guid.Parse("439B602A-421F-40F8-8A97-A9C60102D069"));
             var z = await service.QueryAsync(query, default);
             //var t = await service.GetEmailAsync(SystemEvent.DocumentPurchased, Language.English, default);
         }
