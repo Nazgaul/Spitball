@@ -57,20 +57,7 @@ namespace Cloudents.FunctionsV2
             var metadata = blob.Metadata;
             await SyncBlobWithSearch(text, Convert.ToInt64(id), metadata, indexInstance, commandBus, token);
         }
-
-        //[FunctionName("BlobFunctionTimer")]
-        //public static async Task RunAsync2(
-        //    [TimerTrigger("0 */20 * * * *", RunOnStartup = true)]TimerInfo timer,
-        //    [Blob("spitball-files/files/1082/text.txt", Connection = "TempConnectionDev")] CloudBlockBlob blob,
-        //    [Inject] ISearchServiceWrite<Document> searchInstance,
-        //    [Inject] ICommandBus commandBus,
-        //    [Inject] ITextAnalysis textAnalysis,
-        //    ILogger log, CancellationToken token)
-        //{
-        //    var text = await blob.DownloadTextAsync();
-        //    var metadata = blob.Metadata;
-        //    await SyncBlobWithSearch(text, 1082, metadata, searchInstance, commandBus, textAnalysis, token);
-        //}
+       
 
         private static async Task SyncBlobWithSearch(string text, long id, IDictionary<string, string> metadata,
             IAsyncCollector<AzureSearchSyncOutput> searchInstance, ICommandBus commandBus, CancellationToken token)

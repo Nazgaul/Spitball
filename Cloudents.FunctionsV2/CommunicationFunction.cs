@@ -1,3 +1,4 @@
+using System;
 using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
@@ -11,8 +12,11 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
+using Cloudents.FunctionsV2.System;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
+using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
@@ -43,29 +47,29 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("finish sending email");
         }
 
-        //[FunctionName("FunctionEmailTest")]
-        //public static async Task EmailFunctionTimerAsync(
-        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
-        //    IAsyncCollector<SendGridMessage> emailProvider,
+        [FunctionName("FunctionEmailTest")]
+        public static async Task EmailFunctionTimerAsync(
+            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
+            IAsyncCollector<SendGridMessage> emailProvider,
 
-        //    [Inject] ILifetimeScope lifetimeScope,
-        //    IBinder binder,
-        //    ILogger log,
-        //    CancellationToken token)
-        //{
+            [Inject] ILifetimeScope lifetimeScope,
+            IBinder binder,
+            ILogger log,
+            CancellationToken token)
+        {
 
 
-        //    var message = new DocumentPurchasedMessage(Guid.Parse("03467747-BB06-438F-9F53-A9C600F2FABC"));
+            var message = new AnswerAcceptedMessage(Guid.Parse("AD796D3F-734D-4987-AA1F-A9C700C88DD1"));
 
-        //    var handlerType =
-        //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
-        //    using (var child = lifetimeScope.BeginLifetimeScope())
-        //    {
-        //        dynamic operation = child.Resolve(handlerType);
-        //        await operation.DoOperationAsync((dynamic)message, binder, token);
-        //    }
-        //}
+            var handlerType =
+                typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+            using (var child = lifetimeScope.BeginLifetimeScope())
+            {
+                dynamic operation = child.Resolve(handlerType);
+                await operation.DoOperationAsync((dynamic)message, binder, token);
+            }
+        }
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)

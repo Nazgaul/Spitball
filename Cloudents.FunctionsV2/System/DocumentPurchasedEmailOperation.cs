@@ -48,60 +48,66 @@ namespace Cloudents.FunctionsV2.System
                 });
             }
 
-            var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
+            var templateData = new TemplateData()
             {
-                ApiKey = "SendgridKey",
-                From = "Spitball <no-reply @spitball.co>"
-            }, token);
+                Blocks = result.Blocks
+                    .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
+                        _urlBuilder.BuildWalletEndPoint(code))),
+                Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
+                Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
+                To = result.ToEmailAddress,
+            };
+            await BuildEmail(result, binder, templateData, "DocumentPurchased", token);
+            //var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
+            //{
+            //    ApiKey = "SendgridKey",
+            //    From = "Spitball <no-reply @spitball.co>"
+            //}, token);
 
 
-            var message = new SendGridMessage
-            {
-                Asm = new ASM { GroupId = 10926 },
-                TemplateId = result.Language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
-            };
-            var personalization = new Personalization
-            {
-                TemplateData = new TemplateData()
-                {
-                    Blocks = result.Blocks
-                        .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
-                            _urlBuilder.BuildWalletEndPoint(code))),
-                    Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
-                    Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
-                    To = result.ToEmailAddress,
-                }
-            };
+            //var message = new SendGridMessage
+            //{
+            //    Asm = new ASM { GroupId = 10926 },
+            //    TemplateId = result.Language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
+            //};
+            //var personalization = new Personalization
+            //{
+            //    TemplateData = new TemplateData()
+            //    {
+            //        Blocks = result.Blocks
+            //            .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
+            //                _urlBuilder.BuildWalletEndPoint(code))),
+            //        Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
+            //        Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
+            //        To = result.ToEmailAddress,
+            //    }
+            //};
 
 
-            message.Personalizations = new List<Personalization>()
-            {
-                personalization
-            };
-            //message.Subject = result.Subject.InjectSingleValue("Tokens",result.Tokens);
-            message.AddCategory("DocumentPurchased");
-            message.TrackingSettings = new TrackingSettings
-            {
-                Ganalytics = new Ganalytics
-                {
-                    UtmCampaign = "DocumentPurchased",
-                    UtmSource = "SendGrid",
-                    UtmMedium = "Email",
-                    Enable = true
-                }
-            };
-            message.AddTo(result.ToEmailAddress);
-            await emailProvider.AddAsync(message, token);
+            //message.Personalizations = new List<Personalization>()
+            //{
+            //    personalization
+            //};
+            ////message.Subject = result.Subject.InjectSingleValue("Tokens",result.Tokens);
+            //message.AddCategory("DocumentPurchased");
+            //message.TrackingSettings = new TrackingSettings
+            //{
+            //    Ganalytics = new Ganalytics
+            //    {
+            //        UtmCampaign = "DocumentPurchased",
+            //        UtmSource = "SendGrid",
+            //        UtmMedium = "Email",
+            //        Enable = true
+            //    }
+            //};
+            //message.AddTo(result.ToEmailAddress);
+            //await emailProvider.AddAsync(message, token);
 
         }
-
-
-        
-    }
-
-    public abstract class BaseEmailOperation
-    {
-        public async Task BuildEmail(EmailDto result, IBinder binder, CancellationToken token)
+        public static async Task BuildEmail(EmailDto result, IBinder binder,
+            TemplateData templateData,
+            string category,
+            CancellationToken token)
         {
             var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
             {
@@ -115,7 +121,6 @@ namespace Cloudents.FunctionsV2.System
                 Asm = new ASM { GroupId = 10926 },
                 TemplateId = result.Language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
             };
-            var templateData = BuildTemplateData();
             templateData.To = result.ToEmailAddress;
             var personalization = new Personalization
             {
@@ -138,12 +143,12 @@ namespace Cloudents.FunctionsV2.System
                 personalization
             };
             //message.Subject = result.Subject.InjectSingleValue("Tokens",result.Tokens);
-            message.AddCategory("DocumentPurchased");
+            message.AddCategory(category);
             message.TrackingSettings = new TrackingSettings
             {
                 Ganalytics = new Ganalytics
                 {
-                    UtmCampaign = "DocumentPurchased",
+                    UtmCampaign = category,
                     UtmSource = "SendGrid",
                     UtmMedium = "Email",
                     Enable = true
@@ -153,6 +158,8 @@ namespace Cloudents.FunctionsV2.System
             await emailProvider.AddAsync(message, token);
         }
 
-        protected abstract TemplateData BuildTemplateData();
+
+
     }
+   
 }

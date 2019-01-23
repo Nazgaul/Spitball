@@ -38,18 +38,20 @@ namespace Cloudents.Query.Email
  ek.Body,
  ek.Cta,
  ek.minorTitle,
- d.CourseName,
-  d.Name as documentName ,
+ 
 u.Email,
  u.id as userId,
- t.Price as tokens
+ t.Price as tokens,
+ q.Text as questionText,
+ a.Text as answerText
   from  sb.[Transaction] t
 join sb.[User] u on t.User_id = u.Id
 join sb.Email e on u.Language = e.Language and e.Event=@e
 join sb.emailBlock ek on e.Id = ek.email_id
-join sb.Document d on t.DocumentId = d.id
+join sb.Question q on q.id = t.QuestionId
+join sb.Answer a on a.Id = t.AnswerId
 where t.id = @id
-order by ek.orderBlock ";
+order by ek.orderBlock  ";
                 using (var connection = new SqlConnection(_provider.Db.Db))
                 {
                     var result = await connection.QuerySingleOrDefaultAsync<DbClass>(sql,

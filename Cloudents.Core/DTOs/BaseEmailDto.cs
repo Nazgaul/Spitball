@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.DTOs
 {
@@ -30,8 +31,21 @@ namespace Cloudents.Core.DTOs
 
     public class AnswerAcceptedEmailDto : EmailDto
     {
-        public string QuestionText { get; set; }
-        public string AnswerText { get; set; }
+        private string _questionText;
+        private string _answerText;
+
+        public string QuestionText
+        {
+            get => _questionText.Replace("\n", "<br>").Truncate(40, true);
+            set => _questionText = value;
+        }
+
+        public string AnswerText
+        {
+            get => _answerText.Replace("\n", "<br>").Truncate(40, true);
+            set => _answerText = value;
+        }
+
         public decimal Tokens { get; set; }
     }
 
