@@ -18,7 +18,8 @@ const state = {
         session: !!window.sessionStorage.getItem('sb_uniSelectPoped_s'), //boolean
         local: window.localStorage.getItem('sb_uniSelectPoped_l') || 0 //integer
     },
-    resultLockForSchoolNameChange: false
+    resultLockForSchoolNameChange: false,
+    selectForTheFirstTime: false
 };
 
 const getters = {
@@ -52,9 +53,27 @@ const actions = {
             }
         })
     },
-    changeSelectUniState({commit, dispatch}, val){
+    changeSelectUniState({commit, dispatch, getters, state}, val){
         if(!val){
             dispatch('changeClassesToCachedClasses')
+            if(state.selectForTheFirstTime){
+                //after register should open the tour on the correct page
+                dispatch('updateSelectForTheFirstTime', false);
+                let VerticalName = getters.getCurrentVertical;
+                if(VerticalName === "note"){
+                    //invokes the watch on the app.vue file
+                    dispatch('StudyDocuments_updateDataLoaded', false);
+                    setTimeout(()=>{
+                        dispatch('StudyDocuments_updateDataLoaded', true);
+                    })
+                }else if(VerticalName === "ask"){
+                    //invokes the watch on the app.vue file
+                    dispatch('HomeworkHelp_updateDataLoaded', false);
+                    setTimeout(()=>{
+                        dispatch('HomeworkHelp_updateDataLoaded', true);
+                    })
+                }
+            }
         }
         commit('setSelectUniState', val);
     },
@@ -97,7 +116,7 @@ const actions = {
     assignClasses({state, dispatch}){
         universityService.assaignCourse(state.selectedClasses).then(()=>{
             //Update Filters in note page
-            dispatch("updateCoursesFilters", state.selectedClasses);
+            //dispatch("updateCoursesFilters", state.selectedClasses);
             Promise.resolve(true);
         })
     },
@@ -122,6 +141,9 @@ const actions = {
     releaseResultLock({commit}){
         commit('openResultLockForSchoolNameChange');
     },
+    updateSelectForTheFirstTime({commit}, val){
+        commit('setSelectForTheFirstTime', val);
+    }
 };
 
 const mutations = {
@@ -158,6 +180,9 @@ const mutations = {
     },
     openResultLockForSchoolNameChange(state){
         state.resultLockForSchoolNameChange = true;
+    },
+    setSelectForTheFirstTime(state, val){
+        state.selectForTheFirstTime = val;
     }
 };
 

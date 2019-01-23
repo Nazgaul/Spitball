@@ -8,11 +8,11 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Command.CommandHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc resolve")]
-    public class AddUserLocationHandler : ICommandHandler<AddUserLocationCommand>
+    public class AddUserLocationCommandHandler : ICommandHandler<AddUserLocationCommand>
     {
         private readonly IRepository<UserLocation> _repository;
 
-        public AddUserLocationHandler(IRepository<UserLocation> repository)
+        public AddUserLocationCommandHandler(IRepository<UserLocation> repository)
         {
             _repository = repository;
         }

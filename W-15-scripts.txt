@@ -163,3 +163,4 @@ N'הארנק שלי '
 
 
 
+We need to run dbi (in program - FixUsersWithoutTransactions()) to fix the users that didn't get no transactions.

@@ -6,6 +6,7 @@ using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Storage;
 using Cloudents.Web.Middleware;
 using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.Builder;
@@ -64,7 +65,6 @@ namespace Cloudents.Ico
             var containerBuilder = new ContainerBuilder();
             var assembliesOfProgram = new[]
             {
-                Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Core"),
                 Assembly.GetExecutingAssembly()
@@ -76,8 +76,9 @@ namespace Cloudents.Ico
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
-            containerBuilder.RegisterSystemModules(
-                Core.Enum.System.IcoSite, assembliesOfProgram);
+            containerBuilder.RegisterModule<ModuleStorage>();
+            //containerBuilder.RegisterSystemModules(
+                //Core.Enum.System.IcoSite, assembliesOfProgram);
 
             //containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.Populate(services);

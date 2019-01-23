@@ -54,7 +54,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -67,7 +67,7 @@ namespace ConsoleApp
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
             };
-            
+
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -123,14 +123,14 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-           // var service1 = _container.Resolve<IUnitOfWork>();
+            // var service1 = _container.Resolve<IUnitOfWork>();
             var service = _container.Resolve<IQueryBus>();
             var query = new GetDocumentPurchasedEmail(Guid.Parse("439B602A-421F-40F8-8A97-A9C60102D069"));
             var z = await service.QueryAsync(query, default);
             //var t = await service.GetEmailAsync(SystemEvent.DocumentPurchased, Language.English, default);
         }
 
-       
+
         private static async Task ReduDocument()
         {
             var service = _container.Resolve<IStatelessSession>();
@@ -305,7 +305,7 @@ where left(blobName ,4) != 'file'");
 
                     if (fileNameWithoutDirectory.EndsWith("svg") && fileNameWithoutDirectory.StartsWith("preview"))
                     {
-                        var blobToDelete = (CloudBlockBlob) blob;
+                        var blobToDelete = (CloudBlockBlob)blob;
                         await blobToDelete.DeleteAsync();
                     }
                 }
@@ -335,7 +335,7 @@ where left(blobName ,4) != 'file'");
         private static IEnumerable<string> SplitSentence(string input)
         {
             //TODO: Check environment newline
-            return input.Split(new[] {"\r\n\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+            return input.Split(new[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         public static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
@@ -362,18 +362,20 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-            AutoMapper.Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<ConfigureMapper>();
-            });
-            var queryBus = _container.Resolve<IQueryBus> ();
-            
-            var questions = await queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(new UserPurchaseDocumentByIdQuery(159907, 1), token);
+            await FixUsersWithoutTransactions();
 
-            foreach (var item in questions)
-            {
-                Console.WriteLine(item.Id);
-            }
+            //AutoMapper.Mapper.Initialize(cfg =>
+            //{
+            //    cfg.AddProfile<ConfigureMapper>();
+            //});
+            //var queryBus = _container.Resolve<IQueryBus> ();
+
+            //var questions = await queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(new UserPurchaseDocumentByIdQuery(159907, 1), token);
+
+            //foreach (var item in questions)
+            //{
+            //    Console.WriteLine(item.Id);
+            //}
 
 
             //await MigrateDelta();
@@ -551,7 +553,26 @@ where left(blobName ,4) != 'file'");
             //}
         }
 
+        public static async Task FixUsersWithoutTransactions()
+            {
+                var d = _container.Resolve<DapperRepository>();
+                var z = await d.WithConnectionAsync<IEnumerable<long>>(async f =>
+                {
+                    return await f.QueryAsync<long>(
+                        @"Select Id from sb.[user] u
+                            where not exists (select top 1 * from sb.[Transaction] t where t.User_id = u.id)
+                            and PhoneNumberConfirmed = 1
+                            and EmailConfirmed = 1
+                            and Fictive = 0");
+                }, default);
 
+                    foreach (var id in z)
+                    {
+                        var commandBus = _container.Resolve<ICommandBus>();
+                        var registrationBonusCommand = new FinishRegistrationCommand(id);
+                        await commandBus.DispatchAsync(registrationBonusCommand, token);
+                    }
+            }
         public static Task SendMoneyAsync()
         {
             var t = _container.Resolve<IBlockChainErc20Service>();
