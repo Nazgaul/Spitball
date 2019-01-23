@@ -143,6 +143,7 @@
             max-width: 70%;
             text-align: center;
             @media (max-width: @screen-xs) {
+                max-width: 90%;
                 text-align: center;
                 line-height: 1.38;
             }
