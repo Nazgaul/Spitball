@@ -17,14 +17,14 @@
         </div>
         <v-divider class="divider-line"></v-divider>
         <div class="sml-text-row">
-            <div class="" v-show="sblAway < 1000">
+            <div class="" v-show="tokensAmmount < 1000">
                 <bdi>
                     <span v-language:inner>onboard_final_only</span>
                     <span>{{sblAway}} SBL</span>
                     <span v-language:inner>onboard_final_away</span>
                 </bdi>
             </div>
-            <div class="" v-show="sblAway >= 1000">
+            <div class="" v-show="tokensAmmount >= 1000">
                 <bdi>
                     <span v-language:inner>onboard_final_enter_wallet</span>
                 </bdi>
