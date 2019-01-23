@@ -9,22 +9,21 @@
             <div class="sub-title-wrap">
                 <bdi>
                     <span class="step-subtitle"v-language:inner>onboard_final_added</span>
-                    <span class="ammount">&nbsp;{{tokensAmmount | currencyLocalyFilter}}</span>
+                    <span class="ammount">&nbsp;{{tokensAmmount | currencyLocalyFilter}}&nbsp;</span>
                     <span class="step-subtitle" v-language:inner>onboard_final_to_wallet</span>
                 </bdi>
             </div>
-            <!--<div></div>-->
         </div>
         <v-divider class="divider-line"></v-divider>
         <div class="sml-text-row">
-            <div class="" v-show="tokensAmmount < 1000">
+            <div class="" v-show="tokensAmmount < ammountCalcFrom">
                 <bdi>
                     <span v-language:inner>onboard_final_only</span>
-                    <span>{{sblAway}} SBL</span>
+                    <span>&nbsp;{{sblAway}} SBL</span>
                     <span v-language:inner>onboard_final_away</span>
                 </bdi>
             </div>
-            <div class="" v-show="tokensAmmount >= 1000">
+            <div class="" v-show="tokensAmmount >= ammountCalcFrom">
                 <bdi>
                     <span v-language:inner>onboard_final_enter_wallet</span>
                 </bdi>
@@ -44,6 +43,7 @@
         components: {presentStars, presentStarsMobile},
         data() {
             return {
+                ammountCalcFrom: 1000
 
             }
         },
@@ -54,8 +54,8 @@
                 return this.accountUser.balance;
             },
             sblAway() {
-                if(this.tokensAmmount < 1000){
-                    return 1000 - this.tokensAmmount;
+                if(this.tokensAmmount < this.ammountCalcFrom){
+                    return this.ammountCalcFrom - this.tokensAmmount;
                 }else{
                     return this.tokensAmmount;
                 }
