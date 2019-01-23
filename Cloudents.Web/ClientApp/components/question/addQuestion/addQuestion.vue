@@ -75,12 +75,12 @@
                     <span class="select-error-triangle"></span>
                 </div>
                 <div class="question-select left" :class="{'subject-error': hasSubjectError}">
-                    <v-select height="40" v-model="questionSubjct" single-line item-value="id" item-text="subject"
+                    <v-select :content-class="'question-select-list'" height="40" v-model="questionSubjct" single-line item-value="id" item-text="subject"
                               :items="subjectList" :label="dictionary.selectSubjectPlaceholder"
                               :append-icon="'sbf-arrow-down'" outline></v-select>
                 </div>
                 <div class="question-select right">
-                    <v-select height="40" v-model="questionClass" single-line :items="getSelectedClasses"
+                    <v-select :content-class="'question-select-list'" height="40" v-model="questionClass" single-line :items="getSelectedClasses"
                               :label="dictionary.classPlaceholder" :append-icon="'sbf-arrow-down'" outline></v-select>
                 </div>
             </div>
