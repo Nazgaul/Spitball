@@ -119,29 +119,38 @@
   </resheader>
   <data name="btn_continue" xml:space="preserve">
     <value>Continue</value>
+    <comment>הבא</comment>
   </data>
   <data name="btn_finish" xml:space="preserve">
     <value>Finish</value>
+    <comment>סיים וסגור</comment>
   </data>
   <data name="btn_skip" xml:space="preserve">
     <value>Skip</value>
+    <comment>דלג</comment>
   </data>
   <data name="final_added" xml:space="preserve">
     <value>You have</value>
+    <comment>יש לך </comment>
   </data>
   <data name="final_away" xml:space="preserve">
     <value>away from your first cashout!</value>
+    <comment>מלממש את הנקודות שלך בכסף.</comment>
   </data>
   <data name="final_enter_wallet" xml:space="preserve">
     <value>Enter your wallet now and cashout</value>
+    <comment>כנס לארנק שלך לממש אותם היום</comment>
   </data>
   <data name="final_only" xml:space="preserve">
     <value>You’re only</value>
+    <comment>אתה רחוק רק</comment>
   </data>
   <data name="final_title" xml:space="preserve">
     <value>Your points status</value>
+    <comment>סטאטוס הנקודות שלך</comment>
   </data>
   <data name="final_to_wallet" xml:space="preserve">
     <value>points</value>
+    <comment>נקודות</comment>
   </data>
 </root>
