@@ -167,6 +167,7 @@
             font-weight: 600;
             line-height: 1.59;
             font-size: 28px;
+            font-style: italic;
             @media (max-width: @screen-xs) {
                 line-height: 1.38;
                 font-size: 24px;
