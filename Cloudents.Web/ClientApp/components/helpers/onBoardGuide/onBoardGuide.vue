@@ -2,11 +2,13 @@
     <div class="onboard-component">
         <div class="back-img"></div>
         <div class="guide-container">
-            <v-stepper v-model="currentStep" class="on-board-stepper" :class="{'last-step': isFinished}"
-                       :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }">
+            <v-stepper v-model="currentStep" class="on-board-stepper"
+                      >
                 <!--<v-stepper-header class="elevation-0">-->
                 <!--</v-stepper-header>-->
-                <v-stepper-items class="step-items">
+                <v-stepper-items class="step-items"
+                                 :class="{'last-step': isFinished}"
+                                 :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }">
                     <v-stepper-content
                             v-for="n in steps"
                             :key="`${n}-content`"
@@ -188,21 +190,26 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background-size: contain;
-            background-position: 50%;
-            background-repeat: no-repeat;
             height: 90vh;
             @media (max-width: @screen-xs) {
                 min-height: 100%;
                 //can delete after background image replaced to be elements
-                &.last-step {
-                    background-size: cover;
-                    background-position: right 0 bottom 50px;
-                }
+
             }
         }
         .step-items {
             height: 100%;
+            background-size: contain;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            @media (max-width: @screen-xs) {
+                background-size: cover;
+                background-position: top;
+            }
+            &.last-step {
+                background-size: cover;
+
+            }
         }
         .guide-container {
             width: 100%;
