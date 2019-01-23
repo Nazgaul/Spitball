@@ -39,7 +39,7 @@ namespace Cloudents.Persistance.Maps
                 .Access.CamelCaseField(Prefix.Underscore)
                 .LazyLoad()
                 .Inverse();
-
+            Map(x => x.OldId).Nullable();
             HasMany(x => x.Votes)
                 .Access.CamelCaseField(Prefix.Underscore)
                 .KeyColumns.Add("DocumentId")
