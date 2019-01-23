@@ -88,6 +88,7 @@ namespace Cloudents.Core.Entities
         }
 
         public static readonly SystemEvent DocumentPurchased = new SystemEvent("DocumentPurchased");
+        public static readonly SystemEvent AnswerAccepted = new SystemEvent("AnswerAccepted");
 
 
         public static implicit operator string(SystemEvent tb)

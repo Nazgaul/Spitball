@@ -164,3 +164,19 @@ N'הארנק שלי '
 
 
 We need to run dbi (in program - FixUsersWithoutTransactions()) to fix the users that didn't get no transactions.
+
+
+insert into sb.SystemEvent values('AnswerAccepted');
+insert into sb.Email values('Awesome you just earned {Tokens} SBL',1,'en','AnswerAccepted')
+
+insert into sb.emailblock (title,minortitle,subtitle,body,cta,email_id,orderblock) values
+(
+N'Great job!', 
+N'Your answer was accepted',
+N'You earned {Tokens} SBL',
+N'Q: “ {QuestionText} ”
+A: “ {AnswerText} ”',
+N'Check your wallet'
+,3
+,1
+)

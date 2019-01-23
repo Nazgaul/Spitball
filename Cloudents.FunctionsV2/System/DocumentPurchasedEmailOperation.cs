@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 
 namespace Cloudents.FunctionsV2.System
@@ -93,5 +94,64 @@ namespace Cloudents.FunctionsV2.System
             await emailProvider.AddAsync(message, token);
 
         }
+
+       
     }
+
+    //public abstract class BaseEmailOperation
+    //{
+    //    public async Task BuildEmail(EmailDto result, IBinder binder,CancellationToken token)
+    //    {
+    //        var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
+    //        {
+    //            ApiKey = "SendgridKey",
+    //            From = "Spitball <no-reply @spitball.co>"
+    //        }, token);
+
+
+    //        var message = new SendGridMessage
+    //        {
+    //            Asm = new ASM { GroupId = 10926 },
+    //            TemplateId = result.Language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
+    //        };
+    //       var templateData = BuildTemplateData();
+    //       templateData.To = result.ToEmailAddress;
+    //        var personalization = new Personalization
+    //        {
+    //            TemplateData = templateData
+    //            //TemplateData = new TemplateData()
+    //            //{
+    //            //    Blocks = result.Blocks
+    //            //        .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
+    //            //            _urlBuilder.BuildWalletEndPoint(code))),
+    //            //    Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
+    //            //    Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
+    //            //    To = result.ToEmailAddress,
+    //            //    //Direction = ((CultureInfo)result.Language).TextInfo.IsRightToLeft ? "rtl" : "ltr"
+    //            //}
+    //        };
+
+
+    //        message.Personalizations = new List<Personalization>()
+    //        {
+    //            personalization
+    //        };
+    //        //message.Subject = result.Subject.InjectSingleValue("Tokens",result.Tokens);
+    //        message.AddCategory("DocumentPurchased");
+    //        message.TrackingSettings = new TrackingSettings
+    //        {
+    //            Ganalytics = new Ganalytics
+    //            {
+    //                UtmCampaign = "DocumentPurchased",
+    //                UtmSource = "SendGrid",
+    //                UtmMedium = "Email",
+    //                Enable = true
+    //            }
+    //        };
+    //        message.AddTo(result.ToEmailAddress);
+    //        await emailProvider.AddAsync(message, token);
+    //    }
+
+    //    protected abstract TemplateData BuildTemplateData();
+    //}
 }

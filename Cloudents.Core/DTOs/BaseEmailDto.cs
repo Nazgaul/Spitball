@@ -28,6 +28,13 @@ namespace Cloudents.Core.DTOs
         public decimal Tokens { get; set; }
     }
 
+    public class AnswerAcceptedEmailDto : EmailDto
+    {
+        public string QuestionText { get; set; }
+        public string AnswerText { get; set; }
+        public decimal Tokens { get; set; }
+    }
+
     public class EmailBlockDto 
     {
         public string Title { get; set; }
