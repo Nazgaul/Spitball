@@ -12,8 +12,8 @@ namespace Cloudents.Query.Query
 
 
 
-        public long Id { get; private set; }
-        public long? UserId { get; private set; }
+        public long Id { get; }
+        public long? UserId { get; }
     }
 
     public class DocumentSeoById : IQuery<DocumentSeoDto>
@@ -23,6 +23,16 @@ namespace Cloudents.Query.Query
             Id = id;
         }
 
-        public long Id { get; private set; }
+        public long Id { get; }
+    }
+
+    public class DocumentSeoByOldId : IQuery<DocumentSeoDto>
+    {
+        public DocumentSeoByOldId(long oldId)
+        {
+            OldId = oldId;
+        }
+
+        public long OldId { get; }
     }
 }

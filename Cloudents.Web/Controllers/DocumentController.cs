@@ -47,17 +47,21 @@ namespace Cloudents.Web.Controllers
             _userManager = userManager;
         }
 
-        [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
-        public IActionResult OldDocumentLinkRedirect(string universityName, string boxName, long id, string name)
+        [Route("item/{universityName}/{boxId:long}/{boxName}/{oldId:long}/{name}", Name = SeoTypeString.Item)]
+        public async Task<IActionResult> OldDocumentLinkRedirect(string universityName, string boxName, long oldId, string name, CancellationToken token)
         {
-            //return this.RedirectToOldSite();
-            //TODO: we need to put Permanent
-            return RedirectToAction("Index", new
+            var query = new DocumentSeoByOldId(oldId);
+            var model = await _queryBus.QueryAsync(query, token);
+            if (model == null)
             {
-                universityName,
-                courseName = boxName,
-                id,
-                name
+                return NotFound();
+            }
+            return RedirectToRoutePermanent(SeoTypeString.Document, new
+            {
+                universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
+                courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
+                id = model.Id,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
             });
         }
 
@@ -92,7 +96,7 @@ namespace Cloudents.Web.Controllers
             {
                 universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
-                id = id,
+                id,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
             });
             return t;
@@ -150,7 +154,7 @@ namespace Cloudents.Web.Controllers
             ViewBag.metaDescription = _localizer["meta"];
             if (!string.IsNullOrEmpty(model.MetaContent))
             {
-                ViewBag.metaDescription += ":" + model.MetaContent.Truncate(100);
+                ViewBag.metaDescription += ":" + model.MetaContent.Truncate(200);
             }
             ViewBag.metaDescription = WebUtility.HtmlDecode(ViewBag.metaDescription);
             return View();
