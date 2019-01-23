@@ -270,7 +270,7 @@ namespace Cloudents.Web.Api
             var data = TempData.Peek(EmailTime);
             if (data != null)
             {
-                var temp = DateTime.Parse(TempData.Peek(EmailTime).ToString());
+                var temp = DateTime.Parse(TempData.Peek(EmailTime).ToString(), CultureInfo.InvariantCulture);
 
                 if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
                 {
@@ -285,7 +285,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, _localizer["EmailResend"]);
                 return BadRequest(ModelState);
             }
-            var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
+            var user = await _userManager.FindByEmailAsync(email.ToString());
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, _localizer["UserNotExists"]);
@@ -293,7 +293,7 @@ namespace Cloudents.Web.Api
             }
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-            await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
+            await GenerateEmailAsync(user, returnUrl, token);
             return Ok();
         }
     }
