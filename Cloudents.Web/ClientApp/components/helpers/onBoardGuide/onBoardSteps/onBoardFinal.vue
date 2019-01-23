@@ -140,8 +140,8 @@
             display: flex;
             flex-direction: column;
             padding-bottom: 32px;
-            max-width: 70%;
             text-align: center;
+            max-width: 90%;
             @media (max-width: @screen-xs) {
                 max-width: 90%;
                 text-align: center;
