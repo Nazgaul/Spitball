@@ -61,10 +61,10 @@
                 steps: 4,
                 desktop: {
                     hebrew: {
-                        1: './images/desktop_english_1.png',
-                        2: './images/desktop_english_2.png',
-                        3: './images/desktop_english_3.png',
-                        4: './images/desktop_english_4.png',
+                        1: './images/desktop_hebrew_1.png',
+                        2: './images/desktop_hebrew_2.png',
+                        3: './images/desktop_hebrew_3.png',
+                        4: './images/desktop_hebrew_4.png',
 
                     },
                     english: {
@@ -76,10 +76,10 @@
                 },
                 mobile: {
                     hebrew: {
-                        1: './images/mobile_english_1.png',
-                        2: './images/mobile_english_2.png',
-                        3: './images/mobile_english_3.png',
-                        4: './images/mobile_english_4.png',
+                        1: './images/mobile_hebrew_1.png',
+                        2: './images/mobile_hebrew_2.png',
+                        3: './images/mobile_hebrew_3.png',
+                        4: './images/mobile_hebrew_4.png',
 
                     },
                     english: {

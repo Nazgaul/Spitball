@@ -5,12 +5,12 @@
             <presentStars v-else class="present-img"></presentStars>
         </div>
         <div class="text-row">
-            <span class="step-title d-flex">You got a gift!</span>
+            <span class="step-title d-flex" v-language:inner>onboard_final_title</span>
             <div class="sub-title-wrap">
                 <bdi>
-                    <span class="step-subtitle">We’ve added</span>
+                    <span class="step-subtitle"v-language:inner>onboard_final_added</span>
                     <span class="ammount">&nbsp;{{tokensAmmount | currencyLocalyFilter}}</span>
-                    <span class="step-subtitle">to your wallet</span>
+                    <span class="step-subtitle" v-language:inner>onboard_final_to_wallet</span>
                 </bdi>
             </div>
             <!--<div></div>-->
@@ -19,9 +19,9 @@
         <div class="sml-text-row">
             <div class="">
                 <bdi>
-                    <span>You’re only</span>
+                    <span v-language:inner>onboard_final_only</span>
                     <span>{{sblAway}} SBL</span>
-                    <span>away from your first cashout!</span>
+                    <span v-language:inner>onboard_final_away</span>
                 </bdi>
             </div>
         </div>
