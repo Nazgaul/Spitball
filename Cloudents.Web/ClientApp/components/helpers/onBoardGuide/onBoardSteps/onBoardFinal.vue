@@ -19,7 +19,7 @@
             <div class="" v-show="tokensAmmount < ammountCalcFrom">
                 <bdi>
                     <span v-language:inner>onboard_final_only</span>
-                    <span>&nbsp;{{sblAway}} SBL</span>
+                    <span>&nbsp;{{sblAway}} SBL &nbsp;</span>
                     <span v-language:inner>onboard_final_away</span>
                 </bdi>
             </div>
