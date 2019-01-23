@@ -208,12 +208,13 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException();
             }
-            Status = Public;
+           
             if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
             {
                 _votes.Clear();
                 VoteCount = 0;
             }
+            Status = Public;
         }
     }
 

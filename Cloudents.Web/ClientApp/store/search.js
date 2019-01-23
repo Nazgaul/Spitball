@@ -201,32 +201,32 @@ const actions = {
         }
         commit(SEARCH.ADD_QUESTION, questionToSend);
     },
-    updateCoursesFilters({commit, getters, dispatch}, arrCourses) {
-        let VerticalName = getters.getCurrentVertical;
-        if (VerticalName.toLowerCase() !== "note") return;
+    // updateCoursesFilters({commit, getters, dispatch}, arrCourses) {
+    //     let VerticalName = getters.getCurrentVertical;
+    //     if (VerticalName.toLowerCase() !== "note") return;
 
-        let courses = arrCourses.map(item => {
-            let currVal = "";
-            if (typeof item === "string") {
-                currVal = item
-            } else {
-                currVal = item.text
-            }
-            return {
-                key: currVal,
-                value: currVal
-            }
-        })
+    //     let courses = arrCourses.map(item => {
+    //         let currVal = "";
+    //         if (typeof item === "string") {
+    //             currVal = item
+    //         } else {
+    //             currVal = item.text
+    //         }
+    //         return {
+    //             key: currVal,
+    //             value: currVal
+    //         }
+    //     })
 
-        let MutationObj = {
-            courses,
-            fnUpdateCourses: (filtersData) => {
-                dispatch('updateFilters', filtersData);
-            }
-        };
-        commit('StudyDocuments_updateCoursesFilters', MutationObj);
+    //     let MutationObj = {
+    //         courses,
+    //         fnUpdateCourses: (filtersData) => {
+    //             dispatch('updateFilters', filtersData);
+    //         }
+    //     };
+    //     commit('StudyDocuments_updateCoursesFilters', MutationObj);
 
-    },
+    // },
     // documentVote({commit, dispatch}, data) {
     //     reputationService.voteDocument(data.id, data.type).then(() => {
     //         commit(SEARCH.UPDATE_DOCUMENT_VOTE, data);

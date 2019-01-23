@@ -124,6 +124,6 @@
     <value>This phone number is linked to another email address</value>
   </data>
   <data name="PhoneNumberNotSameCountry" xml:space="preserve">
-    <value>Your account has being suspended. please contact support for more info</value>
+    <value>Your account has being suspended. Please contact support for more info</value>
   </data>
 </root>

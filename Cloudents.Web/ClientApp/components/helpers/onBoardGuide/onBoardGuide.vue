@@ -2,7 +2,7 @@
     <div class="onboard-component">
         <div class="back-img"></div>
         <div class="guide-container">
-            <v-stepper v-model="currentStep" class="on-board-stepper">
+            <v-stepper v-model="currentStep" class="on-board-stepper" :class="{'last-step': isFinished}" :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }">
                 <!--<v-stepper-header class="elevation-0">-->
                 <!--</v-stepper-header>-->
                 <v-stepper-items>
@@ -10,27 +10,28 @@
                             v-for="n in steps"
                             :key="`${n}-content`"
                             :step="n">
-                        <img :src="require(`${imgSrc}`)" alt="">
+                        <!--<img class="step-image" :src="require(`${imgSrc}`)" alt="">-->
                     </v-stepper-content>
 
                 </v-stepper-items>
-                <div class="progress-background">
+                <div class="progress-background" :class="{'background-purple': isFinished}">
                     <div class="progress-wrap">
-                        <v-btn class="btn sb-btn-flat close" :class="{'visibility-hidden' : isFinished}"
+                        <v-btn class="btn sb-btn-flat close elevation-0" :class="{'visibility-hidden' : isFinished}"
                                @click="skipSteps()">Skip
                         </v-btn>
-                        <div class="steps-circle-wrap d-flex"  v-show="!isFinished">
+                        <div class="steps-circle-wrap d-flex">
                             <v-stepper-step
                                     :complete-icon="''"
                                     :color="'#5158af'"
                                     v-for="n in steps"
+                                    v-if="!$vuetify.breakpoint.xsOnly || !isFinished"
                                     :class="[currentStep === n ? 'active-step-progress' : 'inactive-step']"
                                     step=""></v-stepper-step>
                         </div>
                         <div class="actions-wrap">
-                            <v-btn class="btn sb-btn-flat continue" v-show="!isFinished" @click="nextStep()">Continue
+                            <v-btn class="btn sb-btn-flat continue elevation-0" v-show="!isFinished" @click="nextStep()">Continue
                             </v-btn>
-                            <v-btn class="btn sb-btn-flat finish" v-show="isFinished" @click="closeGuide()">Finish
+                            <v-btn class="btn sb-btn-flat finish elevation-0" v-show="isFinished" @click="closeGuide()">Finish
                             </v-btn>
                         </div>
                     </div>
@@ -54,32 +55,32 @@
                 steps: 4,
                 desktop: {
                     hebrew: {
-                        1: './images/mobile_Hebrew_LogedIn.png',
-                        2: './images/mobile_Hebrew_LogedIn.png',
-                        3: './images/mobile_Hebrew_LogedIn.png',
-                        4: './images/mobile_Hebrew_LogedIn.png',
+                        1: './images/desktop_english_1.png',
+                        2: './images/desktop_english_2.png',
+                        3: './images/desktop_english_3.png',
+                        4: './images/desktop_english_4.png',
 
                     },
                     english: {
-                        1: './images/desktop_English_LogedIn.png',
-                        2: './images/desktop_English_LogedIn.png',
-                        3: './images/mobile_Hebrew_LogedIn.png',
-                        4: './images/mobile_Hebrew_LogedIn.png',
+                        1: './images/desktop_english_1.png',
+                        2: './images/desktop_english_2.png',
+                        3: './images/desktop_english_3.png',
+                        4: './images/desktop_english_4.png',
                     }
                 },
                 mobile: {
                     hebrew: {
-                        1: './images/mobile_Hebrew_LogedIn.png',
-                        2: './images/mobile_Hebrew_LogedIn.png',
-                        3: './images/mobile_Hebrew_LogedIn.png',
-                        4: './images/mobile_Hebrew_LogedIn.png',
+                        1: './images/mobile_english_1.png',
+                        2: './images/mobile_english_2.png',
+                        3: './images/mobile_english_3.png',
+                        4: './images/mobile_english_4.png',
 
                     },
                     english: {
-                        1: './images/mobile_Hebrew_LogedIn.png',
-                        2: './images/desktop_English_LogedIn.png',
-                        3: './images/mobile_Hebrew_LogedIn.png',
-                        4: './images/mobile_Hebrew_LogedIn.png',
+                        1: './images/mobile_english_1.png',
+                        2: './images/mobile_english_2.png',
+                        3: './images/mobile_english_3.png',
+                        4: './images/mobile_english_4.png',
                     }
                 }
             }
@@ -153,6 +154,8 @@
             font-size: 16px;
             outline: none;
             letter-spacing: -.5px;
+            background-color: transparent!important; //vuetify
+            box-shadow: none;
         }
         //End predefined sets
         position: relative;
@@ -161,8 +164,27 @@
         margin: 0 auto;
         justify-content: center;
         height: 100%;
+        .step-image{
+            height: auto;
+            width: 100%;
+        }
         .on-board-stepper {
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 90vh;
+            @media (max-width: @screen-xs) {
+                min-height: unset;
+                //can delete after background image replaced to be elements
+                &.last-step{
+                    background-size: cover;
+                    background-position: right 0 top 10px;
+                }
+            }
         }
         .guide-container {
             width: 100%;
@@ -178,6 +200,10 @@
             border-radius: 0 0 12px 12px;
             @media (max-width: @screen-xs) {
                 background-color: transparent;
+                &.background-purple{
+                    background-color: @purpleOnBoard;
+                    border-radius: 0;
+                }
             }
 
         }
@@ -219,23 +245,30 @@
             .continue, .finish {
                 margin-left: auto;
             }
+            .finish{
+                @media (max-width: @screen-xs) {
+                   color: @color-white;
+                    border: 1px solid @color-white;
+                }
+            }
             .active-step-progress, .inactive-step {
                 padding: 8px;
             }
             .active-step-progress {
                 span {
-                    width: 26px;
-                    height: 26px;
-                    border-radius: 26px;
+                    width: 16px;
+                    height: 16px;
+                    min-width: 16px;
+                    border-radius: 16px;
                     background: @purpleOnBoard !important;
                 }
             }
             .inactive-step {
                 span {
-                    width: 16px;
-                    height: 16px;
-                    min-width: 16px;
-                    border-radius: 16px;
+                    width: 8px;
+                    height: 8px;
+                    min-width: 8px;
+                    border-radius: 8px;
                     background-color: #d8d8d8;
                 }
 

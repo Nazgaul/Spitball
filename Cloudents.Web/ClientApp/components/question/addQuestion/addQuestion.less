@@ -1,4 +1,12 @@
 @import "../../../styles/mixin.less";
+
+//detached select list
+.question-select-list{
+    @media (max-width: @screen-xs) {
+        max-width:10%;
+    }
+}
+
 .newQuestionDialog {
     box-shadow: none;
     justify-content: center;
@@ -305,6 +313,9 @@
                     .v-input__slot{
                         min-height: unset;
                         border: 1px solid rgba(0,0,0,0.3);
+                        &:hover{
+                            border: 1px solid rgba(0,0,0,.3);
+                        }
                         .v-select__slot{
                             label{
                                 top:unset;
@@ -316,6 +327,7 @@
                                 right:auto !important;
                             }
                             .v-select__selections{
+                                width:100%;
                                 :not(:first-child){
                                     display: none; //remove the label element from taking mass
                                 }

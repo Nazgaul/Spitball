@@ -18,7 +18,7 @@ namespace Cloudents.Query
             TransactionId = transactionId;
         }
 
-        public Guid TransactionId { get; }
+        private Guid TransactionId { get; }
 
 
 

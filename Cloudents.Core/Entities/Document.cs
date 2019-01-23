@@ -72,7 +72,7 @@ namespace Cloudents.Core.Entities
         public virtual int Downloads { get; set; }
         public virtual int Purchased { get; set; }
         public virtual int? PageCount { get; set; }
-        //public virtual long? OldId { get; set; }
+        public virtual long? OldId { get; set; }
 
         public virtual string MetaContent { get; set; }
 
