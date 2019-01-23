@@ -96,10 +96,7 @@ namespace Cloudents.FunctionsV2.System
         }
 
 
-        protected override TemplateData BuildTemplateData()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 
     public abstract class BaseEmailOperation
