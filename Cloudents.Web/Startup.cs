@@ -12,7 +12,6 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
-using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -312,19 +311,20 @@ namespace Cloudents.Web
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
-
+            //This is for ip
+            //https://stackoverflow.com/a/41335701/1235448
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                                   ForwardedHeaders.XForwardedProto
+            });
             app.UseAuthentication();
 
             app.UseAzureSignalR(routes =>
             {
                 routes.MapHub<SbHub>("/SbHub");
             });
-            //This is for ip
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-                                   ForwardedHeaders.XForwardedProto
-            });
+           
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
