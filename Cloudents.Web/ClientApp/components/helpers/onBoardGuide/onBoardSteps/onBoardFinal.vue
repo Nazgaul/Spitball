@@ -99,6 +99,7 @@
             .present-img {
                 height: auto;
                 width: 100%;
+                max-width: 198px;
                 @media (max-width: @screen-xs) {
                     max-width: 198px;
                 }
