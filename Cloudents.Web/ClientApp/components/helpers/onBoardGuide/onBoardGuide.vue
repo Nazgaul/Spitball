@@ -210,7 +210,6 @@
             @media (max-width: @screen-xs) {
                 min-height: 100%;
                 //can delete after background image replaced to be elements
-
             }
         }
         .step-items {

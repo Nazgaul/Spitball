@@ -303,7 +303,7 @@
                 if(isLogedIn && !supressed && validRoutesNames){
                   setTimeout(()=>{
                       this.updateOnBoardState(true);
-                  }, 3000)
+                  },)
 
               }
             },
