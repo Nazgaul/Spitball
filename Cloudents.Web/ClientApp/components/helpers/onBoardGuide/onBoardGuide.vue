@@ -192,7 +192,7 @@
         .step-content {
             padding: 16px 24px 16px 24px;
             @media(max-width: @screen-xs){
-                padding: 40px 24px 16px 24px;
+                padding: 50px 24px 16px 24px;
             }
             .v-stepper__wrapper {
                 display: flex;
@@ -206,11 +206,10 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 90vh;
+            height: 100vh;
             @media (max-width: @screen-xs) {
                 min-height: 100%;
                 //can delete after background image replaced to be elements
-
             }
         }
         .step-items {
@@ -281,11 +280,18 @@
             .actions-wrap {
                 margin-left: auto;
                 @media (max-width: @screen-xs) {
-                    margin: 0 auto;
+                    /*margin: 0 auto;*/
+                    margin: unset;
                 }
             }
             .continue, .finish {
                 margin-left: auto;
+            }
+            .continue{
+                @media (max-width: @screen-xs) {
+                    /*margin: 0 auto;*/
+                    margin: unset;
+                }
             }
             .finish {
                 @media (max-width: @screen-xs) {

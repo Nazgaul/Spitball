@@ -87,7 +87,7 @@
             <sb-dialog
                     :showDialog="getOnBoardState"
                     :popUpType="'onBoardGuide'"
-                    :content-class="'onboard-guide-container'"
+                    :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
                     :maxWidth="'1280px'"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
             >
@@ -303,7 +303,7 @@
                 if(isLogedIn && !supressed && validRoutesNames){
                   setTimeout(()=>{
                       this.updateOnBoardState(true);
-                  }, 3000)
+                  },)
 
               }
             },

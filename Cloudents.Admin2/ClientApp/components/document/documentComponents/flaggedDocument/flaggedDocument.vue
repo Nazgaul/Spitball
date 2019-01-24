@@ -50,6 +50,11 @@
                                             <span>Delete Document</span>
                                         </v-tooltip>
 
+                                            <v-btn slot="activator" flat color="red" :href="document.siteLink" target="_blank">
+                                                Download
+                                            </v-btn>
+
+
                                         <!-- <v-btn flat color="red" v-bind:href="document.siteLink" target="_blank">
                                             Link
                                         </v-btn> -->
