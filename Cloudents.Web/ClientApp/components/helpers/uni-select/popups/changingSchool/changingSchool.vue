@@ -157,7 +157,8 @@ export default {
             .buttons-container{
                 display: flex;
                 flex-direction: row;
-                justify-content: space-evenly;
+                /*justify-content: space-evenly;*/
+                justify-content: space-around;
                 margin: 27px auto 37px;
                 .responsive-property(width, 80%, null, 100%);
                 button{

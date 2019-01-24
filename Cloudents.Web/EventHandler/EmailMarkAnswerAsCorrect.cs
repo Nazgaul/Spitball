@@ -33,19 +33,13 @@ namespace Cloudents.Web.EventHandler
         {
             var answer = eventMessage.Answer;
 
-            //if (!(answer.User is RegularUser u))
-            //{
-            //    return;
-            //}
-
-
-            var code = _dataProtect.Protect(ProtectPurpose, answer.User.Id.ToString(),
+            var code = _dataProtect.Protect(answer.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(5));
-            var link = _urlBuilder.BuildWalletEndPoint(new { code });
+            var link = _urlBuilder.BuildWalletEndPoint(code);
             await SendEmail(
                 new AnswerCorrectEmail(answer.User.Email, answer.Question.Text,
                     answer.Text, link,
-                    answer.Question.Price, answer.User.Culture), answer.User, token).ConfigureAwait(false);
+                    answer.Question.Price, answer.User.Language), token);
         }
     }
 }

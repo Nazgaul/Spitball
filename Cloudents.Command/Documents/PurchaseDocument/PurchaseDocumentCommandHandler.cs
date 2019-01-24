@@ -1,20 +1,20 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.Documents.PurchaseDocument
 {
     public class PurchaseDocumentCommandHandler : ICommandHandler<PurchaseDocumentCommand>
     {
-        private readonly IRegularUserRepository _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly ITransactionRepository _transactionRepository;
         private readonly IRepository<Document> _documentRepository;
 
-        public PurchaseDocumentCommandHandler(IRegularUserRepository userRepository, ITransactionRepository transactionRepository, IRepository<Document> documentRepository)
+        public PurchaseDocumentCommandHandler(IRepository<User> userRepository, ITransactionRepository transactionRepository, IRepository<Document> documentRepository)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
@@ -29,29 +29,21 @@ namespace Cloudents.Command.Documents.PurchaseDocument
                 throw new ArgumentException();
             }
 
-            var balance = await _transactionRepository.GetBalanceAsync(message.UserId,token);
+            var balance = await _transactionRepository.GetBalanceAsync(message.UserId, token);
             if (balance < document.Price)
             {
                 throw new InsufficientFundException();
             }
-          
+
 
             var purchaseUser = await _userRepository.LoadAsync(message.UserId, token);
-            var t = new Transaction(TransactionActionType.PurchaseDocument, TransactionType.Spent,
-                -document.Price, purchaseUser)
-            {
-                Document = document
-            };
-            await _transactionRepository.AddAsync(t, token);
-            if (document.User.Actual is RegularUser p)
-            {
-                var t2 = new Transaction(TransactionActionType.SoldDocument, TransactionType.Earned,
-                    document.Price,p)
-                {
-                    Document = document
-                };
-                await _transactionRepository.AddAsync(t2, token);
-            }
+
+            purchaseUser.MakeTransaction(TransactionType2.Spend(document.Price,TransactionActionType.PurchaseDocument),document: document);
+            document.User.MakeTransaction(TransactionType2.Earn(document.Price,TransactionActionType.SoldDocument),document:document);
+            
+            await _userRepository.UpdateAsync(purchaseUser, token);
+            await _userRepository.UpdateAsync(document.User, token);
+
         }
     }
 }

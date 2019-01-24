@@ -28,13 +28,13 @@ namespace Cloudents.Query.Admin
         {
             return await _session.Query<Question>()
                 .Fetch(f => f.User)
-                .Where(w => w.User is RegularUser && w.State == ItemState.Flagged)
+                .Where(w => w.User is RegularUser && w.Status.State == ItemState.Flagged)
                 .Select(s => new FlaggedQuestionDto
                 {
                     Id = s.Id,
-                    Reason = s.FlagReason,
+                    Reason = s.Status.FlagReason,
                     Text = s.Text,
-                    FlaggedUserEmail = s.FlaggedUser.Email
+                    FlaggedUserEmail = s.Status.FlaggedUser.Email
                 }).OrderBy(o => o.Id).ToListAsync(token);
         }
     }

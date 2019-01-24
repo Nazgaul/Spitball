@@ -11,7 +11,9 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
-
+using Cloudents.Core.Storage;
+using System.Linq;
+using Cloudents.Persistance.Repositories;
 
 namespace Cloudents.Admin2.Api
 {
@@ -20,11 +22,17 @@ namespace Cloudents.Admin2.Api
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
+        private readonly IBlobProvider<DocumentContainer> _blobProvider;
+        private readonly IQueueProvider _queueProvider;
+       
 
-        public AdminUserController(ICommandBus commandBus, IQueryBus queryBus)
+        public AdminUserController(ICommandBus commandBus, IQueryBus queryBus, 
+            IBlobProvider<DocumentContainer> blobProvider, IQueueProvider queueProvider)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
+            _blobProvider = blobProvider;
+            _queueProvider = queueProvider;
         }
 
         /// <summary>
@@ -36,7 +44,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("sendTokens")]
         public async Task<IActionResult> Post(SendTokenRequest model, CancellationToken token)
         {
-            var command = new DistributeTokensCommand(model.UserId, model.Tokens, TransactionActionType.None);
+            var command = new DistributeTokensCommand(model.UserId, model.Tokens);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -146,6 +154,51 @@ namespace Cloudents.Admin2.Api
             var command = new DeleteUserCommand(id);
             await _commandBus.DispatchAsync(command, token);
         }
+        
+        [HttpGet("info")]
+        public async Task<UserInfoDto> GetUserInfo(string userIdentifier, [FromServices] IBlobProvider blobProvider,
+            CancellationToken token)
+        {
+            long Id;
+            AdminUserInfoQuery query;
+            if (long.TryParse(userIdentifier, out Id))
+            {
+                query = new AdminUserInfoQuery(Id);
+            }
+            else
+            {
+                var userQuery = new AdminUserIdFromEmailQuery(userIdentifier);
+                Id = await _queryBus.QueryAsync(userQuery, token);
+                query = new AdminUserInfoQuery(Id);
+            }
+           
+            var retVal = await _queryBus.QueryAsync(query, token);
+            var tasks = new Lazy<List<Task>>();
             
+            foreach (var document in retVal.Documents)
+            {
+
+                var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
+                var file = files.FirstOrDefault();
+                if (file != null)
+                {
+                    document.Preview =
+                        blobProvider.GeneratePreviewLink(file,
+                            20);
+
+                    document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
+                   
+                }
+                else
+                {
+
+                    var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
+                    tasks.Value.Add(t);
+                }
+               
+            }
+            return retVal;
+        }
+
     }
 }

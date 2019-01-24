@@ -117,7 +117,7 @@ namespace Cloudents.Web.Api
             }
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateUserCultureCommand(userId, culture.Culture);
+            var command = new UpdateUserCultureCommand(userId, culture.Culture.Name);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();

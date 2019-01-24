@@ -11,7 +11,7 @@ const suspendUser = function(ids, deleteUserQuestions){
     }, (err)=>{
         return Promise.reject(err);
     })
-}
+};
 const releaseUser = function(ids){
     let path = "AdminUser/unSuspend";
     let data = {
@@ -22,7 +22,7 @@ const releaseUser = function(ids){
     }, (err)=>{
         return Promise.reject(err);
     })
-}
+};
 
 export {
     suspendUser,

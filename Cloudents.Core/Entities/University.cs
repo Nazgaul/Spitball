@@ -5,7 +5,7 @@ namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
-    public class University
+    public class University : Entity<Guid>
     {
         public University(string name, string country) : this()
         {
@@ -19,7 +19,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual Guid Id { get; protected set; }
+        //public virtual Guid Id { get; protected set; }
 
 
         public virtual string Name { get; protected set; }

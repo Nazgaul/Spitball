@@ -44,12 +44,13 @@ namespace Cloudents.Web.EventHandler
                 return;
             }
             var question = eventMessage.Answer.Question;
-            var code = _dataProtect.Protect(CreateAnswer, question.User.Id.ToString(),
+            var code = _dataProtect.Protect(question.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(2));
-            var link = _urlBuilder.BuildQuestionEndPoint(question.Id, new { code });
+            var link = _urlBuilder.BuildQuestionEndPoint(question.Id, new { token = code });
             await SendEmail(
-                   new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link, question.User.Culture)
-                   , u
+                   new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link,
+                       question.User.Language)
+                  
                    , token);
         }
     }

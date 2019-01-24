@@ -1,3 +1,10 @@
+using Autofac;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Message;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
+using Cloudents.FunctionsV2.System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -7,13 +14,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
+using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
 {
@@ -43,26 +50,35 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("finish sending email");
         }
 
-       // [FunctionName("FunctionEmailTest")]
+        //[FunctionName("FunctionEmailTest")]
         //public static async Task EmailFunctionTimerAsync(
         //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
         //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
         //    IAsyncCollector<SendGridMessage> emailProvider,
+
+        //    [Inject] ILifetimeScope lifetimeScope,
+        //    IBinder binder,
         //    ILogger log,
         //    CancellationToken token)
         //{
-        //    var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
-        //     "https://www.spitball.co", 456.23424M, CultureInfo.InvariantCulture);
-        //    await ProcessEmail(emailProvider, log, topicMessage, token);
+
+
+        //    var message = new DocumentPurchasedMessage(Guid.Parse("03467747-BB06-438F-9F53-A9C600F2FABC"));
+
+        //    var handlerType =
+        //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+        //    using (var child = lifetimeScope.BeginLifetimeScope())
+        //    {
+        //        dynamic operation = child.Resolve(handlerType);
+        //        await operation.DoOperationAsync((dynamic)message, binder, token);
+        //    }
         //}
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
         {
             var message = new SendGridMessage();
-           
             var personalization = new Personalization();
-            //personalization.AddTo(new Email(topicMessage.To));
             message.Asm = new ASM
             {
                 GroupId = 10926
@@ -82,7 +98,8 @@ namespace Cloudents.FunctionsV2
                         {
                             UtmCampaign = topicMessage.Campaign,
                             UtmSource = "SendGrid",
-                            UtmMedium = "Email"
+                            UtmMedium = "Email",
+                            Enable = true
                         }
                     };
                     message.TrackingSettings.Ganalytics.Enable = true;
@@ -110,34 +127,17 @@ namespace Cloudents.FunctionsV2
             };
             message.AddTo(topicMessage.To);
 
-            await emailProvider.AddAsync(message, token).ConfigureAwait(false);
+            await emailProvider.AddAsync(message, token);
         }
 
 
 
-        //TODO: remove this on v10
-        [FunctionName("FunctionSms")]
-        public static async Task SmsStorageQueueAsync(
-            [QueueTrigger(QueueName.SmsQueueName)] SmsMessage2 msg,
-            DateTimeOffset insertionTime,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
-            ILogger log,
-            CancellationToken token
-        )
-        {
-            if (insertionTime < DateTime.UtcNow.AddMinutes(-30))
-            {
-                log.LogWarning("Too late of a message");
-                return;
-            }
-
-            await ProcessSmsMessageAsync(msg, options, log, token);
-        }
+        
 
 
         [FunctionName("FunctionSmsServiceBus")]
         public static async Task SmsServiceBusAsync(
-            [ServiceBusTrigger("sms",Connection = "AzureWebJobsServiceBus")] SmsMessage2 msg,
+            [ServiceBusTrigger("sms", Connection = "AzureWebJobsServiceBus")] SmsMessage2 msg,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
             ILogger log,
             CancellationToken token
@@ -164,7 +164,71 @@ namespace Cloudents.FunctionsV2
             await options.AddAsync(new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
                 Body = "Your code to enter into Spitball is: " + msg.Message
-            }, token).ConfigureAwait(false);
+            }, token);
         }
     }
+
+    public class TemplateData
+    {
+        [JsonProperty("blocks")]
+        public IEnumerable<Block> Blocks { get; set; }
+        [JsonProperty("referral")]
+        public Referral Referral { get; set; }
+
+        [JsonProperty("subject")]
+        public string Subject { get; set; }
+
+        [JsonProperty("to")]
+        public string To { get; set; }
+       
+    }
+
+    public class Referral
+    {
+        public Referral( string link)
+        {
+            Link = link;
+        }
+
+       
+        [JsonProperty("link")]
+        public string Link { get; set; }
+    }
+
+  
+
+    public class Block
+    {
+        public Block(string title, string subtitle, string body, string minorTitle)
+        {
+            Title = title;
+            Subtitle = subtitle;
+            Body = body;
+            MinorTitle = minorTitle;
+        }
+
+        public Block(string title, string subtitle, string body, string minorTitle, string cta, string url )
+        {
+            Title = title;
+            Subtitle = subtitle;
+            Body = body;
+            Cta = cta;
+            Url = url;
+            MinorTitle = minorTitle;
+        }
+
+        [JsonProperty("title")]
+        public string Title { get; set; }
+        [JsonProperty("subtitle")]
+        public string Subtitle { get; set; }
+        [JsonProperty("body")]
+        public string Body { get; set; }
+        [JsonProperty("cta")]
+        public string Cta { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+        [JsonProperty("minorTitle")]
+        public string MinorTitle { get; set; }
+    }
+
 }

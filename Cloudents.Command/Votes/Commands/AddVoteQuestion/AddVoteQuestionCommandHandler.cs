@@ -1,50 +1,32 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.Votes.Commands.AddVoteQuestion
 {
-    public class AddVoteQuestionCommandHandler : BaseAddVoteCommandHandler<Question, long>, ICommandHandler<AddVoteQuestionCommand>
+    public class AddVoteQuestionCommandHandler :  ICommandHandler<AddVoteQuestionCommand>
     {
-        //private readonly IVoteRepository _voteRepository;
-        //private readonly IRepository<RegularUser> _userRepository;
-        //private readonly IRepository<Question> _questionRepository;
-        //private readonly IEventStore _eventStore;
+        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IRepository<Question> _repository;
 
-        public AddVoteQuestionCommandHandler(IVoteRepository voteRepository,
+        public AddVoteQuestionCommandHandler(
             IRepository<RegularUser> userRepository,
             IRepository<Question> questionRepository)
-            : base(userRepository, voteRepository, questionRepository)
+
         {
+            _userRepository = userRepository;
+            _repository = questionRepository;
         }
 
         public async Task ExecuteAsync(AddVoteQuestionCommand message, CancellationToken token)
         {
-            await BaseExecuteAsync(message.UserId, message.QuestionId, message.VoteType, token);
+            var user = await _userRepository.LoadAsync(message.UserId, token);
+           
+            var question = await _repository.LoadAsync(message.QuestionId, token);
+            question.Vote(message.VoteType,user);
+            await _repository.UpdateAsync(question, token);
         }
 
-
-        protected override Vote CreateVote(RegularUser user, Question question, VoteType vote)
-        {
-            return new Vote(user, question, vote);
-        }
-
-        protected override Task ValidateAsync(User user, Question question, CancellationToken token)
-        {
-            if (question.User.Id == user.Id)
-            {
-                throw new UnauthorizedAccessException("you cannot vote you own document");
-
-            }
-
-            return Task.CompletedTask;
-        }
-
-        protected override async Task<Vote> GetVoteAsync(long userId, long id, CancellationToken token)
-        {
-            return await VoteRepository.GetVoteQuestionAsync(userId, id, token);
-        }
     }
 }

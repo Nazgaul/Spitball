@@ -1,11 +1,11 @@
 <template>
-    <div
-            :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
-            @click="(isOurs ? $_spitball($event, url): $_thirdPartyEvent($event, url))"
-            id="sb-link"
-            :class="['d-block', 'note-block']"
-            :href="url"
-    >
+    <!--conditional type of tag to fix the profile click from study feed bug-->
+    <component :is="isOurs ? 'router-link' : 'div'"
+               :href="url"
+               :class="['d-block', 'note-block']"
+               :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
+               @click="(isOurs ? $_spitball($event, url): $_thirdPartyEvent($event, url))"
+               :to="isOurs ? url : ''">
         <v-container
                 class="pa-0"
                 @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)"
@@ -42,7 +42,8 @@
                                     <v-icon>sbf-3-dot</v-icon>
                                 </v-btn>
                                 <v-list>
-                                    <v-list-tile v-show="item.isVisible(item.visible)"  :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
+                                    <v-list-tile v-show="item.isVisible(item.visible)"
+                                                 :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
                                                  :key="i">
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
@@ -106,12 +107,12 @@
                 :onclosefn="closeNewPriceDialog"
                 :activateOverlay="true"
                 :isPersistent="true"
-                :content-class="`priceUpdate ${isRtl? 'rtl': ''}` ">
+                :content-class="`priceUpdate ${isRtl? 'rtl': ''}`">
             <v-card class="price-change-wrap">
-                <v-flex align-center justify-center class="relative-pos" >
+                <v-flex align-center justify-center class="relative-pos">
                     <div class="title-wrap">
                         <span class="change-title" v-language:inner>resultNote_change_for</span>
-                        <span class="change-title">&nbsp;"{{item.title}}"</span>
+                        <span class="change-title" style="max-width: 150px;" v-line-clamp="1">&nbsp;"{{item.title}}"</span>
                     </div>
                     <div class="input-wrap d-flex row align-center justify-center">
                         <div :class="['price-wrap', isRtl ? 'reversed' : '']">
@@ -124,13 +125,14 @@
                     </div>
                 </v-flex>
                 <div class="change-price-actions">
-                    <button @click="closeNewPriceDialog()" class="cancel mr-2"><span v-language:inner>resultNote_action_cancel</span></button>
+                    <button @click="closeNewPriceDialog()" class="cancel mr-2"><span v-language:inner>resultNote_action_cancel</span>
+                    </button>
                     <button @click="submitNewPrice()" class="change-price"><span v-language:inner>resultNote_action_apply_price</span>
                     </button>
                 </div>
             </v-card>
         </sb-dialog>
-    </div>
+    </component>
 </template>
 <script>
     import FlashcardDefault from "../helpers/img/flashcard.svg";
@@ -142,10 +144,12 @@
     import documentDetails from "./helpers/documentDetails/documentDetails.vue";
     import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
     import reportItem from "./helpers/reportItem/reportItem.vue";
-    import { mapGetters, mapActions } from "vuex";
+    import { mapGetters, mapActions, mapMutations } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
     import SbInput from "../question/helpers/sbInput/sbInput";
-    import  sblCurrency  from "./helpers/uploadFiles/sbl-currency.vue";
+    import sblCurrency from "./helpers/uploadFiles/sbl-currency.vue";
+    import documentService from "../../services/documentService";
+
 
     export default {
         components: {
@@ -175,18 +179,25 @@
                     {
                         title: LanguageService.getValueByKey("resultNote_change_price"),
                         action: this.showPriceChangeDialog,
-                        isDisabled: this.isDisablePriceChange,
-                        isVisible:this.isVisible,
+                        isDisabled: this.isOwner,
+                        isVisible: this.isVisible,
                         icon: 'sbf-delete',
-                        visible: false,
-                    }
+                        visible: true,
+                    },
+                    {
+                        title: LanguageService.getValueByKey("resultNote_action_delete_doc"),
+                        action: this.deleteDocument,
+                        isDisabled: this.isOwner,
+                        isVisible: this.isVisible,
+                        visible: true,
+                    },
                 ],
                 itemId: 0,
                 showReport: false,
                 isRtl: global.isRtl,
                 showMenu: false,
                 priceDialog: false,
-                newPrice: this.item.price ?  this.item.price : 0,
+                newPrice: this.item.price ? this.item.price : 0,
                 rules: {
                     required: value => !!value || 'Required.',
                     max: value => value.$options.filter <= 1000 || 'max is 1000',
@@ -195,7 +206,9 @@
         },
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
-
+            isProfile() {
+                return this.$route.name === "profile"
+            },
             userRank() {
                 if (!!this.item.user) {
                     return this.item.user.score;
@@ -270,7 +283,13 @@
             },
         },
         methods: {
-            ...mapActions(["documentVote", "updateLoginDialogState"]),
+            ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading: "UPDATE_SEARCH_LOADING",}),
+            ...mapActions([
+                "documentVote",
+                "updateLoginDialogState",
+                "updateToasterParams",
+                "syncProfile"
+            ]),
             ...mapGetters(["accountUser"]),
             cardOwner() {
                 let userAccount = this.accountUser();
@@ -280,22 +299,35 @@
                     return false
                 }
             },
-            isVisible(val){
+            updateItemPrice(val) {
+                if (val) {
+                    return this.item.price = val;
+                }
+            },
+            isVisible(val) {
                 return val
             },
-            showEvent(event){
+            showEvent(event) {
                 console.log(event)
             },
             submitNewPrice() {
-                console.log('sending new price', this.newPrice)
+                let data = {id: this.item.id, price: this.newPrice};
+                documentService.changeDocumentPrice(data).then(
+                    (success) => {
+                        this.updateItemPrice(this.newPrice);
+                        this.closeNewPriceDialog();
+                    },
+                    (error) => {
+                        console.error('erros change price', error)
+                    });
             },
             closeNewPriceDialog() {
                 this.priceDialog = false;
             },
-            isDisablePriceChange() {
-                 return true
-                // let owner = this.cardOwner();
-                // return !owner
+            isOwner() {
+                // return true
+                let owner = this.cardOwner();
+                return !owner
             },
             showPriceChangeDialog() {
                 this.priceDialog = true;
@@ -312,6 +344,35 @@
             reportItem() {
                 this.itemId = this.item.id;
                 this.showReport = !this.showReport;
+            },
+            //check if profile and refetch data after doc deleted
+            updateProfile(){
+                let account, id;
+                if(this.isProfile){
+                    account = this.accountUser();
+                    id = account.id ? account.id : '';
+                    this.syncProfile(id);
+                }
+            },
+            deleteDocument() {
+                documentService.deleteDoc(this.item.id).then(
+                    (success) => {
+                        this.updateToasterParams({
+                            toasterText: LanguageService.getValueByKey("resultNote_deleted_success"),
+                            showToaster: true,
+                        });
+                        this.updateProfile();
+
+                    },
+                    (error) => {
+                        this.updateToasterParams({
+                            toasterText: LanguageService.getValueByKey("resultNote_error_delete"),
+                            showToaster: true,
+                        });
+
+
+                    }
+                )
             },
             closeReportDialog() {
                 this.showReport = false;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
@@ -18,16 +16,8 @@ namespace Cloudents.Command.CommandHandler.Admin
         }
         public async Task ExecuteAsync(UnFlagAnswerCommand message, CancellationToken token)
         {
-        
             var answer = await _answerRepository.LoadAsync(message.AnswerId, token);
-           
-            if (answer.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
-            {
-                answer.Votes.Clear();
-            }
-            answer.MakePublic();
-            answer.VoteCount = answer.Votes.Count;
-
+            answer.UnFlag();
             await _answerRepository.UpdateAsync(answer, token);
 
         }

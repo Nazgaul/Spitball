@@ -54,7 +54,8 @@ const vuetifyComponents = {
     VCombobox,
     VCheckbox,
     VParallax,
-    VBottomNav
+    VBottomNav,
+    VTextarea,
 };
 import {
     Vuetify,
@@ -89,9 +90,8 @@ import {
     VCombobox,
     VCheckbox,
     VParallax,
-    VBottomNav
-
-
+    VBottomNav,
+    VTextarea
 } from "vuetify";
 import * as route from "./routes";
 

@@ -11,12 +11,5 @@ namespace Cloudents.Command.Item.Commands.FlagItem
             FlagReason = flagReason;
             UserId = userId;
         }
-
-        internal FlagAnswerCommand(Guid answerId)
-        {
-            Id = answerId;
-            FlagReason = "Too many down vote";
-        }
-
     }
 }

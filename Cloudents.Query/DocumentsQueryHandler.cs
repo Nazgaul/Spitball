@@ -27,7 +27,7 @@ namespace Cloudents.Query
             var z = await _session.Query<Document>()
                 .Fetch(f => f.User)
                 .Fetch(f => f.University)
-                .Where(w => ids.Contains(w.Id) && w.State == ItemState.Ok)
+                .Where(w => ids.Contains(w.Id) && w.Status.State == ItemState.Ok)
                 .Select(s => new DocumentFeedDto
                 {
                     Id = s.Id,

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Core.Entities
+﻿namespace Cloudents.Core.Entities
 {
+    //TODO: NO GOOD NEED TO THINK OF A BETTER SOLUTION
     public class Stats
     {
         public long Users { get; set; }

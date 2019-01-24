@@ -123,11 +123,20 @@
   <data name="action_cancel" xml:space="preserve">
     <value>בטל</value>
   </data>
+  <data name="action_delete_doc" xml:space="preserve">
+    <value>מחק</value>
+  </data>
   <data name="change_for" xml:space="preserve">
     <value>שנה מחיר ל-</value>
   </data>
   <data name="change_price" xml:space="preserve">
     <value>שנה מחיר</value>
+  </data>
+  <data name="deleted_success" xml:space="preserve">
+    <value>המסמך נמחק</value>
+  </data>
+  <data name="error_delete" xml:space="preserve">
+    <value>לא ניתן למחוק מסמך, נסה שנית מאוחר יותר</value>
   </data>
   <data name="free" xml:space="preserve">
     <value>חינם</value>

@@ -1,17 +1,16 @@
-﻿using System;
-using System.Linq;
+﻿using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.Command.Admin;
-using Cloudents.Core.Interfaces;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
     public class UnFlagDocumentCommandHandler : ICommandHandler<UnFlagDocumentCommand>
     {
-        private readonly IRepository<Core.Entities.Document> _documentRepository;
+        private readonly IRepository<Document> _documentRepository;
 
-        public UnFlagDocumentCommandHandler(IRepository<Core.Entities.Document> documentRepository)
+        public UnFlagDocumentCommandHandler(IRepository<Document> documentRepository)
         {
             _documentRepository = documentRepository;
         }
@@ -19,19 +18,9 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
             foreach (var id in message.DocumentIds)
             {
-
-            
-            var document = await _documentRepository.LoadAsync(id, token);
-               
-            if (document.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
-            {
-                document.Votes.Clear();
-            }
-            document.MakePublic();
-
-                document.VoteCount = document.Votes.Count;
-
-            await _documentRepository.UpdateAsync(document, token);
+                var document = await _documentRepository.LoadAsync(id, token);
+                document.UnFlag();
+                await _documentRepository.UpdateAsync(document, token);
             }
         }
     }

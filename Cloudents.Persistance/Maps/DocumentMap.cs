@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
-    public class DocumentMap : ItemMap<Document>
+    public class DocumentMap : ClassMap<Document>
     {
         public DocumentMap()
         {
@@ -11,7 +11,6 @@ namespace Cloudents.Persistance.Maps
                 $"{nameof(HiLoGenerator.TableName)}='{nameof(Document)}'");
 
             Map(x => x.Name).Length(150).Not.Nullable();
-           // Map(x => x.BlobName).Not.Nullable();
             References(x => x.University).Column("UniversityId").ForeignKey("Document_University");
            
             Map(x => x.Type).Not.Nullable();
@@ -32,21 +31,24 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Professor).Nullable();
             Map(x => x.PageCount).Nullable();
             Map(x => x.Purchased).Not.Nullable();
-            Map(x => x.OldId).Nullable();
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); ;
-            References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("DocumentFlagged_User");
-
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
                 //.Cascade.()
+                .Access.CamelCaseField(Prefix.Underscore)
                 .LazyLoad()
                 .Inverse();
-
-            HasMany(x => x.Votes).KeyColumns.Add("DocumentId")
+            Map(x => x.OldId).Nullable();
+            HasMany(x => x.Votes)
+                .Access.CamelCaseField(Prefix.Underscore)
+                .KeyColumns.Add("DocumentId")
                 .Inverse().Cascade.AllDeleteOrphan();
+            Map(m => m.VoteCount);
+
+   
+            Component(x => x.Status);
             SchemaAction.None();
-            //DiscriminateSubClassesOnColumn("State");
         }
     }
 

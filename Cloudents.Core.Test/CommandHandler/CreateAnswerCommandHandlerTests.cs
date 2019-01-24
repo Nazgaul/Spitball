@@ -18,15 +18,19 @@ namespace Cloudents.Core.Test.CommandHandler
         public async Task ExecuteAsync_QuestionWithAlreadyUserAnswer_Error()
         {
             long questionId = 1, userId = 1;
-            var user = new RegularUser("some Email", "some name", "some private key", CultureInfo.InvariantCulture);
-            var questionUser = new RegularUser("other email", "other name", "other private key", CultureInfo.InvariantCulture)
-            {
-                Id = 2
-            };
+            var user = new RegularUser("some Email", "some name", "some private key", Language.English);
+            var questionUser = new RegularUser("other email", "other name", "other private key",
+                Language.English);
+            //{
+            //    Id = 2
+            //};
             var question = new Question(
-                new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default, CultureInfo.InvariantCulture);
+                new QuestionSubject(), "some text",
+                0, 0, questionUser,
+                
+                CultureInfo.InvariantCulture,null);
 
-            question.Answers.Add(new Answer(question, "some text", 0, user, CultureInfo.InvariantCulture));
+            question.AddAnswer("some text", 0, user, CultureInfo.InvariantCulture);
 
             using (var mock = AutoMock.GetLoose())
             {
@@ -44,12 +48,14 @@ namespace Cloudents.Core.Test.CommandHandler
         public async Task ExecuteAsync_DefaultProcess_Ok()
         {
             long questionId = 1, userId = 1;
-            var user = new RegularUser("some Email", "some name", "some private key", CultureInfo.InvariantCulture);
-            var questionUser = new RegularUser("other email", "other name", "other private key", CultureInfo.InvariantCulture)
-            {
-                Id = 2
-            };
-            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default, CultureInfo.InvariantCulture);
+            var user = new RegularUser("some Email", "some name", "some private key", Language.English);
+            var questionUser = new RegularUser("other email", "other name", "other private key",
+                Language.English);
+            //{
+            //    Id = 2
+            //};
+            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser,
+                CultureInfo.InvariantCulture, null);
 
             //question.Answers.Add(new Answer(question, "some text", 0, user));
 

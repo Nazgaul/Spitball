@@ -7,7 +7,7 @@
         <!--<a target="_blank" :href="$route.path+'/download'" v-if="showActions" class="ml-4">-->
             <!--<download-icon></download-icon>-->
         <!--</a>-->
-        <a href="#" @click.prevent="$_back" class="ml-4">
+        <a href="#" @click.prevent="$_back" class="ml-0">
             <close-icon></close-icon>
         </a>
     </div>

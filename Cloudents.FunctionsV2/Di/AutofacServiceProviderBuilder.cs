@@ -11,6 +11,8 @@ using System.Diagnostics;
 using System.Reflection;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.WindowsAzure.Storage;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
 
@@ -36,6 +38,12 @@ namespace Cloudents.FunctionsV2.Di
             var services = new ServiceCollection();
 
             var builder = new ContainerBuilder();
+
+            services.AddDataProtection(o =>
+            {
+                o.ApplicationDiscriminator = "spitball";
+            }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(_configuration["AzureWebJobsStorage"]), "/spitball/keys/keys.xml");
+
 
 
             var keys = new ConfigurationKeys(

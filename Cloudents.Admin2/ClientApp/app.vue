@@ -91,7 +91,7 @@ body{
 
     #app-body {
         flex-grow: 1;
-        padding: 2px;
+        /*padding: 2px;*/
         display: flex;
         max-width: 1890px;
         width: auto;

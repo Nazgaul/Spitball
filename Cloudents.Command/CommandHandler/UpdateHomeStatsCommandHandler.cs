@@ -1,8 +1,5 @@
 ﻿using Cloudents.Command.Command;
 using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +16,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(UpdateHomeStatsCommand message, CancellationToken token)
         {
-            await _statsRepository.UpdateTableAsync(token);
+            await _statsRepository.UpdateStatsAsync(token);
         }
 
     }

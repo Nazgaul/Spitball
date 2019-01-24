@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div data-app>
         <div class="document-content">
             <router-view></router-view>
         </div>

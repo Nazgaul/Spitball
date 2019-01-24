@@ -61,6 +61,10 @@
                 <div class="question-right-body-container">
                     <div class="question-body-header-container">
                         <span class="question-subject">{{cardData.subject}}</span>
+                        <span class="question-course"> 
+                            <span v-show="!!cardData.course" class="dot"></span>  
+                            <span class="">{{cardData.course}}</span> 
+                        </span>
                     </div>
                     <div
                             class="question-body-content-container"

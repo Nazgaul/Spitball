@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.AspNetCore.DataProtection;
+﻿using Microsoft.AspNetCore.DataProtection;
+using System;
 
 namespace Cloudents.Web.Services
 {
@@ -12,15 +12,15 @@ namespace Cloudents.Web.Services
             _dataProtectionProvider = dataProtectionProvider;
         }
 
-        public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
+        public string Protect(string plaintext, DateTimeOffset expiration)
         {
-            var dataProtector = _dataProtectionProvider.CreateProtector(purpose).ToTimeLimitedDataProtector();
+            var dataProtector = _dataProtectionProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
             return dataProtector.Protect(plaintext, expiration);
         }
 
-        public string Unprotect(string purpose, string protectedData)
+        public string Unprotect(string protectedData)
         {
-            var dataProtector = _dataProtectionProvider.CreateProtector(purpose).ToTimeLimitedDataProtector();
+            var dataProtector = _dataProtectionProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
             return dataProtector.Unprotect(protectedData);
         }
     }
@@ -28,9 +28,9 @@ namespace Cloudents.Web.Services
 
     public interface IDataProtect
     {
-        string Protect(string purpose, string plaintext, DateTimeOffset expiration);
+        string Protect(string plaintext, DateTimeOffset expiration);
 
-        string Unprotect(string purpose, string protectedData);
+        string Unprotect(string protectedData);
         // Task InsertMessageAsync(ServiceBusMessageBase message, CancellationToken token);
     }
 }

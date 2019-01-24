@@ -1,8 +1,6 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Query.Query;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
@@ -11,7 +9,7 @@ using Cloudents.Infrastructure.Data;
 
 namespace Cloudents.Query
 {
-    public class LeaderBoardQueryHandler : IQueryHandler<LeaderBoardQuery, LeaderBoardQueryResult>
+    public class LeaderBoardQueryHandler : IQueryHandler<LeaderBoardQuery, LeaderBoardResultDto>
     {
         private readonly DapperRepository _dapper;
         private readonly IMapper _mapper;
@@ -24,38 +22,30 @@ namespace Cloudents.Query
             _mapper = mapper;
         }
 
-        public async Task<LeaderBoardQueryResult> GetAsync
+        public async Task<LeaderBoardResultDto> GetAsync
             (LeaderBoardQuery query, CancellationToken token)
         {
             var leaderBoardResult = await _dapper.WithConnectionAsync(async connection =>
             {
-                var grid = connection.QueryMultiple(@"select top 10 U.Id, U.Name, Score, Un.Name as University
-                                                                        from sb.[user] U
-                                                                        join sb.University UN
-                                                                            on U.UniversityId2 = UN.Id
-                                                                        where LockoutEnd is null
+                var grid = connection.QueryMultiple(@"select top 10 Id, Name, Score, University
+                                                                        from [dbo].[vwLeaderBoard]
                                                                         order by Score desc;
 
                                                                         select top 1 [SBLs]
                                                                         from sb.HomeStats"
                                                     );
                
-                var leaderBoardDto = grid.Read<LeaderBoardDto>();
-                var stats = grid.ReadFirst<long>();
+                var leaderBoardDto = await grid.ReadAsync<LeaderBoardDto>();
+                var stats = await grid.ReadFirstAsync<long>();
                 return (stats, leaderBoardDto);
             }, token);
 
-            var destination = new LeaderBoardQueryResult();
+            var destination = new LeaderBoardResultDto();
 
-            var orderDto = _mapper.Map<(long, IEnumerable<LeaderBoardDto>), LeaderBoardQueryResult>(leaderBoardResult);
+            var orderDto = _mapper.Map<(long, IEnumerable<LeaderBoardDto>), LeaderBoardResultDto>(leaderBoardResult);
             return _mapper.Map(leaderBoardResult, destination);
         }
        
     }
 
-    public class LeaderBoardQueryResult
-    {
-        public long SBL { get; set; }
-        public IEnumerable<LeaderBoardDto> LeaderBoard { get; set; }
-    }
 }

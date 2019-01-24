@@ -56,7 +56,7 @@
             toUrl: {}
         },
         methods: {
-            ...mapActions(['changeSelectUniState']),
+            ...mapActions(['changeSelectUniState', 'updateSelectForTheFirstTime']),
             finishRegistration() {
                 this.loading = true;
                 analyticsService.sb_unitedEvent('Registration', 'Congrats');
@@ -67,6 +67,7 @@
                 let self = this;
                 setTimeout(()=>{
                     //show selectUni interface
+                    self.updateSelectForTheFirstTime(true);
                     self.changeSelectUniState(true);
                 })
                 

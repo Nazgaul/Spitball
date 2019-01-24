@@ -282,13 +282,13 @@
 .header-wallet, .header-comments, .header-rocket {
   display: flex;
   align-items: flex-end;
-  padding-right: 16px;
+  padding-right: 0;
   position: relative;
-  @media (max-width: @screen-xs) {
-    padding-right: 0;
-  }
-}
 
+}
+.header-wallet{
+  padding-right: 16px;
+}
 .header-comments {
   // margin-right: 39px;
   height: 32px;
@@ -344,7 +344,6 @@
   height: 34px;
   padding-left: 24px;
   border-left: 1px solid #dddddd;
- // margin-left: 20px;
   justify-content: flex-end;
   max-width: 60px;
   @media (max-width: @screen-xs) {
@@ -370,11 +369,11 @@
     }
   }
   .red-counter {
-    right: 8px;
+    right: -8px;
     top: -7px;
     @media (max-width: @screen-xs) {
       top: -6px;
-      right: 5px;
+      right: -5px;
       font-size: 12px;
       min-width: 20px;
       min-height: 17px;

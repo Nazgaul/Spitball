@@ -182,10 +182,30 @@
       -ms-user-select: text;
       -webkit-user-select: text;
       .question-body-header-container {
+        display: flex;
         .question-subject {
           color: rgba(0, 0, 0, 0.87);
           font-weight: bold;
           font-family: @fontOpenSans;
+          white-space: nowrap;
+        }
+        .question-course{
+          color: rgba(0, 0, 0, 0.54);
+          font-family: @fontOpenSans;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-left: 5px;
+          .dot{
+            height: 3px;
+            width: 3px;
+            opacity: .9;
+            background-color: #d8d8d8;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            margin-top: 4px;
+          }
         }
       }
       .question-body-content-container {

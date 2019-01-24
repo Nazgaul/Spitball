@@ -1,10 +1,9 @@
 <template>
     <div class="marketing-box-component">
         <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
-            <span class="heading-text">Promotions</span>
+            <span class="heading-text" v-language:inner>marketingBox_title</span>
         </div>
-        <v-card class="main-marketing-content">
-            <img class="marketing-box-image" :src="require(`${imgSrc}`)" alt="" @click="promotionOpen()">
+        <v-card class="main-marketing-content"  :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
         </v-card>
         <sb-dialog :showDialog="showReferral"
                    :popUpType="'referralPop'"
@@ -36,7 +35,7 @@
                     },
                     english: {
                         logedIn: './images/desktop_English_LogedIn.png',
-                        not_LogedIn: './images/desktop_English_Not_LogedIn.png',
+                        not_logedIn: './images/desktop_English_Not_LogedIn.png',
                     }
                 },
                 mobile: {

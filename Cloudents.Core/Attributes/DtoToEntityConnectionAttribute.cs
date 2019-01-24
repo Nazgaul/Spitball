@@ -9,6 +9,6 @@ namespace Cloudents.Core.Attributes
             EntityName = entityName;
         }
 
-        public string EntityName { get; private set; }
+        private string EntityName { get; set; }
     }
 }

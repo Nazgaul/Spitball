@@ -95,6 +95,7 @@ namespace Cloudents.Persistance
             config.SetListener(ListenerType.Delete, new SoftDeleteEventListener());
             config.SetListener(ListenerType.PostInsert, eventPublisherListener);
             config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
+            config.SetListener(ListenerType.PostCollectionUpdate, eventPublisherListener);
 
             //config.LinqToHqlGeneratorsRegistry<MyLinqToHqlGeneratorsRegistry>();
 

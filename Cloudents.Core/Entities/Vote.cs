@@ -5,8 +5,9 @@ namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 
-    public class Vote
+    public class Vote : Entity<Guid>
     {
+        public const int VoteCountToFlag = -2;
         public Vote(RegularUser user, Document document, VoteType voteType) : this()
         {
             User = user;
@@ -34,13 +35,13 @@ namespace Cloudents.Core.Entities
             TimeStamp = new DomainTimeStamp();
         }
 
-        public virtual Guid Id { get; set; }
-        public virtual RegularUser User { get; set; }
-        public virtual Document Document { get; set; }
-        public virtual Answer Answer { get; set; }
-        public virtual Question Question { get; set; }
-        public virtual DomainTimeStamp TimeStamp { get; set; }
-        public virtual VoteType VoteType { get; set; }
+        //public virtual Guid Id { get; set; }
+        public virtual RegularUser User { get;protected set; }
+        public virtual Document Document { get; protected set; }
+        public virtual Answer Answer { get; protected set; }
+        public virtual Question Question { get; protected set; }
+        public virtual DomainTimeStamp TimeStamp { get; protected set; }
+        public virtual VoteType VoteType { get;  set; }
     }
 
     public enum VoteType : int
