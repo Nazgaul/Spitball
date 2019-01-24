@@ -4,11 +4,6 @@
         <div class="guide-container">
             <v-stepper v-model="currentStep" class="on-board-stepper"
             >
-                <!--<v-stepper-header class="elevation-0">-->
-                <!--</v-stepper-header>-->
-                <!--<v-stepper-items class="step-items"-->
-                <!--:class="{'last-step': isFinished}"-->
-                <!--:style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }">-->
                 <v-stepper-items class="step-items"
                                  :class="{'last-step': isFinished}"
                                  :style="[isFinished ? { 'background-image': 'url(' + require(`${imgSrc}`) + ')'} : '']"
@@ -18,10 +13,9 @@
                             :key="`${n}-content`"
                             :class="[isFinished && n === steps ? 'last-step-content' : 'step-content' ]"
                             :step="n">
-                        <component v-if="isFinished" :is="isFinished ? 'onBoardFinal' : '' "></component>
-                        <img v-else :src="require(`${imgSrc}`) " alt="">
+                        <component v-show="isFinished" :is="isFinished ? ' ' : '' "></component>
+                        <img v-show="!isFinished" :src="require(`${imgSrc}`) " alt="">
                     </v-stepper-content>
-
                 </v-stepper-items>
                 <div class="progress-background" :class="{'background-purple': isFinished}">
                     <div class="progress-wrap">
@@ -36,7 +30,8 @@
                                     v-for="n in steps"
                                     v-if="!$vuetify.breakpoint.xsOnly || !isFinished"
                                     :class="[currentStep === n ? 'active-step-progress' : 'inactive-step']"
-                                    step=""></v-stepper-step>
+                                    step="">
+                            </v-stepper-step>
                         </div>
                         <div class="actions-wrap">
                             <v-btn class="btn sb-btn-flat continue elevation-0" v-show="!isFinished"
