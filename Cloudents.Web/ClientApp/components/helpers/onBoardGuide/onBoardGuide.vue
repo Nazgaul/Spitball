@@ -206,7 +206,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 90vh;
+            height: 100vh;
             @media (max-width: @screen-xs) {
                 min-height: 100%;
                 //can delete after background image replaced to be elements
