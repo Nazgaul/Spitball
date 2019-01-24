@@ -176,10 +176,7 @@
     <value>אתה מוכן להתחיל להשתמש בספיטבול</value>
   </data>
   <data name="generalProfile_register_stepSix_text" xml:space="preserve">
-    <value>!לשימוש מיידי בספיטבול SBL הענקנו לך נקודות
-השתמש בהם כדי לקבל עזרה עם שיעורי הבית שלך
-או ענה על שאלות של סטודנטים אחרים כדי להרוויח 
-GiftCards -שניתנים להמרה ל SBL עוד</value>
+    <value>הענקנו לך נקודות לשימוש מיידי בספיטבול! השתמש בהם כדי לקבל עזרה עם שיעורי הבית שלך או ענה על שאלות של סטודנטים אחרים כדי להרוויח עוד נקודות שניתנות להמרה לכרטיסי מתנה</value>
   </data>
   <data name="generalProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>צור סיסמה</value>
