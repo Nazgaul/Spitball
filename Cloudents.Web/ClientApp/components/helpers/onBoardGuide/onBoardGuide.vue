@@ -182,7 +182,6 @@
             height: 100%;
             .v-stepper__wrapper {
                 height: 100%;
-
             }
         }
         .on-board-stepper {
@@ -204,7 +203,7 @@
             background-repeat: no-repeat;
             @media (max-width: @screen-xs) {
                 background-size: cover;
-                background-position: top;
+                background-position: center;
             }
             &.last-step {
                 background-size: cover;

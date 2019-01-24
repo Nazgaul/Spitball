@@ -7,21 +7,24 @@
         <div class="text-row">
             <span class="step-title d-flex" v-language:inner>onboard_final_title</span>
             <div class="sub-title-wrap">
-                <bdi>
                     <span class="step-subtitle"v-language:inner>onboard_final_added</span>
+                <bdi>
                     <span class="ammount">&nbsp;{{tokensAmmount | currencyLocalyFilter}}&nbsp;</span>
-                    <span class="step-subtitle" v-language:inner>onboard_final_to_wallet</span>
                 </bdi>
+                    <span class="step-subtitle" v-language:inner>onboard_final_to_wallet</span>
+
             </div>
         </div>
         <v-divider class="divider-line"></v-divider>
         <div class="sml-text-row">
             <div class="" v-show="tokensAmmount < ammountCalcFrom">
-                <bdi>
+
                     <span v-language:inner>onboard_final_only</span>
+                <bdi>
                     <span>&nbsp;{{sblAway}} SBL&nbsp;</span>
-                    <span v-language:inner>onboard_final_away</span>
                 </bdi>
+                    <span v-language:inner>onboard_final_away</span>
+
             </div>
             <div class="" v-show="tokensAmmount >= ammountCalcFrom">
                 <bdi>
@@ -75,7 +78,6 @@
 
     @finalYellow: #ffca54;
     @colorTextLight: #dfe0ef;
-
     .final-onboard-wrap {
         display: flex;
         flex: 1;
@@ -96,7 +98,6 @@
             .present-img {
 
             }
-
         }
         .text-row {
             display: flex;
@@ -175,14 +176,12 @@
                 font-size: 24px;
                 font-style: italic;
             }
-
         }
         .divider-line {
             background: fade(@color-white, 48%);
             width: 136px;
             height: 1px;
         }
-
     }
 
 </style>
