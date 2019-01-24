@@ -10,6 +10,7 @@ const WebpackRTLPlugin = require("webpack-rtl-plugin");
 const bundleOutputDir = "./wwwroot/dist";
 
 const allModules = [
+    "babel-polyfill",
     "vue",
     "vue-router",
     "vuex",

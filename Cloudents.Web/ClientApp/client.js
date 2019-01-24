@@ -10,13 +10,23 @@ GetDictionary().then(()=>{
 
       // dynamic import the main component
       getComponent().then(component => {
-          component.router.onReady(() => {
+          try{
+              component.router.onReady(() => {
             const matchedComponents = component.router.getMatchedComponents()
             // no matched routes, reject with 404
             if (!matchedComponents.length) {
                window.location = "/error/notfound"
             }
             component.app.$mount("#app");
-        })
+            })
+        }
+        catch(err){
+            let appEl = document.getElementById("app");
+            for(let prop in err){
+                let el = document.createElement('div');
+                el.innerHTML = err[prop]
+                appEl.appendChild(el)
+            }
+        } 
       })
 })

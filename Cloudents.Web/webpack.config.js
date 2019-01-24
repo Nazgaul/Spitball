@@ -164,7 +164,7 @@ module.exports = (env) => {
     });
 
     const clientBundleConfig = merge(sharedConfig(), {
-        entry: {'main': './ClientApp/client.js'},
+        entry: { main: ["babel-polyfill", "./ClientApp/client.js"]},
         output: {
             path: path.join(__dirname, bundleOutputDir),
             filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
