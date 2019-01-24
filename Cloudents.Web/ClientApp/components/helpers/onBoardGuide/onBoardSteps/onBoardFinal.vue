@@ -1,27 +1,30 @@
 <template>
     <div class="final-onboard-wrap">
         <div class="present-row">
-            <presentStarsMobile v-if="$vuetify.breakpoint.xsOnly" class="present-img"></presentStarsMobile>
-            <presentStars v-else class="present-img"></presentStars>
+            <!--<presentStarsMobile  class="present-img"></presentStarsMobile>-->
+            <span class="step-title d-flex" v-language:inner>onboard_final_title</span>
+            <presentStars  class="present-img"></presentStars>
         </div>
         <div class="text-row">
-            <span class="step-title d-flex" v-language:inner>onboard_final_title</span>
             <div class="sub-title-wrap">
-                <bdi>
                     <span class="step-subtitle"v-language:inner>onboard_final_added</span>
+                <bdi>
                     <span class="ammount">&nbsp;{{tokensAmmount | currencyLocalyFilter}}&nbsp;</span>
-                    <span class="step-subtitle" v-language:inner>onboard_final_to_wallet</span>
                 </bdi>
+                    <span class="step-subtitle" v-language:inner>onboard_final_to_wallet</span>
+
             </div>
         </div>
         <v-divider class="divider-line"></v-divider>
         <div class="sml-text-row">
             <div class="" v-show="tokensAmmount < ammountCalcFrom">
-                <bdi>
+
                     <span v-language:inner>onboard_final_only</span>
+                <bdi>
                     <span>&nbsp;{{sblAway}} SBL&nbsp;</span>
-                    <span v-language:inner>onboard_final_away</span>
                 </bdi>
+                    <span v-language:inner>onboard_final_away</span>
+
             </div>
             <div class="" v-show="tokensAmmount >= ammountCalcFrom">
                 <bdi>
@@ -35,12 +38,11 @@
 <script>
     import { mapGetters } from 'vuex';
     import presentStars from '../images/present-stars.svg';
-    import presentStarsMobile from '../images/present-stars-mobile.svg'
 
 
     export default {
         name: "onBoardFinal",
-        components: {presentStars, presentStarsMobile},
+        components: {presentStars},
         data() {
             return {
                 ammountCalcFrom: 1000
@@ -75,7 +77,6 @@
 
     @finalYellow: #ffca54;
     @colorTextLight: #dfe0ef;
-
     .final-onboard-wrap {
         display: flex;
         flex: 1;
@@ -85,24 +86,31 @@
         height: 100%;
         .present-row {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             @media (max-width: @screen-xs) {
                 max-width: 100%;
-                height: 90px;
                 line-height: 1.1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
             .present-img {
-
+                height: auto;
+                width: 100%;
+                @media (max-width: @screen-xs) {
+                    max-width: 198px;
+                }
             }
-
         }
         .text-row {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            width: 100%;
+
         }
         .sml-text-row {
             padding-top: 32px;
@@ -140,9 +148,11 @@
             display: flex;
             flex-direction: column;
             padding-bottom: 32px;
+            padding-top: 24px;
             text-align: center;
             max-width: 90%;
             @media (max-width: @screen-xs) {
+                padding-top: 24px;
                 max-width: 90%;
                 text-align: center;
                 line-height: 1.38;
@@ -175,14 +185,12 @@
                 font-size: 24px;
                 font-style: italic;
             }
-
         }
         .divider-line {
             background: fade(@color-white, 48%);
             width: 136px;
             height: 1px;
         }
-
     }
 
 </style>

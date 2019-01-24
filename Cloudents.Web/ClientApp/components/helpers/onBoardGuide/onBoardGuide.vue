@@ -3,18 +3,23 @@
         <div class="back-img"></div>
         <div class="guide-container">
             <v-stepper v-model="currentStep" class="on-board-stepper"
-                      >
+            >
                 <!--<v-stepper-header class="elevation-0">-->
                 <!--</v-stepper-header>-->
+                <!--<v-stepper-items class="step-items"-->
+                <!--:class="{'last-step': isFinished}"-->
+                <!--:style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }">-->
                 <v-stepper-items class="step-items"
                                  :class="{'last-step': isFinished}"
-                                 :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }">
+                                 :style="[isFinished ? { 'background-image': 'url(' + require(`${imgSrc}`) + ')'} : '']"
+                >
                     <v-stepper-content
                             v-for="n in steps"
                             :key="`${n}-content`"
-                            :class="[isFinished && n === steps ? 'last-step-content' : '' ]"
+                            :class="[isFinished && n === steps ? 'last-step-content' : 'step-content' ]"
                             :step="n">
-                        <component v-if="isFinished " :is="isFinished ? 'onBoardFinal' : '' "></component>
+                        <component v-if="isFinished" :is="isFinished ? 'onBoardFinal' : '' "></component>
+                        <img v-else :src="require(`${imgSrc}`) " alt="">
                     </v-stepper-content>
 
                 </v-stepper-items>
@@ -39,7 +44,7 @@
                                 <span v-language:inner>onboard_btn_continue</span>
                             </v-btn>
                             <v-btn class="btn sb-btn-flat finish elevation-0" v-show="isFinished" @click="closeGuide()">
-                               <span v-language:inner>onboard_btn_finish</span>
+                                <span v-language:inner>onboard_btn_finish</span>
                             </v-btn>
                         </div>
                     </div>
@@ -182,7 +187,18 @@
             height: 100%;
             .v-stepper__wrapper {
                 height: 100%;
-
+            }
+        }
+        .step-content {
+            padding: 16px 24px 16px 24px;
+            @media(max-width: @screen-xs){
+                padding: 40px 24px 16px 24px;
+            }
+            .v-stepper__wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
             }
         }
         .on-board-stepper {
@@ -204,10 +220,11 @@
             background-repeat: no-repeat;
             @media (max-width: @screen-xs) {
                 background-size: cover;
-                background-position: top;
+                background-position: center;
             }
             &.last-step {
                 background-size: cover;
+                background-position: top;
 
             }
         }
