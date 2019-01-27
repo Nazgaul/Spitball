@@ -144,4 +144,22 @@
   <data name="final_to_wallet" xml:space="preserve">
     <value>points</value>
   </data>
+  <data name="welcome_bottom_subtitle_earn" xml:space="preserve">
+    <value>Earn money by sharing your class notes and answering questions</value>
+  </data>
+  <data name="welcome_bottom_subtitle_learn" xml:space="preserve">
+    <value>Improve your grades, with access to study resources and homework help</value>
+  </data>
+  <data name="welcome_bottom_title_earn" xml:space="preserve">
+    <value>Earn</value>
+  </data>
+  <data name="welcome_bottom_title_learn" xml:space="preserve">
+    <value>Learn</value>
+  </data>
+  <data name="welcome_subtitle" xml:space="preserve">
+    <value>The place for students to learn and earn</value>
+  </data>
+  <data name="welcome_title" xml:space="preserve">
+    <value>Welcome to Spitball</value>
+  </data>
 </root>

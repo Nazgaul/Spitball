@@ -120,7 +120,7 @@ order by ek.orderBlock ";
             [DtoToEntityConnection(nameof(RegularUser.Id))]
             public long UserId { get; set; }
 
-            [DtoToEntityConnection(nameof(Transaction.TransactionType.Price))]
+            [DtoToEntityConnection(nameof(Transaction.Price))]
             public decimal Tokens { get; set; }
 
         }

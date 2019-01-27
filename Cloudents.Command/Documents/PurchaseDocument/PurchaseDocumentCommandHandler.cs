@@ -38,8 +38,8 @@ namespace Cloudents.Command.Documents.PurchaseDocument
 
             var purchaseUser = await _userRepository.LoadAsync(message.UserId, token);
 
-            purchaseUser.MakeTransaction(TransactionType2.Spend(document.Price,TransactionActionType.PurchaseDocument),document: document);
-            document.User.MakeTransaction(TransactionType2.Earn(document.Price,TransactionActionType.SoldDocument),document:document);
+            purchaseUser.MakeTransaction(DocumentTransaction.Purchase(document));
+            document.User.MakeTransaction(DocumentTransaction.Sold(document));
             
             await _userRepository.UpdateAsync(purchaseUser, token);
             await _userRepository.UpdateAsync(document.User, token);

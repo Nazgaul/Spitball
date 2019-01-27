@@ -1,133 +1,4 @@
-﻿CREATE TABLE [sb].[Language](
-	[Name] [nvarchar](100) NOT NULL
-PRIMARY KEY CLUSTERED 
-(
-	[Name] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-
-
-insert into sb.[Language] values ('en'),('he')
-CREATE VIEW [dbo].[vwLeaderBoard] WITH SCHEMABINDING 
-    AS
-
-    select U.Id, U.Name, Score, Un.Name as University
-    from sb.[user] U
-    join sb.University UN
-        on U.UniversityId2 = UN.Id
-    where LockoutEnd is null
-    
-GO
-
-CREATE UNIQUE CLUSTERED INDEX IX_vwLeadewrBoard
-       ON [dbo].[vwLeadewrBoard] (Id, Score);
-
-
-Alter table sb.[user]
-add  [Language] nvarchar(100)
-
-
-ALTER TABLE [sb].[User]  WITH CHECK ADD  CONSTRAINT User_Language FOREIGN KEY([Language])
-REFERENCES sb.[Language] ([Name])
-GO
-
-ALTER TABLE [sb].[User] CHECK CONSTRAINT User_Language
-GO
-
---TODO need to check before running this update
---Select distinct culture  from sb.[user]
-update sb.[user]
-set Language = 'en'
-where Culture in ('en','en-US','en-GB','ar-SA','ar-AE','ru-RU')
-
-update sb.[user]
-set Language = 'he'
-where Culture in ('he','he-IL')
-
-
-We need to run dbi (in program - FixUsersWithoutTransactions()) to fix the users that didn't get no transactions.
-
---Do until here
-
-/****** Object:  Table [sb].[SystemEvent]    Script Date: 17/01/2019 10:09:06 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [sb].[SystemEvent](
-	[Name] [nvarchar](100) NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Name] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-
-
-
-
-
-/****** Object:  Table [sb].[Email]    Script Date: 20/01/2019 13:53:13 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [sb].[Email](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Subject] [nvarchar](255) NOT NULL,
-	[SocialShare] [bit] NOT NULL,
-	[Language] [nvarchar](100) NULL,
-	[Event] [nvarchar](100) NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-
-
-/****** Object:  Table [sb].[EmailBlock]    Script Date: 20/01/2019 13:50:28 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [sb].[EmailBlock](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Title] [nvarchar](255) NULL,
-	[MinorTitle] [nvarchar](255) NULL,
-	[Subtitle] [nvarchar](255) NULL,
-	[Body] [nvarchar](1000) NULL,
-	[Cta] [nvarchar](255) NULL,
-	[OrderBlock] [int] NULL,
-	[Email_id] [int] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [sb].[EmailBlock]  WITH CHECK ADD  CONSTRAINT [FK_47B2DBD] FOREIGN KEY([Email_id])
-REFERENCES [sb].[Email] ([Id])
-GO
-
-ALTER TABLE [sb].[EmailBlock] CHECK CONSTRAINT [FK_47B2DBD]
-GO
-
-
-
-
-
-insert into sb.SystemEvent values('DocumentPurchased')
-
+﻿insert into sb.SystemEvent values('DocumentPurchased')
 
 insert into sb.Email values(
 'Awesome you just earned {Tokens} SBL',
@@ -135,14 +6,11 @@ insert into sb.Email values(
 'en',
 'DocumentPurchased')
 
-
-
 insert into sb.Email values(
 N'מעולה - הרגע הרווחת {Tokens} SBL',
 1,
 'he',
 'DocumentPurchased')
-
 
 insert into sb.emailblock (title,minortitle,subtitle,body,cta,email_id,orderblock) values
 (
@@ -165,11 +33,6 @@ N'הארנק שלי '
 ,1
 )
 
-
-
-
-
-
 insert into sb.SystemEvent values('AnswerAccepted');
 insert into sb.Email values('Awesome you just earned {Tokens} SBL',1,'en','AnswerAccepted')
 
@@ -184,3 +47,41 @@ N'Check your wallet'
 ,3
 ,1
 )
+
+alter table sb.[transaction]
+add [TransactionType] nvarchar(255)
+
+update top (1000) sb.[Transaction]
+set [TransactionType] = 'CashOut'
+where Action = 'CashOut'
+and [TransactionType] is null
+
+update top (1000) sb.[Transaction]
+set [TransactionType] = 'Award'
+where Action in ( 'None','FirstCourse','Awarded','SignUp')
+and Type = 'Earned'
+and [TransactionType] is null
+
+update top (1000) sb.[Transaction]
+set [TransactionType] = 'Refer'
+where Action in ( 'ReferringUser')
+and Type = 'Earned'
+and [TransactionType] is null
+
+update top (1000) sb.[Transaction]
+set [TransactionType] = 'Question'
+where (QuestionId is not null or AnswerId is not null)
+and [TransactionType] is null
+
+
+update top (1000) sb.[Transaction]
+set [TransactionType] = 'Question'
+where  Action in  ('Question','DeleteQuestion','AnswerCorrect')
+and [TransactionType] is null
+
+
+
+update top (1000) sb.[Transaction]
+set [TransactionType] = 'Document'
+where (DocumentId is not null )
+and [TransactionType] is null

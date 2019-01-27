@@ -4,22 +4,20 @@
         <div class="guide-container">
             <v-stepper v-model="currentStep" class="on-board-stepper"
             >
-                <!--<v-stepper-header class="elevation-0">-->
-                <!--</v-stepper-header>-->
                 <!--<v-stepper-items class="step-items"-->
-                <!--:class="{'last-step': isFinished}"-->
-                <!--:style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }">-->
+                                 <!--:class="{'last-step': isFinished}"-->
+                                 <!--:style="[isFinished ? { 'background-image': 'url(' + require(`${imgSrc}`) + ')'} : '']"-->
+                <!--&gt;-->
                 <v-stepper-items class="step-items"
                                  :class="{'last-step': isFinished}"
-                                 :style="[isFinished ? { 'background-image': 'url(' + require(`${imgSrc}`) + ')'} : '']"
+
                 >
                     <v-stepper-content
                             v-for="n in steps"
                             :key="`${n}-content`"
                             :class="[isFinished && n === steps ? 'last-step-content' : 'step-content' ]"
                             :step="n">
-                        <component v-if="isFinished" :is="isFinished ? 'onBoardFinal' : '' "></component>
-                        <img v-else :src="require(`${imgSrc}`) " alt="">
+                        <component  :is="`onBoard_step_${n}`"></component>
                     </v-stepper-content>
 
                 </v-stepper-items>
@@ -59,49 +57,32 @@
 <script>
     import { mapGetters, mapActions } from "vuex";
     import analyticsService from '../../../services/analytics.service';
-    import onBoardFinal from './onBoardSteps/onBoardFinal.vue';
+    import onBoard_step_1 from "./onBoardSteps/welcomeStep.vue";
+    import onBoard_step_2 from "./onBoardSteps/learnStep.vue";
+    import onBoard_step_3 from "./onBoardSteps/earnStep.vue";
+    import onBoard_step_4 from "./onBoardSteps/onBoardFinal.vue";
 
     export default {
         name: "onBoardGuide",
-        components: {onBoardFinal},
+        components: {
+            onBoard_step_1,
+            onBoard_step_2,
+            onBoard_step_3,
+            onBoard_step_4
+        },
         data() {
             return {
                 currentStep: 1,
                 steps: 4,
-                desktop: {
-                    hebrew: {
-                        1: './images/desktop_hebrew_1.png',
-                        2: './images/desktop_hebrew_2.png',
-                        3: './images/desktop_hebrew_3.png',
-                        4: './images/desktop_hebrew_4.png',
 
-                    },
-                    english: {
-                        1: './images/desktop_english_1.png',
-                        2: './images/desktop_english_2.png',
-                        3: './images/desktop_english_3.png',
-                        4: './images/desktop_english_4.png',
-                    }
-                },
-                mobile: {
-                    hebrew: {
-                        1: './images/mobile_hebrew_1.png',
-                        2: './images/mobile_hebrew_2.png',
-                        3: './images/mobile_hebrew_3.png',
-                        4: './images/mobile_hebrew_4.png',
-
-                    },
-                    english: {
-                        1: './images/mobile_english_1.png',
-                        2: './images/mobile_english_2.png',
-                        3: './images/mobile_english_3.png',
-                        4: './images/mobile_english_4.png',
-                    }
-                }
             }
         },
         computed: {
             ...mapGetters([]),
+            activeStep(){
+
+            },
+
             isFinished() {
                 if (this.currentStep === this.steps) {
                     return true

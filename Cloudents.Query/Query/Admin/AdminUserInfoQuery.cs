@@ -8,6 +8,6 @@ namespace Cloudents.Query.Query.Admin
         {
             UserId = userId;
         }
-        public long UserId { get; set; }
+        public long UserId { get; }
     }
 }
