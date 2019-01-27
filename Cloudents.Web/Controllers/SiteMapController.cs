@@ -1,14 +1,4 @@
-﻿using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using NHibernate;
-using NHibernate.Linq;
-using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -18,6 +8,17 @@ using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using NHibernate;
+using NHibernate.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Cloudents.Web.Controllers
 {
@@ -42,50 +43,77 @@ namespace Cloudents.Web.Controllers
             //   // new SitemapNode(Url.Action("About","Home")),
             //    //other nodes
             //};
-           
-            
+
+
 
             //var sitemapIndexNodes = new List<SitemapIndexNode>();
             var query = new EmptyQuery();
             var result = await _queryBus.QueryAsync(query, token);
 
-            return new FileCallbackResult("application/xml", async (stream, context) =>
+            XNamespace nameSpace = "http://www.sitemaps.org/schemas/sitemap/0.9";
+            const int pageSize = 50000;
+            // ReSharper disable once StringLiteralTypo
+            var root = new XElement(nameSpace + "sitemapindex");
+            //root.Add(
+            //    new XElement(nameSpace + "sitemap",
+            //        new XElement(nameSpace + "loc", $"https://www.spitball.co/sitemap-{SeoType.Static}-0.xml")
+            //    )
+            //);
+
+            foreach (var elem in result)
             {
-                var writer = XmlWriter.Create(stream, new XmlWriterSettings
+                for (var i = 0; i <= elem.Count / pageSize; i++)
                 {
-                    Async = true
-                });
-                await writer.WriteStartDocumentAsync();
-                writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-
-                const int pageSize = 50000;
-                foreach (var elem in result)
-                {
-                    for (var i = 0; i <= elem.Count / pageSize; i++)
-                    {
-
-                        writer.WriteStartElement("sitemap");
-                        writer.WriteStartElement("loc");
-
-
-
-                        var url = Url.RouteUrl("siteMapDescription", new { type = elem.Type, index = i },
-                            Request.GetUri().Scheme);
-                        writer.WriteValue(url);
-                        await writer.WriteEndElementAsync();
-                        await writer.WriteEndElementAsync();
-                    }
+                    var url = Url.RouteUrl("siteMapDescription", new { type = elem.Type, index = i },
+                                        Request.GetUri().Scheme);
+                   root.Add(
+                        new XElement(nameSpace + "sitemap",
+                            new XElement(nameSpace + "loc", url)
+                        )
+                    );
                 }
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
-                await writer.FlushAsync();
+            }
+            var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
+            return Content(document.ToString(), "application/xml");
+
+
+            //return new FileCallbackResult("application/xml", async (stream, context) =>
+            //{
+            //    var writer = XmlWriter.Create(stream, new XmlWriterSettings
+            //    {
+            //        Async = true
+            //    });
+            //    await writer.WriteStartDocumentAsync();
+            //    writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
+
+            //    const int pageSize = 50000;
+            //    foreach (var elem in result)
+            //    {
+            //        for (var i = 0; i <= elem.Count / pageSize; i++)
+            //        {
+
+            //            writer.WriteStartElement("sitemap");
+            //            writer.WriteStartElement("loc");
+
+
+
+            //            var url = Url.RouteUrl("siteMapDescription", new { type = elem.Type, index = i },
+            //                Request.GetUri().Scheme);
+            //            writer.WriteValue(url);
+            //            await writer.WriteEndElementAsync();
+            //            await writer.WriteEndElementAsync();
+            //        }
+            //    }
+            //    writer.WriteEndElement();
+            //    writer.WriteEndDocument();
+            //    await writer.FlushAsync();
 
 
 
 
 
 
-            });
+            //});
 
             //    foreach (var mapCountDto in result)
             //{
@@ -101,12 +129,12 @@ namespace Cloudents.Web.Controllers
             //return new SitemapProvider().CreateSitemapIndex(new SitemapIndexModel(sitemapIndexNodes));
         }
 
-        [Route("sitemap-flashcard-{index:int}.xml",Order = 1)]
+        [Route("sitemap-flashcard-{index:int}.xml", Order = 1)]
         public IActionResult FlashcardSeoAsync(int index,
             [FromServices] IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery> query2,
             CancellationToken token)
         {
-           
+
             // var entities = _seoRepositories[type].Get(query);
             //var routeName = type.GetDescription();
 
@@ -157,62 +185,62 @@ namespace Cloudents.Web.Controllers
             }
 
 
-          var t =   session.Query<Document>()
-                .Where(w => w.Status.State == ItemState.Ok)
-                .Fetch(f => f.University)
-                .Select(s => new DocumentSeoDto
+            var t = session.Query<Document>()
+                  .Where(w => w.Status.State == ItemState.Ok)
+                  .Fetch(f => f.University)
+                  .Select(s => new DocumentSeoDto
+                  {
+                      Id = s.Id,
+                      Name = s.Name,
+                      Country = s.University.Country,
+                      CourseName = s.Course.Name,
+                      UniversityName = s.University.Name
+                  });
+            return new FileCallbackResult("application/xml", async (stream, context) =>
+            {
+                var writer = XmlWriter.Create(stream, new XmlWriterSettings
                 {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Country = s.University.Country,
-                    CourseName = s.Course.Name,
-                    UniversityName = s.University.Name
+                    Async = true
                 });
-          return new FileCallbackResult("application/xml", async (stream, context) =>
-          {
-              var writer = XmlWriter.Create(stream, new XmlWriterSettings
-              {
-                  Async = true
-              });
-              var i = 0;
-              await writer.WriteStartDocumentAsync();
-              writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-              foreach (var link in t)
-              {
-                  var url = Url.RouteUrl(SeoTypeString.Document, new
-                  {
-                      universityName = FriendlyUrlHelper.GetFriendlyTitle(link.UniversityName),
-                      courseName = FriendlyUrlHelper.GetFriendlyTitle(link.CourseName),
-                      link.Id,
-                      name = FriendlyUrlHelper.GetFriendlyTitle(link.Name)
-                  },Request.GetUri().Scheme);
-                  i++;
-                  await WriteTagAsync("1", "Daily", url, writer);
-                  if (i % 100 == 0)
-                  {
-                      await writer.FlushAsync();
-                  }
-              }
+                var i = 0;
+                await writer.WriteStartDocumentAsync();
+                writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
+                foreach (var link in t)
+                {
+                    var url = Url.RouteUrl(SeoTypeString.Document, new
+                    {
+                        universityName = FriendlyUrlHelper.GetFriendlyTitle(link.UniversityName),
+                        courseName = FriendlyUrlHelper.GetFriendlyTitle(link.CourseName),
+                        link.Id,
+                        name = FriendlyUrlHelper.GetFriendlyTitle(link.Name)
+                    }, Request.GetUri().Scheme);
+                    i++;
+                    await WriteTagAsync("1", "Daily", url, writer);
+                    if (i % 100 == 0)
+                    {
+                        await writer.FlushAsync();
+                    }
+                }
 
-              await writer.WriteEndElementAsync();
-              await writer.WriteEndDocumentAsync();
-              await writer.FlushAsync();
-          });
-              
-              //return new SitemapNode(_urlHelper.RouteUrl(SeoTypeString.Document, new
-              //{
-              //    universityName = FriendlyUrlHelper.GetFriendlyTitle(source.UniversityName),
-              //    courseName = FriendlyUrlHelper.GetFriendlyTitle(source.CourseName),
-              //    source.Id,
-              //    name = FriendlyUrlHelper.GetFriendlyTitle(source.Name)
-              //}));
-          }
+                await writer.WriteEndElementAsync();
+                await writer.WriteEndDocumentAsync();
+                await writer.FlushAsync();
+            });
 
-            //var siteMap = new DocumentSiteMapIndexConfiguration(index, session, Url);
-            //return new DynamicSitemapIndexProvider().CreateSitemapIndex(new SitemapProvider(), siteMap);
+            //return new SitemapNode(_urlHelper.RouteUrl(SeoTypeString.Document, new
+            //{
+            //    universityName = FriendlyUrlHelper.GetFriendlyTitle(source.UniversityName),
+            //    courseName = FriendlyUrlHelper.GetFriendlyTitle(source.CourseName),
+            //    source.Id,
+            //    name = FriendlyUrlHelper.GetFriendlyTitle(source.Name)
+            //}));
+        }
+
+        //var siteMap = new DocumentSiteMapIndexConfiguration(index, session, Url);
+        //return new DynamicSitemapIndexProvider().CreateSitemapIndex(new SitemapProvider(), siteMap);
 
 
-        
+
 
         private static async Task WriteTagAsync(string priority, string freq,
             string navigation, XmlWriter myWriter)
