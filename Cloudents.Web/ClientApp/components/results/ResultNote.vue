@@ -107,7 +107,7 @@
                 :onclosefn="closeNewPriceDialog"
                 :activateOverlay="true"
                 :isPersistent="true"
-                :content-class="`priceUpdate ${isRtl? 'rtl': ''}` ">
+                :content-class="`priceUpdate ${isRtl? 'rtl': ''}`">
             <v-card class="price-change-wrap">
                 <v-flex align-center justify-center class="relative-pos">
                     <div class="title-wrap">

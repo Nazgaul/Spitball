@@ -70,7 +70,7 @@
       text-align: left;
       max-width: 85%;
       &:hover {
-        cursor: pointer;
+        cursor: default;
       }
     }
   }

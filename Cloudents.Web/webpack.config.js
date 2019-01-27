@@ -105,15 +105,15 @@ module.exports = (env) => {
 
                             //RTL support
                             css: ExtractTextPlugin.extract({
-                                use: "css-loader?minimize",
+                                use: "css-loader",
                                 fallback: "vue-style-loader"
                             }),
                             less: ExtractTextPlugin.extract({
-                                use: "css-loader?minimize!less-loader",
+                                use: "css-loader!less-loader",
                                 fallback: "vue-style-loader"
                             }),
                             scss: ExtractTextPlugin.extract({
-                                use: "css-loader?minimize!sass-loader",
+                                use: "css-loader!sass-loader",
                                 fallback: "vue-style-loader"
                             })
                         }
@@ -123,7 +123,7 @@ module.exports = (env) => {
                     test: /\.css$/,
                     use: isDevBuild
                         ? ["style-loader", "css-loader"]
-                        : ExtractTextPlugin.extract({use: "css-loader?minimize"})
+                        : ExtractTextPlugin.extract({use: "css-loader"})
                 }
             ]
         },
@@ -184,26 +184,16 @@ module.exports = (env) => {
         ].concat(isDevBuild
             ? [
 
-                new Visualizer({
-                    filename: "./statistics.html"
-                }),
+                //new Visualizer({
+                //    filename: "./statistics.html"
+                //}),
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:
                         path.relative(bundleOutputDir,
                             "[resourcePath]") // Point sourcemap entries to the original file locations on disk
                 }),
-                //new UnusedFilesWebpackPlugin({
-                //    patterns: "./ClientApp/**/*.*"
-                //})
-                //new UnusedWebpackPlugin({
-                //    // Source directories
-                //    directories: [path.join(__dirname, 'src')],
-                //    // Exclude patterns
-                //    exclude: ['*.test.js',],
-                //    // Root directory (optional)
-                //    root: __dirname,
-                //})
+
             ] :
             [
                 new webpack.optimize.UglifyJsPlugin({
@@ -216,34 +206,7 @@ module.exports = (env) => {
 
     });
 
-    const serverBundleConfig = merge(serverConfig(env), {
-        //target: 'node',
-        //entry: { 'main-server': './ClientApp/server.js' },
-        //output: {
-        //    libraryTarget: 'commonjs2',
-        //    path: path.join(__dirname, './ClientApp/dist'),
-        //    filename: '[name].js',
-        //    publicPath: 'dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
-        //},
-        //plugins: [
-        //    new webpack.DllReferencePlugin({
-        //        context: __dirname,
-        //        manifest: require("./ClientApp/dist/vendor-manifest.json"),
-        //        sourceType: 'commonjs2',
-        //        //name: './vendor'
-        //    }),
-        //   // new VueSSRServerPlugin()
-        //]
-        // module: {
-        //     rules: [
-        //         {
-        //             test: /\.json?$/,
-        //             loader: 'json-loader'
-        //         }
-        //     ]
-        // },
-    });
+   
 
     return [clientBundleConfig];
-    //];
 }

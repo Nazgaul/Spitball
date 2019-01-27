@@ -18,7 +18,7 @@ namespace Cloudents.Persistance.Maps
         public SystemEventsMap()
         {
             Id(x => x.Id).Column("Name").Length(100).GeneratedBy.Assigned();
-            SchemaAction.Validate();
+            SchemaAction.Update();
         }
     }
 

@@ -117,49 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="add_button" xml:space="preserve">
-    <value>הוסף שאלה</value>
+  <data name="btn_continue" xml:space="preserve">
+    <value>הבא</value>
   </data>
-  <data name="ask_your_question_placeholder" xml:space="preserve">
-    <value>כתוב את השאלה שלך כאן...</value>
+  <data name="btn_finish" xml:space="preserve">
+    <value>סיים וסגור</value>
   </data>
-  <data name="class_placeholder" xml:space="preserve">
-    <value>איזה קורס?</value>
+  <data name="btn_skip" xml:space="preserve">
+    <value>דלג</value>
   </data>
-  <data name="error_general" xml:space="preserve">
-    <value>משהו השתבש, נסה שוב</value>
+  <data name="final_added" xml:space="preserve">
+    <value>יש לך </value>
   </data>
-  <data name="error_minimum_chars" xml:space="preserve">
-    <value>שאלה חייבת להכיל לפחות 15 תווים</value>
+  <data name="final_away" xml:space="preserve">
+    <value>מפדיון הנקודות שלך בכסף.</value>
   </data>
-  <data name="error_select_subject" xml:space="preserve">
-    <value>אל תשכח לבחור נושא לשאלה שלך</value>
+  <data name="final_enter_wallet" xml:space="preserve">
+    <value>כנס לארנק שלך לממש אותם היום</value>
   </data>
-  <data name="no_class" xml:space="preserve">
-    <value>אין קורסים</value>
+  <data name="final_only" xml:space="preserve">
+    <value>אתה במרחק של </value>
   </data>
-  <data name="regular_error_invalidValue" xml:space="preserve">
-    <value>ערך שגוי</value>
+  <data name="final_title" xml:space="preserve">
+    <value>בואו נתחיל!</value>
   </data>
-  <data name="regular_error_maxLimit" xml:space="preserve">
-    <value>הגעת למקסימום</value>
-  </data>
-  <data name="regular_error_minRequired" xml:space="preserve">
-    <value>נדרש לפחות 1 SBL</value>
-  </data>
-  <data name="regular_error_offerLimit" xml:space="preserve">
-    <value>מעבר לכמות שניתן להציע</value>
-  </data>
-  <data name="regular_offer_reward" xml:space="preserve">
-    <value>הצע תמורה</value>
-  </data>
-  <data name="regular_other" xml:space="preserve">
-    <value>אחר</value>
-  </data>
-  <data name="select_subject_placeholder" xml:space="preserve">
-    <value>בחר נושא</value>
-  </data>
-  <data name="title" xml:space="preserve">
-    <value>שאל שאלה</value>
+  <data name="final_to_wallet" xml:space="preserve">
+    <value>נקודות</value>
   </data>
 </root>
