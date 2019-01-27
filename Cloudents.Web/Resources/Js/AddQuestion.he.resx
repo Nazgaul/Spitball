@@ -142,13 +142,13 @@
     <value>הגעת למקסימום</value>
   </data>
   <data name="regular_error_minRequired" xml:space="preserve">
-    <value>נדרש לפחות 1 SBL</value>
+    <value>נדרש לפחות SBL אחד</value>
   </data>
   <data name="regular_error_offerLimit" xml:space="preserve">
     <value>מעבר לכמות שניתן להציע</value>
   </data>
   <data name="regular_offer_reward" xml:space="preserve">
-    <value>הצע תמורה</value>
+    <value>בקש מחיר</value>
   </data>
   <data name="regular_other" xml:space="preserve">
     <value>אחר</value>
@@ -157,6 +157,6 @@
     <value>בחר נושא</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>שאל שאלה</value>
+    <value>הוסף שאלה</value>
   </data>
 </root>
