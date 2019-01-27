@@ -84,7 +84,7 @@ import { LanguageService } from './language/languageService'
           placement: "bottom",
           enableScrolling: true
         },
-        offset: 0,
+        offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
           borderBottomColor: '#4870fd',
@@ -211,7 +211,7 @@ import { LanguageService } from './language/languageService'
           placement: "bottom",
           enableScrolling: true
         },
-        offset: 0,
+        offset: -650,
         arrowStyle: {
           borderTopColor: '#4870fd',
           borderBottomColor: '#4870fd',

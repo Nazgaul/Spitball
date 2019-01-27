@@ -45,6 +45,10 @@ set Language = 'he'
 where Culture in ('he','he-IL')
 
 
+We need to run dbi (in program - FixUsersWithoutTransactions()) to fix the users that didn't get no transactions.
+
+--Do until here
+
 /****** Object:  Table [sb].[SystemEvent]    Script Date: 17/01/2019 10:09:06 ******/
 SET ANSI_NULLS ON
 GO
@@ -163,7 +167,7 @@ N'הארנק שלי '
 
 
 
-We need to run dbi (in program - FixUsersWithoutTransactions()) to fix the users that didn't get no transactions.
+
 
 
 insert into sb.SystemEvent values('AnswerAccepted');

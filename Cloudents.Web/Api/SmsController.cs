@@ -62,7 +62,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         public async Task<IActionResult> SetUserPhoneNumber(
-            [ModelBinder(typeof(CountryModelBinder))] string country,
+           // [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromBody]PhoneNumberRequest model,
             CancellationToken token)
         {
@@ -97,20 +97,22 @@ namespace Cloudents.Web.Api
 
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber);
 
-            if (country != null)
-            {
-                if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
-                {
-                    var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
-                    var t1 = _commandBus.DispatchAsync(command2, token);
-                    await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
-                    ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["PhoneNumberNotSameCountry"]);
-                    var t2 = _signInManager.SignOutAsync();
-                    await Task.WhenAll(t1, t2);
-                    return BadRequest(ModelState);
+            //Ram: I disable this - we have an issue that sometime we get the wrong ip look at id 
+            //3DCDBF98-6545-473A-8EAA-A9DF00787C70 of UserLocation table in dev sql
+            //if (country != null)
+            //{
+            //    if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
+            //    {
+            //        var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
+            //        var t1 = _commandBus.DispatchAsync(command2, token);
+            //        await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
+            //        ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["PhoneNumberNotSameCountry"]);
+            //        var t2 = _signInManager.SignOutAsync();
+            //        await Task.WhenAll(t1, t2);
+            //        return BadRequest(ModelState);
 
-                }
-            }
+            //    }
+            //}
 
             if (retVal.Succeeded)
             {

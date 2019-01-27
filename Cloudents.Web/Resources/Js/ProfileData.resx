@@ -363,11 +363,11 @@ reset instructions.</value>
     <value>You’re ready to start making money!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_text" xml:space="preserve">
-    <value>We've awarded you some SBL to start using
-Spitball immediately! Use then to get help with your
-own homework questions, or answer other student's
-questions to earn more SBL that can be
-redeemed for GiftCards</value>
+    <value>We recommend reading through our quick
+walkthrough to see how Spitball works. 
+A GIFT is waiting for you at the last screen!
+Also, make sure to add your school 
+and classes for the best possible experience!</value>
   </data>
   <data name="makeMoneyProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>Create password</value>

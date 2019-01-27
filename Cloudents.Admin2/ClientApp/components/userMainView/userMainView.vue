@@ -146,9 +146,14 @@
             filteredData: function () {
                 let self = this;
                 if (self.userData && self.userData[`${this.activeTab}`]) {
-                    return self.userData[`${this.activeTab}`].filter(function (item) {
-                        return item.state.indexOf(self.searchQuery) !== -1
-                    })
+                    if(self.searchQuery === 'ok'){
+                        return self.userData[`${this.activeTab}`]
+                    }else{
+                        return self.userData[`${this.activeTab}`].filter(function (item) {
+                            return item.state.indexOf(self.searchQuery) !== -1
+                        })
+                    }
+
                 }
             },
             userStatusActive() {

@@ -49,12 +49,14 @@ namespace Cloudents.Command.CommandHandler
             }
             question.AcceptAnswer(answer);
 
-            question.User.MakeTransaction(TransactionType2.UnStakeMoney(question.Price, TransactionActionType.AnswerCorrect), question);
-            question.User.MakeTransaction(TransactionType2.Spend(question.Price, TransactionActionType.AnswerCorrect), question);
+            question.User.MakeTransaction(TransactionType2.UnStakeMoney(question.Price,
+                TransactionActionType.AnswerCorrect), question, answer: question.CorrectAnswer);
+            question.User.MakeTransaction(TransactionType2.Spend(question.Price,
+                TransactionActionType.AnswerCorrect), question, answer: question.CorrectAnswer);
             question.User.MakeTransaction(TransactionType2.QuestionOwnerBonus, question);
 
 
-            answer.User.MakeTransaction(TransactionType2.Earn(question.Price, TransactionActionType.AnswerCorrect), question);
+            answer.User.MakeTransaction(TransactionType2.Earn(question.Price, TransactionActionType.AnswerCorrect), question, answer: question.CorrectAnswer);
             answer.User.MakeTransaction(TransactionType2.QuestionAnswererBonus, question);
 
             await _userRepository.UpdateAsync(question.User, token);
