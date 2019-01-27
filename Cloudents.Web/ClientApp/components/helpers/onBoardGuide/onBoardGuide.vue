@@ -191,14 +191,20 @@
         }
         .step-content {
             padding: 16px 24px 16px 24px;
+            height:100%;
             @media(max-width: @screen-xs){
                 padding: 50px 24px 16px 24px;
+                height:unset;
             }
             .v-stepper__wrapper {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                height:100%;
+                img{
+                    height:100%;
+                }
             }
         }
         .on-board-stepper {
