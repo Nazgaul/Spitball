@@ -1,29 +1,35 @@
 ﻿@import "../../styles/mixin.less";
 
-.hideFooter{
-  display:none;
+.hideFooter {
+  display: none;
 }
 
-.v-tour{
-  .v-step{
+.onboard-guide-container {
+  min-width: 100%;
+  min-height: 100%;
+  height: 100vh;
+}
+
+.v-tour {
+  .v-step {
     z-index: 10;
     box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.35);
     background-image: linear-gradient(93deg, #4b8ffe, #4452fc) !important;
     text-align: left !important;
-    .v-step__header{
+    .v-step__header {
       background-color: none !important;
       font-size: 16px;
       margin-left: 0;
       padding-left: 0;
       padding-top: 1.5rem;
     }
-    .v-step__content{
+    .v-step__content {
       font-size: 13px;
       font-weight: 100;
     }
-    .v-step__buttons{
+    .v-step__buttons {
       text-align: right;
-      .v-step__button{
+      .v-step__button {
         margin: 0 3px;
         color: #4452fc;
         background-color: #ffffff;
@@ -31,21 +37,23 @@
         padding: 0.35rem 1.4rem;
       }
     }
-    .v-step__arrow{
-      .v-step__arrow--dark{
+    .v-step__arrow {
+      .v-step__arrow--dark {
         border-color: #4870fd;
       }
     }
-    
+
   }
 }
 
-.voted{
-  color:#FBB205 !important;
+.voted {
+  color: #FBB205 !important;
 }
-.site-content{
+
+.site-content {
   background-color: @systemBackgroundColor;
 }
+
 .loader {
   .inTheMiddle();
   width: 100vw;
@@ -57,12 +65,14 @@
   }
 
 }
-.noscroll{
+
+.noscroll {
   position: fixed;
   overflow-x: hidden;
   overflow-y: hidden;
   width: 100%;
 }
+
 .loading {
   .left-side-bar, .side-bar {
     opacity: 0;
@@ -80,13 +90,14 @@
 .v-overlay--active::before {
   opacity: 0.6 !important;
 }
-.s-cookie-container{
-  position:fixed;
-  bottom:0;
-  width:100%;
+
+.s-cookie-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   height: 60px;
-  background-color:#5d5d5d;
-  color:white;
+  background-color: #5d5d5d;
+  color: white;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -96,7 +107,7 @@
 
   animation: slide-up-animation .8s ease-in-out;
 
-  .cookie-approve{
+  .cookie-approve {
     border: 1px solid white;
     padding: 5px;
     padding-right: 17px;
@@ -107,25 +118,44 @@
   }
 }
 
-.s-cookie-hide{
-  display:none;
+.s-cookie-hide {
+  display: none;
 }
 
 @-webkit-keyframes slide-up-animation {
-  0%   { bottom: -60px; }
-  100% { bottom: 0px; }
+  0% {
+    bottom: -60px;
+  }
+  100% {
+    bottom: 0px;
+  }
 }
+
 @-moz-keyframes slide-up-animation {
-  0%   { bottom: -60px; }
-  100% { bottom: 0px; }
+  0% {
+    bottom: -60px;
+  }
+  100% {
+    bottom: 0px;
+  }
 }
+
 @-o-keyframes slide-up-animation {
-  0%   { bottom: -60px; }
-  100% { bottom: 0px; }
+  0% {
+    bottom: -60px;
+  }
+  100% {
+    bottom: 0px;
+  }
 }
+
 @keyframes slide-up-animation {
-  0%   { bottom: -60px; }
-  100% { bottom: 0; }
+  0% {
+    bottom: -60px;
+  }
+  100% {
+    bottom: 0;
+  }
 }
 
 .v-snack--top {

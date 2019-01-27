@@ -135,6 +135,9 @@
   <data name="error_select_subject" xml:space="preserve">
     <value>Don’t forget to select the subject for your question</value>
   </data>
+  <data name="no_class" xml:space="preserve">
+    <value>There are no classes</value>
+  </data>
   <data name="regular_error_invalidValue" xml:space="preserve">
     <value>Invalid value</value>
   </data>

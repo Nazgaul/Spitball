@@ -8,7 +8,7 @@
                     </v-toolbar>
                     <v-card v-for="(question, index) in questions" :key="index" style="padding: 0 12px;">
                         <v-toolbar class="question-toolbar mt-4 back-color-purple">
-                            <v-toolbar-title class="question-text-title">
+                            <v-toolbar-title class="question-text-title cursor-default">
                                 {{question.text}}
                             </v-toolbar-title>
                             <v-spacer></v-spacer>
@@ -72,6 +72,9 @@
     .user-id, .user-email {
         cursor: pointer;
     }
+    .cursor-default{
+        cursor: default!important;
+    }
     .v-list__tile__content {
         &.answers-content {
             .v-list__tile__sub-title {
@@ -97,6 +100,7 @@
         }
     }
     .question-toolbar {
+        cursor: default;
         .v-toolbar__content {
             height: auto !important;
             text-align: left;
@@ -106,6 +110,7 @@
 
     .question-text-title {
         white-space: pre-line;
+        cursor: default;
     }
 
     .panding-question-container {

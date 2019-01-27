@@ -36,7 +36,6 @@ import flaggedDocumentService from './flaggedDocumentService.js'
                         self.arrayOfIds = self.documentsList.map(item => {
                             return item.id
                         });
-                        console.log('docs!', resp)
                     },
                         (error) => {
                             self.$toaster.error('Something went wrong');
