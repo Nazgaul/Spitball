@@ -12,13 +12,11 @@
                 </v-flex>
                 <v-spacer></v-spacer>
                 <v-flex xs4>
-                    <v-btn v-if="userStatusActive" :disabled="!userData" class="suspend" @click="suspendUser()">
+                    <v-btn v-if="userStatusActive && !suspendedUser" :disabled="!userData" class="suspend" @click="suspendUser()">
                         Suspend
                     </v-btn>
                     <v-btn v-else :disabled="!userData" class="suspend" @click="releaseUser()">Release</v-btn>
 
-                    <v-btn :disabled="!userData" class="cash" @click="setUserComponent('userCashout')">Pay Cashout
-                    </v-btn>
                     <v-btn :disabled="!userData" class="grant" @click="setUserComponent('userTokens')">Grant Tokens
                     </v-btn>
                     <div v-show="activeUserComponent && userComponentsShow">
@@ -110,8 +108,9 @@
             return {
                 userData: {},
                 userIdentifier: '',
+                suspendedUser: false,
                 filters: [
-                    {name: 'All', value: 'ok'},
+                    {name: 'Accepted', value: 'ok'},
                     {name: 'Pending', value: 'pending'},
                     {name: 'Deleted', value: 'deleted'},
                     {name: 'Flagged', value: 'flagged'}
@@ -146,20 +145,23 @@
             filteredData: function () {
                 let self = this;
                 if (self.userData && self.userData[`${this.activeTab}`]) {
-                    if(self.searchQuery === 'ok'){
-                        return self.userData[`${this.activeTab}`]
-                    }else{
                         return self.userData[`${this.activeTab}`].filter(function (item) {
                             return item.state.indexOf(self.searchQuery) !== -1
                         })
-                    }
+
 
                 }
             },
-            userStatusActive() {
-                if (this.userData && this.userData.userInfo) {
-                    return this.userData.userInfo.status.value
+            userStatusActive: {
+                get(){
+                    if (this.userData && this.userData.userInfo) {
+                        return this.userData.userInfo.status.value
+                    }
+                },
+                set(val){
+                    this.suspendedUser = val
                 }
+
             },
 
             userId() {
@@ -201,6 +203,7 @@
                     this.$toaster.success(`user got suspended, email is: ${email}`);
                     this.showSuspendedDetails = true;
                     this.suspendedMail = email;
+                    this.suspendedUser = true;
                     // this.userData.userInfo.status.value ='suspended'
                 }, (err) => {
                     this.$toaster.error(`ERROR: failed to suspend user`);
@@ -217,6 +220,7 @@
                 idArr.push(this.userId);
                 releaseUser(idArr).then((email) => {
                     self.$toaster.success(`user got released`);
+                    this.suspendedUser = false;
                     // self.userData.userInfo.status.value === 'active'
                 }, (err) => {
                     self.$toaster.error(`ERROR: failed to realse user`);
