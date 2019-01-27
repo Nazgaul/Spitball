@@ -13,8 +13,8 @@
                     <bell-image  class="block-image"></bell-image>
                 </div>
                 <div class="text-wrap">
-                    <span class="bottom-title">onboard_welcome_bottom_title_learn</span>
-                    <span  class="bottom-subtitle">onboard_welcome_bottom_subtitle_learn</span>
+                    <span class="bottom-title" v-language:inner>onboard_welcome_bottom_title_learn</span>
+                    <span  class="bottom-subtitle" v-language:inner>onboard_welcome_bottom_subtitle_learn</span>
                 </div>
             </div>
             <div class="right-block">
@@ -26,7 +26,7 @@
                     <span class="bottom-subtitle" v-language:inner>onboard_welcome_bottom_subtitle_earn</span>
                 </div>
                 <div class="text-wrap" v-show="$vuetify.breakpoint.xsOnly">
-                    <span class="bottom-subtitle" v-language:inner>onboard_welcome_bottom_subtitle_earn</span>
+                    <span class="bottom-subtitle" v-language:inner>onboard_welcome_subtitle</span>
                 </div>
             </div>
         </div>
