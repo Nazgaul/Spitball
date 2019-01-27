@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
         {
             Transactions = Transactions ?? new List<Transaction>();
         }
-        internal IList<Transaction> Transactions { get; private set; }
+        internal ICollection<Transaction> Transactions { get; private set; }
         public decimal Balance { get; private set; }
 
         public int Score { get; private set; }
@@ -18,10 +18,10 @@ namespace Cloudents.Core.Entities
         public void Add(Transaction t)
         {
             Transactions.Add(t);
-            Balance += t.TransactionType.Price;
-            if (t.TransactionType.Price > 0)
+            Balance += t.Price;
+            if (t.Price > 0)
             {
-                Score += (int)t.TransactionType.Price;
+                Score += (int)t.Price;
             }
         }
 

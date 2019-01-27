@@ -49,11 +49,11 @@ namespace Cloudents.Query
                    Course = s.Course.Name
                }).ToFutureValue();//.SingleOrDefaultAsync(token);
 
-            IFutureValue<Transaction> purchaseFuture = null;
+            IFutureValue<DocumentTransaction> purchaseFuture = null;
             if (query.UserId.HasValue)
             {
-                purchaseFuture = _session.Query<Transaction>()
-                    .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.TransactionType.Type == TransactionType.Spent)
+                purchaseFuture = _session.Query<DocumentTransaction>()
+                    .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.Type == TransactionType.Spent)
                     .ToFutureValue();
 
 

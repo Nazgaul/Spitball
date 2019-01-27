@@ -33,7 +33,7 @@ namespace Cloudents.Command.CommandHandler
 
             if (user.University == null)
             {
-                user.MakeTransaction(TransactionType2.University);
+                user.AwardMoney(AwardsTransaction.University);
             }
             user.University = university;
             await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);

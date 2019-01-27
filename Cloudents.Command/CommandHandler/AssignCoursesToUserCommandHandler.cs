@@ -33,7 +33,7 @@ namespace Cloudents.Command.CommandHandler
 
             if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
             {
-                user.MakeTransaction(TransactionType2.FirstCourse);
+                user.AwardMoney(AwardsTransaction.FirstCourse);
                 await _userRepository.UpdateAsync(user, token);
             }
             user.Courses.Clear();

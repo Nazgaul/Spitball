@@ -88,7 +88,7 @@ namespace Cloudents.Persistance.Maps
                 y.Map(x => x.Score);
                 y.Map(x => x.Balance).CustomSqlType("smallmoney");
                 y.HasMany(x => x.Transactions).KeyColumn("User_id")
-                    .Cascade.AllDeleteOrphan();
+                    .Cascade.AllDeleteOrphan().ForeignKeyConstraintName("Transaction_User").AsBag();
             });
             //Map(x => x.Balance).CustomSqlType("smallmoney");
             //Map(x => x.Score);

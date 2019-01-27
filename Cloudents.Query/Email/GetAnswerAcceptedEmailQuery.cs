@@ -114,7 +114,7 @@ order by ek.orderBlock  ";
             public string Email { get; set; }
             [DtoToEntityConnection(nameof(RegularUser.Id))]
             public int UserId { get; set; }
-            [DtoToEntityConnection(nameof(Transaction.TransactionType.Price))]
+            [DtoToEntityConnection(nameof(Transaction.Price))]
             public decimal Tokens { get; set; }
             [DtoToEntityConnection(nameof(Question.Text))]
             public string QuestionText { get; set; }

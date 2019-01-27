@@ -88,7 +88,7 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
 
 
-        public virtual IList<Transaction> Transactions { get; protected set; }
+        public virtual IList<QuestionTransaction> Transactions { get; protected set; }
 
 
         // public virtual int AnswerCount { get; set; }
