@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
 {
@@ -101,40 +102,55 @@ namespace Cloudents.Core.Entities
 
 
 
-        public override void MakeTransaction(TransactionType2 transaction, Question question = null,
-            Document document = null, Answer answer = null)
+        public override void MakeTransaction(Transaction transaction)
         {
-            MakeTransaction(transaction, question, document, null, answer);
+            Transactions.Add(transaction);
+            AddEvent(new TransactionEvent(transaction, this));
+            //MakeTransaction(transaction, question, document, null);
 
         }
 
-        protected virtual void MakeTransaction(TransactionType2 transaction, Question question,
-            Document document, RegularUser user, Answer answer = null)
-        {
-            var t = new Transaction(transaction, this)
-            {
-                Question = question,
-                Document = document,
-                InvitedUser = user
-            };
-            Transactions.Add(t);
-            AddEvent(new TransactionEvent(t, this));
-        }
+        //protected virtual void MakeTransaction(TransactionType2 transaction, Question question,
+        //    Document document, RegularUser user)
+        //{
+        //    var t = new Transaction(transaction, this)
+        //    {
+        //        Question = question,
+        //        Document = document,
+        //        InvitedUser = user
+        //    };
+        //    Transactions.Add(t);
+        //    AddEvent(new TransactionEvent(t, this));
+        //}
 
         public virtual void AwardMoney(decimal price)
         {
-            MakeTransaction(TransactionType2.AwardToken(price));
+            var t = new AwardMoneyTransaction(price);
+            MakeTransaction(t);
+        }
+
+        public virtual void AwardMoney(AwardsTransaction award)
+        {
+            var t = new AwardMoneyTransaction(award);
+            MakeTransaction(t);
         }
 
         public virtual void CashOutMoney(decimal price)
         {
-            MakeTransaction(TransactionType2.CashOut(price));
+            var t = new CashOutTransaction(price);
+            MakeTransaction(t);
+            //MakeTransaction(TransactionType2.CashOut(price));
             //AddEvent(new RedeemEvent(Id, price));
         }
 
         public virtual void ReferUser(RegularUser user)
         {
-            MakeTransaction(TransactionType2.ReferUser, null, null, user);
+            MakeTransaction(new ReferUserTransaction(user));
+        }
+
+        public virtual void FinishRegistration()
+        {
+            MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
         }
 
 

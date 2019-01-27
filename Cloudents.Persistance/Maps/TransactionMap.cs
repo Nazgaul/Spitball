@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Persistance.Maps
 {
@@ -12,19 +12,71 @@ namespace Cloudents.Persistance.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.User).Column("User_id").ForeignKey("Transaction_User").Not.Nullable();
             Map(x => x.Created).Not.Nullable();
-            Component(x => x.TransactionType, y =>
-            {
-                y.Map(z => z.Action).Not.Nullable();
-                y.Map(z => z.Type).Not.Nullable();
-                y.Map(z => z.Price).Not.Nullable().CustomSqlType("smallmoney");
-            });
-            
+            //Component(x => x.TransactionType, y =>
+            //{
+            //    y.Map(z => z.Action).Not.Nullable();
+            //    y.Map(z => z.Type).Not.Nullable();
+            //    y.Map(z => z.Price).Not.Nullable().CustomSqlType("smallmoney");
+            //});
 
+            Map(z => z.Action).Not.Nullable();
+            Map(z => z.Type).Not.Nullable();
+            Map(z => z.Price).Not.Nullable().CustomSqlType("smallmoney");
+
+
+           
+
+            DiscriminateSubClassesOnColumn("TransactionType");
+            SchemaAction.None();
+        }
+    }
+
+    public class CashOutTransactionMap : SubclassMap<CashOutTransaction>
+    {
+        public CashOutTransactionMap()
+        {
+            DiscriminatorValue("CashOut");
+        }
+    }
+
+    public class AwardMoneyTransactionMap : SubclassMap<AwardMoneyTransaction>
+    {
+        public AwardMoneyTransactionMap()
+        {
+            DiscriminatorValue("Award");
+        }
+    }
+
+
+    public class ReferUserTransactionMap : SubclassMap<ReferUserTransaction>
+    {
+        public ReferUserTransactionMap()
+        {
+            DiscriminatorValue("Refer");
+            References(x => x.InvitedUser).Column("InvitedUserId").ForeignKey("Transaction_InvitedUser").Nullable();
+
+        }
+    }
+
+    public class QuestionTransactionMap : SubclassMap<QuestionTransaction>
+    {
+        public QuestionTransactionMap()
+        {
+            DiscriminatorValue("Question");
             References(x => x.Question).Column("QuestionId").ForeignKey("Transaction_Question").Nullable();
             References(x => x.Answer).Column("AnswerId").ForeignKey("Transaction_Answer").Nullable();
-            References(x => x.InvitedUser).Column("InvitedUserId").ForeignKey("Transaction_InvitedUser").Nullable();
+
+        }
+    }
+
+    public class DocumentTransactionMap : SubclassMap<DocumentTransaction>
+    {
+        public DocumentTransactionMap()
+        {
+            DiscriminatorValue("Document");
             References(x => x.Document).Column("DocumentId").ForeignKey("Transaction_Document").Nullable();
-            SchemaAction.None();
+
+
         }
     }
 }

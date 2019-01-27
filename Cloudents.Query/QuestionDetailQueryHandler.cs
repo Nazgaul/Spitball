@@ -17,7 +17,7 @@ namespace Cloudents.Query
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Injected")]
     public class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
     {
-        class QuestionDetailQueryFlatDto
+        private class QuestionFlatDto
         {
             public long UserId { get; set; }
             public string UserName { get; set; }
@@ -31,6 +31,18 @@ namespace Cloudents.Query
             public string Language { get; set; }
             public int Votes { get; set; }
             public string Course { get; set; }
+        }
+
+        private class AnswerFlatDto
+        {
+            public Guid Id { get; set; }
+            public string Text { get; set; }
+            public long UserId { get; set; }
+            public string UserName { get; set; }
+            public int UserScore { get; set; }
+            public DateTime Created { get; set; }
+            public int VoteCount { get; set; }
+            public string Language { get; set; }
         }
 
         private readonly DapperRepository _dapper;
@@ -72,7 +84,7 @@ namespace Cloudents.Query
 
 
 
-                    var res = await grid.ReadFirstOrDefaultAsync<QuestionDetailQueryFlatDto>();
+                    var res = await grid.ReadFirstOrDefaultAsync<QuestionFlatDto>();
                     if (res == null)
                     {
                         return null;
@@ -83,22 +95,13 @@ namespace Cloudents.Query
                         new CultureInfo(res.Language), res.Votes, res.Course
                     );
 
-                    var answers = await grid.ReadAsync<QuestionDetailAnswerFlatDto>();
+                    var answers = await grid.ReadAsync<AnswerFlatDto>();
 
                     questionDetailDto.Answers.AddRange(
                         answers.OrderByDescending(x => x.Id == questionDetailDto.CorrectAnswerId)
                         .ThenByDescending(x => x.VoteCount).ThenBy(x => x.Created).Select(a => new QuestionDetailAnswerDto(a.Id, a.Text,
                             a.UserId, a.UserName, a.UserScore, a.Created,
                             a.VoteCount, new CultureInfo(a.Language))));
-
-                    //foreach (var a in answers)
-                    //{
-                    //    questionDetailDto.Answers.Add(new QuestionDetailAnswerDto(a.Id, a.Text,
-                    //        a.UserId, a.UserName, a.UserScore, a.Created,
-                    //        a.VoteCount, new CultureInfo(a.Language)));
-                    //}
-
-
 
                     return questionDetailDto;
                 }
@@ -152,16 +155,6 @@ namespace Cloudents.Query
 }
 
 
-public class QuestionDetailAnswerFlatDto
-{
-    public Guid Id { get; set; }
-    public string Text { get; set; }
-    public long UserId { get; set; }
-    public string UserName { get; set; }
-    public int UserScore { get; set; }
-    public DateTime Created { get; set; }
-    public int VoteCount { get; set; }
-    public string Language { get; set; }
-}
+
 
 }

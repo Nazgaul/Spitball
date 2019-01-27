@@ -56,7 +56,8 @@ export default {
             'getQuestions',
             'getDocuments',
             'resetProfileData',
-            'getPurchasedDocuments'
+            'getPurchasedDocuments',
+            'setProfileByActiveTab'
         ]),
 
         changeActiveTab(tabId) {
@@ -67,6 +68,9 @@ export default {
         },
         fetchData() {
             this.syncProfile(this.id);
+        },
+        getInfoByTab(){
+            this.setProfileByActiveTab(this.activeTab)
         },
         loadAnswers() {
             if (this.profileData.answers.length < this.itemsPerTab) {
@@ -201,7 +205,10 @@ export default {
         }
     },
     watch: {
-        '$route': 'fetchData'
+        '$route': 'fetchData',
+        activeTab(){
+            this.getInfoByTab();
+        }
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {

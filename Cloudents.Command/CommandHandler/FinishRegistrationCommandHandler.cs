@@ -19,8 +19,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(FinishRegistrationCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, token);
-            //TODO: move to transaction repository
-            user.MakeTransaction(TransactionType2.FinishRegistration(user.Country));
+            user.FinishRegistration();
             await _userRepository.UpdateAsync(user, token);
         }
 

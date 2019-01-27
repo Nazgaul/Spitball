@@ -180,6 +180,9 @@ const actions = {
         context.commit('setProfile', profileData)
        });       
     },
+    setProfileByActiveTab(context, activeTab){
+        console.log(activeTab)
+    },
     removeItemFromProfile({commit}, data){
         commit('deleteItemFromProfile', data)
     },

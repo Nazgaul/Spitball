@@ -28,7 +28,7 @@ namespace Cloudents.Persistance.Repositories
             return
                 Session.QueryOver<Transaction>()
                     .Where(w => w.User.Id == userId)
-                    .Select(Projections.Sum<Transaction>(x => x.TransactionType.Price))
+                    .Select(Projections.Sum<Transaction>(x => x.Price))
                     .SingleOrDefaultAsync<decimal>(token);
         }
         public Task<decimal> GetUserScoreAsync(long userId, CancellationToken token)
@@ -36,16 +36,16 @@ namespace Cloudents.Persistance.Repositories
             return
                 Session.QueryOver<Transaction>()
                        .Where(w => w.User.Id == userId)
-                       .Where(w => w.TransactionType.Type == TransactionType.Earned && w.TransactionType.Price > 0)
-                       .Select(Projections.Sum<Transaction>(x => x.TransactionType.Price)).SingleOrDefaultAsync<decimal>(token);
+                       .Where(w => w.Type == TransactionType.Earned && w.Price > 0)
+                       .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
         }
 
         public async Task<TransactionActionType> GetFirstCourseTransaction (long userId, CancellationToken token)
         {
             return await Session.QueryOver<Transaction>()
                 .Where(w => w.User.Id == userId)
-                .Where(w => w.TransactionType.Action == TransactionActionType.FirstCourse)
-                .Select(s => s.TransactionType.Action).SingleOrDefaultAsync<TransactionActionType>(token);
+                .Where(w => w.Action == TransactionActionType.FirstCourse)
+                .Select(s => s.Action).SingleOrDefaultAsync<TransactionActionType>(token);
 
                 //user.Transactions.Where(w => w.Action == TransactionActionType.FirstCourse)
                //                                             .Select(s => s.Action).FirstOrDefault();

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
-    public class Language : Entity<string>
+    public class Language 
     {
         protected Language()
         {
@@ -13,8 +13,10 @@ namespace Cloudents.Core.Entities
 
         private Language(CultureInfo name)
         {
-            Id = name.TwoLetterISOLanguageName;
+            Id = name;
         }
+
+        public virtual CultureInfo Id { get; set; }
 
         public static readonly Language English = new Language(new CultureInfo("en"));
         public static readonly Language Hebrew = new Language(new CultureInfo("he"));
@@ -31,7 +33,7 @@ namespace Cloudents.Core.Entities
 
         public static implicit operator CultureInfo(Language tb)
         {
-            return new CultureInfo(tb.Id);
+            return tb.Id;
         }
 
         //public static implicit operator Language(string tb)
@@ -45,7 +47,7 @@ namespace Cloudents.Core.Entities
         //}
         public static implicit operator Language(CultureInfo info)
         {
-            var result = SystemSupportLanguage().FirstOrDefault(f => f.Id == info.Name);
+            var result = SystemSupportLanguage().FirstOrDefault(f => Equals(f.Id, info));
             if (result != null)
             {
                 return result;
@@ -60,7 +62,7 @@ namespace Cloudents.Core.Entities
 
         public static implicit operator Language(string tb)
         {
-            var result = SystemSupportLanguage().FirstOrDefault(f=>f.Id == tb);
+            var result = SystemSupportLanguage().FirstOrDefault(f => Equals(f.Id, new CultureInfo(tb)));
             if (result != null)
             {
                 return result;

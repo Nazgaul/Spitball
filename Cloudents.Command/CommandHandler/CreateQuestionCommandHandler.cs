@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -16,14 +16,14 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IRegularUserRepository _userRepository;
-        private readonly Lazy< IBlobProvider<QuestionAnswerContainer>> _blobProvider;
+        private readonly Lazy<IBlobProvider<QuestionAnswerContainer>> _blobProvider;
         private readonly ITextAnalysis _textAnalysis;
         private readonly ITransactionRepository _transactionRepository;
         private readonly ICourseRepository _courseRepository;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRegularUserRepository userRepository, ITextAnalysis textAnalysis,
-            ITransactionRepository transactionRepository, 
+            ITransactionRepository transactionRepository,
             Lazy<IBlobProvider<QuestionAnswerContainer>> blobProvider, ICourseRepository courseRepository)
         {
             _questionRepository = questionRepository;
@@ -63,9 +63,9 @@ namespace Cloudents.Command.CommandHandler
                 message.Text, message.Price, message.Files?.Count() ?? 0,
                 user, textLanguage, course);
 
-            user.MakeTransaction(TransactionType2.StakeMoney(question.Price),question);
+            user.MakeTransaction(QuestionTransaction.Asked(question));
             await _userRepository.UpdateAsync(user, default);
-           
+
 
             await _questionRepository.AddAsync(question, token);
             var id = question.Id;

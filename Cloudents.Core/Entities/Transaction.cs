@@ -7,76 +7,40 @@ namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "nHibernate Proxy")]
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nHibernate Proxy")]
-    public class Transaction : Entity<Guid>
+    public abstract class Transaction : Entity<Guid>
     {
-        //[SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-        //public Transaction(TransactionActionType action, TransactionType type, decimal price, RegularUser user)
-        //    : this()
-        //{
-        //    Action = action;
-        //    Type = type;
-        //    Price = price;
-        //    Created = DateTime.UtcNow;
-        //    User = user;
-        //    AddEvent(new TransactionEvent(this));
-
-        //}
-
-        public Transaction(TransactionType2 type, RegularUser user) : this()
-        {
-            TransactionType = type;
-            Created = DateTime.UtcNow;
-            User = user;
-            //AddEvent(new TransactionEvent(this));
-        }
+       
 
         protected Transaction()
         {
 
         }
 
+        //protected Transaction(RegularUser user)
+        //{
+
+        //}
+
         //  public virtual Guid Id { get; protected set; }
         public virtual RegularUser User { get; protected set; }
 
         public virtual DateTime Created { get; protected set; }
 
-        // public virtual TransactionActionType Action { get; protected set; }
-        // public virtual TransactionType Type { get; protected set; }
-        // public virtual decimal Price { get; protected set; }
+        public virtual TransactionActionType Action { get; protected set; }
+        public virtual TransactionType Type { get; protected set; }
+        public virtual decimal Price { get; protected set; }
 
-        public virtual Question Question { get; set; }
-        public virtual Answer Answer { get; set; }
-        public virtual RegularUser InvitedUser { get; set; }
-
-        public virtual Document Document { get; set; }
+      
 
 
-        public virtual TransactionType2 TransactionType { get; protected set; }
 
+        //public virtual TransactionType2 TransactionType { get; protected set; }
     }
 
-
-    public sealed class TransactionType2 : ValueObject
+    public class CashOutTransaction : Transaction
     {
-        public TransactionActionType Action { get; }
 
-        public TransactionType Type { get; }
-
-        public decimal Price { get; }
-
-        private TransactionType2()
-        {
-
-        }
-
-        private TransactionType2(TransactionActionType action, TransactionType type, decimal amount)
-        {
-            Action = action;
-            Type = type;
-            Price = amount;
-        }
-
-        public static TransactionType2 CashOut(decimal price)
+        public CashOutTransaction(decimal price/*, RegularUser user*/) //: base(user)
         {
             if (price < 1000)
             {
@@ -93,69 +57,320 @@ namespace Cloudents.Core.Entities
 
             }
             price = -Math.Abs(price);
-            return new TransactionType2(TransactionActionType.CashOut, TransactionType.Earned, price);
+
+            this.Price = price;
+            this.Action = TransactionActionType.CashOut;
+            this.Type = Enum.TransactionType.Spent;
         }
 
-        public static TransactionType2 AwardToken(decimal price)
+        protected CashOutTransaction()
+        {
+
+        }
+    }
+
+    public class AwardMoneyTransaction : Transaction
+    {
+        public AwardMoneyTransaction(decimal price/*, RegularUser user*/) //: base(user)
         {
             if (price < 0)
             {
                 throw new ArgumentException("you need to award user");
             }
-            return new TransactionType2(TransactionActionType.None, TransactionType.Earned, price);
-        }
-        public static TransactionType2 StakeMoney(decimal money)
-        {
-            money = -Math.Abs(money);
-            return new TransactionType2(TransactionActionType.Question, TransactionType.Stake, money);
+
+            this.Price = price;
+            this.Action = TransactionActionType.None;
+            this.Type = Enum.TransactionType.Earned;
         }
 
-        public static TransactionType2 UnStakeMoney(decimal money, TransactionActionType reason)
+        public AwardMoneyTransaction(AwardsTransaction transaction/*, RegularUser user*/) : this(transaction.Price/*, user*/)
         {
-
-            return new TransactionType2(reason, TransactionType.Stake, money);
+            Action = transaction.Action;
         }
 
-        public static TransactionType2 Spend(decimal money, TransactionActionType reason)
+        protected AwardMoneyTransaction()
         {
-            money = -Math.Abs(money);
-            return new TransactionType2(reason, TransactionType.Spent, money);
-        }
 
-        public static TransactionType2 Earn(decimal money, TransactionActionType reason)
-        {
-            money = Math.Abs(money);
-            return new TransactionType2(reason, TransactionType.Earned, money);
         }
 
         private static readonly SortedSet<string> Tier1Users =
             new SortedSet<string>(StringComparer.OrdinalIgnoreCase)
             {
-                    "US", "CA", "AU" , "GB", "IE", "IL", "NZ", "MX", "SE" ,
-                    "NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
+                "US", "CA", "AU" , "GB", "IE", "IL", "NZ", "MX", "SE" ,
+                "NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
             };
-        public static TransactionType2 FinishRegistration(string country)
+
+        public static AwardMoneyTransaction FinishRegistration(RegularUser user)
         {
             var initBalance = 100;
-            if (Tier1Users.Contains(country))
+            if (Tier1Users.Contains(user.Country))
             {
                 initBalance = 750;
             }
-            return new TransactionType2(TransactionActionType.SignUp, TransactionType.Earned, initBalance);
+
+            return new AwardMoneyTransaction(initBalance/*, user*/)
+            {
+                Action = TransactionActionType.SignUp
+            };
+        }
+
+    }
+
+    public class QuestionTransaction : Transaction
+    {
+        private QuestionTransaction(Question question/*, RegularUser user*/) //: base(user)
+        {
+            Question = question;
+        
 
         }
 
-        public static readonly TransactionType2 FirstCourse = new TransactionType2(TransactionActionType.FirstCourse, TransactionType.Earned, 5);
-        public static readonly TransactionType2 University = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 5);
-        public static readonly TransactionType2 ReferUser = new TransactionType2(TransactionActionType.ReferringUser, TransactionType.Earned, 10);
-        public static readonly TransactionType2 QuestionOwnerBonus = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 1);
-        public static readonly TransactionType2 QuestionAnswererBonus = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 10);
+        public virtual Question Question { get; set; }
+        public virtual Answer Answer { get; set; }
 
-        protected override IEnumerable<object> GetEqualityComponents()
+        protected QuestionTransaction()
         {
-            yield return Action;
-            yield return Type;
-            yield return Price;
+           
+        }
+
+        public static QuestionTransaction Asked(Question question/*, RegularUser user*/)
+        {
+            var money = -Math.Abs(question.Price);
+            return new QuestionTransaction(question/*, user*/)
+            {
+                Action = TransactionActionType.Question,
+                Type = TransactionType.Stake,
+                Price = money
+            };
+        }
+
+        public static QuestionTransaction Deleted(Question question/*, RegularUser user*/)
+        {
+            var money = Math.Abs(question.Price);
+            return new QuestionTransaction(question/*, user*/)
+            {
+                Action = TransactionActionType.DeleteQuestion,
+                Type = TransactionType.Stake,
+                Price = money
+            };
+        }
+
+        public static void Answered(Question question/*, RegularUser user*/)
+        {
+            var money = Math.Abs(question.Price);
+            var userQuestion = question.User;
+            var correctAnswer = question.CorrectAnswer;
+          
+            var t1 = new QuestionTransaction(question/*, user*/)
+            {
+                Action = TransactionActionType.AnswerCorrect,
+                Type = TransactionType.Stake,
+                Price = money,
+                Answer = correctAnswer
+            };
+            var t2 = new QuestionTransaction(question/*, user*/)
+            {
+                Action = TransactionActionType.AnswerCorrect,
+                Type = TransactionType.Spent,
+                Price = -money,
+                Answer = correctAnswer
+            };
+            var t3 = new AwardMoneyTransaction(AwardsTransaction.QuestionOwnerBonus);
+            userQuestion.MakeTransaction(t1);
+            userQuestion.MakeTransaction(t2);
+            userQuestion.MakeTransaction(t3);
+
+
+            var userAnswer = correctAnswer.User;
+            var ta1 = new QuestionTransaction(question/*, user*/)
+            {
+                Action = TransactionActionType.AnswerCorrect,
+                Type = TransactionType.Earned,
+                Price = money,
+                Answer = correctAnswer
+            };
+            var ta2 = new AwardMoneyTransaction(AwardsTransaction.QuestionAnswererBonus);
+            userAnswer.MakeTransaction(ta1);
+            userAnswer.MakeTransaction(ta2);
+        }
+
+    }
+
+    public class ReferUserTransaction : Transaction
+    {
+        public virtual RegularUser InvitedUser { get; set; }
+        //    public static readonly TransactionType2 ReferUser = new TransactionType2(
+        // TransactionActionType.ReferringUser, TransactionType.Earned, 10);
+        public ReferUserTransaction(RegularUser invitedUser/*, RegularUser user*/) //: base(user)
+        {
+            InvitedUser = invitedUser;
+            Action = TransactionActionType.ReferringUser;
+            this.Price = 10;
+            this.Type = TransactionType.Earned;
+        }
+
+        protected ReferUserTransaction()
+        {
+            
         }
     }
+
+    public class DocumentTransaction : Transaction
+    {
+        private DocumentTransaction(Document document/*, RegularUser user*/) //: base(user)
+        {
+            Document = document;
+
+
+        }
+
+        protected DocumentTransaction()
+        {
+
+        }
+
+        public virtual Document Document { get; set; }
+
+        public static Transaction Purchase(Document document)
+        {
+            return new DocumentTransaction(document)
+            {
+                Action = TransactionActionType.PurchaseDocument,
+                Price = -document.Price,
+                Type = TransactionType.Spent
+            };
+        }
+
+        public static Transaction Sold(Document document)
+        {
+            return new DocumentTransaction(document)
+            {
+                Action = TransactionActionType.SoldDocument,
+                Price = document.Price,
+                Type = TransactionType.Earned
+            };
+        }
+
+    }
+
+    public sealed class AwardsTransaction
+    {
+        private AwardsTransaction(TransactionActionType type, decimal price)
+        {
+            Action = type;
+            Price = price;
+        }
+        public TransactionActionType Action { get; }
+        public decimal Price { get; }
+
+        public static readonly AwardsTransaction FirstCourse = new AwardsTransaction(TransactionActionType.FirstCourse, 5);
+        public static readonly AwardsTransaction University = new AwardsTransaction(TransactionActionType.Awarded, 5);
+       
+        public static readonly AwardsTransaction QuestionOwnerBonus = new AwardsTransaction(TransactionActionType.Awarded, 1);
+        public static readonly AwardsTransaction QuestionAnswererBonus = new AwardsTransaction(TransactionActionType.Awarded, 10);
+    }
+
+
+    //public sealed class TransactionType2 : ValueObject
+    //{
+    //    public TransactionActionType Action { get; }
+
+    //    public TransactionType Type { get; }
+
+    //    public decimal Price { get; }
+
+    //    private TransactionType2()
+    //    {
+
+    //    }
+
+    //    private TransactionType2(TransactionActionType action, TransactionType type, decimal amount)
+    //    {
+    //        Action = action;
+    //        Type = type;
+    //        Price = amount;
+    //    }
+
+    //    //    public static TransactionType2 CashOut(decimal price)
+    //    //    {
+    //    //        if (price < 1000)
+    //    //        {
+    //    //            throw new ArgumentException();
+    //    //        }
+    //    //        if (price > 4000)
+    //    //        {
+    //    //            throw new ArgumentException();
+    //    //        }
+
+    //    //        if (price % 1000 != 0)
+    //    //        {
+    //    //            throw new ArgumentException();
+
+    //    //        }
+    //    //        price = -Math.Abs(price);
+    //    //        return new TransactionType2(TransactionActionType.CashOut, TransactionType.Earned, price);
+    //    //    }
+
+    //    //    public static TransactionType2 AwardToken(decimal price)
+    //    //    {
+    //    //        if (price < 0)
+    //    //        {
+    //    //            throw new ArgumentException("you need to award user");
+    //    //        }
+    //    //        return new TransactionType2(TransactionActionType.None, TransactionType.Earned, price);
+    //    //    }
+    //    //    public static TransactionType2 StakeMoney(decimal money)
+    //    //    {
+    //    //        money = -Math.Abs(money);
+    //    //        return new TransactionType2(TransactionActionType.Question, TransactionType.Stake, money);
+    //    //    }
+
+    //    //    public static TransactionType2 UnStakeMoney(decimal money, TransactionActionType reason)
+    //    //    {
+
+    //    //        return new TransactionType2(reason, TransactionType.Stake, money);
+    //    //    }
+
+    //    //    public static TransactionType2 Spend(decimal money, TransactionActionType reason)
+    //    //    {
+    //    //        money = -Math.Abs(money);
+    //    //        return new TransactionType2(reason, TransactionType.Spent, money);
+    //    //    }
+
+    //    //    public static TransactionType2 Earn(decimal money, TransactionActionType reason)
+    //    //    {
+    //    //        money = Math.Abs(money);
+    //    //        return new TransactionType2(reason, TransactionType.Earned, money);
+    //    //    }
+
+    //    //    private static readonly SortedSet<string> Tier1Users =
+    //    //        new SortedSet<string>(StringComparer.OrdinalIgnoreCase)
+    //    //        {
+    //    //                "US", "CA", "AU" , "GB", "IE", "IL", "NZ", "MX", "SE" ,
+    //    //                "NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
+    //    //        };
+    //    //    public static TransactionType2 FinishRegistration(string country)
+    //    //    {
+    //    //        var initBalance = 100;
+    //    //        if (Tier1Users.Contains(country))
+    //    //        {
+    //    //            initBalance = 750;
+    //    //        }
+    //    //        return new TransactionType2(TransactionActionType.SignUp, TransactionType.Earned, initBalance);
+
+    //    //    }
+
+    //    public static readonly TransactionType2 FirstCourse = new TransactionType2(TransactionActionType.FirstCourse, TransactionType.Earned, 5);
+    //    public static readonly TransactionType2 University = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 5);
+    //    public static readonly TransactionType2 ReferUser = new TransactionType2(TransactionActionType.ReferringUser, TransactionType.Earned, 10);
+    //    public static readonly TransactionType2 QuestionOwnerBonus = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 1);
+    //    public static readonly TransactionType2 QuestionAnswererBonus = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 10);
+
+    //    protected override IEnumerable<object> GetEqualityComponents()
+    //    {
+    //        yield return Action;
+    //        yield return Type;
+    //        yield return Price;
+    //    }
+    //}
 }
