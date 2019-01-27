@@ -1,7 +1,6 @@
 <template>
     <div class="final-onboard-wrap">
         <div class="present-row">
-            <!--<presentStarsMobile  class="present-img"></presentStarsMobile>-->
             <span class="step-title d-flex" v-language:inner>onboard_final_title</span>
             <presentStars  class="present-img"></presentStars>
         </div>
