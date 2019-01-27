@@ -2,7 +2,7 @@
     <div class="onboard-component">
         <div class="back-img"></div>
         <div class="guide-container">
-            <v-stepper v-model="currentStep" class="on-board-stepper"
+            <v-stepper v-model="currentStep" class="on-board-stepper" :class="{'last-step': isFinished}"
             >
                 <!--<v-stepper-items class="step-items"-->
                                  <!--:class="{'last-step': isFinished}"-->
@@ -194,6 +194,9 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100vh;
+            &.last-step{
+                background-image: url("./images/desktop_english_4.png");
+            }
             @media (max-width: @screen-xs) {
                 min-height: 100%;
                 //can delete after background image replaced to be elements

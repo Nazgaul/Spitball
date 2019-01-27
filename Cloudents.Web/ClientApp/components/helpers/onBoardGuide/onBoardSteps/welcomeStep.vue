@@ -2,7 +2,7 @@
     <div class="onboard-step-wrap">
         <div class="title-row"  v-show="$vuetify.breakpoint.smAndUp">
           <span class="step-title"  v-language:inner>onboard_welcome_title</span>
-            <span class="step-subtitle"  v-language:inner>welcome_subtitle</span>
+            <span class="step-subtitle"  v-language:inner>onboard_welcome_subtitle</span>
         </div>
         <div class="title-row" v-show="$vuetify.breakpoint.xsOnly">
             <span class="step-title" v-language:inner>onboard_welcome_title</span>
