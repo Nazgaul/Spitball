@@ -102,14 +102,14 @@ namespace Cloudents.Core.Entities
 
 
         public override void MakeTransaction(TransactionType2 transaction, Question question = null,
-            Document document = null)
+            Document document = null, Answer answer = null)
         {
-            MakeTransaction(transaction, question, document, null);
+            MakeTransaction(transaction, question, document, null, answer);
 
         }
 
         protected virtual void MakeTransaction(TransactionType2 transaction, Question question,
-            Document document, RegularUser user)
+            Document document, RegularUser user, Answer answer = null)
         {
             var t = new Transaction(transaction, this)
             {
@@ -134,7 +134,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void ReferUser(RegularUser user)
         {
-            MakeTransaction(TransactionType2.ReferUser,null,null, user);
+            MakeTransaction(TransactionType2.ReferUser, null, null, user);
         }
 
 
