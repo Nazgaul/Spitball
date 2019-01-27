@@ -130,13 +130,13 @@
     <value>יש לך </value>
   </data>
   <data name="final_away" xml:space="preserve">
-    <value>מלממש את הנקודות שלך בכסף.</value>
+    <value>מפדיון הנקודות שלך בכסף.</value>
   </data>
   <data name="final_enter_wallet" xml:space="preserve">
     <value>כנס לארנק שלך לממש אותם היום</value>
   </data>
   <data name="final_only" xml:space="preserve">
-    <value>אתה רחוק רק</value>
+    <value>אתה במרחק של </value>
   </data>
   <data name="final_title" xml:space="preserve">
     <value>בואו נתחיל!</value>

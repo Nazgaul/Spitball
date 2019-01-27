@@ -87,7 +87,7 @@
             <sb-dialog
                     :showDialog="getOnBoardState"
                     :popUpType="'onBoardGuide'"
-                    :content-class="'onboard-guide-container'"
+                    :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
                     :maxWidth="'1280px'"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
             >
@@ -240,9 +240,9 @@
             HomeworkHelp_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
                 let self = this;
-                if (val && !supressed && !!self.accountUser && !this.showUniSelect) {
+                if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
-                        if (self.$route.name === "ask") {
+                        if (self.$route.name === "ask" && !this.showUniSelect) {
                             if (self.$vuetify.breakpoint.xsOnly) {
                                 self.tourObject.tourSteps = tourService[self.tourObject.region].HWSteps.mobile;
                                 if (self.getIsFeedTabActive()) {
@@ -259,9 +259,9 @@
             StudyDocuments_isDataLoaded: function (val) {
                 let supressed = global.localStorage.getItem("sb_walkthrough_supressed");
                 let self = this;
-                if (val && !supressed && !!self.accountUser && !this.showUniSelect) {
+                if (val && !supressed && !!self.accountUser) {
                     setTimeout(() => {
-                        if (self.$route.name === "note") {
+                        if (self.$route.name === "note" && !this.showUniSelect) {
                             if (self.$vuetify.breakpoint.xsOnly) {
                                 self.tourObject.tourSteps = tourService[self.tourObject.region].StudyDocumentsSteps.mobile;
                                 if (self.getIsFeedTabActive()) {
@@ -303,7 +303,7 @@
                 if(isLogedIn && !supressed && validRoutesNames){
                   setTimeout(()=>{
                       this.updateOnBoardState(true);
-                  }, 3000)
+                  },)
 
               }
             },

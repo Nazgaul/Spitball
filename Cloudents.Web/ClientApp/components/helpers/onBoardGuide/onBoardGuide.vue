@@ -191,14 +191,20 @@
         }
         .step-content {
             padding: 16px 24px 16px 24px;
+            height:100%;
             @media(max-width: @screen-xs){
                 padding: 50px 24px 16px 24px;
+                height:unset;
             }
             .v-stepper__wrapper {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                height:100%;
+                img{
+                    height:100%;
+                }
             }
         }
         .on-board-stepper {
@@ -206,11 +212,10 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 90vh;
+            height: 100vh;
             @media (max-width: @screen-xs) {
                 min-height: 100%;
                 //can delete after background image replaced to be elements
-
             }
         }
         .step-items {
