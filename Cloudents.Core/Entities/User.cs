@@ -88,7 +88,10 @@ namespace Cloudents.Core.Entities
 
         //public abstract void AddTransaction(Transaction t);
 
-        public abstract void MakeTransaction(TransactionType2 transaction, Question question = null, Document document = null);
+        public abstract void MakeTransaction(TransactionType2 transaction, 
+            Question question = null,
+            Document document = null,
+            Answer answer = null);
 
 
 
