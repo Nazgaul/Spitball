@@ -37,7 +37,6 @@
                             <v-btn slot="activator" flat class="doc-action"
                                    @click="unflagSingleDocument(document, index)"
                                    :disabled="proccessedDocuments.includes(document.id)">
-
                                 <v-icon>check</v-icon>
                             </v-btn>
                             <span>UnFlag Document</span>
@@ -46,13 +45,12 @@
                             <v-btn slot="activator" flat color="purple" class="doc-action"
                                    :disabled="proccessedDocuments.includes(document.id)"
                                    @click="deleteDocument(document, index)">
-
                                 <v-icon>delete</v-icon>
                             </v-btn>
                             <span>Delete Document</span>
                         </v-tooltip>
                         <v-tooltip left>
-                            <v-btn slot="activator" class="doc-action" flat  :href="document.siteLink"
+                            <v-btn slot="activator" class="doc-action" flat :href="document.siteLink"
                                    target="_blank">
 
                                 <v-icon>link</v-icon>
@@ -67,7 +65,7 @@
         <v-dialog :max-width="'1280px'" :origin="'bottom center'" :fullscreen="false" v-if="showBigImageDialog"
                   v-model="showBigImageDialog">
             <div class="" justify-center>
-                <v-card class="justify-center"  column>
+                <v-card class="justify-center" column>
                     <v-icon @click="closeImageView()" class="close-dialog">close</v-icon>
                     <img :src="imageBigSrc" alt="">
                 </v-card>
@@ -89,12 +87,20 @@
                 proccessedDocuments: [],
                 bottomNav: 'refresh',
                 imageBigSrc: '',
-                showBigImageDialog: false
+                showBigImageDialog: false,
+                filterBoolean:{
+
+                }
+
 
             }
         },
         props: {
             documents: {},
+            searchQuery: {
+                type: String,
+                required: false
+            },
             updateData: {
                 type: Function,
                 required: false

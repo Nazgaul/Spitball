@@ -82,7 +82,7 @@
                         </v-tab-item>
                         <v-tab-item :key="'3'" :value="'userDocuments'">
                             <v-flex xs12>
-                                <document-item :updateData="updateData" :documents="filteredData"></document-item>
+                                <document-item :updateData="updateData" :documents="filteredData" :filterVal="searchQuery"></document-item>
                             </v-flex>
                         </v-tab-item>
                     </v-tabs>
