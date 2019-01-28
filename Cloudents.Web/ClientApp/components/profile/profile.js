@@ -24,6 +24,7 @@ export default {
     },
     data() {
         return {
+            isRtl: global.isRtl,
             activeTab: 1,
             itemsPerTab: 50,
             answers: {

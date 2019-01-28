@@ -123,7 +123,7 @@ let transferResultAsk = response => {
         data: items,
         sort: res.sort,
         filters: res.filters,
-        nextPage: res.nextPageLink
+        // nextPage: res.nextPageLink
     }
 };
 
@@ -135,7 +135,7 @@ let transferResultNote = response => {
         sort: res.sort,
         filters: res.filters,
         data: result.map(createDocumentItem),
-        nextPage: res.nextPageLink
+        // nextPage: res.nextPageLink
     }
 };
 let transferResultFlashcard = response => {

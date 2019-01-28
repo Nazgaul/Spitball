@@ -59,7 +59,8 @@ export default {
             },    
             scrollBehaviour:{
                 isLoading: false,
-                isComplete: false
+                isComplete: false,
+                page: 1
             }        
         };
     },
@@ -188,7 +189,8 @@ export default {
         },
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
-            let nextPageUrl = this.StudyDocuments_getNextPageUrl();
+            // let nextPageUrl = this.StudyDocuments_getNextPageUrl();
+            let nextPageUrl = `api/Document?Page=${this.scrollBehaviour.page++}`
             if(this.name !== this.pageData.vertical) return;
             this.StudyDocuments_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
