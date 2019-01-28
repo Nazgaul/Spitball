@@ -79,7 +79,6 @@ export default {
         let path = "AdminUser/info?userIdentifier=" + id;
         return connectivityModule.http.get(path)
             .then((resp) => {
-                console.log(resp, 'success get 20 docs');
                 return createUserItem(resp);
 
 
