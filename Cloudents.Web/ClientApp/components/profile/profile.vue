@@ -4,7 +4,7 @@
             <v-layout class="data-wrapper" :class="{'column': isMobile}" wrap justify-start>
                 <div>
                     <div class="main-block">
-                        <button class="back" @click="$router.go(-1)">
+                        <button class="back" :class="{'heb': isRtl}" @click="$router.go(-1)">
                             <v-icon>sbf-arrow-right</v-icon>
                         </button>
                         <user-block v-if="profileData && profileData.user" :user="profileData.user"
