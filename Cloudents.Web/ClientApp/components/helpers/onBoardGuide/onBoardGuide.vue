@@ -4,10 +4,6 @@
         <div class="guide-container">
             <v-stepper v-model="currentStep" class="on-board-stepper" :class="{'last-step': isFinished}"
             >
-                <!--<v-stepper-items class="step-items"-->
-                                 <!--:class="{'last-step': isFinished}"-->
-                                 <!--:style="[isFinished ? { 'background-image': 'url(' + require(`${imgSrc}`) + ')'} : '']"-->
-                <!--&gt;-->
                 <v-stepper-items class="step-items"
                                  :class="{'last-step': isFinished}"
 
@@ -32,7 +28,7 @@
                                     :complete-icon="''"
                                     :color="'#5158af'"
                                     v-for="n in steps"
-                                    v-if="!$vuetify.breakpoint.xsOnly || !isFinished"
+                                    v-if="!isMobile || !isFinished"
                                     :class="[currentStep === n ? 'active-step-progress' : 'inactive-step']"
                                     step=""></v-stepper-step>
                         </div>
@@ -61,7 +57,6 @@
     import onBoard_step_2 from "./onBoardSteps/learnStep.vue";
     import onBoard_step_3 from "./onBoardSteps/earnStep.vue";
     import onBoard_step_4 from "./onBoardSteps/onBoardFinal.vue";
-
     export default {
         name: "onBoardGuide",
         components: {
@@ -79,10 +74,6 @@
         },
         computed: {
             ...mapGetters([]),
-            activeStep(){
-
-            },
-
             isFinished() {
                 if (this.currentStep === this.steps) {
                     return true
@@ -91,15 +82,7 @@
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly
             },
-            isHebrew() {
-                return global.lang.toLowerCase() === 'he';
-            },
-            imgSrc() {
-                let imageSrc = '';
-                let imagesSet = this.$vuetify.breakpoint.xsOnly ? this.mobile : this.desktop;
-                imagesSet = this.isHebrew ? imagesSet.hebrew : imagesSet.english;
-                return imagesSet[this.currentStep]
-            },
+
         },
         methods: {
             ...mapActions(['updateOnBoardState']),
@@ -201,7 +184,6 @@
             }
             @media (max-width: @screen-xs) {
                 min-height: 100%;
-                //can delete after background image replaced to be elements
             }
         }
         .step-items {

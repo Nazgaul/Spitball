@@ -90,6 +90,7 @@
             justify-content: center;
             @media (max-width: @screen-xs) {
                 max-width: 100%;
+                width: 100%;
                 line-height: 1.1;
                 display: flex;
                 flex-direction: column;
@@ -142,6 +143,8 @@
             @media (max-width: @screen-xs) {
                 font-size: 30px;
                 line-height: 1.1;
+                justify-content: center;
+                width: 100%;
             }
         }
         .sub-title-wrap {
