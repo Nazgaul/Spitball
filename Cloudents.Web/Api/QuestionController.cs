@@ -228,11 +228,11 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(votesTask, taskResult);
 
             var result = taskResult.Result;
-            string nextPageLink = null;
-            if (result.Result.Count > 0)
-            {
-                nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
-            }
+            //string nextPageLink = null;
+            //if (result.Result.Count > 0)
+            //{
+            //    nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
+            //}
 
             await queueTask;
             return new WebResponseWithFacet<QuestionFeedDto>
@@ -254,8 +254,8 @@ namespace Cloudents.Web.Api
                     new Filters<string>(nameof(QuestionsRequest.Source),_localizer["SubjectTypeTitle"],
                         QuestionSubjectMethod.GetValues(result.FacetSubject)
                             .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
-                },
-                NextPageLink = nextPageLink
+                }
+                //NextPageLink = nextPageLink
             };
         }
 

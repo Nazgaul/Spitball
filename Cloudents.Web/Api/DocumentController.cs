@@ -189,12 +189,12 @@ namespace Cloudents.Web.Api
 
             await Task.WhenAll(resultTask, queueTask, votesTask);
             var result = resultTask.Result;
-            var p = result;
-            string nextPageLink = null;
-            if (p.Count > 0)
-            {
-                nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
-            }
+            //var p = result;
+            //string nextPageLink = null;
+            //if (p.Count > 0)
+            //{
+            //    nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+            //}
 
             var filters = new List<IFilters>
             {
@@ -214,7 +214,7 @@ namespace Cloudents.Web.Api
 
             return new WebResponseWithFacet<DocumentFeedDto>
             {
-                Result = p.Select(s =>
+                Result = result.Select(s =>
                 {
                     if (s.Url == null)
                     {
@@ -228,8 +228,8 @@ namespace Cloudents.Web.Api
                     s.Title = Path.GetFileNameWithoutExtension(s.Title);
                     return s;
                 }),
-                Filters = filters,
-                NextPageLink = nextPageLink
+                Filters = filters
+               // NextPageLink = nextPageLink
             };
         }
 
