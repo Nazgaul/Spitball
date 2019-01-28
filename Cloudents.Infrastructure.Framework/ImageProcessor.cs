@@ -13,14 +13,17 @@ namespace Cloudents.Infrastructure.Framework
     {
         public static readonly string[] Extensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
 
-        public ImageProcessor()
+        static ImageProcessor()
         {
             new BlurFilter().Install(
                 Config.Current);
-
-            Config.Current.Plugins.LoadPlugins();
-            Config.Current.Plugins.Get<SizeLimiting>().Uninstall(Config.Current);
         }
+
+        //public ImageProcessor()
+        //{
+        //    new BlurFilter().Install(
+        //        Config.Current);
+        //}
 
         private Stream _sr;
         public void Init(Stream stream)

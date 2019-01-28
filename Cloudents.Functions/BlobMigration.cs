@@ -30,16 +30,24 @@ namespace Cloudents.Functions
 
 
 
-        //[FunctionName("BlobBlur")]
-        //public static async Task Run2([BlobTrigger("spitball-files/files/{id}/preview-{idx}.jpg")]
-        //    CloudBlockBlob myBlob, string id, string idx,
-        //    [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collector,
-        //    TraceWriter log, CancellationToken token)
-        //{
-        //    log.Info($"pushing to queue {id}");
-        //    await collector.AddAsync(id, token);
-        //}
+        [FunctionName("BlobBlur")]
+        public static async Task Run2([BlobTrigger("spitball-files/files/{id}/preview-{idx}.jpg")]
+            CloudBlockBlob myBlob, string id, string idx,
+            [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collector,
+            TraceWriter log, CancellationToken token)
+        {
+            log.Info($"pushing to queue {id}");
+            if (int.TryParse(idx, out var p))
+            {
+                if (p > BlurImageCount)
+                {
+                    return;
+                }
+            }
+            await collector.AddAsync(id, token);
+        }
 
+        private const int BlurImageCount = 10;
 
 
         [FunctionName("BlobPreview-Blur-Queue")]
@@ -67,7 +75,7 @@ namespace Cloudents.Functions
                     continue;
                 }
                 var page = int.Parse(idx);
-                if (page > 50)
+                if (page > BlurImageCount)
                 {
                     continue;
                 }
