@@ -45,7 +45,7 @@ namespace Cloudents.Core.EventHandler
                 DateTime.UtcNow,
                 false,
                 eventMessage.Question.Language,
-                0, eventMessage.Question.Course.Name);
+                0, eventMessage.Question.Course?.Name);
             if (eventMessage.Question.Language.Name.Equals("en", StringComparison.OrdinalIgnoreCase))
             {
                 await _queueProvider.InsertMessageAsync(

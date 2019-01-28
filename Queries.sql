@@ -8,6 +8,19 @@ update top(1000) sb.[user]
 set score = (select sum(price) from sb.[Transaction] where Type = 'Earned' and price > 0 and User_id = sb.[User].id)
 where score != (select sum(price) from sb.[Transaction] where Type = 'Earned' and price > 0 and User_id = sb.[User].id)
 
+update top (10000) sb.[user] 
+set balance = 0
+where not exists (Select top 1 * from sb.[Transaction] where User_id = sb.[User].id)
+and balance <>0
+and Fictive = 0
+
+
+update top (10000) sb.[user] 
+set score = 0
+where not exists (Select top 1 * from sb.[Transaction] where User_id = sb.[User].id)
+and score <>0
+and Fictive = 0
+
 
 --delete user
 begin tran

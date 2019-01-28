@@ -26,6 +26,7 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SiteMapController : Controller
     {
+        const int PageSize = 50000;
         private readonly IQueryBus _queryBus;
 
         public SiteMapController(IQueryBus queryBus)
@@ -51,7 +52,7 @@ namespace Cloudents.Web.Controllers
             var result = await _queryBus.QueryAsync(query, token);
 
             XNamespace nameSpace = "http://www.sitemaps.org/schemas/sitemap/0.9";
-            const int pageSize = 50000;
+
             // ReSharper disable once StringLiteralTypo
             var root = new XElement(nameSpace + "sitemapindex");
             //root.Add(
@@ -62,15 +63,15 @@ namespace Cloudents.Web.Controllers
 
             foreach (var elem in result)
             {
-                for (var i = 0; i <= elem.Count / pageSize; i++)
+                for (var i = 0; i <= elem.Count / PageSize; i++)
                 {
                     var url = Url.RouteUrl("siteMapDescription", new { type = elem.Type, index = i },
                                         Request.GetUri().Scheme);
-                   root.Add(
-                        new XElement(nameSpace + "sitemap",
-                            new XElement(nameSpace + "loc", url)
-                        )
-                    );
+                    root.Add(
+                         new XElement(nameSpace + "sitemap",
+                             new XElement(nameSpace + "loc", url)
+                         )
+                     );
                 }
             }
             var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
@@ -186,8 +187,9 @@ namespace Cloudents.Web.Controllers
 
 
             var t = session.Query<Document>()
+                    .Fetch(f => f.University)
                   .Where(w => w.Status.State == ItemState.Ok)
-                  .Fetch(f => f.University)
+                  .Take(PageSize).Skip(PageSize * index)
                   .Select(s => new DocumentSeoDto
                   {
                       Id = s.Id,

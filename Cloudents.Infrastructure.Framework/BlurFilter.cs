@@ -61,17 +61,6 @@ namespace Cloudents.Infrastructure.Framework
 
         private Bitmap FastBoxBlur(Bitmap img, int radius)
         {
-            //int GetStartOfHeight()
-            //{
-            //    if (partPage)
-            //    {
-            //        return img.Height / 2;
-            //    }
-
-            //    return 0;
-
-            //}
-
             int kSize = radius;
             if (kSize % 2 == 0) kSize++;
            
@@ -164,16 +153,6 @@ namespace Cloudents.Infrastructure.Framework
                     total.SetPixel(i, j, Color.FromArgb((int)iAvg[0], (int)iAvg[1], (int)iAvg[2], (int)iAvg[3]));
                 }
             }
-
-            //if (partPage)
-            //{
-            //    e.DrawImage(total, new Point(0, img.Height / 2));
-            //}
-            //else
-            //{
-
-            //}
-
             return total;
         }
 
