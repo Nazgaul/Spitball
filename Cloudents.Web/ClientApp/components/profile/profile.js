@@ -62,12 +62,13 @@ export default {
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
-            this.$router.meta = {
-                previous: tabId
-            }
         },
         fetchData() {
-            this.syncProfile(this.id);
+            let syncObj = {
+                id: this.id,
+                activeTab: this.activeTab
+            }
+            this.syncProfile(syncObj);
         },
         getInfoByTab(){
             this.setProfileByActiveTab(this.activeTab)
@@ -217,10 +218,5 @@ export default {
     },
     created() {
         this.fetchData();
-        if (this.$router.meta && this.$router.meta.previous) {
-            this.activeTab = this.$router.meta.previous
-        } else {
-            this.activeTab = 1
-        }
     }
 }
