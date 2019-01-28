@@ -1,7 +1,6 @@
 {
   "functionTimeout": "00:10:00",
   "queues": {
-    "batchSize": 2,
-    "maxDequeueCount": 3
+    "batchSize": 1
   }
 }
