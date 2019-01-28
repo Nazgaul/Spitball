@@ -17,7 +17,7 @@
                 </v-flex>
                 <v-spacer></v-spacer>
                 <v-flex xs4 v-if="userData.userInfo">
-                    <v-btn v-if="userStatusActive && !suspendedUser" :disabled="!userData" color="rgb(0, 188, 212)"
+                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!userData" color="rgb(0, 188, 212)"
                            class="suspend"
                            @click="suspendUser()">
                         Suspend
@@ -204,7 +204,7 @@
             }
         },
         methods: {
-            ...mapActions(["setTokensDialogState", "getUserData"]),
+            ...mapActions(["setTokensDialogState", "getUserData", "setUserCurrentStatus"]),
             setUserComponent(val) {
                 this.userComponentsShow = true;
                 return this.activeUserComponent = val
@@ -242,6 +242,7 @@
                     this.showSuspendedDetails = true;
                     this.suspendedMail = email;
                     this.suspendedUser = true;
+                    this.setUserCurrentStatus(true);
                     // this.userData.userInfo.status.value ='suspended'
                 }, (err) => {
                     this.$toaster.error(`ERROR: failed to suspend user`);
@@ -259,6 +260,7 @@
                 releaseUser(idArr).then((email) => {
                     self.$toaster.success(`user got released`);
                     this.suspendedUser = false;
+                    this.setUserCurrentStatus(false);
                     // self.userData.userInfo.status.value === 'active'
                 }, (err) => {
                     self.$toaster.error(`ERROR: failed to realse user`);

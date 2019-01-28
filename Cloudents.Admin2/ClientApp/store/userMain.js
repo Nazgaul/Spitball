@@ -18,6 +18,11 @@ const mutations = {
             state.userData.userInfo.balance.value = state.userData.userInfo.balance.value + data;
         }
     },
+    updateStatus(state, val) {
+        if (state.userData.userInfo && state.userData.userInfo.balance) {
+            state.userData.userInfo.status.value = val;
+        }
+    },
     setUserData(state, data) {
         state.userData = data;
     }
@@ -35,6 +40,9 @@ const actions = {
     },
     setUserCurrentBalance({commit}, data) {
         commit('updateBalance', data)
+    },
+    setUserCurrentStatus({commit}, val) {
+        commit('updateStatus', val)
     },
     updateUserData({commit}, data) {
         commit('setUserData', data)
