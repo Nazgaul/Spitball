@@ -71,7 +71,7 @@
                                     <span>{{calculatedEarnedPoints ? `${calculatedEarnedPoints.toLocaleString(undefined,
                                         { minimumFractionDigits: 2, maximumFractionDigits: 2 })} SBL` || '0.00' : '0.00'}}&nbsp;</span>
                                               </bdi>
-                                    <span  v-language:inner>wallet_you_have_redeemable_sbl</span>
+                                    &nbsp;<span v-language:inner>wallet_you_have_redeemable_sbl</span>
                                 </span>
                             </div>
                         </div>

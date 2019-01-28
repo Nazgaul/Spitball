@@ -34,23 +34,25 @@
 
                     <v-list-tile-action v-if="!isDeleted">
                         <v-tooltip left>
-                            <v-btn slot="activator" flat class="doc-action" v-if="!isOk"
-                                   @click="isFlagged ? unflagSingleDocument(document, index) : approveSingleDocument(document, index)"
+                            <v-btn slot="activator" flat class="doc-action"
+                                   @click="unflagSingleDocument(document, index)"
                                    :disabled="proccessedDocuments.includes(document.id)">
+
                                 <v-icon>check</v-icon>
                             </v-btn>
-                            <span>{{isFlagged ? 'UnFlag Document' : 'Approve Document' }}</span>
+                            <span>UnFlag Document</span>
                         </v-tooltip>
                         <v-tooltip left>
                             <v-btn slot="activator" flat color="purple" class="doc-action"
                                    :disabled="proccessedDocuments.includes(document.id)"
                                    @click="deleteDocument(document, index)">
+
                                 <v-icon>delete</v-icon>
                             </v-btn>
                             <span>Delete Document</span>
                         </v-tooltip>
                         <v-tooltip left>
-                            <v-btn slot="activator" class="doc-action" flat :href="document.siteLink"
+                            <v-btn slot="activator" class="doc-action" flat  :href="document.siteLink"
                                    target="_blank">
 
                                 <v-icon>link</v-icon>
@@ -65,7 +67,7 @@
         <v-dialog :max-width="'1280px'" :origin="'bottom center'" :fullscreen="false" v-if="showBigImageDialog"
                   v-model="showBigImageDialog">
             <div class="" justify-center>
-                <v-card class="justify-center" column>
+                <v-card class="justify-center"  column>
                     <v-icon @click="closeImageView()" class="close-dialog">close</v-icon>
                     <img :src="imageBigSrc" alt="">
                 </v-card>
@@ -75,8 +77,7 @@
 </template>
 
 <script>
-    import flaggedDocumentService from '../../document/documentComponents/flaggedDocument/flaggedDocumentService';
-    import approveDeleteService from '../../document/documentComponents/approveDelete/approveDeleteService';
+    import flaggedDocumentService from '../../document/documentComponents/flaggedDocument/flaggedDocumentService'
 
     export default {
         name: "documentItem",
@@ -88,37 +89,21 @@
                 proccessedDocuments: [],
                 bottomNav: 'refresh',
                 imageBigSrc: '',
-                showBigImageDialog: false,
-
+                showBigImageDialog: false
 
             }
         },
         props: {
             documents: {},
-            filterVal: {
-                type: String,
-                required: false
-            },
             updateData: {
                 type: Function,
                 required: false
 
             },
         },
-        computed: {
-            isOk() {
-                return this.filterVal === 'ok'
-            },
-            isPending() {
-                return this.filterVal === 'pending'
-            },
-            isFlagged() {
-                return this.filterVal === 'flagged'
             },
             isDeleted(){
                 return this.filterVal === 'deleted'
-            }
-        },
         methods: {
             imageView(src) {
                 this.imageBigSrc = src;
@@ -164,23 +149,23 @@
                             console.log('component accept error', error)
                         })
             },
-            //always one el array
-            approveSingleDocument(document, index) {
-                let arrSingleId = [];
-                arrSingleId.push(document.id);
-                approveDeleteService.approveDocument(arrSingleId)
-                    .then(resp => {
-                            this.$toaster.success(`Document ${arrSingleId} approved`);
-                            console.log('docs!', resp);
-                            this.markAsProccessed(arrSingleId);
-                            this.updateData(index);
-                        },
-                        (error) => {
-                            this.$toaster.error('Something went wrong');
-                            console.log('component accept error', error)
-                        })
-            },
-
+            // unflagDocuments() {
+            //     let arrIds = [];
+            //     //filter already deleted or approved, in order to prevent second processing attempt on server
+            //     arrIds = this.arrayOfIds.filter((singleID) => {
+            //         return !this.proccessedDocuments.includes(singleID);
+            //     });
+            //     flaggedDocumentService.unflagDocument(arrIds)
+            //         .then(resp => {
+            //                 this.$toaster.success(`All Documents ${arrIds} approved`);
+            //                 this.getDocumentsList();
+            //                 console.log('docs!', resp)
+            //             },
+            //             (error) => {
+            //                 this.$toaster.error('Something went wrong');
+            //                 console.log('component accept error', error)
+            //             })
+            // },
         }
 
     }

@@ -24,6 +24,7 @@ export default {
     },
     data() {
         return {
+            isRtl: global.isRtl,
             activeTab: 1,
             itemsPerTab: 50,
             answers: {
@@ -56,17 +57,22 @@ export default {
             'getQuestions',
             'getDocuments',
             'resetProfileData',
-            'getPurchasedDocuments'
+            'getPurchasedDocuments',
+            'setProfileByActiveTab'
         ]),
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
-            this.$router.meta = {
-                previous: tabId
-            }
         },
         fetchData() {
-            this.syncProfile(this.id);
+            let syncObj = {
+                id: this.id,
+                activeTab: this.activeTab
+            }
+            this.syncProfile(syncObj);
+        },
+        getInfoByTab(){
+            this.setProfileByActiveTab(this.activeTab)
         },
         loadAnswers() {
             if (this.profileData.answers.length < this.itemsPerTab) {
@@ -201,7 +207,10 @@ export default {
         }
     },
     watch: {
-        '$route': 'fetchData'
+        '$route': 'fetchData',
+        activeTab(){
+            this.getInfoByTab();
+        }
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {
@@ -210,10 +219,5 @@ export default {
     },
     created() {
         this.fetchData();
-        if (this.$router.meta && this.$router.meta.previous) {
-            this.activeTab = this.$router.meta.previous
-        } else {
-            this.activeTab = 1
-        }
     }
 }

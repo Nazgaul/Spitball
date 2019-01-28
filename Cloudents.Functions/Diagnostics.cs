@@ -11,7 +11,7 @@ namespace Cloudents.Functions
     {
         private static string key = TelemetryConfiguration.Active.InstrumentationKey
             = System.Environment.GetEnvironmentVariable("APPINSIGHTS_INSTRUMENTATIONKEY",
-EnvironmentVariableTarget.Process);
+                EnvironmentVariableTarget.Process);
         private static TelemetryClient telemetry = new TelemetryClient() { InstrumentationKey = key };
 
         [FunctionName("Diagnostics")]

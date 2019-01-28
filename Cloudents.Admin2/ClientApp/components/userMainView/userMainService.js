@@ -19,6 +19,7 @@ function UserInfo(objInit) {
     this.referredCount = {value: objInit.referredCount ||  0, label: 'People Referred' };
     this.balance = {value: objInit.balance ||  0, label: 'Balance' };
     this.status = {value: objInit.isActive ? false : true , label: 'Suspended' };
+    //this.status = {value: objInit.isActive , label: 'User Status' };
 }
 
 function createUserInfoItem(data) {
@@ -41,7 +42,7 @@ function DocumentItem(objInit) {
     this.price = objInit.price;
     this.state =  objInit.state ? objInit.state.toLowerCase() : 'ok';
     this.preview = objInit.preview || '';
-    this.siteLink = objInit.siteLink || 'Not specified';
+    this.siteLink = objInit.siteLink || 'some url';
 }
 
 function AnswerItem(objInit) {
@@ -71,7 +72,7 @@ function createAnswertItem(data) {
     return data.map((item) => {
         return new AnswerItem(item)
     });
-}
+};
 
 
 export default {
@@ -79,6 +80,7 @@ export default {
         let path = "AdminUser/info?userIdentifier=" + id;
         return connectivityModule.http.get(path)
             .then((resp) => {
+                console.log(resp, 'success get 20 docs');
                 return createUserItem(resp);
 
 

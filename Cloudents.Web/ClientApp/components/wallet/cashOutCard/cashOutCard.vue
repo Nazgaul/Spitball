@@ -9,15 +9,7 @@
                 </div>
             </div>
             </bdi>
-            <v-btn class="redeem-btn"
-                   flat
-                   value="Redeem"
-                   :loading="loading"
-                   :disabled="!available"
-                   @click="redeem(cost)"
-            ><span v-language:inner>cashoutcard_Redeem</span></v-btn>
-
-            <!--<button class="redeem-btn" @click="redeem(cost)" :disabled="!available" v-language:inner>cashoutcard_Redeem</button>-->
+            <button class="redeem-btn" @click="redeem(cost)" :disabled="!available" v-language:inner>cashoutcard_Redeem</button>
         </div>
         <img :src="require(`./../img/${imageSrc}`)"/>
     </div>
@@ -27,11 +19,7 @@
     import walletService from '../../../services/walletService';
     import { mapActions} from 'vuex';
     export default {
-        data() {
-            return {
-                loading: false
-            }
-        },
+
         props: {
             pointsForDollar: {
                 type: Number
@@ -55,7 +43,6 @@
                 updateToasterParams: 'updateToasterParams'
             }),
             redeem(amount){
-             this.loading = true;
              walletService.redeem(amount)
                  .then(response => {
                         // show toaster text
@@ -66,7 +53,6 @@
                          //update user balance
                          this.updateBalance(-amount);
                          this.updatePoint();
-                         this.loading = false;
                      },
                      error => {
                          console.error('error getting transactions:', error)

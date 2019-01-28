@@ -37,24 +37,18 @@ namespace Cloudents.Functions
             TraceWriter log, CancellationToken token)
         {
             log.Info($"pushing to queue {id}");
-            if (int.TryParse(idx, out var p))
-            {
-                if (p > BlurImageCount)
-                {
-                    return;
-                }
-            }
             await collector.AddAsync(id, token);
         }
 
-        private const int BlurImageCount = 10;
 
 
         [FunctionName("BlobPreview-Blur-Queue")]
         public static async Task BlobPreviewQueueRun2(
-            [QueueTrigger("generate-blob-preview-blur")] string id,
+            [QueueTrigger("generate-blob-preview-blur")]
+            string id,
             [Inject] IBlurProcessor factory,
-            [Blob("spitball-files/files/{QueueTrigger}")] CloudBlobDirectory directory,
+            [Blob("spitball-files/files/{QueueTrigger}")]
+            CloudBlobDirectory directory,
             TraceWriter log, CancellationToken token)
         {
             log.Info($"receive blur for {id}");
@@ -66,38 +60,28 @@ namespace Cloudents.Functions
                     break;
                 }
                 var myBlob = (CloudBlockBlob)blob;
-                if (!Regex.IsMatch(myBlob.Name, "preview-\\d*.jpg", RegexOptions.IgnoreCase)) continue;
-                var idx = Path.GetFileNameWithoutExtension(myBlob.Name.Split('-').Last());
-                var blurBlob = directory.GetBlockBlobReference($"blur-{idx}.jpg");
-                if (await blurBlob.ExistsAsync(token))
+                if (Regex.IsMatch(myBlob.Name, "preview-\\d*.jpg", RegexOptions.IgnoreCase))
                 {
-                    log.Info($"blob exists {id} {blurBlob.Name}");
-                    continue;
-                }
-                var page = int.Parse(idx);
-                if (page > BlurImageCount)
-                {
-                    continue;
-                }
-                try
-                {
+                    var idx = Path.GetFileNameWithoutExtension(myBlob.Name.Split('-').Last());
+                    var blurBlob = directory.GetBlockBlobReference($"blur-{idx}.jpg");
+                    if (blurBlob.Exists())
+                    {
+                        continue;
+                    }
+                    var page = int.Parse(idx);
                     using (var ms = await myBlob.OpenReadAsync(token))
                     {
 
                         var t = factory.ProcessBlurPreviewAsync(ms, page == 0, stream =>
-                        {
-                            stream.Seek(0, SeekOrigin.Begin);
+                       {
+                           stream.Seek(0, SeekOrigin.Begin);
 
-                            blurBlob.Properties.ContentType = "image/jpeg";
-                            log.Info($"uploading to {id} {blurBlob.Name}");
-                            return blurBlob.UploadFromStreamAsync(stream, token);
-                        }, token);
+                           blurBlob.Properties.ContentType = "image/jpeg";
+                           log.Info($"uploading to {id} {blurBlob.Name}");
+                           return blurBlob.UploadFromStreamAsync(stream, token);
+                       }, token);
                         tasks.Add(t);
                     }
-                }
-                catch (Exception e)
-                {
-                    log.Error($"error on processing {id} {blob.Uri}",e);
                 }
             }
 

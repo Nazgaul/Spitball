@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using ImageResizer.Plugins.Basic;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -13,17 +12,11 @@ namespace Cloudents.Infrastructure.Framework
     {
         public static readonly string[] Extensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
 
-        static ImageProcessor()
+        public ImageProcessor()
         {
             new BlurFilter().Install(
                 Config.Current);
         }
-
-        //public ImageProcessor()
-        //{
-        //    new BlurFilter().Install(
-        //        Config.Current);
-        //}
 
         private Stream _sr;
         public void Init(Stream stream)
@@ -36,7 +29,7 @@ namespace Cloudents.Infrastructure.Framework
 
             return (null, 1);
         }
-
+       
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
@@ -55,23 +48,25 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        public Task ProcessBlurPreviewAsync(Stream stream, bool firstPage,
+        public async Task ProcessBlurPreviewAsync(Stream stream, bool firstPage,
             Func<Stream, Task> pagePreviewCallback,
             CancellationToken token)
         {
-
-            var ms = new MemoryStream();
-            var settings2 = new ResizeSettings
+            
+            using (var ms = new MemoryStream())
             {
-                Format = "jpg",
-                Quality = 90,
-                ["r.blur"] = "6",
-                ["r.blurStart"] = firstPage.ToString()
-            };
+                var settings2 = new ResizeSettings
+                {
+                    Format = "jpg",
+                    Quality = 90,
+                    ["r.blur"] = "10",
+                    ["r.blurStart"] = firstPage.ToString()
+                };
 
-            ImageBuilder.Current.Build(stream, ms, settings2, false);
+                ImageBuilder.Current.Build(stream, ms, settings2, false);
 
-            return pagePreviewCallback(ms).ContinueWith(_ => ms.Dispose(), token);
+                await pagePreviewCallback(ms);
+            }
         }
 
 
