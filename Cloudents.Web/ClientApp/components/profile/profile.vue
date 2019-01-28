@@ -28,7 +28,7 @@
                                     <span v-language:inner>profile_purchased_documents</span>
                                 </li>
                             </ul>
-                            <v-tabs v-else grow class="tab-padding" xs12>
+                            <v-tabs v-else :dir="isRtl ? `ltr` : ''" grow class="tab-padding" xs12>
                                 <v-tabs-slider color="blue"></v-tabs-slider>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span v-language:inner>profile_Questions</span>
                                 </v-tab>
