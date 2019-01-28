@@ -29,6 +29,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace ConsoleApp
 {
@@ -113,11 +114,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            await ReduDocument();
             // var service1 = _container.Resolve<IUnitOfWork>();
-            var service = _container.Resolve<IQueryBus>();
+            //var service = _container.Resolve<IQueryBus>();
 
-            var query = new UserDataByIdQuery(231100);
-            var z = await service.QueryAsync<UserProfileDto>(query, default);
+            //var query = new UserDataByIdQuery(231100);
+            //var z = await service.QueryAsync<UserProfileDto>(query, default);
             //var t = await service.GetEmailAsync(SystemEvent.DocumentPurchased, Language.English, default);
         }
 
@@ -130,12 +132,13 @@ namespace ConsoleApp
             var queue = queueClient.GetQueueReference("generate-search-preview");
 
 
-            var i = 0L;
+            var i = 90372L;
             var cont = false;
             do
             {
                 var i1 = i;
                 var itemIds = await service.Query<Document>().Where(w => w.Id > i1)
+                    .Where(w=>w.Status.State == ItemState.Ok && w.MetaContent == null)
                     .Take(100).OrderBy(o => o.Id).Select(s => s.Id).ToListAsync();
 
                 var t = new List<Task>();
