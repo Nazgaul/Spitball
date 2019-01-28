@@ -59,6 +59,19 @@ const mutations = {
     setProfile(state, val){
         state.profile = val;
     },
+    setProfileQuestions(state, val){
+        state.profile.questions = val;
+    },
+
+    setProfileAnswers(state, val){
+        state.profile.answers = val;
+    },
+    setPorfileDocuments(state, val){
+        state.profile.documents = val;
+    },
+    setPorfilePurchasedDocuments(state, val){
+        state.profile.purchasedDocuments = val;
+    },
     resetProfile(state){
         state.profile = null;
     },
@@ -167,20 +180,46 @@ const getters = {
 };
 
 const actions = {
-    syncProfile(context, id){
+    syncProfile(context, {id, activeTab}){
         //fetch all the data before returning the value to the component
-       let p1 = accountService.getProfile(id);
-       let p2 = accountService.getProfileQuestions(id);
-       let p3 = accountService.getProfileAnswers(id);
-       let p4 = accountService.getProfileDocuments(id);
-       let p5 = accountService.getProfilePurchasedDocuments(id);
-       Promise.all([p1,p2,p3, p4, p5]).then((vals)=>{
-        console.log(vals)
-        let profileData = accountService.createProfileData(vals);
-        context.commit('setProfile', profileData)
-       });       
+       accountService.getProfile(id).then(val=>{
+        let profileUserData = accountService.createUserProfileData(val);
+        context.commit('setProfile', profileUserData)
+        context.dispatch('setProfileByActiveTab', activeTab)
+       });
     },
     setProfileByActiveTab(context, activeTab){
+        if(!!context.state.profile && !!context.state.profile.user){
+            let id = context.state.profile.user.id;
+        
+            if(activeTab=== 1){
+                let p1 = accountService.getProfile(id);
+                let p2 = accountService.getProfileQuestions(id);
+                Promise.all([p1,p2]).then((vals)=>{
+                    console.log(vals)
+                    let profileData = accountService.createProfileQuestionData(vals);
+                    context.commit('setProfileQuestions', profileData)
+                });
+            }
+            if(activeTab === 2){
+                accountService.getProfileAnswers(id).then(vals=>{
+                    let answers = accountService.createProfileAnswerData(vals);
+                    context.commit('setProfileAnswers', answers)
+                });
+            }
+            if(activeTab === 3){
+                accountService.getProfileDocuments(id).then(vals=>{
+                    let documents = accountService.createProfileDocumentData(vals);
+                    context.commit('setPorfileDocuments', documents);
+                });
+            }
+            if(activeTab === 4){
+                accountService.getProfilePurchasedDocuments(id).then(vals=>{
+                    let purchasedDocuments = accountService.createProfileDocumentData(vals);
+                    context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
+                });
+            }
+        }
         console.log(activeTab)
     },
     removeItemFromProfile({commit}, data){
