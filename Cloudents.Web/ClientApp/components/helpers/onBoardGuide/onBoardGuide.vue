@@ -196,6 +196,8 @@
             height: 100vh;
             &.last-step{
                 background-image: url("./images/desktop_english_4.png");
+                background-size: cover;
+                background-repeat: no-repeat;
             }
             @media (max-width: @screen-xs) {
                 min-height: 100%;
