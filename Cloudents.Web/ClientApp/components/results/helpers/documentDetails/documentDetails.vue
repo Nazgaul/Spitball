@@ -23,14 +23,12 @@
         props: {
             item: {
                 type: Object,
-
-
             },
         },
         computed: {
             isVisible(){
                 if(this.item){
-                    this.item.university || this.item.course || this.item.professor
+                   return this.item.university || this.item.course || this.item.professor
                 }
 
             }
