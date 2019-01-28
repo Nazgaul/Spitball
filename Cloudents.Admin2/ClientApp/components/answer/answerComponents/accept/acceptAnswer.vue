@@ -12,7 +12,7 @@
         <v-btn color="#97ed82" @click="acceptByIds" >Accept</v-btn>
     </div>
 </div>
-</div>  
+</div>
 
 </template>
 <script>
@@ -25,7 +25,7 @@ export default {
             answersIds:[],
             answersIdString:'',
             infoSuccess: '',
-            infoError: ''            
+            infoError: ''
         }
     },
     methods:{
@@ -50,7 +50,7 @@ export default {
                 }
             },
         },
-} 
+}
 </script>
 
 <style lang="scss" scoped>
