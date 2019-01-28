@@ -41,7 +41,7 @@ function DocumentItem(objInit) {
     this.price = objInit.price;
     this.state =  objInit.state ? objInit.state.toLowerCase() : 'ok';
     this.preview = objInit.preview || '';
-    this.siteLink = objInit.siteLink || 'some url';
+    this.siteLink = objInit.siteLink || 'Not specified';
 }
 
 function AnswerItem(objInit) {

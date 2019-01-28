@@ -34,12 +34,12 @@
 
                     <v-list-tile-action>
                         <v-tooltip left>
-                            <v-btn slot="activator" flat class="doc-action"
-                                   @click="unflagSingleDocument(document, index)"
+                            <v-btn slot="activator" flat class="doc-action" v-if="!isOk"
+                                   @click="isFlagged ? unflagSingleDocument(document, index) : approveSingleDocument(document, index)"
                                    :disabled="proccessedDocuments.includes(document.id)">
                                 <v-icon>check</v-icon>
                             </v-btn>
-                            <span>UnFlag Document</span>
+                            <span>{{isFlagged ? 'UnFlag Document' : 'Approve Document' }}</span>
                         </v-tooltip>
                         <v-tooltip left>
                             <v-btn slot="activator" flat color="purple" class="doc-action"
@@ -75,7 +75,8 @@
 </template>
 
 <script>
-    import flaggedDocumentService from '../../document/documentComponents/flaggedDocument/flaggedDocumentService'
+    import flaggedDocumentService from '../../document/documentComponents/flaggedDocument/flaggedDocumentService';
+    import approveDeleteService from '../../document/documentComponents/approveDelete/approveDeleteService';
 
     export default {
         name: "documentItem",
@@ -88,16 +89,13 @@
                 bottomNav: 'refresh',
                 imageBigSrc: '',
                 showBigImageDialog: false,
-                filterBoolean:{
-
-                }
 
 
             }
         },
         props: {
             documents: {},
-            searchQuery: {
+            filterVal: {
                 type: String,
                 required: false
             },
@@ -106,6 +104,17 @@
                 required: false
 
             },
+        },
+        computed: {
+            isOk() {
+                return this.filterVal === 'ok'
+            },
+            isPending() {
+                return this.filterVal === 'pending'
+            },
+            isFlagged() {
+                return this.filterVal === 'flagged'
+            }
         },
         methods: {
             imageView(src) {
@@ -152,23 +161,23 @@
                             console.log('component accept error', error)
                         })
             },
-            // unflagDocuments() {
-            //     let arrIds = [];
-            //     //filter already deleted or approved, in order to prevent second processing attempt on server
-            //     arrIds = this.arrayOfIds.filter((singleID) => {
-            //         return !this.proccessedDocuments.includes(singleID);
-            //     });
-            //     flaggedDocumentService.unflagDocument(arrIds)
-            //         .then(resp => {
-            //                 this.$toaster.success(`All Documents ${arrIds} approved`);
-            //                 this.getDocumentsList();
-            //                 console.log('docs!', resp)
-            //             },
-            //             (error) => {
-            //                 this.$toaster.error('Something went wrong');
-            //                 console.log('component accept error', error)
-            //             })
-            // },
+            //always one el array
+            approveSingleDocument(document, index) {
+                let arrSingleId = [];
+                arrSingleId.push(document.id);
+                approveDeleteService.approveDocument(arrSingleId)
+                    .then(resp => {
+                            this.$toaster.success(`Document ${arrSingleId} approved`);
+                            console.log('docs!', resp);
+                            this.markAsProccessed(arrSingleId);
+                            this.updateData(index);
+                        },
+                        (error) => {
+                            this.$toaster.error('Something went wrong');
+                            console.log('component accept error', error)
+                        })
+            },
+
         }
 
     }
