@@ -20,33 +20,17 @@ namespace Cloudents.Query
 
         public async Task<UserProfileDto> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            /*
-            //    if (user.LockoutEnd.HasValue && DateTime.UtcNow < user.LockoutEnd.Value)
-            //    {
-            //        throw new UserLockoutException();
-            //    }
-        */
             using (var conn = _session.OpenConnection())
             {
                 return await conn.QueryFirstOrDefaultAsync<UserProfileDto>(@"
 select u.id,u.Image,u.Name,u2.name as universityName, u.Score
-from sb.[user] u join sb.[University] u2 on u.UniversityId2 = u2.Id
+from sb.[user] u 
+left join sb.[University] u2 on u.UniversityId2 = u2.Id
 where u.id = @id
 and (u.LockoutEnd is null or u.LockoutEnd < GETUTCDATE())
 ", new { id = query.Id });
             }
-            //return await _session.Query<User>()
-            //     .Fetch(u => u.University)
-            //     .Where(w => w.Id == query.Id)
-            //     .Select(s => new UserProfileDto
-            //     {
-            //         Id = s.Id,
-            //         Image = s.Image,
-            //         Name = s.Name,
-            //         UniversityName = s.University.Name,
-            //         Score = s.Score
-            //     })
-            //     .SingleOrDefaultAsync(cancellationToken: token);
+           
 
         }
     }
