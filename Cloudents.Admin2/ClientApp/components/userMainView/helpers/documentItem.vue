@@ -101,9 +101,20 @@
 
             },
         },
+        computed: {
+            isOk() {
+                return this.filterVal === 'ok'
             },
-            isDeleted(){
+            isPending() {
+                return this.filterVal === 'pending'
+            },
+            isFlagged() {
+                return this.filterVal === 'flagged'
+            },
+            isDeleted() {
                 return this.filterVal === 'deleted'
+            }
+        },
         methods: {
             imageView(src) {
                 this.imageBigSrc = src;
