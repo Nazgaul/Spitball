@@ -126,6 +126,9 @@
   <data name="ActionTypeCashOut" xml:space="preserve">
     <value>פדיון</value>
   </data>
+  <data name="ActionTypeCommission" xml:space="preserve">
+    <value>עמלה</value>
+  </data>
   <data name="ActionTypeDeleteQuestion" xml:space="preserve">
     <value>מחיקת שאלה</value>
   </data>

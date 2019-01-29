@@ -126,6 +126,9 @@
   <data name="ActionTypeCashOut" xml:space="preserve">
     <value>Cash out</value>
   </data>
+  <data name="ActionTypeCommission" xml:space="preserve">
+    <value>Commission</value>
+  </data>
   <data name="ActionTypeDeleteQuestion" xml:space="preserve">
     <value>Delete question</value>
   </data>
