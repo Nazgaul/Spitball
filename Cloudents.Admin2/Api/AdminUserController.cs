@@ -157,17 +157,16 @@ namespace Cloudents.Admin2.Api
         public async Task<UserInfoDto> GetUserInfo(string userIdentifier, [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
-            long Id;
             AdminUserInfoQuery query;
-            if (long.TryParse(userIdentifier, out Id))
+            if (long.TryParse(userIdentifier, out var id))
             {
-                query = new AdminUserInfoQuery(Id);
+                query = new AdminUserInfoQuery(id);
             }
             else
             {
                 var userQuery = new AdminUserIdFromEmailQuery(userIdentifier);
-                Id = await _queryBus.QueryAsync(userQuery, token);
-                query = new AdminUserInfoQuery(Id);
+                id = await _queryBus.QueryAsync(userQuery, token);
+                query = new AdminUserInfoQuery(id);
             }
            
             var retVal = await _queryBus.QueryAsync(query, token);

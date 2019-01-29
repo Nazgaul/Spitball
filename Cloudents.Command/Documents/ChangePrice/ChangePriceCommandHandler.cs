@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.Documents.ChangePrice
 {
-    class ChangePriceCommandHandler : ICommandHandler<ChangePriceCommand>
+    public class ChangePriceCommandHandler : ICommandHandler<ChangePriceCommand>
     {
         private readonly IRepository<Document> _documentRepository;
 

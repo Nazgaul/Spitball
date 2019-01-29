@@ -16,8 +16,10 @@ module.exports = (env) => {
                 'vue',
                 'vue-router',
                 'vuex',
-                "vuetify"
-
+                "vuetify",
+                'v-toaster',
+                'axios',
+                "vue-clipboard2",
             ],
         },
         module: {
