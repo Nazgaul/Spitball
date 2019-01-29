@@ -1,54 +1,4 @@
-﻿insert into sb.SystemEvent values('DocumentPurchased')
-
-insert into sb.Email values(
-'Awesome you just earned {Tokens} SBL',
-1,
-'en',
-'DocumentPurchased')
-
-insert into sb.Email values(
-N'מעולה - הרגע הרווחת {Tokens} SBL',
-1,
-'he',
-'DocumentPurchased')
-
-insert into sb.emailblock (title,minortitle,subtitle,body,cta,email_id,orderblock) values
-(
-'Great job!', 
-'you helped someone with your knowledge!',
-'You earned {Tokens} SBL',
-'A student from {CourseName} just purchased your document {DocumentName}.',
-'Check your balance'
-,1
-,1
-)
-insert into sb.emailblock (title,minortitle,subtitle,body,cta,email_id,orderblock) values
-(
-N'שיחקת אותה!', 
-N'עזרת למישהו אחר עם הידע שלך',
-N'הרווחת {Tokens} SBL',
-N'סטודנט מ{CourseName} רכש את המסמך שלך {DocumentName}',
-N'הארנק שלי '
-,2
-,1
-)
-
-insert into sb.SystemEvent values('AnswerAccepted');
-insert into sb.Email values('Awesome you just earned {Tokens} SBL',1,'en','AnswerAccepted')
-
-insert into sb.emailblock (title,minortitle,subtitle,body,cta,email_id,orderblock) values
-(
-N'Great job!', 
-N'Your answer was accepted',
-N'You earned {Tokens} SBL',
-N'Q: “ {QuestionText} ”
-A: “ {AnswerText} ”',
-N'Check your wallet'
-,3
-,1
-)
-
-alter table sb.[transaction]
+﻿alter table sb.[transaction]
 add [TransactionType] nvarchar(255)
 
 update top (1000) sb.[Transaction]
@@ -85,3 +35,10 @@ update top (1000) sb.[Transaction]
 set [TransactionType] = 'Document'
 where (DocumentId is not null )
 and [TransactionType] is null
+
+
+drop table sb.EmailBlock
+drop table sb.email
+alter table sb.[user] drop constraint  User_Language
+drop table sb.Language
+drop table sb.SystemEvent

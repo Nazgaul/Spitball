@@ -234,6 +234,7 @@ namespace Cloudents.FunctionsV2
     {
         public string Id { get; set; }
         public bool SocialShare { get; set; }
+        public string Event { get; set; }
 
         public string Subject { get; set; }
 
