@@ -82,8 +82,6 @@ namespace Cloudents.Web.Api
 
             var query = new DocumentById(id, userId);
 
-
-
             var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
             {

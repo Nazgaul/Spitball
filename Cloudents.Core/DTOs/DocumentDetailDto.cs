@@ -38,9 +38,6 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public UserDto User { get; set; }
 
-        [DataMember]
-        public string Extension => Path.GetExtension(_name)?.TrimStart('.');
-
         //[DataMember]
         public DocumentType? TypeStr { get; set; }
 
