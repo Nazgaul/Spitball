@@ -164,7 +164,7 @@ namespace Cloudents.Core.Entities
         public static QuestionTransaction Deleted(Question question)
         {
             var money = Math.Abs(question.Price);
-            return new QuestionTransaction(question/*, user*/)
+            return new QuestionTransaction(question)
             {
                 Action = TransactionActionType.DeleteQuestion,
                 Type = TransactionType.Stake,
@@ -178,14 +178,14 @@ namespace Cloudents.Core.Entities
             var userQuestion = question.User;
             var correctAnswer = question.CorrectAnswer;
 
-            var t1 = new QuestionTransaction(question/*, user*/)
+            var t1 = new QuestionTransaction(question)
             {
                 Action = TransactionActionType.AnswerCorrect,
                 Type = TransactionType.Stake,
                 Price = money,
                 Answer = correctAnswer
             };
-            var t2 = new QuestionTransaction(question/*, user*/)
+            var t2 = new QuestionTransaction(question)
             {
                 Action = TransactionActionType.AnswerCorrect,
                 Type = TransactionType.Spent,
@@ -196,7 +196,7 @@ namespace Cloudents.Core.Entities
             userQuestion.MakeTransaction(t1);
             userQuestion.MakeTransaction(t2);
             userQuestion.MakeTransaction(t3);
-            userQuestion.MakeTransaction(new CommissionTransaction(question.Price));
+           
 
 
             var userAnswer = correctAnswer.User;
@@ -210,6 +210,7 @@ namespace Cloudents.Core.Entities
             var ta2 = new AwardMoneyTransaction(AwardsTransaction.QuestionAnswererBonus);
             userAnswer.MakeTransaction(ta1);
             userAnswer.MakeTransaction(ta2);
+            userAnswer.MakeTransaction(new CommissionTransaction(question.Price));
         }
 
     }
