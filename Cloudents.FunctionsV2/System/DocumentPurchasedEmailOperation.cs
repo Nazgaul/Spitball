@@ -12,9 +12,11 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Query.Email;
+using Newtonsoft.Json;
 
 namespace Cloudents.FunctionsV2.System
 {
+    
     public class DocumentPurchasedEmailOperation :  ISystemOperation<DocumentPurchasedMessage>
     {
         private readonly IQueryBus _queryBus;
@@ -31,6 +33,7 @@ namespace Cloudents.FunctionsV2.System
         //DocumentPurchasedMessage
         public async Task DoOperationAsync(DocumentPurchasedMessage msg, IBinder binder, CancellationToken token)
         {
+           
             var query = new GetDocumentPurchasedEmailQuery(msg.TransactionId);
             var result = await _queryBus.QueryAsync(query, token);
 
