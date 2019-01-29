@@ -26,7 +26,7 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SiteMapController : Controller
     {
-        const int PageSize = 50000;
+        const int PageSize = 40000;
         private readonly IQueryBus _queryBus;
 
         public SiteMapController(IQueryBus queryBus)
@@ -38,28 +38,12 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(Duration = 1 * TimeConst.Day)]
         public async Task<IActionResult> IndexAsync(CancellationToken token)
         {
-            //List<SitemapNode> nodes = new List<SitemapNode>
-            //{
-            //    new SitemapNode(Url.Action("Index","Home")),
-            //   // new SitemapNode(Url.Action("About","Home")),
-            //    //other nodes
-            //};
-
-
-
-            //var sitemapIndexNodes = new List<SitemapIndexNode>();
             var query = new EmptyQuery();
             var result = await _queryBus.QueryAsync(query, token);
-
             XNamespace nameSpace = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
             // ReSharper disable once StringLiteralTypo
             var root = new XElement(nameSpace + "sitemapindex");
-            //root.Add(
-            //    new XElement(nameSpace + "sitemap",
-            //        new XElement(nameSpace + "loc", $"https://www.spitball.co/sitemap-{SeoType.Static}-0.xml")
-            //    )
-            //);
 
             foreach (var elem in result)
             {
@@ -76,58 +60,6 @@ namespace Cloudents.Web.Controllers
             }
             var document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
             return Content(document.ToString(), "application/xml");
-
-
-            //return new FileCallbackResult("application/xml", async (stream, context) =>
-            //{
-            //    var writer = XmlWriter.Create(stream, new XmlWriterSettings
-            //    {
-            //        Async = true
-            //    });
-            //    await writer.WriteStartDocumentAsync();
-            //    writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-
-            //    const int pageSize = 50000;
-            //    foreach (var elem in result)
-            //    {
-            //        for (var i = 0; i <= elem.Count / pageSize; i++)
-            //        {
-
-            //            writer.WriteStartElement("sitemap");
-            //            writer.WriteStartElement("loc");
-
-
-
-            //            var url = Url.RouteUrl("siteMapDescription", new { type = elem.Type, index = i },
-            //                Request.GetUri().Scheme);
-            //            writer.WriteValue(url);
-            //            await writer.WriteEndElementAsync();
-            //            await writer.WriteEndElementAsync();
-            //        }
-            //    }
-            //    writer.WriteEndElement();
-            //    writer.WriteEndDocument();
-            //    await writer.FlushAsync();
-
-
-
-
-
-
-            //});
-
-            //    foreach (var mapCountDto in result)
-            //{
-            //    for (var i = 0; i <= mapCdffrdwountDto.Count / 50000; i++)
-            //    {das
-            //        sitemapIndexNodes.Add(new SitemapIndexNode(Url.RouteUrl("siteMapDescription", new
-            //        {as
-            //            type = mapCountDto.Type,
-            //            index = i
-            //        })));
-            //    }
-            //}
-            //return new SitemapProvider().CreateSitemapIndex(new SitemapIndexModel(sitemapIndexNodes));
         }
 
         [Route("sitemap-flashcard-{index:int}.xml", Order = 1)]
@@ -135,10 +67,6 @@ namespace Cloudents.Web.Controllers
             [FromServices] IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery> query2,
             CancellationToken token)
         {
-
-            // var entities = _seoRepositories[type].Get(query);
-            //var routeName = type.GetDescription();
-
             return new FileCallbackResult("application/xml", async (stream, context) =>
             {
                 var writer = XmlWriter.Create(stream, new XmlWriterSettings
@@ -175,7 +103,6 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription", Order = 2)]
-        //[ResponseCache(Duration = 2 * TimeConst.Day,Va)]
         public IActionResult DetailIndexAsync(SeoType type, int index,
             [FromServices] IStatelessSession session,
             CancellationToken token)
@@ -184,8 +111,6 @@ namespace Cloudents.Web.Controllers
             {
                 return Ok();
             }
-
-
             var t = session.Query<Document>()
                     .Fetch(f => f.University)
                   .Where(w => w.Status.State == ItemState.Ok)
@@ -228,21 +153,7 @@ namespace Cloudents.Web.Controllers
                 await writer.WriteEndDocumentAsync();
                 await writer.FlushAsync();
             });
-
-            //return new SitemapNode(_urlHelper.RouteUrl(SeoTypeString.Document, new
-            //{
-            //    universityName = FriendlyUrlHelper.GetFriendlyTitle(source.UniversityName),
-            //    courseName = FriendlyUrlHelper.GetFriendlyTitle(source.CourseName),
-            //    source.Id,
-            //    name = FriendlyUrlHelper.GetFriendlyTitle(source.Name)
-            //}));
         }
-
-        //var siteMap = new DocumentSiteMapIndexConfiguration(index, session, Url);
-        //return new DynamicSitemapIndexProvider().CreateSitemapIndex(new SitemapProvider(), siteMap);
-
-
-
 
         private static async Task WriteTagAsync(string priority, string freq,
             string navigation, XmlWriter myWriter)

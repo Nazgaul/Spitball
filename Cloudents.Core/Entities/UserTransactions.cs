@@ -17,8 +17,9 @@ namespace Cloudents.Core.Entities
 
         public int Score { get; private set; }
 
-        public void Add(Transaction t)
+        public void Add(Transaction t, RegularUser user)
         {
+            t.User = user;
             Transactions.Add(t);
             Balance += t.Price;
             if (t.Price > 0)

@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
         //}
 
         //  public virtual Guid Id { get; protected set; }
-        public virtual RegularUser User { get; protected set; }
+        public virtual RegularUser User { get; set; }
 
         public virtual DateTime Created { get; protected set; }
 

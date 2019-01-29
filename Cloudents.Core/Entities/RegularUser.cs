@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
 {
@@ -104,9 +103,8 @@ namespace Cloudents.Core.Entities
 
         public override void MakeTransaction(Transaction transaction)
         {
-            Transactions.Add(transaction);
+            Transactions.Add(transaction, this);
             AddEvent(new TransactionEvent(transaction, this));
-            //MakeTransaction(transaction, question, document, null);
 
         }
 

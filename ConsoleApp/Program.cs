@@ -29,6 +29,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Enum;
 
 namespace ConsoleApp
@@ -45,7 +46,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -53,7 +54,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], false),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
@@ -114,7 +115,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await ReduDocument();
+
+            var _commandBus = _container.Resolve<ICommandBus>();
+            var command = new DistributeTokensCommand(638, 1);
+            await _commandBus.DispatchAsync(command, token);
             // var service1 = _container.Resolve<IUnitOfWork>();
             //var service = _container.Resolve<IQueryBus>();
 
