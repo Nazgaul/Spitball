@@ -4,11 +4,16 @@
             <h1>Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">
                 <v-flex xs3>
-                    <v-text-field autocomplete solo v-model="userIdentifier" type="text" class="user-id-input"
-                                  placeholder="Insert user identifier..." />
+                    <v-text-field autocomplete solo v-model="userIdentifier"
+                                  @keyup.enter.native="getUserInfo()"
+                                  autofocus
+                                  clearable
+                                  loading="primary"
+                                  type="text" class="user-id-input"
+                                  placeholder="Insert user identifier..."/>
                 </v-flex>
                 <v-flex xs1>
-                    <v-btn :disabled="!userIdentifier" primary @click="getUserData()">Get User</v-btn>
+                    <v-btn :disabled="!userIdentifier" primary @click="getUserInfo()">Get User</v-btn>
                 </v-flex>
                 <v-spacer></v-spacer>
                 <v-flex xs4 v-if="userData.userInfo">
@@ -17,17 +22,14 @@
                            @click="suspendUser()">
                         Suspend
                     </v-btn>
-                    <v-btn v-else :disabled="!userData" class="suspend" @click="releaseUser()">Release</v-btn>
+                    <v-btn v-else :disabled="!userData" class="suspend" @click="releaseUser()">UnSuspend</v-btn>
 
-                    <v-btn :disabled="!userData" class="cash" @click="setUserComponent('userCashout')">
-                        Pay Cashout
+                    <v-btn :disabled="!userData" class="grant" @click="openTokensDialog()">Grant Tokens
                     </v-btn>
-                    <v-btn :disabled="!userData" class="grant" @click="setUserComponent('userTokens')">
-                        Grant Tokens
-                    </v-btn>
-                    <div v-show="activeUserComponent && userComponentsShow">
-                        <component :is="activeUserComponent ?  activeUserComponent : ''" :userId="userId"></component>
-                    </div>
+
+                    <!--<div v-show="activeUserComponent && userComponentsShow">-->
+                    <!--<component :is="activeUserComponent ?  activeUserComponent : ''" :userId="userId"></component>-->
+                    <!--</div>-->
                 </v-flex>
             </div>
             <div class="general-info d-flex elevation-2 mb-2" column v-if="userData && userData.userInfo">
@@ -44,20 +46,22 @@
 
             </div>
             <div class="questions-answers-wrap">
+
                 <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
                            :color="searchQuery === filter.value ? '#00bcd4' : ''  "
-                           :key="'filter_'+index">
-                        {{filter.name}}
+                           :key="'filter_'+index">{{filter.name}}
                     </v-btn>
                 </div>
                 <div class="tabs-holder">
-                    <v-tabs centered
+                    <v-tabs
+                            centered
                             color="cyan"
                             dark
                             @change="setActiveTab()"
                             v-model="activeTab"
-                            icons-and-text>
+                            icons-and-text
+                    >
                         <v-tabs-slider color="yellow"></v-tabs-slider>
 
                         <v-tab href="#userQuestions">User Question</v-tab>
@@ -78,17 +82,39 @@
                         </v-tab-item>
                         <v-tab-item :key="'3'" :value="'userDocuments'">
                             <v-flex xs12>
-                                <document-item :updateData="updateData" :documents="filteredData"></document-item>
+                                <document-item :updateData="updateData" :documents="filteredData" :filterVal="searchQuery"></document-item>
                             </v-flex>
                         </v-tab-item>
                     </v-tabs>
                 </div>
             </div>
         </v-flex>
+        <v-dialog v-model="getTokensDialogState" persistent max-width="600px" v-if="getTokensDialogState">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Grant Tokens</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <user-tokens :userId="userId"></user-tokens>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="closeTokensDialog()">Close</v-btn>
+                    <v-btn color="blue darken-1" flat @click="closeTokensDialog()">Cancel</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-layout>
 </template>
 
 <script>
+    import { mapGetters, mapActions } from 'vuex';
     import UserMainService from './userMainService';
     import { suspendUser, releaseUser } from '../user/suspend/suspendUserService';
     import { grantTokens } from '../user/token/tokenUserService';
@@ -111,13 +137,14 @@
         },
         data() {
             return {
-                userData: {},
                 userIdentifier: '',
+                suspendedUser: false,
+                gettingUser: false,
                 filters: [
-                    { name: 'All', value: 'ok' },
-                    { name: 'Pending', value: 'pending' },
-                    { name: 'Deleted', value: 'deleted' },
-                    { name: 'Flagged', value: 'flagged' }
+                    {name: 'Accepted', value: 'ok'},
+                    {name: 'Pending', value: 'pending'},
+                    {name: 'Deleted', value: 'deleted'},
+                    {name: 'Flagged', value: 'flagged'}
                 ],
                 userActions: [
                     {
@@ -146,23 +173,28 @@
             }
         },
         computed: {
+            ...mapGetters(["getTokensDialogState", "getUserObj"]),
+            userData() {
+                return this.getUserObj
+            },
             filteredData: function () {
                 let self = this;
                 if (self.userData && self.userData[`${this.activeTab}`]) {
-                    if (self.searchQuery === 'ok') {
-                        return self.userData[`${this.activeTab}`]
-                    } else {
-                        return self.userData[`${this.activeTab}`].filter(function (item) {
-                            return item.state.indexOf(self.searchQuery) !== -1
-                        })
-                    }
-
+                    return self.userData[`${this.activeTab}`].filter(function (item) {
+                        return item.state.indexOf(self.searchQuery) !== -1
+                    })
                 }
             },
-            userStatusActive() {
-                if (this.userData && this.userData.userInfo) {
-                    return this.userData.userInfo.status.value
+            userStatusActive: {
+                get() {
+                    if (this.userData && this.userData.userInfo) {
+                        return this.userData.userInfo.status.value
+                    }
+                },
+                set(val) {
+                    this.suspendedUser = val
                 }
+
             },
 
             userId() {
@@ -177,6 +209,12 @@
                 this.userComponentsShow = true;
                 return this.activeUserComponent = val
             },
+            openTokensDialog() {
+                this.setTokensDialogState(true);
+            },
+            closeTokensDialog() {
+                this.setTokensDialogState(false);
+            },
             updateData(index) {
                 this.userData[`${this.activeTab}`].splice(index, 1);
             },
@@ -186,17 +224,15 @@
             updateFilter(val) {
                 return this.searchQuery = val
             },
-            getUserData() {
+            getUserInfo() {
+                this.gettingUser = true;
                 let id = this.userIdentifier;
-                UserMainService.getUserData(id).then((data) => {
-                    this.userIdentifier = '';
-                    this.userData = data;
-                    console.log(data)
-                },
+                this.getUserData(id).then((success) => {
+                        this.gettingUser = false;
+                    },
                     (error) => {
-                        console.log(error, 'error')
-                    }
-                )
+                        console.log(error)
+                    })
             },
             suspendUser() {
                 let idArr = [];
@@ -235,25 +271,7 @@
 
                 })
             },
-            sendTokens() {
-                if (!this.userId) {
-                    this.$toaster.error("you must provide a UserId")
-                    return;
-                }
-                if (!this.tokens) {
-                    this.$toaster.error("you must provide tokens")
-                    return;
-                }
-                grantTokens(this.userId, this.tokens, this.tokenType).then(() => {
-                    this.$toaster.success(`user id ${this.userId} recived ${this.tokens} tokens`)
-                    this.userId = null;
-                    this.tokens = null;
-                }, (err) => {
-                    console.log(err);
-                    this.$toaster.error(`Error: couldn't send tokens`)
-                })
 
-            }
         },
         created() {
 
@@ -264,30 +282,24 @@
 
 <style scoped lang="scss">
     .user-page-wrap {
-        .general-info
-
-    {
-        padding: 8px 16px;
-        .user-info-label, .user-info-value
-
-    {
-        text-align: left;
+        .general-info {
+            padding: 8px 16px;
+            .user-info-label, .user-info-value {
+                text-align: left;
+            }
+            .user-info-label {
+                min-width: 15%;
+                font-size: 16px;
+                font-weight: 500;
+                border-bottom: 1px solid grey;
+                padding-bottom: 8px;
+            }
+            .user-info-value {
+                padding-top: 8px;
+                font-size: 16px;
+                font-weight: 400;
+            }
+        }
     }
 
-    .user-info-label {
-        min-width: 15%;
-        font-size: 16px;
-        font-weight: 500;
-        border-bottom: 1px solid grey;
-        padding-bottom: 8px;
-    }
-
-    .user-info-value {
-        padding-top: 8px;
-        font-size: 16px;
-        font-weight: 400;
-    }
-
-    }
-    }
 </style>

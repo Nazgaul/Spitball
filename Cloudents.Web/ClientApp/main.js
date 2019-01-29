@@ -199,7 +199,7 @@ global.isIsrael = global.country.toLowerCase() === "il";
 global.isEdgeRtl = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     if(global.isRtl){
-        global.isEdgeRtl
+        global.isEdgeRtl = true;
     }
 
 }
