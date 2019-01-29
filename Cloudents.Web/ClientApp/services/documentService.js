@@ -10,7 +10,6 @@ function DocumentItem(ObjInit) {
     this.views = ObjInit.views || 0;
     this.downloads = ObjInit.downloads || 0;
     this.pages = ObjInit.pages || '';
-    this.extension = ObjInit.extension || '';
     this.docType = ObjInit.type || '';
     this.isPlaceholder = ObjInit.isPlaceholder || false;
     this.professor = ObjInit.professor || '';

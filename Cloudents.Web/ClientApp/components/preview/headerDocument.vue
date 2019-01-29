@@ -6,22 +6,15 @@
                     <div class="gap ma-0"></div>
                     <h1 class="item-name">
                         <span class=" text-truncate">{{itemName}} </span>
-                        <span class="doc-extension ml-1"
-                              v-show="item && item.extension">({{item ? item.extension : ''}})</span>
                     </h1>
                     <div class="doc-details">
                         <div class="author">
-                        <!--<span class="upload-by">-->
                             <div>
                               <user-avatar class="avatar-circle width24 mr-2" :user-name="uploaderName" :user-id="uploaderID"/>
                             </div>
                             <user-rank class="mr-2"
                                        :score="uploaderScore"></user-rank>
 
-                            <!--<v-icon class="sb-person mr-1" v-if="$vuetify.breakpoint.smAndUp">sbf-person</v-icon>-->
-                            <!--<span v-if="$vuetify.breakpoint.smAndUp" class="mr-2" v-language:inner>headerDocument_item_by</span>-->
-                            <!--<span class="name mr-2">{{uploaderName}},</span>-->
-                        <!--</span>-->
                         </div>
                         <div class="date">
                             {{uploadDate}}

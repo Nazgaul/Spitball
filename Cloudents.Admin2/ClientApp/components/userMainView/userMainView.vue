@@ -1,6 +1,6 @@
 <template>
     <v-layout justify-center class="user-page-wrap" data-app>
-        <v-flex xs12 sm12 md12 style="background: #ffffff; padding: 24px 24px;">
+        <v-flex xs12 sm12 md12 class="px-2 py-3" style="background: #ffffff;">
             <h1>Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">
                 <v-flex xs3>
@@ -32,61 +32,62 @@
                     <!--</div>-->
                 </v-flex>
             </div>
-            <div class="general-info d-flex elevation-2 mb-2" column v-if="userData && userData.userInfo">
-                <div class="info-item" v-for="(infoItem, index) in userData.userInfo" :key="index">
-                    <v-flex>
-                        <div class="user-info-label">
-                            <span>{{infoItem.label}}</span>
-                        </div>
-                        <div class="user-info-value">
-                            <span>{{infoItem.value}}</span>
-                        </div>
-                    </v-flex>
-                </div>
-
-            </div>
             <div class="questions-answers-wrap">
-
                 <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
                            :color="searchQuery === filter.value ? '#00bcd4' : ''  "
                            :key="'filter_'+index">{{filter.name}}
                     </v-btn>
                 </div>
-                <div class="tabs-holder">
-                    <v-tabs
-                            centered
-                            color="cyan"
-                            dark
-                            @change="setActiveTab()"
-                            v-model="activeTab"
-                            icons-and-text
-                    >
-                        <v-tabs-slider color="yellow"></v-tabs-slider>
-
-                        <v-tab href="#userQuestions">User Question</v-tab>
-
-                        <v-tab href="#userAnswers">User Answers</v-tab>
-
-                        <v-tab href="#userDocuments">User Documents</v-tab>
-
-                        <v-tab-item :key="'1'" :value="'userQuestions'">
-                            <v-flex xs12>
-                                <question-item :updateData="updateData" :questions="filteredData"></question-item>
+                <v-layout row>
+                    <div class="general-info d-flex elevation-2 mb-2" v-if="userData && userData.userInfo">
+                        <div class="info-item py-2 px-2" v-for="(infoItem, index) in userData.userInfo" :key="index">
+                            <v-flex row class="d-flex align-baseline justify-center" >
+                                <div class="user-info-label">
+                                    <span>{{infoItem.label}}</span>
+                                </div>
+                                <div class="user-info-value">
+                                    <span>{{infoItem.value}}</span>
+                                </div>
                             </v-flex>
-                        </v-tab-item>
-                        <v-tab-item :key="'2'" :value="'userAnswers'">
-                            <v-flex xs12>
-                                <answer-item :updateData="updateData" :answers="filteredData"></answer-item>
-                            </v-flex>
-                        </v-tab-item>
-                        <v-tab-item :key="'3'" :value="'userDocuments'">
-                            <v-flex xs12>
-                                <document-item :updateData="updateData" :documents="filteredData" :filterVal="searchQuery"></document-item>
-                            </v-flex>
-                        </v-tab-item>
-                    </v-tabs>
-                </div>
+                        </div>
+                    </div>
+                    <div class="tabs-holder">
+                        <v-tabs
+                                centered
+                                color="cyan"
+                                dark
+                                @change="setActiveTab()"
+                                v-model="activeTab"
+                                icons-and-text
+                        >
+                            <v-tabs-slider color="yellow"></v-tabs-slider>
+
+                            <v-tab href="#userQuestions">User Question</v-tab>
+
+                            <v-tab href="#userAnswers">User Answers</v-tab>
+
+                            <v-tab href="#userDocuments">User Documents</v-tab>
+
+                            <v-tab-item :key="'1'" :value="'userQuestions'">
+                                <v-flex xs12>
+                                    <question-item :updateData="updateData" :questions="filteredData"></question-item>
+                                </v-flex>
+                            </v-tab-item>
+                            <v-tab-item :key="'2'" :value="'userAnswers'">
+                                <v-flex xs12>
+                                    <answer-item :updateData="updateData" :answers="filteredData"></answer-item>
+                                </v-flex>
+                            </v-tab-item>
+                            <v-tab-item :key="'3'" :value="'userDocuments'">
+                                <v-flex xs12>
+                                    <document-item :updateData="updateData" :documents="filteredData"
+                                                   :filterVal="searchQuery"></document-item>
+                                </v-flex>
+                            </v-tab-item>
+                        </v-tabs>
+                    </div>
+                </v-layout>
             </div>
         </v-flex>
         <v-dialog v-model="getTokensDialogState" persistent max-width="600px" v-if="getTokensDialogState">
@@ -282,22 +283,34 @@
 
 <style scoped lang="scss">
     .user-page-wrap {
+        .tabs-holder{
+            order: 2;
+            flex-grow: 1;
+        }
         .general-info {
-            padding: 8px 16px;
+            order: 1;
+            flex-direction: column;
+            padding: 8px 0;
+            margin-right: 8px;
+            max-height: 500px;
+
+            .info-item:nth-child(even){
+                background-color: #f5f5f5;
+            }
             .user-info-label, .user-info-value {
                 text-align: left;
             }
             .user-info-label {
-                min-width: 15%;
+                min-width: 125px;
                 font-size: 16px;
                 font-weight: 500;
-                border-bottom: 1px solid grey;
                 padding-bottom: 8px;
             }
             .user-info-value {
                 padding-top: 8px;
                 font-size: 16px;
                 font-weight: 400;
+                text-align: right;
             }
         }
     }
