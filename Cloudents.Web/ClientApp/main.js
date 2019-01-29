@@ -189,14 +189,19 @@ Vue.filter('capitalize',
         //return value.charAt(0).toUpperCase() + value.slice(1);
     });
 //#endregion
-
+//is rtl
+global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 //check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
 global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 //is country Israel
 global.isIsrael = global.country.toLowerCase() === "il";
 //check if Edge (using to fix position sticky bugs)
+global.isEdgeRtl = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
-    global.isEdge = true;
+    if(global.isRtl){
+        global.isEdgeRtl
+    }
+
 }
 
 Vue.filter('ellipsis',
@@ -339,7 +344,6 @@ function checkUserStatus(to, next) {
     });
 }
 
-global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 global.isMobileAgent = function() {
     let check = false;
     (function(a){

@@ -180,7 +180,6 @@
                 confirmPurchaseDialog: false
             }
         },
-
         methods: {
             ...mapActions([
                 'updateLoginDialogState',
@@ -263,7 +262,6 @@
                 }
             },
         },
-
         filters: {
             mediumDate: function (value) {
                 if (!value) return '';
@@ -271,6 +269,9 @@
                 return date.toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric'});
             }
         },
+        created(){
+            console.log('is Edge ??',  global.isEdgeRtl)
+        }
 
 
     }
