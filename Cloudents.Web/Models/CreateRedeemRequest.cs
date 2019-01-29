@@ -15,14 +15,14 @@ namespace Cloudents.Web.Models
         }
     }
 
-    [System.AttributeUsage(System.AttributeTargets.All, AllowMultiple = false)]
+    [System.AttributeUsage(System.AttributeTargets.All)]
     public sealed class RedeemValidatorAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var val = (decimal)value;
 
-            var validValues = new[] { 1000M, 2000M, 3000M, 4000M };
+            var validValues = new[] { 1000M };
 
             if (validValues.Contains(val))
             {

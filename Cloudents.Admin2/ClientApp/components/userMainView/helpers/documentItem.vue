@@ -32,7 +32,7 @@
 
                     </v-list-tile-content>
 
-                    <v-list-tile-action>
+                    <v-list-tile-action v-if="!isDeleted">
                         <v-tooltip left>
                             <v-btn slot="activator" flat class="doc-action"
                                    @click="unflagSingleDocument(document, index)"
@@ -100,6 +100,20 @@
                 required: false
 
             },
+        },
+        computed: {
+            isOk() {
+                return this.filterVal === 'ok'
+            },
+            isPending() {
+                return this.filterVal === 'pending'
+            },
+            isFlagged() {
+                return this.filterVal === 'flagged'
+            },
+            isDeleted() {
+                return this.filterVal === 'deleted'
+            }
         },
         methods: {
             imageView(src) {

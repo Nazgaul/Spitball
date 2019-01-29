@@ -172,8 +172,6 @@ namespace Cloudents.Functions
                                                     }
                                                     else
                                                     {
-                                                        log.Info("found text file");
-
                                                         var blob = directory.GetBlockBlobReference(blobTextName);
                                                         await blob.FetchAttributesAsync(token);
                                                         pageCount = int.Parse(blob.Metadata["PageCount"]);

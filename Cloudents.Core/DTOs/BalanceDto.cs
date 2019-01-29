@@ -11,7 +11,7 @@ namespace Cloudents.Core.DTOs
             Name = transaction;
             Type = transaction.ToString("G");
             Points = points;
-            Value = points / 40;
+            Value = points / 100;
         }
 
         //public BalanceDto(string transaction, decimal points)

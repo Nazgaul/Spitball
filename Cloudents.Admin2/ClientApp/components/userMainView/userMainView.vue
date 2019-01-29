@@ -1,25 +1,29 @@
 <template>
     <v-layout justify-center class="user-page-wrap" data-app>
         <v-flex xs12 sm12 md12 style="background: #ffffff; padding: 24px 24px;">
-            <h1 >Welcome to Admin</h1>
+            <h1>Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">
                 <v-flex xs3>
                     <v-text-field autocomplete solo v-model="userIdentifier" type="text" class="user-id-input"
-                                  placeholder="Insert user identifier..."/>
+                                  placeholder="Insert user identifier..." />
                 </v-flex>
                 <v-flex xs1>
                     <v-btn :disabled="!userIdentifier" primary @click="getUserData()">Get User</v-btn>
                 </v-flex>
                 <v-spacer></v-spacer>
-                <v-flex xs4>
-                    <v-btn v-if="userStatusActive" :disabled="!userData" class="suspend" @click="suspendUser()">
+                <v-flex xs4 v-if="userData.userInfo">
+                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!userData" color="rgb(0, 188, 212)"
+                           class="suspend"
+                           @click="suspendUser()">
                         Suspend
                     </v-btn>
                     <v-btn v-else :disabled="!userData" class="suspend" @click="releaseUser()">Release</v-btn>
 
-                    <v-btn :disabled="!userData" class="cash" @click="setUserComponent('userCashout')">Pay Cashout
+                    <v-btn :disabled="!userData" class="cash" @click="setUserComponent('userCashout')">
+                        Pay Cashout
                     </v-btn>
-                    <v-btn :disabled="!userData" class="grant" @click="setUserComponent('userTokens')">Grant Tokens
+                    <v-btn :disabled="!userData" class="grant" @click="setUserComponent('userTokens')">
+                        Grant Tokens
                     </v-btn>
                     <div v-show="activeUserComponent && userComponentsShow">
                         <component :is="activeUserComponent ?  activeUserComponent : ''" :userId="userId"></component>
@@ -43,18 +47,17 @@
                 <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
                            :color="searchQuery === filter.value ? '#00bcd4' : ''  "
-                           :key="'filter_'+index">{{filter.name}}
+                           :key="'filter_'+index">
+                        {{filter.name}}
                     </v-btn>
                 </div>
                 <div class="tabs-holder">
-                    <v-tabs
-                            centered
+                    <v-tabs centered
                             color="cyan"
                             dark
                             @change="setActiveTab()"
                             v-model="activeTab"
-                            icons-and-text
-                    >
+                            icons-and-text>
                         <v-tabs-slider color="yellow"></v-tabs-slider>
 
                         <v-tab href="#userQuestions">User Question</v-tab>
@@ -111,10 +114,10 @@
                 userData: {},
                 userIdentifier: '',
                 filters: [
-                    {name: 'All', value: 'ok'},
-                    {name: 'Pending', value: 'pending'},
-                    {name: 'Deleted', value: 'deleted'},
-                    {name: 'Flagged', value: 'flagged'}
+                    { name: 'All', value: 'ok' },
+                    { name: 'Pending', value: 'pending' },
+                    { name: 'Deleted', value: 'deleted' },
+                    { name: 'Flagged', value: 'flagged' }
                 ],
                 userActions: [
                     {
@@ -146,9 +149,9 @@
             filteredData: function () {
                 let self = this;
                 if (self.userData && self.userData[`${this.activeTab}`]) {
-                    if(self.searchQuery === 'ok'){
+                    if (self.searchQuery === 'ok') {
                         return self.userData[`${this.activeTab}`]
-                    }else{
+                    } else {
                         return self.userData[`${this.activeTab}`].filter(function (item) {
                             return item.state.indexOf(self.searchQuery) !== -1
                         })
@@ -169,6 +172,7 @@
             }
         },
         methods: {
+            ...mapActions(["setTokensDialogState", "getUserData", "setUserCurrentStatus"]),
             setUserComponent(val) {
                 this.userComponentsShow = true;
                 return this.activeUserComponent = val
@@ -185,10 +189,10 @@
             getUserData() {
                 let id = this.userIdentifier;
                 UserMainService.getUserData(id).then((data) => {
-                        this.userIdentifier = '';
-                        this.userData = data;
-                        console.log(data)
-                    },
+                    this.userIdentifier = '';
+                    this.userData = data;
+                    console.log(data)
+                },
                     (error) => {
                         console.log(error, 'error')
                     }
@@ -201,6 +205,8 @@
                     this.$toaster.success(`user got suspended, email is: ${email}`);
                     this.showSuspendedDetails = true;
                     this.suspendedMail = email;
+                    this.suspendedUser = true;
+                    this.setUserCurrentStatus(true);
                     // this.userData.userInfo.status.value ='suspended'
                 }, (err) => {
                     this.$toaster.error(`ERROR: failed to suspend user`);
@@ -217,6 +223,8 @@
                 idArr.push(this.userId);
                 releaseUser(idArr).then((email) => {
                     self.$toaster.success(`user got released`);
+                    this.suspendedUser = false;
+                    this.setUserCurrentStatus(false);
                     // self.userData.userInfo.status.value === 'active'
                 }, (err) => {
                     self.$toaster.error(`ERROR: failed to realse user`);
@@ -256,24 +264,30 @@
 
 <style scoped lang="scss">
     .user-page-wrap {
-        .general-info {
-            padding: 8px 16px;
-            .user-info-label, .user-info-value {
-                text-align: left;
-            }
-            .user-info-label {
-                min-width: 15%;
-                font-size: 16px;
-                font-weight: 500;
-                border-bottom: 1px solid grey;
-                padding-bottom: 8px;
-            }
-            .user-info-value {
-                padding-top: 8px;
-                font-size: 16px;
-                font-weight: 400;
-            }
-        }
+        .general-info
+
+    {
+        padding: 8px 16px;
+        .user-info-label, .user-info-value
+
+    {
+        text-align: left;
     }
 
+    .user-info-label {
+        min-width: 15%;
+        font-size: 16px;
+        font-weight: 500;
+        border-bottom: 1px solid grey;
+        padding-bottom: 8px;
+    }
+
+    .user-info-value {
+        padding-top: 8px;
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    }
+    }
 </style>

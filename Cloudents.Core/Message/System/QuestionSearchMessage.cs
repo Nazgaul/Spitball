@@ -6,10 +6,7 @@ namespace Cloudents.Core.Message.System
     {
         public bool ShouldInsert { get; private set; }
         public QuestionSearchDto Question { get; private set; }
-        //public override dynamic GetData()
-        //{
-        //    return this;
-        //}
+       
 
         public QuestionSearchMessage(bool shouldInsert, QuestionSearchDto question)
         {

@@ -79,7 +79,6 @@ namespace Cloudents.Admin2.Api
             return retVal.Where(w => w.Preview != null);
         }
 
-        // DELETE api/<controller>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id, CancellationToken token)
         {
@@ -87,6 +86,20 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        //[HttpDelete]
+        //public async Task<IActionResult> Delete2(string idstr, CancellationToken token)
+        //{
+        //    var ids = idstr.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+        //    foreach (var id in ids)
+        //    {
+        //        var x = long.Parse(id);
+        //        var command = new DeleteDocumentCommand(x);
+        //        await _commandBus.DispatchAsync(command, token);
+        //    }
+            
+        //    return Ok();
+        //}
 
 
         [HttpPost]

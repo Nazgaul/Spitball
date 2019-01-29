@@ -18,7 +18,8 @@ function UserInfo(objInit) {
     this.fraudScore = {value: objInit.fraudScore ||  0, label: 'Fraud Score' };
     this.referredCount = {value: objInit.referredCount ||  0, label: 'People Referred' };
     this.balance = {value: objInit.balance ||  0, label: 'Balance' };
-    this.status = {value: objInit.isActive , label: 'User Status' };
+    this.status = {value: objInit.isActive ? false : true , label: 'Suspended' };
+    //this.status = {value: objInit.isActive , label: 'User Status' };
 }
 
 function createUserInfoItem(data) {
