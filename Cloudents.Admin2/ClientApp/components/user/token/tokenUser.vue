@@ -16,7 +16,7 @@
             ></v-select>
         </div>
         <div class="grant-token-container">
-            <v-btn round color="#78c967" @click="sendTokens">Send</v-btn>
+            <v-btn :loading="loading" color="#78c967" @click="sendTokens">Send</v-btn>
         </div>
     </div>
     
@@ -31,11 +31,13 @@ export default {
             tokens: null,
             tokenType: 'Earned',
             types: ['Earned'],
+            loading: false
 
         }
     },
     methods:{
         sendTokens: function(){
+            this.loading= true;
             if(!this.userId){
                 this.$toaster.error("you must provide a UserId")
                 return;
@@ -48,9 +50,11 @@ export default {
                 this.$toaster.success(`user id ${this.userId} recived ${this.tokens} tokens`)
                 this.userId= null;
                 this.tokens= null;
+                this.loading= false;
             },(err)=>{
                 console.log(err);
-                this.$toaster.error(`Error: couldn't send tokens`)
+                this.$toaster.error(`Error: couldn't send tokens`);
+                this.loading= false;
             })
             
         }
