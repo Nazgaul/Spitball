@@ -19,11 +19,10 @@ function UserInfo(objInit) {
     this.referredCount = {value: objInit.referredCount ||  0, label: 'People Referred' };
     this.balance = {value: objInit.balance ||  0, label: 'Balance' };
     this.status = {value: objInit.isActive ? false : true , label: 'Suspended' };
-    //this.status = {value: objInit.isActive , label: 'User Status' };
 }
 
 function createUserInfoItem(data) {
-   return new UserInfo(data);
+    return new UserInfo(data);
 }
 
 function QuestionItem(objInit) {
@@ -42,7 +41,7 @@ function DocumentItem(objInit) {
     this.price = objInit.price;
     this.state =  objInit.state ? objInit.state.toLowerCase() : 'ok';
     this.preview = objInit.preview || '';
-    this.siteLink = objInit.siteLink || 'some url';
+    this.siteLink = objInit.siteLink || 'Not specified';
 }
 
 function AnswerItem(objInit) {
@@ -60,7 +59,7 @@ function createUserItem(objInit) {
 
 function createQuestionItem(data) {
     return data.map((item) => {
-       return new QuestionItem(item)
+        return new QuestionItem(item)
     });
 }
 function createDocumentItem(data) {
@@ -72,7 +71,7 @@ function createAnswertItem(data) {
     return data.map((item) => {
         return new AnswerItem(item)
     });
-};
+}
 
 
 export default {
@@ -80,7 +79,6 @@ export default {
         let path = "AdminUser/info?userIdentifier=" + id;
         return connectivityModule.http.get(path)
             .then((resp) => {
-                console.log(resp, 'success get 20 docs');
                 return createUserItem(resp);
 
 
