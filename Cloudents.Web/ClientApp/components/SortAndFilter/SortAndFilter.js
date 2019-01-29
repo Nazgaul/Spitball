@@ -4,12 +4,10 @@ export default {
     name: "sort-and-filter",
     data() {
         return {
-            //keep this as model for expand panel, to keep it always open
-            //panelList: [[true], [true]]
+            isEdgeRtl :global.isEdgeRtl
         }
     },
     props: {
-       // sortOptions: { type: Array, default: () => [] },
         sortVal: {},
         filterOptions: {type: Object, default: () => {}},
         filterVal: {type: Array, default: () => []},

@@ -81,7 +81,6 @@ export default {
             .then((resp) => {
                 return createUserItem(resp);
 
-
             }, (error) => {
                 console.log(error, 'error get 20 docs');
                 return Promise.reject(error)
