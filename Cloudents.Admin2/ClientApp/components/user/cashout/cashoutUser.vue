@@ -1,30 +1,38 @@
 <template>
     <div>
-        <h1>Cashout List</h1>
-        <div class="cashout-table-container" >
-            <span v-if="showLoading">Loading List...</span>
-            <span v-if="showNoResult">NO RESULTS!</span>
-            <table v-if="cashOutList.length > 0" class="cashout-table">
-                <th>User Id</th>
-                <th>Cashout Price</th>
-                <th>User Email</th>
-                <th>Cashout Time</th>
-                <th>Fraud Score</th>
-                <th>User Query Ratio</th>
-                <th>Is Suspect</th>
-                <th>Is From Israel</th>
-                <tbody v-for="(user,index) in cashOutList" :key="index">
-                    <td>{{user.userId}}</td>
-                    <td>{{user.cashOutPrice}}</td>
-                    <td>{{user.userEmail}}</td>
-                    <td>{{new Date(user.cashOutTime).toUTCString()}}</td>
-                    <td>{{user.fraudScore}}</td>
-                    <td>{{user.userQueryRatio}}</td>
-                    <td :class="{'suspect': user.isSuspect}">{{user.isSuspect}}</td>
-                    <td>{{user.isIsrael}}</td>
-                </tbody>
-            </table>
-        </div>
+        <span v-if="showLoading">Loading List...</span>
+        <span v-if="showNoResult">NO RESULTS!</span>
+        <h4>Cashout List</h4>
+        <v-layout>
+            <v-spacer></v-spacer>
+            <v-flex xs4 sm4 md4>
+                <v-text-field
+                        v-model="search"
+                        append-icon="search"
+                        label="Search"
+                        single-line
+                        hide-details
+                ></v-text-field>
+            </v-flex>
+        </v-layout>
+
+    <v-data-table
+            :headers="headers"
+            :items="cashOutList"
+            class="elevation-1"
+            :search="search"
+    >
+        <template slot="items" slot-scope="props">
+            <td class="text-xs-right">{{ props.item.userId }}</td>
+            <td class="text-xs-right">{{ props.item.cashOutPrice }}</td>
+            <td class="text-xs-right">{{ props.item.userEmail }}</td>
+            <td class="text-xs-right">{{new Date(props.item.cashOutTime).toUTCString()}}</td>
+            <td class="text-xs-right">{{ props.item.userQueryRatio }}</td>
+            <td class="text-xs-right" :class="{'suspect': props.item.isSuspect}">{{props.item.isSuspect}}</td>
+            <td class="text-xs-right">{{ props.item.isIsrael }}</td>
+
+        </template>
+    </v-data-table>
     </div>
 </template>
 <script>
@@ -35,6 +43,16 @@ export default {
             cashOutList:[],
             showLoading:true,
             showNoResult:false,
+            search: '',
+            headers: [
+                { text: 'User ID', value: 'userId' },
+                { text: 'Cashout Price', value: 'cashoutPrice' },
+                { text: 'User Email', value: 'userEmail' },
+                { text: 'Date of cash out', value: 'cashDate' },
+                { text: 'User Query Ratio', value: 'queryRatio' },
+                { text: 'Is Suspect', value: 'isSuspect' },
+                { text: 'Is From Israel', value: 'isIsarel' },
+            ],
         }
     },
     created(){

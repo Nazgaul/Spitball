@@ -140,7 +140,6 @@
             return {
                 userIdentifier: '',
                 suspendedUser: false,
-                gettingUser: false,
                 filters: [
                     {name: 'Accepted', value: 'ok'},
                     {name: 'Pending', value: 'pending'},
@@ -226,12 +225,12 @@
                 return this.searchQuery = val
             },
             getUserInfo() {
-                this.gettingUser = true;
                 let id = this.userIdentifier;
                 this.getUserData(id).then((success) => {
-                        this.gettingUser = false;
+                    console.log(success)
                     },
                     (error) => {
+                        this.$toaster.error('Can\'t get User By Provided ID');
                         console.log(error)
                     })
             },
@@ -292,8 +291,8 @@
             flex-direction: column;
             padding: 8px 0;
             margin-right: 8px;
-            max-height: 500px;
-
+            max-height: 570px;
+            height: 570px;
             .info-item:nth-child(even){
                 background-color: #f5f5f5;
             }
