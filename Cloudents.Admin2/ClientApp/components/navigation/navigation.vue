@@ -1,5 +1,5 @@
 <template>
-    <v-card class="nav-card">
+    <v-card class="nav-card elevation-0" >
         <!--<v-toolbar color="teal" dark fixed>-->
         <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
 
@@ -12,6 +12,7 @@
         <!--</v-btn>-->
         <!--</v-toolbar>-->
         <v-navigation-drawer
+                class="sb-navigation-drawer"
                 stateless
                 value="true"
                 fixed
@@ -73,9 +74,7 @@
                             {name: 'Delete', link: '/question/delete', icon: 'delete_outline'},
                             {name: 'Add', link: '/question/add', icon: 'add'},
                             {name: 'Add Multiple', link: '/question/addBulk', icon: 'add_circle_outline'},
-                            // {name: 'Accept Question', link: '/question/acceptQuestion', icon: 'done'}
                             {name: 'Flagged Answers', link: '/answer/flaggedAnswers', icon: 'notifications_paused'},
-                            // {name: 'Accept Pending', link: '/answer/acceptAnswer', icon: 'done'}
                         ]
                     },
 
@@ -119,8 +118,10 @@
 <style lang="scss">
     .nav-card {
         min-width: 260px !important;
+        .sb-navigation-drawer{
+            width: unset!important;
+        }
     }
-
     .v-list__tile--active {
         color: green;
         background: #e4e4e4;

@@ -49,6 +49,7 @@ body{
         justify-content: center;
         align-items: flex-start;
         order: 1;
+        background-color: #ffffff;
     }
 
     .navigation-wrap {

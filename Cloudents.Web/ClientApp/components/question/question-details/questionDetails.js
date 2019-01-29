@@ -33,6 +33,7 @@ export default {
             showDialogSuggestQuestion: false,
             showDialogLogin: false,
             build: null,
+            isEdgeRtl : global.isEdgeRtl
         };
     },
     beforeRouteLeave(to, from, next) {
