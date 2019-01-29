@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +27,11 @@ namespace Cloudents.FunctionsV2.System
 
         public async Task DoOperationAsync(AnswerAcceptedMessage msg, IBinder binder, CancellationToken token)
         {
+            //var z = await binder.BindAsync<IEnumerable<XXX>>(new CosmosDBAttribute("Spitabll", "Email")
+            //{
+            //    ConnectionStringSetting = "Cosmos",
+            //    SqlQuery = "select * from Email r where contains(r.id,'DocumentPurchased')"
+            //});
             var query = new GetAnswerAcceptedEmailQuery(msg.TransactionId);
             var result = await _queryBus.QueryAsync(query, token);
 
