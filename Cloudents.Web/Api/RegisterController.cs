@@ -150,7 +150,6 @@ namespace Cloudents.Web.Api
             [FromServices] IGoogleAuth service,
             CancellationToken cancellationToken)
         {
-
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             _logger.Info($"received google user {result}");
             if (result == null)
@@ -183,13 +182,6 @@ namespace Cloudents.Web.Api
                 {
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
                     return await MakeDecision(user, true, null, cancellationToken);
-                    //var result =  await MakeDecision(user, null, cancellationToken);
-                    //if (result == null)
-                    //{
-                    //    _logger.Error("this cannot happen");
-                    //}
-                    //await _signInManager.TempSignIn(user).ConfigureAwait(false);
-                    //return new ReturnSignUserResponse(NextStep.EnterPhone, true);
                 }
                 ModelState.AddModelError("Google", _localizer["GoogleUserRegisteredWithEmail"]);
                 return BadRequest(ModelState);
@@ -202,25 +194,6 @@ namespace Cloudents.Web.Api
             }
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
             return await MakeDecision(user, true, null, cancellationToken);
-            //if (user.OldUser.GetValueOrDefault() && user.SecurityStamp == null)
-            //{
-            //    await _userManager.UpdateSecurityStampAsync(user);
-            //}
-            //if (!user.EmailConfirmed)
-            //{
-
-            //    user.EmailConfirmed = true;
-            //    await _userManager.UpdateAsync(user);
-            //}
-
-            //if (user.PhoneNumberConfirmed)
-            //{
-            //    await _signInManager.SignInAsync(user, false);
-            //    return new ReturnSignUserResponse(false);
-            //}
-            //await _signInManager.TempSignIn(user).ConfigureAwait(false);
-            //return new ReturnSignUserResponse(NextStep.EnterPhone, true);
-
         }
 
 

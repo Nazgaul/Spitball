@@ -8,6 +8,7 @@ using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,36 +32,72 @@ namespace Cloudents.FunctionsV2.System
         //DocumentPurchasedMessage
         public async Task DoOperationAsync(DocumentPurchasedMessage msg, IBinder binder, CancellationToken token)
         {
-
+            
             var query = new GetDocumentPurchasedEmailQuery(msg.TransactionId);
             var data = await _queryBus.QueryAsync(query, token);
-
+            var template = await GetEmail("DocumentPurchased", data.Language, binder, token);
             var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
             var code = dataProtector.Protect(data.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
 
-            //foreach (var block in result.Blocks)
-            //{
-            //    block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", data.Tokens.ToString("f2"));
-            //    block.Body = block.Body.Inject(new
-            //    {
-            //        result.CourseName,
-            //        result.DocumentName
-            //    });
-            //}
+            foreach (var block in template.Blocks)
+            {
+                block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", data.Tokens.ToString("f2"));
+                block.Body = block.Body.Inject(new
+                {
+                    data.CourseName,
+                    data.DocumentName
+                });
+            }
 
             var templateData = new TemplateData()
             {
-                //Blocks = result.Blocks
-                //    .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
-                //        _urlBuilder.BuildWalletEndPoint(code))),
-                //Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
-                //Subject = result.Subject.InjectSingleValue("Tokens", data.Tokens.ToString("f2")),
-                //To = data.ToEmailAddress,
+                Blocks = template.Blocks
+                    .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
+                        _urlBuilder.BuildWalletEndPoint(code))),
+                Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
+                Subject = template.Subject.InjectSingleValue("Tokens", data.Tokens.ToString("f2")),
+                To = data.ToEmailAddress,
             };
             await BuildEmail(data.ToEmailAddress, data.Language, binder, templateData, "DocumentPurchased", token);
 
         }
+
+        public static async Task<EmailObject> GetEmail(string @event, 
+            Language language,IBinder binder, CancellationToken token)
+        {
+            var template2 = await binder.BindAsync<IList<EmailObject>>(new CosmosDBAttribute("Spitball", "Emails")
+            {
+                ConnectionStringSetting = "Cosmos",
+                SqlQuery = $"SELECT * FROM c where c.event = '{@event}'"
+            }, token);
+
+            if (template2 == null)
+            {
+                return null;
+            }
+
+            CultureInfo info = language;
+            while (info != null)
+            {
+                var template1 = template2.FirstOrDefault(f => f.CultureInfo.Equals(info));
+                if (template1 != null)
+                {
+                    return template1;
+                }
+
+                if (Equals(info, info.Parent))
+                {
+                    break;
+                }
+                info = info.Parent;
+            }
+
+            var z = (CultureInfo) Language.English;
+            var template = template2.FirstOrDefault(f => f.CultureInfo.Equals(z));
+            return template;
+        }
+
         public static async Task BuildEmail(string toAddress, Language language, IBinder binder,
             TemplateData templateData,
             string category,

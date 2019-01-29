@@ -241,7 +241,10 @@ namespace Cloudents.FunctionsV2
         public CultureInfo CultureInfo { get; set; }
 
         public IEnumerable<EmailBlock> Blocks { get; set; }
+        
     }
+
+
 
     public class EmailBlock
     {

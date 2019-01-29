@@ -29,7 +29,7 @@ namespace Cloudents.Web.Services
             {
                 return null;
             }
-            return new ProviderCultureResult(new StringSegment(result.Language.Info.Name));
+            return new ProviderCultureResult(new StringSegment(result.Language.Name));
         }
     }
 }
