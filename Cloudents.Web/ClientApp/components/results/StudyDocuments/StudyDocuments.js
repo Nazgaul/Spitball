@@ -2,7 +2,7 @@
 import ResultItem from '../ResultItem.vue';
 //
 import ResultNote from "../ResultNote.vue";
-import ResultThirdParty from "../ResultThirdParty.vue"
+import ResultNoteThirdParty from "../ResultNoteThirdParty.vue"
 
 import { verticalsNavbar, verticalsName } from "../../../services/navigation/vertical-navigation/nav";
 import SuggestCard from '../suggestCard.vue'
@@ -31,7 +31,7 @@ export default {
         emptyState,
         ResultItem,
         ResultNote,
-        ResultThirdParty,
+        ResultNoteThirdParty,
         SuggestCard,
         faqBlock,
         signupBanner,

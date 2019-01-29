@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="header-wrap">
+    <div :class="['header-wrap', isEdgeRtl ? 'position-static' : '']">
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
@@ -177,7 +177,8 @@
         },
         data() {
             return {
-                confirmPurchaseDialog: false
+                confirmPurchaseDialog: false,
+                isEdgeRtl: global.isEdgeRtl
             }
         },
         methods: {
@@ -269,9 +270,6 @@
                 return date.toLocaleString('en-US', {year: 'numeric', month: 'short', day: 'numeric'});
             }
         },
-        created(){
-            console.log('is Edge ??',  global.isEdgeRtl)
-        }
 
 
     }
