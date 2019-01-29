@@ -5,7 +5,7 @@
             <v-text-field solo class="user-input-text" v-model="documentId" placeholder="Insert document id..."/>
         </div>
         <div class="delete-button-container">
-            <v-btn round color="red" :disabled="lock" @click.prevent="deleteDocument(documentId)">Delete</v-btn>
+            <v-btn :loading="loading" color="red" :disabled="lock" @click.prevent="deleteDocument(documentId)">Delete</v-btn>
         </div>
     </div>
 </template>
@@ -17,20 +17,27 @@ export default {
         return{
             documentId: "",
             lock: false,
+            loading: false,
         }
     },
     methods:{
         deleteDocument(id){
+            this.loading = true;
             if(!id) return;
             this.lock = true;
             deleteDocument(id).then(resp => {
                 this.documentId = "";
                 this.$toaster.success('Document Deleted');
+                    this.loading = false;
             },
             (error) => {
                 this.$toaster.error('Something went wrong');
+                this.loading = false;
+
             }).finally(()=>{
                 this.lock = false;
+                this.loading = false;
+
             })
 
         }
