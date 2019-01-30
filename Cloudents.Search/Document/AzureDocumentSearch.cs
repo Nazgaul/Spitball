@@ -84,9 +84,10 @@ namespace Cloudents.Search.Document
 
         public async Task<IEnumerable<DocumentSearchResultWithScore>> SearchAsync(DocumentQuery query, CancellationToken token)
         {
+            var country = query.Profile.University?.Country ?? query.Profile.Country;
             var filters = new List<string>
             {
-                $"({nameof(Entities.Document.Country)} eq '{query.Profile.Country.ToUpperInvariant()}')" 
+                $"({nameof(Entities.Document.Country)} eq '{country.ToUpperInvariant()}')" 
             };
             if (query.Course != null)
             {

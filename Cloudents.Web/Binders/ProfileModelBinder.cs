@@ -83,9 +83,9 @@ namespace Cloudents.Web.Binders
             {
                 if (bindingContext.HttpContext.User.Identity.IsAuthenticated)
                 {
-                    var uniId = GetUniversityClaimValue();
+                   // var uniId = GetUniversityClaimValue();
                     var userId = _userManager.GetLongUserId(bindingContext.HttpContext.User);
-                    var query = new UserWithUniversityQuery(userId, uniId);
+                    var query = new UserWithUniversityQuery(userId);
                     profile = await _queryBus.QueryAsync(query, token);
                 }
 
