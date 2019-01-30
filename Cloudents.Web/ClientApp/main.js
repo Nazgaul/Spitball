@@ -17,6 +17,8 @@ import WebFont from "webfontloader";
 import CloudentsTour from 'cloudents-tour';
 require('cloudents-tour/dist/cloudents-tour.css');
 import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/vue-youtube-embed
+import LoadScript from 'vue-plugin-load-script';
+
 import VueNumeric from 'vue-numeric'
 
 
@@ -118,6 +120,7 @@ WebFont.load({
 
 Vue.use(CloudentsTour);
 Vue.use(VueRouter);
+Vue.use(LoadScript);
 Vue.use(Vuetify, {
     directives: {
         Scroll,

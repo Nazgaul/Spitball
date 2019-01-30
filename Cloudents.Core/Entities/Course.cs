@@ -19,8 +19,10 @@ namespace Cloudents.Core.Entities
             Name = name.Trim();//.Replace("+", string.Empty);
             if (Name.Length > MaxLength || Name.Length < MinLength)
             {
-                throw new ArgumentException();
+                throw new ArgumentException($"Name is {Name}",nameof(Name));
             }
+
+            Created = DateTime.UtcNow;
         }
 
         protected bool Equals(Course other)
@@ -53,5 +55,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string Name { get; protected set; }
         public virtual int Count { get; set; }
+
+        public virtual DateTime Created { get; set; }
     }
 }

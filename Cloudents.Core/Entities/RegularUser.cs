@@ -125,6 +125,7 @@ namespace Cloudents.Core.Entities
         {
             var t = new AwardMoneyTransaction(price);
             MakeTransaction(t);
+            
         }
 
         public virtual void AwardMoney(AwardsTransaction award)
