@@ -214,7 +214,7 @@
     <value>Spitball brings power back to the students, no subscription fees, no ads, no catch. With Spitball you get the tools to learn smarter and earn SBL so you can enjoy life.</value>
   </data>
   <data name="how_spitball_work" xml:space="preserve">
-    <value>How does spitball work?</value>
+    <value>How does Spitball work?</value>
   </data>
   <data name="how_spitball_work_desc" xml:space="preserve">
     <value>Students that need help with their studies, choose their campus and class browse study documents or ask homework questions. Students that know the answer will help solve these problems, and the most helpful answer or document gets rewarded with SBL.</value>
@@ -244,7 +244,7 @@
     <value>Find Class Specific Documents</value>
   </data>
   <data name="placeholder_subjects" xml:space="preserve">
-    <value>Find a subject you’r good at</value>
+    <value>Find a subject you’re good at</value>
   </data>
   <data name="placeholder_uni" xml:space="preserve">
     <value>What is your school?</value>
@@ -277,6 +277,6 @@
     <value>What is Spitball?</value>
   </data>
   <data name="what_is_spitball_desc" xml:space="preserve">
-    <value>Spitball is The First Online Marketplace where students acquire knowledge while earning from helping each other succeed in school. Our platform allows students to ask and answer homework questions, share study documents, buy books and so much more. On Spitball, students learn and earn while helping each other</value>
+    <value>Spitball is The First Online Marketplace where students acquire knowledge while earning from helping each other succeed in school. Our platform allows students to ask and answer homework questions, share study documents, buy books and so much more. On Spitball, students learn and earn while helping each other.</value>
   </data>
 </root>
