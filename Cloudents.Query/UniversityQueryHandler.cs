@@ -25,7 +25,7 @@ namespace Cloudents.Query
 
             return _session.Query<University>()
                  .Where(w => w.Id == query.UniversityId)
-                 .Select(s => new UniversityDto(s.Id, s.Name, s.Country))
+                 .Select(s => new UniversityDto(s.Id, s.Name))
                 .SingleOrDefaultAsync(token);
 
         }

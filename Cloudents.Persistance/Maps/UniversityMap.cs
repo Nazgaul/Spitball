@@ -8,12 +8,13 @@ namespace Cloudents.Persistance.Maps
         public UniversityMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(x => x.Name).UniqueKey("uq_UniversityNameCountry");
+            //TODO: need to merge field in university before create constraint
+            Map(x => x.Name); 
             Map(x => x.Extra);
-            Map(x => x.Country).Not.Nullable().Length(2).UniqueKey("uq_UniversityNameCountry");
+            //Map(x => x.Country).Not.Nullable().Length(2).UniqueKey("uq_UniversityNameCountry");
             Component(x => x.RowDetail);
 
-            SchemaAction.None();
+            SchemaAction.Update();
 
         }
     }

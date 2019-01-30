@@ -72,7 +72,6 @@ namespace Cloudents.Core.Interfaces
     {
         [ItemCanBeNull]
         Task<University> GetUniversityByNameAsync(string name,
-            string country,
             CancellationToken token);
 
     }

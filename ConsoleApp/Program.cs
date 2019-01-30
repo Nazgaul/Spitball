@@ -660,44 +660,44 @@ where left(blobName ,4) != 'file'");
 
         //}
 
-        public static async Task TransferUniversities()
-        {
-            var d = _container.Resolve<DapperRepository>();
-            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-            {
-                return await f.QueryAsync(
-                    @"SELECT u.UniversityName,u.Country,u.Extra
-                    FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
-                    ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
-                    FROM zbox.University u
-                    where isdeleted = 0
-                    and u.UniversityName not in (select name from sb.University)
-                        ) u
-                    WHERE cnt = 1");
-            }, default);
+        //public static async Task TransferUniversities()
+        //{
+        //    var d = _container.Resolve<DapperRepository>();
+        //    var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+        //    {
+        //        return await f.QueryAsync(
+        //            @"SELECT u.UniversityName,u.Country,u.Extra
+        //            FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
+        //            ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
+        //            FROM zbox.University u
+        //            where isdeleted = 0
+        //            and u.UniversityName not in (select name from sb.University)
+        //                ) u
+        //            WHERE cnt = 1");
+        //    }, default);
 
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var unitOfWork = child.Resolve<IUnitOfWork>())
-                {
-                    var repository = child.Resolve<IUniversityRepository>();
+        //    using (var child = _container.BeginLifetimeScope())
+        //    {
+        //        using (var unitOfWork = child.Resolve<IUnitOfWork>())
+        //        {
+        //            var repository = child.Resolve<IUniversityRepository>();
 
-                    foreach (var pair in z)
-                    {
-                        var university = new University(pair.UniversityName, pair.Country)
-                        {
-                            Extra = pair.Extra
-                        };
-                        await repository.AddAsync(university, default);
-                    }
+        //            foreach (var pair in z)
+        //            {
+        //                var university = new University(pair.UniversityName, pair.Country)
+        //                {
+        //                    Extra = pair.Extra
+        //                };
+        //                await repository.AddAsync(university, default);
+        //            }
 
-                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-                }
+        //            await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+        //        }
 
-            }
+        //    }
 
 
-        }
+        //}
 
         //  public static async Task TransferUsers()
         //  {
@@ -1164,7 +1164,7 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
             var sessin = _container.Resolve<IStatelessSession>();
 
             //await TransferUsers();
-            await TransferUniversities();
+            //await TransferUniversities();
             //await TransferDocuments();
 
 

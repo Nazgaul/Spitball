@@ -42,3 +42,7 @@ drop table sb.email
 alter table sb.[user] drop constraint  User_Language
 drop table sb.Language
 drop table sb.SystemEvent
+
+
+ALTER TABLE [sb].[University] DROP CONSTRAINT [UQ__Universi__E31237F62F249412]
+GO

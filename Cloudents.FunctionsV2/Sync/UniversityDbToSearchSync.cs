@@ -49,7 +49,6 @@ namespace Cloudents.FunctionsV2.Sync
                     {
                         Name = s.Name,
                         Id = s.UniversityId,
-                        Country = s.Country,
                         Extra = s.Extra,
                         DisplayName = s.Name,
                         Prefix = new[] { s.Name, s.Extra }.Where(x => x != null).ToArray(),

@@ -66,9 +66,13 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
         {
+            if (!model.Any())
+            {
+                return BadRequest();
+            }
             var userId = _userManager.GetLongUserId(User);
             var command = new AssignCoursesToUserCommand(model.Select(s=>s.Name), userId);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
     }

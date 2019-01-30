@@ -7,10 +7,9 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
     public class University : Entity<Guid>
     {
-        public University(string name, string country) : this()
+        public University(string name) : this()
         {
             Name = name.Replace("+", "-");
-            Country = country;
             RowDetail = new DomainTimeStamp();
         }
 
@@ -29,7 +28,6 @@ namespace Cloudents.Core.Entities
         /// </summary>
         public virtual string Extra { get; set; }
 
-        public virtual string Country { get; protected set; }
 
         public virtual DomainTimeStamp RowDetail { get; protected set; }
     }

@@ -18,7 +18,6 @@ namespace Cloudents.Query.SearchSync
                 var res = @"select u.Id as UniversityId,
 	                            u.Name as Name,
 	                            u.Extra as Extra,
-	                            u.Country as Country,
 	                            c.* 
                             From sb.[University] u  
                             right outer join CHANGETABLE (CHANGES sb.[University], :Version) AS c ON u.Id = c.id   
@@ -36,7 +35,6 @@ namespace Cloudents.Query.SearchSync
                 var res = @"select u.Id as UniversityId,
 	                            u.Name as Name,
 	                            u.Extra as Extra,
-	                            u.Country as Country,
 	                            c.* 
                             From sb.[University] u  
                             CROSS APPLY CHANGETABLE (VERSION sb.[University], (Id), (u.Id)) AS c  
