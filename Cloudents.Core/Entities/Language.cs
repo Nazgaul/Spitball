@@ -4,19 +4,14 @@ using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
-    public class Language 
+    public sealed class Language 
     {
-        protected Language()
+        private Language(CultureInfo info)
         {
-
+            Info = info;
         }
 
-        private Language(CultureInfo name)
-        {
-            Id = name;
-        }
-
-        public virtual CultureInfo Id { get; set; }
+        public CultureInfo Info { get; private set; }
 
         public static readonly Language English = new Language(new CultureInfo("en"));
         public static readonly Language Hebrew = new Language(new CultureInfo("he"));
@@ -33,7 +28,7 @@ namespace Cloudents.Core.Entities
 
         public static implicit operator CultureInfo(Language tb)
         {
-            return tb.Id;
+            return tb.Info;
         }
 
         //public static implicit operator Language(string tb)
@@ -47,55 +42,24 @@ namespace Cloudents.Core.Entities
         //}
         public static implicit operator Language(CultureInfo info)
         {
-            var result = SystemSupportLanguage().FirstOrDefault(f => Equals(f.Id, info));
+            var result = SystemSupportLanguage().FirstOrDefault(f => Equals(f.Info, info));
             if (result != null)
             {
                 return result;
             }
-            //if (SystemSupportLanguage().Contains(info.Name))
-            //{
-            //    return tb;
-            //}
 
             return English;
         }
 
         public static implicit operator Language(string tb)
         {
-            var result = SystemSupportLanguage().FirstOrDefault(f => Equals(f.Id, new CultureInfo(tb)));
+            var result = SystemSupportLanguage().FirstOrDefault(f => Equals(f.Info, new CultureInfo(tb)));
             if (result != null)
             {
                 return result;
             }
 
-            //if (SystemSupportLanguage().Contains(tb))
-            //{
-            //    return tb;
-            //}
-
             return English;
-        }
-    }
-
-    public class SystemEvent : Entity<string>
-    {
-        protected SystemEvent()
-        {
-
-        }
-
-        private SystemEvent(string name)
-        {
-            Id = name;
-        }
-
-        public static readonly SystemEvent DocumentPurchased = new SystemEvent("DocumentPurchased");
-        public static readonly SystemEvent AnswerAccepted = new SystemEvent("AnswerAccepted");
-
-
-        public static implicit operator string(SystemEvent tb)
-        {
-            return tb.Id;
         }
     }
 }

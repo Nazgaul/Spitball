@@ -9,7 +9,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nHibernate Proxy")]
     public abstract class Transaction : Entity<Guid>
     {
-       
+
 
         protected Transaction()
         {
@@ -30,7 +30,7 @@ namespace Cloudents.Core.Entities
         public virtual TransactionType Type { get; protected set; }
         public virtual decimal Price { get; protected set; }
 
-      
+
 
 
 
@@ -64,6 +64,23 @@ namespace Cloudents.Core.Entities
         }
 
         protected CashOutTransaction()
+        {
+
+        }
+    }
+
+    public class CommissionTransaction : Transaction
+    {
+        public CommissionTransaction(decimal price)
+        {
+            price = -Math.Abs(price);
+
+            this.Price = price * 0.09M;
+            this.Action = TransactionActionType.Commission;
+            this.Type = Enum.TransactionType.Spent;
+        }
+
+        protected CommissionTransaction()
         {
 
         }
@@ -121,7 +138,7 @@ namespace Cloudents.Core.Entities
         private QuestionTransaction(Question question/*, RegularUser user*/) //: base(user)
         {
             Question = question;
-        
+
 
         }
 
@@ -130,10 +147,10 @@ namespace Cloudents.Core.Entities
 
         protected QuestionTransaction()
         {
-           
+
         }
 
-        public static QuestionTransaction Asked(Question question/*, RegularUser user*/)
+        public static QuestionTransaction Asked(Question question)
         {
             var money = -Math.Abs(question.Price);
             return new QuestionTransaction(question/*, user*/)
@@ -144,10 +161,10 @@ namespace Cloudents.Core.Entities
             };
         }
 
-        public static QuestionTransaction Deleted(Question question/*, RegularUser user*/)
+        public static QuestionTransaction Deleted(Question question)
         {
             var money = Math.Abs(question.Price);
-            return new QuestionTransaction(question/*, user*/)
+            return new QuestionTransaction(question)
             {
                 Action = TransactionActionType.DeleteQuestion,
                 Type = TransactionType.Stake,
@@ -155,20 +172,20 @@ namespace Cloudents.Core.Entities
             };
         }
 
-        public static void Answered(Question question/*, RegularUser user*/)
+        public static void Answered(Question question)
         {
             var money = Math.Abs(question.Price);
             var userQuestion = question.User;
             var correctAnswer = question.CorrectAnswer;
-          
-            var t1 = new QuestionTransaction(question/*, user*/)
+
+            var t1 = new QuestionTransaction(question)
             {
                 Action = TransactionActionType.AnswerCorrect,
                 Type = TransactionType.Stake,
                 Price = money,
                 Answer = correctAnswer
             };
-            var t2 = new QuestionTransaction(question/*, user*/)
+            var t2 = new QuestionTransaction(question)
             {
                 Action = TransactionActionType.AnswerCorrect,
                 Type = TransactionType.Spent,
@@ -179,6 +196,7 @@ namespace Cloudents.Core.Entities
             userQuestion.MakeTransaction(t1);
             userQuestion.MakeTransaction(t2);
             userQuestion.MakeTransaction(t3);
+           
 
 
             var userAnswer = correctAnswer.User;
@@ -192,6 +210,7 @@ namespace Cloudents.Core.Entities
             var ta2 = new AwardMoneyTransaction(AwardsTransaction.QuestionAnswererBonus);
             userAnswer.MakeTransaction(ta1);
             userAnswer.MakeTransaction(ta2);
+            userAnswer.MakeTransaction(new CommissionTransaction(question.Price));
         }
 
     }
@@ -211,7 +230,7 @@ namespace Cloudents.Core.Entities
 
         protected ReferUserTransaction()
         {
-            
+
         }
     }
 
@@ -231,7 +250,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Document Document { get; set; }
 
-        public static Transaction Purchase(Document document)
+        private static Transaction Buyer(Document document)
         {
             return new DocumentTransaction(document)
             {
@@ -241,7 +260,7 @@ namespace Cloudents.Core.Entities
             };
         }
 
-        public static Transaction Sold(Document document)
+        private static Transaction Seller(Document document)
         {
             return new DocumentTransaction(document)
             {
@@ -249,6 +268,14 @@ namespace Cloudents.Core.Entities
                 Price = document.Price,
                 Type = TransactionType.Earned
             };
+        }
+
+        public static void MakerTransaction(User buyer, User seller, Document d)
+        {
+            var price = d.Price;
+            buyer.MakeTransaction(Buyer(d));
+            seller.MakeTransaction(Seller(d));
+            seller.MakeTransaction(new CommissionTransaction(d.Price));
         }
 
     }
@@ -265,112 +292,10 @@ namespace Cloudents.Core.Entities
 
         public static readonly AwardsTransaction FirstCourse = new AwardsTransaction(TransactionActionType.FirstCourse, 5);
         public static readonly AwardsTransaction University = new AwardsTransaction(TransactionActionType.Awarded, 5);
-       
+
         public static readonly AwardsTransaction QuestionOwnerBonus = new AwardsTransaction(TransactionActionType.Awarded, 1);
         public static readonly AwardsTransaction QuestionAnswererBonus = new AwardsTransaction(TransactionActionType.Awarded, 10);
     }
 
 
-    //public sealed class TransactionType2 : ValueObject
-    //{
-    //    public TransactionActionType Action { get; }
-
-    //    public TransactionType Type { get; }
-
-    //    public decimal Price { get; }
-
-    //    private TransactionType2()
-    //    {
-
-    //    }
-
-    //    private TransactionType2(TransactionActionType action, TransactionType type, decimal amount)
-    //    {
-    //        Action = action;
-    //        Type = type;
-    //        Price = amount;
-    //    }
-
-    //    //    public static TransactionType2 CashOut(decimal price)
-    //    //    {
-    //    //        if (price < 1000)
-    //    //        {
-    //    //            throw new ArgumentException();
-    //    //        }
-    //    //        if (price > 4000)
-    //    //        {
-    //    //            throw new ArgumentException();
-    //    //        }
-
-    //    //        if (price % 1000 != 0)
-    //    //        {
-    //    //            throw new ArgumentException();
-
-    //    //        }
-    //    //        price = -Math.Abs(price);
-    //    //        return new TransactionType2(TransactionActionType.CashOut, TransactionType.Earned, price);
-    //    //    }
-
-    //    //    public static TransactionType2 AwardToken(decimal price)
-    //    //    {
-    //    //        if (price < 0)
-    //    //        {
-    //    //            throw new ArgumentException("you need to award user");
-    //    //        }
-    //    //        return new TransactionType2(TransactionActionType.None, TransactionType.Earned, price);
-    //    //    }
-    //    //    public static TransactionType2 StakeMoney(decimal money)
-    //    //    {
-    //    //        money = -Math.Abs(money);
-    //    //        return new TransactionType2(TransactionActionType.Question, TransactionType.Stake, money);
-    //    //    }
-
-    //    //    public static TransactionType2 UnStakeMoney(decimal money, TransactionActionType reason)
-    //    //    {
-
-    //    //        return new TransactionType2(reason, TransactionType.Stake, money);
-    //    //    }
-
-    //    //    public static TransactionType2 Spend(decimal money, TransactionActionType reason)
-    //    //    {
-    //    //        money = -Math.Abs(money);
-    //    //        return new TransactionType2(reason, TransactionType.Spent, money);
-    //    //    }
-
-    //    //    public static TransactionType2 Earn(decimal money, TransactionActionType reason)
-    //    //    {
-    //    //        money = Math.Abs(money);
-    //    //        return new TransactionType2(reason, TransactionType.Earned, money);
-    //    //    }
-
-    //    //    private static readonly SortedSet<string> Tier1Users =
-    //    //        new SortedSet<string>(StringComparer.OrdinalIgnoreCase)
-    //    //        {
-    //    //                "US", "CA", "AU" , "GB", "IE", "IL", "NZ", "MX", "SE" ,
-    //    //                "NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
-    //    //        };
-    //    //    public static TransactionType2 FinishRegistration(string country)
-    //    //    {
-    //    //        var initBalance = 100;
-    //    //        if (Tier1Users.Contains(country))
-    //    //        {
-    //    //            initBalance = 750;
-    //    //        }
-    //    //        return new TransactionType2(TransactionActionType.SignUp, TransactionType.Earned, initBalance);
-
-    //    //    }
-
-    //    public static readonly TransactionType2 FirstCourse = new TransactionType2(TransactionActionType.FirstCourse, TransactionType.Earned, 5);
-    //    public static readonly TransactionType2 University = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 5);
-    //    public static readonly TransactionType2 ReferUser = new TransactionType2(TransactionActionType.ReferringUser, TransactionType.Earned, 10);
-    //    public static readonly TransactionType2 QuestionOwnerBonus = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 1);
-    //    public static readonly TransactionType2 QuestionAnswererBonus = new TransactionType2(TransactionActionType.Awarded, TransactionType.Earned, 10);
-
-    //    protected override IEnumerable<object> GetEqualityComponents()
-    //    {
-    //        yield return Action;
-    //        yield return Type;
-    //        yield return Price;
-    //    }
-    //}
 }

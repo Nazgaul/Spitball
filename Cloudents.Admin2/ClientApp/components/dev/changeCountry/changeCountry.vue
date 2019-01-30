@@ -15,7 +15,7 @@
 
         </div>
         <div class="change-container">
-            <v-btn round color="#78c967" class="change-button" :class="{'disabled': lock}" @click="change()">Change</v-btn>
+            <v-btn :loading="loading" color="#78c967" class="change-button" :class="{'disabled': lock}" @click="change()">Change</v-btn>
         </div>
     </div>
 </template>
@@ -29,11 +29,13 @@ export default {
             userCountry: "Us",
             userId: "",
             lock: false,
-            countryList: ['Us', 'Il', 'In']
+            countryList: ['Us', 'Il', 'In'],
+            loading: false
         }
     },
     methods:{
         change(){
+            this.loading = true;
             if(this.userId === "") return;
             this.lock = true;
             let senObj = {
@@ -44,11 +46,15 @@ export default {
                 this.$toaster.success(`Country Changed - logout to effect!`);
                 this.userCountry = "Us";
                 this.userId = "";
+                this.loading = false;
+
             },(err)=>{
                 console.log(err);
                 this.$toaster.error(`Error: couldn't change country`)
             }).finally(()=>{
                 this.lock = false;
+                this.loading = false;
+
             })
         }
     }

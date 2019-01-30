@@ -20,7 +20,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(UpdateUserCultureCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            user.Language = message.CultureInfo;
+            user.ChangeLanguage(message.CultureInfo);
             await _userRepository.UpdateAsync(user, token);
         }
     }

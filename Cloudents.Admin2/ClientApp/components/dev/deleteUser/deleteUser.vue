@@ -5,7 +5,7 @@
             <v-text-field solo class="user-input-text" placeholder="User Id..." type="text" v-model="userId"/>
         </div>
         <div class="delete-button-container">
-            <v-btn round color="red" class="delete-button"  :class="{'disabled': lock}" @click="deleteUser()">Delete</v-btn>
+            <v-btn :loading="loading" color="red" class="delete-button"  :class="{'disabled': lock}" @click="deleteUser()">Delete</v-btn>
         </div>
     </div>
 </template>
@@ -17,21 +17,27 @@
         data() {
             return {
                 userId: "",
-                lock: false
+                lock: false,
+                loading: false
             }
         },
         methods: {
             deleteUser() {
+                this.loading = true;
                 if (this.userId === "") return;
                 this.lock = true;
                 deleteUser(this.userId).then(() => {
                     this.$toaster.success(`User Deleted`);
                     this.userId = "";
+                    this.loading = false;
+
                 }, (err) => {
                     console.log(err);
                     this.$toaster.error(`Error: couldn't delete user`)
                 }).finally(() => {
                     this.lock = false;
+                    this.loading = false;
+
                 })
             }
         }

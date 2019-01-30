@@ -1,13 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Azure.WebJobs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2.System
 {
@@ -27,28 +28,28 @@ namespace Cloudents.FunctionsV2.System
         public async Task DoOperationAsync(AnswerAcceptedMessage msg, IBinder binder, CancellationToken token)
         {
             var query = new GetAnswerAcceptedEmailQuery(msg.TransactionId);
-            var result = await _queryBus.QueryAsync(query, token);
-
+            var data = await _queryBus.QueryAsync(query, token);
+            var template = await DocumentPurchasedEmailOperation.GetEmail("AnswerAccepted", data.Language, binder, token);
             var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
-            var code = dataProtector.Protect(result.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+            var code = dataProtector.Protect(data.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
 
-            foreach (var block in result.Blocks)
+            foreach (var block in template.Blocks)
             {
-                block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", result.Tokens.ToString("f2"));
-                block.Body = block.Body.Replace("\n","<br>").Inject(result);
+                block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", data.Tokens.ToString("f2"));
+                block.Body = block.Body.Replace("\n", "<br>").Inject(data);
             }
 
             var templateData = new TemplateData()
             {
-                Blocks = result.Blocks
+                Blocks = template.Blocks
                     .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
                         _urlBuilder.BuildWalletEndPoint(code))),
                 Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
-                Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
-                To = result.ToEmailAddress,
+                Subject = template.Subject.InjectSingleValue("Tokens", data.Tokens.ToString("f2")),
+                To = data.ToEmailAddress,
             };
-            await DocumentPurchasedEmailOperation.BuildEmail(result, binder, templateData, "AnswerCorrect", token);
+            await DocumentPurchasedEmailOperation.BuildEmail(data.ToEmailAddress, data.Language, binder, templateData, "AnswerCorrect", token);
         }
     }
 }

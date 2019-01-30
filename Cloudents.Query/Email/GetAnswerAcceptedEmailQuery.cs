@@ -32,94 +32,27 @@ namespace Cloudents.Query.Email
 
             public async Task<AnswerAcceptedEmailDto> GetAsync(GetAnswerAcceptedEmailQuery query, CancellationToken token)
             {
-                const string sql = @"Select e.language, e.SocialShare,e.Subject,
- ek.Title,
- ek.Subtitle,
- ek.Body,
- ek.Cta,
- ek.minorTitle,
- 
+                const string sql = @"Select 
 u.Email,
+u.Language,
  u.id as userId,
  t.Price as tokens,
  q.Text as questionText,
  a.Text as answerText
   from  sb.[Transaction] t
 join sb.[User] u on t.User_id = u.Id
-join sb.Email e on u.Language = e.Language and e.Event=@e
-join sb.emailBlock ek on e.Id = ek.email_id
 join sb.Question q on q.id = t.QuestionId
 join sb.Answer a on a.Id = t.AnswerId
-where t.id = @id
-order by ek.orderBlock  ";
+where t.id = @id ";
                 using (var connection = new SqlConnection(_provider.Db.Db))
                 {
-                    var result = await connection.QuerySingleOrDefaultAsync<DbClass>(sql,
+                    return await connection.QuerySingleOrDefaultAsync<AnswerAcceptedEmailDto>(sql,
                         new
                         {
                             id = query.TransactionId,
-                            e = (string)SystemEvent.AnswerAccepted
                         });
-
-
-                    var retVal = new AnswerAcceptedEmailDto()
-                    {
-                        Language = result.Language,
-                        AnswerText = result.AnswerText,
-                        QuestionText = result.QuestionText,
-                        SocialShare = result.SocialShare,
-                        Subject = result.Subject,
-                        ToEmailAddress = result.Email,
-                        UserId = result.UserId,
-                        Tokens = result.Tokens
-
-
-                    };
-                    var emailBlock = new EmailBlockDto()
-                    {
-                        Title = result.Title,
-                        Body = result.Body,
-                        Subtitle = result.Subtitle,
-                        Cta = result.Cta,
-                        MinorTitle = result.MinorTitle
-                    };
-                    retVal.Blocks.Add(emailBlock);
-                    return retVal;
                 }
             }
-        }
-
-
-
-
-        private class DbClass
-        {
-            [DtoToEntityConnection(nameof(Core.Entities.Email.Language))]
-            public string Language { get; private set; }
-            [DtoToEntityConnection(nameof(Core.Entities.Email.SocialShare))]
-            public bool SocialShare { get; set; }
-            [DtoToEntityConnection(nameof(Core.Entities.Email.Subject))]
-            public string Subject { get; set; }
-            [DtoToEntityConnection(nameof(EmailBlock.Title))]
-            public string Title { get; set; }
-            [DtoToEntityConnection(nameof(EmailBlock.SubTitle))]
-            public string Subtitle { get; set; }
-            [DtoToEntityConnection(nameof(EmailBlock.Body))]
-            public string Body { get; set; }
-            [DtoToEntityConnection(nameof(EmailBlock.Cta))]
-            public string Cta { get; set; }
-            [DtoToEntityConnection(nameof(EmailBlock.MinorTitle))]
-            public string MinorTitle { get; set; }
-            [DtoToEntityConnection(nameof(RegularUser.Email))]
-            public string Email { get; set; }
-            [DtoToEntityConnection(nameof(RegularUser.Id))]
-            public int UserId { get; set; }
-            [DtoToEntityConnection(nameof(Transaction.Price))]
-            public decimal Tokens { get; set; }
-            [DtoToEntityConnection(nameof(Question.Text))]
-            public string QuestionText { get; set; }
-            [DtoToEntityConnection(nameof(Answer.Text))]
-            public string AnswerText { get; set; }
         }
     }
 }

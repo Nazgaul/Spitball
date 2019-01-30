@@ -10,6 +10,7 @@ using SendGrid.Helpers.Mail;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -225,6 +226,32 @@ namespace Cloudents.FunctionsV2
         [JsonProperty("url")]
         public string Url { get; set; }
         [JsonProperty("minorTitle")]
+        public string MinorTitle { get; set; }
+    }
+
+
+    public class EmailObject
+    {
+        public string Id { get; set; }
+        public bool SocialShare { get; set; }
+        public string Event { get; set; }
+
+        public string Subject { get; set; }
+
+        public CultureInfo CultureInfo { get; set; }
+
+        public IEnumerable<EmailBlock> Blocks { get; set; }
+        
+    }
+
+
+
+    public class EmailBlock
+    {
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public string Body { get; set; }
+        public string Cta { get; set; }
         public string MinorTitle { get; set; }
     }
 

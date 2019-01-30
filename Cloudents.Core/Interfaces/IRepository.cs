@@ -89,9 +89,6 @@ namespace Cloudents.Core.Interfaces
         Task UpdateStatsAsync(CancellationToken token);
     }
 
-    public interface ISystemEventRepository : IRepository<SystemEvent>
-    {
-        Task<Email> GetEmailAsync(SystemEvent @event, Language language, CancellationToken token);
-    }
+   
 
 }

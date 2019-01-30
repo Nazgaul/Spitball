@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using System;
@@ -38,9 +37,8 @@ namespace Cloudents.Command.Documents.PurchaseDocument
 
             var purchaseUser = await _userRepository.LoadAsync(message.UserId, token);
 
-            purchaseUser.MakeTransaction(DocumentTransaction.Purchase(document));
-            document.User.MakeTransaction(DocumentTransaction.Sold(document));
-            
+            DocumentTransaction.MakerTransaction(purchaseUser, document.User, document);
+
             await _userRepository.UpdateAsync(purchaseUser, token);
             await _userRepository.UpdateAsync(document.User, token);
 
