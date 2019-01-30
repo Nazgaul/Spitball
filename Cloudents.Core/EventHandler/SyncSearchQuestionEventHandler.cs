@@ -37,12 +37,6 @@ namespace Cloudents.Core.EventHandler
                 Subject = dbQuestion.Subject,
                 Filter = QuestionFilter.Unanswered
             };
-
-
-            //var question = new Question(dbQuestion.Id, dbQuestion.Updated, dbQuestion.Text, dbQuestion.User.Country,
-            //    dbQuestion.Language?.TwoLetterISOLanguageName,
-            //    dbQuestion.Subject, QuestionFilter.Unanswered);
-          
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
 

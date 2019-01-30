@@ -1,21 +1,22 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
+using Cloudents.Query.Email;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
-using Cloudents.Query.Email;
 
 namespace Cloudents.FunctionsV2.System
 {
-    public class DocumentPurchasedEmailOperation :  ISystemOperation<DocumentPurchasedMessage>
+
+    public class DocumentPurchasedEmailOperation : ISystemOperation<DocumentPurchasedMessage>
     {
         private readonly IQueryBus _queryBus;
         private readonly IDataProtectionProvider _dataProtectProvider;
@@ -31,80 +32,73 @@ namespace Cloudents.FunctionsV2.System
         //DocumentPurchasedMessage
         public async Task DoOperationAsync(DocumentPurchasedMessage msg, IBinder binder, CancellationToken token)
         {
+            
             var query = new GetDocumentPurchasedEmailQuery(msg.TransactionId);
-            var result = await _queryBus.QueryAsync(query, token);
-
+            var data = await _queryBus.QueryAsync(query, token);
+            var template = await GetEmail("DocumentPurchased", data.Language, binder, token);
             var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
-            var code = dataProtector.Protect(result.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+            var code = dataProtector.Protect(data.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
 
-            foreach (var block in result.Blocks)
+            foreach (var block in template.Blocks)
             {
-                block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", result.Tokens.ToString("f2"));
+                block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", data.Tokens.ToString("f2"));
                 block.Body = block.Body.Inject(new
                 {
-                    result.CourseName,
-                    result.DocumentName
+                    data.CourseName,
+                    data.DocumentName
                 });
             }
 
             var templateData = new TemplateData()
             {
-                Blocks = result.Blocks
+                Blocks = template.Blocks
                     .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
                         _urlBuilder.BuildWalletEndPoint(code))),
                 Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
-                Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
-                To = result.ToEmailAddress,
+                Subject = template.Subject.InjectSingleValue("Tokens", data.Tokens.ToString("f2")),
+                To = data.ToEmailAddress,
             };
-            await BuildEmail(result, binder, templateData, "DocumentPurchased", token);
-            //var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
-            //{
-            //    ApiKey = "SendgridKey",
-            //    From = "Spitball <no-reply @spitball.co>"
-            //}, token);
-
-
-            //var message = new SendGridMessage
-            //{
-            //    Asm = new ASM { GroupId = 10926 },
-            //    TemplateId = result.Language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
-            //};
-            //var personalization = new Personalization
-            //{
-            //    TemplateData = new TemplateData()
-            //    {
-            //        Blocks = result.Blocks
-            //            .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
-            //                _urlBuilder.BuildWalletEndPoint(code))),
-            //        Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
-            //        Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
-            //        To = result.ToEmailAddress,
-            //    }
-            //};
-
-
-            //message.Personalizations = new List<Personalization>()
-            //{
-            //    personalization
-            //};
-            ////message.Subject = result.Subject.InjectSingleValue("Tokens",result.Tokens);
-            //message.AddCategory("DocumentPurchased");
-            //message.TrackingSettings = new TrackingSettings
-            //{
-            //    Ganalytics = new Ganalytics
-            //    {
-            //        UtmCampaign = "DocumentPurchased",
-            //        UtmSource = "SendGrid",
-            //        UtmMedium = "Email",
-            //        Enable = true
-            //    }
-            //};
-            //message.AddTo(result.ToEmailAddress);
-            //await emailProvider.AddAsync(message, token);
+            await BuildEmail(data.ToEmailAddress, data.Language, binder, templateData, "DocumentPurchased", token);
 
         }
-        public static async Task BuildEmail(EmailDto result, IBinder binder,
+
+        public static async Task<EmailObject> GetEmail(string @event, 
+            Language language,IBinder binder, CancellationToken token)
+        {
+            var template2 = await binder.BindAsync<IList<EmailObject>>(new CosmosDBAttribute("Spitball", "Emails")
+            {
+                ConnectionStringSetting = "Cosmos",
+                SqlQuery = $"SELECT * FROM c where c.event = '{@event}'"
+            }, token);
+
+            if (template2 == null)
+            {
+                return null;
+            }
+
+            CultureInfo info = language;
+            while (info != null)
+            {
+                var template1 = template2.FirstOrDefault(f => f.CultureInfo.Equals(info));
+                if (template1 != null)
+                {
+                    return template1;
+                }
+
+                if (Equals(info, info.Parent))
+                {
+                    break;
+                }
+                info = info.Parent;
+            }
+
+            var z = (CultureInfo) Language.English;
+            var template = template2.FirstOrDefault(f => f.CultureInfo.Equals(z));
+            return template;
+        }
+
+        public static async Task BuildEmail(string toAddress, Language language, IBinder binder,
             TemplateData templateData,
             string category,
             CancellationToken token)
@@ -119,22 +113,12 @@ namespace Cloudents.FunctionsV2.System
             var message = new SendGridMessage
             {
                 Asm = new ASM { GroupId = 10926 },
-                TemplateId = result.Language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
+                TemplateId = language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
             };
-            templateData.To = result.ToEmailAddress;
+            templateData.To = toAddress;
             var personalization = new Personalization
             {
                 TemplateData = templateData
-                //TemplateData = new TemplateData()
-                //{
-                //    Blocks = result.Blocks
-                //        .Select(s => new Block(s.Title, s.Subtitle, s.Body, s.MinorTitle, s.Cta,
-                //            _urlBuilder.BuildWalletEndPoint(code))),
-                //    Referral = new Referral(_urlBuilder.BuildShareEndPoint(code)),
-                //    Subject = result.Subject.InjectSingleValue("Tokens", result.Tokens.ToString("f2")),
-                //    To = result.ToEmailAddress,
-                //    //Direction = ((CultureInfo)result.Language).TextInfo.IsRightToLeft ? "rtl" : "ltr"
-                //}
             };
 
 
@@ -142,7 +126,6 @@ namespace Cloudents.FunctionsV2.System
             {
                 personalization
             };
-            //message.Subject = result.Subject.InjectSingleValue("Tokens",result.Tokens);
             message.AddCategory(category);
             message.TrackingSettings = new TrackingSettings
             {
@@ -154,12 +137,12 @@ namespace Cloudents.FunctionsV2.System
                     Enable = true
                 }
             };
-            message.AddTo(result.ToEmailAddress);
+            message.AddTo(toAddress);
             await emailProvider.AddAsync(message, token);
         }
 
 
 
     }
-   
+
 }

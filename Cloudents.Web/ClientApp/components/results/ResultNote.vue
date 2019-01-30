@@ -1,11 +1,7 @@
 <template>
-    <!--conditional type of tag to fix the profile click from study feed bug-->
-    <component :is="isOurs ? 'router-link' : 'div'"
-               :href="url"
+    <router-link
                :class="['d-block', 'note-block']"
-               :target="($vuetify.breakpoint.xsOnly || isOurs)?'_self':'_blank'"
-               @click="(isOurs ? $_spitball($event, url): $_thirdPartyEvent($event, url))"
-               :to="isOurs ? url : ''">
+               :to="url">
         <v-container
                 class="pa-0"
                 @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)"
@@ -17,15 +13,13 @@
                             <user-avatar v-if="authorName" :user-name="authorName" :user-id="authorId"/>
                         </div>
                         <div class="rank-date-container">
-                            <div :class="['rank-area', !isOurs ? 'thirdParty' : '']">
-                                <user-rank v-if="isOurs" :score="userRank"></user-rank>
-                                <span class="doc-type-text type-document" v-else>{{item.source}}</span>
+                            <div class="rank-area">
+                                <user-rank :score="userRank"></user-rank>
                             </div>
                             <div class="date-area">{{uploadDate}}</div>
                         </div>
                     </div>
                     <div class="document-header-small-sagment">
-
                         <div v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
                             <bdi>
                                 {{item.price ? item.price.toFixed(2): ''}}
@@ -43,7 +37,7 @@
                                 </v-btn>
                                 <v-list>
                                     <v-list-tile v-show="item.isVisible(item.visible)"
-                                                 :disabled="item.isDisabled() || !isOurs" v-for="(item, i) in actions"
+                                                 :disabled="item.isDisabled()" v-for="(item, i) in actions"
                                                  :key="i">
                                         <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
@@ -62,10 +56,10 @@
               <v-icon :class="{'voted': item.downvoted}">sbf-arrow-down</v-icon>
             </span>
                     </div>
-                    <div :class="['type-wrap', !isOurs ? 'thirdPartyItem' : '']">
-                        <span v-if="isOurs" :class="[ 'doc-type-text', 'type-'+typeID]">{{typeTitle}}</span>
+                    <div class="type-wrap">
+                        <span :class="[ 'doc-type-text', 'type-'+typeID]">{{typeTitle}}</span>
                         <document-details :item="item"></document-details>
-                        <v-flex grow :class="['data-row', !isOurs ? 'thirdParty' : '']">
+                        <v-flex grow class="data-row">
                             <div :class="['content-wrap', 'type-'+typeID]">
                                 <div class="title-wrap">
                                     <p
@@ -82,7 +76,7 @@
                     </div>
                 </v-flex>
 
-                <v-flex v-show="isOurs" grow class="doc-details">
+                <v-flex grow class="doc-details">
                     <div class="doc-actions-info">
                         <v-icon class="sb-doc-icon mr-1">sbf-download-cloud</v-icon>
                         <span class="sb-doc-info downloads">{{docDownloads}}</span>
@@ -112,7 +106,8 @@
                 <v-flex align-center justify-center class="relative-pos">
                     <div class="title-wrap">
                         <span class="change-title" v-language:inner>resultNote_change_for</span>
-                        <span class="change-title" style="max-width: 150px;" v-line-clamp="1">&nbsp;"{{item.title}}"</span>
+                        <span class="change-title" style="max-width: 150px;"
+                              v-line-clamp="1">&nbsp;"{{item.title}}"</span>
                     </div>
                     <div class="input-wrap d-flex row align-center justify-center">
                         <div :class="['price-wrap', isRtl ? 'reversed' : '']">
@@ -132,12 +127,14 @@
                 </div>
             </v-card>
         </sb-dialog>
-    </component>
+    </router-link>
 </template>
 <script>
+    // v14 do we need this ?
     import FlashcardDefault from "../helpers/img/flashcard.svg";
     import AskDefault from "../helpers/img/ask.svg";
     import NoteDefault from "../helpers/img/document.svg";
+    //
     import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
     import userRank from "../helpers/UserRank/UserRank.vue";
     import { documentTypes } from "./helpers/uploadFiles/consts.js";
@@ -204,6 +201,7 @@
                 }
             };
         },
+
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
             isProfile() {
@@ -270,16 +268,15 @@
                     return "";
                 }
             },
+            url() {
+                return this.item.url;
+            },
             isOurs() {
                 let ours;
                 if (this.item && this.item.source) {
                     ours = this.item.source.toLowerCase().includes("cloudents");
                 }
                 return ours
-            },
-
-            url() {
-                return this.item.url;
             },
         },
         methods: {
@@ -346,9 +343,9 @@
                 this.showReport = !this.showReport;
             },
             //check if profile and refetch data after doc deleted
-            updateProfile(){
+            updateProfile() {
                 let account, id;
-                if(this.isProfile){
+                if (this.isProfile) {
                     account = this.accountUser();
                     id = account.id ? account.id : '';
                     this.syncProfile(id);
@@ -379,21 +376,6 @@
             },
             showReportOptions() {
                 this.showMenu = true
-            },
-            //our docs event
-            $_spitball(event, url) {
-                event.preventDefault();
-                this.$router.push(url);
-                setTimeout(() => {
-                    if (this.item && this.item.views) {
-                        this.item.views = this.item.views + 1;
-                    }
-                }, 100);
-            },
-            //third party docs event
-            $_thirdPartyEvent(event, url) {
-                event.preventDefault();
-                global.open(url, '_blank');
             },
 
             isAuthUser() {

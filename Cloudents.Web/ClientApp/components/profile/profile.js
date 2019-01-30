@@ -24,6 +24,8 @@ export default {
     },
     data() {
         return {
+            isRtl: global.isRtl,
+            isEdgeRtl: global.isEdgeRtl,
             activeTab: 1,
             itemsPerTab: 50,
             answers: {

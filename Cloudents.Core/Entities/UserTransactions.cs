@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
@@ -11,12 +12,14 @@ namespace Cloudents.Core.Entities
             Transactions = Transactions ?? new List<Transaction>();
         }
         internal ICollection<Transaction> Transactions { get; private set; }
+        public IReadOnlyCollection<Transaction> TransactionsReadOnly => Transactions.ToList(); 
         public decimal Balance { get; private set; }
 
         public int Score { get; private set; }
 
-        public void Add(Transaction t)
+        public void Add(Transaction t, RegularUser user)
         {
+            t.User = user;
             Transactions.Add(t);
             Balance += t.Price;
             if (t.Price > 0)

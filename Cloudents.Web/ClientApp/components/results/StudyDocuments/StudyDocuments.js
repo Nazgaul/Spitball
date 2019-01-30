@@ -1,5 +1,9 @@
+// V14 do we still need this ?
 import ResultItem from '../ResultItem.vue';
-import ResultNote from "../ResultNote.vue"
+//
+import ResultNote from "../ResultNote.vue";
+import ResultNoteThirdParty from "../ResultNoteThirdParty.vue"
+
 import { verticalsNavbar, verticalsName } from "../../../services/navigation/vertical-navigation/nav";
 import SuggestCard from '../suggestCard.vue'
 import emptyState from "../svg/no-match-icon.svg";
@@ -27,6 +31,7 @@ export default {
         emptyState,
         ResultItem,
         ResultNote,
+        ResultNoteThirdParty,
         SuggestCard,
         faqBlock,
         signupBanner,
@@ -54,7 +59,8 @@ export default {
             },    
             scrollBehaviour:{
                 isLoading: false,
-                isComplete: false
+                isComplete: false,
+                page: 1
             }        
         };
     },
@@ -183,7 +189,8 @@ export default {
         },
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
-            let nextPageUrl = this.StudyDocuments_getNextPageUrl();
+            // let nextPageUrl = this.StudyDocuments_getNextPageUrl();
+            let nextPageUrl = `api/Document?Page=${this.scrollBehaviour.page++}`
             if(this.name !== this.pageData.vertical) return;
             this.StudyDocuments_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {

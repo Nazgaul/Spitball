@@ -1,14 +1,14 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Search.Interfaces;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Search.Entities
 {
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global",Justification = "json.net need public set")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "json.net need public set")]
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global", Justification = "json.net need public set")]
     public class Question : ISearchObject
     {
@@ -23,12 +23,16 @@ namespace Cloudents.Search.Entities
             Text = dto.Text;
             if (dto.Text != null && dto.Subject != null)
             {
-                Prefix = new[] {dto.Text}.Union(dto.Subject.GetEnumLocalizationAllValues()).ToArray();
+                Prefix = new[] { dto.Text }.Union(dto.Subject.GetEnumLocalizationAllValues()).ToArray();
             }
 
             Country = dto.Country?.ToUpperInvariant();
-            Language = dto.Language?.ToLowerInvariant() ?? "en";
-            if (dto.Subject.HasValue && (int) dto.Subject.Value != 0)
+            if (dto.Language != null)
+            {
+                Language = dto.Language?.ToLowerInvariant();
+            }
+
+            if (dto.Subject.HasValue && dto.Subject.Value != 0)
             {
                 Subject = dto.Subject;
             }
@@ -38,24 +42,24 @@ namespace Cloudents.Search.Entities
 
         public Question()
         {
-            
+
         }
         public string Id { get; set; } //key readonly
 
-        public DateTime? DateTime { get;  set; } //readonly
+        public DateTime? DateTime { get; set; } //readonly
 
-        public string Text { get;  set; } //search readonly
-
-        
-        public string[] Prefix { get;  set; } //search
+        public string Text { get; set; } //search readonly
 
 
-
-        public string Country { get;  set; }
-        public string Language { get;  set; }
+        public string[] Prefix { get; set; } //search
 
 
-        public QuestionSubject? Subject { get;  set; } // facetable readonly
+
+        public string Country { get; set; }
+        public string Language { get; set; }
+
+
+        public QuestionSubject? Subject { get; set; } // facetable readonly
         public QuestionFilter? State { get; set; }
 
     }

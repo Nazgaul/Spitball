@@ -10,21 +10,13 @@ namespace Cloudents.Persistance.Maps
         public TransactionMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            References(x => x.User).Column("User_id").ForeignKey("Transaction_User").Not.Nullable();
+            References(x => x.User)
+                .Column("User_id").ForeignKey("Transaction_User").Not.Nullable();
             Map(x => x.Created).Not.Nullable();
-            //Component(x => x.TransactionType, y =>
-            //{
-            //    y.Map(z => z.Action).Not.Nullable();
-            //    y.Map(z => z.Type).Not.Nullable();
-            //    y.Map(z => z.Price).Not.Nullable().CustomSqlType("smallmoney");
-            //});
 
             Map(z => z.Action).Not.Nullable();
             Map(z => z.Type).Not.Nullable();
             Map(z => z.Price).Not.Nullable().CustomSqlType("smallmoney");
-
-
-           
 
             DiscriminateSubClassesOnColumn("TransactionType");
             SchemaAction.None();
@@ -44,6 +36,14 @@ namespace Cloudents.Persistance.Maps
         public AwardMoneyTransactionMap()
         {
             DiscriminatorValue("Award");
+        }
+    }
+
+    public class CommissionTransactionMap : SubclassMap<CommissionTransaction>
+    {
+        public CommissionTransactionMap()
+        {
+            DiscriminatorValue("Commision");
         }
     }
 
@@ -75,8 +75,6 @@ namespace Cloudents.Persistance.Maps
         {
             DiscriminatorValue("Document");
             References(x => x.Document).Column("DocumentId").ForeignKey("Transaction_Document").Nullable();
-
-
         }
     }
 }

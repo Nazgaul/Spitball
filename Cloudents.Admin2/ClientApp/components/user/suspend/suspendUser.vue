@@ -9,8 +9,8 @@
             <label for="removeQuestion">Remove Question </label>
         </div>
         <div class="suspend-button-container">
-            <v-btn round color="red" @click.prevent="actionUser(false)" :class="{'lock': lock}">Suspend</v-btn>
-            <v-btn round color="green" @click.prevent="actionUser(true)" :class="{'lock': lock}">Release</v-btn>
+            <v-btn  :loading="suspendLoading" color="red" @click.prevent="actionUser(false)" :class="{'lock': lock}">Suspend</v-btn>
+            <v-btn  :loading="releaseLoading" color="green" @click.prevent="actionUser(true)" :class="{'lock': lock}">Release</v-btn>
         </div>
 
         <div v-if="showSuspendedDetails" class="suspended-user-container">
@@ -29,7 +29,9 @@ export default {
             deleteUserQuestions:false,
             showSuspendedDetails: false,
             suspendedMail: null,
-            lock: false
+            lock: false,
+            suspendLoading: false,
+            releaseLoading: false
         }
     },
     methods:{
@@ -47,22 +49,26 @@ export default {
             
             this.lock = true;
             if(!!unsuspendUser){
+                this.releaseLoading = true;
                 releaseUser(this.serverIds).then((email)=>{
-                    this.$toaster.success(`user got released`); 
-                   
+                    this.$toaster.success(`user got released`);
+                    this.releaseLoading = false;
                 }, (err)=>{
                     this.$toaster.error(`ERROR: failed to realse user`);
                     console.log(err)
                 }).finally(()=>{
                     this.lock = false;
                     this.userIds = null;
+                    this.releaseLoading = false;
                     
                 })
             }else{
+                this.suspendLoading = true;
                 suspendUser(this.serverIds, this.deleteUserQuestions).then((email)=>{
                     this.$toaster.success(`user got suspended, email is: ${email}`)
                     this.showSuspendedDetails = true;
                     this.suspendedMail = email;
+                    this.suspendLoading = false;
                    
                 }, (err)=>{
                     this.$toaster.error(`ERROR: failed to suspend user`);
@@ -70,6 +76,7 @@ export default {
                 }).finally(()=>{
                     this.lock = false;
                     this.userIds = null;
+                    this.suspendLoading = false;
                     
                 })
             }

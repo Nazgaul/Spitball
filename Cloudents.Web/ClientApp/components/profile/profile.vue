@@ -3,8 +3,8 @@
         <div>
             <v-layout class="data-wrapper" :class="{'column': isMobile}" wrap justify-start>
                 <div>
-                    <div class="main-block">
-                        <button class="back" @click="$router.go(-1)">
+                    <div :class="['main-block',  {'position-static': isEdgeRtl}]">
+                        <button class="back" :class="{'heb': isRtl}" @click="$router.go(-1)">
                             <v-icon>sbf-arrow-right</v-icon>
                         </button>
                         <user-block v-if="profileData && profileData.user" :user="profileData.user"
@@ -28,7 +28,7 @@
                                     <span v-language:inner>profile_purchased_documents</span>
                                 </li>
                             </ul>
-                            <v-tabs v-else grow class="tab-padding" xs12>
+                            <v-tabs v-else :dir="isRtl ? `ltr` : ''" grow class="tab-padding" xs12>
                                 <v-tabs-slider color="blue"></v-tabs-slider>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span v-language:inner>profile_Questions</span>
                                 </v-tab>

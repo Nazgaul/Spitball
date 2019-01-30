@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 
@@ -6,32 +8,29 @@ namespace Cloudents.Core.DTOs
 {
     public class EmailDto
     {
-        public EmailDto()
-        {
-            Blocks = new List<EmailBlockDto>();
-        }
-
+        [DtoToEntityConnection(nameof(RegularUser.Email))]
         public string ToEmailAddress { get; set; }
-
-        public Language Language { get; set; }
-        public bool SocialShare { get; set; }
-        public string Subject { get; set; }
-
-        public IList<EmailBlockDto> Blocks { get; set; }
-
+        [DtoToEntityConnection(nameof(RegularUser.Language))]
+        public CultureInfo Language { get; set; }
+        [DtoToEntityConnection(nameof(RegularUser.Id))]
         public long UserId { get; set; }
     }
 
     public class DocumentPurchaseEmailDto : EmailDto
     {
+        [DtoToEntityConnection(nameof(Document.Course.Id))]
         public string CourseName { get; set; }
+        [DtoToEntityConnection(nameof(Document.Name))]
         public string DocumentName { get; set; }
+        [DtoToEntityConnection(nameof(Transaction.Price))]
         public decimal Tokens { get; set; }
     }
 
     public class AnswerAcceptedEmailDto : EmailDto
     {
+        [DtoToEntityConnection(nameof(Question.Text))]
         private string _questionText;
+        [DtoToEntityConnection(nameof(Answer.Text))]
         private string _answerText;
 
         public string QuestionText
@@ -49,13 +48,5 @@ namespace Cloudents.Core.DTOs
         public decimal Tokens { get; set; }
     }
 
-    public class EmailBlockDto 
-    {
-        public string Title { get; set; }
-        public string Subtitle { get; set; }
-        public string Body { get; set; }
-        public string Cta { get; set; }
-        public string Url { get; set; }
-        public string MinorTitle{ get; set; }
-    }
+  
 }

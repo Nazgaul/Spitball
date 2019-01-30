@@ -52,16 +52,5 @@ namespace Cloudents.Persistance.Repositories
         }
     }
 
-    public class SystemEventRepository : NHibernateRepository<SystemEvent>, ISystemEventRepository
-    {
-        public SystemEventRepository(ISession session) : base(session)
-        {
-        }
-
-        public Task<Email> GetEmailAsync(SystemEvent @event, Language language, CancellationToken token)
-        {
-            return Session.Query<Email>().Where(w => w.Language == language && w.Event == @event)
-                .SingleOrDefaultAsync(token);
-        }
-    }
+    
 }

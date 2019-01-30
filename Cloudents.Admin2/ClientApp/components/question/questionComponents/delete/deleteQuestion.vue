@@ -10,7 +10,7 @@
             <div class="input-wrap">
                 <v-text-field solo class="id-input" type="text" v-model="questionsIdString"
                               placeholder="example: 1245,6689,1123"/>
-                <v-btn round color="red" @click="deleteByIds" class="btn-danger">Delete</v-btn>
+                <v-btn color="red" :loading="loading" @click="deleteByIds" class="btn-danger">Delete</v-btn>
             </div>
         </div>
     </div>
@@ -26,11 +26,13 @@
                 questionsIds: [],
                 questionsIdString: '',
                 infoSuccess: '',
-                infoError: ''
+                infoError: '',
+                loading: false
             }
         },
         methods: {
             deleteByIds() {
+                this.loading = true;
                 if (this.questionsIdString.length > 0) {
                     this.questionsIds = this.questionsIdString.split(',');
                     let numberArr = [];
@@ -47,12 +49,15 @@
                                 this.$toaster.success(`Questions were deleted: ${this.questionsIdString}`);
                                 this.questionsIdString = '';
                                 this.questionsIds = [];
+                                this.loading = false;
 
 
                             },
                             (error) => {
+
                                 this.$toaster.error('Something went wrong');
                                 console.log('component delete error', error)
+                                this.loading = false;
                             }
                         )
                 }

@@ -24,7 +24,7 @@
             </div>
 
             <div class="add-container">
-                <v-btn round  :class="{'disabled': addDisabled}" @click="addQuestions">Add</v-btn>
+                <v-btn :loading="loading"  :class="{'disabled': addDisabled}" @click="addQuestions">Add</v-btn>
             </div>
 
             <div class="added-questions-legend" v-if="addedQuestions > 0">
@@ -53,7 +53,8 @@ export default {
             addedQuestions: 0,
             questionError:false,
             questionErrorMessage: "",
-            questionsToUpload: null
+            questionsToUpload: null,
+            loading: false
         }
     },
     methods:{
@@ -97,6 +98,7 @@ export default {
             
         },
         addQuestions: function(){
+            this.loading= true;
             this.addedQuestions = 0;
             this.questionError = false;
             let questions = this.questionsToUpload;
@@ -110,6 +112,8 @@ export default {
                             this.questionsToUpload = null;
                             document.getElementById('csvFileUpload').value = '';
                             this.addDisabled = true;
+                            this.loading= false;
+
                         }
 
                     }, (err)=>{
@@ -117,6 +121,8 @@ export default {
                         let badFormatQuestion = err.config.data;
                         self.questionError = true;
                         self.questionErrorMessage += `Wrong Question Data: ${badFormatQuestion}\n\n`
+                        this.loading= false;
+
                     })
                 })
                 

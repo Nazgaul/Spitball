@@ -45,7 +45,7 @@ order by id desc";
             sqlQuery.SetInt64("userId", query.Id);
             sqlQuery.SetResultTransformer(Transformers.AliasToBean<TransactionDto>());
 
-            return await sqlQuery.ListAsync<TransactionDto>(token).ConfigureAwait(false);
+            return await sqlQuery.ListAsync<TransactionDto>(token);
         }
     }
 
