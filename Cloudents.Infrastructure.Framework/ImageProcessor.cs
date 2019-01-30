@@ -17,6 +17,7 @@ namespace Cloudents.Infrastructure.Framework
         {
             new BlurFilter().Install(
                 Config.Current);
+           // Config.Current.Plugins.Get<SizeLimiting>().Uninstall(Config.Current);
         }
 
         //public ImageProcessor()
@@ -65,6 +66,8 @@ namespace Cloudents.Infrastructure.Framework
             {
                 Format = "jpg",
                 Quality = 90,
+                Width = 1024,
+                Height = 1448,
                 ["r.blur"] = "6",
                 ["r.blurStart"] = firstPage.ToString()
             };
