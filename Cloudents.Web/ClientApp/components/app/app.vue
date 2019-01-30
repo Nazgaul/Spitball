@@ -42,6 +42,7 @@
             >
                 <login-to-answer></login-to-answer>
             </sb-dialog>
+            
             <sb-dialog
                     :showDialog="universitySelectPopup"
                     :popUpType="'universitySelectPopup'"
@@ -94,6 +95,14 @@
                 <board-guide></board-guide>
             </sb-dialog>
 
+            <sb-dialog
+                    :showDialog="showBuyTokensDialog"
+                    :popUpType="'buyTokens'"
+                    :content-class="'buy-tokens-popup'"
+            >
+                <buy-tokens></buy-tokens>
+            </sb-dialog>
+
             <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
                            :onStepChange="onFooterStepChange"></mobile-footer>
         </v-content>
@@ -122,6 +131,7 @@
     import marketingBox from "../helpers/marketingBox/marketingBox.vue";
     import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
     import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
+    import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 
 
     export default {
@@ -138,7 +148,8 @@
             mobileFooter,
             marketingBox,
             leadersBoard,
-            boardGuide
+            boardGuide,
+            buyTokens
         },
         data() {
             return {
@@ -147,6 +158,7 @@
                 toasterTimeout: 5000,
                 hideFooter: false,
                 showOnBoardGuide: true,
+                showBuyTokensDialog: false,
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
                     tourCallbacks: {
@@ -360,6 +372,9 @@
                     }
                 }
             });
+            // setTimeout(()=>{
+            //     this.showBuyTokensDialog = true;
+            // }, 2000)
         }
     };
 </script>

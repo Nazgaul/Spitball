@@ -260,6 +260,14 @@ import { LanguageService } from './language/languageService'
           buttonPrevious: LanguageService.getValueByKey('tour_label_previous'),
           buttonNext: LanguageService.getValueByKey('tour_label_next'),
           buttonStop: LanguageService.getValueByKey('tour_label_stop')
+        },
+        classes:{
+          stepButtons:{
+            skip:'',
+            previous: 'regular_step_button',
+            next: 'regular_step_button',
+            stop: ''
+          }
         }
       }
       
