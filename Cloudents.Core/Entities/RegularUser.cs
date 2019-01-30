@@ -115,7 +115,8 @@ namespace Cloudents.Core.Entities
             {
                 Question = question,
                 Document = document,
-                InvitedUser = user
+                InvitedUser = user,
+                Answer = answer
             };
             Transactions.Add(t);
             AddEvent(new TransactionEvent(t, this));

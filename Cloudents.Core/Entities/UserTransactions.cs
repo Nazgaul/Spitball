@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Exceptions;
 
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -23,6 +24,10 @@ namespace Cloudents.Core.Entities
         {
             Transactions.Add(t);
             Balance += t.TransactionType.Price;
+            if (Balance < 0)
+            {
+                throw new InsufficientFundException();
+            }
             if (t.TransactionType.Price > 0)
             {
                 Score += (int)t.TransactionType.Price;

@@ -24,16 +24,6 @@ namespace Cloudents.Query
         public async Task<UserProfile> GetAsync(UserWithUniversityQuery query, CancellationToken token)
         {
 
-
-            //var result = await _session.Query<User>()
-            //    .Fetch(f => f.Courses)
-            //    .Fetch(f => f.University)
-            //    .Fetch(f=>f.Tags)
-            //    .Where(w => w.Id == query.Id)
-            //    .SingleOrDefaultAsync(token);
-            //var university = new UserUniversityQueryProfileDto(result.University.Id, result.University.Extra, result.University.Name);
-            //return new UserQueryProfileDto(result.Courses, result.Tags, university);
-
             var sqlCourses = _session.CreateSQLQuery(@"select CourseId from sb.UsersCourses
 where UserId = :id");
             sqlCourses.SetInt64("id", query.Id);
@@ -53,13 +43,15 @@ where UserId = :id");
 
             IFutureValue<UserUniversityQueryProfileDto> universityFuture = null;
 
-            if (query.UniversityId.HasValue)
-            {
-                universityFuture = _session.Query<University>()
-                    .Where(w => w.Id == query.UniversityId.Value)
-                    .Select(s => new UserUniversityQueryProfileDto(s.Id, s.Extra, s.Name)).ToFutureValue();
+           // if (query.UniversityId.HasValue)
+            //{
+               universityFuture = _session.Query<RegularUser>()
+                   .Fetch(f=>f.University)
+                    .Where(w => w.Id == query.Id)
+                    .Select(s => new UserUniversityQueryProfileDto(s.University.Id, s.University.Extra,
+                       s.University.Name,s.University.Country)).ToFutureValue();
 
-            }
+           // }
             
 
             var courses = await coursesFuture.GetEnumerableAsync(token);
@@ -70,7 +62,8 @@ where UserId = :id");
             {
                 University = university,
                 Courses = courses?.ToList(),
-                Tags = tags
+                Tags = tags,
+                
             };
         }
     }

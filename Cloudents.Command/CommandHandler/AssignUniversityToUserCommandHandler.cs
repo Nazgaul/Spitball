@@ -23,8 +23,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AssignUniversityToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var country = message.Country ?? user.Country;
-            var university = await _universityRepository.GetUniversityByNameAsync(message.UniversityName, country, token);
+            var university = await _universityRepository.GetUniversityByNameAsync(message.UniversityName, token);
             if (university == null)
             {
                 university = new University(message.UniversityName, user.Country);
@@ -36,7 +35,7 @@ namespace Cloudents.Command.CommandHandler
                 user.MakeTransaction(TransactionType2.University);
             }
             user.University = university;
-            await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);
+            await _userRepository.UpdateAsync(user, token);
         }
     }
 }
