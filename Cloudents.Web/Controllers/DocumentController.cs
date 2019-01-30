@@ -145,6 +145,7 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
             //var metaContent = await _documentSearch.ItemMetaContentAsync(id, token);
+            if (string.IsNullOrEmpty(model.Country)) return View();
 
             //TODO: need to be university culture
             ViewBag.title =

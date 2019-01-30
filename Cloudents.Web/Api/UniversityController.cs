@@ -11,6 +11,8 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
@@ -46,30 +48,29 @@ namespace Cloudents.Web.Api
         /// Get list of universities
         /// </summary>
         /// <param name="model">object of query string</param>
+        /// <param name="profile">Not taken from the api</param>
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet, AllowAnonymous]
-        [ResponseCache(Duration = TimeConst.Hour,
-            Location = ResponseCacheLocation.Client,
-            VaryByQueryKeys = new[] { nameof(UniversityRequest.Term) })]
+        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(UniversityRequest.Term) })]
 
         public async Task<UniversitySearchDto> GetAsync([FromQuery] UniversityRequest model,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             var result = await _universityProvider.SearchAsync(model.Term,
-                 token);
+                profile.Country, token);
             return result;
         }
 
         
 
         [HttpPost("assign")]
-        public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model,
-            CancellationToken token)
+        public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new AssignUniversityToUserCommand(userId, model.Name);
-            await _commandBus.DispatchAsync(command, token);
+            var command = new AssignUniversityToUserCommand(userId, model.Name, model.Country);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             var user = await _userManager.GetUserAsync(User);
 
             await _signInManager.RefreshSignInAsync(user);

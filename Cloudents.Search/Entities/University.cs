@@ -14,5 +14,6 @@ namespace Cloudents.Search.Entities
         public string Extra { get; set; }
         public string[] Prefix { get; set; }
 
+        public string Country { get; set; }
     }
 }

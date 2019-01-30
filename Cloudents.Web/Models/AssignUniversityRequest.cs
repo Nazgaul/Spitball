@@ -9,5 +9,6 @@ namespace Cloudents.Web.Models
         [Required(ErrorMessage = "Required")]
         public string Name { get; set; }
 
+        public string Country { get; set; }
     }
 }

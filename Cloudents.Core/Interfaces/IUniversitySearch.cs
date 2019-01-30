@@ -14,8 +14,16 @@ namespace Cloudents.Core.Interfaces
     {
         [ItemCanBeNull]
         Task<UniversitySearchDto> SearchAsync(string term,
+            //[CanBeNull]
+            //GeoPoint location,
+            string country,
             CancellationToken token);
 
+        //[ItemCanBeNull]
+        //Task<UniversityDto> GetApproximateUniversitiesAsync(
+        //    [NotNull]
+        //    GeoPoint location,
+        //    CancellationToken token);
     }
 
     public interface IQuestionSearch

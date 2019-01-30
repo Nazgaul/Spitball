@@ -43,7 +43,14 @@ namespace Cloudents.Search.University
 
         protected override Index GetIndexStructure(string indexName)
         {
-           
+            //var stopWordsList = new[]{ "university",
+            //        "of",
+            //        "college",
+            //        "school",
+            //        "the",
+            //        "a",
+            //    "המכללה","אוניברסיטת","מכללת","אוניברסיטה","ה"
+            //};
             return new Index
             {
                 Name = indexName,
@@ -82,7 +89,7 @@ namespace Cloudents.Search.University
                         //IndexAnalyzer =  AnalyzerName.Create("stopWords"),
 
                     },
-                    new Field("Country", DataType.String)
+                    new Field(nameof(Entities.University.Country), DataType.String)
                     {
                         IsFilterable = true
                     }
@@ -116,11 +123,14 @@ namespace Cloudents.Search.University
                         }),
 
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
-                        //Functions = new List<ScoringFunction>
-                        //{
-                        //    new TagScoringFunction(nameof(Entities.University.Country),1.5, new TagScoringParameters(CountryTagScoringParameters))
+                        Functions = new List<ScoringFunction>
+                        {
+                            new TagScoringFunction(nameof(Entities.University.Country),1.5, new TagScoringParameters(CountryTagScoringParameters))
+                        //    new DistanceScoringFunction(
+                        //        nameof(Entities.University.GeographyPoint),
+                        //        5,DistanceScoringParameter,10,ScoringFunctionInterpolation.Linear),
 
-                        //}
+                        }
                     }
                 },
                 Suggesters = new List<Suggester>

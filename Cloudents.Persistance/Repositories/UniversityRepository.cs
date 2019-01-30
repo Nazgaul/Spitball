@@ -14,9 +14,9 @@ namespace Cloudents.Persistance.Repositories
         {
         }
 
-        public async Task<University> GetUniversityByNameAsync(string name, CancellationToken token)
+        public async Task<University> GetUniversityByNameAsync(string name,string country, CancellationToken token)
         {
-            return await Session.Query<University>().Where(w => w.Name == name )
+            return await Session.Query<University>().Where(w => w.Name == name && w.Country == country)
                 .SingleOrDefaultAsync(token);
         }
     }
