@@ -69,7 +69,6 @@
         },
         methods: {
          ...mapActions(['updateFile']),
-
             removeTag(item) {
                 this.selectedTags.splice(this.selectedTags.indexOf(item), 1);
                 this.selectedTags = [...this.selectedTags];

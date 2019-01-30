@@ -17,7 +17,7 @@ import WebFont from "webfontloader";
 import CloudentsTour from 'cloudents-tour';
 require('cloudents-tour/dist/cloudents-tour.css');
 import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/vue-youtube-embed
-
+import VueNumeric from 'vue-numeric'
 
 
 
@@ -149,6 +149,9 @@ Vue.use(VueClipboard);
 Vue.use(lineClamp, {
 
 });
+
+
+Vue.use(VueNumeric);
 
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',

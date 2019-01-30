@@ -72,18 +72,32 @@
             </sb-dialog>
 
             <!--upload dilaog-->
+            <!--<sb-dialog-->
+                    <!--:showDialog="getDialogState"-->
+                    <!--:transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "-->
+                    <!--:popUpType="'uploadDialog'"-->
+                    <!--:maxWidth="'966px'"-->
+                    <!--:onclosefn="setUploadDialogState"-->
+                    <!--:activateOverlay="isUploadAbsoluteMobile"-->
+                    <!--:isPersistent="$vuetify.breakpoint.smAndUp"-->
+                    <!--:content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'"-->
+            <!--&gt;-->
+                <!--<upload-files v-if="getDialogState"></upload-files>-->
+            <!--</sb-dialog>-->
+            <!--multiple upload dilaog-->
             <sb-dialog
                     :showDialog="getDialogState"
                     :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                     :popUpType="'uploadDialog'"
                     :maxWidth="'966px'"
                     :onclosefn="setUploadDialogState"
-                    :activateOverlay="isUploadAbsoluteMobile"
+                    :activateOverlay="false"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
-                    :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'"
+                    :content-class="isUploadAbsoluteMobile ? 'upload-dialog' : 'upload-dialog'"
             >
-                <upload-files v-if="getDialogState"></upload-files>
+                <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
             </sb-dialog>
+
             <sb-dialog
                     :showDialog="getOnBoardState"
                     :popUpType="'onBoardGuide'"
@@ -109,6 +123,8 @@
     import NewQuestion from "../question/newQuestion/newQuestion.vue";
     import AddQuestion from "../question/addQuestion/addQuestion.vue";
     import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
+    import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
+
     import {
         GetDictionary,
         LanguageService
@@ -138,7 +154,8 @@
             mobileFooter,
             marketingBox,
             leadersBoard,
-            boardGuide
+            boardGuide,
+            uploadMultipleFiles
         },
         data() {
             return {
