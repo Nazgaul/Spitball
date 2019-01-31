@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Data;
 using Cloudents.Query.Query;
 using Dapper;
 using System;

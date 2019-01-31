@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Infrastructure.Data
+namespace Cloudents.Query
 {
     public class DapperRepository //: IDapperRepository
     {

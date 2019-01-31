@@ -246,11 +246,11 @@ namespace Cloudents.Web
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
-            reWriterOptions.Add(new RedirectToWWW());
+            reWriterOptions.Add(new RedirectToWww());
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
-                reWriterOptions.Add(new RedirectToWWW());
+                reWriterOptions.Add(new RedirectToWww());
             }
 
             app.UseRewriter(reWriterOptions);

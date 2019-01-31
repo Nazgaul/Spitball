@@ -2,7 +2,6 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
@@ -33,7 +32,6 @@ using Cloudents.Core.Enum;
 using Microsoft.Azure.Documents.Client;
 using Cloudents.Core.Query;
 using Cloudents.Search;
-using Cloudents.Search.Document;
 
 namespace ConsoleApp
 {

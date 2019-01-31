@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
@@ -19,26 +17,6 @@ namespace Cloudents.Search.University
         public UniversitySearchWrite(SearchService client, ILogger logger)
             : base(client, client.GetClient(IndexName),logger)
         {
-        }
-
-
-      
-
-        public override async Task CreateOrUpdateAsync(CancellationToken token)
-        {
-            // _synonymWrite.CreateEmpty(SynonymName);
-            //await Client.Indexes.DeleteAsync(IndexClient.IndexName, cancellationToken: token).ConfigureAwait(false);
-            //var synonymMap = new SynonymMap()
-            //{
-            //    Name = "university-synonymmap",
-            //    Format = "solr",
-            //    Synonyms = @"
-            //    university, of, college, school, the, a, המכללה,אוניברסיטת,מכללת,אוניברסיטה,ה=> "
-            //};
-
-            //Client.SynonymMaps.CreateOrUpdate(synonymMap);
-
-            await base.CreateOrUpdateAsync(token);
         }
 
         protected override Index GetIndexStructure(string indexName)

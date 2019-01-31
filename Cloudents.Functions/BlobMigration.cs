@@ -63,6 +63,10 @@ namespace Cloudents.Functions
                 if (Regex.IsMatch(myBlob.Name, "preview-\\d*.jpg", RegexOptions.IgnoreCase))
                 {
                     var idx = Path.GetFileNameWithoutExtension(myBlob.Name.Split('-').Last());
+                    if (idx == null)
+                    {
+                        continue;
+                    }
                     var blurBlob = directory.GetBlockBlobReference($"blur-{idx}.jpg");
                     if (blurBlob.Exists())
                     {
