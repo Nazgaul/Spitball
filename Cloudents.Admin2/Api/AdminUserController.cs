@@ -12,6 +12,9 @@ using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Storage;
 using System.Linq;
+using Cloudents.Command.Command;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Admin2.Api
 {
@@ -143,6 +146,34 @@ namespace Cloudents.Admin2.Api
             var command = new ChangeCountryCommand(model.Id, model.Country);
             await _commandBus.DispatchAsync(command, token);
         }
+
+
+
+        [HttpPost("verify")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> VerifySmsAsync([FromServices] IRepository<RegularUser> _userRepository,
+            PhoneConfirmRequest model,
+            CancellationToken token)
+        {
+            var user = await _userRepository.LoadAsync(model.Id, token);
+            if (user == null)
+            {
+
+                return BadRequest();
+            }
+            
+           var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
+
+            await _commandBus.DispatchAsync(registrationBonusCommand, token);
+            return Ok(new
+            {
+                user.Id
+            });
+
+        }
+
+
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]

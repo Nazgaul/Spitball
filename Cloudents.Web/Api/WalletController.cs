@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
@@ -15,6 +11,10 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -53,6 +53,14 @@ namespace Cloudents.Web.Api
             var retVal = await _queryBus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(userId), token).ConfigureAwait(false);
 
             return retVal;
+        }
+
+        [HttpPost("transaction")]
+        public async Task<IActionResult> ValidatePaymentAsync(PayPalTransactionRequest model,
+            [FromServices] IPayPal payPal, CancellationToken token)
+        {
+            var result = await payPal.GetPaymentAsync(model.Id);
+            return Ok();
         }
 
 
