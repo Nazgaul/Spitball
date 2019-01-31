@@ -120,7 +120,8 @@ export default {
             'resetUploadData',
             'setReturnToUpload',
             'updateStep',
-            'isUploadActiveProcess'
+            'isUploadActiveProcess',
+            'updateToasterParams'
         ]),
 
         stopProgress(val) {
@@ -146,6 +147,14 @@ export default {
                         self.nextStep(step)
                     },
                     (error) => {
+                        if(!!error.response.data && !!error.response.data.Tags){
+                            self.updateToasterParams({
+                                toasterText: error.response.data.Tags[0],
+                                showToaster: true,
+                            });
+                        }
+                        
+                        self.loading = false;
                         console.log("doc data error", error)
                     });
 
