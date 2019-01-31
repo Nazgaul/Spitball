@@ -29,6 +29,12 @@ set [TransactionType] = 'Question'
 where  Action in  ('Question','DeleteQuestion','AnswerCorrect')
 and [TransactionType] is null
 
+update top (1000) sb.[Transaction]
+set [TransactionType] = 'Commission'
+where   [TransactionType] = 'Commision'
+
+
+
 
 
 update top (1000) sb.[Transaction]

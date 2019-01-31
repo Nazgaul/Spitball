@@ -1,5 +1,4 @@
-﻿using Cloudents.Infrastructure.Data;
-using Cloudents.Query.Query.Admin;
+﻿using Cloudents.Query.Query.Admin;
 using Dapper;
 using System.Threading;
 using System.Threading.Tasks;

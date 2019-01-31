@@ -36,7 +36,7 @@ namespace Cloudents.Web
         }
     }
 
-    public class RedirectToWWW : IRule
+    public class RedirectToWww : IRule
     {
         public void ApplyRule(RewriteContext context)
         {

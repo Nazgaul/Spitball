@@ -43,7 +43,7 @@ namespace Cloudents.Persistance.Maps
     {
         public CommissionTransactionMap()
         {
-            DiscriminatorValue("Commision");
+            DiscriminatorValue("Commission");
         }
     }
 

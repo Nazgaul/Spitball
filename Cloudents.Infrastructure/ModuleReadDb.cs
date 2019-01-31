@@ -2,6 +2,7 @@
 using Autofac;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Query;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure

@@ -12,16 +12,14 @@ namespace Cloudents.Persistance.Repositories
     [UsedImplicitly]
     public class TransactionRepository : NHibernateRepository<Transaction>, ITransactionRepository
     {
-        //TODO: not sure if its ok
-        //private readonly IEventStore _store;
         public TransactionRepository(ISession session) : base(session)
         {
         }
 
-        public override Task<object> AddAsync(Transaction entity, CancellationToken token)
-        {
-            return base.AddAsync(entity, token);
-        }
+        //public override Task<object> AddAsync(Transaction entity, CancellationToken token)
+        //{
+        //    return base.AddAsync(entity, token);
+        //}
 
         public Task<decimal> GetBalanceAsync(long userId, CancellationToken token)
         {

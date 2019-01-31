@@ -2,7 +2,6 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
@@ -33,7 +32,6 @@ using Cloudents.Core.Enum;
 using Microsoft.Azure.Documents.Client;
 using Cloudents.Core.Query;
 using Cloudents.Search;
-using Cloudents.Search.Document;
 
 namespace ConsoleApp
 {
@@ -118,6 +116,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+
+            decimal elad = 1.12M;
+            decimal commision = elad * 0.09M;
+            decimal commisionRam = decimal.Round(elad * 0.09M, 2);
+
+
             var write = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
             await write.CreateOrUpdateAsync(token);
             var _queryBus = _container.Resolve<IQueryBus>();
