@@ -31,8 +31,7 @@ and [TransactionType] is null
 
 update top (1000) sb.[Transaction]
 set [TransactionType] = 'Commission'
-where  Action in  ('Question','DeleteQuestion','AnswerCorrect')
-and [TransactionType] = 'Commision'
+where   [TransactionType] = 'Commision'
 
 
 
