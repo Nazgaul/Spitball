@@ -11,7 +11,9 @@ namespace Cloudents.Core.DTOs
         [DtoToEntityConnection(nameof(RegularUser.Email))]
         public string ToEmailAddress { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.Language))]
-        public CultureInfo Language { get; set; }
+        public string Language { get; set; }
+
+        
         [DtoToEntityConnection(nameof(RegularUser.Id))]
         public long UserId { get; set; }
     }
