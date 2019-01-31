@@ -2,9 +2,9 @@
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminUserInfoQuery : IQuery<UserInfoDto>
+    public class AdminUserDetailsQuery : IQuery<UserDetailsDto>
     {
-        public AdminUserInfoQuery(long userId)
+        public AdminUserDetailsQuery(long userId)
         {
             UserId = userId;
         }

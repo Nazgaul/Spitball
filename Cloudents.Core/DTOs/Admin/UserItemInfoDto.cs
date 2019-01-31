@@ -6,17 +6,6 @@ using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs.Admin
 {
-
-    public class UserInfoDto
-    {
-        public UserDetailsDto User { get; set; }
-       
-        public IEnumerable<UserQuestionsDto> Questions { get; set; }
-       
-        public IEnumerable<UserAnswersDto> Answers { get; set; }
-    
-        public IEnumerable<UserDocumentsDto> Documents { get; set; }
-    }
     
     public class UserAnswersDto
     {
