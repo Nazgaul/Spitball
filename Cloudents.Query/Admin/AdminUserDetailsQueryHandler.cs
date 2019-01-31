@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Data;
 using Cloudents.Query.Query.Admin;
 using Dapper;
 using System.Data.SqlClient;
