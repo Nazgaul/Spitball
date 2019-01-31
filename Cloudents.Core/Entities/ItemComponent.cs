@@ -1,106 +1,23 @@
 ﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Cloudents.Core.Entities
 {
-
-   
-    public abstract class ItemObject : AggregateRoot, ISoftDelete
+    public sealed class ItemStatus : ValueObject
     {
-        protected ItemObject()
-        {
-            State = ItemState.Pending;
-            Votes = new List<Vote>();
-        }
-        //protected ItemObject(RegularUser user)
-        //{
-        //    State = ItemState.Pending;
-        //    if (user.Score >= Privileges.Post)
-        //    {
-        //        MakePublic();
-        //    }
-        //     //Privileges.GetItemState(user.Score);
-        //}
+        public ItemState State { get; }
+        public DateTime? DeletedOn { get; }
 
-        //protected ItemObject()
-        //{
-
-        //}
-
-        public abstract void DeleteAssociation();
-
-        public virtual ItemState State { get; private set; }
-        public virtual DateTime? DeletedOn { get; private set; }
+        public string FlagReason { get; }
+        public User FlaggedUser { get; }
 
 
-        public virtual void ChangeState(ItemState state)
-        {
-            switch (state)
-            {
-                case ItemState.Ok:
-                    MakePublic();
-                    break;
-                case ItemState.Deleted:
-                    Delete();
-                    break;
-                case ItemState.Pending:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
-            }
-            
-        }
-        
-        public virtual bool MakePublic()
-        {
-            if (State == ItemState.Ok)
-            {
-                return false;
-            }
-            State = ItemState.Ok;
-            FlagReason = null;
-            FlaggedUser = null;
-            return true;
-        }
-
-        public virtual bool Delete()
-        {
-            if (State == ItemState.Deleted)
-            {
-                return false;
-            }
-            State = ItemState.Deleted;
-            DeletedOn = DateTime.UtcNow;
-            DeleteAssociation();
-            return true;
-        }
-
-
-        public virtual bool Flag(string reason, User user)
-        {
-            if (State == ItemState.Flagged)
-            {
-                return false;
-            }
-            State = ItemState.Flagged;
-            FlagReason = reason;
-            FlaggedUser = user;
-            return true;
-        }
-
-
-        public virtual string FlagReason { get; private set; }
-        public virtual User FlaggedUser { get; private set; }
-
-
-       
         private const int MaxReasonLength = 255;
 
 
-        public static bool ValidateFlagReason(string flagReason)
+        private static bool ValidateFlagReason(string flagReason)
         {
             if (string.IsNullOrEmpty(flagReason))
             {
@@ -114,78 +31,62 @@ namespace Cloudents.Core.Entities
             return true;
         }
 
+        public const string TooManyVotesReason = "Too many down vote";
 
 
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return State;
+        }
 
-        public virtual ICollection<Vote> Votes { get; protected set; }
+        private ItemStatus()
+        {
 
-        public virtual int VoteCount { get; set; }
+        }
+        private ItemStatus(ItemState state, DateTime? deletedOn, string flagReason, User flaggedUser) : this()
+        {
+            State = state;
+            DeletedOn = deletedOn;
+            FlagReason = flagReason;
+            FlaggedUser = flaggedUser;
+        }
 
-    }
+        public static readonly ItemStatus Public = new ItemStatus(ItemState.Ok, null, null, null);
+        public static readonly ItemStatus Pending = new ItemStatus(ItemState.Pending, null, null, null);
+        public static readonly ItemStatus Flagged = new ItemStatus(ItemState.Flagged, null, null, null);
+        //public static readonly ItemStatus FlagStatus = new ItemStatus(ItemState.Deleted, null, null, null);
 
-   
+        public ItemStatus Flag(string reason, User user)
+        {
+            if (!ValidateFlagReason(reason))
+            {
+                throw new ArgumentException("reason is too long");
+            }
 
-    public abstract class AggregateRoot
-    {
+            if (this != Public)
+            {
+                throw new ArgumentException("Not Flagged state");
 
-        private readonly List<IEvent> _domainEvents = new List<IEvent>();
-        public virtual IReadOnlyList<IEvent> Events => _domainEvents;
-        //protected AggregateRoot()
+            }
+            return new ItemStatus(ItemState.Flagged, null, reason, user);
+        }
+        public static ItemStatus GetInitState(RegularUser user)
+        {
+            if (user.Transactions.Score < Privileges.Post)
+            {
+                return Pending;
+            }
+            return Public;
+        }
+
+        public static ItemStatus Delete()
+        {
+            return new ItemStatus(ItemState.Deleted, DateTime.UtcNow, null, null);
+        }
+
+        //public static implicit operator ItemState(ItemState2 state)
         //{
-        //    Events = new List<IEvent>();
+        //    return state.State;
         //}
-        //public virtual IList<IEvent> Events { get; set; }
-
-        protected virtual void AddEvent(IEvent newEvent)
-        {
-            _domainEvents.Add(newEvent);
-        }
-    }
-
-
-    public abstract class ValueObject
-    {
-        protected abstract IEnumerable<object> GetEqualityComponents();
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-
-            if (GetType() != obj.GetType())
-                throw new ArgumentException($"Invalid comparison of Value Objects of different types: {GetType()} and {obj.GetType()}");
-
-            var valueObject = (ValueObject)obj;
-
-            return GetEqualityComponents().SequenceEqual(valueObject.GetEqualityComponents());
-        }
-
-        public override int GetHashCode()
-        {
-            return GetEqualityComponents()
-                .Aggregate(1, (current, obj) =>
-                {
-                    unchecked
-                    {
-                        return current * 23 + (obj?.GetHashCode() ?? 0);
-                    }
-                });
-        }
-
-        public static bool operator ==(ValueObject a, ValueObject b)
-        {
-            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
-                return true;
-
-            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
-                return false;
-
-            return a.Equals(b);
-        }
-
-        public static bool operator !=(ValueObject a, ValueObject b)
-        {
-            return !(a == b);
-        }
     }
 }

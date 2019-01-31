@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using ImageResizer.Plugins.Basic;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -12,11 +13,18 @@ namespace Cloudents.Infrastructure.Framework
     {
         public static readonly string[] Extensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
 
-        public ImageProcessor()
+        static ImageProcessor()
         {
             new BlurFilter().Install(
                 Config.Current);
+           // Config.Current.Plugins.Get<SizeLimiting>().Uninstall(Config.Current);
         }
+
+        //public ImageProcessor()
+        //{
+        //    new BlurFilter().Install(
+        //        Config.Current);
+        //}
 
         private Stream _sr;
         public void Init(Stream stream)
@@ -29,7 +37,7 @@ namespace Cloudents.Infrastructure.Framework
 
             return (null, 1);
         }
-       
+
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
@@ -44,29 +52,29 @@ namespace Cloudents.Infrastructure.Framework
                     Quality = 90,
                 };
                 ImageBuilder.Current.Build(_sr, ms, settings2, false);
-                await pagePreviewCallback(ms, $"0.jpg");
+                await pagePreviewCallback(ms, "0.jpg");
             }
         }
 
-        public async Task ProcessBlurPreviewAsync(Stream stream, bool firstPage,
+        public Task ProcessBlurPreviewAsync(Stream stream, bool firstPage,
             Func<Stream, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            
-            using (var ms = new MemoryStream())
+
+            var ms = new MemoryStream();
+            var settings2 = new ResizeSettings
             {
-                var settings2 = new ResizeSettings
-                {
-                    Format = "jpg",
-                    Quality = 90,
-                    ["r.blur"] = "10",
-                    ["r.blurStart"] = firstPage.ToString()
-                };
+                Format = "jpg",
+                Quality = 90,
+                Width = 1024,
+                Height = 1448,
+                ["r.blur"] = "6",
+                ["r.blurStart"] = firstPage.ToString()
+            };
 
-                ImageBuilder.Current.Build(stream, ms, settings2, false);
+            ImageBuilder.Current.Build(stream, ms, settings2, false);
 
-                await pagePreviewCallback(ms);
-            }
+            return pagePreviewCallback(ms).ContinueWith(_ => ms.Dispose(), token);
         }
 
 

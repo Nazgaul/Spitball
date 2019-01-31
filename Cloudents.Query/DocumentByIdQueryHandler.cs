@@ -26,7 +26,7 @@ namespace Cloudents.Query
 
                .Fetch(f => f.University)
                .Fetch(f => f.User)
-               .Where(w => w.Id == query.Id && w.State == ItemState.Ok)
+               .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
                .Select(s => new DocumentDetailDto
                {
                    Id = s.Id,
@@ -39,8 +39,7 @@ namespace Cloudents.Query
                    Views = s.Views,
                    Downloads = s.Downloads,
                    Price = s.Price,
-                    // IsPurchased = s.Transactions.Count > 0 ? true : false,
-                    User = new UserDto
+                   User = new UserDto
                    {
                        Id = s.User.Id,
                        Name = s.User.Name,
@@ -54,7 +53,7 @@ namespace Cloudents.Query
             if (query.UserId.HasValue)
             {
                 purchaseFuture = _session.Query<Transaction>()
-                    .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.Type == TransactionType.Spent)
+                    .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.TransactionType.Type == TransactionType.Spent)
                     .ToFutureValue();
 
 
@@ -65,7 +64,7 @@ namespace Cloudents.Query
             result.IsPurchased = true;
             if (result.Price.GetValueOrDefault() > 0)
             {
-                
+
                 if (purchaseFuture == null)
                 {
                     result.IsPurchased = false;

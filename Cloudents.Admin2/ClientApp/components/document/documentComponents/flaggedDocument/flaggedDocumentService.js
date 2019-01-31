@@ -3,9 +3,11 @@ import { connectivityModule } from '../../../../services/connectivity.module'
 
 
 function FlaggedDocumentItem(objInit){
-    this.id = objInit.id,
-    this.reason = objInit.reason
-    this.flaggedUserEmail = objInit.flaggedUserEmail || "none"
+    this.id = objInit.id || 'none';
+    this.reason = objInit.reason || 'none';
+    this.flaggedUserEmail = objInit.flaggedUserEmail || "none";
+     this.preview = objInit.preview || "none";
+    this.siteLink = objInit.siteLink || "none";
 }
 
 function createDocumentItem(ObjInit){

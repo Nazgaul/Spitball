@@ -5,7 +5,6 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Query;
-using System.Collections.Generic;
 
 namespace Cloudents.Web.Api
 {
@@ -24,7 +23,7 @@ namespace Cloudents.Web.Api
 
         [HttpGet("LeaderBoard")]
         [ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Any)]
-        public async Task<ActionResult<LeaderBoardQueryResult>> GetLeaderBoard
+        public async Task<ActionResult<LeaderBoardResultDto>> GetLeaderBoard
             ([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var query = new LeaderBoardQuery();

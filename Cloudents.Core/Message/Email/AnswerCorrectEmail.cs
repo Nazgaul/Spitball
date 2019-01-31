@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Extension;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Cloudents.Core.Extension;
+using static Cloudents.Core.Entities.Language;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -14,7 +15,7 @@ namespace Cloudents.Core.Message.Email
             : base(to, "Congratulations, your answer has been accepted",
                 info)
         {
-            QuestionText = questionText.Replace("\n","<br>").Truncate(40, true);
+            QuestionText = questionText.Replace("\n", "<br>").Truncate(40, true);
             AnswerText = answerText.Replace("\n", "<br>").Truncate(40, true);
             Link = link;
             Tokens = tokens.ToString("#.##");
@@ -36,8 +37,8 @@ namespace Cloudents.Core.Message.Email
         public override string Campaign => "AnswerCorrect";
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
-            { Language.Hebrew.Culture,"1b20fe5d-6e32-441f-9870-f309112aca33"},
-            {Language.English.Culture ,"ae7e5e65-7224-4e82-a830-e83d22c211d4" }
+            { Hebrew,"1b20fe5d-6e32-441f-9870-f309112aca33"},
+            {English ,"ae7e5e65-7224-4e82-a830-e83d22c211d4" }
         };
     }
 }

@@ -17,7 +17,7 @@ const mutations = {
         state.dataLoaded = data;
     },
     StudyDocuments_updateItems(state, data) {
-        state.items.data = state.items.data.concat(data.data)
+        state.items.data = state.items.data.concat(data.data);
         state.items.nextPage = data.nextPage
     },    
     
@@ -31,21 +31,21 @@ const mutations = {
         }
     },
     //search filter calls this fuction
-    StudyDocuments_updateCoursesFilters(state, MutationObj) {
-        if (!!state.items && !!state.items.filters) {
-            let coursesFiltersIndex = null;
-            state.items.filters.forEach((item, index) => {
-                if (item.id === "Course") {
-                    coursesFiltersIndex = index;
-                }
-            });
-            if (coursesFiltersIndex !== null) {
-                state.items.filters[coursesFiltersIndex].data = MutationObj.courses;
-                let filters = searchService.createFilters(state.items.filters);
-                MutationObj.fnUpdateCourses(filters)
-            }
-        }
-    },
+    // StudyDocuments_updateCoursesFilters(state, MutationObj) {
+    //     if (!!state.items && !!state.items.filters) {
+    //         let coursesFiltersIndex = null;
+    //         state.items.filters.forEach((item, index) => {
+    //             if (item.id === "Course") {
+    //                 coursesFiltersIndex = index;
+    //             }
+    //         });
+    //         if (coursesFiltersIndex !== null) {
+    //             state.items.filters[coursesFiltersIndex].data = MutationObj.courses;
+    //             let filters = searchService.createFilters(state.items.filters);
+    //             MutationObj.fnUpdateCourses(filters)
+    //         }
+    //     }
+    // },
     StudyDocuments_removeDocument(state, documentToRemove) {
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             for (let documentIndex = 0; documentIndex < state.items.data.length; documentIndex++) {

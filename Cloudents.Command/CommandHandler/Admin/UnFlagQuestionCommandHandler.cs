@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
@@ -21,16 +19,17 @@ namespace Cloudents.Command.CommandHandler.Admin
            
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
 
-            if (question.FlagReason.Equals("Too many down vote", StringComparison.CurrentCultureIgnoreCase))
-            {
-                var votes = question.Votes.Where(w => w.Answer == null).ToList();
-                foreach (var vote in votes)
-                {
-                    question.Votes.Remove(vote);
-                }
-            }
-            question.MakePublic();
-            question.VoteCount = question.Votes.Count;
+            question.UnFlag();
+            //if (question.State.FlagReason.Equals(ItemState2.TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
+            //{
+            //    var votes = question.Votes.Where(w => w.Answer == null).ToList();
+            //    foreach (var vote in votes)
+            //    {
+            //        question.Votes.Remove(vote);
+            //    }
+            //}
+            //question.MakePublic();
+            //question.VoteCount = question.Votes.Count;
             
             await _questionRepository.UpdateAsync(question, token);
         }

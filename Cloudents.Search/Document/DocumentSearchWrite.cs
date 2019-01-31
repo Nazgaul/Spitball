@@ -39,7 +39,7 @@ namespace Cloudents.Search.Document
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new TagScoringFunction(Entities.Document.CourseNameField,2, new TagScoringParameters(TagsCourseParameter)),
+                            new TagScoringFunction(Entities.Document.CourseNameField,3.2, new TagScoringParameters(TagsCourseParameter)),
                             new TagScoringFunction(Entities.Document.UniversityIdFieldName,3, new TagScoringParameters(TagsUniversityParameter)),
                             new TagScoringFunction(nameof(Entities.Document.Tags),1.5, new TagScoringParameters(TagsTagsParameter)),
                         }

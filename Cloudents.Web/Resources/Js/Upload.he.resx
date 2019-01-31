@@ -260,9 +260,6 @@
   <data name="files_proccesing" xml:space="preserve">
     <value>אנו מעבדים את המסמך ובקרוב הוא יעלה לאתר.</value>
   </data>
-  <data name="files_step2_subtitle" xml:space="preserve">
-    <value>מלא פרטים על המסמך והגדל את הסיכויים שלו להימצא</value>
-  </data>
   <data name="files_step2_title" xml:space="preserve">
     <value>נהדר! הכן את המסמך שלך להעלאה</value>
   </data>
@@ -294,13 +291,13 @@
     <value>מסמך</value>
   </data>
   <data name="files_type_exam" xml:space="preserve">
-    <value>מדריך לימוד</value>
+    <value>מבחנים ופתרונות</value>
   </data>
   <data name="files_type_lecture" xml:space="preserve">
-    <value>סיכום שיעור</value>
+    <value>הרצאות ותירגולים</value>
   </data>
   <data name="files_type_textbook" xml:space="preserve">
-    <value>סיכום ספר</value>
+    <value>סיכומים</value>
   </data>
   <data name="files_uploadDoc" xml:space="preserve">
     <value>העלה מסמך</value>

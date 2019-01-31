@@ -1,23 +1,26 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
+using System.Linq;
+using static Cloudents.Core.Entities.ItemStatus;
+using static Cloudents.Core.Entities.Vote;
 
-[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
+//[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question : ItemObject
+    public class Question : AggregateRoot, ISoftDelete
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             RegularUser user,
-            QuestionColor color, CultureInfo language)
+             CultureInfo language, Course course)
         : this()
         {
             Subject = subject;
@@ -26,17 +29,22 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-            if (color != QuestionColor.Default)
+          
+
+            var status = GetInitState(user);
+            if (status == Public)
             {
-                Color = color;
+                MakePublic();
             }
-            ChangeState(Privileges.GetItemState(user.Score));
+
+            Status = status;
+            Course = course;
             Language = language;
         }
 
         public Question(QuestionSubject subject, string text, decimal price, int attachments,
             SystemUser user,
-            QuestionColor color, CultureInfo language)
+             CultureInfo language)
             : this()
         {
             Subject = subject;
@@ -45,21 +53,22 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-            if (color != QuestionColor.Default)
-            {
-                Color = color;
-            }
-
-            ChangeState(ItemState.Pending);
+            
+            Status = Pending;
+            //ChangeState(ItemState.Pending);
             Language = language;
+            
         }
 
         protected Question()
         {
-            Answers = Answers ?? new List<Answer>();
+            _answers = _answers ?? new List<Answer>();
+            _votes = _votes ?? new List<Vote>();
         }
 
-        public virtual long Id { get; protected set; }
+        public virtual ItemStatus Status { get; protected set; }
+
+        //public virtual long Id { get; protected set; }
         public virtual QuestionSubject Subject { get; protected set; }
         public virtual string Text { get; protected set; }
         public virtual decimal Price { get; protected set; }
@@ -71,62 +80,102 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime Updated { get; set; }
 
+        public virtual Course Course { get; set; }
         public virtual Answer CorrectAnswer { get; set; }
 
-        public virtual IList<Answer> Answers { get; protected set; }
+        private readonly IList<Answer> _answers = new List<Answer>();
+
+        public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
 
 
         public virtual IList<Transaction> Transactions { get; protected set; }
 
-        public virtual QuestionColor? Color { get; set; }
 
-       // public virtual int AnswerCount { get; set; }
+        // public virtual int AnswerCount { get; set; }
 
         public virtual Answer AddAnswer(string text, int attachments, RegularUser user, CultureInfo language)
         {
             var answer = new Answer(this, text, attachments, user, language);
-            Answers.Add(answer);
+            _answers.Add(answer);
+            AddEvent(new AnswerCreatedEvent(answer));
             return answer;
+        }
+
+        public virtual void RemoveAnswer(Answer answer, bool admin = false)
+        {
+            _answers.Remove(answer);
+            if (admin)
+            {
+                Transactions.Clear();
+                AddEvent(new AnswerDeletedEvent(answer));
+                if (CorrectAnswer != null)
+                {
+                    if (answer == CorrectAnswer)
+                    {
+                        CorrectAnswer = null;
+                    }
+                }
+            }
+        }
+
+        public virtual void Vote(VoteType type, RegularUser user)
+        {
+            if (Status != Public)
+            {
+                throw new NotFoundException();
+            }
+            if (User == user)
+            {
+                throw new UnauthorizedAccessException("you cannot vote you own question");
+            }
+            var vote = Votes.FirstOrDefault(w => w.User == user && w.Answer == null);
+            if (vote == null)
+            {
+                vote = new Vote(user, this, type);
+                _votes.Add(vote);
+
+            }
+
+            vote.VoteType = type;
+            VoteCount = Votes.Where(w => w.Answer == null).Sum(s => (int)s.VoteType);
+            if (VoteCount < VoteCountToFlag)
+            {
+                Status = Status.Flag(TooManyVotesReason, user);
+            }
         }
 
 
         public virtual CultureInfo Language { get; protected set; }
 
+        private readonly IList<Vote> _votes = new List<Vote>();
 
-      
+        public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
 
-        public override bool MakePublic()
+        public virtual int VoteCount { get; protected set; }
+
+
+        public virtual void MakePublic()
         {
-            var t = base.MakePublic();
-            if (t)
+            //TODO: maybe put an event to that
+            if (Status == null || Status == Pending)
             {
+                Status = Public;
                 AddEvent(new QuestionCreatedEvent(this));
             }
-
-            return t;
-        }
-
-
-        public override void DeleteAssociation()
-        {
-            Votes.Clear();
         }
 
         public virtual void DeleteQuestionAdmin()
         {
-            Transactions.Clear();
+            Delete();
             AddEvent(new QuestionDeletedAdminEvent(this));
         }
 
-        public override bool Delete()
+        public virtual void Delete()
         {
-            var t = base.Delete();
-            if (t)
-            {
-                AddEvent(new QuestionDeletedEvent(this));
-            }
+            Status = ItemStatus.Delete();
+            _votes.Clear();
+            AddEvent(new QuestionDeletedEvent(this));
 
-            return t;
         }
 
         public virtual void AcceptAnswer(Answer answer)
@@ -139,5 +188,35 @@ namespace Cloudents.Core.Entities
             CorrectAnswer = answer;
             AddEvent(new MarkAsCorrectEvent(answer));
         }
+
+
+
+        public virtual void Flag(string messageFlagReason, User user)
+        {
+            if (User.Id == user.Id)
+            {
+                throw new UnauthorizedAccessException("you cannot flag your own question");
+            }
+
+            Status = Status.Flag(messageFlagReason, user);
+
+        }
+
+        public virtual void UnFlag()
+        {
+            if (Status.State != ItemState.Flagged)
+            {
+                throw new ArgumentException();
+            }
+           
+            if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
+            {
+                _votes.Clear();
+                VoteCount = 0;
+            }
+            Status = Public;
+        }
     }
+
+
 }

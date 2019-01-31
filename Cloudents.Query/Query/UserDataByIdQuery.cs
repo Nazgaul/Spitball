@@ -48,13 +48,13 @@ namespace Cloudents.Query.Query
 
     public class UserWithUniversityQuery : IQuery<UserProfile>
     {
-        public UserWithUniversityQuery(long id, Guid? universityId)
+        public UserWithUniversityQuery(long id/*, Guid? universityId*/)
         {
             Id = id;
-            UniversityId = universityId;
+          //  UniversityId = universityId;
         }
 
         public long Id { get; }
-        public Guid? UniversityId { get; }
+        //public Guid? UniversityId { get; }
     }
 }

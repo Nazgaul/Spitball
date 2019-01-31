@@ -61,13 +61,13 @@ namespace Cloudents.Query.Admin
 
             var futureDto = _session.Query<Transaction>()
                 .Fetch(f => f.User)
-                .Where(w => w.Action == TransactionActionType.CashOut)
+                .Where(w => w.TransactionType.Action == TransactionActionType.CashOut)
                 .Where(w => w.Created > DateTime.Now - twoWeeks)
                 .Select(s => new SecondQuery
                 {
                     UserId = s.User.Id,
                     Email = s.User.Email,
-                    Price = s.Price,
+                    Price = s.TransactionType.Price,
                     Created = s.Created,
                     FraudScore = s.User.FraudScore,
                     IsIsrael = s.User.Country == "IL"

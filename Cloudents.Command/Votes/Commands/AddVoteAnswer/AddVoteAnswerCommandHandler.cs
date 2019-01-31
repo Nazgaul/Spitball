@@ -1,69 +1,75 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.Votes.Commands.AddVoteAnswer
 {
-    public class AddVoteAnswerCommandHandler : BaseAddVoteCommandHandler<Answer,Guid>, ICommandHandler<AddVoteAnswerCommand>
+    public class AddVoteAnswerCommandHandler : ICommandHandler<AddVoteAnswerCommand>
     {
-        private readonly IAnswerRepository _answerRepository;
+        private readonly IRepository<RegularUser> _userRepository;
+        private readonly IAnswerRepository _repository;
 
-        public AddVoteAnswerCommandHandler(IVoteRepository voteRepository,
+        public AddVoteAnswerCommandHandler(
             IRepository<RegularUser> userRepository,
              IAnswerRepository answerRepository)
-            : base(userRepository, voteRepository, answerRepository)
+
         {
-            _answerRepository = answerRepository;
+            _userRepository = userRepository;
+            _repository = answerRepository;
         }
 
         public async Task ExecuteAsync(AddVoteAnswerCommand message, CancellationToken token)
         {
-            await BaseExecuteAsync(message.UserId, message.AnswerId, message.VoteType, token);
-            //var user = await _userRepository.LoadAsync(message.UserId, token);
-            //if (!Privileges.CanVote(user.Score, message.VoteType))
+            var user = await _userRepository.LoadAsync(message.UserId, token);
+            
+            var answer = await _repository.LoadAsync(message.AnswerId, token);
+            answer.Vote(message.VoteType,user);
+           await _repository.UpdateAsync(answer, token);
+            //if (answer.State != ItemState.Ok)
             //{
-            //    throw new UnauthorizedAccessException("not enough score");
+            //    throw new NotFoundException();
             //}
-            //var answer = await _answerRepository.LoadAsync(message.AnswerId, token);
+            //await ValidateAsync(user, answer, token);
+            //var vote = await GetVoteAsync(user.Id, answer.Id, token);
 
-            //if (answer.User.Id == message.UserId)
-            //{
-            //    throw new UnauthorizedAccessException("you cannot vote you own answer");
-            //}
-
-            //var answerExists = await _answerRepository.GetUserAnswerInQuestion(answer.Question.Id, user.Id, token);
-            //if (answerExists != null)
-            //{
-            //    throw new UnauthorizedAccessException("you cannot vote if you gave answer");
-
-            //}
-
-            //var vote = await _voteRepository.GetVoteAnswerAsync(message.UserId, message.AnswerId, token);
             //if (vote == null && message.VoteType == VoteType.None)
             //{
             //    throw new ArgumentException();
             //}
             //if (vote == null)
             //{
-            //    //TODO : need to check
-            //    //var user = await _userRepository.LoadAsync(message.UserId, token);
-            //    vote = new Vote(user, answer, message.VoteType);
-            //    answer.Item.VoteCount += (int)vote.VoteType;
+            //    vote = CreateVote(user, answer, message.VoteType);
             //    await _voteRepository.AddAsync(vote, token);
+
+            //    answer.VoteCount += (int)vote.VoteType;
+
+            //    if (answer.VoteCount < VotesToFlag)
+            //    {
+            //        answer.Flag("Too many down vote", null);
+            //    }
             //    return;
             //}
 
             //if (message.VoteType == VoteType.None)
             //{
-            //    answer.Item.VoteCount -= (int)vote.VoteType;
+            //    answer.VoteCount -= (int)vote.VoteType;
+            //    if (answer.VoteCount < VotesToFlag)
+            //    {
+            //        answer.Flag("Too many down vote", null);
+            //        // _eventStore.Add(new ItemFlaggedEvent(question));
+            //    }
             //    await _voteRepository.DeleteAsync(vote, token);
             //    return;
             //}
 
-            //answer.Item.VoteCount -= (int)vote.VoteType;
-            //answer.Item.VoteCount += (int)message.VoteType;
+            //answer.VoteCount -= (int)vote.VoteType;
+            //answer.VoteCount += (int)message.VoteType;
+            //if (answer.VoteCount < VotesToFlag)
+            //{
+            //    answer.Flag("Too many down vote", null);
+            //    // _eventStore.Add(new ItemFlaggedEvent(question));
+            //}
             //vote.VoteType = message.VoteType;
 
             //await _voteRepository.UpdateAsync(vote, token);
@@ -71,28 +77,30 @@ namespace Cloudents.Command.Votes.Commands.AddVoteAnswer
 
         }
 
-        protected override Vote CreateVote(RegularUser user, Answer question, VoteType vote)
-        {
-            return new Vote(user, question, vote);
-        }
+        //public const int VotesToFlag = -2;
 
-        protected override Task<Vote> GetVoteAsync(long userId, Guid id, CancellationToken token)
-        {
-           return VoteRepository.GetVoteAnswerAsync(userId, id, token);
-        }
+        //protected Vote CreateVote(RegularUser user, Answer question, VoteType vote)
+        //{
+        //    return new Vote(user, question, vote);
+        //}
 
-        protected override async Task ValidateAsync(User user, Answer answer, CancellationToken token)
-        {
-            if (answer.User.Id == user.Id)
-            {
-                throw new UnauthorizedAccessException("you cannot vote you own answer");
-            }
+        //protected Task<Vote> GetVoteAsync(long userId, Guid id, CancellationToken token)
+        //{
+        //   return _voteRepository.GetVoteAnswerAsync(userId, id, token);
+        //}
 
-            var answerExists = await _answerRepository.GetUserAnswerInQuestion(answer.Question.Id, user.Id, token);
-            if (answerExists != null)
-            {
-                throw new UnauthorizedAccessException("you cannot vote if you gave answer");
-            }
-        }
+        //protected async Task ValidateAsync(User user, Answer answer, CancellationToken token)
+        //{
+        //    if (answer.User.Id == user.Id)
+        //    {
+        //        throw new UnauthorizedAccessException("you cannot vote you own answer");
+        //    }
+
+        //    var answerExists = await _repository.GetUserAnswerInQuestion(answer.Question.Id, user.Id, token);
+        //    if (answerExists != null)
+        //    {
+        //        throw new UnauthorizedAccessException("you cannot vote if you gave answer");
+        //    }
+        //}
     }
 }

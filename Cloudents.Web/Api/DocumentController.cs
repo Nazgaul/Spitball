@@ -1,5 +1,7 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Documents.ChangePrice;
+using Cloudents.Command.Documents.Delete;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
@@ -94,18 +96,15 @@ namespace Cloudents.Web.Api
                 prefix = "blur-";
             }
             var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
+            var fileNameTask = _blobProvider.FilesInDirectoryAsync("file-", query.Id.ToString(), token);
 
-
-
-            await Task.WhenAll(filesTask, tQueue);
-
+            await Task.WhenAll(filesTask, tQueue, fileNameTask);
             var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
-
-            model.Name = Path.GetFileNameWithoutExtension(model.Name);
             if (!filesTask.Result.Any())
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
             }
+            
             return new DocumentPreviewResponse(model, files);
         }
 
@@ -303,7 +302,37 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPost("price")]
+        public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
+        {
+            
+            if (model.price < 0)
+            {
+                ModelState.AddModelError(string.Empty, _localizer["PriceNeedToBeGreaterOrEqualZero"]);
+                return BadRequest(ModelState);
+            }
+            var userId = _userManager.GetLongUserId(User);
+            var command = new ChangePriceCommand(model.Id, userId, model.price);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> DeleteDocumentAsync([FromRoute]DeleteDocumentRequest model, CancellationToken token)
+        {
+            try
+            {
+                var command = new DeleteDocumentCommand(model.Id, _userManager.GetLongUserId(User));
+                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+        }
+
     }
-
-
 }

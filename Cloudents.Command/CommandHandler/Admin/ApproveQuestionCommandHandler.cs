@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler.Admin
@@ -22,7 +21,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             foreach (var questionId in message.QuestionIds)
             {
                 var question = await _questionRepository.LoadAsync(questionId, token);
-                question.ChangeState(ItemState.Ok);
+                question.MakePublic();
                 await _questionRepository.UpdateAsync(question, token);
             }
           

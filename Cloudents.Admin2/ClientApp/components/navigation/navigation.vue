@@ -18,7 +18,7 @@
         >
             <v-list>
                 <div v-for="(singleNav, i) in nav">
-                    <v-list-group  no-action value="">
+                    <v-list-group no-action value="">
                         <v-list-tile slot="activator" :to="singleNav.setting.path" @click="">
                             <v-list-tile-title>{{singleNav.setting.title}}</v-list-tile-title>
                         </v-list-tile>
@@ -48,73 +48,67 @@
             return {
                 nav: [
                     {
-                            setting: {
-                                title: 'Home',
-                                path: '/home'
-                            },
-                            childrens: [
-                                {name: 'Management', link: '', icon: 'people_outline'},
-                            ]
+                        setting: {
+                            title: 'Home',
+                            path: '/home'
+                        },
+                        childrens: [
+                            {name: 'Management', link: '', icon: 'people_outline'},
+                        ]
 
                     },
                     {
-                            setting: {
-                                title: 'Questions/Answers Actions',
-                                path: '/question'
+                        setting: {
+                            title: 'Questions/Answers Actions',
+                            path: '/question'
+                        },
+                        childrens: [
+                            {name: 'Mark as correct', link: '/question/mark', icon: 'people_outline'},
+                            {
+                                name: 'Pending Questions',
+                                link: '/question/pendingQuestions',
+                                icon: 'notifications_paused'
                             },
-                            childrens: [
-                                {name: 'Mark as correct', link: '/question/mark', icon: 'people_outline'},
-                                {name: 'Pending Questions', link: '/question/pendingQuestions', icon: 'notifications_paused'},
-                                {name: 'Flagged Questions', link: '/question/flaggedQuestions', icon: 'outlined_flag'},
-                                {name: 'Delete', link: '/question/delete', icon: 'delete_outline'},
-                                {name: 'Add', link: '/question/add', icon: 'add'},
-                                {name: 'Add Multiple', link: '/question/addBulk', icon: 'add_circle_outline'},
-                                // {name: 'Accept Question', link: '/question/acceptQuestion', icon: 'done'}    
-                                {name: 'Flagged Answers', link: '/answer/flaggedAnswers', icon: 'notifications_paused'},
-                                {name: 'Accept Pending', link: '/answer/acceptAnswer', icon: 'done'}                            
-                            ]
+                            {name: 'Flagged Questions', link: '/question/flaggedQuestions', icon: 'outlined_flag'},
+                            {name: 'Delete', link: '/question/delete', icon: 'delete_outline'},
+                            {name: 'Add', link: '/question/add', icon: 'add'},
+                            {name: 'Add Multiple', link: '/question/addBulk', icon: 'add_circle_outline'},
+                            // {name: 'Accept Question', link: '/question/acceptQuestion', icon: 'done'}
+                            {name: 'Flagged Answers', link: '/answer/flaggedAnswers', icon: 'notifications_paused'},
+                            // {name: 'Accept Pending', link: '/answer/acceptAnswer', icon: 'done'}
+                        ]
                     },
-                    // {
-                    //         setting: {
-                    //             title: 'Answer Actions',
-                    //             path: '/answer'
-                    //         },
-                    //         childrens: [
-                    //             {name: 'Flagged Answers', link: '/answer/flaggedAnswers', icon: 'notifications_paused'},
-                    //             {name: 'Delete Answer', link: '/answer/delete', icon: 'delete_outline'},
-                    //             {name: 'Accept Pending', link: '/answer/acceptAnswer', icon: 'done'}
-                    //         ]
-                    // },
+
                     {
-                            setting: {
-                                title: 'Document Actions',
-                                path: '/document'
-                            },
-                            childrens: [
-                                {name: 'Approve or Delete', link: '/document/approveDelete', icon: 'done'},
-                                {name: 'Delete by ID', link: '/document/documentDelete', icon: 'delete_outline'},
-                                {name: 'Flaged Docs', link: '/document/flaggedDocument', icon: 'outlined_flag'},
-                            ]
-                    },
-                    {
-                            setting: {
-                                title: 'User Actions',
-                                path: '/user'
-                            },
-                            childrens: [
-                                { name: 'User Token', link: '/user/token', icon: 'title'},
-                                { name: 'Cashout List', link: '/user/cashout', icon: 'attach_money'},
-                                { name: 'Suspend User', link: '/user/suspend', icon: 'block'},
+                        setting: {
+                            title: 'Document Actions',
+                            path: '/document'
+                        },
+                        childrens: [
+                            {name: 'Approve or Delete', link: '/document/approveDelete', icon: 'done'},
+                            {name: 'Delete by ID', link: '/document/documentDelete', icon: 'delete_outline'},
+                            {name: 'Flaged Docs', link: '/document/flaggedDocument', icon: 'outlined_flag'},
                         ]
                     },
                     {
-                            setting: {
-                                title: 'Dev Actions',
-                                path: '/dev'
-                            },
-                            childrens: [
-                                {name: 'Management', link: '', icon: 'people_outline'},
-                            ]
+                        setting: {
+                            title: 'User Actions',
+                            path: '/user'
+                        },
+                        childrens: [
+                            {name: 'User Token', link: '/user/token', icon: 'title'},
+                            {name: 'Cashout List', link: '/user/cashout', icon: 'attach_money'},
+                            {name: 'Suspend User', link: '/user/suspend', icon: 'block'},
+                        ]
+                    },
+                    {
+                        setting: {
+                            title: 'Dev Actions',
+                            path: '/dev'
+                        },
+                        childrens: [
+                            {name: 'Management', link: '', icon: 'people_outline'},
+                        ]
                     },
                 ]
             }

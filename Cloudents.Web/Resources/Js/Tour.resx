@@ -117,6 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="add_question_button_content" xml:space="preserve">
+    <value>Use your points (SBL) to add a question to the feed.</value>
+    <comment>אל דאגה, שאל כל שאלה בספיטבול וקבל תשובה תוך דקות</comment>
+  </data>
+  <data name="add_question_button_title" xml:space="preserve">
+    <value>Ask Questions</value>
+    <comment>נתקעת עם שיעורי בית?</comment>
+  </data>
+  <data name="classes_content" xml:space="preserve">
+    <value>Add your school and select a course to find class-specific resources.</value>
+    <comment>מוכן להשתלט על החומר?</comment>
+  </data>
+  <data name="classes_title" xml:space="preserve">
+    <value>Accessing Documents</value>
+    <comment>לחץ על הקורס כדי לגשת למשאבים שיעזרו לך לקבל מאיות.</comment>
+  </data>
   <data name="label_next" xml:space="preserve">
     <value>Next</value>
   </data>
@@ -129,12 +145,38 @@
   <data name="label_stop" xml:space="preserve">
     <value>Don't show again</value>
   </data>
+  <data name="question_ticket_content" xml:space="preserve">
+    <value>Reply to Q's with the right answer to earn points (SBL).</value>
+    <comment>אתה יכול להרוויח כסף מהידע שלך! הוסף את התשובה הנכונה לשאלה ותרוויח</comment>
+  </data>
+  <data name="question_ticket_title" xml:space="preserve">
+    <value>Answering Questions</value>
+    <comment>יודע את התשובה?</comment>
+  </data>
+  <data name="sbl_currency_content" xml:space="preserve">
+    <value>You can redeem your points (SBL), instead of spending on Spitball, for Amazon gift cards.</value>
+    <comment>ממש את את הנקודות שלך (SBL) כדי לקבל כרטיסי מתנה מ- BuyMe. ככל שתחסוך יותר SBL זה יהיה שווה לך יותר כסף במימוש</comment>
+  </data>
+  <data name="sbl_currency_title" xml:space="preserve">
+    <value>Cashing Out</value>
+    <comment>פדה כרטיסי מתנה מ- BuyMe</comment>
+  </data>
+  <data name="upload_button_content" xml:space="preserve">
+    <value>Add documents you find helpful to earn points (SBL).</value>
+    <comment>מעולה! תעלה מסמכי לימוד מהקורס שלך ותרוויח כסף בכל פעם שמישהו רוכש אותם.</comment>
+  </data>
+  <data name="upload_button_title" xml:space="preserve">
+    <value>Posting Documents</value>
+    <comment>יש לך מסמכי לימוד?</comment>
+  </data>
   <data name="vote_content" xml:space="preserve">
-    <value>Upvote or Downvote Questions, Answers and Documents.</value>
-    <comment>הצבע בעד או נגד שאלות, תשובות ומסמכים.</comment>
+    <value>Very important: Upvote or Downvote to grade the questions, answers and documents you see.
+
+Example: The correct answer deserves your upvote, but the incorrect answer needs your downvote.</value>
+    <comment>דרג שאלות, תשובות ומסמכים.</comment>
   </data>
   <data name="vote_title" xml:space="preserve">
-    <value>Point other students to quality content on Spitball.</value>
-    <comment>הפנה סטודנטים אחרים לתוכן איכותי בספיטבול.</comment>
+    <value>Grading System</value>
+    <comment>דרג תוכן של תלמידים אחרים.</comment>
   </data>
 </root>

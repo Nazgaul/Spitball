@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using System.Globalization;
+using Cloudents.Core.Entities;
 using FluentNHibernate;
 using FluentNHibernate.Mapping;
 
@@ -21,7 +22,10 @@ namespace Cloudents.Persistance.Maps
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
-            Map(e => e.Culture);
+           // Map(e => e.Culture);
+
+           
+
             Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();
@@ -30,41 +34,27 @@ namespace Cloudents.Persistance.Maps
           
             Map(e => e.OldUser).Nullable();
 
-            Map(e => e.Score);
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
-
-            Map(x => x.Balance).CustomSqlType("smallmoney");
-
-            HasMany(x => x.Transactions)
-                .Inverse()
-                .Cascade.AllDeleteOrphan();
+            References(x => x.Language).Column("Language").ForeignKey("User_Language").Nullable();
+         
 
            
 
             HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
-            
-          
+
+
 
             //Map(x => x.Languages).CustomType<JsonType<ISet<CultureInfo>>>();
 
 
-            HasManyToMany(x => x.Courses)
-                .ParentKeyColumn("UserId")
-                .ChildKeyColumn("CourseId")
-                .ForeignKeyConstraintNames("User_Courses","Courses_User")
-                .Table("UsersCourses").AsSet();
 
-
-            HasManyToMany(x => x.Tags)
-                .ParentKeyColumn("UserId")
-                .ChildKeyColumn("TagId")
-                .ForeignKeyConstraintNames("User_Tags", "Tags_User")
-                .Table("UsersTags").AsSet();
-
+            //Map(x => x.Balance).CustomSqlType("smallmoney");
+            Map(x => x.Score).ReadOnly();
             Table("[User]");
 
+            
             SchemaAction.None();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
@@ -94,6 +84,32 @@ namespace Cloudents.Persistance.Maps
             HasMany(x => x.UserLogins)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
+
+            Component(x => x.Transactions, y =>
+            {
+                y.Map(x => x.Score);
+                y.Map(x => x.Balance).CustomSqlType("smallmoney");
+                y.HasMany(x => x.Transactions).KeyColumn("User_id")
+                    .Cascade.AllDeleteOrphan();
+            });
+            //Map(x => x.Balance).CustomSqlType("smallmoney");
+            //Map(x => x.Score);
+            
+
+
+
+            HasManyToMany(x => x.Courses)
+                .ParentKeyColumn("UserId")
+                .ChildKeyColumn("CourseId")
+                .ForeignKeyConstraintNames("User_Courses", "Courses_User")
+                .Table("UsersCourses").AsSet();
+
+
+            HasManyToMany(x => x.Tags)
+                .ParentKeyColumn("UserId")
+                .ChildKeyColumn("TagId")
+                .ForeignKeyConstraintNames("User_Tags", "Tags_User")
+                .Table("UsersTags").AsSet();
         }
     }
 

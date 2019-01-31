@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Core.DTOs
+﻿namespace Cloudents.Core.DTOs
 {
     public class LeaderBoardDto
     {

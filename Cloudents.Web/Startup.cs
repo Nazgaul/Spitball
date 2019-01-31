@@ -1,6 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using Cloudents.Core;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
+using Cloudents.Infrastructure.Data;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
@@ -12,6 +18,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,19 +31,10 @@ using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
-using Cloudents.Infrastructure.Data;
-using Cloudents.Search;
-using Cloudents.Web.Resources;
-using Microsoft.AspNetCore.HttpOverrides;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -148,7 +146,7 @@ namespace Cloudents.Web
             //{
             //    o.ValidationInterval = TimeSpan.FromMinutes(2);
             //});
-            
+
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb4";
@@ -175,7 +173,7 @@ namespace Cloudents.Web
             services.AddTransient<ICountryProvider, CountryProvider>();
 
 
-            
+
             //var z = AppDomain.CurrentDomain.GetAssemblies().Where(w =>
             //        w.FullName.StartsWith("Cloudents", StringComparison.OrdinalIgnoreCase))
             //    .ToList();
@@ -284,16 +282,16 @@ namespace Cloudents.Web
             app.UseResponseCaching();
 
             //app.UseStatusCodePages();
-            
+
 
             app.UseRequestLocalization(o =>
             {
 
                 o.DefaultRequestCulture = new RequestCulture(Language.English);
                 // Formatting numbers, dates, etc.
-                o.SupportedCultures = Language.SystemSupportLanguage;// SupportedCultures;
+                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
                 // UI strings that we have localized.
-                o.SupportedUICultures = Language.SystemSupportLanguage;
+                //o.SupportedUICultures = Language.SystemSupportLanguage().ToList();
                 o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
 
             });
@@ -313,19 +311,20 @@ namespace Cloudents.Web
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
-
-            app.UseAuthentication();
-            
-            app.UseAzureSignalR(routes =>
-            {
-                routes.MapHub<SbHub>("/SbHub");
-            });
             //This is for ip
+            //https://stackoverflow.com/a/41335701/1235448
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor |
                                    ForwardedHeaders.XForwardedProto
             });
+            app.UseAuthentication();
+
+            app.UseAzureSignalR(routes =>
+            {
+                routes.MapHub<SbHub>("/SbHub");
+            });
+           
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

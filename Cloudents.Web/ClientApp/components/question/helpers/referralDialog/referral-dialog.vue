@@ -1,5 +1,5 @@
 <template>
-    <v-card :style="isTransparent ? 'background: transparent;' : 'background-color: #fff;' ">
+    <v-card elevation="0" :style="isTransparent ? 'background: transparent;' : 'background-color: #fff;' ">
         <div class="dialog-wrapp referral-container">
             <button class="close-btn text-md-right" @click.prevent="requestDialogClose()">
                 <v-icon>sbf-close</v-icon>
@@ -111,7 +111,9 @@
             requestDialogClose() {
                 this.isCopied = false;
                 this.$root.$emit('closePopUp', this.popUpType);
-                this.closeDialog()
+                if(this.closeDialog){
+                    this.closeDialog()
+                }
             },
             doCopy() {
                 let self = this;

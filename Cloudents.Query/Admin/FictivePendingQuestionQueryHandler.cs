@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Admin;
@@ -8,7 +7,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Admin;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 
 namespace Cloudents.Query.Admin
 {
@@ -35,7 +33,7 @@ namespace Cloudents.Query.Admin
                         .JoinAlias(x => x.User, () => userAlias)
                         .Select(s => s.Id)
                         .Where(() => userAlias.Country == county)
-                        .And(w=>w.State == ItemState.Pending)
+                        .And(w=>w.Status.State == ItemState.Pending)
                         .OrderBy(Projections.SqlFunction("random_Order", NHibernateUtil.Guid)).Asc
                         .Take(1)
                         .FutureValue<long>();

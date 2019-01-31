@@ -8,7 +8,7 @@
                     </v-toolbar>
                     <v-card v-for="(question, index) in questions" :key="index" style="padding: 0 12px;">
                         <v-toolbar class="question-toolbar mt-4 back-color-purple">
-                            <v-toolbar-title class="question-text-title">
+                            <v-toolbar-title class="question-text-title cursor-default">
                                 {{question.text}}
                             </v-toolbar-title>
                             <v-spacer></v-spacer>
@@ -19,12 +19,18 @@
                                 <span>User ID:{{question.user.id}}</span>
                             </div>
                             <div class="question-actions-container">
-                                <v-btn icon @click="declineQuestion(question, index)">
+                                <v-tooltip left>
+                                <v-btn slot="activator" icon @click="declineQuestion(question, index)">
                                     <v-icon color="red">close</v-icon>
                                 </v-btn>
-                                <v-btn icon @click="aproveQ(question, index)">
+                                    <span>Decline Question</span>
+                                </v-tooltip>
+                                <v-tooltip left>
+                                <v-btn slot="activator" icon @click="aproveQ(question, index)">
                                     <v-icon color="green">done</v-icon>
                                 </v-btn>
+                                    <span>Accept Question</span>
+                                </v-tooltip>
                             </div>
                         </v-toolbar>
 
@@ -54,7 +60,7 @@
                 </v-flex>
             </v-layout>
             <div v-if="loading">Loading questions, please wait...</div>
-            <div v-show="questions.length === 0 && !loading">No more flagged questions</div>
+            <div v-show="questions.length === 0 && !loading">No more pending questions</div>
         </div>
 
     </div>
@@ -65,6 +71,9 @@
 <style lang="scss" scoped>
     .user-id, .user-email {
         cursor: pointer;
+    }
+    .cursor-default{
+        cursor: default!important;
     }
     .v-list__tile__content {
         &.answers-content {
@@ -91,6 +100,7 @@
         }
     }
     .question-toolbar {
+        cursor: default;
         .v-toolbar__content {
             height: auto !important;
             text-align: left;
@@ -100,6 +110,7 @@
 
     .question-text-title {
         white-space: pre-line;
+        cursor: default;
     }
 
     .panding-question-container {

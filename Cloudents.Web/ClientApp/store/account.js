@@ -122,17 +122,17 @@ const mutations = {
                 if(item.id === id){
                     state.profile.questions.splice(index, 1)
                 }
-            })
+            });
             state.profile.answers.forEach((item, index)=>{
                 if(item.id === id){
                     state.profile.answers.splice(index, 1)
                 }
-            })
+            });
             state.profile.documents.forEach((item, index)=>{
                 if(item.id === id){
                     state.profile.documents.splice(index, 1)
                 }
-            })
+            });
             state.profile.purchasedDocuments.forEach((item, index)=>{
                 if(item.id === id){
                     state.profile.purchasedDocuments.splice(index, 1)

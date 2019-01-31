@@ -54,7 +54,8 @@ const vuetifyComponents = {
     VCombobox,
     VCheckbox,
     VParallax,
-    VBottomNav
+    VBottomNav,
+    VTextarea,
 };
 import {
     Vuetify,
@@ -89,9 +90,8 @@ import {
     VCombobox,
     VCheckbox,
     VParallax,
-    VBottomNav
-
-
+    VBottomNav,
+    VTextarea
 } from "vuetify";
 import * as route from "./routes";
 
@@ -227,7 +227,7 @@ Vue.filter('fixedPoints', function (value) {
 
 Vue.filter('dollarVal', function (value) {
     if (!value) return 0;
-    return parseFloat(value / 40).toFixed(2);
+    return parseFloat(value / 100).toFixed(2);
 });
 
 // 10/12/2018

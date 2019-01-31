@@ -117,7 +117,7 @@ namespace Cloudents.Web.Api
             }
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateUserCultureCommand(userId, culture.Culture);
+            var command = new UpdateUserCultureCommand(userId, culture.Culture.Name);
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();
@@ -136,7 +136,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserWithUniversityQuery(userId, universityId);
+            var query = new UserWithUniversityQuery(userId);
             var t = await _queryBus.QueryAsync(query, token);
             return t.Courses.Select(s => new CourseDto(s));
         }

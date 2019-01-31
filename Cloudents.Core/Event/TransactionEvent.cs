@@ -5,11 +5,13 @@ namespace Cloudents.Core.Event
 {
     public class TransactionEvent : IEvent
     {
-        public TransactionEvent(Transaction tx)
+        public TransactionEvent(Transaction tx, RegularUser user)
         {
             Transaction = tx;
+            User = user;
         }
 
-        public Transaction Transaction { get; private set; }
+        public Transaction Transaction { get;  }
+        public RegularUser User { get; }
     }
 }

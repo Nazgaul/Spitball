@@ -1,39 +1,36 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Command.Command
 {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local", Justification = "Automapper handle that")]
-    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global" , Justification = "Automapper")]
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper")]
     public class CreateQuestionCommand : ICommand
     {
-        public CreateQuestionCommand(QuestionSubject subjectId, string text, decimal price, long userId, 
-            [CanBeNull] IEnumerable<string> files,  QuestionColor color)
+        public CreateQuestionCommand(QuestionSubject subjectId, string text, decimal price, long userId,
+            [CanBeNull] IEnumerable<string> files,  string course)
         {
             SubjectId = subjectId;
             Text = text;
             Price = price;
             UserId = userId;
             Files = files;
-            Color = color;
+            Course = course;
         }
 
-        public QuestionSubject SubjectId { get;  set; }
-        public string Text { get;  set; }
+        public QuestionSubject SubjectId { get; }
+        public string Text { get; }
 
-        public decimal Price { get;  set; }
+        public decimal Price { get; }
 
-        public long UserId { get;  set; }
+        public long UserId { get; }
 
         [CanBeNull]
-        public IEnumerable<string> Files { get;  set; }
+        public IEnumerable<string> Files { get; }
 
-        //TODO : remove this
-        public long Id { get; set; }
-
-        public QuestionColor Color { get; set; }
+        public string Course { get; }
 
     }
 }

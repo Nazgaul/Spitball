@@ -1,9 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
-using Cloudents.Core;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -14,20 +12,18 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRepository<RegularUser> _userRepository;
         private readonly IUniversityRepository _universityRepository;
-        private readonly ITransactionRepository _transactionRepository;
 
-        public AssignUniversityToUserCommandHandler(IRepository<RegularUser> userRepository, IUniversityRepository universityRepository, ITransactionRepository transactionRepository)
+        public AssignUniversityToUserCommandHandler(IRepository<RegularUser> userRepository,
+            IUniversityRepository universityRepository)
         {
             _userRepository = userRepository;
             _universityRepository = universityRepository;
-            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(AssignUniversityToUserCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            var country = message.Country ?? user.Country;
-            var university = await _universityRepository.GetUniversityByNameAsync(message.UniversityName, country, token);
+            var user = await _userRepository.LoadAsync(message.UserId, token);
+            var university = await _universityRepository.GetUniversityByNameAsync(message.UniversityName, token);
             if (university == null)
             {
                 university = new University(message.UniversityName, user.Country);
@@ -36,11 +32,10 @@ namespace Cloudents.Command.CommandHandler
 
             if (user.University == null)
             {
-                var t = new Transaction(TransactionActionType.Awarded, TransactionType.Earned,ReputationAction.University, user);
-                await _transactionRepository.AddAsync(t, token);
+                user.MakeTransaction(TransactionType2.University);
             }
             user.University = university;
-            await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);
+            await _userRepository.UpdateAsync(user, token);
         }
     }
 }

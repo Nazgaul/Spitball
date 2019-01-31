@@ -31,18 +31,29 @@
                                         </v-container>
                                     </v-img>
                                     <v-card-actions>
-                                        <v-btn flat
+                                        <v-tooltip left>
+                                        <v-btn slot="activator" flat
                                                @click="unflagSingleDocument(document)"
                                                :disabled="proccessedDocuments.includes(document.id)">
                                             Unflag
                                             <v-icon>check</v-icon>
                                         </v-btn>
-                                        <v-btn flat color="purple"
+                                            <span>UnFlag Document</span>
+                                        </v-tooltip>
+                                        <v-tooltip left>
+                                        <v-btn slot="activator" flat color="purple"
                                                :disabled="proccessedDocuments.includes(document.id)"
                                                @click="deleteDocument(document)">
                                             Delete
                                             <v-icon>delete</v-icon>
                                         </v-btn>
+                                            <span>Delete Document</span>
+                                        </v-tooltip>
+
+                                            <v-btn slot="activator" flat color="red" :href="document.siteLink" target="_blank">
+                                                Download
+                                            </v-btn>
+
 
                                         <!-- <v-btn flat color="red" v-bind:href="document.siteLink" target="_blank">
                                             Link

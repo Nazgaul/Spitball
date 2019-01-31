@@ -17,9 +17,12 @@
                                 <span title="date mr-2">{{question.create | dateFromISO}}&nbsp;&nbsp;</span>
                                 <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
                                 <div class="question-actions-container">
-                                    <v-btn icon @click="deleteQuestionByID(question)">
-                                        <v-icon color="red">close</v-icon>
-                                    </v-btn>
+                                    <v-tooltip left>
+                                        <v-btn slot="activator" icon @click="deleteQuestionByID(question)">
+                                            <v-icon color="red">close</v-icon>
+                                        </v-btn>
+                                        <span>Delete question by ID</span>
+                                    </v-tooltip>
                                 </div>
                                 <!--<v-btn icon @click="openQuestion(question.url)">-->
                                 <!--<v-icon>open_in_browser</v-icon>-->
@@ -35,9 +38,12 @@
                                         </v-list-tile-content>
                                         <v-list-tile-action class="answer-action">
                                             <v-list-tile-action-text></v-list-tile-action-text>
-                                            <v-btn icon @click="deleteAnswerByID(question, answer)">
+                                            <v-tooltip left>
+                                            <v-btn slot="activator" icon @click="deleteAnswerByID(question, answer)">
                                                 <v-icon color="red">close</v-icon>
                                             </v-btn>
+                                                <span>Delete Answer</span>
+                                            </v-tooltip>
                                         </v-list-tile-action>
                                         <v-list-tile-action class="answer-action">
                                             <v-list-tile-action-text></v-list-tile-action-text>
@@ -46,9 +52,12 @@
                                                 <b>{{answer.imagesCount}}</b>
                                                 <v-icon class="font-size-16">attach_file</v-icon>
                                             </span>
-                                            <v-btn icon @click="acceptQuestion(question, answer)">
+                                            <v-tooltip left>
+                                            <v-btn slot="activator" icon @click="acceptQuestion(question, answer)">
                                                 <v-icon color="green">done</v-icon>
                                             </v-btn>
+                                                <span>Accept Answer</span>
+                                            </v-tooltip>
                                         </v-list-tile-action>
 
                                     </v-list-tile>
@@ -99,7 +108,7 @@
     .v-toolbar__title {
         &.question-text-title {
             font-size: 14px;
-            white-space: normal;
+            white-space: pre-line;
             text-align: left;
             max-width: 80%;
             &:hover {
@@ -107,8 +116,6 @@
             }
         }
     }
-
-
 
     .answers-list-tile {
         .v-list__tile {
@@ -124,17 +131,17 @@
         }
     }
 
-    .question-actions-container {
-        visibility: hidden;
-    }
+    /*.question-actions-container {*/
+    /*visibility: hidden;*/
+    /*}*/
 
     .question-toolbar, .v-card {
         max-width: 1280px;
-        &:hover {
-            .question-actions-container {
-                visibility: visible;
-            }
-        }
+        /*&:hover {*/
+        /*.question-actions-container {*/
+        /*visibility: visible;*/
+        /*}*/
+        /*}*/
     }
 
     .question-toolbar {

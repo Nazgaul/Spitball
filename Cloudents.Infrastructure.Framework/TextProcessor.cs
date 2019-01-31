@@ -1,102 +1,120 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.IO;
-//using System.Linq;
-//using System.Text;
-//using System.Threading;
-//using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
-//namespace Cloudents.Infrastructure.Framework
-//{
-//    public class TextProcessor : IPreviewProvider
-//    {
-//        //private const string CacheVersion = Processor.CacheVersionPrefix + "1";
-//        private readonly IBlobProvider<OldSbFilesContainerName> _blobProvider;
-//        private readonly string _blobUri;
-//        private readonly IBlobProvider<OldCacheContainer> _blobProviderCache;
+namespace Cloudents.Infrastructure.Framework
+{
+    public class TextProcessor : IPreviewProvider2
+    {
 
-
-//        public TextProcessor(IBlobProvider<OldSbFilesContainerName> blobProvider, 
-//            string blobUri,
-//            IBlobProvider<OldCacheContainer> blobProviderCache)
-//        {
-//            _blobProvider = blobProvider;
-//            _blobUri = blobUri;
-//            _blobProviderCache = blobProviderCache;
-//        }
-//        //private readonly IBlobProvider2<ICacheContainer> m_BlobProviderCache;
-//        //public TextProcessor(IBlobProvider blobProvider, IBlobProvider2<ICacheContainer> blobProviderCache)
-//        //    : base(blobProvider)
-//        //{
-//        //    m_BlobProviderCache = blobProviderCache;
-//        //}
-
-//        //public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
-//        //{
-//        //    await UploadMetaDataAsync(blobUri, 1, CacheVersion, cancelToken).ConfigureAwait(false);
-//        //    return null;
-//        //}
-
-//        public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(
-//            int indexNum, CancellationToken cancelToken)
-//        {
-//            //var blobName = _blobProvider.GetBlobNameFromUri(_blobUri);
-
-//            if (indexNum > 0)
-//            {
-//                return Enumerable.Empty<string>();
-//            }
-//            var blobsNamesInCache = new List<string>();
-
-//            var cacheFileName = CreateCacheFileName(_blobUri);
-
-//            if (await _blobProviderCache.ExistsAsync(cacheFileName, cancelToken).ConfigureAwait(false))
-//            {
-//                blobsNamesInCache.Add(_blobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30));
-//                return blobsNamesInCache;
-//            }
-
-//            using (var stream = new StreamReader(await _blobProvider.DownloadFileAsync(_blobUri, cancelToken).ConfigureAwait(false)))
-//            {
-//                var content = await stream.ReadToEndAsync().ConfigureAwait(false);
-//                using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(content)))
-//                {
-//                    blobsNamesInCache.Add(await UploadFileToCacheAsync(ms, cacheFileName, cancelToken).ConfigureAwait(false));
-//                }
-//            }
-//            return blobsNamesInCache;
-//        }
-
-//        public async Task<string> UploadFileToCacheAsync(Stream stream, string cacheFileName, CancellationToken token)
-//        {
-//            if (stream.Length == 0)
-//            {
-//                throw new ArgumentException("Stream is 0");
-//            }
-//            var sr = await Compress.CompressToGzipAsync(stream, token).ConfigureAwait(false);
-//            await _blobProviderCache.UploadStreamAsync(cacheFileName, sr, "text/plain", true, 30, token).ConfigureAwait(false);
-//            return _blobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30);
-//        }
-
-//        private static string CreateCacheFileName(string blobName)
-//        {
-//            return $"{Path.GetFileNameWithoutExtension(blobName)}V3_{Path.GetExtension(blobName)}.html";
-//        }
-
-//        public static readonly string[] TxtExtensions = { ".txt", ".cpp", ".c", ".h", ".manifest", ".vcproj", ".java", ".sql", ".cs", ".css", ".less", ".log", ".vpp", ".xaml", ".xml", ".ini", ".suo", ".sln", ".php", ".js", ".config", ".htm", ".svg", ".html" };
+        public static readonly string[] Extensions = { ".txt", ".cpp", ".c", ".h", ".manifest", ".vcproj", ".java", ".sql", ".cs", ".css", ".less", ".log", ".vpp", ".xaml", ".xml", ".ini", ".suo", ".sln", ".php", ".js", ".config", ".htm", ".svg", ".html" };
 
 
-//        //public override bool CanProcessFile(Uri blobName)
-//        //{
-//        //    return blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl) && TxtExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-//        //}
 
-//        //public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
-//        //{
-//        //    using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobUri, cancelToken).ConfigureAwait(false)))
-//        //    {
-//        //        return await stream.ReadToEndAsync().ConfigureAwait(false);
-//        //    }
-//        //}
-//    }
-//}
+        private string _text;
+        public void Init(Stream stream)
+        {
+            using (var sr = new StreamReader(stream, GetEncoding(stream)))
+            {
+                _text = sr.ReadToEnd();
+            }
+        }
+
+        private static Encoding GetEncoding(Stream sr)
+        {
+            // Read the BOM
+            var bom = new byte[4];
+            sr.Read(bom, 0, 4);
+
+            sr.Seek(0, SeekOrigin.Begin);
+            // Analyze the BOM
+            if (bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76) return Encoding.UTF7;
+            if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf) return Encoding.UTF8;
+            if (bom[0] == 0xff && bom[1] == 0xfe) return Encoding.Unicode; //UTF-16LE
+            if (bom[0] == 0xfe && bom[1] == 0xff) return Encoding.BigEndianUnicode; //UTF-16BE
+            if (bom[0] == 0 && bom[1] == 0 && bom[2] == 0xfe && bom[3] == 0xff) return Encoding.UTF32;
+            return Encoding.ASCII;
+        }
+
+        public (string text, int pagesCount) ExtractMetaContent()
+        {
+            return (_text, 1);
+        }
+
+        public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback, CancellationToken token)
+        {
+            var enumerable = previewDelta.ToList();
+
+            //first, create a dummy bitmap just to get a graphics object
+            using (Image img = new Bitmap(1, 1))
+            {
+                using (Graphics drawing = Graphics.FromImage(img))
+                {
+                    var font = new Font(FontFamily.GenericSansSerif, 12);
+                    var i = 0;
+                    foreach (var splitInPart in SplitInParts(_text, 1000))
+                    {
+                        if (enumerable.Contains(i))
+                        {
+                            continue;
+                        }
+                        SizeF textSize = drawing.MeasureString(splitInPart, font);
+                        using (var img2 = new Bitmap((int)textSize.Width, (int)textSize.Height))
+                        {
+
+                            using (var drawing2 = Graphics.FromImage(img2))
+                            {
+
+                                //paint the background
+                                drawing2.Clear(Color.White);
+
+                                //create a brush for the text
+                                using (Brush textBrush = new SolidBrush(Color.Black))
+                                {
+
+                                    drawing2.DrawString(splitInPart, font, textBrush, 0, 0);
+
+                                    drawing2.Save();
+                                }
+
+                            }
+
+                            using (var ms = new MemoryStream())
+                            {
+                                img2.Save(ms, ImageFormat.Jpeg);
+                                await pagePreviewCallback(ms, $"{i}.jpg");
+                            }
+
+                            i++;
+                        }
+                    }
+                }
+            }
+
+            //create a new image of the right size
+
+            //return img;
+        }
+
+
+
+        public static IEnumerable<string> SplitInParts(string s, int partLength)
+        {
+            if (s == null)
+                throw new ArgumentNullException("s");
+            if (partLength <= 0)
+                throw new ArgumentException("Part length has to be positive.", "partLength");
+
+            for (var i = 0; i < s.Length; i += partLength)
+                yield return s.Substring(i, Math.Min(partLength, s.Length - i));
+        }
+
+
+    }
+}

@@ -17,13 +17,13 @@ namespace Cloudents.Persistance.Repositories
         }
 
        
-        public Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token)
-        {
-            return Session.Query<Answer>()
-                .Where(w => w.Question.Id == questionId && w.User.Id == userId && w.State == ItemState.Ok)
-                .SingleOrDefaultAsync(token);
+        //public Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token)
+        //{
+        //    return Session.Query<Answer>()
+        //        .Where(w => w.Question.Id == questionId && w.User.Id == userId && w.Status.State == ItemState.Ok)
+        //        .SingleOrDefaultAsync(token);
 
-        }
+        //}
 
         public Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token)
         {
@@ -31,7 +31,7 @@ namespace Cloudents.Persistance.Repositories
                 .Fetch(f => f.Question)
                 .Where(w => w.User.Id == userId)
                 .Where(w => w.Question.CorrectAnswer.Id == null 
-                            && w.Question.Created > DateTime.UtcNow.AddDays(-7) && w.State == ItemState.Ok)
+                            && w.Question.Created > DateTime.UtcNow.AddDays(-7) && w.Status.State == ItemState.Ok)
                 .CountAsync(token);
 
         }

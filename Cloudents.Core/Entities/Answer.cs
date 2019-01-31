@@ -1,11 +1,14 @@
 ﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Cloudents.Core.Exceptions;
+using static Cloudents.Core.Entities.ItemStatus;
+using static Cloudents.Core.Entities.Vote;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
@@ -15,7 +18,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Answer : ItemObject
+    public class Answer : Entity<Guid>, ISoftDelete
     {
         public Answer(Question question, string text, int attachments, RegularUser user, CultureInfo language)
             : this()
@@ -25,8 +28,8 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            MakePublic();
             Language = language;
+            Status = Public;
 
         }
 
@@ -34,7 +37,7 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual Guid Id { get; set; }
+       // public virtual Guid Id { get; set; }
         public virtual Question Question { get; set; }
 
         public virtual string Text { get; set; }
@@ -48,70 +51,107 @@ namespace Cloudents.Core.Entities
         public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
 
 
-        public override void DeleteAssociation()
-        {
-            Votes.Clear();
-        }
+        public virtual ItemStatus Status { get; set; }
+
+       
+
+
+       private readonly ICollection<Vote> _votes = new List<Vote>();
+       public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
+
+        public virtual int VoteCount { get;  set; }
 
         public virtual CultureInfo Language { get; protected set; }
-        //for dbi only
-        public virtual void SetLanguage(CultureInfo info)
+       
+
+        public virtual void UnFlag()
         {
-            if (info.Equals(CultureInfo.InvariantCulture))
-            {
-                return;
-            }
+            if (Status.State != ItemState.Flagged) return;
 
-            if (Language != null)
+            if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
             {
-                throw new InvalidOperationException("Cannot change language of answer");
+                _votes.Clear();
+                VoteCount = 0;
             }
+            Status = Public;
 
-            Language = info;
+        }
+        public virtual void Flag(string messageFlagReason, RegularUser user)
+        {
+            if (User == user)
+            {
+                throw new UnauthorizedAccessException("you cannot flag your own question");
+            }
+            Status = Status.Flag(messageFlagReason, user);
         }
 
-        public override bool Delete()
+        public virtual void Vote(VoteType type, RegularUser user)
         {
-            var t = base.Delete();
-            if (t)
+            if (Status != Public)
             {
-                AddEvent(new AnswerDeletedEvent(this));
+                throw new NotFoundException();
+            }
+            if (User == user)
+            {
+                throw new UnauthorizedAccessException("you cannot vote you own answer");
             }
 
-            return t;
-        }
-
-        public virtual void DeleteAnswerAdmin()
-        {
-            Transactions.Clear();
-            AddEvent(new AnswerDeletedEvent(this));
-            if (Question.CorrectAnswer != null)
+            if (Question.Answers.Any(w => w.Status == Public && w.User == user))
             {
-                if (Id == Question.CorrectAnswer.Id)
-                {
-                    Question.CorrectAnswer = null;
-                }
+                throw new UnauthorizedAccessException("you cannot vote if you gave answer");
             }
-        }
-
-        public override bool MakePublic()
-        {
-            var t = base.MakePublic();
-            AddEvent(new AnswerCreatedEvent(this));
-
-            return t;
-        }
-
-        public override void ChangeState(ItemState state)
-        {
-            base.ChangeState(state);
-            if (State == ItemState.Pending)
+            var vote = Votes.FirstOrDefault(w => w.User == user);
+            if (vote == null)
             {
-                throw new ArgumentOutOfRangeException(nameof(state), state, null);
+                vote = new Vote(user, this, type);
+                _votes.Add(vote);
+
+            }
+
+            vote.VoteType = type;
+            VoteCount = Votes.Sum(s => (int) s.VoteType);
+            if (VoteCount < VoteCountToFlag)
+            {
+                Status = Status.Flag(TooManyVotesReason, user);
             }
         }
 
-        //public override ItemComponent Item { get; set; }
+        public virtual void Delete()
+        {
+            _votes.Clear();
+            Status = ItemStatus.Delete();
+        }
+
+        //public virtual void DeleteAnswerAdmin()
+        //{
+        //    Transactions.Clear();
+        //   // AddEvent(new AnswerDeletedEvent(this));
+        //    if (Question.CorrectAnswer != null)
+        //    {
+        //        if (Id == Question.CorrectAnswer.Id)
+        //        {
+        //            Question.CorrectAnswer = null;
+        //        }
+        //    }
+        //}
+
+        //public override bool MakePublic()
+        //{
+        //    var t = base.MakePublic();
+        //    AddEvent(new AnswerCreatedEvent(this));
+
+        //    return t;
+        //}
+
+        //public override void ChangeState(ItemState state)
+        //{
+        //    base.ChangeState(state);
+        //    if (State == ItemState.Pending)
+        //    {
+        //        throw new ArgumentOutOfRangeException(nameof(state), state, null);
+        //    }
+        //}
+        
     }
 
 }

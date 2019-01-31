@@ -5,6 +5,7 @@ using Cloudents.Core.Storage;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.EventHandler
 {
@@ -14,7 +15,7 @@ namespace Cloudents.Core.EventHandler
             IEventHandler<QuestionDeletedAdminEvent>,
             IEventHandler<MarkAsCorrectEvent>,
             IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>,
-            IEventHandler<UpdateBalanceEvent>
+            IEventHandler<TransactionEvent>
     {
         private readonly IServiceBusProvider _queueProvider;
 
@@ -26,8 +27,13 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
+            var score = 0;
+            if (eventMessage.Question.User.Actual is RegularUser p)
+            {
+                score = p.Transactions.Score;
+            }
             var user = new UserDto(eventMessage.Question.User.Id, eventMessage.Question.User.Name,
-                eventMessage.Question.User.Score);
+                score);
 
             var dto = new QuestionFeedDto(eventMessage.Question.Id,
                 eventMessage.Question.Subject,
@@ -37,10 +43,9 @@ namespace Cloudents.Core.EventHandler
                 0,
                 user,
                 DateTime.UtcNow,
-                eventMessage.Question.Color,
                 false,
                 eventMessage.Question.Language,
-                0);
+                0, eventMessage.Question.Course?.Name);
             if (eventMessage.Question.Language.Name.Equals("en", StringComparison.OrdinalIgnoreCase))
             {
                 await _queueProvider.InsertMessageAsync(
@@ -74,33 +79,15 @@ namespace Cloudents.Core.EventHandler
                     answerId = eventMessage.Answer.Id
                 });
 
-            //var question = eventMessage.Answer.Question;
-            //var user = new UserDto
-            //{
-            //    Id = question.User.Id,
-            //    Name = question.User.Name,
-            //    Image = question.User.Image
-            //};
-            //var dto = new QuestionFeedDto(question.Id,
-            //    question.Subject,
-            //    question.Price,
-            //    question.Text,
-            //    question.Attachments,
-            //    question.Answers.Count,
-            //    user,
-            //    question.Updated,
-            //    question.Color,
-            //    question.CorrectAnswer?.Id != null,
-            //    question.Language);
-
 
             return _queueProvider.InsertMessageAsync(message, token);
         }
 
         public Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
         {
+           
             var user = new UserDto(eventMessage.Answer.User.Id, eventMessage.Answer.User.Name,
-                eventMessage.Answer.User.Score);
+                eventMessage.Answer.User.Transactions.Score);
 
             var answerDto = new QuestionDetailAnswerDto
             (
@@ -135,10 +122,10 @@ namespace Cloudents.Core.EventHandler
             return _queueProvider.InsertMessageAsync(new SignalRTransportType(SignalRType.Answer, SignalRAction.Delete, dto), token);
         }
 
-        public Task HandleAsync(UpdateBalanceEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
         {
             var message = new SignalRTransportType(SignalRType.User,
-                SignalRAction.Update, new { balance = eventMessage.User.Balance });
+                SignalRAction.Update, new { balance = eventMessage.User.Transactions.Balance });
 
             return _queueProvider.InsertMessageAsync
                 (message, eventMessage.User.Id, token);

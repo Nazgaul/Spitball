@@ -59,7 +59,7 @@ namespace Cloudents.Web.Services
 
                         var ticketDataFormat = new TicketDataFormat(dataProtector);
                         var ticket = ticketDataFormat.Unprotect(cookie);
-                        var val = ticket.Principal.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Name);
+                        var val = ticket?.Principal?.Claims?.FirstOrDefault(f => f.Type == ClaimTypes.Name);
                         if (val != null)
                         {
                             telemetry.Context.User.Id = val.Value;

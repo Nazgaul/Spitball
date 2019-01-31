@@ -40,8 +40,7 @@ namespace Cloudents.Admin2.Api
             {
 
                 var command = new DeleteAnswerCommand(id);
-
-                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token);
             }
             return Ok();
         }
