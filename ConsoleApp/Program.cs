@@ -118,6 +118,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+
+            decimal elad = 1.12M;
+            decimal commision = elad * 0.09M;
+            decimal commisionRam = decimal.Round(elad * 0.09M, 2);
+
+
             var write = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
             await write.CreateOrUpdateAsync(token);
             var _queryBus = _container.Resolve<IQueryBus>();
