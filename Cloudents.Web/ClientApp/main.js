@@ -19,6 +19,7 @@ require('cloudents-tour/dist/cloudents-tour.css');
 import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/vue-youtube-embed
 import LoadScript from 'vue-plugin-load-script';
 
+import VueNumeric from 'vue-numeric'
 
 
 
@@ -151,6 +152,9 @@ Vue.use(VueClipboard);
 Vue.use(lineClamp, {
 
 });
+
+
+Vue.use(VueNumeric);
 
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
