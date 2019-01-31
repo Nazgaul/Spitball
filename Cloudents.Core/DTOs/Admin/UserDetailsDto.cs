@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
+using System;
 
 namespace Cloudents.Core.DTOs.Admin
 {
@@ -27,6 +28,7 @@ namespace Cloudents.Core.DTOs.Admin
         [DtoToEntityConnection(nameof(RegularUser.Balance))]
         public long Balance { get; set; }
         public bool IsActive { get; set; }
+        public DateTime Joined { get; set; }
 
     }
 }
