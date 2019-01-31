@@ -1,8 +1,8 @@
 
-import uploadService from '../services/uploadService'
+import uploadService from '../services/uploadService';
 
 const state = {
-    fileData: uploadService.createFileData({}),
+    fileData: [],
     uploadProgress: 0,
     showDialog: false,
     customFileName : '',
@@ -15,10 +15,17 @@ const mutations = {
     setUploadProgress(state,val){
         state.uploadProgress = val;
     },
-    setFile(state, data){
-        let assignData = Object.assign(state.fileData, data);
-        let newFileData = uploadService.createFileData(assignData);
-        state.fileData = newFileData
+    setFile(state, val){
+        // let assignData = Object.assign(state.fileData, data);
+        // let newFileData = uploadService.createFileData(assignData);
+        // state.fileData = newFileData
+        // state.fileData = val;
+    },
+    addFile(state, val){
+        // let assignData = Object.assign(state.fileData, data);
+        // let newFileData = uploadService.createFileData(assignData);
+        // state.fileData = newFileData
+        state.fileData.push(val);
     },
     setDialogUploadState(state, val){
         state.showDialog = val
@@ -26,9 +33,9 @@ const mutations = {
     setFileName(state, data){
         state.customFileName = data
     },
-    setUploadFullMobile(state, val){
-        state.uploadFullMobile = val
-    },
+    // setUploadFullMobile(state, val){
+    //     state.uploadFullMobile = val
+    // },
     clearUploadData(state, val){
         state.fileData = val;
     },
@@ -62,7 +69,8 @@ const actions = {
         commit('setFileName',  data);
     },
     updateFile({commit}, data){
-        commit('setFile',  data);
+        //service add stuff
+        commit('addFile',  data);
 
     },
     updateStep({commit}, val){

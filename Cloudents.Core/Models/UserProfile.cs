@@ -30,17 +30,19 @@ namespace Cloudents.Core.Models
     {
         public UserUniversityQueryProfileDto()
         {
-            
         }
-        public UserUniversityQueryProfileDto(Guid id, string extraName, string name)
+        public UserUniversityQueryProfileDto(Guid id, string extraName, string name, string country)
         {
             Id = id;
             ExtraName = extraName?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Union(new[] { name });
             Name = name;
+            Country = country;
         }
 
         public Guid Id { get; set; }
         public IEnumerable<string> ExtraName { get; set; }
         public string Name { get; set; }
+
+        public string Country { get; private set; }
     }
 }

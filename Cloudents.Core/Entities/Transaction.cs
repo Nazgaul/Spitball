@@ -15,13 +15,7 @@ namespace Cloudents.Core.Entities
         {
 
         }
-
-        //protected Transaction(RegularUser user)
-        //{
-
-        //}
-
-        //  public virtual Guid Id { get; protected set; }
+       
         public virtual RegularUser User { get; set; }
 
         public virtual DateTime Created { get; protected set; }
