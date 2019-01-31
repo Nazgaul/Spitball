@@ -59,6 +59,7 @@
     "vue-jest": "^2.0.0",
     "vue-line-clamp": "^1.2.4",
     "vue-loader": "^13.3.0",
+    "vue-plugin-load-script": "^1.2.0",
     "vue-recaptcha": "^1.1.1",
     "vue-router": "^3.0.1",
     "vue-scrollto": "2.8.0",
@@ -90,10 +91,11 @@
   },
   "dependencies": {
     "@aspnet/signalr": "1.0.3",
-    "cloudents-tour": "1.2.5",
+    "cloudents-tour": "1.2.6",
     "timeago.js": "^4.0.0-beta.1",
     "tslib": "^1.9.3",
     "vue-clipboard2": "^0.2.1",
+    "vue-numeric": "^2.3.0",
     "vue-youtube-embed": "^2.2.1",
     "vuex-router-sync": "^5.0.0"
   }

@@ -145,7 +145,7 @@
     <value>Close</value>
   </data>
   <data name="files_btn_desktop" xml:space="preserve">
-    <value>Your Computer</value>
+    <value>Computer</value>
   </data>
   <data name="files_btn_drop" xml:space="preserve">
     <value>Or just drop your file here</value>
@@ -178,7 +178,7 @@
     <value>Make money of your study documents.</value>
   </data>
   <data name="files_header_title" xml:space="preserve">
-    <value>Ready, Set, Go!</value>
+    <value>Upload Files</value>
   </data>
   <data name="files_label_class" xml:space="preserve">
     <value>Select a Relevant Class</value>
@@ -205,7 +205,7 @@
     <value>Type a keyword name and press Enter to add</value>
   </data>
   <data name="files_step2_subtitle" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="files_step2_title" xml:space="preserve">
     <value>Awesome! get your document ready for upload</value>
@@ -269,14 +269,8 @@ students</value>
   <data name="files_proccesing" xml:space="preserve">
     <value>We are proccesing your document, you will be able to see it soon.</value>
   </data>
-  <data name="first_step2_title_partOne" xml:space="preserve">
-    <value>Awesome!</value>
-  </data>
-  <data name="first_step2_title_partTwo" xml:space="preserve">
-    <value>What class is this document from?</value>
-  </data>
   <data name="files_dopHere" xml:space="preserve">
-    <value>Drop your file here</value>
+    <value>Drag &amp; Drop Files Here</value>
   </data>
   <data name="files_options_text" xml:space="preserve">
     <value>or upload from</value>
@@ -307,5 +301,35 @@ students</value>
   </data>
   <data name="files_price_zero_means_free" xml:space="preserve">
     <value>Price 0.00, means that the document will be free.</value>
+  </data>
+  <data name="first_step2_title_partOne" xml:space="preserve">
+    <value>Awesome!</value>
+  </data>
+  <data name="first_step2_title_partTwo" xml:space="preserve">
+    <value>What class is this document from?</value>
+  </data>
+  <data name="multiple_keywords_optional" xml:space="preserve">
+    <value>Keywords (Optional)</value>
+  </data>
+  <data name="multiple_or_browse_label" xml:space="preserve">
+    <value>Or Browse</value>
+  </data>
+  <data name="multiple_placeholder_doctype_all" xml:space="preserve">
+    <value>Set document type to all</value>
+  </data>
+  <data name="multiple_placeholder_setAll" xml:space="preserve">
+    <value>Set price to all 0.00</value>
+  </data>
+  <data name="multiple_price_placeholder" xml:space="preserve">
+    <value>price 0.00 SBL</value>
+  </data>
+  <data name="multiple_professor_placeholder" xml:space="preserve">
+    <value>Professor name (Optional)</value>
+  </data>
+  <data name="multiple_selected_class_label" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="multiple_select_filetype" xml:space="preserve">
+    <value>Document Type</value>
   </data>
 </root>

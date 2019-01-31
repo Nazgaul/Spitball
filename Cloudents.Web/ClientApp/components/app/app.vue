@@ -42,6 +42,7 @@
             >
                 <login-to-answer></login-to-answer>
             </sb-dialog>
+
             <sb-dialog
                     :showDialog="universitySelectPopup"
                     :popUpType="'universitySelectPopup'"
@@ -72,18 +73,32 @@
             </sb-dialog>
 
             <!--upload dilaog-->
+            <!--<sb-dialog-->
+                    <!--:showDialog="getDialogState"-->
+                    <!--:transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "-->
+                    <!--:popUpType="'uploadDialog'"-->
+                    <!--:maxWidth="'966px'"-->
+                    <!--:onclosefn="setUploadDialogState"-->
+                    <!--:activateOverlay="isUploadAbsoluteMobile"-->
+                    <!--:isPersistent="$vuetify.breakpoint.smAndUp"-->
+                    <!--:content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'"-->
+            <!--&gt;-->
+                <!--<upload-files v-if="getDialogState"></upload-files>-->
+            <!--</sb-dialog>-->
+            <!--multiple upload dilaog-->
             <sb-dialog
                     :showDialog="getDialogState"
                     :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                     :popUpType="'uploadDialog'"
                     :maxWidth="'966px'"
                     :onclosefn="setUploadDialogState"
-                    :activateOverlay="isUploadAbsoluteMobile"
+                    :activateOverlay="false"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
-                    :content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'"
+                    :content-class="isUploadAbsoluteMobile ? 'upload-dialog' : 'upload-dialog'"
             >
-                <upload-files v-if="getDialogState"></upload-files>
+                <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
             </sb-dialog>
+
             <sb-dialog
                     :showDialog="getOnBoardState"
                     :popUpType="'onBoardGuide'"
@@ -92,6 +107,14 @@
                     :isPersistent="$vuetify.breakpoint.smAndUp"
             >
                 <board-guide></board-guide>
+            </sb-dialog>
+
+            <sb-dialog
+                    :showDialog="showBuyTokensDialog"
+                    :popUpType="'buyTokens'"
+                    :content-class="'buy-tokens-popup'"
+            >
+                <buy-tokens></buy-tokens>
             </sb-dialog>
 
             <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
@@ -109,6 +132,8 @@
     import NewQuestion from "../question/newQuestion/newQuestion.vue";
     import AddQuestion from "../question/addQuestion/addQuestion.vue";
     import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
+    import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
+
     import {
         GetDictionary,
         LanguageService
@@ -122,6 +147,7 @@
     import marketingBox from "../helpers/marketingBox/marketingBox.vue";
     import leadersBoard from "../helpers/leadersBoard/leadersBoard.vue";
     import boardGuide from "../helpers/onBoardGuide/onBoardGuide.vue";
+    import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 
 
     export default {
@@ -138,7 +164,10 @@
             mobileFooter,
             marketingBox,
             leadersBoard,
-            boardGuide
+            boardGuide,
+            uploadMultipleFiles
+            boardGuide,
+            buyTokens
         },
         data() {
             return {
@@ -147,6 +176,7 @@
                 toasterTimeout: 5000,
                 hideFooter: false,
                 showOnBoardGuide: true,
+                showBuyTokensDialog: false,
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
                     tourCallbacks: {
@@ -360,6 +390,9 @@
                     }
                 }
             });
+            // setTimeout(()=>{
+            //     this.showBuyTokensDialog = true;
+            // }, 2000)
         }
     };
 </script>

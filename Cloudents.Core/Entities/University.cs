@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
@@ -32,5 +33,7 @@ namespace Cloudents.Core.Entities
         public virtual string Country { get; protected set; }
 
         public virtual DomainTimeStamp RowDetail { get; protected set; }
+
+        public virtual IList<Document> Documents { get; set; }
     }
 }

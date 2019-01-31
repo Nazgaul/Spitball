@@ -29,9 +29,11 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Enum;
 using Microsoft.Azure.Documents.Client;
+using Cloudents.Core.Query;
+using Cloudents.Search;
+using Cloudents.Search.Document;
 
 namespace ConsoleApp
 {
@@ -53,9 +55,9 @@ namespace ConsoleApp
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"], false),
+                    ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
@@ -116,10 +118,23 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var write = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
+            await write.CreateOrUpdateAsync(token);
+            var _queryBus = _container.Resolve<IQueryBus>();
+            //var uniId = GetUniversityClaimValue();
+            var userId = 176778L;// _userManager.GetLongUserId(bindingContext.HttpContext.User);
+            var query2 = new UserWithUniversityQuery(userId);
+            var profile = await _queryBus.QueryAsync(query2, token);
+            profile.Country = "IL";
+            //IDocumentsSearch
+            var z1 = _container.Resolve<IDocumentsSearch>();
+            var z = _container.Resolve<IDocumentSearch>();
+            var query = new DocumentQuery(null, profile, null, 0, null);
+            var z2 = await z1.SearchAsync(query, token);
+            var z3 = await z.SearchDocumentsAsync(query, token);
 
-            var _commandBus = _container.Resolve<ICommandBus>();
-            var command = new DistributeTokensCommand(638, 1);
-            await _commandBus.DispatchAsync(command, token);
+            //var x = _container.Resolve<AzureDocumentSearch>();
+
             // var service1 = _container.Resolve<IUnitOfWork>();
             //var service = _container.Resolve<IQueryBus>();
 

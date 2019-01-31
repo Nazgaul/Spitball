@@ -18,9 +18,10 @@ namespace Cloudents.Query
         public async Task<StatsDto> GetAsync(HomePageQuery query, CancellationToken token)
         {
             return await
-            _session.CreateSQLQuery("select top 1 [users], [answers], [SBLs], [money] from sb.HomeStats")
+            _session.CreateSQLQuery("select top 1 [users], [answers]," +
+                                    " [SBLs] from sb.HomeStats")
                .SetResultTransformer(Transformers.AliasToBean<StatsDto>())
-               .UniqueResultAsync<StatsDto>();
+               .UniqueResultAsync<StatsDto>(token);
              
         }
     }

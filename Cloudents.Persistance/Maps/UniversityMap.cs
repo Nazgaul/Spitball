@@ -13,7 +13,8 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Country).Not.Nullable().Length(2).UniqueKey("uq_UniversityNameCountry");
             Component(x => x.RowDetail);
 
-            SchemaAction.None();
+            HasMany(x => x.Documents).Cascade.None();
+
 
         }
     }
