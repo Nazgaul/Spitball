@@ -169,6 +169,6 @@
     <value>The field {0} must be a string with a maximum length of {1}.</value>
   </data>
   <data name="TagCannotContain" xml:space="preserve">
-    <value>Tag cannot contain , or spaces</value>
+    <value>Tag cannot contain commas or spaces</value>
   </data>
 </root>
