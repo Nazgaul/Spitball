@@ -22,31 +22,31 @@
                 <div class="btn-holder">
                     <span class="browse-text" v-language:inner>upload_multiple_or_browse_label</span>
                 </div>
-                <div class="btn-holder ml-3 c-pointer"  @click="DbFilesList()" :disabled="!dbReady">
-                        <v-icon class="mr-2">sbf-upload-dropbox</v-icon>
+                <div class="btn-holder ml-3 c-pointer" @click="DbFilesList()" :disabled="!dbReady">
+                    <v-icon class="mr-2">sbf-upload-dropbox</v-icon>
                     <span :class="['btn-label', $vuetify.breakpoint.xsOnly ? 'mobile-text' : '' ] " v-language:inner>upload_files_btn_dropBox</span>
                 </div>
                 <div class="btn-holder ml-3 c-pointer">
-                        <v-icon v-if="$vuetify.breakpoint.smAndUp" class="mr-2">sbf-upload-desktop</v-icon>
-                        <v-icon v-else class="mr-2">sbf-phone</v-icon>
-                        <file-upload
-                                style="top: unset;"
-                                id="upload-input"
-                                class="upload-input"
-                                ref="upload"
-                                :drop="true"
-                                v-model="files"
-                                :post-action=uploadUrl
-                                chunk-enabled
-                                :extensions="supportedExtensions"
-                                :multiple="true"
-                                @input-file="inputFile"
-                                @input-filter="inputFilter"
-                                :chunk="{
+                    <v-icon v-if="$vuetify.breakpoint.smAndUp" class="mr-2">sbf-upload-desktop</v-icon>
+                    <v-icon v-else class="mr-2">sbf-phone</v-icon>
+                    <file-upload
+                            style="top: unset;"
+                            id="upload-input"
+                            class="upload-input"
+                            ref="upload"
+                            :drop="true"
+                            v-model="files"
+                            :post-action=uploadUrl
+                            chunk-enabled
+                            :extensions="supportedExtensions"
+                            :multiple="true"
+                            @input-file="inputFile"
+                            @input-filter="inputFilter"
+                            :chunk="{
                               action: uploadUrl,
                               minSize: 2,
                               maxRetries: 5,}">
-                        </file-upload>
+                    </file-upload>
                     <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label mobile-text"
                           v-language:inner>upload_files_btn_phone</span>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label"
@@ -63,6 +63,7 @@
     import analyticsService from '../../../../../services/analytics.service';
     import FileUpload from 'vue-upload-component/src';
     import { LanguageService } from "../../../../../services/language/languageService";
+
     export default {
         name: "upload-step-1",
         data() {
@@ -77,7 +78,8 @@
                 extensionErrror: false,
                 uploadError: false,
                 errorText: '',
-                hovered: false
+                hovered: false,
+                nextStepCalled: false
             }
         },
         components: {
@@ -101,8 +103,7 @@
             },
         },
         methods: {
-            ...mapActions(['updateFile', 'updateUploadProgress', 'updateFileName']),
-
+            ...mapActions(['updateFile', 'updateFileName', 'stopUploadProgress', 'setFileBlobNameById']),
             loadDropBoxSrc() {
                 // if exists prevent duplicate loading
                 let isDbExists = !!document.getElementById('dropboxjs');
@@ -121,45 +122,52 @@
                     this.dbReady = true; // enable dropbox upload btn when script is ready
                 }
             },
-
+            goToNextStep() {
+                if (!this.nextStepCalled) {
+                    this.nextStepCalled = true;
+                    this.callBackmethods.next(1);
+                }
+            },
             DbFilesList() {
                 var self = this;
                 let options = {
                     success: (files) => {
-                        let singleFile;
-                        //clean if was trying to upload from desktop before
-                        files.forEach((file) => {
-                            singleFile = {
-                                name: file.name,
-                                link: file.link,
-                                size: file.bytes
-
-                            };
-                            // add to array or replace
+                        files.forEach((item) => {
+                            let singleFile = uploadService.createFileData(item);
+                            self.updateFile(singleFile);
                         });
+                        self.goToNextStep();
+
+                        //!!!!!!Check with Ram why do we do API call in the middle
+                        //data to send to server
+                        // let singleFile = uploadService.createFileData(newFile);
                         // this.documentTitle = singleFile.name ? singleFile.name : '';
-                        uploadService.uploadDropbox(singleFile)
-                            .then((response) => {
-                                    self.filesUploaded.splice(0, 1, singleFile);
-                                    self.progressDone = true;
-                                    // generated blob name from server
-                                    self.generatedFileName = response.data.fileName ? response.data.fileName : '';
-                                    let fileName = singleFile.name.replace(/\.[^/.]+$/, "");
-                                    self.updateFile({'name': fileName, 'blobName': self.generatedFileName});
-                                    self.updateFileName(fileName);
-                                    self.callBackmethods.stopProgress(true);
-                                    self.updateUploadFullMobile(false);
-                                    self.callBackmethods.next(1);
-                                },
-                                error => {
-                                    console.log('error drop box api call', error)
-                                })
+                        // uploadService.uploadDropbox(updatedFiles)
+                        //     .then((response) => {
+                        //             self.progressDone = true;
+                        //             // generated blob name from server
+                        //             self.generatedFileName = response.data.fileName ? response.data.fileName : '';
+                        //             // let fileName = singleFile.name.replace(/\.[^/.]+$/, "");
+                        //             let fileName = singleFile.name;
+                        //             let fileObj = {
+                        //                     name: fileName,
+                        //
+                        //             };
+                        //             // self.updateFile({'name': fileName, 'blobName': self.generatedFileName});
+                        //             self.updateFileName(fileName);
+                        //             self.callBackmethods.stopProgress(true);
+                        //             self.updateUploadFullMobile(false);
+                        //             // self.callBackmethods.next(1);
+                        //         },
+                        //         error => {
+                        //             console.log('error drop box api call', error)
+                        //         })
                     },
                     cancel: function (error) {
                         console.log('canceled!!!', error)
                     },
                     linkType: "direct", // "preview" or "direct"
-                    multiselect: false, // true or false
+                    multiselect: true, // true or false
                     extensions: this.DBsupportedExtensions,
                 };
                 global.Dropbox.choose(options);
@@ -167,39 +175,29 @@
 
             // regular upload methods
             inputFile(newFile, oldFile) {
+
                 //happnes once file is added and upload starts
                 if (newFile && !oldFile) {
                     // Add file
                     newFile.blob = '';
                     let URL = window.URL || window.webkitURL;
                     if (URL && URL.createObjectURL) {
-                        // let singleFile = {
-                        //     name: newFile.name,
-                        //     link: URL.createObjectURL(newFile.file),
-                        // };
                         let singleFile = uploadService.createFileData(newFile);
                         //add or replace
-                        let documentTitle = singleFile.name ? singleFile.name.replace(/\.[^/.]+$/, "") : '';
                         this.updateFile(singleFile);
-                        // this.filesUploaded.push(singleFile);
-                        // this.updateFile({'name': documentTitle});
-                        // this.updateFileName(documentTitle);
                     }
-                    // this.updateUploadFullMobile(false)
-                    this.callBackmethods.next(1)
+                    this.goToNextStep();
                 }
                 // Upload progress
                 if (newFile && newFile.progress) {
                     if (newFile.progress === 100) {
-                        this.callBackmethods.stopProgress(true);
+                        this.stopUploadProgress(newFile)
                     }
                 }
                 // Upload error
                 if (newFile && oldFile && newFile.error !== oldFile.error) {
                     this.errorText = newFile.response.Name ? newFile.response.Name["0"] : LanguageService.getValueByKey("upload_error_upload_something_wrong");
                     this.uploadError = true;
-                    this.callBackmethods.stopProgress(true);
-                    this.callBackmethods.changeStep(1);
                     console.log('error', newFile.error, newFile)
                 }
                 // Get response data
@@ -218,11 +216,15 @@
                     if (newFile && newFile.response && newFile.response.status === 'success') {
                         //generated blob name from server after successful upload
                         let name = newFile.response.fileName;
-                        // this.updateFile({'blobName': name});
+                        let fileData = {
+                            id: newFile.id,
+                            blobName: name
+                        };
+                        this.setFileBlobNameById(fileData);
 
                     }
                 }
-                if ( newFile && oldFile &&  newFile.success !== oldFile.success) {
+                if (newFile && oldFile && newFile.success !== oldFile.success) {
                     console.log('success', newFile.success, newFile)
                 }
                 if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
@@ -256,12 +258,13 @@
 
 <style lang="less">
     @import "../../../../../styles/mixin.less";
+
     @purpleNewColor: #3e45a0;
     .upload-component-wrap {
         .col-blue {
             color: @purpleNewColor;
         }
-        .c-pointer{
+        .c-pointer {
             cursor: pointer;
         }
         #upload-input {
@@ -288,35 +291,35 @@
             background-color: rgba(68, 82, 252, 0.06);
             border: 1px dashed @color-blue-new;
         }
-        .drop-text{
+        .drop-text {
             font-family: @fontOpenSans;
             font-size: 18px;
             font-weight: 600;
             color: @purpleNewColor;
         }
-        .upload-options{
+        .upload-options {
             display: flex;
             background-color: @color-white;
             border-radius: 4px 4px 0 0;
             padding: 12px 16px;
             max-width: 318px;
-            .btn-holder{
+            .btn-holder {
                 display: flex;
                 flex-direction: row;
 
             }
-            .browse-text{
+            .browse-text {
                 font-family: @fontOpenSans;
                 font-size: 14px;
                 color: @colorBlackNew;
             }
-            .btn-label{
+            .btn-label {
                 color: @color-blue-new;
                 font-family: @fontOpenSans;
                 font-size: 14px;
 
             }
-            .v-icon{
+            .v-icon {
                 font-size: 12px;
                 color: @color-blue-new;
             }

@@ -164,8 +164,7 @@
             mobileFooter,
             marketingBox,
             leadersBoard,
-            boardGuide,
-            uploadMultipleFiles
+            uploadMultipleFiles,
             boardGuide,
             buyTokens
         },
