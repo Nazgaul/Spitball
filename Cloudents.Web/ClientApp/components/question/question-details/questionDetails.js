@@ -33,7 +33,8 @@ export default {
             showDialogSuggestQuestion: false,
             showDialogLogin: false,
             build: null,
-            isEdgeRtl : global.isEdgeRtl
+            isEdgeRtl : global.isEdgeRtl,
+            cahceQuestion: {}
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -106,6 +107,7 @@ export default {
             this.setQuestion(this.id).then(()=>{
                 if (updateViewer) {
                     sendEventList.question.addViewr(this.questionData);
+                    this.cahceQuestion = {...this.questionData}
                 }
                 this.buildChat();
             })
@@ -187,7 +189,7 @@ export default {
             return val;
         },
         removeViewer() {
-            sendEventList.question.removeViewer(this.questionData);
+            sendEventList.question.removeViewer(this.cahceQuestion);
         },
     },
     created() {
@@ -204,6 +206,7 @@ export default {
                 this.updateLoginDialogState(false);
             }
         })
+        
     },
     destroyed() {
         if (this.removeViewer) {

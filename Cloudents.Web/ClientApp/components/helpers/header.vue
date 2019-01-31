@@ -23,6 +23,9 @@
                                         <!--<span class="sb-btn-text" v-language:inner>faqBlock_add_question_btn</span>-->
                                     <!--</button>-->
                                     <!--</div>-->
+                                    <div>
+                                        <button>Buy SBL</button>
+                                    </div>
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
                                         <span class="bold" style="direction:ltr;">{{accountUser.balance | currencyLocalyFilter}}</span>
                                         <span>${{accountUser.balance | dollarVal}}</span>

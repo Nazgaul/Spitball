@@ -28,8 +28,8 @@
             <td class="text-xs-right">{{ props.item.userEmail }}</td>
             <td class="text-xs-right">{{new Date(props.item.cashOutTime).toUTCString()}}</td>
             <td class="text-xs-right">{{ props.item.userQueryRatio }}</td>
-            <td class="text-xs-right" :class="{'suspect': props.item.isSuspect}">{{props.item.isSuspect}}</td>
-            <td class="text-xs-right">{{ props.item.isIsrael }}</td>
+            <td class="text-xs-right" :class="{'suspect': props.item.isSuspect}">{{props.item.isSuspect ? "Yes" : ""}}</td>
+            <td class="text-xs-right">{{ props.item.isIsrael ? "Yes" : "" }}</td>
 
         </template>
     </v-data-table>

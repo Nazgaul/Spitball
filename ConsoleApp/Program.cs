@@ -30,7 +30,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
+using Microsoft.Azure.Documents.Client;
 using Cloudents.Core.Query;
 using Cloudents.Search;
 using Cloudents.Search.Document;
@@ -376,7 +376,15 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-            await FixUsersWithoutTransactions();
+
+            var t = GoogleSheetsReader.Read();
+            DocumentClient dc = new DocumentClient(new Uri("https://spitball-dev.documents.azure.com:443/"), "i3mWvwEYwqa5HvGBrgBneTTaX9o56bX4K8WLPLHMN91DjXcE44r3lzI69BXPZUvfARhdGC1psvShqgzIAy0RkA==");
+            foreach (var item in t)
+            {
+                await dc.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("Spitball", "Emails"), item);
+            }
+
+            //await FixUsersWithoutTransactions();
 
             //AutoMapper.Mapper.Initialize(cfg =>
             //{
