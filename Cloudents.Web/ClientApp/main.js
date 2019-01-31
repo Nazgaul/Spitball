@@ -237,6 +237,7 @@ Vue.filter('dollarVal', function (value) {
     return parseFloat(value / 40).toFixed(2);
 });
 
+
 // 10/12/2018
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
@@ -295,7 +296,7 @@ Vue.filter('commasFilter', function (value) {
 
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
-
+Vue.prototype.$filters = Vue.options.filters;
 
 router.beforeEach((to, from, next) => {
     store.dispatch('changeSelectUniState', false)

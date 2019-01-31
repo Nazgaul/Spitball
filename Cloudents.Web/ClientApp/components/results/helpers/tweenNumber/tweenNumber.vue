@@ -39,7 +39,8 @@
                 let numericVal = parseInt(data);
                 // format currency
                 if (id === 2) {
-                    return `$${numericVal.toLocaleString('us-EG')}`;
+                    let dollarval = this.$filters.dollarVal(numericVal);
+                    return `$${dollarval.toLocaleString('us-EG')}`;
                     //number
                 } else {
                     return numericVal.toLocaleString('us-EG');
