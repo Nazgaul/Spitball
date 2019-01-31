@@ -69,7 +69,7 @@ namespace Cloudents.FunctionsV2.System
             var template2 = await binder.BindAsync<IList<EmailObject>>(new CosmosDBAttribute("Spitball", "Emails")
             {
                 ConnectionStringSetting = "Cosmos",
-                SqlQuery = $"SELECT * FROM c where c.event = '{@event}'"
+                SqlQuery = $"SELECT * FROM c where c.eventName = '{@event}'"
             }, token);
 
             if (template2 == null)

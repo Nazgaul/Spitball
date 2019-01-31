@@ -110,9 +110,10 @@
             </sb-dialog>
 
             <sb-dialog
-                    :showDialog="showBuyTokensDialog"
+                    :showDialog="getShowBuyDialog"
                     :popUpType="'buyTokens'"
                     :content-class="'buy-tokens-popup'"
+                    :onclosefn="closeSblToken"
             >
                 <buy-tokens></buy-tokens>
             </sb-dialog>
@@ -164,8 +165,8 @@
             mobileFooter,
             marketingBox,
             leadersBoard,
-            uploadMultipleFiles,
             boardGuide,
+            uploadMultipleFiles,
             buyTokens
         },
         data() {
@@ -206,7 +207,8 @@
                 "showMobileFeed",
                 "HomeworkHelp_isDataLoaded",
                 "StudyDocuments_isDataLoaded",
-                "getOnBoardState"
+                "getOnBoardState",
+                "getShowBuyDialog",
             ]),
             showFeed() {
                 if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
@@ -319,11 +321,14 @@
                 "updateDialogState",
                 "setCookieAccepted",
                 "updateOnBoardState",
-
+                "updateShowBuyDialog"
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
             onFooterStepChange() {
                 this.tourTempClose();
+            },
+            closeSblToken(){
+                this.updateShowBuyDialog(false)
             },
             openOnboardGuide(){
                 let isLogedIn = this.accountUser;

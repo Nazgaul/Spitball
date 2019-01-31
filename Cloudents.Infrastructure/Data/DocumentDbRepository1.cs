@@ -11,12 +11,12 @@ using Microsoft.Azure.Documents.Client;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class DocumentDbRepositoryUnitOfWork : IStartable
+    public class DocumentDbRepositoryUnitOfWork //: IStartable
     {
         internal const string DatabaseId = "Zbox";
         internal DocumentClient Client;
 
-        public void Start()
+        public DocumentDbRepositoryUnitOfWork()
         {
             Client = new DocumentClient(new Uri("https://zboxnew.documents.azure.com:443/"), "y2v1XQ6WIg81Soasz5YBA7R8fAp52XhJJufNmHy1t7y3YQzpBqbgRnlRPlatGhyGegKdsLq0qFChzOkyQVYdLQ==");
 
@@ -30,13 +30,13 @@ namespace Cloudents.Infrastructure.Data
         {
             try
             {
-                await Client.ReadDatabaseAsync(UriFactory.CreateDatabaseUri(DatabaseId)).ConfigureAwait(false);
+                await Client.ReadDatabaseAsync(UriFactory.CreateDatabaseUri(DatabaseId));
             }
             catch (DocumentClientException e)
             {
                 if (e.StatusCode == HttpStatusCode.NotFound)
                 {
-                    await Client.CreateDatabaseAsync(new Microsoft.Azure.Documents.Database { Id = DatabaseId }).ConfigureAwait(false);
+                    await Client.CreateDatabaseAsync(new Database {Id = DatabaseId});
                 }
                 else
                 {

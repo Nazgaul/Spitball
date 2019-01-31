@@ -5,7 +5,6 @@ using Cloudents.Query.Email;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Azure.WebJobs;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,6 +28,8 @@ namespace Cloudents.FunctionsV2.System
         {
             var query = new GetAnswerAcceptedEmailQuery(msg.TransactionId);
             var data = await _queryBus.QueryAsync(query, token);
+
+           
             var template = await DocumentPurchasedEmailOperation.GetEmail("AnswerAccepted", data.Language, binder, token);
             var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
@@ -38,6 +39,12 @@ namespace Cloudents.FunctionsV2.System
             {
                 block.Subtitle = block.Subtitle.InjectSingleValue("Tokens", data.Tokens.ToString("f2"));
                 block.Body = block.Body.Replace("\n", "<br>").Inject(data);
+                block.Body = block.Body.Inject(new
+                {
+                    data.QuestionText,
+                    data.AnswerText
+                });
+              
             }
 
             var templateData = new TemplateData()

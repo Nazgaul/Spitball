@@ -12,6 +12,9 @@ using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Storage;
 using System.Linq;
+using Cloudents.Command.Command;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Admin2.Api
 {
@@ -22,9 +25,9 @@ namespace Cloudents.Admin2.Api
         private readonly IQueryBus _queryBus;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IQueueProvider _queueProvider;
-       
 
-        public AdminUserController(ICommandBus commandBus, IQueryBus queryBus, 
+
+        public AdminUserController(ICommandBus commandBus, IQueryBus queryBus,
             IBlobProvider<DocumentContainer> blobProvider, IQueueProvider queueProvider)
         {
             _commandBus = commandBus;
@@ -79,7 +82,7 @@ namespace Cloudents.Admin2.Api
                 switch (model.SuspendTime)
                 {
                     case SuspendTime.Day:
-                        
+
                         lockout = DateTimeOffset.Now.AddSeconds(TimeConst.Day);
                         break;
                     case SuspendTime.Week:
@@ -127,7 +130,7 @@ namespace Cloudents.Admin2.Api
         {
             foreach (var id in model.Ids)
             {
-               
+
                 var command = new UnSuspendUserCommand(id);
                 await _commandBus.DispatchAsync(command, token);
             }
@@ -139,10 +142,38 @@ namespace Cloudents.Admin2.Api
         public async Task ChangeCountryAsync(ChangeCountryRequest model,
             CancellationToken token)
         {
-            
+
             var command = new ChangeCountryCommand(model.Id, model.Country);
             await _commandBus.DispatchAsync(command, token);
         }
+
+
+
+        [HttpPost("verify")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> VerifySmsAsync([FromServices] IRepository<RegularUser> _userRepository,
+            PhoneConfirmRequest model,
+            CancellationToken token)
+        {
+            var user = await _userRepository.LoadAsync(model.Id, token);
+            if (user == null)
+            {
+
+                return BadRequest();
+            }
+            
+           var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
+
+            await _commandBus.DispatchAsync(registrationBonusCommand, token);
+            return Ok(new
+            {
+                user.Id
+            });
+
+        }
+
+
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
@@ -152,27 +183,52 @@ namespace Cloudents.Admin2.Api
             var command = new DeleteUserCommand(id);
             await _commandBus.DispatchAsync(command, token);
         }
-        
+
         [HttpGet("info")]
-        public async Task<UserInfoDto> GetUserInfo(string userIdentifier, [FromServices] IBlobProvider blobProvider,
-            CancellationToken token)
+        public async Task<UserDetailsDto> GetUserDetails(string userIdentifier, CancellationToken token)
         {
-            AdminUserInfoQuery query;
+            AdminUserDetailsQuery query;
             if (long.TryParse(userIdentifier, out var id))
             {
-                query = new AdminUserInfoQuery(id);
+                query = new AdminUserDetailsQuery(id);
             }
             else
             {
                 var userQuery = new AdminUserIdFromEmailQuery(userIdentifier);
                 id = await _queryBus.QueryAsync(userQuery, token);
-                query = new AdminUserInfoQuery(id);
+                query = new AdminUserDetailsQuery(id);
             }
            
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("questions")]
+        public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
+        {
+            AdminUserQuestionsQuery query = new AdminUserQuestionsQuery(id, page);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("answers")]
+        public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
+        {
+            AdminUserAnswersQuery query = new AdminUserAnswersQuery(id, page);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+
+        [HttpGet("documents")]
+        public async Task<IEnumerable<UserDocumentsDto>> GetUserInfo(long id, int page, [FromServices] IBlobProvider blobProvider,
+             CancellationToken token)
+        {
+
+            AdminUserDocumentsQuery query = new AdminUserDocumentsQuery(id, page);
+            
+
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
-            
-            foreach (var document in retVal.Documents)
+
+            foreach (var document in retVal)
             {
 
                 var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
@@ -184,7 +240,7 @@ namespace Cloudents.Admin2.Api
                             20);
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
-                   
+
                 }
                 else
                 {
@@ -192,10 +248,9 @@ namespace Cloudents.Admin2.Api
                     var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
                     tasks.Value.Add(t);
                 }
-               
+
             }
             return retVal;
         }
-
     }
 }

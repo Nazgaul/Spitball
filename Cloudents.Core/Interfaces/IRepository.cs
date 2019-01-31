@@ -75,6 +75,7 @@ namespace Cloudents.Core.Interfaces
             CancellationToken token);
 
     }
+
     public interface ITransactionRepository : IRepository<Transaction>
     {
         Task<decimal> GetUserScoreAsync(long userId, CancellationToken token);
@@ -82,12 +83,4 @@ namespace Cloudents.Core.Interfaces
         Task<TransactionActionType> GetFirstCourseTransaction(long userId, CancellationToken token);
 
     }
-
-    public interface IStatsRepository : IRepository<Stats>
-    {
-        Task UpdateStatsAsync(CancellationToken token);
-    }
-
-   
-
 }

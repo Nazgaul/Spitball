@@ -238,8 +238,9 @@ Vue.filter('fixedPoints', function (value) {
 
 Vue.filter('dollarVal', function (value) {
     if (!value) return 0;
-    return parseFloat(value / 40).toFixed(2);
+    return parseFloat(value / 100).toFixed(2);
 });
+
 
 // 10/12/2018
 Vue.filter('dateFromISO', function (value) {

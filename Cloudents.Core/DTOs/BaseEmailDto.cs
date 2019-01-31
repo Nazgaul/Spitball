@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 
@@ -11,7 +9,9 @@ namespace Cloudents.Core.DTOs
         [DtoToEntityConnection(nameof(RegularUser.Email))]
         public string ToEmailAddress { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.Language))]
-        public CultureInfo Language { get; set; }
+        public string Language { get; set; }
+
+        
         [DtoToEntityConnection(nameof(RegularUser.Id))]
         public long UserId { get; set; }
     }

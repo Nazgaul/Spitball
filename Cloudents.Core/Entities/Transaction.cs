@@ -13,15 +13,10 @@ namespace Cloudents.Core.Entities
 
         protected Transaction()
         {
-
+            Created = DateTime.UtcNow;
+            ;
         }
 
-        //protected Transaction(RegularUser user)
-        //{
-
-        //}
-
-        //  public virtual Guid Id { get; protected set; }
         public virtual RegularUser User { get; set; }
 
         public virtual DateTime Created { get; protected set; }
@@ -75,7 +70,7 @@ namespace Cloudents.Core.Entities
         {
             price = -Math.Abs(price);
 
-            this.Price = price * 0.09M;
+            this.Price = decimal.Round(price * 0.09M, 2);
             this.Action = TransactionActionType.Commission;
             this.Type = Enum.TransactionType.Spent;
         }
@@ -122,7 +117,7 @@ namespace Cloudents.Core.Entities
             var initBalance = 100;
             if (Tier1Users.Contains(user.Country))
             {
-                initBalance = 750;
+                initBalance = 150;
             }
 
             return new AwardMoneyTransaction(initBalance/*, user*/)
@@ -196,7 +191,7 @@ namespace Cloudents.Core.Entities
             userQuestion.MakeTransaction(t1);
             userQuestion.MakeTransaction(t2);
             userQuestion.MakeTransaction(t3);
-           
+
 
 
             var userAnswer = correctAnswer.User;

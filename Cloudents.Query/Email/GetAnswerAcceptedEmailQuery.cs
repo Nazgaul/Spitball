@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Dapper;
 
@@ -33,7 +30,7 @@ namespace Cloudents.Query.Email
             public async Task<AnswerAcceptedEmailDto> GetAsync(GetAnswerAcceptedEmailQuery query, CancellationToken token)
             {
                 const string sql = @"Select 
-u.Email,
+u.Email as ToEmailAddress,
 u.Language,
  u.id as userId,
  t.Price as tokens,

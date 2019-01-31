@@ -12,4 +12,16 @@
             return $"{nameof(Name)}: {Name}, {nameof(Email)}: {Email}, {nameof(Id)}: {Id}";
         }
     }
+
+    public sealed class PayPalDto
+    {
+        public PayPalDto( string payPalId, decimal amount)
+        {
+            Amount = amount;
+            PayPalId = payPalId;
+        }
+
+        public decimal Amount { get;  }
+        public string PayPalId { get;  }
+    }
 }

@@ -29,6 +29,12 @@ set [TransactionType] = 'Question'
 where  Action in  ('Question','DeleteQuestion','AnswerCorrect')
 and [TransactionType] is null
 
+update top (1000) sb.[Transaction]
+set [TransactionType] = 'Commission'
+where   [TransactionType] = 'Commision'
+
+
+
 
 
 update top (1000) sb.[Transaction]
@@ -42,3 +48,7 @@ drop table sb.email
 alter table sb.[user] drop constraint  User_Language
 drop table sb.Language
 drop table sb.SystemEvent
+
+--need to upload to cosmos the emails
+--need to add cosmos db to azure function
+--need to upload azure function

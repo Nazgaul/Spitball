@@ -127,7 +127,7 @@
     <value>Buy to view full document</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>Canel</value>
+    <value>Cancel</value>
   </data>
   <data name="doc_placeholder_text" xml:space="preserve">
     <value>Preview will be avaliable soon</value>

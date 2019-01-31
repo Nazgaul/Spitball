@@ -133,7 +133,7 @@
     <value>מפדיון הנקודות שלך בכסף.</value>
   </data>
   <data name="final_enter_wallet" xml:space="preserve">
-    <value>כנס לארנק שלך לממש אותם היום</value>
+    <value>גש למסמכים של סטודנטים מעולים מהכיתה שלך עכשיו</value>
   </data>
   <data name="final_only" xml:space="preserve">
     <value>אתה במרחק של </value>
@@ -143,5 +143,17 @@
   </data>
   <data name="final_to_wallet" xml:space="preserve">
     <value>נקודות</value>
+  </data>
+  <data name="learn_subtitle" xml:space="preserve">
+    <value>בספיטבול כל סטודנט יכול להציע את המשאבים שלו לסטודנטים אחרים ולהחליט אם הוא מציע אותם תמורת נקודות.</value>
+  </data>
+  <data name="learn_title" xml:space="preserve">
+    <value>איך ספיטבול עובד?</value>
+  </data>
+  <data name="welcome_subtitle" xml:space="preserve">
+    <value>קהילת הסטודנטים שבה לומדים וחולקים חומרי לימוד אחד עם השני.</value>
+  </data>
+  <data name="welcome_title" xml:space="preserve">
+    <value>ברוכים הבאים לספיטבול</value>
   </data>
 </root>

@@ -43,7 +43,7 @@ namespace Cloudents.Persistance.Maps
     {
         public CommissionTransactionMap()
         {
-            DiscriminatorValue("Commision");
+            DiscriminatorValue("Commission");
         }
     }
 
@@ -63,7 +63,9 @@ namespace Cloudents.Persistance.Maps
         public QuestionTransactionMap()
         {
             DiscriminatorValue("Question");
-            References(x => x.Question).Column("QuestionId").ForeignKey("Transaction_Question").Nullable();
+            References(x => x.Question)
+                .Column("QuestionId")
+                .ForeignKey("Transaction_Question").Nullable();
             References(x => x.Answer).Column("AnswerId").ForeignKey("Transaction_Answer").Nullable();
 
         }
