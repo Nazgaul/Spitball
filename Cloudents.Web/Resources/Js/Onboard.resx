@@ -154,7 +154,7 @@
     <value>away from your first cashout!</value>
   </data>
   <data name="final_enter_wallet" xml:space="preserve">
-    <value>Enter your wallet now and cashout</value>
+    <value>Start and access documents from your class</value>
   </data>
   <data name="final_only" xml:space="preserve">
     <value>You’re only</value>
@@ -181,10 +181,10 @@
     <value>Ask for help</value>
   </data>
   <data name="learn_subtitle" xml:space="preserve">
-    <value>Access 200K+ study resources</value>
+    <value>Every student can offer study resources to other students for free or for a fee.</value>
   </data>
   <data name="learn_title" xml:space="preserve">
-    <value>Easy Learning</value>
+    <value>How does Spitball work?</value>
   </data>
   <data name="welcome_bottom_subtitle_earn" xml:space="preserve">
     <value>Earn money by sharing your class notes and answering questions</value>
@@ -199,7 +199,7 @@
     <value>Learn</value>
   </data>
   <data name="welcome_subtitle" xml:space="preserve">
-    <value>The place for students to learn and earn</value>
+    <value>The community where students access study resources and learn from each other.</value>
   </data>
   <data name="welcome_title" xml:space="preserve">
     <value>Welcome to Spitball</value>

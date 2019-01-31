@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using Cloudents.Infrastructure.Data;
+using Cloudents.Query;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -24,8 +24,7 @@ namespace Cloudents.FunctionsV2
                 await conn.ExecuteAsync(@"update sb.[HomeStats]
                             set[users] = (select count(1) from sb.[User])
 	                        ,[answers] = (select count(1) from sb.Answer)
-	                        ,[SBLs] = (select sum(price) from sb.[Transaction] where[Type] = 'Earned')
-	                        )");
+	                        ,[SBLs] = (select sum(price) from sb.[Transaction] where[Type] = 'Earned')");
             }
             log.LogInformation($"UpdateStatsFunction function executed at: {DateTime.Now}");
         }

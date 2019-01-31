@@ -29,6 +29,7 @@ namespace Cloudents.Infrastructure
                 .InterceptedBy(typeof(LogInterceptor));
 
 
+            builder.RegisterType<PayPalClient>().As<IPayPal>().SingleInstance();
             builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
 
             builder.RegisterAssemblyTypes(assembly)

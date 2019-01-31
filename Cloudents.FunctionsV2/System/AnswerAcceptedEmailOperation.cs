@@ -5,7 +5,6 @@ using Cloudents.Query.Email;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Azure.WebJobs;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

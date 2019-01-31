@@ -16,12 +16,10 @@ namespace Cloudents.Persistance
     {
         private readonly ITransaction _transaction;
         private readonly ISession _session;
-        private readonly IEventPublisher _eventPublisher;
 
-        public UnitOfWork(ISession session, IEventPublisher eventPublisher)
+        public UnitOfWork(ISession session)
         {
             _session = session;
-            _eventPublisher = eventPublisher;
             _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 

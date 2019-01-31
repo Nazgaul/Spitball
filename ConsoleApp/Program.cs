@@ -2,7 +2,6 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
@@ -33,7 +32,8 @@ using Cloudents.Core.Enum;
 using Microsoft.Azure.Documents.Client;
 using Cloudents.Core.Query;
 using Cloudents.Search;
-using Cloudents.Search.Document;
+using PayPal.Core;
+using PayPal.v1.Payments;
 
 namespace ConsoleApp
 {
@@ -60,7 +60,11 @@ namespace ConsoleApp
                 Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
-                ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
+                ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
+                PayPal = new PayPalCredentials(
+                    "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
+                    "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8",
+                    true)
             };
 
 
@@ -118,20 +122,31 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var write = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
-            await write.CreateOrUpdateAsync(token);
-            var _queryBus = _container.Resolve<IQueryBus>();
-            //var uniId = GetUniversityClaimValue();
-            var userId = 176778L;// _userManager.GetLongUserId(bindingContext.HttpContext.User);
-            var query2 = new UserWithUniversityQuery(userId);
-            var profile = await _queryBus.QueryAsync(query2, token);
-            profile.Country = "IL";
-            //IDocumentsSearch
-            var z1 = _container.Resolve<IDocumentsSearch>();
-            var z = _container.Resolve<IDocumentSearch>();
-            var query = new DocumentQuery(null, profile, null, 0, null);
-            var z2 = await z1.SearchAsync(query, token);
-            var z3 = await z.SearchDocumentsAsync(query, token);
+
+            //decimal elad = 1.12M;
+            //decimal commision = elad * 0.09M;
+            //decimal commisionRam = decimal.Round(elad * 0.09M, 2);
+            var payPal = _container.Resolve<IPayPal>();
+            var t = await payPal.GetPaymentAsync("PAYID-LRJPZOI7TS119954H9650139");
+            // Use OAuthTokenCredential to request an access token from PayPal
+            
+          //  var apiContext = new APIContext(accessToken);
+         //   var payment = Payment.Get(apiContext, "PAYID-LRJOZSY05856466R8939421C");
+            var x2 = _container.Resolve<IUnitOfWork>();
+            //var write = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
+            //await write.CreateOrUpdateAsync(token);
+            //var _queryBus = _container.Resolve<IQueryBus>();
+            ////var uniId = GetUniversityClaimValue();
+            //var userId = 176778L;// _userManager.GetLongUserId(bindingContext.HttpContext.User);
+            //var query2 = new UserWithUniversityQuery(userId);
+            //var profile = await _queryBus.QueryAsync(query2, token);
+            //profile.Country = "IL";
+            ////IDocumentsSearch
+            //var z1 = _container.Resolve<IDocumentsSearch>();
+            //var z = _container.Resolve<IDocumentSearch>();
+            //var query = new DocumentQuery(null, profile, null, 0, null);
+            //var z2 = await z1.SearchAsync(query, token);
+            //var z3 = await z.SearchDocumentsAsync(query, token);
 
             //var x = _container.Resolve<AzureDocumentSearch>();
 

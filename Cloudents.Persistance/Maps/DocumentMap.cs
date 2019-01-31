@@ -32,7 +32,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.PageCount).Nullable();
             Map(x => x.Purchased).Not.Nullable();
             Map(x => x.MetaContent).Nullable();
-            Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); ;
+            Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); 
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
                 //.Cascade.()

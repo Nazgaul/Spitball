@@ -4,11 +4,13 @@
     {
         DbConnectionString Db { get; }
         SearchServiceCredentials Search { get; }
+
+        PayPalCredentials PayPal { get; }
         string Redis { get; }
         string Storage { get; }
         string BlockChainNetwork { get; }
 
-        LocalStorageData LocalStorageData { get; }
+        //LocalStorageData LocalStorageData { get; }
 
         string SiteEndPoint { get; }
 
