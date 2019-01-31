@@ -33,7 +33,7 @@ namespace Cloudents.Query.Email
             public async Task<AnswerAcceptedEmailDto> GetAsync(GetAnswerAcceptedEmailQuery query, CancellationToken token)
             {
                 const string sql = @"Select 
-u.Email,
+u.Email as ToEmailAddress,
 u.Language,
  u.id as userId,
  t.Price as tokens,

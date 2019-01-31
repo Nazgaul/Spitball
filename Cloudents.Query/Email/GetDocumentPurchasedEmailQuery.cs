@@ -36,7 +36,7 @@ namespace Cloudents.Query.Email
                 const string sql = @"Select 
  d.CourseName,
   d.Name as documentName ,
-u.Email,
+u.Email as ToEmailAddress,
  u.id as userId,
  t.Price as tokens,
 u.Language

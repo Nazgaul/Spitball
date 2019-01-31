@@ -31,6 +31,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Enum;
+using Microsoft.Azure.Documents.Client;
 
 namespace ConsoleApp
 {
@@ -46,7 +47,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -360,7 +361,15 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-            await FixUsersWithoutTransactions();
+
+            var t = GoogleSheetsReader.Read();
+            DocumentClient dc = new DocumentClient(new Uri("https://spitball-dev.documents.azure.com:443/"), "i3mWvwEYwqa5HvGBrgBneTTaX9o56bX4K8WLPLHMN91DjXcE44r3lzI69BXPZUvfARhdGC1psvShqgzIAy0RkA==");
+            foreach (var item in t)
+            {
+                await dc.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("Spitball", "Emails"), item);
+            }
+
+            //await FixUsersWithoutTransactions();
 
             //AutoMapper.Mapper.Initialize(cfg =>
             //{
