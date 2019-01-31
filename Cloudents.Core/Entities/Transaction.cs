@@ -117,7 +117,7 @@ namespace Cloudents.Core.Entities
             var initBalance = 100;
             if (Tier1Users.Contains(user.Country))
             {
-                initBalance = 750;
+                initBalance = 150;
             }
 
             return new AwardMoneyTransaction(initBalance/*, user*/)
