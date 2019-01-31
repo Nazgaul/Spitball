@@ -26,8 +26,8 @@ namespace Cloudents.Persistance.Maps
             HasMany(x => x.Transactions)
                 //.Cascade()
                 .LazyLoad()
-               
                 .Inverse();
+
             HasMany(x => x.Votes)
                 .Access.CamelCaseField(Prefix.Underscore)
                 .KeyColumns.Add("AnswerId")

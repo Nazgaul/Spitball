@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -26,7 +26,7 @@ namespace Cloudents.Command.CommandHandler
             {
                 return;
             }
-user.FinishRegistration();
+            user.FinishRegistration();
 
             await _userRepository.UpdateAsync(user, token);
         }

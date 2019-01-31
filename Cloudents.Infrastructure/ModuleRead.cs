@@ -29,7 +29,8 @@ namespace Cloudents.Infrastructure
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
 
-            builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf().As<IStartable>().SingleInstance().AutoActivate();
+            builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf()
+                /*.As<IStartable>()*/.SingleInstance()/*.AutoActivate()*/;
             builder.RegisterGeneric(typeof(DocumentDbRepository<>)).AsImplementedInterfaces();
 
             builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()

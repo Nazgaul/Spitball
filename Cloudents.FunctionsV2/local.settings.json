@@ -2,7 +2,6 @@
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=spitballdev;AccountKey=fEzJ1MJZyIQMCoGRK/8lnwCHRLm3A3g0+ZnvoIxed7Bl5MlWw/FkbPKrDhCIlWzasWVCK6q0U4HQZ3qCLnXelg==;EndpointSuffix=core.windows.net",
-    //"AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "BlockChainNetwork": "http://spito5-dns-reg1.northeurope.cloudapp.azure.com:8545",
     "ConnectionString": "Server=tcp:on0rodxe8f.database.windows.net,1433;Initial Catalog=ZBoxNew_Develop;Persist Security Info=False;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
     "IsDevelop": "True",
@@ -11,7 +10,6 @@
     "SearchServiceName": "cloudents",
     "SendgridKey": "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",
     "SiteEndPoint": "https://dev.spitball.co",
-    //"TempConnection": "DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==",
     "TempConnectionDev": "DefaultEndpointsProtocol=https;AccountName=spitballdev;AccountKey=fEzJ1MJZyIQMCoGRK/8lnwCHRLm3A3g0+ZnvoIxed7Bl5MlWw/FkbPKrDhCIlWzasWVCK6q0U4HQZ3qCLnXelg==;EndpointSuffix=core.windows.net",
     "TwilioSid": "AC1796f09281da07ec03149db53b55db8d",
     "TwilioToken": "c4cdf14c4f6ca25c345c3600a72e8b49",

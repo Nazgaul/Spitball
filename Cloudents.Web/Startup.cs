@@ -118,7 +118,6 @@ namespace Cloudents.Web
                 });
             services.AddResponseCompression();
             services.AddResponseCaching();
-
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
@@ -202,8 +201,8 @@ namespace Cloudents.Web
                     !HostingEnvironment.IsProduction()
                     ),
                 Storage = Configuration["Storage"],
-                BlockChainNetwork = Configuration["BlockChainNetwork"],
-                ServiceBus = Configuration["ServiceBus"]
+                ServiceBus = Configuration["ServiceBus"],
+                PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
@@ -315,4 +314,6 @@ namespace Cloudents.Web
             });
         }
     }
+
+
 }

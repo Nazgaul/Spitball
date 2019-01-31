@@ -24,7 +24,7 @@ namespace Cloudents.Persistance.Maps
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
             References(x => x.Course).Column("CourseId").ForeignKey("Question_Course").Nullable();
             HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore)
-                //.Inverse()
+                .Inverse()
                 .ExtraLazyLoad()
                 .Cascade.AllDeleteOrphan();
 

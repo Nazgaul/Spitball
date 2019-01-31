@@ -31,4 +31,10 @@ namespace Cloudents.Web.Models
             return new ValidationResult(ErrorMessage);
         }
     }
+
+    public sealed class PayPalTransactionRequest
+    {
+        [Required]
+        public string Id { get; set; }
+    }
 }
