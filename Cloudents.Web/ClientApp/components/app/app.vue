@@ -165,8 +165,7 @@
             marketingBox,
             leadersBoard,
             boardGuide,
-            uploadMultipleFiles
-            boardGuide,
+            uploadMultipleFiles,
             buyTokens
         },
         data() {
