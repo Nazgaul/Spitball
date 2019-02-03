@@ -178,7 +178,8 @@
                 this.UPDATE_LOADING(true);
                 let newQueryArr = Object.keys(this.selectedChips);
                 let newQueryObject = {
-                    Course: newQueryArr
+                    Course: newQueryArr,
+                    Filter: this.$route.query.Filter
                 };
                 this.$router.push({query: newQueryObject});
             },
