@@ -130,7 +130,7 @@
                    :content-class="'confirmation-purchase-dialog'">
             <v-card class="confirm-purchase-card">
                 <v-card-title class="confirm-headline">
-                    <span v-html="$Ph('preview_about_to_buy', [item.price, uploaderName])"></span>
+                    <span v-html="$Ph('preview_about_to_buy', [price, uploaderName])"></span>
                     <!--<span v-language:inner>preview_about_to_buy</span>-->
                     <!--<span>&nbsp;{{doc ? doc.title: ''}}</span>-->
                 </v-card-title>
@@ -246,6 +246,11 @@
                         }
                     })
                 }
+            },
+            price(){
+              if(this.item && this.item.price){
+                  return this.item.price
+              }
             },
             uploaderName() {
                 if (this.item && this.item.user && this.item.user.name)
