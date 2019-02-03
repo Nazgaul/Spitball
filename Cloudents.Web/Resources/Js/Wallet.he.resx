@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Action" xml:space="preserve">
-    <value>סוג פעולה</value>
+    <value>פעולה</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>סכום</value>
@@ -163,7 +163,7 @@
     <value>עסקאות</value>
   </data>
   <data name="Type" xml:space="preserve">
-    <value>סוג טוקנים</value>
+    <value>סוג</value>
   </data>
   <data name="Value" xml:space="preserve">
     <value>שווי ב-$</value>
