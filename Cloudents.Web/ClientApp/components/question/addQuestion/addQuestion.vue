@@ -80,25 +80,12 @@
         </div>
       </div>
       <div class="question-subject-class-container">
-        <div class="question-select-floating-error" v-show="hasSubjectError">
-          {{addQuestionValidtionObj.errors["subject"].message}}
+        <div class="question-select-floating-error" v-show="hasClassError">
+          {{addQuestionValidtionObj.errors["class"].message}}
           <span class="select-error-triangle"></span>
         </div>
-        <div class="question-select left" :class="{'subject-error': hasSubjectError}">
-          <v-select
-            :content-class="'question-select-list'"
-            height="40"
-            v-model="questionSubjct"
-            single-line
-            item-value="id"
-            item-text="subject"
-            :items="subjectList"
-            :label="dictionary.selectSubjectPlaceholder"
-            :append-icon="'sbf-arrow-down'"
-            outline
-          ></v-select>
-        </div>
-        <div class="question-select right">
+        <div class="question-select left" :class="{'subject-error': hasClassError}">
+          
           <v-select
             :content-class="'question-select-list'"
             height="40"
@@ -123,6 +110,20 @@
               </div>
             </template>
           </v-select>
+        </div>
+        <div class="question-select right">
+          <v-select
+            :content-class="'question-select-list'"
+            height="40"
+            v-model="questionSubjct"
+            single-line
+            item-value="id"
+            item-text="subject"
+            :items="subjectList"
+            :label="dictionary.selectSubjectPlaceholder"
+            :append-icon="'sbf-arrow-down'"
+            outline
+          ></v-select>
         </div>
       </div>
       <div class="question-component-container">

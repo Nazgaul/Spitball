@@ -132,6 +132,9 @@
   <data name="error_minimum_chars" xml:space="preserve">
     <value>There is a minimum of 15 characters for a question</value>
   </data>
+  <data name="error_select_class" xml:space="preserve">
+    <value>Don’t forget to select the class for your question</value>
+  </data>
   <data name="error_select_subject" xml:space="preserve">
     <value>Don’t forget to select the subject for your question</value>
   </data>

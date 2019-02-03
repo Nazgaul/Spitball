@@ -22,7 +22,7 @@ export default {
             addQuestionValidtionObj: {
                 errors: {
                     textArea: {},
-                    subject: {},
+                    class: {},
                     server: {}
                 }
             },
@@ -62,7 +62,6 @@ export default {
                 askPlaceholder: LanguageService.getValueByKey('addQuestion_ask_your_question_placeholder'),
                 selectSubjectPlaceholder: LanguageService.getValueByKey('addQuestion_select_subject_placeholder'),
                 classPlaceholder: LanguageService.getValueByKey('addQuestion_class_placeholder'),
-
             }
         }
     },
@@ -76,8 +75,8 @@ export default {
         hasTextAreaError() {
             return !!this.addQuestionValidtionObj.errors['textArea'] && this.addQuestionValidtionObj.errors['textArea'].hasError
         },
-        hasSubjectError() {
-            return !!this.addQuestionValidtionObj.errors['subject'] && this.addQuestionValidtionObj.errors['subject'].hasError
+        hasClassError() {
+            return !!this.addQuestionValidtionObj.errors['class'] && this.addQuestionValidtionObj.errors['class'].hasError
         },
         hasExternalError() {
             return !!this.currentComponentselected.showError
@@ -90,8 +89,8 @@ export default {
         questionMessage() {
             this.addQuestionValidtionObj.errors['textArea'] = {}
         },
-        questionSubjct() {
-            this.addQuestionValidtionObj.errors['subject'] = {}
+        questionClass() {
+            this.addQuestionValidtionObj.errors['class'] = {}
         },
         newQuestionDialogSate: {
             immediate: true,
@@ -119,7 +118,7 @@ export default {
             //should be the same as the data object
             this.addQuestionValidtionObj.errors = {
                 textArea: {},
-                subject: {},
+                class: {},
                 server: {}
             };
         },
@@ -136,10 +135,10 @@ export default {
                 canAddQuestion = false;
 
             }
-            if (!this.questionSubjct) {
-                const message = LanguageService.getValueByKey('addQuestion_error_select_subject');
+            if (!this.questionClass) {
+                const message = LanguageService.getValueByKey('addQuestion_error_select_class');
                 let errorObj = addQuestionUtilities.createErrorObj(true, message)
-                this.addQuestionValidtionObj.errors['subject'] = errorObj
+                this.addQuestionValidtionObj.errors['class'] = errorObj
                 canAddQuestion = false;
             }
             if (!!externalComponent.hasError) {
