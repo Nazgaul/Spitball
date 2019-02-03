@@ -180,6 +180,12 @@
                 let newQueryObject = {
                     Course: newQueryArr
                 };
+                let filter = this.$route.query.Filter;
+                if(filter){
+                    newQueryObject.Filter = filter;
+                }else{
+                    delete newQueryObject.Filter;
+                }
                 this.$router.push({query: newQueryObject});
             },
             sortClassesByIsSelected(arr, sortBy) {
