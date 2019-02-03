@@ -64,18 +64,18 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        private Presentation _pptx;
+        private Lazy<Presentation> _pptx;
 
         public void Init(Stream stream)
         {
-            _pptx = new Presentation(stream);
+            _pptx = new Lazy<Presentation>(() =>  new Presentation(stream));
             
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
         {
-            var txt = ExtractStringFromPpt(_pptx);
-            return (txt, _pptx.Slides.Count);
+            var txt = ExtractStringFromPpt(_pptx.Value);
+            return (txt, _pptx.Value.Slides.Count);
         }
 
        
@@ -85,7 +85,7 @@ namespace Cloudents.Infrastructure.Framework
         {
             var tasksList = new List<Task>();
 
-            var diff = Enumerable.Range(0, _pptx.Slides.Count);
+            var diff = Enumerable.Range(0, _pptx.Value.Slides.Count);
             diff = diff.Except(previewDelta);
 
             foreach (var item in diff)
@@ -94,7 +94,7 @@ namespace Cloudents.Infrastructure.Framework
                 {
                     break;
                 }
-                using (var img = _pptx.Slides[0].GetThumbnail(1, 1))
+                using (var img = _pptx.Value.Slides[0].GetThumbnail(1, 1))
                 {
                     var ms = new MemoryStream();
                     img.Save(ms, ImageFormat.Jpeg);
@@ -107,7 +107,10 @@ namespace Cloudents.Infrastructure.Framework
 
         public void Dispose()
         {
-            _pptx?.Dispose();
+            if (_pptx.IsValueCreated)
+            {
+                _pptx?.Value?.Dispose();
+            }
         }
     }
 }

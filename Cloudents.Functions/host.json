@@ -1,7 +1,8 @@
 {
   "functionTimeout": "00:10:00",
   "queues": {
-    "batchSize": 2,
+    "batchSize": 1,
     "maxDequeueCount": 3
-  }
+  },
+  "functions": [ "BlobPreview-Queue" ]
 }

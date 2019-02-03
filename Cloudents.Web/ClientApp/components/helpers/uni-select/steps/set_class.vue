@@ -33,12 +33,13 @@
         chips
         :menu-props="dropDownAlphaHeight"
         :color="`gray`"
+        :content-class="'set-class-dropdown-container'"
       >
         <template slot="no-data">
           <v-list-tile v-if="showBox">
             <div class="subheading">
               <span v-language:inner>uniSelect_create</span>
-              <v-chip>{{ search }}</v-chip>
+              <v-chip @click="addClass(search, classes)">{{ search }}</v-chip>
             </div>
           </v-list-tile>
           <!-- <v-list-tile>
@@ -99,7 +100,7 @@ export default {
           this.updateClasses(searchVal);
         }
       }
-    }, 250)
+    }, 500)
   },
   computed: {
     ...mapGetters(["getSelectedClasses"]),
@@ -158,7 +159,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateClasses", "updateSelectedClasses", "assignClasses"]),
+    ...mapActions(["updateClasses", "updateSelectedClasses", "assignClasses", "pushClassToSelectedClasses"]),
     ...mapGetters(["getSchoolName", "getClasses"]),
 
     lastStep() {
@@ -169,6 +170,14 @@ export default {
       this.assignClasses().then(() => {
         this.fnMethods.changeStep(this.enumSteps.done);
       });
+    },
+    addClass(className) {
+      this.pushClassToSelectedClasses(className);
+      setTimeout(()=>{
+        let container = document.querySelector('.v-select__selections');
+        let inputElm = container.querySelector('input');
+        inputElm.focus();
+      }, 200)
     },
     itemInList(item) {
       if (typeof item !== "object") {
@@ -182,6 +191,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .chip-style {
   background-color: rgba(68, 82, 252, 0.09);
   &.dark-chip {
@@ -210,11 +220,6 @@ export default {
 
 .subheading {
   font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: rgba(0, 0, 0, 0.38);
   &.dark {
     font-size: 13px !important;
