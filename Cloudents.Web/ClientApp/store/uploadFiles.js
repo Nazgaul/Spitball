@@ -1,101 +1,130 @@
-
-import uploadService from '../services/uploadService';
-
 const state = {
     fileData: [],
-    uploadProgress: 0,
+    courseSelected : '',
+    uploadProgressArr: [],
     showDialog: false,
-    customFileName : '',
+    customFileName: '',
     uploadFullMobile: true,
     returnToUpload: false,
     uploadStep: 1,
     uploadState: false
 };
 const mutations = {
-    setUploadProgress(state,val){
-        state.uploadProgress = val;
+    setUploadProgress(state, val) {
+      let  objIndex =  state.fileData.findIndex((obj => obj.id === val.id));
+        state.fileData[objIndex].progress = 100;
     },
-    setFile(state, val){
-        // let assignData = Object.assign(state.fileData, data);
-        // let newFileData = uploadService.createFileData(assignData);
-        // state.fileData = newFileData
-        // state.fileData = val;
+    updatePriceToAll(state, price){
+        state.fileData.forEach(file=>{
+            file.price = price;
+        })
     },
-    addFile(state, val){
-        // let assignData = Object.assign(state.fileData, data);
-        // let newFileData = uploadService.createFileData(assignData);
-        // state.fileData = newFileData
+    updateDocTypeToAll(state, docType){
+        state.fileData.forEach(file=>{
+            file.type = docType;
+        })
+    },
+    updateDocProfessorAll(state, prof){
+        state.fileData.forEach(file=>{
+            file.professor = prof;
+        })
+    },
+    updateFileByIndex(state, fileObj){
+        state.fileData[fileObj.index] = fileObj.data;
+    },
+    addFile(state, val) {
+        val.course =state.courseSelected;
         state.fileData.push(val);
     },
-    setDialogUploadState(state, val){
+    deleteFileByIndex(state, index){
+        state.fileData.splice(index, 1)
+    },
+    updateCourse(state, course){
+        state.courseSelected = course
+    },
+    setDialogUploadState(state, val) {
         state.showDialog = val
     },
-    setFileName(state, data){
+    setFileName(state, data) {
         state.customFileName = data
     },
-    // setUploadFullMobile(state, val){
-    //     state.uploadFullMobile = val
-    // },
-    clearUploadData(state, val){
-        state.fileData = val;
+    clearUploadData(state, []) {
+        state.fileData = [];
     },
-    updateReturnToUpload(state, val){
+    updateReturnToUpload(state, val) {
         state.returnToUpload = val
     },
-    setUploadStep(state, val){
+    setUploadStep(state, val) {
         state.uploadStep = val;
     },
-    updateUploadProcessState(state, val){
-        state.uploadState = val
+    updateBlobName(state, fileIdName){
+        let  objIndex =  state.fileData.findIndex((obj => obj.id === fileIdName.id));
+        state.fileData[objIndex].blobName = fileIdName.blobName;
+
     }
+
 };
 const getters = {
     getFileData: (state) => state.fileData,
-    getUploadProgress: (state) => state.uploadProgress,
+    // getUploadProgress: (state) => state.uploadProgress,
     getDialogState: (state) => state.showDialog,
     getCustomFileName: (state) => state.customFileName,
-    getUploadFullMobile: (state) => state.uploadFullMobile,
     getReturnToUpload: (state) => state.returnToUpload,
-    isUploadActiveProcess: (state) => state.uploadState
+    // isUploadActiveProcess: (state) => state.uploadState
 };
 const actions = {
-    resetUploadData({commit}, val){
-      commit('clearUploadData', val);
+    deleteFileByIndex({commit}, index){
+        commit('deleteFileByIndex', index)
     },
-    changeUploadState({commit}, val){
-        commit("updateUploadProcessState", val)
+    changeFileByIndex({commit}, fileObj){
+        commit('updateFileByIndex', fileObj)
     },
-    updateFileName({commit}, data){
-        commit('setFileName',  data);
+    resetUploadData({commit}) {
+        commit('clearUploadData');
     },
-    updateFile({commit}, data){
-        //service add stuff
-        commit('addFile',  data);
-
+    updateFileName({commit}, data) {
+        commit('setFileName', data);
     },
-    updateStep({commit}, val){
-        commit('setUploadStep',val)
+    updateFile({commit}, data) {
+        commit('addFile', data);
     },
-    updateUploadProgress({commit}, val){
-        commit('setUploadProgress',val)
+    updateStep({commit}, val) {
+        commit('setUploadStep', val)
     },
-    askQuestion({commit, dispatch}, val){
+    stopUploadProgress({commit}, val) {
+        commit('setUploadProgress', val)
+    },
+    askQuestion({commit, dispatch}, val) {
         //close upload
         commit('setDialogUploadState', val);
         //and open new question
-        setTimeout(()=>{
+        setTimeout(() => {
             dispatch('updateNewQuestionDialogState', true)
         }, 300);
     },
-    updateDialogState({commit}, val){
+    updateDialogState({commit}, val) {
         commit('setDialogUploadState', val);
     },
-    updateUploadFullMobile({commit}, val){
-      commit('setUploadFullMobile', val)
-    },
-    setReturnToUpload({commit}, val){
+    setReturnToUpload({commit}, val) {
         commit('updateReturnToUpload', val)
+    },
+    setAllPrice({commit}, price){
+        commit('updatePriceToAll', price)
+    },
+    setAllDocType({commit}, docType){
+        commit('updateDocTypeToAll', docType)
+    },
+    setAllProfessor({commit}, prof){
+        commit('updateDocProfessorAll', prof)
+    },
+    setCourse({commit}, course){
+        commit('updateCourse', course)
+    },
+    setFileBlobNameById({commit}, fileIdName){
+        commit('updateBlobName', fileIdName)
     }
+
+
 };
 
 export default {

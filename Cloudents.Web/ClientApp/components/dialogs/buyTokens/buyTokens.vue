@@ -1,5 +1,6 @@
 <template>
   <div class="buy-dialog-wrap">
+    <div class="close-buy-dialog"><v-icon @click="closeModal">sbf-close</v-icon></div>
     <div class="buy_title">
       <h1>select a product</h1>
     </div>
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 export default {
   data() {
     return {
@@ -33,21 +34,24 @@ export default {
           description: "you will recieve 100 sbl",
           price: "1",
           quantity: "1",
-          currency: "USD"
+          currency: "USD",
+          sku: "points_1"
         },
         inter: {
           name: "Tier 2 SBL pack",
           description: "you will recieve 200 sbl",
           price: "2",
           quantity: "1",
-          currency: "USD"
+          currency: "USD",
+          sku: "points_2",
         },
         pro: {
           name: "Tier 3 SBL pack",
           description: "you will recieve 300 sbl",
           price: "3",
           quantity: "1",
-          currency: "USD"
+          currency: "USD",
+          sku: "points_3"
         }
       },
       paypalLoaded: false,
@@ -56,6 +60,7 @@ export default {
   },
   methods: {
     ...mapGetters(['accountUser']),
+    ...mapActions(['updateShowBuyDialog']),
     selectProduct(val) {
       if (this.selectedProduct !== val) {
         this.selectedProduct = val;
@@ -63,6 +68,9 @@ export default {
         paypalBtn.innerHTML = "";
         this.mountPaypalButton();
       }
+    },
+    closeModal(){
+      this.updateShowBuyDialog(false)
     },
     reflectPaymentToServer(transactionId){
         console.log(`transaction made id is ${transactionId}`);
@@ -144,6 +152,16 @@ export default {
   width: 500px;
   .buy-dialog-wrap {
     width: 100%;
+    position: relative;
+    padding: 10px;
+    .close-buy-dialog{
+        i{
+          font-size: 16px;
+          position: absolute;
+          right: 10px;
+          top: 10px;
+        }
+    }
     .buy_title {
     }
     .buy_content {

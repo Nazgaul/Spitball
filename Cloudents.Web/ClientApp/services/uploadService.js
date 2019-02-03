@@ -2,13 +2,17 @@ import { connectivityModule } from "./connectivity.module"
 
 
 function FileData(ObjInit){
+        this.id = ObjInit.id || '';
         this.blobName = ObjInit.blobName || '';
         this.name= ObjInit.name || '';
         this.type= ObjInit.type || '';
         this.course= ObjInit.course || '';
         this.tags = ObjInit.tags || [];
         this.professor= ObjInit.professor || '';
-        this.price = ObjInit.price || ''
+        this.price = ObjInit.price || '';
+        this.progress = ObjInit.progress || 100;
+        this.link  = ObjInit.link || '';
+        this.size  = ObjInit.bytes || 0
 }
 
 function createFileData(ObjInit){

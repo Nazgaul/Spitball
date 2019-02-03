@@ -149,6 +149,16 @@
 .upload-dialog {
   position: relative;
   font-family: @fontFiraSans;
+  .enter { transform: translateY(0) }
+  .enter-to { transform: translateY(100%) }
+  .slide-enter-active { }
+
+  .leave { transform: translateY(0) }
+  .leave-to { transform: translateY(-100%) }
+
+  .slide-enter-active,
+  .slide-leave-active { transition: all 700ms ease-in-out }
+
   .close-upload-btn-icon {
     position: absolute;
     right: 16px;
@@ -164,6 +174,28 @@
       font-size: 12px;
     }
   }
+  .upload-btn{
+    font-family: @fontFiraSans;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 24px;
+    background-color:  @color-blue-new!important;
+    text-transform: capitalize;
+    box-shadow: 0 2px 9px 0 rgba(0,0,0,.35);
+    font-size: 16px;
+    font-weight: 400;
+    color: @color-white;
+    outline: none;
+    line-height: 16px;
+    .sb-btn-text{
+      //line-height: 16px;
+    }
+    &:hover {
+      background: lighten(@color-blue-new, 5%);
+    }
+  }
+
   .upload-subtitle {
     font-size: 16px;
     font-family: @fontFiraSans;
@@ -205,6 +237,10 @@
         justify-content: center;
         align-items: flex-start;
         box-shadow: none;
+        &.footer{
+          align-items: center;
+          padding: 36px 0;
+        }
         @media (max-width: @screen-xs) {
           display: none;
         }

@@ -3,7 +3,7 @@
         <v-icon class="close-upload-btn-icon" @click="confirmCloseOpen()">sbf-close</v-icon>
         <v-card elevation="0" class="sb-steps-wrap">
             <v-stepper v-model="currentStep" class="sb-stepper">
-                <v-stepper-header class="sb-stepper-header px-2">
+                <v-stepper-header class="sb-stepper-header px-4">
                     <template>
                         <h2 class="sb-step-title" v-language:inner>upload_files_header_title</h2>
                     </template>
@@ -15,8 +15,8 @@
                                        :step="n">
                         <v-layout justify-center column wrap align-center v-if="firstStep" class="mt-4">
                             <v-flex xs12 sm6 d-flex row class="justify-center align-center mb-3 grow-1">
-                                    <v-icon class="col-blue mr-4">sbf-upload-cloud</v-icon>
-                                    <span class="upload-subtitle col-blue">Upload</span>
+                                <v-icon class="col-blue mr-4">sbf-upload-cloud</v-icon>
+                                <span class="upload-subtitle col-blue">Upload</span>
                             </v-flex>
                             <v-flex xs12 sm6 d-flex class="justify-center align-center">
                                 <v-select
@@ -24,19 +24,32 @@
                                         :items="['wer','werwer','dfgdfg','435435']"
                                         placeholder="Please select course"
                                         v-model="courseSelected"
+                                        @input="updateSelectedCourse()"
                                         solo
                                         :append-icon="'sbf-arrow-down'"
                                 ></v-select>
                             </v-flex>
                         </v-layout>
-                        <upload-files-start transition="slide-y-transition"
-                                            v-show="courseSelected && firstStep"
-                                            :curStep="n"
-                                            :callBackmethods="callBackmethods"></upload-files-start>
-                        <component v-if="!firstStep" :is="`upload-step_${n}`"  :curStep="n" :callBackmethods="callBackmethods"></component>
+                        <transition name="slide">
+                            <upload-files-start
+                                    v-show="courseSelected && firstStep"
+                                    :curStep="n"
+                                    :callBackmethods="callBackmethods"></upload-files-start>
+                        </transition>
+                        <component
+                                v-if="!firstStep"
+                                :is="`upload-step_${n}`"
+                                :curStep="n"
+                                :callBackmethods="callBackmethods"></component>
                     </v-stepper-content>
                 </v-stepper-items>
-                <v-stepper-header v-show="courseSelected" class="sb-stepper-header px-2">
+                <v-stepper-header v-show="courseSelected" class="sb-stepper-header footer px-2">
+                        <v-flex v-show="!firstStep">
+                            <v-btn class="upload-btn" :disabled="!isLoaded">
+                                <span class="sb-btn-text">Upload</span>
+                            </v-btn>
+                        </v-flex>
+
                 </v-stepper-header>
             </v-stepper>
         </v-card>
@@ -92,7 +105,6 @@
                 courseSelected: ''
             }
         },
-        props: {},
 
         computed: {
             ...mapGetters({
@@ -102,21 +114,19 @@
                 getFileData: 'getFileData',
                 getUploadProgress: 'getUploadProgress',
                 getDialogState: 'getDialogState',
-                getCustomFileName: "getCustomFileName",
             }),
-            firstStep(){
-              return this.currentStep ===1;
+            firstStep() {
+                return this.currentStep === 1;
             },
             showUploadDialog() {
                 return this.getDialogState
             },
-
-            isFirstStep() {
-                return this.currentStep === 1
-            },
-            isLastStepAndMobile() {
-                return this.$vuetify.breakpoint.smAndDown && this.currentStep === this.steps;
-            },
+            isLoaded() {
+                let result = this.getFileData.every((item) => {
+                    return item.progress === 100
+                });
+                return result;
+            }
 
         },
         methods: {
@@ -124,16 +134,15 @@
                 'updateFile',
                 'updateNewQuestionDialogState',
                 'changeSelectPopUpUniState',
-                'updateUploadFullMobile',
                 'updateDialogState',
                 'resetUploadData',
                 'setReturnToUpload',
                 'updateStep',
-                'isUploadActiveProcess'
-            ]),
+                'setCourse'
 
-            stopProgress(val) {
-                return this.progressDone = val;
+            ]),
+            updateSelectedCourse() {
+                this.setCourse(this.courseSelected)
             },
             sendDocumentData(step) {
                 this.loading = true;
@@ -160,7 +169,7 @@
 
             },
             confirmCloseOpen() {
-                if (this.currentStep === this.steps || this.isFirstStep) {
+                if (this.currentStep === this.steps || this.firstStep) {
                     this.closeUpload()
                 } else {
                     this.confirmationDialog = true;
@@ -168,16 +177,14 @@
 
             },
             closeUpload() {
-                this.resetFirstStepMobile();
-                this.resetUploadData({});
+                this.resetUploadData();
                 //reset return to upload
                 this.setReturnToUpload(false);
                 //close
                 this.updateDialogState(false);
                 this.confirmationDialog = false;
-
             },
-            nextStep(step) {
+            nextStep() {
                 if (this.currentStep === this.steps) {
                     this.currentStep = 1
                 } else {
@@ -185,29 +192,14 @@
                 }
 
             },
-            previousStep(step) {
-                if (this.currentStep === 1) {
-                    return this.currentStep = 1;
-                } else {
-                    this.currentStep = this.currentStep - 1;
-                }
-
-            },
 
             //resets mobile first step to mobile design
-            resetFirstStepMobile() {
-                if (this.$vuetify.breakpoint.smAndDown) {
-                    this.updateUploadFullMobile(true);
-                }
-            },
-            changeStep(step) {
-                //clean up everytnig for new doc upload
-                if (step === 1) {
-                    this.resetUploadData({});
-                    this.resetFirstStepMobile();
-                }
-                this.currentStep = step;
-            }
+            // resetFirstStepMobile() {
+            //     if (this.$vuetify.breakpoint.smAndDown) {
+            //         this.updateUploadFullMobile(true);
+            //     }
+            // },
+
         },
         created() {
 

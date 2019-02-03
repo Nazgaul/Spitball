@@ -1,9 +1,9 @@
 <template>
-    <v-card class="file-item-card">
+    <v-card class="file-item-card mb-3">
         <v-layout row class="px-3 py-2 pt-4">
             <v-flex xs12 sm7 md7>
                 <v-text-field solo class="sb-field mr-2 bg-greyed"
-                              v-model="fileItem.name"
+                              v-model="item.name"
                               :disabled="true"
                               placeholder="sdfsdfsdf"></v-text-field>
                 <v-combobox class="sb-field sb-combo  mr-2"
@@ -31,39 +31,41 @@
                 </v-combobox>
             </v-flex>
             <v-flex xs12 sm5 md5>
-                <vue-numeric  currency="SBL"
-                            :placeholder="emptyPricePlaceholder"
+                <vue-numeric currency="SBL"
+                             :placeholder="emptyPricePlaceholder"
                              class="numeric-input px-2"
                              :min="1"
                              :precision="2"
                              :max="99"
                              :currency-symbol-position="'suffix'"
                              separator=","
-                             v-model="fileItem.price"></vue-numeric>
+                             v-model="item.price"></vue-numeric>
                 <v-select
                         class="sb-field elevation-0"
                         :items="docTypes"
                         :placeholder="placeholderDocType"
-                        v-model="docType"
+                        v-model="item.type"
                         solo
                         :append-icon="'sbf-arrow-down'"></v-select>
             </v-flex>
             <v-flex xs12 sm1 md1 align-center>
-                <v-icon class="delete-close-icon d-flex mt-3">sbf-close</v-icon>
+                <v-icon class="delete-close-icon d-flex mt-3" @click="deleteFile()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
-        <!--<v-progress-linear-->
-        <!--:height="'3px'"-->
-        <!--v-show="true"-->
-        <!--:color="'#4452fc'"-->
-        <!--v-model="50"-->
-        <!--class="sb-steps-progress ma-0"-->
-        <!--:active="true">-->
-        <!--</v-progress-linear>-->
+        <v-progress-linear
+                style="width: 100%; position: absolute; bottom:0; left:0;"
+                :height="'8px'"
+                :indeterminate="true"
+                v-show="fileItem.progress !==100"
+                :color="'#5cbbf6'"
+                class="sb-steps-progress ma-0"
+        >
+        </v-progress-linear>
     </v-card>
 </template>
 
 <script>
+    import { mapActions, mapGetters } from 'vuex';
     import { documentTypes } from "./consts";
     import { LanguageService } from "../../../../../services/language/languageService";
 
@@ -71,13 +73,13 @@
         name: "fileCard",
         data() {
             return {
-                docType: '',
                 tags: [],
                 docTypes: documentTypes,
                 formattedPrice: '',
                 emptyPricePlaceholder: LanguageService.getValueByKey("upload_multiple_price_placeholder"),
                 placeholderTags: LanguageService.getValueByKey("upload_multiple_keywords_optional"),
-                placeholderDocType: LanguageService.getValueByKey("upload_multiple_select_filetype")
+                placeholderDocType: LanguageService.getValueByKey("upload_multiple_select_filetype"),
+                price: 0
             }
         },
         props: {
@@ -85,15 +87,37 @@
                 type: Object,
                 default: {}
             },
-            singleFileIndex:{
-                type: Number
+            singleFileIndex: {
+                type: Number,
+                required: true
             }
         },
 
+        watch: {
+            item: {
+                deep: true,
+                handler(newVal, oldVal) {
+                    console.log(newVal)
+                    let fileObj = {
+                        index: this.singleFileIndex,
+                        data: newVal
+                    };
+                    this.changeFileByIndex(fileObj);
+                }
+
+            }
+        },
         computed: {
+            ...mapGetters(['getFileData']),
+            item() {
+                return this.getFileData[this.singleFileIndex]
+            },
+            docType() {
+                return this.item.docType
+            },
             selectedTags: {
                 get() {
-                    return this.tags;
+                    return this.item.tags;
                 },
                 set(value) {
                     let arrValidData = [];
@@ -102,15 +126,24 @@
                             return tag.length > 1;
                         })
                     }
+                    this.item.tags = arrValidData;
+                    let fileObj = {
+                        index: this.singleFileIndex,
+                        data: this.item
+                    };
+                    this.changeFileByIndex(fileObj);
                 }
             }
         },
 
         methods: {
+            ...mapActions(['changeFileByIndex', 'deleteFileByIndex']),
+            deleteFile() {
+                this.deleteFileByIndex(this.singleFileIndex)
+            },
             removeTag(item) {
                 this.selectedTags.splice(this.selectedTags.indexOf(item), 1);
                 this.selectedTags = [...this.selectedTags];
-                // this.updateFile({'tags': this.selectedTags})
             },
         },
     }
@@ -123,10 +156,16 @@
     @chipActiveColor: #4452FC;
     .file-item-card {
         display: flex;
-        min-width: 666px;
+        width: 660px;
+        max-width: 660px;
         border-radius: 4px;
         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.23);
         background-color: @color-white;
+        @media (max-width: @screen-xs) {
+            width: 100%;
+            min-width: 360px;
+            max-width: 360px;
+        }
         .delete-close-icon {
             font-size: 10px;
             cursor: pointer;
@@ -143,7 +182,7 @@
         }
 
         .sb-combo {
-            max-width: 430px;
+            max-width: 390px;
             max-height: 48px;
             .v-input__slot {
                 max-height: 48px;
