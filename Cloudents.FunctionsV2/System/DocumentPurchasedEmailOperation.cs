@@ -66,7 +66,7 @@ namespace Cloudents.FunctionsV2.System
         public static async Task<EmailObject> GetEmail(string @event, 
             Language language,IBinder binder, CancellationToken token)
         {
-            var template2 = await binder.BindAsync<IList<EmailObject>>(new CosmosDBAttribute("Spitball", "Emails")
+            var template2 = await binder.BindAsync<IEnumerable<EmailObject>>(new CosmosDBAttribute("Spitball", "Emails")
             {
                 ConnectionStringSetting = "Cosmos",
                 SqlQuery = $"SELECT * FROM c where c.eventName = '{@event}'"
