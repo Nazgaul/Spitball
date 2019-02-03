@@ -897,7 +897,7 @@ where left(blobName ,4) != 'file'");
 
             var cacheUsers = new ConcurrentDictionary<string, long?>();
             List<dynamic> z;
-            long itemId = 631767;
+            long itemId = 0;
             do
             {
                 z = await d.WithConnectionAsync(async f =>
@@ -911,9 +911,12 @@ where left(blobName ,4) != 'file'");
         	                        on I.BoxId = B.BoxId 
 									--and b.discriminator in (2,3)
 									and b.PrivacySetting = 3
+
                                 join Zbox.Users ZU
         	                        on I.UserId = ZU.UserId
-                                join Zbox.University ZUNI on B.University = ZUNI.Id and ZUNI.Id != 170460
+                              	 join zbox.Users uTemp on uTemp.UserId = b.OwnerId
+	 join zbox.University ZUNI on uTemp.UniversityId = ZUNI.Id
+	and ZUNI.id not In ( 170460,790) and ZUNI.country = 'IL'
         						left join zbox.ItemTag IT
         							on IT.ItemId = I.ItemId
         						left join zbox.Tag T
@@ -947,8 +950,9 @@ where left(blobName ,4) != 'file'");
                         itemId = pair.ItemId;
                         Console.WriteLine($"processing {itemId}");
 
-                        string[] blobName = pair.BlobName.Split('.');
-                        if (!supportedFiles.Contains(blobName[1], StringComparer.OrdinalIgnoreCase))
+                        string extension = Path.GetExtension(pair.BlobName);
+                        
+                        if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine($"{pair.ItemId} not blob support");
