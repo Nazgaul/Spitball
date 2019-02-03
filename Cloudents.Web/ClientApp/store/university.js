@@ -113,6 +113,9 @@ const actions = {
     updateSelectedClasses({commit}, val){
         commit('setSelectedClasses', val);
     },
+    pushClassToSelectedClasses({commit}, val){
+        commit('pushClass', val);
+    },
     assignClasses({state, dispatch}){
         universityService.assaignCourse(state.selectedClasses).then(()=>{
             //Update Filters in note page
@@ -155,6 +158,9 @@ const mutations = {
     },
     setClasses(state, val){
         state.classes = val;
+    },
+    pushClass(state, val){
+        state.selectedClasses.push(val);
     },
     setSelectedClasses(state, val){
         state.selectedClasses = val;
