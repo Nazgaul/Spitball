@@ -56,7 +56,7 @@
                                      v-if="index<3" :key="index">
                                     <input :disabled="pricey > thirtyPercent" :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
                                            :value="pricey" v-model="selectedPrice">
-                                    <label :for="`${pricey}pts`"><bdi>{{pricey}} SBL</bdi></label>
+                                    <label :for="`${pricey}pts`"><bdi>{{pricey}} <span v-language:inner>app_currency_dynamic</span></bdi></label>
                                 </div>
                             </div>
                             <div class="points-line">

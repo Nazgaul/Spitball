@@ -148,7 +148,7 @@
     <value>Max limit reached</value>
   </data>
   <data name="regular_error_minRequired" xml:space="preserve">
-    <value>Minimum 1 SBL required</value>
+    <value>Minimum 1 point required</value>
   </data>
   <data name="regular_error_offerLimit" xml:space="preserve">
     <value>Offer limit reached</value>

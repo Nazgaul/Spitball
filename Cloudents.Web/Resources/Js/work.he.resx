@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="personalization_text" xml:space="preserve">
-    <value>עצה: כדאי לחסוך נקודות SBL על מנת שתוכלו לשאול שאלות קשות בנושא שיעורי בית בעתיד.</value>
+    <value>עצה: כדאי לחסוך נקודות נקודות על מנת שתוכלו לשאול שאלות קשות בנושא שיעורי בית בעתיד.</value>
   </data>
   <data name="personalization_title" xml:space="preserve">
     <value>פדיון</value>
