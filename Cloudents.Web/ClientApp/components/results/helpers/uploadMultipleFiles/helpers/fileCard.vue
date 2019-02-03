@@ -45,7 +45,7 @@
                              separator=","
                              v-model="item.price"></vue-numeric>
             </v-flex>
-            <v-flex xs6 sm7 md7>
+            <v-flex xs6 sm5 md5>
                 <v-select
                         class="sb-field elevation-0"
                         :items="docTypes"
@@ -127,10 +127,11 @@
                 const gridBreakpoint = {};
 
                 if (this.$vuetify.breakpoint.smAndUp){
-                    gridBreakpoint.row = true
+                    gridBreakpoint.row = true;
+                    gridBreakpoint.wrap = true;
                 }else{
-                    gridBreakpoint.row = true
-                    gridBreakpoint.wrap = true
+                    gridBreakpoint.row = true;
+                    gridBreakpoint.wrap = true;
                 }
                 return gridBreakpoint
             },
