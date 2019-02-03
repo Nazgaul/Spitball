@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="personalization_text" xml:space="preserve">
-    <value>             Tip: We encourage students to save some SBLs in order to ask tough homework questions in the future.</value>
+    <value>             Tip: We encourage students to save some points in order to ask tough homework questions in the future.</value>
   </data>
   <data name="personalization_title" xml:space="preserve">
     <value>Cashing Out</value>

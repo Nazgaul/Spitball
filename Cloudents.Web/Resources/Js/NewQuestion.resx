@@ -127,19 +127,19 @@
     <value>Get Your Question Answered</value>
   </data>
   <data name="max_SBL" xml:space="preserve">
-    <value>The max. number of SBL is 100 per question</value>
+    <value>The max. number of points is 100 per question</value>
   </data>
   <data name="min_SBL" xml:space="preserve">
-    <value>The min. number of SBL is 1 per question</value>
+    <value>The min. number of points is 1 per question</value>
   </data>
   <data name="Pick_a_subject" xml:space="preserve">
     <value>Pick a subject</value>
   </data>
   <data name="SBL" xml:space="preserve">
-    <value>SBL</value>
+    <value>Pts</value>
   </data>
   <data name="sufficient_SBL" xml:space="preserve">
-    <value>You do not have sufficient SBL</value>
+    <value>You do not have sufficient points</value>
   </data>
   <data name="Tip" xml:space="preserve">
     <value>Tip:</value>
@@ -151,9 +151,9 @@
     <value>Other amount</value>
   </data>
   <data name="max_percent_SBL" xml:space="preserve">
-    <value>You do not have sufficient SBL, Earn more SBL by answering questions</value>
+    <value>You do not have sufficient SBL, Earn more points by answering questions</value>
   </data>
   <data name="sbl_calc" xml:space="preserve">
-    <value>You have {1} SBL, you can offer up to {2} SBL for your question</value>
+    <value>You have {1} points, you can offer up to {2} points for your question</value>
   </data>
 </root>

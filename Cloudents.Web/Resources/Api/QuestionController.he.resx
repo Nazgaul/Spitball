@@ -121,7 +121,7 @@
     <value>סוגי שאלות</value>
   </data>
   <data name="InSufficientFunds" xml:space="preserve">
-    <value>אין לך מספיק SBL,  קבל עוד SBL על ידי מתן תשובות לשאלות.</value>
+    <value>אין לך מספיק נקודות,  קבל עוד נקודות על ידי מתן תשובות לשאלות.</value>
   </data>
   <data name="PostedQuestionToasterOk" xml:space="preserve">
     <value>תודה, נעדכן אותך מייד ברגע שתתקבל תשובה</value>
