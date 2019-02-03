@@ -1,12 +1,16 @@
 <template>
     <v-card class="file-item-card mb-3">
-        <v-layout row class="px-3 py-2 pt-4">
+        <v-layout row class="px-3 py-2 pt-4" v-bind="gridBreakpoint">
             <v-flex xs12 sm7 md7>
-                <v-text-field solo class="sb-field mr-2 bg-greyed"
+                <v-text-field solo class="sb-field  bg-greyed"
+                              :class="$vuetify.breakpoint.xsOnly ? 'mr-0' : ' mr-2'"
                               v-model="item.name"
                               :disabled="true"
                               placeholder="sdfsdfsdf"></v-text-field>
-                <v-combobox class="sb-field sb-combo  mr-2"
+            </v-flex>
+            <v-flex xs12 sm7 md7 :class="$vuetify.breakpoint.xsOnly ? 'mb-3' : ''">
+                <v-combobox class="sb-field sb-combo"
+                            :class="$vuetify.breakpoint.xsOnly ? 'mr-0' : ' mr-2'"
                             v-language:placeholder
                             v-model="selectedTags"
                             height="'48px'"
@@ -30,7 +34,7 @@
                     </template>
                 </v-combobox>
             </v-flex>
-            <v-flex xs12 sm5 md5>
+            <v-flex xs6 sm5 md5  :class="$vuetify.breakpoint.xsOnly ? 'pr-1' : ''">
                 <vue-numeric currency="SBL"
                              :placeholder="emptyPricePlaceholder"
                              class="numeric-input px-2"
@@ -40,15 +44,19 @@
                              :currency-symbol-position="'suffix'"
                              separator=","
                              v-model="item.price"></vue-numeric>
+            </v-flex>
+            <v-flex xs6 sm5 md5>
                 <v-select
                         class="sb-field elevation-0"
                         :items="docTypes"
+                        item-value="id"
+                        item-text="title"
                         :placeholder="placeholderDocType"
                         v-model="item.type"
                         solo
                         :append-icon="'sbf-arrow-down'"></v-select>
             </v-flex>
-            <v-flex xs12 sm1 md1 align-center>
+            <v-flex xs12 sm1 md1 align-center  :class="$vuetify.breakpoint.xsOnly ? 'closeIcon-row-mobile' : ''">
                 <v-icon class="delete-close-icon d-flex mt-3" @click="deleteFile()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
@@ -115,6 +123,18 @@
             docType() {
                 return this.item.docType
             },
+            gridBreakpoint () {
+                const gridBreakpoint = {};
+
+                if (this.$vuetify.breakpoint.smAndUp){
+                    gridBreakpoint.row = true;
+                    gridBreakpoint.wrap = true;
+                }else{
+                    gridBreakpoint.row = true;
+                    gridBreakpoint.wrap = true;
+                }
+                return gridBreakpoint
+            },
             selectedTags: {
                 get() {
                     return this.item.tags;
@@ -166,6 +186,16 @@
             min-width: 360px;
             max-width: 360px;
         }
+        .closeIcon-row-mobile{
+            @media(max-width: @screen-xs){
+                .v-icon{
+                    position: absolute;
+                    top: -10px;
+                    right: 8px;
+                }
+            }
+
+        }
         .delete-close-icon {
             font-size: 10px;
             cursor: pointer;
@@ -184,6 +214,11 @@
         .sb-combo {
             max-width: 390px;
             max-height: 48px;
+            .v-text-field__details{
+                @media(max-width: @screen-xs){
+                    margin-bottom: 0;
+                }
+            }
             .v-input__slot {
                 max-height: 48px;
                 overflow-y: scroll;
