@@ -120,13 +120,13 @@
   <data name="btn_open" xml:space="preserve">
     <value>Upload Documents</value>
   </data>
-  <data name="error_extensions_support" xml:space="preserve">
+  <data name="multiple_error_extensions_support" xml:space="preserve">
     <value>supported files:</value>
   </data>
-  <data name="error_extension_title" xml:space="preserve">
+  <data name="multiple_error_extension_title" xml:space="preserve">
     <value>Oops! this file type is not supported</value>
   </data>
-  <data name="error_upload_something_wrong" xml:space="preserve">
+  <data name="multiple_error_upload_something_wrong" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
   <data name="files_btn_anotherUpload" xml:space="preserve">
@@ -144,19 +144,19 @@
   <data name="files_btn_close" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="files_btn_desktop" xml:space="preserve">
+  <data name="multiple_files_btn_desktop" xml:space="preserve">
     <value>Computer</value>
   </data>
   <data name="files_btn_drop" xml:space="preserve">
     <value>Or just drop your file here</value>
   </data>
-  <data name="files_btn_dropBox" xml:space="preserve">
+  <data name="multiple_files_btn_dropBox" xml:space="preserve">
     <value>Dropbox</value>
   </data>
   <data name="files_btn_next" xml:space="preserve">
     <value>Next</value>
   </data>
-  <data name="files_btn_phone" xml:space="preserve">
+  <data name="multiple_files_btn_phone" xml:space="preserve">
     <value>Your Phone</value>
   </data>
   <data name="files_btn_sell" xml:space="preserve">
@@ -177,7 +177,7 @@
   <data name="files_header_subtitle" xml:space="preserve">
     <value>Make money of your study documents.</value>
   </data>
-  <data name="files_header_title" xml:space="preserve">
+  <data name="multiple_files_header_title" xml:space="preserve">
     <value>Upload Files</value>
   </data>
   <data name="files_label_class" xml:space="preserve">
@@ -235,41 +235,41 @@ students</value>
   <data name="files_step7_title" xml:space="preserve">
     <value>Spread the Word</value>
   </data>
-  <data name="files_type_exam" xml:space="preserve">
+  <data name="multiple_files_type_exam" xml:space="preserve">
     <value>Exam notes</value>
   </data>
-  <data name="files_type_lecture" xml:space="preserve">
+  <data name="multiple_files_type_lecture" xml:space="preserve">
     <value>Lecture notes</value>
   </data>
-  <data name="files_type_textbook" xml:space="preserve">
+  <data name="multiple_files_type_textbook" xml:space="preserve">
     <value>Textbook notes</value>
     <comment>Ram Change</comment>
   </data>
   <data name="files_uploadDoc" xml:space="preserve">
     <value>Upload a Document</value>
   </data>
-  <data name="confirm_btn_cancel" xml:space="preserve">
+  <data name="multiple_confirm_btn_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="confirm_btn_close" xml:space="preserve">
+  <data name="multiple_confirm_btn_close" xml:space="preserve">
     <value>Close and stop upload</value>
   </data>
   <data name="files_btn_back" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="confirm_stop_title" xml:space="preserve">
+  <data name="multiple_confirm_stop_title" xml:space="preserve">
     <value>Stop Uploading?</value>
   </data>
-  <data name="confirm_text" xml:space="preserve">
+  <data name="multiple_confirm_text" xml:space="preserve">
     <value>Closing this window will end the uploading process</value>
   </data>
-  <data name="files_type_default" xml:space="preserve">
+  <data name="multiple_files_type_default" xml:space="preserve">
     <value>Document</value>
   </data>
   <data name="files_proccesing" xml:space="preserve">
     <value>We are proccesing your document, you will be able to see it soon.</value>
   </data>
-  <data name="files_dopHere" xml:space="preserve">
+  <data name="multiple_files_dopHere" xml:space="preserve">
     <value>Drag &amp; Drop Files Here</value>
   </data>
   <data name="files_options_text" xml:space="preserve">
@@ -331,5 +331,11 @@ students</value>
   </data>
   <data name="multiple_select_filetype" xml:space="preserve">
     <value>Document Type</value>
+  </data>
+  <data name="multiple_btn_upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="multiple_label_icon_text" xml:space="preserve">
+    <value>Upload</value>
   </data>
 </root>

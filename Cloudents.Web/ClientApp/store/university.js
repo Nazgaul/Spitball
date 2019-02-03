@@ -56,9 +56,9 @@ const actions = {
     changeSelectUniState({commit, dispatch, getters, state}, val){
         if(!val){
             dispatch('changeClassesToCachedClasses')
-            if(state.selectForTheFirstTime){
+            //if(state.selectForTheFirstTime){
                 //after register should open the tour on the correct page
-                dispatch('updateSelectForTheFirstTime', false);
+                //dispatch('updateSelectForTheFirstTime', false);
                 let VerticalName = getters.getCurrentVertical;
                 if(VerticalName === "note"){
                     //invokes the watch on the app.vue file
@@ -73,7 +73,7 @@ const actions = {
                         dispatch('HomeworkHelp_updateDataLoaded', true);
                     })
                 }
-            }
+            //}
         }
         commit('setSelectUniState', val);
     },

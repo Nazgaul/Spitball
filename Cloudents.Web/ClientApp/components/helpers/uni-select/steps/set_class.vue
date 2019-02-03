@@ -67,6 +67,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../../../services/language/languageService";
+import debounce from "lodash/debounce";
 
 export default {
   props: {
@@ -90,7 +91,7 @@ export default {
     };
   },
   watch: {
-    search(val) {
+    search: debounce(function(val) {
         let searchVal;
         if (!!val) {
         searchVal = val.trim();
@@ -98,7 +99,7 @@ export default {
           this.updateClasses(searchVal);
         }
       }
-    }
+    }, 250)
   },
   computed: {
     ...mapGetters(["getSelectedClasses"]),

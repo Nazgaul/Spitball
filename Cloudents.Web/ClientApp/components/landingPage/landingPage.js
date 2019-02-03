@@ -186,10 +186,18 @@ export default {
             this.stopPlayer()
         },
         goToResulstQuestionsPage(val) {
-            this.$router.push({path: '/ask', query: {Source: val.id}});
+            this.closeSubjectInputDialog();
+            setTimeout(()=>{
+                this.$router.push({path: '/ask', query: {Source: val.id}});
+            }, 200);
+           
         },
         goToResultDocumentsPage(val) {
-            this.$router.push({path: '/note', query: {term: val.text}});
+            this.closeUniInputDialog();
+            setTimeout(()=>{
+                this.$router.push({path: '/note', query: {term: val.text}});
+            }, 200);
+            
         },
         showMobileSubjectInput() {
             this.mobileSubjectsDialog = true;

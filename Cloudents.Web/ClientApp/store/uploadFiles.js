@@ -66,11 +66,9 @@ const mutations = {
 };
 const getters = {
     getFileData: (state) => state.fileData,
-    // getUploadProgress: (state) => state.uploadProgress,
     getDialogState: (state) => state.showDialog,
     getCustomFileName: (state) => state.customFileName,
     getReturnToUpload: (state) => state.returnToUpload,
-    // isUploadActiveProcess: (state) => state.uploadState
 };
 const actions = {
     deleteFileByIndex({commit}, index){

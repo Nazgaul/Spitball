@@ -13,7 +13,9 @@
   &.v-toolbar {
     background-color: @color-white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-
+    @media (max-width: @screen-xs) {
+      padding-bottom: 8px;
+    }
     .v-toolbar__content {
       padding: 0;
     }
@@ -327,7 +329,8 @@
 
 .header-wallet {
   flex-direction: column;
-  width: 10px;
+  max-width: 120px;
+  min-width: 110px;
   @media (max-width: @screen-sm) {
     // align-items: start;
     width: auto;

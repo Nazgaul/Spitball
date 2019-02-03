@@ -3,10 +3,10 @@
             :class="[ 'upload-component-wrap', 'mb-3' ,'sb-step-card', $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
         <div class="error-block" v-show="extensionErrror || uploadError">
             <div class="error-container">
-                <h3 class="error-title" v-show="extensionErrror" v-language:inner>upload_error_extension_title</h3>
+                <h3 class="error-title" v-show="extensionErrror" v-language:inner>upload_multiple_error_extension_title</h3>
                 <h3 class="error-title" v-show="uploadError">{{errorText}}</h3>
                 <div class="supported-extensions" v-show="extensionErrror">
-                    <span v-language:inner>upload_error_extensions_support</span>
+                    <span v-language:inner>upload_multiple_error_extensions_support</span>
                     <span class="extension" v-for="(extension, index) in supportedExtensions" :key="extension">&nbsp;{{extension}}
                     <span v-if="index+1 !== supportedExtensions.length">,&nbsp;</span>
                 </span>
@@ -16,7 +16,7 @@
         <v-layout justify-center align-center column class="upload-area">
             <v-flex class="justify-center align-center d-flex" grow>
                 <span v-show="$vuetify.breakpoint.smAndUp"
-                      class="col-blue drop-text text-md-center text-xs-center text-sm-center" v-language:inner>upload_files_dopHere</span>
+                      class="col-blue drop-text text-md-center text-xs-center text-sm-center" v-language:inner>upload_multiple_files_dopHere</span>
             </v-flex>
             <v-flex xs12 sm6 md6 row class="justify-center align-center upload-options">
                 <div class="btn-holder">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="btn-holder ml-3 c-pointer" @click="DbFilesList()" :disabled="!dbReady">
                     <v-icon class="mr-2">sbf-upload-dropbox</v-icon>
-                    <span :class="['btn-label', $vuetify.breakpoint.xsOnly ? 'mobile-text' : '' ] " v-language:inner>upload_files_btn_dropBox</span>
+                    <span :class="['btn-label', $vuetify.breakpoint.xsOnly ? 'mobile-text' : '' ] " v-language:inner>upload_multiple_files_btn_dropBox</span>
                 </div>
                 <div class="btn-holder ml-3 c-pointer">
                     <v-icon v-if="$vuetify.breakpoint.smAndUp" class="mr-2">sbf-upload-desktop</v-icon>
@@ -48,9 +48,9 @@
                               maxRetries: 5,}">
                     </file-upload>
                     <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label mobile-text"
-                          v-language:inner>upload_files_btn_phone</span>
+                          v-language:inner>upload_multiple_files_btn_phone</span>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="btn-label"
-                          v-language:inner>upload_files_btn_desktop</span>
+                          v-language:inner>upload_multiple_files_btn_desktop</span>
                 </div>
             </v-flex>
         </v-layout>
@@ -130,38 +130,24 @@
             },
             DbFilesList() {
                 var self = this;
+                let singleFile;
                 let options = {
                     success: (files) => {
                         files.forEach((item) => {
-                            let singleFile = uploadService.createFileData(item);
-                            self.updateFile(singleFile);
+                            //create obj for server and send
+                            let serverFile = uploadService.createServerFileData(item);
+                            uploadService.uploadDropbox(serverFile)
+                                .then((response) => {
+                                    //get blob name in resp and create client side formatted obj
+                                        item.blobName = response.data.fileName ? response.data.fileName : '';
+                                        singleFile = uploadService.createFileData(item);
+                                        self.updateFile(singleFile);
+                                    },
+                                    error => {
+                                        console.log('error drop box api call', error)
+                                    })
                         });
                         self.goToNextStep();
-
-                        //!!!!!!Check with Ram why do we do API call in the middle
-                        //data to send to server
-                        // let singleFile = uploadService.createFileData(newFile);
-                        // this.documentTitle = singleFile.name ? singleFile.name : '';
-                        // uploadService.uploadDropbox(updatedFiles)
-                        //     .then((response) => {
-                        //             self.progressDone = true;
-                        //             // generated blob name from server
-                        //             self.generatedFileName = response.data.fileName ? response.data.fileName : '';
-                        //             // let fileName = singleFile.name.replace(/\.[^/.]+$/, "");
-                        //             let fileName = singleFile.name;
-                        //             let fileObj = {
-                        //                     name: fileName,
-                        //
-                        //             };
-                        //             // self.updateFile({'name': fileName, 'blobName': self.generatedFileName});
-                        //             self.updateFileName(fileName);
-                        //             self.callBackmethods.stopProgress(true);
-                        //             self.updateUploadFullMobile(false);
-                        //             // self.callBackmethods.next(1);
-                        //         },
-                        //         error => {
-                        //             console.log('error drop box api call', error)
-                        //         })
                     },
                     cancel: function (error) {
                         console.log('canceled!!!', error)
@@ -175,7 +161,6 @@
 
             // regular upload methods
             inputFile(newFile, oldFile) {
-
                 //happnes once file is added and upload starts
                 if (newFile && !oldFile) {
                     // Add file
@@ -325,6 +310,4 @@
             }
         }
     }
-
-
 </style>
