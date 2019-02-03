@@ -1,0 +1,128 @@
+import { mapGetters, mapActions } from 'vuex';
+import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
+import documentService from "../../../../services/documentService";
+import uploadFilesStart from "./helpers/uploadMultipleFileStart.vue";
+import uploadStep_2 from "./helpers/filesDetails.vue";
+
+export default {
+    components: {
+        uploadFilesStart,
+        uploadStep_2,
+        sbDialog,
+    },
+    name: "uploadMultipleFiles",
+    data() {
+        return {
+            confirmationDialog: false,
+            progressDone: false,
+            steps: 2,
+            currentStep: 1,
+            step: 1,
+            callBackmethods: {
+                next: this.nextStep,
+                changeStep: this.changeStep,
+                stopProgress: this.stopProgress,
+            },
+            courseSelected: ''
+        }
+    },
+
+    computed: {
+        ...mapGetters({
+            accountUser: 'accountUser',
+            getSchoolName: 'getSchoolName',
+            getSelectedClasses: 'getSelectedClasses',
+            getFileData: 'getFileData',
+            getUploadProgress: 'getUploadProgress',
+            getDialogState: 'getDialogState',
+        }),
+        firstStep() {
+            return this.currentStep === 1;
+        },
+        showUploadDialog() {
+            return this.getDialogState
+        },
+        isLoaded() {
+            let result = this.getFileData.every((item) => {
+                return item.progress === 100
+            });
+            return result;
+        }
+
+    },
+    methods: {
+        ...mapActions([
+            'updateFile',
+            'updateNewQuestionDialogState',
+            'changeSelectPopUpUniState',
+            'updateDialogState',
+            'resetUploadData',
+            'setReturnToUpload',
+            'updateStep',
+            'setCourse'
+
+        ]),
+        updateSelectedCourse() {
+            this.setCourse(this.courseSelected)
+        },
+        sendDocumentData(step) {
+            this.loading = true;
+            let docData = this.getFileData;
+            // create Immutable copy, to prevent file name update in UI
+            let docDataCopy = Object.assign({}, docData);
+            // let docDataCopy = JSON.parse(JSON.stringify(docData));
+            //send copy
+            docDataCopy.name = this.getCustomFileName;
+            let self = this;
+            documentService.sendDocumentData(docDataCopy)
+                .then((resp) => {
+                        if (resp.data.url) {
+                            self.docReferral = resp.data.url
+                        }
+                        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
+                        console.log('DOC_UPLOAD_COMPLETE')
+                        self.loading = true;
+                        self.nextStep(step)
+                    },
+                    (error) => {
+                        console.log("doc data error", error)
+                    });
+
+        },
+        confirmCloseOpen() {
+            if (this.currentStep === this.steps || this.firstStep) {
+                this.closeUpload()
+            } else {
+                this.confirmationDialog = true;
+            }
+
+        },
+        closeUpload() {
+            this.resetUploadData();
+            //reset return to upload
+            this.setReturnToUpload(false);
+            //close
+            this.updateDialogState(false);
+            this.confirmationDialog = false;
+        },
+        nextStep() {
+            if (this.currentStep === this.steps) {
+                this.currentStep = 1
+            } else {
+                this.currentStep = this.currentStep + 1;
+            }
+
+        },
+
+        //resets mobile first step to mobile design
+        // resetFirstStepMobile() {
+        //     if (this.$vuetify.breakpoint.smAndDown) {
+        //         this.updateUploadFullMobile(true);
+        //     }
+        // },
+
+    },
+    created() {
+
+    }
+}
