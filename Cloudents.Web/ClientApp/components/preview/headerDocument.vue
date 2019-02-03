@@ -64,14 +64,17 @@
                             <a target="_blank" @click="showPurchaseConfirm()">
                                 <div class="buy-action-container">
                                     <div class="buy-text-wrap">
+                                        <span class="equals-to-dollar hidden-xs-only">
+                                            <span v-language:inner>headerDocument_item_pay_student</span>
+                                          </span>
                                         <span class="buy-text-price">
                                             <span class="mobile-buy-text hidden-sm-and-up" v-language:inner>preview_itemActions_buy</span>
                                             {{item && item.price ? item.price.toFixed(2) : '00.00'}}
-                                            <span class="sbl-suffix">SBL</span>
+                                            <span class="sbl-suffix" v-language:inner>app_currency_dynamic</span>
                                         </span>
                                         <span class="equals-to-dollar hidden-xs-only">
                                             <span v-language:inner>preview_price_equals_to</span>
-                                            ${{item && item.price ? item.price : 0 | dollarVal}}</span>
+                                          </span>
                                     </div>
                                     <div class="buy-btn-wrap">
                                         <span class="buy-text" v-language:inner>preview_itemActions_buy</span>
@@ -120,8 +123,9 @@
                    :content-class="'confirmation-purchase-dialog'">
             <v-card class="confirm-purchase-card">
                 <v-card-title class="confirm-headline">
-                    <span v-language:inner>preview_about_to_buy</span>
-                    <span>&nbsp;{{doc ? doc.title: ''}}</span>
+                    <span v-html="$Ph('preview_about_to_buy', [price, uploaderName])"></span>
+                    <!--<span v-language:inner>preview_about_to_buy</span>-->
+                    <!--<span>&nbsp;{{doc ? doc.title: ''}}</span>-->
                 </v-card-title>
                 <v-card-actions class="card-actions">
                     <div class="doc-details">
@@ -235,6 +239,11 @@
                         }
                     })
                 }
+            },
+            price(){
+              if(this.item && this.item.price){
+                  return this.item.price
+              }
             },
             uploaderName() {
                 if (this.item && this.item.user && this.item.user.name)
