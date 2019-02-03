@@ -8,15 +8,15 @@
             <div class="q-regular-right-container">
                     <button class="q-regular-select-button"
                             :class="{'q-regular-selected': amountPicked === sblPrices.first, 'q-regular-disabled': limitOfferRange < sblPrices.first}"
-                            @click="cheackStaticValue(sblPrices.first)">{{sblPrices.first}} SBL
+                            @click="cheackStaticValue(sblPrices.first)">{{sblPrices.first}} <span v-language:inner>app_currency_dynamic</span>
                     </button>
                     <button class="q-regular-select-button"
                             :class="{'q-regular-selected': amountPicked === sblPrices.second, 'q-regular-disabled': limitOfferRange < sblPrices.second}"
-                            @click="cheackStaticValue(sblPrices.second)">{{sblPrices.second}} SBL
+                            @click="cheackStaticValue(sblPrices.second)">{{sblPrices.second}} <span v-language:inner>app_currency_dynamic</span>
                     </button>
                     <button class="q-regular-select-button"
                             :class="{'q-regular-selected': amountPicked === sblPrices.third, 'q-regular-disabled': limitOfferRange < sblPrices.third}"
-                            @click="cheackStaticValue(sblPrices.third)">{{sblPrices.third}} SBL
+                            @click="cheackStaticValue(sblPrices.third)">{{sblPrices.third}} <span v-language:inner>app_currency_dynamic</span>
                     </button>
                 <input type="number" :class="{'q-custom-selected': customValue !== null}" class="q-regular-custom-input"
                        :placeholder="dictionary.other" @click="checkCustomValue" @input="checkCustomInputValidity"

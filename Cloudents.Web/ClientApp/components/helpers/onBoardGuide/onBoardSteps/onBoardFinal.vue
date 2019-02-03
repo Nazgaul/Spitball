@@ -21,7 +21,9 @@
 
                     <span v-language:inner>onboard_final_only</span>
                 <bdi>
-                    <span>&nbsp;{{sblAway}} SBL&nbsp;</span>
+                    <span>&nbsp;{{sblAway}}&nbsp;
+                    <span v-language:inner>app_currency_dynamic</span>
+                    </span>
                 </bdi>
                     <span v-language:inner>onboard_final_away</span>
 

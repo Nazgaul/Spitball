@@ -74,7 +74,7 @@
                                         <span class="buy-text-price">
                                             <span class="mobile-buy-text hidden-sm-and-up" v-language:inner>preview_itemActions_buy</span>
                                             {{item && item.price ? item.price.toFixed(2) : '00.00'}}
-                                            <span class="sbl-suffix">SBL</span>
+                                            <span class="sbl-suffix" v-language:inner>app_currency_dynamic</span>
                                         </span>
                                         <span class="equals-to-dollar hidden-xs-only">
                                             <span v-language:inner>preview_price_equals_to</span>
