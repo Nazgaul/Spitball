@@ -11,7 +11,7 @@
                     <v-icon>sbf-credit-card-row</v-icon>
                     <span v-language:inner>upload_files_price_label</span></label>
                 <div class="wrap-row-price">
-                    <div :class="['price-wrap', isRtl ? 'reversed' : '']">
+                    <div :class="['price-wrap']">
                         <!--updating document obj inside -->
                         <sbl-currency v-model="uploadPrice" :functionCallBacks="updateFile"
                                       class="sb-input-upload-price">
