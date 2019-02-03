@@ -124,7 +124,7 @@
     <value>מסמכי הלימוד שלך שווים כסף</value>
   </data>
   <data name="earn_question_section_subTitle" xml:space="preserve">
-    <value>צברו נקודות SBL וממשו אותן ב- BuyMe</value>
+    <value>צברו נקודות SBL ופדו אותן ב- BuyMe</value>
   </data>
   <data name="earn_question_section_title" xml:space="preserve">
     <value>עונים על שאלות - צוברים נקודות!</value>
@@ -136,7 +136,7 @@
     <value>תחלקו ותרוויחו מהידע האקדמי שלכם</value>
   </data>
   <data name="find_by_subject" xml:space="preserve">
-    <value>מצא שעורי בית לפי נושא</value>
+    <value>מצא שיעורי בית לפי נושא</value>
   </data>
   <data name="find_by_subject_desc" xml:space="preserve">
     <value>פשוט בחר נושא, ומצא שאלות רלוונטיות עבורך</value>
@@ -225,7 +225,7 @@
     <value>נסו, זה בחינם</value>
   </data>
   <data name="join_spitball_free" xml:space="preserve">
-    <value>תצטרפו, זה בחינם!</value>
+    <value>הצטרפו, זה בחינם!</value>
   </data>
   <data name="learn_knowledge_subTitle" xml:space="preserve">
     <value>שפרו ציונים וקבלו גם סיוע בשיעורי הבית וגם גישה לאלפי מסמכי לימוד</value>
