@@ -87,7 +87,7 @@
                 if (this.search === "") {
                     this.clearData();
                 }
-            }, 250)
+            }, 500)
         },
         filters: {
             boldText(value, search) {

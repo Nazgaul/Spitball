@@ -100,7 +100,7 @@ export default {
           this.updateClasses(searchVal);
         }
       }
-    }, 250)
+    }, 500)
   },
   computed: {
     ...mapGetters(["getSelectedClasses"]),
