@@ -123,4 +123,7 @@
   <data name="cookie_toaster_text" xml:space="preserve">
     <value>This website uses cookies to ensure you get the best experience</value>
   </data>
+  <data name="currency_dynamic" xml:space="preserve">
+    <value>Pts</value>
+  </data>
 </root>

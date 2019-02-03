@@ -78,7 +78,7 @@
                                         </span>
                                         <span class="equals-to-dollar hidden-xs-only">
                                             <span v-language:inner>preview_price_equals_to</span>
-                                            ${{item && item.price ? item.price : 0 | dollarVal}}</span>
+                                          </span>
                                     </div>
                                     <div class="buy-btn-wrap">
                                         <span class="buy-text" v-language:inner>preview_itemActions_buy</span>
@@ -127,8 +127,9 @@
                    :content-class="'confirmation-purchase-dialog'">
             <v-card class="confirm-purchase-card">
                 <v-card-title class="confirm-headline">
-                    <span v-language:inner>preview_about_to_buy</span>
-                    <span>&nbsp;{{doc ? doc.title: ''}}</span>
+                    <span v-html="$Ph('preview_about_to_buy', [item.price, uploaderName])"></span>
+                    <!--<span v-language:inner>preview_about_to_buy</span>-->
+                    <!--<span>&nbsp;{{doc ? doc.title: ''}}</span>-->
                 </v-card-title>
                 <v-card-actions class="card-actions">
                     <div class="doc-details">
