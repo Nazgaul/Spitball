@@ -29,7 +29,7 @@
                         <div v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
                             <bdi>
                                 {{item.price ? item.price.toFixed(2): ''}}
-                                <span>SBL</span>
+                                <span v-language:inner>app_currency_dynamic</span>
                             </bdi>
                         </div>
                         <div v-show="!item.price" class="price-area" :class="{'isPurchased': isPurchased}"
@@ -120,7 +120,7 @@
                             <sbl-currency v-model="newPrice"
                                           class="sb-input-upload-price">
                             </sbl-currency>
-                            <div class="sbl-suffix">SBL</div>
+                            <div class="sbl-suffix" v-language:inner>app_currency_dynamic</div>
                         </div>
                     </div>
                 </v-flex>

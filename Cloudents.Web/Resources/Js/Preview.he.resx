@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about_to_buy" xml:space="preserve">
-    <value>אתה עומד לרכוש אחלה</value>
+    <value>אישור שליחת {1} נקודות ל- {2} עבור</value>
   </data>
   <data name="buy_btn" xml:space="preserve">
-    <value>לרכישה והורדה</value>
+    <value>שליחה והורדה</value>
   </data>
   <data name="buy_full_btn" xml:space="preserve">
     <value>רכוש לצפייה במסמך המלא</value>
@@ -139,7 +139,7 @@
     <value>התחל מחדש</value>
   </data>
   <data name="itemActions_buy" xml:space="preserve">
-    <value>קנה</value>
+    <value>שלח</value>
   </data>
   <data name="itemActions_download" xml:space="preserve">
     <value>הורד</value>
@@ -160,6 +160,6 @@
     <value>מוסד לימודים</value>
   </data>
   <data name="price_equals_to" xml:space="preserve">
-    <value>שווה ל </value>
+    <value>לגישה למסמך</value>
   </data>
 </root>

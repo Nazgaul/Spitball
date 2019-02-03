@@ -130,7 +130,7 @@
     <value>ענה...</value>
   </data>
   <data name="Currency" xml:space="preserve">
-    <value>SBL</value>
+    <value>נק'</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>מחק</value>
@@ -142,7 +142,7 @@
     <value>אופס, קרתה תקלה, אנא נסה שוב</value>
   </data>
   <data name="Question_price" xml:space="preserve">
-    <value>{1} SBL</value>
+    <value>{1} Pts</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>דווח על פריט זה</value>

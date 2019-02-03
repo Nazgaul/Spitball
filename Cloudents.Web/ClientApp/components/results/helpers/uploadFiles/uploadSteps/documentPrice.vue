@@ -3,7 +3,7 @@
         <div class="upload-row-1">
             <h3 class="upload-cloud-text sb-title" v-language:inner>upload_files_price_title</h3>
             <h4 class="sb-subtitle mt-2"><span v-language:inner>upload_files_price_subtitle</span>
-                <a href="/faq?id=3" target="_blank" class="sbl-faq">&nbsp;SBL’s.</a></h4>
+                <a href="/faq?id=3" target="_blank" class="sbl-faq">&nbsp;<span v-language:inner>app_currency_dynamic</span></a></h4>
         </div>
         <div class="upload-row-2 price-row paddingTopSm">
             <div class="btn-holder price-holder">
@@ -16,7 +16,9 @@
                         <sbl-currency v-model="uploadPrice" :functionCallBacks="updateFile"
                                       class="sb-input-upload-price">
                         </sbl-currency>
-                        <div class="sbl-suffix">SBL</div>
+                        <div class="sbl-suffix">
+                            <span v-language:inner>app_currency_dynamic</span>
+                        </div>
                         <span class="balance-label" v-show="uploadPrice">
                             <span v-language:inner>upload_files_price_equals</span>
                             ${{uploadPrice | dollarVal}}
