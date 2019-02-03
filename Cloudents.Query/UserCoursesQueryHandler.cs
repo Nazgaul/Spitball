@@ -47,7 +47,8 @@ where UserId = :id");
             //{
                universityFuture = _session.Query<RegularUser>()
                    .Fetch(f=>f.University)
-                    .Where(w => w.Id == query.Id)
+                    .Where(w => w.Id == query.Id && w.University != null)
+                   
                     .Select(s => new UserUniversityQueryProfileDto(s.University.Id, s.University.Extra,
                        s.University.Name,s.University.Country)).ToFutureValue();
 
