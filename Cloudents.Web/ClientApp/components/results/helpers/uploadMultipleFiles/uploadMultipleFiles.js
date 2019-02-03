@@ -3,11 +3,15 @@ import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import documentService from "../../../../services/documentService";
 import uploadFilesStart from "./helpers/uploadMultipleFileStart.vue";
 import uploadStep_2 from "./helpers/filesDetails.vue";
+import ulpoadStep_3 from"./helpers/documentReferral.vue"
+import analyticsService from "../../../../services/analytics.service";
+import uploadService from "../../../../services/uploadService";
 
 export default {
     components: {
         uploadFilesStart,
         uploadStep_2,
+        ulpoadStep_3,
         sbDialog,
     },
     name: "uploadMultipleFiles",
@@ -30,12 +34,18 @@ export default {
     computed: {
         ...mapGetters({
             accountUser: 'accountUser',
-            getSchoolName: 'getSchoolName',
             getSelectedClasses: 'getSelectedClasses',
             getFileData: 'getFileData',
-            getUploadProgress: 'getUploadProgress',
             getDialogState: 'getDialogState',
         }),
+        isClassesSet() {
+            return this.getSelectedClasses.length > 0
+        },
+        classesList() {
+            if (this.isClassesSet) {
+                return this.getSelectedClasses
+            }
+        },
         firstStep() {
             return this.currentStep === 1;
         },
@@ -68,25 +78,24 @@ export default {
         sendDocumentData(step) {
             this.loading = true;
             let docData = this.getFileData;
-            // create Immutable copy, to prevent file name update in UI
-            let docDataCopy = Object.assign({}, docData);
-            // let docDataCopy = JSON.parse(JSON.stringify(docData));
-            //send copy
-            docDataCopy.name = this.getCustomFileName;
             let self = this;
-            documentService.sendDocumentData(docDataCopy)
-                .then((resp) => {
-                        if (resp.data.url) {
-                            self.docReferral = resp.data.url
-                        }
-                        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
-                        console.log('DOC_UPLOAD_COMPLETE')
-                        self.loading = true;
-                        self.nextStep(step)
-                    },
-                    (error) => {
-                        console.log("doc data error", error)
-                    });
+            docData.forEach((fileObj)=>{
+                let serverFormattedObj = uploadService.createServerFileData(fileObj);
+                documentService.sendDocumentData(serverFormattedObj)
+                    .then((resp) => {
+                            if (resp.data.url) {
+                                self.docReferral = resp.data.url
+                            }
+                            analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
+                            console.log('DOC_UPLOAD_COMPLETE')
+                            self.loading = true;
+                            self.nextStep(step)
+                        },
+                        (error) => {
+                            console.log("doc data error", error)
+                        });
+            })
+
 
         },
         confirmCloseOpen() {

@@ -16,12 +16,12 @@
                         <v-layout justify-center column wrap align-center v-if="firstStep" class="mt-4">
                             <v-flex xs12 sm6 d-flex row class="justify-center align-center mb-3 grow-1">
                                 <v-icon class="col-blue mr-4">sbf-upload-cloud</v-icon>
-                                <span class="upload-subtitle col-blue">Upload</span>
+                                <span class="upload-subtitle col-blue" v-language:inner>upload_multiple_label_icon_text</span>
                             </v-flex>
                             <v-flex xs12 sm6 d-flex class="justify-center align-center">
                                 <v-select
                                         class="course-select custom-select elevation-0"
-                                        :items="['wer','werwer','dfgdfg','435435']"
+                                        :items="classesList"
                                         placeholder="Please select course"
                                         v-model="courseSelected"
                                         @input="updateSelectedCourse()"
@@ -36,11 +36,13 @@
                                     :curStep="n"
                                     :callBackmethods="callBackmethods"></upload-files-start>
                         </transition>
-                        <component
-                                v-if="!firstStep"
-                                :is="`upload-step_${n}`"
-                                :curStep="n"
-                                :callBackmethods="callBackmethods"></component>
+                        <uploadStep_2 v-show="n===2"  :curStep="n"  :callBackmethods="callBackmethods"></uploadStep_2>
+                        <ulpoadStep_3 v-show="n===3"  :curStep="n"  :callBackmethods="callBackmethods"></ulpoadStep_3>
+                        <!--<component-->
+                                <!--v-if="!firstStep"-->
+                                <!--:is="`upload-step_${n}`"-->
+                                <!--:curStep="n"-->
+                                <!--:callBackmethods="callBackmethods"></component>-->
                     </v-stepper-content>
                 </v-stepper-items>
                 <v-stepper-header v-show="courseSelected" class="sb-stepper-header footer px-2">
