@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
         public Document(string name,
             University university,
             Course course, DocumentType type,
-            IEnumerable<Tag> tags, RegularUser user, string professor, decimal price)
+            IEnumerable<Tag> tags, User user, string professor, decimal price)
         : this()
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
@@ -37,7 +37,7 @@ namespace Cloudents.Core.Entities
             Professor = professor;
 
             Price = price;
-            var status = GetInitState(user);
+            var status = Public;// GetInitState(user);
             if (status == Public)
             {
                 MakePublic();
