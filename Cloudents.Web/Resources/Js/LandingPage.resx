@@ -205,7 +205,7 @@
     <value>Wait, Points are worth real money?</value>
   </data>
   <data name="how_sbl_money_desc" xml:space="preserve">
-    <value>Pts is the reward system used on the Spitball platform. SBL can be converted into real money through Amazon Gift cards.</value>
+    <value>Pts is the reward system used on the Spitball platform. Points can be converted into real money through Amazon Gift cards.</value>
   </data>
   <data name="how_spitball_differs" xml:space="preserve">
     <value>How does Spitball differ from other websites?</value>
