@@ -27,6 +27,8 @@
             <v-select
                     class="sb-field doc-type-select elevation-0"
                     :items="docTypes"
+                    item-value="id"
+                    item-text="title"
                     :placeholder="placeholderTypeToAll"
                     v-model="docType"
                     solo
