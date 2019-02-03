@@ -139,7 +139,7 @@
     <value>Start Over</value>
   </data>
   <data name="itemActions_buy" xml:space="preserve">
-    <value>Unlcok</value>
+    <value>Unlock</value>
   </data>
   <data name="itemActions_download" xml:space="preserve">
     <value>Download</value>

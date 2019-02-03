@@ -127,10 +127,10 @@
     <value>קבל תשובות חכמות ומהירות לשאלה שלך</value>
   </data>
   <data name="max_SBL" xml:space="preserve">
-    <value>הסכום המרבי לשאלה הוא 100 SBL</value>
+    <value>הסכום המרבי לשאלה הוא 100 נקודות</value>
   </data>
   <data name="min_SBL" xml:space="preserve">
-    <value>הסכום המינימלי לשאלה הוא SBL 1</value>
+    <value>הסכום המינימלי לשאלה הוא נקודה 1</value>
   </data>
   <data name="otherAmount_placeholder" xml:space="preserve">
     <value>סכום אחר</value>
@@ -142,7 +142,7 @@
     <value>נק'</value>
   </data>
   <data name="sufficient_SBL" xml:space="preserve">
-    <value>אין לך מספיק  SBL</value>
+    <value>אין לך מספיק נקודות</value>
   </data>
   <data name="Tip" xml:space="preserve">
     <value>עצה:</value>

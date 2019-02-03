@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Infrastructure.Data;
 using Cloudents.Query.Query.Admin;
 using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure.Data;
 
 namespace Cloudents.Query.Admin
 {
@@ -29,7 +29,7 @@ namespace Cloudents.Query.Admin
 	            case when U.LockOutEnd is null or U.LockOutEnd < getutcdate() then 1
 	            else 0 end as IsActive
                             from sb.[User] U
-                            join sb.University Un
+                            left join sb.University Un
 	                            on U.UniversityId2 = Un.Id
                             left join sb.[Transaction] T
 	                            on U.Id = T.[User_id] and T.[Action] = 'ReferringUser'

@@ -163,10 +163,10 @@
     <value>השווה את המחירים הטובים ביותר לקנייה, השכרה או מכירה של ספרי לימוד.</value>
   </data>
   <data name="campaign_default_ask_banner_boldText" xml:space="preserve">
-    <value>החלף SBL בקופונים של אמאזון</value>
+    <value>החלף נקודות בקופונים של אמאזון</value>
   </data>
   <data name="campaign_default_ask_banner_textMain" xml:space="preserve">
-    <value>ענו על שאלות, קבלו טוקני SBL, ופדו אותם בקופונים של BuyMe</value>
+    <value>ענו על שאלות, קבלו נקודות ופדו אותם בקופונים של BuyMe</value>
   </data>
   <data name="campaign_default_ask_banner_title" xml:space="preserve">
     <value>ב - Spitball תוכלו להרוויח כסף מלעזור לאחרים!</value>
