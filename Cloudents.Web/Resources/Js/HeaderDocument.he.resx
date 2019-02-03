@@ -123,6 +123,9 @@
   <data name="item_class" xml:space="preserve">
     <value>כיתה</value>
   </data>
+  <data name="item_pay_student" xml:space="preserve">
+    <value>העבר לסטודנט</value>
+  </data>
   <data name="item_prof" xml:space="preserve">
     <value>מרצה</value>
   </data>

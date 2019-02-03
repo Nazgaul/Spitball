@@ -141,20 +141,17 @@
   <data name="Loading" xml:space="preserve">
     <value>טוען...</value>
   </data>
-  <data name="more_SBL_more_valuable" xml:space="preserve">
-    <value>ככל שתצבור יותר  SBL, כך הערך שלהן יגדל.</value>
-  </data>
   <data name="My_Wallet" xml:space="preserve">
     <value>הארנק שלי</value>
   </data>
   <data name="redeemable_SBL" xml:space="preserve">
-    <value> למימוש</value>
+    <value>נקודות שניתן לפדות</value>
   </data>
   <data name="SBL" xml:space="preserve">
-    <value> SBL</value>
+    <value>נק'</value>
   </data>
   <data name="Tokens" xml:space="preserve">
-    <value>טוקנים</value>
+    <value>נקודות</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>סך הכל</value>
@@ -172,6 +169,6 @@
     <value>יש לך </value>
   </data>
   <data name="you_have_redeemable_sbl" xml:space="preserve">
-    <value>למימוש</value>
+    <value>שניתנים לפדיון</value>
   </data>
 </root>

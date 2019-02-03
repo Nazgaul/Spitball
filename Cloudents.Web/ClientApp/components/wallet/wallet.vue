@@ -25,7 +25,7 @@
                             </template>
                             <template slot="items" slot-scope="props">
                                 <td class="text-xs-left">{{ props.item.name }}</td>
-                                <td class="text-xs-left" style="direction:ltr;">{{ props.item.points | currencyLocalyFilter}}</td>
+                                <td class="text-xs-left">{{ props.item.points | currencyLocalyFilter}}</td>
                                 <td class="text-xs-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">
                                     <span v-language:inner>wallet_currency</span>{{ props.item.value }}</td>
                             </template>
@@ -49,8 +49,8 @@
                                 <td class="text-xs-left">{{ props.item.date | dateFromISO}}</td>
                                 <td class="text-xs-left">{{ props.item.action }}</td>
                                 <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}</td>
-                                <td class="text-xs-left" style="direction:ltr;">{{ props.item.amount | currencyLocalyFilter}}</td>
-                                <td class="text-xs-left bold" style="direction:ltr;" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance | currencyLocalyFilter }}</td>
+                                <td class="text-xs-left">{{ props.item.amount | currencyLocalyFilter}}</td>
+                                <td class="text-xs-left bold"  v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance | currencyLocalyFilter }}</td>
                             </template>
                         </v-data-table>
                     </v-flex>
@@ -69,7 +69,9 @@
                                     <span v-language:inner>wallet_You_have</span>
                                          <bdi>
                                     <span>{{calculatedEarnedPoints ? `${calculatedEarnedPoints.toLocaleString(undefined,
-                                        { minimumFractionDigits: 2, maximumFractionDigits: 2 })} SBL` || '0.00' : '0.00'}}&nbsp;</span>
+                                        { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` || '0.00' : '0.00'}}
+                                        <span v-language:inner>app_currency_dynamic</span>
+                                        &nbsp;</span>
                                               </bdi>
                                     <span  v-language:inner>wallet_you_have_redeemable_sbl</span>
                                 </span>

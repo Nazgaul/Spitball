@@ -124,7 +124,7 @@
     <value>Turn Your Study Docs into Cash</value>
   </data>
   <data name="earn_question_section_subTitle" xml:space="preserve">
-    <value>Earn SBL And Exchange Them To Gift Cards</value>
+    <value>Earn Points And Exchange Them To Gift Cards</value>
   </data>
   <data name="earn_question_section_title" xml:space="preserve">
     <value>Answer Homework Questions, Get Gift Cards</value>
@@ -172,7 +172,7 @@
     <value>Terms &amp; Conditions</value>
   </data>
   <data name="get_your_sbl" xml:space="preserve">
-    <value>Get Your SBL</value>
+    <value>Get Your Points</value>
   </data>
   <data name="header_earn_money" xml:space="preserve">
     <value>Earn money</value>
@@ -187,37 +187,37 @@
     <value>Sign Up</value>
   </data>
   <data name="how_get_sbl" xml:space="preserve">
-    <value>How do I get SBL?</value>
+    <value>How do I get points?</value>
   </data>
   <data name="how_get_sbl_desc" xml:space="preserve">
-    <value>You get SBL when you register and earn more SBL by helping others or referring friends.</value>
+    <value>You get points when you register and earn more points by helping others or referring friends.</value>
   </data>
   <data name="how_is_catch" xml:space="preserve">
     <value>Wait, what’s the catch?</value>
   </data>
   <data name="how_is_catch_desc" xml:space="preserve">
-    <value>There is no catch. Earned SBL’s are redeemable for Amazon gift cards. So there is no reason not to sign up today.</value>
+    <value>There is no catch. Earned points are redeemable for Amazon gift cards. So there is no reason not to sign up today.</value>
   </data>
   <data name="how_it_works" xml:space="preserve">
     <value>See how it works</value>
   </data>
   <data name="how_sbl_money" xml:space="preserve">
-    <value>Wait, SBL is real money?</value>
+    <value>Wait, Points are worth real money?</value>
   </data>
   <data name="how_sbl_money_desc" xml:space="preserve">
-    <value>SBL is the currency used on the Spitball platform. SBL can be converted into real money through Amazon Gift cards.</value>
+    <value>Pts is the reward system used on the Spitball platform. SBL can be converted into real money through Amazon Gift cards.</value>
   </data>
   <data name="how_spitball_differs" xml:space="preserve">
     <value>How does Spitball differ from other websites?</value>
   </data>
   <data name="how_spitball_differs_desc" xml:space="preserve">
-    <value>Spitball brings power back to the students, no subscription fees, no ads, no catch. With Spitball you get the tools to learn smarter and earn SBL so you can enjoy life.</value>
+    <value>Spitball brings power back to the students, no subscription fees, no ads, no catch. With Spitball you get the tools to learn smarter and earn points so you can enjoy life.</value>
   </data>
   <data name="how_spitball_work" xml:space="preserve">
     <value>How does spitball work?</value>
   </data>
   <data name="how_spitball_work_desc" xml:space="preserve">
-    <value>Students that need help with their studies, choose their campus and class browse study documents or ask homework questions. Students that know the answer will help solve these problems, and the most helpful answer or document gets rewarded with SBL.</value>
+    <value>Students that need help with their studies, choose their campus and class browse study documents or ask homework questions. Students that know the answer will help solve these problems, and the most helpful answer or document gets rewarded with points.</value>
   </data>
   <data name="join_spitball" xml:space="preserve">
     <value>Join Spitball it's 100% Free</value>
@@ -262,7 +262,7 @@
     <value>Money Earned</value>
   </data>
   <data name="stats_sbls" xml:space="preserve">
-    <value>SBL Token Traded</value>
+    <value>Points Traded</value>
   </data>
   <data name="stats_users" xml:space="preserve">
     <value>Happy Students</value>

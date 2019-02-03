@@ -123,6 +123,9 @@
   <data name="item_class" xml:space="preserve">
     <value>Class</value>
   </data>
+  <data name="item_pay_student" xml:space="preserve">
+    <value>Reward the student with</value>
+  </data>
   <data name="item_prof" xml:space="preserve">
     <value>Prof.</value>
   </data>

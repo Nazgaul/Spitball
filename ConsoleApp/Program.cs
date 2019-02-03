@@ -51,7 +51,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -59,7 +59,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
@@ -126,8 +126,8 @@ namespace ConsoleApp
             //var _queryBus = _container.Resolve<IQueryBus>();
             ////var uniId = GetUniversityClaimValue();
             //var userId = 176778L;// _userManager.GetLongUserId(bindingContext.HttpContext.User);
-            //var query2 = new UserWithUniversityQuery(userId);
-            //var profile = await _queryBus.QueryAsync(query2, token);
+            var query2 = new UserWithUniversityQuery(0);
+            var profile = await _queryBus.QueryAsync(query2, token);
             //profile.Country = "IL";
             ////IDocumentsSearch
             //var z1 = _container.Resolve<IDocumentsSearch>();

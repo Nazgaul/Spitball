@@ -130,7 +130,7 @@
     <value>Answer...</value>
   </data>
   <data name="Currency" xml:space="preserve">
-    <value>SBL</value>
+    <value>Pts</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -142,7 +142,7 @@
     <value>Something went wrong, try again</value>
   </data>
   <data name="Question_price" xml:space="preserve">
-    <value>{1} SBL</value>
+    <value>{1} Pts</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Report this item</value>

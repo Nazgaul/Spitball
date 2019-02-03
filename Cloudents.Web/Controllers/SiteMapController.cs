@@ -28,6 +28,14 @@ namespace Cloudents.Web.Controllers
     {
         const int PageSize = 50000;
         private readonly IQueryBus _queryBus;
+        private readonly XmlWriterSettings _xmlWriterSettings = new XmlWriterSettings
+        {
+            Async = true,
+            Indent = true,
+            IndentChars = "  ",
+            NewLineChars = "\r\n",
+            NewLineHandling = NewLineHandling.Replace
+        };
 
         public SiteMapController(IQueryBus queryBus)
         {
@@ -135,42 +143,39 @@ namespace Cloudents.Web.Controllers
             [FromServices] IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery> query2,
             CancellationToken token)
         {
-
-            // var entities = _seoRepositories[type].Get(query);
-            //var routeName = type.GetDescription();
-
             return new FileCallbackResult("application/xml", async (stream, context) =>
             {
-                var writer = XmlWriter.Create(stream, new XmlWriterSettings
-                {
-                    Async = true
-                });
-                await writer.WriteStartDocumentAsync();
-                writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-                var iterator = 0;
-                var query = new SeoQuery(index);
-                foreach (var entity in query2.Get(query))
-                {
-                    //iterator++;
-                    var url = Url.RouteUrl(SeoTypeString.Flashcard, new
-                    {
-                        universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
-                        boxId = entity.BoxId,
-                        boxName = UrlConst.NameToQueryString(entity.BoxName),
-                        id = entity.Id,
-                        name = UrlConst.NameToQueryString(entity.Name)
-                    }, Request.GetUri().Scheme);
 
-                    await WriteTagAsync("1", "Daily", url, writer);
-                    if (iterator == 100)
+                using (var writer = XmlWriter.Create(stream, _xmlWriterSettings))
+                {
+                    await writer.WriteStartDocumentAsync();
+                    writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
+                    var iterator = 0;
+                    var query = new SeoQuery(index);
+                    foreach (var entity in query2.Get(query))
                     {
-                        await writer.FlushAsync();
-                        iterator = 0;
+                        //iterator++;
+                        var url = Url.RouteUrl(SeoTypeString.Flashcard, new
+                        {
+                            universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
+                            boxId = entity.BoxId,
+                            boxName = UrlConst.NameToQueryString(entity.BoxName),
+                            id = entity.Id,
+                            name = UrlConst.NameToQueryString(entity.Name)
+                        }, Request.GetUri().Scheme);
+
+                        await WriteTagAsync("1", "Daily", url, writer);
+                        if (iterator == 100)
+                        {
+                            await writer.FlushAsync();
+                            iterator = 0;
+                        }
                     }
+
+                    await writer.WriteEndElementAsync();
+                    await writer.WriteEndDocumentAsync();
+                    await writer.FlushAsync();
                 }
-                await writer.WriteEndElementAsync();
-                await writer.WriteEndDocumentAsync();
-                await writer.FlushAsync();
             });
         }
 
@@ -200,33 +205,32 @@ namespace Cloudents.Web.Controllers
                   });
             return new FileCallbackResult("application/xml", async (stream, context) =>
             {
-                var writer = XmlWriter.Create(stream, new XmlWriterSettings
+                using (var writer = XmlWriter.Create(stream, _xmlWriterSettings))
                 {
-                    Async = true
-                });
-                var i = 0;
-                await writer.WriteStartDocumentAsync();
-                writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-                foreach (var link in t)
-                {
-                    var url = Url.RouteUrl(SeoTypeString.Document, new
+                    var i = 0;
+                    await writer.WriteStartDocumentAsync();
+                    writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
+                    foreach (var link in t)
                     {
-                        universityName = FriendlyUrlHelper.GetFriendlyTitle(link.UniversityName),
-                        courseName = FriendlyUrlHelper.GetFriendlyTitle(link.CourseName),
-                        link.Id,
-                        name = FriendlyUrlHelper.GetFriendlyTitle(link.Name)
-                    }, Request.GetUri().Scheme);
-                    i++;
-                    await WriteTagAsync("1", "Daily", url, writer);
-                    if (i % 100 == 0)
-                    {
-                        await writer.FlushAsync();
+                        var url = Url.RouteUrl(SeoTypeString.Document, new
+                        {
+                            universityName = FriendlyUrlHelper.GetFriendlyTitle(link.UniversityName),
+                            courseName = FriendlyUrlHelper.GetFriendlyTitle(link.CourseName),
+                            link.Id,
+                            name = FriendlyUrlHelper.GetFriendlyTitle(link.Name)
+                        }, Request.GetUri().Scheme);
+                        i++;
+                        await WriteTagAsync("1", "Daily", url, writer);
+                        if (i % 100 == 0)
+                        {
+                            await writer.FlushAsync();
+                        }
                     }
-                }
 
-                await writer.WriteEndElementAsync();
-                await writer.WriteEndDocumentAsync();
-                await writer.FlushAsync();
+                    await writer.WriteEndElementAsync();
+                    await writer.WriteEndDocumentAsync();
+                    await writer.FlushAsync();
+                }
             });
 
             //return new SitemapNode(_urlHelper.RouteUrl(SeoTypeString.Document, new
@@ -264,7 +268,7 @@ namespace Cloudents.Web.Controllers
             myWriter.WriteStartElement("priority");
             myWriter.WriteValue(priority);
             await myWriter.WriteEndElementAsync();
-
+            
             await myWriter.WriteEndElementAsync();
         }
     }
