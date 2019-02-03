@@ -178,9 +178,14 @@
                 this.UPDATE_LOADING(true);
                 let newQueryArr = Object.keys(this.selectedChips);
                 let newQueryObject = {
-                    Course: newQueryArr,
-                    Filter: this.$route.query.Filter
+                    Course: newQueryArr
                 };
+                let filter = this.$route.query.Filter;
+                if(filter){
+                    newQueryObject.Filter = filter;
+                }else{
+                    delete newQueryObject.Filter;
+                }
                 this.$router.push({query: newQueryObject});
             },
             sortClassesByIsSelected(arr, sortBy) {
