@@ -124,7 +124,7 @@
     <value>נתקעת עם שיעורי בית?</value>
   </data>
   <data name="classes_content" xml:space="preserve">
-    <value>הוסף מוסד לימודים ובחר קורסים כדי לגשת למשאבים שיעזרו לך לקבל מאיות.</value>
+    <value>בחר קורס מהרשימה בכדי לראות את כל המסמכים הרלוונטיים בפיד</value>
   </data>
   <data name="classes_title" xml:space="preserve">
     <value>מוכן להשתלט על החומר?</value>
@@ -148,13 +148,13 @@
     <value>יודע את התשובה?</value>
   </data>
   <data name="sbl_currency_content" xml:space="preserve">
-    <value>ממש את את הנקודות שלך (SBL) כדי לקבל כרטיסי מתנה מ- BuyMe. ככל שתחסוך יותר SBL זה יהיה שווה לך יותר כסף במימוש.</value>
+    <value>פדה את הנקודות שלך כדי לקבל כרטיסי מתנה מ- BuyMe.</value>
   </data>
   <data name="sbl_currency_title" xml:space="preserve">
     <value>פדה כרטיסי מתנה מ- BuyMe</value>
   </data>
   <data name="upload_button_content" xml:space="preserve">
-    <value>מעולה! תעלה מסמכי לימוד מהקורס שלך ותרוויח כסף בכל פעם שמישהו רוכש אותם.</value>
+    <value>מעולה! תעלה מסמכי לימוד מהקורס שלך ותרוויח נקודות בכל פעם שמישהו מוריד אותם.</value>
   </data>
   <data name="upload_button_title" xml:space="preserve">
     <value>יש לך מסמכי לימוד?</value>

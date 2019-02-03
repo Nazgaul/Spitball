@@ -136,7 +136,7 @@
     <value>Pick a subject</value>
   </data>
   <data name="SBL" xml:space="preserve">
-    <value>SBL</value>
+    <value>PTS</value>
   </data>
   <data name="sufficient_SBL" xml:space="preserve">
     <value>You do not have sufficient SBL</value>

@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about_to_buy" xml:space="preserve">
-    <value>You're about to buy a great</value>
+    <value>Confirm sending {0} points to {1}</value>
   </data>
   <data name="buy_btn" xml:space="preserve">
-    <value>Buy &amp; Download</value>
+    <value>Send &amp; Download</value>
   </data>
   <data name="buy_full_btn" xml:space="preserve">
     <value>Buy to view full document</value>
@@ -139,7 +139,7 @@
     <value>Start Over</value>
   </data>
   <data name="itemActions_buy" xml:space="preserve">
-    <value>Buy</value>
+    <value>Unlcok</value>
   </data>
   <data name="itemActions_download" xml:space="preserve">
     <value>Download</value>
@@ -160,6 +160,6 @@
     <value>School</value>
   </data>
   <data name="price_equals_to" xml:space="preserve">
-    <value>Equals to</value>
+    <value>to unlock this document</value>
   </data>
 </root>
