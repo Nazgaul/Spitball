@@ -35,7 +35,8 @@ namespace Cloudents.Query
                     Image = s.Image,
                     Email = s.Email,
                     UniversityExists = s.University != null,
-                    Score = s.Transactions.Score
+                    Score = s.Transactions.Score,
+                    PhoneNumber = s.PhoneNumber
                 }).WithOptions(o =>
                 {
                     o.SetCacheable(true)

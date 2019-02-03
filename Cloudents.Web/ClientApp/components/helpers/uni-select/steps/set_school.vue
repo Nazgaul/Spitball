@@ -3,7 +3,7 @@
     <div class="" :class="{'selected': (!!search && search.length > 10)}">
         <div class="title-container">
             <span v-language:inner>uniSelect_select_school</span>
-            <a v-show="showNext" class="next-container" @click="checkBeforeNextStep()"
+            <a v-show="showNext" class="next-container" :class="{'loading': nextPressed}" @click="checkBeforeNextStep()"
                v-language:inner>uniSelect_next</a>
 
         </div>
@@ -73,7 +73,8 @@
                 universityModel: '',
                 search: '',
                 schoolNamePlaceholder: LanguageService.getValueByKey('uniSelect_type_school_name_placeholder'),
-                globalHeight: global.innerHeight
+                globalHeight: global.innerHeight,
+                nextPressed: false
             }
         },
         watch: {
@@ -86,7 +87,7 @@
                 if (this.search === "") {
                     this.clearData();
                 }
-            }, 250)
+            }, 500)
         },
         filters: {
             boldText(value, search) {
@@ -136,10 +137,12 @@
                     if (!schoolName) {
                         console.log("No university name found")
                         return;
-                    }
-                    ;
+                    };
+                    this.nextPressed = true;
                     this.updateSchoolName(schoolName).then(() => {
                         this.fnMethods.changeStep(this.enumSteps.set_class);
+                    }).finally(()=>{
+                        this.nextPressed = false;
                     });
                 }
             },

@@ -32,17 +32,17 @@ namespace Cloudents.Infrastructure.Framework
         }
 
 
-        Workbook _excel;
+        Lazy<Workbook> _excel;
 
         public void Init(Stream stream)
         {
-            _excel = new Workbook(stream);
+            _excel = new Lazy<Workbook>(() => new Workbook(stream));
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
         {
             
-            return (null, _excel.Worksheets.Count);
+            return (null, _excel.Value.Worksheets.Count);
         }
 
       
@@ -55,7 +55,7 @@ namespace Cloudents.Infrastructure.Framework
 
             var t = new List<Task>();
 
-            var diff = Enumerable.Range(0, _excel.Worksheets.Count);
+            var diff = Enumerable.Range(0, _excel.Value.Worksheets.Count);
             diff = diff.Except(previewDelta);
             
             foreach (var item in diff)
@@ -64,7 +64,7 @@ namespace Cloudents.Infrastructure.Framework
                 {
                     break;
                 }
-                var wb = _excel.Worksheets[item];
+                var wb = _excel.Value.Worksheets[item];
                 ScalePageSetupToFitPage(wb);
                 var sr = new SheetRender(wb, imgOptions);
                 using (var img = sr.ToImage(0))
