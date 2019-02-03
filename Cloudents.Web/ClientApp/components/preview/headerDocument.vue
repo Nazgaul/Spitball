@@ -71,6 +71,9 @@
                             <a target="_blank" @click="showPurchaseConfirm()">
                                 <div class="buy-action-container">
                                     <div class="buy-text-wrap">
+                                        <span class="equals-to-dollar hidden-xs-only">
+                                            <span v-language:inner>headerDocument_item_pay_student</span>
+                                          </span>
                                         <span class="buy-text-price">
                                             <span class="mobile-buy-text hidden-sm-and-up" v-language:inner>preview_itemActions_buy</span>
                                             {{item && item.price ? item.price.toFixed(2) : '00.00'}}

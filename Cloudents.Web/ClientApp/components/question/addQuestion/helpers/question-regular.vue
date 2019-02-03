@@ -49,6 +49,7 @@
                     second: 40,
                     third: 60,
                 },
+                dynamicCurr: LanguageService.getValueByKey("app_currency_dynamic"),
                 limitOfferRange: parseFloat(this.accountUser().balance * 30 / 100),
                 maxLimitOffer: 100,
                 minLimitOffer: 1,
