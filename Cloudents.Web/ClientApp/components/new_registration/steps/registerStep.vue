@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import zxcvbn from 'zxcvbn';
+    //import zxcvbn from 'zxcvbn';
     import stepTemplate from '../helpers/stepTemplate.vue'
     import VueRecaptcha from 'vue-recaptcha';
     import analyticsService from '../../../services/analytics.service';
@@ -102,7 +102,7 @@
         computed:{
             passZxcvbn(){
                 if(this.password.length !== 0){
-                    this.score = zxcvbn(this.password).score;
+                    this.score = global.zxcvbn(this.password).score;
                     return `${this.passScoreObj[this.score].name}`
                 }
             },
