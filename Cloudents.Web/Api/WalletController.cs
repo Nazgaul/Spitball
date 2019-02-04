@@ -57,8 +57,8 @@ namespace Cloudents.Web.Api
             return retVal;
         }
 
-        [HttpPost("transaction")]
-        public async Task<IActionResult> ValidatePaymentAsync(PayPalTransactionRequest model,
+        [HttpPost("BuyTokens")]
+        public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
             [FromServices] IPayPal payPal, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
