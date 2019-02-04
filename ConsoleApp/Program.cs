@@ -124,6 +124,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            await ReduWordProcessing();
             //var write = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
             //await write.CreateOrUpdateAsync(token);
             //decimal commision = elad * 0.09M;
@@ -175,7 +176,7 @@ namespace ConsoleApp
             {
                 var i1 = i;
                 var itemIds = await service.Query<Document>().Where(w => w.Id > i1)
-                    .Where(w=>w.Status.State == ItemState.Ok && w.MetaContent == null)
+                    .Where(w => w.Status.State == ItemState.Ok && w.MetaContent == null)
                     .Take(100).OrderBy(o => o.Id).Select(s => s.Id).ToListAsync();
 
                 var t = new List<Task>();
@@ -291,17 +292,11 @@ where left(blobName ,4) != 'file'");
             var _bus = _container.Resolve<ICloudStorageProvider>();
             var blobClient = _bus.GetBlobClient();
             var queueClient = _bus.GetQueueClient();
-            //var container = blobClient.GetContainerReference("spitball-files");
-            //azure-webjobs-hosts/blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/
-
-            //var dir = container.GetDirectoryReference(
-            //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
 
 
             var container = blobClient.GetContainerReference("spitball-files");
             var dir = container.GetDirectoryReference("files");
             var queue = queueClient.GetQueueReference("generate-blob-preview");
-            var extensions = WordProcessor.Extensions;
 
 
             BlobContinuationToken blobToken = null;
@@ -311,34 +306,51 @@ where left(blobName ,4) != 'file'");
                     new BlobRequestOptions(),
                     new OperationContext(), default);
 
+                var list = new HashSet<string>();
                 Console.WriteLine("Receiving a new batch of blobs");
                 foreach (IListBlobItem blob in result.Results)
                 {
 
                     var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
-
-                    if (fileNameWithoutDirectory.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
+                    var id = blob.Uri.Segments[3].TrimEnd('/');
+                    if (!list.Add(id))
                     {
-                        foreach (var extension in extensions)
+                        continue;
+                    }
+                    var fileDir = container.GetDirectoryReference($"files/{id}");
+                    var blobs = fileDir.ListBlobs().ToList();
+
+                    if (!blobs.Any(a => a.Uri.AbsoluteUri.Contains("preview")))
+                    {
+                        var msg = new CloudQueueMessage(id);
+                        await queue.AddMessageAsync(msg);
+                        using (System.IO.StreamWriter file =
+           new System.IO.StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
                         {
-                            if (Path.GetExtension(fileNameWithoutDirectory) == extension)
-                            {
-                                var id = blob.Uri.Segments[3].TrimEnd('/');
-                                var msg = new CloudQueueMessage(id);
-                                await queue.AddMessageAsync(msg);
-                                // var blobToDelete = (CloudBlockBlob)blob;
-                            }
+
+                            file.WriteLine(id);
+
                         }
-
-
-                        //var blobToDelete = (CloudBlockBlob)blob;
+                        Console.WriteLine("Processing regular " + id);
+                        continue;
                     }
-
-                    if (fileNameWithoutDirectory.EndsWith("svg") && fileNameWithoutDirectory.StartsWith("preview"))
+                    if (!blobs.Any(a => a.Uri.AbsoluteUri.Contains("blur")))
                     {
-                        var blobToDelete = (CloudBlockBlob)blob;
-                        await blobToDelete.DeleteAsync();
+                        var queue2 = queueClient.GetQueueReference("generate-blob-preview-blur");
+                        var msg = new CloudQueueMessage(id);
+                        await queue2.AddMessageAsync(msg);
+
+                        using (System.IO.StreamWriter file =
+         new System.IO.StreamWriter(@"C:\Users\Ram\Documents\blur.txt", true))
+                        {
+
+                            file.WriteLine(id);
+
+                        }
+                        Console.WriteLine("Processing blur " + id);
+                        continue;
                     }
+
                 }
 
                 blobToken = result.ContinuationToken;
@@ -973,7 +985,7 @@ where left(blobName ,4) != 'file'");
                         Console.WriteLine($"processing {itemId}");
 
                         string extension = Path.GetExtension(pair.BlobName);
-                        
+
                         if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
