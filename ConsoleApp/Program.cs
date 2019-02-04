@@ -2,16 +2,19 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
+using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
-using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Query.Sync;
 using Dapper;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -29,13 +32,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Query;
-using Cloudents.Search;
-using Microsoft.Azure.Documents.Client;
-using PayPal.Core;
-using PayPal.v1.Payments;
+using Cloudents.Search.Question;
 
 namespace ConsoleApp
 {
@@ -112,53 +109,21 @@ namespace ConsoleApp
 
         }
 
-        public class Order
+        private static async Task UpdateQuestionIndex()
         {
-            public int Id { get; set; }
-        }
-
-        public class OrderDto
-        {
-
+            var bus = _container.Resolve<QuestionSearchWrite>();
+            await bus.CreateOrUpdateAsync(default);
         }
 
         private static async Task RamMethod()
         {
-            await ReduWordProcessing();
-            //var write = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
-            //await write.CreateOrUpdateAsync(token);
-            //decimal commision = elad * 0.09M;
-            ////var uniId = GetUniversityClaimValue();
-            //var userId = 176778L;// _userManager.GetLongUserId(bindingContext.HttpContext.User);
-            var query2 = new UserWithUniversityQuery(0);
-            // Use OAuthTokenCredential to request an access token from PayPal
-            //profile.Country = "IL";
-            ////IDocumentsSearch
-            //var z1 = _container.Resolve<IDocumentsSearch>();
-            //var z = _container.Resolve<IDocumentSearch>();
-            //var query = new DocumentQuery(null, profile, null, 0, null);
-            //var z2 = await z1.SearchAsync(query, token);
-            //var z3 = await z.SearchDocumentsAsync(query, token);
-            ////var uniId = GetUniversityClaimValue();
-            //var userId = 176778L;// _userManager.GetLongUserId(bindingContext.HttpContext.User);
-            //var query2 = new UserWithUniversityQuery(userId);
-            //var profile = await _queryBus.QueryAsync(query2, token);
-            //profile.Country = "IL";
-            ////IDocumentsSearch
-            //var z1 = _container.Resolve<IDocumentsSearch>();
-            //var z = _container.Resolve<IDocumentSearch>();
-            //var query = new DocumentQuery(null, profile, null, 0, null);
-            //var z2 = await z1.SearchAsync(query, token);
-            //var z3 = await z.SearchDocumentsAsync(query, token);
+             await UpdateQuestionIndex();
+            var bus = _container.Resolve<IQueryBus>();
+            var query2 = new SyncAzureQuery(0, 0);
+            var result = await bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query2, default);
+            query2 = new SyncAzureQuery(1, 0);
 
-            //var x = _container.Resolve<AzureDocumentSearch>();
-
-            // var service1 = _container.Resolve<IUnitOfWork>();
-            //var service = _container.Resolve<IQueryBus>();
-
-            //var query = new UserDataByIdQuery(231100);
-            //var z = await service.QueryAsync<UserProfileDto>(query, default);
-            //var t = await service.GetEmailAsync(SystemEvent.DocumentPurchased, Language.English, default);
+            var result2 = await bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query2, default);
         }
 
 

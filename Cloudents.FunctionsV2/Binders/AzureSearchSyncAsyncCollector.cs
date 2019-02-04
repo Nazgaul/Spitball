@@ -40,7 +40,7 @@ namespace Cloudents.FunctionsV2.Binders
 
             
             await _indexClient.Documents.IndexAsync(batch, cancellationToken: cancellationToken);
-
+            _messages.Clear();
 //#if DEBUG
 //            foreach (var errorResult in result.Results.Where(w => !w.Succeeded))
 //            {

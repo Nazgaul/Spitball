@@ -58,3 +58,5 @@ drop table sb.SystemEvent
  CREATE UNIQUE NONCLUSTERED INDEX idx_PayPalTransactionId_notnull
                ON sb.[transaction ](PayPalTransactionId)
                WHERE PayPalTransactionId IS NOT NULL;
+
+--need to update question search index.

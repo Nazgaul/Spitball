@@ -36,7 +36,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
+            var user = await _userRepository.LoadAsync(message.UserId, token);
 
             if (await _questionRepository.GetSimilarQuestionAsync(message.Text, token))
             {
@@ -53,20 +53,16 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
-            Course course = null;
-            if (message.Course != null)
-            {
-                course = await _courseRepository.LoadAsync(message.Course, token);
-                course.Count++;
-                await _courseRepository.UpdateAsync(course, token);
-            }
+            var course = await _courseRepository.LoadAsync(message.Course, token);
+            course.Count++;
+            await _courseRepository.UpdateAsync(course, token);
 
             var question = new Question(message.SubjectId,
                 message.Text, message.Price, message.Files?.Count() ?? 0,
-                user, textLanguage, course);
+                user, textLanguage, course, user.University);
 
             user.MakeTransaction(QuestionTransaction.Asked(question));
-            await _userRepository.UpdateAsync(user, default);
+            await _userRepository.UpdateAsync(user, token);
 
 
             await _questionRepository.AddAsync(question, token);
