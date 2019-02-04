@@ -1,14 +1,15 @@
 <template>
     <v-card class="file-item-card mb-3">
+        <v-container>
         <v-layout row class="px-3 py-2 pt-4" v-bind="gridBreakpoint">
-            <v-flex xs12 sm7 md7>
+            <v-flex xs12 sm7 md7 order-sm1 order-md1>
                 <v-text-field solo class="sb-field  bg-greyed"
                               :class="$vuetify.breakpoint.xsOnly ? 'mr-0' : ' mr-2'"
                               v-model="item.name"
                               :disabled="true"
                               placeholder="sdfsdfsdf"></v-text-field>
             </v-flex>
-            <v-flex xs12 sm7 md7 :class="$vuetify.breakpoint.xsOnly ? 'mb-3' : ''">
+            <v-flex xs12 sm7 md7 order-sm3 order-md3 :class="$vuetify.breakpoint.xsOnly ? 'mb-3' : ''">
                 <v-combobox class="sb-field sb-combo"
                             :class="$vuetify.breakpoint.xsOnly ? 'mr-0' : ' mr-2'"
                             v-language:placeholder
@@ -34,7 +35,7 @@
                     </template>
                 </v-combobox>
             </v-flex>
-            <v-flex xs6 sm5 md5  :class="$vuetify.breakpoint.xsOnly ? 'pr-1' : ''">
+            <v-flex xs6 sm5 md5 order-sm2 order-md2  :class="$vuetify.breakpoint.xsOnly ? 'pr-1' : ''">
                 <vue-numeric currency="SBL"
                              :placeholder="emptyPricePlaceholder"
                              class="numeric-input px-2"
@@ -45,7 +46,7 @@
                              separator=","
                              v-model="item.price"></vue-numeric>
             </v-flex>
-            <v-flex xs6 sm5 md5>
+            <v-flex xs6 sm5 md5 order-sm4 order-md4>
                 <v-select
                         class="sb-field elevation-0"
                         :items="docTypes"
@@ -56,9 +57,7 @@
                         solo
                         :append-icon="'sbf-arrow-down'"></v-select>
             </v-flex>
-            <v-flex xs12 sm1 md1 align-center  :class="$vuetify.breakpoint.xsOnly ? 'closeIcon-row-mobile' : ''">
-                <v-icon class="delete-close-icon d-flex mt-3" @click="deleteFile()">sbf-close</v-icon>
-            </v-flex>
+                <v-icon v-if="quantity >1" class="delete-close-icon d-flex mt-3" @click="deleteFile()">sbf-close</v-icon>
         </v-layout>
         <v-progress-linear
                 style="width: 100%; position: absolute; bottom:0; left:0;"
@@ -69,6 +68,7 @@
                 class="sb-steps-progress ma-0"
         >
         </v-progress-linear>
+        </v-container>
     </v-card>
 </template>
 
@@ -98,6 +98,10 @@
             singleFileIndex: {
                 type: Number,
                 required: true
+            },
+            quantity:{
+                type: Number,
+                required:false
             }
         },
 
@@ -181,20 +185,24 @@
         border-radius: 4px;
         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.23);
         background-color: @color-white;
+        &:last-child{
+            margin-bottom: 112px!important;//last child offset
+        }
         @media (max-width: @screen-xs) {
             width: 100%;
-            min-width: 360px;
-            max-width: 360px;
+            min-width: unset;
+            max-width: unset;
         }
-        .closeIcon-row-mobile{
+        .delete-close-icon{
+            position: absolute;
+            top: 50px;
+            right: 16px;
             @media(max-width: @screen-xs){
-                .v-icon{
-                    position: absolute;
-                    top: -10px;
-                    right: 8px;
-                }
+                font-size: 12px;
+                position: absolute;
+                top: 0;
+                right: 14px;
             }
-
         }
         .delete-close-icon {
             font-size: 10px;
