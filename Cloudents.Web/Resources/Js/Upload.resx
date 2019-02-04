@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_open" xml:space="preserve">
-    <value>Upload Documents</value>
-  </data>
   <data name="multiple_error_extensions_support" xml:space="preserve">
     <value>supported files:</value>
   </data>
@@ -127,113 +124,19 @@
     <value>Oops! this file type is not supported</value>
   </data>
   <data name="multiple_error_upload_something_wrong" xml:space="preserve">
-    <value>Something went wrong</value>
-  </data>
-  <data name="files_btn_anotherUpload" xml:space="preserve">
-    <value>Upload another document</value>
-  </data>
-  <data name="files_btn_anotherUpload_mobile" xml:space="preserve">
-    <value>Upload More</value>
-  </data>
-  <data name="files_btn_answer" xml:space="preserve">
-    <value>Answer a question</value>
-  </data>
-  <data name="files_btn_askQuestion" xml:space="preserve">
-    <value>Ask a question</value>
-  </data>
-  <data name="files_btn_close" xml:space="preserve">
-    <value>Close</value>
+    <value>Something went wrong, please try again</value>
   </data>
   <data name="multiple_files_btn_desktop" xml:space="preserve">
     <value>Computer</value>
   </data>
-  <data name="files_btn_drop" xml:space="preserve">
-    <value>Or just drop your file here</value>
-  </data>
   <data name="multiple_files_btn_dropBox" xml:space="preserve">
     <value>Dropbox</value>
-  </data>
-  <data name="files_btn_next" xml:space="preserve">
-    <value>Next</value>
   </data>
   <data name="multiple_files_btn_phone" xml:space="preserve">
     <value>Your Phone</value>
   </data>
-  <data name="files_btn_sell" xml:space="preserve">
-    <value>Upload my document</value>
-  </data>
-  <data name="files_class" xml:space="preserve">
-    <value>Class</value>
-  </data>
-  <data name="files_component_share_study" xml:space="preserve">
-    <value>Share study notes</value>
-  </data>
-  <data name="files_edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="files_file_upload" xml:space="preserve">
-    <value>Upload a file</value>
-  </data>
-  <data name="files_header_subtitle" xml:space="preserve">
-    <value>Make money of your study documents.</value>
-  </data>
   <data name="multiple_files_header_title" xml:space="preserve">
     <value>Upload Files</value>
-  </data>
-  <data name="files_label_class" xml:space="preserve">
-    <value>Select a Relevant Class</value>
-  </data>
-  <data name="files_label_document_title" xml:space="preserve">
-    <value>Document Title</value>
-  </data>
-  <data name="files_label_legal" xml:space="preserve">
-    <value>Users are prohibited from uploading copyright infringing materials. Spitball reserves the right to remove uploaded content that does not add value to the Spitball student community.</value>
-  </data>
-  <data name="files_label_proff_name" xml:space="preserve">
-    <value>Professor Name</value>
-  </data>
-  <data name="files_label_school" xml:space="preserve">
-    <value>School</value>
-  </data>
-  <data name="files_label_tags" xml:space="preserve">
-    <value>Keywords</value>
-  </data>
-  <data name="files_placeholder_proff_name" xml:space="preserve">
-    <value>Enter the professor’s name...</value>
-  </data>
-  <data name="files_placeholder_tags" xml:space="preserve">
-    <value>Type a keyword name and press Enter to add</value>
-  </data>
-  <data name="files_step2_subtitle" xml:space="preserve">
-    <value />
-  </data>
-  <data name="files_step2_title" xml:space="preserve">
-    <value>Awesome! get your document ready for upload</value>
-  </data>
-  <data name="files_step3_title" xml:space="preserve">
-    <value>Which type of document are you uploading?</value>
-  </data>
-  <data name="files_step4_title" xml:space="preserve">
-    <value>Keep this title or create a better one for your document</value>
-  </data>
-  <data name="files_step5_subtitle" xml:space="preserve">
-    <value>Multiple keywords will help you sell the document to more
-students</value>
-  </data>
-  <data name="files_step5_title" xml:space="preserve">
-    <value>Add keywords you think are relevant for this document</value>
-  </data>
-  <data name="files_step6_subtitle" xml:space="preserve">
-    <value>Please make sure all the details are just right </value>
-  </data>
-  <data name="files_step6_title" xml:space="preserve">
-    <value>You Rock! Review the details before sale.</value>
-  </data>
-  <data name="files_step7_subtitle" xml:space="preserve">
-    <value>Help others while you are waiting</value>
-  </data>
-  <data name="files_step7_title" xml:space="preserve">
-    <value>Spread the Word</value>
   </data>
   <data name="multiple_files_type_exam" xml:space="preserve">
     <value>Exam notes</value>
@@ -245,17 +148,11 @@ students</value>
     <value>Textbook notes</value>
     <comment>Ram Change</comment>
   </data>
-  <data name="files_uploadDoc" xml:space="preserve">
-    <value>Upload a Document</value>
-  </data>
   <data name="multiple_confirm_btn_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="multiple_confirm_btn_close" xml:space="preserve">
     <value>Close and stop upload</value>
-  </data>
-  <data name="files_btn_back" xml:space="preserve">
-    <value>Back</value>
   </data>
   <data name="multiple_confirm_stop_title" xml:space="preserve">
     <value>Stop Uploading?</value>
@@ -266,47 +163,8 @@ students</value>
   <data name="multiple_files_type_default" xml:space="preserve">
     <value>Document</value>
   </data>
-  <data name="files_proccesing" xml:space="preserve">
-    <value>We are proccesing your document, you will be able to see it soon.</value>
-  </data>
   <data name="multiple_files_dopHere" xml:space="preserve">
     <value>Drag &amp; Drop Files Here</value>
-  </data>
-  <data name="files_options_text" xml:space="preserve">
-    <value>or upload from</value>
-  </data>
-  <data name="class_input_placeholder" xml:space="preserve">
-    <value>Select a class name</value>
-  </data>
-  <data name="files_final_prof_label" xml:space="preserve">
-    <value>Prof.</value>
-  </data>
-  <data name="files_final_title" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="files_price_equals" xml:space="preserve">
-    <value>Equals to </value>
-  </data>
-  <data name="files_price_label" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="files_price_subtitle" xml:space="preserve">
-    <value>On Spitball you can buy and sell with</value>
-  </data>
-  <data name="files_price_title" xml:space="preserve">
-    <value>Set your price per download</value>
-  </data>
-  <data name="files_price_your_balance" xml:space="preserve">
-    <value>Your balance</value>
-  </data>
-  <data name="files_price_zero_means_free" xml:space="preserve">
-    <value>Price 0.00, means that the document will be free.</value>
-  </data>
-  <data name="first_step2_title_partOne" xml:space="preserve">
-    <value>Awesome!</value>
-  </data>
-  <data name="first_step2_title_partTwo" xml:space="preserve">
-    <value>What class is this document from?</value>
   </data>
   <data name="multiple_keywords_optional" xml:space="preserve">
     <value>Keywords (Optional)</value>
@@ -337,5 +195,14 @@ students</value>
   </data>
   <data name="multiple_label_icon_text" xml:space="preserve">
     <value>Upload</value>
+  </data>
+  <data name="multiple_or_browse_label_mobile" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="files_file_upload" xml:space="preserve">
+    <value>Upload a file</value>
+  </data>
+  <data name="multiple_files_referral_title" xml:space="preserve">
+    <value>Sharing is Caring</value>
   </data>
 </root>

@@ -44,6 +44,10 @@
       color: @colorErrorText;
     }
     .supported-extensions {
+      padding: 16px  24px 16px 24px;
+      @media (max-width: @screen-xs) {
+       text-align: center;
+      }
       span {
         font-size: 12px;
         line-height: 1.83;
@@ -145,7 +149,6 @@
 
 //end confirm dialog
 
-
 .upload-dialog {
   position: relative;
   font-family: @fontFiraSans;
@@ -156,8 +159,8 @@
   .leave { transform: translateY(0) }
   .leave-to { transform: translateY(-100%) }
 
-  .slide-enter-active,
-  .slide-leave-active { transition: all 700ms ease-in-out }
+  .slide-enter-active { transition: all 700ms ease-in-out }
+  .slide-leave-active { transition: all 0ms ease-in-out }
 
   .close-upload-btn-icon {
     position: absolute;
@@ -206,6 +209,9 @@
   .course-select {
     &.custom-select {
       min-width: 390px;
+      @media (max-width: @screen-xs) {
+        min-width: 340px;
+      }
       .v-input__slot {
         box-shadow: none!important;
         border-radius: 4px;
@@ -240,10 +246,18 @@
         &.footer{
           align-items: center;
           padding: 36px 0;
+          @media (max-width: @screen-xs) {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            right: 0;
+            left: 0;
+            display: flex;
+            background-color:  #f9f9f9;
+          }
+
         }
-        @media (max-width: @screen-xs) {
-          display: none;
-        }
+
         .sb-step-title {
           letter-spacing: -0.1px;
           font-family: @fontOpenSans;
@@ -267,7 +281,12 @@
         .sb-stepper-content {
           padding: 0;
           @media (max-width: @screen-xs) {
-            padding: 0;
+            //padding: 20px;
+          }
+          .mobile-view-layout{
+            background-color: @uploadGreyBackground;
+            padding-top: 36px;
+            margin-top: 0!important;//vuetify
           }
           .sb-step-card {
             background-color: transparent;

@@ -1,20 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
+﻿
 namespace Cloudents.Core.Request
 {
     public class SeoQuery
     {
-        public SeoQuery(int page)
+        public SeoQuery(int page, int pageSize)
         {
             Page = page;
+            PageSize = pageSize;
         }
 
         public int Page { get;  }
 
-        public const int Steps = 10000;
+        public int PageSize { get; private set; }
 
-        public IEnumerable<int> SubPage => Enumerable.Range(0, 50000).Where(i => i % Steps == 0);
+
     }
     //public class DocumentSeoQuery : SeoQuery
     //{

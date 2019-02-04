@@ -22,14 +22,12 @@ namespace Cloudents.Infrastructure.Data
 
         public IEnumerable<SiteMapSeoDto> Get(SeoQuery query)
         {
-            const int pageSize = 49950;
-
             using (var conn = _repository.OpenConnection())
             {
                 var data = conn.Query<SiteMapSeoDto>(
                    new CommandDefinition(
                        _sqlQuery.Query,
-                       new { rowsPerPage = pageSize, pageNumber = query.Page },
+                       new { rowsPerPage = query.PageSize, pageNumber = query.Page },
                        flags: CommandFlags.None,
                        commandTimeout: 90
                        )
@@ -41,17 +39,6 @@ namespace Cloudents.Infrastructure.Data
                     yield return row;
                 }
             }
-            //_repository.WithConnection()
-            //IEnumerable<SiteMapSeoDto> DoQuery(IDbConnection conn)
-            //{
-            //    var data = conn.Query<SiteMapSeoDto>(_sqlQuery.Query, new { rowsPerPage = pageSize, pageNumber = query.Page }, buffered: false);
-
-            //    foreach (var row in data)
-            //    {
-            //        yield return row;
-            //    }
-            //}
-            //return _repository.WithConnection(DoQuery);
         }
     }
 }

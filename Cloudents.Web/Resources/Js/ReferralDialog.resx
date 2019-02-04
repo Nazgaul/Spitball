@@ -123,6 +123,9 @@
   <data name="copy" xml:space="preserve">
     <value>Copy</value>
   </data>
+  <data name="copy_link" xml:space="preserve">
+    <value>Copy Link</value>
+  </data>
   <data name="dialog_title_invite" xml:space="preserve">
     <value>&lt;b&gt;Invite a friend&lt;/b&gt; and &lt;b&gt;Earn&lt;/b&gt; for each referral &lt;b&gt;10 Points.&lt;/b&gt;</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="join_me" xml:space="preserve">
     <value>Join me on Spitball</value>
+  </data>
+  <data name="ref_placeholder" xml:space="preserve">
+    <value>Select Document to Share</value>
   </data>
   <data name="share_with" xml:space="preserve">
     <value>or share with</value>

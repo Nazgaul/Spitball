@@ -28,7 +28,7 @@ namespace Cloudents.Core.Test.CommandHandler
                 new QuestionSubject(), "some text",
                 0, 0, questionUser,
                 
-                CultureInfo.InvariantCulture,null);
+                CultureInfo.InvariantCulture,new Course("xxx"),new University("xxx","IL") );
 
             question.AddAnswer("some text", 0, user, CultureInfo.InvariantCulture);
 
@@ -55,7 +55,7 @@ namespace Cloudents.Core.Test.CommandHandler
             //    Id = 2
             //};
             var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser,
-                CultureInfo.InvariantCulture, null);
+                CultureInfo.InvariantCulture, new Course("xxx"), new University("xxx", "IL"));
 
             //question.Answers.Add(new Answer(question, "some text", 0, user));
 

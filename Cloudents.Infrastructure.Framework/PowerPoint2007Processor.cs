@@ -66,9 +66,9 @@ namespace Cloudents.Infrastructure.Framework
 
         private Lazy<Presentation> _pptx;
 
-        public void Init(Stream stream)
+        public void Init(Func<Stream> stream)
         {
-            _pptx = new Lazy<Presentation>(() =>  new Presentation(stream));
+            _pptx = new Lazy<Presentation>(() =>  new Presentation(stream()));
             
         }
 
@@ -111,6 +111,11 @@ namespace Cloudents.Infrastructure.Framework
             {
                 _pptx?.Value?.Dispose();
             }
+        }
+
+        public void Init(Func<string> path)
+        {
+            _pptx = new Lazy<Presentation>(() => new Presentation(path()));
         }
     }
 }

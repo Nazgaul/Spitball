@@ -83,10 +83,9 @@ namespace Cloudents.Web.Controllers
                     await writer.WriteStartDocumentAsync();
                     writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
                     var iterator = 0;
-                    var query = new SeoQuery(index);
+                    var query = new SeoQuery(index, PageSize);
                     foreach (var entity in query2.Get(query))
                     {
-                        //iterator++;
                         var url = Url.RouteUrl(SeoTypeString.Flashcard, new
                         {
                             universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
@@ -95,7 +94,10 @@ namespace Cloudents.Web.Controllers
                             id = entity.Id,
                             name = UrlConst.NameToQueryString(entity.Name)
                         }, Request.GetUri().Scheme);
-
+                        if (string.IsNullOrEmpty(url))
+                        {
+                            continue;
+                        }
                         await WriteTagAsync("1", "Daily", url, writer);
                         if (iterator == 100)
                         {

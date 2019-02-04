@@ -28,8 +28,10 @@ namespace Cloudents.Core.Enum
         [ResourceDescription(typeof(EnumResources), "ActionTypeSoldDocument")]
         SoldDocument,
         [ResourceDescription(typeof(EnumResources), "ActionTypeCommission")]
-
         Commission,
+
+        [ResourceDescription(typeof(EnumResources), "ActionTypeBuy")]
+        Buy,
     }
 
     

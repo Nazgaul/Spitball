@@ -26,9 +26,9 @@ namespace Cloudents.Infrastructure.Framework
 
         private Lazy<Document> _doc;
 
-        public void Init(Stream stream)
+        public void Init(Func<Stream> stream)
         {
-            _doc = new Lazy<Document>(() => new Document(stream));
+            _doc = new Lazy<Document>(() => new Document(stream()));
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
@@ -98,6 +98,11 @@ namespace Cloudents.Infrastructure.Framework
             {
                 _doc?.Value?.Dispose();
             }
+        }
+
+        public void Init(Func<string> path)
+        {
+            _doc = new Lazy<Document>(() => new Document(path()));
         }
     }
 }

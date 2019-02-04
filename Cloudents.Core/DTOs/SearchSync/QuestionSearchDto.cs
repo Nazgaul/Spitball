@@ -1,49 +1,44 @@
 ﻿using System;
+using System.Linq;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
     public class QuestionSearchDto
     {
-        private QuestionFilter? _filter;
-        public long QuestionId { get; set; } //key
 
-        public int? AnswerCount { get; set; }
-        public DateTime? DateTime { get; set; }
-        public bool? HasCorrectAnswer { get; set; }
-        public string Text { get; set; }
+        public long Id { get; set; } //key readonly
 
-        public string Country { get; set; }
-        public string Language { get; set; }
+        public DateTime? DateTime { get; set; } //readonly
+
+        public string Text { get; set; } //search readonly
 
 
-        public QuestionSubject? Subject { get; set; } // facetable
-        public ItemState? State { get; set; }
-
-
-        public QuestionFilter? Filter
+        public string[] Prefix
         {
             get
             {
-                if (_filter.HasValue)
+                if (Text != null && Subject != null)
                 {
-                    return _filter.Value;
-                }
-                var state = QuestionFilter.Unanswered;
-                if (AnswerCount > 0)
-                {
-                    state = QuestionFilter.Answered;
+                    return new[] { Text }.Union(Subject.GetEnumLocalizationAllValues()).ToArray();
                 }
 
-                if (HasCorrectAnswer.HasValue && HasCorrectAnswer.Value)
-                {
-                    state = QuestionFilter.Sold;
-                }
-
-                return state;
+                return null;
             }
+        } //search
 
-            set => _filter = value;
-        }
+
+        public string Country { get; set; }
+       
+
+        public string Language { get; set; }
+
+        public string Course { get; set; }
+
+
+        public QuestionSubject? Subject { get; set; } // facetable readonly
+        public QuestionFilter? State { get; set; }
+        public string UniversityName { get; set; }
     }
 }

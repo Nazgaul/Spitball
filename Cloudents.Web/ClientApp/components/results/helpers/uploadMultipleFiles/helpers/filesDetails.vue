@@ -1,15 +1,33 @@
 <template>
     <v-card elevation="0" class="sb-step-card files-details-container">
-        <v-layout row wrap   :class="['top-block', 'px-4', 'py-3', {'justify-center' : isMultiple }] ">
+        <v-flex xs12 sm12 md12 class="error-block align-center justify-center d-flex"  v-if="showError" >
+            <div class="error-container" style="height: 90px;">
+                <span class="error-title" >{{errorText}}</span>
+            </div>
+
+        </v-flex>
+        <v-layout v-bind="gridBreakpoint" row wrap  v-show="!showError"
+                  :class="['top-block', $vuetify.breakpoint.smAndUp ? 'px-4' : 'px-2', 'py-3', {'justify-center' : isMultiple }] ">
+
             <v-flex xs12 sm12 md12 class="mb-2" grow>
                 <span class="selected-class-label" v-language:inner>upload_multiple_selected_class_label</span>
                 <span>:</span>
                 <span class="selected-class-val ml-2">{{selectedCourse}}</span>
             </v-flex>
-            <v-text-field solo :placeholder="profPlaceholder" @change="updateProfessorName()" v-model="professor"
-                          class="mr-2 professor-input sb-field max-heigth-limit"></v-text-field>
+            <!--<v-flex xs12 sm12 md12 class="error-block align-center justify-center d-flex"  v-if="!showError" >-->
+                <!--<div class="error-container" style="height: 90px;">-->
+                    <!--<span class="error-title" >{{errorText}}Something went wrong, please try again</span>-->
+                <!--</div>-->
+
+            <!--</v-flex>-->
+            <v-text-field xs12 solo
+                          :placeholder="profPlaceholder"
+                          @change="updateProfessorName()"
+                          v-model="professor"
+                          :class="[$vuetify.breakpoint.smAndUp ? 'mr-2': ' mt-3']"
+                          class="professor-input sb-field max-heigth-limit"></v-text-field>
             <div class="multiple-controls d-flex" v-if="isMultiple">
-            <div class="all-wrap mr-2">
+            <div :class="['all-wrap',  $vuetify.breakpoint.xsOnly ? 'mr-0 mt-3' : 'mr-2' ]">
                 <vue-numeric currency="SBL"
                              class="price-for-all px-2"
                              :min="0"
@@ -23,7 +41,7 @@
                        :disabled="!priceForAll" @click="updatePrice()">Apply
                 </v-btn>
             </div>
-            <div class="all-wrap mr-2">
+            <div :class="['all-wrap', $vuetify.breakpoint.smAndUp ? 'mr-2' : 'mt-2']">
             <v-select
                     class="sb-field doc-type-select elevation-0"
                     :items="docTypes"
@@ -39,12 +57,13 @@
             </div>
             </div>
         </v-layout>
-        <v-layout justify-start align-center column class="bottom-block py-3">
+        <v-layout justify-start align-center column class="bottom-block py-3" :class="{'px-2': $vuetify.breakpoint.xsOnly }">
             <v-flex xs12 sm6 md6 row class="justify-center align-center upload-options">
                 <transition-group name="slide-x-transition">
                 <file-card
                             v-for="(fileItem, index) in fileItems"
                             :fileItem="fileItem"
+                            :quantity="fileItems.length"
                             :singleFileIndex="index" :key="index"></file-card>
                 </transition-group>
             </v-flex>
@@ -74,7 +93,12 @@
             }
         },
         props: {
-            propName: ''
+            propName: '',
+            showError: {
+                type: Boolean,
+                default: false
+            },
+            errorText: 'testin error'
         },
         computed: {
             isMultiple(){
@@ -86,6 +110,15 @@
                     return this.fileItems[0].course
                 }
             },
+            gridBreakpoint () {
+                const gridBreakpoint = {};
+                if (this.$vuetify.breakpoint.smAndUp){
+                    gridBreakpoint.row = true
+                }else{
+                    gridBreakpoint.column = true
+                }
+                return gridBreakpoint
+            }
 
         },
         methods: {
@@ -137,6 +170,12 @@
                 }
             }
         }
+        .multiple-controls{
+            @media(max-width: @screen-xs){
+                flex-direction: column;
+            }
+        }
+
         .all-btn {
             &.v-btn{
             height: 46px;
@@ -159,10 +198,16 @@
             color: @textColor;
             outline: none;
             .placeholder-color(@textColor, 0.7);
+            @media(max-width: @screen-xs){
+                min-width: unset;
+            }
         }
         .sb-field {
             &.professor-input {
                 max-width: 220px;
+                @media(max-width: @screen-xs){
+                    max-width: 100%;
+                }
             }
             &.v-text-field--solo {
                     .v-input__slot {
@@ -178,6 +223,9 @@
             }
             &.doc-type-select{
                 max-width: 220px;
+                @media(max-width: @screen-xs){
+                    max-width: 100%;
+                }
                 .v-input__slot {
                     box-shadow: none !important; //vuetify
                     border-radius: 0 4px 0 4px; //vuetify

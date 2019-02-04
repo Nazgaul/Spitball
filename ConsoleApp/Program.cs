@@ -2,16 +2,19 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
+using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
-using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Query.Sync;
 using Dapper;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -29,13 +32,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Query;
-using Cloudents.Search;
-using Microsoft.Azure.Documents.Client;
-using PayPal.Core;
-using PayPal.v1.Payments;
+using Cloudents.Search.Question;
 
 namespace ConsoleApp
 {
@@ -112,52 +109,25 @@ namespace ConsoleApp
 
         }
 
-        public class Order
+        private static async Task UpdateQuestionIndex()
         {
-            public int Id { get; set; }
-        }
-
-        public class OrderDto
-        {
-
+            var bus = _container.Resolve<QuestionSearchWrite>();
+            await bus.CreateOrUpdateAsync(default);
         }
 
         private static async Task RamMethod()
         {
-            //var write = _container.Resolve<SearchServiceWrite<Cloudents.Search.Entities.Document>>();
-            //await write.CreateOrUpdateAsync(token);
-            //decimal commision = elad * 0.09M;
-            ////var uniId = GetUniversityClaimValue();
-            //var userId = 176778L;// _userManager.GetLongUserId(bindingContext.HttpContext.User);
-            var query2 = new UserWithUniversityQuery(0);
-            // Use OAuthTokenCredential to request an access token from PayPal
-            //profile.Country = "IL";
-            ////IDocumentsSearch
-            //var z1 = _container.Resolve<IDocumentsSearch>();
-            //var z = _container.Resolve<IDocumentSearch>();
-            //var query = new DocumentQuery(null, profile, null, 0, null);
-            //var z2 = await z1.SearchAsync(query, token);
-            //var z3 = await z.SearchDocumentsAsync(query, token);
-            ////var uniId = GetUniversityClaimValue();
-            //var userId = 176778L;// _userManager.GetLongUserId(bindingContext.HttpContext.User);
-            //var query2 = new UserWithUniversityQuery(userId);
-            //var profile = await _queryBus.QueryAsync(query2, token);
-            //profile.Country = "IL";
-            ////IDocumentsSearch
-            //var z1 = _container.Resolve<IDocumentsSearch>();
-            //var z = _container.Resolve<IDocumentSearch>();
-            //var query = new DocumentQuery(null, profile, null, 0, null);
-            //var z2 = await z1.SearchAsync(query, token);
-            //var z3 = await z.SearchDocumentsAsync(query, token);
+             //await UpdateQuestionIndex();
+             var t= _container.Resolve<ICommandBus>();
+             var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
+             await t.DispatchAsync(p, default);
 
-            //var x = _container.Resolve<AzureDocumentSearch>();
+            var bus = _container.Resolve<IQueryBus>();
+            var query2 = new SyncAzureQuery(0, 0);
+            var result = await bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query2, default);
+            query2 = new SyncAzureQuery(1, 0);
 
-            // var service1 = _container.Resolve<IUnitOfWork>();
-            //var service = _container.Resolve<IQueryBus>();
-
-            //var query = new UserDataByIdQuery(231100);
-            //var z = await service.QueryAsync<UserProfileDto>(query, default);
-            //var t = await service.GetEmailAsync(SystemEvent.DocumentPurchased, Language.English, default);
+            var result2 = await bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query2, default);
         }
 
 
@@ -175,7 +145,7 @@ namespace ConsoleApp
             {
                 var i1 = i;
                 var itemIds = await service.Query<Document>().Where(w => w.Id > i1)
-                    .Where(w=>w.Status.State == ItemState.Ok && w.MetaContent == null)
+                    .Where(w => w.Status.State == ItemState.Ok && w.MetaContent == null)
                     .Take(100).OrderBy(o => o.Id).Select(s => s.Id).ToListAsync();
 
                 var t = new List<Task>();
@@ -291,17 +261,11 @@ where left(blobName ,4) != 'file'");
             var _bus = _container.Resolve<ICloudStorageProvider>();
             var blobClient = _bus.GetBlobClient();
             var queueClient = _bus.GetQueueClient();
-            //var container = blobClient.GetContainerReference("spitball-files");
-            //azure-webjobs-hosts/blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/
-
-            //var dir = container.GetDirectoryReference(
-            //    "blobreceipts/spitball-function-migration-dev/Cloudents.Functions.BlobMigration.Run/");
 
 
             var container = blobClient.GetContainerReference("spitball-files");
             var dir = container.GetDirectoryReference("files");
             var queue = queueClient.GetQueueReference("generate-blob-preview");
-            var extensions = WordProcessor.Extensions;
 
 
             BlobContinuationToken blobToken = null;
@@ -311,34 +275,51 @@ where left(blobName ,4) != 'file'");
                     new BlobRequestOptions(),
                     new OperationContext(), default);
 
+                var list = new HashSet<string>();
                 Console.WriteLine("Receiving a new batch of blobs");
                 foreach (IListBlobItem blob in result.Results)
                 {
 
                     var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
-
-                    if (fileNameWithoutDirectory.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
+                    var id = blob.Uri.Segments[3].TrimEnd('/');
+                    if (!list.Add(id))
                     {
-                        foreach (var extension in extensions)
+                        continue;
+                    }
+                    var fileDir = container.GetDirectoryReference($"files/{id}");
+                    var blobs = fileDir.ListBlobs().ToList();
+
+                    if (!blobs.Any(a => a.Uri.AbsoluteUri.Contains("preview")))
+                    {
+                        var msg = new CloudQueueMessage(id);
+                        await queue.AddMessageAsync(msg);
+                        using (System.IO.StreamWriter file =
+           new System.IO.StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
                         {
-                            if (Path.GetExtension(fileNameWithoutDirectory) == extension)
-                            {
-                                var id = blob.Uri.Segments[3].TrimEnd('/');
-                                var msg = new CloudQueueMessage(id);
-                                await queue.AddMessageAsync(msg);
-                                // var blobToDelete = (CloudBlockBlob)blob;
-                            }
+
+                            file.WriteLine(id);
+
                         }
-
-
-                        //var blobToDelete = (CloudBlockBlob)blob;
+                        Console.WriteLine("Processing regular " + id);
+                        continue;
                     }
-
-                    if (fileNameWithoutDirectory.EndsWith("svg") && fileNameWithoutDirectory.StartsWith("preview"))
+                    if (!blobs.Any(a => a.Uri.AbsoluteUri.Contains("blur")))
                     {
-                        var blobToDelete = (CloudBlockBlob)blob;
-                        await blobToDelete.DeleteAsync();
+                        var queue2 = queueClient.GetQueueReference("generate-blob-preview-blur");
+                        var msg = new CloudQueueMessage(id);
+                        await queue2.AddMessageAsync(msg);
+
+                        using (System.IO.StreamWriter file =
+         new System.IO.StreamWriter(@"C:\Users\Ram\Documents\blur.txt", true))
+                        {
+
+                            file.WriteLine(id);
+
+                        }
+                        Console.WriteLine("Processing blur " + id);
+                        continue;
                     }
+
                 }
 
                 blobToken = result.ContinuationToken;
@@ -977,7 +958,7 @@ where left(blobName ,4) != 'file'");
                         Console.WriteLine($"processing {itemId}");
 
                         string extension = Path.GetExtension(pair.BlobName);
-                        
+
                         if (!supportedFiles.Contains(extension, StringComparer.OrdinalIgnoreCase))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;

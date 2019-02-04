@@ -1,12 +1,17 @@
 <template>
     <v-card class="file-item-card mb-3">
-        <v-layout row class="px-3 py-2 pt-4">
-            <v-flex xs12 sm7 md7>
-                <v-text-field solo class="sb-field mr-2 bg-greyed"
+        <v-container>
+        <v-layout row class="px-3 py-2 pt-4" v-bind="gridBreakpoint">
+            <v-flex xs12 sm7 md7 order-sm1 order-md1>
+                <v-text-field solo class="sb-field  bg-greyed"
+                              :class="$vuetify.breakpoint.xsOnly ? 'mr-0' : ' mr-2'"
                               v-model="item.name"
                               :disabled="true"
                               placeholder="sdfsdfsdf"></v-text-field>
-                <v-combobox class="sb-field sb-combo  mr-2"
+            </v-flex>
+            <v-flex xs12 sm7 md7 order-sm3 order-md3 :class="$vuetify.breakpoint.xsOnly ? 'mb-3' : ''">
+                <v-combobox class="sb-field sb-combo"
+                            :class="$vuetify.breakpoint.xsOnly ? 'mr-0' : ' mr-2'"
                             v-language:placeholder
                             v-model="selectedTags"
                             height="'48px'"
@@ -30,7 +35,7 @@
                     </template>
                 </v-combobox>
             </v-flex>
-            <v-flex xs12 sm5 md5>
+            <v-flex xs6 sm5 md5 order-sm2 order-md2  :class="$vuetify.breakpoint.xsOnly ? 'pr-1' : ''">
                 <vue-numeric currency="SBL"
                              :placeholder="emptyPricePlaceholder"
                              class="numeric-input px-2"
@@ -40,17 +45,19 @@
                              :currency-symbol-position="'suffix'"
                              separator=","
                              v-model="item.price"></vue-numeric>
+            </v-flex>
+            <v-flex xs6 sm5 md5 order-sm4 order-md4>
                 <v-select
                         class="sb-field elevation-0"
                         :items="docTypes"
+                        item-value="id"
+                        item-text="title"
                         :placeholder="placeholderDocType"
                         v-model="item.type"
                         solo
                         :append-icon="'sbf-arrow-down'"></v-select>
             </v-flex>
-            <v-flex xs12 sm1 md1 align-center>
-                <v-icon class="delete-close-icon d-flex mt-3" @click="deleteFile()">sbf-close</v-icon>
-            </v-flex>
+                <v-icon v-if="quantity >1" class="delete-close-icon d-flex mt-3" @click="deleteFile()">sbf-close</v-icon>
         </v-layout>
         <v-progress-linear
                 style="width: 100%; position: absolute; bottom:0; left:0;"
@@ -61,6 +68,7 @@
                 class="sb-steps-progress ma-0"
         >
         </v-progress-linear>
+        </v-container>
     </v-card>
 </template>
 
@@ -90,6 +98,10 @@
             singleFileIndex: {
                 type: Number,
                 required: true
+            },
+            quantity:{
+                type: Number,
+                required:false
             }
         },
 
@@ -114,6 +126,18 @@
             },
             docType() {
                 return this.item.docType
+            },
+            gridBreakpoint () {
+                const gridBreakpoint = {};
+
+                if (this.$vuetify.breakpoint.smAndUp){
+                    gridBreakpoint.row = true;
+                    gridBreakpoint.wrap = true;
+                }else{
+                    gridBreakpoint.row = true;
+                    gridBreakpoint.wrap = true;
+                }
+                return gridBreakpoint
             },
             selectedTags: {
                 get() {
@@ -161,10 +185,24 @@
         border-radius: 4px;
         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.23);
         background-color: @color-white;
+        &:last-child{
+            margin-bottom: 112px!important;//last child offset
+        }
         @media (max-width: @screen-xs) {
             width: 100%;
-            min-width: 360px;
-            max-width: 360px;
+            min-width: unset;
+            max-width: unset;
+        }
+        .delete-close-icon{
+            position: absolute;
+            top: 50px;
+            right: 16px;
+            @media(max-width: @screen-xs){
+                font-size: 12px;
+                position: absolute;
+                top: 0;
+                right: 14px;
+            }
         }
         .delete-close-icon {
             font-size: 10px;
@@ -184,6 +222,11 @@
         .sb-combo {
             max-width: 390px;
             max-height: 48px;
+            .v-text-field__details{
+                @media(max-width: @screen-xs){
+                    margin-bottom: 0;
+                }
+            }
             .v-input__slot {
                 max-height: 48px;
                 overflow-y: scroll;

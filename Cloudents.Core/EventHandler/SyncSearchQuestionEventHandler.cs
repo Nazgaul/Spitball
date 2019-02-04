@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
@@ -29,13 +30,15 @@ namespace Cloudents.Core.EventHandler
             var dbQuestion = eventMessage.Question;
             var question = new QuestionSearchDto()
             {
-                QuestionId = dbQuestion.Id,
+                Id = dbQuestion.Id,
                 DateTime = dbQuestion.Updated,
                 Text = dbQuestion.Text,
                 Country = dbQuestion.User.Country,
                 Language = dbQuestion.Language?.TwoLetterISOLanguageName,
                 Subject = dbQuestion.Subject,
-                Filter = QuestionFilter.Unanswered
+                State = QuestionFilter.Unanswered,
+                Course = dbQuestion.Course.Name,
+                UniversityName = dbQuestion.University.Name
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
@@ -44,8 +47,8 @@ namespace Cloudents.Core.EventHandler
         {
             var question = new QuestionSearchDto
             {
-                QuestionId = eventMessage.Answer.Question.Id,
-                Filter = QuestionFilter.Sold,
+                Id = eventMessage.Answer.Question.Id,
+                State = QuestionFilter.Sold,
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
@@ -54,7 +57,7 @@ namespace Cloudents.Core.EventHandler
         {
             var question = new QuestionSearchDto
             {
-                QuestionId = eventMessage.Question.Id,
+                Id = eventMessage.Question.Id,
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(false, question), token);
         }
@@ -67,22 +70,22 @@ namespace Cloudents.Core.EventHandler
             //}
             var question = new QuestionSearchDto
             {
-                QuestionId = eventMessage.Answer.Question.Id,
-                Filter = QuestionFilter.Answered,
+                Id = eventMessage.Answer.Question.Id,
+                State = QuestionFilter.Answered,
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
 
         public Task HandleAsync(AnswerDeletedEvent eventMessage, CancellationToken token)
         {
-            //if (eventMessage.Answer.Question.Answers.Count == 0)
-            //{
-            //    return Task.CompletedTask;
-            //}
+            if (eventMessage.Answer.Question.Answers.Count(c=>c.Status.State == ItemState.Ok) == 0)
+            {
+                return Task.CompletedTask;
+            }
             var question = new QuestionSearchDto
             {
-                QuestionId = eventMessage.Answer.Question.Id,
-                Filter = QuestionFilter.Unanswered
+                Id = eventMessage.Answer.Question.Id,
+                State = QuestionFilter.Unanswered
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
@@ -91,7 +94,7 @@ namespace Cloudents.Core.EventHandler
         {
             var question = new QuestionSearchDto
             {
-                QuestionId = eventMessage.Question.Id,
+                Id = eventMessage.Question.Id,
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(false, question), token);
         }

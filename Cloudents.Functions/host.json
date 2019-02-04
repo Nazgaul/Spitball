@@ -3,6 +3,6 @@
   "queues": {
     "batchSize": 1,
     "maxDequeueCount": 3
-  },
-  "functions": [ "BlobPreview-Queue" ]
+  }
+ 
 }
