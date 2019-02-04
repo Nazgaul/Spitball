@@ -6,7 +6,7 @@ const state = {
         learn: 'learn',
         earn: 'earn'
     },
-    dictionaryPrefix: 'earn',
+    dictionaryPrefix: 'learn',
     selectedSubject: '',
     statistics : []
 };
