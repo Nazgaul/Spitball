@@ -1,10 +1,8 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Search.Interfaces;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace Cloudents.Search.Entities
 {
@@ -14,30 +12,27 @@ namespace Cloudents.Search.Entities
     {
         public Question(QuestionSearchDto dto)
         {
-            Id = dto.QuestionId.ToString();
-            if (dto.DateTime.HasValue && dto.DateTime.Value != System.DateTime.MinValue)
-            {
-                DateTime = dto.DateTime;
-            }
-
+            Id = dto.Id.ToString();
+            DateTime = dto.DateTime;
             Text = dto.Text;
-            if (dto.Text != null && dto.Subject != null)
-            {
-                Prefix = new[] { dto.Text }.Union(dto.Subject.GetEnumLocalizationAllValues()).ToArray();
-            }
-
+            Prefix = dto.Prefix;
             Country = dto.Country?.ToUpperInvariant();
-            if (dto.Language != null)
-            {
-                Language = dto.Language?.ToLowerInvariant();
-            }
 
-            if (dto.Subject.HasValue && dto.Subject.Value != 0)
-            {
-                Subject = dto.Subject;
-            }
+            Language = dto.Language?.ToLowerInvariant();
+            Course = dto.Course;
+            Subject = dto.Subject;
+            State = dto.State;
+            //if (dto.Subject.HasValue && dto.Subject.Value != 0)
+            //{
+            //    Subject = dto.Subject;
+            //}
 
-            State = dto.Filter;
+            //State = dto.Filter;
+        }
+
+        public Question(string id)
+        {
+            Id = id;
         }
 
         public Question()
@@ -53,7 +48,7 @@ namespace Cloudents.Search.Entities
 
         public string[] Prefix { get; set; } //search
 
-
+        public string Course { get; set; }
 
         public string Country { get; set; }
         public string Language { get; set; }

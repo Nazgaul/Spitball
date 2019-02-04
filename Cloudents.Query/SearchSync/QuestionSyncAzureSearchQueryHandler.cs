@@ -1,28 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Sync;
+using Dapper;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.SearchSync
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class QuestionSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<QuestionSearchDto>,
-        IQueryHandler<SyncAzureQuery, (IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>
+    public class QuestionSyncAzureSearchQueryHandler : //SyncAzureSearchQueryHandler<QuestionSearchDto>,
+        IQueryHandler<SyncAzureQuery,
+            (IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>
     {
 
-        public QuestionSyncAzureSearchQueryHandler(
-            QuerySession session) :
-            base(session)
+        private readonly DapperRepository _repository;
+
+        public QuestionSyncAzureSearchQueryHandler(DapperRepository repository)
         {
+            _repository = repository;
         }
 
-        protected override string VersionSql
-        {
-            get
-            {
-                var res = @"select q.Id as QuestionId,
+        const string VersionSql = @"select q.Id as QuestionId,
 	                            q.Language as Language,
 	                            u.Country as Country,
 	                            (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
@@ -31,23 +33,17 @@ namespace Cloudents.Query.SearchSync
 	                            q.Text as Text,
 	                            q.State as State,
 	                            q.Subject_id as Subject,
+q.CourseId as Course,
 	                            c.* 
                             From sb.[Question] q  
-                            right outer join CHANGETABLE (CHANGES sb.[Question], :Version) AS c ON q.Id = c.id 
+                            right outer join CHANGETABLE (CHANGES sb.[Question], @Version) AS c ON q.Id = c.id 
                             join sb.[User] u 
 	                            On u.Id = q.UserId
                             Order by q.Id 
-                            OFFSET :PageSize * :PageNumber 
-                            ROWS FETCH NEXT :PageSize ROWS ONLY";
-                return res;
-            }
-        }
+                            OFFSET @PageSize * @PageNumber 
+                            ROWS FETCH NEXT @PageSize ROWS ONLY";
 
-        protected override string FirstQuery
-        {
-            get
-            {
-                var res = @"select q.Id as QuestionId,
+        const string FirstQuery = @"select q.Id as QuestionId,
 	                            q.Language as Language,
 	                            u.Country as Country,
 	                            (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
@@ -56,24 +52,119 @@ namespace Cloudents.Query.SearchSync
 	                            q.Text as Text,
 	                            q.State as State,
 	                             q.Subject_id as Subject,
+q.CourseId as Course,
 	                             c.* 
                             From sb.[Question] q 
                             CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c
                             join sb.[User] u 
 	                            On u.Id = q.UserId
                             Order by q.Id 
-                            OFFSET :PageSize * :PageNumber 
-                            ROWS FETCH NEXT :PageSize ROWS ONLY";
-                return res;
+                            OFFSET @PageSize * @PageNumber 
+                            ROWS FETCH NEXT @PageSize ROWS ONLY";
+
+
+        private const int PageSize = 200;
+
+
+        //protected override ILookup<bool, AzureSyncBaseDto<QuestionSearchDto>> SeparateUpdateFromDelete(IEnumerable<AzureSyncBaseDto<QuestionSearchDto>> result)
+        //{
+        //    return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.State.GetValueOrDefault(ItemState.Ok) != ItemState.Ok);
+        //}
+
+        public async Task<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
+        {
+            var sql = query.Version == 0 ? FirstQuery : VersionSql;
+            using (var conn = _repository.OpenConnection())
+            {
+                var result = await conn.QueryAsync<DbResult>(sql, new
+                {
+                    query.Version,
+                    PageNumber = query.Page,
+                    PageSize
+                });
+
+                var update = new List<QuestionSearchDto>();
+                var delete = new List<string>();
+                long version = 0;
+
+                foreach (var dbResult in result)
+                {
+                    version = Math.Max(dbResult.SYS_CHANGE_VERSION, version);
+                    if (dbResult.SYS_CHANGE_OPERATION == "D" || dbResult.State != ItemState.Ok)
+                    {
+                        delete.Add(dbResult.Id.ToString());
+                    }
+                    else
+                    {
+                        var state = QuestionFilter.Unanswered;
+                        if (dbResult.AnswerCount > 0)
+                        {
+                            state = QuestionFilter.Answered;
+                        }
+
+                        if (dbResult.HasCorrectAnswer.GetValueOrDefault())
+                        {
+                            state = QuestionFilter.Sold;
+                        }
+
+                       
+                        update.Add(new QuestionSearchDto
+                        {
+                            Country = dbResult.Country,
+                            Course = dbResult.Course,
+                            State = state,
+                            DateTime = dbResult.DateTime,
+                            Id = dbResult.QuestionId,
+                            Language = dbResult.Language ?? "en",
+                            Subject = dbResult.Subject,
+                            Text = dbResult.Text
+                        });
+                    }
+                }
+
+                return (update, delete, version);
             }
         }
 
-        protected override int PageSize => 200;
 
 
-        protected override ILookup<bool, AzureSyncBaseDto<QuestionSearchDto>> SeparateUpdateFromDelete(IEnumerable<AzureSyncBaseDto<QuestionSearchDto>> result)
+
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
+        [SuppressMessage("ReSharper", "ClassNeverInstantiated.Local")]
+        private class DbResult
         {
-            return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.State.GetValueOrDefault(ItemState.Ok) != ItemState.Ok);
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Id))]
+            public long QuestionId { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Language))]
+            public string Language { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(User.Country))]
+            public string Country { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Answers))]
+            public int AnswerCount { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Updated))]
+            public DateTime DateTime { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.CorrectAnswer))]
+            public bool? HasCorrectAnswer { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Text))]
+            public string Text { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Status.State))]
+            public ItemState State { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Subject))]
+            public QuestionSubject? Subject { get; set; }
+            public long SYS_CHANGE_VERSION { get; set; }
+            public string SYS_CHANGE_OPERATION { get; set; }
+            //public string SYS_CHANGE_COLUMNS { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Id))]
+            public long Id { get; set; }
+
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Course.Name))]
+            public string Course { get; set; }
         }
+
+
+
+
+
     }
 }

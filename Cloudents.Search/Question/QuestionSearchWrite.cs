@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
+using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Search.Question
 {
@@ -42,7 +42,7 @@ namespace Cloudents.Search.Question
                    fieldBuilder.Map(x=>x.DateTime).IsSortable().IsFilterable(),
                    fieldBuilder.Map(x=>x.Text).IsSearchable(),
                    fieldBuilder.Map(x=>x.Subject).IsFilterable().IsFacetable(),
-
+                   fieldBuilder.Map(x=>x.Course).IsFilterable().IsFacetable().IsSearchable(),
                    fieldBuilder.Map(x=>x.Country).IsFilterable(),
                    fieldBuilder.Map(x=>x.Language).IsFilterable(),
 
