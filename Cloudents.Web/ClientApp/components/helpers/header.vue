@@ -27,6 +27,7 @@
                                         
                                     </div>
                                     <div class="header-wallet" v-if="loggedIn">
+                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}}</span>
                                         <!-- <span>${{accountUser.balance | dollarVal}}</span> -->
                                         <button class="setting-buysbl-button" :class="[{'red': accountUser.balance <= 300}, {'yellow': accountUser.balance > 300 && accountUser.balance <= 700}]" @click="openSblToken()">Buy SBL</button>
                                     </div>
