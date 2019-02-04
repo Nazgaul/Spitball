@@ -24,6 +24,7 @@ namespace Cloudents.Search.Entities
             Course = dto.Course;
             Subject = dto.Subject;
             State = dto.State;
+            UniversityName = dto.UniversityName;
             //if (dto.Subject.HasValue && dto.Subject.Value != 0)
             //{
             //    Subject = dto.Subject;
@@ -55,6 +56,9 @@ namespace Cloudents.Search.Entities
 
         [IsFilterable, IsFacetable, IsSearchable]
         public string Course { get; set; }
+
+        [IsFilterable, IsSearchable]
+        public string UniversityName { get; set; }
 
         [IsFilterable]
         public string Country { get; set; }

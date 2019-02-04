@@ -36,7 +36,9 @@ namespace Cloudents.Core.EventHandler
                 Country = dbQuestion.User.Country,
                 Language = dbQuestion.Language?.TwoLetterISOLanguageName,
                 Subject = dbQuestion.Subject,
-                State = QuestionFilter.Unanswered
+                State = QuestionFilter.Unanswered,
+                Course = dbQuestion.Course.Name,
+                UniversityName = dbQuestion.University.Name
             };
             return _queueProvider.InsertMessageAsync(new QuestionSearchMessage(true, question), token);
         }
