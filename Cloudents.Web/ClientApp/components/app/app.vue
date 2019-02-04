@@ -140,6 +140,7 @@
         LanguageService
     } from "../../services/language/languageService";
     import tourService from "../../services/tourService";
+    import walletService from "../../services/walletService";
     import uniSelectPop from "../helpers/uni-select/uniSelectPop.vue";
     import uniSelect from "../helpers/uni-select/uniSelect.vue";
     import newIsraeliPop from "../dialogs/israeli-pop/newIsraeliPop.vue";
@@ -361,6 +362,17 @@
             closeNewIsraeli() {
                 //the set to the local storage happens in the component itself
                 this.acceptIsraeli = true;
+            },
+            tryBuyTokens(transactionObjectError){
+                walletService.buyTokens(transactionObjectError).then(()=>{
+                    this.updateToasterParams({
+                        toasterText: LanguageService.getValueByKey("buyToken_success"),
+                        showToaster: true,
+                    });
+                }, (error)=>{
+                    global.localStorage.setItem('sb_transactionError', transactionId);
+                    console.log(error);
+                })
             }
         },
         created() {
@@ -394,6 +406,16 @@
                     }
                 }
             });
+            let failedTranscationId = global.localStorage.getItem('sb_transactionError');
+            if(failedTranscationId){
+                global.localStorage.removeItem('sb_transactionError');
+                let transactionObjectError = {
+                    id: failedTranscationId
+                }
+                this.tryBuyTokens(transactionObjectError)
+            }
+            
+            
             // setTimeout(()=>{
             //     this.showBuyTokensDialog = true;
             // }, 2000)
