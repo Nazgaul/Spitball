@@ -110,7 +110,6 @@ export default {
                                 self.docReferral.push(referralObj)
                             }
                             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
-                            console.log('DOC_UPLOAD_COMPLETE');
                             self.loading = false;
                             self.goToNextStep()
                         },
@@ -119,7 +118,6 @@ export default {
                         self.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
                         self.showError = true;
                         self.disableBtn = true;
-                            console.log("doc data error", error)
                         });
             })
 
