@@ -38,9 +38,9 @@ namespace Cloudents.Infrastructure.Framework
 
         private Lazy<Document> _word;
 
-        public void Init(Stream stream)
+        public void Init(Func<Stream> stream)
         {
-            _word = new Lazy<Document>(()=> new Document(stream));
+            _word = new Lazy<Document>(()=> new Document(stream()));
         }
         public (string text, int pagesCount) ExtractMetaContent()
         {
@@ -80,6 +80,11 @@ namespace Cloudents.Infrastructure.Framework
 
             await Task.WhenAll(t);
 
+        }
+
+        public void Init(Func<string> path)
+        {
+            _word = new Lazy<Document>(() => new Document(path()));
         }
     }
 }

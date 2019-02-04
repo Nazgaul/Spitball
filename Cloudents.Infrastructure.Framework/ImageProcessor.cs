@@ -20,9 +20,9 @@ namespace Cloudents.Infrastructure.Framework
         }
 
         private Stream _sr;
-        public void Init(Stream stream)
+        public void Init(Func<Stream> stream)
         {
-            _sr = stream;
+            _sr = stream();
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
@@ -77,6 +77,11 @@ namespace Cloudents.Infrastructure.Framework
         public void Dispose()
         {
             _sr?.Dispose();
+        }
+
+        public void Init(Func<string> path)
+        {
+            _sr = File.Open(path(),FileMode.Open);// stream;
         }
     }
 
