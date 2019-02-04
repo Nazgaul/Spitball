@@ -1,6 +1,8 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
 using Cloudents.Search.Interfaces;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -39,22 +41,30 @@ namespace Cloudents.Search.Entities
         {
 
         }
+        [System.ComponentModel.DataAnnotations.Key]
         public string Id { get; set; } //key readonly
 
+        [IsSortable, IsFilterable]
         public DateTime? DateTime { get; set; } //readonly
-
+        [IsSearchable]
         public string Text { get; set; } //search readonly
 
+        [IsSearchable, IndexAnalyzer("prefix"), SearchAnalyzer(AnalyzerName.AsString.StandardLucene)]
 
         public string[] Prefix { get; set; } //search
 
+        [IsFilterable, IsFacetable, IsSearchable]
         public string Course { get; set; }
 
+        [IsFilterable]
         public string Country { get; set; }
+        [IsFilterable]
         public string Language { get; set; }
 
-
+        [IsFilterable, IsFacetable]
         public QuestionSubject? Subject { get; set; } // facetable readonly
+
+        [IsFilterable, IsFacetable]
         public QuestionFilter? State { get; set; }
 
     }

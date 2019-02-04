@@ -32,6 +32,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Search.Question;
 
 namespace ConsoleApp
 {
@@ -108,10 +109,15 @@ namespace ConsoleApp
 
         }
 
-
+        private static async Task UpdateQuestionIndex()
+        {
+            var bus = _container.Resolve<QuestionSearchWrite>();
+            await bus.CreateOrUpdateAsync(default);
+        }
 
         private static async Task RamMethod()
         {
+             await UpdateQuestionIndex();
             var bus = _container.Resolve<IQueryBus>();
             var query2 = new SyncAzureQuery(0, 0);
             var result = await bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query2, default);
