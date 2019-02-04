@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+using JetBrains.Annotations;
 using static Cloudents.Core.Entities.ItemStatus;
 using static Cloudents.Core.Entities.Vote;
 
@@ -20,16 +21,18 @@ namespace Cloudents.Core.Entities
     {
         public Question(QuestionSubject? subject, string text, decimal price, int attachments,
             RegularUser user,
-             CultureInfo language, Course course)
+             CultureInfo language, [NotNull] Course course, [NotNull] University university)
         : this()
         {
+            if (course == null) throw new ArgumentNullException(nameof(course));
+            if (university == null) throw new ArgumentNullException(nameof(university));
             Subject = subject;
             Text = text?.Trim();
             Price = price;
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-          
+
 
             var status = GetInitState(user);
             if (status == Public)
@@ -39,6 +42,7 @@ namespace Cloudents.Core.Entities
 
             Status = status;
             Course = course;
+            University = university;
             Language = language;
         }
 
@@ -53,11 +57,11 @@ namespace Cloudents.Core.Entities
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-            
+
             Status = Pending;
             //ChangeState(ItemState.Pending);
             Language = language;
-            
+
         }
 
         protected Question()
@@ -210,7 +214,7 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException();
             }
-           
+
             if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
             {
                 _votes.Clear();
