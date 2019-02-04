@@ -96,7 +96,7 @@ namespace Cloudents.Functions
 
         [FunctionName("BlobPreview-Queue")]
         public static async Task BlobPreviewQueueRun(
-            [QueueTrigger("generate-blob-preview-poison",Connection = "ProdStorage")] string id,
+            [QueueTrigger("generate-blob-preview",Connection = "LocalStorage")] string id,
             [Inject] IFactoryProcessor factory,
             [Blob("spitball-files/files/{QueueTrigger}", Connection = "ProdStorage")]CloudBlobDirectory directory,
             [Queue("generate-blob-preview-poison", Connection = "ProdStorage")] IAsyncCollector<string> collector,
