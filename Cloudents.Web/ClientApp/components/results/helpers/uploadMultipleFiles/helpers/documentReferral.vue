@@ -1,11 +1,11 @@
 <template>
     <v-card elevation="0" class="mb-3 sb-step-card ref-card">
         <v-layout justify-center align-center column >
-            <v-flex class="ref-title justify-center align-center flex mt-2 row">
+            <v-flex class="ref-title justify-center align-center flex mt-2 row" :class="{'column': $vuetify.breakpoint.xsOnly}">
                     <i class="five">
                         <spreadOutLoudIcon style="width: 50px"></spreadOutLoudIcon>
                     </i>
-                    <h3 class="sb-title" v-language:inner>upload_files_step7_title</h3>
+                    <h3 class="sb-title" v-language:inner>upload_multiple_files_referral_title</h3>
 
             </v-flex>
             <v-flex  class="ref-title justify-center align-center flex mt-2">
@@ -14,8 +14,14 @@
         </v-layout>
 
         <div class="upload-row-2 referral-row refs-container">
-            <referral-dialog class="mb-4" v-for="refItem in referralLinks" :userReferralLink="refItem"
-                             :referralType="'uploadReffer'" :isTransparent="true" :popUpType="''"></referral-dialog>
+            <referral-dialog class="mb-4 referral-item"
+                             :isMultiple="referralLinks.length > 1"
+                             :userReferralLink="singleRefLink"
+                             :referralType="'uploadReffer'"
+                             :refLinkArr="referralLinks"
+                             :isTransparent="true"
+                             :popUpType="''"
+                              ></referral-dialog>
         </div>
     </v-card>
 </template>
@@ -44,8 +50,12 @@
             ...mapGetters({
                 getFileData: 'getFileData',
                 getSchoolName: 'getSchoolName',
-
             }),
+            singleRefLink(){
+                if( this.referralLinks &&  this.referralLinks.length ===1){
+                    return this.referralLinks[0].itemRefLink
+                }
+            },
 
         },
         methods: {
@@ -54,6 +64,7 @@
 
             }),
             ...mapActions(['askQuestion', 'updateDialogState']),
+
             closeAndGoTo() {
                 this.askQuestion(false)
             },
@@ -61,7 +72,6 @@
                 this.$router.push({path: '/ask'});
                 this.updateDialogState(false)
             }
-
         }
     }
 </script>
@@ -71,6 +81,15 @@
     .ref-card {
         .ref-title{
             display: flex;
+            &.column{
+                flex-direction: column;
+            }
+            .five{
+                @media (max-width: @screen-xs) {
+                    margin-top: 24px;
+                    margin-bottom: 16px;
+                }
+            }
         }
         .ref-subtitle{
             font-family: @fontOpenSans;
@@ -83,6 +102,16 @@
             padding-top: 21px;
             &.refs-container{
                 max-height: 300px;
+                @media (max-width: @screen-xs) {
+                   max-height: unset;
+                    padding-left: 12px;
+                    padding-right: 12px;
+                }
+                .referral-item{
+                    &:last-child{
+                        margin-bottom: 72px!important;
+                    }
+                }
             }
             .v-card {
                 box-shadow: none;

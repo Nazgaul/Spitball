@@ -7,6 +7,7 @@ import ulpoadStep_3 from"./helpers/documentReferral.vue"
 import analyticsService from "../../../../services/analytics.service";
 import uploadService from "../../../../services/uploadService";
 import Base62 from "base62"
+import { LanguageService } from "../../../../services/language/languageService";
 
 export default {
     components: {
@@ -28,9 +29,13 @@ export default {
                 changeStep: this.changeStep,
                 stopProgress: this.stopProgress,
             },
+            showError: false,
+            errorText: '',
             docReferral: [],
             courseSelected: '',
-            nextStepCalled: false
+            nextStepCalled: false,
+            loading: false,
+            disableBtn: false
         }
     },
 
@@ -96,16 +101,23 @@ export default {
                 documentService.sendDocumentData(serverFormattedObj)
                     .then((resp) => {
                             if (resp.data.url) {
-                                self.docReferral.push(`${global.location.origin}` + resp.data.url + "?referral=" +
-                                    Base62.encode(self.accountUser.id) + "&promo=referral");
+                                let referralObj = {
+                                    itemName : fileObj.name || '',
+                                    itemRefLink: `${global.location.origin}` + resp.data.url + "?referral=" +
+                                    Base62.encode(self.accountUser.id) + "&promo=referral"
+
+                                };
+                                self.docReferral.push(referralObj)
                             }
                             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
-                            console.log('DOC_UPLOAD_COMPLETE')
-                            self.loading = true;
+                            self.loading = false;
                             self.goToNextStep()
                         },
                         (error) => {
-                            console.log("doc data error", error)
+                        self.loading = false;
+                        self.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
+                        self.showError = true;
+                        self.disableBtn = true;
                         });
             })
 
