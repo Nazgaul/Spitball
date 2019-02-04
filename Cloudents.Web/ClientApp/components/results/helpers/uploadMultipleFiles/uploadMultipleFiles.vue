@@ -12,8 +12,6 @@
                                 <span class="upload-subtitle col-blue"
                                       v-language:inner>upload_multiple_label_icon_text</span>
                             </div>
-
-
                     </template>
                 </v-stepper-header>
                 <v-stepper-items class="sb-stepper-item">

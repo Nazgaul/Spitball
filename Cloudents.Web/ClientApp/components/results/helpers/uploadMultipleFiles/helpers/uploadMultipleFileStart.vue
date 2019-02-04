@@ -1,6 +1,6 @@
 <template>
     <v-card elevation="0"
-            :class="[ 'upload-component-wrap', 'mb-3' ,'sb-step-card', $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
+            :class="[ 'upload-component-wrap', 'mb-3' , $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
         <div class="error-block" v-show="extensionErrror || uploadError">
             <div class="error-container">
                 <h3 class="error-title" v-show="extensionErrror"
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <v-layout justify-center align-center column class="upload-area">
+        <v-layout justify-center align-center column class="upload-area mx-3">
             <v-flex class="justify-center align-center d-flex" grow v-show="$vuetify.breakpoint.smAndUp">
                 <span v-show="$vuetify.breakpoint.smAndUp"
                       class="col-blue drop-text text-md-center text-xs-center text-sm-center" v-language:inner>upload_multiple_files_dopHere</span>
@@ -255,6 +255,17 @@
 
     @purpleNewColor: #3e45a0;
     .upload-component-wrap {
+        max-height: 200px;
+        background-color: transparent;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-shadow: none;
+        @media (max-width: @screen-xs) {
+            max-height: unset;
+            min-height: unset;
+        }
         .col-blue {
             color: @purpleNewColor;
         }
@@ -289,8 +300,10 @@
 
         .upload-area {
             background-color: rgba(68, 82, 252, 0.06);
-            border: 1px dashed @color-blue-new;
+            border: 2px dashed @color-blue-new;
+            max-height: 200px;
             @media (max-width: @screen-xs) {
+                max-height: unset;
                 background-color: @color-white;
                 border: none;
                 /*box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2);*/
