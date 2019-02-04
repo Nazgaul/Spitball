@@ -167,7 +167,7 @@
                 switch (socialMedia) {
                     case this.socialMedias.whatsApp:
                         //https://api.whatsapp.com/send?text={{url  here}}
-                        global.open(`https://api.whatsapp.com/send?text=${message.whatsAppText}`, "_blank");
+                        global.open(`https://web.whatsapp.com/send?text=${message.whatsAppText}`, "_blank");
                         break;
                     case this.socialMedias.facebook:
                         //https://www.facebook.com/sharer.php?u={{url  here}}

@@ -81,6 +81,25 @@ namespace Cloudents.Core.Entities
         }
     }
 
+    public class BuyPointsTransaction : Transaction
+    {
+        public BuyPointsTransaction(decimal price, string transactionId)
+        {
+            price = Math.Abs(price);
+            TransactionId = transactionId;
+            this.Price = price;
+            this.Action = TransactionActionType.Buy;
+            this.Type = Enum.TransactionType.Earned;
+        }
+
+        public virtual string TransactionId { get; set; }
+
+        protected BuyPointsTransaction()
+        {
+
+        }
+    }
+
     public class AwardMoneyTransaction : Transaction
     {
         public AwardMoneyTransaction(decimal price/*, RegularUser user*/) //: base(user)

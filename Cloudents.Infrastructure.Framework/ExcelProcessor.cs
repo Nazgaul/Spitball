@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,9 +35,9 @@ namespace Cloudents.Infrastructure.Framework
 
         Lazy<Workbook> _excel;
 
-        public void Init(Stream stream)
+        public void Init(Func<Stream> stream)
         {
-            _excel = new Lazy<Workbook>(() => new Workbook(stream));
+            _excel = new Lazy<Workbook>(() => new Workbook(stream()));
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
@@ -81,5 +82,19 @@ namespace Cloudents.Infrastructure.Framework
             }
             await Task.WhenAll(t);
         }
+
+        public void Init(Func<string> path)
+        {
+            _excel = new Lazy<Workbook>(
+                 () => {
+                    return new Workbook(path());
+                    }
+                );
+        }
+
+        
     }
+
+
+   
 }

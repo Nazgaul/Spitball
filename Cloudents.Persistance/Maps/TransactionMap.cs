@@ -31,6 +31,15 @@ namespace Cloudents.Persistance.Maps
         }
     }
 
+    public class BuyPointsTransactionMap : SubclassMap<BuyPointsTransaction>
+    {
+        public BuyPointsTransactionMap()
+        {
+            DiscriminatorValue("BuyPoints");
+            Map(x => x.TransactionId).Column("PayPalTransactionId").Not.Nullable();
+        }
+    }
+
     public class AwardMoneyTransactionMap : SubclassMap<AwardMoneyTransaction>
     {
         public AwardMoneyTransactionMap()

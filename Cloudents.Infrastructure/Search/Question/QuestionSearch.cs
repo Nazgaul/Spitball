@@ -51,7 +51,7 @@ namespace Cloudents.Infrastructure.Search.Question
             else
             {
                 retVal.FacetSubject = searchResult.facetSubject;
-                retVal.FacetState = searchResult.facetFileter;
+                retVal.FacetState = searchResult.facetFilter;
             }
 
             return retVal;

@@ -26,6 +26,7 @@ export default {
         return {
             isRtl: global.isRtl,
             isEdgeRtl: global.isEdgeRtl,
+            loadingContent: false,
             activeTab: 1,
             itemsPerTab: 50,
             answers: {
@@ -73,7 +74,10 @@ export default {
             this.syncProfile(syncObj);
         },
         getInfoByTab(){
-            this.setProfileByActiveTab(this.activeTab)
+            this.loadingContent = true;
+            this.setProfileByActiveTab(this.activeTab).then(()=>{
+                this.loadingContent = false;
+            })
         },
         loadAnswers() {
             if (this.profileData.answers.length < this.itemsPerTab) {

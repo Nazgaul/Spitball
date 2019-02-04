@@ -24,6 +24,9 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
+import walletService from '../../../services/walletService';
+import {LanguageService} from '../../../services/language/languageService';
+
 export default {
   data() {
     return {
@@ -60,7 +63,7 @@ export default {
   },
   methods: {
     ...mapGetters(['accountUser']),
-    ...mapActions(['updateShowBuyDialog']),
+    ...mapActions(['updateShowBuyDialog', 'updateShowBuyDialog', 'updateToasterParams']),
     selectProduct(val) {
       if (this.selectedProduct !== val) {
         this.selectedProduct = val;
@@ -74,6 +77,21 @@ export default {
     },
     reflectPaymentToServer(transactionId){
         console.log(`transaction made id is ${transactionId}`);
+        let transactionObject = {
+          id: transactionId
+        }
+        walletService.buyTokens(transactionObject).then(()=>{
+          this.updateShowBuyDialog(false);
+          this.updateToasterParams({
+            toasterText: LanguageService.getValueByKey("buyToken_success"),
+            showToaster: true,
+          });
+        }, (error)=>{
+          //fallback will be called on app.vue create method.
+          global.localStorage.setItem('sb_transactionError', transactionId);
+          // global.location.reload();
+          console.log(error);
+        })
         // window.alert("Thank you for your purchase!");
     },
     mountPaypalButton() {
