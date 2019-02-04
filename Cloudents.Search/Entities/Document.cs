@@ -39,7 +39,7 @@ namespace Cloudents.Search.Entities
         public string Id { get; set; }
         [IsSearchable]
         public string Name { get; set; }
-       // public string MetaContent { get; set; }
+
         [IsSearchable]
         public string Content { get; set; }
 

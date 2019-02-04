@@ -6,10 +6,8 @@ using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
 using Cloudents.Core;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -102,7 +100,7 @@ namespace Cloudents.Web.Api
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
             }
-            
+
             return new DocumentPreviewResponse(model, files);
         }
 
@@ -187,32 +185,10 @@ namespace Cloudents.Web.Api
 
             await Task.WhenAll(resultTask, queueTask, votesTask);
             var result = resultTask.Result;
-            //var p = result;
-            //string nextPageLink = null;
-            //if (p.Count > 0)
-            //{
-            //    nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
-            //}
-
-            var filters = new List<IFilters>
-            {
-                new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
-                    EnumExtension.GetValues<DocumentType>()
-                        .Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
-                        .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
-            };
-
-
-            //if (profile.Courses != null)
-            //{
-            //    filters.Add(new Filters<string>(nameof(DocumentRequest.Course),
-            //        _localizer["CoursesFilterTitle"],
-            //        profile.Courses.Select(s => new KeyValuePair<string, string>(s, s))));
-            //}
 
             return new WebResponseWithFacet<DocumentFeedDto>
             {
-                Result = result.Select(s =>
+                Result = result.Result.Select(s =>
                 {
                     if (s.Url == null)
                     {
@@ -226,8 +202,15 @@ namespace Cloudents.Web.Api
                     s.Title = Path.GetFileNameWithoutExtension(s.Title);
                     return s;
                 }),
-                Filters = filters
-               // NextPageLink = nextPageLink
+                Filters = new IFilters[]
+                {
+                    new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+                        result.Facet.Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
+                        //EnumExtension.GetValues<DocumentType>()
+                        //    .Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
+                        //    .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
+                }
+                // NextPageLink = nextPageLink
             };
         }
 
@@ -303,7 +286,7 @@ namespace Cloudents.Web.Api
         [HttpPost("price")]
         public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
         {
-            
+
             if (model.Price < 0)
             {
                 ModelState.AddModelError(string.Empty, _localizer["PriceNeedToBeGreaterOrEqualZero"]);

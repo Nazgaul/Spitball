@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
+    public class DocumentFeedWithFacetDto
+    {
+        public IEnumerable<DocumentFeedDto> Result { get; set; }
+        public IEnumerable<DocumentType> Facet { get; set; }
+    }
     [DataContract]
     public class DocumentFeedDto
     {
@@ -20,7 +26,7 @@ namespace Cloudents.Core.DTOs
         public string Title { get; set; }
         [DataMember]
         public string Professor { get; set; }
-        //[DataMember]
+
         public DocumentType? TypeStr { get; set; }
 
         [DataMember]
