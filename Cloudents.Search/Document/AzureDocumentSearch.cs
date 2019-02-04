@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Documents.Queries.GetDocumentsList;
+﻿using Cloudents.Core.Documents.Queries.GetDocumentsList;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Rest.Azure;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Search.Extensions;
 
 namespace Cloudents.Search.Document
 {
@@ -62,37 +64,18 @@ namespace Cloudents.Search.Document
         }
 
 
-        //public async Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken)
-        //{
-        //    try
-        //    {
-        //        var item =
-        //            await
-        //                _client.Documents.GetAsync<Entities.Document>
-        //                    (itemId.ToString(CultureInfo.InvariantCulture),
-        //                        new[] { nameof(Entities.Document.MetaContent) },
-        //                        cancellationToken: cancelToken)
-        //                    .ConfigureAwait(false);
-        //        return item.MetaContent;
-        //    }
-        //    //item may not exists in the search....
-        //    catch (CloudException)
-        //    {
-        //        return null;
-        //    }
-        //}
 
-        public async Task<IEnumerable<DocumentSearchResultWithScore>> SearchAsync(DocumentQuery query, CancellationToken token)
+        public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<DocumentType> facetSubject)> SearchAsync(DocumentQuery query, CancellationToken token)
         {
             var country = query.Profile.University?.Country ?? query.Profile.Country;
             var filters = new List<string>
             {
-                $"({nameof(Entities.Document.Country)} eq '{country.ToUpperInvariant()}')" 
+                $"({nameof(Entities.Document.Country)} eq '{country.ToUpperInvariant()}')"
             };
             if (query.Course != null)
             {
                 var filterStr = string.Join(" or ", query.Course.Select(s =>
-                    $"{Entities.Document.CourseNameField} eq '{s.ToUpperInvariant().Replace("'","''")}'"));
+                    $"{Entities.Document.CourseNameField} eq '{s.ToUpperInvariant().Replace("'", "''")}'"));
 
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
@@ -115,7 +98,7 @@ namespace Cloudents.Search.Document
             {
                 Filter = string.Join(" and ", filters),
                 Select = new[] { nameof(Entities.Document.Id) },
-                    //nameof(Entities.Document.MetaContent) },
+                //nameof(Entities.Document.MetaContent) },
                 Top = pageSize,
                 Skip = query.Page * pageSize,
                 OrderBy = new List<string> { "search.score() desc", $"{nameof(Entities.Document.DateTime)} desc" },
@@ -125,19 +108,34 @@ namespace Cloudents.Search.Document
                                  new ScoringParameter(DocumentSearchWrite.TagsUniversityParameter, new[] {query.Profile.University?.Id.ToString()}),
                                  new ScoringParameter(DocumentSearchWrite.TagsTagsParameter,GenerateScoringParameterValues( query.Profile.Tags)),
                                  new ScoringParameter(DocumentSearchWrite.TagsCourseParameter, GenerateScoringParameterValues( query.Profile.Courses )),
+                },
+                Facets = new[]
+                {
+                    nameof(Entities.Document.Type)
                 }
 
             };
-
+            IEnumerable<DocumentType> facetDocumentType = null;
             var result = await
                 _client.Documents.SearchAsync<Entities.Document>(query.Term, searchParameter,
                     cancellationToken: token);
 
-           return result.Results.Select(s => new DocumentSearchResultWithScore
+            if (result.Facets != null)
+            {
+                if (result.Facets.TryGetValue(nameof(Entities.Document.Type), out var p))
+
+                {
+                    facetDocumentType = p.AsEnumFacetResult<DocumentType>();
+                }
+
+               
+            }
+
+            return (result.Results.Select(s => new DocumentSearchResultWithScore
             {
                 Id = Convert.ToInt64(s.Document.Id),
                 Score = s.Score,
-            });
+            }), facetDocumentType);
 
         }
 
