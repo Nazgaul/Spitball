@@ -146,7 +146,9 @@
                     let arrValidData = [];
                     if (value.length > 0) {
                         arrValidData = value.filter(tag => {
-                            return tag.length > 1;
+                            // valid tag to send to server is less than 3 spaces and without commas
+                            let spaceCount = (tag.split(" ").length - 1) <= 2;
+                            return tag.length > 1 && tag.indexOf(',') === -1 && spaceCount
                         })
                     }
                     this.item.tags = arrValidData;
