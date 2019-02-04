@@ -123,6 +123,9 @@
   <data name="ActionTypeAwarded" xml:space="preserve">
     <value>Awarded</value>
   </data>
+  <data name="ActionTypeBuy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
   <data name="ActionTypeCashOut" xml:space="preserve">
     <value>Cash out</value>
   </data>
