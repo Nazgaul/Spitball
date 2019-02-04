@@ -18,11 +18,14 @@ namespace Cloudents.Infrastructure.Framework
 
 
         private string _text;
-        public void Init(Stream stream)
+        public void Init(Func<Stream> stream)
         {
-            using (var sr = new StreamReader(stream, GetEncoding(stream)))
+            using (var sr2 = stream())
             {
-                _text = sr.ReadToEnd();
+                using (var sr = new StreamReader(sr2, GetEncoding(sr2)))
+                {
+                    _text = sr.ReadToEnd();
+                }
             }
         }
 
@@ -115,6 +118,9 @@ namespace Cloudents.Infrastructure.Framework
                 yield return s.Substring(i, Math.Min(partLength, s.Length - i));
         }
 
-
+        public void Init(Func<string> path)
+        {
+            _text = File.ReadAllText(path());// sr.ReadToEnd();
+        }
     }
 }
