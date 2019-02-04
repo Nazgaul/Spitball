@@ -16,21 +16,21 @@
         </div>
         <v-divider class="divider-line"></v-divider>
         <div class="sml-text-row">
-            <div class="" v-show="tokensAmmount < ammountCalcFrom">
-
-                    <span v-language:inner>onboard_final_only</span>
-                <bdi>
-                    <span>&nbsp;{{sblAway}}&nbsp;
-                    <span v-language:inner>app_currency_dynamic</span>
-                    </span>
-                </bdi>
-                    <span v-language:inner>onboard_final_away</span>
-            </div>
-            <div class="" v-show="tokensAmmount >= ammountCalcFrom">
-                <bdi>
-                    <span v-language:inner>onboard_final_enter_wallet</span>
-                </bdi>
-            </div>
+            <span v-language:inner>onboard_final_bottom_text</span>
+            <!--<div class="" v-show="tokensAmmount < ammountCalcFrom">-->
+                    <!--<span v-language:inner>onboard_final_only</span>-->
+                <!--<bdi>-->
+                    <!--<span>&nbsp;{{sblAway}}&nbsp;-->
+                    <!--<span v-language:inner>app_currency_dynamic</span>-->
+                    <!--</span>-->
+                <!--</bdi>-->
+                    <!--<span v-language:inner>onboard_final_away</span>-->
+            <!--</div>-->
+            <!--<div class="" v-show="tokensAmmount >= ammountCalcFrom">-->
+                <!--<bdi>-->
+                    <!--<span v-language:inner>onboard_final_enter_wallet</span>-->
+                <!--</bdi>-->
+            <!--</div>-->
         </div>
     </div>
 </template>
