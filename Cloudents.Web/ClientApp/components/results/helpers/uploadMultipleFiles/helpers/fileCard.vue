@@ -251,6 +251,7 @@
             border: 1px solid @colorGreyNew;
             font-family: @fontOpenSans;
             font-size: 14px;
+            font-weight: 600;
             letter-spacing: -0.7px;
             color: @textColor;
 
