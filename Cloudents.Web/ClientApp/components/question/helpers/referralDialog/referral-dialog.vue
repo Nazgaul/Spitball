@@ -7,14 +7,31 @@
             <div class="ml-1 wrap-text input-container">
                 <h2 class="text-md-left" v-html="text.dialog.title"></h2>
                 <div class="link-container">
-                    <sb-input id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink"
-                              name="referralLink" type="text" :prependInnerIcon="'sbf-share-icon'"></sb-input>                    &nbsp;
+                    <sb-input v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink"
+                              name="referralLink" type="text" :prependInnerIcon="'sbf-share-icon'"></sb-input>
+                    <v-select
+                            v-else
+                            :items="refLinkArr"
+                            v-model="singleRefLink"
+                            item-value="itemRefLink"
+                            item-text="itemName"
+                            @change="clearCopied()"
+                            class="sb-field elevation-0"
+                            hide-details
+                            :prepend-icon="''"
+                            :placeholder="referralSelectPlace"
+                            :append-icon="'sbf-arrow-down'"
+                            solo
+                            single-line
+                    ></v-select>
                     <button class="referral-btn" :class="{'copied': isCopied}" @click="doCopy">
                         <v-icon class="copy-check-icon" transition="fade-transition"
                                 v-show="isCopied">sbf-checkmark</v-icon>
-                       <span v-show="!isCopied" v-language:inner>referralDialog_copy</span>
+                        <span v-show="!isCopied && !isMultiple" v-language:inner>referralDialog_copy</span>
+                        <span v-show="!isCopied && isMultiple" v-language:inner>referralDialog_copy_link</span>
                         <span v-show="isCopied" v-language:inner>referralDialog_copied</span>
                     </button>
+
                 </div>
             </div>
             <div class="text-style-wrap" style="margin-bottom: 20px;">
@@ -62,6 +79,8 @@
                     gmail: "gmail",
                 },
                 isCopied: false,
+                singleRefLink:  '',
+                referralSelectPlace: LanguageService.getValueByKey("referralDialog_ref_placeholder"),
                 text: {
                     dialog: {
                         title: LanguageService.getValueByKey("referralDialog_dialog_title_invite")
@@ -75,10 +94,18 @@
                 default: 'menu',
                 required: false
             },
+            isMultiple: {
+                type: Boolean,
+                required: false
+            },
             userReferralLink:{
                 type: String,
                 // http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral
                 default: "",
+                required: false
+            },
+            refLinkArr: {
+                type: Array,
                 required: false
             },
             popUpType: {
@@ -115,15 +142,28 @@
                     this.closeDialog()
                 }
             },
+            clearCopied(){
+                if(this.isCopied){
+                    this.isCopied = false;
+                }
+
+            },
             doCopy() {
                 let self = this;
-                this.$copyText(this.userReferralLink).then((e) => {
-                    self.isCopied = true;
-                }, (e) => {
-                })
+                if(!self.isMultiple) {
+                    this.$copyText(this.userReferralLink).then((e) => {
+                        self.isCopied = true;
+                    }, (e) => {
+                    })
+                }else{
+                    this.$copyText(this.singleRefLink).then((e) => {
+                        self.isCopied = true;
+                    }, (e) => {
+                    })
+                }
             },
             shareOnSocialMedia(socialMedia) {
-                let message = getReferallMessages(this.referralType, this.userReferralLink);
+                let message = getReferallMessages(this.referralType, this.isMultiple ? this.singleRefLink : this.userReferralLink);
                 switch (socialMedia) {
                     case this.socialMedias.whatsApp:
                         //https://api.whatsapp.com/send?text={{url  here}}

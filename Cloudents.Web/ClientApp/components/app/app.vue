@@ -71,21 +71,6 @@
             >
                 <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
             </sb-dialog>
-
-            <!--upload dilaog-->
-            <!--<sb-dialog-->
-                    <!--:showDialog="getDialogState"-->
-                    <!--:transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "-->
-                    <!--:popUpType="'uploadDialog'"-->
-                    <!--:maxWidth="'966px'"-->
-                    <!--:onclosefn="setUploadDialogState"-->
-                    <!--:activateOverlay="isUploadAbsoluteMobile"-->
-                    <!--:isPersistent="$vuetify.breakpoint.smAndUp"-->
-                    <!--:content-class="isUploadAbsoluteMobile ? 'upload-dialog mobile-absolute' : 'upload-dialog'"-->
-            <!--&gt;-->
-                <!--<upload-files v-if="getDialogState"></upload-files>-->
-            <!--</sb-dialog>-->
-            <!--multiple upload dilaog-->
             <sb-dialog
                     :showDialog="getDialogState"
                     :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
@@ -94,7 +79,7 @@
                     :onclosefn="setUploadDialogState"
                     :activateOverlay="false"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
-                    :content-class="isUploadAbsoluteMobile ? 'upload-dialog' : 'upload-dialog'"
+                    :content-class="'upload-dialog'"
             >
                 <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
             </sb-dialog>
@@ -197,7 +182,6 @@
                 "getShowSelectUniPopUpInterface",
                 "getShowSelectUniInterface",
                 "getDialogState",
-                "getUploadFullMobile",
                 "confirmationDialog",
                 "getShowToaster",
                 "getToasterText",
@@ -235,9 +219,7 @@
             showLeadersMobile() {
                 return this.$vuetify.breakpoint.smAndDown && this.showLeaderBoard;
             },
-            isUploadAbsoluteMobile() {
-                return this.$vuetify.breakpoint.smAndDown && this.getUploadFullMobile;
-            },
+
             newIsraeliUser() {
                 return false;
                 // return !this.accountUser && global.country.toLowerCase() === "il" && !this.acceptIsraeli && (this.$route.path.indexOf("ask") > -1 || this.$route.path.indexOf("note") > -1);

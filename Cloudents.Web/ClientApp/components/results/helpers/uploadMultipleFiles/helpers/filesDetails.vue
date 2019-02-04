@@ -1,11 +1,25 @@
 <template>
     <v-card elevation="0" class="sb-step-card files-details-container">
-        <v-layout v-bind="gridBreakpoint" row wrap   :class="['top-block', $vuetify.breakpoint.smAndUp ? 'px-4' : 'px-2', 'py-3', {'justify-center' : isMultiple }] ">
+        <v-flex xs12 sm12 md12 class="error-block align-center justify-center d-flex"  v-if="showError" >
+            <div class="error-container" style="height: 90px;">
+                <span class="error-title" >{{errorText}}</span>
+            </div>
+
+        </v-flex>
+        <v-layout v-bind="gridBreakpoint" row wrap  v-show="!showError"
+                  :class="['top-block', $vuetify.breakpoint.smAndUp ? 'px-4' : 'px-2', 'py-3', {'justify-center' : isMultiple }] ">
+
             <v-flex xs12 sm12 md12 class="mb-2" grow>
                 <span class="selected-class-label" v-language:inner>upload_multiple_selected_class_label</span>
                 <span>:</span>
                 <span class="selected-class-val ml-2">{{selectedCourse}}</span>
             </v-flex>
+            <!--<v-flex xs12 sm12 md12 class="error-block align-center justify-center d-flex"  v-if="!showError" >-->
+                <!--<div class="error-container" style="height: 90px;">-->
+                    <!--<span class="error-title" >{{errorText}}Something went wrong, please try again</span>-->
+                <!--</div>-->
+
+            <!--</v-flex>-->
             <v-text-field xs12 solo
                           :placeholder="profPlaceholder"
                           @change="updateProfessorName()"
@@ -43,12 +57,13 @@
             </div>
             </div>
         </v-layout>
-        <v-layout justify-start align-center column class="bottom-block py-3">
+        <v-layout justify-start align-center column class="bottom-block py-3" :class="{'px-2': $vuetify.breakpoint.xsOnly }">
             <v-flex xs12 sm6 md6 row class="justify-center align-center upload-options">
                 <transition-group name="slide-x-transition">
                 <file-card
                             v-for="(fileItem, index) in fileItems"
                             :fileItem="fileItem"
+                            :quantity="fileItems.length"
                             :singleFileIndex="index" :key="index"></file-card>
                 </transition-group>
             </v-flex>
@@ -78,7 +93,12 @@
             }
         },
         props: {
-            propName: ''
+            propName: '',
+            showError: {
+                type: Boolean,
+                default: false
+            },
+            errorText: 'testin error'
         },
         computed: {
             isMultiple(){
@@ -92,13 +112,11 @@
             },
             gridBreakpoint () {
                 const gridBreakpoint = {};
-
                 if (this.$vuetify.breakpoint.smAndUp){
                     gridBreakpoint.row = true
                 }else{
                     gridBreakpoint.column = true
                 }
-
                 return gridBreakpoint
             }
 
