@@ -18,7 +18,7 @@ namespace Cloudents.Core.DTOs
 
     public class DocumentPurchaseEmailDto : EmailDto
     {
-        [DtoToEntityConnection(nameof(Document.Course.Id))]
+        [DtoToEntityConnection(nameof(Document.Course.Name))]
         public string CourseName { get; set; }
         [DtoToEntityConnection(nameof(Document.Name))]
         public string DocumentName { get; set; }
