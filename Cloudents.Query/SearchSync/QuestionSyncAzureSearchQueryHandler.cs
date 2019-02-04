@@ -34,11 +34,13 @@ namespace Cloudents.Query.SearchSync
 	                            q.State as State,
 	                            q.Subject_id as Subject,
 q.CourseId as Course,
+uni.Name as University,
 	                            c.* 
                             From sb.[Question] q  
                             right outer join CHANGETABLE (CHANGES sb.[Question], @Version) AS c ON q.Id = c.id 
                             join sb.[User] u 
 	                            On u.Id = q.UserId
+left join sb.University uni on uni.Id = q.UniversityId
                             Order by q.Id 
                             OFFSET @PageSize * @PageNumber 
                             ROWS FETCH NEXT @PageSize ROWS ONLY";
@@ -53,11 +55,13 @@ q.CourseId as Course,
 	                            q.State as State,
 	                             q.Subject_id as Subject,
 q.CourseId as Course,
+uni.Name as University,
 	                             c.* 
                             From sb.[Question] q 
                             CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c
                             join sb.[User] u 
 	                            On u.Id = q.UserId
+left join sb.University uni on uni.Id = q.UniversityId
                             Order by q.Id 
                             OFFSET @PageSize * @PageNumber 
                             ROWS FETCH NEXT @PageSize ROWS ONLY";
@@ -117,7 +121,8 @@ q.CourseId as Course,
                             Id = dbResult.QuestionId,
                             Language = dbResult.Language ?? "en",
                             Subject = dbResult.Subject,
-                            Text = dbResult.Text
+                            Text = dbResult.Text,
+                            UniversityName = dbResult.University
                         });
                     }
                 }
@@ -160,6 +165,9 @@ q.CourseId as Course,
 
             [Core.Attributes.DtoToEntityConnection(nameof(Question.Course.Name))]
             public string Course { get; set; }
+
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.University.Name))]
+            public string University { get; set; }
         }
 
 

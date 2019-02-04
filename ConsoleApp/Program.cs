@@ -117,7 +117,11 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-             await UpdateQuestionIndex();
+             //await UpdateQuestionIndex();
+             var t= _container.Resolve<ICommandBus>();
+             var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
+             await t.DispatchAsync(p, default);
+
             var bus = _container.Resolve<IQueryBus>();
             var query2 = new SyncAzureQuery(0, 0);
             var result = await bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query2, default);

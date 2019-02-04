@@ -60,3 +60,6 @@ drop table sb.SystemEvent
                WHERE PayPalTransactionId IS NOT NULL;
 
 --need to update question search index.
+
+Alter table sb.question
+Alter column Subject_id int null
