@@ -195,26 +195,26 @@ const actions = {
             if(activeTab=== 1){
                 let p1 = accountService.getProfile(id);
                 let p2 = accountService.getProfileQuestions(id);
-                Promise.all([p1,p2]).then((vals)=>{
+                return Promise.all([p1,p2]).then((vals)=>{
                     console.log(vals)
                     let profileData = accountService.createProfileQuestionData(vals);
                     context.commit('setProfileQuestions', profileData)
                 });
             }
             if(activeTab === 2){
-                accountService.getProfileAnswers(id).then(vals=>{
+                return accountService.getProfileAnswers(id).then(vals=>{
                     let answers = accountService.createProfileAnswerData(vals);
                     context.commit('setProfileAnswers', answers)
                 });
             }
             if(activeTab === 3){
-                accountService.getProfileDocuments(id).then(vals=>{
+                return accountService.getProfileDocuments(id).then(vals=>{
                     let documents = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfileDocuments', documents);
                 });
             }
             if(activeTab === 4){
-                accountService.getProfilePurchasedDocuments(id).then(vals=>{
+                return accountService.getProfilePurchasedDocuments(id).then(vals=>{
                     let purchasedDocuments = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
                 });
