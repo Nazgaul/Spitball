@@ -5,7 +5,11 @@
             <v-stepper v-model="currentStep" class="sb-stepper">
                 <v-stepper-header class="sb-stepper-header px-4">
                     <template>
-                        <h2 class="sb-step-title" v-language:inner>upload_multiple_files_header_title</h2>
+                        <h2 v-show="$vuetify.breakpoint.smAndUp" class="sb-step-title" v-language:inner>upload_multiple_files_header_title</h2>
+                        <!--<div v-show="!$vuetify.breakpoint.smAndUp">-->
+                            <!--<v-icon class="col-blue mr-4">sbf-upload-cloud</v-icon>-->
+                            <!--<span class="upload-subtitle col-blue" v-language:inner>upload_multiple_label_icon_text</span>-->
+                        <!--</div>-->
                     </template>
                 </v-stepper-header>
                 <v-stepper-items class="sb-stepper-item">
@@ -14,7 +18,7 @@
                                        :key="`${n}-content`"
                                        :step="n">
                         <v-layout justify-center column wrap align-center v-if="firstStep" :class="[{'mobile-view-layout mt-0': $vuetify.breakpoint.xsOnly}, 'mt-4']">
-                            <v-flex xs12 sm6 d-flex row class="justify-center align-center mb-3 grow-1">
+                            <v-flex  xs12 sm6 d-flex row class="justify-center align-center mb-3 grow-1">
                                 <v-icon class="col-blue mr-4">sbf-upload-cloud</v-icon>
                                 <span class="upload-subtitle col-blue" v-language:inner>upload_multiple_label_icon_text</span>
                             </v-flex>

@@ -1,5 +1,5 @@
 {
   "version": "2.0",
   //"functions": [ "FunctionEmailTest" ]
-  //"functions": [ "DocumentSearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
+  "functions": [ "QuestionSearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }

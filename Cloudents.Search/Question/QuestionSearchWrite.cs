@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
+using System;
+using System.Collections.Generic;
+using Cloudents.Search.Document;
+using Microsoft.Azure.Search;
 
 namespace Cloudents.Search.Question
 {
@@ -20,38 +22,11 @@ namespace Cloudents.Search.Question
 
         protected override Index GetIndexStructure(string indexName)
         {
-            var fieldBuilder = new FluentSearchFieldBuilder<Entities.Question>();
 
-            return new Index
+            var index = new Index
             {
                 Name = indexName,
-                Fields = new List<Field>
-                {
-                    new Field("UserId",DataType.Int64)
-                    {
-                        IsFilterable = true
-                    },
-                    new Field("UserName",DataType.String),
-                    new Field("UserImage",DataType.String),
-                    new Field("AnswerCount",DataType.Int32),
-                    new Field("FilesCount",DataType.Int32),
-                    new Field("HasCorrectAnswer",DataType.Boolean),
-                    new Field("Price",DataType.Double),
-                    new Field("Color",DataType.Int32),
-                   fieldBuilder.Map(x=>x.Id).IsKey(),
-                   fieldBuilder.Map(x=>x.DateTime).IsSortable().IsFilterable(),
-                   fieldBuilder.Map(x=>x.Text).IsSearchable(),
-                   fieldBuilder.Map(x=>x.Subject).IsFilterable().IsFacetable(),
-
-                   fieldBuilder.Map(x=>x.Country).IsFilterable(),
-                   fieldBuilder.Map(x=>x.Language).IsFilterable(),
-
-
-                   fieldBuilder.Map(x=>x.State).IsFilterable().IsFacetable(),
-                   fieldBuilder.Map(x=>x.Prefix).IsSearchable().WithIndexAnalyzer(AnalyzerName.Create("prefix"))
-                       .WithSearchAnalyzer(AnalyzerName.StandardLucene),
-
-                },
+                Fields = FieldBuilder.BuildForType<Entities.Question>(new SearchIndexEnumToIntContractResolver()),
                 Analyzers = new List<Analyzer>
                 {
                     new CustomAnalyzer("prefix",TokenizerName.Standard,new List<TokenFilterName>
@@ -83,6 +58,19 @@ namespace Cloudents.Search.Question
                     }
                 },
             };
+
+            index.Fields.Add(new Field("UserName", DataType.String));
+            index.Fields.Add(new Field("UserImage", DataType.String));
+            index.Fields.Add(new Field("AnswerCount", DataType.Int32));
+            index.Fields.Add(new Field("FilesCount", DataType.Int32));
+            index.Fields.Add(new Field("HasCorrectAnswer", DataType.Boolean));
+            index.Fields.Add(new Field("Price", DataType.Double));
+            index.Fields.Add(new Field("Color", DataType.Int32));
+            index.Fields.Add(new Field("UserId", DataType.Int64)
+                {
+                    IsFilterable = true
+                });
+            return index;
         }
     }
 }

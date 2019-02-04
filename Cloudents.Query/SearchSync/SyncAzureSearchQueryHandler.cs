@@ -50,7 +50,6 @@ namespace Cloudents.Query.SearchSync
                 return (Enumerable.Empty<T>(), Enumerable.Empty<string>(), 0);
             }
 
-            //sqlQuery.
             var lookupTable = SeparateUpdateFromDelete(result);
 
             var max = result.Max(m => m.SYS_CHANGE_VERSION.GetValueOrDefault());
