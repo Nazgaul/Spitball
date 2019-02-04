@@ -338,4 +338,7 @@ students</value>
   <data name="multiple_label_icon_text" xml:space="preserve">
     <value>Upload</value>
   </data>
+  <data name="multiple_or_browse_label_mobile" xml:space="preserve">
+    <value>Browse</value>
+  </data>
 </root>

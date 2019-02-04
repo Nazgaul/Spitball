@@ -6,6 +6,7 @@ import uploadStep_2 from "./helpers/filesDetails.vue";
 import ulpoadStep_3 from"./helpers/documentReferral.vue"
 import analyticsService from "../../../../services/analytics.service";
 import uploadService from "../../../../services/uploadService";
+import Base62 from "base62"
 
 export default {
     components: {
@@ -19,7 +20,7 @@ export default {
         return {
             confirmationDialog: false,
             progressDone: false,
-            steps: 2,
+            steps: 3,
             currentStep: 1,
             step: 1,
             callBackmethods: {
@@ -27,7 +28,9 @@ export default {
                 changeStep: this.changeStep,
                 stopProgress: this.stopProgress,
             },
-            courseSelected: ''
+            docReferral: [],
+            courseSelected: '',
+            nextStepCalled: false
         }
     },
 
@@ -48,6 +51,9 @@ export default {
         },
         firstStep() {
             return this.currentStep === 1;
+        },
+        lastStep(){
+            return this.currentStep === this.steps;
         },
         showUploadDialog() {
             return this.getDialogState
@@ -72,6 +78,12 @@ export default {
             'setCourse'
 
         ]),
+        goToNextStep() {
+            if (!this.nextStepCalled) {
+                this.nextStepCalled = true;
+                this.nextStep(1);
+            }
+        },
         updateSelectedCourse() {
             this.setCourse(this.courseSelected)
         },
@@ -84,12 +96,13 @@ export default {
                 documentService.sendDocumentData(serverFormattedObj)
                     .then((resp) => {
                             if (resp.data.url) {
-                                self.docReferral = resp.data.url
+                                self.docReferral.push(`${global.location.origin}` + resp.data.url + "?referral=" +
+                                    Base62.encode(self.accountUser.id) + "&promo=referral");
                             }
                             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
                             console.log('DOC_UPLOAD_COMPLETE')
                             self.loading = true;
-                            self.nextStep(step)
+                            self.goToNextStep()
                         },
                         (error) => {
                             console.log("doc data error", error)
@@ -120,15 +133,7 @@ export default {
             } else {
                 this.currentStep = this.currentStep + 1;
             }
-
         },
-
-        //resets mobile first step to mobile design
-        // resetFirstStepMobile() {
-        //     if (this.$vuetify.breakpoint.smAndDown) {
-        //         this.updateUploadFullMobile(true);
-        //     }
-        // },
 
     },
     created() {

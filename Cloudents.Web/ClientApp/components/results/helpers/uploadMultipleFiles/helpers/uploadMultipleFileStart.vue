@@ -14,13 +14,15 @@
             </div>
         </div>
         <v-layout justify-center align-center column class="upload-area">
-            <v-flex class="justify-center align-center d-flex" grow>
+            <v-flex class="justify-center align-center d-flex" grow v-show="$vuetify.breakpoint.smAndUp">
                 <span v-show="$vuetify.breakpoint.smAndUp"
                       class="col-blue drop-text text-md-center text-xs-center text-sm-center" v-language:inner>upload_multiple_files_dopHere</span>
             </v-flex>
             <v-flex xs12 sm6 md6 row class="justify-center align-center upload-options">
                 <div class="btn-holder">
-                    <span class="browse-text" v-language:inner>upload_multiple_or_browse_label</span>
+                    <span v-show="$vuetify.breakpoint.smAndUp" class="browse-text" v-language:inner>upload_multiple_or_browse_label</span>
+                    <span v-show="$vuetify.breakpoint.xsOnly" class="browse-text" v-language:inner>upload_multiple_or_browse_label_mobile</span>
+
                 </div>
                 <div class="btn-holder ml-3 c-pointer" @click="DbFilesList()" :disabled="!dbReady">
                     <v-icon class="mr-2">sbf-upload-dropbox</v-icon>
@@ -142,12 +144,13 @@
                                         item.blobName = response.data.fileName ? response.data.fileName : '';
                                         singleFile = uploadService.createFileData(item);
                                         self.updateFile(singleFile);
+                                        self.goToNextStep();
                                     },
                                     error => {
                                         console.log('error drop box api call', error)
                                     })
                         });
-                        self.goToNextStep();
+
                     },
                     cancel: function (error) {
                         console.log('canceled!!!', error)
@@ -258,6 +261,9 @@
             width: 100px;
             transform: rotate(0deg);
             cursor: pointer;
+            @media(max-width: @screen-xs){
+                height: 100px;
+            }
             label {
                 display: none;
             }
@@ -269,12 +275,20 @@
                 bottom: 0;
                 width: 100px;
                 cursor: pointer;
+                @media(max-width: @screen-xs){
+                    height: 100px;
+                }
             }
         }
 
         .upload-area {
             background-color: rgba(68, 82, 252, 0.06);
             border: 1px dashed @color-blue-new;
+            @media(max-width: @screen-xs){
+                background-color: @color-white;
+                border: none;
+                /*box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2);*/
+            }
         }
         .drop-text {
             font-family: @fontOpenSans;
@@ -288,9 +302,15 @@
             border-radius: 4px 4px 0 0;
             padding: 12px 16px;
             max-width: 318px;
+            @media(max-width: @screen-xs){
+                flex-direction: column;
+            }
             .btn-holder {
                 display: flex;
                 flex-direction: row;
+                @media(max-width: @screen-xs){
+                    flex-direction: column;
+                }
 
             }
             .browse-text {
@@ -302,11 +322,20 @@
                 color: @color-blue-new;
                 font-family: @fontOpenSans;
                 font-size: 14px;
+                @media(max-width: @screen-xs){
+                    font-family: @fontFiraSans;
+                    font-size: 16px;
+                }
 
             }
             .v-icon {
                 font-size: 12px;
                 color: @color-blue-new;
+                @media(max-width: @screen-xs){
+                    margin-top: 36px;
+                    margin-bottom: 16px;
+                    font-size: 32px;
+                }
             }
         }
     }
