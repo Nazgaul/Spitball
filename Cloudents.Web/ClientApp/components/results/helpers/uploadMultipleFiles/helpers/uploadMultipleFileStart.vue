@@ -172,6 +172,7 @@
                     newFile.blob = '';
                     let URL = window.URL || window.webkitURL;
                     if (URL && URL.createObjectURL) {
+                        //overwrite default file type(error on server if not)
                         newFile.type ? newFile.type = 'none' : '';
                         let singleFile = uploadService.createFileData(newFile);
                         //add or replace

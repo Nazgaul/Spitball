@@ -14,12 +14,6 @@
                 <span>:</span>
                 <span class="selected-class-val ml-2">{{selectedCourse}}</span>
             </v-flex>
-            <!--<v-flex xs12 sm12 md12 class="error-block align-center justify-center d-flex"  v-if="!showError" >-->
-                <!--<div class="error-container" style="height: 90px;">-->
-                    <!--<span class="error-title" >{{errorText}}Something went wrong, please try again</span>-->
-                <!--</div>-->
-
-            <!--</v-flex>-->
             <v-text-field xs12 solo
                           :placeholder="profPlaceholder"
                           @change="updateProfessorName()"

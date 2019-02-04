@@ -1,7 +1,7 @@
 <template>
     <v-card class="file-item-card mb-3">
-        <v-container>
-        <v-layout row class="px-3 py-2 pt-4" v-bind="gridBreakpoint">
+        <v-container :class="{'pr-5 pl-3 py-0': $vuetify.breakpoint.smAndUp}">
+        <v-layout row class="py-2 pt-4" v-bind="gridBreakpoint">
             <v-flex xs12 sm7 md7 order-sm1 order-md1>
                 <v-text-field solo class="sb-field  bg-greyed"
                               :class="$vuetify.breakpoint.xsOnly ? 'mr-0' : ' mr-2'"
@@ -129,7 +129,6 @@
             },
             gridBreakpoint () {
                 const gridBreakpoint = {};
-
                 if (this.$vuetify.breakpoint.smAndUp){
                     gridBreakpoint.row = true;
                     gridBreakpoint.wrap = true;
@@ -195,8 +194,8 @@
         }
         .delete-close-icon{
             position: absolute;
-            top: 50px;
-            right: 16px;
+            top: 25px;
+            right: 14px;
             @media(max-width: @screen-xs){
                 font-size: 12px;
                 position: absolute;
@@ -230,6 +229,9 @@
             .v-input__slot {
                 max-height: 48px;
                 overflow-y: scroll;
+            }
+            .v-select__selections{
+                max-height: 42px;
             }
             .chip-button {
                 color: @chipActiveColor;
