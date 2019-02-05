@@ -1,7 +1,7 @@
 <template>
     <v-card elevation="0" class="mb-3 sb-step-card ref-card" :class="{'mb-5': $vuetify.breakpoint.smAndUp}">
         <v-flex align-center justify-center>
-            <div v-if="fileSnackbar.visibility"  class="file-snack-bar" :style="{ backgroundColor: fileSnackbar.color}">
+            <div v-if="fileSnackbar.visibility"  class="file-snack-bar px-5" :style="{ backgroundColor: fileSnackbar.color}">
                 <span class="file-snack-text" style="">
                     <span>
                         <v-icon class="file-snack-icon">sbf-checkmark</v-icon>
