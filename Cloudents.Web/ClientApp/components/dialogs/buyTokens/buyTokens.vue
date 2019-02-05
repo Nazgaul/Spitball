@@ -1,67 +1,127 @@
 <template>
   <div class="buy-dialog-wrap">
-    <div class="close-buy-dialog"><v-icon @click="closeModal">sbf-close</v-icon></div>
-    <v-container pa-3 pt-4 pb-4 class="buy-tokens-top-container">
-      <v-layout>
-        <v-flex text-xs-center xs12>
-          <span class="buy-tokens-title-text">Get Points</span> 
-        </v-flex>
-      </v-layout>
-      <v-layout pt-4 ml-2 mr-2>
-        <v-flex text-xs-center column xs4 pl-4 pr-4>
-          <div class="buy-tokens-icon"><v-icon>sbf-answer-icon</v-icon></div>
-          <div class="buy-tokens-bold-text mt-3">Answer</div>
-          <div class="buy-tokens-normal-text mt-1">Earn points by answering student quesitons</div>
-        </v-flex>
-        <v-flex text-xs-center column xs4 pl-4 pr-4>
-          <div class="buy-tokens-icon"><v-icon>sbf-upload-icon</v-icon></div>
-          <div class="buy-tokens-bold-text mt-3">Upload</div>
-          <div class="buy-tokens-normal-text mt-1">Upload Study Documents. Earn from every download</div>
-        </v-flex>
-        <v-flex text-xs-center column xs4 pl-4 pr-4>
-          <div class="buy-tokens-icon"><v-icon>sbf-invite-icon</v-icon></div>
-          <div class="buy-tokens-bold-text mt-3">Invite</div>
-          <div class="buy-tokens-normal-text mt-1">Earn points by answering student quesitons</div>
-        </v-flex>
-      </v-layout>
+    <div class="close-buy-dialog">
+      <v-icon @click="closeModal">sbf-close</v-icon>
+    </div>
+    <div class="buy-tokens-wrap">
+      <v-container pa-3 pt-4 pb-4 class="buy-tokens-top-container">
+        <v-layout>
+          <v-flex text-xs-center xs12>
+            <span class="buy-tokens-title-text" v-language:inner>buyTokens_get_points</span>
+          </v-flex>
+        </v-layout>
+        <v-layout pt-4 ml-2 mr-2 :class="{'column': $vuetify.breakpoint.xsOnly}">
+          <v-flex text-xs-center column xs4 :class="$vuetify.breakpoint.xsOnly ? 'pl-5 pr-5' : 'pl-4 pr-4'">
+            <div class="buy-tokens-icon">
+              <v-icon>sbf-answer-icon</v-icon>
+            </div>
+            <div class="buy-tokens-bold-text mt-3" v-language:inner>buyTokens_answer</div>
+            <div class="buy-tokens-normal-text mt-1" v-language:inner>buyTokens_earn_answer</div>
+          </v-flex>
+          <v-flex text-xs-center column xs4 pl-4 pr-4 :class="$vuetify.breakpoint.xsOnly ? 'mt-5 pl-5 pr-5' : 'pl-4 pr-4'">
+            <div class="buy-tokens-icon">
+              <v-icon>sbf-upload-icon</v-icon>
+            </div>
+            <div class="buy-tokens-bold-text mt-3" v-language:inner>buyTokens_upload</div>
+            <div class="buy-tokens-normal-text mt-1" v-language:inner>buyTokens_earn_upload</div>
+          </v-flex>
+          <v-flex text-xs-center column xs4 pl-4 pr-4 :class="$vuetify.breakpoint.xsOnly ? 'mt-5 pl-5 pr-5' : 'pl-4 pr-4'">
+            <div class="buy-tokens-icon">
+              <v-icon>sbf-invite-icon</v-icon>
+            </div>
+            <div class="buy-tokens-bold-text mt-3" v-language:inner>buyTokens_invite</div>
+            <div class="buy-tokens-normal-text mt-1" v-language:inner>buyTokens_earn_invite</div>
+          </v-flex>
+        </v-layout>
       </v-container>
-      <v-container class="buy-tokens-bottom-container">
+      <v-container class="buy-tokens-bottom-container" :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
         <v-layout>
           <v-flex text-xs-center>
-            <span class="buy-tokens-title-text">Need points now?</span>
+            <span class="buy-tokens-title-text" v-language:inner>buyTokens_need_points</span>
           </v-flex>
         </v-layout>
         <v-layout pt-4 justify-center class="buy-tokens-price-container">
-          <v-flex class="buy-tokens-details-container" text-xs-center column xs4 :class="{'item-selected': selectedProduct === 'basic'}" @click="selectProduct('basic')">
-            <div><span class="buy-tokens-points-num">100</span> pts</div>
-            <div>$1.5</div>
-            <div class="buy-tokens-text-small">$0.015 /point</div>
-            <div><button class="buy-tokens-choose-button">Choose</button></div>
+          <v-flex
+            class="buy-tokens-details-container"
+            text-xs-center
+            column
+            xs4
+            :class="{'item-selected': selectedProduct === 'basic'}"
+            @click="selectProduct('basic')"
+          >
+            <div class="buy-tokens-center-price-title">
+              <span class="buy-tokens-points-num">{{products.basic.pts}}</span>&nbsp;
+              <span v-language:inner>buyTokens_points</span>
+            </div>
+            <div>{{products.currency}}{{products.basic.price}}</div>
+            <div class="buy-tokens-text-small">
+              <span>{{products.currency}}</span>
+              <span>{{basicConvertionRate}}</span>&nbsp;
+              <span v-language:inner>buyTokens_per_point</span>
+            </div>
+            <div>
+              <button class="buy-tokens-choose-button" v-language:inner>buyTokens_choose</button>
+            </div>
           </v-flex>
-          <v-flex class="buy-tokens-details-container middle-box" text-xs-center column xs4 :class="{'item-selected': selectedProduct === 'inter'}" @click="selectProduct('inter')">
-            <div class="buy-tokens-text-absolute">MOST POPULAR</div>
-            <div><span class="buy-tokens-points-num">500</span> pts</div>
-            <div>$5</div>
-            <div class="buy-tokens-text-small">$0.01 /point</div>
-            <div><button class="buy-tokens-choose-button middle-box">Choose</button></div>
+          <v-flex
+            class="buy-tokens-details-container middle-box"
+            text-xs-center
+            column
+            xs4
+            :class="{'item-selected': selectedProduct === 'inter'}"
+            @click="selectProduct('inter')"
+          >
+            <div class="buy-tokens-text-absolute" v-language:inner>buyTokens_most_popular</div>
+            <div class="buy-tokens-center-price-title">
+              <span class="buy-tokens-points-num">{{products.inter.pts}}</span>&nbsp;
+              <span v-language:inner>buyTokens_points</span>
+            </div>
+            <div>{{products.currency}}{{products.inter.price}}</div>
+            <div class="buy-tokens-text-small">
+              <span>{{products.currency}}</span>
+              <span>{{interConvertionRate}}</span>&nbsp;
+              <span v-language:inner>buyTokens_per_point</span>
+            </div>
+            <div>
+              <button class="buy-tokens-choose-button middle-box" v-language:inner>buyTokens_choose</button>
+            </div>
           </v-flex>
-          <v-flex class="buy-tokens-details-container" text-xs-center column xs4 :class="{'item-selected': selectedProduct === 'pro'}" @click="selectProduct('pro')">
-            <div><span class="buy-tokens-points-num">1000</span> pts</div>
-            <div>$9.5</div>
-            <div class="buy-tokens-text-small">$0.0095 /point</div>
-            <div><button class="buy-tokens-choose-button">Choose</button></div>
+          <v-flex
+            class="buy-tokens-details-container"
+            text-xs-center
+            column
+            xs4
+            :class="{'item-selected': selectedProduct === 'pro'}"
+            @click="selectProduct('pro')"
+          >
+            <div class="buy-tokens-center-price-title">
+              <span class="buy-tokens-points-num">{{products.pro.pts}}</span>&nbsp;
+              <span v-language:inner>buyTokens_points</span>
+            </div>
+            <div>{{products.currency}}{{products.pro.price}}</div>
+            <div class="buy-tokens-text-small">
+              <span>{{products.currency}}</span>
+              <span>{{proConvertionRate}}</span>&nbsp;
+              <span v-language:inner>buyTokens_per_point</span>
+            </div>
+            <div>
+              <button class="buy-tokens-choose-button" v-language:inner>buyTokens_choose</button>
+            </div>
           </v-flex>
         </v-layout>
         <v-layout pt-4>
           <v-flex text-xs-center mt-3>
             <div class="paypal-button" id="paypal-button">
-              <span><v-icon style="font-size: 20px;">sbf-lock-icon</v-icon></span>
-              <span>Secure Payment with</span>
-              <img src="./img/paypal-icon.png" style="vertical-align: middle;"/>
+              <span>
+                <v-icon style="font-size: 20px;">sbf-lock-icon</v-icon>
+              </span>
+              <span v-language:inner>buyTokens_secure_payment</span>
+              <img src="./img/paypal-icon.png" style="vertical-align: middle;">
             </div>
           </v-flex>
         </v-layout>
       </v-container>
+    </div>
   </div>
 </template>
 
