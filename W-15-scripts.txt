@@ -60,7 +60,23 @@ drop table sb.SystemEvent
                WHERE PayPalTransactionId IS NOT NULL;
 
 --need to update question search index.
+--need to update document search index.
 
 Alter table sb.question
-Alter column Subject_id int null
+Alter column Subject_id int null;
+
 Delete question version file
+Delete document version file
+
+
+UPDATE
+    d
+SET
+   Type = it.ItemTabName
+FROM
+    sb.Document AS d
+    join zbox.item i on d.OldId = i.ItemId
+	join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
+
+WHERE
+	Type = 'None'
