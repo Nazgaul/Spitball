@@ -116,13 +116,18 @@ export default {
                                 };
                                 self.docReferral.push(referralObj)
                             }
+                            if(resp.data.published){
+                                self.fileSnackbar.uploadDoneMessage = LanguageService.getValueByKey("upload_CreateOk")
+                            }else{
+                                self.fileSnackbar.uploadDoneMessage = LanguageService.getValueByKey("upload_CreatePending")
+                            }
+
                             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
                             self.loading = false;
                             self.fileSnackbar.visibility = true;
                             // setTimeout(()=>{
                             //     self.fileSnackbar = false;
                             // }, 8000);
-                            self.fileSnackbar.uploadDoneMessage = 'Upload was succesful. you will be able to review it Shortly.'
                             self.fileSnackbar.color = '#51ba6c';
                             self.goToNextStep()
                         },
