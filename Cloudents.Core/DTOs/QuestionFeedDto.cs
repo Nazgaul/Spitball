@@ -27,17 +27,10 @@ namespace Cloudents.Core.DTOs
 
         public bool IsRtl
         {
-            get => _isRtl;
+            get => CultureInfo?.TextInfo.IsRightToLeft ?? false;
         }
 
-        public CultureInfo CultureInfo
-        {
-            get => null;
-            set
-            {
-                _isRtl = value?.TextInfo.IsRightToLeft ?? false;
-            }
-        }
+        public CultureInfo CultureInfo { get; set; }
 
         public VoteDto Vote { get; set; }
     }

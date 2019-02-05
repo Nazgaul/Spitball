@@ -28,7 +28,7 @@ namespace Cloudents.Query
 	  (SELECT count(*) as y0_ FROM sb.[Answer] this_0_ WHERE (this_0_.QuestionId = q.Id and this_0_.State = 'Ok')) as Answers,
 	   q.Updated as DateTime,
 		    (case when not (q.CorrectAnswer_id is null) then 1 else 0 end) as HasCorrectAnswer,
-			 q.Language as Language,
+			 q.Language as CultureInfo,
 		u.Id as Id,
 	   u.Name as Name,
 		 u.Score as Score,

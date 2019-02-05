@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Dapper;
 
 namespace Cloudents.Query
 {
@@ -14,6 +16,11 @@ namespace Cloudents.Query
         public DapperRepository(IConfigurationKeys  provider)
         {
             _connectionString = provider.Db.Db;
+        }
+
+        static DapperRepository()
+        {
+            SqlMapper.AddTypeHandler<CultureInfo>(new DapperCultureInfoTypeHandler());
         }
        
 
@@ -68,5 +75,22 @@ namespace Cloudents.Query
                 throw;
             }
         }
+
+
+
+        private class DapperCultureInfoTypeHandler : SqlMapper.TypeHandler<CultureInfo>
+        {
+            public override void SetValue(IDbDataParameter parameter, CultureInfo value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public override CultureInfo Parse(object value)
+            {
+                return new CultureInfo(value.ToString());
+            }
+        }
     }
+
+    
 }
