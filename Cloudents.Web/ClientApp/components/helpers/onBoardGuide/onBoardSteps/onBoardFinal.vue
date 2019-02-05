@@ -14,6 +14,7 @@
 
             </div>
         </div>
+
         <v-divider class="divider-line"></v-divider>
         <div class="sml-text-row">
             <span v-language:inner>onboard_final_bottom_text</span>

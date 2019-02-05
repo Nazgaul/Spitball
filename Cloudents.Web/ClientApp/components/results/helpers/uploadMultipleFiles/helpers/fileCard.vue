@@ -1,12 +1,12 @@
 <template>
     <v-card class="file-item-card mb-3">
-        <v-container :class="{'pr-5 pl-3 py-0': $vuetify.breakpoint.smAndUp}">
+        <v-container :class="{'pr-3 pl-3 py-0': $vuetify.breakpoint.smAndUp}">
             <v-layout row class="py-3" v-bind="gridBreakpoint">
                 <v-flex xs12 sm7 md7 order-sm1 order-md1>
                     <v-text-field solo class="sb-field  bg-greyed"
                                   :class="$vuetify.breakpoint.xsOnly ? 'mr-0 mb-2' : ' mr-2 mb-2'"
                                   v-model="item.name"
-                                  :disabled="true"
+                                  :rules="[rules.required]"
                                   placeholder=""></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm7 md7 order-sm3 order-md3 :class="$vuetify.breakpoint.xsOnly ? 'mb-2' : ''">
@@ -91,7 +91,11 @@
                 emptyPricePlaceholder: LanguageService.getValueByKey("upload_multiple_price_placeholder"),
                 placeholderTags: LanguageService.getValueByKey("upload_multiple_keywords_optional"),
                 placeholderDocType: LanguageService.getValueByKey("upload_multiple_select_filetype"),
-                price: 0
+                price: 0,
+                rules: {
+                    required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
+                    // minimum: value => value.length >= 2 || 'Min 2 characters'
+                }
             }
         },
         props: {
@@ -190,26 +194,26 @@
         border-radius: 4px;
         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.23);
         background-color: @color-white;
-        &:last-child {
-            margin-bottom: 112px !important; //last child offset
-        }
         @media (max-width: @screen-xs) {
             width: 100%;
             min-width: unset;
             max-width: unset;
+            &:last-child {
+                margin-bottom: 112px !important; //last child offset
+            }
         }
         .delete-close-icon {
             position: absolute;
-            top: 18px;
-            right: 20px;
+            top: 36px;
+            right: -28px;
+            color: #ffffff;
             font-size: 10px;
-            cursor: pointer;
-
             @media (max-width: @screen-xs) {
                 font-size: 12px;
                 position: absolute;
                 top: -6px;
                 right: 14px;
+                color: @textColor;
             }
         }
 
@@ -255,7 +259,6 @@
         .numeric-input {
             display: flex;
             width: 100%;
-            /*margin-bottom: 28px;*/
             height: 48px;
             border-radius: 4px;
             border: 1px solid @colorGreyNew;
@@ -266,7 +269,10 @@
             color: @textColor;
         }
         .sb-field {
-            max-height: 48px;
+            &:not(.error--text){
+                max-height: 48px;
+            }
+
             &.v-text-field--solo {
                 .v-input__slot {
                     box-shadow: none !important; //vuetify

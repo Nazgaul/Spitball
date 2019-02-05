@@ -24,7 +24,7 @@
                             solo
                             single-line
                     ></v-select>
-                    <button class="referral-btn" :class="{'copied': isCopied}" @click="doCopy">
+                    <button :disabled="isMultiple && !singleRefLink" class="referral-btn" :class="{'copied': isCopied}" @click="doCopy">
                         <v-icon class="copy-check-icon" transition="fade-transition"
                                 v-show="isCopied">sbf-checkmark</v-icon>
                         <span v-show="!isCopied && !isMultiple" v-language:inner>referralDialog_copy</span>
