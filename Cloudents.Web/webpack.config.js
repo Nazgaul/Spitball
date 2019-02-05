@@ -78,7 +78,6 @@ module.exports = (env) => {
                 {
                     test: /\.js$/,
                     loader: "babel-loader",
-                    include: /ClientApp/
                 },
                 {
                     test: /\.vue$/,
