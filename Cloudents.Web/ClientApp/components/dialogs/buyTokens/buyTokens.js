@@ -6,35 +6,58 @@ export default {
   data() {
     return {
       selectedProduct: null,
-      products: {
+      products:{
+          currency: LanguageService.getValueByKey('buyTokens_currency'),
+          basic:{
+              pts:100,
+              price:1.5,
+              currency: 'USD'
+          },
+          inter:{
+              pts:500,
+              price:5,
+              currency: 'USD'
+          },
+          pro:{
+              pts:1000, 
+              price:9.5,
+              currency: 'USD'
+          }
+      },
+      productsForPaypal: {
         basic: {
-          name: "Tier 1 SBL pack",
-          description: "you will recieve 100 sbl",
-          price: "1",
+          name: "Tier 1 points pack",
+          description: "you will recieve 100 pts",
           quantity: "1",
-          currency: "USD",
           sku: "points_1"
         },
         inter: {
-          name: "Tier 2 SBL pack",
-          description: "you will recieve 200 sbl",
-          price: "2",
+          name: "Tier 2 points pack",
+          description: "you will recieve 500 pts",
           quantity: "1",
-          currency: "USD",
           sku: "points_2",
         },
         pro: {
-          name: "Tier 3 SBL pack",
-          description: "you will recieve 300 sbl",
-          price: "3",
+          name: "Tier 3 points pack",
+          description: "you will recieve 1000 pts",
           quantity: "1",
-          currency: "USD",
           sku: "points_3"
         }
       },
       paypalLoaded: false,
       user: this.accountUser()
     };
+  },
+  computed:{
+    basicConvertionRate(){
+        return this.products.basic.price / this.products.basic.pts
+    },
+    interConvertionRate(){
+        return this.products.inter.price / this.products.inter.pts
+    },
+    proConvertionRate(){
+        return this.products.pro.price / this.products.pro.pts
+    }
   },
   methods: {
     ...mapGetters(['accountUser']),
@@ -58,7 +81,7 @@ export default {
         walletService.buyTokens(transactionObject).then(()=>{
           this.updateShowBuyDialog(false);
           this.updateToasterParams({
-            toasterText: LanguageService.getValueByKey("buyToken_success"),
+            toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
             showToaster: true,
           });
         }, (error)=>{
@@ -71,6 +94,10 @@ export default {
     },
     mountPaypalButton() {
       if (this.paypalLoaded) {
+        //set price and currency according to the locale
+        this.productsForPaypal[this.selectedProduct].price = this.products[this.selectedProduct].price;
+        this.productsForPaypal[this.selectedProduct].currency = this.products[this.selectedProduct].currency;
+
         paypal.Button.render(
           {
             // Configure environment
@@ -101,11 +128,11 @@ export default {
                 transactions: [
                   {
                     amount: {
-                      total: this.products[this.selectedProduct].price,
-                      currency: this.products[this.selectedProduct].currency,
+                      total: this.productsForPaypal[this.selectedProduct].price,
+                      currency: this.productsForPaypal[this.selectedProduct].currency,
                     },
                     item_list: {
-                      items: [this.products[this.selectedProduct]]
+                      items: [this.productsForPaypal[this.selectedProduct]]
                     },
                   }
                 ]
