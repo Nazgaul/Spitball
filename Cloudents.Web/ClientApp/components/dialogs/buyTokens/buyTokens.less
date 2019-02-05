@@ -28,7 +28,7 @@
           flex-direction: column;
           @media (max-width: @screen-xs) {
             flex-direction: column-reverse;
-        }
+          }
         .buy-tokens-top-container{
             background-color:#f6f6f6;
             .buy-tokens-title-text{
@@ -36,6 +36,9 @@
                 font-size: 22px;
                 letter-spacing: -0.2px;
                 color: #000000;
+                @media (max-width: @screen-xs) {
+                    font-size: 18px;
+                }
             }
             .buy-tokens-icon{
                 i{
@@ -67,6 +70,9 @@
                 font-size: 18px;
                 letter-spacing: -0.2px;
                 color: #000000;
+                @media (max-width: @screen-xs) {
+                    font-size: 22px;
+                }
             }
             .buy-tokens-price-container{
                 flex-flow: wrap-reverse;
@@ -115,6 +121,11 @@
                                 left: 0;
                             }
                         }
+                    }
+                    .buy-tokens-center-price-title{
+                        display: flex;
+                        justify-content: center;
+                        align-items: baseline;
                     }
                     .buy-tokens-points-num{
                         font-size: 30px;

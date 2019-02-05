@@ -11,21 +11,21 @@
           </v-flex>
         </v-layout>
         <v-layout pt-4 ml-2 mr-2 :class="{'column': $vuetify.breakpoint.xsOnly}">
-          <v-flex text-xs-center column xs4 pl-4 pr-4>
+          <v-flex text-xs-center column xs4 :class="$vuetify.breakpoint.xsOnly ? 'pl-5 pr-5' : 'pl-4 pr-4'">
             <div class="buy-tokens-icon">
               <v-icon>sbf-answer-icon</v-icon>
             </div>
             <div class="buy-tokens-bold-text mt-3" v-language:inner>buyTokens_answer</div>
             <div class="buy-tokens-normal-text mt-1" v-language:inner>buyTokens_earn_answer</div>
           </v-flex>
-          <v-flex text-xs-center column xs4 pl-4 pr-4 :class="{'mt-5': $vuetify.breakpoint.xsOnly}">
+          <v-flex text-xs-center column xs4 pl-4 pr-4 :class="$vuetify.breakpoint.xsOnly ? 'mt-5 pl-5 pr-5' : 'pl-4 pr-4'">
             <div class="buy-tokens-icon">
               <v-icon>sbf-upload-icon</v-icon>
             </div>
             <div class="buy-tokens-bold-text mt-3" v-language:inner>buyTokens_upload</div>
             <div class="buy-tokens-normal-text mt-1" v-language:inner>buyTokens_earn_upload</div>
           </v-flex>
-          <v-flex text-xs-center column xs4 pl-4 pr-4 :class="{'mt-5': $vuetify.breakpoint.xsOnly}">
+          <v-flex text-xs-center column xs4 pl-4 pr-4 :class="$vuetify.breakpoint.xsOnly ? 'mt-5 pl-5 pr-5' : 'pl-4 pr-4'">
             <div class="buy-tokens-icon">
               <v-icon>sbf-invite-icon</v-icon>
             </div>
@@ -34,7 +34,7 @@
           </v-flex>
         </v-layout>
       </v-container>
-      <v-container class="buy-tokens-bottom-container">
+      <v-container class="buy-tokens-bottom-container" :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
         <v-layout>
           <v-flex text-xs-center>
             <span class="buy-tokens-title-text" v-language:inner>buyTokens_need_points</span>
@@ -49,7 +49,7 @@
             :class="{'item-selected': selectedProduct === 'basic'}"
             @click="selectProduct('basic')"
           >
-            <div>
+            <div class="buy-tokens-center-price-title">
               <span class="buy-tokens-points-num">{{products.basic.pts}}</span>&nbsp;
               <span v-language:inner>buyTokens_points</span>
             </div>
@@ -72,7 +72,7 @@
             @click="selectProduct('inter')"
           >
             <div class="buy-tokens-text-absolute" v-language:inner>buyTokens_most_popular</div>
-            <div>
+            <div class="buy-tokens-center-price-title">
               <span class="buy-tokens-points-num">{{products.inter.pts}}</span>&nbsp;
               <span v-language:inner>buyTokens_points</span>
             </div>
@@ -94,7 +94,7 @@
             :class="{'item-selected': selectedProduct === 'pro'}"
             @click="selectProduct('pro')"
           >
-            <div>
+            <div class="buy-tokens-center-price-title">
               <span class="buy-tokens-points-num">{{products.pro.pts}}</span>&nbsp;
               <span v-language:inner>buyTokens_points</span>
             </div>
