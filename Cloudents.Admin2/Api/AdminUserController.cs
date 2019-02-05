@@ -50,6 +50,23 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
+        
+        [HttpPost("cashOut/approve")]
+        public async Task<IActionResult> ApprovePost(ApproveCashOutRequest model, CancellationToken token)
+        {
+            var command = new ApproveCashOutCommand(model.TransactionId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("cashOut/decline")]
+        public async Task<IActionResult> DeclinePost(DeclineCashOutRequest model, CancellationToken token)
+        {
+            var command = new DeclineCashOutCommand(model.TransactionId, model.Reason);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
         /// <summary>
         /// Get a list of user that want to cash out
         /// </summary>
@@ -61,6 +78,7 @@ namespace Cloudents.Admin2.Api
             var query = new AdminEmptyQuery();
             return await _queryBus.QueryAsync<IEnumerable<CashOutDto>>(query, token);
         }
+        
 
         /// <summary>
         /// Suspend a user

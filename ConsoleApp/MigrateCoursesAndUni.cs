@@ -44,7 +44,7 @@ namespace ConsoleApp
 
             // Define request parameters.
             string spreadsheetId = "15HTW3DY9zpSubj6sDnCiF74sMe4kbZ9ksxlREEU4u6Q";
-            string range = "Courses!A2:D";
+            string range = "CoursesDelete!A2:D";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -109,7 +109,7 @@ namespace ConsoleApp
 
 
             String spreadsheetId2 = "15HTW3DY9zpSubj6sDnCiF74sMe4kbZ9ksxlREEU4u6Q";
-            String range2 = $"Courses!E{rowNumber}";  // update cell F5 
+            String range2 = $"CoursesDelete!E{rowNumber}";  // update cell F5 
             ValueRange valueRange = new ValueRange();
             valueRange.MajorDimension = "COLUMNS";//"ROWS";//COLUMNS
 
@@ -152,7 +152,7 @@ namespace ConsoleApp
 
             // Define request parameters.
             string spreadsheetId = "15HTW3DY9zpSubj6sDnCiF74sMe4kbZ9ksxlREEU4u6Q";
-            string range = "Uni ISL!A2:E";
+            string range = "UniDelete!A2:E";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -219,7 +219,7 @@ namespace ConsoleApp
 
 
             String spreadsheetId2 = "15HTW3DY9zpSubj6sDnCiF74sMe4kbZ9ksxlREEU4u6Q";
-            String range2 = $"Uni ISL!J{rowNumber}";  // update cell F5 
+            String range2 = $"UniDelete!J{rowNumber}";  // update cell F5 
             ValueRange valueRange = new ValueRange();
             valueRange.MajorDimension = "COLUMNS";//"ROWS";//COLUMNS
 

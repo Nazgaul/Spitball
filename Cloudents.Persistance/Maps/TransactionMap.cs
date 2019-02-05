@@ -19,7 +19,7 @@ namespace Cloudents.Persistance.Maps
             Map(z => z.Price).Not.Nullable().CustomSqlType("smallmoney");
 
             DiscriminateSubClassesOnColumn("TransactionType");
-            SchemaAction.None();
+            SchemaAction.Update();
         }
     }
 
@@ -28,6 +28,8 @@ namespace Cloudents.Persistance.Maps
         public CashOutTransactionMap()
         {
             DiscriminatorValue("CashOut");
+            Map(x => x.Approved).Column("Approved").Nullable();
+            Map(x => x.DeclinedReason).Column("DeclinedReason").Nullable();
         }
     }
 
