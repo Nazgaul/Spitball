@@ -6,9 +6,9 @@
             <section class="hero">
                 <div class="text-switch-container" v-show="isMobileView">
                     <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}"
-                       class="lp-header-link" @click="changeDictionaryType('learn')" v-language:inner>landingPage_header_learn_faster</a>
+                       class="lp-header-link" @click="changeUrlType('learn')" v-language:inner>landingPage_header_learn_faster</a>
                     <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}"
-                       class="lp-header-link" @click="changeDictionaryType('earn')" v-language:inner>landingPage_header_earn_money</a>
+                       class="lp-header-link" @click="changeUrlType('earn')" v-language:inner>landingPage_header_earn_money</a>
                 </div>
                 <div class="hero-wrap">
                     <div class="hero-text-container">
