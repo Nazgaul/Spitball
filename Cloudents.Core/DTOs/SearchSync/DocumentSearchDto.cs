@@ -22,7 +22,7 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string UniversityName { get; set; }
         public DateTime? DateTime { get; set; }
         public ItemState State { get; set; }
-        public DocumentType Type { get; set; }
+        public string Type { get; set; }
 
        
     }

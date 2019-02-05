@@ -162,7 +162,7 @@ namespace Cloudents.Web.Api
 
             model = model ?? new DocumentRequest();
             var query = new DocumentQuery(model.Course, profile, model.Term,
-                model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
+                model.Page.GetValueOrDefault(), model.Filter?.Where(w => !string.IsNullOrEmpty(w)));
 
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
@@ -205,7 +205,7 @@ namespace Cloudents.Web.Api
                 Filters = new IFilters[]
                 {
                     new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
-                        result.Facet.Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
+                        result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
                         //EnumExtension.GetValues<DocumentType>()
                         //    .Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
                         //    .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))

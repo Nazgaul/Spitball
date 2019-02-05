@@ -37,6 +37,7 @@ namespace Cloudents.Search
 
             builder.RegisterType<DocumentSearchWrite>().As<SearchServiceWrite<Entities.Document>>();
             builder.RegisterType<QuestionSearchWrite>().AsSelf();
+            builder.RegisterType<DocumentSearchWrite>().AsSelf();
             //builder.RegisterGeneric(typeof(SearchServiceWrite<>)).AsSelf();
             //var assembly = Assembly.GetExecutingAssembly();
             //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ISearchServiceWrite<>))

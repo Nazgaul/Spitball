@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -19,12 +20,26 @@ namespace Cloudents.Core.DTOs.SearchSync
         {
             get
             {
-                if (Text != null && Subject != null)
+                var arr = new List<string>();
+                if (Subject.HasValue)
                 {
-                    return new[] { Text }.Union(Subject.GetEnumLocalizationAllValues()).ToArray();
+                    if (System.Enum.IsDefined(typeof(QuestionSubject), Subject.Value))
+                    {
+                        arr.AddRange(Subject.GetEnumLocalizationAllValues());
+                    }
                 }
 
-                return null;
+                if (!string.IsNullOrEmpty(Text))
+                {
+                    arr.Add(Text);
+                }
+
+                if (arr.Count == 0)
+                {
+                    return null;
+                }
+
+                return arr.ToArray();
             }
         } //search
 
