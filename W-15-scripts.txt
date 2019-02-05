@@ -63,3 +63,4 @@ drop table sb.SystemEvent
 
 Alter table sb.question
 Alter column Subject_id int null
+Delete question version file
