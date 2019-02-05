@@ -106,8 +106,6 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         public async Task<ActionResult<CreateDocumentResponse>> CreateDocumentAsync([FromBody]CreateDocumentRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
-            [FromServices] IHubContext<SbHub> hubContext,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             CancellationToken token)
         {
@@ -121,23 +119,11 @@ namespace Cloudents.Web.Api
                 model.Course, model.Tags, userId, model.Professor, model.Price);
             await _commandBus.DispatchAsync(command, token);
 
-
-
             var url = Url.RouteUrl("ShortDocumentLink", new
             {
                 base62 = new Base62(command.Id).ToString()
             });
-
-            var localizerKey = score < Privileges.Post ? "CreatePending" : "CreateOk";
-            await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
-            {
-                new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
-                    {
-                        text = _localizer[localizerKey].Value
-                    }
-                )
-            }, token);
-            return new CreateDocumentResponse(url);
+            return new CreateDocumentResponse(url, score < Privileges.Post);
         }
 
 
