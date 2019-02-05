@@ -1,6 +1,6 @@
 <template>
     <v-card elevation="0"
-            :class="[ 'upload-component-wrap', 'mb-3' , $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
+            :class="[ 'upload-component-wrap', {'mb-3': $vuetify.breakpoint.smAndUp} , $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
         <div class="error-block" v-show="extensionErrror || uploadError">
             <div class="error-container">
                 <h3 class="error-title" v-show="extensionErrror"
@@ -321,8 +321,10 @@
             border-radius: 4px 4px 0 0;
             padding: 12px 16px;
             max-width: 318px;
+            max-height: 40px;
             @media (max-width: @screen-xs) {
                 flex-direction: column;
+                max-height: 100%;
             }
             .btn-holder {
                 display: flex;

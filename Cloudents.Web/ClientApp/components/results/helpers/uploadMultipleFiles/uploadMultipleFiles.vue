@@ -40,12 +40,10 @@
                                 ></v-select>
                             </v-flex>
                         </v-layout>
-                        <transition name="slide">
                             <upload-files-start
-                                    v-show="courseSelected && firstStep"
+                                    :class="[courseSelected && firstStep ? 'visibilityVisible' : 'visibilityHidden', {'slim': !firstStep}]"
                                     :curStep="n"
                                     :callBackmethods="callBackmethods"></upload-files-start>
-                        </transition>
                         <transition name="slide">
                             <uploadStep_2 v-show="n===2" :curStep="n" :callBackmethods="callBackmethods"></uploadStep_2>
                         </transition>
@@ -58,14 +56,9 @@
                                     :showError="showError"
                                     :errorText="errorText"></ulpoadStep_3>
                         </transition>
-                        <!--<component-->
-                        <!--v-if="!firstStep"-->
-                        <!--:is="`upload-step_${n}`"-->
-                        <!--:curStep="n"-->
-                        <!--:callBackmethods="callBackmethods"></component>-->
                     </v-stepper-content>
                 </v-stepper-items>
-                <v-stepper-header v-show="courseSelected" class="sb-stepper-header footer px-2">
+                <v-stepper-header v-show="courseSelected" class="sb-stepper-header footer px-2" :class="{'slim': firstStep || lastStep}">
                     <v-flex v-show="!firstStep && !lastStep">
                         <v-btn :loading="loading" class="upload-btn" :disabled="!isLoaded || disableBtn"
                                @click="sendDocumentData()">
