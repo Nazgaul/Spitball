@@ -3,7 +3,7 @@ import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import documentService from "../../../../services/documentService";
 import uploadFilesStart from "./helpers/uploadMultipleFileStart.vue";
 import uploadStep_2 from "./helpers/filesDetails.vue";
-import ulpoadStep_3 from"./helpers/documentReferral.vue"
+import ulpoadStep_3 from "./helpers/documentReferral.vue"
 import analyticsService from "../../../../services/analytics.service";
 import uploadService from "../../../../services/uploadService";
 import Base62 from "base62"
@@ -35,7 +35,12 @@ export default {
             courseSelected: '',
             nextStepCalled: false,
             loading: false,
-            disableBtn: false
+            disableBtn: false,
+            fileSnackbar:{
+                color: '',
+                uploadDoneMessage: '',
+                fileSnackbarColor: ''
+            }
         }
     },
 
@@ -57,7 +62,7 @@ export default {
         firstStep() {
             return this.currentStep === 1;
         },
-        lastStep(){
+        lastStep() {
             return this.currentStep === this.steps;
         },
         showUploadDialog() {
@@ -98,13 +103,13 @@ export default {
             this.loading = true;
             let docData = this.getFileData;
             let self = this;
-            docData.forEach((fileObj)=>{
+            docData.forEach((fileObj) => {
                 let serverFormattedObj = uploadService.createServerFileData(fileObj);
                 documentService.sendDocumentData(serverFormattedObj)
                     .then((resp) => {
                             if (resp.data.url) {
                                 let referralObj = {
-                                    itemName : fileObj.name || '',
+                                    itemName: fileObj.name || '',
                                     itemRefLink: `${global.location.origin}` + resp.data.url + "?referral=" +
                                     Base62.encode(self.accountUser.id) + "&promo=referral"
 
@@ -113,13 +118,19 @@ export default {
                             }
                             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
                             self.loading = false;
+                            self.fileSnackbar.visibility = true;
+                            // setTimeout(()=>{
+                            //     self.fileSnackbar = false;
+                            // }, 8000);
+                            self.fileSnackbar.uploadDoneMessage = 'Upload was succesful. you will be able to review it Shortly.'
+                            self.fileSnackbar.color = '#51ba6c';
                             self.goToNextStep()
                         },
                         (error) => {
-                        self.loading = false;
-                        self.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
-                        self.showError = true;
-                        self.disableBtn = true;
+                            self.loading = false;
+                            self.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
+                            self.showError = true;
+                            self.disableBtn = true;
                         });
             })
 
