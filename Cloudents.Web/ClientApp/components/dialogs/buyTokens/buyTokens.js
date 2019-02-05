@@ -112,9 +112,8 @@ export default {
             // Configure environment
             env: "sandbox",
             client: {
-              sandbox:
-                "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e"
-              // production: 'demo_production_client_id'
+              sandbox: "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
+              production: "AQ_i7yH6NyGmUeJtuVfrSwK_RSb8rydP2f5zkh5rqyF_qgq_mT_gakcFZUmgY7HF-6YvneG4xQlOEz4Q"
             },
             // Customize button (optional)
             locale: "en_US",
