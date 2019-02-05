@@ -79,8 +79,7 @@
                     :onclosefn="setUploadDialogState"
                     :activateOverlay="false"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
-                    :content-class="'upload-dialog'"
-            >
+                    :content-class="'upload-dialog'">
                 <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
             </sb-dialog>
 
