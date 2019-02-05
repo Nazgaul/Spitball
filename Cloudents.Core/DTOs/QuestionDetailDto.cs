@@ -50,7 +50,6 @@ namespace Cloudents.Core.DTOs
             User = user;
             Create = create;
             Vote = vote;
-            CultureInfo = culture;
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
         }
         //public QuestionDetailAnswerDto(Guid id,
@@ -82,7 +81,7 @@ namespace Cloudents.Core.DTOs
 
         public VoteDto Vote { get; set; }
 
-        public bool IsRtl { get; set }
+        public bool IsRtl { get; set; }
     }
 
        
