@@ -38,22 +38,22 @@
                 <span class="text-style" v-language:inner>referralDialog_share_with</span>
             </div>
             <div class="share-icon-container">
-                <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
-                    <v-icon class="referral-whatsup-icon">sbf-whats-up</v-icon>
-                                   </span>
                 <span @click="shareOnSocialMedia(socialMedias.facebook)">
-                    <v-icon class="referral-facebook-icon">sbf-facebook-share</v-icon>
+                    <facebookShare class="referral-facebook-icon"></facebookShare>
                 </span>
-                <span @click="shareOnSocialMedia(socialMedias.linkedin)">
-                    <v-icon  class="referral-linkedin-icon">sbf-linkedin-share</v-icon>
+                <!--<span @click="shareOnSocialMedia(socialMedias.linkedin)">-->
+                    <!--<v-icon  class="referral-linkedin-icon">sbf-linkedin-share</v-icon>-->
 
-                </span>
+                <!--</span>-->
                 <span @click="shareOnSocialMedia(socialMedias.twitter)">
-                    <v-icon class="referral-twitter-icon">sbf-twitter-share</v-icon>
+                    <tweeter-share class="referral-twitter-icon"></tweeter-share>
                 </span>
                 <span @click="shareOnSocialMedia(socialMedias.gmail)">
-                    <v-icon class="referral-gmail-icon">sbf-google-icon</v-icon>
+                    <google-share class="referral-gmail-icon" ></google-share>
                 </span>
+                <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
+                    <whatsup-share class="referral-whatsup-icon"></whatsup-share>
+                                   </span>
             </div>
              </div>
     </v-card>
@@ -65,9 +65,21 @@
     import Base62 from "base62"
     import { LanguageService } from '../../../../services/language/languageService'
     import {getReferallMessages}  from "./consts.js";
+    import facebookShare from '../../../../font-icon/facebook-share.svg';
+    import whatsupShare from '../../../../font-icon/whatsup-share.svg';
+    import googleShare from '../../../../font-icon/google-share.svg';
+    import tweeterShare from '../../../../font-icon/tweeter-share.svg';
+
 
     export default {
-        components: {SbInput},
+        components: {
+            SbInput,
+            facebookShare,
+            whatsupShare,
+            googleShare,
+            tweeterShare
+
+        },
         data() {
             return {
 
