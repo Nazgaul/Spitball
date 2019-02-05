@@ -376,7 +376,8 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-            await FunctionsExtensions.MergeUniversity(_container);
+            //await FunctionsExtensions.MergeCourses(_container);
+            //await FunctionsExtensions.MergeUniversity(_container);
 
             //var t = GoogleSheetsReader.Read();
             //DocumentClient dc = new DocumentClient(new Uri("https://spitball-dev.documents.azure.com:443/"), "i3mWvwEYwqa5HvGBrgBneTTaX9o56bX4K8WLPLHMN91DjXcE44r3lzI69BXPZUvfARhdGC1psvShqgzIAy0RkA==");

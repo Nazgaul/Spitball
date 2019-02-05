@@ -1,11 +1,13 @@
 import {mapGetters, mapActions} from 'vuex';
 import walletService from '../../../services/walletService';
 import {LanguageService} from '../../../services/language/languageService';
+import analyticsService from '../../../services/analytics.service';
 
 export default {
   data() {
     return {
       selectedProduct: null,
+      showOverlay: false,
       products:{
           currency: LanguageService.getValueByKey('buyTokens_currency'),
           basic:{
@@ -87,13 +89,20 @@ export default {
         }, (error)=>{
           //fallback will be called on app.vue create method.
           global.localStorage.setItem('sb_transactionError', transactionId);
+          this.updateToasterParams({
+            toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
+            showToaster: true,
+          });
           // global.location.reload();
           console.log(error);
+        }).finally(()=>{
+            this.showOverlay = false;  
         })
         // window.alert("Thank you for your purchase!");
     },
     mountPaypalButton() {
       if (this.paypalLoaded) {
+        analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", this.selectedProduct);
         //set price and currency according to the locale
         this.productsForPaypal[this.selectedProduct].price = this.products[this.selectedProduct].price;
         this.productsForPaypal[this.selectedProduct].currency = this.products[this.selectedProduct].currency;
@@ -143,6 +152,7 @@ export default {
               return actions.payment.execute().then((response)=> {
                 // Show a confirmation message to the buyer
                 let transactionId = response.id;
+                this.showOverlay = true;
                 this.reflectPaymentToServer(transactionId);
               });
             }
