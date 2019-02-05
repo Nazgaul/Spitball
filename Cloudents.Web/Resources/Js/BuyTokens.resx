@@ -120,6 +120,9 @@
   <data name="answer" xml:space="preserve">
     <value>Answer</value>
   </data>
+  <data name="buy_points_button" xml:space="preserve">
+    <value>Get points</value>
+  </data>
   <data name="choose" xml:space="preserve">
     <value>Choose</value>
   </data>
