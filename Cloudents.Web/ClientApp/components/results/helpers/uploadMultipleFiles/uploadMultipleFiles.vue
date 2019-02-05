@@ -7,11 +7,12 @@
                     <template>
                         <h2 v-show="$vuetify.breakpoint.smAndUp" class="sb-step-title" v-language:inner>
                             upload_multiple_files_header_title</h2>
-                            <div  v-show="!$vuetify.breakpoint.smAndUp"  style="width: 100%; display: flex; align-items: center; justify-content: center;">
-                                <v-icon class="col-blue mr-4">sbf-upload-cloud</v-icon>
-                                <span class="upload-subtitle col-blue"
-                                      v-language:inner>upload_multiple_label_icon_text</span>
-                            </div>
+                        <div v-show="!$vuetify.breakpoint.smAndUp"
+                             style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                            <v-icon class="col-blue mr-4">sbf-upload-cloud</v-icon>
+                            <span class="upload-subtitle col-blue"
+                                  v-language:inner>upload_multiple_label_icon_text</span>
+                        </div>
                     </template>
                 </v-stepper-header>
                 <v-stepper-items class="sb-stepper-item">
@@ -40,10 +41,10 @@
                                 ></v-select>
                             </v-flex>
                         </v-layout>
-                            <upload-files-start
-                                    :class="[courseSelected && firstStep ? 'visibilityVisible' : 'visibilityHidden', {'slim': !firstStep}]"
-                                    :curStep="n"
-                                    :callBackmethods="callBackmethods"></upload-files-start>
+                        <upload-files-start
+                                :class="[courseSelected && firstStep ? 'visibilityVisible' : 'visibilityHidden', {'slim': !firstStep}]"
+                                :curStep="n"
+                                :callBackmethods="callBackmethods"></upload-files-start>
                         <transition name="slide">
                             <uploadStep_2 v-show="n===2" :curStep="n" :callBackmethods="callBackmethods"></uploadStep_2>
                         </transition>
@@ -51,6 +52,7 @@
                             <ulpoadStep_3
                                     v-show="n===3"
                                     :curStep="n"
+                                    :fileSnackbar="fileSnackbar"
                                     :referralLinks="docReferral"
                                     :callBackmethods="callBackmethods"
                                     :showError="showError"
@@ -58,7 +60,8 @@
                         </transition>
                     </v-stepper-content>
                 </v-stepper-items>
-                <v-stepper-header v-show="courseSelected" class="sb-stepper-header footer px-2" :class="{'slim': firstStep || lastStep}">
+                <v-stepper-header v-show="courseSelected" class="sb-stepper-header footer px-2"
+                                  :class="{'slim': firstStep || lastStep}">
                     <v-flex v-show="!firstStep && !lastStep">
                         <v-btn :loading="loading" class="upload-btn" :disabled="!isLoaded || disableBtn"
                                @click="sendDocumentData()">
