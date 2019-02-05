@@ -7,12 +7,13 @@ namespace Cloudents.Core.Query
 {
     public class DocumentQuery
     {
-        public DocumentQuery(string[] course, UserProfile profile, string term, int page, IEnumerable<DocumentType> filters)
+        public DocumentQuery(string[] course, UserProfile profile, string term, int page,
+            IEnumerable<string> filters)
         {
             Course = course;
             Term = term;
             Page = page;
-            Filters = filters ?? Enumerable.Empty<DocumentType>();
+            Filters = filters ?? Enumerable.Empty<string>();
             Profile = profile;
         }
         public string[] Course { get; set; }
@@ -25,7 +26,7 @@ namespace Cloudents.Core.Query
 
         public int Page { get; }
 
-        public IEnumerable<DocumentType> Filters { get; }
+        public IEnumerable<string> Filters { get; }
 
     }
 }

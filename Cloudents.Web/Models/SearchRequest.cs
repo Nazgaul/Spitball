@@ -53,7 +53,7 @@ namespace Cloudents.Web.Models
         /// </summary>
         public string[] Course { get; set; }
 
-        public DocumentType?[] Filter { get; set; }
+        public string[] Filter { get; set; }
 
         /// <inheritdoc />
         /// <summary>

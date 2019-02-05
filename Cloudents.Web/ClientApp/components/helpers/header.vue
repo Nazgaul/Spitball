@@ -29,7 +29,7 @@
                                     <div class="header-wallet" v-if="loggedIn">
                                         <span class="bold">{{accountUser.balance | currencyLocalyFilter}}</span>
                                         <!-- <span>${{accountUser.balance | dollarVal}}</span> -->
-                                        <button class="setting-buysbl-button" :class="[{'red': accountUser.balance <= 300}, {'yellow': accountUser.balance > 300 && accountUser.balance <= 700}]" @click="openSblToken()">Buy SBL</button>
+                                        <button class="setting-buysbl-button" :class="[{'red': accountUser.balance <= 300}, {'yellow': accountUser.balance > 300 && accountUser.balance <= 700}]" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span>&nbsp;<span><v-icon>sbf-star-icon</v-icon></span></button>     
                                     </div>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
@@ -94,6 +94,7 @@
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
     import {LanguageService } from "../../services/language/languageService";
+    import analyticsService from "../../services/analytics.service";
 
     export default {
         components: {
@@ -189,6 +190,7 @@
 
             },
             openSblToken(){
+                analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
                 this.updateShowBuyDialog(true)
             },            
             

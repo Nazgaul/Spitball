@@ -32,7 +32,7 @@ namespace Cloudents.Query
                     User = new UserDto(s.User.Id, s.User.Name, s.User.Score),
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Name,
-                    TypeStr = s.Type,
+                    Type = s.Type,
                     Professor = s.Professor,
                     Title = s.Name,
                     Source = "Cloudents",

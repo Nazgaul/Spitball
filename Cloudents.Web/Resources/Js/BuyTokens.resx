@@ -117,46 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_continue" xml:space="preserve">
-    <value>Continue</value>
+  <data name="answer" xml:space="preserve">
+    <value>Answer</value>
   </data>
-  <data name="btn_finish" xml:space="preserve">
-    <value>Finish</value>
+  <data name="buy_points_button" xml:space="preserve">
+    <value>Get points</value>
   </data>
-  <data name="btn_skip" xml:space="preserve">
-    <value>Skip</value>
+  <data name="choose" xml:space="preserve">
+    <value>Choose</value>
   </data>
-  <data name="final_added" xml:space="preserve">
-    <value>You got</value>
+  <data name="currency" xml:space="preserve">
+    <value>$</value>
   </data>
-  <data name="final_away" xml:space="preserve">
-    <value>away from your first cashout!</value>
+  <data name="earn_answer" xml:space="preserve">
+    <value>Earn points by answering student quesitons</value>
   </data>
-  <data name="final_bottom_text" xml:space="preserve">
-    <value>Start and access documents from your class</value>
+  <data name="earn_invite" xml:space="preserve">
+    <value>Earn points by answering student quesitons</value>
   </data>
-  <data name="final_enter_wallet" xml:space="preserve">
-    <value>Start and access documents from your class</value>
+  <data name="earn_upload" xml:space="preserve">
+    <value>Upload Study Documents. Earn from every download</value>
   </data>
-  <data name="final_only" xml:space="preserve">
-    <value>You’re only</value>
+  <data name="get_points" xml:space="preserve">
+    <value>Get Points</value>
   </data>
-  <data name="final_title" xml:space="preserve">
-    <value>Jump right in!</value>
+  <data name="invite" xml:space="preserve">
+    <value>Invite</value>
   </data>
-  <data name="final_to_wallet" xml:space="preserve">
-    <value />
+  <data name="most_popular" xml:space="preserve">
+    <value>MOST POPULAR</value>
   </data>
-  <data name="how_text" xml:space="preserve">
-    <value>Every student can offer study resources to other students for free or for a fee.</value>
+  <data name="need_points" xml:space="preserve">
+    <value>Need points now?</value>
   </data>
-  <data name="how_title" xml:space="preserve">
-    <value>How does it work?</value>
+  <data name="per_point" xml:space="preserve">
+    <value>/point</value>
   </data>
-  <data name="welcome_text" xml:space="preserve">
-    <value>The community where students access study resources and learn from each other.</value>
+  <data name="points" xml:space="preserve">
+    <value>pts</value>
   </data>
-  <data name="welcome_title" xml:space="preserve">
-    <value>Welcome to Spitball</value>
+  <data name="secure_payment" xml:space="preserve">
+    <value>Secure Payment with</value>
+  </data>
+  <data name="success_transaction" xml:space="preserve">
+    <value>Purchase Success!</value>
+  </data>
+  <data name="upload" xml:space="preserve">
+    <value>Upload</value>
   </data>
 </root>
