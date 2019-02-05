@@ -66,7 +66,8 @@ namespace ConsoleApp
                     {
                         var z = await d.WithConnectionAsync(async f =>
                         {
-                            return await f.ExecuteAsync("delete from sb.Course where [Name] = @oldId;",
+                            return await f.ExecuteAsync(@"delete from sb.UsersCourses where CourseId = @oldId;
+                                                        delete from sb.Course where [Name] = @oldId;",
                                 new { oldId = item.Name });
 
                         }, token);
@@ -119,7 +120,8 @@ namespace ConsoleApp
                     {
                         var z = await d.WithConnectionAsync(async f =>
                         {
-                            return await f.ExecuteAsync("delete from sb.University where id =  @OldUni;",
+                            return await f.ExecuteAsync(@"update sb.[user] set UniversityId2 = null where UniversityId2 = @OldUni;
+                                                        delete from sb.University where id =  @OldUni;",
                                 new { OldUni = item.UniId });
 
                         }, token);
