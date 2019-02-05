@@ -117,7 +117,7 @@
                 <v-icon style="font-size: 20px;">sbf-lock-icon</v-icon>
               </span>
               <span v-language:inner>buyTokens_secure_payment</span>
-              <img src="./img/paypal-icon.png" style="vertical-align: middle;">
+              <img src="./img/paypal-icon.png" style="vertical-align: middle; pointer-events: none;">
             </div>
           </v-flex>
         </v-layout>
