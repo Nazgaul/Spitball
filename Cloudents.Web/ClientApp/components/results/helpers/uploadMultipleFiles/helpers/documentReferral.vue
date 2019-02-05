@@ -11,9 +11,9 @@
             </div>
         </v-flex>
         <v-layout justify-center align-center column class="mt-3">
-            <v-flex class="ref-title justify-center align-center flex mt-2 row"
+            <v-flex column class="ref-title justify-center align-center flex mt-2 row"
                     :class="{'column': $vuetify.breakpoint.xsOnly}">
-                <i class="five">
+                <i class="five mb-3">
                     <spreadOutLoudIcon style="width: 50px"></spreadOutLoudIcon>
                 </i>
                 <h3 class="sb-title" v-language:inner>upload_multiple_files_referral_title</h3>
@@ -94,6 +94,9 @@
     @import "../../../../../styles/mixin.less";
 
     .ref-card {
+        .sb-title{
+            font-size: 18px;
+        }
         .file-snack-bar{
             display: flex;
             width: 100%;
