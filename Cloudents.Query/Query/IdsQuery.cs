@@ -4,7 +4,7 @@ using Cloudents.Core.DTOs;
 namespace Cloudents.Query.Query
 {
     public class IdsQuery<T> :  
-        IQuery<IList<QuestionFeedDto>>,
+        IQuery<IEnumerable<QuestionFeedDto>>,
         IQuery<IList<DocumentFeedDto>>
     {
         public IdsQuery(IEnumerable<T> ids)

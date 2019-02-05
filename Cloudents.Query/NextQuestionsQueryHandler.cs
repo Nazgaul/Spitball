@@ -69,7 +69,7 @@ namespace Cloudents.Query
                     , Projections.Constant(0), Projections.Constant(1)
                     )).Asc
                 .ThenBy(Projections.SqlFunction("random_Order", NHibernateUtil.Guid)).Asc
-                .Take(3).ListAsync<QuestionFeedDto>(token).ConfigureAwait(false);
+                .Take(3).ListAsync<QuestionFeedDto>(token);
         }
     }
 }
