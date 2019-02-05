@@ -32,6 +32,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Query.Query;
 using Cloudents.Search.Question;
 
 namespace ConsoleApp
@@ -48,7 +50,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -118,16 +120,13 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
              //await UpdateQuestionIndex();
-             var t= _container.Resolve<ICommandBus>();
-             var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
-             await t.DispatchAsync(p, default);
+             //var t= _container.Resolve<ICommandBus>();
+             //var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
+             //await t.DispatchAsync(p, default);
 
             var bus = _container.Resolve<IQueryBus>();
-            var query2 = new SyncAzureQuery(0, 0);
-            var result = await bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query2, default);
-            query2 = new SyncAzureQuery(1, 0);
-
-            var result2 = await bus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(query2, default);
+            var query2 = new IdsQuery<long>(new [] { 2055L });
+            var result = await bus.QueryAsync<IEnumerable<QuestionFeedDto>>(query2, default);
         }
 
 
