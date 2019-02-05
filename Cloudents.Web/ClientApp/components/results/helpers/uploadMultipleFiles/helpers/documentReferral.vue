@@ -1,5 +1,5 @@
 <template>
-    <v-card elevation="0" class="mb-3 sb-step-card ref-card">
+    <v-card elevation="0" class="mb-3 sb-step-card ref-card" :class="{'mt-5': $vuetify.breakpoint.smAndUp}">
         <v-layout justify-center align-center column >
             <v-flex class="ref-title justify-center align-center flex mt-2 row" :class="{'column': $vuetify.breakpoint.xsOnly}">
                     <i class="five">
