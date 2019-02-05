@@ -32,17 +32,11 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Professor { get; set; }
 
-       
-
-
         [DataMember]
         public UserDto User { get; set; }
 
-        //[DataMember]
-        public DocumentType? TypeStr { get; set; }
-
         [DataMember]
-        public string Type => TypeStr?.ToString("G");
+        public string Type { get; set; }
 
         [DataMember]
         public int Pages { get; set; }
@@ -59,9 +53,5 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public bool IsPurchased { get; set; }
 
-        //[DataMember]
-        //public string Blob { get; set; }
-
-        //public string Type { get; set; }
     }
 }

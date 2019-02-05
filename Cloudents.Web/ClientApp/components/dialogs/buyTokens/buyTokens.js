@@ -1,6 +1,7 @@
 import {mapGetters, mapActions} from 'vuex';
 import walletService from '../../../services/walletService';
 import {LanguageService} from '../../../services/language/languageService';
+import analyticsService from '../../../services/analytics.service';
 
 export default {
   data() {
@@ -94,6 +95,7 @@ export default {
     },
     mountPaypalButton() {
       if (this.paypalLoaded) {
+        analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", this.selectedProduct);
         //set price and currency according to the locale
         this.productsForPaypal[this.selectedProduct].price = this.products[this.selectedProduct].price;
         this.productsForPaypal[this.selectedProduct].currency = this.products[this.selectedProduct].currency;

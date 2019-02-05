@@ -9,48 +9,32 @@ namespace Cloudents.Core.DTOs
     public class DocumentFeedWithFacetDto
     {
         public IEnumerable<DocumentFeedDto> Result { get; set; }
-        public IEnumerable<DocumentType> Facet { get; set; }
+        public IEnumerable<string> Facet { get; set; }
     }
-    [DataContract]
+
     public class DocumentFeedDto
     {
-        [DataMember]
         public long Id { get; set; }
-        [DataMember]
         public string University { get; set; }
-        [DataMember]
         public string Course { get; set; }
-        [DataMember]
         public string Snippet { get; set; }
-        [DataMember]
         public string Title { get; set; }
-        [DataMember]
         public string Professor { get; set; }
 
-        public DocumentType? TypeStr { get; set; }
-
-        [DataMember]
-        public string Type => TypeStr?.ToString("G");
-        [DataMember]
+        public string Type { get; set; }
         public UserDto User { get; set; }
-        [DataMember]
         public int? Views { get; set; }
 
-        [DataMember]
         public int? Downloads { get; set; }
 
-        [DataMember]
         public string Url { get; set; }
 
-        [DataMember]
         public string Source { get; set; }
 
-        [DataMember]
         public DateTime? DateTime { get; set; }
 
-        [DataMember] public VoteDto Vote { get; set; }
+         public VoteDto Vote { get; set; }
 
-        [DataMember]
         public decimal? Price { get; set; }
 
     }
