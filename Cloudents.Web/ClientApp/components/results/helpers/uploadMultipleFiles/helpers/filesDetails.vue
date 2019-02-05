@@ -23,7 +23,7 @@
                                   :class="[$vuetify.breakpoint.smAndUp ? 'mr-2': ' mt-3']"
                                   class="professor-input sb-field max-heigth-limit"></v-text-field>
                 </v-flex>
-                <v-flex md9 sm9 class="multiple-controls" style="display: flex; flex-grow: 0;" v-if="isMultiple">
+                <v-flex xs12 md9 sm9 class="multiple-controls" style="display: flex; flex-grow: 0;" v-if="isMultiple">
                     <v-flex xs12 sm6 md6>
                         <div :class="['all-wrap',  $vuetify.breakpoint.xsOnly ? 'mr-0 mt-3' : 'mr-1' ]">
                             <vue-numeric currency="SBL"
