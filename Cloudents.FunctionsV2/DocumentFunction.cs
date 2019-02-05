@@ -100,7 +100,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("DocumentSearchSync")]
-        public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *", RunOnStartup = true)]
+        public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *")]
             TimerInfo timer,
             [OrchestrationClient] DurableOrchestrationClient starter,
             ILogger log)
@@ -110,7 +110,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("DocumentDeleteOld")]
-        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *", RunOnStartup = true)] TimerInfo timer,
+        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *")] TimerInfo timer,
             [Blob("spitball-files/files")]CloudBlobDirectory directory,
             ILogger log,
             CancellationToken token)
