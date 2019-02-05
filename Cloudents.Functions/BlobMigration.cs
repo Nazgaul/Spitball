@@ -105,10 +105,10 @@ namespace Cloudents.Functions
 
         [FunctionName("BlobPreview-Queue")]
         public static async Task BlobPreviewQueueRun(
-            [QueueTrigger("generate-blob-preview")] string id,
+            [QueueTrigger("generate-blob-preview", Connection = "LocalStorage")] string id,
             [Inject] IFactoryProcessor factory,
-            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
-            [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
+            [Blob("spitball-files/files/{QueueTrigger}",Connection = "ProdStorage")]CloudBlobDirectory directory,
+            [Queue("generate-blob-preview-blur", Connection = "ProdStorage")] IAsyncCollector<string> collectorBlur,
             TraceWriter log, CancellationToken token)
 
         {
@@ -170,10 +170,7 @@ namespace Cloudents.Functions
                             Stream sr = null;
                             try
                             {
-                                //var z = Path.Combine(Path.GetTempPath(), id);
-                                //await myBlob.DownloadToFileAsync(z, FileMode.Create);
-                                //using (var ms = await myBlob.OpenReadAsync(token))
-                                //{
+                               
 
                                 f.Init(() =>
                                 {
@@ -181,11 +178,17 @@ namespace Cloudents.Functions
                                     sr = File.Open(z, FileMode.Open);
                                     return sr;
                                 });
-                                int pageCount;
+                                int pageCount = 0;
 
                                 const string blobTextName = "text.txt";
                                 if (segment.Results.FirstOrDefault(d =>
-                                        d.Uri.Segments.Last().StartsWith(blobTextName)) == null)
+                                        d.Uri.Segments.Last().StartsWith(blobTextName)) != null)
+                                {
+                                    var blob = directory.GetBlockBlobReference(blobTextName);
+                                    await blob.FetchAttributesAsync(token);
+                                    pageCount = int.Parse(blob.Metadata["PageCount"]);
+                                }
+                                if (pageCount == 0)
                                 {
                                     log.Info("Need to extract text and get page count");
                                     var (text, pagesCount) = f.ExtractMetaContent();
@@ -195,12 +198,6 @@ namespace Cloudents.Functions
                                     blob.Metadata["PageCount"] = pagesCount.ToString();
                                     await blob.UploadTextAsync(text ?? string.Empty, token);
                                     pageCount = pagesCount;
-                                }
-                                else
-                                {
-                                    var blob = directory.GetBlockBlobReference(blobTextName);
-                                    await blob.FetchAttributesAsync(token);
-                                    pageCount = int.Parse(blob.Metadata["PageCount"]);
                                 }
 
                                 if (pageCount != previewDelta.Count || previewDelta.Count == 0)
