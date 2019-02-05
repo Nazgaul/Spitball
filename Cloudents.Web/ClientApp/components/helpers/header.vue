@@ -94,6 +94,7 @@
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
     import {LanguageService } from "../../services/language/languageService";
+    import analyticsService from "../../services/analytics.service";
 
     export default {
         components: {
@@ -189,6 +190,7 @@
 
             },
             openSblToken(){
+                analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
                 this.updateShowBuyDialog(true)
             },            
             
