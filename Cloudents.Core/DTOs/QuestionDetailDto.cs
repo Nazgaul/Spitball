@@ -83,8 +83,4 @@ namespace Cloudents.Core.DTOs
 
         public bool IsRtl { get; set; }
     }
-
-       
-
-    }
 }
