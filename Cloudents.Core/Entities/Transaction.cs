@@ -251,7 +251,7 @@ namespace Cloudents.Core.Entities
         {
             InvitedUser = invitedUser;
             Action = TransactionActionType.ReferringUser;
-            this.Price = 10;
+            this.Price = 50;
             this.Type = TransactionType.Earned;
         }
 
