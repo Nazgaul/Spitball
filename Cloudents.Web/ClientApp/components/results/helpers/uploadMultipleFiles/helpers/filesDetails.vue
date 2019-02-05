@@ -23,9 +23,8 @@
                                   :class="[$vuetify.breakpoint.smAndUp ? 'mr-2': ' mt-3']"
                                   class="professor-input sb-field max-heigth-limit"></v-text-field>
                 </v-flex>
-                <div class="multiple-controls d-flex" v-if="isMultiple">
+                <v-flex md9 sm9 class="multiple-controls" style="display: flex; flex-grow: 0;" v-if="isMultiple">
                     <v-flex xs12 sm6 md6>
-
                         <div :class="['all-wrap',  $vuetify.breakpoint.xsOnly ? 'mr-0 mt-3' : 'mr-1' ]">
                             <vue-numeric currency="SBL"
                                          class="price-for-all"
@@ -48,7 +47,8 @@
                                     :items="docTypes"
                                     item-value="id"
                                     item-text="title"
-                                    :placeholder="placeholderTypeToAll"
+                                    hide-details
+                                    :label="placeholderTypeToAll"
                                     v-model="docType"
                                     solo
                                     :append-icon="'sbf-arrow-down'"></v-select>
@@ -57,7 +57,7 @@
                             </v-btn>
                         </div>
                     </v-flex>
-                </div>
+                </v-flex>
             </v-layout>
         </v-layout>
         <v-layout justify-start align-center column class="bottom-block py-3"
@@ -167,7 +167,12 @@
             border-radius: 4px;
             border: 1px solid @colorGreyNew;
             height: 48px;
+            /*max-width: 301px;*/
+            @media (max-width: @screen-xs) {
+                max-width: unset;
+            }
             .sb-field {
+
                 .v-input__slot {
                     border-right: none;
                     border-radius: 0 4px 0 4px;
