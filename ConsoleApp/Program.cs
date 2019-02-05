@@ -59,7 +59,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
@@ -124,7 +124,6 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
              await UpdateQuestionIndex();
-             //var t= _container.Resolve<ICommandBus>();
              //var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
              //await t.DispatchAsync(p, default);
 

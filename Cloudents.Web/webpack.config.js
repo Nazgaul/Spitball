@@ -52,6 +52,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)$/,
+
                     use: [
                         {
                             loader: "url-loader",
@@ -65,7 +66,7 @@ module.exports = (env) => {
                         {
                             loader: "image-webpack-loader",
                             options: {
-                                bypassOnDebug: false,
+                                bypassOnDebug: true,
                                 optipng: {
                                     enabled: true
                                 }
@@ -76,7 +77,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.js$/,
-                    loader: "babel-loader"
+                    loader: "babel-loader",
                 },
                 {
                     test: /\.vue$/,

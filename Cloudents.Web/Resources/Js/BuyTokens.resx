@@ -138,6 +138,9 @@
   <data name="earn_upload" xml:space="preserve">
     <value>Upload Study Documents. Earn from every download</value>
   </data>
+  <data name="failed_transaction" xml:space="preserve">
+    <value>Transaction failed please refresh the page!</value>
+  </data>
   <data name="get_points" xml:space="preserve">
     <value>Get Points</value>
   </data>
