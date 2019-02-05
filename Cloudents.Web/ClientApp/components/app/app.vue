@@ -75,7 +75,7 @@
                     :showDialog="getDialogState"
                     :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                     :popUpType="'uploadDialog'"
-                    :maxWidth="'966px'"
+                    :maxWidth="'852'"
                     :onclosefn="setUploadDialogState"
                     :activateOverlay="false"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
