@@ -1,5 +1,6 @@
 <template>
   <div class="buy-dialog-wrap">
+    <div class="buy-tokens-overlay" :class="{'visible': showOverlay}"></div>
     <div class="close-buy-dialog">
       <v-icon @click="closeModal">sbf-close</v-icon>
     </div>
