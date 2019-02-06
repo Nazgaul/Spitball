@@ -162,6 +162,7 @@
                 hideFooter: false,
                 showOnBoardGuide: true,
                 showBuyTokensDialog: false,
+                showUniSelect: false,
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
                     tourCallbacks: {
@@ -193,6 +194,7 @@
                 "StudyDocuments_isDataLoaded",
                 "getOnBoardState",
                 "getShowBuyDialog",
+                "getCurrentStep"
             ]),
             showFeed() {
                 if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
@@ -206,12 +208,6 @@
             },
             universitySelectPopup() {
                 return this.getShowSelectUniPopUpInterface;
-            },
-            showUniSelect() {
-                if (this.getShowSelectUniInterface) {
-                    this.tourTempClose();
-                }
-                return this.getShowSelectUniInterface;
             },
             showMarketingMobile() {
                 return this.$vuetify.breakpoint.smAndDown && this.showMarketingBox;
@@ -240,6 +236,21 @@
             });
         },
         watch: {
+            getShowSelectUniInterface(val){
+                let query = this.$route.query;
+                if (val) {
+                    this.tourTempClose();
+                    this.$router.push({'query':{
+                        ...query, 
+                        university: this.getCurrentStep,
+                    }})
+                }else{
+                    this.$router.push({'query':{
+                        ...query, 
+                        university: undefined,
+                    }})
+                }
+            },
             getShowToaster: function (val) {
                 if (val) {
                     var self = this;
@@ -289,9 +300,18 @@
                     }, 3000)
                 }
             },
-            $route: function () {
+            $route: function (val) {
                 this.tourTempClose();
                 this.openOnboardGuide();
+                if(!!val.query && !!val.query.university){
+                    if(val.query.university){
+                        this.showUniSelect = true;
+                    }else{
+                        this.showUniSelect = false;
+                    }
+                }else{
+                    this.showUniSelect = false;
+                }
             }
         },
         methods: {
@@ -303,7 +323,9 @@
                 "updateDialogState",
                 "setCookieAccepted",
                 "updateOnBoardState",
-                "updateShowBuyDialog"
+                "updateShowBuyDialog",
+                "updateCurrentStep",
+                "changeSelectUniState"
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
             onFooterStepChange() {
@@ -396,10 +418,11 @@
                 this.tryBuyTokens(transactionObjectError)
             }
             
-            
-            // setTimeout(()=>{
-            //     this.showBuyTokensDialog = true;
-            // }, 2000)
+            if(!!this.$route.query && !!this.$route.query.university){
+                this.updateCurrentStep(this.$route.query.university);
+                this.changeSelectUniState(true);
+                this.showUniSelect = true;                
+            }
         }
     };
 </script>
