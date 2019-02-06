@@ -26,7 +26,7 @@
                 <v-flex xs12 md9 sm9 class="multiple-controls" style="display: flex; flex-grow: 0;" v-if="isMultiple">
                     <v-flex xs12 sm6 md6>
                         <div :class="['all-wrap',  $vuetify.breakpoint.xsOnly ? 'mr-0 mt-3' : 'mr-1' ]">
-                            <vue-numeric currency="SBL"
+                            <vue-numeric  :currency="currentCurrency"
                                          class="price-for-all"
                                          :min="0"
                                          :precision="2"
@@ -88,6 +88,7 @@
                 profPlaceholder: LanguageService.getValueByKey("upload_multiple_professor_placeholder"),
                 emptySetToAll: LanguageService.getValueByKey("upload_multiple_placeholder_setAll"),
                 placeholderTypeToAll: LanguageService.getValueByKey("upload_multiple_placeholder_doctype_all"),
+                currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
                 someVal: '',
                 docTypes: documentTypes,
                 docType: '',
