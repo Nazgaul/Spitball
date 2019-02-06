@@ -29,6 +29,7 @@ namespace Cloudents.Core.DTOs.Admin
         public long Balance { get; set; }
         public bool IsActive { get; set; }
         public DateTime Joined { get; set; }
+        public bool WasSuspended { get; set; }
 
     }
 }
