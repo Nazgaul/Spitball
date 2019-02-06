@@ -1,5 +1,5 @@
 <template>
-    <v-card class="file-item-card mb-3">
+    <v-card class="file-item-card mb-3 elevation-0" :class="{'error-card': item.error}">
         <v-container :class="{'pr-3 pl-3 py-0': $vuetify.breakpoint.smAndUp}">
             <v-layout row class="py-3" v-bind="gridBreakpoint">
                 <v-flex xs12 sm7 md7 order-sm1 order-md1>
@@ -8,6 +8,10 @@
                                   v-model="item.name"
                                   :rules="[rules.required]"
                                   placeholder=""></v-text-field>
+                    <div class="error-card-error-msg" v-show="item.error">
+                        <span>{{item.error && item.errorText ? item.errorText : ''}}</span>
+                        <!--<span v-language:inner>upload_multiple_error_upload_single_file</span>-->
+                    </div>
                 </v-flex>
                 <v-flex xs12 sm7 md7 order-sm3 order-md3 :class="$vuetify.breakpoint.xsOnly ? 'mb-2' : ''">
                     <v-combobox class="sb-field sb-combo"
@@ -60,17 +64,15 @@
                             solo
                             :append-icon="'sbf-arrow-down'"></v-select>
                 </v-flex>
-                <v-icon v-if="quantity >1" class="delete-close-icon d-flex mt-3" @click="deleteFile()">sbf-close
+                <v-icon v-if="quantity >1 && !item.error" class="delete-close-icon d-flex mt-3" @click="deleteFile()">sbf-close
                 </v-icon>
             </v-layout>
             <v-progress-linear
-                    style="width: 100%; position: absolute; bottom:0; left:0;"
                     :height="'8px'"
                     :indeterminate="true"
-                    v-show="fileItem.progress !==100"
+                    v-show="fileItem.progress != 100"
                     :color="'#5cbbf6'"
-                    class="sb-steps-progress ma-0"
-            >
+                    class="sb-file-card-progress ma-0">
             </v-progress-linear>
         </v-container>
     </v-card>
@@ -184,7 +186,6 @@
 
 <style lang="less">
     @import '../../../../../styles/mixin.less';
-
     @uploadGreyBackground: rgba(68, 82, 252, 0.09);
     @chipActiveColor: #4452FC;
     .file-item-card {
@@ -194,6 +195,13 @@
         border-radius: 4px;
         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.23);
         background-color: @color-white;
+        &.error-card{
+                -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54) !important; //vuetify
+                -moz-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54)!important;
+                box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54)!important;
+
+
+        }
         @media (max-width: @screen-xs) {
             width: 100%;
             min-width: unset;
@@ -201,6 +209,42 @@
             &:last-child {
                 margin-bottom: 112px !important; //last child offset
             }
+        }
+        .error-card-error-msg{
+            position: absolute;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,.19);
+            background-color: #ff6565;
+            top: 70px;
+            left: 6px;
+            z-index: 1;
+            padding: 5px 18px;
+            border-radius: 4px;
+            font-family: Open Sans,sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: -.4px;
+            color: #fff;
+            &:after{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 0;
+                height: 0;
+                border: 8px solid transparent;
+                border-bottom-color: #ff6565;
+                border-top: 0;
+                margin-left: -20px;
+                margin-top: -8px;
+            }
+
+        }
+        .sb-file-card-progress{
+            width: 100%;
+            position: absolute;
+            bottom:0;
+            left:0;
+            z-index: 1;
         }
         .delete-close-icon {
             position: absolute;

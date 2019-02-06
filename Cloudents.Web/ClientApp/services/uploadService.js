@@ -12,7 +12,9 @@ function FileData(ObjInit){
         this.price = ObjInit.price || '';
         this.progress = ObjInit.progress || 100;
         this.link  = ObjInit.link || '';
-        this.size  = ObjInit.bytes || 0
+        this.size  = ObjInit.bytes || 0;
+        this.error = ObjInit.error || false;
+        this.errorText = ObjInit.errorText || ''
 }
 
 

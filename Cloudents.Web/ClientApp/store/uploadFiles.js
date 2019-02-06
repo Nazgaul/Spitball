@@ -60,6 +60,13 @@ const mutations = {
     updateBlobName(state, fileIdName){
         let  objIndex =  state.fileData.findIndex((obj => obj.id === fileIdName.id));
         state.fileData[objIndex].blobName = fileIdName.blobName;
+    },
+    updateErrorByID(state, fileInfo){
+        let  objIndex =  state.fileData.findIndex((obj => obj.id === fileInfo.id));
+        state.fileData[objIndex].error = fileInfo.error;
+        state.fileData[objIndex].errorText = fileInfo.errorText;
+        // Update progress to enable Upload button
+        state.fileData[objIndex].progress = 100;
 
     }
 
@@ -73,6 +80,9 @@ const getters = {
 const actions = {
     deleteFileByIndex({commit}, index){
         commit('deleteFileByIndex', index)
+    },
+    updateFileErrorById({commit}, fileInfo){
+        commit('updateErrorByID', fileInfo)
     },
     changeFileByIndex({commit}, fileObj){
         commit('updateFileByIndex', fileObj)
