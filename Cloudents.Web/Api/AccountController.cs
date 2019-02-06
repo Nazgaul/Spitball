@@ -155,6 +155,13 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
+        [HttpGet("{id}/referrals")]
+        public async Task<UserReferralsDto> GetReferrals(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserReferralsQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
+        }
 
     }
 }
