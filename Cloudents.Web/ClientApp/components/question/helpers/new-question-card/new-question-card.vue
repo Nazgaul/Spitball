@@ -61,10 +61,10 @@
                 <div class="question-right-body-container">
                     <div class="question-body-header-container">
                         <span class="question-subject">{{cardData.course ? cardData.course : cardData.subject}}</span>
-                        <!-- <span class="question-course"> 
-                            <span v-show="!!cardData.subject" class="dot"></span>  
+                        <span v-show="!!cardData.course && !!cardData.subject" class="question-course"> 
+                            <span class="dot"></span>  
                             <span class="">{{cardData.subject}}</span> 
-                        </span> -->
+                        </span>
                     </div>
                     <div
                             class="question-body-content-container"
