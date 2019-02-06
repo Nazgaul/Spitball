@@ -45,7 +45,7 @@
                                 item-value="itemRefLink"
                                 item-text="itemName"
                                 @change="clearCopied()"
-                                class="sb-field elevation-0"
+                                class="sb-field select-referral elevation-0"
                                 hide-details
                                 :prepend-icon="''"
                                 :placeholder="referralSelectPlace"
