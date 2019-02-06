@@ -113,9 +113,9 @@ namespace Cloudents.Query
 
                     var questionDetailDto = new QuestionDetailDto
                     {
-                        User = { Id = res.UserId, Name = res.UserName, Score = res.UserScore },
+                        User = new UserDto { Id = res.UserId, Name = res.UserName, Score = res.UserScore },
                         Course = res.Course,
-                        Vote = { Votes = res.Votes },
+                        Vote = new VoteDto { Votes = res.Votes },
                         Price = res.Price,
                         Id = res.Id,
                         Subject = res.Subject,

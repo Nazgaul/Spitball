@@ -68,7 +68,7 @@ namespace ConsoleApp
                     "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8",
                     true)
             };
-
+            
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -377,6 +377,33 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
+
+            var queryBus = _container.Resolve<IQueryBus>();
+            var retValTask = await queryBus.QueryAsync(new QuestionDataByIdQuery(2041L), token);
+
+            /* var f = new WordProcessor();
+
+             var z = @"C:\NewFolder\a.docx";
+             Stream sr = null;
+
+             f.Init(() =>
+             {
+                 sr = File.Open(z, FileMode.Open);
+                 return sr;
+             });
+
+             await f.ProcessFilesAsync(new List<int>() { 1, 2 }, (stream, previewName) =>
+             {
+
+                 stream.Seek(0, SeekOrigin.Begin);
+                 using (System.IO.FileStream output = new System.IO.FileStream($@"C:\NewFolder\{previewName}", FileMode.Create))
+                 {
+                     stream.CopyTo(output);
+                 }
+
+                 return Task.CompletedTask;
+             }, token);
+             */
             //await FunctionsExtensions.MergeCourses(_container);
             //await FunctionsExtensions.MergeUniversity(_container);
 
