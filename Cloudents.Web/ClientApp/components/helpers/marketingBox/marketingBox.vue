@@ -21,6 +21,7 @@
     import referralDialog from "../../question/helpers/referralDialog/referral-dialog.vue";
     import Base62 from "base62"
     import SbDialog from "../../wrappers/sb-dialog/sb-dialog.vue"
+    import analyticsService from '../../../services/analytics.service'
 
     export default {
         name: "marketingBox",
@@ -84,6 +85,11 @@
                 this.showReferral = false
             },
             promotionOpen() {
+                if(this.isLogedIn){
+                    analyticsService.sb_unitedEvent('MARKETING_BOX', 'REFER_FRIEND');
+                }else{
+                    analyticsService.sb_unitedEvent('MARKETING_BOX', 'UPLOAD_DOC');
+                }
                 return this.isLogedIn ? this.openRefDialog() : this.goToRegister();
             },
             goToRegister(){

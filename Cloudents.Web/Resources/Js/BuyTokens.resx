@@ -130,10 +130,10 @@
     <value>$</value>
   </data>
   <data name="earn_answer" xml:space="preserve">
-    <value>Earn points by answering student quesitons</value>
+    <value>Earn points by answering student questions</value>
   </data>
   <data name="earn_invite" xml:space="preserve">
-    <value>Earn points by answering student quesitons</value>
+    <value>Earn points by answering student questions</value>
   </data>
   <data name="earn_upload" xml:space="preserve">
     <value>Upload Study Documents. Earn from every download</value>
