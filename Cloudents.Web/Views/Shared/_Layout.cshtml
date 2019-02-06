@@ -103,21 +103,21 @@
     </environment>
 
 
-   
-<script>
+
+    <script>
     window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(4)';
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @isAuth.ToString().ToLower();
     window.talkJsId = '@Configuration["TalkJs"]';
+        window.paypalEnv = '@(Environment.IsProduction() ? "production" : "sandbox")';
 
-   
     @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@
     </script>
-@await Component.InvokeAsync("Country")
-    @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
+    @await Component.InvokeAsync("Country")
+    @await RenderSectionAsync("scripts", required: false)
 
 
-<script async>
+    <script async>
         (function () {
             window.intercomSettings = {
                 app_id: "njmpgayv",
@@ -133,8 +133,8 @@
             //Intercom('boot', { app_id: 'njmpgayv' })
         })()
     </script>
-@*Begin Inspectlet Embed Code *@
-<script type="text/javascript" id="inspectletjs">
+    @*Begin Inspectlet Embed Code *@
+    <script type="text/javascript" id="inspectletjs">
         (function () {
             window.__insp = window.__insp || [];
                 __insp.push(['wid', 348650174]);
@@ -146,8 +146,8 @@
             setTimeout(ldinsp, 0);
         })();
     </script>
-@* End Inspectlet Embed Code *@
-<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    @* End Inspectlet Embed Code *@
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
 
 </body>
 </html>
