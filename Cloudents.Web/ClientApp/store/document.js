@@ -56,7 +56,7 @@ const actions = {
             return documentService.purchaseDocument(id)
             .then((resp) => {
                     console.log('purchased success', resp);
-                    analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED');
+                    analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED', item.price);
                     dispatch('setDocumentPreview', item);
                 },
                 (error) => {
