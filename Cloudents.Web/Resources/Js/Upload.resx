@@ -149,7 +149,7 @@
     <comment>Ram Change</comment>
   </data>
   <data name="multiple_confirm_btn_cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Resume upload</value>
   </data>
   <data name="multiple_confirm_btn_close" xml:space="preserve">
     <value>Close and stop upload</value>
