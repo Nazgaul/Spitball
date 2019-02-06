@@ -7,7 +7,8 @@ function AccountUser(ObjInit){
     this.name= ObjInit.name
     this.token= ObjInit.token
     this.universityExists= ObjInit.universityExists
-    this.score = ObjInit.score
+    this.score = ObjInit.score;
+
 }
 
 function profileUserData(objInit){
@@ -50,6 +51,9 @@ export default {
     },
     getProfile:(id) => {
         return connectivityModule.http.get(`/Profile/${id}`)
+    },
+    getNumberReffered:(id) => {
+        return connectivityModule.http.get(`/Account/${id}/referrals`)
     },
     getProfileQuestions:(id, page) => {
         let strPage = page ? `?page=${page}` : "";

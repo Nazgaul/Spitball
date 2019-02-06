@@ -1,21 +1,21 @@
 import Talk from "talkjs";
 import accountService from "../services/accountService"
-import {debug} from "util";
-import {dollarCalculate} from "./constants";
+import { debug } from "util";
+import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service'
 import profileService from "../services/profile/profileService"
 import reputationService from '../services/reputationService'
 import initSignalRService from '../services/signalR/signalrEventService'
 
 
-function setIntercomSettings(data){
+function setIntercomSettings(data) {
     let app_id = "njmpgayv";
     let hide_default_launcher = global.innerWidth < 600 ? true : intercomSettings.hide_default_launcher;
     let user_id = null;
     let user_name = null;
     let user_email = null;
-    
-    if(!!data){
+
+    if (!!data) {
         user_id = "Sb_" + data.id;
         user_name = data.name;
         user_email = data.email;
@@ -31,11 +31,11 @@ function setIntercomSettings(data){
     global.Intercom('boot', {intercomSettings});
 }
 
-function removeIntercomeData(){
+function removeIntercomeData() {
     global.Intercom('shutdown');
 }
 
-function setIntercomeData(data){
+function setIntercomeData(data) {
     //do not set intercome setting for mobile because no intercome should be on mobile case 10850
     // if(global.innerWidth > 600){
     //     setIntercomSettings(data)
@@ -53,26 +53,27 @@ const state = {
     fromPath: null,
     lastActiveRoute: null,
     profileData: profileService.getProfileData('profileGeneral'),
-    profile: null
+    profile: null,
+    usersReferred: 0
 }
 const mutations = {
-    setProfile(state, val){
+    setProfile(state, val) {
         state.profile = val;
     },
-    setProfileQuestions(state, val){
+    setProfileQuestions(state, val) {
         state.profile.questions = val;
     },
 
-    setProfileAnswers(state, val){
+    setProfileAnswers(state, val) {
         state.profile.answers = val;
     },
-    setPorfileDocuments(state, val){
+    setPorfileDocuments(state, val) {
         state.profile.documents = val;
     },
-    setPorfilePurchasedDocuments(state, val){
+    setPorfilePurchasedDocuments(state, val) {
         state.profile.purchasedDocuments = val;
     },
-    resetProfile(state){
+    resetProfile(state) {
         state.profile = null;
     },
     changeLoginStatus(state, val) {
@@ -98,61 +99,65 @@ const mutations = {
     updateFromPath(state, val) {
         state.fromPath = val;
     },
-    setLastActiveRoute(state, val){
+    setLastActiveRoute(state, val) {
         state.lastActiveRoute = val;
     },
     UPDATE_PROFILE_DATA(state, data) {
         state.profileData = data;
     },
-    updateProfileVote(state, {id, type}){
-        if(!!state.profile){
-            state.profile.questions.forEach(question=>{
-                if(question.id === id){
+    updateProfileVote(state, {id, type}) {
+        if (!!state.profile) {
+            state.profile.questions.forEach(question => {
+                if (question.id === id) {
                     reputationService.updateVoteCounter(question, type)
                 }
             })
-            state.profile.answers.forEach(question=>{
-                if(question.id === id){
+            state.profile.answers.forEach(question => {
+                if (question.id === id) {
                     reputationService.updateVoteCounter(question, type)
                 }
             })
-            state.profile.documents.forEach(question=>{
-                if(question.id === id){
+            state.profile.documents.forEach(question => {
+                if (question.id === id) {
                     reputationService.updateVoteCounter(question, type)
                 }
             })
-            state.profile.purchasedDocuments.forEach(question=>{
-                if(question.id === id){
+            state.profile.purchasedDocuments.forEach(question => {
+                if (question.id === id) {
                     reputationService.updateVoteCounter(question, type)
                 }
             })
 
         }
     },
-    deleteItemFromProfile(state, {id, type}){
-        if(!!state.profile){
-            state.profile.questions.forEach((item, index)=>{
-                if(item.id === id){
+    deleteItemFromProfile(state, {id, type}) {
+        if (!!state.profile) {
+            state.profile.questions.forEach((item, index) => {
+                if (item.id === id) {
                     state.profile.questions.splice(index, 1)
                 }
             });
-            state.profile.answers.forEach((item, index)=>{
-                if(item.id === id){
+            state.profile.answers.forEach((item, index) => {
+                if (item.id === id) {
                     state.profile.answers.splice(index, 1)
                 }
             });
-            state.profile.documents.forEach((item, index)=>{
-                if(item.id === id){
+            state.profile.documents.forEach((item, index) => {
+                if (item.id === id) {
                     state.profile.documents.splice(index, 1)
                 }
             });
-            state.profile.purchasedDocuments.forEach((item, index)=>{
-                if(item.id === id){
+            state.profile.purchasedDocuments.forEach((item, index) => {
+                if (item.id === id) {
                     state.profile.purchasedDocuments.splice(index, 1)
                 }
             })
 
+
         }
+    },
+    setRefferedNumber(state, data) {
+        state.usersReferred = data;
     }
 };
 
@@ -164,6 +169,7 @@ const getters = {
     isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
+    usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         console.log("user");
         return state.user
@@ -171,50 +177,61 @@ const getters = {
     lastActiveRoute: state => state.lastActiveRoute,
     getProfileData: state => state.profileData,
     getUniversity: state => {
-        if(!!state.user && !!state.user.universityExists){
+        if (!!state.user && !!state.user.universityExists) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 };
 
 const actions = {
-    syncProfile(context, {id, activeTab}){
+    syncProfile(context, {id, activeTab}) {
         //fetch all the data before returning the value to the component
-       accountService.getProfile(id).then(val=>{
-        let profileUserData = accountService.createUserProfileData(val);
-        context.commit('setProfile', profileUserData)
-        context.dispatch('setProfileByActiveTab', activeTab)
-       });
+        accountService.getProfile(id).then(val => {
+            let profileUserData = accountService.createUserProfileData(val);
+            context.commit('setProfile', profileUserData)
+            context.dispatch('setProfileByActiveTab', activeTab)
+        });
     },
-    setProfileByActiveTab(context, activeTab){
-        if(!!context.state.profile && !!context.state.profile.user){
+    getRefferedUsersNum(context, id) {
+        accountService.getNumberReffered(id)
+            .then((data) => {
+                    let refNumber = data.referrals ? data.referrals : 0;
+                    context.commit('setRefferedNumber', refNumber)
+                },
+                (error) => {
+                    console.error(error)
+                }
+            )
+    },
+    setProfileByActiveTab(context, activeTab) {
+        if (!!context.state.profile && !!context.state.profile.user) {
             let id = context.state.profile.user.id;
-        
-            if(activeTab=== 1){
+
+            if (activeTab === 1) {
                 let p1 = accountService.getProfile(id);
                 let p2 = accountService.getProfileQuestions(id);
-                return Promise.all([p1,p2]).then((vals)=>{
+                return Promise.all([p1, p2]).then((vals) => {
                     console.log(vals)
                     let profileData = accountService.createProfileQuestionData(vals);
                     context.commit('setProfileQuestions', profileData)
                 });
             }
-            if(activeTab === 2){
-                return accountService.getProfileAnswers(id).then(vals=>{
+            if (activeTab === 2) {
+                return accountService.getProfileAnswers(id).then(vals => {
                     let answers = accountService.createProfileAnswerData(vals);
                     context.commit('setProfileAnswers', answers)
                 });
             }
-            if(activeTab === 3){
-                return accountService.getProfileDocuments(id).then(vals=>{
+            if (activeTab === 3) {
+                return accountService.getProfileDocuments(id).then(vals => {
                     let documents = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfileDocuments', documents);
                 });
             }
-            if(activeTab === 4){
-                return accountService.getProfilePurchasedDocuments(id).then(vals=>{
+            if (activeTab === 4) {
+                return accountService.getProfilePurchasedDocuments(id).then(vals => {
                     let purchasedDocuments = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
                 });
@@ -222,64 +239,64 @@ const actions = {
         }
         console.log(activeTab)
     },
-    removeItemFromProfile({commit}, data){
+    removeItemFromProfile({commit}, data) {
         commit('deleteItemFromProfile', data)
     },
-    resetProfileData(context){
+    resetProfileData(context) {
         context.commit('resetProfile')
     },
-    getAnswers(context, answersInfo){
+    getAnswers(context, answersInfo) {
         let id = answersInfo.id
         let page = answersInfo.page;
-        return accountService.getProfileAnswers(id, page).then(({data})=>{
+        return accountService.getProfileAnswers(id, page).then(({data}) => {
             let maximumElementsRecivedFromServer = 50;
-            if(data.length > 0){
-               data.forEach(answer=>{
-                   //create answer Object and push it to the state
+            if (data.length > 0) {
+                data.forEach(answer => {
+                    //create answer Object and push it to the state
                     let answerToPush = {
                         ...answer,
                         filesNum: answer.files,
                     }
                     context.state.profile.answers.push(answerToPush);
-               }) 
+                })
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
-        }, (err)=>{
+        }, (err) => {
             return false;
         });
     },
-    getQuestions(context, questionsInfo){
+    getQuestions(context, questionsInfo) {
         let id = questionsInfo.id
         let page = questionsInfo.page;
         let user = questionsInfo.user;
-        return accountService.getProfileQuestions(id, page).then(({data})=>{
+        return accountService.getProfileQuestions(id, page).then(({data}) => {
             let maximumElementsRecivedFromServer = 50;
-            if(data.length > 0){
-               data.forEach(question=>{
-                   //create answer Object and push it to the state
+            if (data.length > 0) {
+                data.forEach(question => {
+                    //create answer Object and push it to the state
                     let questionToPush = {
                         ...question,
                         user: user,
                         filesNum: question.files,
                     }
                     context.state.profile.questions.push(questionToPush);
-               }) 
+                })
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
-        }, (err)=>{
+        }, (err) => {
             return false;
         });
     },
-    getDocuments(context, DocumentsInfo){
+    getDocuments(context, DocumentsInfo) {
         let id = DocumentsInfo.id;
         let page = DocumentsInfo.page;
         let user = DocumentsInfo.user;
-        return accountService.getProfileDocuments(id, page).then(({data})=>{
+        return accountService.getProfileDocuments(id, page).then(({data}) => {
             let maximumElementsRecivedFromServer = 50;
-            if(data.length > 0){
-                data.forEach(document=>{
+            if (data.length > 0) {
+                data.forEach(document => {
                     //create answer Object and push it to the state
                     let documentToPush = {
                         ...document,
@@ -290,18 +307,18 @@ const actions = {
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
-        }, (err)=>{
+        }, (err) => {
             return false;
         });
     },
-    getPurchasedDocuments(context, DocumentsInfo){
+    getPurchasedDocuments(context, DocumentsInfo) {
         let id = DocumentsInfo.id;
         let page = DocumentsInfo.page;
         let user = DocumentsInfo.user;
-        return accountService.getProfilePurchasedDocuments(id, page).then(({data})=>{
+        return accountService.getProfilePurchasedDocuments(id, page).then(({data}) => {
             let maximumElementsRecivedFromServer = 50;
-            if(data.length > 0){
-                data.forEach(document=>{
+            if (data.length > 0) {
+                data.forEach(document => {
                     //create answer Object and push it to the state
                     let documentToPush = {
                         ...document,
@@ -312,13 +329,13 @@ const actions = {
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
-        }, (err)=>{
+        }, (err) => {
             return false;
         });
     },
-    updateUserProfileData(context, name){
+    updateUserProfileData(context, name) {
         let currentProfile = profileService.getProfileData(name);
-        context.commit("UPDATE_PROFILE_DATA", currentProfile );
+        context.commit("UPDATE_PROFILE_DATA", currentProfile);
 
     },
     logout({state, commit}) {
@@ -327,7 +344,7 @@ const actions = {
         global.location.replace("/logout");
 
     },
-    changeLastActiveRoute({commit}, route){
+    changeLastActiveRoute({commit}, route) {
         commit("setLastActiveRoute", route)
     },
     userStatus({dispatch, commit, getters}, {isRequire, to}) {
@@ -348,14 +365,14 @@ const actions = {
                 setIntercomeData()
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
-                
+
             });
-        }else{
+        } else {
             removeIntercomeData();
             setIntercomeData();
         }
     },
-    saveCurrentPathOnPageChange({commit}, {currentRoute}){
+    saveCurrentPathOnPageChange({commit}, {currentRoute}) {
         commit("updateFromPath", currentRoute);
     },
     connectToChat({state, commit}) {
@@ -399,11 +416,11 @@ const actions = {
         // debugger
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
     },
-    
-    signalR_SetBalance({commit, state}, newBalance){
+
+    signalR_SetBalance({commit, state}, newBalance) {
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)})
     },
-    profileVote({commit}, data){
+    profileVote({commit}, data) {
         commit('updateProfileVote', data);
     }
 };

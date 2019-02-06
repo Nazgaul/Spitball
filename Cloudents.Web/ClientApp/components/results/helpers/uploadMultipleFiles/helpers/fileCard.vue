@@ -42,7 +42,7 @@
                     </v-combobox>
                 </v-flex>
                 <v-flex xs6 sm5 md5 order-sm2 order-md2 :class="$vuetify.breakpoint.xsOnly ? 'pr-1' : ''">
-                    <vue-numeric currency="SBL"
+                    <vue-numeric :currency="currentCurrency"
                                  :placeholder="emptyPricePlaceholder"
                                  class="numeric-input px-2"
                                  :min="1"
@@ -93,6 +93,7 @@
                 emptyPricePlaceholder: LanguageService.getValueByKey("upload_multiple_price_placeholder"),
                 placeholderTags: LanguageService.getValueByKey("upload_multiple_keywords_optional"),
                 placeholderDocType: LanguageService.getValueByKey("upload_multiple_select_filetype"),
+                currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
                 price: 0,
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
