@@ -126,8 +126,17 @@
   <data name="copy_link" xml:space="preserve">
     <value>Copy Link</value>
   </data>
+  <data name="dialog_bottom_text" xml:space="preserve">
+    <value>The more classmates you get on Spitball, the better everyone’s grades will be!</value>
+  </data>
+  <data name="dialog_friends_joined" xml:space="preserve">
+    <value>invited friends have joined</value>
+  </data>
+  <data name="dialog_subtitle" xml:space="preserve">
+    <value>Give 150 points to classmates and earn 50 points for each one that joins</value>
+  </data>
   <data name="dialog_title_invite" xml:space="preserve">
-    <value>&lt;b&gt;Invite a friend&lt;/b&gt; and &lt;b&gt;Earn&lt;/b&gt; for each referral &lt;b&gt;10 Points.&lt;/b&gt;</value>
+    <value>Spread the Word at</value>
   </data>
   <data name="get_document_text" xml:space="preserve">
     <value>Click this link to have a look, I am certain it will worth your while and help you in your studying!</value>

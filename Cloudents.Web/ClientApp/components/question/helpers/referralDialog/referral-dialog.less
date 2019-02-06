@@ -18,7 +18,7 @@
         letter-spacing: -0.7px;
         color: @textColor;
         @media (max-width: @screen-xs) {
-        max-width: 292px;
+          max-width: 292px;
         }
       }
       &.bg-greyed {
@@ -35,16 +35,17 @@
     vertical-align: middle;
     margin: 0 auto;
     width: 100%;
+    order: 2;
     @media (max-width: @screen-xs) {
       margin-left: 0 !important;
-      h2{
+      h2 {
         font-size: 35px !important;
       }
     }
     .link-container {
       width: 100%;
-      max-width: 426px;
-      margin-top: 24px;
+      max-width: 372px;
+      margin-top: 16px;
       display: flex;
       flex-direction: row;
       .referral-input {
@@ -71,22 +72,25 @@
     font-weight: 600;
   }
   .share-icon-container {
-     display: flex;
-    max-width: 346px;
+    order: 1;
+    display: flex;
+    max-width: 372px;
     width: 100%;
     justify-content: space-around;
     flex-direction: row;
     padding-top: 24px;
-      @media (max-width: @screen-xs) {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
+    @media (max-width: @screen-xs) {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-around;
 
     }
 
     span {
       cursor: pointer;
+      width: 86px;
+      height: 24px;
     }
     .referral-whatsup-icon {
       color: rgb(76, 175, 80);
@@ -124,7 +128,7 @@
 
   .copied {
     background-color: #4caf50;
-    .copy-check-icon{
+    .copy-check-icon {
       color: @color-white;
     }
 
