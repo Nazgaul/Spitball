@@ -35,7 +35,8 @@ namespace Cloudents.Infrastructure.Framework
         {
             var t = _doc.Value;
             var txt = ExtractPdfText(t);
-            return (txt , t.Pages.Count - 1);
+            var z = t.Pages;
+            return (txt , t.Pages.Count);
         }
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
@@ -45,7 +46,7 @@ namespace Cloudents.Infrastructure.Framework
             var jpegDevice = new JpegDevice(resolution, 90);
             var t = new List<Task>();
             var doc = _doc.Value;
-            var diff = Enumerable.Range(0, doc.Pages.Count - 1);
+            var diff = Enumerable.Range(0, doc.Pages.Count);
             diff = diff.Except(previewDelta);
             foreach (int item in diff)
             {

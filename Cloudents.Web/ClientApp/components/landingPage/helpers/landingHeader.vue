@@ -85,8 +85,16 @@
             ]),
             ...mapGetters(["getDictionaryPrefixEnum"]),
             changeDictionaryType(val) {
-                this.scrollTop();
-                this.switchLandingPageText(val);
+                // this.scrollTop();
+                // this.switchLandingPageText(val);
+                if(val === 'earn'){
+                    let typeObj = {
+                    type: val
+                }
+                this.$router.push({query: typeObj})
+                }else{
+                    this.$router.push({query: ``})
+                }
             },
             scrollTop(){
                 setTimeout(()=>{

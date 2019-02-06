@@ -121,7 +121,18 @@ export default {
             if (this.searchUni === "") {
                 this.clearData();
             }
-        }, 250)
+        }, 250),
+        '$route'(val){
+            if(!!this.$route.query && this.$route.query.hasOwnProperty('type')){
+                let dictionaryType = this.$route.query.type;
+                //check if valid query type
+                if(!!this.dictionaryTypesEnum[dictionaryType]){
+                    this.changeDictionaryType(this.dictionaryTypesEnum[dictionaryType])
+                }
+            }else{
+                this.changeDictionaryType(this.dictionaryTypesEnum['learn'])
+            }
+        }
     },
     methods: {
         ...mapActions([
@@ -151,6 +162,17 @@ export default {
         changeDictionaryType(val){
             this.scrollTop();
             this.switchLandingPageText(val);
+        },
+        changeUrlType(val){
+            if(val === 'earn'){
+                let typeObj = {
+                    type: val
+                }
+                this.$router.push({query: typeObj})
+            }else{
+                this.$router.push({query: ``})
+            }
+            
         },
         scrollTop(){
             setTimeout(()=>{

@@ -241,10 +241,10 @@
     <value>Download Class Notes, Study Guides And Exam Preparations</value>
   </data>
   <data name="learn_upload_section_title" xml:space="preserve">
-    <value>Find Class Specific Documents</value>
+    <value>Find study resources</value>
   </data>
   <data name="placeholder_subjects" xml:space="preserve">
-    <value>Find a subject you’re good at</value>
+    <value>Choose subject</value>
   </data>
   <data name="placeholder_uni" xml:space="preserve">
     <value>What is your school?</value>

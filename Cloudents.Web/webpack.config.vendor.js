@@ -17,6 +17,8 @@ const allModules = [
     "vue-analytics",
     "axios",
     "query-string",
+    "vue-plugin-load-script",
+    "vue-line-clamp",
     "./ClientApp/main.styl",
     "./wwwroot/content/main.less",
     "./ClientApp/myFont.font.js",

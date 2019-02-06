@@ -71,13 +71,20 @@
     font-weight: 600;
   }
   .share-icon-container {
-    width: 45%;
-    display: flex;
-    //justify-content: space-evenly;
+     display: flex;
+    max-width: 346px;
+    width: 100%;
     justify-content: space-around;
-
     flex-direction: row;
     padding-top: 24px;
+      @media (max-width: @screen-xs) {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+
+    }
+
     span {
       cursor: pointer;
     }
@@ -98,9 +105,6 @@
       font-size: 27px;
     }
 
-    @media (max-width: @screen-xs) {
-      width: 75%;
-    }
   }
   .referral-btn {
     min-width: 106px;

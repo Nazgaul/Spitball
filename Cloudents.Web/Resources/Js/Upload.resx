@@ -205,4 +205,13 @@
   <data name="multiple_files_referral_title" xml:space="preserve">
     <value>Sharing is Caring</value>
   </data>
+  <data name="CreateOk" xml:space="preserve">
+    <value>Your document is being processed, will be available shortly</value>
+  </data>
+  <data name="CreatePending" xml:space="preserve">
+    <value>Your document is pending approval, please do not resubmit this document</value>
+  </data>
+  <data name="multiple_help_and_make" xml:space="preserve">
+    <value>Help your friends and make money along the way</value>
+  </data>
 </root>

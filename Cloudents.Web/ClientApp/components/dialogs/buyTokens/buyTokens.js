@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       selectedProduct: null,
+      showOverlay: false,
       products:{
           currency: LanguageService.getValueByKey('buyTokens_currency'),
           basic:{
@@ -88,8 +89,14 @@ export default {
         }, (error)=>{
           //fallback will be called on app.vue create method.
           global.localStorage.setItem('sb_transactionError', transactionId);
+          this.updateToasterParams({
+            toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
+            showToaster: true,
+          });
           // global.location.reload();
           console.log(error);
+        }).finally(()=>{
+            this.showOverlay = false;  
         })
         // window.alert("Thank you for your purchase!");
     },
@@ -105,9 +112,8 @@ export default {
             // Configure environment
             env: "sandbox",
             client: {
-              sandbox:
-                "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e"
-              // production: 'demo_production_client_id'
+              sandbox: "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
+              production: "AQ_i7yH6NyGmUeJtuVfrSwK_RSb8rydP2f5zkh5rqyF_qgq_mT_gakcFZUmgY7HF-6YvneG4xQlOEz4Q"
             },
             // Customize button (optional)
             locale: "en_US",
@@ -145,6 +151,7 @@ export default {
               return actions.payment.execute().then((response)=> {
                 // Show a confirmation message to the buyer
                 let transactionId = response.id;
+                this.showOverlay = true;
                 this.reflectPaymentToServer(transactionId);
               });
             }
