@@ -72,7 +72,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UnSuspendUser()
         {
-            LockoutEnd = null;
+            LockoutEnd = DateTime.UtcNow.Add(new TimeSpan(0,0,-1));
             AddEvent(new UserUnSuspendEvent(this));
         }
 
