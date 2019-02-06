@@ -118,54 +118,54 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="answer" xml:space="preserve">
-    <value>Answer</value>
+    <value>תשובה</value>
   </data>
   <data name="buy_points_button" xml:space="preserve">
-    <value>Get points</value>
+    <value>קבל נקודות</value>
   </data>
   <data name="choose" xml:space="preserve">
-    <value>Choose</value>
+    <value>בחר</value>
   </data>
   <data name="currency" xml:space="preserve">
     <value>$</value>
   </data>
   <data name="earn_answer" xml:space="preserve">
-    <value>Provide correct answers</value>
+    <value>תן תשובות נכונות</value>
   </data>
   <data name="earn_invite" xml:space="preserve">
-    <value>Invite your friends &amp; classmates</value>
+    <value>הזמן חברים לספסל הלימודים</value>
   </data>
   <data name="earn_upload" xml:space="preserve">
-    <value>Upload your resources</value>
+    <value>העלה מסמכים שלך</value>
   </data>
   <data name="failed_transaction" xml:space="preserve">
-    <value>Transaction failed please refresh the page!</value>
+    <value>הטרנזקציה נכשלה, נסה לרענן את הדף!</value>
   </data>
   <data name="get_points" xml:space="preserve">
-    <value>Get Points</value>
+    <value>קבל נקודות</value>
   </data>
   <data name="invite" xml:space="preserve">
-    <value>Invite</value>
+    <value>הזמן</value>
   </data>
   <data name="most_popular" xml:space="preserve">
-    <value>MOST POPULAR</value>
+    <value>הכי פופולארי</value>
   </data>
   <data name="need_points" xml:space="preserve">
-    <value>Need more points?</value>
+    <value>זקוק לעוד נקודות?</value>
   </data>
   <data name="per_point" xml:space="preserve">
-    <value>/point</value>
+    <value>/נקודה</value>
   </data>
   <data name="points" xml:space="preserve">
-    <value>pts</value>
+    <value>נק'</value>
   </data>
   <data name="secure_payment" xml:space="preserve">
-    <value> Secure Payment with</value>
+    <value> תשלום מאובטח עם</value>
   </data>
   <data name="success_transaction" xml:space="preserve">
-    <value>Purchase Success!</value>
+    <value>הקנייה הצליחה!</value>
   </data>
   <data name="upload" xml:space="preserve">
-    <value>Upload</value>
+    <value>העלה</value>
   </data>
 </root>
