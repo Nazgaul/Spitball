@@ -17,12 +17,12 @@ export default {
           },
           inter:{
               pts:500,
-              price:5,
+              price:6,
               currency: 'USD'
           },
           pro:{
               pts:1000, 
-              price:9.5,
+              price:10,
               currency: 'USD'
           }
       },
