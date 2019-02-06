@@ -193,6 +193,7 @@ namespace Cloudents.Core.Entities
             var money = Math.Abs(question.Price);
             return new QuestionTransaction(question)
             {
+                Question = null,
                 Action = TransactionActionType.DeleteQuestion,
                 Type = TransactionType.Stake,
                 Price = money

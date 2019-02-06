@@ -12,7 +12,7 @@
 @{
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
-    var cdnEndPoint = Constants.GetCdnEndpoint(Environment);
+    var cdnEndPoint = Constants.GetCdnEndpoint(Configuration);
     var isAuth = ViewBag.Auth ?? User.Identity.IsAuthenticated;
 }
 <!DOCTYPE html>
