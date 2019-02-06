@@ -212,7 +212,8 @@
             color: @textColor;
             outline: none;
             padding: 0 12px;
-            .placeholder-color(@textColor, 0.7, 600);
+                .placeholder-color(@textColor, 0.7, null, 12px);
+
             @media (max-width: @screen-xs) {
                 min-width: unset;
             }
@@ -233,6 +234,9 @@
                     font-size: 14px;
                     letter-spacing: -0.7px;
                     color: @textColor;
+                    input{
+                        .placeholder-color(@textColor, 0.7, null, 12px);
+                    }
 
                 }
             }
@@ -250,7 +254,7 @@
                     letter-spacing: -0.7px;
                     color: @textColor;
                     input{
-                        .placeholder-color(@textColor, 0.7, 600);
+                        .placeholder-color(@textColor, 0.7, null, 12px);
                     }
 
                 }

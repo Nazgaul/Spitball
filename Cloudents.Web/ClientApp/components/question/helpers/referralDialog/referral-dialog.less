@@ -69,7 +69,7 @@
       }
     }
     .select-referral{
-      max-width: 330px;
+      max-width: 240px;
     }
 
     .sb-field {
@@ -82,6 +82,10 @@
           font-size: 14px;
           letter-spacing: -0.7px;
           color: @textColor;
+          .v-select__selections{
+            width: 100%;
+            overflow: hidden;
+          }
           @media (max-width: @screen-xs) {
             max-width: 292px;
           }
