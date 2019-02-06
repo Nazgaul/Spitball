@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CreateOk" xml:space="preserve">
-    <value>המסמך שלך עלה! אתה </value>
+    <value>המסמך שלך עלה! תוכל לצפות בו בקרוב</value>
   </data>
   <data name="CreatePending" xml:space="preserve">
     <value>המסמך שלך זקוק לאישור, בבקשה אל תעלה שוב מסמך זה</value>
@@ -146,6 +146,9 @@
   </data>
   <data name="multiple_error_extension_title" xml:space="preserve">
     <value>אופס! סוג קובץ לא נתמך</value>
+  </data>
+  <data name="multiple_error_upload_single_file" xml:space="preserve">
+    <value>קובץ זה לא יעלה לאתר</value>
   </data>
   <data name="multiple_error_upload_something_wrong" xml:space="preserve">
     <value>קרתה תקלה, אנא נסה שנית</value>
