@@ -196,7 +196,7 @@
         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.23);
         background-color: @color-white;
         &.error-card{
-                -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54) !important;
+                -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54) !important; //vuetify
                 -moz-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54)!important;
                 box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54)!important;
 
