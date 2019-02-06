@@ -182,7 +182,7 @@
     <value>price 0.00 Points</value>
   </data>
   <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>Professor name (Optional)</value>
+    <value>Professor (Optional)</value>
   </data>
   <data name="multiple_selected_class_label" xml:space="preserve">
     <value>Class</value>
