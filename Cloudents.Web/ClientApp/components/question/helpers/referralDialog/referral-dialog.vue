@@ -4,58 +4,91 @@
             <button class="close-btn text-md-right" @click.prevent="requestDialogClose()">
                 <v-icon>sbf-close</v-icon>
             </button>
-            <div class="ml-1 wrap-text input-container">
-                <h2 class="text-md-left" v-html="text.dialog.title"></h2>
-                <div class="link-container">
-                    <sb-input v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink"
-                              name="referralLink" type="text" :prependInnerIcon="'sbf-share-icon'"></sb-input>
-                    <v-select
-                            v-else
-                            :items="refLinkArr"
-                            v-model="singleRefLink"
-                            item-value="itemRefLink"
-                            item-text="itemName"
-                            @change="clearCopied()"
-                            class="sb-field elevation-0"
-                            hide-details
-                            :prepend-icon="''"
-                            :placeholder="referralSelectPlace"
-                            :append-icon="'sbf-arrow-down'"
-                            solo
-                            single-line
-                    ></v-select>
-                    <button :disabled="isMultiple && !singleRefLink" class="referral-btn" :class="{'copied': isCopied}" @click="doCopy">
-                        <v-icon class="copy-check-icon" transition="fade-transition"
-                                v-show="isCopied">sbf-checkmark</v-icon>
-                        <span v-show="!isCopied && !isMultiple" v-language:inner>referralDialog_copy</span>
-                        <span v-show="!isCopied && isMultiple" v-language:inner>referralDialog_copy_link</span>
-                        <span v-show="isCopied" v-language:inner>referralDialog_copied</span>
-                    </button>
+            <v-layout column>
+                <v-flex xs12 sm12 md12 class="mb-3">
+                    <div>
+                        <span class="text-md-left" v-html="text.dialog.title"></span>
+                    </div>
+                </v-flex>
+                <v-flex xs12 sm12 md12 class="mb-4">
+                    <div>
+                        <span class="text-xs-center text-md-center text-sm-center" v-html="text.dialog.subTitle"></span>
+                    </div>
+                </v-flex>
+            </v-layout>
 
-                </div>
-            </div>
-            <div class="text-style-wrap" style="margin-bottom: 20px;">
-                <span class="text-style" v-language:inner>referralDialog_share_with</span>
-            </div>
+            <v-layout align-center justify-center column class="mb-2">
             <div class="share-icon-container">
                 <span @click="shareOnSocialMedia(socialMedias.facebook)">
                     <facebookShare class="referral-facebook-icon"></facebookShare>
                 </span>
-                <!--<span @click="shareOnSocialMedia(socialMedias.linkedin)">-->
-                    <!--<v-icon  class="referral-linkedin-icon">sbf-linkedin-share</v-icon>-->
 
-                <!--</span>-->
                 <span @click="shareOnSocialMedia(socialMedias.twitter)">
                     <tweeter-share class="referral-twitter-icon"></tweeter-share>
                 </span>
                 <span @click="shareOnSocialMedia(socialMedias.gmail)">
-                    <google-share class="referral-gmail-icon" ></google-share>
+                    <google-share class="referral-gmail-icon"></google-share>
                 </span>
                 <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
                     <whatsup-share class="referral-whatsup-icon"></whatsup-share>
                                    </span>
             </div>
-             </div>
+                <div class="input-container">
+                    <div class="link-container">
+                        <sb-input v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true"
+                                  v-model="userReferralLink"
+                                  name="referralLink" type="text" :prependInnerIcon="'sbf-share-icon'"></sb-input>
+                        <v-select
+                                v-else
+                                :items="refLinkArr"
+                                v-model="singleRefLink"
+                                item-value="itemRefLink"
+                                item-text="itemName"
+                                @change="clearCopied()"
+                                class="sb-field elevation-0"
+                                hide-details
+                                :prepend-icon="''"
+                                :placeholder="referralSelectPlace"
+                                :append-icon="'sbf-arrow-down'"
+                                solo
+                                single-line
+                        ></v-select>
+                        <button :disabled="isMultiple && !singleRefLink" class="referral-btn" :class="{'copied': isCopied}"
+                                @click="doCopy">
+                            <v-icon class="copy-check-icon" transition="fade-transition"
+                                    v-show="isCopied">sbf-checkmark
+                            </v-icon>
+                            <span v-show="!isCopied && !isMultiple" v-language:inner>referralDialog_copy</span>
+                            <span v-show="!isCopied && isMultiple" v-language:inner>referralDialog_copy_link</span>
+                            <span v-show="isCopied" v-language:inner>referralDialog_copied</span>
+                        </button>
+
+                    </div>
+                </div>
+            </v-layout>
+            <v-layout align-center justify-center class="mb-2">
+                <v-flex xs12 sm12 md12>
+                    <div>
+                        <span v-html="text.dialog.bottomText"></span>
+                    </div>
+                </v-flex>
+            </v-layout>
+            <v-layout column>
+                <v-flex xs12 sm12 md12 align-self-center>
+                    <div>
+                        <span class="joined-number">{{accountUser}}</span>
+                        <span v-html="text.dialog.friendsJoined"></span>
+                    </div>
+                </v-flex>
+                <v-flex xs12 sm12 md12>
+                    <div>
+                        <i class="five">
+                            <spreadOutLoudIcon style="width: 50px"></spreadOutLoudIcon>
+                        </i>
+                    </div>
+                </v-flex>
+            </v-layout>
+        </div>
     </v-card>
 </template>
 
@@ -64,12 +97,12 @@
     import { mapGetters } from "vuex"
     import Base62 from "base62"
     import { LanguageService } from '../../../../services/language/languageService'
-    import {getReferallMessages}  from "./consts.js";
+    import { getReferallMessages } from "./consts.js";
     import facebookShare from '../../../../font-icon/facebook-share.svg';
     import whatsupShare from '../../../../font-icon/whatsup-share.svg';
     import googleShare from '../../../../font-icon/google-share.svg';
     import tweeterShare from '../../../../font-icon/tweeter-share.svg';
-
+    import spreadOutLoud from '../../../../font-icon/spread-loud.svg'
 
     export default {
         components: {
@@ -77,7 +110,8 @@
             facebookShare,
             whatsupShare,
             googleShare,
-            tweeterShare
+            tweeterShare,
+            spreadOutLoud
 
         },
         data() {
@@ -91,18 +125,21 @@
                     gmail: "gmail",
                 },
                 isCopied: false,
-                singleRefLink:  '',
+                singleRefLink: '',
                 referralSelectPlace: LanguageService.getValueByKey("referralDialog_ref_placeholder"),
                 text: {
                     dialog: {
-                        title: LanguageService.getValueByKey("referralDialog_dialog_title_invite")
+                        title: LanguageService.getValueByKey("referralDialog_dialog_title_invite"),
+                        subTitle: LanguageService.getValueByKey("referralDialog_dialog_subtitle"),
+                        bottomText: LanguageService.getValueByKey("referralDialog_dialog_bottom_text"),
+                        friendsJoined: LanguageService.getValueByKey("referralDialog_dialog_friends_joined"),
                     }
                 }
             }
         },
         props: {
-            referralType:{
-                type:String,
+            referralType: {
+                type: String,
                 default: 'menu',
                 required: false
             },
@@ -110,7 +147,7 @@
                 type: Boolean,
                 required: false
             },
-            userReferralLink:{
+            userReferralLink: {
                 type: String,
                 // http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral
                 default: "",
@@ -133,8 +170,8 @@
                 default: false,
                 required: false
             },
-            closeDialog:{
-                required:false,
+            closeDialog: {
+                required: false,
                 type: Function
             }
         },
@@ -150,24 +187,24 @@
             requestDialogClose() {
                 this.isCopied = false;
                 this.$root.$emit('closePopUp', this.popUpType);
-                if(this.closeDialog){
+                if (this.closeDialog) {
                     this.closeDialog()
                 }
             },
-            clearCopied(){
-                if(this.isCopied){
+            clearCopied() {
+                if (this.isCopied) {
                     this.isCopied = false;
                 }
 
             },
             doCopy() {
                 let self = this;
-                if(!self.isMultiple) {
+                if (!self.isMultiple) {
                     this.$copyText(this.userReferralLink).then((e) => {
                         self.isCopied = true;
                     }, (e) => {
                     })
-                }else{
+                } else {
                     this.$copyText(this.singleRefLink).then((e) => {
                         self.isCopied = true;
                     }, (e) => {

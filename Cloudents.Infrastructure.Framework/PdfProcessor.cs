@@ -46,8 +46,7 @@ namespace Cloudents.Infrastructure.Framework
             var jpegDevice = new JpegDevice(resolution, 90);
             var t = new List<Task>();
             var doc = _doc.Value;
-            var diff = Enumerable.Range(0, doc.Pages.Count);
-            diff = diff.Except(previewDelta);
+            var diff = Enumerable.Range(0, doc.Pages.Count).Except(previewDelta);
             foreach (int item in diff)
             {
                 if (token.IsCancellationRequested)

@@ -9,7 +9,6 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Models;
@@ -19,7 +18,6 @@ using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
@@ -27,7 +25,6 @@ using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -123,7 +120,7 @@ namespace Cloudents.Web.Api
             {
                 base62 = new Base62(command.Id).ToString()
             });
-            return new CreateDocumentResponse(url, score < Privileges.Post);
+            return new CreateDocumentResponse(url, score >= Privileges.Post);
         }
 
 

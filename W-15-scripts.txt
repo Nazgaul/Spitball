@@ -80,3 +80,24 @@ FROM
 
 WHERE
 	Type = 'None'
+
+
+
+	update sb.[user]
+set Language = 'en'
+where Culture in ('en','en-US','en-GB','ar-SA','ar-AE','ru-RU')
+and Language is null
+
+update sb.[user]
+set Language = 'he'
+where Culture in ('he','he-IL')
+and Language is null
+
+update sb.[User]
+set Language = 'he'
+where Country = 'IL'
+and Language is null
+
+update sb.[User]
+set Language = 'en'
+where Language is null

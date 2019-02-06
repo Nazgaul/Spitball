@@ -105,10 +105,10 @@ namespace Cloudents.Functions
 
         [FunctionName("BlobPreview-Queue")]
         public static async Task BlobPreviewQueueRun(
-            [QueueTrigger("generate-blob-preview", Connection = "LocalStorage")] string id,
+            [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,
-            [Blob("spitball-files/files/{QueueTrigger}",Connection = "ProdStorage")]CloudBlobDirectory directory,
-            [Queue("generate-blob-preview-blur", Connection = "ProdStorage")] IAsyncCollector<string> collectorBlur,
+            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
+            [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
             TraceWriter log, CancellationToken token)
 
         {

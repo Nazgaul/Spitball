@@ -59,18 +59,10 @@ namespace Cloudents.Core.Entities
         public virtual ISet<Course> Courses { get; protected set; }
         public virtual ISet<Tag> Tags { get; protected set; }
 
-        //public virtual int Score { get; set; }
-
-        //public virtual decimal Balance { get; set; }
-
-        //[SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
-        // public virtual IList<Transaction> Transactions { get; protected set; }
 
         public virtual UserTransactions Transactions { get; protected set; }
 
 
-        //private readonly IList<Transaction> _transactions = new List<Transaction>();
-        //public virtual IReadOnlyList<Transaction> Transactions => _transactions.ToList();
 
         public virtual void SuspendUser(DateTimeOffset lockTime)
         {
@@ -87,19 +79,12 @@ namespace Cloudents.Core.Entities
         public virtual void UpdateUserBalance(decimal balance, int score)
         {
             Transactions.UpdateBalance(balance, score);
-            //AddEvent(new UpdateBalanceEvent(this));
         }
-
-
-
-
 
         public override string ToString()
         {
             return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
         }
-
-
 
         public override void MakeTransaction(Transaction transaction)
         {
@@ -108,18 +93,6 @@ namespace Cloudents.Core.Entities
 
         }
 
-        //protected virtual void MakeTransaction(TransactionType2 transaction, Question question,
-        //    Document document, RegularUser user)
-        //{
-        //    var t = new Transaction(transaction, this)
-        //    {
-        //        Question = question,
-        //        Document = document,
-        //        InvitedUser = user
-        //    };
-        //    Transactions.Add(t);
-        //    AddEvent(new TransactionEvent(t, this));
-        //}
 
         public virtual void AwardMoney(decimal price)
         {
@@ -138,8 +111,6 @@ namespace Cloudents.Core.Entities
         {
             var t = new CashOutTransaction(price);
             MakeTransaction(t);
-            //MakeTransaction(TransactionType2.CashOut(price));
-            //AddEvent(new RedeemEvent(Id, price));
         }
 
         public virtual void ReferUser(RegularUser user)
@@ -151,46 +122,6 @@ namespace Cloudents.Core.Entities
         {
             MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
         }
-
-
-
-        //public virtual void Stake(Question question)
-        //{
-        //    var price = -question.Price;
-        //    if (price >= 0)
-        //    {
-        //        throw new ArgumentException();
-        //    }
-
-        //    var t = new Transaction(TransactionType2.StakeMoney(price), this)
-        //    {
-        //        Question = question
-        //    };
-        //    Transactions.Add(t);
-        //    AddEvent(new TransactionEvent(t));
-        //}
-
-        //public virtual void UnStake(Question question)
-        //{
-        //    var price = question.Price;
-        //    if (price <= 0)
-        //    {
-        //        throw new ArgumentException();
-        //    }
-
-        //    var reason = TransactionActionType.DeleteQuestion;
-        //    if (question.CorrectAnswer != null)
-        //    {
-        //        reason = TransactionActionType.AnswerCorrect;
-        //    }
-        //    var t = new Transaction(TransactionType2.UnStakeMoney(price, reason), this)
-        //    {
-        //        Question = question
-        //    };
-        //    Transactions.Add(t);
-        //    AddEvent(new TransactionEvent(t));
-        //}
-
 
         public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;

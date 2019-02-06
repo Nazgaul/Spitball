@@ -117,46 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="copied" xml:space="preserve">
-    <value>Copied</value>
+  <data name="answer" xml:space="preserve">
+    <value>תשובה</value>
   </data>
-  <data name="copy" xml:space="preserve">
-    <value>Copy</value>
+  <data name="buy_points_button" xml:space="preserve">
+    <value>קבל נקודות</value>
   </data>
-  <data name="copy_link" xml:space="preserve">
-    <value>Copy Link</value>
+  <data name="choose" xml:space="preserve">
+    <value>בחר</value>
   </data>
-  <data name="dialog_bottom_text" xml:space="preserve">
-    <value>The more classmates you get on Spitball, the better everyone’s grades will be!</value>
+  <data name="currency" xml:space="preserve">
+    <value>$</value>
   </data>
-  <data name="dialog_friends_joined" xml:space="preserve">
-    <value>invited friends have joined</value>
+  <data name="earn_answer" xml:space="preserve">
+    <value>תן תשובות נכונות</value>
   </data>
-  <data name="dialog_subtitle" xml:space="preserve">
-    <value>Give 150 points to classmates and earn 50 points for each one that joins</value>
+  <data name="earn_invite" xml:space="preserve">
+    <value>הזמן חברים לספסל הלימודים</value>
   </data>
-  <data name="dialog_title_invite" xml:space="preserve">
-    <value>Spread the Word at</value>
+  <data name="earn_upload" xml:space="preserve">
+    <value>העלה מסמכים שלך</value>
   </data>
-  <data name="get_document_text" xml:space="preserve">
-    <value>Click this link to have a look, I am certain it will worth your while and help you in your studying!</value>
+  <data name="failed_transaction" xml:space="preserve">
+    <value>הטרנזקציה נכשלה, נסה לרענן את הדף!</value>
   </data>
-  <data name="get_your_homework" xml:space="preserve">
-    <value>Get your homework questions answered in minutes, and make money answering other students questions. Get 100 Free points if you sign up using this link:</value>
+  <data name="get_points" xml:space="preserve">
+    <value>קבל נקודות</value>
   </data>
-  <data name="get_your_homework_twitter" xml:space="preserve">
-    <value>Get your homework questions answered in minutes, and make money answering other students questions. Get 100 Free points if you sign up using this link</value>
+  <data name="invite" xml:space="preserve">
+    <value>הזמן</value>
   </data>
-  <data name="join_me" xml:space="preserve">
-    <value>Join me on Spitball</value>
+  <data name="most_popular" xml:space="preserve">
+    <value>הכי פופולארי</value>
   </data>
-  <data name="ref_placeholder" xml:space="preserve">
-    <value>Select Document to Share</value>
+  <data name="need_points" xml:space="preserve">
+    <value>זקוק לעוד נקודות?</value>
   </data>
-  <data name="share_with" xml:space="preserve">
-    <value>or share with</value>
+  <data name="per_point" xml:space="preserve">
+    <value>/נקודה</value>
   </data>
-  <data name="title_document" xml:space="preserve">
-    <value>I just uploaded some of my academic notes to Spitball.</value>
+  <data name="points" xml:space="preserve">
+    <value>נק'</value>
+  </data>
+  <data name="secure_payment" xml:space="preserve">
+    <value> תשלום מאובטח עם </value>
+  </data>
+  <data name="success_transaction" xml:space="preserve">
+    <value>הקנייה הצליחה!</value>
+  </data>
+  <data name="upload" xml:space="preserve">
+    <value>העלה</value>
   </data>
 </root>
