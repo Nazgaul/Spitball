@@ -173,6 +173,10 @@ namespace Cloudents.Core.Entities
         public virtual void DeleteQuestionAdmin()
         {
             Delete();
+            foreach (var tran in Transactions)
+            {
+                tran.Question = null;
+            }
             AddEvent(new QuestionDeletedAdminEvent(this));
         }
 

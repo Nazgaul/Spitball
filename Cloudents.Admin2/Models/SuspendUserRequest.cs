@@ -16,12 +16,6 @@ namespace Cloudents.Admin2.Models
         /// <summary>
         /// If we want to delete all his questions
         /// </summary>
-        [Required]
-        public bool DeleteUserQuestions { get; set; }
-
-        /// <summary>
-        /// If we want to delete all his questions
-        /// </summary>
         public SuspendTime? SuspendTime { get; set; }
     }
 

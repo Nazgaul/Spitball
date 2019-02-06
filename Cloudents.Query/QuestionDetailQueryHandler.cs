@@ -132,9 +132,9 @@ namespace Cloudents.Query
                         .ThenByDescending(x => x.VoteCount).ThenBy(x => x.Created).Select(a =>
                             new QuestionDetailAnswerDto
                             {
-                                User = { Id = a.UserId, Name = a.UserName, Score = a.UserScore },
+                                User = new UserDto { Id = a.UserId, Name = a.UserName, Score = a.UserScore },
                                 Id = a.Id,
-                                Vote = { Votes = a.VoteCount },
+                                Vote = new VoteDto { Votes = a.VoteCount },
                                 Text = a.Text,
                                 Create = a.Created,
                                 IsRtl = a.Language?.TextInfo.IsRightToLeft ?? false

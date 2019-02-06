@@ -26,6 +26,8 @@ namespace Cloudents.Query.Admin
 		U.Balance, 
 	        case when U.LockOutEnd is null or U.LockOutEnd < getutcdate() then 1
 	        else 0 end as IsActive,
+			case when U.LockoutEnd is null then 0
+			else 1 end as WasSuspended,
 			isnull((select min(Created) from sb.[Transaction] where [Action] = 'SignUp' and User_id = U.Id),cast(0 as datetime)) as Joined
                         from sb.[User] U
                         left join sb.University Un
@@ -33,7 +35,9 @@ namespace Cloudents.Query.Admin
                         where U.Id = @Id
             group by U.Id, U.Name, Email, PhoneNumberHash, Un.Name, U.Country, U.Score, U.FraudScore, U.Balance, 
             case when U.LockOutEnd is null or U.LockOutEnd < getutcdate() then 1
-	            else 0 end";
+	            else 0 end,
+			case when U.LockoutEnd is null then 0
+			else 1 end";
             using (var connection = new SqlConnection(_provider.Db.Db))
             {
                 return await connection.QuerySingleOrDefaultAsync<UserDetailsDto>(sql,

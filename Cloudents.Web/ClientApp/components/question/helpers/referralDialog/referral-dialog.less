@@ -1,140 +1,236 @@
 @import "../../../../styles/mixin.less";
 
-.referral-container {
-  text-align: center;
-  vertical-align: middle;
-  align-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: inherit;
-  .sb-field {
-    &.v-text-field--solo {
-      .v-input__slot {
-        box-shadow: none !important; //vuetify
-        border-radius: 4px 0 0 4px; //vuetify
-        border: 1px solid @colorGreyNew;
-        font-family: @fontOpenSans;
-        font-size: 14px;
-        letter-spacing: -0.7px;
-        color: @textColor;
-        @media (max-width: @screen-xs) {
-        max-width: 292px;
-        }
-      }
-      &.bg-greyed {
-        .v-input__slot {
-          background-color: #f9f9f9;
-        }
-      }
-    }
+.v-select-list{
+  .v-list__tile__title{
+    max-width: 350px;
+    overflow: hidden;
   }
-  .input-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+}
+.ref-block {
+
+  .referral-container {
+    text-align: center;
     vertical-align: middle;
-    margin: 0 auto;
-    width: 100%;
-    @media (max-width: @screen-xs) {
-      margin-left: 0 !important;
-      h2{
-        font-size: 35px !important;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: inherit;
+    background-image: url("./images/ref-background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-bottom: 24px;
+
+    .close-btn{
+      .v-icon{
+        color: fade(@color-white, 23%);
+
       }
     }
-    .link-container {
-      width: 100%;
-      max-width: 426px;
-      margin-top: 24px;
-      display: flex;
-      flex-direction: row;
-      .referral-input {
-        display: flex;
-        flex-grow: 1;
-        border-radius: 4px 0 0 4px;
-        border-right: none;
-        @media (max-width: @screen-xs) {
-          min-width: unset;
+    .bottom-sub{
+      font-family: @fontFiraSans;
+      font-size: 16px;
+      line-height: 1.69;
+      letter-spacing: -0.2px;
+      color: fade(@color-white, 87%);
+      @media(max-width: @screen-xs){
+        font-size: 14px;
+        line-height: 1.5;
+        letter-spacing: -0.1px;
+        color: fade(@color-white, 87%);
+      }
+
+    }
+    .ref-title{
+      font-weight: normal;
+      line-height: 1.32;
+      letter-spacing: -0.3px;
+      font-family: @fontFiraSans;
+      font-size: 28px;
+      color: fade(@color-white, 87%);
+      @media(max-width: @screen-xs){
+        font-size: 20px;
+        line-height: 1.5;
+        letter-spacing: -0.2px;
+
+      }
+    }
+    .ref-subtitle{
+      font-family: @fontFiraSans;
+      font-size: 28px;
+      font-weight: bold;
+      line-height: 1.32;
+      letter-spacing: -0.3px;
+      color: fade(@color-white, 87%);
+      @media(max-width: @screen-xs){
+        font-size: 20px;
+        line-height: 1.5;
+        letter-spacing: -0.2px;
+
+      }
+    }
+    .select-referral{
+      max-width: 330px;
+    }
+
+    .sb-field {
+      &.v-text-field--solo {
+        .v-input__slot {
+          box-shadow: none !important; //vuetify
+          border-radius: 4px 0 0 4px; //vuetify
+          border: 1px solid @colorGreyNew;
+          font-family: @fontOpenSans;
+          font-size: 14px;
+          letter-spacing: -0.7px;
+          color: @textColor;
+          @media (max-width: @screen-xs) {
+            max-width: 292px;
+          }
         }
-        .input-field {
+        &.bg-greyed {
+          .v-input__slot {
+            background-color: #f9f9f9;
+          }
+        }
+      }
+    }
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 auto;
+      width: 100%;
+      order: 2;
+      @media (max-width: @screen-xs) {
+        margin-left: 0 !important;
+        h2 {
+          font-size: 35px !important;
+        }
+      }
+      .link-container {
+        width: 100%;
+        max-width: 372px;
+        margin-top: 16px;
+        display: flex;
+        flex-direction: row;
+        .referral-input {
           display: flex;
           flex-grow: 1;
-          font-size: 12px;
-          color: @textColor;
-          padding-left: 10px;
+          border-radius: 4px 0 0 4px;
+          border-right: none;
+          background: @color-white;
+          @media (max-width: @screen-xs) {
+            min-width: unset;
+          }
+          .input-field {
+            display: flex;
+            flex-grow: 1;
+            font-size: 12px;
+            color: @textColor;
+            padding-left: 10px;
+          }
         }
       }
     }
-  }
 
-  .text-style {
-    color: #3532d5;
-    font-weight: 600;
-  }
-  .share-icon-container {
-     display: flex;
-    max-width: 346px;
-    width: 100%;
-    justify-content: space-around;
-    flex-direction: row;
-    padding-top: 24px;
+    .text-style {
+      color: #3532d5;
+      font-weight: 600;
+    }
+    .share-icon-container {
+      order: 1;
+      display: flex;
+      max-width: 372px;
+      width: 100%;
+      justify-content: space-around;
+      flex-direction: row;
+      padding-top: 24px;
       @media (max-width: @screen-xs) {
         display: flex;
         flex-direction: row;
         width: 100%;
         justify-content: space-around;
 
-    }
+      }
 
-    span {
-      cursor: pointer;
-    }
-    .referral-whatsup-icon {
-      color: rgb(76, 175, 80);
-    }
-    .referral-facebook-icon {
-      color: rgb(59, 89, 152);
-    }
-    .referral-twitter-icon {
-      color: rgb(85, 172, 238);
-    }
-    .referral-gmail-icon {
-      color: rgb(255, 40, 0);
-    }
-    .referral-linkedin-icon {
-      color: rgb(0, 122, 185);
-      font-size: 27px;
-    }
+      span {
+        cursor: pointer;
+        width: 86px;
+        height: 24px;
+        .share-icon{
+          width: 86px;
+          height: 24px;
+          @media (max-width: @screen-xs) {
+            width: 75px;
+            height: 24px;
 
-  }
-  .referral-btn {
-    min-width: 106px;
-    background-color: @color-blue-new;
-    border-radius: 0 4px 4px 0;
-    //margin-left: -5px;
-    color: @color-white;
-    .transition(all 0.2s ease-in-out);
-    font-family: @fontFiraSans;
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    &[disabled] {
-      background-color: #b8b8b8 !important;
-    }
-  }
+          }
+        }
+      }
+      .referral-whatsup-icon {
+        color: rgb(76, 175, 80);
+      }
+      .referral-facebook-icon {
+        color: rgb(59, 89, 152);
+      }
+      .referral-twitter-icon {
+        color: rgb(85, 172, 238);
+      }
+      .referral-gmail-icon {
+        color: rgb(255, 40, 0);
+      }
+      .referral-linkedin-icon {
+        color: rgb(0, 122, 185);
+        font-size: 27px;
+      }
 
-  .copied {
-    background-color: #4caf50;
-    .copy-check-icon{
+    }
+    .referral-btn {
+      min-width: 106px;
+      background-color: @color-blue-new;
+      border-radius: 0 4px 4px 0;
+      //margin-left: -5px;
       color: @color-white;
+      .transition(all 0.2s ease-in-out);
+      font-family: @fontFiraSans;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      &[disabled] {
+        background-color: #b8b8b8 !important;
+      }
     }
 
+    .copied {
+      background-color: #4caf50;
+      .copy-check-icon {
+        color: @color-white;
+      }
+
+    }
+    .referral-input {
+      min-width: 265px;
+      color: gray;
+      .input-field {
+        color: @textColor;
+      }
+    }
   }
-  .referral-input {
-    min-width: 265px;
-    color: gray;
-    .input-field {
+  .ref-bottom-section {
+    border-radius: 4px;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.5);
+    background-color: @color-white;
+    .bottom-text {
+      font-family: @fontFiraSans;
+      font-size: 18px;
+      line-height: 3;
+      letter-spacing: -0.3px;
       color: @textColor;
     }
+    .bottom-five {
+      font-size: 56px;
+      color: @textColor;
+    }
+
   }
 }
-    

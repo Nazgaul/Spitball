@@ -50,7 +50,7 @@ where t.User_id = @userId", (dto, userDto, arg3) =>
                    dto.User = userDto;
                    dto.Vote = arg3;
                    return dto;
-               }, new { userId = query.Id });
+               }, new { userId = query.Id }, splitOn: "Id,Votes");
            }, token);
         }
 

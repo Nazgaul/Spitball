@@ -14,6 +14,9 @@ const state = {
         set_class: 'SetClass',
         done: 'done'
     },
+    stepArr:[
+        'SetSchoolLanding','SetSchool','SetClass','done'
+    ],
     universityPopStorage:{
         session: !!window.sessionStorage.getItem('sb_uniSelectPoped_s'), //boolean
         local: window.localStorage.getItem('sb_uniSelectPoped_l') || 0 //integer
@@ -131,8 +134,10 @@ const actions = {
             commit('setSelectedClasses', [].concat(state.selectedClassesCache))
         }
     },
-    updateCurrentStep({commit}, val){
-        commit("setCurrentStep", val);
+    updateCurrentStep({commit, state}, val){
+        if(state.stepArr.indexOf(val) > -1){
+            commit("setCurrentStep", val);
+        }
     },
     setUniversityPopStorage_session({commit, state}, val){
         let localPopedItem = state.universityPopStorage.local;

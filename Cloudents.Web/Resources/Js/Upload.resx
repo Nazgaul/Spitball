@@ -214,4 +214,7 @@
   <data name="multiple_help_and_make" xml:space="preserve">
     <value>You're on a roll, now help your classmates (and earn points) by sharing the link to this file.</value>
   </data>
+  <data name="multiple_error_upload_single_file" xml:space="preserve">
+    <value>This file will not be uploaded</value>
+  </data>
 </root>
