@@ -139,12 +139,13 @@
 .user-question-style(@names, @colors, @fontColors, @length );
 //end function
 
-.placeholder-color(@color, @opacity:1, @fontWeight: 300 ) {
+.placeholder-color(@color, @opacity:1, @fontWeight: 300, @fontSize: 12px ) {
 
   &::-webkit-input-placeholder {
     color: @color !important;
     opacity: @opacity!important;
     font-weight: @fontWeight!important;
+    font-size: @fontSize!important;
   }
 
   &::-moz-placeholder {
