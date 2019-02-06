@@ -217,4 +217,7 @@
   <data name="multiple_error_upload_single_file" xml:space="preserve">
     <value>This file will not be uploaded</value>
   </data>
+  <data name="multiple_select_course_placeholder" xml:space="preserve">
+    <value>Please select course</value>
+  </data>
 </root>
