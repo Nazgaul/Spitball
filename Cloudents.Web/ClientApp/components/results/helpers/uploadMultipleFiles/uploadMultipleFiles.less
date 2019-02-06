@@ -2,7 +2,7 @@
 @import "style-helpers/scroll-bar.less";
 @import "style-helpers/uploadAnimation.less";
 
-@uploadGreyBackground: rgba(68, 82, 252, 0.09);
+@uploadGreyBackground: #f6f6f6;
 @purpleNewColor: #3e45a0;
 //Predefined set style rules classes
 .col-blue {
@@ -24,12 +24,13 @@
   .error-container {
     border-radius: 4px;
     background-color: @colorErrorBackground;
-    height: 74px;
+    height: 114px;
     width: 426px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 16px;
     @media (max-width: @screen-xs) {
       width: 375px;
       height: 144px;
@@ -44,6 +45,10 @@
       color: @colorErrorText;
     }
     .supported-extensions {
+      padding: 16px  24px 16px 24px;
+      @media (max-width: @screen-xs) {
+       text-align: center;
+      }
       span {
         font-size: 12px;
         line-height: 1.83;
@@ -148,16 +153,37 @@
 .upload-dialog {
   position: relative;
   font-family: @fontFiraSans;
-  .enter { transform: translateY(0) }
-  .enter-to { transform: translateY(100%) }
-  .slide-enter-active { }
-
-  .leave { transform: translateY(0) }
-  .leave-to { transform: translateY(-100%) }
-
-  .slide-enter-active { transition: all 700ms ease-in-out }
-  .slide-leave-active { transition: all 0ms ease-in-out }
-
+  //drag and drop zone animation css
+  .visibilityHidden{
+    visibility: hidden;
+    height: 48px;
+    max-height: 48px;
+    transition: all .2s linear;
+    min-height: 48px;
+    &.slim{
+      height: 0;
+      max-height: 0;
+      min-height: 0;
+      margin-bottom: 0!important;
+    }
+    @media (max-width: @screen-xs) {
+      height: 0;
+      max-height: 0;
+      min-height: 0;
+    }
+  }
+  .visibilityVisible{
+    visibility: visible;
+    height: 200px;
+    max-height: 200px;
+    min-height: 200px;
+    transition: all .2s linear;
+    @media (max-width: @screen-xs) {
+      height: 100%;
+      max-height: 100%;
+      min-height: 100%;
+    }
+  }
   .close-upload-btn-icon {
     position: absolute;
     right: 16px;
@@ -242,6 +268,9 @@
         &.footer{
           align-items: center;
           padding: 36px 0;
+          &.slim{
+            padding: 0;
+          }
           @media (max-width: @screen-xs) {
             position: absolute;
             bottom: 0;
@@ -280,7 +309,7 @@
             //padding: 20px;
           }
           .mobile-view-layout{
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: @uploadGreyBackground;
             padding-top: 36px;
             margin-top: 0!important;//vuetify
           }

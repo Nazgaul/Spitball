@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class TiffProcessor : IPreviewProvider2,IDisposable
+    public class TiffProcessor : IPreviewProvider2, IDisposable
     {
         public TiffProcessor()
 
@@ -26,9 +26,9 @@ namespace Cloudents.Infrastructure.Framework
         }
 
         private TiffImage _image;
-        public void Init(Stream stream)
+        public void Init(Func<Stream> stream)
         {
-            _image = (TiffImage)Image.Load(stream);
+            _image = (TiffImage)Image.Load(stream());
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
@@ -68,13 +68,18 @@ namespace Cloudents.Infrastructure.Framework
             }
             await Task.WhenAll(t);
         }
-      
+
         public static readonly string[] Extensions = { ".tiff", ".tif" };
 
 
         public void Dispose()
         {
             _image?.Dispose();
+        }
+
+        public void Init(Func<string> path)
+        {
+            _image = (TiffImage)Image.Load(path());
         }
     }
 }

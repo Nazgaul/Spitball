@@ -1,21 +1,38 @@
 <template>
-    <v-card elevation="0" class="mb-3 sb-step-card ref-card">
-        <v-layout justify-center align-center column >
-            <v-flex class="ref-title justify-center align-center flex mt-2 row">
-                    <i class="five">
-                        <spreadOutLoudIcon style="width: 50px"></spreadOutLoudIcon>
-                    </i>
-                    <h3 class="sb-title" v-language:inner>upload_files_step7_title</h3>
+    <v-card elevation="0" class="mb-3 sb-step-card ref-card" :class="{'mb-5': $vuetify.breakpoint.smAndUp}">
+        <v-flex align-center justify-center>
+            <div v-if="fileSnackbar.visibility"  class="file-snack-bar px-5" :style="{ backgroundColor: fileSnackbar.color}">
+                <span class="file-snack-text" style="">
+                    <span>
+                        <v-icon class="file-snack-icon">sbf-checkmark</v-icon>
+                    </span>
+                    <span>{{fileSnackbar.uploadDoneMessage ? fileSnackbar.uploadDoneMessage : ''}}</span>
+                </span>
+            </div>
+        </v-flex>
+        <v-layout justify-center align-center column class="mt-3">
+            <v-flex column class="ref-title justify-center align-center flex mt-2 row"
+                    :class="{'column': $vuetify.breakpoint.xsOnly}">
+                <i class="five mb-3">
+                    <spreadOutLoudIcon style="width: 50px"></spreadOutLoudIcon>
+                </i>
+                <h3 class="sb-title" v-language:inner>upload_multiple_files_referral_title</h3>
 
             </v-flex>
-            <v-flex  class="ref-title justify-center align-center flex mt-2">
-                <span>Help your friends and make money along the way </span>
+            <v-flex class="ref-title justify-center align-center flex mt-2">
+                <span v-language:inner>upload_multiple_help_and_make</span>
             </v-flex>
         </v-layout>
 
         <div class="upload-row-2 referral-row refs-container">
-            <referral-dialog class="mb-4" v-for="refItem in referralLinks" :userReferralLink="refItem"
-                             :referralType="'uploadReffer'" :isTransparent="true" :popUpType="''"></referral-dialog>
+            <referral-dialog class="mb-4 referral-item"
+                             :isMultiple="referralLinks.length > 1"
+                             :userReferralLink="singleRefLink"
+                             :referralType="'uploadReffer'"
+                             :refLinkArr="referralLinks"
+                             :isTransparent="true"
+                             :popUpType="''"
+            ></referral-dialog>
         </div>
     </v-card>
 </template>
@@ -37,15 +54,22 @@
                 type: Array,
                 default: [],
             },
-
+            fileSnackbar:{
+                type: Object,
+                required:false
+            }
 
         },
         computed: {
             ...mapGetters({
                 getFileData: 'getFileData',
                 getSchoolName: 'getSchoolName',
-
             }),
+            singleRefLink() {
+                if (this.referralLinks && this.referralLinks.length === 1) {
+                    return this.referralLinks[0].itemRefLink
+                }
+            },
 
         },
         methods: {
@@ -54,6 +78,7 @@
 
             }),
             ...mapActions(['askQuestion', 'updateDialogState']),
+
             closeAndGoTo() {
                 this.askQuestion(false)
             },
@@ -61,18 +86,53 @@
                 this.$router.push({path: '/ask'});
                 this.updateDialogState(false)
             }
-
         }
     }
 </script>
 
 <style lang="less">
     @import "../../../../../styles/mixin.less";
+
     .ref-card {
-        .ref-title{
-            display: flex;
+        .sb-title{
+            font-size: 18px;
         }
-        .ref-subtitle{
+        .file-snack-bar{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.34);
+            .file-snack-text{
+                color: fade(@color-white, 87%);
+                padding: 16px 0;
+                text-align: center;
+                font-size: 14px;
+                line-height: 1.43;
+                letter-spacing: -0.1px;
+                display: flex;
+                align-items: baseline;
+
+                .file-snack-icon{
+                    font-size: 22px;
+                    color: @color-white;
+                }
+            }
+
+        }
+        .ref-title {
+            display: flex;
+            &.column {
+                flex-direction: column;
+            }
+            .five {
+                @media (max-width: @screen-xs) {
+                    margin-top: 24px;
+                    margin-bottom: 16px;
+                }
+            }
+        }
+        .ref-subtitle {
             font-family: @fontOpenSans;
             font-size: 14px;
             letter-spacing: -0.6px;
@@ -80,9 +140,14 @@
         }
         .referral-row {
             overflow-y: scroll;
-            padding-top: 21px;
-            &.refs-container{
+            margin-top: 54px;
+            &.refs-container {
                 max-height: 300px;
+                @media (max-width: @screen-xs) {
+                    max-height: unset;
+                    padding-left: 12px;
+                    padding-right: 12px;
+                }
             }
             .v-card {
                 box-shadow: none;
@@ -96,36 +161,35 @@
                     display: flex;
                     flex-direction: column;
                     .share-icon-container {
-                        span {
-                            margin-right: 24px;
+                        max-width: 346px;
+                        @media (max-width: @screen-xs) {
+                            display: flex;
+                            flex-direction: row;
+                            width: 100%;
+                            //justify-content: space-evenly;
+                            justify-content: space-around;
                         }
                     }
                     .input-container {
                         width: 100%;
+                        margin: unset;
+                        margin-left: 0;
                         @media (max-width: @screen-xs) {
                             margin-left: 0 !important;
                         }
                         .link-container {
                             width: 100%;
                             margin-top: 0;
+                            max-width: 346px;
                             .referral-input {
-                                min-width: 320px;
+                                min-width: unset;
                                 @media (max-width: @screen-xs) {
                                     min-width: unset;
                                 }
                             }
                         }
                     }
-                    .share-icon-container {
-                        @media (max-width: @screen-xs) {
-                            display: flex;
-                            flex-direction: row;
-                            width: 80%;
-                            //justify-content: space-evenly;
-                            justify-content: space-around;
-                        }
 
-                    }
                     .text-style-wrap {
                         display: none;
                     }

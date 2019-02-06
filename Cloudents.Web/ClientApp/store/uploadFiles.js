@@ -33,7 +33,7 @@ const mutations = {
         state.fileData[fileObj.index] = fileObj.data;
     },
     addFile(state, val) {
-        val.course =state.courseSelected;
+        val.course = state.courseSelected;
         state.fileData.push(val);
     },
     deleteFileByIndex(state, index){
@@ -48,8 +48,8 @@ const mutations = {
     setFileName(state, data) {
         state.customFileName = data
     },
-    clearUploadData(state, []) {
-        state.fileData = [];
+    clearUploadData(state) {
+        state.fileData.length = 0;
     },
     updateReturnToUpload(state, val) {
         state.returnToUpload = val

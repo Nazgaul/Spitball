@@ -9,7 +9,8 @@ namespace Cloudents.Infrastructure.Framework
     public interface IPreviewProvider2
     {
 
-        void Init(Stream stream);
+        void Init(Func<Stream> stream);
+       // void Init(Func<string> path);
         (string text, int pagesCount) ExtractMetaContent();
 
         /// <summary>

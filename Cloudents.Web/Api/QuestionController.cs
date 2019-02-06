@@ -27,7 +27,6 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -66,12 +65,11 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
 
-            Debug.Assert(model.SubjectId != null, "model.SubjectId != null");
             var userId = _userManager.GetLongUserId(User);
             var toasterMessage = _localizer["PostedQuestionToasterOk"];
             try
             {
-                var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price,
+                var command = new CreateQuestionCommand(model.SubjectId, model.Text, model.Price,
                     userId, model.Files, model.Course);
                 await _commandBus.DispatchAsync(command, token);
             }

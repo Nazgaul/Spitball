@@ -3,10 +3,11 @@ import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import documentService from "../../../../services/documentService";
 import uploadFilesStart from "./helpers/uploadMultipleFileStart.vue";
 import uploadStep_2 from "./helpers/filesDetails.vue";
-import ulpoadStep_3 from"./helpers/documentReferral.vue"
+import ulpoadStep_3 from "./helpers/documentReferral.vue"
 import analyticsService from "../../../../services/analytics.service";
 import uploadService from "../../../../services/uploadService";
 import Base62 from "base62"
+import { LanguageService } from "../../../../services/language/languageService";
 
 export default {
     components: {
@@ -28,9 +29,18 @@ export default {
                 changeStep: this.changeStep,
                 stopProgress: this.stopProgress,
             },
+            showError: false,
+            errorText: '',
             docReferral: [],
             courseSelected: '',
-            nextStepCalled: false
+            nextStepCalled: false,
+            loading: false,
+            disableBtn: false,
+            fileSnackbar:{
+                color: '',
+                uploadDoneMessage: '',
+                fileSnackbarColor: ''
+            }
         }
     },
 
@@ -52,7 +62,7 @@ export default {
         firstStep() {
             return this.currentStep === 1;
         },
-        lastStep(){
+        lastStep() {
             return this.currentStep === this.steps;
         },
         showUploadDialog() {
@@ -60,7 +70,9 @@ export default {
         },
         isLoaded() {
             let result = this.getFileData.every((item) => {
-                return item.progress === 100
+                return item.progress === 100 && item.name !== ''
+
+                // return item.progress === 100 && item.name !== '' && item.name.length >=2
             });
             return result;
         }
@@ -91,21 +103,39 @@ export default {
             this.loading = true;
             let docData = this.getFileData;
             let self = this;
-            docData.forEach((fileObj)=>{
+            docData.forEach((fileObj) => {
                 let serverFormattedObj = uploadService.createServerFileData(fileObj);
                 documentService.sendDocumentData(serverFormattedObj)
                     .then((resp) => {
                             if (resp.data.url) {
-                                self.docReferral.push(`${global.location.origin}` + resp.data.url + "?referral=" +
-                                    Base62.encode(self.accountUser.id) + "&promo=referral");
+                                let referralObj = {
+                                    itemName: fileObj.name || '',
+                                    itemRefLink: `${global.location.origin}` + resp.data.url + "?referral=" +
+                                    Base62.encode(self.accountUser.id) + "&promo=referral"
+
+                                };
+                                self.docReferral.push(referralObj)
                             }
+                            if(resp.data.published){
+                                self.fileSnackbar.uploadDoneMessage = LanguageService.getValueByKey("upload_CreateOk")
+                            }else{
+                                self.fileSnackbar.uploadDoneMessage = LanguageService.getValueByKey("upload_CreatePending")
+                            }
+
                             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
-                            console.log('DOC_UPLOAD_COMPLETE')
-                            self.loading = true;
+                            self.loading = false;
+                            self.fileSnackbar.visibility = true;
+                            // setTimeout(()=>{
+                            //     self.fileSnackbar = false;
+                            // }, 8000);
+                            self.fileSnackbar.color = '#51ba6c';
                             self.goToNextStep()
                         },
                         (error) => {
-                            console.log("doc data error", error)
+                            self.loading = false;
+                            self.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
+                            self.showError = true;
+                            self.disableBtn = true;
                         });
             })
 

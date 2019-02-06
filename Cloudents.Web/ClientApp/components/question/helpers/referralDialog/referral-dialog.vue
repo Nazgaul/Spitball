@@ -7,36 +7,53 @@
             <div class="ml-1 wrap-text input-container">
                 <h2 class="text-md-left" v-html="text.dialog.title"></h2>
                 <div class="link-container">
-                    <sb-input id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink"
-                              name="referralLink" type="text" :prependInnerIcon="'sbf-share-icon'"></sb-input>                    &nbsp;
-                    <button class="referral-btn" :class="{'copied': isCopied}" @click="doCopy">
+                    <sb-input v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink"
+                              name="referralLink" type="text" :prependInnerIcon="'sbf-share-icon'"></sb-input>
+                    <v-select
+                            v-else
+                            :items="refLinkArr"
+                            v-model="singleRefLink"
+                            item-value="itemRefLink"
+                            item-text="itemName"
+                            @change="clearCopied()"
+                            class="sb-field elevation-0"
+                            hide-details
+                            :prepend-icon="''"
+                            :placeholder="referralSelectPlace"
+                            :append-icon="'sbf-arrow-down'"
+                            solo
+                            single-line
+                    ></v-select>
+                    <button :disabled="isMultiple && !singleRefLink" class="referral-btn" :class="{'copied': isCopied}" @click="doCopy">
                         <v-icon class="copy-check-icon" transition="fade-transition"
                                 v-show="isCopied">sbf-checkmark</v-icon>
-                       <span v-show="!isCopied" v-language:inner>referralDialog_copy</span>
+                        <span v-show="!isCopied && !isMultiple" v-language:inner>referralDialog_copy</span>
+                        <span v-show="!isCopied && isMultiple" v-language:inner>referralDialog_copy_link</span>
                         <span v-show="isCopied" v-language:inner>referralDialog_copied</span>
                     </button>
+
                 </div>
             </div>
             <div class="text-style-wrap" style="margin-bottom: 20px;">
                 <span class="text-style" v-language:inner>referralDialog_share_with</span>
             </div>
             <div class="share-icon-container">
-                <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
-                    <v-icon class="referral-whatsup-icon">sbf-whats-up</v-icon>
-                                   </span>
                 <span @click="shareOnSocialMedia(socialMedias.facebook)">
-                    <v-icon class="referral-facebook-icon">sbf-facebook-share</v-icon>
+                    <facebookShare class="referral-facebook-icon"></facebookShare>
                 </span>
-                <span @click="shareOnSocialMedia(socialMedias.linkedin)">
-                    <v-icon  class="referral-linkedin-icon">sbf-linkedin-share</v-icon>
+                <!--<span @click="shareOnSocialMedia(socialMedias.linkedin)">-->
+                    <!--<v-icon  class="referral-linkedin-icon">sbf-linkedin-share</v-icon>-->
 
-                </span>
+                <!--</span>-->
                 <span @click="shareOnSocialMedia(socialMedias.twitter)">
-                    <v-icon class="referral-twitter-icon">sbf-twitter-share</v-icon>
+                    <tweeter-share class="referral-twitter-icon"></tweeter-share>
                 </span>
                 <span @click="shareOnSocialMedia(socialMedias.gmail)">
-                    <v-icon class="referral-gmail-icon">sbf-google-icon</v-icon>
+                    <google-share class="referral-gmail-icon" ></google-share>
                 </span>
+                <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
+                    <whatsup-share class="referral-whatsup-icon"></whatsup-share>
+                                   </span>
             </div>
              </div>
     </v-card>
@@ -48,9 +65,21 @@
     import Base62 from "base62"
     import { LanguageService } from '../../../../services/language/languageService'
     import {getReferallMessages}  from "./consts.js";
+    import facebookShare from '../../../../font-icon/facebook-share.svg';
+    import whatsupShare from '../../../../font-icon/whatsup-share.svg';
+    import googleShare from '../../../../font-icon/google-share.svg';
+    import tweeterShare from '../../../../font-icon/tweeter-share.svg';
+
 
     export default {
-        components: {SbInput},
+        components: {
+            SbInput,
+            facebookShare,
+            whatsupShare,
+            googleShare,
+            tweeterShare
+
+        },
         data() {
             return {
 
@@ -62,6 +91,8 @@
                     gmail: "gmail",
                 },
                 isCopied: false,
+                singleRefLink:  '',
+                referralSelectPlace: LanguageService.getValueByKey("referralDialog_ref_placeholder"),
                 text: {
                     dialog: {
                         title: LanguageService.getValueByKey("referralDialog_dialog_title_invite")
@@ -75,10 +106,18 @@
                 default: 'menu',
                 required: false
             },
+            isMultiple: {
+                type: Boolean,
+                required: false
+            },
             userReferralLink:{
                 type: String,
                 // http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral
                 default: "",
+                required: false
+            },
+            refLinkArr: {
+                type: Array,
                 required: false
             },
             popUpType: {
@@ -115,19 +154,32 @@
                     this.closeDialog()
                 }
             },
+            clearCopied(){
+                if(this.isCopied){
+                    this.isCopied = false;
+                }
+
+            },
             doCopy() {
                 let self = this;
-                this.$copyText(this.userReferralLink).then((e) => {
-                    self.isCopied = true;
-                }, (e) => {
-                })
+                if(!self.isMultiple) {
+                    this.$copyText(this.userReferralLink).then((e) => {
+                        self.isCopied = true;
+                    }, (e) => {
+                    })
+                }else{
+                    this.$copyText(this.singleRefLink).then((e) => {
+                        self.isCopied = true;
+                    }, (e) => {
+                    })
+                }
             },
             shareOnSocialMedia(socialMedia) {
-                let message = getReferallMessages(this.referralType, this.userReferralLink);
+                let message = getReferallMessages(this.referralType, this.isMultiple ? this.singleRefLink : this.userReferralLink);
                 switch (socialMedia) {
                     case this.socialMedias.whatsApp:
                         //https://api.whatsapp.com/send?text={{url  here}}
-                        global.open(`https://api.whatsapp.com/send?text=${message.whatsAppText}`, "_blank");
+                        global.open(`https://web.whatsapp.com/send?text=${message.whatsAppText}`, "_blank");
                         break;
                     case this.socialMedias.facebook:
                         //https://www.facebook.com/sharer.php?u={{url  here}}

@@ -5,7 +5,7 @@ namespace Cloudents.Web.Models
 {
     public class CreateQuestionRequest
     {
-        [Required(ErrorMessage = "Required")] public QuestionSubject? SubjectId { get; set; }
+        public QuestionSubject? SubjectId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
         [MinLength(15, ErrorMessage = "MinLength")]
@@ -18,7 +18,7 @@ namespace Cloudents.Web.Models
         [MaxLength(4, ErrorMessage = "MaxLength")]
         public string[] Files { get; set; }
 
-
+        [Required]
         public string Course { get; set; }
     }
 }

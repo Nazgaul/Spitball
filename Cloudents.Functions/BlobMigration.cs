@@ -16,31 +16,38 @@ namespace Cloudents.Functions
 {
     public static class BlobMigration
     {
-        //[FunctionName("BlobPreview")]
-        //public static async Task Run([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
-        //    CloudBlockBlob myBlob, string id, string name,
-        //    [Queue("generate-blob-preview")] IAsyncCollector<string> collector,
-        //    TraceWriter log,
-        //    CancellationToken token)
-        //{
-        //    log.Info($"pushing to queue {id}");
-        //    await collector.AddAsync(id, token);
-        //}
+        [FunctionName("BlobPreview")]
+        public static async Task Run([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
+            CloudBlockBlob myBlob, string id, string name,
+            [Queue("generate-blob-preview")] IAsyncCollector<string> collector,
+            TraceWriter log,
+            CancellationToken token)
+        {
+            log.Info($"pushing to queue {id}");
+            await collector.AddAsync(id, token);
+        }
 
 
 
 
-        //[FunctionName("BlobBlur")]
-        //public static async Task Run2([BlobTrigger("spitball-files/files/{id}/preview-{idx}.jpg")]
-        //    CloudBlockBlob myBlob, string id, string idx,
-        //    [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collector,
-        //    TraceWriter log, CancellationToken token)
-        //{
-        //    log.Info($"pushing to queue {id}");
-        //    await collector.AddAsync(id, token);
-        //}
+        [FunctionName("BlobBlur")]
+        public static async Task Run2([BlobTrigger("spitball-files/files/{id}/preview-{idx}.jpg")]
+            CloudBlockBlob myBlob, string id, string idx,
+            [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collector,
+            TraceWriter log, CancellationToken token)
+        {
+            log.Info($"pushing to queue {id}");
+            if (int.TryParse(idx, out var p))
+            {
+                if (p > BlurImageCount)
+                {
+                    return;
+                }
+            }
+            await collector.AddAsync(id, token);
+        }
 
-
+        private const int BlurImageCount = 10;
 
         [FunctionName("BlobPreview-Blur-Queue")]
         public static async Task BlobPreviewQueueRun2(
@@ -60,33 +67,35 @@ namespace Cloudents.Functions
                     break;
                 }
                 var myBlob = (CloudBlockBlob)blob;
-                if (Regex.IsMatch(myBlob.Name, "preview-\\d*.jpg", RegexOptions.IgnoreCase))
+                if (!Regex.IsMatch(myBlob.Name, "preview-\\d*.jpg", RegexOptions.IgnoreCase)) continue;
+                var idx = Path.GetFileNameWithoutExtension(myBlob.Name.Split('-').Last());
+                if (idx == null)
                 {
-                    var idx = Path.GetFileNameWithoutExtension(myBlob.Name.Split('-').Last());
-                    if (idx == null)
-                    {
-                        continue;
-                    }
-                    var blurBlob = directory.GetBlockBlobReference($"blur-{idx}.jpg");
-                    if (blurBlob.Exists())
-                    {
-                        continue;
-                    }
-                    var page = int.Parse(idx);
-                    using (var ms = await myBlob.OpenReadAsync(token))
-                    {
-
-                        var t = factory.ProcessBlurPreviewAsync(ms, page == 0, stream =>
-                       {
-                           stream.Seek(0, SeekOrigin.Begin);
-
-                           blurBlob.Properties.ContentType = "image/jpeg";
-                           log.Info($"uploading to {id} {blurBlob.Name}");
-                           return blurBlob.UploadFromStreamAsync(stream, token);
-                       }, token);
-                        tasks.Add(t);
-                    }
+                    continue;
                 }
+                var blurBlob = directory.GetBlockBlobReference($"blur-{idx}.jpg");
+                if (blurBlob.Exists())
+                {
+                    continue;
+                }
+                var page = int.Parse(idx);
+                if (page > BlurImageCount)
+                {
+                    continue;
+                }
+                var ms = await myBlob.OpenReadAsync(token);
+
+
+                var t = factory.ProcessBlurPreviewAsync(ms, page == 0, stream =>
+                {
+                    stream.Seek(0, SeekOrigin.Begin);
+
+                    blurBlob.Properties.ContentType = "image/jpeg";
+                    log.Info($"uploading to {id} {blurBlob.Name}");
+                    return blurBlob.UploadFromStreamAsync(stream, token);
+                }, token).ContinueWith(_ => ms.Dispose(), token);
+                tasks.Add(t);
+
             }
 
             await Task.WhenAll(tasks);
@@ -96,10 +105,9 @@ namespace Cloudents.Functions
 
         [FunctionName("BlobPreview-Queue")]
         public static async Task BlobPreviewQueueRun(
-            [QueueTrigger("generate-blob-preview-poison",Connection = "ProdStorage")] string id,
+            [QueueTrigger("generate-blob-preview", Connection = "LocalStorage")] string id,
             [Inject] IFactoryProcessor factory,
-            [Blob("spitball-files/files/{QueueTrigger}", Connection = "ProdStorage")]CloudBlobDirectory directory,
-            [Queue("generate-blob-preview-poison", Connection = "ProdStorage")] IAsyncCollector<string> collector,
+            [Blob("spitball-files/files/{QueueTrigger}",Connection = "ProdStorage")]CloudBlobDirectory directory,
             [Queue("generate-blob-preview-blur", Connection = "ProdStorage")] IAsyncCollector<string> collectorBlur,
             TraceWriter log, CancellationToken token)
 
@@ -116,7 +124,7 @@ namespace Cloudents.Functions
                 var name = myBlob.Name.Split('-').Last();
 
                 myBlob.FetchAttributes();
-                if (myBlob.Metadata.TryGetValue("CantProcess", out var s) && bool.TryParse(s, out var b) && b)
+                if (myBlob.Metadata.TryGetValue("CantProcess2", out var s) && bool.TryParse(s, out var b) && b)
                 {
                     log.Error($"aborting process CantProcess attribute - {id}");
                     return;
@@ -146,86 +154,111 @@ namespace Cloudents.Functions
 
 
                 var f = factory.PreviewFactory(name);
-                if (f != null)
+                if (f == null)
+                {
+                    log.Error($"did not process id:{id}");
+                }
+                else
                 {
                     //var wait = new ManualResetEvent(false);
                     using (var wait = new ManualResetEventSlim(false))
                     {
-
                         //wait2.Wait()
                         var work = new Thread(async () =>
-                                        {
-                                            try
-                                            {
-                                                using (var ms = await myBlob.OpenReadAsync(token))
-                                                {
-                                                    f.Init(ms);
-                                                    int pageCount;
+                        {
+                            var z = Path.Combine(Path.GetTempPath(), id);
+                            Stream sr = null;
+                            try
+                            {
+                               
 
-                                                    const string blobTextName = "text.txt";
-                                                    if (segment.Results.FirstOrDefault(d =>
-                                                            d.Uri.Segments.Last().StartsWith(blobTextName)) == null)
-                                                    {
-                                                        var (text, pagesCount) = f.ExtractMetaContent();
-                                                        var blob = directory.GetBlockBlobReference(blobTextName);
-                                                        blob.Properties.ContentType = contentType;
-                                                        text = StripUnwantedChars(text);
-                                                        blob.Metadata["PageCount"] = pagesCount.ToString();
-                                                        await blob.UploadTextAsync(text ?? string.Empty, token);
-                                                        pageCount = pagesCount;
-                                                    }
-                                                    else
-                                                    {
-                                                        var blob = directory.GetBlockBlobReference(blobTextName);
-                                                        await blob.FetchAttributesAsync(token);
-                                                        pageCount = int.Parse(blob.Metadata["PageCount"]);
-                                                    }
+                                f.Init(() =>
+                                {
+                                    myBlob.DownloadToFile(z, FileMode.Create);
+                                    sr = File.Open(z, FileMode.Open);
+                                    return sr;
+                                });
+                                int pageCount = 0;
 
-                                                    if (pageCount != previewDelta.Count || previewDelta.Count == 0)
-                                                    {
-                                                        await f.ProcessFilesAsync(previewDelta, (stream, previewName) =>
-                                                        {
-                                                            workHasBeenDone = true;
-                                                            stream.Seek(0, SeekOrigin.Begin);
-                                                            var blob = directory.GetBlockBlobReference($"preview-{previewName}");
-                                                            blob.Properties.ContentType = "image/jpeg";
-                                                            log.Info($"uploading to {id} preview-{previewName}");
-                                                            return blob.UploadFromStreamAsync(stream, token);
-                                                        }, token);
-                                                    }
-                                                }
+                                const string blobTextName = "text.txt";
+                                if (segment.Results.FirstOrDefault(d =>
+                                        d.Uri.Segments.Last().StartsWith(blobTextName)) != null)
+                                {
+                                    var blob = directory.GetBlockBlobReference(blobTextName);
+                                    await blob.FetchAttributesAsync(token);
+                                    pageCount = int.Parse(blob.Metadata["PageCount"]);
+                                }
+                                if (pageCount == 0)
+                                {
+                                    log.Info("Need to extract text and get page count");
+                                    var (text, pagesCount) = f.ExtractMetaContent();
+                                    var blob = directory.GetBlockBlobReference(blobTextName);
+                                    blob.Properties.ContentType = contentType;
+                                    text = StripUnwantedChars(text);
+                                    blob.Metadata["PageCount"] = pagesCount.ToString();
+                                    await blob.UploadTextAsync(text ?? string.Empty, token);
+                                    pageCount = pagesCount;
+                                }
 
-                                                wait.Set();
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                wait.Set();
-                                                log.Error($"did not process id:{id}", ex);
+                                if (pageCount != previewDelta.Count || previewDelta.Count == 0)
+                                {
+                                    log.Info("Processing images");
+                                    await f.ProcessFilesAsync(previewDelta, (stream, previewName) =>
+                                    {
+                                        workHasBeenDone = true;
+                                        stream.Seek(0, SeekOrigin.Begin);
+                                        var blob = directory.GetBlockBlobReference($"preview-{previewName}");
+                                        blob.Properties.ContentType = "image/jpeg";
+                                        log.Info($"uploading to {id} preview-{previewName}");
+                                        return blob.UploadFromStreamAsync(stream, token);
+                                    }, token);
+                                }
 
-                                                await collector.AddAsync(id, token);
-                                            }
-                                        });
+
+                                wait.Set();
+                            }
+                            catch (Exception ex)
+                            {
+                                if (ex.GetType().Namespace.StartsWith("aspose", StringComparison.OrdinalIgnoreCase) ||
+                                    ex.Source.StartsWith("aspose",
+                                        StringComparison.OrdinalIgnoreCase))
+                                {
+                                    myBlob.Metadata["CantProcess2"] = true.ToString();
+                                    myBlob.Metadata["ErrorProcess"] = ex.Message.ToString();
+                                    await myBlob.SetMetadataAsync(token);
+                                }
+
+                                wait.Set();
+                                log.Error($"did not process id:{id}", ex);
+                                //myBlob.Metadata["CantProcess"] = true.ToString();
+                                //myBlob.Metadata["ErrorProcess"] = ex.Message.ToString();
+                                //await myBlob.SetMetadataAsync(token);
+                            }
+                            finally
+                            {
+                                sr?.Dispose();
+                                if (File.Exists(z))
+                                {
+                                    File.Delete(z);
+                                }
+                            }
+                        });
                         work.Start();
 
-                        var signal = wait.Wait(TimeSpan.FromMinutes(9), token);
+                        var signal = wait.Wait(TimeSpan.FromMinutes(9));
                         //var signal = wait.WaitOne(TimeSpan.FromMinutes(9));
                         if (!signal)
                         {
                             work.Abort();
                             if (!workHasBeenDone)
                             {
-                                myBlob.Metadata["CantProcess"] = true.ToString();
+                                myBlob.Metadata["CantProcess2"] = true.ToString();
                                 await myBlob.SetMetadataAsync(token);
                             }
 
                             log.Error($"aborting process - {id}");
                         }
                     }
-                }
-                else
-                {
-                    log.Error($"did not process id:{id}");
-                    await collector.AddAsync(id, token);
                 }
 
                 await collectorBlur.AddAsync(id, token);
@@ -235,7 +268,6 @@ namespace Cloudents.Functions
             catch (Exception ex)
             {
                 log.Error($"did not process id:{id}", ex);
-                await collector.AddAsync(id, token);
             }
 
 

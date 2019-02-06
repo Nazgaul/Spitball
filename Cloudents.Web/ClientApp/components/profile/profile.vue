@@ -43,21 +43,21 @@
                     </div>
                 </div>
                 <v-flex class="web-content">
-                    <div class="empty-state" v-if="activeTab === 1 && !profileData.questions.length">
+                    <div class="empty-state" v-if="activeTab === 1 && !profileData.questions.length && !loadingContent">
                         <div class="text-block">
                             <p v-html="emptyStateData.text"></p>
                             <b>{{emptyStateData.boldText}}</b>
                         </div>
                         <a class="ask-question" @click="emptyStateData.btnUrl()">{{emptyStateData.btnText}}</a>
                     </div>
-                    <div class="empty-state" v-else-if="activeTab === 2 && !profileData.answers.length">
+                    <div class="empty-state" v-else-if="activeTab === 2 && !profileData.answers.length && !loadingContent">
                         <div class="text-block">
                             <p v-html="emptyStateData.text"></p>
                             <b>{{emptyStateData.boldText}}</b>
                         </div>
                         <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">{{emptyStateData.btnText}}</router-link>
                     </div>
-                    <div class="empty-state doc-empty-state" v-if="activeTab === 3 && !profileData.documents.length">
+                    <div class="empty-state doc-empty-state" v-if="activeTab === 3 && !profileData.documents.length && !loadingContent">
                         <div class="text-block">
                             <p v-html="emptyStateData.text"></p>
                             <b>{{emptyStateData.boldText}}</b>

@@ -54,21 +54,19 @@
     import { mapGetters, mapActions } from "vuex";
     import analyticsService from '../../../services/analytics.service';
     import onBoard_step_1 from "./onBoardSteps/welcomeStep.vue";
-    import onBoard_step_2 from "./onBoardSteps/learnStep.vue";
-    import onBoard_step_3 from "./onBoardSteps/earnStep.vue";
-    import onBoard_step_4 from "./onBoardSteps/onBoardFinal.vue";
+    import onBoard_step_2 from "./onBoardSteps/howWorks.vue";
+    import onBoard_step_3 from "./onBoardSteps/onBoardFinal.vue";
     export default {
         name: "onBoardGuide",
         components: {
             onBoard_step_1,
             onBoard_step_2,
             onBoard_step_3,
-            onBoard_step_4
         },
         data() {
             return {
                 currentStep: 1,
-                steps: 4,
+                steps: 3,
 
             }
         },

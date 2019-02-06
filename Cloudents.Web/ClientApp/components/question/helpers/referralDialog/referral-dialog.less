@@ -7,6 +7,27 @@
   align-items: center;
   display: flex;
   flex-direction: inherit;
+  .sb-field {
+    &.v-text-field--solo {
+      .v-input__slot {
+        box-shadow: none !important; //vuetify
+        border-radius: 4px 0 0 4px; //vuetify
+        border: 1px solid @colorGreyNew;
+        font-family: @fontOpenSans;
+        font-size: 14px;
+        letter-spacing: -0.7px;
+        color: @textColor;
+        @media (max-width: @screen-xs) {
+        max-width: 292px;
+        }
+      }
+      &.bg-greyed {
+        .v-input__slot {
+          background-color: #f9f9f9;
+        }
+      }
+    }
+  }
   .input-container {
     display: flex;
     flex-direction: column;
@@ -50,13 +71,20 @@
     font-weight: 600;
   }
   .share-icon-container {
-    width: 45%;
-    display: flex;
-    //justify-content: space-evenly;
+     display: flex;
+    max-width: 346px;
+    width: 100%;
     justify-content: space-around;
-
     flex-direction: row;
     padding-top: 24px;
+      @media (max-width: @screen-xs) {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+
+    }
+
     span {
       cursor: pointer;
     }
@@ -77,21 +105,21 @@
       font-size: 27px;
     }
 
-    @media (max-width: @screen-xs) {
-      width: 75%;
-    }
   }
   .referral-btn {
     min-width: 106px;
     background-color: @color-blue-new;
     border-radius: 0 4px 4px 0;
-    margin-left: -5px;
+    //margin-left: -5px;
     color: @color-white;
     .transition(all 0.2s ease-in-out);
     font-family: @fontFiraSans;
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
+    &[disabled] {
+      background-color: #b8b8b8 !important;
+    }
   }
 
   .copied {

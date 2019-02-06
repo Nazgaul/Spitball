@@ -126,32 +126,14 @@
   <data name="btn_skip" xml:space="preserve">
     <value>Skip</value>
   </data>
-  <data name="earn_bottom_subtitle_one" xml:space="preserve">
-    <value>Share great study resources and make money</value>
-  </data>
-  <data name="earn_bottom_subtitle_two" xml:space="preserve">
-    <value>Earn from helping other students with their homework</value>
-  </data>
-  <data name="earn_bottom_title_mobile" xml:space="preserve">
-    <value>Add your notes and answer Q's to earn money</value>
-  </data>
-  <data name="earn_bottom_title_one" xml:space="preserve">
-    <value>Add Documents</value>
-  </data>
-  <data name="earn_bottom_title_two" xml:space="preserve">
-    <value>Answer Questions</value>
-  </data>
-  <data name="earn_subtitle" xml:space="preserve">
-    <value>Share study resources and earn</value>
-  </data>
-  <data name="earn_title" xml:space="preserve">
-    <value>Unlimited Earning</value>
-  </data>
   <data name="final_added" xml:space="preserve">
-    <value>You have</value>
+    <value>You got</value>
   </data>
   <data name="final_away" xml:space="preserve">
     <value>away from your first cashout!</value>
+  </data>
+  <data name="final_bottom_text" xml:space="preserve">
+    <value>Start and access documents from your class</value>
   </data>
   <data name="final_enter_wallet" xml:space="preserve">
     <value>Start and access documents from your class</value>
@@ -163,42 +145,15 @@
     <value>Jump right in!</value>
   </data>
   <data name="final_to_wallet" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
-  <data name="learn_bottom_subtitle_mobile" xml:space="preserve">
-    <value>Easily complete your homework and prepare for exams</value>
-  </data>
-  <data name="learn_bottom_subtitle_one" xml:space="preserve">
-    <value>Find class notes and study guides</value>
-  </data>
-  <data name="learn_bottom_subtitle_two" xml:space="preserve">
-    <value>Ask any question and get answers in minutes</value>
-  </data>
-  <data name="learn_bottom_title_one" xml:space="preserve">
-    <value>Find Resources</value>
-  </data>
-  <data name="learn_bottom_title_two" xml:space="preserve">
-    <value>Ask for help</value>
-  </data>
-  <data name="learn_subtitle" xml:space="preserve">
+  <data name="how_text" xml:space="preserve">
     <value>Every student can offer study resources to other students for free or for a fee.</value>
   </data>
-  <data name="learn_title" xml:space="preserve">
-    <value>How does Spitball work?</value>
+  <data name="how_title" xml:space="preserve">
+    <value>How does it work?</value>
   </data>
-  <data name="welcome_bottom_subtitle_earn" xml:space="preserve">
-    <value>Earn money by sharing your class notes and answering questions</value>
-  </data>
-  <data name="welcome_bottom_subtitle_learn" xml:space="preserve">
-    <value>Improve your grades, with access to study resources and homework help</value>
-  </data>
-  <data name="welcome_bottom_title_earn" xml:space="preserve">
-    <value>Earn</value>
-  </data>
-  <data name="welcome_bottom_title_learn" xml:space="preserve">
-    <value>Learn</value>
-  </data>
-  <data name="welcome_subtitle" xml:space="preserve">
+  <data name="welcome_text" xml:space="preserve">
     <value>The community where students access study resources and learn from each other.</value>
   </data>
   <data name="welcome_title" xml:space="preserve">

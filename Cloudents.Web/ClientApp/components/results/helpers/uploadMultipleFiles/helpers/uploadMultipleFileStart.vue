@@ -1,9 +1,10 @@
 <template>
     <v-card elevation="0"
-            :class="[ 'upload-component-wrap', 'mb-3' ,'sb-step-card', $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
+            :class="[ 'upload-component-wrap', {'mb-3': $vuetify.breakpoint.smAndUp} , $refs.upload && $refs.upload.dropActive ? 'drop-card' : '']">
         <div class="error-block" v-show="extensionErrror || uploadError">
             <div class="error-container">
-                <h3 class="error-title" v-show="extensionErrror" v-language:inner>upload_multiple_error_extension_title</h3>
+                <h3 class="error-title" v-show="extensionErrror"
+                    v-language:inner>upload_multiple_error_extension_title</h3>
                 <h3 class="error-title" v-show="uploadError">{{errorText}}</h3>
                 <div class="supported-extensions" v-show="extensionErrror">
                     <span v-language:inner>upload_multiple_error_extensions_support</span>
@@ -13,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <v-layout justify-center align-center column class="upload-area">
+        <v-layout justify-center align-center column class="upload-area mx-3">
             <v-flex class="justify-center align-center d-flex" grow v-show="$vuetify.breakpoint.smAndUp">
                 <span v-show="$vuetify.breakpoint.smAndUp"
                       class="col-blue drop-text text-md-center text-xs-center text-sm-center" v-language:inner>upload_multiple_files_dopHere</span>
@@ -24,13 +25,14 @@
                     <span v-show="$vuetify.breakpoint.xsOnly" class="browse-text" v-language:inner>upload_multiple_or_browse_label_mobile</span>
 
                 </div>
-                <div class="btn-holder ml-3 c-pointer" @click="DbFilesList()" :disabled="!dbReady">
-                    <v-icon class="mr-2">sbf-upload-dropbox</v-icon>
+                <div class="btn-holder c-pointer" @click="DbFilesList()" :class="{'ml-3': $vuetify.breakpoint.smAndUp}"
+                     :disabled="!dbReady">
+                    <v-icon :class="{'mr-2': $vuetify.breakpoint.smAndUp }">sbf-upload-dropbox</v-icon>
                     <span :class="['btn-label', $vuetify.breakpoint.xsOnly ? 'mobile-text' : '' ] " v-language:inner>upload_multiple_files_btn_dropBox</span>
                 </div>
-                <div class="btn-holder ml-3 c-pointer">
+                <div class="btn-holder c-pointer" :class="{'ml-3': $vuetify.breakpoint.smAndUp}">
                     <v-icon v-if="$vuetify.breakpoint.smAndUp" class="mr-2">sbf-upload-desktop</v-icon>
-                    <v-icon v-else class="mr-2">sbf-phone</v-icon>
+                    <v-icon v-else>sbf-phone</v-icon>
                     <file-upload
                             style="top: unset;"
                             id="upload-input"
@@ -140,7 +142,7 @@
                             let serverFile = uploadService.createServerFileData(item);
                             uploadService.uploadDropbox(serverFile)
                                 .then((response) => {
-                                    //get blob name in resp and create client side formatted obj
+                                        //get blob name in resp and create client side formatted obj
                                         item.blobName = response.data.fileName ? response.data.fileName : '';
                                         singleFile = uploadService.createFileData(item);
                                         self.updateFile(singleFile);
@@ -170,6 +172,8 @@
                     newFile.blob = '';
                     let URL = window.URL || window.webkitURL;
                     if (URL && URL.createObjectURL) {
+                        //overwrite default file type(error on server if not)
+                        newFile.type ? newFile.type = 'none' : '';
                         let singleFile = uploadService.createFileData(newFile);
                         //add or replace
                         this.updateFile(singleFile);
@@ -184,7 +188,8 @@
                 }
                 // Upload error
                 if (newFile && oldFile && newFile.error !== oldFile.error) {
-                    this.errorText = newFile.response.Name ? newFile.response.Name["0"] : LanguageService.getValueByKey("upload_error_upload_something_wrong");
+                    let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
+                    this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
                     this.uploadError = true;
                     console.log('error', newFile.error, newFile)
                 }
@@ -192,14 +197,15 @@
                 if (newFile && oldFile && !newFile.active && oldFile.active) {
                     // Get response data
                     console.log('response', newFile.response);
-                    if (newFile.xhr) {
+                    if (newFile.status && newFile.status.toLowerCase() === 'success') {
                         //  Get the response status code
-                        console.log('status', newFile.xhr.status)
-                        if (newFile.xhr.status === 200) {
-                            console.log('Succesfully uploadede')
-                        } else {
-                            console.log('error, not uploaded')
-                        }
+                        console.log('status', newFile.status)
+                    } else {
+                        let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
+                        this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
+                        this.uploadError = true;
+                        console.log('error, not uploaded')
+
                     }
                     if (newFile && newFile.response && newFile.response.status === 'success') {
                         //generated blob name from server after successful upload
@@ -249,6 +255,17 @@
 
     @purpleNewColor: #3e45a0;
     .upload-component-wrap {
+        max-height: 200px;
+        background-color: transparent;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-shadow: none;
+        @media (max-width: @screen-xs) {
+            max-height: unset;
+            min-height: unset;
+        }
         .col-blue {
             color: @purpleNewColor;
         }
@@ -261,7 +278,7 @@
             width: 100px;
             transform: rotate(0deg);
             cursor: pointer;
-            @media(max-width: @screen-xs){
+            @media (max-width: @screen-xs) {
                 height: 100px;
             }
             label {
@@ -275,7 +292,7 @@
                 bottom: 0;
                 width: 100px;
                 cursor: pointer;
-                @media(max-width: @screen-xs){
+                @media (max-width: @screen-xs) {
                     height: 100px;
                 }
             }
@@ -283,8 +300,10 @@
 
         .upload-area {
             background-color: rgba(68, 82, 252, 0.06);
-            border: 1px dashed @color-blue-new;
-            @media(max-width: @screen-xs){
+            border: 2px dashed @color-blue-new;
+            max-height: 200px;
+            @media (max-width: @screen-xs) {
+                max-height: unset;
                 background-color: @color-white;
                 border: none;
                 /*box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2);*/
@@ -302,13 +321,15 @@
             border-radius: 4px 4px 0 0;
             padding: 12px 16px;
             max-width: 318px;
-            @media(max-width: @screen-xs){
+            max-height: 40px;
+            @media (max-width: @screen-xs) {
                 flex-direction: column;
+                max-height: 100%;
             }
             .btn-holder {
                 display: flex;
                 flex-direction: row;
-                @media(max-width: @screen-xs){
+                @media (max-width: @screen-xs) {
                     flex-direction: column;
                 }
 
@@ -322,7 +343,7 @@
                 color: @color-blue-new;
                 font-family: @fontOpenSans;
                 font-size: 14px;
-                @media(max-width: @screen-xs){
+                @media (max-width: @screen-xs) {
                     font-family: @fontFiraSans;
                     font-size: 16px;
                 }
@@ -331,7 +352,7 @@
             .v-icon {
                 font-size: 12px;
                 color: @color-blue-new;
-                @media(max-width: @screen-xs){
+                @media (max-width: @screen-xs) {
                     margin-top: 36px;
                     margin-bottom: 16px;
                     font-size: 32px;

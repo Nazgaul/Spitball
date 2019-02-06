@@ -34,7 +34,8 @@ namespace Cloudents.Core.Entities
 
     public class CashOutTransaction : Transaction
     {
-
+        public virtual bool? Approved { get; set; }
+        public virtual string DeclinedReason { get; set; }
         public CashOutTransaction(decimal price/*, RegularUser user*/) //: base(user)
         {
             if (price < 1000)
@@ -62,6 +63,18 @@ namespace Cloudents.Core.Entities
         {
 
         }
+
+        public virtual void Approve()
+        {
+            this.Approved = true;
+        }
+
+
+        public virtual void Decline(string reason)
+        {
+            this.Approved = false;
+            this.DeclinedReason = reason;
+        }
     }
 
     public class CommissionTransaction : Transaction
@@ -76,6 +89,25 @@ namespace Cloudents.Core.Entities
         }
 
         protected CommissionTransaction()
+        {
+
+        }
+    }
+
+    public class BuyPointsTransaction : Transaction
+    {
+        public BuyPointsTransaction(decimal price, string transactionId)
+        {
+            price = Math.Abs(price);
+            TransactionId = transactionId;
+            this.Price = price;
+            this.Action = TransactionActionType.Buy;
+            this.Type = Enum.TransactionType.Earned;
+        }
+
+        public virtual string TransactionId { get; set; }
+
+        protected BuyPointsTransaction()
         {
 
         }
@@ -219,7 +251,7 @@ namespace Cloudents.Core.Entities
         {
             InvitedUser = invitedUser;
             Action = TransactionActionType.ReferringUser;
-            this.Price = 10;
+            this.Price = 50;
             this.Type = TransactionType.Earned;
         }
 

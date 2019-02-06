@@ -4,7 +4,7 @@ import landingHeader from './helpers/landingHeader.vue';
 
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import sbInput from "../question/helpers/sbInput/sbInput.vue"
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import debounce from "lodash/debounce";
 import { LanguageService } from "../../services/language/languageService";
 import { reviews, mobileReviews } from "./helpers/testimonials/testimonialsData"
@@ -121,7 +121,18 @@ export default {
             if (this.searchUni === "") {
                 this.clearData();
             }
-        }, 250)
+        }, 250),
+        '$route'(val){
+            if(!!this.$route.query && this.$route.query.hasOwnProperty('type')){
+                let dictionaryType = this.$route.query.type;
+                //check if valid query type
+                if(!!this.dictionaryTypesEnum[dictionaryType]){
+                    this.changeDictionaryType(this.dictionaryTypesEnum[dictionaryType])
+                }
+            }else{
+                this.changeDictionaryType(this.dictionaryTypesEnum['learn'])
+            }
+        }
     },
     methods: {
         ...mapActions([
@@ -141,6 +152,7 @@ export default {
             "statistics",
             "accountUser"
         ]),
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         readyPlayer (event) {
             this.player = event.target
         },
@@ -150,6 +162,17 @@ export default {
         changeDictionaryType(val){
             this.scrollTop();
             this.switchLandingPageText(val);
+        },
+        changeUrlType(val){
+            if(val === 'earn'){
+                let typeObj = {
+                    type: val
+                }
+                this.$router.push({query: typeObj})
+            }else{
+                this.$router.push({query: ``})
+            }
+            
         },
         scrollTop(){
             setTimeout(()=>{
@@ -187,6 +210,7 @@ export default {
         },
         goToResulstQuestionsPage(val) {
             this.closeSubjectInputDialog();
+            this.UPDATE_SEARCH_LOADING(true);
             setTimeout(()=>{
                 this.$router.push({path: '/ask', query: {Source: val.id}});
             }, 200);
