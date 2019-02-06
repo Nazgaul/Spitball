@@ -22,9 +22,9 @@ namespace Cloudents.FunctionsV2
             using (var conn = repository.OpenConnection())
             {
                 await conn.ExecuteAsync(@"update sb.[HomeStats]
-                            set[users] = (select count(1) from sb.[User])
-	                        ,[answers] = (select count(1) from sb.Answer)
-	                        ,[SBLs] = (select sum(price) from sb.[Transaction] where[Type] = 'Earned')");
+                            set[users] = (select count(1) from sb.[User] where PhoneNumberConfirmed = 1 and EmailConfirmed = 1 and Fictive = 0)
+	                        ,[answers] = (select count(1) from sb.Answer where state = 'ok')
+	                        ,[SBLs] = (select sum(price) from sb.[Transaction] where [Type] = 'Earned')");
             }
             log.LogInformation($"UpdateStatsFunction function executed at: {DateTime.Now}");
         }
