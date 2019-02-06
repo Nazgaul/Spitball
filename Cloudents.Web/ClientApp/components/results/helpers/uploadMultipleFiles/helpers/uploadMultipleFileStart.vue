@@ -48,7 +48,7 @@
                             @input-filter="inputFilter"
                             :chunk="{
                               action: uploadUrl,
-                              minSize: 2,
+                              minSize: 1,
                               maxRetries: 5,}">
                     </file-upload>
                     <span v-show="$vuetify.breakpoint.xsOnly" class="btn-label mobile-text"
@@ -77,8 +77,8 @@
                 files: [],
                 filesUploaded: [],
                 generatedFileName: '',
-                supportedExtensions: ['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx'],
-                DBsupportedExtensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg', '.pptx'],
+                supportedExtensions: ['doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx', 'tiff', 'tif', 'bmp'],
+                DBsupportedExtensions: ['.doc', '.pdf', '.png', '.jpg', '.docx', '.xls', '.xlsx', '.ppt', '.jpeg', '.pptx', 'tiff', 'tif', 'bmp'],
                 extensionErrror: false,
                 uploadError: false,
                 errorText: '',
@@ -107,7 +107,7 @@
             },
         },
         methods: {
-            ...mapActions(['updateFile', 'updateFileName', 'stopUploadProgress', 'setFileBlobNameById']),
+            ...mapActions(['updateFile', 'updateFileName', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById']),
             loadDropBoxSrc() {
                 // if exists prevent duplicate loading
                 let isDbExists = !!document.getElementById('dropboxjs');
@@ -190,7 +190,13 @@
                 if (newFile && oldFile && newFile.error !== oldFile.error) {
                     let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
                     this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
+                    let fileErrorObj ={
+                        errorText: newFile.response.Name ? newFile.response.Name["0"] : text,
+                        id: newFile.id,
+                        error: true
+                    };
                     this.uploadError = true;
+                    this.updateFileErrorById(fileErrorObj);
                     console.log('error', newFile.error, newFile)
                 }
                 // Get response data
@@ -200,12 +206,6 @@
                     if (newFile.status && newFile.status.toLowerCase() === 'success') {
                         //  Get the response status code
                         console.log('status', newFile.status)
-                    } else {
-                        let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
-                        this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
-                        this.uploadError = true;
-                        console.log('error, not uploaded')
-
                     }
                     if (newFile && newFile.response && newFile.response.status === 'success') {
                         //generated blob name from server after successful upload
