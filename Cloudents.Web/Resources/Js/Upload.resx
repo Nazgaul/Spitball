@@ -179,7 +179,7 @@
     <value>Set price to all 0.00</value>
   </data>
   <data name="multiple_price_placeholder" xml:space="preserve">
-    <value>price 0.00 SBL</value>
+    <value>price 0.00 Points</value>
   </data>
   <data name="multiple_professor_placeholder" xml:space="preserve">
     <value>Professor name (Optional)</value>
@@ -203,15 +203,15 @@
     <value>Upload a file</value>
   </data>
   <data name="multiple_files_referral_title" xml:space="preserve">
-    <value>Sharing is Caring</value>
+    <value>Thanks for uploading your documents!</value>
   </data>
   <data name="CreateOk" xml:space="preserve">
-    <value>Your document is being processed, will be available shortly</value>
+    <value>Your file was uploaded successfully! You will be able to view shortly.</value>
   </data>
   <data name="CreatePending" xml:space="preserve">
     <value>Your document is pending approval, please do not resubmit this document</value>
   </data>
   <data name="multiple_help_and_make" xml:space="preserve">
-    <value>Help your friends and make money along the way</value>
+    <value>You're on a roll, now help your classmates (and earn points) by sharing the link to this file.</value>
   </data>
 </root>
