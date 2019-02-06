@@ -130,13 +130,13 @@
     <value>$</value>
   </data>
   <data name="earn_answer" xml:space="preserve">
-    <value>Earn points by answering student quesitons</value>
+    <value>Provide correct answers</value>
   </data>
   <data name="earn_invite" xml:space="preserve">
-    <value>Earn points by answering student quesitons</value>
+    <value>Invite your friends &amp; classmates</value>
   </data>
   <data name="earn_upload" xml:space="preserve">
-    <value>Upload Study Documents. Earn from every download</value>
+    <value>Upload your resources</value>
   </data>
   <data name="failed_transaction" xml:space="preserve">
     <value>Transaction failed please refresh the page!</value>
@@ -151,7 +151,7 @@
     <value>MOST POPULAR</value>
   </data>
   <data name="need_points" xml:space="preserve">
-    <value>Need points now?</value>
+    <value>Need more points?</value>
   </data>
   <data name="per_point" xml:space="preserve">
     <value>/point</value>
@@ -160,7 +160,7 @@
     <value>pts</value>
   </data>
   <data name="secure_payment" xml:space="preserve">
-    <value>Secure Payment with</value>
+    <value> Secure Payment with </value>
   </data>
   <data name="success_transaction" xml:space="preserve">
     <value>Purchase Success!</value>
