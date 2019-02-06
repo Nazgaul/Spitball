@@ -116,7 +116,7 @@ namespace Cloudents.Admin2.Api
                         throw new ArgumentOutOfRangeException();
                 }
 
-                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, lockout);
+                var command = new SuspendUserCommand(id, lockout);
                 await commandBus.DispatchAsync(command, token);
             }
             return new SuspendUserResponse();
