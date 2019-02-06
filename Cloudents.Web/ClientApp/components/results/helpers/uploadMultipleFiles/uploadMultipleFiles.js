@@ -99,11 +99,12 @@ export default {
         updateSelectedCourse() {
             this.setCourse(this.courseSelected)
         },
-        sendDocumentData(step) {
+        sendDocumentData() {
             this.loading = true;
             let docData = this.getFileData;
             let self = this;
             docData.forEach((fileObj) => {
+                if(fileObj.error)return;
                 let serverFormattedObj = uploadService.createServerFileData(fileObj);
                 documentService.sendDocumentData(serverFormattedObj)
                     .then((resp) => {

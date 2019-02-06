@@ -117,101 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="multiple_error_extensions_support" xml:space="preserve">
-    <value>supported files:</value>
+  <data name="answer" xml:space="preserve">
+    <value>תשובה</value>
   </data>
-  <data name="multiple_error_extension_title" xml:space="preserve">
-    <value>Oops! this file type is not supported</value>
+  <data name="buy_points_button" xml:space="preserve">
+    <value>קבל נקודות</value>
   </data>
-  <data name="multiple_error_upload_something_wrong" xml:space="preserve">
-    <value>Something went wrong, please try again</value>
+  <data name="choose" xml:space="preserve">
+    <value>בחר</value>
   </data>
-  <data name="multiple_files_btn_desktop" xml:space="preserve">
-    <value>Computer</value>
+  <data name="currency" xml:space="preserve">
+    <value>$</value>
   </data>
-  <data name="multiple_files_btn_dropBox" xml:space="preserve">
-    <value>Dropbox</value>
+  <data name="earn_answer" xml:space="preserve">
+    <value>תן תשובות נכונות</value>
   </data>
-  <data name="multiple_files_btn_phone" xml:space="preserve">
-    <value>Your Phone</value>
+  <data name="earn_invite" xml:space="preserve">
+    <value>הזמן חברים לספסל הלימודים</value>
   </data>
-  <data name="multiple_files_header_title" xml:space="preserve">
-    <value>Upload Files</value>
+  <data name="earn_upload" xml:space="preserve">
+    <value>העלה מסמכים שלך</value>
   </data>
-  <data name="multiple_files_type_exam" xml:space="preserve">
-    <value>Exam notes</value>
+  <data name="failed_transaction" xml:space="preserve">
+    <value>הטרנזקציה נכשלה, נסה לרענן את הדף!</value>
   </data>
-  <data name="multiple_files_type_lecture" xml:space="preserve">
-    <value>Lecture notes</value>
+  <data name="get_points" xml:space="preserve">
+    <value>קבל נקודות</value>
   </data>
-  <data name="multiple_files_type_textbook" xml:space="preserve">
-    <value>Textbook notes</value>
-    <comment>Ram Change</comment>
+  <data name="invite" xml:space="preserve">
+    <value>הזמן</value>
   </data>
-  <data name="multiple_confirm_btn_cancel" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="most_popular" xml:space="preserve">
+    <value>הכי פופולארי</value>
   </data>
-  <data name="multiple_confirm_btn_close" xml:space="preserve">
-    <value>Close and stop upload</value>
+  <data name="need_points" xml:space="preserve">
+    <value>זקוק לעוד נקודות?</value>
   </data>
-  <data name="multiple_confirm_stop_title" xml:space="preserve">
-    <value>Stop Uploading?</value>
+  <data name="per_point" xml:space="preserve">
+    <value>/נקודה</value>
   </data>
-  <data name="multiple_confirm_text" xml:space="preserve">
-    <value>Closing this window will end the uploading process</value>
+  <data name="points" xml:space="preserve">
+    <value>נק'</value>
   </data>
-  <data name="multiple_files_type_default" xml:space="preserve">
-    <value>Document</value>
+  <data name="secure_payment" xml:space="preserve">
+    <value> תשלום מאובטח עם </value>
   </data>
-  <data name="multiple_files_dopHere" xml:space="preserve">
-    <value>Drag &amp; Drop Files Here</value>
+  <data name="success_transaction" xml:space="preserve">
+    <value>הקנייה הצליחה!</value>
   </data>
-  <data name="multiple_keywords_optional" xml:space="preserve">
-    <value>Keywords (Optional)</value>
-  </data>
-  <data name="multiple_or_browse_label" xml:space="preserve">
-    <value>Or Browse</value>
-  </data>
-  <data name="multiple_placeholder_doctype_all" xml:space="preserve">
-    <value>Set document type to all</value>
-  </data>
-  <data name="multiple_placeholder_setAll" xml:space="preserve">
-    <value>Set price to all 0.00</value>
-  </data>
-  <data name="multiple_price_placeholder" xml:space="preserve">
-    <value>price 0.00 Points</value>
-  </data>
-  <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>Professor name (Optional)</value>
-  </data>
-  <data name="multiple_selected_class_label" xml:space="preserve">
-    <value>Class</value>
-  </data>
-  <data name="multiple_select_filetype" xml:space="preserve">
-    <value>Document Type</value>
-  </data>
-  <data name="multiple_btn_upload" xml:space="preserve">
-    <value>Upload</value>
-  </data>
-  <data name="multiple_label_icon_text" xml:space="preserve">
-    <value>Upload</value>
-  </data>
-  <data name="multiple_or_browse_label_mobile" xml:space="preserve">
-    <value>Browse</value>
-  </data>
-  <data name="files_file_upload" xml:space="preserve">
-    <value>Upload a file</value>
-  </data>
-  <data name="multiple_files_referral_title" xml:space="preserve">
-    <value>Thanks for uploading your documents!</value>
-  </data>
-  <data name="CreateOk" xml:space="preserve">
-    <value>Your file was uploaded successfully! You will be able to view shortly.</value>
-  </data>
-  <data name="CreatePending" xml:space="preserve">
-    <value>Your document is pending approval, please do not resubmit this document</value>
-  </data>
-  <data name="multiple_help_and_make" xml:space="preserve">
-    <value>You're on a roll, now help your classmates (and earn points) by sharing the link to this file.</value>
+  <data name="upload" xml:space="preserve">
+    <value>העלה</value>
   </data>
 </root>

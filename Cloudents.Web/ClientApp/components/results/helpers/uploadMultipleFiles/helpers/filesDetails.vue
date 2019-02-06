@@ -265,7 +265,12 @@
             overflow-y: scroll;
             box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.07);
             background-color: @purpleOnBoard;
+            @media (max-width: @screen-xs) {
+                overflow-y: unset;
+                max-height: unset;
+            }
         }
+
     }
 
 
