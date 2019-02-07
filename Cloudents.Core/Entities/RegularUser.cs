@@ -126,6 +126,14 @@ namespace Cloudents.Core.Entities
             MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
         }
 
+        public virtual void ConfirmePhoneNumber()
+        {
+            if (PhoneNumberConfirmed == false)
+            {
+                PhoneNumberConfirmed = true;
+            }
+        }
+
         public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;
     }
