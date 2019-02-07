@@ -212,10 +212,17 @@
             color: @textColor;
             outline: none;
             padding: 0 12px;
-                .placeholder-color(@textColor, 0.7, null, 12px);
+                .placeholder-color(@textColor, 0.7, 100, 14px);
 
             @media (max-width: @screen-xs) {
                 min-width: unset;
+            }
+        }
+        .v-select__slot{
+            label{
+                color: fade(@textColor, 70%);
+                font-weight: 100;
+                font-size: 14px;
             }
         }
         .sb-field {
@@ -235,7 +242,7 @@
                     letter-spacing: -0.7px;
                     color: @textColor;
                     input{
-                        .placeholder-color(@textColor, 0.7, null, 12px);
+                        .placeholder-color(@textColor, 0.7, 100, 14px);
                     }
 
                 }
@@ -244,6 +251,7 @@
                 @media (max-width: @screen-xs) {
                     max-width: 100%;
                 }
+
                 .v-input__slot {
                     box-shadow: none !important; //vuetify
                     border-radius: 0 4px 0 4px; //vuetify
@@ -253,9 +261,6 @@
                     font-size: 14px;
                     letter-spacing: -0.7px;
                     color: @textColor;
-                    input{
-                        .placeholder-color(@textColor, 0.7, null, 12px);
-                    }
 
                 }
             }

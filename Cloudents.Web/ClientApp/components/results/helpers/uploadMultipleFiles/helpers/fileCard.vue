@@ -328,11 +328,11 @@
                     letter-spacing: -0.7px;
                     color: @textColor;
                 }
-                &.bg-greyed {
-                    .v-input__slot {
-                        background-color: #f9f9f9;
-                    }
-                }
+                /*&.bg-greyed {*/
+                    /*.v-input__slot {*/
+                        /*background-color: #f9f9f9;*/
+                    /*}*/
+                /*}*/
             }
         }
     }

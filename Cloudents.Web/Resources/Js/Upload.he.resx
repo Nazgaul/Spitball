@@ -130,10 +130,10 @@
     <value>העלה</value>
   </data>
   <data name="multiple_confirm_btn_cancel" xml:space="preserve">
-    <value>המשך בתהליך</value>
+    <value>המשך</value>
   </data>
   <data name="multiple_confirm_btn_close" xml:space="preserve">
-    <value>סגור ובטל העלאה</value>
+    <value>בטל העלאה</value>
   </data>
   <data name="multiple_confirm_stop_title" xml:space="preserve">
     <value>לעצור העלאת מסמך?</value>
