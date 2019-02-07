@@ -61,26 +61,26 @@
                                 icons-and-text
                         >
                             <v-tabs-slider color="yellow"></v-tabs-slider>
-                            <v-tab @change="setActiveTab('questions')" href="#userQuestions">User Question</v-tab>
+                            <v-tab   :href="'#questions'">User Question</v-tab>
 
-                            <v-tab @change="setActiveTab('answers')" href="#userAnswers">User Answers</v-tab>
+                            <v-tab  :href="'#answers'" >User Answers</v-tab>
 
-                            <v-tab @change="setActiveTab('documents')" href="#userDocuments">User Documents</v-tab>
+                            <v-tab :href="'#documents'">User Documents</v-tab>
 
-                            <v-tab-item :key="'1'" :value="'questions'">
+                            <v-tab-item :key="'1'">
                                 <v-flex xs12>
                                     <question-item
-                                         :updateData="updateData" :questions="questions"></question-item>
+                                         :updateData="updateData" :questions="UserQuestions" v-if="activeTab === 'questions'"></question-item>
                                 </v-flex>
                             </v-tab-item>
-                            <v-tab-item :key="'2'" :value="'answers'"  v-if="activeTab === 'answers'">
+                            <v-tab-item :key="'2'"  v-if="activeTab === 'answers'">
                                 <v-flex xs12>
-                                    <answer-item :updateData="updateData" :answers="answers"></answer-item>
+                                    <answer-item :updateData="updateData" :answers="UserAnswers"></answer-item>
                                 </v-flex>
                             </v-tab-item>
-                            <v-tab-item :key="'3'" :value="'documents'" v-if="activeTab === 'documents'">
+                            <v-tab-item :key="'3'" v-if="activeTab === 'documents'">
                                 <v-flex xs12>
-                                    <document-item :updateData="updateData" :documents="documents"
+                                    <document-item :updateData="updateData" :documents="UserDocuments"
                                                    :filterVal="searchQuery"></document-item>
                                 </v-flex>
                             </v-tab-item>
@@ -188,18 +188,15 @@
             userInfo() {
                 return this.UserInfo
             },
-            questions() {
-                return this.UserQuestions
-            },
-            answers() {
-                return this.UserAnswers
-            },
-            documents() {
-                return this.UserDocuments
-            },
-            filteredData: function () {
-                let self = this;
-            },
+            // questions() {
+            //     return this.UserQuestions
+            // },
+            // answers() {
+            //     return this.UserAnswers
+            // },
+            // documents() {
+            //     return this.UserDocuments
+            // },
             userStatusActive: {
                 get() {
                     if (this.userInfo && this.userInfo.status) {

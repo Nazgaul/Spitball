@@ -59,7 +59,6 @@
 
 <script>
     import { deleteQuestion } from '../../question/questionComponents/delete/deleteQuestionService'
-
     export default {
 
         name: "questionIitem",
