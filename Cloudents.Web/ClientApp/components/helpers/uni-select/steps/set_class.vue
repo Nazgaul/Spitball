@@ -23,6 +23,7 @@
         v-model="selectedClasses"
         :items="classes"
         :label="classNamePlaceholder"
+
         :placeholder="placeholderVisible ? classNamePlaceholder : ''"
         solo
         :search-input.sync="search"
