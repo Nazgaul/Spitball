@@ -96,7 +96,6 @@ import {
     VTextarea
 } from "vuetify";
 import * as route from "./routes";
-debugger;
 
 const ilFonts = [
     "Assistant:300,400,600,700",
