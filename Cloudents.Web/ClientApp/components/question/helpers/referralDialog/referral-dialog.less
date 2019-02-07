@@ -1,13 +1,14 @@
 @import "../../../../styles/mixin.less";
 
-.v-select-list{
-  .v-list__tile__title{
+.v-select-list {
+  .v-list__tile__title {
     max-width: 350px;
     overflow: hidden;
   }
 }
-.ref-block {
 
+.ref-block {
+  overflow: hidden;
   .referral-container {
     text-align: center;
     vertical-align: middle;
@@ -20,19 +21,19 @@
     background-repeat: no-repeat;
     padding-bottom: 24px;
 
-    .close-btn{
-      .v-icon{
+    .close-btn {
+      .v-icon {
         color: fade(@color-white, 23%);
 
       }
     }
-    .bottom-sub{
+    .bottom-sub {
       font-family: @fontFiraSans;
       font-size: 16px;
       line-height: 1.69;
       letter-spacing: -0.2px;
       color: fade(@color-white, 87%);
-      @media(max-width: @screen-xs){
+      @media (max-width: @screen-xs) {
         font-size: 14px;
         line-height: 1.5;
         letter-spacing: -0.1px;
@@ -40,35 +41,35 @@
       }
 
     }
-    .ref-title{
+    .ref-title {
       font-weight: normal;
       line-height: 1.32;
       letter-spacing: -0.3px;
       font-family: @fontFiraSans;
       font-size: 28px;
       color: fade(@color-white, 87%);
-      @media(max-width: @screen-xs){
+      @media (max-width: @screen-xs) {
         font-size: 20px;
         line-height: 1.5;
         letter-spacing: -0.2px;
 
       }
     }
-    .ref-subtitle{
+    .ref-subtitle {
       font-family: @fontFiraSans;
       font-size: 28px;
       font-weight: bold;
       line-height: 1.32;
       letter-spacing: -0.3px;
       color: fade(@color-white, 87%);
-      @media(max-width: @screen-xs){
+      @media (max-width: @screen-xs) {
         font-size: 20px;
         line-height: 1.5;
         letter-spacing: -0.2px;
 
       }
     }
-    .select-referral{
+    .select-referral {
       max-width: 240px;
     }
 
@@ -82,7 +83,7 @@
           font-size: 14px;
           letter-spacing: -0.7px;
           color: @textColor;
-          .v-select__selections{
+          .v-select__selections {
             width: 100%;
             overflow: hidden;
           }
@@ -161,7 +162,7 @@
         cursor: pointer;
         width: 86px;
         height: 24px;
-        .share-icon{
+        .share-icon {
           /*rtl:ignore*/
           direction: ltr;
           width: 86px;

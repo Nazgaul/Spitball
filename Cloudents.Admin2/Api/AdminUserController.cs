@@ -181,9 +181,9 @@ namespace Cloudents.Admin2.Api
 
                 return BadRequest();
             }
-            
-           var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
-
+            var PhoneCommand = new ConfirmePhoneNumberCommand(user.Id);
+            var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
+            await _commandBus.DispatchAsync(PhoneCommand, token);
             await _commandBus.DispatchAsync(registrationBonusCommand, token);
             return Ok(new
             {

@@ -136,7 +136,7 @@
     <value>Give 150 points to classmates and earn 50 points for each one that joins</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
-    <value>Spread the Word at</value>
+    <value>Spread the word at </value>
   </data>
   <data name="get_document_text" xml:space="preserve">
     <value>Click this link to have a look, I am certain it will worth your while and help you in your studying!</value>
@@ -155,6 +155,9 @@
   </data>
   <data name="share_with" xml:space="preserve">
     <value>or share with</value>
+  </data>
+  <data name="spread" xml:space="preserve">
+    <value>Spread the Word</value>
   </data>
   <data name="title_document" xml:space="preserve">
     <value>I just uploaded some of my academic notes to Spitball.</value>

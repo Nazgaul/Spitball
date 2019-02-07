@@ -54,7 +54,7 @@
         computed: {
             ...mapGetters(['accountUser']),
             isIsrael() {
-                return global.isIsrael;
+                return global.lang.toLowerCase() === 'he'
             },
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly

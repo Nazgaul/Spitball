@@ -106,7 +106,7 @@ const usFonts = [
     "Fira+Sans:300,400,600,700",
     ]
 
-let usedFonts = global.lang.toLowerCase() === 'he' ? ilFonts : usFonts
+let usedFonts = global.lang.toLowerCase() === 'he' ? ilFonts : usFonts;
 
 //TODO: server side fix
 WebFont.load({
