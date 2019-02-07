@@ -82,8 +82,8 @@ const actions = {
             }
         )
     },
-    getUserAnswers(context, id) {
-        UserMainService.getUserAnswers(id).then((data) => {
+    getUserAnswers(context, idPageObj) {
+        UserMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
                 context.commit('setUserAnswers', data)
             },
             (error) => {
@@ -91,8 +91,8 @@ const actions = {
             }
         )
     },
-    getUserDocuments(context, id) {
-        UserMainService.getUserDocuments(id).then((data) => {
+    getUserDocuments(context, idPageObj) {
+        UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
                 context.commit('setUserDocuments', data)
             },
             (error) => {

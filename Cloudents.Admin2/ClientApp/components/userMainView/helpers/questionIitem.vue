@@ -64,7 +64,8 @@
         name: "questionIitem",
         props: {
             questions: {
-                type: Array
+                type: Array,
+                required: false
             },
             updateData: {
                 type: Function,
