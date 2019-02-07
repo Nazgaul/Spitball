@@ -46,12 +46,12 @@ namespace Cloudents.Core.Entities
             Language = language;
         }
 
-        public Question(QuestionSubject? subject, string text, decimal price, int attachments,
+        public Question(Course course, string text, decimal price, int attachments,
             SystemUser user,
              CultureInfo language)
             : this()
         {
-            Subject = subject;
+            Course = course;
             Text = text?.Trim();
             Price = price;
             Attachments = attachments;

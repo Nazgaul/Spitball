@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Admin2.Models
 {
@@ -9,7 +8,7 @@ namespace Cloudents.Admin2.Models
         /// Subject of the question
         /// </summary>
         [Required]
-        public QuestionSubject SubjectId { get; set; }
+        public string Course { get; set; }
         /// <summary>
         /// The text of the question
         /// </summary>
