@@ -121,7 +121,7 @@
     <value>הבא</value>
   </data>
   <data name="btn_finish" xml:space="preserve">
-    <value>סיים וסגור</value>
+    <value>סיים</value>
   </data>
   <data name="btn_skip" xml:space="preserve">
     <value>דלג</value>
