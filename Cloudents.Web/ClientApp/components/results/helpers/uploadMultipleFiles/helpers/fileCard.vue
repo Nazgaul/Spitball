@@ -46,6 +46,7 @@
                                  :placeholder="emptyPricePlaceholder"
                                  class="numeric-input px-2"
                                  :min="1"
+                                 :minus="false"
                                  :precision="2"
                                  :max="99"
                                  :currency-symbol-position="'suffix'"
