@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Query.Query;
+using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Dapper;
-namespace Cloudents.Query.Query
+
+namespace Cloudents.Query
 {
     public class UserReferralsQueryHandler : IQueryHandler<UserReferralsQuery, UserReferralsDto>
     {
@@ -23,7 +22,7 @@ namespace Cloudents.Query.Query
             {
                 return await connection.QueryFirstOrDefaultAsync<UserReferralsDto>(@"select count(1) as Referrals
                     from sb.[Transaction] where [Action] = 'ReferringUser' and User_Id = @Id"
-                   ,new { Id = query.Id });
+                   , new { query.Id });
             }, token);
         }
     }

@@ -35,7 +35,6 @@ namespace Cloudents.Infrastructure.Framework
         {
             var t = _doc.Value;
             var txt = ExtractPdfText(t);
-            var z = t.Pages;
             return (txt , t.Pages.Count);
         }
 

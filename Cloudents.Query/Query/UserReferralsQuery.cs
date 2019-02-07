@@ -1,7 +1,4 @@
 ﻿using Cloudents.Core.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Query.Query
 {
@@ -12,6 +9,6 @@ namespace Cloudents.Query.Query
             Id = id;
         }
 
-        public long Id { get; private set; }
+        public long Id { get;  }
     }
 }

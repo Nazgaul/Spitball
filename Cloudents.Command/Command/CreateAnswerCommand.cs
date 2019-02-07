@@ -16,13 +16,13 @@ namespace Cloudents.Command.Command
             Files = files;
         }
 
-        public long QuestionId { get; private set; }
-        public string Text { get; private set; }
+        public long QuestionId { get; }
+        public string Text { get; }
 
-        public long UserId { get; private set; }
+        public long UserId { get; }
 
         [CanBeNull]
-        public IEnumerable<string> Files { get; private set; }
+        public IEnumerable<string> Files { get; }
 
     }
    

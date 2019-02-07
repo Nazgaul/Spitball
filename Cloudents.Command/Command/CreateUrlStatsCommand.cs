@@ -9,7 +9,7 @@ namespace Cloudents.Command.Command
         public string UrlTarget { get; }
         public string UrlSource { get; }
         public int? SourceLocation { get; }
-        public string Ip { get; private set; }
+        public string Ip { get; }
 
         public CreateUrlStatsCommand(string host, DateTime dateTime, string urlTarget, string urlSource,
             int? sourceLocation, string ip)

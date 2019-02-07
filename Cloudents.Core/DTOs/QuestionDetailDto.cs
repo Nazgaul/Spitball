@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -52,22 +50,7 @@ namespace Cloudents.Core.DTOs
             Vote = vote;
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
         }
-        //public QuestionDetailAnswerDto(Guid id,
-        //    string text, 
-        //    long userId,
-        //    string userName, 
-        //    int userScore, 
-        //    DateTime create, 
-        //    int vote, 
-        //    CultureInfo culture)
-        //{
-        //    Id = id;
-        //    Text = text;
-        //    User = new UserDto(userId, userName, userScore);
-        //    Create = create;
-        //    Vote = new VoteDto { Votes = vote };
-        //    IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
-        //}
+       
 
        
         public Guid Id { get; set; }

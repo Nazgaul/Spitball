@@ -8,7 +8,7 @@
             RegisteredUserId = registeredUserId;
         }
 
-        public long InvitingUserId { get; private set; }
-        public long RegisteredUserId { get; private set; }
+        public long InvitingUserId { get; }
+        public long RegisteredUserId { get; }
     }
 }

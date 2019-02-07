@@ -2,10 +2,8 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Query.Admin;
 using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,11 +18,11 @@ namespace Cloudents.Query.Admin
         {
             _provider = provider;
         }
-        private const int pageSize = 200;
+        private const int PageSize = 200;
 
         public async Task<IEnumerable<UserQuestionsDto>> GetAsync(AdminUserQuestionsQuery query, CancellationToken token)
         {
-            var sql = @"select Id, Text, Created, [State]
+            const string sql = @"select Id, Text, Created, [State]
                 from sb.Question 
                 where UserId = @Id
 				order by 1
@@ -37,10 +35,9 @@ namespace Cloudents.Query.Admin
                     {
                         id = query.UserId,
                         PageNumber = query.Page,
-                        PageSize = pageSize
+                        PageSize
                     });
             }
-
         }
     }
 }

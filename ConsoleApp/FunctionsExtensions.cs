@@ -1,10 +1,7 @@
 ﻿using Autofac;
 using Cloudents.Query;
 using Dapper;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,11 +12,11 @@ namespace ConsoleApp
         private static CancellationToken token = CancellationToken.None;
 
 
-        public static async Task MergeCourses(IContainer _container)
+        public static async Task MergeCourses(IContainer container)
         {
-            var d = _container.Resolve<DapperRepository>();
+            var d = container.Resolve<DapperRepository>();
             var t = MigrateCoursesAndUni.Read();
-            string update = @"update sb.Document
+            const string update = @"update sb.Document
                             set CourseName = @newId
                             where CourseName = @oldId;
 
@@ -82,9 +79,9 @@ namespace ConsoleApp
         }
 
 
-        public static async Task MergeUniversity(IContainer _container)
+        public static async Task MergeUniversity(IContainer container)
         {
-            var d = _container.Resolve<DapperRepository>();
+            var d = container.Resolve<DapperRepository>();
             var t = MigrateCoursesAndUni.ReadUniversity();
             string update = @"update sb.[user] set UniversityId2 = @Newuni where UniversityId2 = @OldUni;
                                 update sb.Document set UniversityId = @Newuni where UniversityId = @OldUni;

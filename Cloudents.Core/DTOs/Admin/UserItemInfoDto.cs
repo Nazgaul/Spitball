@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using System;
-using System.Collections.Generic;
 
 
 namespace Cloudents.Core.DTOs.Admin

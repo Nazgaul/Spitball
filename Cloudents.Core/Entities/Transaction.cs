@@ -11,10 +11,10 @@ namespace Cloudents.Core.Entities
     {
 
 
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         protected Transaction()
         {
             Created = DateTime.UtcNow;
-            ;
         }
 
         public virtual RegularUser User { get; set; }
@@ -24,19 +24,14 @@ namespace Cloudents.Core.Entities
         public virtual TransactionActionType Action { get; protected set; }
         public virtual TransactionType Type { get; protected set; }
         public virtual decimal Price { get; protected set; }
-
-
-
-
-
-        //public virtual TransactionType2 TransactionType { get; protected set; }
     }
 
     public class CashOutTransaction : Transaction
     {
         public virtual bool? Approved { get; set; }
         public virtual string DeclinedReason { get; set; }
-        public CashOutTransaction(decimal price/*, RegularUser user*/) //: base(user)
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        public CashOutTransaction(decimal price) 
         {
             if (price < 1000)
             {
@@ -54,9 +49,9 @@ namespace Cloudents.Core.Entities
             }
             price = -Math.Abs(price);
 
-            this.Price = price;
-            this.Action = TransactionActionType.CashOut;
-            this.Type = Enum.TransactionType.Spent;
+            Price = price;
+            Action = TransactionActionType.CashOut;
+            Type = TransactionType.Spent;
         }
 
         protected CashOutTransaction()
@@ -66,26 +61,27 @@ namespace Cloudents.Core.Entities
 
         public virtual void Approve()
         {
-            this.Approved = true;
+            Approved = true;
         }
 
 
         public virtual void Decline(string reason)
         {
-            this.Approved = false;
-            this.DeclinedReason = reason;
+            Approved = false;
+            DeclinedReason = reason;
         }
     }
 
     public class CommissionTransaction : Transaction
     {
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public CommissionTransaction(decimal price)
         {
             price = -Math.Abs(price);
 
-            this.Price = decimal.Round(price * 0.09M, 2);
-            this.Action = TransactionActionType.Commission;
-            this.Type = Enum.TransactionType.Spent;
+            Price = decimal.Round(price * 0.09M, 2);
+            Action = TransactionActionType.Commission;
+            Type = TransactionType.Spent;
         }
 
         protected CommissionTransaction()
@@ -96,13 +92,14 @@ namespace Cloudents.Core.Entities
 
     public class BuyPointsTransaction : Transaction
     {
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BuyPointsTransaction(decimal price, string transactionId)
         {
             price = Math.Abs(price);
             TransactionId = transactionId;
-            this.Price = price;
-            this.Action = TransactionActionType.Buy;
-            this.Type = Enum.TransactionType.Earned;
+            Price = price;
+            Action = TransactionActionType.Buy;
+            Type = TransactionType.Earned;
         }
 
         public virtual string TransactionId { get; set; }
@@ -115,19 +112,21 @@ namespace Cloudents.Core.Entities
 
     public class AwardMoneyTransaction : Transaction
     {
-        public AwardMoneyTransaction(decimal price/*, RegularUser user*/) //: base(user)
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        public AwardMoneyTransaction(decimal price) 
         {
             if (price < 0)
             {
                 throw new ArgumentException("you need to award user");
             }
 
-            this.Price = price;
-            this.Action = TransactionActionType.None;
-            this.Type = Enum.TransactionType.Earned;
+           Price = price;
+           Action = TransactionActionType.None;
+           Type = TransactionType.Earned;
         }
 
-        public AwardMoneyTransaction(AwardsTransaction transaction/*, RegularUser user*/) : this(transaction.Price/*, user*/)
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        public AwardMoneyTransaction(AwardsTransaction transaction) : this(transaction.Price)
         {
             Action = transaction.Action;
         }
@@ -162,7 +161,8 @@ namespace Cloudents.Core.Entities
 
     public class QuestionTransaction : Transaction
     {
-        private QuestionTransaction(Question question/*, RegularUser user*/) //: base(user)
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        private QuestionTransaction(Question question) 
         {
             Question = question;
 
@@ -246,14 +246,14 @@ namespace Cloudents.Core.Entities
     public class ReferUserTransaction : Transaction
     {
         public virtual RegularUser InvitedUser { get; set; }
-        //    public static readonly TransactionType2 ReferUser = new TransactionType2(
-        // TransactionActionType.ReferringUser, TransactionType.Earned, 10);
-        public ReferUserTransaction(RegularUser invitedUser/*, RegularUser user*/) //: base(user)
+      
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        public ReferUserTransaction(RegularUser invitedUser) 
         {
             InvitedUser = invitedUser;
             Action = TransactionActionType.ReferringUser;
-            this.Price = 50;
-            this.Type = TransactionType.Earned;
+            Price = 50;
+            Type = TransactionType.Earned;
         }
 
         protected ReferUserTransaction()
@@ -264,7 +264,8 @@ namespace Cloudents.Core.Entities
 
     public class DocumentTransaction : Transaction
     {
-        private DocumentTransaction(Document document/*, RegularUser user*/) //: base(user)
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        private DocumentTransaction(Document document)
         {
             Document = document;
 
@@ -300,7 +301,6 @@ namespace Cloudents.Core.Entities
 
         public static void MakerTransaction(User buyer, User seller, Document d)
         {
-            var price = d.Price;
             buyer.MakeTransaction(Buyer(d));
             seller.MakeTransaction(Seller(d));
             seller.MakeTransaction(new CommissionTransaction(d.Price));

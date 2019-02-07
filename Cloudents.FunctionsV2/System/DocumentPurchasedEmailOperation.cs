@@ -77,10 +77,12 @@ namespace Cloudents.FunctionsV2.System
                 return null;
             }
 
+            
             CultureInfo info = language;
+            var emailObjects = template2.ToList();
             while (info != null)
             {
-                var template1 = template2.FirstOrDefault(f => f.CultureInfo.Equals(info));
+                var template1 = emailObjects.FirstOrDefault(f => f.CultureInfo.Equals(info));
                 if (template1 != null)
                 {
                     return template1;
@@ -94,7 +96,7 @@ namespace Cloudents.FunctionsV2.System
             }
 
             var z = (CultureInfo) Language.English;
-            var template = template2.FirstOrDefault(f => f.CultureInfo.Equals(z));
+            var template = emailObjects.FirstOrDefault(f => f.CultureInfo.Equals(z));
             return template;
         }
 

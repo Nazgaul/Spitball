@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Command.Command.Admin
 {
@@ -10,6 +8,6 @@ namespace Cloudents.Command.Command.Admin
         {
             TransactionId = transactionId;
         }
-        public Guid TransactionId { get; set; }
+        public Guid TransactionId { get; }
     }
 }
