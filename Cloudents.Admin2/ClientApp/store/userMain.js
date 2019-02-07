@@ -44,9 +44,9 @@ const getters = {
     getTokensDialogState: (state) => state.tokensDilaogState,
     getUserBalance: (state) => state.userBalance,
     UserInfo: (state) =>   state.userInfo,
-    UserQuestions: (state) =>   state.userInfo,
-    UserAnswers: (state) =>   state.userInfo,
-    UserDocuments: (state) =>   state.userInfo
+    UserQuestions: (state) =>   state.userQuestions,
+    UserAnswers: (state) =>   state.userAnswers,
+    UserDocuments: (state) =>   state.userDocuments
 
 };
 const actions = {
@@ -66,14 +66,15 @@ const actions = {
     getUserData(context, id) {
        return UserMainService.getUserData(id).then((data) => {
                 context.commit('setUserInfo', data)
+           return data
             },
             (error) => {
                 console.log(error, 'error')
             }
         )
     },
-    getUserQuestions(context, id) {
-        UserMainService.getUserQuestions(id).then((data) => {
+    getUserQuestions(context, idPageObj) {
+        UserMainService.getUserQuestions(idPageObj.id, idPageObj.page).then((data) => {
                 context.commit('setUserQuestions', data)
             },
             (error) => {

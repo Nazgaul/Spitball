@@ -57,31 +57,30 @@
                                 centered
                                 color="cyan"
                                 dark
-                                @change="setActiveTab()"
                                 v-model="activeTab"
                                 icons-and-text
                         >
                             <v-tabs-slider color="yellow"></v-tabs-slider>
+                            <v-tab @change="setActiveTab('questions')" href="#userQuestions">User Question</v-tab>
 
-                            <v-tab href="#userQuestions">User Question</v-tab>
+                            <v-tab @change="setActiveTab('answers')" href="#userAnswers">User Answers</v-tab>
 
-                            <v-tab href="#userAnswers">User Answers</v-tab>
+                            <v-tab @change="setActiveTab('documents')" href="#userDocuments">User Documents</v-tab>
 
-                            <v-tab href="#userDocuments">User Documents</v-tab>
-
-                            <v-tab-item :key="'1'" :value="'userQuestions'">
+                            <v-tab-item :key="'1'" :value="'questions'">
                                 <v-flex xs12>
-                                    <question-item :updateData="updateData" :questions="userQuestions"></question-item>
+                                    <question-item
+                                         :updateData="updateData" :questions="questions"></question-item>
                                 </v-flex>
                             </v-tab-item>
-                            <v-tab-item :key="'2'" :value="'userAnswers'">
+                            <v-tab-item :key="'2'" :value="'answers'"  v-if="activeTab === 'answers'">
                                 <v-flex xs12>
-                                    <answer-item :updateData="updateData" :answers="filteredData"></answer-item>
+                                    <answer-item :updateData="updateData" :answers="answers"></answer-item>
                                 </v-flex>
                             </v-tab-item>
-                            <v-tab-item :key="'3'" :value="'userDocuments'">
+                            <v-tab-item :key="'3'" :value="'documents'" v-if="activeTab === 'documents'">
                                 <v-flex xs12>
-                                    <document-item :updateData="updateData" :documents="filteredData"
+                                    <document-item :updateData="updateData" :documents="documents"
                                                    :filterVal="searchQuery"></document-item>
                                 </v-flex>
                             </v-tab-item>
@@ -146,6 +145,11 @@
                     {name: 'Deleted', value: 'deleted'},
                     {name: 'Flagged', value: 'flagged'}
                 ],
+                scrollFunc: {
+                    questions: {page: 1, getData: this.getUserQuestionsData},
+                    answers: {page: 1, getData: this.getUserAnswers},
+                    documents: {page: 1, getData: this.getUserDocuments},
+                },
                 userActions: [
                     {
                         title: "Suspend",
@@ -165,7 +169,7 @@
                         action: this.sendTokens,
                     },
                 ],
-                activeTab: '',
+                activeTab: 'questions',
                 searchQuery: 'ok',
                 userComponentsShow: false,
                 activeUserComponent: '',
@@ -184,22 +188,17 @@
             userInfo() {
                 return this.UserInfo
             },
-            userQuestions() {
+            questions() {
                 return this.UserQuestions
             },
-            userAnswers() {
+            answers() {
                 return this.UserAnswers
             },
-            userDocuments() {
+            documents() {
                 return this.UserDocuments
             },
             filteredData: function () {
                 let self = this;
-                // if (self.userData && self.userData[`${this.activeTab}`]) {
-                //     return self.userData[`${this.activeTab}`].filter(function (item) {
-                //         return item.state.indexOf(self.searchQuery) !== -1
-                //     })
-                // }
             },
             userStatusActive: {
                 get() {
@@ -241,32 +240,32 @@
             updateData(index) {
                 // this.userData[`${this.activeTab}`].splice(index, 1);
             },
-            setActiveTab() {
-                console.log(this.activeTab)
+            setActiveTab(activeTabName) {
+                return this.activeTab = activeTabName;
             },
             updateFilter(val) {
                 return this.searchQuery = val
             },
             getUserInfoData() {
                 let id = this.userIdentifier;
-                this.getUserData(id)
-                    .then((success) => {
-                        let id = this.UserInfo.id.value;
-                        this.getUserQuestionsData(id);
-
+                let self = this;
+                self.getUserData(id)
+                    .then((data) => {
+                        let idPageObj ={
+                            id: data.id.value,
+                            page:  self.scrollFunc[`${self.activeTab}`].page
+                        };
+                        self.scrollFunc[`${self.activeTab}`].getData(idPageObj);
                     })
             },
-            getUserQuestionsData() {
-                let id = this.userIdentifier;
-                this.getUserQuestions(id)
+            getUserQuestionsData(id, page) {
+                this.getUserQuestions(id, page)
             },
-            getUserAnswers() {
-                let id = this.userIdentifier;
-                this.getUserAnswers(id)
+            getUserAnswers(id, page) {
+                this.getUserAnswers(id, page)
             },
-            getUserDocuments() {
-                let id = this.userIdentifier;
-                this.getUserDocuments(id)
+            getUserDocuments(id, page) {
+                this.getUserDocuments(id, page)
             },
             suspendUser() {
                 let idArr = [];

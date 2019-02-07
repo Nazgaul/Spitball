@@ -75,8 +75,8 @@ function createAnswertItem(data) {
 
 
 export default {
-    getUserData: (id) => {
-        let path = "AdminUser/info?userIdentifier=" + id;
+    getUserData: (id, page) => {
+        let path = `AdminUser/info?userIdentifier=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createUserInfoItem(resp);
@@ -86,8 +86,8 @@ export default {
                 return Promise.reject(error)
             })
     },
-    getUserDocuments: (id) => {
-        let path = "AdminUser/documents?userIdentifier=" + id;
+    getUserDocuments: (id, page) => {
+        let path = `AdminUser/documents?id=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createDocumentItem(resp);
@@ -97,8 +97,8 @@ export default {
                 return Promise.reject(error)
             })
     },
-    getUserQuestions: (id) => {
-        let path = "AdminUser/questions?userIdentifier=" + id;
+    getUserQuestions: (id, page) => {
+        let path = `AdminUser/questions?id=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createQuestionItem(resp);
@@ -108,8 +108,8 @@ export default {
                 return Promise.reject(error)
             })
     },
-    getUserAnswers: (id) => {
-        let path = "AdminUser/answers?userIdentifier=" + id;
+    getUserAnswers: (id, page) => {
+        let path = `AdminUser/answers?id=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createAnswertItem(resp);

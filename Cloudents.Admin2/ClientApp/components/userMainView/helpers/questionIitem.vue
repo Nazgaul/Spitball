@@ -1,6 +1,6 @@
 <template>
-    <div class="question-item-wrap">
-        <v-card v-show="questions.length > 0" v-for="(question, index) in questions" :key="index">
+    <div class="question-item-wrap" >
+        <v-card v-for="(question, index) in questions" :key="index">
             <v-toolbar class="question-toolbar mt-4 back-color-purple">
                 <v-toolbar-title class="question-text-title" @click="openQuestion(question.url)">
                     {{question.text}}
@@ -64,7 +64,9 @@
 
         name: "questionIitem",
         props: {
-            questions: {},
+            questions: {
+                type: Array
+            },
             updateData: {
                 type: Function,
                 required: false

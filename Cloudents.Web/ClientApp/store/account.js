@@ -200,7 +200,7 @@ const actions = {
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
             .then((data) => {
-                    let refNumber = data.referrals ? data.referrals : 0;
+                    let refNumber = data.referrals ? data.referrals : '';
                     context.commit('setRefferedNumber', refNumber)
                 },
                 (error) => {
