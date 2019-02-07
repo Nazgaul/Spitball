@@ -154,7 +154,7 @@
     <value>זקוק לעוד נקודות?</value>
   </data>
   <data name="per_point" xml:space="preserve">
-    <value>/נקודה</value>
+    <value>/ נקודה</value>
   </data>
   <data name="points" xml:space="preserve">
     <value>נק'</value>
