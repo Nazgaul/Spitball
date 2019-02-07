@@ -22,7 +22,9 @@ const state = {
         local: window.localStorage.getItem('sb_uniSelectPoped_l') || 0 //integer
     },
     resultLockForSchoolNameChange: false,
-    selectForTheFirstTime: false
+    resultLockForClassesChange: false,
+    selectForTheFirstTime: false,
+    reflectChangeToPage: 0
 };
 
 const getters = {
@@ -36,7 +38,9 @@ const getters = {
     getAllSteps: state => state.stepsEnum,
     getCurrentStep: state => state.currentStep,
     getUniversityPopStorage: state => state.universityPopStorage,
-    getResultLockForSchoolNameChange: state => state.resultLockForSchoolNameChange
+    getResultLockForSchoolNameChange: state => state.resultLockForSchoolNameChange,
+    getResultLockForClassesChange: state => state.resultLockForClassesChange,
+    getReflectChangeToPage: state => state.reflectChangeToPage
 };
 
 const actions = {
@@ -44,7 +48,7 @@ const actions = {
         universityService.getProfileUniversity().then((university)=>{
             commit('setSchoolName', university.text);
             setTimeout(()=>{
-                dispatch('releaseResultLock');
+                dispatch('releaseResultLock', "uni");
             }, 2000);
             
 
@@ -53,10 +57,16 @@ const actions = {
             if(courses.length > 0){
                 commit('setSelectedClasses', courses);
                 dispatch('assignSelectedClassesCache', courses);
+                setTimeout(()=>{
+                    dispatch('releaseResultLock', "class");
+                }, 2000);
             }
         })
     },
-    changeSelectUniState({commit, dispatch, getters, state}, val){
+    changeReflectChangeToPage({commit}){
+        commit('setReflectChangeToPage');
+    },
+    changeSelectUniState({commit, dispatch, getters, rootState}, val){
         if(!val){
             dispatch('changeClassesToCachedClasses')
             //if(state.selectForTheFirstTime){
@@ -123,7 +133,9 @@ const actions = {
         universityService.assaignCourse(state.selectedClasses).then(()=>{
             //Update Filters in note page
             //dispatch("updateCoursesFilters", state.selectedClasses);
+            dispatch('changeReflectChangeToPage')
             Promise.resolve(true);
+            
         })
     },
     assignSelectedClassesCache({commit, state}){
@@ -146,11 +158,19 @@ const actions = {
             commit('setUniversityPopStorage', localPopedItem);
         }        
     },
-    releaseResultLock({commit}){
-        commit('openResultLockForSchoolNameChange');
+    releaseResultLock({commit}, val){
+        if(val === "uni"){
+            commit('openResultLockForSchoolNameChange');
+        }else if(val === "class"){
+            commit('openResultLockForClassesChange');
+        }
+        
     },
     updateSelectForTheFirstTime({commit}, val){
         commit('setSelectForTheFirstTime', val);
+    },
+    closeSelectUniFromNav({commit}){
+        commit('setSelectUniState', false);
     }
 };
 
@@ -192,8 +212,14 @@ const mutations = {
     openResultLockForSchoolNameChange(state){
         state.resultLockForSchoolNameChange = true;
     },
+    openResultLockForClassesChange(state){
+        state.resultLockForClassesChange = true;
+    },
     setSelectForTheFirstTime(state, val){
         state.selectForTheFirstTime = val;
+    },
+    setReflectChangeToPage(state){
+        state.reflectChangeToPage++;
     }
 };
 

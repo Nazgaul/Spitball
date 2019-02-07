@@ -73,7 +73,7 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'HomeworkHelp_getShowQuestionToaster', 'getSchoolName']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'HomeworkHelp_getShowQuestionToaster', 'getSchoolName', 'getReflectChangeToPage','getSearchLoading']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'HomeworkHelp_getItems'}),
         showSelectUni(){
             let schoolName = this.getSchoolName;
@@ -137,7 +137,7 @@ export default {
             return this.query.term
         },
         showSkelaton() {
-            return this.loading || this.isLoad
+            return this.getSearchLoading || this.loading || this.isLoad
         }
     },
 
@@ -156,6 +156,12 @@ export default {
                 this.reloadContentOfPage();
             }
         },
+
+        getReflectChangeToPage(){
+            if(this.getResultLockForClassesChange()){
+               this.reloadContentOfPage();
+            }
+        }
     },
     methods: {
         ...mapActions([
@@ -170,7 +176,7 @@ export default {
             'HomeworkHelp_nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "HomeworkHelp_injectQuestion"]),
-        ...mapGetters(["getCurrentVertical", "HomeworkHelp_getNextPageUrl", "getResultLockForSchoolNameChange"]),
+        ...mapGetters(["getCurrentVertical", "HomeworkHelp_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
 
         loadNewQuestions(){
             this.HomeworkHelp_injectQuestion();
