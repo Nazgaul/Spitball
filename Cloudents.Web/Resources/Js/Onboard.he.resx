@@ -132,6 +132,9 @@
   <data name="final_away" xml:space="preserve">
     <value>מפדיון הנקודות שלך בכסף.</value>
   </data>
+  <data name="final_bottom_text" xml:space="preserve">
+    <value>גש למסמכים של סטודנטים מעולים מהכיתה שלך עכשיו</value>
+  </data>
   <data name="final_enter_wallet" xml:space="preserve">
     <value>גש למסמכים של סטודנטים מעולים מהכיתה שלך עכשיו</value>
   </data>
@@ -141,6 +144,12 @@
   <data name="final_title" xml:space="preserve">
     <value>בואו נתחיל!</value>
   </data>
+  <data name="how_text" xml:space="preserve">
+    <value>כל סטודנט יכול להציע חומר לימוד לסטודנטים אחרים בחינם או בתשלום.</value>
+  </data>
+  <data name="how_title" xml:space="preserve">
+    <value>איך זה עובד?</value>
+  </data>
   <data name="learn_subtitle" xml:space="preserve">
     <value>בספיטבול כל סטודנט יכול להציע את המשאבים שלו לסטודנטים אחרים ולהחליט אם הוא מציע אותם תמורת נקודות.</value>
   </data>
@@ -149,6 +158,9 @@
   </data>
   <data name="welcome_subtitle" xml:space="preserve">
     <value>קהילת הסטודנטים שבה לומדים וחולקים חומרי לימוד אחד עם השני.</value>
+  </data>
+  <data name="welcome_text" xml:space="preserve">
+    <value>הקהילה בה הסטודנטים ניגשים לחומרי לימוד ועוזרים אחד לשני.</value>
   </data>
   <data name="welcome_title" xml:space="preserve">
     <value>ברוכים הבאים לספיטבול</value>
