@@ -51,6 +51,8 @@ namespace Cloudents.Core.Entities
 
         public virtual bool LockoutEnabled { get; set; }
 
+        public virtual string LockoutReason { get; set; }
+
         private readonly IList<Answer> _answers = new List<Answer>();
 
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
@@ -64,9 +66,10 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void SuspendUser(DateTimeOffset lockTime)
+        public virtual void SuspendUser(DateTimeOffset lockTime, string reason)
         {
             LockoutEnd = lockTime;
+            LockoutReason = reason;
             AddEvent(new UserSuspendEvent(this));
         }
 

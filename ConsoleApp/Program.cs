@@ -376,7 +376,7 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
-
+            var x = _container.Resolve<IUnitOfWork>();
             var queryBus = _container.Resolve<IQueryBus>();
             var retValTask = await queryBus.QueryAsync(new QuestionDataByIdQuery(2041L), token);
 
