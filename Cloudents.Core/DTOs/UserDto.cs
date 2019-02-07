@@ -28,10 +28,8 @@
         public string UniversityName { get; set; }
     }
 
-    public class UserAccountDto : UserDto
+    public class UserAccountDto 
     {
-        
-
         public string Token { get; set; }
         public decimal Balance { get; set; }
 
@@ -39,5 +37,11 @@
         public string PhoneNumber { get; set; }
 
         public bool UniversityExists { get; set; }
+
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public int Score { get; set; }
+        
     }
 }

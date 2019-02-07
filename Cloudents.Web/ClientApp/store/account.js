@@ -14,18 +14,21 @@ function setIntercomSettings(data) {
     let user_id = null;
     let user_name = null;
     let user_email = null;
+    let user_phoneNumber = null;
 
     if (!!data) {
         user_id = "Sb_" + data.id;
         user_name = data.name;
         user_email = data.email;
+        user_phoneNumber = data.phoneNumber;
     }
     global.intercomSettings = {
         app_id,
         hide_default_launcher,
         user_id,
         name: user_name,
-        email: user_email
+        email: user_email,
+        phoneNumber: user_phoneNumber
     }
 
     global.Intercom('boot', {intercomSettings});

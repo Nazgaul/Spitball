@@ -8,6 +8,7 @@ function AccountUser(ObjInit){
     this.token= ObjInit.token
     this.universityExists= ObjInit.universityExists
     this.score = ObjInit.score;
+    this.phoneNumber = ObjInit.phoneNumber;
 
 }
 

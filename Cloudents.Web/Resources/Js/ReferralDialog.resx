@@ -130,7 +130,7 @@
     <value>The more classmates you get on Spitball, the better everyone’s grades will be!</value>
   </data>
   <data name="dialog_friends_joined" xml:space="preserve">
-    <value>invited friends have joined</value>
+    <value> invited friends have joined</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
     <value>Give 150 points to classmates and earn 50 points for each one that joins</value>
