@@ -79,7 +79,40 @@ export default {
         let path = "AdminUser/info?userIdentifier=" + id;
         return connectivityModule.http.get(path)
             .then((resp) => {
-                return createUserItem(resp);
+                return createUserInfoItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getUserDocuments: (id) => {
+        let path = "AdminUser/documents?userIdentifier=" + id;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createDocumentItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getUserQuestions: (id) => {
+        let path = "AdminUser/questions?userIdentifier=" + id;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createQuestionItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getUserAnswers: (id) => {
+        let path = "AdminUser/answers?userIdentifier=" + id;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createAnswertItem(resp);
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');

@@ -6,8 +6,13 @@
             </button>
             <v-layout column v-show="!isUploadReferral">
                 <v-flex xs12 sm12 md12 class="mb-3">
-                    <div>
-                        <span class="ref-title" v-html="text.dialog.title"></span>
+                    <div v-show="getSchoolName">
+                        <span class="ref-title" v-html="text.dialog.title">
+                        </span>
+                        <span class="ref-title" v-if="getSchoolName">{{getSchoolName}}</span>
+                    </div>
+                    <div v-show="!getSchoolName">
+                        <span class="ref-title" v-html="text.dialog.titleSpread"></span>
                     </div>
                 </v-flex>
                 <v-flex xs12 sm12 md12 class="mb-4">
@@ -129,6 +134,7 @@
                 text: {
                     dialog: {
                         title: LanguageService.getValueByKey("referralDialog_dialog_title_invite"),
+                        titleSpread: LanguageService.getValueByKey("referralDialog_spread"),
                         subTitle: LanguageService.getValueByKey("referralDialog_dialog_subtitle"),
                         bottomText: LanguageService.getValueByKey("referralDialog_dialog_bottom_text"),
                         friendsJoined: LanguageService.getValueByKey("referralDialog_dialog_friends_joined"),
@@ -176,7 +182,7 @@
             }
         },
         computed: {
-            ...mapGetters(['usersReffered']),
+            ...mapGetters(['usersReffered', 'getSchoolName']),
             isUploadReferral(){
                 return this.referralType === 'uploadReffer';
             }

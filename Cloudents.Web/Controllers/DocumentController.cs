@@ -96,7 +96,7 @@ namespace Cloudents.Web.Controllers
             {
                 universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
-                id,
+                id = id.Value,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
             });
             return t;
