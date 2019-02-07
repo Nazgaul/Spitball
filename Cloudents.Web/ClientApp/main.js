@@ -207,7 +207,9 @@ global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') >
 global.isIsrael = global.country.toLowerCase() === "il";
 //check if Edge (using to fix position sticky bugs)
 global.isEdgeRtl = false;
+global.isEdge = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+    global.isEdge = true;
     if(global.isRtl){
         global.isEdgeRtl = true;
     }
