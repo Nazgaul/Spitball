@@ -5,7 +5,7 @@
             <div class="input-wrap d-flex  justify-end">
                 <v-flex xs3>
                     <v-text-field autocomplete solo v-model="userIdentifier"
-                                  @keyup.enter.native="getUserInfo()"
+                                  @keyup.enter.native="getUserInfoData()"
                                   autofocus
                                   clearable
                                   loading="primary"
@@ -13,18 +13,18 @@
                                   placeholder="Insert user identifier..."/>
                 </v-flex>
                 <v-flex xs1>
-                    <v-btn :disabled="!userIdentifier" primary @click="getUserInfo()">Get User</v-btn>
+                    <v-btn :disabled="!userIdentifier" primary @click="getUserInfoData()">Get User</v-btn>
                 </v-flex>
                 <v-spacer></v-spacer>
-                <v-flex xs4 v-if="userData.userInfo">
-                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!userData" color="rgb(0, 188, 212)"
+                <v-flex xs4 v-if="userInfo">
+                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!userInfo" color="rgb(0, 188, 212)"
                            class="suspend"
                            @click="suspendUser()">
                         Suspend
                     </v-btn>
-                    <v-btn v-else :disabled="!userData" class="suspend" @click="releaseUser()">UnSuspend</v-btn>
+                    <v-btn v-else :disabled="!userInfo" class="suspend" @click="releaseUser()">UnSuspend</v-btn>
 
-                    <v-btn :disabled="!userData" class="grant" @click="openTokensDialog()">Grant Tokens
+                    <v-btn :disabled="!userInfo" class="grant" @click="openTokensDialog()">Grant Tokens
                     </v-btn>
 
                     <!--<div v-show="activeUserComponent && userComponentsShow">-->
@@ -40,9 +40,9 @@
                     </v-btn>
                 </div>
                 <v-layout row>
-                    <div class="general-info d-flex elevation-2 mb-2" v-if="userData && userData.userInfo">
-                        <div class="info-item py-2 px-2" v-for="(infoItem, index) in userData.userInfo" :key="index">
-                            <v-flex row class="d-flex align-baseline justify-center" >
+                    <div class="general-info d-flex elevation-2 mb-2" v-if="userInfo">
+                        <div class="info-item py-2 px-2" v-for="(infoItem, index) in userInfo" :key="index">
+                            <v-flex row class="d-flex align-baseline justify-center">
                                 <div class="user-info-label">
                                     <span>{{infoItem.label}}</span>
                                 </div>
@@ -71,7 +71,7 @@
 
                             <v-tab-item :key="'1'" :value="'userQuestions'">
                                 <v-flex xs12>
-                                    <question-item :updateData="updateData" :questions="filteredData"></question-item>
+                                    <question-item :updateData="updateData" :questions="userQuestions"></question-item>
                                 </v-flex>
                             </v-tab-item>
                             <v-tab-item :key="'2'" :value="'userAnswers'">
@@ -173,22 +173,38 @@
             }
         },
         computed: {
-            ...mapGetters(["getTokensDialogState", "getUserObj"]),
-            userData() {
-                return this.getUserObj
+            ...mapGetters([
+                "getTokensDialogState",
+                "getUserObj",
+                "UserInfo",
+                "UserQuestions",
+                "UserAnswers",
+                "UserDocuments"
+            ]),
+            userInfo() {
+                return this.UserInfo
+            },
+            userQuestions() {
+                return this.UserQuestions
+            },
+            userAnswers() {
+                return this.UserAnswers
+            },
+            userDocuments() {
+                return this.UserDocuments
             },
             filteredData: function () {
                 let self = this;
-                if (self.userData && self.userData[`${this.activeTab}`]) {
-                    return self.userData[`${this.activeTab}`].filter(function (item) {
-                        return item.state.indexOf(self.searchQuery) !== -1
-                    })
-                }
+                // if (self.userData && self.userData[`${this.activeTab}`]) {
+                //     return self.userData[`${this.activeTab}`].filter(function (item) {
+                //         return item.state.indexOf(self.searchQuery) !== -1
+                //     })
+                // }
             },
             userStatusActive: {
                 get() {
-                    if (this.userData && this.userData.userInfo) {
-                        return this.userData.userInfo.status.value
+                    if (this.userInfo && this.userInfo.status) {
+                        return this.userInfo.status.value
                     }
                 },
                 set(val) {
@@ -198,13 +214,20 @@
             },
 
             userId() {
-                if (this.userData && this.userData.userInfo) {
-                    return this.userData.userInfo.id.value
+                if (this.userInfo) {
+                    return this.userInfo.id.value
                 }
             }
         },
         methods: {
-            ...mapActions(["setTokensDialogState", "getUserData", "setUserCurrentStatus"]),
+            ...mapActions([
+                "setTokensDialogState",
+                "getUserData",
+                "setUserCurrentStatus",
+                "getUserQuestions",
+                "getUserAnswers",
+                "getUserDocuments"
+            ]),
             setUserComponent(val) {
                 this.userComponentsShow = true;
                 return this.activeUserComponent = val
@@ -216,7 +239,7 @@
                 this.setTokensDialogState(false);
             },
             updateData(index) {
-                this.userData[`${this.activeTab}`].splice(index, 1);
+                // this.userData[`${this.activeTab}`].splice(index, 1);
             },
             setActiveTab() {
                 console.log(this.activeTab)
@@ -224,15 +247,26 @@
             updateFilter(val) {
                 return this.searchQuery = val
             },
-            getUserInfo() {
+            getUserInfoData() {
                 let id = this.userIdentifier;
-                this.getUserData(id).then((success) => {
-                    console.log(success)
-                    },
-                    (error) => {
-                        this.$toaster.error('Can\'t get User By Provided ID');
-                        console.log(error)
+                this.getUserData(id)
+                    .then((success) => {
+                        let id = this.UserInfo.id.value;
+                        this.getUserQuestionsData(id);
+
                     })
+            },
+            getUserQuestionsData() {
+                let id = this.userIdentifier;
+                this.getUserQuestions(id)
+            },
+            getUserAnswers() {
+                let id = this.userIdentifier;
+                this.getUserAnswers(id)
+            },
+            getUserDocuments() {
+                let id = this.userIdentifier;
+                this.getUserDocuments(id)
             },
             suspendUser() {
                 let idArr = [];
@@ -282,7 +316,7 @@
 
 <style scoped lang="scss">
     .user-page-wrap {
-        .tabs-holder{
+        .tabs-holder {
             order: 2;
             flex-grow: 1;
         }
@@ -293,7 +327,7 @@
             margin-right: 8px;
             max-height: 570px;
             height: 570px;
-            .info-item:nth-child(even){
+            .info-item:nth-child(even) {
                 background-color: #f5f5f5;
             }
             .user-info-label, .user-info-value {
