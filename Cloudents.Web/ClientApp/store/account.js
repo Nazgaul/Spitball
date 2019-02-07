@@ -58,7 +58,7 @@ const state = {
     profileData: profileService.getProfileData('profileGeneral'),
     profile: null,
     usersReferred: 0
-}
+};
 const mutations = {
     setProfile(state, val) {
         state.profile = val;
