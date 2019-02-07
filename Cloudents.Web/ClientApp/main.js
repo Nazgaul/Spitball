@@ -99,15 +99,20 @@ import * as route from "./routes";
 
 import { constants } from "./utilities/constants";
 
+const ilFonts = [
+    "Assistant:300,400,600,700",
+    ]
+const usFonts = [
+    "Open+Sans:300,400,600,700",
+    "Fira+Sans:300,400,600,700",
+    ]
+
+let usedFonts = global.lang.toLowerCase() === 'he' ? ilFonts : usFonts
+
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: [
-            "Open+Sans:300,400,600,700",
-            "Fira+Sans:300,400,600,700",
-            "Assistant:300,400,600,700",
-            "Alef:300,400,600,700",
-            "Patua+One: 300,400,600,700"]
+        families: usedFonts
     }
 });
 
