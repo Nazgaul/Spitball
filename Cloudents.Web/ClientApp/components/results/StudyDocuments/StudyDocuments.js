@@ -84,7 +84,7 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getSchoolName']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getSchoolName', 'getReflectChangeToPage','getSearchLoading']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'StudyDocuments_getItems'}),
         showSelectUni(){
             let schoolName = this.getSchoolName;
@@ -151,7 +151,7 @@ export default {
             return ACADEMIC_VERTICALS.includes(this.name)
         },
         showSkelaton() {
-            return this.loading || this.isLoad
+            return this.getSearchLoading || this.loading || this.isLoad
         }
     },
 
@@ -162,6 +162,11 @@ export default {
                 this.reloadContentOfPage();
             }
         },
+        getReflectChangeToPage(){
+            if(this.getResultLockForClassesChange()){
+               this.reloadContentOfPage();
+            }
+        }
     },
     methods: {
         ...mapActions([
@@ -176,7 +181,7 @@ export default {
             'StudyDocuments_nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING"]),
-        ...mapGetters(["getCurrentVertical", "StudyDocuments_getNextPageUrl", "getResultLockForSchoolNameChange"]),     
+        ...mapGetters(["getCurrentVertical", "StudyDocuments_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),     
         goToAskQuestion(){
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);

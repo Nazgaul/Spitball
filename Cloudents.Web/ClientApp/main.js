@@ -207,7 +207,9 @@ global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') >
 global.isIsrael = global.country.toLowerCase() === "il";
 //check if Edge (using to fix position sticky bugs)
 global.isEdgeRtl = false;
+global.isEdge = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+    global.isEdge = true;
     if(global.isRtl){
         global.isEdgeRtl = true;
     }
@@ -308,7 +310,9 @@ Vue.filter('commasFilter', function (value) {
 
 router.beforeEach((to, from, next) => {
     if(!to.query || !to.query.university){
-        store.dispatch('changeSelectUniState', false)
+        if(!!from.query && !!from.query.university){
+            store.dispatch('closeSelectUniFromNav')
+        }
     }
     
     // if (!!to.query && Object.keys(to.query).length > 0) {
@@ -367,6 +371,7 @@ global.isMobileAgent = function() {
      })(navigator.userAgent||navigator.vendor||window.opera);
     return check;
   };
+  
 //initSignalRService();
 
 //app.$mount("#app");
