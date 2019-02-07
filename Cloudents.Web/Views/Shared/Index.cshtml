@@ -44,7 +44,7 @@
 
             </g>
         </g>
-        <text x="50%" y="50%" style="font-size: 10px;" text-anchor="middle" alignment-baseline="central">@Localizer["Loading...."]</text>
+        <text x="50%" y="50%" font-size="5" text-anchor="middle" alignment-baseline="central">@Localizer["Loading...."]</text>
     </svg>
 
 </div>
@@ -54,9 +54,9 @@
 
 @section scripts {
     @*@await Component.InvokeAsync("Resource")*@
-    @*<environment include="Development">
+    <environment include="Development">
         <script src="~/dist/@main.Js"></script>
-    </environment>*@
+    </environment>
     <environment exclude="Development">
         <script src="@Constants.GetCdnEndpoint(Environment)/dist/@main.Js"
                 asp-fallback-src="~/dist/@main.Js"
