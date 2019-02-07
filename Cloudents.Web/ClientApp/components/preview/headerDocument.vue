@@ -27,8 +27,8 @@
         <div class="details-content">
             <v-layout class="details-wrap" row align-center justify-start>
                 <div class="doc-type pr-2">
-                    <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
-                    <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
+                    <v-icon class="doc-type-icon">sbf-document-note</v-icon>
+                    <span class="doc-type-text">{{docType}}</span>
                 </div>
                 <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.xsOnly">
                     <div class="viewed">
@@ -130,8 +130,8 @@
                 <v-card-actions class="card-actions">
                     <div class="doc-details">
                         <div class="doc-type">
-                            <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
-                            <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
+                            <v-icon class="doc-type-icon">sbf-document-note</v-icon>
+                            <span class="doc-type-text">{{docType}}</span>
                         </div>
                         <div class="doc-title">
                             <span v-line-clamp="1">{{itemName  ? itemName : ''}}</span>
@@ -156,12 +156,13 @@
     import itemActions from './itemActions.vue';
     import mainHeader from '../helpers/header.vue';
     import { mapGetters, mapActions } from 'vuex';
-    import { documentTypes } from '../results/helpers/uploadFiles/consts';
+    // import { documentTypes } from '../results/helpers/uploadFiles/consts';
     import documentDetails from '../results/helpers/documentDetails/documentDetails.vue';
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import analyticsService from '../../services/analytics.service';
     import userAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import userRank from '../helpers/UserRank/UserRank.vue'
+    import { LanguageService } from "../../services/language/languageService";
 
     export default {
         components: {
@@ -230,15 +231,9 @@
                 }
 
             },
-            doc() {
-                let self = this;
-                if (self.item && self.item.docType && documentTypes) {
-                    return self.item.docType = documentTypes.find((singleType) => {
-                        if (singleType.id.toLowerCase() === self.item.docType.toLowerCase()) {
-                            return singleType
-                        }
-                    })
-                }
+            docType() {
+             let self = this;
+             return  self.item && self.item.docType ? self.item.docType : LanguageService.getValueByKey("upload_multiple_files_type_default");
             },
             price(){
               if(this.item && this.item.price){
