@@ -90,6 +90,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>the user email to show on the ui</returns>
         [HttpPost("suspend")]
         [ProducesResponseType(200)]
+        
         public async Task<SuspendUserResponse> SuspendUserAsync(SuspendUserRequest model,
             [FromServices] ICommandBus commandBus,
             CancellationToken token)
@@ -116,7 +117,7 @@ namespace Cloudents.Admin2.Api
                         throw new ArgumentOutOfRangeException();
                 }
 
-                var command = new SuspendUserCommand(id, lockout);
+                var command = new SuspendUserCommand(id, lockout, model.Reason);
                 await commandBus.DispatchAsync(command, token);
             }
             return new SuspendUserResponse();

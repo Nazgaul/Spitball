@@ -28,6 +28,7 @@
                         <div :class="['all-wrap',  $vuetify.breakpoint.xsOnly ? 'mr-0 mt-3' : 'mr-1' ]">
                             <vue-numeric  :currency="currentCurrency"
                                          class="price-for-all"
+                                         :minus="false"
                                          :min="0"
                                          :precision="2"
                                          :placeholder="emptySetToAll"

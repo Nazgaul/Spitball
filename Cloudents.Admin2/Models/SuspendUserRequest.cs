@@ -17,6 +17,13 @@ namespace Cloudents.Admin2.Models
         /// If we want to delete all his questions
         /// </summary>
         public SuspendTime? SuspendTime { get; set; }
+
+        /// <summary>
+        /// A reason for user suspension
+        /// </summary>
+        [Required]
+        [StringLength(255, ErrorMessage = "StringLength")]
+        public string Reason { get; set; }
     }
 
     public enum SuspendTime

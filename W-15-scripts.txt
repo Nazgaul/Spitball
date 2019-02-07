@@ -101,3 +101,16 @@ and Language is null
 update sb.[User]
 set Language = 'en'
 where Language is null
+
+
+
+update Q
+set CourseId = null
+from sb.Question Q
+where Q.CourseId not in (select [name] from sb.Course)
+
+
+
+Not sure we need this after UserMap Table("[User]") should solve the issue
+alter table sb.[Question] add constraint FK_2124E48A foreign key (FlaggedUserId) references sb.[User]
+alter table sb.[User] add LockoutReason nvarchar(255)
