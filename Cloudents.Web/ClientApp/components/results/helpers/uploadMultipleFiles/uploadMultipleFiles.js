@@ -19,6 +19,7 @@ export default {
     name: "uploadMultipleFiles",
     data() {
         return {
+            selectCoursePlaceholder: LanguageService.getValueByKey("upload_selectCoursePlaceholder"),
             confirmationDialog: false,
             progressDone: false,
             steps: 3,

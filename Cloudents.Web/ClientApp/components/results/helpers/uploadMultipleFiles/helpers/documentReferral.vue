@@ -139,8 +139,8 @@
             color: @colorBlackNew;
         }
         .referral-row {
-            overflow-y: scroll;
             margin-top: 54px;
+            overflow: hidden;//edge fix
             &.refs-container {
                 max-height: 300px;
                 @media (max-width: @screen-xs) {
@@ -172,6 +172,8 @@
                             justify-content: space-around;
                         }
                         .share-icon{
+                            /*rtl:ignore*/
+                            direction: ltr;
                             width: 75px;
                             height: 24px;
                         }

@@ -1,7 +1,13 @@
 @import "../../../../styles/mixin.less";
 
-
+.v-select-list{
+  .v-list__tile__title{
+    max-width: 350px;
+    overflow: hidden;
+  }
+}
 .ref-block {
+
   .referral-container {
     text-align: center;
     vertical-align: middle;
@@ -62,6 +68,10 @@
 
       }
     }
+    .select-referral{
+      max-width: 240px;
+    }
+
     .sb-field {
       &.v-text-field--solo {
         .v-input__slot {
@@ -72,6 +82,10 @@
           font-size: 14px;
           letter-spacing: -0.7px;
           color: @textColor;
+          .v-select__selections{
+            width: 100%;
+            overflow: hidden;
+          }
           @media (max-width: @screen-xs) {
             max-width: 292px;
           }
@@ -148,6 +162,8 @@
         width: 86px;
         height: 24px;
         .share-icon{
+          /*rtl:ignore*/
+          direction: ltr;
           width: 86px;
           height: 24px;
           @media (max-width: @screen-xs) {
