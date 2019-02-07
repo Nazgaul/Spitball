@@ -94,7 +94,7 @@
                 }
                 .stat-text-data {
                     padding-bottom: 4px;
-                    font-family: "Patua One", sans-serif;
+                    font-family: @fontFiraSans;
                     font-size: 32px;
                     letter-spacing: 2.4px;
                     text-align: center;
