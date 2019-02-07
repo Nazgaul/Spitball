@@ -9,6 +9,6 @@ namespace Cloudents.Command.Command
             User = user;
         }
 
-        public RegularUser User { get; private set; }
+        public RegularUser User { get; }
     }
 }

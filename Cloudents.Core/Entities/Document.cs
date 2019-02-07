@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
+﻿using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using System;
 using System.Collections.Generic;

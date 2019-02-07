@@ -1,7 +1,5 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Query.Query.Admin
 {
@@ -13,6 +11,6 @@ namespace Cloudents.Query.Query.Admin
             Page = page;
         }
         public long UserId { get; }
-        public int Page { get; set; }
+        public int Page { get; }
     }
 }

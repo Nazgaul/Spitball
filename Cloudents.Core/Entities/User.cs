@@ -76,12 +76,6 @@ namespace Cloudents.Core.Entities
 
         public virtual bool Fictive { get; protected set; }
 
-
-
-       
-        
-
-        //public abstract IList<Transaction> Transactions { get; set; }
         public abstract decimal Balance { get; }
 
         public abstract int Score { get; protected set; }

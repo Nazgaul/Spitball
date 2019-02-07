@@ -19,6 +19,6 @@
 
         public int? PageCount { get; }
 
-        public string Snippet { get; private set; }
+        public string Snippet { get; }
     }
 }

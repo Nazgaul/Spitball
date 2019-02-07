@@ -51,31 +51,4 @@ namespace Cloudents.Persistance.Maps
             SchemaAction.None();
         }
     }
-
-
-    //public class DocumentDeletedMap : SubclassMap<DocumentDeleted>
-    //{
-    //    public DocumentDeletedMap()
-    //    {
-
-    //        DiscriminatorValue(ItemState.Deleted);
-    //    }
-    //}
-
-    //public class DocumentPendingMap : SubclassMap<DocumentPending>
-    //{
-    //    public DocumentPendingMap()
-    //    {
-
-    //        DiscriminatorValue(ItemState.Pending);
-    //    }
-    //}
-
-    //public class DocumentApprovedMap : SubclassMap<DocumentApproved>
-    //{
-    //    public DocumentApprovedMap()
-    //    {
-    //        DiscriminatorValue(ItemState.Ok);
-    //    }
-    //}
 }

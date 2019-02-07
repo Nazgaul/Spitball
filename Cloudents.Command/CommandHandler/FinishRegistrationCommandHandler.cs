@@ -27,10 +27,6 @@ namespace Cloudents.Command.CommandHandler
                 return;
             }
             user.FinishRegistration();
-            if (user.PhoneNumberConfirmed == false)
-            {
-                user.PhoneNumberConfirmed = true;
-            }
             await _userRepository.UpdateAsync(user, token);
         }
 

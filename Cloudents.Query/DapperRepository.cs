@@ -9,7 +9,7 @@ using Dapper;
 
 namespace Cloudents.Query
 {
-    public class DapperRepository //: IDapperRepository
+    public class DapperRepository
     {
         private readonly string _connectionString;
 
@@ -20,7 +20,7 @@ namespace Cloudents.Query
 
         static DapperRepository()
         {
-            SqlMapper.AddTypeHandler<CultureInfo>(new DapperCultureInfoTypeHandler());
+            SqlMapper.AddTypeHandler(new DapperCultureInfoTypeHandler());
         }
        
 

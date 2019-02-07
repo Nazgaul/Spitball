@@ -9,9 +9,9 @@
             Price = price;
         }
 
-        public long DocumentId { get; private set; }
-        public long UserId { get; set; }
-        public decimal Price { get; private set; }
+        public long DocumentId { get; }
+        public long UserId { get; }
+        public decimal Price { get; }
     
     }
 }

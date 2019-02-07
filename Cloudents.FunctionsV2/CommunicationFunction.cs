@@ -1,4 +1,3 @@
-using System;
 using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
@@ -13,11 +12,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
-using Cloudents.FunctionsV2.System;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
-using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2

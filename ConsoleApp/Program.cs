@@ -2,19 +2,15 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
-using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query.Sync;
 using Dapper;
-using Microsoft.Azure.Documents.Client;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -22,7 +18,6 @@ using Newtonsoft.Json;
 using NHibernate;
 using NHibernate.Linq;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -44,7 +39,6 @@ namespace ConsoleApp
         private static IContainer _container;
         private static CancellationToken token = CancellationToken.None;
 
-        public static Random random = new Random();
 
         static async Task Main()
         {
@@ -142,7 +136,7 @@ namespace ConsoleApp
 
 
             var i = 90372L;
-            var cont = false;
+            bool cont;
             do
             {
                 var i1 = i;
@@ -295,8 +289,8 @@ where left(blobName ,4) != 'file'");
                     {
                         var msg = new CloudQueueMessage(id);
                         await queue.AddMessageAsync(msg);
-                        using (System.IO.StreamWriter file =
-           new System.IO.StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
+                        using (var file =
+           new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
                         {
 
                             file.WriteLine(id);
@@ -311,15 +305,14 @@ where left(blobName ,4) != 'file'");
                         var msg = new CloudQueueMessage(id);
                         await queue2.AddMessageAsync(msg);
 
-                        using (System.IO.StreamWriter file =
-         new System.IO.StreamWriter(@"C:\Users\Ram\Documents\blur.txt", true))
+                        using (var file =
+         new StreamWriter(@"C:\Users\Ram\Documents\blur.txt", true))
                         {
 
                             file.WriteLine(id);
 
                         }
                         Console.WriteLine("Processing blur " + id);
-                        continue;
                     }
 
                 }
@@ -332,46 +325,7 @@ where left(blobName ,4) != 'file'");
 
         }
 
-        //private static async Task CheckSync()
-        //{
-        //    var str =
-        //        "  {\"$type\":\"Cloudents.Core.Message.System.DocumentSearchMessage, Cloudents.Core\",\"Document\":{\"$type\":\"Cloudents.Core.Entities.Search.Document, Cloudents.Core\",\"Id\":\"52\",\"Name\":\"מבחן תורת הקבוצות א 003.jpg\",\"MetaContent\":null,\"Content\":null,\"Tags\":{\"$type\":\"System.String[], mscorlib\",\"$values\":[]},\"Course\":\"תורת הקבוצות א\",\"Country\":\"IL\",\"Language\":null,\"University\":\"6c19649e-1c27-4095-91e6-a99c008af82e\",\"DateTime\":\"2018-11-19T13:10:46.1653245Z\",\"Type\":0}}";
-
-
-        //    var val = JsonConvert.DeserializeObject<Cloudents.Core.Message.System.DocumentSearchMessage>(str);
-        //    val.Document.Type = DocumentType.Lecture;
-        //    var elem = _container.Resolve<ISearchServiceWrite<Cloudents.Core.Entities.Search.Document>>();
-
-        //    await elem.UpdateDataAsync(new[] { val.Document }, default);
-        //}
-
-
-        private static IEnumerable<string> SplitSentence(string input)
-        {
-            //TODO: Check environment newline
-            return input.Split(new[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-        }
-
-        public static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
-
-
-        static string StripUnwantedChars(string input)
-        {
-            if (string.IsNullOrEmpty(input))
-            {
-                return input;
-            }
-
-            var z = Regex.Replace(input, "\\b(\\S)\\s+(?=\\S)", string.Empty);
-
-            var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
-            var result = SpaceReg.Replace(z, " ");
-            result = eightOrNineDigitsId.Replace(result, string.Empty);
-            result = new string(result.Where(w => char.IsLetterOrDigit(w) || char.IsWhiteSpace(w)).ToArray());
-            //result = result.Replace("\0", string.Empty);
-            result = result.Replace("בס\"ד", string.Empty);
-            return result.Replace("find more resources at oneclass.com", string.Empty);
-        }
+        private static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
 
 
         private static async Task HadarMethod()
@@ -660,58 +614,6 @@ where left(blobName ,4) != 'file'");
             }
         }
 
-
-
-        /// <summary>
-        /// This is dbi for update question language
-        /// </summary>
-        /// <returns></returns>
-        //public static async Task UpdateLanguageAsync()
-        //{
-        //    var t = _container.Resolve<ITextAnalysis>();
-        //    bool continueLoop = false;
-        //    do
-        //    {
-        //        using (var child = _container.BeginLifetimeScope())
-        //        {
-
-        //            var sts = child.Resolve<IStatelessSession>();
-
-        //            using (var unitOfWork = child.Resolve<IUnitOfWork>())
-        //            {
-        //                var repository = child.Resolve<IRepository<Answer>>();
-        //                var questions = await sts.Query<Answer>().Where(w => w.Language == null).Take(100)
-        //                    .OrderBy(o => o.Id)
-        //                    .ToListAsync(); // repository.GetAllQuestionsAsync(i).ConfigureAwait(false);
-        //                continueLoop = questions.Count > 0;
-        //                if (!continueLoop)
-        //                {
-        //                    break;
-        //                }
-
-        //                var result = await t.DetectLanguageAsync(
-        //                    questions.Where(w => w.Language == null)
-        //                        .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Text)), default);
-
-        //                foreach (var pair in result.Where(w => !w.Value.Equals(CultureInfo.InvariantCulture)))
-        //                {
-        //                    var q = await repository.LoadAsync(Guid.Parse(pair.Key), default);
-
-
-        //                    q.SetLanguage(pair.Value);
-
-        //                    await repository.UpdateAsync(q, default);
-        //                }
-
-        //                await unitOfWork.CommitAsync(default);
-        //            }
-
-        //        }
-
-        //        //i++;
-        //    } while (continueLoop);
-
-        //}
 
         public static async Task TransferUniversities()
         {

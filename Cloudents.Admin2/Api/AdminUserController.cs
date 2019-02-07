@@ -171,19 +171,19 @@ namespace Cloudents.Admin2.Api
         [HttpPost("verify")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> VerifySmsAsync([FromServices] IRepository<RegularUser> _userRepository,
+        public async Task<IActionResult> VerifySmsAsync([FromServices] IRepository<RegularUser> userRepository,
             PhoneConfirmRequest model,
             CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(model.Id, token);
+            var user = await userRepository.LoadAsync(model.Id, token);
             if (user == null)
             {
 
                 return BadRequest();
             }
-            
-           var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
-
+            var PhoneCommand = new ConfirmePhoneNumberCommand(user.Id);
+            var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
+            await _commandBus.DispatchAsync(PhoneCommand, token);
             await _commandBus.DispatchAsync(registrationBonusCommand, token);
             return Ok(new
             {
@@ -241,15 +241,14 @@ namespace Cloudents.Admin2.Api
              CancellationToken token)
         {
 
-            AdminUserDocumentsQuery query = new AdminUserDocumentsQuery(id, page);
+            var query = new AdminUserDocumentsQuery(id, page);
             
 
-            var retVal = await _queryBus.QueryAsync(query, token);
+            var retVal = (await _queryBus.QueryAsync(query, token)).ToList();
             var tasks = new Lazy<List<Task>>();
 
             foreach (var document in retVal)
             {
-
                 var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
                 var file = files.FirstOrDefault();
                 if (file != null)
@@ -259,16 +258,15 @@ namespace Cloudents.Admin2.Api
                             20);
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
-
                 }
                 else
                 {
-
                     var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
                     tasks.Value.Add(t);
                 }
 
             }
+
             return retVal;
         }
     }
