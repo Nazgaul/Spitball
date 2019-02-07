@@ -19,6 +19,7 @@ export default {
     name: "uploadMultipleFiles",
     data() {
         return {
+            selectCoursePlaceholder: LanguageService.getValueByKey("upload_multiple_select_course_placeholder"),
             confirmationDialog: false,
             progressDone: false,
             steps: 3,
@@ -40,7 +41,9 @@ export default {
                 color: '',
                 uploadDoneMessage: '',
                 fileSnackbarColor: ''
-            }
+            },
+            isEdge : global.isEdge
+
         }
     },
 

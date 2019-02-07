@@ -33,7 +33,7 @@
                                 <v-select
                                         class="course-select custom-select elevation-0"
                                         :items="classesList"
-                                        placeholder="Please select course"
+                                        :placeholder="selectCoursePlaceholder"
                                         v-model="courseSelected"
                                         @input="updateSelectedCourse()"
                                         solo
@@ -61,7 +61,7 @@
                     </v-stepper-content>
                 </v-stepper-items>
                 <v-stepper-header v-show="courseSelected" class="sb-stepper-header footer px-2"
-                                  :class="{'slim': firstStep || lastStep}">
+                                  :class="{'slim': firstStep || lastStep || isEdge}">
                     <v-flex v-show="!firstStep && !lastStep">
                         <v-btn :loading="loading" class="upload-btn" :disabled="!isLoaded || disableBtn"
                                @click="sendDocumentData()">

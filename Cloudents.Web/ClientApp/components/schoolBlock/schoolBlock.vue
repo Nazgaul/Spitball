@@ -1,5 +1,4 @@
 <template>
-
         <div style="" :class="['school-block', isClassesSet ? 'pb-0' : '', minMode ? '' : 'expand' ]">
             <v-layout row>
                 <v-flex xs12>

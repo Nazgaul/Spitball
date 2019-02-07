@@ -51,7 +51,7 @@ namespace Cloudents.Persistance.Maps
             Table("[User]");
 
             
-            SchemaAction.None();
+            SchemaAction.Update();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
@@ -75,6 +75,7 @@ namespace Cloudents.Persistance.Maps
             Map(e => e.LockoutEnd).Nullable();
             Map(e => e.AccessFailedCount);
             Map(e => e.LockoutEnabled);
+            Map(e => e.LockoutReason).CustomSqlType("nvarchar(255)");
             HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore).Inverse()
                 .Cascade.AllDeleteOrphan();
             HasMany(x => x.UserLogins)
@@ -107,6 +108,7 @@ namespace Cloudents.Persistance.Maps
                 .ChildKeyColumn("TagId")
                 .ForeignKeyConstraintNames("User_Tags", "Tags_User")
                 .Table("UsersTags").AsSet();
+
         }
     }
 

@@ -81,10 +81,20 @@
 }
 
 .university-holder {
+  position: relative;
   display: flex;
   @media (max-width: @screen-xs) {
     width: 100%;
     justify-content: center;
+  }
+
+  .tour-inject{
+    position: absolute;
+    left:25px;
+    bottom: 0;
+    @media (max-width: @screen-xs) {
+      left:60px;
+    }
   }
   .uni-holder {
     display: inline-flex;

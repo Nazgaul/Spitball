@@ -10,17 +10,17 @@
                 </span>
             </div>
         </v-flex>
-        <v-layout justify-center align-center column class="mt-3">
+        <v-layout justify-center align-center column class="mt-3 px-5">
             <v-flex column class="ref-title justify-center align-center flex mt-2 row"
                     :class="{'column': $vuetify.breakpoint.xsOnly}">
                 <i class="five mb-3">
                     <spreadOutLoudIcon style="width: 50px"></spreadOutLoudIcon>
                 </i>
-                <h3 class="sb-title" v-language:inner>upload_multiple_files_referral_title</h3>
+                <h3 class="sb-title text-xs-center text-sm-center text-md-center" v-language:inner>upload_multiple_files_referral_title</h3>
 
             </v-flex>
             <v-flex class="ref-title justify-center align-center flex mt-2">
-                <span v-language:inner>upload_multiple_help_and_make</span>
+                <span class="text-xs-center" v-language:inner>upload_multiple_help_and_make</span>
             </v-flex>
         </v-layout>
 
@@ -139,8 +139,8 @@
             color: @colorBlackNew;
         }
         .referral-row {
-            overflow-y: scroll;
             margin-top: 54px;
+            overflow: hidden;//edge fix
             &.refs-container {
                 max-height: 300px;
                 @media (max-width: @screen-xs) {
@@ -160,20 +160,29 @@
                 .referral-container {
                     display: flex;
                     flex-direction: column;
+                    background-color: transparent;
+                    background: transparent;
                     .share-icon-container {
                         max-width: 346px;
+                        order: 2;
                         @media (max-width: @screen-xs) {
                             display: flex;
                             flex-direction: row;
                             width: 100%;
-                            //justify-content: space-evenly;
                             justify-content: space-around;
+                        }
+                        .share-icon{
+                            /*rtl:ignore*/
+                            direction: ltr;
+                            width: 75px;
+                            height: 24px;
                         }
                     }
                     .input-container {
                         width: 100%;
                         margin: unset;
                         margin-left: 0;
+                        order: 1;
                         @media (max-width: @screen-xs) {
                             margin-left: 0 !important;
                         }

@@ -1,18 +1,18 @@
 <template>
-    <v-card elevation="0" :style="isTransparent ? 'background: transparent;' : 'background-color: #fff;' ">
+    <v-card class="ref-block" elevation="0" :style="isTransparent ? 'background: transparent;' : 'background-color: #fff;' ">
         <div class="dialog-wrapp referral-container">
             <button class="close-btn text-md-right" @click.prevent="requestDialogClose()">
                 <v-icon>sbf-close</v-icon>
             </button>
-            <v-layout column>
+            <v-layout column v-show="!isUploadReferral">
                 <v-flex xs12 sm12 md12 class="mb-3">
                     <div>
-                        <span class="text-md-left" v-html="text.dialog.title"></span>
+                        <span class="ref-title" v-html="text.dialog.title"></span>
                     </div>
                 </v-flex>
                 <v-flex xs12 sm12 md12 class="mb-4">
                     <div>
-                        <span class="text-xs-center text-md-center text-sm-center" v-html="text.dialog.subTitle"></span>
+                        <span class="text-xs-center ref-subtitle text-md-center text-sm-center" v-html="text.dialog.subTitle"></span>
                     </div>
                 </v-flex>
             </v-layout>
@@ -20,20 +20,20 @@
             <v-layout align-center justify-center column class="mb-2">
             <div class="share-icon-container">
                 <span @click="shareOnSocialMedia(socialMedias.facebook)">
-                    <facebookShare class="referral-facebook-icon"></facebookShare>
+                    <facebookShare class="referral-facebook-icon share-icon"></facebookShare>
                 </span>
 
                 <span @click="shareOnSocialMedia(socialMedias.twitter)">
-                    <tweeter-share class="referral-twitter-icon"></tweeter-share>
+                    <tweeter-share class="referral-twitter-icon share-icon"></tweeter-share>
                 </span>
                 <span @click="shareOnSocialMedia(socialMedias.gmail)">
-                    <google-share class="referral-gmail-icon"></google-share>
+                    <google-share class="referral-gmail-icon share-icon"></google-share>
                 </span>
                 <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
-                    <whatsup-share class="referral-whatsup-icon"></whatsup-share>
+                    <whatsup-share class="referral-whatsup-icon share-icon"></whatsup-share>
                                    </span>
             </div>
-                <div class="input-container">
+                <div class="input-container mb-3">
                     <div class="link-container">
                         <sb-input v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true"
                                   v-model="userReferralLink"
@@ -45,7 +45,7 @@
                                 item-value="itemRefLink"
                                 item-text="itemName"
                                 @change="clearCopied()"
-                                class="sb-field elevation-0"
+                                class="sb-field select-referral elevation-0"
                                 hide-details
                                 :prepend-icon="''"
                                 :placeholder="referralSelectPlace"
@@ -66,35 +66,34 @@
                     </div>
                 </div>
             </v-layout>
-            <v-layout align-center justify-center class="mb-2">
+            <v-layout align-center justify-center class="mb-2" v-show="!isUploadReferral">
                 <v-flex xs12 sm12 md12>
                     <div>
-                        <span v-html="text.dialog.bottomText"></span>
-                    </div>
-                </v-flex>
-            </v-layout>
-            <v-layout column>
-                <v-flex xs12 sm12 md12 align-self-center>
-                    <div>
-                        <span class="joined-number">{{accountUser}}</span>
-                        <span v-html="text.dialog.friendsJoined"></span>
-                    </div>
-                </v-flex>
-                <v-flex xs12 sm12 md12>
-                    <div>
-                        <i class="five">
-                            <spreadOutLoudIcon style="width: 50px"></spreadOutLoudIcon>
-                        </i>
+                        <span class="bottom-sub" v-html="text.dialog.bottomText"></span>
                     </div>
                 </v-flex>
             </v-layout>
         </div>
+        <v-layout row align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
+            <v-flex xs1 sm1 md1>
+                    <i class="bottom-five">
+                        <spreadOutLoud style="width: 50px; height: 50px;"></spreadOutLoud>
+                    </i>
+            </v-flex>
+            <v-flex xs11 sm11 md11>
+                <div style="text-align: center">
+                    <span class="bottom-text joined-number">{{usersReffered}}</span>
+                    <span class="bottom-text" v-html="text.dialog.friendsJoined"></span>
+                </div>
+            </v-flex>
+
+        </v-layout>
     </v-card>
 </template>
 
 <script>
     import SbInput from "../sbInput/sbInput.vue"
-    import { mapGetters } from "vuex"
+    import { mapGetters, mapActions } from "vuex"
     import Base62 from "base62"
     import { LanguageService } from '../../../../services/language/languageService'
     import { getReferallMessages } from "./consts.js";
@@ -137,6 +136,7 @@
                 }
             }
         },
+
         props: {
             referralType: {
                 type: String,
@@ -175,6 +175,13 @@
                 type: Function
             }
         },
+        computed: {
+            ...mapGetters(['usersReffered']),
+            isUploadReferral(){
+                return this.referralType === 'uploadReffer';
+            }
+
+        },
         watch: {
             showDialog() {
                 if (!this.showDialog) {
@@ -183,6 +190,7 @@
             },
         },
         methods: {
+            ...mapActions(['getRefferedUsersNum']),
             ...mapGetters(['accountUser']),
             requestDialogClose() {
                 this.isCopied = false;
@@ -237,6 +245,10 @@
                 }
             }
         },
+        created(){
+                this.getRefferedUsersNum()
+        },
+
         beforeDestroy() {
             this.isCopied = false;
         }

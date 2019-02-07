@@ -97,17 +97,21 @@ import {
 } from "vuetify";
 import * as route from "./routes";
 
-import { constants } from "./utilities/constants";
+
+const ilFonts = [
+    "Assistant:300,400,600,700",
+    ]
+const usFonts = [
+    "Open+Sans:300,400,600,700",
+    "Fira+Sans:300,400,600,700",
+    ]
+
+let usedFonts = global.lang.toLowerCase() === 'he' ? ilFonts : usFonts
 
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: [
-            "Open+Sans:300,400,600,700",
-            "Fira+Sans:300,400,600,700",
-            "Assistant:300,400,600,700",
-            "Alef:300,400,600,700",
-            "Patua+One: 300,400,600,700"]
+        families: usedFonts
     }
 });
 
@@ -203,7 +207,9 @@ global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') >
 global.isIsrael = global.country.toLowerCase() === "il";
 //check if Edge (using to fix position sticky bugs)
 global.isEdgeRtl = false;
+global.isEdge = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+    global.isEdge = true;
     if(global.isRtl){
         global.isEdgeRtl = true;
     }
@@ -303,7 +309,10 @@ Vue.filter('commasFilter', function (value) {
 
 
 router.beforeEach((to, from, next) => {
-    store.dispatch('changeSelectUniState', false)
+    if(!to.query || !to.query.university){
+        store.dispatch('changeSelectUniState', false)
+    }
+    
     // if (!!to.query && Object.keys(to.query).length > 0) {
     //     for (let prop in to.query) {
     //         if (constants.regExXSSCheck.test(to.query[prop])) {
