@@ -97,7 +97,6 @@ import {
 } from "vuetify";
 import * as route from "./routes";
 
-import { constants } from "./utilities/constants";
 
 const ilFonts = [
     "Assistant:300,400,600,700",
