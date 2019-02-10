@@ -32,7 +32,7 @@
                     <!--</div>-->
                 </v-flex>
             </div>
-            <div class="questions-answers-wrap">
+            <div class="questions-answers-wrap wrapper-scroll">
                 <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
                            :color="searchQuery === filter.value ? '#00bcd4' : ''  "
@@ -64,26 +64,26 @@
                             <v-tab :href="`#tab-1`">User Answers</v-tab>
                             <v-tab :href="`#tab-2`">User Documents</v-tab>
                         </v-tabs>
-                            <v-tabs-items v-model="activeTab">
-                                <v-tab-item  :value="`tab-0`">
-                                    <v-flex xs12>
-                                        <question-item
-                                                :updateData="updateData" :questions="UserQuestions"
-                                        ></question-item>
-                                    </v-flex>
-                                </v-tab-item>
-                                <v-tab-item :value="`tab-1`">
-                                    <v-flex xs12>
-                                        <answer-item :updateData="updateData" :answers="UserAnswers"></answer-item>
-                                    </v-flex>
-                                </v-tab-item>
-                                <v-tab-item  :value="`tab-2`">
-                                    <v-flex xs12>
-                                        <document-item :updateData="updateData" :documents="UserDocuments"
-                                                       :filterVal="searchQuery"></document-item>
-                                    </v-flex>
-                                </v-tab-item>
-                            </v-tabs-items>
+                        <v-tabs-items v-model="activeTab">
+                            <v-tab-item :value="`tab-0`">
+                                <v-flex xs12>
+                                    <question-item
+                                            :updateData="updateData" :questions="UserQuestions"
+                                    ></question-item>
+                                </v-flex>
+                            </v-tab-item>
+                            <v-tab-item :value="`tab-1`">
+                                <v-flex xs12>
+                                    <answer-item :updateData="updateData" :answers="UserAnswers"></answer-item>
+                                </v-flex>
+                            </v-tab-item>
+                            <v-tab-item :value="`tab-2`">
+                                <v-flex xs12>
+                                    <document-item :updateData="updateData" :documents="UserDocuments"
+                                                   :filterVal="searchQuery"></document-item>
+                                </v-flex>
+                            </v-tab-item>
+                        </v-tabs-items>
                     </div>
                 </v-layout>
             </div>
@@ -146,9 +146,21 @@
                     {name: 'Flagged', value: 'flagged'}
                 ],
                 scrollFunc: {
-                    questions: {page: 0},
-                    answers: {page: 0},
-                    documents: {page: 0},
+                    questions: {
+                        page: 0,
+                        getData: this.getUserQuestionsData,
+                        scrollLock: false
+                    },
+                    answers: {
+                        page: 0,
+                        getData: this.getUserAnswersData,
+                        scrollLock: false
+                    },
+                    documents: {
+                        page: 0,
+                        getData: this.getUserDocumentsData,
+                        scrollLock: false
+                    },
                 },
                 userActions: [
                     {
@@ -173,8 +185,16 @@
                 searchQuery: 'ok',
                 userComponentsShow: false,
                 activeUserComponent: '',
-                deleteUserQuestions: false
+                deleteUserQuestions: false,
+                activeTabEnum: {
+                    'tab-0': 'questions',
+                    'tab-1': 'answers',
+                    'tab-2': 'documents',
+
+
+                }
             }
+
         },
         computed: {
             ...mapGetters([
@@ -188,15 +208,6 @@
             userInfo() {
                 return this.UserInfo
             },
-            // questions() {
-            //     return this.UserQuestions
-            // },
-            // answers() {
-            //     return this.UserAnswers
-            // },
-            // documents() {
-            //     return this.UserDocuments
-            // },
             userStatusActive: {
                 get() {
                     if (this.userInfo && this.userInfo.status) {
@@ -209,8 +220,8 @@
 
             },
         },
-        watch:{
-            activeTab(){
+        watch: {
+            activeTab() {
                 this.getDataByTabName();
             }
         },
@@ -223,6 +234,21 @@
                 "getUserAnswers",
                 "getUserDocuments"
             ]),
+            nextPage() {
+                this.scrollFunc[this.activeTabEnum[this.activeTab]].page++
+            },
+            handleScroll() {
+                let offset = 2000;
+                if (event.target.scrollHeight - offset < event.target.scrollTop) {
+                    if (!this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock) {
+                        this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock = true;
+                        this.scrollFunc[this.activeTabEnum[this.activeTab]].getData()
+                    }
+                }
+            },
+            updateData(index) {
+                // this.userData[`${this.activeTab}`].splice(index, 1);
+            },
             setUserComponent(val) {
                 this.userComponentsShow = true;
                 return this.activeUserComponent = val
@@ -233,9 +259,6 @@
             closeTokensDialog() {
                 this.setTokensDialogState(false);
             },
-            updateData(index) {
-                // this.userData[`${this.activeTab}`].splice(index, 1);
-            },
             setActiveTab(activeTabName) {
                 return this.activeTab = activeTabName;
             },
@@ -243,7 +266,7 @@
                 return this.searchQuery = val
             },
             getDataByTabName() {
-                if(!this.userId) return;
+                if (!this.userId) return;
                 if (this.activeTab === "tab-0") {
                     let page = this.scrollFunc.questions.page;
                     this.getUserQuestionsData(this.userId, page)
@@ -266,7 +289,15 @@
                     })
             },
             getUserQuestionsData(id, page) {
-                this.getUserQuestions({id, page})
+                this.getUserQuestions({id, page}).then((resp) => {
+                    if (this.UserQuestions && this.UserQuestions.length > 0) {
+                        this.nextPage();
+                    }
+                });
+
+
+                this.scrollLock = false;
+
             },
             getUserAnswersData(id, page) {
                 this.getUserAnswers({id, page})
@@ -311,10 +342,21 @@
 
                 })
             },
+            created() {
 
-        },
-        created() {
-
+            },
+            beforeMount() {
+                this.$nextTick(function () {
+                    let containerElm = document.getElementById('wrapper-scroll');
+                    containerElm.addEventListener('scroll', this.handleScroll);
+                })
+            }
+            ,
+            beforeDestroy() {
+                let containerElm = document.getElementById('wrapper-scroll');
+                if (!containerElm) return;
+                containerElm.removeEventListener('scroll', this.handleScroll);
+            }
         }
     }
 
