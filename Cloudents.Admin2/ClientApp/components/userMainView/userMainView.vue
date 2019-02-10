@@ -155,17 +155,20 @@
                     questions: {
                         page: 0,
                         getData: this.getUserQuestionsData,
-                        scrollLock: false
+                        scrollLock: false,
+                        wasCalled: false
                     },
                     answers: {
                         page: 0,
                         getData: this.getUserAnswersData,
-                        scrollLock: false
+                        scrollLock: false,
+                        wasCalled: false
                     },
                     documents: {
                         page: 0,
                         getData: this.getUserDocumentsData,
-                        scrollLock: false
+                        scrollLock: false,
+                        wasCalled: false
                     },
                 },
                 loading: false,
@@ -271,6 +274,7 @@
             },
             getDataByTabName() {
                 if (!this.userId) return;
+                if(this.scrollFunc[this.activeTabEnum[this.activeTab]].wasCalled)return;
                 if (this.activeTab === "tab-0" ) {
                     let page = this.scrollFunc.questions.page;
                     this.getUserQuestionsData(this.userId, page)
@@ -294,7 +298,9 @@
             },
             getUserQuestionsData(id, page) {
                 let self = this;
+                self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
                 self.loading = true;
+
                 self.getUserQuestions({id, page}).then((isComplete) => {
                         self.nextPage();
                         if(!isComplete){
@@ -308,6 +314,7 @@
             },
             getUserAnswersData(id, page) {
                 let self = this;
+                self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
                 self.loading = true;
                 self.getUserAnswers({id, page}).then((isComplete) => {
                     self.nextPage();
@@ -322,6 +329,7 @@
             },
             getUserDocumentsData(id, page) {
                 let self = this;
+                self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
                 self.loading = true;
                 self.getUserDocuments({id, page}).then((isComplete) => {
                     self.nextPage();
