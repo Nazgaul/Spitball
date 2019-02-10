@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 
 namespace Cloudents.Core.Query
@@ -16,7 +15,7 @@ namespace Cloudents.Core.Query
             Filters = filters ?? Enumerable.Empty<string>();
             Profile = profile;
         }
-        public string[] Course { get; set; }
+        public string[] Course { get;  }
 
 
         public string Term { get; }

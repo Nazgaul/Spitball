@@ -1,9 +1,6 @@
 ﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,6 +20,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
             var tran = await _transactionRepository.LoadAsync(message.TransactionId, token);
             tran.Decline(message.Reason);
+            await _transactionRepository.UpdateAsync(tran, token);
         }
     }
 }

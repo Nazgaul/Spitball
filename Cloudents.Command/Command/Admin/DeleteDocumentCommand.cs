@@ -7,6 +7,6 @@
             Id = id;
         }
 
-        public long Id { get; private set; }
+        public long Id { get; }
     }
 }

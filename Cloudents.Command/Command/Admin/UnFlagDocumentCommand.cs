@@ -15,7 +15,7 @@ namespace Cloudents.Command.Command.Admin
             DocumentIds = documentIds;
         }
 
-        public IEnumerable<long> DocumentIds { get; private set; }
+        public IEnumerable<long> DocumentIds { get; }
     }
 }
 

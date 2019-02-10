@@ -57,35 +57,33 @@
                                 centered
                                 color="cyan"
                                 dark
-                                @change="setActiveTab()"
                                 v-model="activeTab"
                                 icons-and-text
                         >
-                            <v-tabs-slider color="yellow"></v-tabs-slider>
-
-                            <v-tab href="#userQuestions">User Question</v-tab>
-
-                            <v-tab href="#userAnswers">User Answers</v-tab>
-
-                            <v-tab href="#userDocuments">User Documents</v-tab>
-
-                            <v-tab-item :key="'1'" :value="'userQuestions'">
-                                <v-flex xs12>
-                                    <question-item :updateData="updateData" :questions="userQuestions"></question-item>
-                                </v-flex>
-                            </v-tab-item>
-                            <v-tab-item :key="'2'" :value="'userAnswers'">
-                                <v-flex xs12>
-                                    <answer-item :updateData="updateData" :answers="filteredData"></answer-item>
-                                </v-flex>
-                            </v-tab-item>
-                            <v-tab-item :key="'3'" :value="'userDocuments'">
-                                <v-flex xs12>
-                                    <document-item :updateData="updateData" :documents="filteredData"
-                                                   :filterVal="searchQuery"></document-item>
-                                </v-flex>
-                            </v-tab-item>
+                            <v-tab :href="`#tab-0`">User Question</v-tab>
+                            <v-tab :href="`#tab-1`">User Answers</v-tab>
+                            <v-tab :href="`#tab-2`">User Documents</v-tab>
                         </v-tabs>
+                            <v-tabs-items v-model="activeTab">
+                                <v-tab-item  :value="`tab-0`">
+                                    <v-flex xs12>
+                                        <question-item
+                                                :updateData="updateData" :questions="UserQuestions"
+                                        ></question-item>
+                                    </v-flex>
+                                </v-tab-item>
+                                <v-tab-item :value="`tab-1`">
+                                    <v-flex xs12>
+                                        <answer-item :updateData="updateData" :answers="UserAnswers"></answer-item>
+                                    </v-flex>
+                                </v-tab-item>
+                                <v-tab-item  :value="`tab-2`">
+                                    <v-flex xs12>
+                                        <document-item :updateData="updateData" :documents="UserDocuments"
+                                                       :filterVal="searchQuery"></document-item>
+                                    </v-flex>
+                                </v-tab-item>
+                            </v-tabs-items>
                     </div>
                 </v-layout>
             </div>
@@ -139,6 +137,7 @@
         data() {
             return {
                 userIdentifier: '',
+                userId: null,
                 suspendedUser: false,
                 filters: [
                     {name: 'Accepted', value: 'ok'},
@@ -146,6 +145,11 @@
                     {name: 'Deleted', value: 'deleted'},
                     {name: 'Flagged', value: 'flagged'}
                 ],
+                scrollFunc: {
+                    questions: {page: 0},
+                    answers: {page: 0},
+                    documents: {page: 0},
+                },
                 userActions: [
                     {
                         title: "Suspend",
@@ -165,7 +169,7 @@
                         action: this.sendTokens,
                     },
                 ],
-                activeTab: '',
+                activeTab: 'tab-0',
                 searchQuery: 'ok',
                 userComponentsShow: false,
                 activeUserComponent: '',
@@ -184,23 +188,15 @@
             userInfo() {
                 return this.UserInfo
             },
-            userQuestions() {
-                return this.UserQuestions
-            },
-            userAnswers() {
-                return this.UserAnswers
-            },
-            userDocuments() {
-                return this.UserDocuments
-            },
-            filteredData: function () {
-                let self = this;
-                // if (self.userData && self.userData[`${this.activeTab}`]) {
-                //     return self.userData[`${this.activeTab}`].filter(function (item) {
-                //         return item.state.indexOf(self.searchQuery) !== -1
-                //     })
-                // }
-            },
+            // questions() {
+            //     return this.UserQuestions
+            // },
+            // answers() {
+            //     return this.UserAnswers
+            // },
+            // documents() {
+            //     return this.UserDocuments
+            // },
             userStatusActive: {
                 get() {
                     if (this.userInfo && this.userInfo.status) {
@@ -212,11 +208,10 @@
                 }
 
             },
-
-            userId() {
-                if (this.userInfo) {
-                    return this.userInfo.id.value
-                }
+        },
+        watch:{
+            activeTab(){
+                this.getDataByTabName();
             }
         },
         methods: {
@@ -241,32 +236,43 @@
             updateData(index) {
                 // this.userData[`${this.activeTab}`].splice(index, 1);
             },
-            setActiveTab() {
-                console.log(this.activeTab)
+            setActiveTab(activeTabName) {
+                return this.activeTab = activeTabName;
             },
             updateFilter(val) {
                 return this.searchQuery = val
             },
+            getDataByTabName() {
+                if(!this.userId) return;
+                if (this.activeTab === "tab-0") {
+                    let page = this.scrollFunc.questions.page;
+                    this.getUserQuestionsData(this.userId, page)
+                } else if (this.activeTab === "tab-1") {
+                    let page = this.scrollFunc.answers.page;
+                    this.getUserAnswersData(this.userId, page)
+                } else if (this.activeTab === "tab-2") {
+                    let page = this.scrollFunc.documents.page;
+                    this.getUserDocumentsData(this.userId, page)
+                }
+            },
             getUserInfoData() {
                 let id = this.userIdentifier;
-                this.getUserData(id)
-                    .then((success) => {
-                        let id = this.UserInfo.id.value;
-                        this.getUserQuestionsData(id);
+                let self = this;
+                self.getUserData(id)
+                    .then((data) => {
+                        this.userId = data.id.value;
+                        this.getDataByTabName()
 
                     })
             },
-            getUserQuestionsData() {
-                let id = this.userIdentifier;
-                this.getUserQuestions(id)
+            getUserQuestionsData(id, page) {
+                this.getUserQuestions({id, page})
             },
-            getUserAnswers() {
-                let id = this.userIdentifier;
-                this.getUserAnswers(id)
+            getUserAnswersData(id, page) {
+                this.getUserAnswers({id, page})
             },
-            getUserDocuments() {
-                let id = this.userIdentifier;
-                this.getUserDocuments(id)
+            getUserDocumentsData(id, page) {
+                this.getUserDocuments({id, page})
             },
             suspendUser() {
                 let idArr = [];

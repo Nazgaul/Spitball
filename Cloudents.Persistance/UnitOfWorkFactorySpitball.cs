@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Cloudents.Persistance.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
@@ -7,8 +6,6 @@ using NHibernate.Caches.CoreDistributedCache;
 using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
 using NHibernate.Event;
-//using NHibernate.Caches.CoreDistributedCache;
-//using NHibernate.Caches.CoreDistributedCache.Redis;
 
 namespace Cloudents.Persistance
 {
@@ -16,20 +13,6 @@ namespace Cloudents.Persistance
     {
         private readonly IEventPublisher _publisher;
         private readonly ISessionFactory _factory;
-
-
-        //private static IEnumerable<Type> GetAllTypesImplementingOpenGenericType(Type openGenericType, Assembly assembly)
-        //{
-        //    return from x in assembly.GetTypes()
-        //        from z in x.GetInterfaces()
-        //        let y = x.BaseType
-        //        where
-        //            (y?.IsGenericType == true
-        //             && openGenericType.IsAssignableFrom(y.GetGenericTypeDefinition()))
-        //            || (z.IsGenericType
-        //                && openGenericType.IsAssignableFrom(z.GetGenericTypeDefinition()))
-        //        select x;
-        //}
 
         public UnitOfWorkFactorySpitball(IEventPublisher publisher, IConfigurationKeys connectionString)
         {
@@ -46,15 +29,7 @@ namespace Cloudents.Persistance
 
             configuration.Mappings(m =>
             {
-                //var types = GetAllTypesImplementingOpenGenericType(typeof(SpitballClassMap<>),
-                //    Assembly.GetExecutingAssembly());
                 m.FluentMappings.AddFromAssemblyOf<UserMap>();
-                //foreach (var type in types)
-                //{
-                //    m.FluentMappings.Add(type);
-                //}
-                //m.FluentMappings.Add<DomainTimeStampMap>();
-                //m.FluentMappings.Add<RowDetailMap>();
             });
 
 
@@ -79,10 +54,10 @@ namespace Cloudents.Persistance
             return session;
         }
 
-        public ISessionFactory GetFactory()
-        {
-            return _factory;
-        }
+        //public ISessionFactory GetFactory()
+        //{
+        //    return _factory;
+        //}
 
         public IStatelessSession OpenStatelessSession()
         {

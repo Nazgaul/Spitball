@@ -1,5 +1,6 @@
 <template>
-    <v-card class="ref-block" elevation="0" :style="isTransparent ? 'background: transparent;' : 'background-color: #fff;' ">
+    <v-card class="ref-block" elevation="0"
+            :style="isTransparent ? 'background: transparent;' : 'background-color: #fff;' ">
         <div class="dialog-wrapp referral-container">
             <button class="close-btn text-md-right" @click.prevent="requestDialogClose()">
                 <v-icon>sbf-close</v-icon>
@@ -17,27 +18,28 @@
                 </v-flex>
                 <v-flex xs12 sm12 md12 class="mb-4">
                     <div>
-                        <span class="text-xs-center ref-subtitle text-md-center text-sm-center" v-html="text.dialog.subTitle"></span>
+                        <span class="text-xs-center ref-subtitle text-md-center text-sm-center"
+                              v-html="text.dialog.subTitle"></span>
                     </div>
                 </v-flex>
             </v-layout>
 
             <v-layout align-center justify-center column class="mb-2">
-            <div class="share-icon-container">
+                <div class="share-icon-container">
                 <span @click="shareOnSocialMedia(socialMedias.facebook)">
                     <facebookShare class="referral-facebook-icon share-icon"></facebookShare>
                 </span>
 
-                <span @click="shareOnSocialMedia(socialMedias.twitter)">
+                    <span @click="shareOnSocialMedia(socialMedias.twitter)">
                     <tweeter-share class="referral-twitter-icon share-icon"></tweeter-share>
                 </span>
-                <span @click="shareOnSocialMedia(socialMedias.gmail)">
+                    <span @click="shareOnSocialMedia(socialMedias.gmail)">
                     <google-share class="referral-gmail-icon share-icon"></google-share>
                 </span>
-                <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
+                    <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
                     <whatsup-share class="referral-whatsup-icon share-icon"></whatsup-share>
                                    </span>
-            </div>
+                </div>
                 <div class="input-container mb-3">
                     <div class="link-container">
                         <sb-input v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true"
@@ -58,7 +60,8 @@
                                 solo
                                 single-line
                         ></v-select>
-                        <button :disabled="isMultiple && !singleRefLink" class="referral-btn" :class="{'copied': isCopied}"
+                        <button :disabled="isMultiple && !singleRefLink" class="referral-btn"
+                                :class="{'copied': isCopied}"
                                 @click="doCopy">
                             <v-icon class="copy-check-icon" transition="fade-transition"
                                     v-show="isCopied">sbf-checkmark
@@ -81,9 +84,9 @@
         </div>
         <v-layout row align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
             <v-flex xs1 sm1 md1>
-                    <i class="bottom-five">
-                        <spreadOutLoud style="width: 50px; height: 50px;"></spreadOutLoud>
-                    </i>
+                <i class="bottom-five">
+                    <spreadOutLoud style="width: 50px; height: 50px;"></spreadOutLoud>
+                </i>
             </v-flex>
             <v-flex xs11 sm11 md11>
                 <div style="text-align: center">
@@ -182,8 +185,8 @@
             }
         },
         computed: {
-            ...mapGetters(['usersReffered', 'getSchoolName']),
-            isUploadReferral(){
+            ...mapGetters(['usersReffered', 'getSchoolName', 'accountUser']),
+            isUploadReferral() {
                 return this.referralType === 'uploadReffer';
             }
 
@@ -197,7 +200,6 @@
         },
         methods: {
             ...mapActions(['getRefferedUsersNum']),
-            ...mapGetters(['accountUser']),
             requestDialogClose() {
                 this.isCopied = false;
                 this.$root.$emit('closePopUp', this.popUpType);
@@ -251,11 +253,13 @@
                 }
             }
         },
-        created(){
-                this.getRefferedUsersNum()
+        created() {
+            let id = this.accountUser.id;
+            this.getRefferedUsersNum(id)
         },
 
         beforeDestroy() {
+
             this.isCopied = false;
         }
     }

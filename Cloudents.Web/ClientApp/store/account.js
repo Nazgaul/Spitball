@@ -58,7 +58,7 @@ const state = {
     profileData: profileService.getProfileData('profileGeneral'),
     profile: null,
     usersReferred: 0
-}
+};
 const mutations = {
     setProfile(state, val) {
         state.profile = val;
@@ -199,7 +199,7 @@ const actions = {
     },
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
-            .then((data) => {
+            .then(({data}) => {
                     let refNumber = data.referrals ? data.referrals : 0;
                     context.commit('setRefferedNumber', refNumber)
                 },

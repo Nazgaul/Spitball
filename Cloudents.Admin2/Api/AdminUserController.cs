@@ -243,15 +243,14 @@ namespace Cloudents.Admin2.Api
              CancellationToken token)
         {
 
-            AdminUserDocumentsQuery query = new AdminUserDocumentsQuery(id, page);
+            var query = new AdminUserDocumentsQuery(id, page);
             
 
-            var retVal = await _queryBus.QueryAsync(query, token);
+            var retVal = (await _queryBus.QueryAsync(query, token)).ToList();
             var tasks = new Lazy<List<Task>>();
 
             foreach (var document in retVal)
             {
-
                 var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
                 var file = files.FirstOrDefault();
                 if (file != null)
@@ -261,16 +260,15 @@ namespace Cloudents.Admin2.Api
                             20);
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
-
                 }
                 else
                 {
-
                     var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
                     tasks.Value.Add(t);
                 }
 
             }
+
             return retVal;
         }
     }

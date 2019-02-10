@@ -136,16 +136,16 @@
     <value>תן 150 נקודות לחברים ותרוויח 50 נקודות לכל אחד שמצטרף</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
-    <value>הפיצו את השמועה ב-</value>
+    <value>הפיצו את השמועה ב- </value>
   </data>
   <data name="get_document_text" xml:space="preserve">
     <value>! לחץ על הלינק הזה כדי להעיף מבט, אני בטוח שזה יחסוך לך זמן ויעזור לך בלימודים</value>
   </data>
   <data name="get_your_homework" xml:space="preserve">
-    <value>קבל תשובות לשאלות שיעורי הבית תוך דקות והרווח כסף בלענות לשאלות של סטודנטים אחרים. קבל 100 נקודות בחינם אם תירשם באמצעות קישור זה:</value>
+    <value>קבל תשובות לשאלות שיעורי הבית תוך דקות והרווח כסף בלענות לשאלות של סטודנטים אחרים. קבל 150 נקודות בחינם אם תירשם באמצעות קישור זה:</value>
   </data>
   <data name="get_your_homework_twitter" xml:space="preserve">
-    <value>קבל תשובות לשאלות שיעורי הבית תוך דקות והרווח כסף בלענות לשאלות של סטודנטים אחרים. קבל 100 נקודות בחינם אם תירשם באמצעות קישור זה</value>
+    <value>קבל תשובות לשאלות שיעורי הבית תוך דקות והרווח כסף בלענות לשאלות של סטודנטים אחרים. קבל 150 נקודות בחינם אם תירשם באמצעות קישור זה</value>
   </data>
   <data name="join_me" xml:space="preserve">
     <value>הצטרפו אלי לספיטבול</value>
@@ -155,6 +155,9 @@
   </data>
   <data name="share_with" xml:space="preserve">
     <value>או שתף עם</value>
+  </data>
+  <data name="spread" xml:space="preserve">
+    <value>הפיצו את השמועה</value>
   </data>
   <data name="title_document" xml:space="preserve">
     <value>.הרגע העליתי חלק מהסיכומים האקדמיים שלי לספיטבול</value>

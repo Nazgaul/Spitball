@@ -11,6 +11,6 @@ namespace Cloudents.Command.Command.Admin
 
 
 
-        public IEnumerable<long> Id { get;private set; }
+        public IEnumerable<long> Id { get; }
     }
 }

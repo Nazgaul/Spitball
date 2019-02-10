@@ -16,12 +16,13 @@ using System.Threading.Tasks;
 namespace Cloudents.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Injected")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
     public class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
     {
         private class QuestionFlatDto
         {
             [DtoToEntityConnection(nameof(Question.User.Id))]
-            public long UserId { get; set; }
+            public long UserId { get; private set; }
             [DtoToEntityConnection(nameof(Question.User.Name))]
             public string UserName { get; set; }
             [DtoToEntityConnection(nameof(Question.User.Score))]
