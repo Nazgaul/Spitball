@@ -15,7 +15,6 @@ namespace Cloudents.Persistance.Maps
 
             HasMany(x => x.Documents).Cascade.None();
 
-            SchemaAction.None();
 
         }
     }

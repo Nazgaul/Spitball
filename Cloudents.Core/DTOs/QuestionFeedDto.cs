@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -10,45 +8,10 @@ namespace Cloudents.Core.DTOs
     {
         private bool _isRtl;
 
-        public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text, int files,
-            int answers, UserDto user, DateTime dateTime,  bool hasCorrectAnswer, 
-            CultureInfo culture, int votes, string course)
-        :this(id,subject,price,text,files,answers,dateTime,hasCorrectAnswer,culture, votes, course)
-        {
-          
-            User = user;
-            
-        }
-
-        public QuestionFeedDto(long id, QuestionSubject subject, decimal price, string text,
-            int files, int answers, DateTime dateTime,  bool hasCorrectAnswer, CultureInfo culture,
-            int votes, string course)
-        {
-            Id = id;
-            Subject = subject;
-            Price = price;
-            Text = text;
-            Files = files;
-            Answers = answers;
-            DateTime = dateTime;
-            HasCorrectAnswer = hasCorrectAnswer;
-            _isRtl = culture?.TextInfo.IsRightToLeft ?? false;
-            Vote = new VoteDto()
-            {
-                Votes = votes
-            };
-            Course = course;
-        }
-
         
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "We need this for next question query")]
-        public QuestionFeedDto()
-        {
-            
-        }
 
         public long Id { get; set; }
-        public QuestionSubject Subject { get; set; }
+        public QuestionSubject? Subject { get; set; }
         public decimal Price { get; set; }
         public string Text { get; set; }
         public int Files { get; set; }
@@ -63,17 +26,10 @@ namespace Cloudents.Core.DTOs
 
         public bool IsRtl
         {
-            get => _isRtl;
+            get => CultureInfo?.TextInfo.IsRightToLeft ?? false;
         }
 
-        public CultureInfo CultureInfo
-        {
-            get => null;
-            set
-            {
-                _isRtl = value?.TextInfo.IsRightToLeft ?? false;
-            }
-        }
+        public CultureInfo CultureInfo { get; set; }
 
         public VoteDto Vote { get; set; }
     }

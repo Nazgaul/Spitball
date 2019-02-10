@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using Cloudents.Core.Entities;
-using FluentNHibernate;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
@@ -35,10 +34,7 @@ namespace Cloudents.Persistance.Maps
             Map(e => e.OldUser).Nullable();
 
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
-            References(x => x.Language).Column("Language").ForeignKey("User_Language").Nullable();
-         
-
-           
+            Map(x => x.Language).Column("Language").CustomType<CultureInfo>().Nullable();
 
             HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse()
@@ -55,7 +51,7 @@ namespace Cloudents.Persistance.Maps
             Table("[User]");
 
             
-            SchemaAction.None();
+            SchemaAction.Update();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
@@ -79,6 +75,7 @@ namespace Cloudents.Persistance.Maps
             Map(e => e.LockoutEnd).Nullable();
             Map(e => e.AccessFailedCount);
             Map(e => e.LockoutEnabled);
+            Map(e => e.LockoutReason).CustomSqlType("nvarchar(255)");
             HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore).Inverse()
                 .Cascade.AllDeleteOrphan();
             HasMany(x => x.UserLogins)
@@ -90,7 +87,8 @@ namespace Cloudents.Persistance.Maps
                 y.Map(x => x.Score);
                 y.Map(x => x.Balance).CustomSqlType("smallmoney");
                 y.HasMany(x => x.Transactions).KeyColumn("User_id").Inverse()
-                    .Cascade.AllDeleteOrphan();
+                    .Inverse() 
+                    .Cascade.AllDeleteOrphan().ForeignKeyConstraintName("Transaction_User").AsBag();
             });
             //Map(x => x.Balance).CustomSqlType("smallmoney");
             //Map(x => x.Score);
@@ -110,6 +108,7 @@ namespace Cloudents.Persistance.Maps
                 .ChildKeyColumn("TagId")
                 .ForeignKeyConstraintNames("User_Tags", "Tags_User")
                 .Table("UsersTags").AsSet();
+
         }
     }
 

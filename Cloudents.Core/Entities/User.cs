@@ -76,26 +76,20 @@ namespace Cloudents.Core.Entities
 
         public virtual bool Fictive { get; protected set; }
 
-
-
-       
-        
-
-        //public abstract IList<Transaction> Transactions { get; set; }
         public abstract decimal Balance { get; }
 
         public abstract int Score { get; protected set; }
 
-        //public abstract void AddTransaction(Transaction t);
-
-        public abstract void MakeTransaction(TransactionType2 transaction, 
-            Question question = null,
-            Document document = null,
-            Answer answer = null);
+        public abstract void MakeTransaction(Transaction transaction);
 
 
 
-        public virtual Language Language { get; set; }
+        public virtual CultureInfo Language { get;protected set; }
+
+        public virtual void ChangeLanguage(Language lang)
+        {
+            Language = lang;
+        }
 
         public virtual string Country { get; set; }
 
@@ -103,6 +97,5 @@ namespace Cloudents.Core.Entities
         {
             _questions.Clear();
         }
-
     }
 }

@@ -21,10 +21,18 @@ function statisticsData(key, val){
     this.data = val;
 }
 
+function statisticsObj(ObjInit){
+    this.users = ObjInit.users;
+    this.answers = ObjInit.answers;
+    this.sbls = ObjInit.sbls;
+    this.money = ObjInit.sbls;
+}
+
 function createStatisticsData(ObjInit){
+    let serverConverter = new statisticsObj(ObjInit);
     let statisticsDataResult = [];
-    for(let prop in ObjInit){
-        let stat = new statisticsData(prop, ObjInit[prop]);
+    for(let prop in serverConverter){
+        let stat = new statisticsData(prop, serverConverter[prop]);
         statisticsDataResult.push(stat)
     }
     //sort objects by id to keep the requested order of items

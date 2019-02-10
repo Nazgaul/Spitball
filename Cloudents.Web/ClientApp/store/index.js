@@ -23,6 +23,7 @@ import marketingBox from './marketingBox'
 import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
 import onBoardGuide from './onBoardGuide';
+import buyTokens from './buyTokens';
 
 
 
@@ -49,7 +50,8 @@ const store = new Vuex.Store({
         marketingBox,
         leaderBoard,
         mobileFooter,
-        onBoardGuide
+        onBoardGuide,
+        buyTokens
     }
 });
 

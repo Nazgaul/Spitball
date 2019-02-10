@@ -115,7 +115,7 @@ export default {
                         };
                         this.items = response.data;
                         this.items = this.items.map((item) => {
-                            item.value = item.value.toFixed(2);
+                            item.value = item.points.toFixed(2);
                             if (item.type.toLowerCase() !== 'pending') {
                                 parseFloat(item.value);
                                 this.cash += parseFloat(item.value);

@@ -118,7 +118,6 @@ namespace Cloudents.Web
                 });
             services.AddResponseCompression();
             services.AddResponseCaching();
-
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
@@ -172,19 +171,6 @@ namespace Cloudents.Web
             services.AddTransient<IProfileUpdater, QueueProfileUpdater>();
             services.AddTransient<ICountryProvider, CountryProvider>();
 
-
-
-            //var z = AppDomain.CurrentDomain.GetAssemblies().Where(w =>
-            //        w.FullName.StartsWith("Cloudents", StringComparison.OrdinalIgnoreCase))
-            //    .ToList();
-            ////var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //var assembliesOfProgram = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Where(w =>
-            //        w.Name.StartsWith("Cloudents", StringComparison.OrdinalIgnoreCase))
-            //    .Select(Assembly.Load)
-            //    .ToList();
-            //assembliesOfProgram.Add(Assembly.GetExecutingAssembly());
-
-
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
@@ -215,20 +201,15 @@ namespace Cloudents.Web
                     !HostingEnvironment.IsProduction()
                     ),
                 Storage = Configuration["Storage"],
-                BlockChainNetwork = Configuration["BlockChainNetwork"],
-                ServiceBus = Configuration["ServiceBus"]
+                ServiceBus = Configuration["ServiceBus"],
+                PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterAssemblyModules(assembliesOfProgram.ToArray());
-            //containerBuilder.RegisterSystemModules(
-            //    Application.Enum.System.Web, assembliesOfProgram);
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
-
-            //containerBuilder.RegisterModule(new SearchModule(Configuration["AzureSearch:SearchServiceName"],
-            //    Configuration["AzureSearch:SearchServiceAdminApiKey"], !HostingEnvironment.IsProduction()));
 
             containerBuilder.RegisterType<SeoDocumentRepository>()
                 .As<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>().WithParameter("query", SeoDbQuery.Flashcard);
@@ -259,30 +240,22 @@ namespace Cloudents.Web
             }
             else
             {
-                //app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                //app.UseExceptionHandler("/Error");
                 app.UseHsts();
-                //app.UseHsts(new HstsOptions()
-                //{
-                //    IncludeSubDomains = true,
-                //    Preload = true
-                //});
             }
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
+            reWriterOptions.Add(new RedirectToWww());
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
+                reWriterOptions.Add(new RedirectToWww());
             }
 
             app.UseRewriter(reWriterOptions);
 
             app.UseResponseCompression();
             app.UseResponseCaching();
-
-            //app.UseStatusCodePages();
-
 
             app.UseRequestLocalization(o =>
             {
@@ -291,7 +264,6 @@ namespace Cloudents.Web
                 // Formatting numbers, dates, etc.
                 o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
                 // UI strings that we have localized.
-                //o.SupportedUICultures = Language.SystemSupportLanguage().ToList();
                 o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
 
             });
@@ -342,4 +314,6 @@ namespace Cloudents.Web
             });
         }
     }
+
+
 }

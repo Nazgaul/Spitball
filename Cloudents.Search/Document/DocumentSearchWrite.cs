@@ -55,6 +55,11 @@ namespace Cloudents.Search.Document
             {
                 IsFilterable = true
             });
+            index.Fields.Add(new Field("Type", DataType.Int32)
+            {
+                IsFilterable = true,
+                IsFacetable = true
+            });
             return index;
         }
     }

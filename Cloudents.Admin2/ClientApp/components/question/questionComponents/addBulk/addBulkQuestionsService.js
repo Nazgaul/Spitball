@@ -25,10 +25,10 @@ const getSubjectList = function(){
     })
 }
 
-const addQuestion = function(subjectId, text, price, country){
+const addQuestion = function(course, text, price, country){
     let path = "AdminQuestion"
     let questionData = {
-        subjectId,
+        course,
         text,
         price,
         country

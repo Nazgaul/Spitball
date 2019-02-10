@@ -6,8 +6,6 @@ using NHibernate.Caches.CoreDistributedCache;
 using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
 using NHibernate.Event;
-//using NHibernate.Caches.CoreDistributedCache;
-//using NHibernate.Caches.CoreDistributedCache.Redis;
 
 namespace Cloudents.Persistance
 {
@@ -15,20 +13,6 @@ namespace Cloudents.Persistance
     {
         private readonly IEventPublisher _publisher;
         private readonly ISessionFactory _factory;
-
-
-        //private static IEnumerable<Type> GetAllTypesImplementingOpenGenericType(Type openGenericType, Assembly assembly)
-        //{
-        //    return from x in assembly.GetTypes()
-        //        from z in x.GetInterfaces()
-        //        let y = x.BaseType
-        //        where
-        //            (y?.IsGenericType == true
-        //             && openGenericType.IsAssignableFrom(y.GetGenericTypeDefinition()))
-        //            || (z.IsGenericType
-        //                && openGenericType.IsAssignableFrom(z.GetGenericTypeDefinition()))
-        //        select x;
-        //}
 
         public UnitOfWorkFactorySpitball(IEventPublisher publisher, IConfigurationKeys connectionString)
         {
@@ -45,16 +29,11 @@ namespace Cloudents.Persistance
 
             configuration.Mappings(m =>
             {
-                //var types = GetAllTypesImplementingOpenGenericType(typeof(SpitballClassMap<>),
-                //    Assembly.GetExecutingAssembly());
                 m.FluentMappings.AddFromAssemblyOf<UserMap>();
-                //foreach (var type in types)
-                //{
-                //    m.FluentMappings.Add(type);
-                //}
-                //m.FluentMappings.Add<DomainTimeStampMap>();
-                //m.FluentMappings.Add<RowDetailMap>();
             });
+
+
+
             //TODO: Azure function as usual making live harder
             //Could not load file or assembly 'Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60' or one of its dependencies. The system cannot find the file specified.
             configuration.Cache(c =>
@@ -75,10 +54,10 @@ namespace Cloudents.Persistance
             return session;
         }
 
-        public ISessionFactory GetFactory()
-        {
-            return _factory;
-        }
+        //public ISessionFactory GetFactory()
+        //{
+        //    return _factory;
+        //}
 
         public IStatelessSession OpenStatelessSession()
         {
@@ -97,6 +76,19 @@ namespace Cloudents.Persistance
             config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
             config.SetListener(ListenerType.PostCollectionUpdate, eventPublisherListener);
 
+
+            //var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
+            //enversConf.Audit<Document>()
+            //    .Exclude(x => x.Transactions)
+            //    .ExcludeRelationData(x => x.University)
+            //    .Exclude(x => x.Votes)
+            //    .Exclude(x => x.Course)
+            //    .Exclude(x => x.User)
+            //    .Exclude(x => x.Status.FlaggedUser)
+            //    .ExcludeRelationData(x => x.Tags);
+
+            
+            //config.IntegrateWithEnvers(enversConf);
             //config.LinqToHqlGeneratorsRegistry<MyLinqToHqlGeneratorsRegistry>();
 
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);

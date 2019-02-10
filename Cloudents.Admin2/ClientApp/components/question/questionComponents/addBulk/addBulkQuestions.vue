@@ -1,18 +1,18 @@
 <template>
     <div class="add-question-container">
-        <div class="legend-menu">
+        <!-- <div class="legend-menu">
             <h2>Subject Id's</h2>
             <div v-for="subject in this.subjects" :key="subject.id">
                 <span>{{subject.subject}}</span>
                 <span> = <b>{{subject.id}}</b></span>
                 
             </div>
-        </div>
+        </div> -->
         <div>
             <h1>Add Multiple Questions</h1>
             <div class="example-container">
                 <span>Example</span>
-                <img style="width: 100%;" src="../../../../assets/img/csvExample2.png" alt="">
+                <img style="width: 100%;" src="../../../../assets/img/csvExample3.png" alt="">
             </div>
             <!-- Deprecated -->
             <!-- <div class="text-area-container">
@@ -24,7 +24,7 @@
             </div>
 
             <div class="add-container">
-                <v-btn round  :class="{'disabled': addDisabled}" @click="addQuestions">Add</v-btn>
+                <v-btn :loading="loading"  :class="{'disabled': addDisabled}" @click="addQuestions">Add</v-btn>
             </div>
 
             <div class="added-questions-legend" v-if="addedQuestions > 0">
@@ -53,7 +53,8 @@ export default {
             addedQuestions: 0,
             questionError:false,
             questionErrorMessage: "",
-            questionsToUpload: null
+            questionsToUpload: null,
+            loading: false
         }
     },
     methods:{
@@ -83,7 +84,7 @@ export default {
                 let arrData	= CSVtoArray(event.target.result);
                 let csvToJson = arrData.map(item=>{
                     return {
-                        "subjectId": item[0],
+                        "course": item[0],
                         "text": item[1],
                         "price": item[2],
                         "country": item[3]
@@ -97,6 +98,7 @@ export default {
             
         },
         addQuestions: function(){
+            this.loading= true;
             this.addedQuestions = 0;
             this.questionError = false;
             let questions = this.questionsToUpload;
@@ -104,12 +106,14 @@ export default {
             try{
                 if(questions && questions.length > 0){
                 questions.forEach((question)=>{
-                    addQuestion(question.subjectId, question.text, question.price, question.country).then(()=>{   
+                    addQuestion(question.course, question.text, question.price, question.country).then(()=>{   
                         this.addedQuestions++; 
                         if(this.addedQuestions === this.questionsToUpload.length){
                             this.questionsToUpload = null;
                             document.getElementById('csvFileUpload').value = '';
                             this.addDisabled = true;
+                            this.loading= false;
+
                         }
 
                     }, (err)=>{
@@ -117,6 +121,8 @@ export default {
                         let badFormatQuestion = err.config.data;
                         self.questionError = true;
                         self.questionErrorMessage += `Wrong Question Data: ${badFormatQuestion}\n\n`
+                        this.loading= false;
+
                     })
                 })
                 
@@ -211,7 +217,7 @@ export default {
     .example-container{
         display: flex;
         flex-direction: column;
-        width: 450px;
+        width: 600px;
         vertical-align: middle;
         margin: 70px auto;
     }

@@ -13,7 +13,9 @@
   &.v-toolbar {
     background-color: @color-white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-
+    @media (max-width: @screen-xs) {
+      padding-bottom: 8px;
+    }
     .v-toolbar__content {
       padding: 0;
     }
@@ -84,6 +86,31 @@
     height: 100%;
     flex-direction: column;
     justify-content: space-between;
+    .setting-buysbl-button{
+      font-family: @fontFiraSans;
+      display: flex;
+      align-items: center;
+      padding: 2px 15px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -.2px;
+      color: rgba(0,0,0,.87);
+      outline: none;
+      line-height: 10px;
+      border-radius: 14px;
+      box-shadow: 0 3px 8px 0 rgba(0,0,0,.25);
+      background-image: linear-gradient(108deg,#ffe78d,#ffca54);
+      margin-top: 3px;
+      span{
+        font-size:11px;
+        color: rgba(0, 0, 0, 0.77); 
+        padding-top: 2px;
+      }
+      i{
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.77);
+      }
+    }
   }
 
   .line {
@@ -288,6 +315,7 @@
 }
 .header-wallet{
   padding-right: 16px;
+  align-items: center;
 }
 .header-comments {
   // margin-right: 39px;
@@ -307,9 +335,10 @@
 
 .header-wallet {
   flex-direction: column;
-  width: 10px;
+  max-width: 120px;
+  min-width: 110px;
   @media (max-width: @screen-sm) {
-    align-items: start;
+    // align-items: start;
     width: auto;
   }
 

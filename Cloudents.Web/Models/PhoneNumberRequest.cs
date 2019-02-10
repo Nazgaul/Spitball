@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.RegularExpressions;
-using Cloudents.Web.Resources;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Models

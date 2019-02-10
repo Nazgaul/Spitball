@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Converters;

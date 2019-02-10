@@ -10,8 +10,8 @@ namespace Cloudents.Command.Command
             QuestionUserId = questionUserId;
         }
 
-        public Guid AnswerId { get; private set; }
-        public long QuestionUserId { get; private set; }
+        public Guid AnswerId { get; }
+        public long QuestionUserId { get; }
 
     }
 }

@@ -40,7 +40,7 @@
             },
         },
         methods: {
-            ...mapActions(['setUserCurrentBalance']),
+            ...mapActions(['setUserCurrentBalance', 'setTokensDialogState']),
             sendTokens: function () {
                 if (!this.tokens) {
                     this.$toaster.error("you must provide tokens");
@@ -53,6 +53,7 @@
                         this.setUserCurrentBalance(this.tokens);
                         this.loading = false;
                         this.tokens = null;
+                        this.setTokensDialogState(false);
                     }, (err) => {
                         console.log(err);
                         this.$toaster.error(`Error: couldn't send tokens`)

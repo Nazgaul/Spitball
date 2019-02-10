@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
@@ -101,8 +99,8 @@ namespace Cloudents.Persistance.Repositories
             return
               Session.QueryOver<Transaction>()
                   .Where(w => w.User.Id == userId)
-                  .Where(w => w.TransactionType.Type == type)
-                  .Select(Projections.Sum<Transaction>(x => x.TransactionType.Price));
+                  .Where(w => w.Type == type)
+                  .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 
         internal IQueryOver<Transaction, Transaction> UserAvailableBalance(long userId)
@@ -110,8 +108,8 @@ namespace Cloudents.Persistance.Repositories
             return
               Session.QueryOver<Transaction>()
                   .Where(w => w.User.Id == userId)
-                  .Where(w => w.TransactionType.Type == TransactionType.Earned || w.TransactionType.Type == TransactionType.Stake)
-                  .Select(Projections.Sum<Transaction>(x => x.TransactionType.Price));
+                  .Where(w => w.Type == TransactionType.Earned || w.Type == TransactionType.Stake)
+                  .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 
        /* public Task UpdateUsersBalance(CancellationToken token)

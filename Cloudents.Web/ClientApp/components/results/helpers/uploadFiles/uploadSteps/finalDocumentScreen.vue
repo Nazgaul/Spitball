@@ -141,8 +141,7 @@
                    return name;
 
                 }else{
-                    console.log('different');
-                    return customName;
+                  return customName;
 
                 }
             },

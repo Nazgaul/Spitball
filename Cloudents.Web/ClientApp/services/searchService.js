@@ -101,7 +101,7 @@ function DocumentItem(objInit) {
     this.url = objInit.url;
     this.user = objInit.user;
     this.views = objInit.views;
-    this.template = 'note';
+    this.template = objInit.source.includes('Cloudents') || objInit.source.includes('Spitball') ? 'note' : 'note-third-party';
     this.price = objInit.price;
     this.isPurchased = objInit.isPurchased;
     this.votes = !!objInit.vote ? objInit.vote.votes : null;
@@ -123,7 +123,7 @@ let transferResultAsk = response => {
         data: items,
         sort: res.sort,
         filters: res.filters,
-        nextPage: res.nextPageLink
+        // nextPage: res.nextPageLink
     }
 };
 
@@ -135,7 +135,7 @@ let transferResultNote = response => {
         sort: res.sort,
         filters: res.filters,
         data: result.map(createDocumentItem),
-        nextPage: res.nextPageLink
+        // nextPage: res.nextPageLink
     }
 };
 let transferResultFlashcard = response => {

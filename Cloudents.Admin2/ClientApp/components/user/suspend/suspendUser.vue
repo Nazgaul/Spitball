@@ -4,13 +4,16 @@
         <div class="suspend-input-container">
             <v-text-field solo type="text" class="user-id-input" placeholder="Insert user id..." v-model="userIds"/>
         </div>
+        <div class="suspend-input-container">
+            <v-text-field solo type="text" class="user-id-input" placeholder="reason" v-model="reason" required/>
+        </div>
         <div class="suspend-checkbox-container">
             <input type="checkbox" id="removeQuestion" v-model="deleteUserQuestions"> 
             <label for="removeQuestion">Remove Question </label>
         </div>
         <div class="suspend-button-container">
-            <v-btn round color="red" @click.prevent="actionUser(false)" :class="{'lock': lock}">Suspend</v-btn>
-            <v-btn round color="green" @click.prevent="actionUser(true)" :class="{'lock': lock}">Release</v-btn>
+            <v-btn  :loading="suspendLoading" color="red" @click.prevent="actionUser(false)" :class="{'lock': lock}">Suspend</v-btn>
+            <v-btn  :loading="releaseLoading" color="green" @click.prevent="actionUser(true)" :class="{'lock': lock}">Release</v-btn>
         </div>
 
         <div v-if="showSuspendedDetails" class="suspended-user-container">
@@ -29,7 +32,10 @@ export default {
             deleteUserQuestions:false,
             showSuspendedDetails: false,
             suspendedMail: null,
-            lock: false
+            lock: false,
+            suspendLoading: false,
+            releaseLoading: false,
+            reason: null
         }
     },
     methods:{
@@ -38,6 +44,7 @@ export default {
                 this.$toaster.error("Please Insert A user ID")
                 return;
             }
+            this.serverIds = [];
             this.userIds.split(',').forEach(id=>{
                 let num = parseInt(id.trim());
                 if(!!num){
@@ -47,30 +54,39 @@ export default {
             
             this.lock = true;
             if(!!unsuspendUser){
+                this.releaseLoading = true;
                 releaseUser(this.serverIds).then((email)=>{
-                    this.$toaster.success(`user got released`); 
-                   
+                    this.$toaster.success(`user got released`);
+                    this.releaseLoading = false;
+                    this.reason = null;
+                    this.userIds = null;
                 }, (err)=>{
                     this.$toaster.error(`ERROR: failed to realse user`);
                     console.log(err)
                 }).finally(()=>{
                     this.lock = false;
-                    this.userIds = null;
-                    
+                    this.releaseLoading = false;
                 })
             }else{
-                suspendUser(this.serverIds, this.deleteUserQuestions).then((email)=>{
+                if(!this.reason){
+                    this.$toaster.error("Please Insert A Reason")
+                    this.lock = false;
+                    return;
+                }
+                this.suspendLoading = true;
+                suspendUser(this.serverIds, this.deleteUserQuestions, this.reason).then((email)=>{
                     this.$toaster.success(`user got suspended, email is: ${email}`)
                     this.showSuspendedDetails = true;
                     this.suspendedMail = email;
-                   
+                    this.suspendLoading = false;
+                    this.reason = null;
+                    this.userIds = null;
                 }, (err)=>{
                     this.$toaster.error(`ERROR: failed to suspend user`);
                     console.log(err)
                 }).finally(()=>{
                     this.lock = false;
-                    this.userIds = null;
-                    
+                    this.suspendLoading = false;
                 })
             }
             

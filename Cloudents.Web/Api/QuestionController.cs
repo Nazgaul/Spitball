@@ -27,7 +27,6 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -66,12 +65,11 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
 
-            Debug.Assert(model.SubjectId != null, "model.SubjectId != null");
             var userId = _userManager.GetLongUserId(User);
             var toasterMessage = _localizer["PostedQuestionToasterOk"];
             try
             {
-                var command = new CreateQuestionCommand(model.SubjectId.Value, model.Text, model.Price,
+                var command = new CreateQuestionCommand(model.SubjectId, model.Text, model.Price,
                     userId, model.Files, model.Course);
                 await _commandBus.DispatchAsync(command, token);
             }
@@ -185,7 +183,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new DeleteQuestionCommand(model.Id, _userManager.GetLongUserId(User));
-                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
             catch (ArgumentException)
@@ -228,11 +226,11 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(votesTask, taskResult);
 
             var result = taskResult.Result;
-            string nextPageLink = null;
-            if (result.Result.Count > 0)
-            {
-                nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
-            }
+            //string nextPageLink = null;
+            //if (result.Result.Count > 0)
+            //{
+            //    nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
+            //}
 
             await queueTask;
             return new WebResponseWithFacet<QuestionFeedDto>
@@ -254,8 +252,8 @@ namespace Cloudents.Web.Api
                     new Filters<string>(nameof(QuestionsRequest.Source),_localizer["SubjectTypeTitle"],
                         QuestionSubjectMethod.GetValues(result.FacetSubject)
                             .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
-                },
-                NextPageLink = nextPageLink
+                }
+                //NextPageLink = nextPageLink
             };
         }
 

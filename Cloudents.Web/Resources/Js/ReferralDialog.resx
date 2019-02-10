@@ -123,23 +123,41 @@
   <data name="copy" xml:space="preserve">
     <value>Copy</value>
   </data>
+  <data name="copy_link" xml:space="preserve">
+    <value>Copy Link</value>
+  </data>
+  <data name="dialog_bottom_text" xml:space="preserve">
+    <value>The more classmates you get on Spitball, the better everyone’s grades will be!</value>
+  </data>
+  <data name="dialog_friends_joined" xml:space="preserve">
+    <value> invited friends have joined</value>
+  </data>
+  <data name="dialog_subtitle" xml:space="preserve">
+    <value>Give 150 points to classmates and earn 50 points for each one that joins</value>
+  </data>
   <data name="dialog_title_invite" xml:space="preserve">
-    <value>&lt;b&gt;Invite a friend&lt;/b&gt; and &lt;b&gt;Earn&lt;/b&gt; for each referral &lt;b&gt;10 Points.&lt;/b&gt;</value>
+    <value>Spread the word at </value>
   </data>
   <data name="get_document_text" xml:space="preserve">
     <value>Click this link to have a look, I am certain it will worth your while and help you in your studying!</value>
   </data>
   <data name="get_your_homework" xml:space="preserve">
-    <value>Get your homework questions answered in minutes, and make money answering other students questions. Get 100 Free points if you sign up using this link:</value>
+    <value>Get your homework questions answered in minutes, and make money answering other students questions. Get 150 Free points if you sign up using this link:</value>
   </data>
   <data name="get_your_homework_twitter" xml:space="preserve">
-    <value>Get your homework questions answered in minutes, and make money answering other students questions. Get 100 Free points if you sign up using this link</value>
+    <value>Get your homework questions answered in minutes, and make money answering other students questions. Get 150 Free points if you sign up using this link</value>
   </data>
   <data name="join_me" xml:space="preserve">
     <value>Join me on Spitball</value>
   </data>
+  <data name="ref_placeholder" xml:space="preserve">
+    <value>Select Document to Share</value>
+  </data>
   <data name="share_with" xml:space="preserve">
     <value>or share with</value>
+  </data>
+  <data name="spread" xml:space="preserve">
+    <value>Spread the Word</value>
   </data>
   <data name="title_document" xml:space="preserve">
     <value>I just uploaded some of my academic notes to Spitball.</value>

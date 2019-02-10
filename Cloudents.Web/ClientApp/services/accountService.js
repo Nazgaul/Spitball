@@ -7,27 +7,32 @@ function AccountUser(ObjInit){
     this.name= ObjInit.name
     this.token= ObjInit.token
     this.universityExists= ObjInit.universityExists
-    this.score = ObjInit.score
+    this.score = ObjInit.score;
+    this.phoneNumber = ObjInit.phoneNumber;
+
 }
 
-function ProfileData(arrInit){
-    this.user= arrInit[0].data;
-    this.questions = arrInit[1].data.map(searchService.createQuestionItem).map(item => {
+function profileUserData(objInit){
+    this.user= objInit.data;
+    this.questions = [];
+    this.answers = [];
+    this.documents = [];
+    this.purchasedDocuments= [];
+}
+function profileQuestionData(arrInit){
+    return arrInit[1].data.map(searchService.createQuestionItem).map(item => {
         return {
             ...item,
             user: arrInit[0].data,
-            filesNum: item.files,
         }
     }) || [];
-    this.answers= arrInit[2].data.map(searchService.createQuestionItem).map(i => {
-        return {
-            ...i,
-            filesNum: i.files,
-        }
-    }) || [];
-    this.documents= arrInit[3].data.map(searchService.createDocumentItem) || [];
-    this.purchasedDocuments= arrInit[4].data.map(searchService.createDocumentItem) || [];
+}
 
+function profileAnswerData(arrInit){
+    return arrInit.data.map(searchService.createQuestionItem) || [];
+}
+function profileDocumentData(arrInit){
+   return arrInit.data.map(searchService.createDocumentItem) || [];
 }
 
 export default {
@@ -48,6 +53,9 @@ export default {
     getProfile:(id) => {
         return connectivityModule.http.get(`/Profile/${id}`)
     },
+    getNumberReffered:(id) => {
+        return connectivityModule.http.get(`/Account/${id}/referrals`)
+    },
     getProfileQuestions:(id, page) => {
         let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`Profile/${id}/questions/${strPage}`)
@@ -66,7 +74,19 @@ export default {
 
 
     },
-    createProfileData: (arrInit)=>{
-        return new ProfileData(arrInit);
+    // createProfileData: (arrInit)=>{
+    //     return new ProfileData(arrInit);
+    // },
+    createUserProfileData: (objInit)=>{
+        return new profileUserData(objInit);
+    },
+    createProfileQuestionData: (arrInit)=>{
+        return new profileQuestionData(arrInit);
+    },
+    createProfileAnswerData: (arrInit)=>{
+        return new profileAnswerData(arrInit)
+    },
+    createProfileDocumentData: (arrInit)=>{
+        return new profileDocumentData(arrInit)
     }
 }

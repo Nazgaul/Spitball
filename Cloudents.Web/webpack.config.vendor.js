@@ -10,12 +10,15 @@ const WebpackRTLPlugin = require("webpack-rtl-plugin");
 const bundleOutputDir = "./wwwroot/dist";
 
 const allModules = [
+    "babel-polyfill",
     "vue",
     "vue-router",
     "vuex",
     "vue-analytics",
     "axios",
     "query-string",
+    "vue-plugin-load-script",
+    "vue-line-clamp",
     "./ClientApp/main.styl",
     "./wwwroot/content/main.less",
     "./ClientApp/myFont.font.js",

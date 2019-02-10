@@ -41,7 +41,7 @@
                     :maximum="4"
                     :extensions="['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp']"
             >
-                <v-btn color="#438a2b" round class="btn-upload">Upload File</v-btn>
+                <v-btn  class="btn-upload">Upload File</v-btn>
             </file-upload>
             <ul>
                 <li style="list-style: none;" v-for="(file, index) in files" :key="index">
@@ -51,14 +51,14 @@
             </ul>
         </div>
         <div class="price-container" v-if="showTextArea">
-            <v-btn color="#438a2b" round v-if="!showPriceSetter"  @click="setPrice">Set A Price</v-btn>
+            <v-btn v-if="!showPriceSetter"  @click="setPrice">Set A Price</v-btn>
             <div v-if="showPriceSetter">
                 <v-text-field solo class="question-price" type="number" v-model="questionPrice" min="1"/>
             </div>
         </div>
 
         <div class="add-container" v-if="showPriceSetter">
-            <v-btn round color="#438a2b" class="btn-add" @click="addQ">Add</v-btn>
+            <v-btn   :loading="loading" class="btn-add" @click="addQ">Add</v-btn>
             <v-btn flat  @click="$refs.form.reset()">Clear</v-btn>
         </div>
         </v-form>
@@ -80,7 +80,8 @@
                 files: [],
                 filesNames: [],
                 country: "Us",
-                countryList: ['Us', 'Il']
+                countryList: ['Us', 'Il'],
+                loading: false
             }
         },
         methods: {
@@ -102,6 +103,7 @@
                 this.showPriceSetter = true;
             },
             addQ: function () {
+                this.loading = true;
                 if (this.questionPrice < 1) {
                     this.$toaster.error("Error: Price must be above 1");
                     return;
@@ -121,9 +123,11 @@
                 addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, uploads).then(() => {
                     this.resetData();
                     this.$toaster.success("Success on Adding Question");
+                    this.loading= false;
                 }, (err) => {
                     console.log(err);
                     this.$toaster.error("Error: Failed to Add question");
+                    this.loading= false;
                 })
             },
             inputFile(newFile, oldFile) {

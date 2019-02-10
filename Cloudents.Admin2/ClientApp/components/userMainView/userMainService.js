@@ -11,7 +11,7 @@ function UserInfo(objInit) {
     this.id=  {value: objInit.id || 0, label: 'User ID' };
     this.name = {value: objInit.name || '', label: 'User Name' };
     this.email =  {value: objInit.email || '', label: 'User Email' };
-    this.phoneNumber = {value: objInit.phoneNumber ||  'Not Added', label: 'Phone Number' };
+    this.phoneNumber = {value: objInit.phoneNumber ||  '--', label: 'Phone Number', showButton: !objInit.phoneNumberConfirmed, buttonText:"verify Phone" };
     this.university = {value: objInit.university ||  '', label: 'University' };
     this.country =  {value: objInit.country ||  '', label: 'Country' };
     this.score =  {value: objInit.score ||  0, label: 'Score' };
@@ -19,10 +19,11 @@ function UserInfo(objInit) {
     this.referredCount = {value: objInit.referredCount ||  0, label: 'People Referred' };
     this.balance = {value: objInit.balance ||  0, label: 'Balance' };
     this.status = {value: objInit.isActive ? false : true , label: 'Suspended' };
+    this.joined = {value: new Date(objInit.joined).toLocaleString(), label:"Join Date"}
 }
 
 function createUserInfoItem(data) {
-   return new UserInfo(data);
+    return new UserInfo(data);
 }
 
 function QuestionItem(objInit) {
@@ -59,7 +60,7 @@ function createUserItem(objInit) {
 
 function createQuestionItem(data) {
     return data.map((item) => {
-       return new QuestionItem(item)
+        return new QuestionItem(item)
     });
 }
 function createDocumentItem(data) {
@@ -75,12 +76,54 @@ function createAnswertItem(data) {
 
 
 export default {
-    getUserData: (id) => {
-        let path = "AdminUser/info?userIdentifier=" + id;
+    getUserData: (id, page) => {
+        let path = `AdminUser/info?userIdentifier=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
-                return createUserItem(resp);
+                return createUserInfoItem(resp);
 
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getUserDocuments: (id, page) => {
+        let path = `AdminUser/documents?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createDocumentItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getUserQuestions: (id, page) => {
+        let path = `AdminUser/questions?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createQuestionItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getUserAnswers: (id, page) => {
+        let path = `AdminUser/answers?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createAnswertItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    verifyPhone: (data) => {
+        let path = `AdminUser/verify`;
+        return connectivityModule.http.post(path, data)
+            .then((resp) => {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');

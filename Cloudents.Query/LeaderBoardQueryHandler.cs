@@ -1,11 +1,10 @@
-﻿using Cloudents.Core.DTOs;
+﻿
+using Cloudents.Core.DTOs;
 using Cloudents.Query.Query;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using AutoMapper;
-using Cloudents.Infrastructure.Data;
 
 namespace Cloudents.Query
 {
@@ -42,7 +41,7 @@ namespace Cloudents.Query
 
             var destination = new LeaderBoardResultDto();
 
-            var orderDto = _mapper.Map<(long, IEnumerable<LeaderBoardDto>), LeaderBoardResultDto>(leaderBoardResult);
+            //var orderDto = _mapper.Map<(long, IEnumerable<LeaderBoardDto>), LeaderBoardResultDto>(leaderBoardResult);
             return _mapper.Map(leaderBoardResult, destination);
         }
        

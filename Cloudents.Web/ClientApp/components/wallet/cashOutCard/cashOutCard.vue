@@ -2,30 +2,27 @@
     <div class="cash-out-card" :class="{'active':available}">
         <div class="data points-wrap">
             <bdi>
-            <div class="points">
-                <div class="num">{{cost | commasFilter}}</div>
-                <div class="data">
-                    <div class="text dolar-val" v-language:inner>cashoutcard_SBL</div>
+                <div class="points">
+                    <div class="num">{{cost | commasFilter}}</div>
+                    <div class="data">
+                        <div class="text dolar-val" v-language:inner>cashoutcard_SBL</div>
+                    </div>
                 </div>
-            </div>
             </bdi>
             <v-btn class="redeem-btn"
                    flat
                    value="Redeem"
                    :loading="loading"
                    :disabled="!available"
-                   @click="redeem(cost)"
-            ><span v-language:inner>cashoutcard_Redeem</span></v-btn>
-
-            <!--<button class="redeem-btn" @click="redeem(cost)" :disabled="!available" v-language:inner>cashoutcard_Redeem</button>-->
+                   @click="redeem(cost)"><span v-language:inner>cashoutcard_Redeem</span></v-btn>
         </div>
-        <img :src="require(`./../img/${imageSrc}`)"/>
+        <img :src="require(`./../img/${imageSrc}`)" />
     </div>
 </template>
 
 <script>
     import walletService from '../../../services/walletService';
-    import { mapActions} from 'vuex';
+    import { mapActions } from 'vuex';
     export default {
         data() {
             return {
@@ -45,7 +42,7 @@
             available: {
                 type: Boolean
             },
-            updatePoint:{
+            updatePoint: {
                 type: Function
             }
         },
@@ -54,27 +51,27 @@
                 updateBalance: 'updateUserBalance',
                 updateToasterParams: 'updateToasterParams'
             }),
-            redeem(amount){
-             this.loading = true;
-             walletService.redeem(amount)
-                 .then(response => {
+            redeem(amount) {
+                this.loading = true;
+                walletService.redeem(amount)
+                    .then(response => {
                         // show toaster text
-                         this.updateToasterParams({
-                             toasterText: 'Coupon will be sent via email',
-                             showToaster: true,
-                         });
-                         //update user balance
-                         this.updateBalance(-amount);
-                         this.updatePoint();
-                         this.loading = false;
-                     },
-                     error => {
-                         console.error('error getting transactions:', error)
-                     });
+                        this.updateToasterParams({
+                            toasterText: 'Coupon will be sent via email',
+                            showToaster: true,
+                        });
+                        //update user balance
+                        this.updateBalance(-amount);
+                        this.updatePoint();
+                        this.loading = false;
+                    },
+                        error => {
+                            console.error('error getting transactions:', error)
+                        });
 
             }
         },
-            computed: {
+        computed: {
             imageSrc() {
                 return this.available ? this.image + '-active.png' : this.image + '-disactivate.png'
             }

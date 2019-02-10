@@ -1,5 +1,8 @@
-﻿namespace Cloudents.Core.Enum
+﻿using System;
+
+namespace Cloudents.Core.Enum
 {
+    [Serializable]
     public enum ItemState
     {
         Ok,

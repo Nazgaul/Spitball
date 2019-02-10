@@ -123,8 +123,14 @@
   <data name="ActionTypeAwarded" xml:space="preserve">
     <value>הוענק</value>
   </data>
+  <data name="ActionTypeBuy" xml:space="preserve">
+    <value>קניה</value>
+  </data>
   <data name="ActionTypeCashOut" xml:space="preserve">
     <value>פדיון</value>
+  </data>
+  <data name="ActionTypeCommission" xml:space="preserve">
+    <value>עמלה</value>
   </data>
   <data name="ActionTypeDeleteQuestion" xml:space="preserve">
     <value>מחיקת שאלה</value>

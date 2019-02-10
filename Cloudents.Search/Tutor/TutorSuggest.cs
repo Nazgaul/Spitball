@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Suggest;
-using Cloudents.Infrastructure.Write;
 using Cloudents.Search.AutoComplete;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;

@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Message;
-using Cloudents.Core.Message.Email;
+﻿using Cloudents.Core.Message.Email;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;

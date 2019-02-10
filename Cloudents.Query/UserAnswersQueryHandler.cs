@@ -31,23 +31,47 @@ namespace Cloudents.Query
                 .Where(w =>
                     w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
                 .OrderByDescending(o => o.Question.Id)
-                .Select(s => new QuestionFeedDto(s.Question.Id,
-                    s.Question.Subject,
-                    s.Question.Price,
-                    s.Question.Text,
-                    s.Question.Attachments,
-                    s.Question.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
-                    new UserDto
+                .Select(s=> new QuestionFeedDto()
                     {
-                        Id = s.Question.User.Id,
-                        Name = s.Question.User.Name,
-                        Score = s.Question.User.Score
-                    },
-                    s.Question.Updated,
-                    s.Question.CorrectAnswer.Id != null,
-                    s.Question.Language,
-                    s.Question.VoteCount,
-                    s.Question.Course.Name))
+                        CultureInfo = s.Question.Language,
+                        User = new UserDto
+                        {
+                            Id = s.Question.User.Id,
+                            Name = s.Question.User.Name,
+                            Score = s.Question.User.Score
+                        },
+                        Price = s.Question.Price,
+                        Id = s.Question.Id,
+                        Course = s.Question.Course.Name,
+                        Subject = s.Question.Subject,
+                        Text = s.Question.Text,
+                        DateTime = s.Question.Updated,
+                        Vote = new VoteDto()
+                        {
+                            Votes = s.Question.VoteCount
+                        },
+                        Answers = s.Question.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
+                        HasCorrectAnswer = s.Question.CorrectAnswer.Id != null,
+                        Files = s.Question.Attachments
+                        
+                })
+                //.Select(s => new QuestionFeedDto(s.Question.Id,
+                //    s.Question.Subject,
+                //    s.Question.Price,
+                //    s.Question.Text,
+                //    s.Question.Attachments,
+                //    s.Question.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
+                //    new UserDto
+                //    {
+                //        Id = s.Question.User.Id,
+                //        Name = s.Question.User.Name,
+                //        Score = s.Question.User.Score
+                //    },
+                //    s.Question.Updated,
+                //    s.Question.CorrectAnswer.Id != null,
+                //    s.Question.Language,
+                //    s.Question.VoteCount,
+                //    s.Question.Course.Name))
                 .Take(50).Skip(query.Page * 50).ToListAsync(token);
         }
     }

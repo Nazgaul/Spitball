@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreateOk" xml:space="preserve">
-    <value>Your document is being processed, will be available shortly</value>
-  </data>
-  <data name="CreatePending" xml:space="preserve">
-    <value>Your document is pending approval, please do not resubmit this document</value>
-  </data>
   <data name="InSufficientFunds" xml:space="preserve">
     <value>You do not have sufficient SBL</value>
   </data>

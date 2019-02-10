@@ -24,7 +24,6 @@ namespace Cloudents.Query
         //[Cache(TimeConst.Minute * 15, "UserAccount", true)]
         public async Task<UserAccountDto> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            //TODO check this query
             return await _session.Query<RegularUser>()
                 .Where(w => w.Id == query.Id && (!w.LockoutEnd.HasValue || DateTime.UtcNow >= w.LockoutEnd.Value))
                 .Select(s => new UserAccountDto
@@ -35,7 +34,8 @@ namespace Cloudents.Query
                     Image = s.Image,
                     Email = s.Email,
                     UniversityExists = s.University != null,
-                    Score = s.Transactions.Score
+                    Score = s.Transactions.Score,
+                    PhoneNumber = s.PhoneNumber
                 }).WithOptions(o =>
                 {
                     o.SetCacheable(true)

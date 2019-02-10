@@ -35,17 +35,33 @@ namespace Cloudents.Core.EventHandler
             var user = new UserDto(eventMessage.Question.User.Id, eventMessage.Question.User.Name,
                 score);
 
-            var dto = new QuestionFeedDto(eventMessage.Question.Id,
-                eventMessage.Question.Subject,
-                eventMessage.Question.Price,
-                eventMessage.Question.Text,
-                eventMessage.Question.Attachments,
-                0,
-                user,
-                DateTime.UtcNow,
-                false,
-                eventMessage.Question.Language,
-                0, eventMessage.Question.Course?.Name);
+            var dto = new QuestionFeedDto
+            {
+                CultureInfo = eventMessage.Question.Language,
+                User = user,
+                Price = eventMessage.Question.Price,
+                Id = eventMessage.Question.Id,
+                Course = eventMessage.Question.Course.Name,
+                Subject = eventMessage.Question.Subject,
+                Text = eventMessage.Question.Text,
+                Answers = 0,
+                DateTime = DateTime.UtcNow,
+                Files = eventMessage.Question.Attachments,
+                HasCorrectAnswer = false,
+                Vote = new VoteDto()
+            };
+
+            //var dto = new QuestionFeedDto(eventMessage.Question.Id,
+            //    eventMessage.Question.Subject,
+            //    eventMessage.Question.Price,
+            //    eventMessage.Question.Text,
+            //    eventMessage.Question.Attachments,
+            //    0,
+            //    user,
+            //    DateTime.UtcNow,
+            //    false,
+            //    eventMessage.Question.Language,
+            //    0, eventMessage.Question.Course.Name);
             if (eventMessage.Question.Language.Name.Equals("en", StringComparison.OrdinalIgnoreCase))
             {
                 await _queueProvider.InsertMessageAsync(

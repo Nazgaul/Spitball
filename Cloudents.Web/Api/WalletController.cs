@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
@@ -15,6 +10,10 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -26,12 +25,14 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<RegularUser> _userManager;
         private readonly ILogger _logger;
+        private readonly ICommandBus _commandBus;
 
-        public WalletController(UserManager<RegularUser> userManager, IQueryBus queryBus, ILogger logger)
+        public WalletController(UserManager<RegularUser> userManager, IQueryBus queryBus, ILogger logger, ICommandBus commandBus)
         {
             _userManager = userManager;
             _queryBus = queryBus;
             _logger = logger;
+            _commandBus = commandBus;
         }
 
         // GET
@@ -39,7 +40,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<BalanceDto>> GetBalanceAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var retVal = await _queryBus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(userId), token).ConfigureAwait(false);
+            var retVal = await _queryBus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(userId), token);
 
             return retVal;
         }
@@ -50,22 +51,31 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
 
-            var retVal = await _queryBus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(userId), token).ConfigureAwait(false);
+            var retVal = await _queryBus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(userId), token);
 
             return retVal;
+        }
+
+        [HttpPost("BuyTokens")]
+        public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
+            [FromServices] IPayPal payPal, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var result = await payPal.GetPaymentAsync(model.Id);
+            var command = new TransferMoneyToPointsCommand(userId, result.Amount, result.PayPalId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
 
 
         [HttpPost("redeem")]
         public async Task<IActionResult> RedeemAsync([FromBody]CreateRedeemRequest model,
-        [FromServices] ICommandBus commandBus,
-        [FromServices] IMapper mapper,
         CancellationToken token)
         {
             try
             {
                 var command = new CashOutCommand(_userManager.GetLongUserId(User), model.Amount);
-                await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
             catch (InvalidOperationException e)

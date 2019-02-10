@@ -19,11 +19,6 @@ namespace Cloudents.Infrastructure.Framework
 
         public IPreviewProvider2 PreviewFactory(string blobName)
         {
-            //if (!Uri.TryCreate(blobName, UriKind.Absolute, out var uri))
-            //{
-            //    uri = _blobProvider.GetBlobUrl(blobName);
-            //}
-
             var process = _providers.FirstOrDefault(f =>
             {
                 if (f.Metadata["AppenderName"] is string[] p)

@@ -24,17 +24,18 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        private Document _doc;
+        private Lazy<Document> _doc;
 
-        public void Init(Stream stream)
+        public void Init(Func<Stream> stream)
         {
-            _doc = new Document(stream);
+            _doc = new Lazy<Document>(() => new Document(stream()));
         }
 
         public (string text, int pagesCount) ExtractMetaContent()
         {
-            var txt = ExtractPdfText(_doc);
-            return (txt , _doc.Pages.Count - 1);
+            var t = _doc.Value;
+            var txt = ExtractPdfText(t);
+            return (txt , t.Pages.Count);
         }
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
@@ -43,16 +44,15 @@ namespace Cloudents.Infrastructure.Framework
             var resolution = new Resolution(150);
             var jpegDevice = new JpegDevice(resolution, 90);
             var t = new List<Task>();
-
-            var diff = Enumerable.Range(0, _doc.Pages.Count - 1);
-            diff = diff.Except(previewDelta);
+            var doc = _doc.Value;
+            var diff = Enumerable.Range(0, doc.Pages.Count).Except(previewDelta);
             foreach (int item in diff)
             {
                 if (token.IsCancellationRequested)
                 {
                     break;
                 }
-                var page = _doc.Pages[item + 1];
+                var page = doc.Pages[item + 1];
                 var ms = new MemoryStream();
                 jpegDevice.Process(page, ms);
                 t.Add(pagePreviewCallback(ms, $"{item}.jpg").ContinueWith(_ => ms.Dispose(), token));
@@ -93,7 +93,15 @@ namespace Cloudents.Infrastructure.Framework
 
         public void Dispose()
         {
-            _doc?.Dispose();
+            if (_doc.IsValueCreated)
+            {
+                _doc?.Value?.Dispose();
+            }
+        }
+
+        public void Init(Func<string> path)
+        {
+            _doc = new Lazy<Document>(() => new Document(path()));
         }
     }
 }

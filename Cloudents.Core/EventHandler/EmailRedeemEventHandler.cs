@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
@@ -22,18 +21,26 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(TransactionEvent redeemEventMessage, CancellationToken token)
         {
-            if (redeemEventMessage.Transaction.TransactionType.Action == TransactionActionType.CashOut)
+            if (redeemEventMessage.Transaction.Action == TransactionActionType.CashOut)
             {
                 await _serviceBusProvider.InsertMessageAsync(
-                    new SupportRedeemEmail(redeemEventMessage.Transaction.TransactionType.Price, redeemEventMessage.User.Id), token);
+                    new SupportRedeemEmail(redeemEventMessage.Transaction.Price, redeemEventMessage.User.Id), token);
             }
 
-            //if (redeemEventMessage.Transaction.TransactionType.Action == TransactionActionType.SoldDocument)
-            //{
-            //    var message = new DocumentPurchasedMessage(redeemEventMessage.Transaction.Id);
+            if (redeemEventMessage.Transaction.Action == TransactionActionType.SoldDocument)
+            {
+                var message = new DocumentPurchasedMessage(redeemEventMessage.Transaction.Id);
 
-            //    await _serviceBusProvider.InsertMessageAsync(message, token);
-            //}
+                await _serviceBusProvider.InsertMessageAsync(message, token);
+            }
+
+            if (redeemEventMessage.Transaction.Action == TransactionActionType.AnswerCorrect &&
+                redeemEventMessage.Transaction.Type == TransactionType.Earned)
+            {
+                var message = new AnswerAcceptedMessage(redeemEventMessage.Transaction.Id);
+
+                await _serviceBusProvider.InsertMessageAsync(message, token);
+            }
         }
     }
 }

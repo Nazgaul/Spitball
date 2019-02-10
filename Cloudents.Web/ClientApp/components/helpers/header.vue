@@ -23,10 +23,14 @@
                                         <!--<span class="sb-btn-text" v-language:inner>faqBlock_add_question_btn</span>-->
                                     <!--</button>-->
                                     <!--</div>-->
-                                    <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
+                                    <div>
+                                        
+                                    </div>
+                                    <div class="header-wallet" v-if="loggedIn">
                                         <span class="bold">{{accountUser.balance | currencyLocalyFilter}}</span>
-                                        <!--<span>${{accountUser.balance | dollarVal}}</span>-->
-                                    </router-link>
+                                        <!-- <span>${{accountUser.balance | dollarVal}}</span> -->
+                                        <button class="setting-buysbl-button" :class="[{'red': accountUser.balance <= 300}, {'yellow': accountUser.balance > 300 && accountUser.balance <= 700}]" @click="openSblToken()"><span v-language:inner>buyTokens_buy_points_button</span>&nbsp;<span><v-icon>sbf-star-icon</v-icon></span></button>     
+                                    </div>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
@@ -90,6 +94,7 @@
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
     import {LanguageService } from "../../services/language/languageService";
+    import analyticsService from "../../services/analytics.service";
 
     export default {
         components: {
@@ -134,7 +139,6 @@
                 'getShowSelectUniInterface',
                 'showMobileFeed'
             ]),
-
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -168,7 +172,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData']),
+            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog']),
             openNewQuestionDialog(){
                     if(this.accountUser == null){
                         this.updateLoginDialogState(true);
@@ -185,6 +189,11 @@
 
 
             },
+            openSblToken(){
+                analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
+                this.updateShowBuyDialog(true)
+            },            
+            
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {

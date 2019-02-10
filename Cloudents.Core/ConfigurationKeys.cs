@@ -7,12 +7,31 @@ namespace Cloudents.Core
         public ConfigurationKeys(string siteEndPoint)
         {
             SiteEndPoint = siteEndPoint;
-            
+
         }
+
+        //public static ConfigurationKeys WebSite(string sqlConnection, string redis, string searchServiceName,
+        //    string searchServiceKey, bool isProduction, string storage,
+        //    string serviceBus, string payPal)
+        //{
+        //    return new ConfigurationKeys()
+        //    {
+        //        Db = new DbConnectionString(sqlConnection,redis),
+        //        Redis = redis,
+        //        Search = new SearchServiceCredentials(searchServiceName, searchServiceKey, isProduction),
+        //        Storage = storage,
+        //        ServiceBus = serviceBus,
+        //        PayPal = new PayPalCredentials()
+        //    };
+
+        //}
+
+
 
         public DbConnectionString Db { get; set; }
         public string MailGunDb { get; set; }
         public SearchServiceCredentials Search { get; set; }
+        public PayPalCredentials PayPal { get; set; }
         public string Redis { get; set; }
         public string Storage { get; set; }
 
@@ -40,6 +59,21 @@ namespace Cloudents.Core
         public string Key { get; }
 
         public bool IsDevelop { get; }
+    }
+
+    public class PayPalCredentials
+    {
+        public string ClientId { get; }
+        public string ClientSecret { get; }
+        public bool IsDevelop { get; }
+
+
+        public PayPalCredentials( string clientId, string clientSecret, bool isDevelop)
+        {
+            ClientId = clientId;
+            ClientSecret = clientSecret;
+            IsDevelop = isDevelop;
+        }
     }
 
     public class DbConnectionString

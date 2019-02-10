@@ -1,12 +1,11 @@
-﻿using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
+﻿using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 using static Cloudents.Core.Entities.ItemStatus;
 using static Cloudents.Core.Entities.Vote;
 
@@ -21,7 +20,7 @@ namespace Cloudents.Core.Entities
     {
         public Document(string name,
             University university,
-            Course course, DocumentType type,
+            Course course, [NotNull] string type,
             IEnumerable<Tag> tags, User user, string professor, decimal price)
         : this()
         {
@@ -30,7 +29,7 @@ namespace Cloudents.Core.Entities
             Name = name.Replace("+", "-");
             University = university ?? throw new ArgumentNullException(nameof(university));
             Course = course ?? throw new ArgumentNullException(nameof(course));
-            Type = type;
+            Type = type ?? throw new ArgumentNullException(nameof(type));
             Tags = new HashSet<Tag>(tags);
             User = user;
             Views = 0;
@@ -58,7 +57,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Course Course { get; protected set; }
 
-        public virtual DocumentType Type { get; protected set; }
+        public virtual string Type { get; protected set; }
 
         public virtual ISet<Tag> Tags { get; protected set; }
 

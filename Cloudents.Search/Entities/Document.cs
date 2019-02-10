@@ -1,10 +1,9 @@
-﻿using Cloudents.Search.Interfaces;
+﻿using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Search.Entities
 {
@@ -15,13 +14,14 @@ namespace Cloudents.Search.Entities
     {
         public const string CourseNameField = "Course2";
         public const string UniversityIdFieldName = "University";
+        public const string TypeFieldName = "TypeFieldName";
 
         public static Document FromDto(DocumentSearchDto obj)
         {
             return new Document
             {
-                
-                UniversityId = obj.UniversityId ,
+
+                UniversityId = obj.UniversityId,
                 UniversityName = obj.UniversityName,
                 DateTime = obj.DateTime,
                 Country = obj.Country?.ToUpperInvariant(),
@@ -39,7 +39,7 @@ namespace Cloudents.Search.Entities
         public string Id { get; set; }
         [IsSearchable]
         public string Name { get; set; }
-       // public string MetaContent { get; set; }
+
         [IsSearchable]
         public string Content { get; set; }
 
@@ -52,13 +52,13 @@ namespace Cloudents.Search.Entities
         [IsFilterable, IsSearchable, JsonProperty("University2")]
         public string UniversityName { get; set; }
 
-        [IsFilterable,  JsonProperty(UniversityIdFieldName)]
+        [IsFilterable, JsonProperty(UniversityIdFieldName)]
         public Guid? UniversityId { get; set; }
 
         [IsSortable, IsFilterable]
         public DateTimeOffset? DateTime { get; set; }
-        [IsFilterable, IsFacetable]
-        public DocumentType Type { get; set; }
+        [IsFilterable, IsFacetable, JsonProperty(TypeFieldName)]
+        public string Type { get; set; }
 
     }
 }
