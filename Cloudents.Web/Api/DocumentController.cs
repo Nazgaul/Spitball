@@ -168,10 +168,16 @@ namespace Cloudents.Web.Api
 
             await Task.WhenAll(resultTask, queueTask, votesTask);
             var result = resultTask.Result;
+            var p = result.Result.ToList();
+            string nextPageLink = null;
+            if (p.Count > 0)
+            {
+                nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+            }
 
             return new WebResponseWithFacet<DocumentFeedDto>
             {
-                Result = result.Result.Select(s =>
+                Result = p.Select(s =>
                 {
                     if (s.Url == null)
                     {
@@ -192,8 +198,8 @@ namespace Cloudents.Web.Api
                         //EnumExtension.GetValues<DocumentType>()
                         //    .Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
                         //    .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
-                }
-                // NextPageLink = nextPageLink
+                },
+                 NextPageLink = nextPageLink
             };
         }
 
