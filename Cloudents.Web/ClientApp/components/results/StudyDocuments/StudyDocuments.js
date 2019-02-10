@@ -208,6 +208,9 @@ export default {
                 this.scrollBehaviour.isComplete = true;
             })
         },
+        resetFilter(){
+            this.scrollBehaviour.page = 1;
+        },
         //   2-%%%
         updatePageData(to, from, next) {
             (to.path === from.path && to.q === from.q) ? this.isLoad = true : this.UPDATE_LOADING(true);

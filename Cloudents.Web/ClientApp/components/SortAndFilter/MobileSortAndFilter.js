@@ -20,7 +20,8 @@ export default {
         // sortOptions: {type: Array, default: () => []},
         filterOptions: {type: Object, default: () =>{}},
         filterVal: {type: Array, default: () => []},
-        sortVal: {}
+        sortVal: {},
+        callbackFunc: {type: Function}
     },
     computed:{
         ...mapGetters(['getFilters', 'getSort']),
@@ -30,6 +31,9 @@ export default {
     },
     watch: {
         filterVal(val) {
+            if(this.callbackFunc){
+                this.callbackFunc()
+            }
             this.initFilters(val);
             this.sort = this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0] : "";
         },
