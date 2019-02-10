@@ -1,8 +1,8 @@
 ﻿namespace Cloudents.Command.Documents.ChangePrice
 {
-    public class ChangePriceCommand : ICommand
+    public class ChangeDocumentPriceCommand : ICommand
     {
-        public ChangePriceCommand(long documentId, long userId, decimal price)
+        public ChangeDocumentPriceCommand(long documentId, long userId, decimal price)
         {
             DocumentId = documentId;
             UserId = userId;

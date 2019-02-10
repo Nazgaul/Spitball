@@ -278,7 +278,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var userId = _userManager.GetLongUserId(User);
-            var command = new ChangePriceCommand(model.Id, userId, model.Price);
+            var command = new ChangeDocumentPriceCommand(model.Id, userId, model.Price);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
