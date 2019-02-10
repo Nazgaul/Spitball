@@ -45,6 +45,9 @@
                                 <div class="user-info-value">
                                     <span>{{infoItem.value}}</span>
                                 </div>
+                                <div class="user-info-button" v-if="infoItem.showButton">
+                                    <button @click="userInfoAction(index)">{{infoItem.buttonText}}</button>
+                                </div>
                             </v-flex>
                         </div>
                     </div>
@@ -242,8 +245,19 @@
                 "setUserCurrentStatus",
                 "getUserQuestions",
                 "getUserAnswers",
-                "getUserDocuments"
+                "getUserDocuments",
+                "verifyUserPhone"
             ]),
+            userInfoAction(actionItem){
+                if(actionItem === "phoneNumber"){
+                    let userObj = {
+                        id: this.userInfo.id.value
+                    }
+                    this.verifyUserPhone(userObj).then(()=>{
+                        this.openTokensDialog();
+                    })
+                }
+            },
             nextPage() {
                 this.scrollFunc[this.activeTabEnum[this.activeTab]].page++
             },
@@ -434,6 +448,14 @@
                 font-size: 16px;
                 font-weight: 400;
                 text-align: right;
+                margin-right: 10px;
+            }
+            .user-info-button {
+                padding-top: 8px;
+                font-size: 16px;
+                font-weight: 400;
+                text-align: right;
+                color: #00bcd4;
             }
         }
     }
