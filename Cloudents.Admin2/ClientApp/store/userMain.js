@@ -1,17 +1,13 @@
 import UserMainService from '../components/userMainView/userMainService';
 
+const quantatyPerPage = 200;
 const state = {
     tokensDilaogState: false,
     userInfo: {},
     userQuestions: [],
     userAnswers: [],
     userDocuments: [],
-    // userData: {
-    //     // userInfo: {},
-    //     // userQuestions: [],
-    //     // userAnswers: [],
-    //     // userDocuments: []
-    // }
+
 };
 const mutations = {
     updateTokensDialog(state, val) {
@@ -38,15 +34,24 @@ const mutations = {
     },
     setUserDocuments(state, data) {
         state.userDocuments = data;
+    },
+    removeQuestion(state, index){
+        state.userQuestions.splice(index, 1);
+    },
+    removeAnswer(state, index){
+        state.userAnswers.splice(index, 1);
+    },
+    removeDocument(state, index){
+        state.userDocuments.splice(index, 1);
     }
 };
 const getters = {
     getTokensDialogState: (state) => state.tokensDilaogState,
     getUserBalance: (state) => state.userBalance,
-    UserInfo: (state) =>   state.userInfo,
-    UserQuestions: (state) =>   state.userQuestions,
-    UserAnswers: (state) =>   state.userAnswers,
-    UserDocuments: (state) =>   state.userDocuments
+    UserInfo: (state) => state.userInfo,
+    UserQuestions: (state) => state.userQuestions,
+    UserAnswers: (state) => state.userAnswers,
+    UserDocuments: (state) => state.userDocuments
 
 };
 const actions = {
@@ -64,18 +69,35 @@ const actions = {
         commit('setUserData', data)
     },
     getUserData(context, id) {
-       return UserMainService.getUserData(id).then((data) => {
+        return UserMainService.getUserData(id).then((data) => {
                 context.commit('setUserInfo', data)
-           return data
+                return data
             },
             (error) => {
                 console.log(error, 'error')
             }
         )
     },
+
+    deleteQuestionItem({commit}, index){
+        commit('removeQuestion', index)
+    },
+    deleteAnswerItem({commit}, index){
+        commit('removeAnswer', index)
+    },
+    deleteDocumentItem({commit}, index){
+        commit('removeDocument', index)
+    },
+
     getUserQuestions(context, idPageObj) {
-        UserMainService.getUserQuestions(idPageObj.id, idPageObj.page).then((data) => {
-                context.commit('setUserQuestions', data)
+        return UserMainService.getUserQuestions(idPageObj.id, idPageObj.page).then((data) => {
+                if (data && data.length !== 0) {
+                    context.commit('setUserQuestions', data);
+                }
+                if (data.length < quantatyPerPage) {
+                    return true;
+                }
+
             },
             (error) => {
                 console.log(error, 'error')
@@ -83,8 +105,15 @@ const actions = {
         )
     },
     getUserAnswers(context, idPageObj) {
-        UserMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
-                context.commit('setUserAnswers', data)
+      return UserMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
+              if (data && data.length !== 0) {
+                  context.commit('setUserAnswers', data);
+              }
+              if (data.length < quantatyPerPage) {
+                  return true;
+              }
+
+
             },
             (error) => {
                 console.log(error, 'error')
@@ -92,8 +121,15 @@ const actions = {
         )
     },
     getUserDocuments(context, idPageObj) {
-        UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
+      return  UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
+              if (data && data.length !== 0) {
+                  context.commit('setUserDocuments', data)
+              }
+              if (data.length < quantatyPerPage) {
+                  return true;
+              }
                 context.commit('setUserDocuments', data)
+
             },
             (error) => {
                 console.log(error, 'error')

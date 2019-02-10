@@ -26,13 +26,9 @@
 
                     <v-btn :disabled="!userInfo" class="grant" @click="openTokensDialog()">Grant Tokens
                     </v-btn>
-
-                    <!--<div v-show="activeUserComponent && userComponentsShow">-->
-                    <!--<component :is="activeUserComponent ?  activeUserComponent : ''" :userId="userId"></component>-->
-                    <!--</div>-->
                 </v-flex>
             </div>
-            <div class="questions-answers-wrap wrapper-scroll">
+            <div class="questions-answers-wrap">
                 <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
                            :color="searchQuery === filter.value ? '#00bcd4' : ''  "
@@ -68,18 +64,18 @@
                             <v-tab-item :value="`tab-0`">
                                 <v-flex xs12>
                                     <question-item
-                                            :updateData="updateData" :questions="UserQuestions"
+                                             :filterVal="searchQuery" :questions="UserQuestions"
                                     ></question-item>
                                 </v-flex>
                             </v-tab-item>
                             <v-tab-item :value="`tab-1`">
                                 <v-flex xs12>
-                                    <answer-item :updateData="updateData" :answers="UserAnswers"></answer-item>
+                                    <answer-item  :filterVal="searchQuery" :answers="UserAnswers"></answer-item>
                                 </v-flex>
                             </v-tab-item>
                             <v-tab-item :value="`tab-2`">
                                 <v-flex xs12>
-                                    <document-item :updateData="updateData" :documents="UserDocuments"
+                                    <document-item  :documents="UserDocuments"
                                                    :filterVal="searchQuery"></document-item>
                                 </v-flex>
                             </v-tab-item>
@@ -109,6 +105,16 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-progress-circular
+                style="position: absolute; top: 300px; left: auto; right: auto;"
+                :size="150"
+                class="loading-spinner"
+                color="#00bcd4"
+                v-show="loading"
+                indeterminate
+        >
+            <span>Loading...</span>
+        </v-progress-circular>
     </v-layout>
 </template>
 
@@ -162,6 +168,7 @@
                         scrollLock: false
                     },
                 },
+                loading: false,
                 userActions: [
                     {
                         title: "Suspend",
@@ -237,17 +244,14 @@
             nextPage() {
                 this.scrollFunc[this.activeTabEnum[this.activeTab]].page++
             },
-            handleScroll() {
+            handleScroll(event) {
                 let offset = 2000;
                 if (event.target.scrollHeight - offset < event.target.scrollTop) {
                     if (!this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock) {
                         this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock = true;
-                        this.scrollFunc[this.activeTabEnum[this.activeTab]].getData()
+                        this.scrollFunc[this.activeTabEnum[this.activeTab]].getData(this.userId, this.scrollFunc[this.activeTabEnum[this.activeTab]].page )
                     }
                 }
-            },
-            updateData(index) {
-                // this.userData[`${this.activeTab}`].splice(index, 1);
             },
             setUserComponent(val) {
                 this.userComponentsShow = true;
@@ -267,7 +271,7 @@
             },
             getDataByTabName() {
                 if (!this.userId) return;
-                if (this.activeTab === "tab-0") {
+                if (this.activeTab === "tab-0" ) {
                     let page = this.scrollFunc.questions.page;
                     this.getUserQuestionsData(this.userId, page)
                 } else if (this.activeTab === "tab-1") {
@@ -289,21 +293,45 @@
                     })
             },
             getUserQuestionsData(id, page) {
-                this.getUserQuestions({id, page}).then((resp) => {
-                    if (this.UserQuestions && this.UserQuestions.length > 0) {
-                        this.nextPage();
-                    }
+                let self = this;
+                self.loading = true;
+                self.getUserQuestions({id, page}).then((isComplete) => {
+                        self.nextPage();
+                        if(!isComplete){
+                            self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+                        }else{
+                            self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+                        }
+                         self.loading = false;
+
                 });
-
-
-                this.scrollLock = false;
-
             },
             getUserAnswersData(id, page) {
-                this.getUserAnswers({id, page})
+                let self = this;
+                self.loading = true;
+                self.getUserAnswers({id, page}).then((isComplete) => {
+                    self.nextPage();
+                    if(!isComplete){
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+                    }else{
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+                    }
+                    self.loading = false;
+
+                });
             },
             getUserDocumentsData(id, page) {
-                this.getUserDocuments({id, page})
+                let self = this;
+                self.loading = true;
+                self.getUserDocuments({id, page}).then((isComplete) => {
+                    self.nextPage();
+                    if(!isComplete){
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+                    }else{
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+                    }
+                    self.loading = false;
+                });
             },
             suspendUser() {
                 let idArr = [];
@@ -342,21 +370,21 @@
 
                 })
             },
-            created() {
-
-            },
-            beforeMount() {
-                this.$nextTick(function () {
-                    let containerElm = document.getElementById('wrapper-scroll');
-                    containerElm.addEventListener('scroll', this.handleScroll);
-                })
+            attachToScroll(){
+                let containerElm = document.querySelector('.item-wrap');
+                containerElm.addEventListener('scroll', this.handleScroll)
             }
-            ,
-            beforeDestroy() {
-                let containerElm = document.getElementById('wrapper-scroll');
-                if (!containerElm) return;
-                containerElm.removeEventListener('scroll', this.handleScroll);
-            }
+        },
+        created() {
+            console.log('hello created');
+            this.$nextTick(function () {
+                this.attachToScroll();
+            })
+        },
+        beforeDestroy() {
+            let containerElm = document.querySelector('.item-wrap');
+            if (!containerElm) return;
+            containerElm.removeEventListener('scroll', this.handleScroll);
         }
     }
 
@@ -364,6 +392,12 @@
 
 <style scoped lang="scss">
     .user-page-wrap {
+        .item-wrap{
+            overflow-y: scroll;
+            height: 100%;
+            max-height: calc(100vh - 275px);
+        }
+
         .tabs-holder {
             order: 2;
             flex-grow: 1;
