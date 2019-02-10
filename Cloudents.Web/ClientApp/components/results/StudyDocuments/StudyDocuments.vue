@@ -75,7 +75,6 @@
             <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
-                       :callbackFunc="resetFilter"
                        v-model="showFilters"
                        :filterOptions="getFilters"
                        :filterVal="filterSelection">

@@ -194,8 +194,7 @@ export default {
         },
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
-            // let nextPageUrl = this.StudyDocuments_getNextPageUrl();
-            let nextPageUrl = `api/Document?Page=${this.scrollBehaviour.page++}`
+            let nextPageUrl = this.StudyDocuments_getNextPageUrl();
             if(this.name !== this.pageData.vertical) return;
             this.StudyDocuments_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
@@ -207,9 +206,6 @@ export default {
                 }).catch(reason => {
                 this.scrollBehaviour.isComplete = true;
             })
-        },
-        resetFilter(){
-            this.scrollBehaviour.page = 1;
         },
         //   2-%%%
         updatePageData(to, from, next) {

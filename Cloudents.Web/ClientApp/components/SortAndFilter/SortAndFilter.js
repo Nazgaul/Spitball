@@ -11,14 +11,11 @@ export default {
         sortVal: {},
         filterOptions: {type: Object, default: () => {}},
         filterVal: {type: Array, default: () => []},
-        callbackFunc: {type: Function}
+
     },
     computed: {
         ...mapGetters(['getSort']),
         filterList() {
-            if(this.callbackFunc){
-                this.callbackFunc()
-            }
             let result = [];
             if(!!this.filterOptions){
                 result = this.filterOptions.filterChunkList
@@ -68,7 +65,6 @@ export default {
             this.changeSelectUniState(true);
         },
         updateFilter({id, val, name, event}) {
-            
             this.UPDATE_SEARCH_LOADING(true);
             let query = {};
             let isChecked = event.target.checked;

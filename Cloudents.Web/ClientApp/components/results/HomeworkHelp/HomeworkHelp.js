@@ -194,8 +194,7 @@ export default {
         },
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
-            // let nextPageUrl = this.HomeworkHelp_getNextPageUrl();
-            let nextPageUrl = `api/Question?Page=${this.scrollBehaviour.page++}`
+            let nextPageUrl = this.HomeworkHelp_getNextPageUrl();
             if(this.name !== this.pageData.vertical) return;
             this.HomeworkHelp_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
@@ -207,9 +206,6 @@ export default {
                 }).catch(reason => {
                 this.scrollBehaviour.isComplete = true;
             })
-        },
-        resetFilter(){
-            this.scrollBehaviour.page = 1;
         },
         //   2-%%%
         updatePageData(to, from, next) {
@@ -255,7 +251,6 @@ export default {
         },
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject() {
-            
             this.filterObject = this.getFilters;
         },
 
