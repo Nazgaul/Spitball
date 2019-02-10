@@ -35,6 +35,9 @@ using SimMetricsApi;
 using SimMetricsMetricUtilities;
 using SimMetricsUtilities;
 using System.Text;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace ConsoleApp
 {
@@ -121,13 +124,27 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await UpdateQuestionIndex();
-            //var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
-            //await t.DispatchAsync(p, default);
+            const string accountSid = "AC1796f09281da07ec03149db53b55db8d";
+            const string authToken = "c4cdf14c4f6ca25c345c3600a72e8b49";
+            TwilioClient.Init(accountSid, authToken);
 
-            var bus = _container.Resolve<IQueryBus>();
-            var query2 = new IdsQuery<long>(new[] { 2055L });
-            var result = await bus.QueryAsync<IEnumerable<QuestionFeedDto>>(query2, default);
+            var from = new PhoneNumber("+1 203-347-4577");
+            var to = new PhoneNumber("+972542642202");
+            var call = CallResource.Create(to,
+                from,
+                url: new Uri("http://demo.twilio.com/docs/voice.xml"),
+                machineDetection: "Enable"
+                );
+
+            Console.WriteLine(call.Sid);
+
+            //await UpdateQuestionIndex();
+            ////var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
+            ////await t.DispatchAsync(p, default);
+
+            //var bus = _container.Resolve<IQueryBus>();
+            //var query2 = new IdsQuery<long>(new[] { 2055L });
+            //var result = await bus.QueryAsync<IEnumerable<QuestionFeedDto>>(query2, default);
         }
 
 
