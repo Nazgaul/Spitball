@@ -62,7 +62,6 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         public async Task<IActionResult> SetUserPhoneNumber(
-           // [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromBody]PhoneNumberRequest model,
             CancellationToken token)
         {
@@ -152,8 +151,6 @@ namespace Cloudents.Web.Api
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
             if (v.Succeeded)
             {
-                //This is the last step of the registration.
-
                 return await FinishRegistrationAsync(token, user, country);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");

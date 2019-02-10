@@ -147,10 +147,8 @@ namespace Cloudents.Web.Api
             var query = new DocumentQuery(model.Course, profile, model.Term,
                 model.Page.GetValueOrDefault(), model.Filter?.Where(w => !string.IsNullOrEmpty(w)));
 
-
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
             var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
-
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
             if (User.Identity.IsAuthenticated)
@@ -209,12 +207,10 @@ namespace Cloudents.Web.Api
             [FromServices] IStringLocalizer<SharedResource> resource,
             CancellationToken token)
         {
-
             var userId = _userManager.GetLongUserId(User);
             try
             {
                 var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType);
-
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
