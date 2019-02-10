@@ -9,8 +9,8 @@ namespace Cloudents.Core.Enum
         Item,
         //[Parse(SeoTypeString.Quiz)]
         //Quiz,
-        //[Parse(SeoTypeString.Flashcard)]
-        //Flashcard
+        [Parse(SeoTypeString.Flashcard)]
+        Flashcard
     }
 
     public static class SeoTypeString
