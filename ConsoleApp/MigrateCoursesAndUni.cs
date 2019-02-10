@@ -232,6 +232,48 @@ namespace ConsoleApp
 
         }
 
+
+        public static void WriteCourses(int rowNumber, string FirstCourse, string SecondCourse)
+        {
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+            {
+                string credPath = "token.json";
+
+
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+                Console.WriteLine("Credential file saved to: " + credPath);
+            }
+
+            // Create Google Sheets API service.
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+
+
+                                    
+            String spreadsheetId2 = "1gU9m_InQWRkw4ZkFTPq_LnTemEBPGiBUho0cv80l-D4";
+            String range2 = $"Courses!A{rowNumber}:B";  // update cell F5 
+            ValueRange valueRange = new ValueRange();
+            valueRange.MajorDimension = "ROWS";//COLUMNS
+
+            var oblist = new List<object>() { FirstCourse, SecondCourse };
+            valueRange.Values = new List<IList<object>> { oblist };
+
+            SpreadsheetsResource.ValuesResource.UpdateRequest update = service.Spreadsheets.Values.Update(valueRange, spreadsheetId2, range2);
+            update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
+            UpdateValuesResponse result2 = update.Execute();
+
+        }
     }
 
     public class CorseToMigratre
