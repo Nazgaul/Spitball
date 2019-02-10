@@ -37,6 +37,7 @@ using SimMetricsUtilities;
 using System.Text;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
+using Twilio.TwiML;
 using Twilio.Types;
 
 namespace ConsoleApp
@@ -130,11 +131,15 @@ namespace ConsoleApp
 
             var from = new PhoneNumber("+1 203-347-4577");
             var to = new PhoneNumber("+972542642202");
+            var response = new VoiceResponse();
+            response.Say("Hello World");
+            
             var call = CallResource.Create(to,
                 from,
                 url: new Uri("http://demo.twilio.com/docs/voice.xml"),
                 machineDetection: "Enable"
                 );
+            
 
             Console.WriteLine(call.Sid);
 

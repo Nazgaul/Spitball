@@ -12,7 +12,7 @@ namespace Cloudents.Persistance.Maps
             Id(e => e.Name).GeneratedBy.Assigned().Length(150);
             Map(x => x.Count).Not.Nullable();
             Map(x => x.Created);
-            SchemaAction.Update();
+            SchemaAction.None();
         }
     }
 }
