@@ -5,7 +5,6 @@ import { verticalsNavbar, verticalsName } from "../../services/navigation/vertic
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import { typesPersonalize } from "../settings/consts.js";
-import signupBanner from './../helpers/signup-banner/signup-banner.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue';
@@ -35,7 +34,6 @@ export default {
         ResultJob,
         ResultBook,
         faqBlock,
-        signupBanner,
         sbDialog,
         loginToAnswer,
         notificationCenter,
@@ -84,7 +82,7 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster', 'getSchoolName']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser',  'getShowQuestionToaster', 'getSchoolName']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
         showSelectUni(){
             let schoolName = this.getSchoolName;

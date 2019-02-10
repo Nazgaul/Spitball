@@ -156,7 +156,6 @@
     import itemActions from './itemActions.vue';
     import mainHeader from '../helpers/header.vue';
     import { mapGetters, mapActions } from 'vuex';
-    // import { documentTypes } from '../results/helpers/uploadFiles/consts';
     import documentDetails from '../results/helpers/documentDetails/documentDetails.vue';
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import analyticsService from '../../services/analytics.service';

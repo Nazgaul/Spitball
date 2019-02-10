@@ -50,6 +50,8 @@ let multipleDummyTutorObj = [dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyT
 let multipleDummyBookObj = [dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj]
 let multipleDummyJobObj = [dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj]
 
+
+
 export const skeletonData = {
     result:multipleItemSkeletons,
     note: multipleItemSkeletons,

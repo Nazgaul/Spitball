@@ -1,24 +1,10 @@
 import * as routes from "../../../routeTypes";
-import { bannerData } from './campaign';
 import { LanguageService } from "../../language/languageService";
-
-function getPromoQueryFromRoute(path, query){
-    if(!!query && query.hasOwnProperty("promo")){
-        if(!!bannerData[query.promo]){
-            return bannerData[query.promo][path].banner;
-        }else{
-            return bannerData["navDefault"][path].banner;
-        }
-    }else{
-        return bannerData["navDefault"][path].banner;
-    }
-}
 
 let nonIsraeliUser = global.country.toUpperCase() !== 'IL';
 
 const nav = {
     ask: {
-        banner: getPromoQueryFromRoute,
         data:{
             filter:[],
             id: routes.questionRoute,
@@ -29,7 +15,6 @@ const nav = {
         }
     },
     note: {
-        banner: getPromoQueryFromRoute,
         data:{
             id: routes.notesRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_note"),
@@ -42,7 +27,6 @@ const nav = {
         }
      },
     flashcard: {
-        banner: getPromoQueryFromRoute,
         data:{
             id: routes.flashcardRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_flashcards"),
@@ -55,7 +39,6 @@ const nav = {
         }
     },
     tutor: {
-        banner: getPromoQueryFromRoute,
         data:{
             id: routes.tutorRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_tutor"),
@@ -68,7 +51,6 @@ const nav = {
         }
     },
     book: {
-        banner: getPromoQueryFromRoute,
         data:{
             id: routes.bookRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_book"),
@@ -78,7 +60,6 @@ const nav = {
         },
     },
     job: {
-        banner: getPromoQueryFromRoute,
         data:{
             id: routes.jobRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_job"),
