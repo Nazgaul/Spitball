@@ -174,8 +174,8 @@
                         .share-icon{
                             /*rtl:ignore*/
                             direction: ltr;
-                            width: 75px;
-                            height: 24px;
+
+
                         }
                     }
                     .input-container {

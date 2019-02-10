@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.Models
 {
@@ -8,7 +9,7 @@ namespace Cloudents.Web.Models
         public long QuestionId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
-        [MinLength(15,ErrorMessage = "MinLength")]
+        [Range(Answer.MinLength, Answer.MaxLength, ErrorMessage = "MinLength")]
         public string Text { get; set; }
 
         [MaxLength(4,ErrorMessage = "MaxLength")]

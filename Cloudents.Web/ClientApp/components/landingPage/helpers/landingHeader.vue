@@ -8,10 +8,10 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="landing-header-items">
-                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn,}"
+                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.earn, 'yellow-text': dictionaryType === dictionaryTypesEnum.learn}"
                    v-show="!isMobileView" class="lp-header-link mr-4" @click="changeDictionaryType('learn')"
                    v-language:inner>landingPage_header_learn_faster</a>
-                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn,}"
+                <a :class="{'white-text': dictionaryType === dictionaryTypesEnum.learn, 'yellow-text': dictionaryType === dictionaryTypesEnum.earn}"
                    v-show="!isMobileView" class="lp-header-link mr-4" @click="changeDictionaryType('earn')"
                    v-language:inner>landingPage_header_earn_money</a>
                 <router-link v-show="!loggedIn" :to="{path: '/signin'}" class="login-action login" v-language:inner>

@@ -26,10 +26,6 @@
 
                     <v-btn :disabled="!userInfo" class="grant" @click="openTokensDialog()">Grant Tokens
                     </v-btn>
-
-                    <!--<div v-show="activeUserComponent && userComponentsShow">-->
-                    <!--<component :is="activeUserComponent ?  activeUserComponent : ''" :userId="userId"></component>-->
-                    <!--</div>-->
                 </v-flex>
             </div>
             <div class="questions-answers-wrap">
@@ -49,6 +45,9 @@
                                 <div class="user-info-value">
                                     <span>{{infoItem.value}}</span>
                                 </div>
+                                <div class="user-info-button" v-if="infoItem.showButton">
+                                    <button @click="userInfoAction(index)">{{infoItem.buttonText}}</button>
+                                </div>
                             </v-flex>
                         </div>
                     </div>
@@ -64,26 +63,26 @@
                             <v-tab :href="`#tab-1`">User Answers</v-tab>
                             <v-tab :href="`#tab-2`">User Documents</v-tab>
                         </v-tabs>
-                            <v-tabs-items v-model="activeTab">
-                                <v-tab-item  :value="`tab-0`">
-                                    <v-flex xs12>
-                                        <question-item
-                                                :updateData="updateData" :questions="UserQuestions"
-                                        ></question-item>
-                                    </v-flex>
-                                </v-tab-item>
-                                <v-tab-item :value="`tab-1`">
-                                    <v-flex xs12>
-                                        <answer-item :updateData="updateData" :answers="UserAnswers"></answer-item>
-                                    </v-flex>
-                                </v-tab-item>
-                                <v-tab-item  :value="`tab-2`">
-                                    <v-flex xs12>
-                                        <document-item :updateData="updateData" :documents="UserDocuments"
-                                                       :filterVal="searchQuery"></document-item>
-                                    </v-flex>
-                                </v-tab-item>
-                            </v-tabs-items>
+                        <v-tabs-items v-model="activeTab">
+                            <v-tab-item :value="`tab-0`">
+                                <v-flex xs12>
+                                    <question-item
+                                             :filterVal="searchQuery" :questions="UserQuestions"
+                                    ></question-item>
+                                </v-flex>
+                            </v-tab-item>
+                            <v-tab-item :value="`tab-1`">
+                                <v-flex xs12>
+                                    <answer-item  :filterVal="searchQuery" :answers="UserAnswers"></answer-item>
+                                </v-flex>
+                            </v-tab-item>
+                            <v-tab-item :value="`tab-2`">
+                                <v-flex xs12>
+                                    <document-item  :documents="UserDocuments"
+                                                   :filterVal="searchQuery"></document-item>
+                                </v-flex>
+                            </v-tab-item>
+                        </v-tabs-items>
                     </div>
                 </v-layout>
             </div>
@@ -109,6 +108,16 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-progress-circular
+                style="position: absolute; top: 300px; left: auto; right: auto;"
+                :size="150"
+                class="loading-spinner"
+                color="#00bcd4"
+                v-show="loading"
+                indeterminate
+        >
+            <span>Loading...</span>
+        </v-progress-circular>
     </v-layout>
 </template>
 
@@ -146,10 +155,26 @@
                     {name: 'Flagged', value: 'flagged'}
                 ],
                 scrollFunc: {
-                    questions: {page: 0},
-                    answers: {page: 0},
-                    documents: {page: 0},
+                    questions: {
+                        page: 0,
+                        getData: this.getUserQuestionsData,
+                        scrollLock: false,
+                        wasCalled: false
+                    },
+                    answers: {
+                        page: 0,
+                        getData: this.getUserAnswersData,
+                        scrollLock: false,
+                        wasCalled: false
+                    },
+                    documents: {
+                        page: 0,
+                        getData: this.getUserDocumentsData,
+                        scrollLock: false,
+                        wasCalled: false
+                    },
                 },
+                loading: false,
                 userActions: [
                     {
                         title: "Suspend",
@@ -173,8 +198,16 @@
                 searchQuery: 'ok',
                 userComponentsShow: false,
                 activeUserComponent: '',
-                deleteUserQuestions: false
+                deleteUserQuestions: false,
+                activeTabEnum: {
+                    'tab-0': 'questions',
+                    'tab-1': 'answers',
+                    'tab-2': 'documents',
+
+
+                }
             }
+
         },
         computed: {
             ...mapGetters([
@@ -188,15 +221,6 @@
             userInfo() {
                 return this.UserInfo
             },
-            // questions() {
-            //     return this.UserQuestions
-            // },
-            // answers() {
-            //     return this.UserAnswers
-            // },
-            // documents() {
-            //     return this.UserDocuments
-            // },
             userStatusActive: {
                 get() {
                     if (this.userInfo && this.userInfo.status) {
@@ -209,8 +233,8 @@
 
             },
         },
-        watch:{
-            activeTab(){
+        watch: {
+            activeTab() {
                 this.getDataByTabName();
             }
         },
@@ -221,8 +245,31 @@
                 "setUserCurrentStatus",
                 "getUserQuestions",
                 "getUserAnswers",
-                "getUserDocuments"
+                "getUserDocuments",
+                "verifyUserPhone"
             ]),
+            userInfoAction(actionItem){
+                if(actionItem === "phoneNumber"){
+                    let userObj = {
+                        id: this.userInfo.id.value
+                    }
+                    this.verifyUserPhone(userObj).then(()=>{
+                        this.openTokensDialog();
+                    })
+                }
+            },
+            nextPage() {
+                this.scrollFunc[this.activeTabEnum[this.activeTab]].page++
+            },
+            handleScroll(event) {
+                let offset = 2000;
+                if (event.target.scrollHeight - offset < event.target.scrollTop) {
+                    if (!this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock) {
+                        this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock = true;
+                        this.scrollFunc[this.activeTabEnum[this.activeTab]].getData(this.userId, this.scrollFunc[this.activeTabEnum[this.activeTab]].page )
+                    }
+                }
+            },
             setUserComponent(val) {
                 this.userComponentsShow = true;
                 return this.activeUserComponent = val
@@ -233,9 +280,6 @@
             closeTokensDialog() {
                 this.setTokensDialogState(false);
             },
-            updateData(index) {
-                // this.userData[`${this.activeTab}`].splice(index, 1);
-            },
             setActiveTab(activeTabName) {
                 return this.activeTab = activeTabName;
             },
@@ -243,8 +287,9 @@
                 return this.searchQuery = val
             },
             getDataByTabName() {
-                if(!this.userId) return;
-                if (this.activeTab === "tab-0") {
+                if (!this.userId) return;
+                if(this.scrollFunc[this.activeTabEnum[this.activeTab]].wasCalled)return;
+                if (this.activeTab === "tab-0" ) {
                     let page = this.scrollFunc.questions.page;
                     this.getUserQuestionsData(this.userId, page)
                 } else if (this.activeTab === "tab-1") {
@@ -266,13 +311,49 @@
                     })
             },
             getUserQuestionsData(id, page) {
-                this.getUserQuestions({id, page})
+                let self = this;
+                self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
+                self.loading = true;
+
+                self.getUserQuestions({id, page}).then((isComplete) => {
+                        self.nextPage();
+                        if(!isComplete){
+                            self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+                        }else{
+                            self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+                        }
+                         self.loading = false;
+
+                });
             },
             getUserAnswersData(id, page) {
-                this.getUserAnswers({id, page})
+                let self = this;
+                self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
+                self.loading = true;
+                self.getUserAnswers({id, page}).then((isComplete) => {
+                    self.nextPage();
+                    if(!isComplete){
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+                    }else{
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+                    }
+                    self.loading = false;
+
+                });
             },
             getUserDocumentsData(id, page) {
-                this.getUserDocuments({id, page})
+                let self = this;
+                self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
+                self.loading = true;
+                self.getUserDocuments({id, page}).then((isComplete) => {
+                    self.nextPage();
+                    if(!isComplete){
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+                    }else{
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+                    }
+                    self.loading = false;
+                });
             },
             suspendUser() {
                 let idArr = [];
@@ -311,10 +392,21 @@
 
                 })
             },
-
+            attachToScroll(){
+                let containerElm = document.querySelector('.item-wrap');
+                containerElm.addEventListener('scroll', this.handleScroll)
+            }
         },
         created() {
-
+            console.log('hello created');
+            this.$nextTick(function () {
+                this.attachToScroll();
+            })
+        },
+        beforeDestroy() {
+            let containerElm = document.querySelector('.item-wrap');
+            if (!containerElm) return;
+            containerElm.removeEventListener('scroll', this.handleScroll);
         }
     }
 
@@ -322,6 +414,12 @@
 
 <style scoped lang="scss">
     .user-page-wrap {
+        .item-wrap{
+            overflow-y: scroll;
+            height: 100%;
+            max-height: calc(100vh - 275px);
+        }
+
         .tabs-holder {
             order: 2;
             flex-grow: 1;
@@ -331,8 +429,8 @@
             flex-direction: column;
             padding: 8px 0;
             margin-right: 8px;
-            max-height: 570px;
-            height: 570px;
+            /*max-height: 570px;*/
+            /*height: 570px;*/
             .info-item:nth-child(even) {
                 background-color: #f5f5f5;
             }
@@ -350,6 +448,14 @@
                 font-size: 16px;
                 font-weight: 400;
                 text-align: right;
+                margin-right: 10px;
+            }
+            .user-info-button {
+                padding-top: 8px;
+                font-size: 16px;
+                font-weight: 400;
+                text-align: right;
+                color: #00bcd4;
             }
         }
     }

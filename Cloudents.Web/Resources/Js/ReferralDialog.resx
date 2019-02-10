@@ -133,7 +133,7 @@
     <value> invited friends have joined</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
-    <value>Give 150 points to classmates and earn 50 points for each one that joins</value>
+    <value>Earn 50 points for each one that joins</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
     <value>Spread the word at </value>
@@ -152,6 +152,18 @@
   </data>
   <data name="ref_placeholder" xml:space="preserve">
     <value>Select Document to Share</value>
+  </data>
+  <data name="share_facebook" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="share_google" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="share_tweeter" xml:space="preserve">
+    <value>Tweet</value>
+  </data>
+  <data name="share_whatsup" xml:space="preserve">
+    <value>Text</value>
   </data>
   <data name="share_with" xml:space="preserve">
     <value>or share with</value>

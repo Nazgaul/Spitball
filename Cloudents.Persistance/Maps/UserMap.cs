@@ -40,18 +40,10 @@ namespace Cloudents.Persistance.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
-
-
-            //Map(x => x.Languages).CustomType<JsonType<ISet<CultureInfo>>>();
-
-
-
-            //Map(x => x.Balance).CustomSqlType("smallmoney");
             Map(x => x.Score).ReadOnly();
             Table("[User]");
-
             
-            SchemaAction.Update();
+            SchemaAction.None();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
@@ -75,7 +67,7 @@ namespace Cloudents.Persistance.Maps
             Map(e => e.LockoutEnd).Nullable();
             Map(e => e.AccessFailedCount);
             Map(e => e.LockoutEnabled);
-            Map(e => e.LockoutReason).CustomSqlType("nvarchar(255)");
+            Map(e => e.LockoutReason);
             HasMany(x => x.Answers).Access.CamelCaseField(Prefix.Underscore).Inverse()
                 .Cascade.AllDeleteOrphan();
             HasMany(x => x.UserLogins)
