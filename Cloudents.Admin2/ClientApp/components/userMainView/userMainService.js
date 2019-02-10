@@ -11,7 +11,7 @@ function UserInfo(objInit) {
     this.id=  {value: objInit.id || 0, label: 'User ID' };
     this.name = {value: objInit.name || '', label: 'User Name' };
     this.email =  {value: objInit.email || '', label: 'User Email' };
-    this.phoneNumber = {value: objInit.phoneNumber ||  'Not Added', label: 'Phone Number' };
+    this.phoneNumber = {value: objInit.phoneNumber ||  '--', label: 'Phone Number', showButton: !objInit.phoneNumberConfirmed, buttonText:"verify Phone" };
     this.university = {value: objInit.university ||  '', label: 'University' };
     this.country =  {value: objInit.country ||  '', label: 'Country' };
     this.score =  {value: objInit.score ||  0, label: 'Score' };
@@ -113,6 +113,16 @@ export default {
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createAnswertItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    verifyPhone: (data) => {
+        let path = `AdminUser/verify`;
+        return connectivityModule.http.post(path, data)
+            .then((resp) => {
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
