@@ -99,6 +99,9 @@ const actions = {
                 console.log(error, 'error')
             }
         )
+    },
+    verifyUserPhone(context, verifyObj){
+        return UserMainService.verifyPhone(verifyObj);
     }
 
 };

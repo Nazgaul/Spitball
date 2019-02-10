@@ -28,20 +28,20 @@ export default {
       },
       productsForPaypal: {
         basic: {
-          name: "Tier 1 points pack",
-          description: "you will recieve 100 pts",
+          name: "100 points on Spitball",
+          description: "100 points on Spitball",
           quantity: "1",
           sku: "points_1"
         },
         inter: {
-          name: "Tier 2 points pack",
-          description: "you will recieve 500 pts",
+          name: "500 points on Spitball",
+          description: "500 points on Spitball",
           quantity: "1",
           sku: "points_2",
         },
         pro: {
-          name: "Tier 3 points pack",
-          description: "you will recieve 1000 pts",
+          name: "1000 points on Spitball",
+          description: "1000 points on Spitball",
           quantity: "1",
           sku: "points_3"
         }
@@ -118,6 +118,7 @@ export default {
             // Customize button (optional)
             locale: "en_US",
             style: {
+              // layout: 'vertical',
               size: "medium",
               color: "gold",
               shape: "pill",

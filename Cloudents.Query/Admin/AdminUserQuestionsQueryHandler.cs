@@ -26,7 +26,7 @@ namespace Cloudents.Query.Admin
                 from sb.Question 
                 where UserId = @Id
 				order by 1
-                 OFFSET @PageSize * (@PageNumber - 1) ROWS
+                 OFFSET @PageSize * @PageNumber ROWS
                  FETCH NEXT @PageSize ROWS ONLY;";
             using (var connection = new SqlConnection(_provider.Db.Db))
             {

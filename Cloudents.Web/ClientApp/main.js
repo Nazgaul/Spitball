@@ -335,7 +335,6 @@ router.beforeEach((to, from, next) => {
     checkUserStatus(to, next);
 
 });
-debugger;
 const app = new Vue({
     //el: "#app",
     router: router,
