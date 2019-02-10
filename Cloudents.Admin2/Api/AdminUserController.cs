@@ -180,13 +180,14 @@ namespace Cloudents.Admin2.Api
             try
             {
                 await _commandBus.DispatchAsync(PhoneCommand, token);
+                await _commandBus.DispatchAsync(registrationBonusCommand, token);
             }
             
             catch
             {
                 return BadRequest();
             }
-            await _commandBus.DispatchAsync(registrationBonusCommand, token);
+            
             return Ok(new
             {
                 model.Id
