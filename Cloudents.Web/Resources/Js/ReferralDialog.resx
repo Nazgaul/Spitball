@@ -133,7 +133,7 @@
     <value> invited friends have joined</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
-    <value>Give 150 points to classmates and earn 50 points for each one that joins</value>
+    <value>Earn 50 points for each one that joins</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
     <value>Spread the word at </value>

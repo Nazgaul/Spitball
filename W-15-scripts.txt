@@ -42,46 +42,16 @@ set [TransactionType] = 'Document'
 where (DocumentId is not null )
 and [TransactionType] is null
 
-
-drop table sb.EmailBlock
-drop table sb.email
-alter table sb.[user] drop constraint  User_Language
-drop table sb.Language
-drop table sb.SystemEvent
-
---need to upload to cosmos the emails
---need to add cosmos db to azure function
---need to upload azure function
-
  alter table sb.[transaction ]
  add PayPalTransactionId nvarchar(255);
  CREATE UNIQUE NONCLUSTERED INDEX idx_PayPalTransactionId_notnull
                ON sb.[transaction ](PayPalTransactionId)
                WHERE PayPalTransactionId IS NOT NULL;
 
---need to update question search index.
---need to update document search index.
+alter table sb.[user] drop constraint  User_Language
 
 Alter table sb.question
 Alter column Subject_id int null;
-
-Delete question version file
-Delete document version file
-
-
-UPDATE
-    d
-SET
-   Type = it.ItemTabName
-FROM
-    sb.Document AS d
-    join zbox.item i on d.OldId = i.ItemId
-	join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
-
-WHERE
-	Type = 'None'
-
-
 
 	update sb.[user]
 set Language = 'en'
@@ -103,6 +73,39 @@ set Language = 'en'
 where Language is null
 
 
+alter table sb.[User] add LockoutReason nvarchar(255)
+
+--need to update question search index.
+--need to update document search index.
+
+--need to upload to cosmos the emails
+--need to add cosmos db to azure function
+--need to upload azure function
+
+Delete question version file
+Delete document version file
+
+
+--done until here
+
+drop table sb.EmailBlock
+drop table sb.email
+drop table sb.Language
+drop table sb.SystemEvent
+
+UPDATE
+    d
+SET
+   Type = it.ItemTabName
+FROM
+    sb.Document AS d
+    join zbox.item i on d.OldId = i.ItemId
+	join zbox.ItemTab it on i.ItemTabId = it.ItemTabId
+
+WHERE
+	Type = 'None'
+
+
 
 update Q
 set CourseId = null
@@ -113,4 +116,3 @@ where Q.CourseId not in (select [name] from sb.Course)
 
 Not sure we need this after UserMap Table("[User]") should solve the issue
 alter table sb.[Question] add constraint FK_2124E48A foreign key (FlaggedUserId) references sb.[User]
-alter table sb.[User] add LockoutReason nvarchar(255)
