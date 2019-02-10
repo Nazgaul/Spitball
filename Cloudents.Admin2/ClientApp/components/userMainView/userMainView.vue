@@ -429,8 +429,8 @@
             flex-direction: column;
             padding: 8px 0;
             margin-right: 8px;
-            max-height: 570px;
-            height: 570px;
+            /*max-height: 570px;*/
+            /*height: 570px;*/
             .info-item:nth-child(even) {
                 background-color: #f5f5f5;
             }
