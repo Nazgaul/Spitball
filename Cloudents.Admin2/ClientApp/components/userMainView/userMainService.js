@@ -19,6 +19,7 @@ function UserInfo(objInit) {
     this.referredCount = {value: objInit.referredCount ||  0, label: 'People Referred' };
     this.balance = {value: objInit.balance ||  0, label: 'Balance' };
     this.status = {value: objInit.isActive ? false : true , label: 'Suspended' };
+    this.joined = {value: new Date(objInit.joined).toLocaleString(), label:"Join Date"}
 }
 
 function createUserInfoItem(data) {
