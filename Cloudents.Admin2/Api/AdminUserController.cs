@@ -171,23 +171,26 @@ namespace Cloudents.Admin2.Api
         [HttpPost("verify")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> VerifySmsAsync([FromServices] IRepository<RegularUser> userRepository,
-            PhoneConfirmRequest model,
+        public async Task<IActionResult> VerifySmsAsync(PhoneConfirmRequest model,
             CancellationToken token)
         {
-            var user = await userRepository.LoadAsync(model.Id, token);
-            if (user == null)
-            {
 
+            var PhoneCommand = new ConfirmePhoneNumberCommand(model.Id);
+            var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
+            try
+            {
+                await _commandBus.DispatchAsync(PhoneCommand, token);
+                await _commandBus.DispatchAsync(registrationBonusCommand, token);
+            }
+            
+            catch
+            {
                 return BadRequest();
             }
-            var PhoneCommand = new ConfirmePhoneNumberCommand(user.Id);
-            var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
-            await _commandBus.DispatchAsync(PhoneCommand, token);
-            await _commandBus.DispatchAsync(registrationBonusCommand, token);
+            
             return Ok(new
             {
-                user.Id
+                model.Id
             });
 
         }

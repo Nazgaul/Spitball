@@ -96,7 +96,6 @@ import {
     VTextarea
 } from "vuetify";
 import * as route from "./routes";
-debugger;
 
 const ilFonts = [
     "Assistant:300,400,600,700",
@@ -336,7 +335,6 @@ router.beforeEach((to, from, next) => {
     checkUserStatus(to, next);
 
 });
-debugger;
 const app = new Vue({
     //el: "#app",
     router: router,

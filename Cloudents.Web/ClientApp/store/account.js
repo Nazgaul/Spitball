@@ -199,7 +199,7 @@ const actions = {
     },
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
-            .then((data) => {
+            .then(({data}) => {
                     let refNumber = data.referrals ? data.referrals : 0;
                     context.commit('setRefferedNumber', refNumber)
                 },

@@ -118,6 +118,7 @@ export default {
             // Customize button (optional)
             locale: "en_US",
             style: {
+              // layout: 'vertical',
               size: "medium",
               color: "gold",
               shape: "pill",
