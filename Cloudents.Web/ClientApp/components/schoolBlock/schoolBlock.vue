@@ -32,19 +32,13 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
-import schoolBlockService from "../../services/schoolBlockService";
-import editActionBlock from "./helpers/editActionBlock.vue";
 
 export default {
-  components: { editActionBlock },
   name: "schoolBlock",
   data() {
     return {
-      showAllClassesBlock: false,
-      selectedChips: {},
-      mobileFilterState: false,
-      minMode: true,
-      selectedCourse: ""
+      selectedCourse: "",
+      lock: false,
     };
   },
   props: {
@@ -58,15 +52,9 @@ export default {
       "getSelectedClasses",
       "getSchoolName",
       "getAllSteps",
-      "accountUser"
+      "accountUser",
+      "getSearchLoading"
     ]),
-    classesToShow() {
-      return this.$vuetify.breakpoint.smAndUp ? 5 : 3;
-    },
-    classesPlus() {
-      if (!!this.classesList)
-        return `+${this.classesList.length - this.classesToShow}`;
-    },
     isLoggedIn() {
       return !!this.accountUser;
     },
@@ -75,6 +63,13 @@ export default {
     },
     schoolName() {
       return this.getSchoolName;
+    }
+  },
+  watch:{
+    getSearchLoading(val){
+      if(!val){
+        this.lock = false;
+      }
     }
   },
   methods: {
@@ -86,35 +81,26 @@ export default {
     ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
     
     selectCourse(item) {
-      let text = item.text ? item.text : item;
-      if (this.selectedCourse === text) {
-        this.selectedCourse = "";
-      } else {
-        this.selectedCourse = text;
+      if(!this.lock){
+        this.lock = true;      
+        let text = item.text ? item.text : item;
+        if (this.selectedCourse === text) {
+          this.selectedCourse = "";
+        } else {
+          this.selectedCourse = text;
+        }
+        this.updateFilter();
       }
-    },
-    updateClass(val) {
-      if (!!this.selectedChips[val.text]) {
-        //remove from selected chips dictionary
-        val.isSelected = false;
-        delete this.selectedChips[val.text];
-      } else {
-        //add
-        val.isSelected = true;
-        this.selectedChips[val.text] = true;
-      }
-
-      this.sortClassesByIsSelected(this.classesList, "isSelected");
-      this.updateFilter();
-      this.$forceUpdate();
     },
     updateFilter() {
       this.UPDATE_SEARCH_LOADING(true);
       this.UPDATE_LOADING(true);
-      let newQueryArr = Object.keys(this.selectedChips);
       let newQueryObject = {
-        Course: newQueryArr
+        Course: this.selectedCourse
       };
+      if(this.selectedCourse === ""){
+        delete newQueryObject.Course;
+      }
       let filter = this.$route.query.Filter;
       if (filter) {
         newQueryObject.Filter = filter;
@@ -123,30 +109,11 @@ export default {
       }
       this.$router.push({ query: newQueryObject });
     },
-    sortClassesByIsSelected(arr, sortBy) {
-      arr.sort(function(obj1, obj2) {
-        // Ascending: first age less than the previous
-        return obj2[sortBy] - obj1[sortBy];
-      });
-    },
-    openAllClasses() {
-      if (this.$vuetify.breakpoint.smAndUp) {
-        this.showAllClassesBlock = true;
-      } else {
-        //this.classesToShow = this.classesList.length;
-        this.minMode = false;
-        this.mobileFilterState = true;
-      }
-    },
-    closeAllClasses() {
-      this.showAllClassesBlock = false;
-    },
 
     openPersonalizeCourse() {
       if (!this.isLoggedIn) {
         this.updateLoginDialogState(true);
       } else {
-        this.closeAllClasses();
         let steps = this.getAllSteps;
         this.updateCurrentStep(steps.set_class);
         this.changeSelectUniState(true);
@@ -162,22 +129,9 @@ export default {
       }
     }
   },
-  beforeMount: function() {
-    if (document) {
-      document.addEventListener("click", this.detectOutsideClick);
-    }
-  },
-  beforeDestroy: function() {
-    if (document) {
-      document.removeEventListener("click", this.detectOutsideClick);
-    }
-  },
   created() {
     if (!!this.$route.query.Course) {
-      let courses = [].concat(this.$route.query.Course);
-      courses.forEach(courseName => {
-        this.selectedChips[courseName] = true;
-      });
+      this.selectedCourse = this.$route.query.Course;
     }
   }
 };

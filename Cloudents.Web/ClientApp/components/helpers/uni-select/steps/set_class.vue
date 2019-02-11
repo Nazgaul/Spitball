@@ -177,6 +177,7 @@ export default {
       setTimeout(()=>{
         let container = document.querySelector('.v-select__selections');
         let inputElm = container.querySelector('input');
+        inputElm.value = "";
         inputElm.focus();
       }, 200)
     },
