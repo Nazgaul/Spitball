@@ -2,10 +2,10 @@
     <form class="suspend-container">
         <h1>Suspend User</h1>
         <div class="suspend-input-container">
-            <v-text-field solo type="text" class="user-id-input" placeholder="Insert user id..." v-model="userIds"/>
+            <v-text-field solo type="text" class="user-id-input" :rules="[rulesId.required]" placeholder="Insert user id..." v-model="ids"/>
         </div>
         <div class="suspend-input-container">
-            <v-text-field solo type="text" class="user-id-input" placeholder="reason" v-model="reason" required/>
+            <v-text-field solo type="text" class="user-id-input" :rules="[rulesReason.required]"  placeholder="reason" v-model="reason"/>
         </div>
         <div class="suspend-checkbox-container">
             <input type="checkbox" id="removeQuestion" v-model="deleteUserQuestions"> 
@@ -22,11 +22,21 @@
 </template>
 
 <script>
-import {suspendUser, releaseUser} from './suspendUserService'
+import {suspendUser, releaseUser} from './suspendUserService';
+import {mapActions} from 'vuex';
+
 export default {
     data(){
         return{
+            rulesReason: {
+                required: value => !!value || 'Required.',
+
+            },
+            rulesId: {
+                required: value => !!value || 'Required.',
+            },
             serverIds: [],
+            ids: this.userIds,
             deleteUserQuestions:false,
             showSuspendedDetails: false,
             suspendedMail: null,
@@ -37,19 +47,22 @@ export default {
         }
     },
     props: {
-        userIds:{
-            type: String,
-            default: ''
-        }
+        userIds: null
     },
     methods:{
+        ...mapActions([
+            "setSuspendDialogState",
+            "setUserCurrentStatus"
+        ]),
         actionUser:function(unsuspendUser){
-            if(!this.userIds){
-                this.$toaster.error("Please Insert A user ID")
+            if(!this.ids){
+                this.$toaster.error("Please Insert A user ID");
                 return;
             }
             this.serverIds = [];
-            this.userIds.split(',').forEach(id=>{
+            // this.ids = this.userIds;
+            this.ids = '' + this.ids;
+            this.ids.split(',').forEach(id=>{
                 let num = parseInt(id.trim());
                 if(!!num){
                     return this.serverIds.push(num);
@@ -63,11 +76,13 @@ export default {
                     this.$toaster.success(`user got released`);
                     this.releaseLoading = false;
                     this.reason = null;
-                    this.userIds = null;
+                    this.ids = null;
                 }, (err)=>{
                     this.$toaster.error(`ERROR: failed to realse user`);
                     console.log(err)
                 }).finally(()=>{
+                    this.setSuspendDialogState(false);
+                    this.setUserCurrentStatus(false)
                     this.lock = false;
                     this.releaseLoading = false;
                 })
@@ -84,11 +99,14 @@ export default {
                     this.suspendedMail = email;
                     this.suspendLoading = false;
                     this.reason = null;
-                    this.userIds = null;
+                    this.ids = null;
                 }, (err)=>{
                     this.$toaster.error(`ERROR: failed to suspend user`);
                     console.log(err)
                 }).finally(()=>{
+                    this.setSuspendDialogState(false);
+                    this.setUserCurrentStatus(true);
+
                     this.lock = false;
                     this.suspendLoading = false;
                 })
