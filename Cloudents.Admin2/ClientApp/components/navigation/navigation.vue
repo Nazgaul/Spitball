@@ -53,9 +53,9 @@
                             title: 'Home',
                             path: '/home'
                         },
-                        childrens: [
+                        /*childrens: [
                             {name: 'Management', link: '', icon: 'people_outline'},
-                        ]
+                        ]*/
 
                     },
                     {
