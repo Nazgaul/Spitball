@@ -47,25 +47,29 @@ namespace Cloudents.Query.SearchSync
             get
             {
                 const string res = @"
-select d.Id as ItemId,	                        
-    d.Name as Name,	                      
-      d.CourseName as Course,	           
-                 d.UniversityId as UniversityId,	                       
-				      d.Type as Type,	
-					                              d.State as State,	
-				 d.UpdateTime as DateTime, 	                       
-				      (select STRING_AGG(dt.TagId, ', ')
-				 FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags,	 
-				 u.Country as Country,							
-				 	u.Name as UniversityName,	     
-				 c.*                  
-				  From sb.[Document] d     
-                CROSS APPLY CHANGETABLE (VERSION sb.[Document], (Id), (Id)) AS c
-			     join sb.[University] u 	                  
-				           On u.Id = d.UniversityId 
-				 Order by d.Id                     
-				 OFFSET :PageSize * :PageNumber                      
-				 ROWS FETCH NEXT :PageSize ROWS ONLY ;";
+with cte as (
+
+select d.Id as ItemId,	            
+                d.Name as Name,	               
+				d.CourseName as Course,	               
+				d.UniversityId as UniversityId,	                  
+				d.Type as Type,						                 
+				d.State as State,				
+				d.UpdateTime as DateTime, 	                   
+				(select STRING_AGG(dt.TagId, ', ')		
+				FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags	 ,
+				u.Country as Country,							
+				u.Name as UniversityName	     		
+				From sb.[Document] d  
+				join sb.[University] u 	                  				
+				On u.Id = d.UniversityId 	
+				Order by d.Id                     		
+				OFFSET  :PageSize * :PageNumber                  			
+				ROWS FETCH NEXT :PageSize ROWS ONLY 
+) 
+select * from 
+cte
+CROSS APPLY CHANGETABLE (VERSION sb.[Document], (Id), (cte.ItemId)) AS c;";
                 return res;
             }
         }
