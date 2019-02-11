@@ -8,6 +8,8 @@
     .flexSameSize();
     margin-right: 32px;
     opacity: 1;
+    height: 100%;
+    position: fixed;
   }
 
 }
@@ -18,8 +20,10 @@
 .main-section {
   min-width: 0;
   margin-top: @marginTop;
+  margin-left: 280px;
   @media (max-width: @screen-xs) {
-    margin-top: 0
+    margin-top: 0;
+    margin-left: unset;
   }
   @media (min-width: (@screen-xs+1)) {
     margin-top: 16px;

@@ -5,7 +5,7 @@
           <v-list-tile-action>
             <v-icon>sbf-university-columns</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="">{{schoolName}}</v-list-tile-title>
+          <v-list-tile-title @click="openPersonalizeUniversity()">{{schoolName}}</v-list-tile-title>
         </v-list-tile>
     </v-list>
     <v-list>
@@ -13,15 +13,18 @@
           <v-list-tile-action>
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="">My Courses</v-list-tile-title>
+          <v-list-tile-title @click="openPersonalizeCourse()">My Courses</v-list-tile-title>
+          <v-list-tile-action class="edit-course">
+            <v-icon @click="openPersonalizeCourse()">sbf-close</v-icon>
+          </v-list-tile-action>
         </v-list-tile>
         <v-list-tile class="group-items"
           v-for="(item, i) in getSelectedClasses"
-          :class="{'active': item.text === selectedCourse}"
+          :class="{'active': item.text ? item.text === selectedCourse : item === selectedCourse}"
           :key="i"
           @click="selectCourse(item)"
         >
-          <v-list-tile-title v-text="item.text"></v-list-tile-title>
+          <v-list-tile-title v-text="item.text ? item.text : item"></v-list-tile-title>
         </v-list-tile>
     </v-list>
   </v-navigation-drawer>
@@ -83,10 +86,11 @@ export default {
     ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
     
     selectCourse(item) {
-      if (this.selectedCourse === item.text) {
+      let text = item.text ? item.text : item;
+      if (this.selectedCourse === text) {
         this.selectedCourse = "";
       } else {
-        this.selectedCourse = item.text;
+        this.selectedCourse = text;
       }
     },
     updateClass(val) {
