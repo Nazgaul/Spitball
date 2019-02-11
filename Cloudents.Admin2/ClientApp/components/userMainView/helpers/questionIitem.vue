@@ -12,10 +12,16 @@
                 <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
                 <div class="question-actions-container">
                     <v-tooltip left>
-                        <v-btn   slot="activator" icon @click="deleteQuestionByID(question)">
+                        <v-btn slot="activator" icon @click="deleteQuestionByID(question)">
                             <v-icon color="red">close</v-icon>
                         </v-btn>
                         <span>Delete Question</span>
+                    </v-tooltip>
+                    <v-tooltip left>
+                        <v-btn slot="activator" icon @click="aproveQ(question, index)">
+                            <v-icon color="green">done</v-icon>
+                        </v-btn>
+                        <span>Accept Question</span>
                     </v-tooltip>
 
                 </div>
@@ -59,6 +65,7 @@
 
 <script>
     import { deleteQuestion } from '../../question/questionComponents/delete/deleteQuestionService';
+    import { aproveQuestion } from '../../question/questionComponents/pendingQuestions/pendingQuestionsService';
     import {mapActions} from 'vuex';
     export default {
 
@@ -96,6 +103,16 @@
                             console.log('component delete error', error)
                         }
                     )
+            },
+            aproveQ(question) {
+                let self = this;
+                aproveQuestion(question.id).then(() => {
+                    let questionIndex = self.questions.indexOf(question);
+                    self.deleteQuestionItem(questionIndex);
+                    self.$toaster.success(`Question Aproved`);
+                }, () => {
+                    self.$toaster.error(`Question Aproved Failed`);
+                })
             },
         },
     }
