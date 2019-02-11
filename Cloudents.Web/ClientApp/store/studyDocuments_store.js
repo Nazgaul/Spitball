@@ -147,7 +147,8 @@ const actions = {
     },
 
     removeDocumentItemAction({commit}, notificationQuestionObject) {
-        let documentObj = searchService.createDocumentItem(notificationQuestionObject);
+        // let documentObj = searchService.createDocumentItem(notificationQuestionObject);
+         let documentObj =notificationQuestionObject;
         commit('StudyDocuments_removeDocument', documentObj);
     },
     reportDocument({commit, dispatch}, data) {
