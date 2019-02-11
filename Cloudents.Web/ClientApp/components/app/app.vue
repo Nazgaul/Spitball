@@ -84,13 +84,29 @@
             </sb-dialog>
 
             <sb-dialog
-                    :showDialog="getOnBoardState"
-                    :popUpType="'onBoardGuide'"
-                    :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
-                    :maxWidth="'1280px'"
+                    :showDialog="newBallerDialog"
+                    :popUpType="'newBallerDialog'"
+                    :content-class="'new-baller'"
+                    :maxWidth="'450px'"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
             >
-                <board-guide></board-guide>
+                <v-card>
+                    <v-card-title class="headline">Use Google's location service?</v-card-title>
+                    <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn  class="new-baller-delay" flat @click="closeNewBallerDialog()">Understand</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </sb-dialog>
+
+            <sb-dialog
+                    :showDialog="getShowBuyDialog"
+                    :popUpType="'buyTokens'"
+                    :content-class="'buy-tokens-popup'"
+                    :onclosefn="closeSblToken"
+            >
+                <buy-tokens></buy-tokens>
             </sb-dialog>
 
             <sb-dialog
@@ -169,7 +185,8 @@
                         onStop: this.tourClosed
                     },
                     toursOptions: tourService.toursOptions,
-                    tourSteps: []
+                    tourSteps: [],
+                    showNewBallerAction: false
                 }
             };
         },
@@ -194,8 +211,10 @@
                 "StudyDocuments_isDataLoaded",
                 "getOnBoardState",
                 "getShowBuyDialog",
-                "getCurrentStep"
+                "getCurrentStep",
+                "newBallerDialog"
             ]),
+
             showFeed() {
                 if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
                     return this.showMobileFeed;
@@ -325,9 +344,14 @@
                 "updateOnBoardState",
                 "updateShowBuyDialog",
                 "updateCurrentStep",
-                "changeSelectUniState"
+                "changeSelectUniState",
+                "updateNewBallerDialogState"
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
+            closeNewBallerDialog(){
+                global.localStorage.setItem("sb-newBaller-suppresed", true);
+                this. updateNewBallerDialogState(false);
+            },
             onFooterStepChange() {
                 this.tourTempClose();
             },
