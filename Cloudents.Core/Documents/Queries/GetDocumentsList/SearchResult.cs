@@ -6,6 +6,5 @@
 
         public double Score { get; set; }
 
-     //   public string MetaContent { get; set; }
     }
 }

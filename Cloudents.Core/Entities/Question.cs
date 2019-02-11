@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+using JetBrains.Annotations;
 using static Cloudents.Core.Entities.ItemStatus;
 using static Cloudents.Core.Entities.Vote;
 
@@ -18,18 +19,20 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Question : AggregateRoot, ISoftDelete
     {
-        public Question(QuestionSubject subject, string text, decimal price, int attachments,
+        public Question(QuestionSubject? subject, string text, decimal price, int attachments,
             RegularUser user,
-             CultureInfo language, Course course)
+             CultureInfo language, [NotNull] Course course, [NotNull] University university)
         : this()
         {
+            if (course == null) throw new ArgumentNullException(nameof(course));
+            if (university == null) throw new ArgumentNullException(nameof(university));
             Subject = subject;
             Text = text?.Trim();
             Price = price;
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-          
+
 
             var status = GetInitState(user);
             if (status == Public)
@@ -39,25 +42,26 @@ namespace Cloudents.Core.Entities
 
             Status = status;
             Course = course;
+            University = university;
             Language = language;
         }
 
-        public Question(QuestionSubject subject, string text, decimal price, int attachments,
+        public Question(Course course, string text, decimal price, int attachments,
             SystemUser user,
              CultureInfo language)
             : this()
         {
-            Subject = subject;
+            Course = course;
             Text = text?.Trim();
             Price = price;
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-            
+
             Status = Pending;
             //ChangeState(ItemState.Pending);
             Language = language;
-            
+
         }
 
         protected Question()
@@ -69,7 +73,7 @@ namespace Cloudents.Core.Entities
         public virtual ItemStatus Status { get; protected set; }
 
         //public virtual long Id { get; protected set; }
-        public virtual QuestionSubject Subject { get; protected set; }
+        public virtual QuestionSubject? Subject { get; protected set; }
         public virtual string Text { get; protected set; }
         public virtual decimal Price { get; protected set; }
 
@@ -81,6 +85,8 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Updated { get; set; }
 
         public virtual Course Course { get; set; }
+        public virtual University University { get; set; }
+
         public virtual Answer CorrectAnswer { get; set; }
 
         private readonly IList<Answer> _answers = new List<Answer>();
@@ -88,7 +94,7 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
 
 
-        public virtual IList<Transaction> Transactions { get; protected set; }
+        public virtual IList<QuestionTransaction> Transactions { get; protected set; }
 
 
         // public virtual int AnswerCount { get; set; }
@@ -167,6 +173,10 @@ namespace Cloudents.Core.Entities
         public virtual void DeleteQuestionAdmin()
         {
             Delete();
+            foreach (var tran in Transactions)
+            {
+                tran.Question = null;
+            }
             AddEvent(new QuestionDeletedAdminEvent(this));
         }
 
@@ -208,7 +218,7 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException();
             }
-           
+
             if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
             {
                 _votes.Clear();

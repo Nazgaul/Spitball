@@ -127,13 +127,16 @@
     <value>Skip</value>
   </data>
   <data name="final_added" xml:space="preserve">
-    <value>You have</value>
+    <value>You got</value>
   </data>
   <data name="final_away" xml:space="preserve">
     <value>away from your first cashout!</value>
   </data>
+  <data name="final_bottom_text" xml:space="preserve">
+    <value>Start and access documents from your class</value>
+  </data>
   <data name="final_enter_wallet" xml:space="preserve">
-    <value>Enter your wallet now and cashout</value>
+    <value>Start and access documents from your class</value>
   </data>
   <data name="final_only" xml:space="preserve">
     <value>You’re only</value>
@@ -142,6 +145,18 @@
     <value>Jump right in!</value>
   </data>
   <data name="final_to_wallet" xml:space="preserve">
-    <value></value>
+    <value />
+  </data>
+  <data name="how_text" xml:space="preserve">
+    <value>Every student can offer study resources to other students for free or for a fee.</value>
+  </data>
+  <data name="how_title" xml:space="preserve">
+    <value>How does it work?</value>
+  </data>
+  <data name="welcome_text" xml:space="preserve">
+    <value>The community where students access study resources and learn from each other.</value>
+  </data>
+  <data name="welcome_title" xml:space="preserve">
+    <value>Welcome to Spitball</value>
   </data>
 </root>

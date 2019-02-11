@@ -8,12 +8,13 @@ using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Storage;
 using System.Linq;
-using Cloudents.Persistance.Repositories;
+using Cloudents.Command.Command;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Admin2.Api
 {
@@ -24,9 +25,9 @@ namespace Cloudents.Admin2.Api
         private readonly IQueryBus _queryBus;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IQueueProvider _queueProvider;
-       
 
-        public AdminUserController(ICommandBus commandBus, IQueryBus queryBus, 
+
+        public AdminUserController(ICommandBus commandBus, IQueryBus queryBus,
             IBlobProvider<DocumentContainer> blobProvider, IQueueProvider queueProvider)
         {
             _commandBus = commandBus;
@@ -49,6 +50,23 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
+        
+        [HttpPost("cashOut/approve")]
+        public async Task<IActionResult> ApprovePost(ApproveCashOutRequest model, CancellationToken token)
+        {
+            var command = new ApproveCashOutCommand(model.TransactionId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("cashOut/decline")]
+        public async Task<IActionResult> DeclinePost(DeclineCashOutRequest model, CancellationToken token)
+        {
+            var command = new DeclineCashOutCommand(model.TransactionId, model.Reason);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
         /// <summary>
         /// Get a list of user that want to cash out
         /// </summary>
@@ -60,6 +78,7 @@ namespace Cloudents.Admin2.Api
             var query = new AdminEmptyQuery();
             return await _queryBus.QueryAsync<IEnumerable<CashOutDto>>(query, token);
         }
+        
 
         /// <summary>
         /// Suspend a user
@@ -71,6 +90,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>the user email to show on the ui</returns>
         [HttpPost("suspend")]
         [ProducesResponseType(200)]
+        
         public async Task<SuspendUserResponse> SuspendUserAsync(SuspendUserRequest model,
             [FromServices] ICommandBus commandBus,
             CancellationToken token)
@@ -81,7 +101,7 @@ namespace Cloudents.Admin2.Api
                 switch (model.SuspendTime)
                 {
                     case SuspendTime.Day:
-                        
+
                         lockout = DateTimeOffset.Now.AddSeconds(TimeConst.Day);
                         break;
                     case SuspendTime.Week:
@@ -97,7 +117,7 @@ namespace Cloudents.Admin2.Api
                         throw new ArgumentOutOfRangeException();
                 }
 
-                var command = new SuspendUserCommand(id, model.DeleteUserQuestions, lockout);
+                var command = new SuspendUserCommand(id, lockout, model.Reason);
                 await commandBus.DispatchAsync(command, token);
             }
             return new SuspendUserResponse();
@@ -129,7 +149,7 @@ namespace Cloudents.Admin2.Api
         {
             foreach (var id in model.Ids)
             {
-               
+
                 var command = new UnSuspendUserCommand(id);
                 await _commandBus.DispatchAsync(command, token);
             }
@@ -141,10 +161,41 @@ namespace Cloudents.Admin2.Api
         public async Task ChangeCountryAsync(ChangeCountryRequest model,
             CancellationToken token)
         {
-            
+
             var command = new ChangeCountryCommand(model.Id, model.Country);
             await _commandBus.DispatchAsync(command, token);
         }
+
+
+
+        [HttpPost("verify")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> VerifySmsAsync(PhoneConfirmRequest model,
+            CancellationToken token)
+        {
+
+            var PhoneCommand = new ConfirmePhoneNumberCommand(model.Id);
+            var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
+            try
+            {
+                await _commandBus.DispatchAsync(PhoneCommand, token);
+                await _commandBus.DispatchAsync(registrationBonusCommand, token);
+            }
+            
+            catch
+            {
+                return BadRequest();
+            }
+            
+            return Ok(new
+            {
+                model.Id
+            });
+
+        }
+
+
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
@@ -154,30 +205,53 @@ namespace Cloudents.Admin2.Api
             var command = new DeleteUserCommand(id);
             await _commandBus.DispatchAsync(command, token);
         }
-        
+
         [HttpGet("info")]
-        public async Task<UserInfoDto> GetUserInfo(string userIdentifier, [FromServices] IBlobProvider blobProvider,
-            CancellationToken token)
+        public async Task<UserDetailsDto> GetUserDetails(string userIdentifier, CancellationToken token)
         {
-            long Id;
-            AdminUserInfoQuery query;
-            if (long.TryParse(userIdentifier, out Id))
+            AdminUserDetailsQuery query;
+            if (long.TryParse(userIdentifier, out var id))
             {
-                query = new AdminUserInfoQuery(Id);
+                query = new AdminUserDetailsQuery(id);
             }
             else
             {
                 var userQuery = new AdminUserIdFromEmailQuery(userIdentifier);
-                Id = await _queryBus.QueryAsync(userQuery, token);
-                query = new AdminUserInfoQuery(Id);
+                id = await _queryBus.QueryAsync(userQuery, token);
+                query = new AdminUserDetailsQuery(id);
             }
            
-            var retVal = await _queryBus.QueryAsync(query, token);
-            var tasks = new Lazy<List<Task>>();
-            
-            foreach (var document in retVal.Documents)
-            {
+            return await _queryBus.QueryAsync(query, token);
+        }
 
+        [HttpGet("questions")]
+        public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
+        {
+            AdminUserQuestionsQuery query = new AdminUserQuestionsQuery(id, page);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("answers")]
+        public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
+        {
+            AdminUserAnswersQuery query = new AdminUserAnswersQuery(id, page);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+
+        [HttpGet("documents")]
+        public async Task<IEnumerable<UserDocumentsDto>> GetUserInfo(long id, int page, [FromServices] IBlobProvider blobProvider,
+             CancellationToken token)
+        {
+
+            var query = new AdminUserDocumentsQuery(id, page);
+            
+
+            var retVal = (await _queryBus.QueryAsync(query, token)).ToList();
+            var tasks = new Lazy<List<Task>>();
+
+            foreach (var document in retVal)
+            {
                 var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
                 var file = files.FirstOrDefault();
                 if (file != null)
@@ -187,18 +261,16 @@ namespace Cloudents.Admin2.Api
                             20);
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
-                   
                 }
                 else
                 {
-
                     var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
                     tasks.Value.Add(t);
                 }
-               
+
             }
+
             return retVal;
         }
-
     }
 }

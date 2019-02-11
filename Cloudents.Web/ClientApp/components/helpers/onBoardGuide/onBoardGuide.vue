@@ -2,24 +2,18 @@
     <div class="onboard-component">
         <div class="back-img"></div>
         <div class="guide-container">
-            <v-stepper v-model="currentStep" class="on-board-stepper"
+            <v-stepper v-model="currentStep" class="on-board-stepper" :class="{'last-step': isFinished}"
             >
-                <!--<v-stepper-header class="elevation-0">-->
-                <!--</v-stepper-header>-->
-                <!--<v-stepper-items class="step-items"-->
-                <!--:class="{'last-step': isFinished}"-->
-                <!--:style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }">-->
                 <v-stepper-items class="step-items"
                                  :class="{'last-step': isFinished}"
-                                 :style="[isFinished ? { 'background-image': 'url(' + require(`${imgSrc}`) + ')'} : '']"
+
                 >
                     <v-stepper-content
                             v-for="n in steps"
                             :key="`${n}-content`"
                             :class="[isFinished && n === steps ? 'last-step-content' : 'step-content' ]"
                             :step="n">
-                        <component v-if="isFinished" :is="isFinished ? 'onBoardFinal' : '' "></component>
-                        <img v-else :src="require(`${imgSrc}`) " alt="">
+                        <component  :is="`onBoard_step_${n}`"></component>
                     </v-stepper-content>
 
                 </v-stepper-items>
@@ -34,7 +28,7 @@
                                     :complete-icon="''"
                                     :color="'#5158af'"
                                     v-for="n in steps"
-                                    v-if="!$vuetify.breakpoint.xsOnly || !isFinished"
+                                    v-if="!isMobile || !isFinished"
                                     :class="[currentStep === n ? 'active-step-progress' : 'inactive-step']"
                                     step=""></v-stepper-step>
                         </div>
@@ -59,45 +53,21 @@
 <script>
     import { mapGetters, mapActions } from "vuex";
     import analyticsService from '../../../services/analytics.service';
-    import onBoardFinal from './onBoardSteps/onBoardFinal.vue';
-
+    import onBoard_step_1 from "./onBoardSteps/welcomeStep.vue";
+    import onBoard_step_2 from "./onBoardSteps/howWorks.vue";
+    import onBoard_step_3 from "./onBoardSteps/onBoardFinal.vue";
     export default {
         name: "onBoardGuide",
-        components: {onBoardFinal},
+        components: {
+            onBoard_step_1,
+            onBoard_step_2,
+            onBoard_step_3,
+        },
         data() {
             return {
                 currentStep: 1,
-                steps: 4,
-                desktop: {
-                    hebrew: {
-                        1: './images/desktop_hebrew_1.png',
-                        2: './images/desktop_hebrew_2.png',
-                        3: './images/desktop_hebrew_3.png',
-                        4: './images/desktop_hebrew_4.png',
+                steps: 3,
 
-                    },
-                    english: {
-                        1: './images/desktop_english_1.png',
-                        2: './images/desktop_english_2.png',
-                        3: './images/desktop_english_3.png',
-                        4: './images/desktop_english_4.png',
-                    }
-                },
-                mobile: {
-                    hebrew: {
-                        1: './images/mobile_hebrew_1.png',
-                        2: './images/mobile_hebrew_2.png',
-                        3: './images/mobile_hebrew_3.png',
-                        4: './images/mobile_hebrew_4.png',
-
-                    },
-                    english: {
-                        1: './images/mobile_english_1.png',
-                        2: './images/mobile_english_2.png',
-                        3: './images/mobile_english_3.png',
-                        4: './images/mobile_english_4.png',
-                    }
-                }
             }
         },
         computed: {
@@ -110,15 +80,7 @@
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly
             },
-            isHebrew() {
-                return global.lang.toLowerCase() === 'he';
-            },
-            imgSrc() {
-                let imageSrc = '';
-                let imagesSet = this.$vuetify.breakpoint.xsOnly ? this.mobile : this.desktop;
-                imagesSet = this.isHebrew ? imagesSet.hebrew : imagesSet.english;
-                return imagesSet[this.currentStep]
-            },
+
         },
         methods: {
             ...mapActions(['updateOnBoardState']),
@@ -213,9 +175,13 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100vh;
+            &.last-step{
+                background-image: url("./images/desktop_english_4.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
             @media (max-width: @screen-xs) {
                 min-height: 100%;
-                //can delete after background image replaced to be elements
             }
         }
         .step-items {

@@ -1,5 +1,5 @@
 <template>
-    <div class="sort-filter-wrap">
+    <div class="sort-filter-wrap" :class="{'position-static': isEdgeRtl}">
         <template v-if="sortOptions &&  sortOptions.length">
             <h3 v-language:inner>sortAndFilter_sort</h3>
             <div class="sort-switch">

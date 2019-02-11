@@ -101,7 +101,10 @@
 }
 
 .header-wrap {
-  position: sticky;
+  //position: sticky;
+  &.position-static{
+    position: static;
+  }
   top: 104px;
   z-index: 1;
   background-color: @colorContentBackground;
@@ -146,15 +149,6 @@
           flex-direction: column;
           align-items: baseline;
           padding: 0 8px
-        }
-        .doc-extension {
-          color: @colorBlackNew;
-          font-weight: normal;
-          text-transform: uppercase;
-          font-size: 14px;
-          @media (max-width: @screen-xs) {
-            margin-left: 4px;
-          }
         }
         .doc-details {
           display: flex;

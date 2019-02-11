@@ -1,10 +1,10 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Search.Interfaces;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace Cloudents.Search.Entities
 {
@@ -14,52 +14,61 @@ namespace Cloudents.Search.Entities
     {
         public Question(QuestionSearchDto dto)
         {
-            Id = dto.QuestionId.ToString();
-            if (dto.DateTime.HasValue && dto.DateTime.Value != System.DateTime.MinValue)
-            {
-                DateTime = dto.DateTime;
-            }
-
+            Id = dto.Id.ToString();
+            DateTime = dto.DateTime;
             Text = dto.Text;
-            if (dto.Text != null && dto.Subject != null)
-            {
-                Prefix = new[] { dto.Text }.Union(dto.Subject.GetEnumLocalizationAllValues()).ToArray();
-            }
-
+            Prefix = dto.Prefix;
             Country = dto.Country?.ToUpperInvariant();
-            if (dto.Language != null)
-            {
-                Language = dto.Language?.ToLowerInvariant();
-            }
 
-            if (dto.Subject.HasValue && dto.Subject.Value != 0)
-            {
-                Subject = dto.Subject;
-            }
+            Language = dto.Language?.ToLowerInvariant();
+            Course = dto.Course;
+            Subject = dto.Subject;
+            State = dto.State;
+            UniversityName = dto.UniversityName;
+            //if (dto.Subject.HasValue && dto.Subject.Value != 0)
+            //{
+            //    Subject = dto.Subject;
+            //}
 
-            State = dto.Filter;
+            //State = dto.Filter;
+        }
+
+        public Question(string id)
+        {
+            Id = id;
         }
 
         public Question()
         {
 
         }
+        [System.ComponentModel.DataAnnotations.Key]
         public string Id { get; set; } //key readonly
 
+        [IsSortable, IsFilterable]
         public DateTime? DateTime { get; set; } //readonly
-
+        [IsSearchable]
         public string Text { get; set; } //search readonly
 
+        [IsSearchable, IndexAnalyzer("prefix"), SearchAnalyzer(AnalyzerName.AsString.StandardLucene)]
 
         public string[] Prefix { get; set; } //search
 
+        [IsFilterable, IsFacetable, IsSearchable]
+        public string Course { get; set; }
 
+        [IsFilterable, IsSearchable]
+        public string UniversityName { get; set; }
 
+        [IsFilterable]
         public string Country { get; set; }
+        [IsFilterable]
         public string Language { get; set; }
 
-
+        [IsFilterable, IsFacetable]
         public QuestionSubject? Subject { get; set; } // facetable readonly
+
+        [IsFilterable, IsFacetable]
         public QuestionFilter? State { get; set; }
 
     }

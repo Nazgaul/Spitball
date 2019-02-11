@@ -1,9 +1,5 @@
-﻿using Cloudents.Infrastructure.Data;
-using Cloudents.Query.Query.Admin;
+﻿using Cloudents.Query.Query.Admin;
 using Dapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,7 +18,7 @@ namespace Cloudents.Query.Admin
         {
             var result = await _dapper.WithConnectionAsync(async connection =>
             {
-                var grid = connection.QueryFirst<long>("select top 1 * from sb.[User] where email = @Email", new { query.Email });
+                var grid = await connection.QueryFirstOrDefaultAsync<long>("select top 1 * from sb.[User] where email = @Email", new { query.Email });
                 return grid;
             }, token);
             return result;

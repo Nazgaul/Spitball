@@ -1,27 +1,20 @@
 ﻿<template>
-    <div class="header-wrap">
+    <div :class="['header-wrap', isEdgeRtl ? 'position-static' : '']">
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
                     <div class="gap ma-0"></div>
                     <h1 class="item-name">
                         <span class=" text-truncate">{{itemName}} </span>
-                        <span class="doc-extension ml-1"
-                              v-show="item && item.extension">({{item ? item.extension : ''}})</span>
                     </h1>
                     <div class="doc-details">
                         <div class="author">
-                        <!--<span class="upload-by">-->
                             <div>
                               <user-avatar class="avatar-circle width24 mr-2" :user-name="uploaderName" :user-id="uploaderID"/>
                             </div>
                             <user-rank class="mr-2"
                                        :score="uploaderScore"></user-rank>
 
-                            <!--<v-icon class="sb-person mr-1" v-if="$vuetify.breakpoint.smAndUp">sbf-person</v-icon>-->
-                            <!--<span v-if="$vuetify.breakpoint.smAndUp" class="mr-2" v-language:inner>headerDocument_item_by</span>-->
-                            <!--<span class="name mr-2">{{uploaderName}},</span>-->
-                        <!--</span>-->
                         </div>
                         <div class="date">
                             {{uploadDate}}
@@ -34,8 +27,8 @@
         <div class="details-content">
             <v-layout class="details-wrap" row align-center justify-start>
                 <div class="doc-type pr-2">
-                    <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
-                    <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
+                    <v-icon class="doc-type-icon">sbf-document-note</v-icon>
+                    <span class="doc-type-text">{{docType}}</span>
                 </div>
                 <div class="detail-cell views-cell" v-if="$vuetify.breakpoint.xsOnly">
                     <div class="viewed">
@@ -137,8 +130,8 @@
                 <v-card-actions class="card-actions">
                     <div class="doc-details">
                         <div class="doc-type">
-                            <v-icon class="doc-type-icon">{{doc ? doc.icon : 'sbf-document-note'}}</v-icon>
-                            <span class="doc-type-text">{{doc ? doc.title: ''}}</span>
+                            <v-icon class="doc-type-icon">sbf-document-note</v-icon>
+                            <span class="doc-type-text">{{docType}}</span>
                         </div>
                         <div class="doc-title">
                             <span v-line-clamp="1">{{itemName  ? itemName : ''}}</span>
@@ -163,12 +156,13 @@
     import itemActions from './itemActions.vue';
     import mainHeader from '../helpers/header.vue';
     import { mapGetters, mapActions } from 'vuex';
-    import { documentTypes } from '../results/helpers/uploadFiles/consts';
+    // import { documentTypes } from '../results/helpers/uploadFiles/consts';
     import documentDetails from '../results/helpers/documentDetails/documentDetails.vue';
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import analyticsService from '../../services/analytics.service';
     import userAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import userRank from '../helpers/UserRank/UserRank.vue'
+    import { LanguageService } from "../../services/language/languageService";
 
     export default {
         components: {
@@ -181,10 +175,10 @@
         },
         data() {
             return {
-                confirmPurchaseDialog: false
+                confirmPurchaseDialog: false,
+                isEdgeRtl: global.isEdgeRtl
             }
         },
-
         methods: {
             ...mapActions([
                 'updateLoginDialogState',
@@ -237,15 +231,9 @@
                 }
 
             },
-            doc() {
-                let self = this;
-                if (self.item && self.item.docType && documentTypes) {
-                    return self.item.docType = documentTypes.find((singleType) => {
-                        if (singleType.id.toLowerCase() === self.item.docType.toLowerCase()) {
-                            return singleType
-                        }
-                    })
-                }
+            docType() {
+             let self = this;
+             return  self.item && self.item.docType ? self.item.docType : LanguageService.getValueByKey("upload_multiple_files_type_default");
             },
             price(){
               if(this.item && this.item.price){
@@ -272,7 +260,6 @@
                 }
             },
         },
-
         filters: {
             mediumDate: function (value) {
                 if (!value) return '';

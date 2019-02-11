@@ -12,7 +12,7 @@ namespace Cloudents.Persistance.Maps
         {
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(x => x.Text).Length(8000);
+            Map(x => x.Text).Length(Answer.MaxLength);
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
             Map(x => x.Language).Length(10);
@@ -26,8 +26,8 @@ namespace Cloudents.Persistance.Maps
             HasMany(x => x.Transactions)
                 //.Cascade()
                 .LazyLoad()
-               
                 .Inverse();
+
             HasMany(x => x.Votes)
                 .Access.CamelCaseField(Prefix.Underscore)
                 .KeyColumns.Add("AnswerId")

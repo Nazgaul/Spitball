@@ -32,6 +32,7 @@
         font-size: 150px;
     }
 
+
     .error-page-404 .error-content .text {
         font-size: 25px;
         display: block;
@@ -41,6 +42,19 @@
 
     .error-page-404 .error-content img {
         margin-bottom: 24px;
+    }
+
+    @media (max-width: 749px) {
+        .error-page-404 .error-content .num {
+            font-size: 65px;
+        }
+        .error-page-404 .error-content .text {
+            font-size: 20px
+        }
+        .error-page-404 .error-content img {
+            height: 100%;
+            width: 100%;
+        }
     }
 
     /*#endregion*/

@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Models;
 using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Linq;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query
 {
@@ -41,18 +41,18 @@ where UserId = :id");
 
 
 
-            IFutureValue<UserUniversityQueryProfileDto> universityFuture = null;
 
-           // if (query.UniversityId.HasValue)
+            // if (query.UniversityId.HasValue)
             //{
-               universityFuture = _session.Query<RegularUser>()
-                   .Fetch(f=>f.University)
-                    .Where(w => w.Id == query.Id)
-                    .Select(s => new UserUniversityQueryProfileDto(s.University.Id, s.University.Extra,
-                       s.University.Name,s.University.Country)).ToFutureValue();
+            var universityFuture = _session.Query<RegularUser>()
+                  .Fetch(f => f.University)
+                    .Where(w => w.Id == query.Id && w.University != null)
+                   
+                   .Select(s => new UserUniversityQueryProfileDto(s.University.Id, s.University.Extra,
+                      s.University.Name, s.University.Country)).ToFutureValue();
 
-           // }
-            
+            // }
+
 
             var courses = await coursesFuture.GetEnumerableAsync(token);
             var tags = await tagsFuture.GetEnumerableAsync(token);
@@ -63,7 +63,7 @@ where UserId = :id");
                 University = university,
                 Courses = courses?.ToList(),
                 Tags = tags,
-                
+
             };
         }
     }

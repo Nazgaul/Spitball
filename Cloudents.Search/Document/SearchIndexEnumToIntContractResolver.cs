@@ -27,6 +27,11 @@ namespace Cloudents.Search.Document
                 {
                     p.PropertyType = typeof(string);
                 }
+
+                if (nullableType.IsEnum)
+                {
+                    p.PropertyType = typeof(int);
+                }
             }
             return p;
         }

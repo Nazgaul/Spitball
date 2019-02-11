@@ -46,7 +46,7 @@
                         </div>
                 </v-flex>
 
-                <v-flex v-if ="accountUser" class="chat-wrapper">
+                <v-flex v-if ="accountUser" class="chat-wrapper" :class="{'position-static': isEdgeRtl}">
                     <div class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>
                     <div ref="chat-area" class="chat-container"></div>
 

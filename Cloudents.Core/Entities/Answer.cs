@@ -20,10 +20,17 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Answer : Entity<Guid>, ISoftDelete
     {
+        public const int MinLength = 15;
+        public const int MaxLength = 550;
+
         public Answer(Question question, string text, int attachments, RegularUser user, CultureInfo language)
             : this()
         {
             Question = question;
+            if (text != null && (text.Length > MaxLength || text.Length < MinLength))
+            {
+                throw new ArgumentException();
+            }
             Text = text;
             Attachments = attachments;
             User = user;

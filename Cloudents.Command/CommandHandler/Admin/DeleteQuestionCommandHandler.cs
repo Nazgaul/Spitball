@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler.Admin
@@ -33,9 +32,10 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
             question.DeleteQuestionAdmin();
             if (question.CorrectAnswer == null)
-            {    
-                t.MakeTransaction(TransactionType2.UnStakeMoney(question.Price,
-                    TransactionActionType.DeleteQuestion));
+            { 
+                t.MakeTransaction(QuestionTransaction.Deleted(question));
+                //t.MakeTransaction(TransactionType2.UnStakeMoney(question.Price,
+                //    TransactionActionType.DeleteQuestion));
                 await _userRepository.UpdateAsync(t, token);
             }
             

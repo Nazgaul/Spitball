@@ -27,7 +27,7 @@
                                 <td class="text-xs-left">{{ props.item.name }}</td>
                                 <td class="text-xs-left">{{ props.item.points | currencyLocalyFilter}}</td>
                                 <td class="text-xs-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">
-                                    <span v-language:inner>wallet_currency</span>{{ props.item.value }}</td>
+                                    <span v-language:inner>wallet_currency</span>{{ props.item.value | dollarVal }}</td>
                             </template>
                         </v-data-table>
                     </v-flex>
@@ -73,7 +73,7 @@
                                         <span v-language:inner>app_currency_dynamic</span>
                                         &nbsp;</span>
                                               </bdi>
-                                    <span  v-language:inner>wallet_you_have_redeemable_sbl</span>
+                                    &nbsp;<span v-language:inner>wallet_you_have_redeemable_sbl</span>
                                 </span>
                             </div>
                         </div>

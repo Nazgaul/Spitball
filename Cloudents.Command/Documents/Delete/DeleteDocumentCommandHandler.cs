@@ -1,10 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,25 +10,16 @@ namespace Cloudents.Command.Documents.Delete
     public class DeleteDocumentCommandHandler : ICommandHandler<DeleteDocumentCommand>
     {
         private readonly IRepository<Document> _repository;
-        private readonly IBlobProvider<DocumentContainer> _blobProvider;
-        private readonly IRepository<RegularUser> _userRepository;
 
 
-        public DeleteDocumentCommandHandler(IRepository<Document> repository,
-            IBlobProvider<DocumentContainer> blobProvider, IRepository<RegularUser> userRepository)
+        public DeleteDocumentCommandHandler(IRepository<Document> repository)
         {
             _repository = repository;
-            _blobProvider = blobProvider;
-            _userRepository = userRepository;
         }
 
         public async Task ExecuteAsync(DeleteDocumentCommand message, CancellationToken token)
         {
-            var document = await _repository.GetAsync(message.Id, token).ConfigureAwait(false); // no point in load next line will do a query
-            if (document == null)
-            {
-                throw new ArgumentException("document doesn't exists");
-            }
+            var document = await _repository.LoadAsync(message.Id, token); // no point in load next line will do a query
 
             if (document.Status.State != ItemState.Ok)
             {
@@ -48,17 +36,7 @@ namespace Cloudents.Command.Documents.Delete
                 throw new InvalidOperationException("user is not the one who uploaded the document");
             }
 
-
-            if (!(document.User.Actual is RegularUser user))
-            {
-                throw new InvalidOperationException("cannot delete fictive user");
-
-            }
-
-
-
             await _repository.DeleteAsync(document, token);
-            await _blobProvider.DeleteDirectoryAsync(document.Id.ToString());
 
         }
     }

@@ -62,24 +62,24 @@ namespace Cloudents.Infrastructure.Cache
 
         public object Get(string key, string region)
         {
-            //if (_distributedEnabled)
-            //{
-            //    try
-            //    {
-            //        return _cache.Get(key, region);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        _logger.Exception(ex, new Dictionary<string, string>
-            //        {
-            //            ["Service"] = nameof(Cache),
-            //            ["Key"] = key,
-            //            ["Region"] = region
-            //        });
-            //        _cache.Remove(key, region);
-            //        return null;
-            //    }
-            //}
+            if (_distributedEnabled)
+            {
+                try
+                {
+                    return _cache.Get(key, region);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Exception(ex, new Dictionary<string, string>
+                    {
+                        ["Service"] = nameof(Cache),
+                        ["Key"] = key,
+                        ["Region"] = region
+                    });
+                    _cache.Remove(key, region);
+                    return null;
+                }
+            }
 
             return null;
         }
@@ -119,6 +119,26 @@ namespace Cloudents.Infrastructure.Cache
 
             //return obj;
         }
+
+        //public void Set<T>(string key, string region, T value, int expire, bool slideExpiration)
+        //{
+        //    if (_distributedEnabled)
+        //    {
+        //        var obj = ConvertEnumerableToList(value);
+        //        if (obj == null)
+        //        {
+        //            return;
+        //        }
+
+        //        var cacheItem = new CacheItem<T>(key, region, value,
+        //            slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
+        //            TimeSpan.FromSeconds(expire));
+                
+        //        _cache.Put(cacheItem);
+        //    }
+
+        //    //return obj;
+        //}
 
         public void DeleteRegion(string region)
         {

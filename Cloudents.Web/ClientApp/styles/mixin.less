@@ -4,7 +4,6 @@
 @fontOpenSans: "Open Sans", sans-serif;
 @fontFiraSans: "Fira Sans", sans-serif;
 @fontAssistant: "Assistant", sans-serif;
-@fontAlef: "Alef", sans-serif;
 
 @colorTypeDocThirdParty: rgba(0, 0, 0, 0.54);
 
@@ -139,30 +138,34 @@
 .user-question-style(@names, @colors, @fontColors, @length );
 //end function
 
-.placeholder-color(@color, @opacity:1, @fontWeight: 300 ) {
+.placeholder-color(@color, @opacity:1, @fontWeight: 300, @fontSize: 14px ) {
 
   &::-webkit-input-placeholder {
     color: @color !important;
     opacity: @opacity!important;
     font-weight: @fontWeight!important;
+    font-size: @fontSize!important;
   }
 
   &::-moz-placeholder {
     color: @color !important;
     opacity: @opacity!important;
     font-weight: @fontWeight!important;
+    font-size: @fontSize!important;
   }
 
   &:-ms-input-placeholder {
     color: @color !important;
     opacity: @opacity!important;
     font-weight: @fontWeight!important;
+    font-size: @fontSize!important;
   }
 
   &:-moz-placeholder {
     color: @color !important;
     opacity: @opacity!important;
     font-weight: @fontWeight!important;
+    font-size: @fontSize!important;
   }
 }
 

@@ -74,18 +74,18 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (!long.TryParse(base62, out var id))
+            //if (!long.TryParse(base62, out var id))
+            //{
+            if (!Base62.TryParse(base62, out var id))
             {
-                if (!Base62.TryParse(base62, out var id2))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    id = id2.Value;
-                }
+                return NotFound();
             }
-            
+            //else
+            //{
+            //id = id2.Value;
+            //}
+            //}
+
             var query = new DocumentSeoById(id);
             var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
@@ -96,7 +96,7 @@ namespace Cloudents.Web.Controllers
             {
                 universityName = FriendlyUrlHelper.GetFriendlyTitle(model.UniversityName),
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
-                id,
+                id = id.Value,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
             });
             return t;

@@ -16,13 +16,14 @@ namespace Cloudents.Admin2.Models
         /// <summary>
         /// If we want to delete all his questions
         /// </summary>
-        [Required]
-        public bool DeleteUserQuestions { get; set; }
+        public SuspendTime? SuspendTime { get; set; }
 
         /// <summary>
-        /// If we want to delete all his questions
+        /// A reason for user suspension
         /// </summary>
-        public SuspendTime? SuspendTime { get; set; }
+        [Required]
+        [StringLength(255, ErrorMessage = "StringLength")]
+        public string Reason { get; set; }
     }
 
     public enum SuspendTime

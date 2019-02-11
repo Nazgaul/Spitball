@@ -1,6 +1,6 @@
 <template>
-    <div class="answer-item-wrap">
-        <v-card class="answer-card" v-for="(answer, index) in answers" :key="index">
+    <div class="item-wrap">
+        <v-card class="answer-card" v-for="(answer, index) in answers" :key="index" v-if="isVisible(answer.state)">
             <v-toolbar class="answer-toolbar mt-4 back-color-purple">
                 <v-toolbar-title class="answer-text-title">
                     {{answer.text}}
@@ -37,25 +37,6 @@
                                 {{answer.questionText}}
                             </v-list-tile-sub-title>
                         </v-list-tile-content>
-                        <!--<v-list-tile-action class="answer-action">-->
-                        <!--<v-list-tile-action-text></v-list-tile-action-text>-->
-                        <!--<v-tooltip left>-->
-                        <!--<v-btn slot="activator" icon @click="declineAnswer(answer, index)">-->
-                        <!--<v-icon color="red">close</v-icon>-->
-                        <!--</v-btn>-->
-                        <!--<span>Decline Answer</span>-->
-                        <!--</v-tooltip>-->
-                        <!--</v-list-tile-action>-->
-                        <!--<v-list-tile-action class="answer-action">-->
-                        <!--<v-list-tile-action-text></v-list-tile-action-text>-->
-                        <!--<v-tooltip left>-->
-                        <!--<v-btn slot="activator" icon @click="aproveA(answer, index)">-->
-                        <!--<v-icon color="green">done</v-icon>-->
-                        <!--</v-btn>-->
-                        <!--<span>Approve Answer</span>-->
-                        <!--</v-tooltip>-->
-                        <!--</v-list-tile-action>-->
-
                     </v-list-tile>
                 </template>
             </v-list>
@@ -66,18 +47,21 @@
 <script>
     import { deleteAnswer } from '../../answer/answerComponents/delete/deleteAnswerService'
     import { aproveAnswer } from '../../answer/answerComponents/flaggedAnswers/flaggedAnswersService'
-
+    import {mapActions} from 'vuex';
     export default {
         name: "answerItem",
         props: {
             answers: {},
-            updateData: {
-                type: Function,
+            filterVal: {
+                type: String,
                 required: false
-
             },
         },
         methods: {
+            ...mapActions(['deleteAnswerItem']),
+            isVisible(itemState) {
+                return itemState.toLowerCase() === this.filterVal.toLowerCase();
+            },
             doCopy(id, type) {
                 let dataType = type || '';
                 let self = this;
@@ -91,7 +75,7 @@
                 let self = this;
                 let id = answer.id;
                 deleteAnswer([id]).then(() => {
-                    self.updateData(index);
+                    self.deleteAnswerItem(index);
                     self.$toaster.success(`Answer Deleted`);
                 }, err => {
                     self.$toaster.error(`Answer Delete Failed`);
@@ -103,7 +87,7 @@
             let id = answer.id;
             aproveAnswer(id).then(() => {
                 self.$toaster.success(`Answer Aproved`);
-                self.updateData(index);
+                self.deleteAnswerItem(index);
             }, () => {
                 self.$toaster.error(`Answer Aproved Failed`);
             })
@@ -115,7 +99,7 @@
 </script>
 
 <style lang="scss">
-    .answer-item-wrap {
+    .item-wrap {
         .question-text-label {
             font-weight: 500;
             color: #000;

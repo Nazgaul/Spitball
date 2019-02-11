@@ -1,22 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Views
 {
     public static class Constants
     {
-        public static string GetCdnEndpoint(IHostingEnvironment env)
+        public static string GetCdnEndpoint(IConfiguration env)
         {
-            if (env.IsDevelopment())
-            {
-                return string.Empty;
-            }
-
-            if (env.IsStaging())
-            {
-                return string.Empty;
-            }
-
-            return string.Empty;// "//spitball.azureedge.net";
+            return env["cdnEndpoint"] ?? string.Empty;
         }
     }
 }

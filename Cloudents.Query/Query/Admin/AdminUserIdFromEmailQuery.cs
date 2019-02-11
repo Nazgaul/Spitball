@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Query.Query.Admin
+﻿namespace Cloudents.Query.Query.Admin
 {
     public class AdminUserIdFromEmailQuery : IQuery<long>
     {

@@ -1,7 +1,7 @@
 <template>
-    <div class="document-item-wrap">
+    <div class="item-wrap">
         <v-list three-line class="docs-list">
-            <template v-for="(document, index) in documents">
+            <template v-for="(document, index) in documents"  v-if="isVisible(document.state)">
 
                 <v-list-tile class="document-tile"
                              :key="'doc'+index"
@@ -27,9 +27,6 @@
                                 class="doc-info-label">Upload Date: </span>
                             {{document.create | dateFromISO}}
                         </v-list-tile-sub-title>
-                        <!--<v-list-tile-sub-title class="doc-subtitle mb-1"><span class="doc-info-label">Reason: </span>{{document.reason}}-->
-                        <!--</v-list-tile-sub-title>-->
-
                     </v-list-tile-content>
 
                     <v-list-tile-action v-if="!isDeleted">
@@ -77,7 +74,7 @@
 <script>
     import flaggedDocumentService from '../../document/documentComponents/flaggedDocument/flaggedDocumentService';
     import approveDeleteService from '../../document/documentComponents/approveDelete/approveDeleteService';
-
+    import {mapActions} from 'vuex';
     export default {
         name: "documentItem",
         data() {
@@ -99,13 +96,10 @@
                 type: String,
                 required: false
             },
-            updateData: {
-                type: Function,
-                required: false
 
-            },
         },
         computed: {
+            ...mapActions(['deleteDocumentItem']),
             isOk() {
                 return this.filterVal === 'ok'
             },
@@ -120,6 +114,9 @@
             }
         },
         methods: {
+            isVisible(itemState) {
+                return itemState.toLowerCase() === this.filterVal.toLowerCase();
+            },
             imageView(src) {
                 this.imageBigSrc = src;
                 this.showBigImageDialog = true;
@@ -142,7 +139,7 @@
                             singleIdArr.push(document.id);
                             // receives arr with id :: [12]
                             this.markAsProccessed(singleIdArr);
-                            this.updateData(index);
+                            this.deleteDocumentItem(index);
                         },
                         (error) => {
                             this.$toaster.error('Something went wrong');
@@ -173,7 +170,7 @@
                             this.$toaster.success(`Document ${arrSingleId} approved`);
                             console.log('docs!', resp);
                             this.markAsProccessed(arrSingleId);
-                            this.updateData(index);
+                            // this.deleteDocumentItem(index);
                         },
                         (error) => {
                             this.$toaster.error('Something went wrong');
@@ -192,7 +189,7 @@
         right: 0;
     }
 
-    .document-item-wrap {
+    .item-wrap {
 
         .doc-action {
             height: 24px;
@@ -224,5 +221,4 @@
     }
 
 </style>
-
 

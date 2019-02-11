@@ -33,12 +33,13 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionsSearch
     {
-        Task<(IEnumerable<long> result, IEnumerable<QuestionSubject> facetSubject,  IEnumerable<QuestionFilter> facetFileter)> SearchAsync(QuestionsQuery query, CancellationToken token);
+        Task<(IEnumerable<long> result, IEnumerable<QuestionSubject> facetSubject, IEnumerable<QuestionFilter> facetFilter)> SearchAsync(QuestionsQuery query, CancellationToken token);
     }
 
     public interface IDocumentsSearch
     {
-        Task<IEnumerable<DocumentSearchResultWithScore>> SearchAsync(DocumentQuery query, CancellationToken token);
+        Task<(IEnumerable<DocumentSearchResultWithScore> result, 
+            IEnumerable<string> facetSubject)> SearchAsync(DocumentQuery query, CancellationToken token);
        // Task<string> ItemMetaContentAsync(long itemId, CancellationToken cancelToken);
     }
 

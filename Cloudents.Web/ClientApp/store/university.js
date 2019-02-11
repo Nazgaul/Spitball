@@ -14,12 +14,17 @@ const state = {
         set_class: 'SetClass',
         done: 'done'
     },
+    stepArr:[
+        'SetSchoolLanding','SetSchool','SetClass','done'
+    ],
     universityPopStorage:{
         session: !!window.sessionStorage.getItem('sb_uniSelectPoped_s'), //boolean
         local: window.localStorage.getItem('sb_uniSelectPoped_l') || 0 //integer
     },
     resultLockForSchoolNameChange: false,
-    selectForTheFirstTime: false
+    resultLockForClassesChange: false,
+    selectForTheFirstTime: false,
+    reflectChangeToPage: 0
 };
 
 const getters = {
@@ -33,7 +38,9 @@ const getters = {
     getAllSteps: state => state.stepsEnum,
     getCurrentStep: state => state.currentStep,
     getUniversityPopStorage: state => state.universityPopStorage,
-    getResultLockForSchoolNameChange: state => state.resultLockForSchoolNameChange
+    getResultLockForSchoolNameChange: state => state.resultLockForSchoolNameChange,
+    getResultLockForClassesChange: state => state.resultLockForClassesChange,
+    getReflectChangeToPage: state => state.reflectChangeToPage
 };
 
 const actions = {
@@ -41,7 +48,7 @@ const actions = {
         universityService.getProfileUniversity().then((university)=>{
             commit('setSchoolName', university.text);
             setTimeout(()=>{
-                dispatch('releaseResultLock');
+                dispatch('releaseResultLock', "uni");
             }, 2000);
             
 
@@ -50,15 +57,21 @@ const actions = {
             if(courses.length > 0){
                 commit('setSelectedClasses', courses);
                 dispatch('assignSelectedClassesCache', courses);
+                setTimeout(()=>{
+                    dispatch('releaseResultLock', "class");
+                }, 2000);
             }
         })
     },
-    changeSelectUniState({commit, dispatch, getters, state}, val){
+    changeReflectChangeToPage({commit}){
+        commit('setReflectChangeToPage');
+    },
+    changeSelectUniState({commit, dispatch, getters, rootState}, val){
         if(!val){
             dispatch('changeClassesToCachedClasses')
-            if(state.selectForTheFirstTime){
+            //if(state.selectForTheFirstTime){
                 //after register should open the tour on the correct page
-                dispatch('updateSelectForTheFirstTime', false);
+                //dispatch('updateSelectForTheFirstTime', false);
                 let VerticalName = getters.getCurrentVertical;
                 if(VerticalName === "note"){
                     //invokes the watch on the app.vue file
@@ -73,7 +86,7 @@ const actions = {
                         dispatch('HomeworkHelp_updateDataLoaded', true);
                     })
                 }
-            }
+            //}
         }
         commit('setSelectUniState', val);
     },
@@ -113,11 +126,16 @@ const actions = {
     updateSelectedClasses({commit}, val){
         commit('setSelectedClasses', val);
     },
+    pushClassToSelectedClasses({commit}, val){
+        commit('pushClass', val);
+    },
     assignClasses({state, dispatch}){
         universityService.assaignCourse(state.selectedClasses).then(()=>{
             //Update Filters in note page
             //dispatch("updateCoursesFilters", state.selectedClasses);
+            dispatch('changeReflectChangeToPage')
             Promise.resolve(true);
+            
         })
     },
     assignSelectedClassesCache({commit, state}){
@@ -128,8 +146,10 @@ const actions = {
             commit('setSelectedClasses', [].concat(state.selectedClassesCache))
         }
     },
-    updateCurrentStep({commit}, val){
-        commit("setCurrentStep", val);
+    updateCurrentStep({commit, state}, val){
+        if(state.stepArr.indexOf(val) > -1){
+            commit("setCurrentStep", val);
+        }
     },
     setUniversityPopStorage_session({commit, state}, val){
         let localPopedItem = state.universityPopStorage.local;
@@ -138,11 +158,19 @@ const actions = {
             commit('setUniversityPopStorage', localPopedItem);
         }        
     },
-    releaseResultLock({commit}){
-        commit('openResultLockForSchoolNameChange');
+    releaseResultLock({commit}, val){
+        if(val === "uni"){
+            commit('openResultLockForSchoolNameChange');
+        }else if(val === "class"){
+            commit('openResultLockForClassesChange');
+        }
+        
     },
     updateSelectForTheFirstTime({commit}, val){
         commit('setSelectForTheFirstTime', val);
+    },
+    closeSelectUniFromNav({commit}){
+        commit('setSelectUniState', false);
     }
 };
 
@@ -155,6 +183,9 @@ const mutations = {
     },
     setClasses(state, val){
         state.classes = val;
+    },
+    pushClass(state, val){
+        state.selectedClasses.push(val);
     },
     setSelectedClasses(state, val){
         state.selectedClasses = val;
@@ -181,8 +212,14 @@ const mutations = {
     openResultLockForSchoolNameChange(state){
         state.resultLockForSchoolNameChange = true;
     },
+    openResultLockForClassesChange(state){
+        state.resultLockForClassesChange = true;
+    },
     setSelectForTheFirstTime(state, val){
         state.selectForTheFirstTime = val;
+    },
+    setReflectChangeToPage(state){
+        state.reflectChangeToPage++;
     }
 };
 

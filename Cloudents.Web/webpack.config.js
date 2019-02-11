@@ -52,6 +52,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)$/,
+
                     use: [
                         {
                             loader: "url-loader",
@@ -65,7 +66,7 @@ module.exports = (env) => {
                         {
                             loader: "image-webpack-loader",
                             options: {
-                                bypassOnDebug: false,
+                                bypassOnDebug: true,
                                 optipng: {
                                     enabled: true
                                 }
@@ -76,7 +77,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.js$/,
-                    loader: "babel-loader"
+                    loader: "babel-loader",
                 },
                 {
                     test: /\.vue$/,
@@ -164,7 +165,7 @@ module.exports = (env) => {
     });
 
     const clientBundleConfig = merge(sharedConfig(), {
-        entry: {'main': './ClientApp/client.js'},
+        entry: { main: ["babel-polyfill", "./ClientApp/client.js"]},
         output: {
             path: path.join(__dirname, bundleOutputDir),
             filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",

@@ -8,7 +8,7 @@
             UserId = userId;
         }
 
-        public long DocumentId { get; private set; }
-        public long UserId { get; private set; }
+        public long DocumentId { get; }
+        public long UserId { get; }
     }
 }

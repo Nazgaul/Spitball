@@ -33,6 +33,8 @@ namespace Cloudents.Query.Admin
             public DateTime Created { get; set; }
             public int? FraudScore { get; set; }
             public bool IsIsrael { get; set; }
+            public bool? Approved { get; set; }
+            public string DeclinedReason { get; set; }
         }
 
         public CashOutQueryHandler(QuerySession session)
@@ -59,19 +61,21 @@ namespace Cloudents.Query.Admin
             .SetResultTransformer(Transformers.AliasToBean<FirstQuery>())
             .Future<FirstQuery>();
 
-            var futureDto = _session.Query<Transaction>()
+            var futureDto = _session.Query<CashOutTransaction>()
                 .Fetch(f => f.User)
-                .Where(w => w.TransactionType.Action == TransactionActionType.CashOut)
+                .Where(w => w.Action == TransactionActionType.CashOut)
                 .Where(w => w.Created > DateTime.Now - twoWeeks)
                 .Select(s => new SecondQuery
                 {
                     UserId = s.User.Id,
                     Email = s.User.Email,
-                    Price = s.TransactionType.Price,
+                    Price = s.Price,
                     Created = s.Created,
                     FraudScore = s.User.FraudScore,
-                    IsIsrael = s.User.Country == "IL"
-                   
+                    IsIsrael = s.User.Country == "IL",
+                    Approved = s.Approved,
+                    DeclinedReason = s.DeclinedReason
+
                 })
 
                .OrderByDescending(o => o.Created)
@@ -97,7 +101,9 @@ namespace Cloudents.Query.Admin
                     CashOutTime = index.Created,
                     FraudScore = index.FraudScore,
                     UserQueryRatio = tIndex.UserQueryRatio,
-                    IsIsrael = index.IsIsrael
+                    IsIsrael = index.IsIsrael,
+                    Approved = index.Approved,
+                    DeclinedReason = index.DeclinedReason
                 });
 
             }

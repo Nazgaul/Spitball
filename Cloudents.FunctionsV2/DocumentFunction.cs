@@ -1,7 +1,6 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
-using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Sync;
@@ -17,7 +16,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -59,20 +57,7 @@ namespace Cloudents.FunctionsV2
             var metadata = blob.Metadata;
             await SyncBlobWithSearch(text, Convert.ToInt64(id), metadata, indexInstance, commandBus, token);
         }
-
-        //[FunctionName("BlobFunctionTimer")]
-        //public static async Task RunAsync2(
-        //    [TimerTrigger("0 */20 * * * *", RunOnStartup = true)]TimerInfo timer,
-        //    [Blob("spitball-files/files/1082/text.txt", Connection = "TempConnectionDev")] CloudBlockBlob blob,
-        //    [Inject] ISearchServiceWrite<Document> searchInstance,
-        //    [Inject] ICommandBus commandBus,
-        //    [Inject] ITextAnalysis textAnalysis,
-        //    ILogger log, CancellationToken token)
-        //{
-        //    var text = await blob.DownloadTextAsync();
-        //    var metadata = blob.Metadata;
-        //    await SyncBlobWithSearch(text, 1082, metadata, searchInstance, commandBus, textAnalysis, token);
-        //}
+       
 
         private static async Task SyncBlobWithSearch(string text, long id, IDictionary<string, string> metadata,
             IAsyncCollector<AzureSearchSyncOutput> searchInstance, ICommandBus commandBus, CancellationToken token)
@@ -115,7 +100,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("DocumentSearchSync")]
-        public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *", RunOnStartup = true)]
+        public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *")]
             TimerInfo timer,
             [OrchestrationClient] DurableOrchestrationClient starter,
             ILogger log)
@@ -125,7 +110,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("DocumentDeleteOld")]
-        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *", RunOnStartup = true)] TimerInfo timer,
+        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *")] TimerInfo timer,
             [Blob("spitball-files/files")]CloudBlobDirectory directory,
             ILogger log,
             CancellationToken token)

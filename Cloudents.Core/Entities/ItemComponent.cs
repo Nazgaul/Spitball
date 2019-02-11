@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace Cloudents.Core.Entities
 {

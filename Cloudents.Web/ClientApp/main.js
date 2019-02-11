@@ -17,7 +17,9 @@ import WebFont from "webfontloader";
 import CloudentsTour from 'cloudents-tour';
 require('cloudents-tour/dist/cloudents-tour.css');
 import VueYouTubeEmbed from 'vue-youtube-embed'; //https://github.com/kaorun343/vue-youtube-embed
+import LoadScript from 'vue-plugin-load-script';
 
+import VueNumeric from 'vue-numeric'
 
 
 
@@ -95,17 +97,20 @@ import {
 } from "vuetify";
 import * as route from "./routes";
 
-import { constants } from "./utilities/constants";
+const ilFonts = [
+    "Assistant:300,400,600,700",
+    ]
+const usFonts = [
+    "Open+Sans:300,400,600,700",
+    "Fira+Sans:300,400,600,700",
+    ]
+
+let usedFonts = global.lang.toLowerCase() === 'he' ? ilFonts : usFonts;
 
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: [
-            "Open+Sans:300,400,600,700",
-            "Fira+Sans:300,400,600,700",
-            "Assistant:300,400,600,700",
-            "Alef:300,400,600,700",
-            "Patua+One: 300,400,600,700"]
+        families: usedFonts
     }
 });
 
@@ -118,6 +123,7 @@ WebFont.load({
 
 Vue.use(CloudentsTour);
 Vue.use(VueRouter);
+Vue.use(LoadScript);
 Vue.use(Vuetify, {
     directives: {
         Scroll,
@@ -149,6 +155,9 @@ Vue.use(VueClipboard);
 Vue.use(lineClamp, {
 
 });
+
+
+Vue.use(VueNumeric);
 
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
@@ -189,14 +198,21 @@ Vue.filter('capitalize',
         //return value.charAt(0).toUpperCase() + value.slice(1);
     });
 //#endregion
-
+//is rtl
+global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 //check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
 global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 //is country Israel
 global.isIsrael = global.country.toLowerCase() === "il";
 //check if Edge (using to fix position sticky bugs)
+global.isEdgeRtl = false;
+global.isEdge = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     global.isEdge = true;
+    if(global.isRtl){
+        global.isEdgeRtl = true;
+    }
+
 }
 
 Vue.filter('ellipsis',
@@ -229,6 +245,7 @@ Vue.filter('dollarVal', function (value) {
     if (!value) return 0;
     return parseFloat(value / 100).toFixed(2);
 });
+
 
 // 10/12/2018
 Vue.filter('dateFromISO', function (value) {
@@ -291,7 +308,12 @@ Vue.filter('commasFilter', function (value) {
 
 
 router.beforeEach((to, from, next) => {
-    store.dispatch('changeSelectUniState', false)
+    if(!to.query || !to.query.university){
+        if(!!from.query && !!from.query.university){
+            store.dispatch('closeSelectUniFromNav')
+        }
+    }
+    
     // if (!!to.query && Object.keys(to.query).length > 0) {
     //     for (let prop in to.query) {
     //         if (constants.regExXSSCheck.test(to.query[prop])) {
@@ -339,7 +361,6 @@ function checkUserStatus(to, next) {
     });
 }
 
-global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 global.isMobileAgent = function() {
     let check = false;
     (function(a){
@@ -349,6 +370,7 @@ global.isMobileAgent = function() {
      })(navigator.userAgent||navigator.vendor||window.opera);
     return check;
   };
+  
 //initSignalRService();
 
 //app.$mount("#app");

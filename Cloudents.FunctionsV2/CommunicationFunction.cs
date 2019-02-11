@@ -1,25 +1,19 @@
-using Autofac;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
-using Cloudents.FunctionsV2.System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
-using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
@@ -63,7 +57,7 @@ namespace Cloudents.FunctionsV2
         //{
 
 
-        //    var message = new DocumentPurchasedMessage(Guid.Parse("03467747-BB06-438F-9F53-A9C600F2FABC"));
+        //    var message = new AnswerAcceptedMessage(Guid.Parse("AD796D3F-734D-4987-AA1F-A9C700C88DD1"));
 
         //    var handlerType =
         //        typeof(ISystemOperation<>).MakeGenericType(message.GetType());
@@ -228,6 +222,32 @@ namespace Cloudents.FunctionsV2
         [JsonProperty("url")]
         public string Url { get; set; }
         [JsonProperty("minorTitle")]
+        public string MinorTitle { get; set; }
+    }
+
+
+    public class EmailObject
+    {
+        public string Id { get; set; }
+        public bool SocialShare { get; set; }
+        public string Event { get; set; }
+
+        public string Subject { get; set; }
+
+        public CultureInfo CultureInfo { get; set; }
+
+        public IEnumerable<EmailBlock> Blocks { get; set; }
+        
+    }
+
+
+
+    public class EmailBlock
+    {
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public string Body { get; set; }
+        public string Cta { get; set; }
         public string MinorTitle { get; set; }
     }
 

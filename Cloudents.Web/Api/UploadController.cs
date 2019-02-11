@@ -1,4 +1,7 @@
-﻿using Cloudents.Web.Extensions;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,9 +14,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Web.Api
 {
@@ -44,7 +44,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
-            
+
             var userId = userManager.GetUserId(User);
 
             var fileNames = new List<string>();
@@ -98,11 +98,13 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<UploadResponse>> Upload([FromBody] UploadRequest model, CancellationToken token)
         {
 
-           
+
             if (model.Phase == UploadPhase.Start)
             {
                 //we remove mime type check because if user doesn't have an application installed in the computer the mime type is empty
-                string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg", "ppt", "pptx" };
+                //'doc', 'pdf', 'png', 'jpg', 'docx', 'xls', 'xlsx', 'ppt', 'jpeg', 'pptx', 'tiff', 'tif', 'bmp', 'bmpf'
+                string[] supportedFiles = { "doc", "docx", "xls", "xlsx", "PDF", "png", "jpg","jpeg",
+                    "ppt", "pptx","tiff","tif","bmp" };
 
                 var extension = Path.GetExtension(model.Name)?.TrimStart('.');
 
@@ -112,21 +114,21 @@ namespace Cloudents.Web.Api
                     return BadRequest(ModelState);
                 }
 
-               
+
                 var response = new UploadResponse(Guid.NewGuid());
 
                 var tempData = new TempData
                 {
                     Name = model.Name,
                     Size = model.Size,
-                    BlobName = BlobFileName(response.Data.SessionId,model.Name),
+                    BlobName = BlobFileName(response.Data.SessionId, model.Name),
                     MimeType = model.MimeType
                 };
                 TempData.Put($"update-{response.Data.SessionId}", tempData);
                 return response;
             }
             var tempData2 = TempData.Get<TempData>($"update-{model.SessionId}");
-            
+
             TempData.Remove($"update-{model.SessionId}");
 
             var indexes = new List<int>();
@@ -150,7 +152,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var (stream, _) = await client.DownloadStreamAsync(model.Link, token);
-            var blobName = BlobFileName(Guid.NewGuid(),model.Name);
+            var blobName = BlobFileName(Guid.NewGuid(), model.Name);
             await _documentBlobProvider.UploadStreamAsync(blobName, stream, token: token);
 
             return new UploadResponse(blobName);

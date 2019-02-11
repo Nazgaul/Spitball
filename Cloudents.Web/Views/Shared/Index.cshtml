@@ -1,9 +1,9 @@
 ﻿@using Cloudents.Web.Services
 @using Cloudents.Web.Views
-@using Microsoft.AspNetCore.Hosting
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Configuration
 @inject WebPackChunkName Provider
-@inject IHostingEnvironment Environment
+@inject IConfiguration Environment
 @inject IViewLocalizer Localizer
 @{
     ViewBag.Title = "Spitball 2.0";
@@ -12,8 +12,44 @@
 
 
 @*<div id="app" asp-prerender-module="ClientApp/renderOnServer">Loading....</div>*@
-<div id="app">@Localizer["Loading...."]</div>
+
+<div id="app" style="display: flex; justify-content: center; align-items: center; width: 100vw; height: 100vh;">
+    <svg style="width: 150px; height: 150px;" width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
+                <stop stop-color="#3e45a0" stop-opacity="0" offset="0%" />
+                <stop stop-color="#3e45a0" stop-opacity=".631" offset="63.146%" />
+                <stop stop-color="#3e45a0" offset="100%" />
+            </linearGradient>
+        </defs>
+        <g fill="none" fill-rule="evenodd">
+            <g transform="translate(1 1)">
+                <path d="M36 18c0-9.94-8.06-18-18-18" id="Oval-2" stroke="url(#a)" stroke-width="2">
+                    <animateTransform attributeName="transform"
+                                      type="rotate"
+                                      from="0 18 18"
+                                      to="360 18 18"
+                                      dur="0.9s"
+                                      repeatCount="indefinite" />
+                </path>
+                <circle fill="#fff" cx="36" cy="18" r="1">
+                    <animateTransform attributeName="transform"
+                                      type="rotate"
+                                      from="0 18 18"
+                                      to="360 18 18"
+                                      dur="0.9s"
+                                      repeatCount="indefinite" />
+                </circle>
+
+
+            </g>
+        </g>
+        <text x="50%" y="50%" font-size="5" text-anchor="middle" alignment-baseline="central">@Localizer["Loading...."]</text>
+    </svg>
+
+</div>
 <div class="cdn-only2"></div>
+
 
 
 @section scripts {

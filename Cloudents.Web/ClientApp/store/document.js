@@ -52,11 +52,11 @@ const actions = {
         if(!!getters.accountUser && getters.accountUser.balance){
             userBalance = getters.accountUser.balance
         }
-        if(userBalance > item.price){
+        if(userBalance >= item.price){
             return documentService.purchaseDocument(id)
             .then((resp) => {
                     console.log('purchased success', resp);
-                    analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED');
+                    analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED', item.price);
                     dispatch('setDocumentPreview', item);
                 },
                 (error) => {

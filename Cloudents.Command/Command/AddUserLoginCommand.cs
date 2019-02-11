@@ -16,9 +16,9 @@ namespace Cloudents.Command.Command
 
         public string LoginProvider { get; }
 
-        public string ProviderKey { get; private set; }
+        public string ProviderKey { get; }
 
 
-        public string ProviderDisplayName { get; private set; }
+        public string ProviderDisplayName { get; }
     }
 }

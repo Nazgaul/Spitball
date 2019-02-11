@@ -1,7 +1,6 @@
 <template>
     <div class="final-onboard-wrap">
         <div class="present-row">
-            <!--<presentStarsMobile  class="present-img"></presentStarsMobile>-->
             <span class="step-title d-flex" v-language:inner>onboard_final_title</span>
             <presentStars  class="present-img"></presentStars>
         </div>
@@ -15,31 +14,31 @@
 
             </div>
         </div>
+
         <v-divider class="divider-line"></v-divider>
         <div class="sml-text-row">
-            <div class="" v-show="tokensAmmount < ammountCalcFrom">
-
-                    <span v-language:inner>onboard_final_only</span>
-                <bdi>
-                    <span>&nbsp;{{sblAway}}&nbsp;
-                    <span v-language:inner>app_currency_dynamic</span>
-                    </span>
-                </bdi>
-                    <span v-language:inner>onboard_final_away</span>
-
-            </div>
-            <div class="" v-show="tokensAmmount >= ammountCalcFrom">
-                <bdi>
-                    <span v-language:inner>onboard_final_enter_wallet</span>
-                </bdi>
-            </div>
+            <span v-language:inner>onboard_final_bottom_text</span>
+            <!--<div class="" v-show="tokensAmmount < ammountCalcFrom">-->
+                    <!--<span v-language:inner>onboard_final_only</span>-->
+                <!--<bdi>-->
+                    <!--<span>&nbsp;{{sblAway}}&nbsp;-->
+                    <!--<span v-language:inner>app_currency_dynamic</span>-->
+                    <!--</span>-->
+                <!--</bdi>-->
+                    <!--<span v-language:inner>onboard_final_away</span>-->
+            <!--</div>-->
+            <!--<div class="" v-show="tokensAmmount >= ammountCalcFrom">-->
+                <!--<bdi>-->
+                    <!--<span v-language:inner>onboard_final_enter_wallet</span>-->
+                <!--</bdi>-->
+            <!--</div>-->
         </div>
     </div>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
-    import presentStars from '../images/present-stars.svg';
+    import presentStars from '../images/SVG_step_3.svg';
 
 
     export default {
@@ -76,7 +75,6 @@
 
 <style scoped lang="less">
     @import '../../../../styles/mixin.less';
-
     @finalYellow: #ffca54;
     @colorTextLight: #dfe0ef;
     .final-onboard-wrap {
@@ -93,6 +91,7 @@
             justify-content: center;
             @media (max-width: @screen-xs) {
                 max-width: 100%;
+                width: 100%;
                 line-height: 1.1;
                 display: flex;
                 flex-direction: column;
@@ -116,17 +115,20 @@
 
         }
         .sml-text-row {
+            font-size: 24px;
+            font-weight: 600;
+            font-style: italic;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: -0.5px;
+            text-align: center;
+            color: @color-white;
             padding-top: 32px;
             display: flex;
             font-family: @fontFiraSans;
-            font-size: 18px;
-            font-style: italic;
-            line-height: 1.5;
-            text-align: center;
-            color: @colorTextLight;
-            max-width: 254px;
             @media (max-width: @screen-xs) {
                 font-size: 16px;
+                max-width: 254px;
 
             }
         }
@@ -141,17 +143,18 @@
             letter-spacing: normal;
             text-align: center;
             color: @finalYellow;
-            padding: 32px 0;
             @media (max-width: @screen-xs) {
                 font-size: 30px;
                 line-height: 1.1;
+                justify-content: center;
+                width: 100%;
             }
         }
         .sub-title-wrap {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: baseline;
             padding-bottom: 32px;
-            padding-top: 24px;
             text-align: center;
             max-width: 90%;
             @media (max-width: @screen-xs) {
@@ -168,7 +171,7 @@
             font-stretch: normal;
             line-height: 1.32;
             text-align: center;
-            color: @colorTextLight;
+            color:@color-white;
             @media (max-width: @screen-xs) {
                 font-size: 24px;
                 line-height: 1.38;
@@ -181,7 +184,6 @@
             line-height: 1.59;
             font-size: 28px;
             font-style: italic;
-            display: inline-block;
             word-break: keep-all;
             @media (max-width: @screen-xs) {
                 line-height: 1.38;

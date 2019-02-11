@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Core.Request;
@@ -26,13 +25,14 @@ namespace Cloudents.Infrastructure.Search.Document
             _documentSearch = documentSearch;
         }
 
-        public async Task<IList<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
+        public async Task<DocumentFeedWithFacetDto> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken token)
         {
             
 
-            var searchResult = (await _client.SearchAsync(query, token)).ToList();
-            var ids = searchResult.Select(s => s.Id);
+            var searchResult = await _client.SearchAsync(query, token);
+            var documentResult = searchResult.result.ToList();
+            var ids = documentResult.Select(s => s.Id);
             var queryDb = new IdsQuery<long>(ids);
             var dbResult = await _queryBus.QueryAsync<IList<DocumentFeedDto>>(queryDb, token);
             var dic = dbResult.ToDictionary(x => x.Id);
@@ -40,7 +40,7 @@ namespace Cloudents.Infrastructure.Search.Document
 
 
             var retVal = new List<DocumentFeedDto>();
-            foreach (var resultResult in searchResult)
+            foreach (var resultResult in documentResult)
             {
                 if (dic.TryGetValue(resultResult.Id, out var p))
                 {
@@ -71,7 +71,12 @@ namespace Cloudents.Infrastructure.Search.Document
                     }
                 }
             }
-            return retVal;
+
+            return new DocumentFeedWithFacetDto()
+            {
+                Result = retVal,
+                Facet = searchResult.facetSubject
+            };
         }
 
     }

@@ -12,25 +12,25 @@ namespace Cloudents.Core.Entities
         {
             Transactions = Transactions ?? new List<Transaction>();
         }
-        internal IList<Transaction> Transactions { get; private set; }
-
-        public IReadOnlyList<Transaction> TransactionsReadOnly => Transactions.ToList();
-
+        internal ICollection<Transaction> Transactions { get; private set; }
+        public IReadOnlyCollection<Transaction> TransactionsReadOnly => Transactions.ToList(); 
         public decimal Balance { get; private set; }
 
         public int Score { get; private set; }
 
-        public void Add(Transaction t)
+        public void Add(Transaction t, RegularUser user)
         {
+            t.User = user;
             Transactions.Add(t);
-            Balance += t.TransactionType.Price;
+            Balance += t.Price;
             if (Balance < 0)
+           
             {
                 throw new InsufficientFundException();
             }
-            if (t.TransactionType.Price > 0)
+ if (t.Price > 0)
             {
-                Score += (int)t.TransactionType.Price;
+                Score += (int)t.Price;
             }
         }
 

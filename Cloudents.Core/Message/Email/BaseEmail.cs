@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Message.System;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Message.Email
@@ -59,15 +58,4 @@ namespace Cloudents.Core.Message.Email
    //public interface IEmailMessage {
 
    //}
-
-    public class DocumentPurchasedMessage : ISystemQueueMessage
-    {
-        public DocumentPurchasedMessage(Guid transactionId)
-        {
-            TransactionId = transactionId;
-        }
-
-
-        public Guid TransactionId { get; private set; }
-    }
 }

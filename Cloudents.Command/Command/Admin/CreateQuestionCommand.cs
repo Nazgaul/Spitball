@@ -1,28 +1,27 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Command.Command.Admin
 {
     public class CreateQuestionCommand : ICommand
     {
-        public CreateQuestionCommand(QuestionSubject subjectId, string text, decimal price, [CanBeNull] IEnumerable<string> files, string country)
+        public CreateQuestionCommand(string courseName, string text, decimal price, [CanBeNull] IEnumerable<string> files, string country)
         {
-            SubjectId = subjectId;
+            CourseName = courseName;
             Text = text;
             Price = price;
             Files = files;
             Country = country;
         }
 
-        public QuestionSubject SubjectId { get; set; }
-        public string Text { get; set; }
+        public string CourseName { get;  }
+        public string Text { get; }
 
-        public decimal Price { get; set; }
+        public decimal Price { get;  }
 
         [CanBeNull]
-        public IEnumerable<string> Files { get; set; }
+        public IEnumerable<string> Files { get; }
 
-        public  string Country { get; set; }
+        public  string Country { get;  }
     }
 }

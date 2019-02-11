@@ -1,6 +1,6 @@
 <template>
-    <div class="question-item-wrap">
-        <v-card v-show="questions.length > 0" v-for="(question, index) in questions" :key="index">
+    <div class="item-wrap" >
+        <v-card v-for="(question, index) in questions" :key="index" v-if="isVisible(question.state)">
             <v-toolbar class="question-toolbar mt-4 back-color-purple">
                 <v-toolbar-title class="question-text-title" @click="openQuestion(question.url)">
                     {{question.text}}
@@ -58,19 +58,28 @@
 </template>
 
 <script>
-    import { deleteQuestion } from '../../question/questionComponents/delete/deleteQuestionService'
-
+    import { deleteQuestion } from '../../question/questionComponents/delete/deleteQuestionService';
+    import {mapActions} from 'vuex';
     export default {
 
         name: "questionIitem",
         props: {
-            questions: {},
-            updateData: {
-                type: Function,
+            questions: {
+                type: Array,
                 required: false
-            }
+            },
+            filterVal: {
+                type: String,
+                required: false
+            },
+
         },
+
         methods: {
+            ...mapActions(['deleteQuestionItem']),
+            isVisible(itemState) {
+                return itemState.toLowerCase() === this.filterVal.toLowerCase();
+            },
             deleteQuestionByID(question) {
                 let id = question.id;
                 let numberArr = [];
@@ -80,8 +89,7 @@
                     .then(resp => {
                             self.$toaster.success(`Questions were deleted: ${id}`);
                             let questionIndex = self.questions.indexOf(question);
-                            self.updateData(questionIndex)
-                            // return self.questions = self.questions.splice(questionIndex, 1);
+                            self.deleteQuestionItem(questionIndex)
                         },
                         (error) => {
                             self.$toaster.error('Something went wrong');
@@ -94,7 +102,7 @@
 </script>
 
 <style  lang="scss">
-    .question-item-wrap{
+    .item-wrap{
         .question-toolbar{
             max-width: 100%;
         }

@@ -39,7 +39,7 @@ namespace Cloudents.Query
                     },
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Name,
-                    TypeStr = s.Type,
+                    Type = s.Type,
                     Professor = s.Professor,
                     Title = s.Name,
                     Snippet = s.MetaContent,

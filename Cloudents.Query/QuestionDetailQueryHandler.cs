@@ -1,7 +1,8 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Data;
 using Cloudents.Query.Query;
 using Dapper;
 using System;
@@ -15,22 +16,55 @@ using System.Threading.Tasks;
 namespace Cloudents.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Injected")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
     public class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
     {
-        class QuestionDetailQueryFlatDto
+        private class QuestionFlatDto
         {
-            public long UserId { get; set; }
+            [DtoToEntityConnection(nameof(Question.User.Id))]
+            public long UserId { get; private set; }
+            [DtoToEntityConnection(nameof(Question.User.Name))]
             public string UserName { get; set; }
+            [DtoToEntityConnection(nameof(Question.User.Score))]
             public int UserScore { get; set; }
+            [DtoToEntityConnection(nameof(Question.Id))]
             public long Id { get; set; }
+            [DtoToEntityConnection(nameof(Question.Text))]
             public string Text { get; set; }
+            [DtoToEntityConnection(nameof(Question.Price))]
             public decimal Price { get; set; }
+            [DtoToEntityConnection(nameof(Question.Updated))]
             public DateTime Create { get; set; }
+            [DtoToEntityConnection(nameof(Question.CorrectAnswer.Id))]
             public Guid? CorrectAnswerId { get; set; }
-            public QuestionSubject Subject { get; set; }
-            public string Language { get; set; }
+            [DtoToEntityConnection(nameof(Question.Subject))]
+            public QuestionSubject? Subject { get; set; }
+            [DtoToEntityConnection(nameof(Question.Language))]
+            public CultureInfo Language { get; set; }
+            [DtoToEntityConnection(nameof(Question.VoteCount))]
             public int Votes { get; set; }
+            [DtoToEntityConnection(nameof(Question.Course))]
             public string Course { get; set; }
+        }
+
+        private class AnswerFlatDto
+        {
+            [DtoToEntityConnection(nameof(Answer.Id))]
+            public Guid Id { get; set; }
+            [DtoToEntityConnection(nameof(Answer.Text))]
+            public string Text { get; set; }
+            [DtoToEntityConnection(nameof(Answer.User.Id))]
+            public long UserId { get; set; }
+            [DtoToEntityConnection(nameof(Answer.User.Name))]
+            public string UserName { get; set; }
+            [DtoToEntityConnection(nameof(Answer.User.Score))]
+            public int UserScore { get; set; }
+            [DtoToEntityConnection(nameof(Answer.Created))]
+            public DateTime Created { get; set; }
+            [DtoToEntityConnection(nameof(Answer.VoteCount))]
+            public int VoteCount { get; set; }
+            [DtoToEntityConnection(nameof(Answer.Language))]
+            public CultureInfo Language { get; set; }
         }
 
         private readonly DapperRepository _dapper;
@@ -72,32 +106,40 @@ namespace Cloudents.Query
 
 
 
-                    var res = await grid.ReadFirstOrDefaultAsync<QuestionDetailQueryFlatDto>();
+                    var res = await grid.ReadSingleOrDefaultAsync<QuestionFlatDto>();
                     if (res == null)
                     {
                         return null;
                     }
-                    var questionDetailDto = new QuestionDetailDto(
-                        new UserDto(res.UserId, res.UserName, res.UserScore),
-                        res.Id, res.Text, res.Price, res.Create, res.CorrectAnswerId, res.Subject,
-                        new CultureInfo(res.Language), res.Votes, res.Course
-                    );
 
-                    var answers = await grid.ReadAsync<QuestionDetailAnswerFlatDto>();
+                    var questionDetailDto = new QuestionDetailDto
+                    {
+                        User = new UserDto { Id = res.UserId, Name = res.UserName, Score = res.UserScore },
+                        Course = res.Course,
+                        Vote = new VoteDto { Votes = res.Votes },
+                        Price = res.Price,
+                        Id = res.Id,
+                        Subject = res.Subject,
+                        CorrectAnswerId = res.CorrectAnswerId,
+                        Create = res.Create,
+                        Text = res.Text,
+                        IsRtl = res.Language?.TextInfo.IsRightToLeft ?? false
+                    };
 
-                    questionDetailDto.Answers.AddRange(
-                        answers.OrderByDescending(x => x.Id == questionDetailDto.CorrectAnswerId)
-                        .ThenByDescending(x => x.VoteCount).ThenBy(x => x.Created).Select(a => new QuestionDetailAnswerDto(a.Id, a.Text,
-                            a.UserId, a.UserName, a.UserScore, a.Created,
-                            a.VoteCount, new CultureInfo(a.Language))));
+                    var answers = await grid.ReadAsync<AnswerFlatDto>();
 
-                    //foreach (var a in answers)
-                    //{
-                    //    questionDetailDto.Answers.Add(new QuestionDetailAnswerDto(a.Id, a.Text,
-                    //        a.UserId, a.UserName, a.UserScore, a.Created,
-                    //        a.VoteCount, new CultureInfo(a.Language)));
-                    //}
-
+                    questionDetailDto.Answers = answers
+                        .OrderByDescending(x => x.Id == questionDetailDto.CorrectAnswerId)
+                        .ThenByDescending(x => x.VoteCount).ThenBy(x => x.Created).Select(a =>
+                            new QuestionDetailAnswerDto
+                            {
+                                User = new UserDto { Id = a.UserId, Name = a.UserName, Score = a.UserScore },
+                                Id = a.Id,
+                                Vote = new VoteDto { Votes = a.VoteCount },
+                                Text = a.Text,
+                                Create = a.Created,
+                                IsRtl = a.Language?.TextInfo.IsRightToLeft ?? false
+                            });
 
 
                     return questionDetailDto;
@@ -106,62 +148,52 @@ namespace Cloudents.Query
 
             return questionDetailResult;
 
-       
-    }
 
-    public async Task<QuestionDetailDto> GetAsync(QuestionDataByIdQuery query, CancellationToken token)
-    {
-        var dtoTask = GetFromDbAsync(query.Id, token);
-
-        //TODO: this is left join query need to fix that
-
-        var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
-        await Task.WhenAll(dtoTask, filesTask);
-        var files = filesTask.Result.Select(s => _blobProvider2.GeneratePreviewLink(s, 20));
-        var dto = dtoTask.Result;
-
-        if (dto == null)
-        {
-            return null;
         }
-        //TODO should not be here
-        var aggregateFiles = AggregateFiles(files);
-        dto.Files = aggregateFiles[null];
-        dto.Answers = dto.Answers.Select(s =>
-        {
-            s.Files = aggregateFiles[s.Id];
-            return s;
-        }).ToList();
 
-        return dto;
-    }
-
-    private static ILookup<Guid?, Uri> AggregateFiles(IEnumerable<Uri> files)
-    {
-        var aggregateFiles = files.ToLookup<Uri, Guid?>(v =>
+        public async Task<QuestionDetailDto> GetAsync(QuestionDataByIdQuery query, CancellationToken token)
         {
-            if (v.Segments.Length == 5)
+            var dtoTask = GetFromDbAsync(query.Id, token);
+
+            //TODO: this is left join query need to fix that
+
+            var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
+            await Task.WhenAll(dtoTask, filesTask);
+            var files = filesTask.Result.Select(s => _blobProvider2.GeneratePreviewLink(s, 20));
+            var dto = dtoTask.Result;
+
+            if (dto == null)
             {
                 return null;
             }
+            //TODO should not be here
+            var aggregateFiles = AggregateFiles(files);
+            dto.Files = aggregateFiles[null];
+            dto.Answers = dto.Answers.Select(s =>
+            {
+                s.Files = aggregateFiles[s.Id];
+                return s;
+            }).ToList();
 
-            return Guid.Parse(v.Segments[5].Replace("/", string.Empty));
-        });
-        return aggregateFiles;
+            return dto;
+        }
+
+        private static ILookup<Guid?, Uri> AggregateFiles(IEnumerable<Uri> files)
+        {
+            var aggregateFiles = files.ToLookup<Uri, Guid?>(v =>
+            {
+                if (v.Segments.Length == 5)
+                {
+                    return null;
+                }
+
+                return Guid.Parse(v.Segments[5].Replace("/", string.Empty));
+            });
+            return aggregateFiles;
+        }
     }
-}
 
 
-public class QuestionDetailAnswerFlatDto
-{
-    public Guid Id { get; set; }
-    public string Text { get; set; }
-    public long UserId { get; set; }
-    public string UserName { get; set; }
-    public int UserScore { get; set; }
-    public DateTime Created { get; set; }
-    public int VoteCount { get; set; }
-    public string Language { get; set; }
-}
+
 
 }

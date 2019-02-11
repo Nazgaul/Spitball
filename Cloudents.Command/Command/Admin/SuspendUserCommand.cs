@@ -4,19 +4,17 @@ namespace Cloudents.Command.Command.Admin
 {
     public class SuspendUserCommand : ICommand
     {
-        public SuspendUserCommand(long id, bool shouldDeleteData, DateTimeOffset lockoutEnd)
+        public SuspendUserCommand(long id, DateTimeOffset lockoutEnd, string reason)
         {
             Id = id;
-            ShouldDeleteData = shouldDeleteData;
             LockoutEnd = lockoutEnd;
+            Reason = reason;
         }
         //public string Email{ get; set; }
 
         public long  Id { get; }
-
-
-        public bool ShouldDeleteData { get; private set; }
         public DateTimeOffset LockoutEnd { get; set; }
+        public string Reason { get; set; }
 
     }
 }

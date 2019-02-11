@@ -274,5 +274,10 @@ export default {
             analyticsService.sb_unitedEvent('Registration', 'Email Verified');
 
         }
+        self.$loadScript("https://unpkg.com/zxcvbn@4.4.2/dist/zxcvbn.js").then(
+            (data) => {
+                //global.zxcvbn = data;
+            }
+        );
     },
 }

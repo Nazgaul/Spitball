@@ -5,7 +5,6 @@ using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
-using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
 using Module = Autofac.Module;
 
@@ -30,6 +29,7 @@ namespace Cloudents.Infrastructure
                 .InterceptedBy(typeof(LogInterceptor));
 
 
+            builder.RegisterType<PayPalClient>().As<IPayPal>().SingleInstance();
             builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
 
             builder.RegisterAssemblyTypes(assembly)

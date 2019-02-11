@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps

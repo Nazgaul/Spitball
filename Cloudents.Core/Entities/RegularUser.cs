@@ -51,6 +51,8 @@ namespace Cloudents.Core.Entities
 
         public virtual bool LockoutEnabled { get; set; }
 
+        public virtual string LockoutReason { get; set; }
+
         private readonly IList<Answer> _answers = new List<Answer>();
 
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
@@ -59,124 +61,78 @@ namespace Cloudents.Core.Entities
         public virtual ISet<Course> Courses { get; protected set; }
         public virtual ISet<Tag> Tags { get; protected set; }
 
-        //public virtual int Score { get; set; }
-
-        //public virtual decimal Balance { get; set; }
-
-        //[SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
-        // public virtual IList<Transaction> Transactions { get; protected set; }
 
         public virtual UserTransactions Transactions { get; protected set; }
 
 
-        //private readonly IList<Transaction> _transactions = new List<Transaction>();
-        //public virtual IReadOnlyList<Transaction> Transactions => _transactions.ToList();
 
-        public virtual void SuspendUser(DateTimeOffset lockTime)
+        public virtual void SuspendUser(DateTimeOffset lockTime, string reason)
         {
             LockoutEnd = lockTime;
+            LockoutReason = reason;
             AddEvent(new UserSuspendEvent(this));
         }
 
         public virtual void UnSuspendUser()
         {
-            LockoutEnd = null;
+            LockoutEnd = DateTime.UtcNow.Add(new TimeSpan(0,0,-1));
             AddEvent(new UserUnSuspendEvent(this));
         }
 
         public virtual void UpdateUserBalance(decimal balance, int score)
         {
             Transactions.UpdateBalance(balance, score);
-            //AddEvent(new UpdateBalanceEvent(this));
         }
-
-
-
-
 
         public override string ToString()
         {
             return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
         }
 
-
-
-        public override void MakeTransaction(TransactionType2 transaction, Question question = null,
-            Document document = null, Answer answer = null)
+        public override void MakeTransaction(Transaction transaction)
         {
-            MakeTransaction(transaction, question, document, null, answer);
+            Transactions.Add(transaction, this);
+            AddEvent(new TransactionEvent(transaction, this));
 
         }
 
-        protected virtual void MakeTransaction(TransactionType2 transaction, Question question,
-            Document document, RegularUser user, Answer answer = null)
-        {
-            var t = new Transaction(transaction, this)
-            {
-                Question = question,
-                Document = document,
-                InvitedUser = user,
-                Answer = answer
-            };
-            Transactions.Add(t);
-            AddEvent(new TransactionEvent(t, this));
-        }
 
         public virtual void AwardMoney(decimal price)
         {
-            MakeTransaction(TransactionType2.AwardToken(price));
+            var t = new AwardMoneyTransaction(price);
+            MakeTransaction(t);
+            
+        }
+
+        public virtual void AwardMoney(AwardsTransaction award)
+        {
+            var t = new AwardMoneyTransaction(award);
+            MakeTransaction(t);
         }
 
         public virtual void CashOutMoney(decimal price)
         {
-            MakeTransaction(TransactionType2.CashOut(price));
-            //AddEvent(new RedeemEvent(Id, price));
+            var t = new CashOutTransaction(price);
+            MakeTransaction(t);
         }
 
         public virtual void ReferUser(RegularUser user)
         {
-            MakeTransaction(TransactionType2.ReferUser, null, null, user);
+            MakeTransaction(new ReferUserTransaction(user));
         }
 
+        public virtual void FinishRegistration()
+        {
+            MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
+        }
 
-
-        //public virtual void Stake(Question question)
-        //{
-        //    var price = -question.Price;
-        //    if (price >= 0)
-        //    {
-        //        throw new ArgumentException();
-        //    }
-
-        //    var t = new Transaction(TransactionType2.StakeMoney(price), this)
-        //    {
-        //        Question = question
-        //    };
-        //    Transactions.Add(t);
-        //    AddEvent(new TransactionEvent(t));
-        //}
-
-        //public virtual void UnStake(Question question)
-        //{
-        //    var price = question.Price;
-        //    if (price <= 0)
-        //    {
-        //        throw new ArgumentException();
-        //    }
-
-        //    var reason = TransactionActionType.DeleteQuestion;
-        //    if (question.CorrectAnswer != null)
-        //    {
-        //        reason = TransactionActionType.AnswerCorrect;
-        //    }
-        //    var t = new Transaction(TransactionType2.UnStakeMoney(price, reason), this)
-        //    {
-        //        Question = question
-        //    };
-        //    Transactions.Add(t);
-        //    AddEvent(new TransactionEvent(t));
-        //}
-
+        public virtual void ConfirmePhoneNumber()
+        {
+            if (PhoneNumberConfirmed == false)
+            {
+                PhoneNumberConfirmed = true;
+            }
+        }
 
         public override int Score { get; protected set; }  //=> Transactions.Score;
         public override decimal Balance => Transactions.Balance;

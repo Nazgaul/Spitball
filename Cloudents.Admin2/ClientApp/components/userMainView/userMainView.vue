@@ -1,11 +1,11 @@
 <template>
     <v-layout justify-center class="user-page-wrap" data-app>
-        <v-flex xs12 sm12 md12 style="background: #ffffff; padding: 24px 24px;">
+        <v-flex xs12 sm12 md12 class="px-2 py-3" style="background: #ffffff;">
             <h1>Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">
                 <v-flex xs3>
                     <v-text-field autocomplete solo v-model="userIdentifier"
-                                  @keyup.enter.native="getUserInfo()"
+                                  @keyup.enter.native="getUserInfoData()"
                                   autofocus
                                   clearable
                                   loading="primary"
@@ -13,80 +13,78 @@
                                   placeholder="Insert user identifier..."/>
                 </v-flex>
                 <v-flex xs1>
-                    <v-btn :disabled="!userIdentifier" primary @click="getUserInfo()">Get User</v-btn>
+                    <v-btn :disabled="!userIdentifier" primary @click="getUserInfoData()">Get User</v-btn>
                 </v-flex>
                 <v-spacer></v-spacer>
-                <v-flex xs4 v-if="userData.userInfo">
-                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!userData" color="rgb(0, 188, 212)"
+                <v-flex xs4 v-if="userInfo">
+                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!userInfo" color="rgb(0, 188, 212)"
                            class="suspend"
                            @click="suspendUser()">
                         Suspend
                     </v-btn>
-                    <v-btn v-else :disabled="!userData" class="suspend" @click="releaseUser()">UnSuspend</v-btn>
+                    <v-btn v-else :disabled="!userInfo" class="suspend" @click="releaseUser()">UnSuspend</v-btn>
 
-                    <v-btn :disabled="!userData" class="grant" @click="openTokensDialog()">Grant Tokens
+                    <v-btn :disabled="!userInfo" class="grant" @click="openTokensDialog()">Grant Tokens
                     </v-btn>
-
-                    <!--<div v-show="activeUserComponent && userComponentsShow">-->
-                    <!--<component :is="activeUserComponent ?  activeUserComponent : ''" :userId="userId"></component>-->
-                    <!--</div>-->
                 </v-flex>
             </div>
-            <div class="general-info d-flex elevation-2 mb-2" column v-if="userData && userData.userInfo">
-                <div class="info-item" v-for="(infoItem, index) in userData.userInfo" :key="index">
-                    <v-flex>
-                        <div class="user-info-label">
-                            <span>{{infoItem.label}}</span>
-                        </div>
-                        <div class="user-info-value">
-                            <span>{{infoItem.value}}</span>
-                        </div>
-                    </v-flex>
-                </div>
-
-            </div>
             <div class="questions-answers-wrap">
-
                 <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
                            :color="searchQuery === filter.value ? '#00bcd4' : ''  "
                            :key="'filter_'+index">{{filter.name}}
                     </v-btn>
                 </div>
-                <div class="tabs-holder">
-                    <v-tabs
-                            centered
-                            color="cyan"
-                            dark
-                            @change="setActiveTab()"
-                            v-model="activeTab"
-                            icons-and-text
-                    >
-                        <v-tabs-slider color="yellow"></v-tabs-slider>
-
-                        <v-tab href="#userQuestions">User Question</v-tab>
-
-                        <v-tab href="#userAnswers">User Answers</v-tab>
-
-                        <v-tab href="#userDocuments">User Documents</v-tab>
-
-                        <v-tab-item :key="'1'" :value="'userQuestions'">
-                            <v-flex xs12>
-                                <question-item :updateData="updateData" :questions="filteredData"></question-item>
+                <v-layout row>
+                    <div class="general-info d-flex elevation-2 mb-2" v-if="userInfo">
+                        <div class="info-item py-2 px-2" v-for="(infoItem, index) in userInfo" :key="index">
+                            <v-flex row class="d-flex align-baseline justify-center">
+                                <div class="user-info-label">
+                                    <span>{{infoItem.label}}</span>
+                                </div>
+                                <div class="user-info-value">
+                                    <span>{{infoItem.value}}</span>
+                                </div>
+                                <div class="user-info-button" v-if="infoItem.showButton">
+                                    <button @click="userInfoAction(index)">{{infoItem.buttonText}}</button>
+                                </div>
                             </v-flex>
-                        </v-tab-item>
-                        <v-tab-item :key="'2'" :value="'userAnswers'">
-                            <v-flex xs12>
-                                <answer-item :updateData="updateData" :answers="filteredData"></answer-item>
-                            </v-flex>
-                        </v-tab-item>
-                        <v-tab-item :key="'3'" :value="'userDocuments'">
-                            <v-flex xs12>
-                                <document-item :updateData="updateData" :documents="filteredData" :filterVal="searchQuery"></document-item>
-                            </v-flex>
-                        </v-tab-item>
-                    </v-tabs>
-                </div>
+                        </div>
+                    </div>
+                    <div class="tabs-holder">
+                        <v-tabs
+                                centered
+                                color="cyan"
+                                dark
+                                v-model="activeTab"
+                                icons-and-text
+                        >
+                            <v-tab :href="`#tab-0`">User Question</v-tab>
+                            <v-tab :href="`#tab-1`">User Answers</v-tab>
+                            <v-tab :href="`#tab-2`">User Documents</v-tab>
+                        </v-tabs>
+                        <v-tabs-items v-model="activeTab">
+                            <v-tab-item :value="`tab-0`">
+                                <v-flex xs12>
+                                    <question-item
+                                             :filterVal="searchQuery" :questions="UserQuestions"
+                                    ></question-item>
+                                </v-flex>
+                            </v-tab-item>
+                            <v-tab-item :value="`tab-1`">
+                                <v-flex xs12>
+                                    <answer-item  :filterVal="searchQuery" :answers="UserAnswers"></answer-item>
+                                </v-flex>
+                            </v-tab-item>
+                            <v-tab-item :value="`tab-2`">
+                                <v-flex xs12>
+                                    <document-item  :documents="UserDocuments"
+                                                   :filterVal="searchQuery"></document-item>
+                                </v-flex>
+                            </v-tab-item>
+                        </v-tabs-items>
+                    </div>
+                </v-layout>
             </div>
         </v-flex>
         <v-dialog v-model="getTokensDialogState" persistent max-width="600px" v-if="getTokensDialogState">
@@ -110,6 +108,16 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-progress-circular
+                style="position: absolute; top: 300px; left: auto; right: auto;"
+                :size="150"
+                class="loading-spinner"
+                color="#00bcd4"
+                v-show="loading"
+                indeterminate
+        >
+            <span>Loading...</span>
+        </v-progress-circular>
     </v-layout>
 </template>
 
@@ -138,14 +146,35 @@
         data() {
             return {
                 userIdentifier: '',
+                userId: null,
                 suspendedUser: false,
-                gettingUser: false,
                 filters: [
                     {name: 'Accepted', value: 'ok'},
                     {name: 'Pending', value: 'pending'},
                     {name: 'Deleted', value: 'deleted'},
                     {name: 'Flagged', value: 'flagged'}
                 ],
+                scrollFunc: {
+                    questions: {
+                        page: 0,
+                        getData: this.getUserQuestionsData,
+                        scrollLock: false,
+                        wasCalled: false
+                    },
+                    answers: {
+                        page: 0,
+                        getData: this.getUserAnswersData,
+                        scrollLock: false,
+                        wasCalled: false
+                    },
+                    documents: {
+                        page: 0,
+                        getData: this.getUserDocumentsData,
+                        scrollLock: false,
+                        wasCalled: false
+                    },
+                },
+                loading: false,
                 userActions: [
                     {
                         title: "Suspend",
@@ -165,30 +194,37 @@
                         action: this.sendTokens,
                     },
                 ],
-                activeTab: '',
+                activeTab: 'tab-0',
                 searchQuery: 'ok',
                 userComponentsShow: false,
                 activeUserComponent: '',
-                deleteUserQuestions: false
+                deleteUserQuestions: false,
+                activeTabEnum: {
+                    'tab-0': 'questions',
+                    'tab-1': 'answers',
+                    'tab-2': 'documents',
+
+
+                }
             }
+
         },
         computed: {
-            ...mapGetters(["getTokensDialogState", "getUserObj"]),
-            userData() {
-                return this.getUserObj
-            },
-            filteredData: function () {
-                let self = this;
-                if (self.userData && self.userData[`${this.activeTab}`]) {
-                    return self.userData[`${this.activeTab}`].filter(function (item) {
-                        return item.state.indexOf(self.searchQuery) !== -1
-                    })
-                }
+            ...mapGetters([
+                "getTokensDialogState",
+                "getUserObj",
+                "UserInfo",
+                "UserQuestions",
+                "UserAnswers",
+                "UserDocuments"
+            ]),
+            userInfo() {
+                return this.UserInfo
             },
             userStatusActive: {
                 get() {
-                    if (this.userData && this.userData.userInfo) {
-                        return this.userData.userInfo.status.value
+                    if (this.userInfo && this.userInfo.status) {
+                        return this.userInfo.status.value
                     }
                 },
                 set(val) {
@@ -196,15 +232,44 @@
                 }
 
             },
-
-            userId() {
-                if (this.userData && this.userData.userInfo) {
-                    return this.userData.userInfo.id.value
-                }
+        },
+        watch: {
+            activeTab() {
+                this.getDataByTabName();
             }
         },
         methods: {
-            ...mapActions(["setTokensDialogState", "getUserData", "setUserCurrentStatus"]),
+            ...mapActions([
+                "setTokensDialogState",
+                "getUserData",
+                "setUserCurrentStatus",
+                "getUserQuestions",
+                "getUserAnswers",
+                "getUserDocuments",
+                "verifyUserPhone"
+            ]),
+            userInfoAction(actionItem){
+                if(actionItem === "phoneNumber"){
+                    let userObj = {
+                        id: this.userInfo.id.value
+                    }
+                    this.verifyUserPhone(userObj).then(()=>{
+                        this.openTokensDialog();
+                    })
+                }
+            },
+            nextPage() {
+                this.scrollFunc[this.activeTabEnum[this.activeTab]].page++
+            },
+            handleScroll(event) {
+                let offset = 2000;
+                if (event.target.scrollHeight - offset < event.target.scrollTop) {
+                    if (!this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock) {
+                        this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock = true;
+                        this.scrollFunc[this.activeTabEnum[this.activeTab]].getData(this.userId, this.scrollFunc[this.activeTabEnum[this.activeTab]].page )
+                    }
+                }
+            },
             setUserComponent(val) {
                 this.userComponentsShow = true;
                 return this.activeUserComponent = val
@@ -215,24 +280,80 @@
             closeTokensDialog() {
                 this.setTokensDialogState(false);
             },
-            updateData(index) {
-                this.userData[`${this.activeTab}`].splice(index, 1);
-            },
-            setActiveTab() {
-                console.log(this.activeTab)
+            setActiveTab(activeTabName) {
+                return this.activeTab = activeTabName;
             },
             updateFilter(val) {
                 return this.searchQuery = val
             },
-            getUserInfo() {
-                this.gettingUser = true;
+            getDataByTabName() {
+                if (!this.userId) return;
+                if(this.scrollFunc[this.activeTabEnum[this.activeTab]].wasCalled)return;
+                if (this.activeTab === "tab-0" ) {
+                    let page = this.scrollFunc.questions.page;
+                    this.getUserQuestionsData(this.userId, page)
+                } else if (this.activeTab === "tab-1") {
+                    let page = this.scrollFunc.answers.page;
+                    this.getUserAnswersData(this.userId, page)
+                } else if (this.activeTab === "tab-2") {
+                    let page = this.scrollFunc.documents.page;
+                    this.getUserDocumentsData(this.userId, page)
+                }
+            },
+            getUserInfoData() {
                 let id = this.userIdentifier;
-                this.getUserData(id).then((success) => {
-                        this.gettingUser = false;
-                    },
-                    (error) => {
-                        console.log(error)
+                let self = this;
+                self.getUserData(id)
+                    .then((data) => {
+                        this.userId = data.id.value;
+                        this.getDataByTabName()
+
                     })
+            },
+            getUserQuestionsData(id, page) {
+                let self = this;
+                self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
+                self.loading = true;
+
+                self.getUserQuestions({id, page}).then((isComplete) => {
+                        self.nextPage();
+                        if(!isComplete){
+                            self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+                        }else{
+                            self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+                        }
+                         self.loading = false;
+
+                });
+            },
+            getUserAnswersData(id, page) {
+                let self = this;
+                self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
+                self.loading = true;
+                self.getUserAnswers({id, page}).then((isComplete) => {
+                    self.nextPage();
+                    if(!isComplete){
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+                    }else{
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+                    }
+                    self.loading = false;
+
+                });
+            },
+            getUserDocumentsData(id, page) {
+                let self = this;
+                self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
+                self.loading = true;
+                self.getUserDocuments({id, page}).then((isComplete) => {
+                    self.nextPage();
+                    if(!isComplete){
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+                    }else{
+                        self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+                    }
+                    self.loading = false;
+                });
             },
             suspendUser() {
                 let idArr = [];
@@ -271,10 +392,21 @@
 
                 })
             },
-
+            attachToScroll(){
+                let containerElm = document.querySelector('.item-wrap');
+                containerElm.addEventListener('scroll', this.handleScroll)
+            }
         },
         created() {
-
+            console.log('hello created');
+            this.$nextTick(function () {
+                this.attachToScroll();
+            })
+        },
+        beforeDestroy() {
+            let containerElm = document.querySelector('.item-wrap');
+            if (!containerElm) return;
+            containerElm.removeEventListener('scroll', this.handleScroll);
         }
     }
 
@@ -282,22 +414,48 @@
 
 <style scoped lang="scss">
     .user-page-wrap {
+        .item-wrap{
+            overflow-y: scroll;
+            height: 100%;
+            max-height: calc(100vh - 275px);
+        }
+
+        .tabs-holder {
+            order: 2;
+            flex-grow: 1;
+        }
         .general-info {
-            padding: 8px 16px;
+            order: 1;
+            flex-direction: column;
+            padding: 8px 0;
+            margin-right: 8px;
+            /*max-height: 570px;*/
+            /*height: 570px;*/
+            .info-item:nth-child(even) {
+                background-color: #f5f5f5;
+            }
             .user-info-label, .user-info-value {
                 text-align: left;
             }
             .user-info-label {
-                min-width: 15%;
+                min-width: 125px;
                 font-size: 16px;
                 font-weight: 500;
-                border-bottom: 1px solid grey;
                 padding-bottom: 8px;
             }
             .user-info-value {
                 padding-top: 8px;
                 font-size: 16px;
                 font-weight: 400;
+                text-align: right;
+                margin-right: 10px;
+            }
+            .user-info-button {
+                padding-top: 8px;
+                font-size: 16px;
+                font-weight: 400;
+                text-align: right;
+                color: #00bcd4;
             }
         }
     }

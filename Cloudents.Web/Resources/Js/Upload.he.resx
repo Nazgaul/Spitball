@@ -117,195 +117,107 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_open" xml:space="preserve">
-    <value>העלה מסמכים</value>
+  <data name="CreateOk" xml:space="preserve">
+    <value>המסמך שלך עלה! תוכל לצפות בו בקרוב</value>
   </data>
-  <data name="class_input_placeholder" xml:space="preserve">
-    <value>בחר את שם הקורס</value>
-  </data>
-  <data name="confirm_btn_cancel" xml:space="preserve">
-    <value>חזור</value>
-  </data>
-  <data name="confirm_btn_close" xml:space="preserve">
-    <value>עצור העלאת מסמך</value>
-  </data>
-  <data name="confirm_stop_title" xml:space="preserve">
-    <value>עצור העלאת מסמך?</value>
-  </data>
-  <data name="confirm_text" xml:space="preserve">
-    <value>סגירת החלון תעצור את העלאת המסמך</value>
-  </data>
-  <data name="error_extensions_support" xml:space="preserve">
-    <value>קבצים נתמכים:</value>
-  </data>
-  <data name="error_extension_title" xml:space="preserve">
-    <value>אופס! קובץ זה אינו נתמך</value>
-  </data>
-  <data name="error_upload_something_wrong" xml:space="preserve">
-    <value>קרתה תקלה</value>
-  </data>
-  <data name="files_btn_anotherUpload" xml:space="preserve">
-    <value>העלה מסמך נוסף</value>
-  </data>
-  <data name="files_btn_anotherUpload_mobile" xml:space="preserve">
-    <value>העלה עוד</value>
-  </data>
-  <data name="files_btn_answer" xml:space="preserve">
-    <value>ענה על שאלה</value>
-  </data>
-  <data name="files_btn_askQuestion" xml:space="preserve">
-    <value>שאל שאלה</value>
-  </data>
-  <data name="files_btn_back" xml:space="preserve">
-    <value>חזור</value>
-  </data>
-  <data name="files_btn_close" xml:space="preserve">
-    <value>סגור</value>
-  </data>
-  <data name="files_btn_desktop" xml:space="preserve">
-    <value>המחשב שלך</value>
-  </data>
-  <data name="files_btn_drop" xml:space="preserve">
-    <value>או פשוט גרור את הקובץ שלך לכאן</value>
-  </data>
-  <data name="files_btn_dropBox" xml:space="preserve">
-    <value>Dropbox</value>
-  </data>
-  <data name="files_btn_next" xml:space="preserve">
-    <value>הבא</value>
-  </data>
-  <data name="files_btn_phone" xml:space="preserve">
-    <value>הטלפון שלך</value>
-  </data>
-  <data name="files_btn_sell" xml:space="preserve">
-    <value>העלה את המסמך שלי</value>
-  </data>
-  <data name="files_class" xml:space="preserve">
-    <value>קורס</value>
-    <comment>קורס</comment>
-  </data>
-  <data name="files_component_share_study" xml:space="preserve">
-    <value>שתף סיכומים</value>
-    <comment>שתף סיכומים</comment>
-  </data>
-  <data name="files_dopHere" xml:space="preserve">
-    <value>גרור את הקובץ שלך לכאן</value>
-  </data>
-  <data name="files_edit" xml:space="preserve">
-    <value>ערוך</value>
-    <comment>ערוך</comment>
+  <data name="CreatePending" xml:space="preserve">
+    <value>המסמך שלך זקוק לאישור, בבקשה אל תעלה שוב מסמך זה</value>
   </data>
   <data name="files_file_upload" xml:space="preserve">
     <value>העלה קובץ</value>
-    <comment>קבל כסף ממסמכי הלימודים שלך</comment>
   </data>
-  <data name="files_final_prof_label" xml:space="preserve">
-    <value>מרצה</value>
+  <data name="multiple_btn_upload" xml:space="preserve">
+    <value>העלה</value>
   </data>
-  <data name="files_final_title" xml:space="preserve">
-    <value>כותרת</value>
+  <data name="multiple_confirm_btn_cancel" xml:space="preserve">
+    <value>המשך</value>
   </data>
-  <data name="files_header_subtitle" xml:space="preserve">
-    <value>קבל כסף ממסמכי הלימודים שלך</value>
-    <comment>היכון, הכן, צא!</comment>
+  <data name="multiple_confirm_btn_close" xml:space="preserve">
+    <value>בטל העלאה</value>
   </data>
-  <data name="files_header_title" xml:space="preserve">
-    <value>היכון, הכן, צא!</value>
+  <data name="multiple_confirm_stop_title" xml:space="preserve">
+    <value>לעצור העלאת מסמך?</value>
   </data>
-  <data name="files_label_class" xml:space="preserve">
-    <value>נא לבחור קורס רלוונטי</value>
+  <data name="multiple_confirm_text" xml:space="preserve">
+    <value>סגירת חלון זה תבטל תהליך העלאת המסמך</value>
   </data>
-  <data name="files_label_document_title" xml:space="preserve">
-    <value>כותרת מסמך</value>
+  <data name="multiple_error_extensions_support" xml:space="preserve">
+    <value>קבצים נתמכים:</value>
   </data>
-  <data name="files_label_legal" xml:space="preserve">
-    <value>משתמשים מתבקשים לא להעלות מסמכים עם זכויות יוצרים שאינם שלהם. ספיטבול שומרת לעצמה את הזכות להסיר מסמכים שאינם תורמים לקהילת הסטודנטים בספיטבול</value>
+  <data name="multiple_error_extension_title" xml:space="preserve">
+    <value>אופס! סוג קובץ לא נתמך</value>
   </data>
-  <data name="files_label_proff_name" xml:space="preserve">
-    <value>שם המרצה</value>
+  <data name="multiple_error_upload_single_file" xml:space="preserve">
+    <value>קובץ זה לא יעלה לאתר</value>
   </data>
-  <data name="files_label_school" xml:space="preserve">
-    <value>מוסד לימודים</value>
+  <data name="multiple_error_upload_something_wrong" xml:space="preserve">
+    <value>קרתה תקלה, אנא נסה שנית</value>
   </data>
-  <data name="files_label_tags" xml:space="preserve">
-    <value>תגיות</value>
+  <data name="multiple_files_btn_desktop" xml:space="preserve">
+    <value>מחשב</value>
   </data>
-  <data name="files_options_text" xml:space="preserve">
-    <value>או העלה קובץ מ</value>
+  <data name="multiple_files_btn_dropBox" xml:space="preserve">
+    <value>Dropbox</value>
   </data>
-  <data name="files_placeholder_proff_name" xml:space="preserve">
-    <value>הכנס את שם המרצה</value>
+  <data name="multiple_files_btn_phone" xml:space="preserve">
+    <value>הטלפון שלך</value>
   </data>
-  <data name="files_placeholder_tags" xml:space="preserve">
-    <value>הכנס תגיות</value>
+  <data name="multiple_files_dopHere" xml:space="preserve">
+    <value>גרור ושחרר את הקבצים כאן</value>
   </data>
-  <data name="files_price_equals" xml:space="preserve">
-    <value>שווה ערך ל-</value>
+  <data name="multiple_files_header_title" xml:space="preserve">
+    <value>העלאת קבצים</value>
   </data>
-  <data name="files_price_label" xml:space="preserve">
-    <value>מחיר</value>
+  <data name="multiple_files_referral_title" xml:space="preserve">
+    <value>תודה שהעלאת מסמכים שלך!</value>
   </data>
-  <data name="files_price_subtitle" xml:space="preserve">
-    <value>בספיטבול אתה יכול לקנות ולמכור ב-</value>
-  </data>
-  <data name="files_price_title" xml:space="preserve">
-    <value>קבע מחיר</value>
-  </data>
-  <data name="files_price_your_balance" xml:space="preserve">
-    <value>היתרה שלך</value>
-  </data>
-  <data name="files_price_zero_means_free" xml:space="preserve">
-    <value>מחיר 00.00 אומר שהמסמך יהיה חינם</value>
-  </data>
-  <data name="files_proccesing" xml:space="preserve">
-    <value>אנו מעבדים את המסמך ובקרוב הוא יעלה לאתר.</value>
-  </data>
-  <data name="files_step2_title" xml:space="preserve">
-    <value>נהדר! הכן את המסמך שלך להעלאה</value>
-  </data>
-  <data name="files_step3_title" xml:space="preserve">
-    <value>בחר סוג מסמך, על מנת שיהיה יותר קל למצוא אותו</value>
-  </data>
-  <data name="files_step4_title" xml:space="preserve">
-    <value>צור כותרת או השתמש בכותרת שיצרנו עבורך</value>
-  </data>
-  <data name="files_step5_subtitle" xml:space="preserve">
-    <value>הוספת תגיות יעזור לך להגדיל את הסיכויים למכור את המסמך </value>
-  </data>
-  <data name="files_step5_title" xml:space="preserve">
-    <value>הוסף כל תגית שלדעתך רלוונטית עבור מסמך זה</value>
-  </data>
-  <data name="files_step6_subtitle" xml:space="preserve">
-    <value>אנא בדוק שכל הפרטים נכונים</value>
-  </data>
-  <data name="files_step6_title" xml:space="preserve">
-    <value>מעולה! סיימת ממש מהר!</value>
-  </data>
-  <data name="files_step7_subtitle" xml:space="preserve">
-    <value>עזור לאחרים בזמן שאתה מחכה</value>
-  </data>
-  <data name="files_step7_title" xml:space="preserve">
-    <value>הפץ את המסמך בערוצים נוספים</value>
-  </data>
-  <data name="files_type_default" xml:space="preserve">
+  <data name="multiple_files_type_default" xml:space="preserve">
     <value>מסמך</value>
   </data>
-  <data name="files_type_exam" xml:space="preserve">
-    <value>מבחנים ופתרונות</value>
+  <data name="multiple_files_type_exam" xml:space="preserve">
+    <value>פתרון מבחן</value>
   </data>
-  <data name="files_type_lecture" xml:space="preserve">
-    <value>הרצאות ותירגולים</value>
+  <data name="multiple_files_type_lecture" xml:space="preserve">
+    <value>סיכום הרצאה</value>
   </data>
-  <data name="files_type_textbook" xml:space="preserve">
-    <value>סיכומים</value>
+  <data name="multiple_files_type_textbook" xml:space="preserve">
+    <value>ספר לימוד</value>
+    <comment>Ram Change</comment>
   </data>
-  <data name="files_uploadDoc" xml:space="preserve">
-    <value>העלה מסמך</value>
+  <data name="multiple_help_and_make" xml:space="preserve">
+    <value>אתה על הגל, עכשיו עזור לחברים לספסל הלימודים (ותרוויח נקודות) על ידי שיתוף הקישור למסמך זה.</value>
   </data>
-  <data name="first_step2_title_partOne" xml:space="preserve">
-    <value>נהדר!</value>
+  <data name="multiple_keywords_optional" xml:space="preserve">
+    <value>מילות מפתח (לא חובה)</value>
   </data>
-  <data name="first_step2_title_partTwo" xml:space="preserve">
-    <value>הכן את המסמך שלך</value>
+  <data name="multiple_label_icon_text" xml:space="preserve">
+    <value>העלה</value>
+  </data>
+  <data name="multiple_or_browse_label" xml:space="preserve">
+    <value>או בחר קובץ</value>
+  </data>
+  <data name="multiple_or_browse_label_mobile" xml:space="preserve">
+    <value>בחר</value>
+  </data>
+  <data name="multiple_placeholder_doctype_all" xml:space="preserve">
+    <value>שנה סוג מסמך להכל</value>
+  </data>
+  <data name="multiple_placeholder_setAll" xml:space="preserve">
+    <value>שנה מחיר 0.00 להכל</value>
+  </data>
+  <data name="multiple_price_placeholder" xml:space="preserve">
+    <value>מחיר 0.00 נקודות</value>
+  </data>
+  <data name="multiple_professor_placeholder" xml:space="preserve">
+    <value>שם מרצה (לא חובה)</value>
+  </data>
+  <data name="multiple_selected_class_label" xml:space="preserve">
+    <value>קורס</value>
+  </data>
+  <data name="multiple_select_course_placeholder" xml:space="preserve">
+    <value>בחר בבקשה קורס</value>
+  </data>
+  <data name="multiple_select_filetype" xml:space="preserve">
+    <value>סוג מסמך</value>
   </data>
 </root>
