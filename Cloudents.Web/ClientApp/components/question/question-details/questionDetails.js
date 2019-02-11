@@ -61,6 +61,13 @@ export default {
                 };
                 return
             }
+            if (!this.textAreaValue || this.textAreaValue.trim().length > 540) {
+                this.errorLength= {
+                    errorText: LanguageService.getValueByKey("questionDetails_error_maxChar"),
+                    errorClass: true
+                };
+                return
+            }
             this.updateLoading(true);
             var self = this;
             if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
