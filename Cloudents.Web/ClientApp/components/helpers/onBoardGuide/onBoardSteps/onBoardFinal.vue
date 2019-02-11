@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <v-divider class="divider-line"></v-divider>
+        <v-divider class="divider-line" v-show="tokensAmmount !== 0"></v-divider>
         <div class="sml-text-row">
             <span v-language:inner>onboard_final_bottom_text</span>
         </div>
