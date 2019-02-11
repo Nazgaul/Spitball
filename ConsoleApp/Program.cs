@@ -354,18 +354,18 @@ where left(blobName ,4) != 'file'");
         private static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
 
 
-        private static List<(string, string)> FindSimilarStrings(string t, List<string> pageTexts)
+        private static List<(Guid, string, string, Guid, string, string)> FindSimilarStrings(
+            (Guid, string, string) t, List<(Guid, string, string)> pageTexts)
         {
-          
-
             var jaroWinkler = new JaroWinkler();
-            List<(string, string)> res = new List<(string, string)>();
+            List<(Guid, string, string, Guid, string, string)> res = 
+                    new List<(Guid, string, string, Guid, string, string)>();
             foreach (var r in pageTexts.Where(w => w != t))
             {
-                var result = jaroWinkler.GetSimilarity(r, t);
+                var result = jaroWinkler.GetSimilarity(r.Item2, t.Item2);
 
                 if (result > 0.9)
-                { res.Add((t, r)); }
+                { res.Add((t.Item1, t.Item2, t.Item3, r.Item1, r.Item2, r.Item3)); }
             }
             return res;
             /*if (result.Any(w => w > 0.95))
@@ -379,25 +379,25 @@ where left(blobName ,4) != 'file'");
         {
             var d = _container.Resolve<DapperRepository>();
 
-            var courses = await d.WithConnectionAsync<IEnumerable<string>>(async f =>
+            var courses = await d.WithConnectionAsync(async f =>
             {
-                return await f.QueryAsync<string>(
-                    @"Select [Name] from sb.Course where [Name] LIKE N'%[א-ת]%'");
+                return await f.QueryAsync<(Guid, string, string)>(
+                    @"Select Id,[Name], Country from sb.University order by Name");
             }, default);
             StringBuilder sb = new StringBuilder();
-            string delimiter = ",";
+            //string delimiter = ",";
 
             //int rowNumber = 1;
 
-            string filePath = @"C:\Users\Charlie even\test.csv";
-            List<(string,string)> output = new List<(string, string)>();
+            string filePath = @"C:\Users\Charlie even\university.csv";
+            //List<(string,string)> output = new List<(string, string)>();
             foreach (var courseName in courses)
             {
                 var res = FindSimilarStrings(courseName, courses.ToList());
 
                 foreach (var course in res)
                 {
-                    File.AppendAllLines(filePath, new List<string>() { $"{course.Item1} , {course.Item2}" });
+                    File.AppendAllLines(filePath, new List<string>() { $@"{course.Item1}, {course.Item2}, {course.Item3}, {course.Item4}, {course.Item5}, {course.Item6}"});
                 }
 
                /* int length = output.Count();
