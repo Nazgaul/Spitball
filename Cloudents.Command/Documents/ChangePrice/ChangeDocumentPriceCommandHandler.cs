@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.Documents.ChangePrice
 {
-    public class ChangePriceCommandHandler : ICommandHandler<ChangePriceCommand>
+    public class ChangeDocumentPriceCommandHandler : ICommandHandler<ChangeDocumentPriceCommand>
     {
         private readonly IRepository<Document> _documentRepository;
 
-        public ChangePriceCommandHandler(IRepository<Document> documentRepository)
+        public ChangeDocumentPriceCommandHandler(IRepository<Document> documentRepository)
         {
             _documentRepository = documentRepository;
         }
 
-        public async Task ExecuteAsync(ChangePriceCommand message, CancellationToken token)
+        public async Task ExecuteAsync(ChangeDocumentPriceCommand message, CancellationToken token)
         {
             var document = await _documentRepository.LoadAsync(message.DocumentId, token);
 
@@ -23,8 +23,7 @@ namespace Cloudents.Command.Documents.ChangePrice
             {
                 throw new ArgumentException();
             }
-
-            document.Price = message.Price;
+            document.ChangePrice(message.Price);
             await _documentRepository.UpdateAsync(document, token);
 
         }

@@ -18,13 +18,6 @@ namespace Cloudents.Infrastructure.Mapper
             CreateMap<GoogleGeoCodeDto, (Address address, GeoPoint point)>().ConvertUsing<GoogleGeoConverter>();
             CreateMap<BingWebPage, SearchResult>().ConvertUsing<BingConverter>();
             CreateMap<BingSuggest.SuggestionsObject, IEnumerable<string>>().ConvertUsing<BingSuggestConverter>();
-
-            CreateMap<GoogleToken, ExternalAuthDto>().ConvertUsing(o => new ExternalAuthDto
-            {
-                Name = o.Name,
-                Email = o.Email,
-                Id = o.Sub
-            });
         }
     }
 }

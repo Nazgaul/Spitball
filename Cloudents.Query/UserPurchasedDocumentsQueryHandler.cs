@@ -42,7 +42,7 @@ u2.Score as Score,
 u2.image as Image,
 d.VoteCount as Votes
  from sb.[Transaction] t
-Join sb.Document d on t.DocumentId = d.Id and d.state = 'ok'
+Join sb.Document d on t.DocumentId = d.Id and d.state = 'ok' and t.action='PurchaseDocument'
 join sb.University u on u.Id = d.UniversityId
 join sb.[User] u2 on u2.Id = d.UserId
 where t.User_id = @userId", (dto, userDto, arg3) =>

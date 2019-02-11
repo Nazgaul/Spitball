@@ -137,12 +137,6 @@ namespace Cloudents.FunctionsV2
             CancellationToken token
         )
         {
-            await ProcessSmsMessageAsync(msg, options, log, token);
-        }
-
-        private static async Task ProcessSmsMessageAsync(SmsMessage2 msg, IAsyncCollector<CreateMessageOptions> options, ILogger log,
-            CancellationToken token)
-        {
             if (msg.Message == null)
             {
                 log.LogError("message is null");

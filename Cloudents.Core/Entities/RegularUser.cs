@@ -110,9 +110,9 @@ namespace Cloudents.Core.Entities
             MakeTransaction(t);
         }
 
-        public virtual void CashOutMoney(decimal price)
+        public virtual void CashOutMoney(/*decimal price*/)
         {
-            var t = new CashOutTransaction(price);
+            var t = new CashOutTransaction();
             MakeTransaction(t);
         }
 

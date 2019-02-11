@@ -76,7 +76,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string MetaContent { get; set; }
 
-        public virtual decimal Price { get; set; }
+        public virtual decimal Price { get; protected set; }
         private readonly IList<Transaction> _transactions = new List<Transaction>();
         public virtual IReadOnlyCollection<Transaction> Transactions => _transactions.ToList();
 
@@ -147,6 +147,18 @@ namespace Cloudents.Core.Entities
                 VoteCount = 0;
             }
             Status = Public;
+        }
+
+        public virtual void ChangePrice(decimal newPrice)
+        {
+            if (Price == newPrice)
+            {
+                return;
+            }
+
+            Price = newPrice;
+            TimeStamp.UpdateTime = DateTime.UtcNow;
+            
         }
     }
 }

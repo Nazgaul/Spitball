@@ -7,6 +7,8 @@ namespace Cloudents.Core.Enum
         Static,
         [Parse(SeoTypeString.Item)]
         Item,
+        [Parse(SeoTypeString.Question)]
+        Question,
         //[Parse(SeoTypeString.Quiz)]
         //Quiz,
         [Parse(SeoTypeString.Flashcard)]

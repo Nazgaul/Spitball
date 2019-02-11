@@ -118,10 +118,7 @@ namespace Cloudents.Web.Controllers
             [FromServices] IStatelessSession session,
             CancellationToken token)
         {
-            if (type == SeoType.Flashcard)
-            {
-                return Ok();
-            }
+           
             var t = session.Query<Document>()
                     .Fetch(f => f.University)
                   .Where(w => w.Status.State == ItemState.Ok)

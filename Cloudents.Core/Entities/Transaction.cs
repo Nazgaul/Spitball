@@ -9,8 +9,6 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nHibernate Proxy")]
     public abstract class Transaction : Entity<Guid>
     {
-
-
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         protected Transaction()
         {
@@ -31,33 +29,33 @@ namespace Cloudents.Core.Entities
         public virtual bool? Approved { get; set; }
         public virtual string DeclinedReason { get; set; }
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public CashOutTransaction(decimal price) 
+        public CashOutTransaction() 
         {
-            if (price < 1000)
-            {
-                throw new ArgumentException();
-            }
-            if (price > 4000)
-            {
-                throw new ArgumentException();
-            }
+            //if (price < 1000)
+            //{
+            //    throw new ArgumentException();
+            //}
+            //if (price > 4000)
+            //{
+            //    throw new ArgumentException();
+            //}
 
-            if (price % 1000 != 0)
-            {
-                throw new ArgumentException();
+            //if (price % 1000 != 0)
+            //{
+            //    throw new ArgumentException();
 
-            }
-            price = -Math.Abs(price);
+            //}
+            //price = -Math.Abs(price);
 
-            Price = price;
+            Price = 1000;
             Action = TransactionActionType.CashOut;
             Type = TransactionType.Spent;
         }
 
-        protected CashOutTransaction()
-        {
+        //protected CashOutTransaction()
+        //{
 
-        }
+        //}
 
         public virtual void Approve()
         {
@@ -102,7 +100,7 @@ namespace Cloudents.Core.Entities
             Type = TransactionType.Earned;
         }
 
-        public virtual string TransactionId { get; set; }
+        public virtual string TransactionId { get; protected set; }
 
         protected BuyPointsTransaction()
         {
@@ -145,13 +143,13 @@ namespace Cloudents.Core.Entities
 
         public static AwardMoneyTransaction FinishRegistration(RegularUser user)
         {
-            var initBalance = 100;
+            var initBalance = 0;
             if (Tier1Users.Contains(user.Country))
             {
                 initBalance = 150;
             }
 
-            return new AwardMoneyTransaction(initBalance/*, user*/)
+            return new AwardMoneyTransaction(initBalance)
             {
                 Action = TransactionActionType.SignUp
             };
@@ -169,8 +167,8 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual Question Question { get; set; }
-        public virtual Answer Answer { get; set; }
+        public virtual Question Question { get;  set; }
+        public virtual Answer Answer { get; protected set; }
 
         protected QuestionTransaction()
         {
@@ -180,7 +178,7 @@ namespace Cloudents.Core.Entities
         public static QuestionTransaction Asked(Question question)
         {
             var money = -Math.Abs(question.Price);
-            return new QuestionTransaction(question/*, user*/)
+            return new QuestionTransaction(question)
             {
                 Action = TransactionActionType.Question,
                 Type = TransactionType.Stake,
@@ -228,7 +226,7 @@ namespace Cloudents.Core.Entities
 
 
             var userAnswer = correctAnswer.User;
-            var ta1 = new QuestionTransaction(question/*, user*/)
+            var ta1 = new QuestionTransaction(question)
             {
                 Action = TransactionActionType.AnswerCorrect,
                 Type = TransactionType.Earned,
@@ -245,7 +243,7 @@ namespace Cloudents.Core.Entities
 
     public class ReferUserTransaction : Transaction
     {
-        public virtual RegularUser InvitedUser { get; set; }
+        public virtual RegularUser InvitedUser { get; protected set; }
       
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public ReferUserTransaction(RegularUser invitedUser) 
@@ -277,7 +275,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual Document Document { get; set; }
+        public virtual Document Document { get; protected set; }
 
         private static Transaction Buyer(Document document)
         {

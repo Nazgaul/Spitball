@@ -2,14 +2,14 @@
 {
     public class CashOutCommand : ICommand
     {
-        public CashOutCommand(long userId, decimal amount)
+        public CashOutCommand(long userId/*, decimal amount*/)
         {
             UserId = userId;
-            Amount = amount;
+           // Amount = amount;
         }
         
 
         public long UserId { get; set; }
-        public decimal Amount { get; set; }
+        //public decimal Amount { get; set; }
     }
 }

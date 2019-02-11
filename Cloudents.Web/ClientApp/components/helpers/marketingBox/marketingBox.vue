@@ -3,7 +3,7 @@
         <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
             <span class="heading-text" v-language:inner>marketingBox_title</span>
         </div>
-        <v-card class="main-marketing-content"  :class="imgSrc" :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
+        <v-card class="main-marketing-content"  :class="imageClassABtest" :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
         </v-card>
         <sb-dialog :showDialog="marketingReferral"
                    :popUpType="'marketingPop'"
@@ -68,6 +68,9 @@
                 imagesSet = this.isIsrael ? imagesSet.hebrew : imagesSet.english;
                 imageSrc = this.isLogedIn ? imagesSet["logedIn"] : imagesSet["not_logedIn"];
                 return imageSrc
+            },
+            imageClassABtest(){
+                return this.imgSrc.replace('./images/','');
             },
             userReferralLink() {
                 if (!this.isLogedIn) {
