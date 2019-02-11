@@ -146,14 +146,6 @@ export default {
                 this.$el.querySelector('.search-menu').scrollTop = 0;
             }
         },
-        // onScroll(e) {
-        //     if (this.hideOnScroll && this.showSuggestions) {
-        //         let rect = this.$root.$el.querySelector('.search-menu').getBoundingClientRect();
-        //         if (rect.top < -rect.height) {
-        //             this.closeSuggestions();
-        //         }
-        //     }
-        // },
         highlightSearch: function (item) {
             if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
                 //  if (!constants.regExXSSCheck.test(item.text)) {
@@ -200,31 +192,6 @@ export default {
         if (!this.isHome) {
             this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
         }
-
-
-        function closeSuggestions(TogglerElm, shouldHide, closeFn) {
-            if (TogglerElm[0] && TogglerElm[0].style.display !== "none") {
-                if (shouldHide) {
-                    closeFn();
-                }
-            }
-        }
-
-        //close the search suggestion menu from pressing out of the search box
-        //or by pressing escape button
-        let bodyElm = document.getElementsByTagName("body");
-        let menuTogglerElm = document.getElementsByClassName("menu-toggler");
-        bodyElm[0].addEventListener("click", () => {
-            closeSuggestions(menuTogglerElm, this.showSuggestions, this.closeSuggestions);
-        });
-        bodyElm[0].addEventListener("keydown", (event) => {
-            if (event.keyCode === 27) {
-                //escape button pressed
-                closeSuggestions(menuTogglerElm, this.showSuggestions, this.closeSuggestions);
-            }
-        });
-
-
     }
 
 }
