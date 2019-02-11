@@ -285,7 +285,7 @@
                 if(actionItem === "phoneNumber"){
                     let userObj = {
                         id: this.userInfo.id.value
-                    }
+                    };
                     this.verifyUserPhone(userObj).then(()=>{
                         this.openTokensDialog();
                     })
