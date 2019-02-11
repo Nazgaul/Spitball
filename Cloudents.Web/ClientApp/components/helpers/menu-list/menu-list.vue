@@ -193,7 +193,9 @@
         <!--</v-dialog>-->
 
         <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
+                   :onclosefn="closeReferralDialog"
                    :content-class="'login-popup'">
+
             <referral-dialog :isTransparent="false" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
         </sb-dialog>
     </div>
@@ -256,6 +258,12 @@
                 return schoolName.length > 0;
             }
         },
+        watch: {
+            showReferral(newValue, oldValue) {
+                console.log(newValue, oldValue)
+                console.trace(this.showReferral);
+            }
+        },
         methods: {
             ...mapActions(['logout', 'updateLoginDialogState', 'changeSelectUniState', 'updateCurrentStep']),
             ...mapGetters(['getAllSteps']),
@@ -278,6 +286,7 @@
             },
             openReferralDialog() {
                 this.showReferral = true;
+                console.log('referral',this.showReferral)
             },
             openPersonalizeUniversity() {
                 if (!this.isLoggedIn) {
@@ -299,7 +308,11 @@
                     this.changeSelectUniState(true);
                     this.$root.$emit("closeDrawer");
                 }
+            },
+            closeReferralDialog(){
+                this.showReferral = false;
             }
+
         },
 
         created() {
@@ -308,11 +321,12 @@
             this.languageChoisesAval = languagesLocales.filter((lan) => {
                 return lan.locale !== currentLocHTML
             });
-            this.$root.$on('closePopUp', (name) => {
-                if (name === "referralPop") {
-                    this.showReferral = false;
-                }
-            })
+            // this.$root.$on('closePopUp', (name) => {
+            //     if (name === "referralPop") {
+            //         console.log('fsdf')
+            //         this.showReferral = false;
+            //     }
+            // });
             if(!!this.$route.query && !!this.$route.query.open && this.$route.query.open === 'referral'){
                 this.$nextTick(function(){
                     this.showReferral = true;

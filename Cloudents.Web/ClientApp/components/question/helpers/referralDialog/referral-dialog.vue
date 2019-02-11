@@ -183,7 +183,7 @@
                 default: false,
                 required: false
             },
-            closeDialog: {
+            onclosefn: {
                 required: false,
                 type: Function
             }
@@ -206,7 +206,7 @@
             ...mapActions(['getRefferedUsersNum']),
             requestDialogClose() {
                 this.isCopied = false;
-                this.$root.$emit('closePopUp', this.popUpType);
+                // this.$root.$emit('closePopUp', this.popUpType);
                 if (this.closeDialog) {
                     this.closeDialog()
                 }
@@ -263,7 +263,6 @@
         },
 
         beforeDestroy() {
-
             this.isCopied = false;
         }
     }

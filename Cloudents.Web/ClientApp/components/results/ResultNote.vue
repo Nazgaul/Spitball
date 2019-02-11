@@ -57,10 +57,10 @@
             </span>
                     </div>
                     <div class="type-wrap">
-                        <span :class="[ 'doc-type-text', 'type-'+typeID]">{{typeTitle}}</span>
+                        <span :class="[ 'doc-type-text']">{{type}}</span>
                         <document-details :item="item"></document-details>
                         <v-flex grow class="data-row">
-                            <div :class="['content-wrap', 'type-'+typeID]">
+                            <div :class="['content-wrap']">
                                 <div class="title-wrap">
                                     <p
                                             :class="['doc-title', isFirefox ? 'foxLineClamp' : '']"
@@ -137,14 +137,13 @@
     //
     import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
     import userRank from "../helpers/UserRank/UserRank.vue";
-    import { documentTypes } from "./helpers/uploadFiles/consts.js";
     import documentDetails from "./helpers/documentDetails/documentDetails.vue";
     import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
     import reportItem from "./helpers/reportItem/reportItem.vue";
     import { mapGetters, mapActions, mapMutations } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
     import SbInput from "../question/helpers/sbInput/sbInput";
-    import sblCurrency from "./helpers/uploadFiles/sbl-currency.vue";
+    import sblCurrency from "./helpers/sblCurrency/sbl-currency.vue";
     import documentService from "../../services/documentService";
 
 
@@ -216,20 +215,8 @@
                 return this.item.isPurchased
             },
             type() {
-                let self = this;
-                if (!!self.item.type) {
-                    return documentTypes.find(single => {
-                        if (single.id.toLowerCase() === self.item.type.toLowerCase()) {
-                            return single;
-                        }
-                    });
-                } else {
-                    return {
-                        id: "document",
-                        title: self.item.source,
-                        icon: "sbf-document-note"
-                    };
-                }
+                return this.item.type || ''
+
             },
             authorName() {
                 if (!!this.item.user) {
@@ -239,16 +226,6 @@
             authorId() {
                 if (!!this.item && !!this.item.user && !!this.item.user.id) {
                     return this.item.user.id;
-                }
-            },
-            typeID() {
-                if (!!this.type) {
-                    return this.type.id || "";
-                }
-            },
-            typeTitle() {
-                if (!!this.type) {
-                    return this.type.title || "";
                 }
             },
             docViews() {

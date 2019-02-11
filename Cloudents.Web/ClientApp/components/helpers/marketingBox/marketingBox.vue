@@ -3,14 +3,14 @@
         <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
             <span class="heading-text" v-language:inner>marketingBox_title</span>
         </div>
-        <v-card class="main-marketing-content"  :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
+        <v-card class="main-marketing-content"  :class="imageClassABtest" :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
         </v-card>
-        <sb-dialog :showDialog="showReferral"
-                   :popUpType="'referralPop'"
+        <sb-dialog :showDialog="marketingReferral"
+                   :popUpType="'marketingPop'"
                    :content-class="'login-popup'"
                    :onclosefn="closeRefDialog">
             <referral-dialog :closeDialog="closeRefDialog" :isTransparent="false" :userReferralLink="userReferralLink"
-                             :popUpType="'referralPop'"></referral-dialog>
+                             :popUpType="'marketingPop'"></referral-dialog>
         </sb-dialog>
 
     </div>
@@ -28,7 +28,7 @@
         components: {referralDialog, SbDialog},
         data() {
             return {
-                showReferral: false,
+                marketingReferral: false,
                 desktop: {
                     hebrew: {
                         logedIn: './images/desktop_Hebrew_LogedIn.png',
@@ -69,6 +69,9 @@
                 imageSrc = this.isLogedIn ? imagesSet["logedIn"] : imagesSet["not_logedIn"];
                 return imageSrc
             },
+            imageClassABtest(){
+                return this.imgSrc.replace('./images/','');
+            },
             userReferralLink() {
                 if (!this.isLogedIn) {
                     return `${global.location.origin}` + "?promo=referral";
@@ -82,7 +85,7 @@
         methods: {
             ...mapActions(['changemobileMarketingBoxState']),
             closeRefDialog() {
-                this.showReferral = false
+                this.marketingReferral = false
             },
             promotionOpen() {
                 if(this.isLogedIn){
@@ -97,7 +100,7 @@
                 this.$router.push({name: 'registration'});
             },
             openRefDialog() {
-                this.showReferral = true
+                this.marketingReferral = true
             }
 
         },

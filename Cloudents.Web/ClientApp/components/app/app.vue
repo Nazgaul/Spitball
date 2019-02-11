@@ -116,7 +116,6 @@
     import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
     import NewQuestion from "../question/newQuestion/newQuestion.vue";
     import AddQuestion from "../question/addQuestion/addQuestion.vue";
-    import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
     import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
 
     import {
@@ -144,7 +143,6 @@
             loginToAnswer,
             uniSelectPop,
             uniSelect,
-            uploadFiles,
             newIsraeliPop,
             reportItem,
             mobileFooter,
@@ -177,7 +175,6 @@
             ...mapGetters([
                 "getIsLoading",
                 "accountUser",
-                "showRegistrationBanner",
                 "loginDialogState",
                 "newQuestionDialogSate",
                 "getShowSelectUniPopUpInterface",

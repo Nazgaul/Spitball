@@ -35,16 +35,10 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState', 'showRegistrationBanner', 'getCookieAccepted']),
+            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState',  'getCookieAccepted']),
 
             isFloatingBtn() {
-                let offHeight = 0;
-                if(this.showRegistrationBanner){
-                    // offHeight = 150 + 285; // header + signUpBanner height
-                    offHeight = 200 + 285;
-                }else{
-                    offHeight = 200;
-                }
+                let  offHeight = 200 + 285;
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
             raiseFloatingButtonPosition(){

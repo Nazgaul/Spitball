@@ -35,15 +35,10 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState', 'showRegistrationBanner', 'getCookieAccepted']),
+            ...mapGetters(['accountUser', 'loginDialogState', 'getCookieAccepted']),
 
             isFloatingBtn() {
-                let offHeight = 0;
-                if (!!this.showRegistrationBanner) {
-                    offHeight = 200 + 285; // header + banner + mobile filter btn
-                } else {
-                    offHeight = 200; //  header + mobile filter btn
-                }
+                let offHeight = 200; //  header + mobile filter btn
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
             raiseFloatingButtonPosition(){
