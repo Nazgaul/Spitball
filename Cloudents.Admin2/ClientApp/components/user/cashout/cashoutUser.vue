@@ -23,33 +23,36 @@
                 :search="search"
         >
             <template slot="items" slot-scope="props">
-                <td class="text-xs-right">{{ props.item.userId }}</td>
-                <td class="text-xs-right">{{ props.item.cashOutPrice }}</td>
-                <td class="text-xs-right">{{ props.item.userEmail }}</td>
-                <td class="text-xs-right">{{new Date(props.item.cashOutTime).toUTCString()}}</td>
-                <td class="text-xs-right">{{ props.item.userQueryRatio }}</td>
-                <td class="text-xs-right" :class="{'suspect': props.item.isSuspect}">{{props.item.isSuspect ? "Yes" :
-                    ""}}
+                <td class="text-xs-center">{{ props.item.userId }}</td>
+                <td class="text-xs-center">{{ props.item.cashOutPrice }}</td>
+                <td class="text-xs-center">{{ props.item.userEmail }}</td>
+                <td class="text-xs-center">{{new Date(props.item.cashOutTime).toUTCString()}}</td>
+                <td class="text-xs-center">{{ props.item.userQueryRatio }}</td>
+                <td class="text-xs-center" :class="{'suspect': props.item.isSuspect}">
+                    {{props.item.isSuspect ? "Yes" : ""}}
                 </td>
-                <td class="text-xs-right">{{ props.item.isIsrael ? "Yes" : "" }}</td>
-                <td class="text-xs-right">{{ props.item.declinedReason }}</td>
-                <td class="text-xs-right">{{ props.item.approved }}</td>
-                <td class="justify-center layout px-0">
-                    <v-icon
-                            small
-                            color="red"
-                            class="mr-2"
-                            @click="editItem(props.item)"
-                    >delete
+                <td class="text-xs-center">{{ props.item.isIsrael ? "Yes" : "" }}</td>
+                <td class="text-xs-center">{{ props.item.declinedReason }}</td>
+                <td class="text-xs-center">{{ props.item.approved }}</td>
+                <td class="text-xs-center">
+                    <span v-if="!props.item.approved && !props.item.declinedReason">
+                          <v-icon
+                                  small
+                                  color="red"
+                                  class="mr-2"
+                                  @click="editItem(props.item)"
+                          >delete
 
                     </v-icon>
                     <v-icon
                             small
                             color="green"
-                            @click="approveCashout()"
+                            @click="approveCashout(props.item)"
                     >
                         check
                     </v-icon>
+                    </span>
+
                 </td>
 
 
@@ -86,7 +89,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                    <v-btn color="blue darken-1" :disabled="!editedItem.declinedReason" flat @click="decline()">
+                    <v-btn color="red darken-1" :disabled="!editedItem.declinedReason" flat @click="decline()">
                         Decline
                     </v-btn>
                 </v-card-actions>
@@ -138,13 +141,13 @@
             },
             decline() {
                 if (this.editedIndex > -1) {
-                    // this.editedItem.approved = false;
                     Object.assign(this.cashOutList[this.editedIndex], this.editedItem)
                 }
-                declineCashout(this.editedItem.declinedReason).then((success) => {
-                    this.close();
-                    this.$toaster.success(`cashout declined`);
-                });
+                declineCashout(this.editedItem.transactionId, this.editedItem.declinedReason)
+                    .then((success) => {
+                        this.close();
+                        this.$toaster.success(`cashout declined`);
+                    });
 
                 this.close()
             },
@@ -152,6 +155,7 @@
                 let transactionId = item.transactionId;
                 approveCashout(transactionId)
                     .then((success) => {
+                            item.approved = true;
                             this.$toaster.success(`Cashout Approved`);
 
                         },
@@ -161,7 +165,7 @@
                         }
                     )
             },
-            close () {
+            close() {
                 this.dialog = false;
                 setTimeout(() => {
                     this.editedItem = Object.assign({}, this.defaultItem);
