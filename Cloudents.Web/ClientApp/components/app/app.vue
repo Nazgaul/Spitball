@@ -143,7 +143,6 @@
             loginToAnswer,
             uniSelectPop,
             uniSelect,
-            uploadFiles,
             newIsraeliPop,
             reportItem,
             mobileFooter,

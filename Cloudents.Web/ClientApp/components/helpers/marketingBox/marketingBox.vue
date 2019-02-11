@@ -3,7 +3,7 @@
         <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
             <span class="heading-text" v-language:inner>marketingBox_title</span>
         </div>
-        <v-card class="main-marketing-content"  :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
+        <v-card class="main-marketing-content"  :class="imgSrc" :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
         </v-card>
         <sb-dialog :showDialog="marketingReferral"
                    :popUpType="'marketingPop'"
