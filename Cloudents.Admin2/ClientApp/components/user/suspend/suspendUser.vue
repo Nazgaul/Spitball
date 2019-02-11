@@ -15,7 +15,6 @@
             <v-btn  :loading="suspendLoading" color="red" @click.prevent="actionUser(false)" :class="{'lock': lock}">Suspend</v-btn>
             <v-btn  :loading="releaseLoading" color="green" @click.prevent="actionUser(true)" :class="{'lock': lock}">Release</v-btn>
         </div>
-
         <div v-if="showSuspendedDetails" class="suspended-user-container">
             <h3>Email: {{suspendedMail}}</h3>
         </div>
@@ -27,7 +26,6 @@ import {suspendUser, releaseUser} from './suspendUserService'
 export default {
     data(){
         return{
-            userIds: null,
             serverIds: [],
             deleteUserQuestions:false,
             showSuspendedDetails: false,
@@ -36,6 +34,12 @@ export default {
             suspendLoading: false,
             releaseLoading: false,
             reason: null
+        }
+    },
+    props: {
+        userIds:{
+            type: String,
+            default: ''
         }
     },
     methods:{

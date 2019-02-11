@@ -19,7 +19,7 @@
                 <v-flex xs4 v-if="userInfo">
                     <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!userInfo" color="rgb(0, 188, 212)"
                            class="suspend"
-                           @click="suspendUser()">
+                           @click="showSuspendDialog()">
                         Suspend
                     </v-btn>
                     <v-btn v-else :disabled="!userInfo" class="suspend" @click="releaseUser()">UnSuspend</v-btn>
@@ -87,6 +87,27 @@
                 </v-layout>
             </div>
         </v-flex>
+        <v-dialog v-model="suspendDialog" persistent max-width="600px" v-if="suspendDialog">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Suspend User</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <userSuspend :userIds="userId"></userSuspend>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="closeTokensDialog()">Close</v-btn>
+                    <v-btn color="blue darken-1" flat @click="closeTokensDialog()">Cancel</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <v-dialog v-model="getTokensDialogState" persistent max-width="600px" v-if="getTokensDialogState">
             <v-card>
                 <v-card-title>
@@ -130,7 +151,7 @@
     import answerItem from './helpers/answerItem.vue'
     import documentItem from './helpers/documentItem.vue'
     import userTokens from './helpers/sendTokens.vue'
-    // import userSuspend from '../user/suspend/suspendUser.vue';
+    import userSuspend from '../user/suspend/suspendUser.vue';
     import userCashout from '../user/cashout/cashoutUser.vue';
 
 
@@ -141,7 +162,8 @@
             answerItem,
             documentItem,
             userTokens,
-            userCashout
+            userCashout,
+            userSuspend
         },
         data() {
             return {
@@ -178,7 +200,7 @@
                 userActions: [
                     {
                         title: "Suspend",
-                        action: this.suspendUser,
+                        action: this.showSuspendDialog,
                     },
                     {
                         title: "Suspend",
@@ -194,6 +216,7 @@
                         action: this.sendTokens,
                     },
                 ],
+                suspendDialog: false,
                 activeTab: 'tab-0',
                 searchQuery: 'ok',
                 userComponentsShow: false,
@@ -248,6 +271,9 @@
                 "getUserDocuments",
                 "verifyUserPhone"
             ]),
+            showSuspendDialog(){
+                this.suspendDialog =true;
+            },
             userInfoAction(actionItem){
                 if(actionItem === "phoneNumber"){
                     let userObj = {

@@ -4,16 +4,6 @@
             <v-text-field solo class="user-input-text" type="text" v-model.number="tokens"
                           placeholder="Set amount of tokens to apply..."/>
         </div>
-        <!--<div class="select-type-container">-->
-        <!--<v-select attach=""-->
-        <!--class="select-type-input"-->
-        <!--solo-->
-        <!--v-model="tokenType"-->
-        <!--:items="types"-->
-        <!--:item-value="tokenType"-->
-        <!--label="Select type"-->
-        <!--&gt;</v-select>-->
-        <!--</div>-->
         <div class="grant-token-container">
             <v-btn :loading="loading" :disabled="!tokens" color="rgb(0, 188, 212)" @click="sendTokens()">Send</v-btn>
         </div>
