@@ -12,7 +12,7 @@ namespace Cloudents.Persistance.Maps
         {
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(x => x.Text).Length(8000);
+            Map(x => x.Text).Length(Answer.MaxLength);
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
             Map(x => x.Language).Length(10);

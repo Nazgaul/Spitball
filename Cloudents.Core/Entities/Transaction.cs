@@ -145,7 +145,7 @@ namespace Cloudents.Core.Entities
 
         public static AwardMoneyTransaction FinishRegistration(RegularUser user)
         {
-            var initBalance = 100;
+            var initBalance = 0;
             if (Tier1Users.Contains(user.Country))
             {
                 initBalance = 150;
