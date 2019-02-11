@@ -11,6 +11,7 @@ using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
+using SimMetricsMetricUtilities;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -80,16 +81,21 @@ namespace Cloudents.Command.CommandHandler
             //and we can create sql to check if its not the same user
             var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
             var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
-            foreach (var answer in answers.Where(w=> 
+            foreach (var answer in answers.Where(w =>
                 w.Status.State == ItemState.Ok
 
             ))
             {
                 var check = Regex.Replace(answer.Text, regex.ToString(), "");
-                if (nakedString == check)
+                var jaroWinkler = new JaroWinkler();
+
+                var result = jaroWinkler.GetSimilarity(nakedString, check);
+
+                if (result > 0.95)
                 {
                     throw new DuplicateRowException("Duplicate answer");
                 }
+
             }
 
             var language = await _textAnalysis.DetectLanguageAsync(message.Text, token);
