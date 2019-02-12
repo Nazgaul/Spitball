@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Core.Exceptions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Exceptions;
+using Cloudents.Core.Enum;
 
 [assembly: InternalsVisibleTo("Cloudents.Persistance")]
 namespace Cloudents.Core.Entities
@@ -13,7 +14,7 @@ namespace Cloudents.Core.Entities
             Transactions = Transactions ?? new List<Transaction>();
         }
         internal ICollection<Transaction> Transactions { get; private set; }
-        public IReadOnlyCollection<Transaction> TransactionsReadOnly => Transactions.ToList(); 
+        public IReadOnlyCollection<Transaction> TransactionsReadOnly => Transactions.ToList();
         public decimal Balance { get; private set; }
 
         public int Score { get; private set; }
@@ -24,11 +25,15 @@ namespace Cloudents.Core.Entities
             Transactions.Add(t);
             Balance += t.Price;
             if (Balance < 0)
-           
+
             {
                 throw new InsufficientFundException();
             }
- if (t.Price > 0)
+            //if (t.Price > 0 && t.Type == TransactionType.Earned)
+            //{
+            //    Score += t.AwardScore;
+            //}
+            if (t.Price > 0 && t.Type == TransactionType.Earned)
             {
                 Score += (int)t.Price;
             }

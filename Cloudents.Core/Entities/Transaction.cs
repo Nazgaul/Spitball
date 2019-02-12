@@ -22,6 +22,9 @@ namespace Cloudents.Core.Entities
         public virtual TransactionActionType Action { get; protected set; }
         public virtual TransactionType Type { get; protected set; }
         public virtual decimal Price { get; protected set; }
+
+        //public abstract int AwardScore { get; }
+
     }
 
     public class CashOutTransaction : Transaction
@@ -68,6 +71,8 @@ namespace Cloudents.Core.Entities
             Approved = false;
             DeclinedReason = reason;
         }
+
+        //public override int AwardScore => 0;
     }
 
     public class CommissionTransaction : Transaction
@@ -86,6 +91,8 @@ namespace Cloudents.Core.Entities
         {
 
         }
+
+       // public override int AwardScore => 0;
     }
 
     public class BuyPointsTransaction : Transaction
@@ -106,6 +113,8 @@ namespace Cloudents.Core.Entities
         {
 
         }
+
+        //public override int AwardScore => 0;
     }
 
     public class AwardMoneyTransaction : Transaction
@@ -144,17 +153,23 @@ namespace Cloudents.Core.Entities
         public static AwardMoneyTransaction FinishRegistration(RegularUser user)
         {
             var initBalance = 0;
+           // var awardScore = 0;
             if (Tier1Users.Contains(user.Country))
             {
                 initBalance = 150;
+                //awardScore = 2;
             }
-
+            //Score
             return new AwardMoneyTransaction(initBalance)
             {
-                Action = TransactionActionType.SignUp
+                Action = TransactionActionType.SignUp,
+              //  _awardScore = awardScore
             };
         }
 
+        //private int _awardScore;
+        //TODO
+       // public override int AwardScore => _awardScore;
     }
 
     public class QuestionTransaction : Transaction
@@ -166,6 +181,8 @@ namespace Cloudents.Core.Entities
 
 
         }
+
+       // private int _awardScore;
 
         public virtual Question Question { get;  set; }
         public virtual Answer Answer { get; protected set; }
@@ -231,7 +248,8 @@ namespace Cloudents.Core.Entities
                 Action = TransactionActionType.AnswerCorrect,
                 Type = TransactionType.Earned,
                 Price = money,
-                Answer = correctAnswer
+                Answer = correctAnswer,
+               // _awardScore = 1
             };
             var ta2 = new AwardMoneyTransaction(AwardsTransaction.QuestionAnswererBonus);
             userAnswer.MakeTransaction(ta1);
@@ -239,6 +257,7 @@ namespace Cloudents.Core.Entities
             userAnswer.MakeTransaction(new CommissionTransaction(question.Price));
         }
 
+       // public override int AwardScore => _awardScore;
     }
 
     public class ReferUserTransaction : Transaction
@@ -258,6 +277,8 @@ namespace Cloudents.Core.Entities
         {
 
         }
+
+       // public override int AwardScore => 0;
     }
 
     public class DocumentTransaction : Transaction
@@ -293,7 +314,9 @@ namespace Cloudents.Core.Entities
             {
                 Action = TransactionActionType.SoldDocument,
                 Price = document.Price,
-                Type = TransactionType.Earned
+                Type = TransactionType.Earned,
+               // _awardScore = 1
+
             };
         }
 
@@ -304,6 +327,9 @@ namespace Cloudents.Core.Entities
             seller.MakeTransaction(new CommissionTransaction(d.Price));
         }
 
+        //private int _awardScore ;
+
+        //public override int AwardScore => _awardScore;
     }
 
     public sealed class AwardsTransaction

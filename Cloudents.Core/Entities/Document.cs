@@ -141,7 +141,7 @@ namespace Cloudents.Core.Entities
         public virtual void UnFlag()
         {
             if (Status != Flagged) return;
-            if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
+            if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
             {
                 _votes.Clear();
                 VoteCount = 0;

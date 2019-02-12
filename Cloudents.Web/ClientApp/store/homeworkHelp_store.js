@@ -7,10 +7,16 @@ const state = {
     queItems: [],
     items: {},
     itemsSkeleton: skeletonData.ask,
-    dataLoaded: false
+    dataLoaded: false,
+    newBallerDialogState: false
 };
 
 const mutations = {
+
+    changeNewBallerDialogState(state, val){
+        state.newBallerDialogState = val;
+    },
+
     HomeworkHelp_SetItems(state, data) {
         state.items = data;
     },
@@ -131,6 +137,10 @@ const mutations = {
 };
 
 const getters = {
+    newBallerDialog : (state) =>{
+       return state.newBallerDialogState
+    },
+
     HomeworkHelp_getItems: function (state, {getIsLoading, getSearchLoading}) {
         if (getIsLoading || getSearchLoading) {
             //return skeleton
@@ -152,6 +162,9 @@ const getters = {
 };
 
 const actions = {
+    updateNewBallerDialogState({commit}, val){
+        commit('changeNewBallerDialogState', val)
+    },
     HomeworkHelp_nextPage(context, {url, vertical}) {
         return searchService.nextPage({url, vertical}).then((data) => {
             context.dispatch('HomeworkHelp_updateData', data);

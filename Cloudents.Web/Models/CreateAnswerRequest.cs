@@ -9,7 +9,7 @@ namespace Cloudents.Web.Models
         public long QuestionId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
-        [StringLength(Answer.MaxLength, MinimumLength = Answer.MinLength)]
+        [StringLength(Answer.MaxLength,MinimumLength = Answer.MinLength,ErrorMessage = "StringLength")]
         public string Text { get; set; }
 
         [MaxLength(4,ErrorMessage = "MaxLength")]

@@ -34,7 +34,7 @@ export default {
             showDialogLogin: false,
             build: null,
             isEdgeRtl : global.isEdgeRtl,
-            cahceQuestion: {}
+            cahceQuestion: {},
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -42,13 +42,28 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState", 'updateUserProfileData', 'setQuestion']),
+        ...mapActions([
+            "resetQuestion",
+            "removeDeletedAnswer",
+            "updateToasterParams",
+            "updateLoginDialogState",
+            'updateUserProfileData',
+            'setQuestion',
+            'updateNewBallerDialogState'
+        ]),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         ...mapGetters(["getQuestion"]),
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorLength= {
                     errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
+                    errorClass: true
+                };
+                return
+            }
+            if (!this.textAreaValue || this.textAreaValue.trim().length > 540) {
+                this.errorLength= {
+                    errorText: LanguageService.getValueByKey("questionDetails_error_maxChar"),
                     errorClass: true
                 };
                 return
@@ -111,6 +126,15 @@ export default {
                 }
                 this.buildChat();
             })
+        },
+        openNewBaller(){
+            if(this.accountUser ){
+                let score = this.accountUser.score;
+                let supressed = global.localStorage.getItem("sb-newBaller-suppresed");
+                if(score === 0 &&  !supressed){
+                    this.updateNewBallerDialogState(true);
+                }
+            }
         },
 
         buildChat() {
