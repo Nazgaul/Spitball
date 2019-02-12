@@ -117,114 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="campaign_askaquestion_ask_banner_boldText" xml:space="preserve">
-    <value>Sign up now!</value>
-  </data>
-  <data name="campaign_askaquestion_ask_banner_textMain" xml:space="preserve">
-    <value>Sign up now!</value>
-  </data>
-  <data name="campaign_askaquestion_ask_banner_title" xml:space="preserve">
-    <value>Ask your HW question now and get fast answers from top students.</value>
-  </data>
-  <data name="campaign_askaquestion_flashcard_banner_boldText" xml:space="preserve">
-    <value>your school, classes and preferences</value>
-  </data>
-  <data name="campaign_askaquestion_flashcard_banner_textMain" xml:space="preserve">
-    <value>Filtered by your school, classes and preferences. Saving you time!</value>
-  </data>
-  <data name="campaign_askaquestion_flashcard_banner_title" xml:space="preserve">
-    <value>Study from millions of flashcard sets to improve your grades.</value>
-  </data>
-  <data name="campaign_askaquestion_note_banner_boldText" xml:space="preserve">
-    <value>your school, classes and preferences</value>
-  </data>
-  <data name="campaign_askaquestion_note_banner_textMain" xml:space="preserve">
-    <value>Filtered by your school, classes and preferences. Saving you time!</value>
-  </data>
-  <data name="campaign_askaquestion_note_banner_title" xml:space="preserve">
-    <value>Notes, study guides, exams and more from the best sites.</value>
-  </data>
-  <data name="campaign_book_askaquestion_banner_boldText" xml:space="preserve">
-    <value>hundreds of sites simultaneously.</value>
-  </data>
-  <data name="campaign_book_askaquestion_banner_textMain" xml:space="preserve">
-    <value>Preview quotes from hundreds of sites simultaneously.</value>
-  </data>
-  <data name="campaign_book_askaquestion_banner_title" xml:space="preserve">
-    <value>Compare the best prices to buy, rent or sell your textbooks.</value>
-  </data>
-  <data name="campaign_book_default_banner_boldText" xml:space="preserve">
-    <value>hundreds of sites simultaneously.</value>
-  </data>
-  <data name="campaign_book_default_banner_textMain" xml:space="preserve">
-    <value>Preview quotes from hundreds of sites simultaneously.</value>
-  </data>
-  <data name="campaign_book_default_banner_title" xml:space="preserve">
-    <value>Compare the best prices to buy, rent or sell your textbooks.</value>
-  </data>
-  <data name="campaign_default_ask_banner_boldText" xml:space="preserve">
-    <value>cash out to Amazon Coupons</value>
-  </data>
-  <data name="campaign_default_ask_banner_textMain" xml:space="preserve">
-    <value>Answer HW questions and cash out to Amazon Coupons. There’s no catch!</value>
-  </data>
-  <data name="campaign_default_ask_banner_title" xml:space="preserve">
-    <value>Make money while helping others with their homework.</value>
-  </data>
-  <data name="campaign_default_flashcard_banner_boldText" xml:space="preserve">
-    <value>your school, classes and preferences</value>
-  </data>
-  <data name="campaign_default_flashcard_banner_textMain" xml:space="preserve">
-    <value>Filtered by your school, classes and preferences. Saving you time!</value>
-  </data>
-  <data name="campaign_default_flashcard_banner_title" xml:space="preserve">
-    <value>Study from millions of flashcard sets to improve your grades.</value>
-  </data>
-  <data name="campaign_default_note_banner_textMain" xml:space="preserve">
-    <value>Filtered by your school, classes and preferences. Saving you time!</value>
-  </data>
-  <data name="campaign_default_note_banner_title" xml:space="preserve">
-    <value>Notes, study guides, exams and more from the best sites.</value>
-  </data>
-  <data name="campaign_default_note_banner__boldText" xml:space="preserve">
-    <value>your school, classes and preferences</value>
-  </data>
-  <data name="campaign_job_askaquestion_banner_boldText" xml:space="preserve">
-    <value>experience and location preference.</value>
-  </data>
-  <data name="campaign_job_askaquestion_banner_textMain" xml:space="preserve">
-    <value>Filtered by your experience and location preference.</value>
-  </data>
-  <data name="campaign_job_askaquestion_banner_title" xml:space="preserve">
-    <value>Find jobs and internships catered specifically to students.</value>
-  </data>
-  <data name="campaign_job_default_banner_boldText" xml:space="preserve">
-    <value>experience and location preference.</value>
-  </data>
-  <data name="campaign_job_default_banner_textMain" xml:space="preserve">
-    <value>Filtered by your experience and location preference.</value>
-  </data>
-  <data name="campaign_job_default_banner_title" xml:space="preserve">
-    <value>Find jobs and internships catered specifically to students.</value>
-  </data>
-  <data name="campaign_tutor_askaquestion_banner_boldText" xml:space="preserve">
-    <value>here to help you succeed.</value>
-  </data>
-  <data name="campaign_tutor_askaquestion_banner_textMain" xml:space="preserve">
-    <value>No matter the subject, a tutor is here to help you succeed.</value>
-  </data>
-  <data name="campaign_tutor_askaquestion_banner_title" xml:space="preserve">
-    <value>Find an expert to help you ace your classes in-person or online.</value>
-  </data>
-  <data name="campaign_tutor_default_banner_boldText" xml:space="preserve">
-    <value>here to help you succeed.</value>
-  </data>
-  <data name="campaign_tutor_default_banner_textMain" xml:space="preserve">
-    <value>No matter the subject, a tutor is here to help you succeed.</value>
-  </data>
-  <data name="campaign_tutor_default_banner_title" xml:space="preserve">
-    <value>Find an expert to help you ace your classes in-person or online.</value>
-  </data>
   <data name="nav_bookDetails_filter_new" xml:space="preserve">
     <value>new</value>
   </data>
@@ -251,9 +143,5 @@
   </data>
   <data name="nav_name_tutor" xml:space="preserve">
     <value>Tutors</value>
-  </data>
-  <data name="campaign_referral_ask_banner_title" xml:space="preserve">
-    <value>Get help with your HW from top students 
-and start earning money by helping others</value>
   </data>
 </root>

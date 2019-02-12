@@ -147,4 +147,7 @@
   <data name="question_dash" xml:space="preserve">
     <value>/  שאלות  /</value>
   </data>
+  <data name="error_maxChar" xml:space="preserve">
+    <value>שדה זה חייב להיות מסוג מחרוזת באורך מירבי של 550 תווים</value>
+  </data>
 </root>

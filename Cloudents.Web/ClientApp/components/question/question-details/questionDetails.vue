@@ -25,8 +25,8 @@
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
                                                     :error="errorTextArea"
-                                                    :isFocused="showForm"
                                                     @addFile="addFile"
+                                                    :openNewBaller="openNewBaller"
                                                     @removeFile="removeFile">
                                 </extended-text-area>
                                 <div class="has-answer-error-wrapper">
@@ -72,8 +72,8 @@
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                             v-model="textAreaValue"
+                                                            :openNewBaller="openNewBaller"
                                                             :error="errorTextArea"
-                                                            :isFocused="showForm" 
                                                             @addFile="addFile"
                                                             @removeFile="removeFile"></extended-text-area>
                                         <div class="has-answer-error-wrapper">

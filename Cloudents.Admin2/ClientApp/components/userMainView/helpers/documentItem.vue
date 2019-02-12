@@ -8,7 +8,8 @@
                              avatar
                              @click=""
                 >
-                    <v-list-tile-avatar>
+
+                    <v-list-tile-avatar v-if="!isDeleted">
                         <img :src="document.preview ?  document.preview : ''"
                              :class=" [ 'document-preview',
                              proccessedDocuments.includes(document.id) ? 'blured' : '',
