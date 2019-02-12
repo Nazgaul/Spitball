@@ -19,6 +19,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs.ServiceBus;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
@@ -137,7 +138,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("FunctionSmsServiceBus")]
         public static async Task SmsServiceBusAsync(
-            [ServiceBusTrigger("sms", Connection = "AzureWebJobsServiceBus")] SmsMessage2 msg,
+            [ServiceBusTrigger("communication","sms", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
             ILogger log,
             CancellationToken token
@@ -161,19 +162,21 @@ namespace Cloudents.FunctionsV2
             }, token);
         }
 
-       // [Disable]
-        [FunctionName("FunctionCallServiceBus")]
+        [FunctionName("FunctionPhoneServiceBus")]
         public static async Task CallServiceBusAsync(
-            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+            [ServiceBusTrigger("communication", "call", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
             [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options
             )
         {
             var from = new PhoneNumber("+1 203-347-4577");
-            var to = new PhoneNumber("+972542642202");
+            var to = new PhoneNumber(msg.PhoneNumber);
 
 
             var hostName = Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME");
-
+            if (hostName == null || hostName.Contains("localhost", StringComparison.OrdinalIgnoreCase))
+            {
+                hostName = "https://spitball-function-dev2.azurewebsites.net";
+            }
 
             var uriBuilder = new UriBuilder(new Uri(hostName))
             {
@@ -181,7 +184,7 @@ namespace Cloudents.FunctionsV2
             };
             uriBuilder.AddQuery(new NameValueCollection()
             {
-                ["code"] = "1 2 3 4"
+                ["code"] = msg.Message
             });
             var call = new CreateCallOptions(to, from)
             {

@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Storage
         private const string QueueSms = "sms";
         private readonly string _connectionString;
 
-        //private readonly ConcurrentDictionary<string, TopicClient> _topicClients = new ConcurrentDictionary<string, TopicClient>();
+        private readonly ConcurrentDictionary<string, TopicClient> _topicClients = new ConcurrentDictionary<string, TopicClient>();
         private readonly ConcurrentDictionary<string, QueueClient> _queueClients = new ConcurrentDictionary<string, QueueClient>();
 
         public ServiceBusProvider(IConfigurationKeys keys)
@@ -53,9 +53,20 @@ namespace Cloudents.Infrastructure.Storage
             });
         }
 
-        public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
+        public Task InsertMessageAsync(SmsMessage message, CancellationToken token)
         {
-            return InsertQueueMessageAsync(QueueSms, message, token);
+            var topicClient = _topicClients.GetOrAdd("communication", x => new TopicClient(_connectionString, x));
+
+            var json = JsonConvert.SerializeObject(message);
+
+            token.ThrowIfCancellationRequested();
+            return topicClient.SendAsync(new Message
+            {
+                Body = Encoding.UTF8.GetBytes(json),
+                ContentType = "application/json",
+                Label = message.Type.Type,
+                //UserProperties = { ["Label"] = message.Type.Type }
+            });
         }
 
         public Task InsertMessageAsync(SignalRTransportType obj, string groupId, CancellationToken token)
