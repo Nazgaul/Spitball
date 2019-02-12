@@ -4,6 +4,93 @@
   display: none;
 }
 
+  .new-baller {
+    border-radius: 4px;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.5);
+    background-color: @color-white;
+    .new-baller-container {
+      padding: 0;
+      @media(max-width: @screen-xs){
+        margin: 0;
+      }
+    }
+    .nb-flex{
+      display: flex;
+    }
+    .new-baller-header {
+      background-color: @purpleNewColor;
+    }
+    .new-baller-btn{
+      &.v-btn {
+        border-radius: 16px;
+        width: 40px;
+        font-family: @fontFiraSans;
+        font-size: 16px;
+        color: fade(@color-white, 87%);
+        box-shadow: none;
+        height: 32px;
+        text-transform: capitalize;
+        &.sb-background{
+          background-color: @purpleNewColor;
+
+
+        }
+      }
+    }
+    .new-baller-title {
+      //height: 54px;
+      font-family: @fontFiraSans;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 2.77;
+      letter-spacing: -0.2px;
+      color: fade(@color-white, 87%);
+    }
+    .new-baller-sub-title {
+      font-family: @fontOpenSans;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.5;
+      letter-spacing: -0.2px;
+      color: fade(@textColor, 90%);
+    }
+    .line-number {
+      height: 43px;
+      font-family: @fontOpenSans;
+      font-size: 32px;
+      color: @purpleNewColor;
+      @media(max-width: @screen-xs){
+        font-size: 20px;
+        height: 30px;
+      }
+    }
+    .line-text {
+      font-family: @fontOpenSans;
+      font-size: 14px;
+      line-height: 1.79;
+      letter-spacing: -0.1px;
+      color: @textColor;
+    }
+    .new-baller-btm-section {
+      padding: 20px 0 25px 0;
+      background-color: #f6f6f6;
+      .bottom-text {
+        max-width: 474px;
+        display: inline-block;
+        font-family: @fontOpenSans;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 1.38;
+        letter-spacing: -0.1px;
+        color: @purpleNewColor;
+      }
+    }
+    .new-baller-action-section {
+
+    }
+
+  }
+
 .set-class-dropdown-container {
   .v-chip__content {
     cursor: pointer !important;

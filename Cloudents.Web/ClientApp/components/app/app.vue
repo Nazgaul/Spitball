@@ -87,17 +87,57 @@
                     :showDialog="newBallerDialog"
                     :popUpType="'newBallerDialog'"
                     :content-class="'new-baller'"
-                    :maxWidth="'450px'"
+                    :maxWidth="'700px'"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
             >
-                <v-card>
-                    <v-card-title class="headline">Use Google's location service?</v-card-title>
-                    <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn  class="new-baller-delay" v-show="showNewBallerAction" flat @click="closeNewBallerDialog()">Understand</v-btn>
-                    </v-card-actions>
-                </v-card>
+                <v-container class="new-baller-container">
+                    <v-layout align-center justify-center class="new-baller-header">
+                            <span class="new-baller-title d-flex text-xs-center text-sm-center text-md-center"
+                                  v-language:inner>newBaller_title
+                            </span>
+
+                    </v-layout>
+
+                    <v-layout column class="mt-3 mb-3" :class="[$vuetify.breakpoint.smAndUp ? 'px-5' : 'px-4']">
+                        <v-flex class="mb-2">
+                            <span class="new-baller-sub-title" v-language:inner>newBaller_subtitle
+
+                            </span>
+                        </v-flex>
+                        <div class="nb-flex align-center">
+                            <span class="line-number mr-3">1</span>
+                            <span class="line-text" v-language:inner>newBaller__list_item_one</span>
+                        </div>
+                        <div class="nb-flex align-center">
+                            <span class="line-number mr-3">2</span>
+                            <span class="line-text" v-language:inner>newBaller_list_item_two</span>
+
+                        </div>
+                        <div class="nb-flex align-center">
+                            <span class="line-number mr-3">3</span>
+                            <span class="line-text" v-language:inner>newBaller_list_item_three</span>
+
+                        </div>
+
+                    </v-layout>
+                    <v-layout class="new-baller-btm-section" :class="[$vuetify.breakpoint.smAndUp ? 'px-5' : 'px-4']" column>
+                        <v-flex class="mb-3">
+                            <span class="bottom-text" v-language:inner>newBaller_bottom_text_one
+                            </span>
+                        </v-flex>
+                        <v-flex>
+                            <span class="bottom-text" v-language:inner>newBaller_bottom_text_two
+                            </span>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout class="new-baller-action-section" :class="[$vuetify.breakpoint.smAndUp ? 'py-3' : 'pb-3 pt-4']" align-center justify-center>
+                            <v-btn class="new-baller-btn sb-background" v-show="showNewBallerAction"
+                                   @click="closeNewBallerDialog()">
+                                <span v-language:inner>newBaller_action_got</span>
+                            </v-btn>
+                    </v-layout>
+                </v-container>
             </sb-dialog>
 
             <sb-dialog
@@ -257,10 +297,10 @@
         },
         watch: {
 
-            newBallerDialog(val){
+            newBallerDialog(val) {
                 let self = this;
-                if(val){
-                    setTimeout(()=>{
+                if (val) {
+                    setTimeout(() => {
                         return self.showNewBallerAction = true
                     }, 2000);
 
@@ -268,19 +308,23 @@
                 }
             },
 
-            getShowSelectUniInterface(val){
+            getShowSelectUniInterface(val) {
                 let query = this.$route.query;
                 if (val) {
                     this.tourTempClose();
-                    this.$router.push({'query':{
-                        ...query, 
-                        university: this.getCurrentStep,
-                    }})
-                }else{
-                    this.$router.push({'query':{
-                        ...query, 
-                        university: undefined,
-                    }})
+                    this.$router.push({
+                        'query': {
+                            ...query,
+                            university: this.getCurrentStep,
+                        }
+                    })
+                } else {
+                    this.$router.push({
+                        'query': {
+                            ...query,
+                            university: undefined,
+                        }
+                    })
                 }
             },
             getShowToaster: function (val) {
@@ -335,13 +379,13 @@
             $route: function (val) {
                 this.tourTempClose();
                 this.openOnboardGuide();
-                if(!!val.query && !!val.query.university){
-                    if(val.query.university){
+                if (!!val.query && !!val.query.university) {
+                    if (val.query.university) {
                         this.showUniSelect = true;
-                    }else{
+                    } else {
                         this.showUniSelect = false;
                     }
-                }else{
+                } else {
                     this.showUniSelect = false;
                 }
             }
@@ -361,26 +405,26 @@
                 "updateNewBallerDialogState"
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
-            closeNewBallerDialog(){
+            closeNewBallerDialog() {
                 global.localStorage.setItem("sb-newBaller-suppresed", true);
-                this. updateNewBallerDialogState(false);
+                this.updateNewBallerDialogState(false);
             },
             onFooterStepChange() {
                 this.tourTempClose();
             },
-            closeSblToken(){
+            closeSblToken() {
                 this.updateShowBuyDialog(false)
             },
-            openOnboardGuide(){
+            openOnboardGuide() {
                 let isLogedIn = this.accountUser;
                 let supressed = global.localStorage.getItem("sb-onboard-supressed");
                 let validRoutesNames = ['ask', 'note'].indexOf(this.$route.name) > -1;
-                if(isLogedIn && !supressed && validRoutesNames){
-                  setTimeout(()=>{
-                      this.updateOnBoardState(true);
-                  },)
+                if (isLogedIn && !supressed && validRoutesNames) {
+                    setTimeout(() => {
+                        this.updateOnBoardState(true);
+                    },)
 
-              }
+                }
             },
             tourClosed: function () {
                 console.log("tourClosed");
@@ -403,13 +447,13 @@
                 //the set to the local storage happens in the component itself
                 this.acceptIsraeli = true;
             },
-            tryBuyTokens(transactionObjectError){
-                walletService.buyTokens(transactionObjectError).then(()=>{
+            tryBuyTokens(transactionObjectError) {
+                walletService.buyTokens(transactionObjectError).then(() => {
                     this.updateToasterParams({
                         toasterText: LanguageService.getValueByKey("buyToken_success"),
                         showToaster: true,
                     });
-                }, (error)=>{
+                }, (error) => {
                     global.localStorage.setItem('sb_transactionError', transactionId);
                     console.log(error);
                 })
@@ -447,18 +491,18 @@
                 }
             });
             let failedTranscationId = global.localStorage.getItem('sb_transactionError');
-            if(failedTranscationId){
+            if (failedTranscationId) {
                 global.localStorage.removeItem('sb_transactionError');
                 let transactionObjectError = {
                     id: failedTranscationId
                 }
                 this.tryBuyTokens(transactionObjectError)
             }
-            
-            if(!!this.$route.query && !!this.$route.query.university){
+
+            if (!!this.$route.query && !!this.$route.query.university) {
                 this.updateCurrentStep(this.$route.query.university);
                 this.changeSelectUniState(true);
-                this.showUniSelect = true;                
+                this.showUniSelect = true;
             }
         }
     };
