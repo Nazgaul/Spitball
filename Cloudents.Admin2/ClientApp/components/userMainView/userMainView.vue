@@ -29,12 +29,6 @@
                 </v-flex>
             </div>
             <div class="questions-answers-wrap">
-                <div class="filters mb-2">
-                    <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
-                           :color="searchQuery === filter.value ? '#00bcd4' : ''  "
-                           :key="'filter_'+index">{{filter.name}}
-                    </v-btn>
-                </div>
                 <v-layout row>
                     <div class="general-info d-flex elevation-2 mb-2" v-if="showActions">
                         <div class="info-item py-2 px-2" v-for="(infoItem, index) in userInfo" :key="index">
@@ -63,6 +57,12 @@
                             <v-tab :href="`#tab-1`">User Answers</v-tab>
                             <v-tab :href="`#tab-2`">User Documents</v-tab>
                         </v-tabs>
+                        <div class="filters mb-2">
+                            <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
+                                   :color="searchQuery === filter.value ? '#00bcd4' : ''  "
+                                   :key="'filter_'+index">{{filter.name}}
+                            </v-btn>
+                        </div>
                         <v-tabs-items v-model="activeTab">
                             <v-tab-item :value="`tab-0`">
                                 <v-flex xs12>
@@ -116,7 +116,7 @@
                     <v-container grid-list-md>
                         <v-layout wrap>
                             <v-flex xs12 sm12 md12>
-                                <user-tokens :userIds="userId"></user-tokens>
+                                <user-tokens :userId="userId"></user-tokens>
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -229,7 +229,6 @@
 
                 }
             }
-
         },
         computed: {
             ...mapGetters([
@@ -334,8 +333,8 @@
                 let self = this;
                 self.getUserData(id)
                     .then((data) => {
-                        this.userId =  data.id.value;
-                        this.getDataByTabName()
+                        self.userId =  data.id.value;
+                        self.getDataByTabName()
 
                     })
             },
