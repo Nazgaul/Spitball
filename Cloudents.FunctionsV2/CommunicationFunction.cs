@@ -17,9 +17,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs.ServiceBus;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
@@ -138,7 +138,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("FunctionSmsServiceBus")]
         public static async Task SmsServiceBusAsync(
-            [ServiceBusTrigger("communication","sms", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
+            [ServiceBusTrigger("communication", "sms", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
             ILogger log,
             CancellationToken token
@@ -165,22 +165,25 @@ namespace Cloudents.FunctionsV2
         [FunctionName("FunctionPhoneServiceBus")]
         public static async Task CallServiceBusAsync(
             [ServiceBusTrigger("communication", "call", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
-            [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options
+            [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options,
+            ILogger log
             )
         {
             var from = new PhoneNumber("+1 203-347-4577");
             var to = new PhoneNumber(msg.PhoneNumber);
 
 
-            var hostName = Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME");
-            if (hostName == null || hostName.Contains("localhost", StringComparison.OrdinalIgnoreCase))
+            var hostName2 = string.Format("http://{0}.azurewebsites.net", Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%"));
+            if (hostName2 == null || hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
             {
-                hostName = "https://spitball-function-dev2.azurewebsites.net";
+                hostName2 = "https://spitball-function-dev2.azurewebsites.net";
             }
 
-            var uriBuilder = new UriBuilder(new Uri(hostName))
+            hostName2 = hostName2.TrimEnd('/');
+
+            var uriBuilder = new UriBuilder(new Uri(hostName2))
             {
-                Path = "api/twilio",
+                Path = "/api/twilio",
             };
             uriBuilder.AddQuery(new NameValueCollection()
             {
@@ -196,6 +199,9 @@ namespace Cloudents.FunctionsV2
         }
 
 
+
+
+
         [FunctionName("TwilioMessage")]
         public static IActionResult RunTwilioResult(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "twilio")]
@@ -205,7 +211,7 @@ namespace Cloudents.FunctionsV2
 
             string name = req.Query["code"];
             var twiml = new VoiceResponse();
-            twiml.Say($"Your code to spitball is {name}", loop: 3,voice: "alice");
+            twiml.Say($"Your code to spitball is, {string.Join(" ",name.ToCharArray())}", loop: 3, voice: "alice");
             return new ContentResult()
             {
                 Content = twiml.ToString(),
