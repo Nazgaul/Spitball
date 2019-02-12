@@ -90,62 +90,7 @@
                     :maxWidth="'700px'"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
             >
-                <v-container class="new-baller-container">
-                    <v-layout align-center justify-center class="new-baller-header">
-                            <span class="new-baller-title d-flex text-xs-center text-sm-center text-md-center"
-                                  v-language:inner>newBaller_title
-                            </span>
-
-                    </v-layout>
-
-                    <v-layout column class="mt-3 mb-3" :class="[$vuetify.breakpoint.smAndUp ? 'px-5' : 'px-4']">
-                        <v-flex class="mb-2">
-                            <span class="new-baller-sub-title" v-language:inner>newBaller_subtitle
-
-                            </span>
-                        </v-flex>
-                        <div class="nb-flex align-center">
-                            <span class="line-number mr-3">1</span>
-                            <span class="line-text" v-language:inner>newBaller__list_item_one</span>
-                        </div>
-                        <div class="nb-flex align-center">
-                            <span class="line-number mr-3">2</span>
-                            <span class="line-text" v-language:inner>newBaller_list_item_two</span>
-
-                        </div>
-                        <div class="nb-flex align-center">
-                            <span class="line-number mr-3">3</span>
-                            <span class="line-text" v-language:inner>newBaller_list_item_three</span>
-
-                        </div>
-
-                    </v-layout>
-                    <v-layout class="new-baller-btm-section" :class="[$vuetify.breakpoint.smAndUp ? 'px-5' : 'px-4']" column>
-                        <v-flex class="mb-3">
-                            <span class="bottom-text" v-language:inner>newBaller_bottom_text_one
-                            </span>
-                        </v-flex>
-                        <v-flex>
-                            <span class="bottom-text" v-language:inner>newBaller_bottom_text_two
-                            </span>
-                        </v-flex>
-                    </v-layout>
-
-                    <v-layout class="new-baller-action-section" :class="[$vuetify.breakpoint.smAndUp ? 'py-3' : 'pb-3 pt-4']" align-center justify-center>
-                            <v-btn class="new-baller-btn sb-background" v-show="showNewBallerAction"
-                                   @click="closeNewBallerDialog()">
-                                <span v-language:inner>newBaller_action_got</span>
-                            </v-btn>
-                    </v-layout>
-                </v-container>
-            </sb-dialog>
-
-            <sb-dialog
-                    :showDialog="getShowBuyDialog"
-                    :popUpType="'buyTokens'"
-                    :content-class="'buy-tokens-popup'"
-                    :onclosefn="closeSblToken">
-                <buy-tokens></buy-tokens>
+                <new-baller></new-baller>
             </sb-dialog>
 
             <sb-dialog
@@ -173,7 +118,7 @@
     import AddQuestion from "../question/addQuestion/addQuestion.vue";
     import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
     import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
-
+    import newBaller from "../helpers/newBaller/newBaller.vue";
     import {
         GetDictionary,
         LanguageService
@@ -207,7 +152,8 @@
             leadersBoard,
             boardGuide,
             uploadMultipleFiles,
-            buyTokens
+            buyTokens,
+            newBaller
         },
         data() {
             return {
@@ -218,7 +164,7 @@
                 showOnBoardGuide: true,
                 showBuyTokensDialog: false,
                 showUniSelect: false,
-                showNewBallerAction: false,
+
 
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
@@ -296,17 +242,6 @@
             });
         },
         watch: {
-
-            newBallerDialog(val) {
-                let self = this;
-                if (val) {
-                    setTimeout(() => {
-                        return self.showNewBallerAction = true
-                    }, 2000);
-
-
-                }
-            },
 
             getShowSelectUniInterface(val) {
                 let query = this.$route.query;
@@ -402,13 +337,9 @@
                 "updateShowBuyDialog",
                 "updateCurrentStep",
                 "changeSelectUniState",
-                "updateNewBallerDialogState"
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
-            closeNewBallerDialog() {
-                global.localStorage.setItem("sb-newBaller-suppresed", true);
-                this.updateNewBallerDialogState(false);
-            },
+
             onFooterStepChange() {
                 this.tourTempClose();
             },
