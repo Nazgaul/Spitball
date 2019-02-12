@@ -1,6 +1,8 @@
 ﻿az servicebus topic create --name sms-topic --namespace-name spitball-dev --resource-group zbox-dev
 az servicebus topic subscription create --resource-group zbox-dev --namespace-name spitball-dev --topic-name sms-topic --name sms
-az servicebus topic subscription rule create --resource-group zbox-dev --namespace-name spitball-dev --topic-name sms-topic --subscription-name sms --name smsonly --filter-sql-expression label=sms
+az servicebus topic subscription rule create --resource-group zbox-dev --namespace-name spitball-dev --topic-name sms-topic --subscription-name sms --name smsonly --filter-sql-expression "label= 'sms'"
+az servicebus topic subscription create --resource-group zbox-dev --namespace-name spitball-dev --topic-name sms-topic --name phone
+az servicebus topic subscription rule create --resource-group zbox-dev --namespace-name spitball-dev --topic-name sms-topic --subscription-name phone --name phoneonly --filter-sql-expression "label= 'phone'"
 
 
 need to run in case we want to change the Score system to transactions count
