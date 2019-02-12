@@ -58,9 +58,6 @@ export default {
     isLoggedIn() {
       return !!this.accountUser;
     },
-    isClassesSet() {
-      return this.getSelectedClasses.length > 0;
-    },
     schoolName() {
       return this.getSchoolName;
     }
@@ -70,7 +67,16 @@ export default {
       if(!val){
         this.lock = false;
       }
-    }
+    },
+    '$route'(val) {
+        if(!!this.$route.query){
+          if(!this.$route.query.Course){
+            this.selectedCourse = "";
+          }
+        }else{
+          this.selectedCourse = "";
+        }
+     },
   },
   methods: {
     ...mapActions([

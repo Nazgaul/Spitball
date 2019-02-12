@@ -87,7 +87,7 @@
 
 <script>
     import {notRegMenu} from '../settings/consts';
-    import SearchInput from '../helpers/searchInput.vue';
+    import SearchInput from '../helpers/searchInput/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
     import {mapActions, mapGetters} from 'vuex';

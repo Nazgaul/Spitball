@@ -1,12 +1,13 @@
-﻿@import "../../styles/mixin.less";
+﻿@import "../../../styles/mixin.less";
 
 .search-input {
   display: flex;
   width: 100%;
-  max-width: 590px;
+  max-width: 500px;
   min-width: auto;
+  margin-left: 67px;
   @media(min-width: @screen-xs) {
-    padding-right: 32px;
+    //padding-right: 32px;
     //min-width: 590px;
   }
 
@@ -80,9 +81,14 @@
     margin-top: 11px;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
     overflow: auto;
-
+    padding: 0;
+    
     @media (max-width: @screen-xs) {
       overflow: scroll;
+    }
+
+    .suggestion{
+      margin: 15px 0px;
     }
 
     .list {
