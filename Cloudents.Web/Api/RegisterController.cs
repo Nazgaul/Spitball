@@ -55,7 +55,7 @@ namespace Cloudents.Web.Api
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
                 try
@@ -67,36 +67,15 @@ namespace Cloudents.Web.Api
                    
 
                 }
-
-
-                //if (!user.EmailConfirmed)
-                //{
-                //    await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
-                //    return new ReturnSignUserResponse(NextStep.EmailConfirmed, false);
-                //}
-
-                //if (string.IsNullOrEmpty(user.PhoneNumber))
-                //{
-                //    await _signInManager.TempSignIn(user).ConfigureAwait(false);
-                //    return new ReturnSignUserResponse(NextStep.EnterPhone, false);
-
-                //}
-                //if (!user.PhoneNumberConfirmed)
-                //{
-                //    var t1 = _signInManager.TempSignIn(user);
-                //    var t2 = _client.SendSmsAsync(user, token);
-
-                //    await Task.WhenAll(t1, t2);
-                //    return new ReturnSignUserResponse(NextStep.VerifyPhone, false);
-                //}
+               
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
             user = CreateUser(model.Email, null);
-            var p = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
+            var p = await _userManager.CreateAsync(user, model.Password);
             if (p.Succeeded)
             {
-                await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
+                await GenerateEmailAsync(user, returnUrl, token);
                 return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
             }
             ModelState.AddIdentityModelError(p);
@@ -134,13 +113,8 @@ namespace Cloudents.Web.Api
                 await _signInManager.TempSignIn(user);
                 return new ReturnSignUserResponse(NextStep.EnterPhone, true);
             }
-
-
-            //if (user.OldUser.GetValueOrDefault() && user.SecurityStamp == null)
-            //{
-            //    await _userManager.UpdateSecurityStampAsync(user);
-            //}
-            await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
+           
+            await GenerateEmailAsync(user, returnUrl, token);
             return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
         }
 
@@ -150,7 +124,7 @@ namespace Cloudents.Web.Api
             [FromServices] IGoogleAuth service,
             CancellationToken cancellationToken)
         {
-            var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
+            var result = await service.LogInAsync(model.Token, cancellationToken);
             _logger.Info($"received google user {result}");
             if (result == null)
             {
@@ -220,7 +194,7 @@ namespace Cloudents.Web.Api
             //{
             //    await _userManager.UpdateSecurityStampAsync(user);
             //}
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
             var url = returnUrl?.Url;
             if (!Url.IsLocalUrl(url))
@@ -232,7 +206,7 @@ namespace Cloudents.Web.Api
             var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url, referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link), CultureInfo.CurrentUICulture);
-            await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
+            await _queueProvider.InsertMessageAsync(message, token);
         }
 
         [HttpPost("resend")]

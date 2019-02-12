@@ -21,7 +21,7 @@ namespace Cloudents.Core.Storage
 
     public interface IServiceBusProvider
     {
-        Task InsertMessageAsync(SmsMessage2 obj, CancellationToken token);
+        Task InsertMessageAsync(SmsMessage obj, CancellationToken token);
         //Task InsertMessageAsync(ISystemQueueMessage obj, CancellationToken token);
         //SignalRMessageTransport
         Task InsertMessageAsync(SignalRTransportType obj, long? userId, CancellationToken token);
