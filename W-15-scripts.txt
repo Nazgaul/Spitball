@@ -4,6 +4,7 @@ az servicebus topic subscription rule create --resource-group zbox-dev --namespa
 az servicebus topic subscription create --resource-group zbox-dev --namespace-name spitball-dev --topic-name communication --name call
 az servicebus topic subscription rule create --resource-group zbox-dev --namespace-name spitball-dev --topic-name communication --subscription-name call --name phoneRule --filter-sql-expression "sys.Label= 'phone'"
 
+need to upload azure function v2.
 
 need to run in case we want to change the Score system to transactions count
 first run the first update statement until all records have been updated and 
