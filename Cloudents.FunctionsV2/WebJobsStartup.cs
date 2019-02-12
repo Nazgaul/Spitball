@@ -17,6 +17,7 @@ namespace Cloudents.FunctionsV2
             {
 
                 builder.AddExtension<AzureSearchSyncProvider>();
+                builder.AddExtension<TwilioExtensionConfigProvider>();
                 builder.AddDependencyInjection<AutofacServiceProviderBuilder>();
             }
 
