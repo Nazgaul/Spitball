@@ -29,9 +29,13 @@ namespace Cloudents.Core.Entities
             {
                 throw new InsufficientFundException();
             }
+            //if (t.Price > 0 && t.Type == TransactionType.Earned)
+            //{
+            //    Score += t.AwardScore;
+            //}
             if (t.Price > 0 && t.Type == TransactionType.Earned)
             {
-                Score += t.AwardScore;
+                Score += (int)t.Price;
             }
         }
 
