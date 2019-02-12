@@ -20,6 +20,7 @@
                 :headers="headers"
                 :items="cashOutList"
                 class="elevation-1"
+                :rows-per-page-items="[25, 50, 100,{text: 'All', value:-1}]"
                 :search="search"
         >
             <template slot="items" slot-scope="props">
@@ -29,9 +30,9 @@
                 <td class="text-xs-center">{{new Date(props.item.cashOutTime).toUTCString()}}</td>
                 <td class="text-xs-center">{{ props.item.userQueryRatio }}</td>
                 <td class="text-xs-center" :class="{'suspect': props.item.isSuspect}">
-                    {{props.item.isSuspect ? "Yes" : ""}}
+                    {{props.item.isSuspect ? "Yes" : "--"}}
                 </td>
-                <td class="text-xs-center">{{ props.item.isIsrael ? "Yes" : "" }}</td>
+                <td class="text-xs-center">{{ props.item.isIsrael ? "Yes" : "--" }}</td>
                 <td class="text-xs-center">{{ props.item.declinedReason }}</td>
                 <td class="text-xs-center">{{ props.item.approved }}</td>
                 <td class="text-xs-center">
@@ -123,9 +124,9 @@
                     {text: 'Cashout Price', value: 'cashoutPrice'},
                     {text: 'User Email', value: 'userEmail'},
                     {text: 'Date of cash out', value: 'cashDate'},
-                    {text: 'User Query Ratio', value: 'queryRatio'},
+                    {text: 'User Query Ratio', value: 'userQueryRatio'},
                     {text: 'Is Suspect', value: 'isSuspect'},
-                    {text: 'Is From Israel', value: 'isIsarel'},
+                    {text: 'Is From Israel', value: 'isIsrael'},
                     {text: 'Decline reason', value: 'declinedReason'},
                     {text: 'Is Approved', value: 'approved'},
                     {text: 'Actions', value: 'Actions'},

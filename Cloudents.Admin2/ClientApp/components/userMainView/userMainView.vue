@@ -285,7 +285,8 @@
                     let userObj = {
                         id: this.userInfo.id.value
                     };
-                    this.verifyUserPhone(userObj).then(()=>{
+                    this.verifyUserPhone(userObj).then((resp)=>{
+                        console.log(resp)
                         this.openTokensDialog();
                     })
                 }
