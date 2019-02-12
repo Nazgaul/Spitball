@@ -21,13 +21,13 @@
                         </div>
                     </question-thread>
                     <div v-if="enableAnswer" slot="answer-form" class="mb-3" style="width:inherit;">
-                            <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one"
-                                 @click.prevent="isNewBaller()">
+                            <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
                                                     :error="errorTextArea"
                                                     :isFocused="showForm"
                                                     @addFile="addFile"
+                                                    :openNewBaller="openNewBaller"
                                                     @removeFile="removeFile">
                                 </extended-text-area>
                                 <div class="has-answer-error-wrapper">
@@ -70,10 +70,10 @@
                                 
                             </question-thread>
                             <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
-                                    <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)"
-                                         @click.prevent="isNewBaller()">
+                                    <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                             v-model="textAreaValue"
+                                                            :openNewBaller="openNewBaller"
                                                             :error="errorTextArea"
                                                             :isFocused="showForm"
                                                             @addFile="addFile"

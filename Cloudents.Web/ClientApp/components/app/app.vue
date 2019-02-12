@@ -95,7 +95,7 @@
                     <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn  class="new-baller-delay" flat @click="closeNewBallerDialog()">Understand</v-btn>
+                        <v-btn  class="new-baller-delay" v-show="showNewBallerAction" flat @click="closeNewBallerDialog()">Understand</v-btn>
                     </v-card-actions>
                 </v-card>
             </sb-dialog>
@@ -104,8 +104,7 @@
                     :showDialog="getShowBuyDialog"
                     :popUpType="'buyTokens'"
                     :content-class="'buy-tokens-popup'"
-                    :onclosefn="closeSblToken"
-            >
+                    :onclosefn="closeSblToken">
                 <buy-tokens></buy-tokens>
             </sb-dialog>
 
@@ -179,6 +178,8 @@
                 showOnBoardGuide: true,
                 showBuyTokensDialog: false,
                 showUniSelect: false,
+                showNewBallerAction: false,
+
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
                     tourCallbacks: {
@@ -186,7 +187,7 @@
                     },
                     toursOptions: tourService.toursOptions,
                     tourSteps: [],
-                    showNewBallerAction: false
+
                 }
             };
         },
@@ -255,6 +256,18 @@
             });
         },
         watch: {
+
+            newBallerDialog(val){
+                let self = this;
+                if(val){
+                    setTimeout(()=>{
+                        return self.showNewBallerAction = true
+                    }, 2000);
+
+
+                }
+            },
+
             getShowSelectUniInterface(val){
                 let query = this.$route.query;
                 if (val) {

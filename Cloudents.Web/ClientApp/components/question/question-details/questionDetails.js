@@ -34,7 +34,7 @@ export default {
             showDialogLogin: false,
             build: null,
             isEdgeRtl : global.isEdgeRtl,
-            cahceQuestion: {}
+            cahceQuestion: {},
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -127,7 +127,7 @@ export default {
                 this.buildChat();
             })
         },
-        isNewBaller(){
+        openNewBaller(){
             if(this.accountUser ){
                 let score = this.accountUser.score;
                 let supressed = global.localStorage.getItem("sb-newBaller-suppresed");
