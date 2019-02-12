@@ -116,3 +116,42 @@ where Q.CourseId not in (select [name] from sb.Course)
 
 Not sure we need this after UserMap Table("[User]") should solve the issue
 alter table sb.[Question] add constraint FK_2124E48A foreign key (FlaggedUserId) references sb.[User]
+
+
+
+need to run in case we want to change the Score system to transactions count
+first run the first update statement until all records have been updated and 
+then run the second update for all tire1 users
+begin tran
+update top(10000) U
+set Score = (select count(1) 
+			from sb.[Transaction] 
+			where TransactionType in ('Question', 'Document') 
+				and Price > 0 
+				and [Type] = 'Erned'
+				and U.Id = [User_Id]
+			)
+from sb.[User] U 
+where Score != (select count(1) 
+			from sb.[Transaction] 
+			where TransactionType in ('Question', 'Document') 
+				and Price > 0 
+				and [Type] = 'Erned'
+				and U.Id = [User_Id]
+			)
+
+
+begin tran
+update top(5000) U
+set Score = Score + 2
+from sb.[User] U 
+where U.Country in ('US', 'CA', 'AU' , 'GB', 'IE', 'IL', 'NZ', 'MX', 'SE' , 'NO', 'DK', 'FI', 'NL', 'BE','LU','DE','CH','AT','ZA')
+and Score != 2 + (select count(1) 
+			from sb.[Transaction] 
+			where TransactionType in ('Question', 'Document') 
+				and Price > 0 
+				and [Type] = 'Erned'
+				and U.Id = [User_Id]
+			)
+commit
+rollback
