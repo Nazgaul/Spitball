@@ -25,7 +25,7 @@ const mutations = {
     setPhoneConfirmStatus(state) {
         if (state.userInfo && state.userInfo.phoneNumberConfirmed) {
             state.userInfo.phoneNumberConfirmed.value = 'Yes';
-            // state.userInfo.phoneNumber && state.userInfo.phoneNumber.showButton ? state.userInfo.phoneNumber.showButton = false : true
+            state.userInfo.phoneNumber.showButton = false;
         }
     },
     updateStatus(state, val) {
