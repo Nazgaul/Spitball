@@ -178,11 +178,11 @@ reset instructions.</value>
     <value>You're ready to start Spitballing</value>
   </data>
   <data name="generalProfile_register_stepSix_text" xml:space="preserve">
-    <value>We've awarded you some points to start using
-Spitball immediately! Use them to get help with your
-own homework questions, or answer other student's
-questions to earn more points that can be
-redeemed for GiftCards</value>
+    <value>Answer other student’s homework questions and 
+Upload your study documents to earn Spitball 
+points. Use your points to access study resources 
+and get help with your own homework 
+questions, or redeem your points for GiftCards.</value>
   </data>
   <data name="generalProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>Create password</value>
