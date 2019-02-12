@@ -7,13 +7,8 @@
         <div class="suspend-input-container">
             <v-text-field solo type="text" class="user-id-input" :rules="[rulesReason.required]"  placeholder="reason" v-model="reason"/>
         </div>
-        <div class="suspend-checkbox-container">
-            <input type="checkbox" id="removeQuestion" v-model="deleteUserQuestions"> 
-            <label for="removeQuestion">Remove Question </label>
-        </div>
         <div class="suspend-button-container">
-            <v-btn  :loading="suspendLoading" color="red" @click.prevent="actionUser(false)" :class="{'lock': lock}">Suspend</v-btn>
-            <v-btn  :loading="releaseLoading" color="green" @click.prevent="actionUser(true)" :class="{'lock': lock}">Release</v-btn>
+            <v-btn  :loading="suspendLoading" :disabled="!ids || !reason" color="red" @click.prevent="actionUser(false)" :class="{'lock': lock}">Suspend</v-btn>
         </div>
         <div v-if="showSuspendedDetails" class="suspended-user-container">
             <h3>Email: {{suspendedMail}}</h3>
@@ -37,7 +32,6 @@ export default {
             },
             serverIds: [],
             ids: this.userIds,
-            deleteUserQuestions:false,
             showSuspendedDetails: false,
             suspendedMail: null,
             lock: false,
@@ -60,7 +54,6 @@ export default {
                 return;
             }
             this.serverIds = [];
-            // this.ids = this.userIds;
             this.ids = '' + this.ids;
             this.ids.split(',').forEach(id=>{
                 let num = parseInt(id.trim());
@@ -88,12 +81,12 @@ export default {
                 })
             }else{
                 if(!this.reason){
-                    this.$toaster.error("Please Insert A Reason")
+                    this.$toaster.error("Please Insert A Reason");
                     this.lock = false;
                     return;
                 }
                 this.suspendLoading = true;
-                suspendUser(this.serverIds, this.deleteUserQuestions, this.reason).then((email)=>{
+                suspendUser(this.serverIds, this.reason).then((email)=>{
                     this.$toaster.success(`user got suspended, email is: ${email}`)
                     this.showSuspendedDetails = true;
                     this.suspendedMail = email;
