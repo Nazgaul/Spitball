@@ -19,7 +19,7 @@
 <style lang="scss">
     html, body {
         //breaks scroll, cannot listen scroll if parent is scrolling
-        height: 100%;
+        /*height: 100%;*/
         margin: 0;
         padding: 0;
         background-color: #e0e0e0;

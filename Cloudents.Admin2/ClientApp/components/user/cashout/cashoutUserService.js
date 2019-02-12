@@ -6,7 +6,7 @@ function cashoutUser(objInit) {
     this.userEmail = objInit.userEmail || 'None';
     this.cashOutTime = objInit.cashOutTime || 0;
     this.fraudScore = objInit.fraudScore || 0;
-    this.userQueryRatio = objInit.userQueryRatio;
+    this.userQueryRatio = objInit.userQueryRatio ?  objInit.userQueryRatio.toFixed(2) : 0;
     this.isSuspect = objInit.isSuspect || false;
     this.isIsrael = objInit.isIsrael || false;
     this.declinedReason = objInit.declinedReason || '';
