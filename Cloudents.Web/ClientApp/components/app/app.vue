@@ -84,6 +84,16 @@
             </sb-dialog>
 
             <sb-dialog
+                    :showDialog="getOnBoardState"
+                    :popUpType="'onBoardGuide'"
+                    :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
+                    :maxWidth="'1280px'"
+                    :isPersistent="$vuetify.breakpoint.smAndUp"
+            >
+                <board-guide></board-guide>
+            </sb-dialog>
+
+            <sb-dialog
                     :showDialog="newBallerDialog"
                     :popUpType="'newBallerDialog'"
                     :content-class="'new-baller'"
@@ -350,11 +360,11 @@
                 let isLogedIn = this.accountUser;
                 let supressed = global.localStorage.getItem("sb-onboard-supressed");
                 let validRoutesNames = ['ask', 'note'].indexOf(this.$route.name) > -1;
+                
                 if (isLogedIn && !supressed && validRoutesNames) {
                     setTimeout(() => {
-                        this.updateOnBoardState(true);
-                    },)
-
+                      this.updateOnBoardState(true);
+                  })
                 }
             },
             tourClosed: function () {
