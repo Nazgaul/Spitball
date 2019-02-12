@@ -97,25 +97,10 @@
                     :showDialog="newBallerDialog"
                     :popUpType="'newBallerDialog'"
                     :content-class="'new-baller'"
-                    :maxWidth="'450px'"
+                    :maxWidth="'700px'"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
             >
-                <v-card>
-                    <v-card-title class="headline">Use Google's location service?</v-card-title>
-                    <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn  class="new-baller-delay" v-show="showNewBallerAction" flat @click="closeNewBallerDialog()">Understand</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </sb-dialog>
-
-            <sb-dialog
-                    :showDialog="getShowBuyDialog"
-                    :popUpType="'buyTokens'"
-                    :content-class="'buy-tokens-popup'"
-                    :onclosefn="closeSblToken">
-                <buy-tokens></buy-tokens>
+                <new-baller></new-baller>
             </sb-dialog>
 
             <sb-dialog
@@ -143,7 +128,7 @@
     import AddQuestion from "../question/addQuestion/addQuestion.vue";
     import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
     import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
-
+    import newBaller from "../helpers/newBaller/newBaller.vue";
     import {
         GetDictionary,
         LanguageService
@@ -177,7 +162,8 @@
             leadersBoard,
             boardGuide,
             uploadMultipleFiles,
-            buyTokens
+            buyTokens,
+            newBaller
         },
         data() {
             return {
@@ -188,7 +174,7 @@
                 showOnBoardGuide: true,
                 showBuyTokensDialog: false,
                 showUniSelect: false,
-                showNewBallerAction: false,
+
 
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
@@ -267,30 +253,23 @@
         },
         watch: {
 
-            newBallerDialog(val){
-                let self = this;
-                if(val){
-                    setTimeout(()=>{
-                        return self.showNewBallerAction = true
-                    }, 2000);
-
-
-                }
-            },
-
-            getShowSelectUniInterface(val){
+            getShowSelectUniInterface(val) {
                 let query = this.$route.query;
                 if (val) {
                     this.tourTempClose();
-                    this.$router.push({'query':{
-                        ...query, 
-                        university: this.getCurrentStep,
-                    }})
-                }else{
-                    this.$router.push({'query':{
-                        ...query, 
-                        university: undefined,
-                    }})
+                    this.$router.push({
+                        'query': {
+                            ...query,
+                            university: this.getCurrentStep,
+                        }
+                    })
+                } else {
+                    this.$router.push({
+                        'query': {
+                            ...query,
+                            university: undefined,
+                        }
+                    })
                 }
             },
             getShowToaster: function (val) {
@@ -345,13 +324,13 @@
             $route: function (val) {
                 this.tourTempClose();
                 this.openOnboardGuide();
-                if(!!val.query && !!val.query.university){
-                    if(val.query.university){
+                if (!!val.query && !!val.query.university) {
+                    if (val.query.university) {
                         this.showUniSelect = true;
-                    }else{
+                    } else {
                         this.showUniSelect = false;
                     }
-                }else{
+                } else {
                     this.showUniSelect = false;
                 }
             }
@@ -368,29 +347,25 @@
                 "updateShowBuyDialog",
                 "updateCurrentStep",
                 "changeSelectUniState",
-                "updateNewBallerDialogState"
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
-            closeNewBallerDialog(){
-                global.localStorage.setItem("sb-newBaller-suppresed", true);
-                this. updateNewBallerDialogState(false);
-            },
+
             onFooterStepChange() {
                 this.tourTempClose();
             },
-            closeSblToken(){
+            closeSblToken() {
                 this.updateShowBuyDialog(false)
             },
-            openOnboardGuide(){
+            openOnboardGuide() {
                 let isLogedIn = this.accountUser;
                 let supressed = global.localStorage.getItem("sb-onboard-supressed");
                 let validRoutesNames = ['ask', 'note'].indexOf(this.$route.name) > -1;
-                let self = this;
-                if(isLogedIn && !supressed && validRoutesNames){
-                  setTimeout(()=>{
-                      self.updateOnBoardState(true);
+                
+                if (isLogedIn && !supressed && validRoutesNames) {
+                    setTimeout(() => {
+                      this.updateOnBoardState(true);
                   })
-              }
+                }
             },
             tourClosed: function () {
                 console.log("tourClosed");
@@ -413,13 +388,13 @@
                 //the set to the local storage happens in the component itself
                 this.acceptIsraeli = true;
             },
-            tryBuyTokens(transactionObjectError){
-                walletService.buyTokens(transactionObjectError).then(()=>{
+            tryBuyTokens(transactionObjectError) {
+                walletService.buyTokens(transactionObjectError).then(() => {
                     this.updateToasterParams({
                         toasterText: LanguageService.getValueByKey("buyToken_success"),
                         showToaster: true,
                     });
-                }, (error)=>{
+                }, (error) => {
                     global.localStorage.setItem('sb_transactionError', transactionId);
                     console.log(error);
                 })
@@ -457,18 +432,18 @@
                 }
             });
             let failedTranscationId = global.localStorage.getItem('sb_transactionError');
-            if(failedTranscationId){
+            if (failedTranscationId) {
                 global.localStorage.removeItem('sb_transactionError');
                 let transactionObjectError = {
                     id: failedTranscationId
                 }
                 this.tryBuyTokens(transactionObjectError)
             }
-            
-            if(!!this.$route.query && !!this.$route.query.university){
+
+            if (!!this.$route.query && !!this.$route.query.university) {
                 this.updateCurrentStep(this.$route.query.university);
                 this.changeSelectUniState(true);
-                this.showUniSelect = true;                
+                this.showUniSelect = true;
             }
         }
     };

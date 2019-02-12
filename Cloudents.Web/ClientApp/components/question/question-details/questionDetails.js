@@ -131,7 +131,7 @@ export default {
             if(this.accountUser ){
                 let score = this.accountUser.score;
                 let supressed = global.localStorage.getItem("sb-newBaller-suppresed");
-                if(score !== 0 &&  !supressed){
+                if(score === 0 &&  !supressed){
                     this.updateNewBallerDialogState(true);
                 }
             }
