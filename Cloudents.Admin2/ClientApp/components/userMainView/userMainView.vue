@@ -16,27 +16,21 @@
                     <v-btn :disabled="!userIdentifier" primary @click="getUserInfoData()">Get User</v-btn>
                 </v-flex>
                 <v-spacer></v-spacer>
-                <v-flex xs4 v-if="userInfo">
-                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!userInfo" color="rgb(0, 188, 212)"
+                <v-flex xs4 v-if="showActions">
+                    <v-btn v-if="!userStatusActive && !suspendedUser" :disabled="!showActions" color="rgb(0, 188, 212)"
                            class="suspend"
-                           @click="suspendUser()">
+                           @click="showSuspendDialog()">
                         Suspend
                     </v-btn>
-                    <v-btn v-else :disabled="!userInfo" class="suspend" @click="releaseUser()">UnSuspend</v-btn>
+                    <v-btn v-else :disabled="!showActions" class="suspend" @click="releaseUser()">UnSuspend</v-btn>
 
-                    <v-btn :disabled="!userInfo" class="grant" @click="openTokensDialog()">Grant Tokens
+                    <v-btn :disabled="!showActions" class="grant" @click="openTokensDialog()">Grant Tokens
                     </v-btn>
                 </v-flex>
             </div>
             <div class="questions-answers-wrap">
-                <div class="filters mb-2">
-                    <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
-                           :color="searchQuery === filter.value ? '#00bcd4' : ''  "
-                           :key="'filter_'+index">{{filter.name}}
-                    </v-btn>
-                </div>
                 <v-layout row>
-                    <div class="general-info d-flex elevation-2 mb-2" v-if="userInfo">
+                    <div class="general-info d-flex elevation-2 mb-2" v-if="showActions">
                         <div class="info-item py-2 px-2" v-for="(infoItem, index) in userInfo" :key="index">
                             <v-flex row class="d-flex align-baseline justify-center">
                                 <div class="user-info-label">
@@ -63,6 +57,12 @@
                             <v-tab :href="`#tab-1`">User Answers</v-tab>
                             <v-tab :href="`#tab-2`">User Documents</v-tab>
                         </v-tabs>
+                        <div class="filters mb-2">
+                            <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
+                                   :color="searchQuery === filter.value ? '#00bcd4' : ''  "
+                                   :key="'filter_'+index">{{filter.name}}
+                            </v-btn>
+                        </div>
                         <v-tabs-items v-model="activeTab">
                             <v-tab-item :value="`tab-0`">
                                 <v-flex xs12>
@@ -87,6 +87,26 @@
                 </v-layout>
             </div>
         </v-flex>
+        <v-dialog v-model="suspendDialogState" persistent max-width="600px" v-if="suspendDialogState">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Suspend User</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <userSuspend :userIds="userId"></userSuspend>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="closeSuspendDialog()">Cancel</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <v-dialog v-model="getTokensDialogState" persistent max-width="600px" v-if="getTokensDialogState">
             <v-card>
                 <v-card-title>
@@ -130,7 +150,7 @@
     import answerItem from './helpers/answerItem.vue'
     import documentItem from './helpers/documentItem.vue'
     import userTokens from './helpers/sendTokens.vue'
-    // import userSuspend from '../user/suspend/suspendUser.vue';
+    import userSuspend from '../user/suspend/suspendUser.vue';
     import userCashout from '../user/cashout/cashoutUser.vue';
 
 
@@ -141,7 +161,8 @@
             answerItem,
             documentItem,
             userTokens,
-            userCashout
+            userCashout,
+            userSuspend
         },
         data() {
             return {
@@ -178,7 +199,7 @@
                 userActions: [
                     {
                         title: "Suspend",
-                        action: this.suspendUser,
+                        action: this.showSuspendDialog,
                     },
                     {
                         title: "Suspend",
@@ -194,6 +215,7 @@
                         action: this.sendTokens,
                     },
                 ],
+                suspendDialog: false,
                 activeTab: 'tab-0',
                 searchQuery: 'ok',
                 userComponentsShow: false,
@@ -207,11 +229,11 @@
 
                 }
             }
-
         },
         computed: {
             ...mapGetters([
                 "getTokensDialogState",
+                "suspendDialogState",
                 "getUserObj",
                 "UserInfo",
                 "UserQuestions",
@@ -220,6 +242,9 @@
             ]),
             userInfo() {
                 return this.UserInfo
+            },
+            showActions(){
+              return Object.keys( this.UserInfo).length !== 0;
             },
             userStatusActive: {
                 get() {
@@ -241,6 +266,7 @@
         methods: {
             ...mapActions([
                 "setTokensDialogState",
+                "setSuspendDialogState",
                 "getUserData",
                 "setUserCurrentStatus",
                 "getUserQuestions",
@@ -248,11 +274,17 @@
                 "getUserDocuments",
                 "verifyUserPhone"
             ]),
+            showSuspendDialog(){
+                this.setSuspendDialogState(true);
+            },
+            closeSuspendDialog(){
+                this.setSuspendDialogState(false);
+            },
             userInfoAction(actionItem){
                 if(actionItem === "phoneNumber"){
                     let userObj = {
                         id: this.userInfo.id.value
-                    }
+                    };
                     this.verifyUserPhone(userObj).then(()=>{
                         this.openTokensDialog();
                     })
@@ -269,10 +301,6 @@
                         this.scrollFunc[this.activeTabEnum[this.activeTab]].getData(this.userId, this.scrollFunc[this.activeTabEnum[this.activeTab]].page )
                     }
                 }
-            },
-            setUserComponent(val) {
-                this.userComponentsShow = true;
-                return this.activeUserComponent = val
             },
             openTokensDialog() {
                 this.setTokensDialogState(true);
@@ -305,8 +333,8 @@
                 let self = this;
                 self.getUserData(id)
                     .then((data) => {
-                        this.userId = data.id.value;
-                        this.getDataByTabName()
+                        self.userId =  data.id.value;
+                        self.getDataByTabName()
 
                     })
             },
@@ -355,25 +383,7 @@
                     self.loading = false;
                 });
             },
-            suspendUser() {
-                let idArr = [];
-                idArr.push(this.userId);
-                suspendUser(idArr, this.deleteUserQuestions).then((email) => {
-                    this.$toaster.success(`user got suspended, email is: ${email}`);
-                    this.showSuspendedDetails = true;
-                    this.suspendedMail = email;
-                    this.suspendedUser = true;
-                    this.setUserCurrentStatus(true);
-                    // this.userData.userInfo.status.value ='suspended'
-                }, (err) => {
-                    this.$toaster.error(`ERROR: failed to suspend user`);
-                    console.log(err)
-                }).finally(() => {
-                    this.lock = false;
-                    this.userIds = null;
-
-                })
-            },
+            //keep here cause there is an option to release from within this component
             releaseUser() {
                 let self = this;
                 let idArr = [];
@@ -382,7 +392,6 @@
                     self.$toaster.success(`user got released`);
                     this.suspendedUser = false;
                     this.setUserCurrentStatus(false);
-                    // self.userData.userInfo.status.value === 'active'
                 }, (err) => {
                     self.$toaster.error(`ERROR: failed to realse user`);
                     console.log(err)
@@ -429,8 +438,6 @@
             flex-direction: column;
             padding: 8px 0;
             margin-right: 8px;
-            /*max-height: 570px;*/
-            /*height: 570px;*/
             .info-item:nth-child(even) {
                 background-color: #f5f5f5;
             }

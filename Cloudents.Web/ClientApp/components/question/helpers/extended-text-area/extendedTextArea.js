@@ -9,9 +9,13 @@ export default {
         actionType: {type: String, default: 'answer'},
         isFocused: false,
         uploadUrl: {type: String},
-        isAttachVisible:{type: Boolean, default: true, required: false}
+        openNewBaller: {
+            type: Function,
+            required: false
+        },
+        isAttachVisible: {type: Boolean, default: true, required: false}
     },
-    components:{
+    components: {
         FileUpload
     },
     data() {
@@ -26,10 +30,10 @@ export default {
             isFirefox: global.isFirefox,
             files: [],
             extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp', 'bmp'],
-            componentUniqueId: `instance-${this._uid}` 
+            componentUniqueId: `instance-${this._uid}`
         }
     },
-    
+
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
@@ -45,14 +49,14 @@ export default {
             this.remove(file); //remove from files[]
             this.$emit('removeFile', index); // remove from files list in parent newQuesiton component
         },
-          updateColor(color) {
+        updateColor(color) {
             this.activeColor = color || colorsSet[0];
             this.$parent.$emit('colorSelected', this.activeColor);
         },
 
         inputFile: function (newFile, oldFile) {
-            let self= this;
-            if(self.files && self.files.length > 4){
+            let self = this;
+            if (self.files && self.files.length > 4) {
                 return
             }
             if (newFile && newFile.progress) {
@@ -72,8 +76,8 @@ export default {
                     if (newFile.xhr.status === 200) {
                         // console.log('Succesfully uploadede')
                         //on after successful loading done, emit to parent to add to list
-                        if(newFile.response && newFile.response.files){
-                                self.$emit('addFile', newFile.response.files);
+                        if (newFile.response && newFile.response.files) {
+                            self.$emit('addFile', newFile.response.files);
                         }
 
                     } else {
@@ -94,17 +98,17 @@ export default {
         inputFilter: function (newFile, oldFile, prevent) {
             if (newFile && !oldFile) {
                 //prevent adding new files if maximum reached
-                if(this.files.length >= 4){
+                if (this.files.length >= 4) {
                     return prevent()
                 }
                 // Filter non-supported extensions  both lower and upper case
                 let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
                 let ext = (`${newFile.name}`.toLowerCase()).match(patt1)[1];
                 let isSupported = this.extensions.includes(ext);
-                if (!isSupported ) {
+                if (!isSupported) {
                     return prevent()
                 }
-                if(newFile && newFile.size === 0){
+                if (newFile && newFile.size === 0) {
                     return prevent()
                 }
             }
@@ -116,22 +120,25 @@ export default {
                     newFile.blob = URL.createObjectURL(newFile.file);
                 }
             }
-}
+        },
+        isNewBaller() {
+            this.openNewBaller();
+        }
 
     },
     mounted() {
         this.$root.$on('colorReset', () => {
-           return this.activeColor = {
+            return this.activeColor = {
                 name: 'default',
                 id: 0
             }
         });
         this.$root.$on('previewClean', () => {
-           return this.files = [];
+            return this.files = [];
         });
 
     },
-created(){
-    console.log(`Oneeee!! !!!router path: ${this.$route.fullPath} component`, this)
-}
+    created() {
+        console.log(`Oneeee!! !!!router path: ${this.$route.fullPath} component`, this)
+    }
 }

@@ -3,9 +3,9 @@ import { connectivityModule } from "./connectivity.module"
 export default {
     calculateRankByScore: (score) => {
         const scoreRange= {
-            first: 1000,
-            second: 2000,
-            third: 3000
+            first: 4,
+            second: 10,
+            third: 20
         }
         if (score <= scoreRange.first) {
             return 0;

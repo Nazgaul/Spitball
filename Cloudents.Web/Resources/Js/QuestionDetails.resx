@@ -147,4 +147,7 @@
   <data name="error_duplicated" xml:space="preserve">
     <value>This answer is copy pasted, please submit a genuine answer.</value>
   </data>
+  <data name="error_maxChar" xml:space="preserve">
+    <value>The field must be a string with a maximum length of 550 chars</value>
+  </data>
 </root>

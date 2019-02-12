@@ -219,7 +219,7 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException();
             }
 
-            if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
+            if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
             {
                 _votes.Clear();
                 VoteCount = 0;

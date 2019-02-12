@@ -60,7 +60,7 @@
                 </v-flex>
             </v-layout>
             <div v-if="loading">Loading questions, please wait...</div>
-            <div v-show="questions.length === 0 && !loading">No more flagged questions</div>
+            <div v-show="questions.length === 0 && !loading">No more pending questions</div>
         </div>
 
     </div>

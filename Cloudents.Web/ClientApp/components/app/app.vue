@@ -84,13 +84,28 @@
             </sb-dialog>
 
             <sb-dialog
-                    :showDialog="getOnBoardState"
-                    :popUpType="'onBoardGuide'"
-                    :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
-                    :maxWidth="'1280px'"
+                    :showDialog="newBallerDialog"
+                    :popUpType="'newBallerDialog'"
+                    :content-class="'new-baller'"
+                    :maxWidth="'450px'"
                     :isPersistent="$vuetify.breakpoint.smAndUp"
             >
-                <board-guide></board-guide>
+                <v-card>
+                    <v-card-title class="headline">Use Google's location service?</v-card-title>
+                    <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn  class="new-baller-delay" v-show="showNewBallerAction" flat @click="closeNewBallerDialog()">Understand</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </sb-dialog>
+
+            <sb-dialog
+                    :showDialog="getShowBuyDialog"
+                    :popUpType="'buyTokens'"
+                    :content-class="'buy-tokens-popup'"
+                    :onclosefn="closeSblToken">
+                <buy-tokens></buy-tokens>
             </sb-dialog>
 
             <sb-dialog
@@ -163,13 +178,16 @@
                 showOnBoardGuide: true,
                 showBuyTokensDialog: false,
                 showUniSelect: false,
+                showNewBallerAction: false,
+
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
                     tourCallbacks: {
                         onStop: this.tourClosed
                     },
                     toursOptions: tourService.toursOptions,
-                    tourSteps: []
+                    tourSteps: [],
+
                 }
             };
         },
@@ -194,8 +212,10 @@
                 "StudyDocuments_isDataLoaded",
                 "getOnBoardState",
                 "getShowBuyDialog",
-                "getCurrentStep"
+                "getCurrentStep",
+                "newBallerDialog"
             ]),
+
             showFeed() {
                 if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
                     return this.showMobileFeed;
@@ -236,6 +256,18 @@
             });
         },
         watch: {
+
+            newBallerDialog(val){
+                let self = this;
+                if(val){
+                    setTimeout(()=>{
+                        return self.showNewBallerAction = true
+                    }, 2000);
+
+
+                }
+            },
+
             getShowSelectUniInterface(val){
                 let query = this.$route.query;
                 if (val) {
@@ -325,9 +357,14 @@
                 "updateOnBoardState",
                 "updateShowBuyDialog",
                 "updateCurrentStep",
-                "changeSelectUniState"
+                "changeSelectUniState",
+                "updateNewBallerDialogState"
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
+            closeNewBallerDialog(){
+                global.localStorage.setItem("sb-newBaller-suppresed", true);
+                this. updateNewBallerDialogState(false);
+            },
             onFooterStepChange() {
                 this.tourTempClose();
             },
