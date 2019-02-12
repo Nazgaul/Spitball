@@ -42,9 +42,6 @@
                                 <div class="user-info-button" v-if="infoItem.showButton">
                                     <button @click="userInfoAction(index)">{{infoItem.buttonText}}</button>
                                 </div>
-                                <div class="user-info-button" v-if="infoItem.showButton">
-                                    <button @click="userInfoAction('call')">Call Confirm</button>
-                                </div>
                             </v-flex>
                         </div>
                     </div>
@@ -288,15 +285,8 @@
                     let userObj = {
                         id: this.userInfo.id.value
                     };
-                    this.verifyUserPhone(userObj).then(()=>{
-                        this.openTokensDialog();
-                    })
-                }
-                if(actionItem === "call"){
-                    let userObj = {
-                        id: this.userInfo.id.value
-                    };
-                    this.verifyUserPhone(userObj).then(()=>{
+                    this.verifyUserPhone(userObj).then((resp)=>{
+                        console.log(resp)
                         this.openTokensDialog();
                     })
                 }

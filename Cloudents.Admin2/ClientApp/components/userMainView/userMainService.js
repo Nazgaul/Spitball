@@ -131,7 +131,5 @@ export default {
                 console.log(error, 'error get 20 docs');
                 return Promise.reject(error)
             })
-    }
-
-
+    },
 }
