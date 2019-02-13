@@ -1,12 +1,5 @@
 ﻿<template>
   <v-app>
-    <!-- <v-navigation-drawer app clipped>
-            <ul style="backgroud:red">
-                <li>ram</li>
-                <li>gaby</li>
-                <li>beny</li>
-            </ul>
-    </v-navigation-drawer>-->
     <router-view name="schoolBlock"></router-view>
     <router-view name="header"></router-view>
 
