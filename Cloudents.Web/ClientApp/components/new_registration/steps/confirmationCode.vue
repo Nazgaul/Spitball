@@ -27,8 +27,7 @@
                        @click="smsCodeVerify()"
                 ><span v-language:inner>login_continue</span></v-btn>
                 <div class="bottom-text column">
-                    <p class="inline">
-                        <!--<span v-language:inner>login_didnt_get_sms</span> &nbsp;-->
+                    <p class="inline" style="width: 100%; max-width: 100%;">
                         <span class="email-text inline click" @click="resendSms()" v-language:inner>login_click_here_to_send</span>
                         <v-divider style="min-height: 24px;"
                                 class="mx-3"
@@ -37,11 +36,6 @@
                         ></v-divider>
                         <span class="email-text inline click" @click="voiceCall()" v-language:inner>login_click_here_to_call</span>
                     </p>
-
-                    <!--<p class="inline">-->
-                        <!--<span v-language:inner>login_prefer_call</span> &nbsp;-->
-                        <!--<span class="email-text inline click" @click="voiceCall()" v-language:inner>login_click_here_to_call</span>-->
-                    <!--</p>-->
                 </div>
             </div>
             <img slot="step-image" :src="require(`../img/confirm-phone.png`)"/>

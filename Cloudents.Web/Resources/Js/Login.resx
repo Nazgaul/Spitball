@@ -142,7 +142,7 @@
     <value>Check your email to activate</value>
   </data>
   <data name="click_here_to_send" xml:space="preserve">
-    <value>Click here to resend.</value>
+    <value>Resend a code</value>
   </data>
   <data name="confirmation_link_expired" xml:space="preserve">
     <value>Your confirmation link has expired</value>
@@ -358,9 +358,12 @@ to &lt;b&gt;exit&lt;/b&gt;?</value>
     <value>You wil get a call shortly</value>
   </data>
   <data name="click_here_to_call" xml:space="preserve">
-    <value>Click for voice call</value>
+    <value>Call me with a code</value>
   </data>
   <data name="prefer_call" xml:space="preserve">
     <value>Call verification</value>
+  </data>
+  <data name="click_here_to_send_email" xml:space="preserve">
+    <value>Click here to resend</value>
   </data>
 </root>
