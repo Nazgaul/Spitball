@@ -95,7 +95,9 @@ export default {
         this.lock = true;
         let text = item.text ? item.text : item;
         if (this.selectedCourse === text) {
-          this.selectedCourse = "";
+          this.lock = false;
+          return;
+          // this.selectedCourse = "";
         } else {
           this.selectedCourse = text;
         }
