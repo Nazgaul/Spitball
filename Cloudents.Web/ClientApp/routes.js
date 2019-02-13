@@ -6,7 +6,7 @@ import StudyDocumentsComponent from './components/results/StudyDocuments/StudyDo
 import pageHeader from './components/header/header.vue';
 // import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
-import schoolBlock from '../ClientApp/components/schoolBlock/schoolBlock.vue'
+import schoolBlock from './components/schoolBlock/schoolBlock.vue'
 import {
     staticRoutes
 } from "./components/satellite/satellite-routes";

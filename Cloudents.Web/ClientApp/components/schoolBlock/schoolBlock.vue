@@ -1,6 +1,6 @@
 <template>
-  <div class="school-block-wrap">
-    <v-navigation-drawer :value="drawer" clipped hide-overlay temporary class="school-block">
+  <!-- <div class="school-block-wrap"> :value="drawer"  hide-overlay temporary class="school-block"-->
+    <v-navigation-drawer :value="true"   app clipped>
       <v-list>
         <v-list-tile class="group-header">
           <v-list-tile-action>
@@ -30,7 +30,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
