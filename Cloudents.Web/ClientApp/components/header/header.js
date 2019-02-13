@@ -1,8 +1,7 @@
 ﻿import mainHeader from '../helpers/header.vue'
-import verticalsTabs from './verticalsTabs.vue'
 export default {
     components: {
-        mainHeader,verticalsTabs
+        mainHeader
     },
     computed:{
         hideHeaderMobile(){

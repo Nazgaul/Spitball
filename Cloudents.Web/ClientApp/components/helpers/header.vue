@@ -13,7 +13,7 @@
                             </v-toolbar-title>
                             <v-toolbar-items>
                                 <search-input v-if="$vuetify.breakpoint.smAndUp" :user-text="userText"
-                                              :placeholder="this.$options.placeholders[currentSelection]"
+                                              :placeholder="this.$options.placeholders['all']"
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
@@ -67,7 +67,7 @@
                         </v-layout>
                     </v-flex>
                     <v-flex v-if="$vuetify.breakpoint.xsOnly" class="line search-wrapper">
-                        <search-input :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]"
+                        <search-input :user-text="userText" :placeholder="this.$options.placeholders['all']"
                                       :submit-route="submitRoute"></search-input>
                     </v-flex>
                     <slot name="extraHeader"></slot>
@@ -104,6 +104,7 @@
             menuList,
         },
         placeholders: {
+            all: LanguageService.getValueByKey("header_Search"),
             job: LanguageService.getValueByKey("header_placeholder_job"),
             tutor: LanguageService.getValueByKey("header_placeholder_tutor"),
             note: LanguageService.getValueByKey("header_placeholder_note"),
@@ -122,8 +123,8 @@
         },
         props: {
             currentSelection: {
-            type: String,
-            default: 'ask'
+                type: String,
+                default: 'all'
             },
             userText: {type: String},
             submitRoute: {type: String, default: '/ask'},
