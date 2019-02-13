@@ -29,13 +29,13 @@ namespace Cloudents.Command.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            var firstCourseTransaction = await _transactionRepository.GetFirstCourseTransaction(message.UserId, token);
+            //var firstCourseTransaction = await _transactionRepository.GetFirstCourseTransaction(message.UserId, token);
 
-            if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
-            {
-                user.AwardMoney(AwardsTransaction.FirstCourse);
-                await _userRepository.UpdateAsync(user, token);
-            }
+            //if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
+            //{
+            //    user.AwardMoney(AwardsTransaction.FirstCourse);
+            //    await _userRepository.UpdateAsync(user, token);
+            //}
             user.Courses.Clear();
             foreach (var name in message.Name)
             {
