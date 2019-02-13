@@ -50,7 +50,11 @@ function headerResultPageFn(route) {
         currentSelection: route.path.slice(1)
     }
 }
-
+function verticalResultPageFn(route) {
+    return {
+        currentSelection: route.path.slice(1)
+    }
+}
 
 const resultPage = {
     default: resultContent,
@@ -58,7 +62,8 @@ const resultPage = {
 };
 const resultProps = {
     default: dynamicPropsFn,
-    header: headerResultPageFn
+    header: headerResultPageFn,
+    verticals: verticalResultPageFn
 };
 const homeworkHelpPage = {
     default: HomeworkHelpComponent,

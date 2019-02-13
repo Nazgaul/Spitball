@@ -17,17 +17,6 @@ function getPromoQueryFromRoute(path, query){
 let nonIsraeliUser = global.country.toUpperCase() !== 'IL';
 
 const nav = {
-    ask: {
-        banner: getPromoQueryFromRoute,
-        data:{
-            filter:[],
-            id: routes.questionRoute,
-            name: LanguageService.getValueByKey("navigation_nav_name_ask"),
-            icon: "sbf-ask-q", //TODO do we need this.....
-            visible: true,
-            soon: false
-        }
-    },
     note: {
         banner: getPromoQueryFromRoute,
         data:{
@@ -41,6 +30,17 @@ const nav = {
             soon: false
         }
      },
+     ask: {
+        banner: getPromoQueryFromRoute,
+        data:{
+            filter:[],
+            id: routes.questionRoute,
+            name: LanguageService.getValueByKey("navigation_nav_name_ask"),
+            icon: "sbf-ask-q", //TODO do we need this.....
+            visible: true,
+            soon: false
+        }
+    },
     flashcard: {
         banner: getPromoQueryFromRoute,
         data:{

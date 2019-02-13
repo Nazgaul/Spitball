@@ -5,7 +5,7 @@
             <v-tabs v-model="currentVertical" :value="currentVertical" :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
-                                 :class="['spitball-text-'+tab.id,tab.id===currentVertical?'v-tabs__item--active header-tab-active':'']"
+                                 :active-class="'v-tabs__item--active header-tab-active'"
                                  class="mr-3 vertical">
                         {{tab.name}}
                     </v-tab>
@@ -48,28 +48,28 @@
                 this.currentVertical = val;
             },
             '$route'(val){
-                setTimeout(()=>{
-                    if(this.supressVerticalDesign[val.name]){
-                        this.cleanVerticalDesign();
-                    }else{
-                        this.restoreVerticalDesign();
-                    }
-                }, 300)
+                // setTimeout(()=>{
+                //     if(this.supressVerticalDesign[val.name]){
+                //         this.cleanVerticalDesign();
+                //     }else{
+                //         this.restoreVerticalDesign();
+                //     }
+                // }, 300)
             }
         },
         methods: {
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState']),
-            cleanVerticalDesign(){
-                //remove selected tab design
-                let elmActiveParent = document.getElementsByClassName('header-tab-active')[0];
-                elmActiveParent.firstChild.classList.remove('v-tabs__item--active');
+            // cleanVerticalDesign(){
+            //     //remove selected tab design
+            //     let elmActiveParent = document.getElementsByClassName('header-tab-active')[0];
+            //     elmActiveParent.firstChild.classList.remove('v-tabs__item--active');
 
-                //slider remove
-                let elmContainer = elmActiveParent.parentElement;
-                let sliderContainer = elmContainer.firstChild;
-                sliderContainer.firstChild.classList.remove('v-tabs__slider');
-            },
+            //     //slider remove
+            //     let elmContainer = elmActiveParent.parentElement;
+            //     let sliderContainer = elmContainer.firstChild;
+            //     sliderContainer.firstChild.classList.remove('v-tabs__slider');
+            // },
             restoreVerticalDesign(){
                 //remove selected tab design
                 let elmActiveParent = document.getElementsByClassName('header-tab-active')[0];
@@ -109,9 +109,9 @@
         },
         mounted(){
             if(this.supressVerticalDesign[this.$route.name]){
-                setTimeout(()=>{
-                    this.cleanVerticalDesign();
-                }, 300)
+                // setTimeout(()=>{
+                //     this.cleanVerticalDesign();
+                // }, 300)
             }
         }
     }
