@@ -23,7 +23,7 @@ namespace Cloudents.Core.Entities
         public virtual TransactionType Type { get; protected set; }
         public virtual decimal Price { get; protected set; }
 
-        //public abstract int AwardScore { get; }
+        public abstract int AwardScore { get; }
 
     }
 
@@ -72,7 +72,7 @@ namespace Cloudents.Core.Entities
             DeclinedReason = reason;
         }
 
-        //public override int AwardScore => 0;
+        public override int AwardScore => 0;
     }
 
     public class CommissionTransaction : Transaction
@@ -92,7 +92,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-       // public override int AwardScore => 0;
+        public override int AwardScore => 0;
     }
 
     public class BuyPointsTransaction : Transaction
@@ -114,7 +114,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        //public override int AwardScore => 0;
+        public override int AwardScore => 0;
     }
 
     public class AwardMoneyTransaction : Transaction
@@ -153,23 +153,22 @@ namespace Cloudents.Core.Entities
         public static AwardMoneyTransaction FinishRegistration(RegularUser user)
         {
             var initBalance = 0;
-           // var awardScore = 0;
+            var awardScore = 0;
             if (Tier1Users.Contains(user.Country))
             {
                 initBalance = 150;
-                //awardScore = 2;
+                awardScore = 2;
             }
             //Score
             return new AwardMoneyTransaction(initBalance)
             {
                 Action = TransactionActionType.SignUp,
-              //  _awardScore = awardScore
+                _awardScore = awardScore
             };
         }
 
-        //private int _awardScore;
-        //TODO
-       // public override int AwardScore => _awardScore;
+        private int _awardScore;
+        public override int AwardScore => _awardScore;
     }
 
     public class QuestionTransaction : Transaction
@@ -182,7 +181,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-       // private int _awardScore;
+        private int _awardScore;
 
         public virtual Question Question { get;  set; }
         public virtual Answer Answer { get; protected set; }
@@ -249,7 +248,7 @@ namespace Cloudents.Core.Entities
                 Type = TransactionType.Earned,
                 Price = money,
                 Answer = correctAnswer,
-               // _awardScore = 1
+                _awardScore = 1
             };
             var ta2 = new AwardMoneyTransaction(AwardsTransaction.QuestionAnswererBonus);
             userAnswer.MakeTransaction(ta1);
@@ -257,7 +256,7 @@ namespace Cloudents.Core.Entities
             userAnswer.MakeTransaction(new CommissionTransaction(question.Price));
         }
 
-       // public override int AwardScore => _awardScore;
+        public override int AwardScore => _awardScore;
     }
 
     public class ReferUserTransaction : Transaction
@@ -278,7 +277,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-       // public override int AwardScore => 0;
+        public override int AwardScore => 0;
     }
 
     public class DocumentTransaction : Transaction
@@ -315,7 +314,7 @@ namespace Cloudents.Core.Entities
                 Action = TransactionActionType.SoldDocument,
                 Price = document.Price,
                 Type = TransactionType.Earned,
-               // _awardScore = 1
+                _awardScore = 1
 
             };
         }
@@ -327,9 +326,9 @@ namespace Cloudents.Core.Entities
             seller.MakeTransaction(new CommissionTransaction(d.Price));
         }
 
-        //private int _awardScore ;
+        private int _awardScore ;
 
-        //public override int AwardScore => _awardScore;
+        public override int AwardScore => _awardScore;
     }
 
     public sealed class AwardsTransaction
@@ -342,8 +341,8 @@ namespace Cloudents.Core.Entities
         public TransactionActionType Action { get; }
         public decimal Price { get; }
 
-        public static readonly AwardsTransaction FirstCourse = new AwardsTransaction(TransactionActionType.FirstCourse, 5);
-        public static readonly AwardsTransaction University = new AwardsTransaction(TransactionActionType.Awarded, 5);
+        //public static readonly AwardsTransaction FirstCourse = new AwardsTransaction(TransactionActionType.FirstCourse, 5);
+        //public static readonly AwardsTransaction University = new AwardsTransaction(TransactionActionType.Awarded, 5);
 
         public static readonly AwardsTransaction QuestionOwnerBonus = new AwardsTransaction(TransactionActionType.Awarded, 1);
         public static readonly AwardsTransaction QuestionAnswererBonus = new AwardsTransaction(TransactionActionType.Awarded, 10);
