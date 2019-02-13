@@ -17,15 +17,7 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                                    <!--<div class="header-ask-btn hidden-sm-and-down mr-2">-->
-                                    <!--<button class="ask-question-button" @click="openNewQuestionDialog()">-->
-                                        <!--<v-icon class="sb-icon edit-icon">sbf-edit-icon</v-icon>-->
-                                        <!--<span class="sb-btn-text" v-language:inner>faqBlock_add_question_btn</span>-->
-                                    <!--</button>-->
-                                    <!--</div>-->
-                                    <div>
-                                        
-                                    </div>
+                               
                                     <div class="header-wallet" v-if="loggedIn">
                                         <span class="bold">{{accountUser.balance | currencyLocalyFilter}}</span>
                                         <!-- <span>${{accountUser.balance | dollarVal}}</span> -->
@@ -70,7 +62,7 @@
                         <search-input :user-text="userText" :placeholder="this.$options.placeholders['all']"
                                       :submit-route="submitRoute"></search-input>
                     </v-flex>
-                    <slot name="extraHeader"></slot>
+                    <!-- <slot name="extraHeader"></slot> -->
                 </div>
                 
             </v-layout>            
