@@ -53,15 +53,15 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"], true),
+                    ConfigurationManager.AppSettings["AzureSearchKey"], false),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
@@ -125,23 +125,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            const string accountSid = "AC1796f09281da07ec03149db53b55db8d";
-            const string authToken = "c4cdf14c4f6ca25c345c3600a72e8b49";
-            TwilioClient.Init(accountSid, authToken);
-
-            var from = new PhoneNumber("+1 203-347-4577");
-            var to = new PhoneNumber("+972542642202");
-            var response = new VoiceResponse();
-            response.Say("Hello World");
-            
-            var call = CallResource.Create(to,
-                from,
-                url: new Uri("http://demo.twilio.com/docs/voice.xml"),
-                machineDetection: "Enable"
-                );
-            
-
-            Console.WriteLine(call.Sid);
+            var z = _container.Resolve<AzureDocumentSearch>();
+            var r = await z.GetNone();
+            Console.WriteLine(string.Join(",", r));
+            //var r = await z.ItemAsync(129332, token);
 
             //await UpdateQuestionIndex();
             ////var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
