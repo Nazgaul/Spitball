@@ -21,7 +21,13 @@
                     :options="tourObject.toursOptions"
                     :callbacks="tourObject.tourCallbacks"
             ></v-tour>
-            <router-view v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
+            <div class="school-block-container">
+                <router-view name="schoolBlock"></router-view>
+            </div>
+            
+            <router-view class="main-container" v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
+            
+            
 
             <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
 

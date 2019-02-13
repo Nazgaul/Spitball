@@ -1,18 +1,16 @@
 ﻿@import "../../styles/mixin.less";
-
-.p-result {
+.main-container{
   .limited-width();
-  .first-grid {
-    width: @resultsFilterWidth;
-    background-image: linear-gradient(174deg, #2b3063, #131634);
-    .flexSameSize();
-    margin-right: 32px;
-    opacity: 1;
-    height: 100%;
-    position: fixed;
+  .p-result {    
+    .first-grid {
+      width: @resultsFilterWidth;
+      .flexSameSize();
+      margin-right: 32px;
+      opacity: 1;
+    }
   }
-
 }
+
 
 //@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
 
@@ -20,7 +18,6 @@
 .main-section {
   min-width: 0;
   margin-top: @marginTop;
-  margin-left: 280px;
   @media (max-width: @screen-xs) {
     margin-top: 0;
     margin-left: unset;

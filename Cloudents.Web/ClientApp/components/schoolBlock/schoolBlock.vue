@@ -1,14 +1,15 @@
 <template>
-  <v-navigation-drawer stateless permanent class="school-block">
-    <v-list>
+  <div class="school-block-wrap">
+    <v-navigation-drawer :value="drawer" clipped hide-overlay temporary class="school-block">
+      <v-list>
         <v-list-tile class="group-header">
           <v-list-tile-action>
             <v-icon>sbf-university-columns</v-icon>
           </v-list-tile-action>
           <v-list-tile-title @click="openPersonalizeUniversity()">{{schoolName}}</v-list-tile-title>
         </v-list-tile>
-    </v-list>
-    <v-list>
+      </v-list>
+      <v-list>
         <v-list-tile class="group-header">
           <v-list-tile-action>
             <v-icon>sbf-courses-icon</v-icon>
@@ -18,7 +19,8 @@
             <v-icon @click="openPersonalizeCourse()">sbf-close</v-icon>
           </v-list-tile-action>
         </v-list-tile>
-        <v-list-tile class="group-items"
+        <v-list-tile
+          class="group-items"
           v-for="(item, i) in getSelectedClasses"
           :class="{'active': item.text ? item.text === selectedCourse : item === selectedCourse}"
           :key="i"
@@ -26,8 +28,9 @@
         >
           <v-list-tile-title v-text="item.text ? item.text : item"></v-list-tile-title>
         </v-list-tile>
-    </v-list>
-  </v-navigation-drawer>
+      </v-list>
+    </v-navigation-drawer>
+  </div>
 </template>
 
 <script>
@@ -39,6 +42,7 @@ export default {
     return {
       selectedCourse: "",
       lock: false,
+      drawer: true,
     };
   },
   props: {
@@ -62,21 +66,21 @@ export default {
       return this.getSchoolName;
     }
   },
-  watch:{
-    getSearchLoading(val){
-      if(!val){
+  watch: {
+    getSearchLoading(val) {
+      if (!val) {
         this.lock = false;
       }
     },
-    '$route'(val) {
-        if(!!this.$route.query){
-          if(!this.$route.query.Course){
-            this.selectedCourse = "";
-          }
-        }else{
+    $route(val) {
+      if (!!this.$route.query) {
+        if (!this.$route.query.Course) {
           this.selectedCourse = "";
         }
-     },
+      } else {
+        this.selectedCourse = "";
+      }
+    }
   },
   methods: {
     ...mapActions([
@@ -85,10 +89,10 @@ export default {
       "changeSelectUniState"
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
-    
+
     selectCourse(item) {
-      if(!this.lock){
-        this.lock = true;      
+      if (!this.lock) {
+        this.lock = true;
         let text = item.text ? item.text : item;
         if (this.selectedCourse === text) {
           this.selectedCourse = "";
@@ -104,7 +108,7 @@ export default {
       let newQueryObject = {
         Course: this.selectedCourse
       };
-      if(this.selectedCourse === ""){
+      if (this.selectedCourse === "") {
         delete newQueryObject.Course;
       }
       let filter = this.$route.query.Filter;
@@ -139,6 +143,9 @@ export default {
     if (!!this.$route.query.Course) {
       this.selectedCourse = this.$route.query.Course;
     }
+    setTimeout(()=>{
+      this.drawer = false
+    }, 2500)
   }
 };
 </script>
