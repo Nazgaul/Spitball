@@ -33,7 +33,10 @@ export default {
             this.changeSelectPopUpUniState(false);
         },
         openUniInterface(){
-            this.changeSelectUniState(true);
+            // this.changeSelectUniState(true);
+            this.$router.push({
+                        name:'uniselect',
+                    })
             this.closePopup();
         }
     }

@@ -125,8 +125,14 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         let steps = this.getAllSteps;
-        this.updateCurrentStep(steps.set_class);
-        this.changeSelectUniState(true);
+        // this.updateCurrentStep(steps.set_class);
+        // this.changeSelectUniState(true);
+        this.$router.push({
+            name:'uniselect',
+            params: {
+                step:steps.set_class
+            }
+        })
       }
     },
     openPersonalizeUniversity() {
@@ -134,8 +140,14 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         let steps = this.getAllSteps;
-        this.updateCurrentStep(steps.set_school);
-        this.changeSelectUniState(true);
+        // this.updateCurrentStep(steps.set_school);
+        // this.changeSelectUniState(true);
+        this.$router.push({
+            name:'uniselect',
+            params: {
+                step:steps.set_school
+            }
+        })
       }
     }
   },

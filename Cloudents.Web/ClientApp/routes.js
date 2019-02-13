@@ -60,6 +60,7 @@ function verticalResultPageFn(route) {
 const resultPage = {
     default: resultContent,
     header: pageHeader,
+    verticals: verticalsTabs
 };
 const resultProps = {
     default: dynamicPropsFn,
@@ -175,7 +176,10 @@ let routes2 = [
             default: (route)=>({
                 step: route.params.step
             })
-        }
+        },
+        meta: {
+            requiresAuth: true
+        },
     },
     {
         path: "/book/:id",

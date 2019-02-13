@@ -241,25 +241,6 @@ export default {
     });
   },
   watch: {
-    getShowSelectUniInterface(val) {
-      let query = this.$route.query;
-      if (val) {
-        this.tourTempClose();
-        this.$router.push({
-          query: {
-            ...query,
-            university: this.getCurrentStep
-          }
-        });
-      } else {
-        this.$router.push({
-          query: {
-            ...query,
-            university: undefined
-          }
-        });
-      }
-    },
     getShowToaster: function(val) {
       if (val) {
         var self = this;
@@ -434,11 +415,11 @@ export default {
       this.tryBuyTokens(transactionObjectError);
     }
 
-    if (!!this.$route.query && !!this.$route.query.university) {
-      this.updateCurrentStep(this.$route.query.university);
-      this.changeSelectUniState(true);
-      this.showUniSelect = true;
-    }
+    // if (!!this.$route.query && !!this.$route.query.university) {
+    //   this.updateCurrentStep(this.$route.query.university);
+    //   this.changeSelectUniState(true);
+    //   this.showUniSelect = true;
+    // }
   }
 };
 </script>
