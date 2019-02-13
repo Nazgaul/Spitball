@@ -8,7 +8,7 @@
                     <v-flex class="first-grid hidden-xs-only left-side-bar">
                         <slot name="sideBar">
                         </slot>
-                    </v-flex>
+                    </v-flex> 
                     <v-layout class="main-section" row>
                         <v-flex class="sec-result">
                             <slot name="main"></slot>

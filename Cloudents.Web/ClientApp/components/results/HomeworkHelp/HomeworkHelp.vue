@@ -7,7 +7,7 @@
                   <askQuestionBtn :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "></askQuestionBtn>
 
                 <v-btn icon :color="`color-ask`" flat slot="mobileFilter" @click="showFilters=true"
-                       class="mobile-filter-icon-btn text-xs-right hidden-sm-and-up" v-if="filterCondition">
+                       class="mobile-filter-icon-btn text-xs-right" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter fixedLocation color-ask'"
                          v-if="this.filterSelection.length">{{this.filterSelection.length}}
@@ -68,7 +68,7 @@
             </div>
         </div>
         <template slot="sideBar" v-if="filterCondition">
-            <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'"
+            <component :is="'mobile-sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
                        v-model="showFilters"
@@ -76,10 +76,10 @@
                        :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
             </component>
+        </template> 
+        <template slot="sideBar">
+            
         </template>
-        <!-- <template slot="sideBar">
-            <school-block slot="schoolBlock" :isDisabled="true"></school-block>
-        </template> -->
         <template slot="rightSide">
             <slot name="rightSide">
                 <faq-block :isAsk="true" :isNotes="false" :name="currentSuggest" :text="userText"></faq-block>

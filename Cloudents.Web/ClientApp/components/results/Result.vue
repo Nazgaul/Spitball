@@ -93,7 +93,7 @@
                 </div>
             </div>
         </div>
-        <!-- <template slot="sideBar" v-if="filterCondition">
+        <template slot="sideBar" v-if="filterCondition">
             <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
@@ -102,9 +102,6 @@
                        :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
             </component>
-        </template> -->
-        <template slot="sideBar">
-            <school-block slot="schoolBlock"></school-block>
         </template>
         <template slot="rightSide">
             <slot name="rightSide">

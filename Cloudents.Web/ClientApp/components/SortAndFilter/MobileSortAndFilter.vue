@@ -1,6 +1,6 @@
 <template>
-    <v-dialog v-model="value" fullscreen content-class="filter-dialog" persistent>
-        <dialog-toolbar :app="false" height="48" :toolbarTitle="toolBarTitle" :backAction="$_backAction">
+    <v-dialog v-model="value" content-class="filter-dialog" persistent>
+        <dialog-toolbar height="48" :toolbarTitle="toolBarTitle" :backAction="$_backAction">
             <v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters"><span v-language:inner>mobileSortAndFilter_clearAll</span></v-btn>
         </dialog-toolbar>
         <div class="content-container">
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <v-btn class="apply elevation-0" fixed  @click="applyFilters"><span v-language:inner>mobileSortAndFilter_applyFilterBtn</span></v-btn>
+        <v-btn class="apply elevation-0" @click="applyFilters"><span v-language:inner>mobileSortAndFilter_applyFilterBtn</span></v-btn>
 
     </v-dialog>
 </template>
