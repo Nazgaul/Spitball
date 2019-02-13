@@ -140,7 +140,7 @@
             },
             hideHeader(){
                 if(this.$vuetify.breakpoint.xsOnly){
-                    return this.getShowSelectUniInterface || !this.showMobileFeed;
+                    return this.$route.name === "uniselect" || !this.showMobileFeed;
                 }else{
                     return false;
                 }

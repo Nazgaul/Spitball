@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="school-block-wrap"> -->
-    <v-navigation-drawer class="school-block" width="260" :value="true" app clipped>
+    <v-navigation-drawer touchless class="school-block" width="260" :value="true" app clipped>
       <v-list>
         <v-list-tile class="group-header">
           <v-list-tile-action>
