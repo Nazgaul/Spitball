@@ -320,11 +320,12 @@
   @desktopPadding: 24px;
   @tabletPadding: 16px;
   @mobilePadding: 8px;
-  .responsive-property(max-width,@contentWidth + @desktopPadding, @contentWidth + @tabletPadding, @contentWidth + @mobilePadding);
-  .responsive-property(padding-right, @desktopPadding, @tabletPadding, @mobilePadding);
+  //.responsive-property(max-width,@contentWidth + @desktopPadding, @contentWidth + @tabletPadding, @contentWidth + @mobilePadding);
+  //.responsive-property(padding-right, @desktopPadding, @tabletPadding, @mobilePadding);
   // .responsive-property(padding-left, @desktopPadding, @tabletPadding, @mobilePadding);
   //max-width: 1328px;
-  margin: 0 48px;
+  .responsive-property(margin-left, 48px, 48px, 4px);
+  //margin: 0 48px;
   //padding: 0 24px;
 }
 

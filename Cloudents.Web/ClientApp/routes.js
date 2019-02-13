@@ -23,6 +23,7 @@ const wallet = () => import("./components/wallet/wallet.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
+const university = () => import("./components/helpers/uni-select/uniSelect.vue")
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -161,6 +162,19 @@ let routes2 = [
                     }
                 }
             }
+        }
+    },
+    {
+        path: "/uniselect/:step?",
+        name: "uniselect",
+        components: {
+            default: university,
+            header: pageHeader
+        },
+        props:{
+            default: (route)=>({
+                step: route.params.step
+            })
         }
     },
     {

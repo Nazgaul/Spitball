@@ -1,7 +1,8 @@
 ﻿@import "../../styles/mixin.less";
 .main-container{
-  .limited-width();
+  
   .p-result {    
+    .limited-width();
     .first-grid {
       .flexSameSize();
     }
@@ -144,8 +145,9 @@
     flex-direction: row;
     align-items: center;
     @media (max-width: @screen-xs) {
-      margin-top: 12px;
-      margin-bottom: 12px;
+      // margin-top: 12px;
+      // margin-bottom: 12px;
+      // min-height: 42px;
     }
     .v-btn__content {
       flex-direction: row-reverse;
@@ -167,28 +169,25 @@
         bottom: 0;
       }
     }
-    @media (max-width: @screen-xs) {
-      min-height: 42px;
-    }
 
-    button {
-      @media (max-width: @screen-xs) {
-        margin: 0 0 0 -8px;
-        background: #fff;
-        border-radius: 0 4px 4px 0;
-        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31) !important;
-        &.mobile-filter-icon-btn {
-          height: 46px;
-          position: relative;
-        }
+    // button {
+    //   @media (max-width: @screen-xs) {
+    //     margin: 0 0 0 -8px;
+    //     background: #fff;
+    //     border-radius: 0 4px 4px 0;
+    //     box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31) !important;
+    //     &.mobile-filter-icon-btn {
+    //       height: 46px;
+    //       position: relative;
+    //     }
 
-        .sbf-filter {
-          font-size: 19px;
-          position: absolute;
-          right: 10px;
-        }
-      }
-    }
+    //     .sbf-filter {
+    //       font-size: 19px;
+    //       position: absolute;
+    //       right: 10px;
+    //     }
+    //   }
+    // }
 
     //remove the eliptic shape when clicking the sort ans filter button on mobile
     .v-btn:before {
@@ -197,6 +196,20 @@
     .v-ripple__container {
       display: none;
 
+    }
+  }
+  .filter-container{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mobile-filter-icon-btn {
+    .v-btn__content{
+      i{
+        color:#3e45a0;
+        font-size: 17px;
+      }
     }
   }
 }

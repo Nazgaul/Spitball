@@ -38,6 +38,11 @@
             ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState', 'showRegistrationBanner', 'getCookieAccepted']),
 
             isFloatingBtn() {
+                if(this.$vuetify.breakpoint.smAndDown){
+                    return true;
+                }else{
+                    return false;
+                }
                 let offHeight = 0;
                 if(this.showRegistrationBanner){
                     // offHeight = 150 + 285; // header + signUpBanner height

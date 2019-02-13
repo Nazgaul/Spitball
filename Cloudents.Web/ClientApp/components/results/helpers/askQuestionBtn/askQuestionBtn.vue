@@ -38,6 +38,12 @@
             ...mapGetters(['accountUser', 'loginDialogState', 'showRegistrationBanner', 'getCookieAccepted']),
 
             isFloatingBtn() {
+                if(this.$vuetify.breakpoint.smAndDown){
+                    return true;
+                }else{
+                    return false;
+                }
+                
                 let offHeight = 0;
                 if (!!this.showRegistrationBanner) {
                     offHeight = 200 + 285; // header + banner + mobile filter btn

@@ -3,25 +3,23 @@
         
         
         <div slot="main">
-              <div class="d-flex mobile-filter">
+            <div class="d-flex mobile-filter">
                   <askQuestionBtn :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "></askQuestionBtn>
-
-                <v-btn icon :color="`color-ask`" flat slot="mobileFilter" @click="showFilters=true"
+            </div>
+            <v-flex v-if="filterCondition" class="filter-container">
+                <div>
+                    Results From Harvard University
+                </div>
+                <div>
+                    <v-btn icon :color="`color-ask`" flat slot="mobileFilter" @click="showFilters=true"
                        class="mobile-filter-icon-btn text-xs-right" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter fixedLocation color-ask'"
                          v-if="this.filterSelection.length">{{this.filterSelection.length}}
                     </div>
                 </v-btn>
-            </div>
-            <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
-                <template v-for="(item, index) in filterSelection">
-                    <v-chip label class="filter-chip elevation-1" :key="index">
-                      {{item.name | capitalize }}
-                        <v-icon right @click="$_removeFilter(item)">sbf-close</v-icon>
-                    </v-chip>
-                </template>
-            </div>
+                </div>
+            </v-flex>
             <v-snackbar class="question-toaster" @click="loadNewQuestions()" :top="true" :timeout="0" :value="showQuestionToaster">
                 <div class="text-wrap">
                     <v-icon class="refresh-style">sbf-arrow-upward</v-icon> &nbsp;&nbsp; <span v-language:inner>result_new_questions</span>

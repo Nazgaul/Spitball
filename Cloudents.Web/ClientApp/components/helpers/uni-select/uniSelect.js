@@ -33,7 +33,11 @@ export default {
             
         }
     },
-
+    props:{
+        step:{
+            type:String
+        }
+    },
     computed:{
         currentStep: function(){
             return this.getCurrentStep();
@@ -90,7 +94,7 @@ export default {
         }
     },
     created(){
-        console.log(this.$route)
+        this.updateCurrentStep(this.step);
     },
 
 }

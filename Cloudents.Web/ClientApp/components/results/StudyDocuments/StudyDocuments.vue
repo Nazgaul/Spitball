@@ -3,25 +3,24 @@
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
         
         <div slot="main">
-              <div class="d-flex mobile-filter">
+            <div class="d-flex mobile-filter">
                   <upload-files-btn class="upload-card hidden-md-and-up"></upload-files-btn>
-
-                <v-btn icon :color="`color-note`" flat slot="mobileFilter" @click="showFilters=true"
-                       class="mobile-filter-icon-btn text-xs-right hidden-sm-and-up" v-if="filterCondition">
+            </div>
+            <v-flex v-if="filterCondition" class="filter-container">
+                <div>
+                    Results From Harvard University
+                </div>
+                <div>
+                    <v-btn icon :color="`color-note`" flat slot="mobileFilter" @click="showFilters=true"
+                       class="mobile-filter-icon-btn text-xs-right" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter fixedLocation color-note'"
                          v-if="this.filterSelection.length">{{this.filterSelection.length}}
                     </div>
                 </v-btn>
-            </div>
-            <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
-                <template v-for="(item, index) in filterSelection">
-                    <v-chip label class="filter-chip elevation-1" :key="index">
-                      {{item.name | capitalize }}
-                        <v-icon right @click="$_removeFilter(item)">sbf-close</v-icon>
-                    </v-chip>
-                </template>
-            </div>
+                </div>
+            </v-flex>
+            
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="pa-0 ma-0 results-wrapper">
@@ -72,7 +71,7 @@
             </div>
         </div>
         <template slot="sideBar" v-if="filterCondition">
-            <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'"
+            <component :is="'mobile-sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
                        v-model="showFilters"
