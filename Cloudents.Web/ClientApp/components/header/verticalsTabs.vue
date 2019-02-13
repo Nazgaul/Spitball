@@ -2,12 +2,11 @@
     <div>
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
-            <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
-            <v-tabs class="verticals-bar" v-model="currentVertical" :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : ''" :value="currentVertical" :scrollable="true">
+            <v-tabs v-model="currentVertical" :value="currentVertical" :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
                                  :class="['spitball-text-'+tab.id,tab.id===currentVertical?'v-tabs__item--active header-tab-active':'']"
-                                 class="mr-4 vertical">
+                                 class="mr-3 vertical">
                         {{tab.name}}
                     </v-tab>
                     <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider>

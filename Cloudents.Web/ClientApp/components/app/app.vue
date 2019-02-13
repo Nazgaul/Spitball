@@ -1,8 +1,8 @@
 ﻿<template>
   <v-app>
-    <router-view name="schoolBlock"></router-view>
+    
     <router-view name="header"></router-view>
-
+    <router-view name="schoolBlock"></router-view>
     <v-content class="site-content" :class="{'loading':getIsLoading}">
       <div class="loader" v-show="getIsLoading">
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
@@ -25,6 +25,7 @@
       <!-- <div class="school-block-container">
                 <router-view name="schoolBlock"></router-view>
       </div>-->
+      <router-view name="verticals"></router-view>
       <router-view class="main-container" v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
 
       <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->

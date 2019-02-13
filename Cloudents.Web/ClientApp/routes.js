@@ -6,7 +6,8 @@ import StudyDocumentsComponent from './components/results/StudyDocuments/StudyDo
 import pageHeader from './components/header/header.vue';
 // import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
-import schoolBlock from './components/schoolBlock/schoolBlock.vue'
+import schoolBlock from './components/schoolBlock/schoolBlock.vue';
+import verticalsTabs from './components/header/verticalsTabs.vue'
 import {
     staticRoutes
 } from "./components/satellite/satellite-routes";
@@ -62,12 +63,14 @@ const resultProps = {
 const homeworkHelpPage = {
     default: HomeworkHelpComponent,
     header: pageHeader,
-    schoolBlock: schoolBlock
+    schoolBlock: schoolBlock,
+    verticals: verticalsTabs
 };
 const studyDocumentsPage = {
     default: StudyDocumentsComponent,
     header: pageHeader,
-    schoolBlock: schoolBlock
+    schoolBlock: schoolBlock,
+    verticals: verticalsTabs
 };
 
 const bookDetailsProps = {
