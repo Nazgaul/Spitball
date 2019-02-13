@@ -55,6 +55,7 @@ namespace ConsoleApp
                     catch
                     {
                         MigrateCoursesAndUni.WriteToSheet(counter);
+                        Thread.Sleep(1000);
                     }
                 }
                 else if (item.NewId == "Delete")
@@ -72,8 +73,14 @@ namespace ConsoleApp
                     catch
                     {
                         MigrateCoursesAndUni.WriteToSheet(counter);
+                        Thread.Sleep(1000);
                     }
                 }
+                else {
+                    MigrateCoursesAndUni.WriteToSheet(counter);
+                    Thread.Sleep(1000);
+                }
+                
                 counter++;
             }
         }
@@ -109,6 +116,7 @@ namespace ConsoleApp
                     catch
                     {
                         MigrateCoursesAndUni.WriteToUniSheet(counter);
+                        Thread.Sleep(1000);
                     }
                 }
                 else if (item.NewId == "Delete")
@@ -126,6 +134,7 @@ namespace ConsoleApp
                     catch
                     {
                         MigrateCoursesAndUni.WriteToUniSheet(counter);
+                        Thread.Sleep(1000);
                     }
                 }
                 counter++;
