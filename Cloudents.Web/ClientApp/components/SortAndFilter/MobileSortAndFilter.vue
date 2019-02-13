@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="value" content-class="filter-dialog" persistent>
+    <v-dialog v-model="value" content-class="filter-dialog" :fullscreen="$vuetify.breakpoint.xsOnly"  persistent>
         <dialog-toolbar height="48" :toolbarTitle="toolBarTitle" :backAction="$_backAction">
             <v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters"><span v-language:inner>mobileSortAndFilter_clearAll</span></v-btn>
         </dialog-toolbar>
@@ -18,7 +18,7 @@
             </div>
 
             <div class="filter-wrap px-3" v-if="filterList && filterList.length">
-                <h3 class="" v-language:inner>mobileSortAndFilter_filterBy</h3>
+                <!--<h3 class="" v-language:inner>mobileSortAndFilter_filterBy</h3>-->
                 <div class="filter-sections">
                     <div class="filter-section" v-for="(singleFilter) in filterList" :key="singleFilter.id" :value="true">
                         <v-layout class="filter-header" slot="header">
