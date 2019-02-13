@@ -354,4 +354,13 @@ to &lt;b&gt;exit&lt;/b&gt;?</value>
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
     <value>You can spend them to get help with your</value>
   </data>
+  <data name="call_code" xml:space="preserve">
+    <value>You wil get a call shortly</value>
+  </data>
+  <data name="click_here_to_call" xml:space="preserve">
+    <value>Click for voice call</value>
+  </data>
+  <data name="prefer_call" xml:space="preserve">
+    <value>Call verification</value>
+  </data>
 </root>

@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="campaign_askaquestion_ask_banner_boldText" xml:space="preserve">
+    <value>הירשם עכשיו!</value>
+  </data>
+  <data name="campaign_askaquestion_ask_banner_textMain" xml:space="preserve">
+    <value>הירשם עכשיו!</value>
+  </data>
+  <data name="campaign_askaquestion_ask_banner_title" xml:space="preserve">
+    <value>שאל עכשיו שאלה משיעורי הבית שלך וקבל במהירות תשובות מתלמידים מצטיינים.</value>
+  </data>
+  <data name="campaign_askaquestion_flashcard_banner_boldText" xml:space="preserve">
+    <value>בית הספר, השיעורים וההעדפות שלך</value>
+  </data>
+  <data name="campaign_askaquestion_flashcard_banner_textMain" xml:space="preserve">
+    <value>סינון מסמכים לפי בית הספר, קורסים והעדפות אישיות, יחסוך לכם בזמן!</value>
+  </data>
+  <data name="campaign_askaquestion_flashcard_banner_title" xml:space="preserve">
+    <value>למד ממיליוני סטים של כרטיסיות לימוד כדי לשפר ציונים.</value>
+  </data>
+  <data name="campaign_askaquestion_note_banner_boldText" xml:space="preserve">
+    <value>בית הספר, השיעורים וההעדפות שלך</value>
+  </data>
+  <data name="campaign_askaquestion_note_banner_textMain" xml:space="preserve">
+    <value>סינון מסמכים לפי בית הספר, קורסים והעדפות אישיות, יחסוך לכם בזמן!</value>
+  </data>
+  <data name="campaign_askaquestion_note_banner_title" xml:space="preserve">
+    <value>סיכומים, בחנים, מסמכי בחינות ועוד מגוון מסמכי לימוד ממיטב האתרים</value>
+  </data>
+  <data name="campaign_book_askaquestion_banner_boldText" xml:space="preserve">
+    <value>מאות אתרים – במקביל.</value>
+  </data>
+  <data name="campaign_book_askaquestion_banner_textMain" xml:space="preserve">
+    <value>קבל הצצה להצעות נוספות ממאות אתרים במקביל </value>
+  </data>
+  <data name="campaign_book_askaquestion_banner_title" xml:space="preserve">
+    <value>השווה את המחירים הטובים ביותר לקנייה, השכרה או מכירה של ספרי לימוד.</value>
+  </data>
+  <data name="campaign_book_default_banner_boldText" xml:space="preserve">
+    <value>מאות אתרים – במקביל.</value>
+  </data>
+  <data name="campaign_book_default_banner_textMain" xml:space="preserve">
+    <value>קבל הצצה להצעות נוספות ממאות אתרים במקביל </value>
+  </data>
+  <data name="campaign_book_default_banner_title" xml:space="preserve">
+    <value>השווה את המחירים הטובים ביותר לקנייה, השכרה או מכירה של ספרי לימוד.</value>
+  </data>
+  <data name="campaign_default_ask_banner_boldText" xml:space="preserve">
+    <value>החלף נקודות בקופונים של אמאזון</value>
+  </data>
+  <data name="campaign_default_ask_banner_textMain" xml:space="preserve">
+    <value>ענו על שאלות, קבלו נקודות ופדו אותם בקופונים של BuyMe</value>
+  </data>
+  <data name="campaign_default_ask_banner_title" xml:space="preserve">
+    <value>ב - Spitball תוכלו להרוויח כסף מלעזור לאחרים!</value>
+  </data>
+  <data name="campaign_default_flashcard_banner_boldText" xml:space="preserve">
+    <value>בית הספר, השיעורים וההעדפות שלך</value>
+  </data>
+  <data name="campaign_default_flashcard_banner_textMain" xml:space="preserve">
+    <value>סינון מסמכים לפי בית ספר, קורסים והעדפות אישיות, יחסוך לכם בזמן!</value>
+  </data>
+  <data name="campaign_default_flashcard_banner_title" xml:space="preserve">
+    <value>למד ממיליוני סטים של כרטיסיות לימוד כדי לשפר ציונים.</value>
+  </data>
+  <data name="campaign_default_note_banner_textMain" xml:space="preserve">
+    <value>סינון מסמכים לפי בית הספר, קורסים והעדפות אישיות, יחסוך לכם בזמן!</value>
+  </data>
+  <data name="campaign_default_note_banner_title" xml:space="preserve">
+    <value>סיכומים, בחנים, מסמכי בחינות ועוד מגוון מסמכי לימוד ממיטב האתרים</value>
+  </data>
+  <data name="campaign_default_note_banner__boldText" xml:space="preserve">
+    <value>בית הספר, השיעורים וההעדפות שלך</value>
+  </data>
+  <data name="campaign_job_askaquestion_banner_boldText" xml:space="preserve">
+    <value>ניסיון והעדפות מיקום.</value>
+  </data>
+  <data name="campaign_job_askaquestion_banner_textMain" xml:space="preserve">
+    <value>סינון לפי הניסיון והעדפות המיקום שלך.</value>
+  </data>
+  <data name="campaign_job_askaquestion_banner_title" xml:space="preserve">
+    <value>אתר משרות והתמחויות שמתאימות ספציפית לסטודנטים.</value>
+  </data>
+  <data name="campaign_job_default_banner_boldText" xml:space="preserve">
+    <value>ניסיון והעדפות מיקום.</value>
+  </data>
+  <data name="campaign_job_default_banner_textMain" xml:space="preserve">
+    <value>סינון לפי הניסיון והעדפות המיקום שלך.</value>
+  </data>
+  <data name="campaign_job_default_banner_title" xml:space="preserve">
+    <value>אתר משרות והתמחויות שמתאימות ספציפית לסטודנטים.</value>
+  </data>
+  <data name="campaign_referral_ask_banner_title" xml:space="preserve">
+    <value>קבל עזרה עם שיעורי הבית מסטודנטים מובילים 
+והתחל להרוויח כסף בעזרה לאחרים</value>
+  </data>
+  <data name="campaign_tutor_askaquestion_banner_boldText" xml:space="preserve">
+    <value>כאן כדי לסייע לך להצליח.</value>
+  </data>
+  <data name="campaign_tutor_askaquestion_banner_textMain" xml:space="preserve">
+    <value>בכל נושא אפשרי – כאן תמצא מורה פרטי שיעזור לך להצליח.</value>
+  </data>
+  <data name="campaign_tutor_askaquestion_banner_title" xml:space="preserve">
+    <value>אתר מומחה שיסייע לך לעבור שיעורים בקלות – פנים אל פנים או דרך האינטרנט.</value>
+  </data>
+  <data name="campaign_tutor_default_banner_boldText" xml:space="preserve">
+    <value>כאן כדי לסייע לך להצליח.</value>
+  </data>
+  <data name="campaign_tutor_default_banner_textMain" xml:space="preserve">
+    <value>בכל נושא אפשרי – כאן תמצא מורה פרטי שיעזור לך להצליח.</value>
+  </data>
+  <data name="campaign_tutor_default_banner_title" xml:space="preserve">
+    <value>אתר מומחה שיסייע לך לעבור שיעורים בקלות – פנים אל פנים או דרך האינטרנט.</value>
+  </data>
+  <data name="nav_bookDetails_filter_new" xml:space="preserve">
+    <value>חדש</value>
+  </data>
+  <data name="nav_bookDetails_filter_rental" xml:space="preserve">
+    <value>השכרה</value>
+  </data>
+  <data name="nav_bookDetails_filter_used" xml:space="preserve">
+    <value>משומש</value>
+  </data>
+  <data name="nav_name_ask" xml:space="preserve">
+    <value>עזרה בשיעורי בית</value>
+  </data>
+  <data name="nav_name_book" xml:space="preserve">
+    <value>ספרי לימוד</value>
+  </data>
+  <data name="nav_name_flashcards" xml:space="preserve">
+    <value>כרטיסיות לימוד</value>
+  </data>
+  <data name="nav_name_job" xml:space="preserve">
+    <value>משרות</value>
+  </data>
+  <data name="nav_name_note" xml:space="preserve">
+    <value>מסמכי לימוד</value>
+  </data>
+  <data name="nav_name_tutor" xml:space="preserve">
+    <value>מורים פרטיים</value>
+  </data>
+</root>

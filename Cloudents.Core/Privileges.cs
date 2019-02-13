@@ -4,7 +4,7 @@ namespace Cloudents.Core
 {
     public static class Privileges
     {
-        public const int Post = 150;
+        public const int Post = 2;
       
 
         public static ItemState GetItemState(int score)

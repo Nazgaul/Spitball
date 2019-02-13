@@ -76,7 +76,7 @@ namespace Cloudents.Core.Entities
         {
             if (Status.State != ItemState.Flagged) return;
 
-            if (Status.FlagReason.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase))
+            if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
             {
                 _votes.Clear();
                 VoteCount = 0;

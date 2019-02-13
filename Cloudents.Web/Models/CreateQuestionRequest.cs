@@ -8,7 +8,7 @@ namespace Cloudents.Web.Models
         public QuestionSubject? SubjectId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
-        [MinLength(15, ErrorMessage = "MinLength")]
+        [StringLength(8000, MinimumLength = 15, ErrorMessage = "MinLength")]
         public string Text { get; set; }
 
         [Required(ErrorMessage = "Required")]

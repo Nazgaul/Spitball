@@ -80,17 +80,18 @@
                 }, err => {
                     self.$toaster.error(`Answer Delete Failed`);
                 })
-            }
-        },
+            },
+        
         aproveA(answer, index) {
-            let self = this;
-            let id = answer.id;
-            aproveAnswer(id).then(() => {
-                self.$toaster.success(`Answer Aproved`);
-                self.deleteAnswerItem(index);
-            }, () => {
-                self.$toaster.error(`Answer Aproved Failed`);
-            })
+                let self = this;
+                let id = answer.id;
+                aproveAnswer(id).then(() => {
+                    self.$toaster.success(`Answer Aproved`);
+                    self.deleteAnswerItem(index);
+                }, () => {
+                    self.$toaster.error(`Answer Aproved Failed`);
+                })
+            },
         },
         created() {
             console.log(this.answers)

@@ -30,10 +30,10 @@ namespace Cloudents.Command.CommandHandler
                 await _universityRepository.AddAsync(university, token);
             }
 
-            if (user.University == null)
-            {
-                user.AwardMoney(AwardsTransaction.University);
-            }
+            //if (user.University == null)
+            //{
+            //    user.AwardMoney(AwardsTransaction.University);
+            //}
             user.University = university;
             await _userRepository.UpdateAsync(user, token);
         }

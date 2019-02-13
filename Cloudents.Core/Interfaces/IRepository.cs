@@ -80,7 +80,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task<decimal> GetUserScoreAsync(long userId, CancellationToken token);
         Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
-        Task<TransactionActionType> GetFirstCourseTransaction(long userId, CancellationToken token);
+       // Task<TransactionActionType> GetFirstCourseTransaction(long userId, CancellationToken token);
 
     }
 }

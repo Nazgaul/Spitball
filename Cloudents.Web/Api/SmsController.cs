@@ -224,5 +224,37 @@ namespace Cloudents.Web.Api
             await _client.SendSmsAsync(user, token);
             return Ok();
         }
+
+        [HttpPost("call")]
+        public async Task<IActionResult> CallUserAsync(CancellationToken token)
+        {
+            var phoneCallTime = "phoneCallTime";
+            var t = TempData.Peek(phoneCallTime);
+            if (t != null)
+            {
+                var temp = DateTime.Parse(t.ToString(), CultureInfo.InvariantCulture);
+                if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+                {
+                    return Ok();
+                }
+            }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                _logger.Error("Set User Phone number User is already sign in");
+                return Unauthorized();
+            }
+
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
+                return BadRequest(ModelState);
+            }
+
+            TempData[phoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+            await _client.SendPhoneAsync(user, token);
+            return Ok();
+        }
     }
 }

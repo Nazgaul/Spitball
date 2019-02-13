@@ -15,5 +15,7 @@ namespace Cloudents.Web.Services
         /// <param name="token"></param>
         /// <returns></returns>
         Task SendSmsAsync(RegularUser user, CancellationToken token);
+
+        Task SendPhoneAsync(RegularUser user, CancellationToken token);
     }
 }

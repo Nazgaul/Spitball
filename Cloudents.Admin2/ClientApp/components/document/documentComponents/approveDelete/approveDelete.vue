@@ -29,8 +29,8 @@
                                                :disabled="proccessedDocuments.includes(document.id)">
                                             Approve
                                             <v-icon>check</v-icon>
-                                            <span>Approve Document</span>
                                         </v-btn>
+                                            <span>Approve Document</span>
                                         </v-tooltip>
                                         <v-tooltip left>
                                         <v-btn slot="activator" flat color="purple"
@@ -38,8 +38,8 @@
                                                @click="deleteDocument(document)">
                                             Delete
                                             <v-icon>delete</v-icon>
+                                            </v-btn>
                                             <span>Delete Document</span>
-                                        </v-btn>
                                         </v-tooltip>
                                         <v-tooltip left>
                                         <v-btn slot="activator" flat color="red" v-bind:href="document.siteLink" target="_blank">

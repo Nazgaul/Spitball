@@ -60,7 +60,7 @@
                         </transition>
                     </v-stepper-content>
                 </v-stepper-items>
-                <v-stepper-header v-show="courseSelected" class="sb-stepper-header footer px-2"
+                <v-stepper-header v-show="courseSelected && !lastStep" class="sb-stepper-header footer px-2"
                                   :class="{'slim': firstStep || lastStep || isEdge}">
                     <v-flex v-show="!firstStep && !lastStep">
                         <v-btn :loading="loading" class="upload-btn" :disabled="!isLoaded || disableBtn"

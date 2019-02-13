@@ -117,37 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add_answer" xml:space="preserve">
-    <value>Add your answer</value>
+  <data name="nav_bookDetails_filter_new" xml:space="preserve">
+    <value>new</value>
   </data>
-  <data name="Add_it_here" xml:space="preserve">
-    <value>Add it here!</value>
+  <data name="nav_bookDetails_filter_rental" xml:space="preserve">
+    <value>rental</value>
   </data>
-  <data name="Ask_question" xml:space="preserve">
-    <value>Ask a question</value>
+  <data name="nav_bookDetails_filter_used" xml:space="preserve">
+    <value>used</value>
   </data>
-  <data name="Chat" xml:space="preserve">
-    <value>Chat</value>
+  <data name="nav_name_ask" xml:space="preserve">
+    <value>Homework Help</value>
   </data>
-  <data name="Discussion_Board" xml:space="preserve">
-    <value>Discussion Board</value>
+  <data name="nav_name_book" xml:space="preserve">
+    <value>Textbooks</value>
   </data>
-  <data name="error_minChar" xml:space="preserve">
-    <value>Genuine answer should be more than 15 characters.</value>
+  <data name="nav_name_flashcards" xml:space="preserve">
+    <value>Flashcards</value>
   </data>
-  <data name="Know_the_answer" xml:space="preserve">
-    <value>Know the answer?</value>
+  <data name="nav_name_job" xml:space="preserve">
+    <value>Jobs</value>
   </data>
-  <data name="Question" xml:space="preserve">
-    <value>Question</value>
+  <data name="nav_name_note" xml:space="preserve">
+    <value>Study Documents</value>
   </data>
-  <data name="question_dash" xml:space="preserve">
-    <value>/  Questions  /</value>
-  </data>
-  <data name="error_duplicated" xml:space="preserve">
-    <value>This answer is copy pasted, please submit a genuine answer.</value>
-  </data>
-  <data name="error_maxChar" xml:space="preserve">
-    <value>The field must be a string with a maximum length of 550 chars</value>
+  <data name="nav_name_tutor" xml:space="preserve">
+    <value>Tutors</value>
   </data>
 </root>

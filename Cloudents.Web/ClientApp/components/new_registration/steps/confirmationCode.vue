@@ -26,9 +26,13 @@
                        :disabled="!confirmationCode"
                        @click="smsCodeVerify()"
                 ><span v-language:inner>login_continue</span></v-btn>
-                <div class="bottom-text">
+                <div class="bottom-text column">
                     <p class="inline"><span v-language:inner>login_didnt_get_sms</span> &nbsp;
                         <span class="email-text inline click" @click="resendSms()" v-language:inner>login_click_here_to_send</span>
+                    </p>
+                    <br/>
+                    <p class="inline"><span v-language:inner>login_prefer_call</span> &nbsp;
+                        <span class="email-text inline click" @click="voiceCall()" v-language:inner>login_click_here_to_call</span>
                     </p>
                 </div>
             </div>
@@ -120,6 +124,22 @@
                         self.loading = false;
                         self.errorMessage.code = "Invalid code";
                     });
+            },
+            voiceCall(){
+                this.updateLoading(true);
+                analyticsService.sb_unitedEvent('Registration', 'Call Voice SMS');
+                registrationService.voiceConfirmation()
+                    .then((success) => {
+                            this.updateLoading(false);
+                            this.updateToasterParams({
+                                toasterText: LanguageService.getValueByKey("login_call_code"),
+                                showToaster: true,
+                            });
+                        },
+                        error => {
+                            this.errorMessage = error.text;
+                            console.error(error, 'sign in resend error')
+                        })
             },
             resendSms() {
                 this.updateLoading(true);

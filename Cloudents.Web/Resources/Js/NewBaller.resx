@@ -117,37 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add_answer" xml:space="preserve">
-    <value>Add your answer</value>
+  <data name="action_got" xml:space="preserve">
+    <value>Got it</value>
   </data>
-  <data name="Add_it_here" xml:space="preserve">
-    <value>Add it here!</value>
+  <data name="bottom_text_one" xml:space="preserve">
+    <value>Until we get to know you a bit better, you can only answer up to 3 unaccepted questions at a time.</value>
   </data>
-  <data name="Ask_question" xml:space="preserve">
-    <value>Ask a question</value>
+  <data name="bottom_text_two" xml:space="preserve">
+    <value>These answers will have a direct impact on your ability  to earn points and increase your reputation.</value>
   </data>
-  <data name="Chat" xml:space="preserve">
-    <value>Chat</value>
+  <data name="list_item_one" xml:space="preserve">
+    <value>Make sure your answer is genuine and written in your own words</value>
   </data>
-  <data name="Discussion_Board" xml:space="preserve">
-    <value>Discussion Board</value>
+  <data name="list_item_three" xml:space="preserve">
+    <value>Double check your answer for grammar and spelling</value>
   </data>
-  <data name="error_minChar" xml:space="preserve">
-    <value>Genuine answer should be more than 15 characters.</value>
+  <data name="list_item_two" xml:space="preserve">
+    <value>Your answer should be short, clear and to the point</value>
   </data>
-  <data name="Know_the_answer" xml:space="preserve">
-    <value>Know the answer?</value>
+  <data name="subtitle" xml:space="preserve">
+    <value>How to improve your answer chances to get accepted</value>
   </data>
-  <data name="Question" xml:space="preserve">
-    <value>Question</value>
-  </data>
-  <data name="question_dash" xml:space="preserve">
-    <value>/  Questions  /</value>
-  </data>
-  <data name="error_duplicated" xml:space="preserve">
-    <value>This answer is copy pasted, please submit a genuine answer.</value>
-  </data>
-  <data name="error_maxChar" xml:space="preserve">
-    <value>The field must be a string with a maximum length of 550 chars</value>
+  <data name="title" xml:space="preserve">
+    <value>You are about to add your first answer!</value>
   </data>
 </root>
