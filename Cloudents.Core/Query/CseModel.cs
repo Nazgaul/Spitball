@@ -6,17 +6,17 @@ namespace Cloudents.Core.Query
     public class SearchModel
     {
         public SearchModel(string query, IEnumerable<string> sources,
-            CustomApiKey key, IEnumerable<string> courses,
+            CustomApiKey key, string course,
             IEnumerable<string> universitySynonym)
         {
             Query = query;
             Sources = sources;
             Key = key;
-            Courses = courses;
+            Course = course;
             UniversitySynonym = universitySynonym;
         }
 
-        public IEnumerable<string> Courses { get; }
+        public string Course { get; }
         public string Query { get; }
 
         [CanBeNull, ItemCanBeNull]

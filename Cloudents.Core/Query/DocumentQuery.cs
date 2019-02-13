@@ -6,7 +6,7 @@ namespace Cloudents.Core.Query
 {
     public class DocumentQuery
     {
-        public DocumentQuery(string[] course, UserProfile profile, string term, int page,
+        public DocumentQuery(string course, UserProfile profile, string term, int page,
             IEnumerable<string> filters)
         {
             Course = course;
@@ -15,7 +15,7 @@ namespace Cloudents.Core.Query
             Filters = filters ?? Enumerable.Empty<string>();
             Profile = profile;
         }
-        public string[] Course { get;  }
+        public string Course { get;  }
 
 
         public string Term { get; }
