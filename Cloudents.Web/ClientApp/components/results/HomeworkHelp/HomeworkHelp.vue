@@ -76,7 +76,7 @@
                        :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
             </component>
-        </template> 
+        </template>
         <template slot="rightSide">
             <slot name="rightSide">
                 <faq-block :isAsk="true" :isNotes="false" :name="currentSuggest" :text="userText"></faq-block>
