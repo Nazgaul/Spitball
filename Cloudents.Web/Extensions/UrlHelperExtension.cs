@@ -95,10 +95,10 @@ namespace Cloudents.Web.Extensions
         {
             return helper.RouteUrl(SeoTypeString.Document, new
             {
-                universityName = university.Replace("+", "-"),//.Replace("+", string.Empty),
-                courseName = course, //.Replace("+", string.Empty),
+                universityName = university.Replace("+", "-"),
+                courseName = course,
                 id,
-                name = name.Replace("+", "-")//.Replace("+", string.Empty)
+                name = name.Replace("+", "-")
             });
         }
     }

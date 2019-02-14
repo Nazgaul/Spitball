@@ -2,6 +2,7 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 var t = require("./webpack.global.js");
@@ -69,27 +70,27 @@ module.exports = (env) => {
 
         module: {
             rules: [
-                { test: /\.css(\?|$)/, use: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader" : "css-loader?minimize" }) },
+                { test: /\.css(\?|$)/, use: ExtractTextPlugin.extract({ use:"css-loader"  }) },
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: "url-loader?limit=8192" },
                 {
                     test: /\.styl$/,
-                    loader: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader!stylus-loader" : "css-loader?minimize!stylus-loader" })
+                    loader: ExtractTextPlugin.extract({ use: "css-loader!stylus-loader"  })
                 },
                 {
                     test: /\.less$/,
                     exclude: /ClientApp/,
-                    use: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader!less-loader" : "css-loader?minimize!less-loader" })
+                    use: ExtractTextPlugin.extract({ use:  "css-loader!less-loader"  })
                 },
                 {
                     test: /\.scss$/,
                     exclude: /ClientApp/,
-                    use: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader!sass-loader" : "css-loader?minimize!sass-loader" })
+                    use: ExtractTextPlugin.extract({ use: "css-loader!sass-loader" })
                 },
                 {
                     test: /\.font\.js/,
                     loader: ExtractTextPlugin.extract({
                         use: [
-                            isDevBuild ? "css-loader" : "css-loader?minimize",
+                            "css-loader" ,
                             "webfonts-loader"
                         ]
                     })
@@ -97,13 +98,19 @@ module.exports = (env) => {
             ]
         },
         plugins: [
+            new OptimizeCssAssetsPlugin({
+                assetNameRegExp: /\.optimize\.css$/g,
+                cssProcessor: require("cssnano"),
+                cssProcessorOptions: { discardComments: { removeAll: true } },
+                canPrint: true
+            }),
             new ExtractTextPlugin({
                 filename: '[name].[contenthash].css'
             }),
 
             new WebpackRTLPlugin({
                 filename: '[name].[contenthash].rtl.css',
-                minify: false
+                minify: true
             }),
             //new PurifyCSSPlugin({
             //    // Give paths to parse for rules. These should be absolute!
@@ -118,11 +125,12 @@ module.exports = (env) => {
             }),
 
 
-        ].concat(isDevBuild ? [
+        ]
+        //    .concat(isDevBuild ? [
 
-        ] : [
+        //] : [
 
-            ])
+        //    ])
     });
     const clientBundleConfig = merge(sharedConfig(),
         {
@@ -164,33 +172,33 @@ module.exports = (env) => {
 
         });
 
-    const serverBundleConfig = merge(sharedConfig(), {
-        target: 'node',
-        resolve: { mainFields: ['main'] },
-        entry: {
-            vendor: allModules.concat(['aspnet-prerendering'])
-        },
-        output: {
-            path: path.join(__dirname, 'ClientApp', 'dist'),
-            filename: "[name].js",
-            libraryTarget: 'commonjs2'
-        },
-        //module: {
-        //    rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] } ]
-        //},
-        plugins: [
-            new webpack.DllPlugin({
-                publicPath: 'dist/',
-                filename: '[name].js',
-                library: '[name]_[hash]',
-                path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'),
-                name: '[name]_[hash]'
-            }),
+    //const serverBundleConfig = merge(sharedConfig(), {
+    //    target: 'node',
+    //    resolve: { mainFields: ['main'] },
+    //    entry: {
+    //        vendor: allModules.concat(['aspnet-prerendering'])
+    //    },
+    //    output: {
+    //        path: path.join(__dirname, 'ClientApp', 'dist'),
+    //        filename: "[name].js",
+    //        libraryTarget: 'commonjs2'
+    //    },
+    //    //module: {
+    //    //    rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] } ]
+    //    //},
+    //    plugins: [
+    //        new webpack.DllPlugin({
+    //            publicPath: 'dist/',
+    //            filename: '[name].js',
+    //            library: '[name]_[hash]',
+    //            path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'),
+    //            name: '[name]_[hash]'
+    //        }),
 
-        ].concat(isDevBuild ? [
-            new CleanWebpackPlugin(path.join(__dirname, "ClientApp", "dist"))
-        ] : [])
-    });
+    //    ].concat(isDevBuild ? [
+    //        new CleanWebpackPlugin(path.join(__dirname, "ClientApp", "dist"))
+    //    ] : [])
+    //});
     return [clientBundleConfig];
 
 };

@@ -46,16 +46,7 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var university = user.University;
-            //if (message.UniversityId.HasValue)
-            //{
-            //    university = await _universityRepository.LoadAsync(message.UniversityId.Value, token);
-            //}
-
-            //var itemName = message.Name;
-            //if (!Path.GetExtension(itemName).Equals(Path.GetExtension(message.BlobName), StringComparison.CurrentCultureIgnoreCase))
-            //{
-            //    itemName += Path.GetExtension(message.BlobName);
-            //}
+           
             var document = new Document(message.Name, university, 
                 course, message.Type, tags, user, message.Professor, message.Price);
             await _documentRepository.AddAsync(document, token);

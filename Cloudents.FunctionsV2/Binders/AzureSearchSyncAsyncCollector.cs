@@ -5,8 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs.Extensions;
-using Twilio.Types;
 
 namespace Cloudents.FunctionsV2.Binders
 {
@@ -25,8 +23,6 @@ namespace Cloudents.FunctionsV2.Binders
         {
             _messages.Add(item);
             return Task.CompletedTask;
-            //IndexBatch.MergeOrUpload()
-            //throw new global::System.NotImplementedException();
         }
 
         public async Task FlushAsync(CancellationToken cancellationToken = default(CancellationToken))

@@ -1,6 +1,7 @@
 <template>
     <div>
     <v-flex class="information-box" v-show="showInformationBlock">
+        <v-icon v-show="$vuetify.breakpoint.xsOnly" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
         <span class="information-box-text">{{informationBlockText}}</span>    
     </v-flex>    
     <v-flex class="line verticals static-card-what-is-hw-question">
@@ -65,17 +66,17 @@
         },
         methods: {
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
-            ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState']),
-            // cleanVerticalDesign(){
-            //     //remove selected tab design
-            //     let elmActiveParent = document.getElementsByClassName('header-tab-active')[0];
-            //     elmActiveParent.firstChild.classList.remove('v-tabs__item--active');
-
-            //     //slider remove
-            //     let elmContainer = elmActiveParent.parentElement;
-            //     let sliderContainer = elmContainer.firstChild;
-            //     sliderContainer.firstChild.classList.remove('v-tabs__slider');
-            // },
+            ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState','toggleShowSchoolBlock']),
+            setNavigationDrawerState(){
+                if(this.$vuetify.breakpoint.xsOnly){
+                   this.toggleShowSchoolBlock(false);
+                   setTimeout(()=>{
+                        this.toggleShowSchoolBlock(true);
+                   }, 200)
+                }else{
+                    this.toggleShowSchoolBlock()
+                }
+            },
             restoreVerticalDesign(){
                 //remove selected tab design
                 let elmActiveParent = document.getElementsByClassName('header-tab-active')[0];

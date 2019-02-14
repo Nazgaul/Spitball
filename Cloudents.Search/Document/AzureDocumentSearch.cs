@@ -23,15 +23,16 @@ namespace Cloudents.Search.Document
 
         }
 
-        public async Task< IEnumerable<string>> GetNone()
+        public async Task<IEnumerable<string>> GetNone(int page)
         {
-           var t =await  _client.Documents.SearchAsync<Entities.Document>(null, new SearchParameters
+            var t = await _client.Documents.SearchAsync<Entities.Document>(null, new SearchParameters
             {
                 Filter = "TypeFieldName eq 'None'",
-                Top = 2000,
-                Select = new [] {"Id"}
+                Top = 1000,
+                Skip = page * 1000,
+                Select = new[] { "Id" }
             });
-           return t.Results.Select(s => s.Document.Id);
+            return t.Results.Select(s => s.Document.Id);
 
         }
 
@@ -84,8 +85,7 @@ namespace Cloudents.Search.Document
             };
             if (query.Course != null)
             {
-                var filterStr = string.Join(" or ", query.Course.Select(s =>
-                    $"{Entities.Document.CourseNameField} eq '{s.ToUpperInvariant().Replace("'", "''")}'"));
+                var filterStr = $"{Entities.Document.CourseNameField} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";
 
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
