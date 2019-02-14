@@ -1,8 +1,11 @@
 <template>
-    <div>
+    <div :class="{'pr-1 pl-1': isMobile}">
     <v-flex class="information-box" v-show="showInformationBlock">
-        <v-icon v-show="$vuetify.breakpoint.xsOnly" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
-        <span class="information-box-text">{{informationBlockText}}</span>    
+        <div :class="{'information-box-mobile-wrap': isMobile}">
+            <v-icon v-show="$vuetify.breakpoint.xsOnly" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
+            <span class="information-box-text" :class="{'mobile': isMobile}">{{informationBlockText}}</span>   
+        </div>
+         
     </v-flex>    
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >

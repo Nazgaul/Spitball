@@ -5,11 +5,25 @@
   align-items: center;
   line-height: 64px;
   padding-left: 48px;
+  @media (max-width: @screen-sm) {
+    padding-left: 0px;
+  }
   .gamburger-icon{
     font-size: 12px;
     line-height: 22px;
     color: #3e45a0;
     margin-right: 5px;
+  }
+  .information-box-mobile-wrap{
+    align-items: center;
+    line-height: 4;
+    background-color: #fff;
+    height: 40px;
+    margin-top: 4px;
+    display: flex;
+    border-radius: 4px;
+    border: 1px solid #cfcef6;
+    padding-left: 10px;
   }
   .information-box-text{
     font-family: @fontFiraSans;
@@ -20,6 +34,14 @@
     line-height: normal;
     letter-spacing: -0.2px;
     color: #3e45a0;
+    &.mobile{
+      font-size: 14px;
+      margin-left: 5px;
+      width: 90%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
   }
 }
 .verticals.line {
