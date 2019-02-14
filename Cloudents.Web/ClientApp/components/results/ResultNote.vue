@@ -4,8 +4,7 @@
                :to="url">
         <v-container
                 class="pa-0"
-                @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)"
-        >
+                @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-flex class="wrapper">
                 <div class="document-header-container">
                     <div class="document-header-large-sagment">
@@ -57,8 +56,8 @@
             </span>
                     </div>
                     <div class="type-wrap">
-                        <span :class="[ 'doc-type-text']">{{type}}</span>
-                        <document-details :item="item"></document-details>
+                        <!--<span :class="[ 'doc-type-text']">{{type}}</span>-->
+                        <!--<document-details :item="item"></document-details>-->
                         <v-flex grow class="data-row">
                             <div :class="['content-wrap']">
                                 <div class="title-wrap">
@@ -73,11 +72,13 @@
                                 </div>
                             </div>
                         </v-flex>
+                        <document-details :item="item" class="document-details"></document-details>
                     </div>
                 </v-flex>
 
                 <v-flex grow class="doc-details">
                     <div class="doc-actions-info">
+                        <span :class="[ 'doc-type-text mr-3']">{{type}}</span>
                         <v-icon class="sb-doc-icon mr-1">sbf-download-cloud</v-icon>
                         <span class="sb-doc-info downloads">{{docDownloads}}</span>
                         <v-icon class="sb-doc-icon mr-1">sbf-views</v-icon>

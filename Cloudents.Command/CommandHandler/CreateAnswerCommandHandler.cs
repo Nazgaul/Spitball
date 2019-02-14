@@ -11,7 +11,6 @@ using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
-using SimMetricsMetricUtilities;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -87,11 +86,7 @@ namespace Cloudents.Command.CommandHandler
             ))
             {
                 var check = Regex.Replace(answer.Text, regex.ToString(), "");
-                var jaroWinkler = new JaroWinkler();
-
-                var result = jaroWinkler.GetSimilarity(nakedString, check);
-
-                if (result > 0.95)
+                if (nakedString == check)
                 {
                     throw new DuplicateRowException("Duplicate answer");
                 }
@@ -107,7 +102,7 @@ namespace Cloudents.Command.CommandHandler
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
-            await Task.WhenAll(l/*.Union(new[] { t })*/).ConfigureAwait(true);
+            await Task.WhenAll(l);
         }
     }
 }

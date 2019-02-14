@@ -1,21 +1,41 @@
-﻿namespace Cloudents.Core.Message
+﻿using System.Runtime.Serialization;
+
+namespace Cloudents.Core.Message
 {
-    public class SmsMessage2
+    [DataContract]
+    public class SmsMessage
     {
-        public SmsMessage2(string phoneNumber, string code)
+        public SmsMessage(string phoneNumber, string code, MessageType type)
         {
             PhoneNumber = phoneNumber;
             Message = code;
+            Type = type;
         }
 
-        
-        protected SmsMessage2()
+
+        protected SmsMessage()
         {
-
         }
 
-        public string PhoneNumber { get; set; }
+        [DataMember]
+        public string PhoneNumber { get; private set; }
 
-        public string Message { get; set; }
+        [DataMember]
+        public string Message { get; private set; }
+
+        public MessageType Type { get; }
+
+        public sealed class MessageType
+        {
+            public MessageType(string type)
+            {
+                Type = type;
+            }
+
+            public string Type { get; }
+
+            public static MessageType Sms = new MessageType("sms");
+            public static MessageType Phone = new MessageType("phone");
+        }
     }
 }

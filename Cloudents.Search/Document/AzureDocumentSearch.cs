@@ -23,6 +23,18 @@ namespace Cloudents.Search.Document
 
         }
 
+        public async Task< IEnumerable<string>> GetNone()
+        {
+           var t =await  _client.Documents.SearchAsync<Entities.Document>(null, new SearchParameters
+            {
+                Filter = "TypeFieldName eq 'None'",
+                Top = 2000,
+                Select = new [] {"Id"}
+            });
+           return t.Results.Select(s => s.Document.Id);
+
+        }
+
         public async Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
         {
             try

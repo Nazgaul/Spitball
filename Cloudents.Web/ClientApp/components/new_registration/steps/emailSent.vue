@@ -18,7 +18,7 @@
                 <p v-language:inner>login_until_activate_account</p>
                 <div class="bottom-text">
                     <p class="inline"> <span v-language:inner>login_didnt_get_an_email</span>
-                        <span class="email-text inline click"  @click="resendEmail()" v-language:inner>login_click_here_to_send</span>
+                        <span class="email-text inline click"  @click="resendEmail()" v-language:inner>login_click_here_to_send_email</span>
                     </p>
                 </div>
             </div>

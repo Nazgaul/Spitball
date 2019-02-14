@@ -10,6 +10,5 @@
     <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
-    <PackageReference Include="SimMetrics" Version="1.1.4118.23231" />
   </ItemGroup>
 </Project>

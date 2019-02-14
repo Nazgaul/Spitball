@@ -97,6 +97,16 @@
       </sb-dialog>
 
       <sb-dialog
+                    :showDialog="newBallerDialog"
+                    :popUpType="'newBallerDialog'"
+                    :content-class="'new-baller'"
+                    :maxWidth="'700px'"
+                    :isPersistent="$vuetify.breakpoint.smAndUp"
+            >
+                <new-baller></new-baller>
+            </sb-dialog>
+
+            <sb-dialog
         :showDialog="getShowBuyDialog"
         :popUpType="'buyTokens'"
         :content-class="'buy-tokens-popup'"
@@ -123,7 +133,7 @@ import NewQuestion from "../question/newQuestion/newQuestion.vue";
 import AddQuestion from "../question/addQuestion/addQuestion.vue";
 
 import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
-
+    import newBaller from "../helpers/newBaller/newBaller.vue";
 import {
   GetDictionary,
   LanguageService
@@ -156,7 +166,8 @@ export default {
     leadersBoard,
     boardGuide,
     uploadMultipleFiles,
-    buyTokens
+            buyTokens,
+            newBaller
   },
   data() {
     return {
@@ -167,6 +178,8 @@ export default {
       showOnBoardGuide: true,
       showBuyTokensDialog: false,
       showUniSelect: false,
+
+
       tourObject: {
         region:
           global.country.toLocaleLowerCase() === "il" ? "ilTours" : "usTours",
@@ -174,7 +187,8 @@ export default {
           onStop: this.tourClosed
         },
         toursOptions: tourService.toursOptions,
-        tourSteps: []
+                    tourSteps: [],
+
       }
     };
   },
@@ -198,8 +212,10 @@ export default {
       "StudyDocuments_isDataLoaded",
       "getOnBoardState",
       "getShowBuyDialog",
-      "getCurrentStep"
+                "getCurrentStep",
+                "newBallerDialog"
     ]),
+
     showFeed() {
       if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
         return this.showMobileFeed;
@@ -240,6 +256,12 @@ export default {
     });
   },
   watch: {
+
+                
+                
+              
+                           
+                    
     getShowToaster: function(val) {
       if (val) {
         var self = this;
@@ -295,15 +317,11 @@ export default {
     $route: function(val) {
       this.tourTempClose();
       this.openOnboardGuide();
-      if (!!val.query && !!val.query.university) {
-        if (val.query.university) {
-          this.showUniSelect = true;
-        } else {
-          this.showUniSelect = false;
-        }
-      } else {
-        this.showUniSelect = false;
-      }
+              
+         
+                  
+
+      
     }
   },
   methods: {
@@ -317,21 +335,23 @@ export default {
       "updateOnBoardState",
       "updateShowBuyDialog",
       "updateCurrentStep",
-      "changeSelectUniState"
+                "changeSelectUniState",
     ]),
     ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
+
     onFooterStepChange() {
       this.tourTempClose();
     },
-    closeSblToken() {
+            closeSblToken() {
       this.updateShowBuyDialog(false);
     },
-    openOnboardGuide() {
+            openOnboardGuide() {
       let isLogedIn = this.accountUser;
       let supressed = global.localStorage.getItem("sb-onboard-supressed");
       let validRoutesNames = ["ask", "note"].indexOf(this.$route.name) > -1;
-      if (isLogedIn && !supressed && validRoutesNames) {
-        setTimeout(() => {
+                
+                if (isLogedIn && !supressed && validRoutesNames) {
+                    setTimeout(() => {
           this.updateOnBoardState(true);
         });
       }
@@ -357,14 +377,14 @@ export default {
       //the set to the local storage happens in the component itself
       this.acceptIsraeli = true;
     },
-    tryBuyTokens(transactionObjectError) {
-      walletService.buyTokens(transactionObjectError).then(
+            tryBuyTokens(transactionObjectError) {
+                walletService.buyTokens(transactionObjectError).then(() => {
         () => {
           this.updateToasterParams({
             toasterText: LanguageService.getValueByKey("buyToken_success"),
             showToaster: true
           });
-        },
+                }, (error) => {
         error => {
           global.localStorage.setItem("sb_transactionError", transactionId);
           console.log(error);
@@ -406,7 +426,7 @@ export default {
     let failedTranscationId = global.localStorage.getItem(
       "sb_transactionError"
     );
-    if (failedTranscationId) {
+            if (failedTranscationId) {
       global.localStorage.removeItem("sb_transactionError");
       let transactionObjectError = {
         id: failedTranscationId
@@ -414,11 +434,7 @@ export default {
       this.tryBuyTokens(transactionObjectError);
     }
 
-    // if (!!this.$route.query && !!this.$route.query.university) {
-    //   this.updateCurrentStep(this.$route.query.university);
-    //   this.changeSelectUniState(true);
-    //   this.showUniSelect = true;
-    // }
+
   }
 };
 </script>

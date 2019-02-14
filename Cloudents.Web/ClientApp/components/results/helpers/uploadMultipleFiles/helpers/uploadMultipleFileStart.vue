@@ -8,8 +8,12 @@
                 <h3 class="error-title" v-show="uploadError">{{errorText}}</h3>
                 <div class="supported-extensions" v-show="extensionErrror">
                     <span v-language:inner>upload_multiple_error_extensions_support</span>
-                    <span class="extension" v-for="(extension, index) in supportedExtensions" :key="extension">&nbsp;{{extension}}
-                    <span v-if="index+1 !== supportedExtensions.length">,&nbsp;</span>
+                    <span class="extension" v-for="(extension, index) in supportedExtensions" :key="extension">
+                        <span>
+                              &nbsp;{{extension}}
+                    <span v-if="index+1 !== supportedExtensions.length">,</span>
+                        </span>
+
                 </span>
                 </div>
             </div>
@@ -190,7 +194,7 @@
                 if (newFile && oldFile && newFile.error !== oldFile.error) {
                     let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
                     this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
-                    let fileErrorObj ={
+                    let fileErrorObj = {
                         errorText: newFile.response.Name ? newFile.response.Name["0"] : text,
                         id: newFile.id,
                         error: true
@@ -306,7 +310,7 @@
                 max-height: unset;
                 background-color: @color-white;
                 border: none;
-                /*box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2);*/
+
             }
         }
         .drop-text {

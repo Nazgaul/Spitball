@@ -35,6 +35,7 @@ namespace Cloudents.Query.Admin
             public bool IsIsrael { get; set; }
             public bool? Approved { get; set; }
             public string DeclinedReason { get; set; }
+            public Guid TransactionId { get; set; }
         }
 
         public CashOutQueryHandler(QuerySession session)
@@ -74,7 +75,8 @@ namespace Cloudents.Query.Admin
                     FraudScore = s.User.FraudScore,
                     IsIsrael = s.User.Country == "IL",
                     Approved = s.Approved,
-                    DeclinedReason = s.DeclinedReason
+                    DeclinedReason = s.DeclinedReason,
+                    TransactionId = s.Id
 
                 })
 
@@ -103,7 +105,8 @@ namespace Cloudents.Query.Admin
                     UserQueryRatio = tIndex.UserQueryRatio,
                     IsIsrael = index.IsIsrael,
                     Approved = index.Approved,
-                    DeclinedReason = index.DeclinedReason
+                    DeclinedReason = index.DeclinedReason,
+                    TransactionId = index.TransactionId
                 });
 
             }

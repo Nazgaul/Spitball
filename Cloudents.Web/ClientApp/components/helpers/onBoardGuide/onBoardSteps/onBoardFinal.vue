@@ -5,7 +5,7 @@
             <presentStars  class="present-img"></presentStars>
         </div>
         <div class="text-row">
-            <div class="sub-title-wrap">
+            <div class="sub-title-wrap" v-show="tokensAmmount !== 0">
                     <span class="step-subtitle"v-language:inner>onboard_final_added</span>
                 <bdi>
                     <span class="ammount">&nbsp;{{tokensAmmount | currencyLocalyFilter}}&nbsp;</span>
@@ -15,23 +15,9 @@
             </div>
         </div>
 
-        <v-divider class="divider-line"></v-divider>
+        <v-divider class="divider-line" v-show="tokensAmmount !== 0"></v-divider>
         <div class="sml-text-row">
             <span v-language:inner>onboard_final_bottom_text</span>
-            <!--<div class="" v-show="tokensAmmount < ammountCalcFrom">-->
-                    <!--<span v-language:inner>onboard_final_only</span>-->
-                <!--<bdi>-->
-                    <!--<span>&nbsp;{{sblAway}}&nbsp;-->
-                    <!--<span v-language:inner>app_currency_dynamic</span>-->
-                    <!--</span>-->
-                <!--</bdi>-->
-                    <!--<span v-language:inner>onboard_final_away</span>-->
-            <!--</div>-->
-            <!--<div class="" v-show="tokensAmmount >= ammountCalcFrom">-->
-                <!--<bdi>-->
-                    <!--<span v-language:inner>onboard_final_enter_wallet</span>-->
-                <!--</bdi>-->
-            <!--</div>-->
         </div>
     </div>
 </template>
@@ -56,13 +42,7 @@
             tokensAmmount() {
                 return this.accountUser.balance;
             },
-            sblAway() {
-                if(this.tokensAmmount < this.ammountCalcFrom){
-                    return this.ammountCalcFrom - this.tokensAmmount;
-                }else{
-                    return this.tokensAmmount;
-                }
-            },
+
 
         },
         methods: {

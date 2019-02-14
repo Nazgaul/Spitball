@@ -1,11 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Services
 {
@@ -23,9 +23,10 @@ namespace Cloudents.Web.Services
             _smsProvider = smsProvider;
         }
 
-        private async Task SendSmsAsync(string phoneNumber,string code, CancellationToken token)
+        private async Task SendSmsAsync(string phoneNumber, string code, SmsMessage.MessageType type, CancellationToken token)
         {
-            var message = new SmsMessage2(phoneNumber, code);
+
+            var message = new SmsMessage(phoneNumber, code, type);
             await _serviceBusProvider.InsertMessageAsync(message, token);
         }
 
@@ -37,7 +38,13 @@ namespace Cloudents.Web.Services
         public async Task SendSmsAsync(RegularUser user, CancellationToken token)
         {
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
-            await SendSmsAsync(user.PhoneNumber, code, token);
+            await SendSmsAsync(user.PhoneNumber, code,SmsMessage.MessageType.Sms,  token);
+        }
+
+        public async Task SendPhoneAsync(RegularUser user, CancellationToken token)
+        {
+            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
+            await SendSmsAsync(user.PhoneNumber, code, SmsMessage.MessageType.Phone, token);
         }
     }
 }
