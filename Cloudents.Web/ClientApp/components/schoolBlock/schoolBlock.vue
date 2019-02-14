@@ -1,6 +1,5 @@
 <template>
-  <!-- <div class="school-block-wrap"> -->
-    <v-navigation-drawer touchless class="school-block" width="260" :value="true" app clipped>
+    <v-navigation-drawer touchless class="school-block" width="260" :value="getShowSchoolBlock" app clipped>
       <v-list>
         <v-list-tile class="group-header">
           <v-list-tile-action>
@@ -30,7 +29,6 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-  <!-- </div> -->
 </template>
 
 <script>
@@ -42,7 +40,6 @@ export default {
     return {
       selectedCourse: "",
       lock: false,
-      drawer: true,
     };
   },
   props: {
@@ -57,7 +54,8 @@ export default {
       "getSchoolName",
       "getAllSteps",
       "accountUser",
-      "getSearchLoading"
+      "getSearchLoading",
+      "getShowSchoolBlock"
     ]),
     isLoggedIn() {
       return !!this.accountUser;
@@ -157,9 +155,6 @@ export default {
     if (!!this.$route.query.Course) {
       this.selectedCourse = this.$route.query.Course;
     }
-    setTimeout(()=>{
-      this.drawer = false
-    }, 2500)
   }
 };
 </script>

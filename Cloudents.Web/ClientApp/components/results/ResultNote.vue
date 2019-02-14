@@ -287,10 +287,11 @@
             },
             submitNewPrice() {
                 let data = {id: this.item.id, price: this.newPrice};
+                let self = this;
                 documentService.changeDocumentPrice(data).then(
                     (success) => {
-                        this.updateItemPrice(this.newPrice);
-                        this.closeNewPriceDialog();
+                        self.updateItemPrice(self.newPrice);
+                        self.closeNewPriceDialog();
                     },
                     (error) => {
                         console.error('erros change price', error)

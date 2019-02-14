@@ -24,7 +24,8 @@ const state = {
     resultLockForSchoolNameChange: false,
     resultLockForClassesChange: false,
     selectForTheFirstTime: false,
-    reflectChangeToPage: 0
+    reflectChangeToPage: 0,
+    showSchoolBlock: true
 };
 
 const getters = {
@@ -40,7 +41,8 @@ const getters = {
     getUniversityPopStorage: state => state.universityPopStorage,
     getResultLockForSchoolNameChange: state => state.resultLockForSchoolNameChange,
     getResultLockForClassesChange: state => state.resultLockForClassesChange,
-    getReflectChangeToPage: state => state.reflectChangeToPage
+    getReflectChangeToPage: state => state.reflectChangeToPage,
+    getShowSchoolBlock: state => state.showSchoolBlock
 };
 
 const actions = {
@@ -172,6 +174,14 @@ const actions = {
     },
     closeSelectUniFromNav({commit}){
         commit('setSelectUniState', false);
+    },
+    toggleShowSchoolBlock({commit, state}, val){
+        if(typeof val !== "undefined"){
+            commit('updtaeShowSchoolBlock', val)
+        }else{
+            commit('updtaeShowSchoolBlock', !state.showSchoolBlock)
+        }
+        
     }
 };
 
@@ -221,6 +231,9 @@ const mutations = {
     },
     setReflectChangeToPage(state){
         state.reflectChangeToPage++;
+    },
+    updtaeShowSchoolBlock(state, val){
+        state.showSchoolBlock = val;
     }
 };
 

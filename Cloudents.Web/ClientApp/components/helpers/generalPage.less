@@ -10,7 +10,6 @@
 }
 
 
-//@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
 
 @marginTop: 24px;
 .main-section {
@@ -60,7 +59,6 @@
     font-weight: bold;
     letter-spacing: -0.5px;
     text-align: center;
-    // position: fixed;
     margin: 0 auto 16px;
     left: 0;
     right: 0;
@@ -141,14 +139,9 @@
     
   }
 
-  .mobile-filter {
+  .filter-container{
     flex-direction: row;
     align-items: center;
-    @media (max-width: @screen-xs) {
-      // margin-top: 12px;
-      // margin-bottom: 12px;
-      // min-height: 42px;
-    }
     .v-btn__content {
       flex-direction: row-reverse;
       .counter {
@@ -169,26 +162,6 @@
         bottom: 0;
       }
     }
-
-    // button {
-    //   @media (max-width: @screen-xs) {
-    //     margin: 0 0 0 -8px;
-    //     background: #fff;
-    //     border-radius: 0 4px 4px 0;
-    //     box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31) !important;
-    //     &.mobile-filter-icon-btn {
-    //       height: 46px;
-    //       position: relative;
-    //     }
-
-    //     .sbf-filter {
-    //       font-size: 19px;
-    //       position: absolute;
-    //       right: 10px;
-    //     }
-    //   }
-    // }
-
     //remove the eliptic shape when clicking the sort ans filter button on mobile
     .v-btn:before {
       display: none;

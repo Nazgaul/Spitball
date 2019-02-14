@@ -41,7 +41,6 @@ export default {
              */
             let filterOptions = [];
             let filters = this.getFilters;
-
             if (!!filters) {
                 // iterate filter and add/remove filter value
                 Object.entries(this.query).forEach(([key, vals]) => {
