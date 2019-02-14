@@ -26,7 +26,7 @@ namespace Cloudents.Core.DTOs.Admin
        
         public int ReferredCount { get; set; }
         [DtoToEntityConnection(nameof(RegularUser.Balance))]
-        public long Balance { get; set; }
+        public decimal Balance { get; set; }
         public bool IsActive { get; set; }
         public DateTime Joined { get; set; }
         public bool WasSuspended { get; set; }
