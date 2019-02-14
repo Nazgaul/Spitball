@@ -168,6 +168,7 @@ export default {
     this.$loadScript("https://www.paypalobjects.com/api/checkout.js").then(
       () => {
         this.paypalLoaded = true;
+          this.selectProduct('inter')
       }
     );
   }
