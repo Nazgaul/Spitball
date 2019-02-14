@@ -193,9 +193,6 @@ namespace Cloudents.Web.Api
                 {
                     new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
                         result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
-                        //EnumExtension.GetValues<DocumentType>()
-                        //    .Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
-                        //    .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
                 },
                  NextPageLink = nextPageLink
             };

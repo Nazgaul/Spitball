@@ -48,7 +48,7 @@
                                  :min="1"
                                  :minus="false"
                                  :precision="2"
-                                 :max="99"
+                                 :max="1000"
                                  :currency-symbol-position="'suffix'"
                                  separator=","
                                  v-model="item.price"></vue-numeric>

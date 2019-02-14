@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace Cloudents.Command.CommandHandler.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    [AdminCommandHandler]
     public class DistributeTokensCommandHandler : ICommandHandler<DistributeTokensCommand>
     {
         private readonly IRepository<RegularUser> _userRepository;

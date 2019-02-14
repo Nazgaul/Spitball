@@ -28,7 +28,7 @@ namespace Cloudents.Core.Query
             //var resultDb = await _queryBus.QueryAsync(queryDb, token);
 
             var cseModel = new SearchModel(model.Query, BuildSources(model.Source),
-                _api, model.Courses, model.University);
+                _api, model.Course, model.University);
             var result = await _search.SearchAsync(cseModel, model.Page,  token).ConfigureAwait(false);
             var facets = _api.Priority.Select(s => s.Key).OrderBy(s => s);
             return new ResultWithFacetDto<SearchResult>

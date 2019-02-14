@@ -1,7 +1,7 @@
 <template>
     <router-link
-               :class="['d-block', 'note-block']"
-               :to="url">
+            :class="['d-block', 'note-block']"
+            :to="url">
         <v-container
                 class="pa-0"
                 @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
@@ -112,11 +112,15 @@
                     </div>
                     <div class="input-wrap d-flex row align-center justify-center">
                         <div :class="['price-wrap', isRtl ? 'reversed' : '']">
-                            <!--updating document obj inside -->
-                            <sbl-currency v-model="newPrice"
-                                          class="sb-input-upload-price">
-                            </sbl-currency>
-                            <div class="sbl-suffix" v-language:inner>app_currency_dynamic</div>
+                            <vue-numeric :currency="currentCurrency"
+                                         class="sb-input-upload-price"
+                                         :minus="false"
+                                         :min="0"
+                                         :precision="2"
+                                         :max="1000"
+                                         :currency-symbol-position="'suffix'"
+                                         separator=","
+                                         v-model="newPrice"></vue-numeric>
                         </div>
                     </div>
                 </v-flex>
@@ -144,7 +148,6 @@
     import { mapGetters, mapActions, mapMutations } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
     import SbInput from "../question/helpers/sbInput/sbInput";
-    import sblCurrency from "./helpers/sblCurrency/sbl-currency.vue";
     import documentService from "../../services/documentService";
 
 
@@ -159,12 +162,12 @@
             reportItem,
             userAvatar,
             userRank,
-            sblCurrency
 
         },
         data() {
             return {
                 isFirefox: global.isFirefox,
+                currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
                 actions: [
                     {
                         title: LanguageService.getValueByKey("questionCard_Report"),
@@ -275,7 +278,7 @@
                 }
             },
             updateItemPrice(val) {
-                if (val) {
+                if (val || val === 0) {
                     return this.item.price = val;
                 }
             },
@@ -287,10 +290,11 @@
             },
             submitNewPrice() {
                 let data = {id: this.item.id, price: this.newPrice};
+                let self = this;
                 documentService.changeDocumentPrice(data).then(
                     (success) => {
-                        this.updateItemPrice(this.newPrice);
-                        this.closeNewPriceDialog();
+                        self.updateItemPrice(self.newPrice);
+                        self.closeNewPriceDialog();
                     },
                     (error) => {
                         console.error('erros change price', error)

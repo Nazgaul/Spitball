@@ -99,11 +99,6 @@ namespace Cloudents.Web.Api
                     }
                 )}, token);
             return Ok();
-
-
-            // return new CreateQuestionResponse(toasterMessage);
-
-
         }
 
         [HttpGet("subject"), AllowAnonymous]

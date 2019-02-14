@@ -100,12 +100,10 @@ namespace Cloudents.Search.Question
                 if (result.Facets.TryGetValue(nameof(Entities.Question.State), out var p2))
                 {
                     questionFilter = p2.AsEnumFacetResult<QuestionFilter>();
-                    //retVal.FacetState = p2.Select(s => (QuestionFilter)s.AsValueFacetResult<long>().Value);
                 }
             }
 
             return (result.Results.Select(s => Convert.ToInt64(s.Document.Id)), facetSubject, questionFilter);
-            //return result;
         }
 
 

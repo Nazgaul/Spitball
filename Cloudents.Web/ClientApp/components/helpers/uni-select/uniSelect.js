@@ -1,7 +1,7 @@
 import SetSchoolLanding from './steps/set_school_landing.vue'
 import SetSchool from './steps/set_school.vue'
 import SetClass from './steps/set_class.vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import noWorries from './popups/noWorries/noWorries.vue'
 import changingSchool from "./popups/changingSchool/changingSchool.vue"
 
@@ -30,10 +30,14 @@ export default {
                 continueActionFunction: null,
                 closeFunction: null
             },
-            
+            returnPath: '/note'
         }
     },
-
+    props:{
+        step:{
+            type:String
+        }
+    },
     computed:{
         currentStep: function(){
             return this.getCurrentStep();
@@ -53,10 +57,15 @@ export default {
     methods:{
         ...mapActions(['changeSelectUniState', 'updateCurrentStep', 'setUniversityPopStorage_session', 'updateDialogState', 'assignSelectedClassesCache']),
         ...mapGetters(['getAllSteps','getCurrentStep', 'getReturnToUpload', 'getSelectedClasses']),
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         changeStep(step){
             if(step === this.enumSteps.done){
                 this.assignSelectedClassesCache();
-                this.changeSelectUniState(false);
+                // this.changeSelectUniState(false);
+                this.UPDATE_SEARCH_LOADING(true);
+                this.$router.push({
+                    path:this.returnPath,
+                })
                 let isReturnToUpload = this.getReturnToUpload();
                 let isClasses = this.getSelectedClasses();
                 //if class was set and return to upload is true, open upload component
@@ -72,7 +81,11 @@ export default {
         closeInterface(){
             this.closeNoWorriesPopup();
             this.setUniversityPopStorage_session();
-            this.changeSelectUniState(false);
+            // this.changeSelectUniState(false);
+            this.UPDATE_SEARCH_LOADING(true);
+            this.$router.push({
+                path:this.returnPath,
+            })
         },
         closeNoWorriesPopup(){
             this.beforeLeave = false;
@@ -90,7 +103,7 @@ export default {
         }
     },
     created(){
-        console.log(this.$route)
+        this.updateCurrentStep(this.step);
     },
 
 }

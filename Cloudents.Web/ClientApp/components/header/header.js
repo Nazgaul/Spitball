@@ -1,8 +1,7 @@
 ﻿import mainHeader from '../helpers/header.vue'
-import verticalsTabs from './verticalsTabs.vue'
 export default {
     components: {
-        mainHeader,verticalsTabs
+        mainHeader
     },
     computed:{
         hideHeaderMobile(){
@@ -25,13 +24,13 @@ export default {
         next();
     },
     mounted() {
-        let tabs = this.$el.querySelector('.v-tabs__wrapper');
-        let currentItem = this.$el.querySelector(`#${this.currentSelection}`);
-        if (currentItem && !global.isRtl){
-            tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
-        }else{
-            tabs.scrollLeft = 0;
-        }
+        // let tabs = this.$el.querySelector('.v-tabs__wrapper');
+        // let currentItem = this.$el.querySelector(`#${this.currentSelection}`);
+        // if (currentItem && !global.isRtl){
+        //     tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
+        // }else{
+        //     tabs.scrollLeft = 0;
+        // }
 
     },
     props: {

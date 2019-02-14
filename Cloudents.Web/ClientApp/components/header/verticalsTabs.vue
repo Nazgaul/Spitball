@@ -1,13 +1,16 @@
 <template>
     <div>
+    <v-flex class="information-box" v-show="showInformationBlock">
+        <v-icon v-show="$vuetify.breakpoint.xsOnly" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
+        <span class="information-box-text">{{informationBlockText}}</span>    
+    </v-flex>    
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
-            <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
-            <v-tabs class="verticals-bar" v-model="currentVertical" :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : ''" :value="currentVertical" :scrollable="true">
+            <v-tabs v-model="currentVertical" :value="currentVertical" :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
-                                 :class="['spitball-text-'+tab.id,tab.id===currentVertical?'v-tabs__item--active header-tab-active':'']"
-                                 class="mr-4 vertical">
+                                 :active-class="'v-tabs__item--active header-tab-active'"
+                                 class="mr-3 vertical">
                         {{tab.name}}
                     </v-tab>
                     <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider>
@@ -35,13 +38,38 @@
                     wallet: true,
                     profile: true,
                     conversations: true
-                }
+                },
             }
         },
         computed: {
             ...mapGetters(['getVerticalData', 'accountUser']),
+            isMobile(){
+                return this.$vuetify.breakpoint.xsOnly
+            },
+            isInSearchMode(){
+                return !!this.$route.query.term;
+            },
             isLogedIn(){
                 return this.accountUser
+            },
+            showInformationBlock(){
+                if(this.isMobile){
+                    return !!this.$route.query && !!this.$route.query.Course;
+                }else{
+                    if(this.isInSearchMode){
+                        return false;
+                    }else{
+                        return !!this.$route.query && !!this.$route.query.Course;
+                    }
+                }
+                
+            },
+            informationBlockText(){
+                if(this.showInformationBlock){
+                    return this.$route.query.Course
+                }else{
+                    return '';
+                }
             }
         },
         watch: {
@@ -49,27 +77,20 @@
                 this.currentVertical = val;
             },
             '$route'(val){
-                setTimeout(()=>{
-                    if(this.supressVerticalDesign[val.name]){
-                        this.cleanVerticalDesign();
-                    }else{
-                        this.restoreVerticalDesign();
-                    }
-                }, 300)
             }
         },
         methods: {
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
-            ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState']),
-            cleanVerticalDesign(){
-                //remove selected tab design
-                let elmActiveParent = document.getElementsByClassName('header-tab-active')[0];
-                elmActiveParent.firstChild.classList.remove('v-tabs__item--active');
-
-                //slider remove
-                let elmContainer = elmActiveParent.parentElement;
-                let sliderContainer = elmContainer.firstChild;
-                sliderContainer.firstChild.classList.remove('v-tabs__slider');
+            ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState','toggleShowSchoolBlock']),
+            setNavigationDrawerState(){
+                if(this.$vuetify.breakpoint.xsOnly){
+                   this.toggleShowSchoolBlock(false);
+                   setTimeout(()=>{
+                        this.toggleShowSchoolBlock(true);
+                   }, 200)
+                }else{
+                    this.toggleShowSchoolBlock()
+                }
             },
             restoreVerticalDesign(){
                 //remove selected tab design
@@ -84,35 +105,26 @@
             $_updateType(result) {
                 this.currentVertical = result;
                 this.$ga.event("Vertical_Tab", result);
-                let tabs = this.$el.querySelector('.v-tabs__wrapper');
-                let currentItem = this.$el.querySelector(`#${result}`);
-                if (currentItem) {
-                    tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
-                }
+                // let tabs = this.$el.querySelector('.v-tabs__wrapper');
+                // let currentItem = this.$el.querySelector(`#${result}`);
+                // if (currentItem) {
+                //     tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
+                // }
                 this.setCurrentVertical(result);
-                let query = {};
-                if (this.$route.query.hasOwnProperty("promo")) {
-                    query = {promo: this.$route.query.promo}
-                }
-                let {text = "", course} = this.getVerticalData(result);
-                if ((result == 'flashcard' && this.$route.path.includes('note') || result == 'note' && this.$route.path.includes('flashcard')) && this.$route.query.course) {
-                    course = this.$route.query.course;
-                }
+                
                 //if same tab do not do UPDATE_SEARCH_LOADING
                 if(this.$route.path !== `/${result}`){
                     this.UPDATE_SEARCH_LOADING(true);
-                }else{
-                    query = this.$route.query;
                 }
-                this.$router.push({path: '/' + result, query: query});
-                // this.$router.push({path: '/' + result, query: {...query, q: text, course}});
+                
+                this.$router.push({path: '/' + result, query: this.$route.query});
             },
         },
         mounted(){
             if(this.supressVerticalDesign[this.$route.name]){
-                setTimeout(()=>{
-                    this.cleanVerticalDesign();
-                }, 300)
+                // setTimeout(()=>{
+                //     this.cleanVerticalDesign();
+                // }, 300)
             }
         }
     }

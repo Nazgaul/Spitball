@@ -8,7 +8,6 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
-    [AdminCommandHandler]
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {

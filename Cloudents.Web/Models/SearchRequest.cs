@@ -15,7 +15,7 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// User courses id
         /// </summary>
-        public string[] Course { get; set; }
+        public string Course { get; set; }
 
         /// <inheritdoc />
         /// <summary>
@@ -46,12 +46,10 @@ namespace Cloudents.Web.Models
 
     public class DocumentRequest : IPaging
     {
-       // public string[] Source { get; set; }
-
         /// <summary>
         /// User courses id
         /// </summary>
-        public string[] Course { get; set; }
+        public string Course { get; set; }
 
         public string[] Filter { get; set; }
 

@@ -294,7 +294,13 @@
                 } else {
                     let steps = this.getAllSteps();
                     this.updateCurrentStep(steps.set_school);
-                    this.changeSelectUniState(true);
+                    // this.changeSelectUniState(true);
+                    this.$router.push({
+                        name:'uniselect',
+                         params: {
+                             step:steps.set_school
+                         }
+                    })
                     this.$root.$emit("closeDrawer");
                     // this.$root.$emit("personalize", typesPersonalize.university);
                 }
@@ -305,7 +311,13 @@
                 } else {
                     let steps = this.getAllSteps();
                     this.updateCurrentStep(steps.set_class);
-                    this.changeSelectUniState(true);
+                    // this.changeSelectUniState(true);
+                    this.$router.push({
+                        name:'uniselect',
+                         params: {
+                             step:steps.set_class
+                         }
+                    })
                     this.$root.$emit("closeDrawer");
                 }
             },

@@ -102,7 +102,6 @@
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
             </component>
         </template>
-
         <template slot="rightSide">
             <slot name="rightSide">
                 <faq-block :isAsk="name==='ask'" :isNotes="name ==='note'" :name="currentSuggest" :text="userText"></faq-block>

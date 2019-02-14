@@ -28,8 +28,14 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         let universitySteps = this.getAllSteps();
-        this.updateCurrentStep(universitySteps.set_school);
-        this.changeSelectUniState(true);
+        // this.updateCurrentStep(universitySteps.set_school);
+        // this.changeSelectUniState(true);
+        this.$router.push({
+            name:'uniselect',
+             params: {
+                 step:steps.set_school
+             }
+         })
       }
     }
   }

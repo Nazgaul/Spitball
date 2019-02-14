@@ -1,18 +1,21 @@
 @import "../../styles/mixin.less";
 .filter-dialog {
-    padding-bottom: 60px;
     margin:0;
     background-color: @Site-Background;
+    max-width: 765px;
+    @media(max-width: @screen-xs){
+        max-width: unset;
+
+    }
     .apply {
         &.v-btn{
             background-color: @color-main-purple!important;
         }
-        bottom: 12px;
-        left: 8px;
-        color: @color-white;
-        width: calc(~"100% - 16px");
-        z-index: 2;
         height: 48px;
+        width: calc(~"100% - 16px");
+        margin-top: 24px;
+        color: @color-white;
+        z-index: 2;
         font-size: 18px;
         font-weight: 300;
         letter-spacing: -0.4px;
@@ -96,7 +99,6 @@
                 border-left: 0;
                 border-right: 0;
                 box-shadow: none;
-                //border-top: 1px solid @color-divider-grey;
                 .filter-header {
                     min-height: 40px;
                     padding: 0 14px 0 2px;
@@ -129,7 +131,7 @@
                     border-top: 0;
                     border-left: 0;
                     border-right: 0;
-                    overflow-y: scroll;
+                    overflow-y: auto;
                     .v-btn-toggle{
                         background-color: @Site-Background;
                         &.v-btn-toggle--selected {
@@ -160,7 +162,7 @@
                         align-items: flex-start;
                         justify-content: flex-start;
                         cursor: pointer;
-                        position: relative;
+                        //position: relative;
                         label {
                             line-height: 24px;
                             .giveMeEllipsisOne;
@@ -230,10 +232,7 @@
        font-size: 18px;
    }
     .content-container{
-        height: 98%;
+        padding-top: 16px;
         overflow: auto;
-        padding-top: 65px;
-
-
     }
 }
