@@ -80,7 +80,7 @@ export default {
             if (this.$route.query.term){
                 query.term = this.$route.query.term;
             }
-            if (this.$route.query.Course){
+            if (this.$route.query && this.$route.query.Course){
                 query.Course = this.$route.query.Course;
             }
             if(JSON.stringify(query) !== JSON.stringify(this.$route.query)){
