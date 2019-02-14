@@ -22,10 +22,10 @@ namespace Cloudents.Infrastructure.Stuff
         {
             using (var child = _container.BeginLifetimeScope())
             {
-                var unitOfWork = child.Resolve<IUnitOfWork>();
+               // var unitOfWork = child.Resolve<IUnitOfWork>();
                 var obj = child.Resolve<ICommandHandler<TCommand>>();
                 await obj.ExecuteAsync(command, token);
-                await unitOfWork.CommitAsync(token);
+                //await unitOfWork.CommitAsync(token);
             }
         }
 
