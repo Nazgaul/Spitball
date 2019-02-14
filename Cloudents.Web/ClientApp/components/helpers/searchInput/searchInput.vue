@@ -13,19 +13,16 @@
                           v-model="msg" @input="changeMsg"
                           :placeholder="placeholder"
                           prepend-icon="sbf-search"
-                          :hide-on-scroll="isHome?hideOnScroll:false" @click="openSuggestions"></v-text-field>
+                          :hide-on-scroll="isHome?hideOnScroll:false"></v-text-field>
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
                 <v-list class="search-menu" v-show="showSuggestions">
                     <template v-for="(item, index) in suggestList">
-                        <v-list-tile class="suggestion" @click="selectos({item:item,index})"
-                                     :class="[`type-${item.type}`,{'list__tile--highlighted': index === focusedIndex}]"
-                                     :key="index">
+                        <v-list-tile class="suggestion" @click="selectos(item)" :key="index">
                             <v-list-tile-action hidden-xs-only>
-                                <history-icon v-if="item.type==='History'"></history-icon>
-                                <v-icon v-else>sbf-search</v-icon>
+                                <component :is="item.icon"></component>
                             </v-list-tile-action>
                             <v-list-tile-content>
-                                <v-list-tile-title v-html="highlightSearch(item)"></v-list-tile-title>
+                                <v-list-tile-title>{{item.name}}</v-list-tile-title>
                             </v-list-tile-content>
                         </v-list-tile>
                     </template>

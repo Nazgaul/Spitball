@@ -65,13 +65,10 @@
                 this.loading = false;
 
                 let self = this;
-                setTimeout(()=>{
-                    //show selectUni interface
-                    self.updateSelectForTheFirstTime(true);
-                    self.changeSelectUniState(true);
-                })
-                
-                this.$router.push({path: `${url.path }`});
+
+                self.updateSelectForTheFirstTime(true);
+                this.$router.push({name:'uniselect'})
+                // this.$router.push({path: `${url.path }`});
                 
             },
         },

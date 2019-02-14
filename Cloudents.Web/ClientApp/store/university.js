@@ -67,6 +67,7 @@ const actions = {
         commit('setReflectChangeToPage');
     },
     changeSelectUniState({commit, dispatch, getters, rootState}, val){
+        return //DEPRECATED using route now!
         if(!val){
             dispatch('changeClassesToCachedClasses')
             //if(state.selectForTheFirstTime){
@@ -194,7 +195,7 @@ const mutations = {
         state.selectedClassesCache = [].concat(val);
     },
     setSelectUniState(state, val){
-        state.showSelectUniInterface = val;
+        // state.showSelectUniInterface = val;
     },
     setCurrentStep(state, val){
         state.currentStep = val;

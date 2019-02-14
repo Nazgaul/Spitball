@@ -10,11 +10,15 @@
 
 .header {
   z-index: 102;
+  
   &.v-toolbar {
     background-color: @color-white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    padding-left:21px !important;
     @media (max-width: @screen-xs) {
       padding-bottom: 8px;
+      padding-left:5px !important;
+      padding-right:5px !important;
     }
     .v-toolbar__content {
       padding: 0;
@@ -79,18 +83,18 @@
   }
 
   .main {
-    .limited-width();
     //.responsive-property(height, 60px, null, 85px);
     .responsive-property(padding-top, 10px, 0px, null);
     display: flex;
     height: 100%;
     flex-direction: column;
     justify-content: space-between;
+    max-width: 1240px;
     .setting-buysbl-button{
       font-family: @fontFiraSans;
       display: flex;
       align-items: center;
-      padding: 2px 15px;
+      padding: 0px 15px;
       font-size: 12px;
       font-weight: 600;
       letter-spacing: -.2px;
@@ -244,7 +248,7 @@
       color: #000;
       letter-spacing: -0.4px;
       font-size: 16px;
-
+      background-color: #f6f6f6;
       .input-group__input {
 
       }
@@ -260,7 +264,7 @@
           height: 21px;
           min-width: 34px;
           font-size: 18px;
-          opacity: 0.25;
+          opacity: 0.5;
         }
       }
       .input-group__input {

@@ -38,7 +38,13 @@
             ...mapGetters(['accountUser', 'loginDialogState', 'getCookieAccepted']),
 
             isFloatingBtn() {
-                let offHeight = 200; //  header + mobile filter btn
+if(this.$vuetify.breakpoint.smAndDown){
+
+                    return true;
+                }else{
+                    return false;
+                }
+                
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
             raiseFloatingButtonPosition(){
