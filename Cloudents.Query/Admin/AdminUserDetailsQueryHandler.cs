@@ -29,7 +29,8 @@ namespace Cloudents.Query.Admin
 			case when U.LockoutEnd is null then 0
 			else 1 end as WasSuspended,
 			isnull((select min(Created) from sb.[Transaction] where [Action] = 'SignUp' and User_id = U.Id),cast(0 as datetime)) as Joined,
-			U.PhoneNumberConfirmed
+			U.PhoneNumberConfirmed,
+			U.EmailConfirmed
                         from sb.[User] U
                         left join sb.University Un
 	                        on U.UniversityId2 = Un.Id
@@ -39,7 +40,8 @@ namespace Cloudents.Query.Admin
 	            else 0 end,
 			case when U.LockoutEnd is null then 0
 			else 1 end,
-			U.PhoneNumberConfirmed";
+			U.PhoneNumberConfirmed,
+			U.EmailConfirmed";
             using (var connection = new SqlConnection(_provider.Db.Db))
             {
                 return await connection.QuerySingleOrDefaultAsync<UserDetailsDto>(sql,

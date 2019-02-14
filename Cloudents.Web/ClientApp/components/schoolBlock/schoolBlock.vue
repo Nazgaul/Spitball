@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer touchless class="school-block" width="260" :value="getShowSchoolBlock" app clipped>
+    <v-navigation-drawer touchless class="school-block" width="260" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
       <v-list>
         <v-list-tile class="group-header">
           <v-list-tile-action>
@@ -40,6 +40,7 @@ export default {
     return {
       selectedCourse: "",
       lock: false,
+      isRtl: global.isRtl
     };
   },
   props: {
