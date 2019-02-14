@@ -62,20 +62,9 @@ namespace Cloudents.Web.Api
                 {
                     new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
-                //Facet = result.Facet,
                 NextPageLink = nextPageLink
             };
-
-            //return new WebResponseWithFacet<SearchResult>
-            //{
-            //    Result = p,
-            //    Sort = Enum.GetNames(typeof(SearchRequestSort)),
-            //    Filters = new Dictionary<string, IEnumerable<string>>
-            //    {
-            //        ["Sources"] = result.Facet
-            //    },
-            //    NextPageLink = nextPageLink
-            //};
+           
         }
     }
 }

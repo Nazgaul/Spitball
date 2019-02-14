@@ -6,7 +6,7 @@
     'classPrefix': 'sbf-',
     'baseSelector': '.sbf',
     'types': ['woff'],
-    'embed': true, //TODO: we have issue with cdn
+    'embed': false, //TODO: we have issue with cdn
     //'html': true,
     'fileName': 'sb1-[chunkhash].[ext]'
 };
