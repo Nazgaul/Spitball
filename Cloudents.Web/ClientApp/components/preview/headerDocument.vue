@@ -248,8 +248,11 @@
                     return this.item.user.id
             },
             uploaderScore(){
-                if (this.item && this.item.user && this.item.user.score)
+                if (this.item && this.item.user && this.item.user.score){
                     return this.item.user.score
+                }else{
+                    return 0
+                }
             },
             uploadDate() {
                 if (this.item && this.item.date) {

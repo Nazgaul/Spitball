@@ -139,7 +139,7 @@ export default {
                             self.loading = false;
                             self.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
                             self.showError = true;
-                            self.disableBtn = true;
+                            self.disableBtn = false;
                         });
             })
 
