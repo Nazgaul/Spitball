@@ -31,7 +31,7 @@
                                          :minus="false"
                                          :min="0"
                                          :precision="2"
-                                         :placeholder="emptySetToAll"
+                                         :label="emptySetToAll"
                                          :max="99"
                                          :currency-symbol-position="'suffix'"
                                          separator=","
@@ -52,7 +52,8 @@
                                     :label="placeholderTypeToAll"
                                     v-model="docType"
                                     solo
-                                    :append-icon="'sbf-arrow-down'"></v-select>
+                                    :append-icon="'sbf-arrow-down'">
+                            </v-select>
                             <v-btn class="all-btn elevation-0"
                                    :disabled="!docType" @click="updateDocsType()">Apply
                             </v-btn>

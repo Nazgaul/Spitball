@@ -40,7 +40,7 @@
                 // format currency
                 if (id === 2) {
                     let dollarval = this.$options.filters.dollarVal(numericVal);
-                    return `$${dollarval.toLocaleString('us-EG')}`;
+                    return `$${parseFloat(dollarval).toLocaleString('us-EG')}`;
                     //number
                 } else {
                     return numericVal.toLocaleString('us-EG');

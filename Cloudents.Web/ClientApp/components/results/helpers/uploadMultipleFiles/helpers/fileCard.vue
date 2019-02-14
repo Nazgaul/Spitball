@@ -59,8 +59,7 @@
                             :items="docTypes"
                             item-value="id"
                             item-text="title"
-                            hide-detail
-                            :placeholder="placeholderDocType"
+                            :label="placeholderDocType"
                             v-model="item.type"
                             solo
                             :append-icon="'sbf-arrow-down'"></v-select>
