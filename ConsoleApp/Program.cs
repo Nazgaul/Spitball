@@ -49,7 +49,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -122,8 +122,31 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             var z = _container.Resolve<AzureDocumentSearch>();
-            var r = await z.GetNone();
-            Console.WriteLine(string.Join(",", r));
+            var d = _container.Resolve<DapperRepository>();
+            IEnumerable<string> result = null;
+            int page = 0;
+            do
+            {
+                result = await z.GetNone(page++);
+                using (var db = d.OpenConnection())
+                {
+                   await db.ExecuteAsync(@"update sb.Document
+                    set UpdateTime = DATEADD(SS, 1, UpdateTime)
+                    where id in @id", new {id = result});
+                }
+                //using (var t = new FileStream(@"C:\Users\Ram\Downloads\x.txt", FileMode.Append))
+                //{
+                //    using (StreamWriter sr = new StreamWriter(t))
+                //    {
+                //        await sr.WriteLineAsync(string.Join(",", result));
+                //    }
+                //}
+            } while (result.Any());
+
+            //if (Base62.TryParse("", out var t))
+            //{
+
+            //}
             //var r = await z.ItemAsync(129332, token);
 
             //await UpdateQuestionIndex();
