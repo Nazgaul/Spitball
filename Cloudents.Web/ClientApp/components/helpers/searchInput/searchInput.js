@@ -4,7 +4,7 @@ import * as consts from '../consts';
 import classIcon from "./img/search-class-icon.svg"
 import universityIcon from "./img/search-university-icon.svg"
 import spitballIcon from "./img/search-spitball-icon.svg"
-
+import { LanguageService } from "../../../services/language/languageService" 
 
 export default {
     name: "search-input",
@@ -40,17 +40,17 @@ export default {
         originalMsg: '',
         suggestOptions: [
             {
-                name: "in this class",
+                name: LanguageService.getValueByKey("searchInput_class_search"),
                 icon: "classIcon",
                 id: 1
             },
             {
-                name: "in my university",
+                name: LanguageService.getValueByKey("searchInput_university_search"),
                 icon: "universityIcon",
                 id: 2
             },
             {
-                name: "in Spitball",
+                name: LanguageService.getValueByKey("searchInput_spitball_search"),
                 icon: "spitballIcon",
                 id: 3
             },
@@ -102,7 +102,7 @@ export default {
         ...mapGetters(['getUniversityPopStorage', 'accountUser', 'getSchoolName']),
         selectos(item) {
             //this.msg = item.text;
-            // this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
+            //this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
             this.search(item.id);
             this.closeSuggestions();
         },
@@ -110,10 +110,11 @@ export default {
             return !!this.$route.query ? !!this.$route.query.Course : false
         },
         search(id) {
-            
-            //check if query is the same(searching same term), and return if so
-            if (this.msg === this.$route.query.term) {
-                return
+            //prevent search empty string when no term is in search ATM
+            if(!this.$route.query.term){
+                if (!this.msg) {
+                    return
+                } 
             }
             this.UPDATE_SEARCH_LOADING(true);
             let query = this.prepareQuery(id);
@@ -129,6 +130,7 @@ export default {
             });
         },
         prepareQuery(typeId){
+            if(!this.msg) return {};
             let query = {
                 term: this.msg
             };
@@ -140,6 +142,13 @@ export default {
             }else if(typeId === 2){
                 let uni = this.getSchoolName();
                 query.uni = uni;
+            }else if(typeId === 3){
+                //query should incude only term
+            }else{
+                if(!!this.$route.query.Course){
+                    let course = this.$route.query.Course;
+                    query.Course = course;
+                }
             }
             return query;
         },
@@ -171,7 +180,7 @@ export default {
             this.showSuggestions = true;
         },
         changeMsg: debounce(function (val) {
-            if(val.length > 0){
+            if(!!val && val.length > 0){
                 this.openSuggestions();
             }else{
                 this.closeSuggestions();

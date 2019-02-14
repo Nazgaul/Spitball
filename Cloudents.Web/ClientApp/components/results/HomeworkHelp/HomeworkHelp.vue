@@ -1,16 +1,12 @@
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
-        
-        
         <div slot="main">
             <div class="d-flex mobile-filter">
                   <askQuestionBtn :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "></askQuestionBtn>
             </div>
             <v-flex v-if="filterCondition" class="filter-container">
-                <div>
-                    Results From Harvard University
-                </div>
-                <div>
+                <result-filter></result-filter>
+                <div class="filter-button-container">
                     <v-btn icon :color="`color-ask`" flat slot="mobileFilter" @click="showFilters=true"
                        class="mobile-filter-icon-btn text-xs-right" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
