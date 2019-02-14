@@ -23,7 +23,7 @@
                 <v-btn class="continue-btn"
                        value="Password"
                        :loading="loading"
-                       :disabled="!(password && confirmPassword)"
+                       :disabled="!(password && confirmPassword) || !isValidPass"
                        @click="changePassword()"
                 ><span v-language:inner>login_continue</span></v-btn>
 
@@ -95,7 +95,10 @@
                 if (this.passZxcvbn) {
                     return this.passScoreObj[this.score].className;
                 }
-            }
+            },
+            isValidPass(){
+                return this.password.length >= 8  && this.confirmPassword.length >= 8
+            },
         },
         methods: {
             changePassword() {
