@@ -62,7 +62,7 @@
                         <search-input :user-text="userText" :placeholder="this.$options.placeholders['all']"
                                       :submit-route="submitRoute"></search-input>
                     </v-flex>
-                    <!-- <slot name="extraHeader"></slot> -->
+                    <slot name="extraHeader"></slot>
                 </div>
                 
             </v-layout>            
