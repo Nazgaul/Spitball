@@ -4,7 +4,7 @@ const bundleOutputDir = "./wwwroot/dist";
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const merge = require('webpack-merge');
-const serverConfig = require("./webpack.config.server.js");
+//const serverConfig = require("./webpack.config.server.js");
 var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 var t = require("./webpack.global.js");
@@ -52,7 +52,6 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)$/,
-
                     use: [
                         {
                             loader: "url-loader",
@@ -69,7 +68,11 @@ module.exports = (env) => {
                                 bypassOnDebug: true,
                                 optipng: {
                                     enabled: true
-                                }
+                                },
+                                mozjpeg: {
+                                    progressive: true,
+                                    quality: 90
+                                },
                             }
                         }
                     ]
@@ -143,16 +146,17 @@ module.exports = (env) => {
             ]
             : [
                 // Plugins that apply in production builds only
+                new OptimizeCssAssetsPlugin({
+                    assetNameRegExp: /\.optimize\.css$/g,
+                    cssProcessor: require("cssnano"),
+                    cssProcessorOptions: { discardComments: { removeAll: true } },
+                    canPrint: true
+                }),
                 new ExtractTextPlugin({filename: "site.[contenthash].css", allChunks: true}),
                 new WebpackRTLPlugin({
                     filename: '[name].[contenthash].rtl.css'
                 }),
-                new OptimizeCssAssetsPlugin({
-                    assetNameRegExp: /\.optimize\.css$/g,
-                    cssProcessor: require("cssnano"),
-                    cssProcessorOptions: {discardComments: {removeAll: true}},
-                    canPrint: true
-                }),
+                
                 //new PurifyCSSPlugin({
                 //    // Give paths to parse for rules. These should be absolute!
                 //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
