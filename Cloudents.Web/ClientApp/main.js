@@ -98,11 +98,11 @@ import {
 import * as route from "./routes";
 
 const ilFonts = [
-    "Assistant:300,400,600,700",
+    "Assistant:400",
     ]
 const usFonts = [
-    "Open+Sans:300,400,600,700",
-    "Fira+Sans:300,400,600,700",
+    "Open+Sans:400",
+    "Fira+Sans:400",
     ]
 
 let usedFonts = global.lang.toLowerCase() === 'he' ? ilFonts : usFonts;
