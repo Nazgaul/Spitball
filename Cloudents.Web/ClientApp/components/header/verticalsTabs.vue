@@ -1,8 +1,11 @@
 <template>
-    <div>
+    <div :class="{'pr-1 pl-1': isMobile}">
     <v-flex class="information-box" v-show="showInformationBlock">
-        <v-icon v-show="$vuetify.breakpoint.xsOnly" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
-        <span class="information-box-text">{{informationBlockText}}</span>    
+        <div :class="{'information-box-mobile-wrap': isMobile}">
+            <v-icon v-show="$vuetify.breakpoint.xsOnly" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
+            <span class="information-box-text" :class="{'mobile': isMobile}">{{informationBlockText}}</span>   
+        </div>
+         
     </v-flex>    
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
@@ -24,6 +27,7 @@
 <script>
     import {mapActions, mapGetters, mapMutations} from 'vuex'
     import {verticalsNavbar as verticals}  from "../../services/navigation/vertical-navigation/nav";
+    import {LanguageService} from "../../services/language/languageService"
 
     export default {
         name: "verticals-tabs",
@@ -54,21 +58,25 @@
             },
             showInformationBlock(){
                 if(this.isMobile){
-                    return !!this.$route.query && !!this.$route.query.Course;
+                    return true;
                 }else{
                     if(this.isInSearchMode){
                         return false;
                     }else{
-                        return !!this.$route.query && !!this.$route.query.Course;
+                        return true;
                     }
                 }
                 
             },
             informationBlockText(){
                 if(this.showInformationBlock){
-                    return this.$route.query.Course
+                    if(!!this.$route.query && !!this.$route.query.Course){
+                        return this.$route.query.Course
+                    }else{
+                        return LanguageService.getValueByKey("schoolBlock_information_box_latest");
+                    }
                 }else{
-                    return '';
+                    return LanguageService.getValueByKey("schoolBlock_information_box_latest");
                 }
             }
         },
