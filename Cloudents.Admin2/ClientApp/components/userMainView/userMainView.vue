@@ -195,6 +195,26 @@
                         wasCalled: false
                     },
                 },
+                initScrollObj:{
+                    questions: {
+                        page: 0,
+                        getData: this.getUserQuestionsData,
+                        scrollLock: false,
+                        wasCalled: false
+                    },
+                    answers: {
+                        page: 0,
+                        getData: this.getUserAnswersData,
+                        scrollLock: false,
+                        wasCalled: false
+                    },
+                    documents: {
+                        page: 0,
+                        getData: this.getUserDocumentsData,
+                        scrollLock: false,
+                        wasCalled: false
+                    },
+                },
                 loading: false,
                 userActions: [
                     {
@@ -272,8 +292,17 @@
                 "getUserQuestions",
                 "getUserAnswers",
                 "getUserDocuments",
-                "verifyUserPhone"
+                "verifyUserPhone",
+                "clearUserState"
             ]),
+            resetUserData(){
+                let strDefault;
+                // reinit scrollfunc data and clear store ib new user data requested
+                strDefault =JSON.stringify(this.initScrollObj);
+                this.scrollFunc = JSON.parse(strDefault);
+                this.clearUserState();
+
+            },
             showSuspendDialog(){
                 this.setSuspendDialogState(true);
             },
@@ -330,6 +359,9 @@
                 }
             },
             getUserInfoData() {
+                if(!!this.UserInfo){
+                    this.resetUserData();
+                }
                 let id = this.userIdentifier;
                 let self = this;
                 self.getUserData(id)
