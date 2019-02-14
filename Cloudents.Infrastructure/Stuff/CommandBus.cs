@@ -11,22 +11,21 @@ namespace Cloudents.Infrastructure.Stuff
     [UsedImplicitly]
     public sealed class CommandBus : ICommandBus, IDisposable
     {
-        public CommandBus(ILifetimeScope container, IUnitOfWork unitOfWork)
+        public CommandBus(ILifetimeScope container)
         {
             _container = container;
-            _unitOfWork = unitOfWork;
         }
 
         private readonly ILifetimeScope _container;
-        private readonly IUnitOfWork _unitOfWork;
 
         public async Task DispatchAsync<TCommand>(TCommand command, CancellationToken token) where TCommand : ICommand
         {
             using (var child = _container.BeginLifetimeScope())
             {
+                var unitOfWork = child.Resolve<IUnitOfWork>();
                 var obj = child.Resolve<ICommandHandler<TCommand>>();
                 await obj.ExecuteAsync(command, token);
-                await _unitOfWork.CommitAsync(token);
+                await unitOfWork.CommitAsync(token);
             }
         }
 
