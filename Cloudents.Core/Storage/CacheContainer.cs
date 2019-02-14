@@ -1,9 +1,9 @@
 ﻿namespace Cloudents.Core.Storage
 {
-    public class OldCacheContainer : IStorageContainer
-    {
-        public StorageContainer Container => StorageContainer.OldCacheContainer;
-    }
+    //public class OldCacheContainer : IStorageContainer
+    //{
+    //    public StorageContainer Container => StorageContainer.OldCacheContainer;
+    //}
 
     public class SpitballContainer : IStorageContainer
     {
@@ -20,8 +20,8 @@
         public StorageContainer Container => StorageContainer.Document;
     }
 
-    public class IcoContainer : IStorageContainer
-    {
-        public StorageContainer Container => StorageContainer.IcoFiles;
-    }
+    //public class IcoContainer : IStorageContainer
+    //{
+    //    public StorageContainer Container => StorageContainer.IcoFiles;
+    //}
 }
