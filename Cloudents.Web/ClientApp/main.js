@@ -98,11 +98,11 @@ import {
 import * as route from "./routes";
 
 const ilFonts = [
-    "Assistant:300,400,600,700",
+    "Assistant:400",
     ]
 const usFonts = [
-    "Open+Sans:300,400,600,700",
-    "Fira+Sans:300,400,600,700",
+    "Open+Sans:400",
+    "Fira+Sans:400",
     ]
 
 let usedFonts = global.lang.toLowerCase() === 'he' ? ilFonts : usFonts;
@@ -291,18 +291,22 @@ Vue.prototype.$Ph = function (key, placeholders) {
 }
 
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
-Vue.filter('currencyLocalyFilter', function (value) {
+Vue.filter('currencyLocalyFilter', function (value, hideCurrrency) {
     let amount = Number(value);
     let sblCurrency = LanguageService.getValueByKey('wallet_SBL');
     let result = amount && amount.toLocaleString(undefined, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     }) || '0';
-    return result + " " + sblCurrency;
+    if(hideCurrrency){
+        return result
+    }else{
+        return result + " " + sblCurrency;
+    }
+
 });
 
 Vue.filter('commasFilter', function (value) {
-
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
 

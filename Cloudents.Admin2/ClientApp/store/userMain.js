@@ -11,6 +11,12 @@ const state = {
 
 };
 const mutations = {
+    clearUserData(state) {
+        state.userInfo ={};
+        state.userQuestions =[];
+        state.userAnswers =[];
+        state.userDocuments =[];
+    },
     updateTokensDialog(state, val) {
         state.tokensDilaogState = val;
     },
@@ -66,9 +72,11 @@ const getters = {
 
 };
 const actions = {
+    clearUserState({commit}) {
+        commit('clearUserData');
+    },
     setTokensDialogState({commit}, val) {
         commit('updateTokensDialog', val);
-
     },
     setSuspendDialogState({commit}, val) {
         commit('updateSuspendDialog', val);

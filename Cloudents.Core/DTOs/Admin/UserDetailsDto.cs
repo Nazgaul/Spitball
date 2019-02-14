@@ -31,5 +31,7 @@ namespace Cloudents.Core.DTOs.Admin
         public DateTime Joined { get; set; }
         public bool WasSuspended { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
+        public bool EmailConfirmed { get; set; }
+        
     }
 }

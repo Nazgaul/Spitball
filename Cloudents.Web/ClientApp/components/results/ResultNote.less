@@ -13,9 +13,6 @@
 .price-change-wrap {
   padding: 12px 0 0 0;
   position: relative;
-
-
-  //sbl-currency style start
   .price-wrap {
     position: absolute;
     bottom: -12px;
@@ -34,20 +31,11 @@
     &:focus-within {
       .glowingBorderFocused();
     }
-    .balance-label {
-      position: absolute;
-      bottom: -20px;
-      left: 0;
-      color: @labelColorMobile;
-      font-size: 12px;
-      @media (max-width: @screen-xs) {
-        padding-top: 24px;
-      }
-    }
     .sb-input-upload-price {
       max-width: 76px;
       height: 44px;
       order: 1;
+      outline: none;
       .input-field {
         .placeholder-color(@placeholderGrey, 1);
         font-size: 16px;
@@ -59,11 +47,6 @@
           outline: none;
         }
       }
-    }
-    .sbl-suffix {
-      color: @colorBlackNew;
-      font-size: 14px;
-      order: 2;
     }
   }
 

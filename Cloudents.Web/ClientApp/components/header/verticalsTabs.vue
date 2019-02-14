@@ -43,11 +43,26 @@
         },
         computed: {
             ...mapGetters(['getVerticalData', 'accountUser']),
+            isMobile(){
+                return this.$vuetify.breakpoint.xsOnly
+            },
+            isInSearchMode(){
+                return !!this.$route.query.term;
+            },
             isLogedIn(){
                 return this.accountUser
             },
             showInformationBlock(){
-                return !!this.$route.query && !!this.$route.query.Course;
+                if(this.isMobile){
+                    return !!this.$route.query && !!this.$route.query.Course;
+                }else{
+                    if(this.isInSearchMode){
+                        return false;
+                    }else{
+                        return !!this.$route.query && !!this.$route.query.Course;
+                    }
+                }
+                
             },
             informationBlockText(){
                 if(this.showInformationBlock){
