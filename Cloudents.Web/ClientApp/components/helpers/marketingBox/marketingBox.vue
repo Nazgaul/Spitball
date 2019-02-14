@@ -9,7 +9,9 @@
                    :popUpType="'marketingPop'"
                    :content-class="'login-popup'"
                    :onclosefn="closeRefDialog">
-            <referral-dialog :closeDialog="closeRefDialog" :isTransparent="false" :userReferralLink="userReferralLink"
+            <referral-dialog  :onclosefn="closeRefDialog"
+                              :isTransparent="false"
+                              :userReferralLink="userReferralLink"
                              :popUpType="'marketingPop'"></referral-dialog>
         </sb-dialog>
 

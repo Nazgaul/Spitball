@@ -195,8 +195,10 @@
         <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
                    :onclosefn="closeReferralDialog"
                    :content-class="'login-popup'">
-
-            <referral-dialog :isTransparent="false" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
+            <referral-dialog   :onclosefn="closeReferralDialog"
+                               :isTransparent="false"
+                               :showDialog="showReferral"
+                               :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
         </sb-dialog>
     </div>
 
