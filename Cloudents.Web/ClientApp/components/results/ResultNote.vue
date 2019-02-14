@@ -113,10 +113,21 @@
                     <div class="input-wrap d-flex row align-center justify-center">
                         <div :class="['price-wrap', isRtl ? 'reversed' : '']">
                             <!--updating document obj inside -->
-                            <sbl-currency v-model="newPrice"
-                                          class="sb-input-upload-price">
-                            </sbl-currency>
-                            <div class="sbl-suffix" v-language:inner>app_currency_dynamic</div>
+                            <vue-numeric  :currency="currentCurrency"
+                                          class="sb-input-upload-price"
+                                          :minus="false"
+                                          :min="0"
+                                          :precision="2"
+                                          :max="99"
+                                          :currency-symbol-position="'suffix'"
+                                          separator=","
+                                          v-model="newPrice"></vue-numeric>
+
+
+                            <!--<sbl-currency v-model="newPrice"-->
+                                          <!--class="sb-input-upload-price">-->
+                            <!--</sbl-currency>-->
+                            <!--<div class="sbl-suffix" v-language:inner>app_currency_dynamic</div>-->
                         </div>
                     </div>
                 </v-flex>
@@ -165,6 +176,7 @@
         data() {
             return {
                 isFirefox: global.isFirefox,
+                currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
                 actions: [
                     {
                         title: LanguageService.getValueByKey("questionCard_Report"),
@@ -275,7 +287,7 @@
                 }
             },
             updateItemPrice(val) {
-                if (val) {
+                if (val || val ===0) {
                     return this.item.price = val;
                 }
             },
