@@ -6,6 +6,8 @@ import StudyDocumentsComponent from './components/results/StudyDocuments/StudyDo
 import pageHeader from './components/header/header.vue';
 // import landingHeader from './components/landingPage/helpers/landingHeader.vue'
 import landingPage from './components/landingPage/landingPage.vue';
+import schoolBlock from './components/schoolBlock/schoolBlock.vue';
+import verticalsTabs from './components/header/verticalsTabs.vue'
 import {
     staticRoutes
 } from "./components/satellite/satellite-routes";
@@ -21,6 +23,7 @@ const wallet = () => import("./components/wallet/wallet.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
+const university = () => import("./components/helpers/uni-select/uniSelect.vue")
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -48,23 +51,33 @@ function headerResultPageFn(route) {
         currentSelection: route.path.slice(1)
     }
 }
-
+function verticalResultPageFn(route) {
+    return {
+        currentSelection: route.path.slice(1)
+    }
+}
 
 const resultPage = {
     default: resultContent,
     header: pageHeader,
+    verticals: verticalsTabs
 };
 const resultProps = {
     default: dynamicPropsFn,
-    header: headerResultPageFn
+    header: headerResultPageFn,
+    verticals: verticalResultPageFn
 };
 const homeworkHelpPage = {
     default: HomeworkHelpComponent,
     header: pageHeader,
+    schoolBlock: schoolBlock,
+    verticals: verticalsTabs
 };
 const studyDocumentsPage = {
     default: StudyDocumentsComponent,
     header: pageHeader,
+    schoolBlock: schoolBlock,
+    verticals: verticalsTabs
 };
 
 const bookDetailsProps = {
@@ -153,6 +166,22 @@ let routes2 = [
         }
     },
     {
+        path: "/uniselect/:step?",
+        name: "uniselect",
+        components: {
+            default: university,
+            header: pageHeader
+        },
+        props:{
+            default: (route)=>({
+                step: route.params.step
+            })
+        },
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
         path: "/book/:id",
         name: RouteTypes.bookDetailsRoute,
         components: {
@@ -196,7 +225,7 @@ let routes2 = [
         path: "/question/:id",
         components: {
             default: viewQuestion,
-            header: pageHeader,
+            header: pageHeader
         },
         name: "question",
         props: {

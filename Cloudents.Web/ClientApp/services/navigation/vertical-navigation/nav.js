@@ -4,16 +4,6 @@ import { LanguageService } from "../../language/languageService";
 let nonIsraeliUser = global.country.toUpperCase() !== 'IL';
 
 const nav = {
-    ask: {
-        data:{
-            filter:[],
-            id: routes.questionRoute,
-            name: LanguageService.getValueByKey("navigation_nav_name_ask"),
-            icon: "sbf-ask-q", //TODO do we need this.....
-            visible: true,
-            soon: false
-        }
-    },
     note: {
         data:{
             id: routes.notesRoute,
@@ -26,6 +16,16 @@ const nav = {
             soon: false
         }
      },
+     ask: {
+        data:{
+            filter:[],
+            id: routes.questionRoute,
+            name: LanguageService.getValueByKey("navigation_nav_name_ask"),
+            icon: "sbf-ask-q", //TODO do we need this.....
+            visible: true,
+            soon: false
+        }
+    },
     flashcard: {
         data:{
             id: routes.flashcardRoute,

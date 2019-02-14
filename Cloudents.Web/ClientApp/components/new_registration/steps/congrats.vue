@@ -67,10 +67,10 @@
                 let self = this;
                 //show selectUni interface
                 self.updateSelectForTheFirstTime(true);
-                setTimeout(()=>{
-                    self.changeSelectUniState(true);
-                }, 500);
-                this.$router.push({path: `${url.path }`, query:{university:"SetSchoolLanding"}});
+               
+               
+                this.$router.push({name:'uniselect'})
+                // this.$router.push({path: `${url.path }`});
             },
         },
     }
