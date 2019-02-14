@@ -291,18 +291,22 @@ Vue.prototype.$Ph = function (key, placeholders) {
 }
 
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
-Vue.filter('currencyLocalyFilter', function (value) {
+Vue.filter('currencyLocalyFilter', function (value, hideCurrrency) {
     let amount = Number(value);
     let sblCurrency = LanguageService.getValueByKey('wallet_SBL');
     let result = amount && amount.toLocaleString(undefined, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     }) || '0';
-    return result + " " + sblCurrency;
+    if(hideCurrrency){
+        return result
+    }else{
+        return result + " " + sblCurrency;
+    }
+
 });
 
 Vue.filter('commasFilter', function (value) {
-
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
 
