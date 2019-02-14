@@ -32,7 +32,7 @@
                                          :min="0"
                                          :precision="2"
                                          :label="emptySetToAll"
-                                         :max="99"
+                                         :max="1000"
                                          :currency-symbol-position="'suffix'"
                                          separator=","
                                          v-model="priceForAll"></vue-numeric>
