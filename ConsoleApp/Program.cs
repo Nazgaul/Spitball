@@ -360,7 +360,7 @@ where left(blobName ,4) != 'file'");
         private static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
 
 
-        private static List<(Guid, string, string, Guid, string, string)> FindSimilarStrings(
+        private static List<(Guid, string, string, Guid, string, string)> FindSimilarStringsUniversity(
             (Guid, string, string) t, List<(Guid, string, string)> pageTexts)
         {
             var jaroWinkler = new JaroWinkler();
@@ -374,6 +374,23 @@ where left(blobName ,4) != 'file'");
                 { res.Add((t.Item1, t.Item2, t.Item3, r.Item1, r.Item2, r.Item3)); }
             }
             return res;
+   
+        }
+
+        private static List<(string, string)> FindSimilarStringsCourse(
+           string t, List<string> pageTexts)
+        {
+            var jaroWinkler = new JaroWinkler();
+            List<(string, string)> res =
+                    new List<(string, string)>();
+            foreach (var r in pageTexts.Where(w => w != t))
+            {
+                var result = jaroWinkler.GetSimilarity(r, t);
+
+                if (result > 0.95)
+                { res.Add((t, r)); }
+            }
+            return res;
             /*if (result.Any(w => w > 0.95))
             {
                 res.Add(t, );
@@ -381,39 +398,89 @@ where left(blobName ,4) != 'file'");
             return res;*/
         }
 
-        private static async Task HadarMethod()
+        private static async Task UniversitiesWithSimilarNames()
         {
             var d = _container.Resolve<DapperRepository>();
 
-            var courses = await d.WithConnectionAsync(async f =>
+            var universities = await d.WithConnectionAsync(async f =>
             {
                 return await f.QueryAsync<(Guid, string, string)>(
                     @"Select Id,[Name], Country from sb.University order by Name");
             }, default);
             StringBuilder sb = new StringBuilder();
-            //string delimiter = ",";
-
-            //int rowNumber = 1;
-
             string filePath = @"C:\Users\Charlie even\university.csv";
+            //List<(string,string)> output = new List<(string, string)>();
+            foreach (var universityName in universities)
+            {
+                var res = FindSimilarStringsUniversity(universityName, universities.ToList());
+
+                foreach (var university in res)
+                {
+                    File.AppendAllLines(filePath, new List<string>() { $@"{university.Item1}, {university.Item2}, {university.Item3}, {university.Item4}, {university.Item5}, {university.Item6}" });
+                }
+            }
+        }
+
+        private static async Task CoursesWithSimilarNames()
+        {
+            var d = _container.Resolve<DapperRepository>();
+
+            var courses = await d.WithConnectionAsync(async f =>
+            {
+                return await f.QueryAsync<string>(
+                    @"Select [Name] from sb.Course where name like N'%[א-ת]%' order by Name");
+            }, default);
+            StringBuilder sb = new StringBuilder();
+            string filePath = @"C:\Users\Charlie even\course.csv";
             //List<(string,string)> output = new List<(string, string)>();
             foreach (var courseName in courses)
             {
-                var res = FindSimilarStrings(courseName, courses.ToList());
+                var res = FindSimilarStringsCourse(courseName, courses.ToList());
 
-                foreach (var course in res)
+                foreach (var tuple in res)
                 {
-                    File.AppendAllLines(filePath, new List<string>() { $@"{course.Item1}, {course.Item2}, {course.Item3}, {course.Item4}, {course.Item5}, {course.Item6}"});
+                    File.AppendAllLines(filePath, new List<string>() { $@"{tuple.Item1}, {tuple.Item2}" });
                 }
-
-               /* int length = output.Count();
-                
-                for (int index = 0; index < length; index++)
-                {
-                    sb.AppendLine(string.Join(delimiter, output[index]));
-                }*/
-                
             }
+        }
+
+        private static async Task HadarMethod()
+        {
+
+            await CoursesWithSimilarNames();
+            //await FunctionsExtensions.MergeCourses(_container);
+
+            //var d = _container.Resolve<DapperRepository>();
+
+            //var courses = await d.WithConnectionAsync(async f =>
+            //{
+            //    return await f.QueryAsync<(Guid, string, string)>(
+            //        @"Select Id,[Name], Country from sb.University order by Name");
+            //}, default);
+            //StringBuilder sb = new StringBuilder();
+            ////string delimiter = ",";
+
+            ////int rowNumber = 1;
+
+            //string filePath = @"C:\Users\Charlie even\university.csv";
+            ////List<(string,string)> output = new List<(string, string)>();
+            //foreach (var courseName in courses)
+            //{
+            //    var res = FindSimilarStrings(courseName, courses.ToList());
+
+            //    foreach (var course in res)
+            //    {
+            //        File.AppendAllLines(filePath, new List<string>() { $@"{course.Item1}, {course.Item2}, {course.Item3}, {course.Item4}, {course.Item5}, {course.Item6}" });
+            //    }
+
+            //    /* int length = output.Count();
+
+            //     for (int index = 0; index < length; index++)
+            //     {
+            //         sb.AppendLine(string.Join(delimiter, output[index]));
+            //     }*/
+
+            //}
 
             //File.WriteAllText(filePath, sb.ToString());
 

@@ -12,7 +12,7 @@ import sortAndFilterMixin from '../mixins/sortAndFilterMixin';
 import {LanguageService} from '../../services/language/languageService'
 import soonComponent from './helpers/soon/soon.vue'
 import setUniClass from './helpers/setUniClassItem/setUniClass.vue'
-
+import schoolBlock from '../schoolBlock/schoolBlock.vue'
 import faqBlock from './helpers/faq-block/faq-block.vue'
 import notificationCenter from '../notificationCenter/notificationCenter.vue'
 const ResultTutor = () => import('./ResultTutor.vue');
@@ -41,7 +41,8 @@ export default {
         askQuestionBtn,
         soonComponent,
         ResultAsk,
-        setUniClass
+        setUniClass,
+        schoolBlock
     },
     data() {
         return {

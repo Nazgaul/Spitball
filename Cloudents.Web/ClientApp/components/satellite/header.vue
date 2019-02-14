@@ -5,6 +5,7 @@
               <!--keep this way for blog new tab open-->
                 <!--RTL bug fix in hebrew mobile-->
                 <v-tabs :scrollable="false" centered :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : ''">
+                    <div class="gap"></div>
                     <v-tab router :to="verticals[0].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[0].display}}</v-tab>
                     <v-tab router :to="verticals[1].name" :ripple="false" class="vertical sattelite-vertical">{{verticals[1].display}}</v-tab>
                     <!--special handler for blog open in new browser window-->
