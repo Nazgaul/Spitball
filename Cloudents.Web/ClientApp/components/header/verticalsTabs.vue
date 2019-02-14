@@ -1,5 +1,8 @@
 <template>
     <div>
+    <v-flex class="information-box" v-show="showInformationBlock">
+        <span class="information-box-text">{{informationBlockText}}</span>    
+    </v-flex>    
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
             <v-tabs v-model="currentVertical" :value="currentVertical" :scrollable="true">
@@ -34,13 +37,23 @@
                     wallet: true,
                     profile: true,
                     conversations: true
-                }
+                },
             }
         },
         computed: {
             ...mapGetters(['getVerticalData', 'accountUser']),
             isLogedIn(){
                 return this.accountUser
+            },
+            showInformationBlock(){
+                return !!this.$route.query && !!this.$route.query.Course;
+            },
+            informationBlockText(){
+                if(this.showInformationBlock){
+                    return this.$route.query.Course
+                }else{
+                    return '';
+                }
             }
         },
         watch: {
@@ -48,13 +61,6 @@
                 this.currentVertical = val;
             },
             '$route'(val){
-                // setTimeout(()=>{
-                //     if(this.supressVerticalDesign[val.name]){
-                //         this.cleanVerticalDesign();
-                //     }else{
-                //         this.restoreVerticalDesign();
-                //     }
-                // }, 300)
             }
         },
         methods: {
@@ -83,28 +89,19 @@
             $_updateType(result) {
                 this.currentVertical = result;
                 this.$ga.event("Vertical_Tab", result);
-                let tabs = this.$el.querySelector('.v-tabs__wrapper');
-                let currentItem = this.$el.querySelector(`#${result}`);
-                if (currentItem) {
-                    tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
-                }
+                // let tabs = this.$el.querySelector('.v-tabs__wrapper');
+                // let currentItem = this.$el.querySelector(`#${result}`);
+                // if (currentItem) {
+                //     tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
+                // }
                 this.setCurrentVertical(result);
-                let query = {};
-                if (this.$route.query.hasOwnProperty("promo")) {
-                    query = {promo: this.$route.query.promo}
-                }
-                let {text = "", course} = this.getVerticalData(result);
-                if ((result == 'flashcard' && this.$route.path.includes('note') || result == 'note' && this.$route.path.includes('flashcard')) && this.$route.query.course) {
-                    course = this.$route.query.course;
-                }
+                
                 //if same tab do not do UPDATE_SEARCH_LOADING
                 if(this.$route.path !== `/${result}`){
                     this.UPDATE_SEARCH_LOADING(true);
-                }else{
-                    query = this.$route.query;
                 }
-                this.$router.push({path: '/' + result, query: query});
-                // this.$router.push({path: '/' + result, query: {...query, q: text, course}});
+                
+                this.$router.push({path: '/' + result, query: this.$route.query});
             },
         },
         mounted(){
