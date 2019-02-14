@@ -1,61 +1,53 @@
 @import "../../styles/mixin.less";
 
-.school-block {
-
-    background-image: linear-gradient(170deg, #2b3063, #131634);
-}
-
-.v-list {
-    background: transparent;
-
-    .group-header {
-        .v-list__tile {
-            font-family: @fontOpenSans;
-            font-size: 16px !important;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            color: rgba(255, 255, 255, 0.87);
-
-            .v-list__tile__action {
-                min-width: 21px;
-
-                i {
-                    font-size: 14px;
-                    color: #ffffff;
-                }
-
-                &.edit-course {
-                    i {
-                        transform: rotate(45deg);
-                        opacity: 0.54;
-                        font-size: 10px;
-
+    .school-block{
+        &.v-navigation-drawer{
+            background-image: linear-gradient(170deg, #2b3063, #131634);
+        }
+        .v-list{
+            background: transparent;
+            .group-header{
+                .v-list__tile{
+                    font-family: @fontOpenSans;
+                    font-size: 16px !important;
+                    font-weight: 600;
+                    letter-spacing: -0.3px;
+                    color: rgba(255, 255, 255, 0.87);
+                    .v-list__tile__action{
+                        min-width: 21px;
+                        i{
+                            font-size: 14px;
+                            color:#ffffff;
+                        }
+                        &.edit-course{
+                            i{
+                                transform: rotate(45deg);
+                                opacity: 0.54;
+                                font-size: 10px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    .v-list__tile__title{
                         cursor: pointer;
                     }
                 }
+                
             }
-
-            .v-list__tile__title {
-                cursor: pointer;
-            }
-        }
-
-    }
-
-    .group-items {
-        margin-left: 20px;
-        border-radius: 4px;
-
-        &.active {
-            background-color: #545ca5;
-        }
-
-
-        .v-list__tile {
-            font-family: @fontOpenSans;
-
-            letter-spacing: -0.3px;
-            color: rgba(255, 255, 255, 0.87);
+            .group-items{
+                margin-left: 20px;
+                border-radius: 4px;
+                &.active{
+                    background-color: #545ca5;
+                }
+                
+                
+                .v-list__tile{
+                    font-family: @fontOpenSans;
+                    
+                    letter-spacing: -0.3px;
+                    color: rgba(255, 255, 255, 0.87);
+                }
+            }        
         }
     }
-}
