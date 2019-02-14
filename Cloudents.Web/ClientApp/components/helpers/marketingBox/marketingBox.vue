@@ -3,15 +3,16 @@
         <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
             <span class="heading-text" v-language:inner>marketingBox_title</span>
         </div>
-        <v-card class="main-marketing-content"  :class="imageClassABtest" :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
+        <v-card class="main-marketing-content" :class="imageClassABtest"
+                :style="{ 'background-image': 'url(' + require(`${imgSrc}`) + ')' }" @click="promotionOpen()">
         </v-card>
         <sb-dialog :showDialog="marketingReferral"
                    :popUpType="'marketingPop'"
                    :content-class="'login-popup'"
                    :onclosefn="closeRefDialog">
-            <referral-dialog  :onclosefn="closeRefDialog"
-                              :isTransparent="false"
-                              :userReferralLink="userReferralLink"
+            <referral-dialog :onclosefn="closeRefDialog"
+                             :isTransparent="false"
+                             :userReferralLink="userReferralLink"
                              :popUpType="'marketingPop'"></referral-dialog>
         </sb-dialog>
 
@@ -62,7 +63,7 @@
                 return this.$vuetify.breakpoint.xsOnly
             },
             isLogedIn() {
-                return (this.accountUser !=null)
+                return (this.accountUser != null)
             },
             imgSrc() {
                 let imageSrc = '';
@@ -71,8 +72,8 @@
                 imageSrc = this.isLogedIn ? imagesSet["logedIn"] : imagesSet["not_logedIn"];
                 return imageSrc
             },
-            imageClassABtest(){
-                return this.imgSrc.replace('./images/','');
+            imageClassABtest() {
+                return this.imgSrc.replace('./images/', '');
             },
             userReferralLink() {
                 if (!this.isLogedIn) {
@@ -90,14 +91,14 @@
                 this.marketingReferral = false
             },
             promotionOpen() {
-                if(this.isLogedIn){
+                if (this.isLogedIn) {
                     analyticsService.sb_unitedEvent('MARKETING_BOX', 'REFER_FRIEND');
-                }else{
+                } else {
                     analyticsService.sb_unitedEvent('MARKETING_BOX', 'UPLOAD_DOC');
                 }
                 return this.isLogedIn ? this.openRefDialog() : this.goToRegister();
             },
-            goToRegister(){
+            goToRegister() {
                 this.changemobileMarketingBoxState();
                 this.$router.push({name: 'registration'});
             },
