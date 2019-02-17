@@ -20,7 +20,7 @@
             
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
-                    <v-container class="pa-0 ma-0 results-wrapper">
+                    <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-1' : 'pa-0'">
                         <v-layout column>
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
                                 <v-layout row align-center justify-space-between>

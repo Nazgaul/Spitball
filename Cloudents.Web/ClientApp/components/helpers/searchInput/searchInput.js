@@ -130,10 +130,12 @@ export default {
             });
         },
         prepareQuery(typeId){
-            if(!this.msg) return {};
             let query = {
                 term: this.msg
             };
+            if(!this.msg){
+                delete query.term
+            }
             if(typeId === 1){
                 let course = this.$route.query.Course;
                 let uni = this.getSchoolName();

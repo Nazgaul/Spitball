@@ -25,7 +25,7 @@ const state = {
     resultLockForClassesChange: false,
     selectForTheFirstTime: false,
     reflectChangeToPage: 0,
-    showSchoolBlock: true
+    showSchoolBlock: global.innerWidth > 599 ? true : false
 };
 
 const getters = {

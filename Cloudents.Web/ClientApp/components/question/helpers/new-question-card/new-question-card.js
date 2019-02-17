@@ -128,7 +128,7 @@ export default {
             manualAnswerRemove: 'answerRemoved',
             questionVote: "HomeworkHelp_questionVote",
             updateLoginDialogState: "updateLoginDialogState",
-            syncProfile: "syncProfile"
+            removeItemFromProfile: "removeItemFromProfile"
 
         }),
         ...mapGetters(['accountUser']),
@@ -196,12 +196,9 @@ export default {
             this.showDialog = true;
             this.selectedImage = src;
         },
-        updateProfile(){
-            let account, id;
+        updateProfile(objToDelete){
             if(this.$route.name === "profile"){
-                account = this.accountUser();
-                id = account.id ? account.id : '';
-                this.syncProfile(id);
+                this.removeItemFromProfile(objToDelete);
             }
         },
         deleteQuestion() {
@@ -224,7 +221,7 @@ export default {
                             this.$router.push('/ask')
                         }
                         //if profile refresh profile data
-                        this.updateProfile();
+                        this.updateProfile(objToDelete);
                     },
                     (error) => {
                         console.error(error)

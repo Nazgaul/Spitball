@@ -15,6 +15,7 @@ import setUniClass from './helpers/setUniClassItem/setUniClass.vue'
 import schoolBlock from '../schoolBlock/schoolBlock.vue'
 import faqBlock from './helpers/faq-block/faq-block.vue'
 import notificationCenter from '../notificationCenter/notificationCenter.vue'
+import resultFilter from './helpers/resultFilter/resultFilter.vue'
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
@@ -42,7 +43,8 @@ export default {
         soonComponent,
         ResultAsk,
         setUniClass,
-        schoolBlock
+        schoolBlock,
+        resultFilter
     },
     data() {
         return {

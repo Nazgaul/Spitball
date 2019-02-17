@@ -207,9 +207,8 @@
             requestDialogClose() {
                 this.isCopied = false;
                 // this.$root.$emit('closePopUp', this.popUpType);
-                if (this.closeDialog) {
-                    this.closeDialog()
-                }
+                if(this.onclosefn) this.onclosefn()
+
             },
             clearCopied() {
                 if (this.isCopied) {
