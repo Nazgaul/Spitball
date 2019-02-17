@@ -123,7 +123,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var bus = _container.Resolve<IQueryBus>();
+            var bus = _container.Resolve<ICommandBus>();
             var query = new AdminEmptyQuery();
             var z = await bus.QueryAsync<IEnumerable<CashOutDto>>(query, token);
             //var command = new CreateQuestionCommand(null, "this is hader this is elad", 1, 638, null, "asdas");
