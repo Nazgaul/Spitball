@@ -15,7 +15,7 @@ function setIntercomSettings(data) {
     let user_name = null;
     let user_email = null;
     let user_phoneNumber = null;
-    let alignment =  global.lang.toLowerCase() === 'he'  ?  'left' : 'right';
+    let alignment =  global.isRtl  ?  'left' : 'right';
 
 
     if (!!data) {
