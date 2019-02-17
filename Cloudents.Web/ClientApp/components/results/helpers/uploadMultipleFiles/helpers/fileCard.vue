@@ -94,7 +94,6 @@
         data() {
             return {
                 tags: [],
-
                 formattedPrice: '',
                 emptyPricePlaceholder: LanguageService.getValueByKey("upload_multiple_price_placeholder"),
                 placeholderTags: LanguageService.getValueByKey("upload_multiple_keywords_optional"),
