@@ -1,13 +1,14 @@
 import ResultItem from '../ResultItem.vue';
 import ResultAsk from "../ResultAsk.vue"
-import { verticalsName, verticalsNavbar } from "../../../services/navigation/vertical-navigation/nav";
+import { verticalsNavbar, verticalsName } from "../../../services/navigation/vertical-navigation/nav";
 import SuggestCard from '../suggestCard.vue'
 import emptyState from "../svg/no-match-icon.svg";
+import { typesPersonalize } from "../../settings/consts.js";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
 import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
-import { LanguageService } from '../../../services/language/languageService'
+import {LanguageService} from '../../../services/language/languageService'
 
 import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 
@@ -17,6 +18,7 @@ import notificationCenter from '../../notificationCenter/notificationCenter.vue'
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
+import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 
 //The vue functionality for result page
 export default {
@@ -32,7 +34,8 @@ export default {
         setUniClass,
         ResultItem,
         schoolBlock,
-        resultFilter
+        resultFilter,
+        emptyStateCard
     },
     data() {
         return {
@@ -44,14 +47,14 @@ export default {
             showFilterNotApplied: false,
             isLoad: false,
             showDialog: false,
-            placeholder: {
+            placeholder:{
                 whereSchool: LanguageService.getValueByKey("result_where_school")
-            },
-            scrollBehaviour: {
+            },    
+            scrollBehaviour:{
                 isLoading: false,
                 isComplete: false,
                 page: 1
-            }
+            }        
         };
     },
 
@@ -74,13 +77,9 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState', 'getFilters', 'getVerticalData', 'accountUser', 'HomeworkHelp_getShowQuestionToaster', 'getSchoolName', 'getReflectChangeToPage', 'getSearchLoading']),
-        ...mapGetters({
-            universityImage: 'getUniversityImage',
-            university: 'getUniversity',
-            items: 'HomeworkHelp_getItems'
-        }),
-        showSelectUni() {
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState','getFilters', 'getVerticalData', 'accountUser',  'HomeworkHelp_getShowQuestionToaster', 'getSchoolName', 'getReflectChangeToPage','getSearchLoading']),
+        ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'HomeworkHelp_getItems'}),
+        showSelectUni(){
             let schoolName = this.getSchoolName;
             return schoolName.length === 0;
         },
@@ -88,7 +87,7 @@ export default {
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)
         },
-        showQuestionToaster() {
+        showQuestionToaster(){
             return this.HomeworkHelp_getShowQuestionToaster;
         },
         content: {
@@ -133,7 +132,7 @@ export default {
         currentSuggest() {
             return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
         },
-        currentNavData() {
+        currentNavData(){
             return verticalsNavbar.filter((navItem) => {
                 return navItem.id === this.name;
             })[0]
@@ -155,16 +154,16 @@ export default {
         //             this.filterObject[courseIndex].data = val;
         //     }
         // }
-        getSchoolName() {
+        getSchoolName(){
             console.log("school name changed")
-            if (this.getResultLockForSchoolNameChange()) {
+            if(this.getResultLockForSchoolNameChange()){
                 this.reloadContentOfPage();
             }
         },
 
-        getReflectChangeToPage() {
-            if (this.getResultLockForClassesChange()) {
-                this.reloadContentOfPage();
+        getReflectChangeToPage(){
+            if(this.getResultLockForClassesChange()){
+               this.reloadContentOfPage();
             }
         }
     },
@@ -182,25 +181,24 @@ export default {
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "HomeworkHelp_injectQuestion"]),
         ...mapGetters(["getCurrentVertical", "HomeworkHelp_getNextPageUrl", "getResultLockForSchoolNameChange", "getResultLockForClassesChange"]),
-
-        loadNewQuestions() {
+        loadNewQuestions(){
             this.HomeworkHelp_injectQuestion();
             console.log("new question loading");
-        },
-        goToAskQuestion() {
-            if (this.accountUser == null) {
+        },        
+        goToAskQuestion(){
+             if(this.accountUser == null){
                 this.updateLoginDialogState(true);
                 //user profile update
                 this.updateUserProfileData('profileHWH')
-            } else {
+            }else{
                 //ab test original do not delete
-                this.updateNewQuestionDialogState(true);
+                 this.updateNewQuestionDialogState(true);
             }
         },
-        scrollFunc() {
+        scrollFunc(){
             this.scrollBehaviour.isLoading = true;
             let nextPageUrl = this.HomeworkHelp_getNextPageUrl();
-            if (this.name !== this.pageData.vertical) return;
+            if(this.name !== this.pageData.vertical) return;
             this.HomeworkHelp_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
                     if (res.data && res.data.length) {
@@ -221,7 +219,7 @@ export default {
         updateContentOfPage(to, from, next) {
             this.scrollBehaviour.isComplete = true;
             const toName = to.path.slice(1);
-            let params = {...to.query, ...to.params, term: to.query.term};
+            let params=  {...to.query, ...to.params, term: to.query.term};
             this.HomeworkHelp_fetchingData({name: toName, params}, true)
                 .then((data) => {
                     //update data for this page
@@ -236,7 +234,7 @@ export default {
                 else {
                     next();
                 }
-            }).finally(() => {
+            }).finally(()=>{
                 //error handler
                 this.UPDATE_SEARCH_LOADING(false);
                 this.isLoad = false;
@@ -246,9 +244,8 @@ export default {
                 this.scrollBehaviour.isComplete = false;
             });
         },
-        reloadContentOfPage() {
-            let noop = function () {
-            };
+        reloadContentOfPage(){
+            let noop = function (){};
             let to = this.$route;
             let from = this.$route;
             this.UPDATE_SEARCH_LOADING(true);
@@ -273,14 +270,22 @@ export default {
             }
         },
         //removes filter from selected filter
-        $_removeFilter({filterId: value, filterType: key}) {
+        $_removeFilter({filterId:value, filterType:key}) {
             this.UPDATE_SEARCH_LOADING(true);
             let updatedList = this.query[key];
             updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());
             key === 'course' ? this.setFilteredCourses(updatedList) : "";
             this.$router.push({path: this.name, query: {...this.query, [key]: updatedList}});
         },
-
+        //Open the personalize dialog when click on select course in class filter
+        $_openPersonalize() {
+            //emit event to open Login Dialog
+            if (!this.accountUser) {
+                this.updateLoginDialogState(true);
+            }else {
+                this.$root.$emit("personalize", typesPersonalize.university);
+            }
+        },
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
         $_showSelectedFilter({value, key}) {
             return value;
@@ -307,17 +312,17 @@ export default {
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
         //fetch data with the params
-        this.HomeworkHelp_fetchingData({
-            name: this.name,
-            params: {...this.query, ...this.params, term: this.userText},
-            skipLoad: this.$route.path.indexOf("question") > -1
-        }).then((data) => {
-            this.updateData.call(this, {...data, vertical: this.name})
-        }).catch(reason => {
-            console.error(reason);
-            //when error from fetching data remove the loader
-            this.UPDATE_LOADING(false);
-        });
+            this.HomeworkHelp_fetchingData({
+                name: this.name,
+                params: {...this.query, ...this.params, term: this.userText},
+                skipLoad: this.$route.path.indexOf("question") > -1
+            }).then((data) => {
+                this.updateData.call(this, {...data, vertical: this.name})
+            }).catch(reason => {
+                console.error(reason);
+                //when error from fetching data remove the loader
+                this.UPDATE_LOADING(false);
+            });
     },
 
 };

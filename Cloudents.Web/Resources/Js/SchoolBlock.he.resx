@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="add_class" xml:space="preserve">
+  <data name="add_your_courses" xml:space="preserve">
     <value>הוסף את הקורסים שלך</value>
   </data>
-  <data name="edit_classes" xml:space="preserve">
-    <value>ערוך את רשימת הקורסים שלך</value>
+  <data name="add_your_university" xml:space="preserve">
+    <value>הוסף את האוניברסיטה שלך</value>
   </data>
-  <data name="filter_classes" xml:space="preserve">
-    <value>סנן לפי הקורסים שלך</value>
+  <data name="all_courses" xml:space="preserve">
+    <value>כל הקורסים</value>
   </data>
-  <data name="school_empty_text" xml:space="preserve">
-    <value>היכן אתה לומד?</value>
+  <data name="information_box_latest" xml:space="preserve">
+    <value>חומרים עדכניים מכל הקורסים שלי</value>
+  </data>
+  <data name="my_courses" xml:space="preserve">
+    <value>הקורסים שלי</value>
   </data>
 </root>
