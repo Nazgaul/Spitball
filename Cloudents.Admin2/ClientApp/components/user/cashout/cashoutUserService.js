@@ -4,14 +4,18 @@ function cashoutUser(objInit) {
     this.userId = objInit.userId;
     this.cashOutPrice = objInit.cashOutPrice || 0;
     this.userEmail = objInit.userEmail || 'None';
-    this.cashOutTime = objInit.cashOutTime || 0;
-    this.fraudScore = objInit.fraudScore || 0;
-    this.userQueryRatio = objInit.userQueryRatio ?  objInit.userQueryRatio.toFixed(2) : 0;
-    this.isSuspect = objInit.isSuspect || false;
+    this.cashOutTime = new Date( objInit.cashOutTime );
     this.isIsrael = objInit.isIsrael || false;
     this.declinedReason = objInit.declinedReason || '';
     this.approved = objInit.approved || null;
     this.transactionId = objInit.transactionId || '';
+    this.correctAnswer = objInit.correctAnswer;
+    this.declinedReason = objInit.declinedReason;
+    this.deletedCorrectAnswer = objInit.deletedCorrectAnswer;
+    this.isIsrael = objInit.isIsrael;
+    this.referCount = objInit.referCount;
+    this.soldDeletedDocument = objInit.soldDeletedDocument;
+    this.soldDocument = objInit.soldDocument;
 }
 
 function createCashoutItem(objInit) {

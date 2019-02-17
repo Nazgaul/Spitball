@@ -9,6 +9,13 @@
 
 .ref-block {
   overflow: hidden;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background-color: transparent!important;
+  @media (max-width: @screen-xs) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
   .referral-container {
     text-align: center;
     vertical-align: middle;
@@ -20,6 +27,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding-bottom: 24px;
+
 
     .close-btn {
       .v-icon {
@@ -33,11 +41,17 @@
       line-height: 1.69;
       letter-spacing: -0.2px;
       color: fade(@color-white, 87%);
+      &.bottom-sub-small{
+        font-size: 12px;
+      }
       @media (max-width: @screen-xs) {
         font-size: 14px;
         line-height: 1.5;
         letter-spacing: -0.1px;
         color: fade(@color-white, 87%);
+        &.bottom-sub-small{
+          font-size: 10px;
+        }
       }
 
     }
@@ -229,7 +243,7 @@
     }
   }
   .ref-bottom-section {
-    border-radius: 4px;
+    border-radius: 0  0 4px 4px;
     box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.5);
     background-color: @color-white;
     .bottom-text {

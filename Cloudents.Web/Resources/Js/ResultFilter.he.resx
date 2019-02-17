@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,52 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="copied" xml:space="preserve">
-    <value>הועתק</value>
+  <data name="class_result" xml:space="preserve">
+    <value>תוצאות עבור קורס</value>
   </data>
-  <data name="copy" xml:space="preserve">
-    <value>העתק</value>
+  <data name="spitball_result" xml:space="preserve">
+    <value>תוצאות מאתר ספיטבול</value>
   </data>
-  <data name="copy_link" xml:space="preserve">
-    <value>העתק קישור</value>
-  </data>
-  <data name="dialog_bottom_text" xml:space="preserve">
-    <value>ככל שתשיג יותר חברים בספיטבול, ככה הציונים של כולם יהיו יותר טובים!</value>
-  </data>
-  <data name="dialog_bottom_text2" xml:space="preserve">
-    <value>מוגבל לחמש הזמנות</value>
-  </data>
-  <data name="dialog_friends_joined" xml:space="preserve">
-    <value> חברים שהוזמנו הצטרפו</value>
-  </data>
-  <data name="dialog_subtitle" xml:space="preserve">
-    <value>תן 150 נקודות לחברים ותרוויח 50 נקודות לכל אחד שמצטרף</value>
-  </data>
-  <data name="dialog_title_invite" xml:space="preserve">
-    <value>הפיצו את השמועה ב- </value>
-  </data>
-  <data name="get_document_text" xml:space="preserve">
-    <value>! לחץ על הלינק הזה כדי להעיף מבט, אני בטוח שזה יחסוך לך זמן ויעזור לך בלימודים</value>
-  </data>
-  <data name="get_your_homework" xml:space="preserve">
-    <value>קבל תשובות לשאלות שיעורי הבית תוך דקות והרווח כסף בלענות לשאלות של סטודנטים אחרים. קבל 150 נקודות בחינם אם תירשם באמצעות קישור זה:</value>
-  </data>
-  <data name="get_your_homework_twitter" xml:space="preserve">
-    <value>קבל תשובות לשאלות שיעורי הבית תוך דקות והרווח כסף בלענות לשאלות של סטודנטים אחרים. קבל 150 נקודות בחינם אם תירשם באמצעות קישור זה</value>
-  </data>
-  <data name="join_me" xml:space="preserve">
-    <value>הצטרפו אלי לספיטבול</value>
-  </data>
-  <data name="ref_placeholder" xml:space="preserve">
-    <value>בחר מסמך לשיתוף</value>
-  </data>
-  <data name="share_with" xml:space="preserve">
-    <value>או שתף עם</value>
-  </data>
-  <data name="spread" xml:space="preserve">
-    <value>הפיצו את השמועה</value>
-  </data>
-  <data name="title_document" xml:space="preserve">
-    <value>.הרגע העליתי חלק מהסיכומים האקדמיים שלי לספיטבול</value>
+  <data name="university_result" xml:space="preserve">
+    <value>תוצאות מ-</value>
   </data>
 </root>

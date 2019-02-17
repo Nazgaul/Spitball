@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
@@ -19,6 +20,11 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(ReferringUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
+            var v = user.Transactions.TransactionsReadOnly.Count(c => c is ReferUserTransaction);
+            if (v >= 5)
+            {
+                return;
+            }
             var register = await _userRepository.LoadAsync(message.RegisteredUserId, token);
             user.ReferUser(register);
             await _userRepository.UpdateAsync(user, token);

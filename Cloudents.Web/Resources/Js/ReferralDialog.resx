@@ -129,6 +129,9 @@
   <data name="dialog_bottom_text" xml:space="preserve">
     <value>The more classmates you get on Spitball, the better everyone’s grades will be!</value>
   </data>
+  <data name="dialog_bottom_text2" xml:space="preserve">
+    <value>Limited to 5 referrals</value>
+  </data>
   <data name="dialog_friends_joined" xml:space="preserve">
     <value> invited friends have joined</value>
   </data>
