@@ -17,7 +17,6 @@ function setIntercomSettings(data) {
     let user_phoneNumber = null;
     let alignment =  global.isRtl  ?  'left' : 'right';
 
-
     if (!!data) {
         user_id = "Sb_" + data.id;
         user_name = data.name;
