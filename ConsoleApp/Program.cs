@@ -512,40 +512,46 @@ where left(blobName ,4) != 'file'");
         private static async Task HadarMethod()
         {
 
-            await CoursesWithSimilarNames();
+            //await CoursesWithSimilarNames();
             //await FunctionsExtensions.MergeCourses(_container);
 
-            //var d = _container.Resolve<DapperRepository>();
+            var d = _container.Resolve<DapperRepository>();
+            
 
-            //var courses = await d.WithConnectionAsync(async f =>
-            //{
-            //    return await f.QueryAsync<(Guid, string, string)>(
-            //        @"Select Id,[Name], Country from sb.University order by Name");
-            //}, default);
-            //StringBuilder sb = new StringBuilder();
+            var res = await d.WithConnectionAsync(async f =>
+            {
+               
+                return await f.QueryAsync<(string, long)>(
+                @"declare @tmp table (CourseName nvarchar(max), DocumentId bigint, rn bigint)
+                    insert into @tmp
+                    select CourseName, Id, ROW_NUMBER () over (Partition By CourseName Order By Id asc) as rn
+                    from sb.Document
+                    where [state] = 'ok' and CourseName in (select * from ##CourseTbl)
+                    select CourseName, DocumentId from @tmp where rn < 4");
+
+            }, default);
+            StringBuilder sb = new StringBuilder();
             ////string delimiter = ",";
 
             ////int rowNumber = 1;
 
-            //string filePath = @"C:\Users\Charlie even\university.csv";
-            ////List<(string,string)> output = new List<(string, string)>();
-            //foreach (var courseName in courses)
-            //{
-            //    var res = FindSimilarStrings(courseName, courses.ToList());
+            string filePath = @"C:\Users\Charlie even\DocumentsOfCoursesToDelete.csv";
+            //List<(string,string)> output = new List<(string, string)>();
+            foreach (var r in res)
+            {
+                
+                var b62 = new Base62(r.Item2);
+                string str = "https://www.spitball.co/document/" + b62.ToString();
+                File.AppendAllText(filePath, str + "," + r.Item1 + "," + r.Item2.ToString() + Environment.NewLine);
 
-            //    foreach (var course in res)
-            //    {
-            //        File.AppendAllLines(filePath, new List<string>() { $@"{course.Item1}, {course.Item2}, {course.Item3}, {course.Item4}, {course.Item5}, {course.Item6}" });
-            //    }
+                /* int length = output.Count();
 
-            //    /* int length = output.Count();
+                 for (int index = 0; index < length; index++)
+                 {
+                     sb.AppendLine(string.Join(delimiter, output[index]));
+                 }*/
 
-            //     for (int index = 0; index < length; index++)
-            //     {
-            //         sb.AppendLine(string.Join(delimiter, output[index]));
-            //     }*/
-
-            //}
+            }
 
             //File.WriteAllText(filePath, sb.ToString());
 

@@ -1,5 +1,11 @@
 ﻿<template>
   <v-app>
+    <v-tour
+        name="myTour"
+        :steps="tourObject.tourSteps"
+        :options="tourObject.toursOptions"
+        :callbacks="tourObject.tourCallbacks"
+      ></v-tour>
     <router-view name="header"></router-view>
     <router-view name="schoolBlock"></router-view>
     <v-content class="site-content" :class="{'loading':getIsLoading}">
@@ -15,12 +21,7 @@
       <div v-if="showLeadersMobile && getMobileFooterState">
         <leaders-board></leaders-board>
       </div>
-      <v-tour
-        name="myTour"
-        :steps="tourObject.tourSteps"
-        :options="tourObject.toursOptions"
-        :callbacks="tourObject.tourCallbacks"
-      ></v-tour>
+      
       <!-- <div class="school-block-container">
                 <router-view name="schoolBlock"></router-view>
       </div>-->

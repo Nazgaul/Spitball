@@ -1,7 +1,7 @@
 <template>
-    <v-navigation-drawer touchless class="school-block" width="260" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
+    <v-navigation-drawer touchless class="school-block" width="260" @input="updateDrawerValue" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
       <v-list>
-        <v-list-tile class="group-header">
+        <v-list-tile class="group-header search-university-title">
           <v-list-tile-action>
             <v-icon>sbf-university-columns</v-icon>
           </v-list-tile-action>
@@ -110,10 +110,17 @@ export default {
   },
   methods: {
     ...mapActions([
-      "updateLoginDialogState",
+      "updateLoginDialogState","toggleShowSchoolBlock"
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
-
+    updateDrawerValue(val){
+        //this is required to set the current drawer state on the store, because when the 
+        //created event is getting called again (during route change)
+        //we need the last updated drawer state to be considered as default.
+        console.log(`drawer value is ${val}`);
+        this.toggleShowSchoolBlock(val);
+      
+    },
     selectCourse(item, isDefault) {
       if (!this.lock) {
         this.lock = true;

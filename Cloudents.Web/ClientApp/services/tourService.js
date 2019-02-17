@@ -10,7 +10,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_add_question_button_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -27,7 +27,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_question_ticket_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -44,7 +44,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_vote_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -75,7 +75,7 @@ import { LanguageService } from './language/languageService'
     studyDocumentsPage:{
       uniClasses:{
         // target: ".classes-holder .v-chip",university-holder
-        target: ".university-holder .tour-inject",
+        target: ".search-university-title",
         header: {
           title: LanguageService.getValueByKey('tour_classes_title'),
         },
@@ -98,7 +98,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_upload_button_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -115,7 +115,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_vote_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -172,7 +172,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_question_ticket_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -450,
@@ -189,7 +189,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_vote_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -201,7 +201,7 @@ import { LanguageService } from './language/languageService'
     },
     studyDocumentsPage:{
       uniClasses:{
-        target: ".classes-holder .v-chip",
+        target: ".search-university-title",
        
         header: {
           title: LanguageService.getValueByKey('tour_classes_title'),
@@ -225,7 +225,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_upload_button_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -242,7 +242,7 @@ import { LanguageService } from './language/languageService'
         },
         content: LanguageService.getValueByKey('tour_vote_content'),
         params: {
-          placement: "top",
+          placement: "bottom",
           enableScrolling: true
         },
         offset: -650,
@@ -284,13 +284,13 @@ import { LanguageService } from './language/languageService'
         },
         StudyDocumentsSteps:{
           desktop:[
-          desktopStepsEnum.studyDocumentsPage.uniClasses,
+          //desktopStepsEnum.studyDocumentsPage.uniClasses,
           desktopStepsEnum.studyDocumentsPage.uploadButton,
           desktopStepsEnum.studyDocumentsPage.vote,
           desktopStepsEnum.studyDocumentsPage.sbl,          
         ],
           mobile:[
-          mobileStepsEnum.studyDocumentsPage.uniClasses,
+          //mobileStepsEnum.studyDocumentsPage.uniClasses,
           mobileStepsEnum.studyDocumentsPage.uploadButton,
           mobileStepsEnum.studyDocumentsPage.vote,          
         ]
@@ -314,11 +314,11 @@ import { LanguageService } from './language/languageService'
         },
         StudyDocumentsSteps:{
           desktop:[
-            desktopStepsEnum.studyDocumentsPage.uniClasses,
+            //desktopStepsEnum.studyDocumentsPage.uniClasses,
             desktopStepsEnum.studyDocumentsPage.uploadButton,
           ],
           mobile:[
-            mobileStepsEnum.studyDocumentsPage.uniClasses,
+            //mobileStepsEnum.studyDocumentsPage.uniClasses,
             mobileStepsEnum.studyDocumentsPage.uploadButton,
           ]
         }
