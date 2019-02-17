@@ -1,6 +1,5 @@
 @import "../../styles/mixin.less";
 @import "./animationSet.less";
-@purpleColor: #3e45a0;
 @chipBorderColor: #7278c8;
 @backgroundGrey: #ececec;
 
@@ -20,7 +19,7 @@
 // end vuetify ovewrite
 
 .school-block {
-  background: @purpleColor;
+  background: @purpleNewColor;
   padding-top: 42px;
   padding-bottom: 16px;
   display: flex;
@@ -43,7 +42,7 @@
   border-radius: 4px;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.28);
   .empty-university-icon {
-    color: @purpleColor;
+    color: @purpleNewColor;
     margin-right: 12px;
     @media (max-width: @screen-xs) {
       font-size: 20px;
@@ -54,7 +53,7 @@
     font-family: @fontFiraSans;
     font-size: 28px;
     letter-spacing: -0.7px;
-    color: @purpleColor;
+    color: @purpleNewColor;
     @media (max-width: @screen-xs) {
       font-size: 20px;
     }
@@ -153,7 +152,7 @@
       font-size: 13px;
       color: fade(@color-white, 90%);
       border: 1px solid @chipBorderColor;
-      background-color: @purpleColor;
+      background-color: @purpleNewColor;
       text-transform: capitalize;
       border-radius: 16px;
       .v-chip__content {
@@ -191,7 +190,7 @@
     }
     &.v-chip--selected {
       background-color: @color-white;
-      color: @purpleColor;
+      color: @purpleNewColor;
       border: 1px solid @color-white;
       box-shadow: none;
        &:after {
@@ -243,7 +242,7 @@
       font-size: 13px;
       color: fade(@color-white, 90%);
       text-transform: capitalize;
-      background: @purpleColor;
+      background: @purpleNewColor;
 
       .v-chip__content {
         //ellipsis for too long class chip
@@ -258,13 +257,13 @@
       }
       &.v-chip--selected {
         background-color: @color-white;
-        border: 1px solid @purpleColor;
+        border: 1px solid @purpleNewColor;
         box-shadow: none;
         &:after {
           background-color: @color-white;
         }
         .v-chip__content {
-          color: @purpleColor;
+          color: @purpleNewColor;
         }
       }
     }

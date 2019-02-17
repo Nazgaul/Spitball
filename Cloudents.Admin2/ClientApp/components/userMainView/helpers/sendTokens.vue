@@ -1,19 +1,10 @@
 <template>
     <div class="user-tokens-container">
         <div class="user-inputs-container">
+            <div><h4 class="text-sm-left text-sm-left text-md-left mb-3">User Id:{{userId}}</h4></div>
             <v-text-field solo class="user-input-text" type="text" v-model.number="tokens"
                           placeholder="Set amount of tokens to apply..."/>
         </div>
-        <!--<div class="select-type-container">-->
-        <!--<v-select attach=""-->
-        <!--class="select-type-input"-->
-        <!--solo-->
-        <!--v-model="tokenType"-->
-        <!--:items="types"-->
-        <!--:item-value="tokenType"-->
-        <!--label="Select type"-->
-        <!--&gt;</v-select>-->
-        <!--</div>-->
         <div class="grant-token-container">
             <v-btn :loading="loading" :disabled="!tokens" color="rgb(0, 188, 212)" @click="sendTokens()">Send</v-btn>
         </div>
@@ -42,21 +33,23 @@
         methods: {
             ...mapActions(['setUserCurrentBalance', 'setTokensDialogState']),
             sendTokens: function () {
-                if (!this.tokens) {
-                    this.$toaster.error("you must provide tokens");
+                let self = this;
+                if (!self.tokens) {
+                    self.$toaster.error("you must provide tokens");
                     return;
                 }
-                this.loading = true;
-                grantTokens(this.userId, this.tokens, this.tokenType)
+                self.loading = true;
+                grantTokens(self.userId, self.tokens, self.tokenType)
                     .then(() => {
-                        this.$toaster.success(`user id ${this.userId} recived ${this.tokens} tokens`);
-                        this.setUserCurrentBalance(this.tokens);
-                        this.loading = false;
-                        this.tokens = null;
-                        this.setTokensDialogState(false);
+                        self.$toaster.success(`user id ${self.userId} recived ${self.tokens} tokens`);
+                        self.setUserCurrentBalance(self.tokens);
+                        self.loading = false;
+                        self.tokens = null;
+                        self.setTokensDialogState(false);
                     }, (err) => {
                         console.log(err);
-                        this.$toaster.error(`Error: couldn't send tokens`)
+                        self.loading = false;
+                        self.$toaster.error(`Error: couldn't send tokens`)
                     })
 
             }

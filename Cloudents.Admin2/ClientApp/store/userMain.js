@@ -3,6 +3,7 @@ import UserMainService from '../components/userMainView/userMainService';
 const quantatyPerPage = 200;
 const state = {
     tokensDilaogState: false,
+    suspendDialog : false,
     userInfo: {},
     userQuestions: [],
     userAnswers: [],
@@ -12,6 +13,9 @@ const state = {
 const mutations = {
     updateTokensDialog(state, val) {
         state.tokensDilaogState = val;
+    },
+    updateSuspendDialog(state, val){
+        state.suspendDialog = val;
     },
     updateBalance(state, data) {
         if (state.userInfo && state.userInfo.balance) {
@@ -47,6 +51,7 @@ const mutations = {
 };
 const getters = {
     getTokensDialogState: (state) => state.tokensDilaogState,
+    suspendDialogState : (state) => state.suspendDialog,
     getUserBalance: (state) => state.userBalance,
     UserInfo: (state) => state.userInfo,
     UserQuestions: (state) => state.userQuestions,
@@ -58,6 +63,9 @@ const actions = {
     setTokensDialogState({commit}, val) {
         commit('updateTokensDialog', val);
 
+    },
+    setSuspendDialogState({commit}, val){
+        commit('updateSuspendDialog', val);
     },
     setUserCurrentBalance({commit}, data) {
         commit('updateBalance', data)

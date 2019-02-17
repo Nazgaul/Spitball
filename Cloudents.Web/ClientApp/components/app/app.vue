@@ -94,6 +94,16 @@
             </sb-dialog>
 
             <sb-dialog
+                    :showDialog="newBallerDialog"
+                    :popUpType="'newBallerDialog'"
+                    :content-class="'new-baller'"
+                    :maxWidth="'700px'"
+                    :isPersistent="$vuetify.breakpoint.smAndUp"
+            >
+                <new-baller></new-baller>
+            </sb-dialog>
+
+            <sb-dialog
                     :showDialog="getShowBuyDialog"
                     :popUpType="'buyTokens'"
                     :content-class="'buy-tokens-popup'"
@@ -118,7 +128,7 @@
     import AddQuestion from "../question/addQuestion/addQuestion.vue";
     import uploadFiles from "../results/helpers/uploadFiles/uploadFiles.vue";
     import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
-
+    import newBaller from "../helpers/newBaller/newBaller.vue";
     import {
         GetDictionary,
         LanguageService
@@ -152,7 +162,8 @@
             leadersBoard,
             boardGuide,
             uploadMultipleFiles,
-            buyTokens
+            buyTokens,
+            newBaller
         },
         data() {
             return {
@@ -163,13 +174,16 @@
                 showOnBoardGuide: true,
                 showBuyTokensDialog: false,
                 showUniSelect: false,
+
+
                 tourObject: {
                     region: global.country.toLocaleLowerCase() === 'il' ? 'ilTours' : 'usTours',
                     tourCallbacks: {
                         onStop: this.tourClosed
                     },
                     toursOptions: tourService.toursOptions,
-                    tourSteps: []
+                    tourSteps: [],
+
                 }
             };
         },
@@ -194,8 +208,10 @@
                 "StudyDocuments_isDataLoaded",
                 "getOnBoardState",
                 "getShowBuyDialog",
-                "getCurrentStep"
+                "getCurrentStep",
+                "newBallerDialog"
             ]),
+
             showFeed() {
                 if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
                     return this.showMobileFeed;
@@ -236,19 +252,24 @@
             });
         },
         watch: {
-            getShowSelectUniInterface(val){
+
+            getShowSelectUniInterface(val) {
                 let query = this.$route.query;
                 if (val) {
                     this.tourTempClose();
-                    this.$router.push({'query':{
-                        ...query, 
-                        university: this.getCurrentStep,
-                    }})
-                }else{
-                    this.$router.push({'query':{
-                        ...query, 
-                        university: undefined,
-                    }})
+                    this.$router.push({
+                        'query': {
+                            ...query,
+                            university: this.getCurrentStep,
+                        }
+                    })
+                } else {
+                    this.$router.push({
+                        'query': {
+                            ...query,
+                            university: undefined,
+                        }
+                    })
                 }
             },
             getShowToaster: function (val) {
@@ -303,13 +324,13 @@
             $route: function (val) {
                 this.tourTempClose();
                 this.openOnboardGuide();
-                if(!!val.query && !!val.query.university){
-                    if(val.query.university){
+                if (!!val.query && !!val.query.university) {
+                    if (val.query.university) {
                         this.showUniSelect = true;
-                    }else{
+                    } else {
                         this.showUniSelect = false;
                     }
-                }else{
+                } else {
                     this.showUniSelect = false;
                 }
             }
@@ -325,25 +346,26 @@
                 "updateOnBoardState",
                 "updateShowBuyDialog",
                 "updateCurrentStep",
-                "changeSelectUniState"
+                "changeSelectUniState",
             ]),
             ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
+
             onFooterStepChange() {
                 this.tourTempClose();
             },
-            closeSblToken(){
+            closeSblToken() {
                 this.updateShowBuyDialog(false)
             },
-            openOnboardGuide(){
+            openOnboardGuide() {
                 let isLogedIn = this.accountUser;
                 let supressed = global.localStorage.getItem("sb-onboard-supressed");
                 let validRoutesNames = ['ask', 'note'].indexOf(this.$route.name) > -1;
-                if(isLogedIn && !supressed && validRoutesNames){
-                  setTimeout(()=>{
+                
+                if (isLogedIn && !supressed && validRoutesNames) {
+                    setTimeout(() => {
                       this.updateOnBoardState(true);
-                  },)
-
-              }
+                  })
+                }
             },
             tourClosed: function () {
                 console.log("tourClosed");
@@ -366,13 +388,13 @@
                 //the set to the local storage happens in the component itself
                 this.acceptIsraeli = true;
             },
-            tryBuyTokens(transactionObjectError){
-                walletService.buyTokens(transactionObjectError).then(()=>{
+            tryBuyTokens(transactionObjectError) {
+                walletService.buyTokens(transactionObjectError).then(() => {
                     this.updateToasterParams({
                         toasterText: LanguageService.getValueByKey("buyToken_success"),
                         showToaster: true,
                     });
-                }, (error)=>{
+                }, (error) => {
                     global.localStorage.setItem('sb_transactionError', transactionId);
                     console.log(error);
                 })
@@ -410,18 +432,18 @@
                 }
             });
             let failedTranscationId = global.localStorage.getItem('sb_transactionError');
-            if(failedTranscationId){
+            if (failedTranscationId) {
                 global.localStorage.removeItem('sb_transactionError');
                 let transactionObjectError = {
                     id: failedTranscationId
                 }
                 this.tryBuyTokens(transactionObjectError)
             }
-            
-            if(!!this.$route.query && !!this.$route.query.university){
+
+            if (!!this.$route.query && !!this.$route.query.university) {
                 this.updateCurrentStep(this.$route.query.university);
                 this.changeSelectUniState(true);
-                this.showUniSelect = true;                
+                this.showUniSelect = true;
             }
         }
     };

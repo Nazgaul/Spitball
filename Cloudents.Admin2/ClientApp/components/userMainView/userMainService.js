@@ -12,6 +12,7 @@ function UserInfo(objInit) {
     this.name = {value: objInit.name || '', label: 'User Name' };
     this.email =  {value: objInit.email || '', label: 'User Email' };
     this.phoneNumber = {value: objInit.phoneNumber ||  '--', label: 'Phone Number', showButton: !objInit.phoneNumberConfirmed, buttonText:"verify Phone" };
+    this.phoneNumberConfirmed = {value: objInit.phoneNumberConfirmed ? 'Yes' : 'No', label:"Phone Confirmed"};
     this.university = {value: objInit.university ||  '', label: 'University' };
     this.country =  {value: objInit.country ||  '', label: 'Country' };
     this.score =  {value: objInit.score ||  0, label: 'Score' };
@@ -19,6 +20,7 @@ function UserInfo(objInit) {
     this.referredCount = {value: objInit.referredCount ||  0, label: 'People Referred' };
     this.balance = {value: objInit.balance ||  0, label: 'Balance' };
     this.status = {value: objInit.isActive ? false : true , label: 'Suspended' };
+    this.wasSuspended = {value: objInit.wasSuspended ? true : false, label : 'Was Suspended' };
     this.joined = {value: new Date(objInit.joined).toLocaleString(), label:"Join Date"}
 }
 
