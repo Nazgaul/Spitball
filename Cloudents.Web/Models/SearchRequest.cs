@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models
 {
@@ -50,6 +51,9 @@ namespace Cloudents.Web.Models
         /// User courses id
         /// </summary>
         public string Course { get; set; }
+
+        [FromQuery(Name = "Uni")]
+        public string University { get; set; }
 
         public string[] Filter { get; set; }
 

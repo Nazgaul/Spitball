@@ -49,8 +49,7 @@ namespace Cloudents.Search.Tutor
             try
             {
                 var result = await _client.Documents
-                    .GetAsync<Entities.AutoComplete>(key, new[] { nameof(Entities.AutoComplete.Value) }, cancellationToken: token)
-                    .ConfigureAwait(false);
+                    .GetAsync<Entities.AutoComplete>(key, new[] { nameof(Entities.AutoComplete.Value) }, cancellationToken: token);
                 return result?.Value;
             }
             catch (Microsoft.Rest.Azure.CloudException ex) when (ex.Response.StatusCode == HttpStatusCode.NotFound)

@@ -129,7 +129,7 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="model"></param>
         /// <param name="profile">User profile - server generated</param>
-        /// <param name="ilSearchProvider"></param>
+        /// <param name="searchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
@@ -139,16 +139,18 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
                                 ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
             UserProfile profile,
-            [FromServices] IDocumentSearch ilSearchProvider,
+            [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
 
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Course, profile, model.Term,
-                model.Page.GetValueOrDefault(), model.Filter?.Where(w => !string.IsNullOrEmpty(w)));
+            var query = new DocumentQuery(profile,model.Term, model.Course, !string.IsNullOrEmpty(model.University), model.Filter?.Where(w => !string.IsNullOrEmpty(w)))
+            {
+                Page = model.Page.GetValueOrDefault(),
+            };
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
-            var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
+            var resultTask = searchProvider.SearchDocumentsAsync(query, token);
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
             if (User.Identity.IsAuthenticated)
