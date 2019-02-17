@@ -1,7 +1,8 @@
 ﻿<template>
     <general-page :title="(pageData&&pageData.details?pageData.details.title:'')">
         <template slot="sideBar">
-            <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
+            <!-- <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'" -->
+            <component :is="'mobile-sort-and-filter'"
                        :sortVal="sortVal" v-model="showFilters"
                        :filterOptions="filterOptions" :filterVal="filterSelection">
             </component>
@@ -12,7 +13,7 @@
                 <result-book :item="pageData.details" :isDetails="true"></result-book>
             </div>
             <div class="d-flex mobile-filter" :class="sortVal==='buy' ? 'pb-2' : 'pb-3'">
-                <v-btn class="hidden-sm-and-up text-xs-right" v-if="sortVal==='buy'" icon flat color="color-book" slot="mobileFilter" @click="showFilters=true">
+                <v-btn class="text-xs-right" v-if="sortVal==='buy'" icon flat color="color-book" slot="mobileFilter" @click="showFilters=true">
                     <v-icon>sbf-filter</v-icon>
                     <div class="counter color-book" v-if="filterSelection && filterSelection.length > 0">{{filterSelection.length}}</div>
                 </v-btn>
