@@ -3,19 +3,25 @@
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
         <div slot="main">
               <div class="d-flex mobile-filter">
-                  <askQuestionBtn v-if="$route.path.slice(1)==='ask'"
-                           :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] ">
-                  </askQuestionBtn>
-
-                  <upload-files-btn class="upload-card hidden-md-and-up"  v-show="isNote"></upload-files-btn>
-
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
+<v-flex v-if="filterCondition" class="filter-container">
+                <result-filter></result-filter>
+                <div class="filter-button-container">
+                    <v-btn icon :color="`color-${+$route.path.slice(1)}`" flat slot="mobileFilter" @click="showFilters=true"
+                       class="mobile-filter-icon-btn text-xs-right" v-if="filterCondition">
+                    <v-icon>sbf-filter</v-icon>
+                    <div :class="`counter fixedLocation color-${+$route.path.slice(1)}`"
+                         v-if="this.filterSelection.length">{{this.filterSelection.length}}
+                    </div>
+                </v-btn>
+                </div>
+            </v-flex>
+                <!-- <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
                        class="mobile-filter-icon-btn text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter fixedLocation color-'+$route.path.slice(1)"
                          v-if="this.filterSelection.length">{{this.filterSelection.length}}
                     </div>
-                </v-btn>
+                </v-btn> -->
             </div>
             <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
                 <template v-for="(item, index) in filterSelection">
@@ -93,7 +99,8 @@
             </div>
         </div>
         <template slot="sideBar" v-if="filterCondition">
-            <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'"
+            <!-- <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'" -->
+            <component :is="'mobile-sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
                        v-model="showFilters"

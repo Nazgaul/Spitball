@@ -60,7 +60,8 @@ function verticalResultPageFn(route) {
 const resultPage = {
     default: resultContent,
     header: pageHeader,
-    verticals: verticalsTabs
+    verticals: verticalsTabs,
+    schoolBlock: schoolBlock,
 };
 const resultProps = {
     default: dynamicPropsFn,
