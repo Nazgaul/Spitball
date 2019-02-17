@@ -48,7 +48,7 @@
                     </v-container>
                 </scroll-list>
                 <div v-else>
-                    <empty-study-card :userText="userText"></empty-study-card>
+                    <empty-state-card :userText="userText"></empty-state-card>
                 </div>
             </div>
         </div>

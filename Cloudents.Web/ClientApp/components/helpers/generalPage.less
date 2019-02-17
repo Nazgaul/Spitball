@@ -175,6 +175,14 @@
     justify-content: space-between;
     align-items: center;
     .result-filter-text{
+        margin-left: 5px;
+        white-space: nowrap;
+        width: 85%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      @media (max-width: @screen-sm) {
+        margin-left: 15px;
+      }
       .result-filter-text-bold{
         font-weight: 600;
       }

@@ -23,7 +23,7 @@ import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "../helpers/uploadFilesBtn/uploadFilesBtn.vue"
 import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
-import emptyStudyCard from './emptyStudyCard.vue'
+import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
 //The vue functionality for result page
@@ -44,7 +44,7 @@ export default {
         setUniClass,
         schoolBlock,
         resultFilter,
-        emptyStudyCard
+        emptyStateCard
     },
     data() {
         return {

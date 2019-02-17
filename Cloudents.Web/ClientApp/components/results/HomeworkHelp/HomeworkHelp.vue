@@ -51,13 +51,7 @@
                     </v-container>
                 </scroll-list>
                 <div v-else>
-                    <div class="result-cell elevation-1 mb-2 empty-state tri-right right-in" xs-12>
-                        <v-layout row class="pa-3">
-                            <v-flex>
-                                <p class="empty-state" v-language:inner>result_answer_not_found</p>
-                            </v-flex>
-                        </v-layout>
-                    </div>
+                    <empty-state-card :userText="userText" :helpAction="goToAskQuestion"></empty-state-card>
                 </div>
             </div>
         </div>
