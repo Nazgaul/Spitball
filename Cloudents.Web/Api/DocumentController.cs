@@ -11,7 +11,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
-using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
@@ -136,15 +135,13 @@ namespace Cloudents.Web.Api
         //TODO:We have issue in here because of changing course we need to invalidate the query.
         //[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
-                                ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
-            UserProfile profile,
+
             [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
 
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(profile,model.Term, model.Course, !string.IsNullOrEmpty(model.University), model.Filter?.Where(w => !string.IsNullOrEmpty(w)))
+            var query = new DocumentQuery(model.Profile, model.Term, model.Course, !string.IsNullOrEmpty(model.University), model.Filter?.Where(w => !string.IsNullOrEmpty(w)))
             {
                 Page = model.Page.GetValueOrDefault(),
             };
@@ -196,7 +193,7 @@ namespace Cloudents.Web.Api
                     new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
                         result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
                 },
-                 NextPageLink = nextPageLink
+                NextPageLink = nextPageLink
             };
         }
 

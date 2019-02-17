@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models
@@ -45,7 +47,13 @@ namespace Cloudents.Web.Models
       
     }
 
-    public class DocumentRequest : IPaging
+    public class DocumentRequest : VerticalRequest
+    {
+        public string[] Filter { get; set; }
+
+    }
+
+    public abstract class VerticalRequest : IPaging
     {
         /// <summary>
         /// User courses id
@@ -55,8 +63,7 @@ namespace Cloudents.Web.Models
         [FromQuery(Name = "Uni")]
         public string University { get; set; }
 
-        public string[] Filter { get; set; }
-
+        public bool NeedUniversity => !string.IsNullOrEmpty(University);
         /// <inheritdoc />
         /// <summary>
         /// Page for paging
@@ -69,5 +76,8 @@ namespace Cloudents.Web.Models
         // [DisplayFormat(HtmlEncode = true)]
         public string Term { get; set; }
 
+        [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
+                            ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
+        public UserProfile Profile { get; set; }
     }
 }
