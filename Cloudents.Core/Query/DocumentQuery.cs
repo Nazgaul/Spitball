@@ -1,31 +1,58 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cloudents.Core.Models;
+﻿using Cloudents.Core.Models;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.Query
 {
-    public class DocumentQuery
+    public class DocumentQuery : VerticalQuery
     {
-        public DocumentQuery(string course, UserProfile profile, string term, int page,
-            IEnumerable<string> filters)
+        //public DocumentQuery(string course, UserProfile profile, string term, int page,
+        //    IEnumerable<string> filters) :base(term,course,)
+        //{
+        //    Course = course;
+        //    Term = term;
+        //    Page = page;
+        //    Filters = filters ?? Enumerable.Empty<string>();
+        //    Profile = profile;
+        //}
+
+        public DocumentQuery(UserProfile userProfile, string term, string course, bool filterByUniversity, IEnumerable<string> filters) : base(userProfile, term, course, filterByUniversity)
         {
-            Course = course;
-            Term = term;
-            Page = page;
-            Filters = filters ?? Enumerable.Empty<string>();
-            Profile = profile;
+            Filters = filters;
         }
-        public string Course { get;  }
-
-
-        public string Term { get; }
-        public UserProfile Profile { get; }
-
-
-
-        public int Page { get; }
 
         public IEnumerable<string> Filters { get; }
+
+    }
+
+    public abstract class VerticalQuery
+    {
+
+
+        protected VerticalQuery(UserProfile userProfile, string term, string course, bool filterByUniversity)
+        {
+            UserProfile = userProfile;
+            Term = term;
+            Course = course;
+            if (string.IsNullOrEmpty(Course))
+            {
+                FilterByUniversity = filterByUniversity;
+            }
+            else
+            {
+                FilterByUniversity = true;
+            }
+
+            // Profile = profile;
+        }
+
+        public string Term { get; }
+        public string Course { get; }
+        public bool FilterByUniversity { get; }
+
+        public int Page { get; set; }
+
+        public UserProfile UserProfile { get;  }
+
 
     }
 }

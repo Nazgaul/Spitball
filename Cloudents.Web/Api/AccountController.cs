@@ -127,16 +127,14 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Perform course search per user
         /// </summary>
-        /// <param name="universityId"></param>
         /// <param name="token"></param>
         /// <returns>list of courses for a user</returns>
         [HttpGet("courses")]
         public async Task<IEnumerable<CourseDto>> GetCourses(
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserWithUniversityQuery(userId);
+            var query = new UserProfileQuery(userId);
             var t = await _queryBus.QueryAsync(query, token);
             return t.Courses.Select(s => new CourseDto(s));
         }

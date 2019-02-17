@@ -11,7 +11,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
-using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
@@ -129,26 +128,26 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="model"></param>
         /// <param name="profile">User profile - server generated</param>
-        /// <param name="ilSearchProvider"></param>
+        /// <param name="searchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
         //TODO:We have issue in here because of changing course we need to invalidate the query.
         //[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
-                                ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
-            UserProfile profile,
-            [FromServices] IDocumentSearch ilSearchProvider,
+
+            [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
 
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Course, profile, model.Term,
-                model.Page.GetValueOrDefault(), model.Filter?.Where(w => !string.IsNullOrEmpty(w)));
+            var query = new DocumentQuery(model.Profile, model.Term, model.Course, !string.IsNullOrEmpty(model.University), model.Filter?.Where(w => !string.IsNullOrEmpty(w)))
+            {
+                Page = model.Page.GetValueOrDefault(),
+            };
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
-            var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
+            var resultTask = searchProvider.SearchDocumentsAsync(query, token);
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
             if (User.Identity.IsAuthenticated)
@@ -194,7 +193,7 @@ namespace Cloudents.Web.Api
                     new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
                         result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
                 },
-                 NextPageLink = nextPageLink
+                NextPageLink = nextPageLink
             };
         }
 

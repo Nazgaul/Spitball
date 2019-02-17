@@ -14,13 +14,13 @@ namespace Cloudents.Core.Interfaces
 
     public interface IWebDocumentSearch
     {
-        Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model,
+        Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(BingSearchQuery model,
              CancellationToken token);
     }
 
     public interface IWebFlashcardSearch
     {
-        Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model,
+        Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(BingSearchQuery model,
              CancellationToken token);
     }
 }
