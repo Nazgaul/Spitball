@@ -56,8 +56,6 @@
             </span>
                     </div>
                     <div class="type-wrap">
-                        <!--<span :class="[ 'doc-type-text']">{{type}}</span>-->
-                        <!--<document-details :item="item"></document-details>-->
                         <v-flex grow class="data-row">
                             <div :class="['content-wrap']">
                                 <div class="title-wrap">
@@ -139,7 +137,6 @@
     import FlashcardDefault from "../helpers/img/flashcard.svg";
     import AskDefault from "../helpers/img/ask.svg";
     import NoteDefault from "../helpers/img/document.svg";
-    //
     import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
     import userRank from "../helpers/UserRank/UserRank.vue";
     import documentDetails from "./helpers/documentDetails/documentDetails.vue";
