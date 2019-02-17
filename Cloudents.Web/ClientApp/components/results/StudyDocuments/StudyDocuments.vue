@@ -48,22 +48,7 @@
                     </v-container>
                 </scroll-list>
                 <div v-else>
-                    <div class="result-cell elevation-1 mb-2 empty-state" xs-12>
-                        <v-layout row class="pa-3">
-                            <v-flex>
-                                <h6 class="mb-3"><span v-language:inner>result_your_search</span> - <span
-                                        class="user-search-text">{{userText}}</span> - <span v-language:inner>result_record_not_match</span>
-                                </h6>
-                                <div class="sug mb-2" v-language:inner>result_suggestions</div>
-                                <ul>
-                                    <li v-language:inner>result_spelling</li>
-                                    <li v-language:inner>result_different_keywords</li>
-                                    <li v-language:inner>result_general_keywords</li>
-                                    <li v-language:inner>result_fewer_keywords</li>
-                                </ul>
-                            </v-flex>
-                        </v-layout>
-                    </div>
+                    <empty-study-card :userText="userText"></empty-study-card>
                 </div>
             </div>
         </div>
