@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
@@ -14,7 +13,7 @@ namespace Cloudents.Web.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public DocumentType Type { get; set; }
+        public string Type { get; set; }
 
         [Required]
         [StringLength(Core.Entities.Course.MaxLength,ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
@@ -33,37 +32,19 @@ namespace Cloudents.Web.Models
             var stringLocalizer =
                 validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as
                     IStringLocalizer<DataAnnotationSharedResource>;
-            if (Tags != null)
+            if (Tags == null) yield break;
+            foreach (var tag in Tags)
             {
-                foreach (var tag in Tags)
+                if (Tag.ValidateTag(tag)) continue;
+                var errorMessage = "Invalid length";
+                if (stringLocalizer != null)
                 {
-                    if (!Tag.ValidateTag(tag))
-                    {
-                        var errorMessage = "Invalid length";
-                        if (stringLocalizer != null)
-                        {
-                            errorMessage = stringLocalizer["TagCannotContain"];
-                        }
-
-                        yield return new ValidationResult(
-                            errorMessage,
-                            new[] { nameof(Tags) });
-                    }
-                    
-                    //if (tag.Length > Tag.MaxLength || tag.Length < Tag.MinLength)
-                    //{
-                      
-                    //    var errorMessage = "Invalid length";
-                    //    if (stringLocalizer != null)
-                    //    {
-                    //        errorMessage = stringLocalizer["StringLength"];
-                    //    }
-
-                    //    yield return new ValidationResult(
-                    //        errorMessage,
-                    //        new[] {nameof(Tags)});
-                    //}
+                    errorMessage = stringLocalizer["TagCannotContain"];
                 }
+
+                yield return new ValidationResult(
+                    errorMessage,
+                    new[] { nameof(Tags) });
             }
         }
     }

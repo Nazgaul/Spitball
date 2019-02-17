@@ -155,7 +155,7 @@
                     if (previousSchoolName.toLowerCase() !== currentSchoolName.toLowerCase()) {
                         // this.fnMethods.openAreYouSurePopup(this.nextStep);
                         //TODO  v15 are you sure commented, take to next step without confirmation
-                        this.nextStep(true);
+                        this.nextStep(false);
                     } else {
                         //if the same university is presented then skip the set on the server
                         this.nextStep(true);
