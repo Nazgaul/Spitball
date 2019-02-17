@@ -1,11 +1,11 @@
 <template>
   <div class="elevation-1 mb-2 empty-state-container" xs-12>
-    <v-layout column class="pa-3">
+    <v-layout column class="pa-3 empty-state-top-layout">
       <v-flex>
-        <h6 class="mb-1">
+        <div class="mb-1 user-search-text-container">
           <span v-language:inner>result_no_result_found</span>&nbsp;
           <span class="user-search-text">"{{userText}}"</span>
-        </h6>
+        </div>
         <v-flex class="empty-state-content">
           <div>
             <ul>
@@ -20,11 +20,16 @@
           </div>
         </v-flex>
       </v-flex>
-      <!-- <v-flex mt-4>
-                <h6 class="mb-3">
-                    <span v-language:inner>result_still_cant_find</span>
-                </h6>
-      </v-flex>-->
+    </v-layout>
+    <v-layout column class="pa-3 empty-state-bottom-layout" v-show="helpAction">
+      <v-flex>
+        <div class="mb-1 user-search-cant-find-text">
+          <span v-language:inner>result_still_cant_find</span>
+        </div>
+        <div class="mb-1 user-search-button-container">
+          <button @click="helpAction()" v-language:inner>result_get_help</button>
+        </div>
+      </v-flex>
     </v-layout>
   </div>
 </template>
@@ -35,25 +40,13 @@ export default {
     userText: {
       type: String,
       default: ""
+    },
+    helpAction:{
+      type: Function,
+      default:null
     }
   }
 };
 </script>
 
-<style lang="less">
-.empty-state-container {
-    background: #fff;
-    border-radius: 4px;
-  .empty-state-content {
-    display: flex;
-    justify-content: space-between;
-  }
-  .empty-state-img-container {
-    display: flex;
-    .empty-state-img {
-      margin: auto 0;
-      pointer-events: none;
-    }
-  }
-}
-</style>
+<style lang="less" src="./emptyStateCard.less"></style>

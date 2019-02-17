@@ -5,7 +5,7 @@ function FileData(ObjInit){
         this.id = ObjInit.id || '';
         this.blobName = ObjInit.blobName || '';
         this.name= ObjInit.name || '';
-        this.type= ObjInit.type || 'none';
+        this.type= ObjInit.type || '';
         this.course= ObjInit.course || '';
         this.tags = ObjInit.tags || [];
         this.professor= ObjInit.professor || '';
@@ -22,7 +22,7 @@ function  ServerFormatFileData(ObjInit) {
     this.id = ObjInit.id || '';
     this.blobName = ObjInit.blobName || '';
     this.name= ObjInit.name || '';
-    this.type= ObjInit.type || 'none';
+    this.type= ObjInit.type || '';
     this.course= ObjInit.course || '';
     this.tags = ObjInit.tags || [];
     this.professor= ObjInit.professor || '';

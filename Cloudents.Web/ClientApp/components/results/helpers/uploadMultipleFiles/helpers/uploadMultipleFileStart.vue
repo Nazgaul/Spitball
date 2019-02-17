@@ -177,7 +177,7 @@
                     let URL = window.URL || window.webkitURL;
                     if (URL && URL.createObjectURL) {
                         //overwrite default file type(error on server if not)
-                        newFile.type ? newFile.type = 'none' : '';
+                        newFile.type ? newFile.type = '' : '';
                         let singleFile = uploadService.createFileData(newFile);
                         //add or replace
                         this.updateFile(singleFile);
