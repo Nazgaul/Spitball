@@ -37,7 +37,8 @@
                                          separator=","
                                          v-model="priceForAll"></vue-numeric>
                             <v-btn class="all-btn elevation-0"
-                                   :disabled="!priceForAll" @click="updatePrice()">Apply
+                                   :disabled="!priceForAll" @click="updatePrice()">
+                                <span v-language:inner>upload_multiple_bnt_apply</span>
                             </v-btn>
                         </div>
                     </v-flex>
@@ -49,7 +50,8 @@
                                     :label="placeholderTypeToAll"
                                     v-model="docType"></v-text-field>
                             <v-btn class="all-btn elevation-0"
-                                   :disabled="!docType" @click="updateDocsType()">Apply
+                                   :disabled="!docType" @click="updateDocsType()">
+                                <span v-language:inner>upload_multiple_bnt_apply</span>
                             </v-btn>
                             <!--<v-select-->
                             <!--class="sb-field doc-type-select elevation-0"-->

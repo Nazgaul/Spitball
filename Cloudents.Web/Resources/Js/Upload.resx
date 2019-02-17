@@ -220,4 +220,7 @@
   <data name="multiple_select_course_placeholder" xml:space="preserve">
     <value>Please select course</value>
   </data>
+  <data name="multiple_bnt_apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
 </root>
