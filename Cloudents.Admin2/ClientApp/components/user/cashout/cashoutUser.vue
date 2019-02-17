@@ -20,6 +20,7 @@
                 :headers="headers"
                 :items="cashOutList"
                 class="elevation-1"
+                disable-initial-sort
                 :rows-per-page-items="[25, 50, 100,{text: 'All', value:-1}]"
                 :search="search"
         >
