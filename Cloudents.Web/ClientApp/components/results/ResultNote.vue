@@ -133,10 +133,6 @@
     </router-link>
 </template>
 <script>
-    // v14 do we need this ?
-    import FlashcardDefault from "../helpers/img/flashcard.svg";
-    import AskDefault from "../helpers/img/ask.svg";
-    import NoteDefault from "../helpers/img/document.svg";
     import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
     import userRank from "../helpers/UserRank/UserRank.vue";
     import documentDetails from "./helpers/documentDetails/documentDetails.vue";
@@ -147,13 +143,9 @@
     import SbInput from "../question/helpers/sbInput/sbInput";
     import documentService from "../../services/documentService";
 
-
     export default {
         components: {
             SbInput,
-            AskDefault,
-            NoteDefault,
-            FlashcardDefault,
             documentDetails,
             sbDialog,
             reportItem,
