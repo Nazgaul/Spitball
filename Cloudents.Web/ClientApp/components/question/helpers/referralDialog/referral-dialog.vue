@@ -77,8 +77,8 @@
             <v-layout align-center justify-center class="mb-2" v-show="!isUploadReferral">
                 <v-flex xs12 sm12 md12>
                     <div>
-                        <span class="bottom-sub" v-html="text.dialog.bottomText"></span>
-                        <span class="bottom-sub bottom-sub-small" v-html="text.dialog.bottomTextSm"></span>
+                        <div class="bottom-sub" v-html="text.dialog.bottomText"></div>
+                        <div class="bottom-sub bottom-sub-small" v-html="text.dialog.bottomTextSm"></div>
                     </div>
                 </v-flex>
             </v-layout>
