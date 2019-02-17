@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="cashout-table-container">
         <span v-if="showLoading">Loading List...</span>
         <span v-if="showNoResult">NO RESULTS!</span>
         <h4>Cashout List</h4>
@@ -26,31 +26,34 @@
                 <td class="text-xs-center">{{ props.item.userId }}</td>
                 <td class="text-xs-center">{{ props.item.cashOutPrice }}</td>
                 <td class="text-xs-center">{{ props.item.userEmail }}</td>
-                <td class="text-xs-center">{{new Date(props.item.cashOutTime).toUTCString()}}</td>
-                <td class="text-xs-center">{{ props.item.userQueryRatio }}</td>
-                <td class="text-xs-center" :class="{'suspect': props.item.isSuspect}">
-                    {{props.item.isSuspect ? "Yes" : ""}}
-                </td>
+                <td class="text-xs-center">{{props.item.cashOutTime.toUTCString()}}</td>
+
                 <td class="text-xs-center">{{ props.item.isIsrael ? "Yes" : "" }}</td>
+
+                <td class="text-xs-center">{{ props.item.referCount }}</td>
+                <td class="text-xs-center">{{ props.item.soldDocument }}</td>
+                <td class="text-xs-center">{{ props.item.correctAnswer }}</td>
+                <td class="text-xs-center">{{ props.item.soldDeletedDocument }}</td>
+                <td class="text-xs-center">{{ props.item.deletedCorrectAnswer }}</td>
+                <td class="text-xs-center">{{ props.item.cashOut }}</td>
+                <td class="text-xs-center">{{ props.item.awardCount }}</td>
+                <td class="text-xs-center">{{ props.item.buyCount }}</td>
                 <td class="text-xs-center">{{ props.item.declinedReason }}</td>
                 <td class="text-xs-center">{{ props.item.approved }}</td>
                 <td class="text-xs-center">
                     <span v-if="!props.item.approved && !props.item.declinedReason">
-                          <v-icon
-                                  small
-                                  color="red"
-                                  class="mr-2"
-                                  @click="editItem(props.item)"
-                          >delete
+                        <v-icon small
+                                color="red"
+                                class="mr-2"
+                                @click="editItem(props.item)">
+                            delete
 
-                    </v-icon>
-                    <v-icon
-                            small
-                            color="green"
-                            @click="approveCashout(props.item)"
-                    >
-                        check
-                    </v-icon>
+                        </v-icon>
+                        <v-icon small
+                                color="green"
+                                @click="approveCashout(props.item)">
+                            check
+                        </v-icon>
                     </span>
 
                 </td>
@@ -120,12 +123,18 @@
                 search: '',
                 headers: [
                     {text: 'User ID', value: 'userId'},
-                    {text: 'Cashout Price', value: 'cashoutPrice'},
-                    {text: 'User Email', value: 'userEmail'},
-                    {text: 'Date of cash out', value: 'cashDate'},
-                    {text: 'User Query Ratio', value: 'queryRatio'},
-                    {text: 'Is Suspect', value: 'isSuspect'},
-                    {text: 'Is From Israel', value: 'isIsarel'},
+                    {text: 'Cashout Price', value: 'cashOutPrice'},
+                    { text: 'User Email', value: 'userEmail' },
+                    { text: 'Date of cash out', value: 'cashOutTime' },
+                    { text: 'Is From Israel', value: 'isIsarel' },
+                    { text: 'Refer users count', value: 'referCount' },
+                    { text: 'Document sold', value: 'soldDocument' },
+                    { text: 'Answer Correct', value: 'correctAnswer' },
+                    { text: 'Deleted Document', value: 'soldDeletedDocument' },
+                    { text: 'Deleted Answer', value: 'deletedCorrectAnswer' },
+                    { text: 'Cashout', value: 'cashOut' },
+                    { text: 'Award', value: 'awardCount' },
+                    { text: 'Buy Points', value: 'buyCount' },
                     {text: 'Decline reason', value: 'declinedReason'},
                     {text: 'Is Approved', value: 'approved'},
                     {text: 'Actions', value: 'Actions'},
@@ -190,6 +199,8 @@
 
 <style lang="scss" scoped>
     .cashout-table-container {
+        width: 100%;
+        max-width:  calc(100vw - 325px);
         .cashout-table {
             margin: 0 auto;
             text-align: center;

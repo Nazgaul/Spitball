@@ -49,7 +49,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -125,9 +125,10 @@ namespace ConsoleApp
             //var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
             //await t.DispatchAsync(p, default);
 
-            var bus = _container.Resolve<IQueryBus>();
-            var query2 = new IdsQuery<long>(new[] { 2055L });
-            var result = await bus.QueryAsync<IEnumerable<QuestionFeedDto>>(query2, default);
+            var bus = _container.Resolve<ICommandBus>();
+            var command = new ReferringUserCommand( 638, 159039);
+            await bus.DispatchAsync(command, token);
+
         }
 
 
