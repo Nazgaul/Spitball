@@ -12,7 +12,7 @@
             <div class="d-cell elevation-1 pa-2">
                 <result-book :item="pageData.details" :isDetails="true"></result-book>
             </div>
-            <div class="d-flex mobile-filter" :class="sortVal==='buy' ? 'pb-2' : 'pb-3'">
+            <div class="mobile-filter" :class="sortVal==='buy' ? 'pb-2' : 'pb-3'">
                 <v-btn   :ripple="false"
                          class="text-xs-right book-filter-btn"
                          v-if="sortVal==='buy'"
