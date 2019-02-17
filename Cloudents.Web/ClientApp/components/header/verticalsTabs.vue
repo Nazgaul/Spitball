@@ -2,7 +2,7 @@
     <div :class="{'pr-1 pl-1': isMobile}">
     <v-flex class="information-box" v-show="showInformationBlock">
         <div :class="{'information-box-mobile-wrap': isMobile}">
-            <v-icon v-show="$vuetify.breakpoint.xsOnly" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
+            <v-icon v-show="isMobile" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
             <span class="information-box-text" :class="{'mobile': isMobile}">{{informationBlockText}}</span>   
         </div>
          
@@ -48,7 +48,7 @@
         computed: {
             ...mapGetters(['getVerticalData', 'accountUser']),
             isMobile(){
-                return this.$vuetify.breakpoint.xsOnly
+                return this.$vuetify.breakpoint.mdAndDown
             },
             isInSearchMode(){
                 return !!this.$route.query.term;
@@ -91,7 +91,7 @@
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState','toggleShowSchoolBlock']),
             setNavigationDrawerState(){
-                if(this.$vuetify.breakpoint.xsOnly){
+                if(this.isMobile){
                    this.toggleShowSchoolBlock(false);
                    setTimeout(()=>{
                         this.toggleShowSchoolBlock(true);
