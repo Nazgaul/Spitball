@@ -25,12 +25,6 @@ namespace Cloudents.Search.Entities
             Subject = dto.Subject;
             State = dto.State;
             UniversityName = dto.UniversityName;
-            //if (dto.Subject.HasValue && dto.Subject.Value != 0)
-            //{
-            //    Subject = dto.Subject;
-            //}
-
-            //State = dto.Filter;
         }
 
         public Question(string id)

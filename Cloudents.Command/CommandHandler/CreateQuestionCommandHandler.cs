@@ -44,8 +44,8 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var currentBalance = await _transactionRepository.GetBalanceAsync(message.UserId, token);
-            var amountForAskingQuestion = currentBalance * 3 / 10;
-            if (amountForAskingQuestion < message.Price)
+           
+            if (currentBalance < message.Price)
             {
                 throw new InsufficientFundException();
             }

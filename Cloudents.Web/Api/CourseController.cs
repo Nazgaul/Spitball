@@ -26,6 +26,7 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly UserManager<RegularUser> _userManager;
+        private readonly SignInManager<RegularUser> _signInManager;
 
 
         /// <inheritdoc />
@@ -35,12 +36,12 @@ namespace Cloudents.Web.Api
         /// <param name="queryBus"></param>
         /// <param name="commandBus"></param>
         /// <param name="userManager"></param>
-        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<RegularUser> userManager)
+        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<RegularUser> userManager, SignInManager<RegularUser> signInManager)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
             _userManager = userManager;
-           
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -68,7 +69,9 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new AssignCoursesToUserCommand(model.Select(s=>s.Name), userId);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            await _commandBus.DispatchAsync(command, token);
+            var user = await _userManager.GetUserAsync(User);
+            await _signInManager.RefreshSignInAsync(user);
             return Ok();
         }
     }

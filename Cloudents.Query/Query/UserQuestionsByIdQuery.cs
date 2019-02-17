@@ -27,17 +27,7 @@ namespace Cloudents.Query.Query
         public int Page { get; }
     }
 
-    //public class UserQuestionsByIdQuery : IQuery<IEnumerable<QuestionFeedDto>>
-    //{
-    //    public UserQuestionsByIdQuery(long id, int page)
-    //    {
-    //        Id = id;
-    //        Page = page;
-    //    }
-
-    //    public long Id { get; }
-    //    public int Page { get; }
-    //}
+   
 
 
     public class UserAnswersByIdQuery : UserDataPagingByIdQuery

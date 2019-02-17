@@ -1,33 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Query
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper initialize")]
-    public class QuestionsQuery 
+    public class QuestionsQuery : VerticalQuery
     {
-        public QuestionsQuery(string term, 
+        public QuestionsQuery(UserProfile userProfile, 
+            string term,
+            string course, 
+            bool filterByUniversity,
             QuestionSubject[] source,
-            int page,
-            IEnumerable<QuestionFilter> filters,
-            string country
-            )
+            IEnumerable<QuestionFilter> filters) : base(userProfile, term, course, filterByUniversity)
         {
-            Term = term;
-            Country = country?.ToUpperInvariant();
             Source = source;
-            Page = page;
             Filters = filters;
         }
 
-        public string Term { get; }
-        [CanBeNull]
-        public string Country { get; }
 
         public QuestionSubject[] Source { get; }
-        public int Page { get; }
 
         public IEnumerable<QuestionFilter> Filters { get; }
     }

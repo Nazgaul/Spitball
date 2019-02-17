@@ -22,22 +22,41 @@ namespace Cloudents.Search.Question
             _client = client.GetClient(QuestionSearchWrite.IndexName);
         }
 
-        public async Task GetById(string id)
+        public async Task<Entities.Question> GetById(string id)
         {
             var t = await _client.Documents.GetAsync<Entities.Question>(id);
-
+            return t;
         }
 
         public async Task<(IEnumerable<long> result, IEnumerable<QuestionSubject> facetSubject, IEnumerable<QuestionFilter> facetFilter)>
             SearchAsync(QuestionsQuery query, CancellationToken token)
         {
             var filters = new List<string>();
-            var filter1 = $"{nameof(Entities.Question.Language)} eq 'en'";
-            if (query.Country != null)
+            //var filter1 = $"{nameof(Entities.Question.Language)} eq 'en'";
+
+            var country = query.UserProfile.Country ?? query.UserProfile.University?.Country;
+
+            if (country != null)
             {
-                filter1 += $" or {nameof(Entities.Question.Country)} eq '{query.Country.ToUpperInvariant()}'";
+                var filter1 = $"{nameof(Entities.Question.Country)} eq '{country.ToUpperInvariant()}'";
+                filters.Add($"({filter1})");
             }
-            filters.Add($"({filter1})");
+
+            if (query.Course != null)
+            {
+
+                var filterStr = $"{nameof(Entities.Question.Course)} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";
+                filters.Add($"({filterStr})");
+            }
+
+            if (query.FilterByUniversity)
+            {
+                var universityStr = $"{nameof(Entities.Question.UniversityName)} eq '{query.UserProfile.University.Name}'";
+                filters.Add($"({universityStr})");
+
+            }
+
+
             if (query.Source != null)
             {
                 var filterStr = string.Join(" or ", query.Source.Select(s =>
@@ -69,7 +88,7 @@ namespace Cloudents.Search.Question
                              {
                     new ScoringParameter
                     (QuestionSearchWrite.TagsCountryParameter
-                        , new[] {query.Country}),
+                        , new[] {query.UserProfile.Country}),
                 }
 
             };

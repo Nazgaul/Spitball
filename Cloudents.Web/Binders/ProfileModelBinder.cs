@@ -10,6 +10,7 @@ using Cloudents.Web.Identity;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 
 namespace Cloudents.Web.Binders
 {
@@ -83,10 +84,20 @@ namespace Cloudents.Web.Binders
             {
                 if (bindingContext.HttpContext.User.Identity.IsAuthenticated)
                 {
-                   // var uniId = GetUniversityClaimValue();
-                    var userId = _userManager.GetLongUserId(bindingContext.HttpContext.User);
-                    var query = new UserWithUniversityQuery(userId);
-                    profile = await _queryBus.QueryAsync(query, token);
+                    var profileStr = bindingContext.HttpContext.User.Claims.FirstOrDefault(f =>
+                        string.Equals(f.Type, AppClaimsPrincipalFactory.Profile, StringComparison.OrdinalIgnoreCase));
+                    if (profileStr?.Value != null)
+                    {
+                        profile = JsonConvert.DeserializeObject<UserProfile>(profileStr.Value);
+                    }
+
+                    else
+                    {
+                        // var uniId = GetUniversityClaimValue();
+                        var userId = _userManager.GetLongUserId(bindingContext.HttpContext.User);
+                        var query = new UserProfileQuery(userId);
+                        profile = await _queryBus.QueryAsync(query, token);
+                    }
                 }
 
                 //need to go to db

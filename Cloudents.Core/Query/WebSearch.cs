@@ -21,7 +21,7 @@ namespace Cloudents.Core.Query
             _api = api;
         }
 
-        public async Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model,
+        public async Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(BingSearchQuery model,
              CancellationToken token)
         {
             //var queryDb = new UniversityCoursesSynonymQuery(model.University, model.Courses);

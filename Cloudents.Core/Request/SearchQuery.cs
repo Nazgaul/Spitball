@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Cloudents.Core.Request
 {
-    public sealed class SearchQuery
+    public sealed class BingSearchQuery
     {
-        public static SearchQuery Document(string query, IEnumerable<string> university,
+        public static BingSearchQuery Document(string query, IEnumerable<string> university,
            string course,
             int page)
         {
-            return new SearchQuery
+            return new BingSearchQuery
             {
                 Query = query,
                 University = university,
@@ -18,10 +18,10 @@ namespace Cloudents.Core.Request
             };
         }
 
-        public static SearchQuery Flashcard(string query, IEnumerable<string> university,
+        public static BingSearchQuery Flashcard(string query, IEnumerable<string> university,
             string course, IEnumerable<string> sources, int page)
         {
-            return new SearchQuery
+            return new BingSearchQuery
             {
                 Query = query,
                 University = university,
@@ -31,7 +31,7 @@ namespace Cloudents.Core.Request
             };
         }
 
-        private SearchQuery()
+        private BingSearchQuery()
         {
 
         }
