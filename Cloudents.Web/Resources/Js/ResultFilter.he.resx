@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="not_now" xml:space="preserve">
-    <value>לא כרגע</value>
+  <data name="class_result" xml:space="preserve">
+    <value>תוצאות עבור קורס</value>
   </data>
-  <data name="personalize" xml:space="preserve">
-    <value>התאם אישית</value>
+  <data name="spitball_result" xml:space="preserve">
+    <value>תוצאות מאתר ספיטבול</value>
   </data>
-  <data name="personalize_results" xml:space="preserve">
-    <value>הגדר מוסד לימודים וקבל תוצאות חיפוש מותאמות אישית</value>
+  <data name="university_result" xml:space="preserve">
+    <value>תוצאות מ-</value>
   </data>
 </root>

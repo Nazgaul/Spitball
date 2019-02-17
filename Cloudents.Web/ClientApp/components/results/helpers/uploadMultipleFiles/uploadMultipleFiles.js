@@ -73,9 +73,7 @@ export default {
         },
         isLoaded() {
             let result = this.getFileData.every((item) => {
-                return item.progress === 100 && item.name !== ''
-
-                // return item.progress === 100 && item.name !== '' && item.name.length >=2
+                return item.progress === 100 && item.name !== '' && item.type !== ''
             });
             return result;
         }

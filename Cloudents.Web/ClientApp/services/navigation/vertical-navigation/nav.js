@@ -91,28 +91,34 @@ export let details = {
         ]
     }
 };
-//export let verticalsList = [];
 export let names = [];
 export let page = [];
 export let verticalsNavbar = [];
 export let verticalsName = [];
+
+
 for (let i in nav) {
     let item = nav[i].data;
     if(!item.visible) continue;
     verticalsName.push(i);
     names.push({'id': item.id, 'name': item.name});
-if(!!item.visible){
-    verticalsNavbar.push(
-        {
+    if(!!item.visible){
+        let isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
+        let isMobile = global.innerWidth < 600;
+        let navObj = {
             'id': item.id,
             'name': item.name,
             'icon': item.icon,
             'visible': item.visible,
             'soon': item.soon
             //image: item.image
-        });
-}
-   // verticalsList.push(nav[i]);
+        }
+        if(isRtl && isMobile){
+            verticalsNavbar.unshift(navObj);
+        }else{
+            verticalsNavbar.push(navObj);
+        }
+    }
     page[i] = {
         // title: item.resultTitle,
         //emptyText: item.emptyState,

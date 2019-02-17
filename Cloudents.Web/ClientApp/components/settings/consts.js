@@ -20,7 +20,6 @@ export let settingMenu = [
     {
         id: typesPersonalize.university,
         name:  LanguageService.getValueByKey("settings_university_choose"),
-       // name: "Choose university",
         click: function () {
             this.showDialog = true;
             this.type = "";
@@ -32,7 +31,6 @@ export let settingMenu = [
     {
         id: typesPersonalize.course,
         name:  LanguageService.getValueByKey("settings_my_courses"),
-        // name: "My courses",
         click: function (type) {
             this.showDialog = true;
             this.type = type;
@@ -53,16 +51,9 @@ export let settingMenu = [
 
 
 export let notRegMenu = [
-    // {
-    //     id: typesPersonalize.hebrew,
-    //     title: "עברית",
-    //     name:"hebrew",
-    //     icon:"sbf-profile"
-    // },
     {
         id: typesPersonalize.aboutSpitball,
         title:  LanguageService.getValueByKey("settings_menu_item_about_spitball"),
-        // title: "About Spitball",
         name:"about",
         icon:"sbf-about",
 
@@ -70,28 +61,24 @@ export let notRegMenu = [
     {
         id: typesPersonalize.help,
         title:  LanguageService.getValueByKey("settings_menu_item_help"),
-        //title: "Help",
         name:"faq",
         icon:"sbf-help"
     },
     {
         id: typesPersonalize.termsService,
         title:  LanguageService.getValueByKey("settings_menu_item_terms"),
-        //title: "Terms of Service",
         name:"terms",
         icon:"sbf-terms"
     },
     {
         id: typesPersonalize.privacyPolicy,
         title:  LanguageService.getValueByKey("settings_menu_item_privacy_policy"),
-        //title: "Privacy Policy",
         name:"privacy",
         icon:"sbf-privacy"
     },
     {
         id:typesPersonalize.feedback,
         title:  LanguageService.getValueByKey("settings_menu_item_feedback"),
-        // title:'Feedback',
         name: 'feedback',
         icon:"sbf-feedbackNew",
         click:()=>Intercom('showNewMessage'),

@@ -91,12 +91,12 @@
         },
         methods: {
             ...mapActions(["getLeadeBoardData"])
-
         },
         created() {
-            this.getLeadeBoardData();
+            if(this.LeaderBoardData && this.LeaderBoardData.leaders.length === 0 ){
+                this.getLeadeBoardData();
+            }
         }
-
     }
 </script>
 

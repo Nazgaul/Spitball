@@ -199,10 +199,7 @@
                  
         </sb-dialog>
     </div>
-
 </template>
-
-
 <script>
 
     import { mapGetters, mapActions } from 'vuex';
@@ -213,7 +210,6 @@
     import referralDialog from '../../question/helpers/referralDialog/referral-dialog.vue'
     import languagesLocales from '../../../services/language/localeLanguage'
     import { LanguageChange } from '../../../services/language/languageService'
-    import { typesPersonalize } from "../../settings/consts.js";
     import Base62 from "base62"
 
     export default {
@@ -302,7 +298,6 @@
                          }
                     })
                     this.$root.$emit("closeDrawer");
-                    // this.$root.$emit("personalize", typesPersonalize.university);
                 }
             },
             openPersonalizeCourse() {
