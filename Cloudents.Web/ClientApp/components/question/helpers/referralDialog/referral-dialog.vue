@@ -1,6 +1,6 @@
 <template>
     <v-card class="ref-block" elevation="0"
-            :style="isTransparent ? 'background: transparent;' : 'background-color: #fff;' ">
+            :style="isTransparent ? 'backgroundColor: transparent;' : 'background-color: #fff;' ">
         <div class="dialog-wrapp referral-container">
             <button class="close-btn text-md-right" @click.prevent="requestDialogClose()">
                 <v-icon>sbf-close</v-icon>
@@ -81,7 +81,8 @@
             <v-layout align-center justify-center class="mb-2" v-show="!isUploadReferral">
                 <v-flex xs12 sm12 md12>
                     <div>
-                        <span class="bottom-sub" v-html="text.dialog.bottomText"></span>
+                        <div class="bottom-sub" v-html="text.dialog.bottomText"></div>
+                        <div class="bottom-sub bottom-sub-small" v-html="text.dialog.bottomTextSm"></div>
                     </div>
                 </v-flex>
             </v-layout>
@@ -144,6 +145,7 @@
                         titleSpread: LanguageService.getValueByKey("referralDialog_spread"),
                         subTitle: LanguageService.getValueByKey("referralDialog_dialog_subtitle"),
                         bottomText: LanguageService.getValueByKey("referralDialog_dialog_bottom_text"),
+                        bottomTextSm: LanguageService.getValueByKey("referralDialog_dialog_bottom_text2"),
                         friendsJoined: LanguageService.getValueByKey("referralDialog_dialog_friends_joined"),
                     }
                 }
