@@ -1,6 +1,8 @@
 <template>
     <div class="search-input">
-        {{suggestionVertical}}
+        <span class="search-back-arrow" @click="goBackFromSearch()" v-show="isSearchActive">
+            <v-icon :class="{'rtl': isRtl}">sbf-arrow-right</v-icon>
+        </span>
         <div class="search-b-wrapper">
         <!--<div class="search-b-wrapper" v-scroll="onScroll">-->
             <v-text-field class="search-b" type="text" solo

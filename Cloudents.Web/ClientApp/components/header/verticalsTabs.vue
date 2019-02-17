@@ -91,14 +91,7 @@
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState','toggleShowSchoolBlock']),
             setNavigationDrawerState(){
-                if(this.isMobile){
-                   this.toggleShowSchoolBlock(false);
-                   setTimeout(()=>{
-                        this.toggleShowSchoolBlock(true);
-                   }, 200)
-                }else{
-                    this.toggleShowSchoolBlock()
-                }
+                 this.toggleShowSchoolBlock()
             },
             restoreVerticalDesign(){
                 //remove selected tab design
