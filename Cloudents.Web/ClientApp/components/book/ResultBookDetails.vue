@@ -13,7 +13,14 @@
                 <result-book :item="pageData.details" :isDetails="true"></result-book>
             </div>
             <div class="d-flex mobile-filter" :class="sortVal==='buy' ? 'pb-2' : 'pb-3'">
-                <v-btn class="text-xs-right" v-if="sortVal==='buy'" icon flat color="color-book" slot="mobileFilter" @click="showFilters=true">
+                <v-btn   :ripple="false"
+                         class="text-xs-right book-filter-btn"
+                         v-if="sortVal==='buy'"
+                         icon
+                         flat
+                         color="color-book"
+                         slot="mobileFilter"
+                         @click="showFilters=true">
                     <v-icon>sbf-filter</v-icon>
                     <div class="counter color-book" v-if="filterSelection && filterSelection.length > 0">{{filterSelection.length}}</div>
                 </v-btn>
