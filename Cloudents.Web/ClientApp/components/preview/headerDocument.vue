@@ -3,7 +3,7 @@
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <div class="gap ma-0"></div>
+                    <!--<div class="gap ma-0"></div>-->
                     <h1 class="item-name">
                         <span class=" text-truncate">{{itemName}} </span>
                     </h1>

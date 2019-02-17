@@ -1,11 +1,11 @@
 <template>
-    <v-navigation-drawer touchless class="school-block" width="260" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
+    <v-navigation-drawer touchless class="school-block" width="260" @input="updateDrawerValue" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
       <v-list>
-        <v-list-tile class="group-header">
+        <v-list-tile class="group-header search-university-title">
           <v-list-tile-action>
             <v-icon>sbf-university-columns</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openPersonalizeUniversity()">{{schoolName}}</v-list-tile-title>
+          <v-list-tile-title @click="openPersonalizeUniversity()">{{uniHeaderText}}</v-list-tile-title>
         </v-list-tile>
       </v-list>
       <v-list>
@@ -13,10 +13,16 @@
           <v-list-tile-action>
             <v-icon>sbf-courses-icon</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title @click="openPersonalizeCourse()">My Courses</v-list-tile-title>
+          <v-list-tile-title @click="openPersonalizeCourse()">{{coursesHeaderText}}</v-list-tile-title>
           <v-list-tile-action class="edit-course">
             <v-icon @click="openPersonalizeCourse()">sbf-close</v-icon>
           </v-list-tile-action>
+        </v-list-tile>
+        <v-list-tile
+          class="group-items"
+          :class="{'active': !selectedCourse}"
+          @click="selectCourse(null, true)">
+          <v-list-tile-title v-text="dictionary.allCourses"></v-list-tile-title>
         </v-list-tile>
         <v-list-tile
           class="group-items"
@@ -33,6 +39,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
+import {LanguageService} from "../../services/language/languageService"
 
 export default {
   name: "schoolBlock",
@@ -40,7 +47,13 @@ export default {
     return {
       selectedCourse: "",
       lock: false,
-      isRtl: global.isRtl
+      isRtl: global.isRtl,
+      dictionary:{
+        addUniversity: LanguageService.getValueByKey('schoolBlock_add_your_university'),
+        addcourses: LanguageService.getValueByKey('schoolBlock_add_your_courses'),
+        myCourses: LanguageService.getValueByKey('schoolBlock_my_courses'),
+        allCourses: LanguageService.getValueByKey('schoolBlock_all_courses'),
+      }
     };
   },
   props: {
@@ -58,11 +71,25 @@ export default {
       "getSearchLoading",
       "getShowSchoolBlock"
     ]),
-    isLoggedIn() {
-      return !!this.accountUser;
-    },
     schoolName() {
       return this.getSchoolName;
+    },
+    uniHeaderText(){
+      if(!!this.schoolName){
+        return this.schoolName;
+      }else{
+        return this.dictionary.addUniversity;
+      }
+    },
+    coursesHeaderText(){
+      if(this.getSelectedClasses.length > 0){
+        return this.dictionary.myCourses;
+      }else{
+        return this.dictionary.addcourses;
+      }
+    },
+    isLoggedIn() {
+      return !!this.accountUser;
     }
   },
   watch: {
@@ -83,23 +110,36 @@ export default {
   },
   methods: {
     ...mapActions([
-      "updateLoginDialogState",
-      "updateCurrentStep",
-      "changeSelectUniState"
+      "updateLoginDialogState","toggleShowSchoolBlock"
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
-
-    selectCourse(item) {
+    updateDrawerValue(val){
+        //this is required to set the current drawer state on the store, because when the 
+        //created event is getting called again (during route change)
+        //we need the last updated drawer state to be considered as default.
+        console.log(`drawer value is ${val}`);
+        this.toggleShowSchoolBlock(val);
+      
+    },
+    selectCourse(item, isDefault) {
       if (!this.lock) {
         this.lock = true;
-        let text = item.text ? item.text : item;
-        if (this.selectedCourse === text) {
-          this.lock = false;
-          return;
-          // this.selectedCourse = "";
-        } else {
-          this.selectedCourse = text;
-        }
+        if(!!isDefault){
+          if(!this.selectedCourse){
+            this.lock = false;
+            return;
+          }else{
+            this.selectedCourse = ""
+          }
+        }else{
+          let text = item.text ? item.text : item;
+          if (this.selectedCourse === text) {
+            this.lock = false;
+            return;
+          } else {
+            this.selectedCourse = text;
+          }
+        }        
         this.updateFilter();
       }
     },
@@ -126,8 +166,6 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         let steps = this.getAllSteps;
-        // this.updateCurrentStep(steps.set_class);
-        // this.changeSelectUniState(true);
         this.$router.push({
             name:'uniselect',
             params: {
@@ -141,8 +179,6 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         let steps = this.getAllSteps;
-        // this.updateCurrentStep(steps.set_school);
-        // this.changeSelectUniState(true);
         this.$router.push({
             name:'uniselect',
             params: {

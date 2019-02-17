@@ -24,7 +24,7 @@ export default {
                     }else if(!!this.$route.query && !!this.$route.query.uni){
                         return this.$route.query.uni;
                     }else{
-                        return this.$route.query.term
+                        return "";
                     }
                 }else{
                     return "";

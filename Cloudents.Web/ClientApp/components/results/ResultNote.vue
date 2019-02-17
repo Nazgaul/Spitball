@@ -266,6 +266,7 @@
                 "documentVote",
                 "updateLoginDialogState",
                 "updateToasterParams",
+                "removeItemFromProfile",
                 "syncProfile"
             ]),
             ...mapGetters(["accountUser"]),
@@ -325,22 +326,21 @@
                 this.showReport = !this.showReport;
             },
             //check if profile and refetch data after doc deleted
-            updateProfile() {
-                let account, id;
+            updateProfile(id) {
                 if (this.isProfile) {
-                    account = this.accountUser();
-                    id = account.id ? account.id : '';
-                    this.syncProfile(id);
+                    this.removeItemFromProfile({id: id});
                 }
             },
             deleteDocument() {
-                documentService.deleteDoc(this.item.id).then(
+                let id = this.item.id;
+                documentService.deleteDoc(id).then(
                     (success) => {
                         this.updateToasterParams({
                             toasterText: LanguageService.getValueByKey("resultNote_deleted_success"),
                             showToaster: true,
                         });
-                        this.updateProfile();
+                        this.updateProfile(id);
+
 
                     },
                     (error) => {

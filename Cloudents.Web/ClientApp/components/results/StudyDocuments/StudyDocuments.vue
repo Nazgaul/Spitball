@@ -20,7 +20,7 @@
             
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
-                    <v-container class="pa-0 ma-0 results-wrapper">
+                    <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-1' : 'pa-0'">
                         <v-layout column>
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
                                 <v-layout row align-center justify-space-between>
@@ -48,22 +48,7 @@
                     </v-container>
                 </scroll-list>
                 <div v-else>
-                    <div class="result-cell elevation-1 mb-2 empty-state" xs-12>
-                        <v-layout row class="pa-3">
-                            <v-flex>
-                                <h6 class="mb-3"><span v-language:inner>result_your_search</span> - <span
-                                        class="user-search-text">{{userText}}</span> - <span v-language:inner>result_record_not_match</span>
-                                </h6>
-                                <div class="sug mb-2" v-language:inner>result_suggestions</div>
-                                <ul>
-                                    <li v-language:inner>result_spelling</li>
-                                    <li v-language:inner>result_different_keywords</li>
-                                    <li v-language:inner>result_general_keywords</li>
-                                    <li v-language:inner>result_fewer_keywords</li>
-                                </ul>
-                            </v-flex>
-                        </v-layout>
-                    </div>
+                    <empty-study-card :userText="userText"></empty-study-card>
                 </div>
             </div>
         </div>

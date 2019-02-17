@@ -95,10 +95,6 @@
                     </div>
                 </div>
             </div>
-            <!--<button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}"-->
-            <!--v-if="detailedView && canDelete" @click="deleteQuestion()" v-language:inner>questionCard_Delete-->
-            <!--</button>-->
-            <!-- TODO strange behaviour check why is being added tab index-1 to DOM-->
             <v-dialog
                     v-if="showDialog"
                     v-model="showDialog"
