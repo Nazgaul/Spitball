@@ -25,6 +25,7 @@ namespace Cloudents.Admin2.Models
         [Required]
         public Country Country { get; set; }
 
+        [Required]
         public string University { get; set; }
 
         [MaxLength(4)]
