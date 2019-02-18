@@ -55,20 +55,10 @@
                 </v-flex>
                 <v-flex xs6 sm5 md5 order-sm4 order-md4>
                     <v-text-field
-                            :rules="[rules.required]"
                             solo
                             class="sb-field"
-                            :label="placeholderDocType"
+                            :placeholder="placeholderDocType"
                             v-model="item.type"></v-text-field>
-                    <!--<v-select-->
-                    <!--class="sb-field elevation-0"-->
-                    <!--:items="docTypes"-->
-                    <!--item-value="id"-->
-                    <!--item-text="title"-->
-                    <!--:label="placeholderDocType"-->
-                    <!--v-model="item.type"-->
-                    <!--solo-->
-                    <!--:append-icon="'sbf-arrow-down'"></v-select>-->
                 </v-flex>
                 <v-icon v-if="quantity >1 && !item.error" class="delete-close-icon d-flex mt-3" @click="deleteFile()">
                     sbf-close

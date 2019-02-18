@@ -31,7 +31,7 @@
                                          :minus="false"
                                          :min="0"
                                          :precision="2"
-                                         :label="emptySetToAll"
+                                         :placeholder="emptySetToAll"
                                          :max="1000"
                                          :currency-symbol-position="'suffix'"
                                          separator=","
@@ -47,7 +47,7 @@
                             <v-text-field
                                     solo
                                     class="sb-field doc-type-select"
-                                    :label="placeholderTypeToAll"
+                                    :placeholder="placeholderTypeToAll"
                                     v-model="docType"></v-text-field>
                             <v-btn class="all-btn elevation-0"
                                    :disabled="!docType" @click="updateDocsType()">
