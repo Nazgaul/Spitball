@@ -1,11 +1,11 @@
 ﻿using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using static Cloudents.Core.Entities.ItemStatus;
 using static Cloudents.Core.Entities.Vote;
 
@@ -35,7 +35,8 @@ namespace Cloudents.Core.Entities
             Views = 0;
             Professor = professor;
 
-            Price = price;
+            ChangePrice(price);
+            //Price = price;
             var status = Public;// GetInitState(user);
             if (status == Public)
             {
@@ -81,7 +82,7 @@ namespace Cloudents.Core.Entities
         public virtual IReadOnlyCollection<Transaction> Transactions => _transactions.ToList();
 
         public virtual ItemStatus Status { get; protected set; }
-        
+
         private readonly ICollection<Vote> _votes = new List<Vote>();
         public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
 
@@ -149,6 +150,8 @@ namespace Cloudents.Core.Entities
             Status = Public;
         }
 
+        public const decimal PriceLimit = 1000M;
+
         public virtual void ChangePrice(decimal newPrice)
         {
             if (Price == newPrice)
@@ -156,9 +159,14 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            Price = newPrice;
+            if (newPrice > PriceLimit)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            Price = decimal.Round(newPrice, 2);
             TimeStamp.UpdateTime = DateTime.UtcNow;
-            
+
         }
     }
 }

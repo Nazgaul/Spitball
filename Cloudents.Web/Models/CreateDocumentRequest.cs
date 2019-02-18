@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Cloudents.Core.Entities;
+using JetBrains.Annotations;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Entities;
-using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
@@ -16,13 +16,14 @@ namespace Cloudents.Web.Models
         public string Type { get; set; }
 
         [Required]
-        [StringLength(Core.Entities.Course.MaxLength,ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
+        [StringLength(Core.Entities.Course.MaxLength, ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
         public string Course { get; set; }
         [CanBeNull]
         public string[] Tags { get; set; }
 
         public string Professor { get; set; }
 
+        [Range(0, (int)Document.PriceLimit)]
         public decimal Price { get; set; }
 
 

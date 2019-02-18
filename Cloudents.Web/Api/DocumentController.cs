@@ -172,6 +172,15 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
 
+            var filters = new List<IFilters>();
+            if (result.Facet.Any())
+            {
+                var filter = new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+                    result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
+                filters.Add(filter);
+            }
+           
+           
             return new WebResponseWithFacet<DocumentFeedDto>
             {
                 Result = p.Select(s =>
@@ -188,11 +197,7 @@ namespace Cloudents.Web.Api
                     s.Title = Path.GetFileNameWithoutExtension(s.Title);
                     return s;
                 }),
-                Filters = new IFilters[]
-                {
-                    new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
-                        result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
-                },
+                Filters = filters,
                 NextPageLink = nextPageLink
             };
         }
@@ -287,7 +292,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new DeleteDocumentCommand(model.Id, _userManager.GetLongUserId(User));
-                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
             catch (ArgumentException)
