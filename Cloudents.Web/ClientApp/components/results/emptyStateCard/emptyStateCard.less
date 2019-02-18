@@ -10,7 +10,7 @@
 
   .empty-state-top-layout {
     background-image: url('./img/emptyStateBackground.png');
-    background-size: contain;
+    background-position-x: center;
     background-position-y: bottom;
     background-repeat: no-repeat;
     padding-bottom: 45px !important;
@@ -32,10 +32,10 @@
     .empty-state-content {
       display: flex;
       justify-content: space-between;
-
+      padding: 12px 0;
       ul {
         font-size: 12px;
-        line-height: 1.36;
+        line-height: 1.76;
         letter-spacing: -0.4px;
         color: #000000;
         padding-left: 0px;
@@ -47,6 +47,8 @@
         .empty-state-img {
           margin: auto 0;
           pointer-events: none;
+          width: 80%;
+          margin-left: auto;
         }
       }
     }

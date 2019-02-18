@@ -41,7 +41,7 @@
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                 <!-- <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <!-- <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
-                    <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-1' : 'pa-0'">
+                    <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
                         <v-layout column>
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
                                 <v-layout row align-center justify-space-between>
