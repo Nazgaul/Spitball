@@ -9,9 +9,9 @@
           <v-list-tile-action v-if="!schoolName" class="edit-course">
             <v-icon @click="openPersonalizeUniversity()">sbf-close</v-icon>
           </v-list-tile-action>
-          <v-list-tile-action v-else class="edit-university">
+          <!-- <v-list-tile-action v-else class="edit-university">
             <v-icon @click="openPersonalizeUniversity()">sbf-edit-icon</v-icon>
-          </v-list-tile-action>
+          </v-list-tile-action> -->
         </v-list-tile>
       </v-list>
       <v-list class="class-list">
@@ -128,15 +128,19 @@ export default {
       
     },
     isInSearchMode(){
-      return !!this.$route.query && !!this.$route.query.term
+      return (!!this.$route.query && !!this.$route.query.term) || (!!this.$route.query && (!!this.$route.query.Filter || !!this.$route.query.Source))
     },
     selectCourse(item, isDefault) {
       if (!this.lock) {
         this.lock = true;
         if(!!isDefault){
           if(!this.selectedCourse){
-            this.lock = false;
-            return;
+            if(this.isInSearchMode()){
+              this.selectedCourse = "";
+            }else{
+              this.lock = false;
+              return;
+            }
           }else{
             this.selectedCourse = ""
           }
@@ -165,12 +169,7 @@ export default {
       if (this.selectedCourse === "") {
         delete newQueryObject.Course;
       }
-      let filter = this.$route.query.Filter;
-      if (filter) {
-        newQueryObject.Filter = filter;
-      } else {
-        delete newQueryObject.Filter;
-      }
+      
       this.$router.push({ query: newQueryObject });
     },
 
