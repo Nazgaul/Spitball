@@ -54,4 +54,13 @@ namespace Cloudents.Core.DTOs.Admin
         public Uri Preview { get; set; }
         public string SiteLink { get; set; }
     }
+
+    public class UserPurchasedDocsDto
+    {
+        public long DocumentId { get; set; }
+        public string Title { get; set; }
+        public string Univesity { get; set; }
+        public string Class { get; set; }
+        public decimal Price { get; set; }
+    }
 }
