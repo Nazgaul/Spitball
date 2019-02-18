@@ -18,8 +18,10 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Models;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Web.Binders;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Cloudents.Web.Api
@@ -127,30 +129,41 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Perform course search per user
         /// </summary>
-        /// <param name="universityId"></param>
+        /// <param name="profile"></param>
         /// <param name="token"></param>
         /// <returns>list of courses for a user</returns>
         [HttpGet("courses")]
         public async Task<IEnumerable<CourseDto>> GetCourses(
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            [ProfileModelBinder(ProfileServiceQuery.Course
+            )] UserProfile profile,
             CancellationToken token)
         {
+            if (profile.Courses != null)
+            {
+                return profile.Courses.Select(s => new CourseDto(s));
+            }
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserWithUniversityQuery(userId);
+            var query = new UserProfileQuery(userId);
             var t = await _queryBus.QueryAsync(query, token);
             return t.Courses.Select(s => new CourseDto(s));
         }
 
         [HttpGet("University")]
         public async Task<UniversityDto> GetUniversityAsync(
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
+            [ProfileModelBinder(ProfileServiceQuery.University 
+                                )] UserProfile profile,
+
+        [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
             CancellationToken token)
         {
             if (!universityId.HasValue)
             {
                 return null;
             }
-            //TODO - should be user profile query
+            if (profile.University != null)
+            {
+                return new UniversityDto(profile.University.Id, profile.University.Name, profile.University.Country);
+            }
             var query = new UniversityQuery(universityId.Value);
             return await _queryBus.QueryAsync(query, token);
         }

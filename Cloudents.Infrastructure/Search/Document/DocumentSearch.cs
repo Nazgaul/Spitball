@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Core.Request;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Search.Document
 {
@@ -28,9 +28,8 @@ namespace Cloudents.Infrastructure.Search.Document
         public async Task<DocumentFeedWithFacetDto> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken token)
         {
-            
 
-            var searchResult = await _client.SearchAsync(query, token);
+            var searchResult = await _client.SearchAsync(query, query.UserProfile, token);
             var documentResult = searchResult.result.ToList();
             var ids = documentResult.Select(s => s.Id);
             var queryDb = new IdsQuery<long>(ids);
@@ -53,11 +52,12 @@ namespace Cloudents.Infrastructure.Search.Document
             if (retVal.Count == 0)
             {
                 //need to bring university Name , need to use sources
-                if (!query.Filters.Any())
+                if (!query.Filters?.Any() == true)
                 {
                     //case 12148
-                    var webQuery = SearchQuery.Document(query.Term, query.Profile.University?.ExtraName, query.Course, query.Page);
-                    var webResult = await 
+                    var webQuery = BingSearchQuery.Document(query.Term, query.UserProfile.University?.ExtraName,
+                        query.Course, query.Page);
+                    var webResult = await
                         _documentSearch.SearchWithUniversityAndCoursesAsync(webQuery, token);
                     if (webResult.Result != null)
                     {
@@ -72,7 +72,7 @@ namespace Cloudents.Infrastructure.Search.Document
                 }
             }
 
-            return new DocumentFeedWithFacetDto()
+            return new DocumentFeedWithFacetDto
             {
                 Result = retVal,
                 Facet = searchResult.facetSubject
