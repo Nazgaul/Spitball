@@ -6,6 +6,9 @@
   max-width: 765px;
   box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.21);
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   @media (max-width: @screen-xs) {
     max-width: unset;
 
@@ -274,5 +277,6 @@
   .content-container {
     padding-top: 16px;
     overflow: auto;
+    height:100%;
   }
 }
