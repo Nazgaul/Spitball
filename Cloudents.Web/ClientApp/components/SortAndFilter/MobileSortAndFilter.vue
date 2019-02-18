@@ -1,8 +1,16 @@
 <template>
-    <v-dialog v-model="value" content-class="filter-dialog" :fullscreen="$vuetify.breakpoint.xsOnly"  persistent>
-        <dialog-toolbar height="48" :toolbarTitle="toolBarTitle" :backAction="$_backAction">
-            <v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters"><span v-language:inner>mobileSortAndFilter_clearAll</span></v-btn>
-        </dialog-toolbar>
+    <v-dialog v-model="value" content-class="filter-dialog"  :max-width="$vuetify.breakpoint.smAndUp ? '720px' : ''" :fullscreen="$vuetify.breakpoint.xsOnly"  persistent>
+        <div class="dialog-header">
+            <span class="dialog-title">{{toolBarTitle}}</span>
+            <v-icon  class="close-icon-filter" @click="resetFilters">sbf-close</v-icon>
+        </div>
+
+        <!--<dialog-toolbar height="48" :toolbarTitle="toolBarTitle" :backAction="$_backAction">-->
+            <!--<v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters">-->
+                <!--<v-icon  slot="rightElement" class="close-icon-filter" @click="resetFilters">sbf-close</v-icon>-->
+                <!--<span v-language:inner>mobileSortAndFilter_clearAll</span> -->
+            <!--</v-btn>-->
+        <!--</dialog-toolbar>-->
         <div class="content-container">
             <div class="sort-wrap" v-if="sortOptions && sortOptions.length">
               <template>
@@ -27,7 +35,9 @@
                                     <slot :name="`${singleFilter.title}TitlePrefix`"></slot>
                                 </div>
                                 <slot name="headerTitle" :title="singleFilter.title">
-                                    <div>{{singleFilter.title}}</div>
+                                    <div>
+                                        <span class="filter-single-title">{{singleFilter.title}}</span>
+                                    </div>
                                 </slot>
                             </v-layout>
                         </v-layout>
@@ -48,8 +58,9 @@
                 </div>
             </div>
         </div>
-        <v-btn class="apply elevation-0" @click="applyFilters"><span v-language:inner>mobileSortAndFilter_applyFilterBtn</span></v-btn>
-
+        <div class="bottom-bnt-wrap justify-end align-center">
+            <v-btn class="apply elevation-0" @click="applyFilters"><span v-language:inner>mobileSortAndFilter_applyFilterBtn</span></v-btn>
+        </div>
     </v-dialog>
 </template>
 

@@ -167,7 +167,7 @@
     <value>Drag &amp; Drop Files Here</value>
   </data>
   <data name="multiple_keywords_optional" xml:space="preserve">
-    <value>Keywords (Optional)</value>
+    <value>Keywords</value>
   </data>
   <data name="multiple_or_browse_label" xml:space="preserve">
     <value>Or Browse</value>
@@ -182,13 +182,13 @@
     <value>price 0.00 Points</value>
   </data>
   <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>Professor (Optional)</value>
+    <value>Professor Name</value>
   </data>
   <data name="multiple_selected_class_label" xml:space="preserve">
     <value>Class</value>
   </data>
   <data name="multiple_select_filetype" xml:space="preserve">
-    <value>Document Type</value>
+    <value>Classify Document</value>
   </data>
   <data name="multiple_btn_upload" xml:space="preserve">
     <value>Upload</value>
@@ -219,5 +219,11 @@
   </data>
   <data name="multiple_select_course_placeholder" xml:space="preserve">
     <value>Please select course</value>
+  </data>
+  <data name="multiple_bnt_apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="multiple_fileName_placeholder" xml:space="preserve">
+    <value>File name</value>
   </data>
 </root>

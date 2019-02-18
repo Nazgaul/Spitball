@@ -6,6 +6,9 @@
             <v-icon>sbf-university-columns</v-icon>
           </v-list-tile-action>
           <v-list-tile-title @click="openPersonalizeUniversity()">{{uniHeaderText}}</v-list-tile-title>
+          <v-list-tile-action class="edit-course">
+            <v-icon @click="openPersonalizeUniversity()">{{schoolName ? 'sbf-edit-icon': 'sbf-close'}}</v-icon>
+          </v-list-tile-action>
         </v-list-tile>
       </v-list>
       <v-list>
@@ -121,6 +124,9 @@ export default {
         this.toggleShowSchoolBlock(val);
       
     },
+    isInSearchMode(){
+      return !!this.$route.query && !!this.$route.query.term
+    },
     selectCourse(item, isDefault) {
       if (!this.lock) {
         this.lock = true;
@@ -134,8 +140,12 @@ export default {
         }else{
           let text = item.text ? item.text : item;
           if (this.selectedCourse === text) {
-            this.lock = false;
-            return;
+            if(this.isInSearchMode()){
+              this.selectedCourse = text;
+            }else{
+              this.lock = false;
+              return;
+            }
           } else {
             this.selectedCourse = text;
           }

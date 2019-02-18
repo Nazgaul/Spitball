@@ -117,22 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="applyFilterBtn" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="clearAll" xml:space="preserve">
-    <value>Clear all</value>
-  </data>
-  <data name="filter" xml:space="preserve">
-    <value>Filter</value>
-  </data>
-  <data name="filterBy" xml:space="preserve">
-    <value>Filter by</value>
-  </data>
-  <data name="sortBy" xml:space="preserve">
-    <value>Sort by</value>
-  </data>
-  <data name="toolbarTitle" xml:space="preserve">
-    <value>Filter &amp; Sort</value>
+  <data name="required" xml:space="preserve">
+    <value>שדה חובה</value>
   </data>
 </root>

@@ -7,7 +7,7 @@
                                   :class="$vuetify.breakpoint.xsOnly ? 'mr-0 mb-2' : ' mr-2 mb-2'"
                                   v-model="item.name"
                                   :rules="[rules.required]"
-                                  placeholder=""></v-text-field>
+                                   :placeholder="fileNamePlaceholder"></v-text-field>
                     <div class="error-card-error-msg" v-show="item.error">
                         <span>{{item.error && item.errorText ? item.errorText : ''}}</span>
                         <!--<span v-language:inner>upload_multiple_error_upload_single_file</span>-->
@@ -55,20 +55,10 @@
                 </v-flex>
                 <v-flex xs6 sm5 md5 order-sm4 order-md4>
                     <v-text-field
-                            :rules="[rules.required]"
                             solo
                             class="sb-field"
-                            :label="placeholderDocType"
+                            :placeholder="placeholderDocType"
                             v-model="item.type"></v-text-field>
-                    <!--<v-select-->
-                    <!--class="sb-field elevation-0"-->
-                    <!--:items="docTypes"-->
-                    <!--item-value="id"-->
-                    <!--item-text="title"-->
-                    <!--:label="placeholderDocType"-->
-                    <!--v-model="item.type"-->
-                    <!--solo-->
-                    <!--:append-icon="'sbf-arrow-down'"></v-select>-->
                 </v-flex>
                 <v-icon v-if="quantity >1 && !item.error" class="delete-close-icon d-flex mt-3" @click="deleteFile()">
                     sbf-close
@@ -95,6 +85,7 @@
             return {
                 tags: [],
                 formattedPrice: '',
+                fileNamePlaceholder: LanguageService.getValueByKey("upload_multiple_fileName_placeholder"),
                 emptyPricePlaceholder: LanguageService.getValueByKey("upload_multiple_price_placeholder"),
                 placeholderTags: LanguageService.getValueByKey("upload_multiple_keywords_optional"),
                 placeholderDocType: LanguageService.getValueByKey("upload_multiple_select_filetype"),
@@ -293,7 +284,15 @@
                     display: none;
                 }
             }
+            //fix for Edge bug placeholder is visible when input has val
+            &.v-input--is-dirty {
+                .v-input__slot {
+                    input{
+                        .placeholder-color(transparent, null, null, null);
 
+                    }
+                }
+            }
             .v-select__selections {
                 max-height: 42px;
             }
@@ -322,7 +321,14 @@
             &:not(.error--text) {
                 max-height: 48px;
             }
-
+            //fix for Edge bug placeholder is visible when input has val
+            &.v-input--is-dirty {
+                .v-input__slot {
+                    input{
+                        .placeholder-color(transparent, null, null, null);
+                    }
+                }
+            }
             &.v-text-field--solo {
                 .v-input__slot {
                     box-shadow: none !important; //vuetify

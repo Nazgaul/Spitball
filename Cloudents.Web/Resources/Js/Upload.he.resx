@@ -126,6 +126,9 @@
   <data name="files_file_upload" xml:space="preserve">
     <value>העלה קובץ</value>
   </data>
+  <data name="multiple_bnt_apply" xml:space="preserve">
+    <value>החל</value>
+  </data>
   <data name="multiple_btn_upload" xml:space="preserve">
     <value>העלה</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="multiple_error_upload_something_wrong" xml:space="preserve">
     <value>קרתה תקלה, אנא נסה שנית</value>
+  </data>
+  <data name="multiple_fileName_placeholder" xml:space="preserve">
+    <value>שם קובץ</value>
   </data>
   <data name="multiple_files_btn_desktop" xml:space="preserve">
     <value>מחשב</value>
@@ -188,7 +194,7 @@
     <value>אתה על הגל, עכשיו עזור לחברים לספסל הלימודים (ותרוויח נקודות) על ידי שיתוף הקישור למסמך זה.</value>
   </data>
   <data name="multiple_keywords_optional" xml:space="preserve">
-    <value>מילות מפתח (לא חובה)</value>
+    <value>מילות מפתח</value>
   </data>
   <data name="multiple_label_icon_text" xml:space="preserve">
     <value>העלה</value>
@@ -209,7 +215,7 @@
     <value>מחיר 0.00 נקודות</value>
   </data>
   <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>שם מרצה (לא חובה)</value>
+    <value>שם מרצה</value>
   </data>
   <data name="multiple_selected_class_label" xml:space="preserve">
     <value>קורס</value>
@@ -218,6 +224,6 @@
     <value>בחר בבקשה קורס</value>
   </data>
   <data name="multiple_select_filetype" xml:space="preserve">
-    <value>סוג מסמך</value>
+    <value>תייג מסמך</value>
   </data>
 </root>

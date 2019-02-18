@@ -174,14 +174,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: @screen-sm) {
+      padding-top: 6px;
+    }
+    
     .result-filter-text{
         margin-left: 5px;
+        margin-bottom: 4px;
         white-space: nowrap;
         width: 85%;
         text-overflow: ellipsis;
         overflow: hidden;
       @media (max-width: @screen-sm) {
         margin-left: 15px;
+        font-size:12px;
       }
       .result-filter-text-bold{
         font-weight: 600;

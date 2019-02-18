@@ -33,7 +33,7 @@
                                 <v-select
                                         class="course-select custom-select elevation-0"
                                         :items="classesList"
-                                        :label="selectCoursePlaceholder"
+                                        :placeholder="selectCoursePlaceholder"
                                         v-model="courseSelected"
                                         @input="updateSelectedCourse()"
                                         solo
