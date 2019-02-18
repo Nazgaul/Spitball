@@ -87,7 +87,7 @@
         <div class="question-select left" :class="{'subject-error': hasClassError}">
           
           <v-select
-            :content-class="'question-select-list'"
+            :menu-props="{contentClass:'question-select-list'}"
             height="40"
             v-model="questionClass"
             single-line
@@ -113,7 +113,7 @@
         </div>
         <div class="question-select right">
           <v-select
-            :content-class="'question-select-list'"
+            :menu-props="{contentClass:'question-select-list'}"
             height="40"
             v-model="questionSubjct"
             single-line

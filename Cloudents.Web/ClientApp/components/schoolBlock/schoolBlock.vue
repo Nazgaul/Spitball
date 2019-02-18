@@ -121,6 +121,9 @@ export default {
         this.toggleShowSchoolBlock(val);
       
     },
+    isInSearchMode(){
+      return !!this.$route.query && !!this.$route.query.term
+    },
     selectCourse(item, isDefault) {
       if (!this.lock) {
         this.lock = true;
@@ -134,8 +137,12 @@ export default {
         }else{
           let text = item.text ? item.text : item;
           if (this.selectedCourse === text) {
-            this.lock = false;
-            return;
+            if(this.isInSearchMode()){
+              this.selectedCourse = text;
+            }else{
+              this.lock = false;
+              return;
+            }
           } else {
             this.selectedCourse = text;
           }
