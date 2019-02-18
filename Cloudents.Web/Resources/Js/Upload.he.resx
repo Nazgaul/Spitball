@@ -215,7 +215,7 @@
     <value>מחיר 0.00 נקודות</value>
   </data>
   <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>שם מרצה (לא חובה)</value>
+    <value>שם מרצה</value>
   </data>
   <data name="multiple_selected_class_label" xml:space="preserve">
     <value>קורס</value>

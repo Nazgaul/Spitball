@@ -182,13 +182,13 @@
     <value>price 0.00 Points</value>
   </data>
   <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>Professor (Optional)</value>
+    <value>Professor Name</value>
   </data>
   <data name="multiple_selected_class_label" xml:space="preserve">
     <value>Class</value>
   </data>
   <data name="multiple_select_filetype" xml:space="preserve">
-    <value>Classified Document</value>
+    <value>Classify Document</value>
   </data>
   <data name="multiple_btn_upload" xml:space="preserve">
     <value>Upload</value>
