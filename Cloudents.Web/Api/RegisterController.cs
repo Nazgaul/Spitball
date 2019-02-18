@@ -150,6 +150,7 @@ namespace Cloudents.Web.Api
             {
                 user = CreateUser(result.Email, result.Name);
                 user.EmailConfirmed = true;
+                user.ChangeLanguage(result.Language);
 
                 var result3 = await _userManager.CreateAsync(user);
                 if (result3.Succeeded)

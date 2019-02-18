@@ -47,7 +47,8 @@ namespace Cloudents.Infrastructure.Auth
             {
                 Id = result.Sub,
                 Name = result.Name,
-                Email = result.Email
+                Email = result.Email,
+                Language = result.Locale
             };
         }
     }
@@ -73,7 +74,7 @@ namespace Cloudents.Infrastructure.Auth
         public string GivenName { get; set; }
         [JsonProperty("family_name")]
         public string FamilyName { get; set; }
-        //public string Locale { get; set; }
+        public string Locale { get; set; }
        // public string Alg { get; set; }
         //public string Kid { get; set; }
     }
