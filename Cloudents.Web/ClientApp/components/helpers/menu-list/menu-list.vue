@@ -191,11 +191,10 @@
         <!--<v-dialog v-if="showSettingsFirst" v-model="showSettings" content-class="settings-dialog" max-width="610">-->
         <!--<user-settings v-model="showSettings"></user-settings>-->
         <!--</v-dialog>-->
-
         <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
                    :onclosefn="closeReferralDialog"
                    :content-class="'login-popup'">
-            <referral-dialog :isTransparent="true" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
+            <referral-dialog :onclosefn="closeReferralDialog" :isTransparent="true" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
                  
         </sb-dialog>
     </div>
