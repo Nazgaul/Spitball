@@ -26,7 +26,7 @@
                 </template>
             </div>
 
-            <div class="filter-wrap px-5" v-if="filterList && filterList.length">
+            <div class="filter-wrap" :class="$vuetify.breakpoint.xsOnly ? 'px-4' : 'px-5'" v-if="filterList && filterList.length">
                 <!--<h3 class="" v-language:inner>mobileSortAndFilter_filterBy</h3>-->
                 <div class="filter-sections">
                     <div class="filter-section" v-for="(singleFilter) in filterList" :key="singleFilter.id" :value="true">
