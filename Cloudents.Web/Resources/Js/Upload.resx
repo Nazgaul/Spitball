@@ -223,4 +223,7 @@
   <data name="multiple_bnt_apply" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="multiple_fileName_placeholder" xml:space="preserve">
+    <value>File name</value>
+  </data>
 </root>

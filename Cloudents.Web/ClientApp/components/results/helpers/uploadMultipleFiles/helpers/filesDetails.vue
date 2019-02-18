@@ -53,20 +53,6 @@
                                    :disabled="!docType" @click="updateDocsType()">
                                 <span v-language:inner>upload_multiple_bnt_apply</span>
                             </v-btn>
-                            <!--<v-select-->
-                            <!--class="sb-field doc-type-select elevation-0"-->
-                            <!--:items="docTypes"-->
-                            <!--item-value="id"-->
-                            <!--item-text="title"-->
-                            <!--hide-details-->
-                            <!--:label="placeholderTypeToAll"-->
-                            <!--v-model="docType"-->
-                            <!--solo-->
-                            <!--:append-icon="'sbf-arrow-down'">-->
-                            <!--</v-select>-->
-                            <!--<v-btn class="all-btn elevation-0"-->
-                            <!--:disabled="!docType" @click="updateDocsType()">Apply-->
-                            <!--</v-btn>-->
                         </div>
                     </v-flex>
                 </v-flex>
@@ -183,7 +169,15 @@
                 max-width: unset;
             }
             .sb-field {
+                //fix for Edge bug placeholder is visible when input has val
+                &.v-input--is-dirty {
+                    .v-input__slot {
+                        input{
+                            .placeholder-color(transparent, null, null, null);
 
+                        }
+                    }
+                }
                 .v-input__slot {
                     border-right: none;
                     border-radius: 0 4px 0 4px;
