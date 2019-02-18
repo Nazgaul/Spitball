@@ -94,9 +94,9 @@ export default {
         },
 
         resetFilters() {
-                this.initFilters();
-                this.$router.push({query: {term: this.$route.query.term}});
-                this.applyFilters();
+                // this.initFilters();
+                // this.$router.push({query: {term: this.$route.query.term}});
+                // this.applyFilters();
                 this.$emit('input', false);
 
         },
