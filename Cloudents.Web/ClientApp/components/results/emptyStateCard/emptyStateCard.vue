@@ -2,9 +2,12 @@
   <div class="elevation-1 mb-2 empty-state-container" xs-12>
     <v-layout column class="pa-3 empty-state-top-layout">
       <v-flex>
-        <div class="mb-1 user-search-text-container">
-          <span v-language:inner>result_no_result_found</span>&nbsp;
+        <div class="mb-1 user-search-text-container" v-show="userText">
+          <span v-language:inner>result_no_result_found_for</span>&nbsp;
           <span class="user-search-text">"{{userText}}"</span>
+        </div>
+        <div class="mb-1 user-search-text-container" v-show="!userText">
+          <span v-language:inner>result_no_result_found</span>
         </div>
         <v-flex class="empty-state-content">
           <div>

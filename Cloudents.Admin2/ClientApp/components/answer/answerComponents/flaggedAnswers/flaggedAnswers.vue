@@ -9,23 +9,26 @@
                     <v-card v-for="(answer, index) in answers" :key="index" style="padding: 0 12px;">
                         <v-toolbar class="question-toolbar mt-4 back-color-purple">
                             <v-toolbar-title class="question-text-title">
-                                {{answer.text}}
+                                Question: {{answer.questionText}}
                             </v-toolbar-title>
                             <v-spacer></v-spacer>
-                            <span title="Fictive Or Original Question ">{{answer.flaggedUserEmail}}</span>
+                            <span title="Fictive Or Original Question ">{{answer.markerEmail}}</span>
                             <v-spacer></v-spacer>
-                            <div class="answer-id" @click="doCopy(answer.id)">
-                                <span>Answer Id: {{answer.id}}</span>
-                            </div>
+                            <!--<div class="answer-id" @click="doCopy(answer.id)">-->
+                                <!--<span>Answer Id: {{answer.id}}</span>-->
+                            <!--</div>-->
                         </v-toolbar>
 
                         <v-list two-line avatar>
                             <template>
                                 <v-list-tile class="answers-list-tile">
                                     <v-list-tile-content class="answers-content">
-                                        <v-list-tile-sub-title  class="answer-subtitle-reason">{{answer.reason}}
+                                        <v-list-tile-sub-title  class="answer-subtitle-reason">
+                                            Reason: {{answer.reason}}
+                                            <v-spacer></v-spacer>
+                                            Flagged User Email: {{answer.flaggedUserEmail}}
                                         </v-list-tile-sub-title>
-                                        <v-list-tile-sub-title class="answer-subtitle">{{answer.questionText}}
+                                        <v-list-tile-sub-title class="answer-subtitle">Answer: {{answer.text}}
                                         </v-list-tile-sub-title>
                                     </v-list-tile-content>
                                     <v-list-tile-action class="answer-action">

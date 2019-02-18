@@ -33,7 +33,7 @@ export default {
         this.$router.push({
             name:'uniselect',
              params: {
-                 step:steps.set_school
+                 step:universitySteps.set_school
              }
          })
       }

@@ -33,7 +33,7 @@
                         </v-list-tile-content>
                         <v-list-tile-action class="leader-ammount">
                             <bdi>
-                                <span>${{leader.score | dollarVal | commasFilter}}</span>
+                                <span>${{(parseInt(leader.score)/ 100).toFixed(0) |  commasFilter}}</span>
                             </bdi>
                         </v-list-tile-action>
                     </v-list-tile>
@@ -44,7 +44,7 @@
                         <span class="total-label" :class="$vuetify.breakpoint.xsOnly ? 'mr-5' : 'mr-2'" v-language:inner>leadersBoard_total</span>
                     </div>
                     <div>
-                        <span class="total-sum">${{total  | dollarVal | commasFilter}}</span>
+                        <span class="total-sum">${{(parseInt(total)/ 100).toFixed(0)  |  commasFilter}}</span>
                     </div>
 
             </div>
