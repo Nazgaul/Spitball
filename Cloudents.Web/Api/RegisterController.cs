@@ -64,8 +64,6 @@ namespace Cloudents.Web.Api
                 }
                 catch (ArgumentException)
                 {
-                   
-
                 }
                
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
