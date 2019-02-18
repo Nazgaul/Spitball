@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'pr-2 pl-2': isMobile}">
+    <div :class="{'pr-2 pl-2': isMobile, 'hide-header': hideHeader}">
     <v-flex class="information-box" v-show="showInformationBlock">
         <div :class="{'information-box-mobile-wrap': isMobile}">
             <v-icon v-show="isMobile" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
@@ -46,7 +46,7 @@
             }
         },
         computed: {
-            ...mapGetters(['getVerticalData', 'accountUser']),
+            ...mapGetters(['getVerticalData', 'accountUser', 'showMobileFeed']),
             isMobile(){
                 return this.$vuetify.breakpoint.mdAndDown
             },
@@ -78,6 +78,14 @@
                 }else{
                     return LanguageService.getValueByKey("schoolBlock_information_box_latest");
                 }
+            },
+            hideHeader(){
+                if(this.$vuetify.breakpoint.xsOnly){
+                    return this.$route.name === "uniselect" || !this.showMobileFeed;
+                }else{
+                    return false;
+                }
+                
             }
         },
         watch: {
