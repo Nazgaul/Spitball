@@ -48,7 +48,7 @@ namespace Cloudents.Core.Entities
 
         public Question(Course course, string text, decimal price, int attachments,
             SystemUser user,
-             CultureInfo language)
+             CultureInfo language, University university)
             : this()
         {
             Course = course;
@@ -61,6 +61,7 @@ namespace Cloudents.Core.Entities
             Status = Pending;
             //ChangeState(ItemState.Pending);
             Language = language;
+            University = university;
 
         }
 
