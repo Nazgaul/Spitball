@@ -58,7 +58,7 @@
                             :rules="[rules.required]"
                             solo
                             class="sb-field"
-                            :label="placeholderDocType"
+                            :placeholder="placeholderDocType"
                             v-model="item.type"></v-text-field>
                     <!--<v-select-->
                     <!--class="sb-field elevation-0"-->
