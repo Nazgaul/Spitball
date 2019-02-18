@@ -29,10 +29,10 @@ namespace Cloudents.Core.Models
             Country = country;
         }
 
-        public Guid Id { get; set; }
-        public IEnumerable<string> ExtraName { get; set; }
-        public string Name { get; set; }
+        public Guid Id { get;  set; }
+        public IEnumerable<string> ExtraName { get;  set; }
+        public string Name { get;  set; }
 
-        public string Country { get; private set; }
+        public string Country { get;  set; }
     }
 }
