@@ -15,7 +15,7 @@ set Score = (select count(1)
 			from sb.[Transaction] 
 			where TransactionType in ('Question', 'Document') 
 				and Price > 0 
-				and [Type] = 'Erned'
+				and [Type] = 'Earned'
 				and U.Id = [User_Id]
 			)
 from sb.[User] U 
@@ -23,7 +23,7 @@ where Score != (select count(1)
 			from sb.[Transaction] 
 			where TransactionType in ('Question', 'Document') 
 				and Price > 0 
-				and [Type] = 'Erned'
+				and [Type] = 'Earned'
 				and U.Id = [User_Id]
 			)
 
@@ -37,7 +37,7 @@ and Score != 2 + (select count(1)
 			from sb.[Transaction] 
 			where TransactionType in ('Question', 'Document') 
 				and Price > 0 
-				and [Type] = 'Erned'
+				and [Type] = 'Earned'
 				and U.Id = [User_Id]
 			)
 commit
