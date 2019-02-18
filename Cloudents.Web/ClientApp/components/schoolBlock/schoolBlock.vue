@@ -6,6 +6,9 @@
             <v-icon>sbf-university-columns</v-icon>
           </v-list-tile-action>
           <v-list-tile-title @click="openPersonalizeUniversity()">{{uniHeaderText}}</v-list-tile-title>
+          <v-list-tile-action class="edit-course">
+            <v-icon @click="openPersonalizeUniversity()">{{schoolName ? 'sbf-edit-icon': 'sbf-close'}}</v-icon>
+          </v-list-tile-action>
         </v-list-tile>
       </v-list>
       <v-list>

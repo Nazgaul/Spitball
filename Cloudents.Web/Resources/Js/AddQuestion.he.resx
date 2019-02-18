@@ -145,7 +145,7 @@
     <value>ערך שגוי</value>
   </data>
   <data name="regular_error_maxLimit" xml:space="preserve">
-    <value>הגעת למקסימום</value>
+    <value>המקסימום להצעה הוא 100 נק'</value>
   </data>
   <data name="regular_error_minRequired" xml:space="preserve">
     <value>נדרשת לפחות נקןדה אחת</value>

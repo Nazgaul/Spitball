@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'pr-1 pl-1': isMobile}">
+    <div :class="{'pr-2 pl-2': isMobile}">
     <v-flex class="information-box" v-show="showInformationBlock">
         <div :class="{'information-box-mobile-wrap': isMobile}">
             <v-icon v-show="isMobile" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
