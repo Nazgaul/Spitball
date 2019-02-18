@@ -7,6 +7,7 @@ function FlaggedAnswerItem(objInit) {
     this.flaggedUserEmail = objInit.flaggedUserEmail;
     this.text = objInit.text || '';
     this.questionText = objInit.questionText || '';
+    this.markerEmail = objInit.markerEmail || '';
 }
 
 
