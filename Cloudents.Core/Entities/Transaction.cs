@@ -23,7 +23,7 @@ namespace Cloudents.Core.Entities
         public virtual TransactionType Type { get; protected set; }
         public virtual decimal Price { get; protected set; }
 
-        public abstract int AwardScore { get; }
+        //public abstract int AwardScore { get; }
 
     }
 
@@ -72,7 +72,7 @@ namespace Cloudents.Core.Entities
             DeclinedReason = reason;
         }
 
-        public override int AwardScore => 0;
+        //public override int AwardScore => 0;
     }
 
     public class CommissionTransaction : Transaction
@@ -92,7 +92,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public override int AwardScore => 0;
+        //public override int AwardScore => 0;
     }
 
     public class BuyPointsTransaction : Transaction
@@ -114,7 +114,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public override int AwardScore => 0;
+        //public override int AwardScore => 0;
     }
 
     public class AwardMoneyTransaction : Transaction
@@ -168,7 +168,7 @@ namespace Cloudents.Core.Entities
         }
 
         private int _awardScore;
-        public override int AwardScore => _awardScore;
+       // public override int AwardScore => _awardScore;
     }
 
     public class QuestionTransaction : Transaction
@@ -256,7 +256,7 @@ namespace Cloudents.Core.Entities
             userAnswer.MakeTransaction(new CommissionTransaction(question.Price));
         }
 
-        public override int AwardScore => _awardScore;
+       // public override int AwardScore => _awardScore;
     }
 
     public class ReferUserTransaction : Transaction
@@ -277,7 +277,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public override int AwardScore => 0;
+       // public override int AwardScore => 0;
     }
 
     public class DocumentTransaction : Transaction
@@ -328,7 +328,7 @@ namespace Cloudents.Core.Entities
 
         private int _awardScore ;
 
-        public override int AwardScore => _awardScore;
+        //public override int AwardScore => _awardScore;
     }
 
     public sealed class AwardsTransaction
