@@ -238,6 +238,12 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
+        [HttpGet("purchased")]
+        public async Task<IEnumerable<UserPurchasedDocsDto>> GetUserPurchasedDocsDetails(long id, int page, CancellationToken token)
+        {
+            var query = new AdminUserPurchasedDocsQuery(id, page);
+            return await _queryBus.QueryAsync(query, token);
+        }
 
         [HttpGet("documents")]
         public async Task<IEnumerable<UserDocumentsDto>> GetUserInfo(long id, int page, [FromServices] IBlobProvider blobProvider,
