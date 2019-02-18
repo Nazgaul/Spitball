@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models
@@ -63,6 +64,7 @@ namespace Cloudents.Web.Models
         [FromQuery(Name = "Uni")]
         public string University { get; set; }
 
+        [IgnoreNextPageLink]
         public bool NeedUniversity => !string.IsNullOrEmpty(University);
         /// <inheritdoc />
         /// <summary>
@@ -78,6 +80,7 @@ namespace Cloudents.Web.Models
 
         [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
                             ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
+        [IgnoreNextPageLink]
         public UserProfile Profile { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Reflection;
+using Castle.Core.Internal;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using IPaging = Cloudents.Web.Models.IPaging;
@@ -60,6 +62,12 @@ namespace Cloudents.Web.Extensions
 
             prefix = prefix.TrimStart('.');
             var valType = val.GetType();
+           
+            //if (valType.GetAttribute<IgnoreNextPageLinkAttribute>() != null)
+            //{
+            //    return;
+                
+            //}
 
             if (val.ToString() != val.GetType().ToString() && IsAnonymous(valType))
             {
@@ -79,6 +87,11 @@ namespace Cloudents.Web.Extensions
             }
             foreach (var property in valType.GetProperties())
             {
+                var z = property.GetCustomAttribute(typeof(IgnoreNextPageLinkAttribute), true);
+                if (z != null)
+                {
+                    continue;
+                }
                 var propertyValue2 = property.GetValue(val);
 
                 AddObject($"{prefix}.{property.Name}", propertyValue2, nvc);
@@ -101,5 +114,10 @@ namespace Cloudents.Web.Extensions
                 name = name.Replace("+", "-")
             });
         }
+    }
+
+    public sealed class IgnoreNextPageLinkAttribute : Attribute
+    {
+
     }
 }

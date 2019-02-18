@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Core.DTOs
+﻿using Cloudents.Core.Entities;
+
+namespace Cloudents.Core.DTOs
 {
     public class ExternalAuthDto
     {
@@ -6,6 +8,8 @@
         public string Email { get; set; }
 
         public string Id { get; set; }
+
+        public Language Language { get; set; }
 
         public override string ToString()
         {
