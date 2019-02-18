@@ -9,9 +9,9 @@
           <v-list-tile-action v-if="!schoolName" class="edit-course">
             <v-icon @click="openPersonalizeUniversity()">sbf-close</v-icon>
           </v-list-tile-action>
-          <v-list-tile-action v-else class="edit-university">
+          <!-- <v-list-tile-action v-else class="edit-university">
             <v-icon @click="openPersonalizeUniversity()">sbf-edit-icon</v-icon>
-          </v-list-tile-action>
+          </v-list-tile-action> -->
         </v-list-tile>
       </v-list>
       <v-list class="class-list">
