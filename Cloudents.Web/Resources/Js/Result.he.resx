@@ -138,8 +138,14 @@
   <data name="general_keywords" xml:space="preserve">
     <value>נסה מילות מפתח כלליות יותר.</value>
   </data>
+  <data name="get_help" xml:space="preserve">
+    <value>קבל עזרה</value>
+  </data>
   <data name="new_questions" xml:space="preserve">
     <value>שאלות חדשות</value>
+  </data>
+  <data name="no_result_found" xml:space="preserve">
+    <value>לא נמצאו תוצאות עבור</value>
   </data>
   <data name="ok" xml:space="preserve">
     <value>אישור</value>
@@ -152,6 +158,9 @@
   </data>
   <data name="spelling" xml:space="preserve">
     <value>בדוק איות.</value>
+  </data>
+  <data name="still_cant_find" xml:space="preserve">
+    <value>עדיין לא מוצא את מה שחיפשת?</value>
   </data>
   <data name="suggestions" xml:space="preserve">
     <value>הצעות:</value>
