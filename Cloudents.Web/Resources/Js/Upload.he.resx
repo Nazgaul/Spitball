@@ -188,7 +188,7 @@
     <value>אתה על הגל, עכשיו עזור לחברים לספסל הלימודים (ותרוויח נקודות) על ידי שיתוף הקישור למסמך זה.</value>
   </data>
   <data name="multiple_keywords_optional" xml:space="preserve">
-    <value>מילות מפתח (לא חובה)</value>
+    <value>מילות מפתח</value>
   </data>
   <data name="multiple_label_icon_text" xml:space="preserve">
     <value>העלה</value>
@@ -218,6 +218,6 @@
     <value>בחר בבקשה קורס</value>
   </data>
   <data name="multiple_select_filetype" xml:space="preserve">
-    <value>סוג מסמך</value>
+    <value>תייג מסמך</value>
   </data>
 </root>

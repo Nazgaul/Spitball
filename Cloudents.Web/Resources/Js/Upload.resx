@@ -167,7 +167,7 @@
     <value>Drag &amp; Drop Files Here</value>
   </data>
   <data name="multiple_keywords_optional" xml:space="preserve">
-    <value>Keywords (Optional)</value>
+    <value>Keywords</value>
   </data>
   <data name="multiple_or_browse_label" xml:space="preserve">
     <value>Or Browse</value>
@@ -188,7 +188,7 @@
     <value>Class</value>
   </data>
   <data name="multiple_select_filetype" xml:space="preserve">
-    <value>Document Type</value>
+    <value>Classified Document</value>
   </data>
   <data name="multiple_btn_upload" xml:space="preserve">
     <value>Upload</value>
