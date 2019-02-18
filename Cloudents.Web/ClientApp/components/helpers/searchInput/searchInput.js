@@ -203,12 +203,12 @@ export default {
             
         }, 250),
         closeSuggestions() {
-            this.$el.querySelector('.search-b input').blur();
+            //this.$el.querySelector('.search-b input').blur();
             this.focusedIndex = -1;
             //this.msg = this.originalMsg;
             if (this.showSuggestions) {
                 this.showSuggestions = false;
-                this.$el.querySelector('.search-menu').scrollTop = 0;
+                //this.$el.querySelector('.search-menu').scrollTop = 0;
             }
         }
     },
