@@ -144,7 +144,7 @@
   <data name="new_questions" xml:space="preserve">
     <value>שאלות חדשות</value>
   </data>
-  <data name="no_result_found" xml:space="preserve">
+  <data name="no_result_found_for" xml:space="preserve">
     <value>לא נמצאו תוצאות עבור</value>
   </data>
   <data name="ok" xml:space="preserve">
@@ -194,5 +194,8 @@
   </data>
   <data name="your_search" xml:space="preserve">
     <value>החיפוש שלך</value>
+  </data>
+  <data name="no_result_found" xml:space="preserve">
+    <value>לא נמצאו תוצאות</value>
   </data>
 </root>
