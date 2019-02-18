@@ -195,7 +195,7 @@
         <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
                    :onclosefn="closeReferralDialog"
                    :content-class="'login-popup'">
-            <referral-dialog :isTransparent="true" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
+            <referral-dialog :isTransparent="true" :onclosefn="closeReferralDialog" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
                  
         </sb-dialog>
     </div>
@@ -281,8 +281,11 @@
                 Intercom('showNewMessage')
             },
             openReferralDialog() {
-                this.showReferral = true;
-                console.log('referral',this.showReferral)
+                setTimeout(()=>{
+                    this.showReferral = true;
+                    console.log('referral',this.showReferral)
+                })
+                
             },
             openPersonalizeUniversity() {
                 if (!this.isLoggedIn) {
