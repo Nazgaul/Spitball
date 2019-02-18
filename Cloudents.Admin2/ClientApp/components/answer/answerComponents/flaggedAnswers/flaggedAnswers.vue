@@ -9,7 +9,7 @@
                     <v-card v-for="(answer, index) in answers" :key="index" style="padding: 0 12px;">
                         <v-toolbar class="question-toolbar mt-4 back-color-purple">
                             <v-toolbar-title class="question-text-title">
-                                {{answer.text}}
+                                Question: {{answer.questionText}}
                             </v-toolbar-title>
                             <v-spacer></v-spacer>
                             <span title="Fictive Or Original Question ">{{answer.flaggedUserEmail}}</span>
@@ -25,7 +25,7 @@
                                     <v-list-tile-content class="answers-content">
                                         <v-list-tile-sub-title  class="answer-subtitle-reason">{{answer.reason}}
                                         </v-list-tile-sub-title>
-                                        <v-list-tile-sub-title class="answer-subtitle">{{answer.questionText}}
+                                        <v-list-tile-sub-title class="answer-subtitle">Answer: {{answer.text}}
                                         </v-list-tile-sub-title>
                                     </v-list-tile-content>
                                     <v-list-tile-action class="answer-action">

@@ -75,18 +75,6 @@
                             <v-flex xs12 sm12 md12>
                                 <v-text-field v-model="editedItem.declinedReason" label="Decline Reason"></v-text-field>
                             </v-flex>
-                            <!--<v-flex xs12 sm6 md4>-->
-                            <!--<v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs12 sm6 md4>-->
-                            <!--<v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs12 sm6 md4>-->
-                            <!--<v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs12 sm6 md4>-->
-                            <!--<v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>-->
-                            <!--</v-flex>-->
                         </v-layout>
                     </v-container>
                 </v-card-text>
