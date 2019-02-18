@@ -1,17 +1,20 @@
 <template>
-    <v-navigation-drawer touchless class="school-block" width="260" @input="updateDrawerValue" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
+    <v-navigation-drawer touchless  class="school-block" width="260" @input="updateDrawerValue" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
       <v-list>
         <v-list-tile class="group-header search-university-title">
           <v-list-tile-action>
             <v-icon>sbf-university-columns</v-icon>
           </v-list-tile-action>
           <v-list-tile-title @click="openPersonalizeUniversity()">{{uniHeaderText}}</v-list-tile-title>
-          <v-list-tile-action class="edit-course">
-            <v-icon @click="openPersonalizeUniversity()">{{schoolName ? 'sbf-edit-icon': 'sbf-close'}}</v-icon>
+          <v-list-tile-action v-if="!schoolName" class="edit-course">
+            <v-icon @click="openPersonalizeUniversity()">sbf-close</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-action v-else class="edit-university">
+            <v-icon @click="openPersonalizeUniversity()">sbf-edit-icon</v-icon>
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
-      <v-list>
+      <v-list class="class-list">
         <v-list-tile class="group-header">
           <v-list-tile-action>
             <v-icon>sbf-courses-icon</v-icon>
