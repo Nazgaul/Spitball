@@ -21,13 +21,11 @@
       <div v-if="showLeadersMobile && getMobileFooterState">
         <leaders-board></leaders-board>
       </div>
-      
       <!-- <div class="school-block-container">
                 <router-view name="schoolBlock"></router-view>
       </div>-->
       <router-view name="verticals"></router-view>
       <router-view class="main-container" v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
-
       <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
       <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
         <span v-language:inner>app_cookie_toaster_text</span> &nbsp;

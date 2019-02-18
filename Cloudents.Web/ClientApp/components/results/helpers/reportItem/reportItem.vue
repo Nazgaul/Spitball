@@ -201,7 +201,7 @@
                 }
             }
             .reason-tile {
-                border-bottom: 1px solid fade(@colorInputRegularBorder, 12%);
+                border-bottom: 1px solid fade(@newGreyColor, 12%);
                 cursor: pointer;
                 &:hover {
                     background-color: rgba(0, 0, 0, 0.04);
@@ -217,7 +217,7 @@
                     }
                 }
                 &:first-child {
-                    border-top: 1px solid fade(@colorInputRegularBorder, 12%);
+                    border-top: 1px solid fade(@newGreyColor, 12%);
                 }
                 .v-list__tile {
                     padding-left: 0;
