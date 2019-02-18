@@ -1,8 +1,8 @@
-﻿az servicebus topic create --name communication --namespace-name spitball-dev --resource-group zbox-dev
-az servicebus topic subscription create --resource-group zbox-dev --namespace-name spitball-dev --topic-name communication --name sms
-az servicebus topic subscription rule create --resource-group zbox-dev --namespace-name spitball-dev --topic-name communication --subscription-name sms --name smsRule --filter-sql-expression "sys.Label= 'sms'"
-az servicebus topic subscription create --resource-group zbox-dev --namespace-name spitball-dev --topic-name communication --name call
-az servicebus topic subscription rule create --resource-group zbox-dev --namespace-name spitball-dev --topic-name communication --subscription-name call --name phoneRule --filter-sql-expression "sys.Label= 'phone'"
+﻿az servicebus topic create --name communication --namespace-name spitball-prod --resource-group zbox
+az servicebus topic subscription create --resource-group zbox --namespace-name spitball-prod --topic-name communication --name sms
+az servicebus topic subscription rule create --resource-group zbox --namespace-name spitball-prod --topic-name communication --subscription-name sms --name smsRule --filter-sql-expression "sys.Label= 'sms'"
+az servicebus topic subscription create --resource-group zbox --namespace-name spitball-prod --topic-name communication --name call
+az servicebus topic subscription rule create --resource-group zbox --namespace-name spitball-prod --topic-name communication --subscription-name call --name phoneRule --filter-sql-expression "sys.Label= 'phone'"
 
 need to upload azure function v2.
 
