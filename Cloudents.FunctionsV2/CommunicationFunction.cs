@@ -211,7 +211,7 @@ namespace Cloudents.FunctionsV2
 
             string name = req.Query["code"];
             var twiml = new VoiceResponse();
-            twiml.Say($"Your code to spitball is, {string.Join(" ",name.ToCharArray())}", loop: 3, voice: "alice");
+            twiml.Say($"Your code to spitball is, {string.Join(". ",name.ToCharArray())}", loop: 3, voice: "alice");
             return new ContentResult()
             {
                 Content = twiml.ToString(),
