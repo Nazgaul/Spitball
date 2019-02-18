@@ -69,13 +69,8 @@ namespace Cloudents.FunctionsV2.Di
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance();
 
+            builder.RegisterType<Logger>().As<ILogger>();
 
-
-            builder.Register(c =>
-            {
-                var logger = _loggerFactory.CreateLogger("logger");
-                return new Logger(logger);
-            }).As<ILogger>();
 
             builder.RegisterType<QuestionDbToSearchSync>()
                 .Keyed<IDbToSearchSync>(SyncType.Question).SingleInstance();

@@ -50,7 +50,7 @@ namespace Cloudents.Core.Entities
             //}
             //price = -Math.Abs(price);
 
-            Price = 1000;
+            Price = -1000;
             Action = TransactionActionType.CashOut;
             Type = TransactionType.Spent;
         }
