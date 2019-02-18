@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Models;
 
 namespace Cloudents.Query.Query
 {
@@ -42,18 +41,5 @@ namespace Cloudents.Query.Query
 
         public long UserId { get; private set; }
         public long QuestionId { get; private set; }
-    }
-
-
-    public class UserWithUniversityQuery : IQuery<UserProfile>
-    {
-        public UserWithUniversityQuery(long id/*, Guid? universityId*/)
-        {
-            Id = id;
-          //  UniversityId = universityId;
-        }
-
-        public long Id { get; }
-        //public Guid? UniversityId { get; }
     }
 }

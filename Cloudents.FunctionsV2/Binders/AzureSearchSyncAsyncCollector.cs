@@ -23,8 +23,6 @@ namespace Cloudents.FunctionsV2.Binders
         {
             _messages.Add(item);
             return Task.CompletedTask;
-            //IndexBatch.MergeOrUpload()
-            //throw new global::System.NotImplementedException();
         }
 
         public async Task FlushAsync(CancellationToken cancellationToken = default(CancellationToken))

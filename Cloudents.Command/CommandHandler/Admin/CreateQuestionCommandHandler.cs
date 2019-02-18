@@ -10,7 +10,6 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
-    [AdminCommandHandler]
     public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>
     {
 

@@ -79,7 +79,7 @@ export default {
                 }
                 this.updateLoginDialogState(false);
                 this.updateNewQuestionDialogState(false);
-                this.$root.$emit('closePopUp', this.popUpType);
+                // this.$root.$emit('closePopUp', this.popUpType);
             }
         }
     },

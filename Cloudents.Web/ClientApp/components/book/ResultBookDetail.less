@@ -22,11 +22,29 @@
 
     .mobile-filter {
         min-height: 0;
+        justify-content: flex-end;
+        display: flex;
+        .book-filter-btn{
+            &:before{
+                display: none;
+            }
+        }
         button {
             margin-bottom: 0;
             .counter{
                 position: absolute;
-                right: 33px;
+                right: 12px;
+                top: -8px;
+                color:@color-white;
+                width: 28px;
+                height: 28px;
+                text-align: center;
+                border-radius: 100%;
+                line-height: 24px;
+                margin-right: -22px;
+                border: 2px solid;
+                font-size: 12px;
+                border-color: #eee!important;
             }
         }
     }

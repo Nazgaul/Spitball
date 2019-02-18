@@ -2,15 +2,17 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net471</TargetFramework>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.37.0.1478" />
+    <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="PayPal" Version="2.0.0-rc2" />
     <PackageReference Include="SimMetrics" Version="1.1.4118.23231" />
+    <PackageReference Include="Twilio" Version="5.26.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -3,7 +3,7 @@ import UserMainService from '../components/userMainView/userMainService';
 const quantatyPerPage = 200;
 const state = {
     tokensDilaogState: false,
-    suspendDialog : false,
+    suspendDialog: false,
     userInfo: {},
     userQuestions: [],
     userAnswers: [],
@@ -11,10 +11,16 @@ const state = {
 
 };
 const mutations = {
+    clearUserData(state) {
+        state.userInfo ={};
+        state.userQuestions =[];
+        state.userAnswers =[];
+        state.userDocuments =[];
+    },
     updateTokensDialog(state, val) {
         state.tokensDilaogState = val;
     },
-    updateSuspendDialog(state, val){
+    updateSuspendDialog(state, val) {
         state.suspendDialog = val;
     },
     updateBalance(state, data) {
@@ -22,8 +28,14 @@ const mutations = {
             state.userInfo.balance.value = state.userInfo.balance.value + data;
         }
     },
+    setPhoneConfirmStatus(state) {
+        if (state.userInfo && state.userInfo.phoneNumberConfirmed) {
+            state.userInfo.phoneNumberConfirmed.value = 'Yes';
+            state.userInfo.phoneNumber.showButton = false;
+        }
+    },
     updateStatus(state, val) {
-        if (state.userInfo && state.userInfo.balance) {
+        if (state.userInfo && state.userInfo.status) {
             state.userInfo.status.value = val;
         }
     },
@@ -39,19 +51,19 @@ const mutations = {
     setUserDocuments(state, data) {
         state.userDocuments = data;
     },
-    removeQuestion(state, index){
+    removeQuestion(state, index) {
         state.userQuestions.splice(index, 1);
     },
-    removeAnswer(state, index){
+    removeAnswer(state, index) {
         state.userAnswers.splice(index, 1);
     },
-    removeDocument(state, index){
+    removeDocument(state, index) {
         state.userDocuments.splice(index, 1);
     }
 };
 const getters = {
     getTokensDialogState: (state) => state.tokensDilaogState,
-    suspendDialogState : (state) => state.suspendDialog,
+    suspendDialogState: (state) => state.suspendDialog,
     getUserBalance: (state) => state.userBalance,
     UserInfo: (state) => state.userInfo,
     UserQuestions: (state) => state.userQuestions,
@@ -60,11 +72,13 @@ const getters = {
 
 };
 const actions = {
+    clearUserState({commit}) {
+        commit('clearUserData');
+    },
     setTokensDialogState({commit}, val) {
         commit('updateTokensDialog', val);
-
     },
-    setSuspendDialogState({commit}, val){
+    setSuspendDialogState({commit}, val) {
         commit('updateSuspendDialog', val);
     },
     setUserCurrentBalance({commit}, data) {
@@ -73,6 +87,7 @@ const actions = {
     setUserCurrentStatus({commit}, val) {
         commit('updateStatus', val)
     },
+
     updateUserData({commit}, data) {
         commit('setUserData', data)
     },
@@ -87,13 +102,13 @@ const actions = {
         )
     },
 
-    deleteQuestionItem({commit}, index){
+    deleteQuestionItem({commit}, index) {
         commit('removeQuestion', index)
     },
-    deleteAnswerItem({commit}, index){
+    deleteAnswerItem({commit}, index) {
         commit('removeAnswer', index)
     },
-    deleteDocumentItem({commit}, index){
+    deleteDocumentItem({commit}, index) {
         commit('removeDocument', index)
     },
 
@@ -113,13 +128,13 @@ const actions = {
         )
     },
     getUserAnswers(context, idPageObj) {
-      return UserMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
-              if (data && data.length !== 0) {
-                  context.commit('setUserAnswers', data);
-              }
-              if (data.length < quantatyPerPage) {
-                  return true;
-              }
+        return UserMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
+                if (data && data.length !== 0) {
+                    context.commit('setUserAnswers', data);
+                }
+                if (data.length < quantatyPerPage) {
+                    return true;
+                }
 
 
             },
@@ -129,13 +144,13 @@ const actions = {
         )
     },
     getUserDocuments(context, idPageObj) {
-      return  UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
-              if (data && data.length !== 0) {
-                  context.commit('setUserDocuments', data)
-              }
-              if (data.length < quantatyPerPage) {
-                  return true;
-              }
+        return UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
+                if (data && data.length !== 0) {
+                    context.commit('setUserDocuments', data)
+                }
+                if (data.length < quantatyPerPage) {
+                    return true;
+                }
                 context.commit('setUserDocuments', data)
 
             },
@@ -144,10 +159,12 @@ const actions = {
             }
         )
     },
-    verifyUserPhone(context, verifyObj){
-        return UserMainService.verifyPhone(verifyObj);
-    }
-
+    verifyUserPhone(context, verifyObj) {
+        return UserMainService.verifyPhone(verifyObj).then((resp) => {
+            context.commit('setPhoneConfirmStatus');
+            return resp
+        })
+    },
 };
 export default {
     state, mutations, getters, actions

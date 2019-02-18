@@ -15,6 +15,7 @@ function setIntercomSettings(data) {
     let user_name = null;
     let user_email = null;
     let user_phoneNumber = null;
+    let alignment =  global.isRtl  ?  'left' : 'right';
 
     if (!!data) {
         user_id = "Sb_" + data.id;
@@ -28,8 +29,9 @@ function setIntercomSettings(data) {
         user_id,
         name: user_name,
         email: user_email,
-        phoneNumber: user_phoneNumber
-    }
+        phoneNumber: user_phoneNumber,
+        alignment: alignment
+    };
 
     global.Intercom('boot', {intercomSettings});
 }

@@ -1,40 +1,37 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.Request
 {
-    public sealed class SearchQuery
+    public sealed class BingSearchQuery
     {
-        public static SearchQuery Document(string query, IEnumerable<string> university,
-            IList<string> courses, /*IEnumerable<string> sources,*/
+        public static BingSearchQuery Document(string query, IEnumerable<string> university,
+           string course,
             int page)
         {
-            return new SearchQuery
+            return new BingSearchQuery
             {
                 Query = query,
                 University = university,
-                Courses = courses,
-                //Source = sources,
+                Course = course,
                 Page = page,
-                //Point = point
             };
         }
 
-        public static SearchQuery Flashcard(string query, IEnumerable<string> university,
-            IList<string> courses, IEnumerable<string> sources, int page)
+        public static BingSearchQuery Flashcard(string query, IEnumerable<string> university,
+            string course, IEnumerable<string> sources, int page)
         {
-            return new SearchQuery
+            return new BingSearchQuery
             {
                 Query = query,
                 University = university,
-                Courses = courses,
+                Course = course,
                 Source = sources,
                 Page = page,
-               // Point = point
             };
         }
 
-        private SearchQuery()
+        private BingSearchQuery()
         {
 
         }
@@ -45,8 +42,7 @@ namespace Cloudents.Core.Request
         public int Page { get; private set; }
 
         public IEnumerable<string> University { get; private set; }
-        [CanBeNull] public IList<string> Courses { get; private set; }
+        [CanBeNull] public string Course { get; private set; }
 
-       // public GeoPoint Point { get; private set; }
     }
 }

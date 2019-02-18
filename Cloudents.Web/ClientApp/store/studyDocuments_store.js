@@ -147,7 +147,9 @@ const actions = {
     },
 
     removeDocumentItemAction({commit}, notificationQuestionObject) {
-        let documentObj = searchService.createDocumentItem(notificationQuestionObject);
+        // ??? there is no data and no need to create obj in order to delete by ID line below do we need ?
+       let documentObj = searchService.createDocumentItem(notificationQuestionObject);
+        // let documentObj =notificationQuestionObject;
         commit('StudyDocuments_removeDocument', documentObj);
     },
     reportDocument({commit, dispatch}, data) {

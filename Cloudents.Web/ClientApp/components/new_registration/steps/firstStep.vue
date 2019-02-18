@@ -39,18 +39,18 @@
                      style="background: white; display: block; color:red; text-align: center;">
                     <span v-language:inner>login_please_agree</span>
                 </div>
-                <button v-show="isSignIn" class="google-signin" @click="googleLogIn">
+                <v-btn :loading="googleLoading" v-show="isSignIn" class="google-signin" @click="googleLogIn">
                     <span v-language:inner>login_sign_in_with_google</span>
                     <span>
                             <v-icon>sbf-google-icon</v-icon>
                         </span>
-                </button>
-                <button v-show="!isSignIn" class="google-signin" @click="googleLogIn">
+                </v-btn>
+                <v-btn :loading="googleLoading" v-show="!isSignIn" class="google-signin" @click="googleLogIn">
                     <span v-language:inner>login_sign_up_with_google</span>
                     <span>
                             <v-icon>sbf-google-icon</v-icon>
                         </span>
-                </button>
+                </v-btn>
                 <span class="has-error" v-if="errorMessage.gmail"
                       style="background: white; display: block; color:red; text-align: center;">
                         {{errorMessage.gmail}}</span>
@@ -114,7 +114,8 @@
                     gmail: '',
                 },
                 signInScreeen: false,
-                registerScreeen: false
+                registerScreeen: false,
+                googleLoading: false
             }
         },
         props: {
@@ -144,6 +145,7 @@
                     }
                 }
                 var self = this;
+                self.googleLoading = true;
                 this.updateLoading(true);
                 let authInstance = gapi.auth2.getAuthInstance();
                 authInstance.signIn().then((googleUser) => {
@@ -152,6 +154,7 @@
                         .then((resp) => {
                             self.updateLoading(false);
                             let newUser = resp.data.isNew;
+                            self.googleLoading = false;
                             if (newUser) {
                                 analyticsService.sb_unitedEvent('Registration', 'Start Google');
                                 self.$parent.$emit('updateIsNewUser', newUser);
@@ -165,6 +168,7 @@
                             }
                         }, (error) => {
                             self.updateLoading(false);
+                            self.googleLoading = false;
                             self.errorMessage.gmail = error.response.data["Google"] ? error.response.data["Google"][0] : '';
                         });
                 }, (error) => {

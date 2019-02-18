@@ -26,7 +26,7 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SiteMapController : Controller
     {
-        const int PageSize = 40000;
+        private const int PageSize = 40000;
         private readonly IQueryBus _queryBus;
         private readonly XmlWriterSettings _xmlWriterSettings = new XmlWriterSettings
         {
@@ -118,10 +118,7 @@ namespace Cloudents.Web.Controllers
             [FromServices] IStatelessSession session,
             CancellationToken token)
         {
-            if (type == SeoType.Flashcard)
-            {
-                return Ok();
-            }
+           
             var t = session.Query<Document>()
                     .Fetch(f => f.University)
                   .Where(w => w.Status.State == ItemState.Ok)

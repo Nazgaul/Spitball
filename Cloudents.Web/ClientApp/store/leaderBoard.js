@@ -36,7 +36,7 @@ const actions = {
        return leaderBoardService.getLeaderBoardItems().then(
             (resp) => {
                 data.leaders = resp.data.leaderBoard.map((leaderBoardService.createLeaderBoardItem));
-                data.total = resp.data.sbl;
+                data.total = resp.data.sbl || resp.data.SBL;
                 commit("updateLeaders", data)
             },
             (error) => {

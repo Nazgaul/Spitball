@@ -1,30 +1,26 @@
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
-        <school-block slot="schoolBlock"></school-block>
         <div slot="main">
-              <div class="d-flex mobile-filter">
+            <div class="d-flex mobile-filter">
                   <upload-files-btn class="upload-card hidden-md-and-up"></upload-files-btn>
-
-                <v-btn icon :color="`color-note`" flat slot="mobileFilter" @click="showFilters=true"
-                       class="mobile-filter-icon-btn text-xs-right hidden-sm-and-up" v-if="filterCondition">
+            </div>
+            <v-flex v-if="filterCondition" class="filter-container">
+                <result-filter></result-filter>
+                <div class="filter-button-container">
+                    <v-btn icon :color="`color-note`" flat slot="mobileFilter" @click="showFilters=true"
+                       class="mobile-filter-icon-btn text-xs-right" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter fixedLocation color-note'"
                          v-if="this.filterSelection.length">{{this.filterSelection.length}}
                     </div>
                 </v-btn>
-            </div>
-            <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
-                <template v-for="(item, index) in filterSelection">
-                    <v-chip label class="filter-chip elevation-1" :key="index">
-                      {{item.name | capitalize }}
-                        <v-icon right @click="$_removeFilter(item)">sbf-close</v-icon>
-                    </v-chip>
-                </template>
-            </div>
+                </div>
+            </v-flex>
+            
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
-                    <v-container class="pa-0 ma-0 results-wrapper">
+                    <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
                         <v-layout column>
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
                                 <v-layout row align-center justify-space-between>
@@ -52,27 +48,12 @@
                     </v-container>
                 </scroll-list>
                 <div v-else>
-                    <div class="result-cell elevation-1 mb-2 empty-state" xs-12>
-                        <v-layout row class="pa-3">
-                            <v-flex>
-                                <h6 class="mb-3"><span v-language:inner>result_your_search</span> - <span
-                                        class="user-search-text">{{userText}}</span> - <span v-language:inner>result_record_not_match</span>
-                                </h6>
-                                <div class="sug mb-2" v-language:inner>result_suggestions</div>
-                                <ul>
-                                    <li v-language:inner>result_spelling</li>
-                                    <li v-language:inner>result_different_keywords</li>
-                                    <li v-language:inner>result_general_keywords</li>
-                                    <li v-language:inner>result_fewer_keywords</li>
-                                </ul>
-                            </v-flex>
-                        </v-layout>
-                    </div>
+                    <empty-state-card :userText="userText"></empty-state-card>
                 </div>
             </div>
         </div>
         <template slot="sideBar" v-if="filterCondition">
-            <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'"
+            <component :is="'mobile-sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
                        v-model="showFilters"

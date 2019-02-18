@@ -26,18 +26,22 @@
 
             <v-layout align-center justify-center column class="mb-2">
                 <div class="share-icon-container">
-                <span @click="shareOnSocialMedia(socialMedias.facebook)">
+                <span @click="shareOnSocialMedia(socialMedias.facebook)" class="share-btn facebook-share-btn">
                     <facebookShare class="referral-facebook-icon share-icon"></facebookShare>
+                    <span class="share-text" v-language:inner>referralDialog_share_facebook</span>
                 </span>
 
-                    <span @click="shareOnSocialMedia(socialMedias.twitter)">
+                    <span @click="shareOnSocialMedia(socialMedias.twitter)" class="share-btn twitter-share-btn">
                     <tweeter-share class="referral-twitter-icon share-icon"></tweeter-share>
+                            <span class="share-text" v-language:inner>referralDialog_share_tweeter</span>
                 </span>
-                    <span @click="shareOnSocialMedia(socialMedias.gmail)">
+                    <span @click="shareOnSocialMedia(socialMedias.gmail)" class="share-btn gmail-share-btn">
                     <google-share class="referral-gmail-icon share-icon"></google-share>
+                            <span class="share-text" v-language:inner>referralDialog_share_google</span>
                 </span>
-                    <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
+                    <span @click="shareOnSocialMedia(socialMedias.whatsApp)" class="share-btn whatsup-share-btn">
                     <whatsup-share class="referral-whatsup-icon share-icon"></whatsup-share>
+                            <span class="share-text" v-language:inner>referralDialog_share_whatsup</span>
                                    </span>
                 </div>
                 <div class="input-container mb-3">
@@ -181,7 +185,7 @@
                 default: false,
                 required: false
             },
-            closeDialog: {
+            onclosefn: {
                 required: false,
                 type: Function
             }
@@ -204,10 +208,9 @@
             ...mapActions(['getRefferedUsersNum']),
             requestDialogClose() {
                 this.isCopied = false;
-                this.$root.$emit('closePopUp', this.popUpType);
-                if (this.closeDialog) {
-                    this.closeDialog()
-                }
+                // this.$root.$emit('closePopUp', this.popUpType);
+                if(this.onclosefn) this.onclosefn()
+
             },
             clearCopied() {
                 if (this.isCopied) {
@@ -261,7 +264,6 @@
         },
 
         beforeDestroy() {
-
             this.isCopied = false;
         }
     }

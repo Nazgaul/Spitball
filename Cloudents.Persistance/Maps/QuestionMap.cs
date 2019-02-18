@@ -42,7 +42,7 @@ namespace Cloudents.Persistance.Maps
             Map(m => m.VoteCount).Not.Nullable();
             Component(x => x.Status);
 
-            SchemaAction.Update();
+            SchemaAction.None();
             //DiscriminateSubClassesOnColumn("State");//.Formula($"case when State is Null then 'Ok' else State end");
         }
     }

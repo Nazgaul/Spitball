@@ -39,37 +39,20 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<ActionResult<CreateAnswerResponse>> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
             [FromServices] IQueryBus queryBus,
-            //[ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
-            //[FromServices] IHubContext<SbHub> hubContext,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             try
             {
-                //  var t2 = Task.FromResult<IEnumerable<QuestionFeedDto>>(null);
                 var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files);
                 var t1 = _commandBus.DispatchAsync(command, token);
 
-
-                //if (score >= Privileges.Post)
-                // {
                 var query = new NextQuestionQuery(model.QuestionId, userId);
                 var t2 = queryBus.QueryAsync(query, token);
-                // }
 
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
 
-                //if (score < Privileges.Post)
-                //{
-                //    await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
-                //    {
-                //        new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
-                //            {
-                //                text = _localizer["CreatePending"].Value
-                //            }
-                //        )
-                //    }, token);
-                //}
+             
 
                 return new CreateAnswerResponse
                 {

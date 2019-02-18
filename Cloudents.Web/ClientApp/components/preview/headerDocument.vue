@@ -3,7 +3,7 @@
         <nav class="item-header doc-header" slot="extraHeader">
             <div class="item-header-content">
                 <v-layout row align-center justify-space-between class="wrap-doc-name">
-                    <div class="gap ma-0"></div>
+                    <!--<div class="gap ma-0"></div>-->
                     <h1 class="item-name">
                         <span class=" text-truncate">{{itemName}} </span>
                     </h1>
@@ -156,7 +156,6 @@
     import itemActions from './itemActions.vue';
     import mainHeader from '../helpers/header.vue';
     import { mapGetters, mapActions } from 'vuex';
-    // import { documentTypes } from '../results/helpers/uploadFiles/consts';
     import documentDetails from '../results/helpers/documentDetails/documentDetails.vue';
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import analyticsService from '../../services/analytics.service';
@@ -249,8 +248,11 @@
                     return this.item.user.id
             },
             uploaderScore(){
-                if (this.item && this.item.user && this.item.user.score)
+                if (this.item && this.item.user && this.item.user.score){
                     return this.item.user.score
+                }else{
+                    return 0
+                }
             },
             uploadDate() {
                 if (this.item && this.item.date) {

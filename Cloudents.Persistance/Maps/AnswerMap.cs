@@ -39,30 +39,4 @@ namespace Cloudents.Persistance.Maps
 
         
     }
-
-    //public class AnswerDeletedMap : SubclassMap<AnswerDeleted>
-    //{
-    //    public AnswerDeletedMap()
-    //    {
-
-    //        DiscriminatorValue(ItemState.Deleted);
-    //    }
-    //}
-
-    //public class AnswerPendingMap : SubclassMap<AnswerPending>
-    //{
-    //    public AnswerPendingMap()
-    //    {
-
-    //        DiscriminatorValue(ItemState.Pending);
-    //    }
-    //}
-
-    //public class AnswerApprovedMap : SubclassMap<AnswerApproved>
-    //{
-    //    public AnswerApprovedMap()
-    //    {
-    //        DiscriminatorValue(ItemState.Ok);
-    //    }
-    //}
 }

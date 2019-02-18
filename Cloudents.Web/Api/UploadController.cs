@@ -142,7 +142,7 @@ namespace Cloudents.Web.Api
 
         private static string BlobFileName(Guid sessionId, string name)
         {
-            return $"file-{sessionId}-{name}";
+            return $"file-{sessionId}-{name?.Replace("/",string.Empty)}";
         }
 
 

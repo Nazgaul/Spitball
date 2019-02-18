@@ -74,8 +74,6 @@ export default {
         isLoaded() {
             let result = this.getFileData.every((item) => {
                 return item.progress === 100 && item.name !== ''
-
-                // return item.progress === 100 && item.name !== '' && item.name.length >=2
             });
             return result;
         }
@@ -129,17 +127,15 @@ export default {
                             analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
                             self.loading = false;
                             self.fileSnackbar.visibility = true;
-                            // setTimeout(()=>{
-                            //     self.fileSnackbar = false;
-                            // }, 8000);
                             self.fileSnackbar.color = '#51ba6c';
                             self.goToNextStep()
                         },
                         (error) => {
+                            fileObj.error = true;
                             self.loading = false;
-                            self.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
+                            fileObj.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
                             self.showError = true;
-                            self.disableBtn = true;
+                            self.disableBtn = false;
                         });
             })
 

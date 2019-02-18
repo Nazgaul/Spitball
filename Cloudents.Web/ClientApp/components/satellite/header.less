@@ -98,7 +98,18 @@
 
     }
 }
+
+
 .sat-header-container .v-tabs{
+    .gap {
+        width: @logoWidth;
+        .flexSameSize();
+        @media(max-width: @screen-xs){
+            width: 0;
+        }
+    }
+
+
     .v-tabs__bar{
         height: 100%;
         .v-tabs__wrapper{
@@ -106,6 +117,7 @@
             .v-tabs__container{
                 height: 100%;
                 .sattelite-vertical{
+                    margin-left: 0;
                     text-transform: capitalize;
                 }
             }

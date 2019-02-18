@@ -94,7 +94,7 @@ namespace Cloudents.Infrastructure.Framework
                 {
                     break;
                 }
-                using (var img = _pptx.Value.Slides[0].GetThumbnail(1, 1))
+                using (var img = _pptx.Value.Slides[item].GetThumbnail(1, 1))
                 {
                     var ms = new MemoryStream();
                     img.Save(ms, ImageFormat.Jpeg);

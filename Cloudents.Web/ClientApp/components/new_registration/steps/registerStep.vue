@@ -19,7 +19,7 @@
                     <sb-input  :class="['mt-3', hintClass]"  :errorMessage="errorMessage.password" :bottomError="true"
                                placeholder="login_placeholder_choose_password" v-model="password" name="pass"
                                :hint="passZxcvbn"
-                               type="password"
+                               :type="'password'"
                                :autofocus="true"  v-language:placeholder></sb-input>
                     <sb-input  class="mt-3" :errorMessage="errorMessage.confirmPassword" :bottomError="true"
                                placeholder="login_placeholder_confirm_password" v-model="confirmPassword" name="confirm" type="password"

@@ -1,22 +1,27 @@
 ﻿<template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
-        <!-- <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner> -->
         <soon-component v-show="currentNavData.soon" slot="soonComponent"></soon-component>
         <div slot="main">
               <div class="d-flex mobile-filter">
-                  <askQuestionBtn v-if="$route.path.slice(1)==='ask'"
-                           :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] ">
-                  </askQuestionBtn>
-
-                  <upload-files-btn class="upload-card hidden-md-and-up"  v-show="isNote"></upload-files-btn>
-
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
+<v-flex v-if="filterCondition" class="filter-container">
+                <result-filter></result-filter>
+                <div class="filter-button-container">
+                    <v-btn icon :color="`color-${+$route.path.slice(1)}`" flat slot="mobileFilter" @click="showFilters=true"
+                       class="mobile-filter-icon-btn text-xs-right" v-if="filterCondition">
+                    <v-icon>sbf-filter</v-icon>
+                    <div :class="`counter fixedLocation color-${+$route.path.slice(1)}`"
+                         v-if="this.filterSelection.length">{{this.filterSelection.length}}
+                    </div>
+                </v-btn>
+                </div>
+            </v-flex>
+                <!-- <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true"
                        class="mobile-filter-icon-btn text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter fixedLocation color-'+$route.path.slice(1)"
                          v-if="this.filterSelection.length">{{this.filterSelection.length}}
                     </div>
-                </v-btn>
+                </v-btn> -->
             </div>
             <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
                 <template v-for="(item, index) in filterSelection">
@@ -36,7 +41,7 @@
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                 <!-- <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <!-- <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
-                    <v-container class="pa-0 ma-0 results-wrapper">
+                    <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
                         <v-layout column>
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
                                 <v-layout row align-center justify-space-between>
@@ -94,7 +99,8 @@
             </div>
         </div>
         <template slot="sideBar" v-if="filterCondition">
-            <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'"
+            <!-- <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'" -->
+            <component :is="'mobile-sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
                        v-model="showFilters"
@@ -103,7 +109,6 @@
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
             </component>
         </template>
-
         <template slot="rightSide">
             <slot name="rightSide">
                 <faq-block :isAsk="name==='ask'" :isNotes="name ==='note'" :name="currentSuggest" :text="userText"></faq-block>

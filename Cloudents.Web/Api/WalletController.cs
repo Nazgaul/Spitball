@@ -74,7 +74,7 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var command = new CashOutCommand(_userManager.GetLongUserId(User), model.Amount);
+                var command = new CashOutCommand(_userManager.GetLongUserId(User)/*, model.Amount*/);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }

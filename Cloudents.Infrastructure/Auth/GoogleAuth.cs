@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
@@ -13,12 +12,10 @@ namespace Cloudents.Infrastructure.Auth
     [UsedImplicitly]
     public sealed class GoogleAuth : IGoogleAuth
     {
-        private readonly IMapper _mapper;
         private readonly IRestClient _client;
 
-        public GoogleAuth(IMapper mapper, IRestClient client)
+        public GoogleAuth(IRestClient client)
         {
-            _mapper = mapper;
             _client = client;
         }
 
@@ -28,12 +25,8 @@ namespace Cloudents.Infrastructure.Auth
            var result = await _client.GetAsync<GoogleToken>(new Uri("https://www.googleapis.com/oauth2/v3/tokeninfo"), new NameValueCollection()
             {
                 ["id_token"] = token
-            }, cancellationToken).ConfigureAwait(false);
+            }, cancellationToken);
 
-
-
-            //return Task.FromResult<AuthDto>(null);
-            //var result = await GoogleJsonWebSignature.ValidateAsync(token).ConfigureAwait(false);
             if (result == null)
             {
                 return null;
@@ -50,7 +43,13 @@ namespace Cloudents.Infrastructure.Auth
                 return null;
             }
 
-            return _mapper.Map<ExternalAuthDto>(result);
+            return new ExternalAuthDto()
+            {
+                Id = result.Sub,
+                Name = result.Name,
+                Email = result.Email,
+                Language = result.Locale
+            };
         }
     }
 
@@ -75,7 +74,7 @@ namespace Cloudents.Infrastructure.Auth
         public string GivenName { get; set; }
         [JsonProperty("family_name")]
         public string FamilyName { get; set; }
-        //public string Locale { get; set; }
+        public string Locale { get; set; }
        // public string Alg { get; set; }
         //public string Kid { get; set; }
     }

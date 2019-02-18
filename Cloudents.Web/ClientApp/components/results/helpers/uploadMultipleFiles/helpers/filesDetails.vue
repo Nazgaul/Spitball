@@ -26,35 +26,32 @@
                 <v-flex xs12 md9 sm9 class="multiple-controls" style="display: flex; flex-grow: 0;" v-if="isMultiple">
                     <v-flex xs12 sm6 md6>
                         <div :class="['all-wrap',  $vuetify.breakpoint.xsOnly ? 'mr-0 mt-3' : 'mr-1' ]">
-                            <vue-numeric  :currency="currentCurrency"
+                            <vue-numeric :currency="currentCurrency"
                                          class="price-for-all"
                                          :minus="false"
                                          :min="0"
                                          :precision="2"
                                          :placeholder="emptySetToAll"
-                                         :max="99"
+                                         :max="1000"
                                          :currency-symbol-position="'suffix'"
                                          separator=","
                                          v-model="priceForAll"></vue-numeric>
                             <v-btn class="all-btn elevation-0"
-                                   :disabled="!priceForAll" @click="updatePrice()">Apply
+                                   :disabled="!priceForAll" @click="updatePrice()">
+                                <span v-language:inner>upload_multiple_bnt_apply</span>
                             </v-btn>
                         </div>
                     </v-flex>
                     <v-flex xs12 sm6 md6>
                         <div :class="['all-wrap', $vuetify.breakpoint.smAndUp ? 'ml-1' : 'mt-2']">
-                            <v-select
-                                    class="sb-field doc-type-select elevation-0"
-                                    :items="docTypes"
-                                    item-value="id"
-                                    item-text="title"
-                                    hide-details
-                                    :label="placeholderTypeToAll"
-                                    v-model="docType"
+                            <v-text-field
                                     solo
-                                    :append-icon="'sbf-arrow-down'"></v-select>
+                                    class="sb-field doc-type-select"
+                                    :placeholder="placeholderTypeToAll"
+                                    v-model="docType"></v-text-field>
                             <v-btn class="all-btn elevation-0"
-                                   :disabled="!docType" @click="updateDocsType()">Apply
+                                   :disabled="!docType" @click="updateDocsType()">
+                                <span v-language:inner>upload_multiple_bnt_apply</span>
                             </v-btn>
                         </div>
                     </v-flex>
@@ -78,7 +75,6 @@
 <script>
     import { LanguageService } from "../../../../../services/language/languageService";
     import fileCard from './fileCard.vue';
-    import { documentTypes } from "./consts";
     import { mapGetters, mapActions } from 'vuex'
 
     export default {
@@ -91,7 +87,6 @@
                 placeholderTypeToAll: LanguageService.getValueByKey("upload_multiple_placeholder_doctype_all"),
                 currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
                 someVal: '',
-                docTypes: documentTypes,
                 docType: '',
                 professor: '',
                 priceForAll: '',
@@ -174,7 +169,15 @@
                 max-width: unset;
             }
             .sb-field {
+                //fix for Edge bug placeholder is visible when input has val
+                &.v-input--is-dirty {
+                    .v-input__slot {
+                        input{
+                            .placeholder-color(transparent, null, null, null);
 
+                        }
+                    }
+                }
                 .v-input__slot {
                     border-right: none;
                     border-radius: 0 4px 0 4px;
@@ -213,14 +216,14 @@
             color: @textColor;
             outline: none;
             padding: 0 12px;
-                .placeholder-color(@textColor, 0.7, 100, 14px);
+            .placeholder-color(@textColor, 0.7, 100, 14px);
 
             @media (max-width: @screen-xs) {
                 min-width: unset;
             }
         }
-        .v-select__slot{
-            label{
+        .v-select__slot {
+            label {
                 color: fade(@textColor, 70%);
                 font-weight: 100;
                 font-size: 14px;
@@ -242,7 +245,7 @@
                     font-size: 14px;
                     letter-spacing: -0.7px;
                     color: @textColor;
-                    input{
+                    input {
                         .placeholder-color(@textColor, 0.7, 100, 14px);
                     }
 

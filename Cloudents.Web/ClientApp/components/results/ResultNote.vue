@@ -1,11 +1,10 @@
 <template>
     <router-link
-               :class="['d-block', 'note-block']"
-               :to="url">
+            :class="['d-block', 'note-block']"
+            :to="url">
         <v-container
                 class="pa-0"
-                @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)"
-        >
+                @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-flex class="wrapper">
                 <div class="document-header-container">
                     <div class="document-header-large-sagment">
@@ -57,10 +56,8 @@
             </span>
                     </div>
                     <div class="type-wrap">
-                        <span :class="[ 'doc-type-text', 'type-'+typeID]">{{typeTitle}}</span>
-                        <document-details :item="item"></document-details>
                         <v-flex grow class="data-row">
-                            <div :class="['content-wrap', 'type-'+typeID]">
+                            <div :class="['content-wrap']">
                                 <div class="title-wrap">
                                     <p
                                             :class="['doc-title', isFirefox ? 'foxLineClamp' : '']"
@@ -73,11 +70,13 @@
                                 </div>
                             </div>
                         </v-flex>
+                        <document-details :item="item" class="document-details"></document-details>
                     </div>
                 </v-flex>
 
                 <v-flex grow class="doc-details">
                     <div class="doc-actions-info">
+                        <span :class="[ 'doc-type-text mr-3']">{{type}}</span>
                         <v-icon class="sb-doc-icon mr-1">sbf-download-cloud</v-icon>
                         <span class="sb-doc-info downloads">{{docDownloads}}</span>
                         <v-icon class="sb-doc-icon mr-1">sbf-views</v-icon>
@@ -111,11 +110,15 @@
                     </div>
                     <div class="input-wrap d-flex row align-center justify-center">
                         <div :class="['price-wrap', isRtl ? 'reversed' : '']">
-                            <!--updating document obj inside -->
-                            <sbl-currency v-model="newPrice"
-                                          class="sb-input-upload-price">
-                            </sbl-currency>
-                            <div class="sbl-suffix" v-language:inner>app_currency_dynamic</div>
+                            <vue-numeric :currency="currentCurrency"
+                                         class="sb-input-upload-price"
+                                         :minus="false"
+                                         :min="0"
+                                         :precision="2"
+                                         :max="1000"
+                                         :currency-symbol-position="'suffix'"
+                                         separator=","
+                                         v-model="newPrice"></vue-numeric>
                         </div>
                     </div>
                 </v-flex>
@@ -130,41 +133,31 @@
     </router-link>
 </template>
 <script>
-    // v14 do we need this ?
-    import FlashcardDefault from "../helpers/img/flashcard.svg";
-    import AskDefault from "../helpers/img/ask.svg";
-    import NoteDefault from "../helpers/img/document.svg";
-    //
     import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
     import userRank from "../helpers/UserRank/UserRank.vue";
-    import { documentTypes } from "./helpers/uploadFiles/consts.js";
     import documentDetails from "./helpers/documentDetails/documentDetails.vue";
     import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
     import reportItem from "./helpers/reportItem/reportItem.vue";
     import { mapGetters, mapActions, mapMutations } from "vuex";
     import { LanguageService } from "../../services/language/languageService";
     import SbInput from "../question/helpers/sbInput/sbInput";
-    import sblCurrency from "./helpers/uploadFiles/sbl-currency.vue";
     import documentService from "../../services/documentService";
 
 
     export default {
         components: {
             SbInput,
-            AskDefault,
-            NoteDefault,
-            FlashcardDefault,
             documentDetails,
             sbDialog,
             reportItem,
             userAvatar,
             userRank,
-            sblCurrency
 
         },
         data() {
             return {
                 isFirefox: global.isFirefox,
+                currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
                 actions: [
                     {
                         title: LanguageService.getValueByKey("questionCard_Report"),
@@ -216,20 +209,8 @@
                 return this.item.isPurchased
             },
             type() {
-                let self = this;
-                if (!!self.item.type) {
-                    return documentTypes.find(single => {
-                        if (single.id.toLowerCase() === self.item.type.toLowerCase()) {
-                            return single;
-                        }
-                    });
-                } else {
-                    return {
-                        id: "document",
-                        title: self.item.source,
-                        icon: "sbf-document-note"
-                    };
-                }
+                return this.item.type || ''
+
             },
             authorName() {
                 if (!!this.item.user) {
@@ -239,16 +220,6 @@
             authorId() {
                 if (!!this.item && !!this.item.user && !!this.item.user.id) {
                     return this.item.user.id;
-                }
-            },
-            typeID() {
-                if (!!this.type) {
-                    return this.type.id || "";
-                }
-            },
-            typeTitle() {
-                if (!!this.type) {
-                    return this.type.title || "";
                 }
             },
             docViews() {
@@ -285,6 +256,7 @@
                 "documentVote",
                 "updateLoginDialogState",
                 "updateToasterParams",
+                "removeItemFromProfile",
                 "syncProfile"
             ]),
             ...mapGetters(["accountUser"]),
@@ -297,7 +269,7 @@
                 }
             },
             updateItemPrice(val) {
-                if (val) {
+                if (val || val === 0) {
                     return this.item.price = val;
                 }
             },
@@ -309,10 +281,11 @@
             },
             submitNewPrice() {
                 let data = {id: this.item.id, price: this.newPrice};
+                let self = this;
                 documentService.changeDocumentPrice(data).then(
                     (success) => {
-                        this.updateItemPrice(this.newPrice);
-                        this.closeNewPriceDialog();
+                        self.updateItemPrice(self.newPrice);
+                        self.closeNewPriceDialog();
                     },
                     (error) => {
                         console.error('erros change price', error)
@@ -343,22 +316,21 @@
                 this.showReport = !this.showReport;
             },
             //check if profile and refetch data after doc deleted
-            updateProfile() {
-                let account, id;
+            updateProfile(id) {
                 if (this.isProfile) {
-                    account = this.accountUser();
-                    id = account.id ? account.id : '';
-                    this.syncProfile(id);
+                    this.removeItemFromProfile({id: id});
                 }
             },
             deleteDocument() {
-                documentService.deleteDoc(this.item.id).then(
+                let id = this.item.id;
+                documentService.deleteDoc(id).then(
                     (success) => {
                         this.updateToasterParams({
                             toasterText: LanguageService.getValueByKey("resultNote_deleted_success"),
                             showToaster: true,
                         });
-                        this.updateProfile();
+                        this.updateProfile(id);
+
 
                     },
                     (error) => {

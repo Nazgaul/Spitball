@@ -58,7 +58,7 @@ export default {
         return this.products.inter.price / this.products.inter.pts
     },
     proConvertionRate(){
-        return this.products.pro.price / this.products.pro.pts
+        return (this.products.pro.price / this.products.pro.pts).toFixed(3);
     }
   },
   methods: {
@@ -168,6 +168,7 @@ export default {
     this.$loadScript("https://www.paypalobjects.com/api/checkout.js").then(
       () => {
         this.paypalLoaded = true;
+          this.selectProduct('inter')
       }
     );
   }

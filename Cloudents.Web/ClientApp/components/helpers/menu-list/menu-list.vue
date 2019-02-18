@@ -193,14 +193,13 @@
         <!--</v-dialog>-->
 
         <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
+                   :onclosefn="closeReferralDialog"
                    :content-class="'login-popup'">
             <referral-dialog :isTransparent="true" :showDialog="showReferral" :userReferralLink="userReferralLink" :popUpType="'referralPop'"></referral-dialog>
+                 
         </sb-dialog>
     </div>
-
 </template>
-
-
 <script>
 
     import { mapGetters, mapActions } from 'vuex';
@@ -211,7 +210,6 @@
     import referralDialog from '../../question/helpers/referralDialog/referral-dialog.vue'
     import languagesLocales from '../../../services/language/localeLanguage'
     import { LanguageChange } from '../../../services/language/languageService'
-    import { typesPersonalize } from "../../settings/consts.js";
     import Base62 from "base62"
 
     export default {
@@ -256,6 +254,12 @@
                 return schoolName.length > 0;
             }
         },
+        watch: {
+            showReferral(newValue, oldValue) {
+                console.log(newValue, oldValue)
+                console.trace(this.showReferral);
+            }
+        },
         methods: {
             ...mapActions(['logout', 'updateLoginDialogState', 'changeSelectUniState', 'updateCurrentStep']),
             ...mapGetters(['getAllSteps']),
@@ -278,6 +282,7 @@
             },
             openReferralDialog() {
                 this.showReferral = true;
+                console.log('referral',this.showReferral)
             },
             openPersonalizeUniversity() {
                 if (!this.isLoggedIn) {
@@ -285,9 +290,14 @@
                 } else {
                     let steps = this.getAllSteps();
                     this.updateCurrentStep(steps.set_school);
-                    this.changeSelectUniState(true);
+                    // this.changeSelectUniState(true);
+                    this.$router.push({
+                        name:'uniselect',
+                         params: {
+                             step:steps.set_school
+                         }
+                    })
                     this.$root.$emit("closeDrawer");
-                    // this.$root.$emit("personalize", typesPersonalize.university);
                 }
             },
             openPersonalizeCourse() {
@@ -296,10 +306,20 @@
                 } else {
                     let steps = this.getAllSteps();
                     this.updateCurrentStep(steps.set_class);
-                    this.changeSelectUniState(true);
+                    // this.changeSelectUniState(true);
+                    this.$router.push({
+                        name:'uniselect',
+                         params: {
+                             step:steps.set_class
+                         }
+                    })
                     this.$root.$emit("closeDrawer");
                 }
+            },
+            closeReferralDialog(){
+                this.showReferral = false;
             }
+
         },
 
         created() {
@@ -308,11 +328,12 @@
             this.languageChoisesAval = languagesLocales.filter((lan) => {
                 return lan.locale !== currentLocHTML
             });
-            this.$root.$on('closePopUp', (name) => {
-                if (name === "referralPop") {
-                    this.showReferral = false;
-                }
-            })
+            // this.$root.$on('closePopUp', (name) => {
+            //     if (name === "referralPop") {
+            //         console.log('fsdf')
+            //         this.showReferral = false;
+            //     }
+            // });
             if(!!this.$route.query && !!this.$route.query.open && this.$route.query.open === 'referral'){
                 this.$nextTick(function(){
                     this.showReferral = true;

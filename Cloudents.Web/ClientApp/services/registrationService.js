@@ -25,6 +25,9 @@ export default {
     resendCode: () => {
         return connectivityModule.http.post("/sms/resend")
     },
+    voiceConfirmation: () => {
+        return connectivityModule.http.post("/sms/call")
+    },
     getAccountNum: () => {
         return connectivityModule.http.post("/Register/password")
     },

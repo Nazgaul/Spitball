@@ -11,7 +11,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
-using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
@@ -129,28 +128,26 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="model"></param>
         /// <param name="profile">User profile - server generated</param>
-        /// <param name="ilSearchProvider"></param>
+        /// <param name="searchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
         //TODO:We have issue in here because of changing course we need to invalidate the query.
         //[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
         public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
-                                ProfileServiceQuery.Course | ProfileServiceQuery.Tag)]
-            UserProfile profile,
-            [FromServices] IDocumentSearch ilSearchProvider,
+
+            [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
 
             model = model ?? new DocumentRequest();
-            var query = new DocumentQuery(model.Course, profile, model.Term,
-                model.Page.GetValueOrDefault(), model.Filter?.Where(w => !string.IsNullOrEmpty(w)));
-
+            var query = new DocumentQuery(model.Profile, model.Term, model.Course, !string.IsNullOrEmpty(model.University), model.Filter?.Where(w => !string.IsNullOrEmpty(w)))
+            {
+                Page = model.Page.GetValueOrDefault(),
+            };
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
-            var resultTask = ilSearchProvider.SearchDocumentsAsync(query, token);
-
+            var resultTask = searchProvider.SearchDocumentsAsync(query, token);
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
             if (User.Identity.IsAuthenticated)
@@ -175,6 +172,15 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
 
+            var filters = new List<IFilters>();
+            if (result.Facet.Any())
+            {
+                var filter = new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
+                    result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
+                filters.Add(filter);
+            }
+           
+           
             return new WebResponseWithFacet<DocumentFeedDto>
             {
                 Result = p.Select(s =>
@@ -191,15 +197,8 @@ namespace Cloudents.Web.Api
                     s.Title = Path.GetFileNameWithoutExtension(s.Title);
                     return s;
                 }),
-                Filters = new IFilters[]
-                {
-                    new Filters<string>(nameof(DocumentRequest.Filter), _localizer["TypeFilterTitle"],
-                        result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
-                        //EnumExtension.GetValues<DocumentType>()
-                        //    .Where(w => w.GetAttributeValue<PublicValueAttribute>() != null)
-                        //    .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
-                },
-                 NextPageLink = nextPageLink
+                Filters = filters,
+                NextPageLink = nextPageLink
             };
         }
 
@@ -209,12 +208,10 @@ namespace Cloudents.Web.Api
             [FromServices] IStringLocalizer<SharedResource> resource,
             CancellationToken token)
         {
-
             var userId = _userManager.GetLongUserId(User);
             try
             {
                 var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType);
-
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
@@ -282,7 +279,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var userId = _userManager.GetLongUserId(User);
-            var command = new ChangePriceCommand(model.Id, userId, model.Price);
+            var command = new ChangeDocumentPriceCommand(model.Id, userId, model.Price);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -295,7 +292,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new DeleteDocumentCommand(model.Id, _userManager.GetLongUserId(User));
-                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
             catch (ArgumentException)

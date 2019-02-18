@@ -23,19 +23,19 @@ namespace Cloudents.Query
             var documentCountFuture = _session.QueryOver<Document>()
                 .Where(w => w.Status.State == ItemState.Ok)
                 .ToRowCountQuery().FutureValue<int>();
-            var flashcardCountQueryFuture = _session.CreateSQLQuery(
-                @"select sum(b.FlashcardCount) as flashcardCount
-from zbox.box b 
-where University in (select id from zbox.University where  needcode = 0)
-and Discriminator = 2
-and IsDeleted = 0").FutureValue<int>();
+
+            //var questionCountFuture = _session.QueryOver<Question>()
+            //    .Where(w => w.Status.State == ItemState.Ok)
+            //    .ToRowCountQuery().FutureValue<int>();
+
 
             var documentCount = await documentCountFuture.GetValueAsync(token);
-            var flashcardCount = flashcardCountQueryFuture.Value;
+          //  var questionCount = await questionCountFuture.GetValueAsync(token);
             return new List<SiteMapCountDto>
             {
                 new SiteMapCountDto(SeoType.Item, documentCount),
-                new SiteMapCountDto(SeoType.Flashcard, flashcardCount),
+                //new SiteMapCountDto(SeoType.Question,questionCount)
+               // new SiteMapCountDto(SeoType.Flashcard, flashcardCount),
             };
         }
     }

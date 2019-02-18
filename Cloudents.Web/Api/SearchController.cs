@@ -46,7 +46,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
             [FromServices] IWebFlashcardSearch searchProvider, CancellationToken token)
         {
-            var query = SearchQuery.Flashcard(model.Query, profile.University?.ExtraName, model.Course, model.Source, model.Page.GetValueOrDefault());
+            var query = BingSearchQuery.Flashcard(model.Query, profile.University?.ExtraName, model.Course, model.Source, model.Page.GetValueOrDefault());
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, token).ConfigureAwait(false);
             string nextPageLink = null;
             var p = result.Result?.ToList();
@@ -62,20 +62,9 @@ namespace Cloudents.Web.Api
                 {
                     new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
-                //Facet = result.Facet,
                 NextPageLink = nextPageLink
             };
-
-            //return new WebResponseWithFacet<SearchResult>
-            //{
-            //    Result = p,
-            //    Sort = Enum.GetNames(typeof(SearchRequestSort)),
-            //    Filters = new Dictionary<string, IEnumerable<string>>
-            //    {
-            //        ["Sources"] = result.Facet
-            //    },
-            //    NextPageLink = nextPageLink
-            //};
+           
         }
     }
 }

@@ -119,19 +119,19 @@
   </resheader>
   <data name="login" xml:space="preserve">
     <value>Login</value>
-    </data>
+  </data>
   <data name="placeholder_ask" xml:space="preserve">
     <value>Search questions</value>
   </data>
   <data name="sbl" xml:space="preserve">
     <value>Pts</value>
-    </data>
+  </data>
   <data name="placeholder_book" xml:space="preserve">
     <value>Textbook title or ISBN...</value>
   </data>
   <data name="sign_up" xml:space="preserve">
     <value>Sign Up</value>
-    </data>
+  </data>
   <data name="placeholder_flashcard" xml:space="preserve">
     <value>Look for flashcards...</value>
   </data>
@@ -143,5 +143,8 @@
   </data>
   <data name="placeholder_tutor" xml:space="preserve">
     <value>Find a tutor...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
   </data>
 </root>

@@ -100,6 +100,7 @@
           .v-select__selections {
             width: 100%;
             overflow: hidden;
+            white-space: nowrap;
           }
           @media (max-width: @screen-xs) {
             max-width: 292px;
@@ -174,35 +175,40 @@
 
       span {
         cursor: pointer;
-        width: 86px;
-        height: 24px;
         .share-icon {
           /*rtl:ignore*/
           direction: ltr;
-          width: 86px;
-          height: 24px;
-          @media (max-width: @screen-xs) {
-            width: 75px;
-            height: 24px;
-
-          }
+          height: 16px;
         }
       }
-      .referral-whatsup-icon {
-        color: rgb(76, 175, 80);
+      .share-btn{
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        width: 75px;
+        padding: 4px 12px 4px 8px;
+        margin-right: 8px;
+        &:last-child{
+          margin-right: 0;
+        }
+        }
+      .share-text{
+        font-size: 11px;
+        color: @color-white;
+        margin-left: 8px;
+
       }
-      .referral-facebook-icon {
-        color: rgb(59, 89, 152);
+      .whatsup-share-btn {
+        background: rgb(76, 175, 80);
       }
-      .referral-twitter-icon {
-        color: rgb(85, 172, 238);
+      .facebook-share-btn {
+        background: rgb(59, 89, 152);
       }
-      .referral-gmail-icon {
-        color: rgb(255, 40, 0);
+      .twitter-share-btn {
+        background: rgb(85, 172, 238);
       }
-      .referral-linkedin-icon {
-        color: rgb(0, 122, 185);
-        font-size: 27px;
+      .gmail-share-btn {
+        background: rgb(255, 40, 0);
       }
 
     }
@@ -210,7 +216,6 @@
       min-width: 106px;
       background-color: @color-blue-new;
       border-radius: 0 4px 4px 0;
-      //margin-left: -5px;
       color: @color-white;
       .transition(all 0.2s ease-in-out);
       font-family: @fontFiraSans;

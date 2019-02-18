@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Documents.Queries.GetDocumentsList;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -20,6 +21,19 @@ namespace Cloudents.Search.Document
         public AzureDocumentSearch(ISearchService client)
         {
             _client = client.GetClient(DocumentSearchWrite.IndexName);
+
+        }
+
+        public async Task<IEnumerable<string>> GetNone(int page)
+        {
+            var t = await _client.Documents.SearchAsync<Entities.Document>(null, new SearchParameters
+            {
+                Filter = "TypeFieldName eq 'None'",
+                Top = 1000,
+                Skip = page * 1000,
+                Select = new[] { "Id" }
+            });
+            return t.Results.Select(s => s.Document.Id);
 
         }
 
@@ -63,28 +77,32 @@ namespace Cloudents.Search.Document
 
 
 
-        public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string> facetSubject)> SearchAsync(DocumentQuery query, CancellationToken token)
+        public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string> facetSubject)>
+            SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token)
         {
-            var country = query.Profile.University?.Country ?? query.Profile.Country;
+            var country = userProfile.University?.Country ?? userProfile.Country;
             var filters = new List<string>
             {
                 $"({nameof(Entities.Document.Country)} eq '{country.ToUpperInvariant()}')"
             };
             if (query.Course != null)
             {
-                var filterStr = string.Join(" or ", query.Course.Select(s =>
-                    $"{Entities.Document.CourseNameField} eq '{s.ToUpperInvariant().Replace("'", "''")}'"));
 
-                if (!string.IsNullOrWhiteSpace(filterStr))
-                {
-                    filters.Add($"({filterStr})");
-                }
+                var filterStr = $"{Entities.Document.CourseNameField} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";
+                filters.Add($"({filterStr})");
+            }
+
+            if (query.FilterByUniversity)
+            {
+                var universityStr = $"{Entities.Document.UniversityIdFieldName} eq '{userProfile.University.Id.ToString()}'";
+                filters.Add($"({universityStr})");
+
             }
 
             if (query.Filters != null)
             {
                 var filterStr = string.Join(" or ", query.Filters.Select(s =>
-                     $"{Entities.Document.TypeFieldName} eq '{s}'"));
+                     $"{Entities.Document.TypeFieldName} eq '{s.Replace("'", "''")}'"));
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
                     filters.Add($"({filterStr})");
@@ -102,9 +120,9 @@ namespace Cloudents.Search.Document
                 ScoringProfile = DocumentSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {
-                                 new ScoringParameter(DocumentSearchWrite.TagsUniversityParameter, new[] {query.Profile.University?.Id.ToString()}),
-                                 new ScoringParameter(DocumentSearchWrite.TagsTagsParameter,GenerateScoringParameterValues( query.Profile.Tags)),
-                                 new ScoringParameter(DocumentSearchWrite.TagsCourseParameter, GenerateScoringParameterValues( query.Profile.Courses )),
+                                 new ScoringParameter(DocumentSearchWrite.TagsUniversityParameter, new[] { userProfile.University?.Id.ToString()}),
+                                 new ScoringParameter(DocumentSearchWrite.TagsTagsParameter,GenerateScoringParameterValues( userProfile.Tags)),
+                                 new ScoringParameter(DocumentSearchWrite.TagsCourseParameter, GenerateScoringParameterValues( userProfile.Courses )),
                 },
                 Facets = new[]
                 {
@@ -117,15 +135,9 @@ namespace Cloudents.Search.Document
                 _client.Documents.SearchAsync<Entities.Document>(query.Term, searchParameter,
                     cancellationToken: token);
 
-            if (result.Facets != null)
+            if (result.Facets != null && result.Facets.TryGetValue(Entities.Document.TypeFieldName, out var p))
             {
-                if (result.Facets.TryGetValue(Entities.Document.TypeFieldName, out var p))
-
-                {
-                    facetDocumentType = p.Select(s => s.Value.ToString());//.AsEnumFacetResult<DocumentType>();
-                }
-
-
+                facetDocumentType = p.Select(s => s.Value.ToString());//.AsEnumFacetResult<DocumentType>();
             }
 
             return (result.Results.Select(s => new DocumentSearchResultWithScore

@@ -35,15 +35,14 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState', 'showRegistrationBanner', 'getCookieAccepted']),
+            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState',  'getCookieAccepted']),
 
             isFloatingBtn() {
-                let offHeight = 0;
-                if(this.showRegistrationBanner){
-                    // offHeight = 150 + 285; // header + signUpBanner height
-                    offHeight = 200 + 285;
+ if(this.$vuetify.breakpoint.smAndDown){
+
+                    return true;
                 }else{
-                    offHeight = 200;
+                    return false;
                 }
                 return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown)
             },
@@ -72,12 +71,24 @@
                 if (this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 } else if(!schoolName.length){
-                    this.updateCurrentStep(steps.set_school);
-                    this.changeSelectUniState(true);
+                    // this.updateCurrentStep(steps.set_school);
+                    // this.changeSelectUniState(true);
+                    this.$router.push({
+                        name:'uniselect',
+                        params: {
+                            step:steps.set_school
+                        }
+                    })
                     this.setReturnToUpload(true);
                 }else if(!this.getSelectedClasses.length){
-                    this.updateCurrentStep(steps.set_class);
-                    this.changeSelectUniState(true);
+                    // this.updateCurrentStep(steps.set_class);
+                    // this.changeSelectUniState(true);
+                    this.$router.push({
+                        name:'uniselect',
+                        params: {
+                            step:steps.set_class
+                        }
+                    })
                     this.setReturnToUpload(true);
                 }else if(schoolName.length > 0 && this.getSelectedClasses.length > 0){
                     this.updateDialogState(true);

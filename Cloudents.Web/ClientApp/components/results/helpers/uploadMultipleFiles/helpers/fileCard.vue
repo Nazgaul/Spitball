@@ -7,7 +7,7 @@
                                   :class="$vuetify.breakpoint.xsOnly ? 'mr-0 mb-2' : ' mr-2 mb-2'"
                                   v-model="item.name"
                                   :rules="[rules.required]"
-                                  placeholder=""></v-text-field>
+                                   :placeholder="fileNamePlaceholder"></v-text-field>
                     <div class="error-card-error-msg" v-show="item.error">
                         <span>{{item.error && item.errorText ? item.errorText : ''}}</span>
                         <!--<span v-language:inner>upload_multiple_error_upload_single_file</span>-->
@@ -48,24 +48,20 @@
                                  :min="1"
                                  :minus="false"
                                  :precision="2"
-                                 :max="99"
+                                 :max="1000"
                                  :currency-symbol-position="'suffix'"
                                  separator=","
                                  v-model="item.price"></vue-numeric>
                 </v-flex>
                 <v-flex xs6 sm5 md5 order-sm4 order-md4>
-                    <v-select
-                            class="sb-field elevation-0"
-                            :items="docTypes"
-                            item-value="id"
-                            item-text="title"
-                            hide-detail
-                            :placeholder="placeholderDocType"
-                            v-model="item.type"
+                    <v-text-field
                             solo
-                            :append-icon="'sbf-arrow-down'"></v-select>
+                            class="sb-field"
+                            :placeholder="placeholderDocType"
+                            v-model="item.type"></v-text-field>
                 </v-flex>
-                <v-icon v-if="quantity >1 && !item.error" class="delete-close-icon d-flex mt-3" @click="deleteFile()">sbf-close
+                <v-icon v-if="quantity >1 && !item.error" class="delete-close-icon d-flex mt-3" @click="deleteFile()">
+                    sbf-close
                 </v-icon>
             </v-layout>
             <v-progress-linear
@@ -81,7 +77,6 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import { documentTypes } from "./consts";
     import { LanguageService } from "../../../../../services/language/languageService";
 
     export default {
@@ -89,8 +84,8 @@
         data() {
             return {
                 tags: [],
-                docTypes: documentTypes,
                 formattedPrice: '',
+                fileNamePlaceholder: LanguageService.getValueByKey("upload_multiple_fileName_placeholder"),
                 emptyPricePlaceholder: LanguageService.getValueByKey("upload_multiple_price_placeholder"),
                 placeholderTags: LanguageService.getValueByKey("upload_multiple_keywords_optional"),
                 placeholderDocType: LanguageService.getValueByKey("upload_multiple_select_filetype"),
@@ -188,6 +183,7 @@
 
 <style lang="less">
     @import '../../../../../styles/mixin.less';
+
     @uploadGreyBackground: rgba(68, 82, 252, 0.09);
     @chipActiveColor: #4452FC;
     .file-item-card {
@@ -197,11 +193,10 @@
         border-radius: 4px;
         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.23);
         background-color: @color-white;
-        &.error-card{
-                -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54) !important; //vuetify
-                -moz-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54)!important;
-                box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54)!important;
-
+        &.error-card {
+            -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54) !important; //vuetify
+            -moz-box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54) !important;
+            box-shadow: 0px 0px 0px 2px rgba(255, 101, 101, 0.54) !important;
 
         }
         @media (max-width: @screen-xs) {
@@ -212,21 +207,21 @@
                 margin-bottom: 112px !important; //last child offset
             }
         }
-        .error-card-error-msg{
+        .error-card-error-msg {
             position: absolute;
-            box-shadow: 0 3px 8px 0 rgba(0,0,0,.19);
+            box-shadow: 0 3px 8px 0 rgba(0, 0, 0, .19);
             background-color: #ff6565;
             top: 70px;
             left: 6px;
             z-index: 1;
             padding: 5px 18px;
             border-radius: 4px;
-            font-family: Open Sans,sans-serif;
+            font-family: Open Sans, sans-serif;
             font-size: 13px;
             font-weight: 600;
             letter-spacing: -.4px;
             color: #fff;
-            &:after{
+            &:after {
                 content: '';
                 position: absolute;
                 top: 0;
@@ -241,11 +236,11 @@
             }
 
         }
-        .sb-file-card-progress{
+        .sb-file-card-progress {
             width: 100%;
             position: absolute;
-            bottom:0;
-            left:0;
+            bottom: 0;
+            left: 0;
             z-index: 1;
         }
         .delete-close-icon {
@@ -289,7 +284,15 @@
                     display: none;
                 }
             }
+            //fix for Edge bug placeholder is visible when input has val
+            &.v-input--is-dirty {
+                .v-input__slot {
+                    input{
+                        .placeholder-color(transparent, null, null, null);
 
+                    }
+                }
+            }
             .v-select__selections {
                 max-height: 42px;
             }
@@ -315,10 +318,17 @@
             color: @textColor;
         }
         .sb-field {
-            &:not(.error--text){
+            &:not(.error--text) {
                 max-height: 48px;
             }
-
+            //fix for Edge bug placeholder is visible when input has val
+            &.v-input--is-dirty {
+                .v-input__slot {
+                    input{
+                        .placeholder-color(transparent, null, null, null);
+                    }
+                }
+            }
             &.v-text-field--solo {
                 .v-input__slot {
                     box-shadow: none !important; //vuetify
@@ -329,11 +339,6 @@
                     letter-spacing: -0.7px;
                     color: @textColor;
                 }
-                /*&.bg-greyed {*/
-                    /*.v-input__slot {*/
-                        /*background-color: #f9f9f9;*/
-                    /*}*/
-                /*}*/
             }
         }
     }

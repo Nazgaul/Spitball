@@ -10,7 +10,6 @@ const state = {
         isFirst: true,
         location: null,
         pinnedCards: {},
-        showRegistrationBanner: true,
 
     },
     cookieAccepted: global.localStorage.getItem("sb-acceptedCookies") === 'true',
@@ -68,9 +67,7 @@ const mutations = {
             state.historyTermSet = state.historyTermSet.slice(1);
         }
     },
-    [USER.HIDE_REGISTRATION_BANNER](state) {
-        state.user.showRegistrationBanner = false;
-    }, 
+
     [USER.ACCEPTED_COOKIE](state){
         state.cookieAccepted = true;
     }
@@ -91,13 +88,7 @@ const getters = {
         } else { return location }
     },
     pinnedCards: state => state.user.pinnedCards,
-    showRegistrationBanner (state, {accountUser}){
-        if(!!accountUser){
-            return false;
-        }else{
-            return state.user.showRegistrationBanner;
-        }
-    },
+
     getCookieAccepted: state => state.cookieAccepted,
     // getRegistrationStep:
     //     state => state.user.registrationStep,
@@ -160,9 +151,7 @@ const actions = {
     updateSort({ commit }, data) {
         commit(USER.UPDATE_SORT, data)
     },
-    hideRegistrationBanner(context) {
-        context.commit(USER.HIDE_REGISTRATION_BANNER);
-    }
+
 };
 export default {
     state,

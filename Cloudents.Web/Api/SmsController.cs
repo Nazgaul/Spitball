@@ -62,7 +62,6 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         public async Task<IActionResult> SetUserPhoneNumber(
-           // [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromBody]PhoneNumberRequest model,
             CancellationToken token)
         {
@@ -152,8 +151,6 @@ namespace Cloudents.Web.Api
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
             if (v.Succeeded)
             {
-                //This is the last step of the registration.
-
                 return await FinishRegistrationAsync(token, user, country);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
@@ -225,6 +222,38 @@ namespace Cloudents.Web.Api
 
             TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await _client.SendSmsAsync(user, token);
+            return Ok();
+        }
+
+        [HttpPost("call")]
+        public async Task<IActionResult> CallUserAsync(CancellationToken token)
+        {
+            var phoneCallTime = "phoneCallTime";
+            var t = TempData.Peek(phoneCallTime);
+            if (t != null)
+            {
+                var temp = DateTime.Parse(t.ToString(), CultureInfo.InvariantCulture);
+                if (temp > DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(0.5)))
+                {
+                    return Ok();
+                }
+            }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                _logger.Error("Set User Phone number User is already sign in");
+                return Unauthorized();
+            }
+
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
+                return BadRequest(ModelState);
+            }
+
+            TempData[phoneCallTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+            await _client.SendPhoneAsync(user, token);
             return Ok();
         }
     }

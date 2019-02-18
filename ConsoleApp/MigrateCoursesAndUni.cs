@@ -42,8 +42,8 @@ namespace ConsoleApp
             });
 
             // Define request parameters.
-            string spreadsheetId = "15HTW3DY9zpSubj6sDnCiF74sMe4kbZ9ksxlREEU4u6Q";
-            string range = "CoursesDelete!A2:D";
+            string spreadsheetId = "16XyVRE-Pu8I1cL_iD9mM8IwtavlMsVEZwt3ndclp7_A";
+            string range = "Sheet1!A2:C";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -57,14 +57,13 @@ namespace ConsoleApp
 
                 foreach (var row in values)
                 {
-                    long.TryParse(row[0].ToString(), out var t);
+                    long.TryParse(row[1].ToString(), out var t);
                     // Print columns A and E, which correspond to indices 0 and 4.
                     CorseToMigratre obj = new CorseToMigratre()
                     {
-                        
                         Id = t,
-                        Name = row[1].ToString(),
-                        NewId = row[3].ToString()
+                        Name = row[0].ToString(),
+                        NewId = row[2].ToString()
                     };
                    
                     res.Add(obj);
@@ -107,8 +106,8 @@ namespace ConsoleApp
 
 
 
-            String spreadsheetId2 = "15HTW3DY9zpSubj6sDnCiF74sMe4kbZ9ksxlREEU4u6Q";
-            String range2 = $"CoursesDelete!E{rowNumber}";  // update cell F5 
+            String spreadsheetId2 = "16XyVRE-Pu8I1cL_iD9mM8IwtavlMsVEZwt3ndclp7_A";
+            String range2 = $"Sheet1!D{rowNumber}";  // update cell F5 
             ValueRange valueRange = new ValueRange();
             valueRange.MajorDimension = "COLUMNS";//"ROWS";//COLUMNS
 

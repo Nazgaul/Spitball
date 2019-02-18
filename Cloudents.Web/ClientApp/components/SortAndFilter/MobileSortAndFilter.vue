@@ -1,8 +1,17 @@
 <template>
-    <v-dialog v-model="value" fullscreen content-class="filter-dialog" persistent>
-        <dialog-toolbar :app="false" height="48" :toolbarTitle="toolBarTitle" :backAction="$_backAction">
-            <v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters"><span v-language:inner>mobileSortAndFilter_clearAll</span></v-btn>
-        </dialog-toolbar>
+    <v-dialog v-model="value" content-class="filter-dialog"  :max-width="$vuetify.breakpoint.smAndUp ? '720px' : ''" :fullscreen="$vuetify.breakpoint.xsOnly"  persistent>
+        <div class="dialog-header">
+            <!-- <span class="dialog-title">{{toolBarTitle}}</span> -->
+            <v-icon class="dialog-title">sbf-filter</v-icon>
+            <v-icon  class="close-icon-filter" @click="resetFilters">sbf-close</v-icon>
+        </div>
+
+        <!--<dialog-toolbar height="48" :toolbarTitle="toolBarTitle" :backAction="$_backAction">-->
+            <!--<v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters">-->
+                <!--<v-icon  slot="rightElement" class="close-icon-filter" @click="resetFilters">sbf-close</v-icon>-->
+                <!--<span v-language:inner>mobileSortAndFilter_clearAll</span> -->
+            <!--</v-btn>-->
+        <!--</dialog-toolbar>-->
         <div class="content-container">
             <div class="sort-wrap" v-if="sortOptions && sortOptions.length">
               <template>
@@ -17,8 +26,8 @@
                 </template>
             </div>
 
-            <div class="filter-wrap px-3" v-if="filterList && filterList.length">
-                <h3 class="" v-language:inner>mobileSortAndFilter_filterBy</h3>
+            <div class="filter-wrap" :class="$vuetify.breakpoint.xsOnly ? 'px-4' : 'px-5'" v-if="filterList && filterList.length">
+                <!--<h3 class="" v-language:inner>mobileSortAndFilter_filterBy</h3>-->
                 <div class="filter-sections">
                     <div class="filter-section" v-for="(singleFilter) in filterList" :key="singleFilter.id" :value="true">
                         <v-layout class="filter-header" slot="header">
@@ -27,7 +36,9 @@
                                     <slot :name="`${singleFilter.title}TitlePrefix`"></slot>
                                 </div>
                                 <slot name="headerTitle" :title="singleFilter.title">
-                                    <div>{{singleFilter.title}}</div>
+                                    <div>
+                                        <span class="filter-single-title">{{singleFilter.title}}</span>
+                                    </div>
                                 </slot>
                             </v-layout>
                         </v-layout>
@@ -48,8 +59,9 @@
                 </div>
             </div>
         </div>
-        <v-btn class="apply elevation-0" fixed  @click="applyFilters"><span v-language:inner>mobileSortAndFilter_applyFilterBtn</span></v-btn>
-
+        <div class="bottom-bnt-wrap justify-end align-center">
+            <v-btn class="apply elevation-0" @click="applyFilters"><span v-language:inner>mobileSortAndFilter_applyFilterBtn</span></v-btn>
+        </div>
     </v-dialog>
 </template>
 

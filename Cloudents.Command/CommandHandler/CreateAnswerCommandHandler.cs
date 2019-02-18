@@ -80,7 +80,7 @@ namespace Cloudents.Command.CommandHandler
             //and we can create sql to check if its not the same user
             var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
             var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
-            foreach (var answer in answers.Where(w=> 
+            foreach (var answer in answers.Where(w =>
                 w.Status.State == ItemState.Ok
 
             ))
@@ -90,6 +90,7 @@ namespace Cloudents.Command.CommandHandler
                 {
                     throw new DuplicateRowException("Duplicate answer");
                 }
+
             }
 
             var language = await _textAnalysis.DetectLanguageAsync(message.Text, token);
@@ -101,7 +102,7 @@ namespace Cloudents.Command.CommandHandler
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
-            await Task.WhenAll(l/*.Union(new[] { t })*/).ConfigureAwait(true);
+            await Task.WhenAll(l);
         }
     }
 }

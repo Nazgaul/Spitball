@@ -99,11 +99,6 @@ namespace Cloudents.Web.Api
                     }
                 )}, token);
             return Ok();
-
-
-            // return new CreateQuestionResponse(toasterMessage);
-
-
         }
 
         [HttpGet("subject"), AllowAnonymous]
@@ -195,14 +190,12 @@ namespace Cloudents.Web.Api
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
             [FromQuery]QuestionsRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            //[ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             [FromServices] IQueryBus queryBus,
            CancellationToken token)
         {
-            var query = new QuestionsQuery(model.Term, model.Source,
-                model.Page.GetValueOrDefault(),
-                model.Filter?.Where(w => w.HasValue).Select(s => s.Value),
-                profile.Country);
+            var query = new QuestionsQuery(model.Profile, model.Term, model.Course, model.NeedUniversity, model.Source,
+                model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
 
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);

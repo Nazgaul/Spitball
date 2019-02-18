@@ -186,4 +186,13 @@
   <data name="your_search" xml:space="preserve">
     <value>Your search</value>
   </data>
+  <data name="get_help" xml:space="preserve">
+    <value>Get Help</value>
+  </data>
+  <data name="no_result_found" xml:space="preserve">
+    <value>No Results Found for</value>
+  </data>
+  <data name="still_cant_find" xml:space="preserve">
+    <value>Still can’t find what you are looking for?</value>
+  </data>
 </root>

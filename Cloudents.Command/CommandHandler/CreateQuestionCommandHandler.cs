@@ -40,22 +40,23 @@ namespace Cloudents.Command.CommandHandler
 
             if (await _questionRepository.GetSimilarQuestionAsync(message.Text, token))
             {
-                //TODO: this will not work
-                //user.Events.Add(new QuestionRejectEvent(user));
                 throw new DuplicateRowException();
             }
 
             var currentBalance = await _transactionRepository.GetBalanceAsync(message.UserId, token);
-            var amountForAskingQuestion = currentBalance * 3 / 10;
-            if (amountForAskingQuestion < message.Price)
+           
+            if (currentBalance < message.Price)
             {
                 throw new InsufficientFundException();
             }
 
-            var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
             var course = await _courseRepository.LoadAsync(message.Course, token);
             course.Count++;
             await _courseRepository.UpdateAsync(course, token);
+
+
+
+            var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
 
             var question = new Question(message.SubjectId,
                 message.Text, message.Price, message.Files?.Count() ?? 0,

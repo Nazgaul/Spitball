@@ -1,11 +1,9 @@
 ﻿using System.Linq;
-using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Cloudents.Command;
 using Cloudents.Command.CommandHandler;
 using Cloudents.Core;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Query;
@@ -35,19 +33,18 @@ namespace Cloudents.Infrastructure.Stuff
 
             //builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
-            builder.RegisterAssemblyTypes(typeof(ICommandHandler<>).Assembly).As(o => o.GetInterfaces()
-                .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) 
+            //builder.RegisterAssemblyTypes(typeof(ICommandHandler<>).Assembly).AsClosedTypesOf(typeof(ICommandHandler<>));
 
-                            && i.GetCustomAttribute<AdminCommandHandler>() == null
-                            )
+            builder.RegisterAssemblyTypes(typeof(ICommandHandler<>).Assembly).As(o => o.GetInterfaces()
+                .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)))
                 .Select(i => new KeyedService("handler", i)));
-           
+
 
             builder.RegisterGenericDecorator(
                 typeof(CommitUnitOfWorkCommandHandlerDecorator<>),
                 typeof(ICommandHandler<>),
                 fromKey: "handler");
-           
+
             builder.RegisterAssemblyTypes(typeof(IEventHandler<>).Assembly).AsClosedTypesOf(typeof(IEventHandler<>));
 
             builder.RegisterType<EventPublisher>().As<IEventPublisher>();

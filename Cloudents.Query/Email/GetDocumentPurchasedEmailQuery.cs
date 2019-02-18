@@ -43,7 +43,7 @@ join sb.Document d on t.DocumentId = d.id
 where t.id = @id";
                 using (var connection = new SqlConnection(_provider.Db.Db))
                 {
-                    return await connection.QueryFirstOrDefaultAsync<DocumentPurchaseEmailDto>(sql,
+                    return await connection.QuerySingleAsync<DocumentPurchaseEmailDto>(sql,
                         new
                         {
                             id = query.TransactionId,

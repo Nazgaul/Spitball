@@ -1,9 +1,7 @@
 ﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,14 +12,12 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly ICourseRepository _courseRepository;
         private readonly IRepository<RegularUser> _userRepository;
-        private readonly ITransactionRepository _transactionRepository;
 
         public AssignCoursesToUserCommandHandler(ICourseRepository courseRepository,
-            IRepository<RegularUser> userRepository, ITransactionRepository transactionRepository)
+            IRepository<RegularUser> userRepository)
         {
             _courseRepository = courseRepository;
             _userRepository = userRepository;
-            _transactionRepository = transactionRepository;
         }
 
 

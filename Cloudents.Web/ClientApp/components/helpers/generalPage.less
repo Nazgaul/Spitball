@@ -1,24 +1,21 @@
 ﻿@import "../../styles/mixin.less";
-
-.p-result {
-  .limited-width();
-  .first-grid {
-    width: @resultsFilterWidth;
-    .flexSameSize();
-    padding-right: 32px;
-    opacity: 1;
+.main-container{
+  
+  .p-result {    
+    .limited-width();
+    .first-grid {
+      .flexSameSize();
+    }
   }
-
 }
-
-//@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
 
 @marginTop: 24px;
 .main-section {
   min-width: 0;
   margin-top: @marginTop;
   @media (max-width: @screen-xs) {
-    margin-top: 0
+    margin-top: 0;
+    margin-left: unset;
   }
   @media (min-width: (@screen-xs+1)) {
     margin-top: 16px;
@@ -60,7 +57,6 @@
     font-weight: bold;
     letter-spacing: -0.5px;
     text-align: center;
-    // position: fixed;
     margin: 0 auto 16px;
     left: 0;
     right: 0;
@@ -141,13 +137,9 @@
     
   }
 
-  .mobile-filter {
+  .filter-container{
     flex-direction: row;
     align-items: center;
-    @media (max-width: @screen-xs) {
-      margin-top: 12px;
-      margin-bottom: 12px;
-    }
     .v-btn__content {
       flex-direction: row-reverse;
       .counter {
@@ -168,29 +160,6 @@
         bottom: 0;
       }
     }
-    @media (max-width: @screen-xs) {
-      min-height: 42px;
-    }
-
-    button {
-      @media (max-width: @screen-xs) {
-        margin: 0 0 0 -8px;
-        background: #fff;
-        border-radius: 0 4px 4px 0;
-        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.31) !important;
-        &.mobile-filter-icon-btn {
-          height: 46px;
-          position: relative;
-        }
-
-        .sbf-filter {
-          font-size: 19px;
-          position: absolute;
-          right: 10px;
-        }
-      }
-    }
-
     //remove the eliptic shape when clicking the sort ans filter button on mobile
     .v-btn:before {
       display: none;
@@ -198,6 +167,42 @@
     .v-ripple__container {
       display: none;
 
+    }
+  }
+  .filter-container{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: @screen-sm) {
+      padding-top: 6px;
+    }
+    
+    .result-filter-text{
+        margin-left: 5px;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        width: 85%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      @media (max-width: @screen-sm) {
+        margin-left: 15px;
+        font-size:12px;
+      }
+      .result-filter-text-bold{
+        font-weight: 600;
+      }
+    }
+    .filter-button-container{
+      margin-left: auto;
+    }
+  }
+  .mobile-filter-icon-btn {
+    .v-btn__content{
+      i{
+        color:#3e45a0;
+        font-size: 17px;
+      }
     }
   }
 }

@@ -43,7 +43,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Score).ReadOnly();
             Table("[User]");
             
-            SchemaAction.Update();
+            SchemaAction.None();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull

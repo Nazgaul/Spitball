@@ -7,15 +7,6 @@ namespace Cloudents.Core.Models
 {
     public class UserProfile
     {
-        //public UserQueryProfileDto(IEnumerable<string> courses, 
-        //    IEnumerable<string> tags, 
-        //    UserUniversityQueryProfileDto university)
-        //{
-        //    Courses = courses;//.Select(s=>s.Name);
-        //    Tags = tags;//.Select(s => s.Name);
-        //    University = university;
-        //}
-
         public IList<string> Courses { get; set; }
         public IEnumerable<string> Tags { get; set; }
 
@@ -23,7 +14,6 @@ namespace Cloudents.Core.Models
         public UserUniversityQueryProfileDto University { get; set; }
 
         public string Country { get; set; }
-
     }
 
     public class UserUniversityQueryProfileDto
@@ -39,10 +29,10 @@ namespace Cloudents.Core.Models
             Country = country;
         }
 
-        public Guid Id { get; set; }
-        public IEnumerable<string> ExtraName { get; set; }
-        public string Name { get; set; }
+        public Guid Id { get;  set; }
+        public IEnumerable<string> ExtraName { get;  set; }
+        public string Name { get;  set; }
 
-        public string Country { get; private set; }
+        public string Country { get;  set; }
     }
 }

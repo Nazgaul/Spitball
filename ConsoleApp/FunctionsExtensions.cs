@@ -55,6 +55,7 @@ namespace ConsoleApp
                     catch
                     {
                         MigrateCoursesAndUni.WriteToSheet(counter);
+                        Thread.Sleep(1000);
                     }
                 }
                 else if (item.NewId == "Delete")
@@ -72,8 +73,14 @@ namespace ConsoleApp
                     catch
                     {
                         MigrateCoursesAndUni.WriteToSheet(counter);
+                        Thread.Sleep(1000);
                     }
                 }
+                else {
+                    MigrateCoursesAndUni.WriteToSheet(counter);
+                    Thread.Sleep(1000);
+                }
+                
                 counter++;
             }
         }
@@ -85,6 +92,7 @@ namespace ConsoleApp
             var t = MigrateCoursesAndUni.ReadUniversity();
             string update = @"update sb.[user] set UniversityId2 = @Newuni where UniversityId2 = @OldUni;
                                 update sb.Document set UniversityId = @Newuni where UniversityId = @OldUni;
+                                update sb.Question set UniversityId = @Newuni where UniversityId = @OldUni;
                                 delete from sb.University where id =  @OldUni;";
 
             var counter = 2;
@@ -109,6 +117,7 @@ namespace ConsoleApp
                     catch
                     {
                         MigrateCoursesAndUni.WriteToUniSheet(counter);
+                        Thread.Sleep(1000);
                     }
                 }
                 else if (item.NewId == "Delete")
@@ -126,6 +135,7 @@ namespace ConsoleApp
                     catch
                     {
                         MigrateCoursesAndUni.WriteToUniSheet(counter);
+                        Thread.Sleep(1000);
                     }
                 }
                 counter++;

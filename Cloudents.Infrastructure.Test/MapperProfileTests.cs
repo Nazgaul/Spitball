@@ -12,7 +12,7 @@ namespace Cloudents.Infrastructure.Test
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile(new MapperProfile());
-                cfg.AddProfile<ConfigureMapper>();
+                //cfg.AddProfile<ConfigureMapper>();
             });
 
             AutoMapper.Mapper.Configuration.AssertConfigurationIsValid();

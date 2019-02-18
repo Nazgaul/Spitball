@@ -2,6 +2,7 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
@@ -10,6 +11,9 @@ using Cloudents.Core.Message.System;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Query.Admin;
+using Cloudents.Search.Document;
+using Cloudents.Search.Question;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -17,6 +21,7 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using NHibernate;
 using NHibernate.Linq;
+using SimMetricsMetricUtilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,17 +29,12 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Query.Query;
-using Cloudents.Search.Document;
-using Cloudents.Search.Question;
-using SimMetricsApi;
-using SimMetricsMetricUtilities;
-using SimMetricsUtilities;
-using System.Text;
+
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace ConsoleApp
 {
@@ -43,9 +43,11 @@ namespace ConsoleApp
         private static IContainer _container;
         private static CancellationToken token = CancellationToken.None;
 
-
+        private static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         static async Task Main()
         {
+            
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
@@ -57,7 +59,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
@@ -121,14 +123,102 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await UpdateQuestionIndex();
-            //var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
-            //await t.DispatchAsync(p, default);
+            
+            //var command = new CreateQuestionCommand(null, "this is hader this is elad", 1, 638, null, "asdas");
+            //await bus.DispatchAsync(command, token);
+            //var z = _container.Resolve<AzureDocumentSearch>();
+            //var d = _container.Resolve<DapperRepository>();
+            //IEnumerable<string> result = null;
+            //int page = 0;
+            //do
+            //{
+            //    Console.WriteLine($"Processing page : {page}");
 
-            var bus = _container.Resolve<ICommandBus>();
-            var command = new ReferringUserCommand( 638, 159039);
-            await bus.DispatchAsync(command, token);
+            //    result = await z.GetNone(page++);
+            //    using (var db = d.OpenConnection())
+            //    {
+            //        await db.ExecuteAsync(@"update sb.Document
+            //        set UpdateTime = DATEADD(SS, 1, UpdateTime)
+            //        where id in @id", new { id = result });
+            //    }
 
+            //    //using (var t = new FileStream(@"C:\Users\Ram\Downloads\x.txt", FileMode.Append))
+            //    //{
+            //    //    using (StreamWriter sr = new StreamWriter(t))
+            //    //    {
+            //    //        await sr.WriteLineAsync(string.Join(",", result));
+            //    //    }
+            //    //}
+            //} while (result.Any());
+            //            string t;
+            //            do
+            //            {
+            //                using (var db = d.OpenConnection())
+            //                {
+            //                    t = await db.QuerySingleOrDefaultAsync<string>(@"select top 1 Name from sb.University u
+            //group by Name
+            //having count(*) > 1");
+            //                    Console.WriteLine("processing " + t);
+            //                    var v = await db.QueryAsync(@"Select u.Id, u.country,
+            //(select count(*) from sb.Document d where d.UniversityId = u.Id) as docs,
+            //(select count(*) from sb.Question d where d.UniversityId = u.Id) as questions,
+            //(select count(*) from sb.[user] d where d.UniversityId2 = u.Id) as users
+            //from sb.university u
+            // where u.Name = @name
+            //order by docs desc,questions desc,users desc", new {name = t});
+
+            //                    var first = v.First(f=>
+            //                    {
+            //                        string v2 =  f.country;
+            //                        return v2.Equals("us", StringComparison.OrdinalIgnoreCase);
+            //                    });
+
+
+            //                    var rest = v.Where(w=>w.Id != first.Id);
+
+
+
+            //                    foreach (var o in rest)
+            //                    {
+            //                        await db.ExecuteAsync(@"update sb.[user]
+            //set UniversityId2 = @newId
+            //where UniversityId2 = @oldId;
+
+            //update sb.document
+            //set UniversityId = @newId
+            //where UniversityId = @oldId;
+
+            //update sb.Question
+            //set UniversityId = @newId
+            //where UniversityId = @oldId;
+
+            //delete from sb.University where id = @oldId;", new {newId = first.Id, oldId = o.Id});
+            //                        Console.WriteLine($"merge  {o} to {first}");
+            //                    }
+
+            //                }
+
+
+
+
+
+            //                ;
+            //            } while (!string.IsNullOrEmpty(t));
+
+            Console.WriteLine("done");
+            //if (Base62.TryParse("", out var t))
+            //{
+
+            //}
+            //var r = await z.ItemAsync(129332, token);
+
+            //await UpdateQuestionIndex();
+            ////var p = new CreateQuestionCommand(null,"Ram Course Text",1,638,null,"portal");
+            ////await t.DispatchAsync(p, default);
+
+            //var bus = _container.Resolve<IQueryBus>();
+            //var query2 = new IdsQuery<long>(new[] { 2055L });
+            //var result = await bus.QueryAsync<IEnumerable<QuestionFeedDto>>(query2, default);
         }
 
 
@@ -333,17 +423,34 @@ where left(blobName ,4) != 'file'");
         private static readonly Regex SpaceReg = new Regex(@"\s+", RegexOptions.Compiled);
 
 
-        private static List<(string, string)> FindSimilarStrings(string t, List<string> pageTexts)
+        private static List<(Guid, string, string, Guid, string, string)> FindSimilarStringsUniversity(
+            (Guid, string, string) t, List<(Guid, string, string)> pageTexts)
         {
-          
-
             var jaroWinkler = new JaroWinkler();
-            List<(string, string)> res = new List<(string, string)>();
+            List<(Guid, string, string, Guid, string, string)> res =
+                    new List<(Guid, string, string, Guid, string, string)>();
+            foreach (var r in pageTexts.Where(w => w != t))
+            {
+                var result = jaroWinkler.GetSimilarity(r.Item2, t.Item2);
+
+                if (result > 0.9)
+                { res.Add((t.Item1, t.Item2, t.Item3, r.Item1, r.Item2, r.Item3)); }
+            }
+            return res;
+
+        }
+
+        private static List<(string, string)> FindSimilarStringsCourse(
+           string t, List<string> pageTexts)
+        {
+            var jaroWinkler = new JaroWinkler();
+            List<(string, string)> res =
+                    new List<(string, string)>();
             foreach (var r in pageTexts.Where(w => w != t))
             {
                 var result = jaroWinkler.GetSimilarity(r, t);
 
-                if (result > 0.9)
+                if (result > 0.95)
                 { res.Add((t, r)); }
             }
             return res;
@@ -354,38 +461,94 @@ where left(blobName ,4) != 'file'");
             return res;*/
         }
 
-        private static async Task HadarMethod()
+        private static async Task UniversitiesWithSimilarNames()
         {
             var d = _container.Resolve<DapperRepository>();
 
-            var courses = await d.WithConnectionAsync<IEnumerable<string>>(async f =>
+            var universities = await d.WithConnectionAsync(async f =>
             {
-                return await f.QueryAsync<string>(
-                    @"Select [Name] from sb.Course where [Name] LIKE N'%[א-ת]%'");
+                return await f.QueryAsync<(Guid, string, string)>(
+                    @"Select Id,[Name], Country from sb.University order by Name");
             }, default);
             StringBuilder sb = new StringBuilder();
-            string delimiter = ",";
+            string filePath = @"C:\Users\Charlie even\university.csv";
+            //List<(string,string)> output = new List<(string, string)>();
+            foreach (var universityName in universities)
+            {
+                var res = FindSimilarStringsUniversity(universityName, universities.ToList());
 
-            //int rowNumber = 1;
+                foreach (var university in res)
+                {
+                    File.AppendAllLines(filePath, new List<string>() { $@"{university.Item1}, {university.Item2}, {university.Item3}, {university.Item4}, {university.Item5}, {university.Item6}" });
+                }
+            }
+        }
 
-            string filePath = @"C:\Users\Charlie even\test.csv";
-            List<(string,string)> output = new List<(string, string)>();
+        private static async Task CoursesWithSimilarNames()
+        {
+            var d = _container.Resolve<DapperRepository>();
+
+            var courses = await d.WithConnectionAsync(async f =>
+            {
+                return await f.QueryAsync<string>(
+                    @"Select [Name] from sb.Course where name like N'%[א-ת]%' order by Name");
+            }, default);
+            StringBuilder sb = new StringBuilder();
+            string filePath = @"C:\Users\Charlie even\course.csv";
+            //List<(string,string)> output = new List<(string, string)>();
             foreach (var courseName in courses)
             {
-                var res = FindSimilarStrings(courseName, courses.ToList());
+                var res = FindSimilarStringsCourse(courseName, courses.ToList());
 
-                foreach (var course in res)
+                foreach (var tuple in res)
                 {
-                    File.AppendAllLines(filePath, new List<string>() { $"{course.Item1} , {course.Item2}" });
+                    File.AppendAllLines(filePath, new List<string>() { $@"{tuple.Item1}, {tuple.Item2}" });
                 }
+            }
+        }
 
-               /* int length = output.Count();
+        private static async Task HadarMethod()
+        {
+
+            //await CoursesWithSimilarNames();
+            //await FunctionsExtensions.MergeCourses(_container);
+
+            var d = _container.Resolve<DapperRepository>();
+            
+
+            var res = await d.WithConnectionAsync(async f =>
+            {
+               
+                return await f.QueryAsync<(string, long)>(
+                @"declare @tmp table (CourseName nvarchar(max), DocumentId bigint, rn bigint)
+                    insert into @tmp
+                    select CourseName, Id, ROW_NUMBER () over (Partition By CourseName Order By Id asc) as rn
+                    from sb.Document
+                    where [state] = 'ok' and CourseName in (select * from ##CourseTbl)
+                    select CourseName, DocumentId from @tmp where rn < 4");
+
+            }, default);
+            StringBuilder sb = new StringBuilder();
+            ////string delimiter = ",";
+
+            ////int rowNumber = 1;
+
+            string filePath = @"C:\Users\Charlie even\DocumentsOfCoursesToDelete.csv";
+            //List<(string,string)> output = new List<(string, string)>();
+            foreach (var r in res)
+            {
                 
-                for (int index = 0; index < length; index++)
-                {
-                    sb.AppendLine(string.Join(delimiter, output[index]));
-                }*/
-                
+                var b62 = new Base62(r.Item2);
+                string str = "https://www.spitball.co/document/" + b62.ToString();
+                File.AppendAllText(filePath, str + "," + r.Item1 + "," + r.Item2.ToString() + Environment.NewLine);
+
+                /* int length = output.Count();
+
+                 for (int index = 0; index < length; index++)
+                 {
+                     sb.AppendLine(string.Join(delimiter, output[index]));
+                 }*/
+
             }
 
             //File.WriteAllText(filePath, sb.ToString());
@@ -674,44 +837,44 @@ where left(blobName ,4) != 'file'");
         }
 
 
-        public static async Task TransferUniversities()
-        {
-            var d = _container.Resolve<DapperRepository>();
-            var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
-            {
-                return await f.QueryAsync(
-                    @"SELECT u.UniversityName,u.Country,u.Extra
-                    FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
-                    ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
-                    FROM zbox.University u
-                    where isdeleted = 0
-                    and u.UniversityName not in (select name from sb.University)
-                        ) u
-                    WHERE cnt = 1");
-            }, default);
+        //public static async Task TransferUniversities()
+        //{
+        //    var d = _container.Resolve<DapperRepository>();
+        //    var z = await d.WithConnectionAsync<IEnumerable<dynamic>>(async f =>
+        //    {
+        //        return await f.QueryAsync(
+        //            @"SELECT u.UniversityName,u.Country,u.Extra
+        //            FROM(SELECT id, u.UniversityName, u.Country, u.Extra,
+        //            ROW_NUMBER() OVER(PARTITION BY u.UniversityName, u.Country order by id) as cnt
+        //            FROM zbox.University u
+        //            where isdeleted = 0
+        //            and u.UniversityName not in (select name from sb.University)
+        //                ) u
+        //            WHERE cnt = 1");
+        //    }, default);
 
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var unitOfWork = child.Resolve<IUnitOfWork>())
-                {
-                    var repository = child.Resolve<IUniversityRepository>();
+        //    using (var child = _container.BeginLifetimeScope())
+        //    {
+        //        using (var unitOfWork = child.Resolve<IUnitOfWork>())
+        //        {
+        //            var repository = child.Resolve<IUniversityRepository>();
 
-                    foreach (var pair in z)
-                    {
-                        var university = new University(pair.UniversityName, pair.Country)
-                        {
-                            Extra = pair.Extra
-                        };
-                        await repository.AddAsync(university, default);
-                    }
+        //            foreach (var pair in z)
+        //            {
+        //                var university = new University(pair.UniversityName, pair.Country)
+        //                {
+        //                    Extra = pair.Extra
+        //                };
+        //                await repository.AddAsync(university, default);
+        //            }
 
-                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-                }
+        //            await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+        //        }
 
-            }
+        //    }
 
 
-        }
+        //}
 
         //  public static async Task TransferUsers()
         //  {
@@ -1190,7 +1353,7 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
             var sessin = _container.Resolve<IStatelessSession>();
 
             //await TransferUsers();
-            await TransferUniversities();
+            // await TransferUniversities();
             //await TransferDocuments();
 
 

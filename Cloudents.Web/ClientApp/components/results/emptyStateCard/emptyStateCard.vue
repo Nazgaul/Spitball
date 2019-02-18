@@ -1,0 +1,52 @@
+<template>
+  <div class="elevation-1 mb-2 empty-state-container" xs-12>
+    <v-layout column class="pa-3 empty-state-top-layout">
+      <v-flex>
+        <div class="mb-1 user-search-text-container">
+          <span v-language:inner>result_no_result_found</span>&nbsp;
+          <span class="user-search-text">"{{userText}}"</span>
+        </div>
+        <v-flex class="empty-state-content">
+          <div>
+            <ul>
+              <li v-language:inner>result_spelling</li>
+              <li v-language:inner>result_different_keywords</li>
+              <li v-language:inner>result_general_keywords</li>
+              <li v-language:inner>result_fewer_keywords</li>
+            </ul>
+          </div>
+          <div class="empty-state-img-container">
+            <img class="empty-state-img" src="./img/binoculars.png" alt>
+          </div>
+        </v-flex>
+      </v-flex>
+    </v-layout>
+    <v-layout column class="pa-3 empty-state-bottom-layout" v-show="helpAction">
+      <v-flex>
+        <div class="mb-1 user-search-cant-find-text">
+          <span v-language:inner>result_still_cant_find</span>
+        </div>
+        <div class="mb-1 user-search-button-container">
+          <button @click="helpAction()" v-language:inner>result_get_help</button>
+        </div>
+      </v-flex>
+    </v-layout>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    userText: {
+      type: String,
+      default: ""
+    },
+    helpAction:{
+      type: Function,
+      default:null
+    }
+  }
+};
+</script>
+
+<style lang="less" src="./emptyStateCard.less"></style>

@@ -30,7 +30,7 @@ namespace Cloudents.Core.Entities
         }
 
         public virtual DateTime CreationTime { get; private set; }
-        public virtual DateTime UpdateTime { get; private set; }
+        public virtual DateTime UpdateTime { get; set; }
     }
 
   

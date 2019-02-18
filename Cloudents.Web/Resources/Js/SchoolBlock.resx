@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="add_class" xml:space="preserve">
-    <value>Add  your classes</value>
+  <data name="add_your_courses" xml:space="preserve">
+    <value>Add Your Courses</value>
   </data>
-  <data name="edit_classes" xml:space="preserve">
-    <value>Edit Classes</value>
+  <data name="add_your_university" xml:space="preserve">
+    <value>Add Your University</value>
   </data>
-  <data name="filter_classes" xml:space="preserve">
-    <value>Filter Courses</value>
+  <data name="all_courses" xml:space="preserve">
+    <value>All courses</value>
   </data>
-  <data name="school_empty_text" xml:space="preserve">
-    <value>What is your school?</value>
+  <data name="information_box_latest" xml:space="preserve">
+    <value>All courses</value>
+  </data>
+  <data name="my_courses" xml:space="preserve">
+    <value>My Courses</value>
   </data>
 </root>
