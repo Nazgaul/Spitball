@@ -28,6 +28,12 @@
                           :item-value="country"
                           label="Select country"
                 ></v-select>
+                <div class="price-container">
+                    <!--<v-btn  @click="setPrice">Set University</v-btn>-->
+                    <div>
+                        <v-text-field solo class="question-price" required placeholder="University name" :type="'text'" v-model="uni" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="upload-container" v-if="showTextArea">
@@ -57,7 +63,7 @@
             </div>
         </div>
 
-        <div class="add-container" v-if="showPriceSetter">
+        <div class="add-container" v-if="showPriceSetter && uni" >
             <v-btn   :loading="loading" class="btn-add" @click="addQ">Add</v-btn>
             <v-btn flat  @click="$refs.form.reset()">Clear</v-btn>
         </div>
@@ -80,7 +86,8 @@
                 files: [],
                 filesNames: [],
                 country: "Us",
-                countryList: ['Us', 'Il'],
+                countryList: ['Us', 'Il', 'In'],
+                uni: '',
                 loading: false
             }
         },
@@ -98,6 +105,7 @@
                 this.files= [];
                 this.filesNames= [];
                 this.country= "Us";
+                this.uni = '';
             },
             setPrice: function () {
                 this.showPriceSetter = true;
@@ -120,7 +128,7 @@
                         }
                     })
                 }
-                addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, uploads).then(() => {
+                addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, this.uni, uploads).then(() => {
                     this.resetData();
                     this.$toaster.success("Success on Adding Question");
                     this.loading= false;
