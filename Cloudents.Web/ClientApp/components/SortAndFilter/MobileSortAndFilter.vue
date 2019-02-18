@@ -1,7 +1,8 @@
 <template>
     <v-dialog v-model="value" content-class="filter-dialog"  :max-width="$vuetify.breakpoint.smAndUp ? '720px' : ''" :fullscreen="$vuetify.breakpoint.xsOnly"  persistent>
         <div class="dialog-header">
-            <span class="dialog-title">{{toolBarTitle}}</span>
+            <!-- <span class="dialog-title">{{toolBarTitle}}</span> -->
+            <v-icon class="dialog-title">sbf-filter</v-icon>
             <v-icon  class="close-icon-filter" @click="resetFilters">sbf-close</v-icon>
         </div>
 
