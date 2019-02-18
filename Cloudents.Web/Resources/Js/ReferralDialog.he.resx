@@ -136,7 +136,7 @@
     <value> חברים שהוזמנו הצטרפו</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
-    <value>תן 150 נקודות לחברים ותרוויח 50 נקודות לכל אחד שמצטרף</value>
+    <value>תן 150 נקודות לחברים ותרוויח 50 נקודות עבור כל אחד שיצטרף</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
     <value>הפיצו את השמועה ב- </value>
@@ -155,6 +155,18 @@
   </data>
   <data name="ref_placeholder" xml:space="preserve">
     <value>בחר מסמך לשיתוף</value>
+  </data>
+  <data name="share_facebook" xml:space="preserve">
+    <value>שתף</value>
+  </data>
+  <data name="share_google" xml:space="preserve">
+    <value>אימייל</value>
+  </data>
+  <data name="share_tweeter" xml:space="preserve">
+    <value>צייץ</value>
+  </data>
+  <data name="share_whatsup" xml:space="preserve">
+    <value>טקסט</value>
   </data>
   <data name="share_with" xml:space="preserve">
     <value>או שתף עם</value>

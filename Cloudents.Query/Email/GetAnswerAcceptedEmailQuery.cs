@@ -43,7 +43,7 @@ join sb.Answer a on a.Id = t.AnswerId
 where t.id = @id ";
                 using (var connection = new SqlConnection(_provider.Db.Db))
                 {
-                    return await connection.QuerySingleOrDefaultAsync<AnswerAcceptedEmailDto>(sql,
+                    return await connection.QuerySingleAsync<AnswerAcceptedEmailDto>(sql,
                         new
                         {
                             id = query.TransactionId,
