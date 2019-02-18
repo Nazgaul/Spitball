@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer touchless class="school-block" width="260" @input="updateDrawerValue" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
+    <v-navigation-drawer touchless  class="school-block" width="260" @input="updateDrawerValue" :value="getShowSchoolBlock" :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
       <v-list>
         <v-list-tile class="group-header search-university-title">
           <v-list-tile-action>
@@ -14,7 +14,7 @@
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
-      <v-list>
+      <v-list class="class-list">
         <v-list-tile class="group-header">
           <v-list-tile-action>
             <v-icon>sbf-courses-icon</v-icon>
