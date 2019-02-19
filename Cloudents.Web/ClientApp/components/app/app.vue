@@ -1,127 +1,107 @@
 ﻿<template>
-  <v-app>
-    <v-tour
-        name="myTour"
-        :steps="tourObject.tourSteps"
-        :options="tourObject.toursOptions"
-        :callbacks="tourObject.tourCallbacks"
-      ></v-tour>
-    <router-view name="header"></router-view>
-    <router-view name="schoolBlock"></router-view>
-    <v-content class="site-content" :class="{'loading':getIsLoading}">
-      <div class="loader" v-show="getIsLoading">
-        <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
-      </div>
-      <div v-show="showUniSelect" style="height: 100%;">
-        <uni-select></uni-select>
-      </div>
-      <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
-        <marketing-box></marketing-box>
-      </div>
-      <div v-if="showLeadersMobile && getMobileFooterState">
-        <leaders-board></leaders-board>
-      </div>
-      <!-- <div class="school-block-container">
-                <router-view name="schoolBlock"></router-view>
-      </div>-->
-      <router-view name="verticals"></router-view>
-      <router-view class="main-container" v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
-      <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
-      <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
-        <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
-        <span class="cookie-approve">
-          <button
-            @click="removeCookiesPopup()"
-            style="outline:none;"
-            v-language:inner
-          >app_cookie_toaster_action</button>
-        </span>
-      </div>
-      <sb-dialog
-        :showDialog="loginDialogState"
-        :popUpType="'loginPop'"
-        :content-class="'login-popup'"
-      >
-        <login-to-answer></login-to-answer>
-      </sb-dialog>
+    <v-app>
+        <v-tour name="myTour"
+                :steps="tourObject.tourSteps"
+                :options="tourObject.toursOptions"
+                :callbacks="tourObject.tourCallbacks"></v-tour>
+        <router-view name="header"></router-view>
+        <router-view name="schoolBlock"></router-view>
+        <v-content class="site-content" :class="{'loading':getIsLoading}">
+            <div class="loader" v-show="getIsLoading">
+                <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
+            </div>
+            <div v-show="showUniSelect" style="height: 100%;">
+                <uni-select></uni-select>
+            </div>
+            <div style="height: 100%;" v-show="showMarketingMobile && getMobileFooterState">
+                <marketing-box></marketing-box>
+            </div>
+            <div v-if="showLeadersMobile && getMobileFooterState">
+                <leaders-board></leaders-board>
+            </div>
+            <!-- <div class="school-block-container">
+                      <router-view name="schoolBlock"></router-view>
+            </div>-->
+            <router-view name="verticals"></router-view>
+            <router-view class="main-container" v-show="!showUniSelect && showFeed" ref="mainPage"></router-view>
+            <!--<router-view v-show="!showUniSelect && showFeed && !getOnBoardState" ref="mainPage"></router-view>-->
+            <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
+                <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
+                <span class="cookie-approve">
+                    <button @click="removeCookiesPopup()"
+                            style="outline:none;"
+                            v-language:inner>
+                        app_cookie_toaster_action
+                    </button>
+                </span>
+            </div>
+            <sb-dialog :showDialog="loginDialogState"
+                       :popUpType="'loginPop'"
+                       :content-class="'login-popup'">
+                <login-to-answer></login-to-answer>
+            </sb-dialog>
 
-      <sb-dialog
-        :showDialog="universitySelectPopup"
-        :popUpType="'universitySelectPopup'"
-        :onclosefn="closeUniPopDialog"
-        :activateOverlay="true"
-        :content-class="'pop-uniselect-container'"
-      >
-        <uni-Select-pop :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
-      </sb-dialog>
+            <sb-dialog :showDialog="universitySelectPopup"
+                       :popUpType="'universitySelectPopup'"
+                       :onclosefn="closeUniPopDialog"
+                       :activateOverlay="true"
+                       :content-class="'pop-uniselect-container'">
+                <uni-Select-pop :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
+            </sb-dialog>
 
-      <sb-dialog
-        :isPersistent="true"
-        :showDialog="newQuestionDialogSate"
-        :popUpType="'newQuestion'"
-        :content-class="'newQuestionDialog'"
-      >
-        <Add-Question></Add-Question>
-        <!-- <New-Question></New-Question> -->
-      </sb-dialog>
-      <sb-dialog
-        :showDialog="newIsraeliUser"
-        :popUpType="'newIsraeliUserDialog'"
-        :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` "
-      >
-        <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
-      </sb-dialog>
-      <sb-dialog
-        :showDialog="getDialogState"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
-        :popUpType="'uploadDialog'"
-        :maxWidth="'852'"
-        :onclosefn="setUploadDialogState"
-        :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'upload-dialog'"
-      >
-        <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
-      </sb-dialog>
+            <sb-dialog :isPersistent="true"
+                       :showDialog="newQuestionDialogSate"
+                       :popUpType="'newQuestion'"
+                       :content-class="'newQuestionDialog'">
+                <Add-Question></Add-Question>
+                <!-- <New-Question></New-Question> -->
+            </sb-dialog>
+            <sb-dialog :showDialog="newIsraeliUser"
+                       :popUpType="'newIsraeliUserDialog'"
+                       :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
+                <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
+            </sb-dialog>
+            <sb-dialog :showDialog="getDialogState"
+                       :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
+                       :popUpType="'uploadDialog'"
+                       :maxWidth="'852'"
+                       :onclosefn="setUploadDialogState"
+                       :activateOverlay="false"
+                       :isPersistent="$vuetify.breakpoint.smAndUp"
+                       :content-class="'upload-dialog'">
+                <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
+            </sb-dialog>
 
-      <sb-dialog
-        :showDialog="getOnBoardState"
-        :popUpType="'onBoardGuide'"
-        :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
-        :maxWidth="'1280px'"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-      >
-        <board-guide></board-guide>
-      </sb-dialog>
+            <sb-dialog :showDialog="getOnBoardState"
+                       :popUpType="'onBoardGuide'"
+                       :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
+                       :maxWidth="'1280px'"
+                       :isPersistent="$vuetify.breakpoint.smAndUp">
+                <board-guide></board-guide>
+            </sb-dialog>
 
-      <sb-dialog
-        :showDialog="newBallerDialog"
-        :popUpType="'newBallerDialog'"
-        :content-class="'new-baller'"
-        :maxWidth="'700px'"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-      >
-        <new-baller></new-baller>
-      </sb-dialog>
+            <sb-dialog :showDialog="newBallerDialog"
+                       :popUpType="'newBallerDialog'"
+                       :content-class="'new-baller'"
+                       :maxWidth="'700px'"
+                       :isPersistent="$vuetify.breakpoint.smAndUp">
+                <new-baller></new-baller>
+            </sb-dialog>
 
-      <sb-dialog
-        :showDialog="getShowBuyDialog"
-        :popUpType="'buyTokens'"
-        :content-class="'buy-tokens-popup'"
-        :onclosefn="closeSblToken"
-      >
-        <buy-tokens></buy-tokens>
-      </sb-dialog>
+            <sb-dialog :showDialog="getShowBuyDialog"
+                       :popUpType="'buyTokens'"
+                       :content-class="'buy-tokens-popup'"
+                       :onclosefn="closeSblToken">
+                <buy-tokens></buy-tokens>
+            </sb-dialog>
 
-      <mobile-footer
-        v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
-        :onStepChange="onFooterStepChange"
-      ></mobile-footer>
-    </v-content>
-    <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
-      <div class="text-wrap" v-html="getToasterText"></div>
-    </v-snackbar>
-  </v-app>
+            <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
+                           :onStepChange="onFooterStepChange"></mobile-footer>
+        </v-content>
+        <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
+            <div class="text-wrap" v-html="getToasterText"></div>
+        </v-snackbar>
+    </v-app>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
@@ -422,4 +402,5 @@ export default {
 };
 </script>
 <style lang="less" src="./app.less"></style>
+<style lang="less" src="./main.less"></style>
 

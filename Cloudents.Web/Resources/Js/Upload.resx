@@ -188,7 +188,7 @@
     <value>Class</value>
   </data>
   <data name="multiple_select_filetype" xml:space="preserve">
-    <value>Classify Document</value>
+    <value>Tag Document</value>
   </data>
   <data name="multiple_btn_upload" xml:space="preserve">
     <value>Upload</value>

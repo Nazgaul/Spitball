@@ -141,20 +141,26 @@ module.exports = (env) => {
             ? [
                 new ExtractTextPlugin({filename: "site.[contenthash].css", allChunks: true}),
                 new WebpackRTLPlugin({
-                    filename: '[name].[contenthash].rtl.css'
+                    filename: '[name].[contenthash].rtl.css',
+                    minify: false
                 })
             ]
             : [
                 // Plugins that apply in production builds only
-                new OptimizeCssAssetsPlugin({
-                    assetNameRegExp: /\.optimize\.css$/g,
-                    cssProcessor: require("cssnano"),
-                    cssProcessorOptions: { discardComments: { removeAll: true } },
-                    canPrint: true
-                }),
+               
                 new ExtractTextPlugin({filename: "site.[contenthash].css", allChunks: true}),
                 new WebpackRTLPlugin({
-                    filename: '[name].[contenthash].rtl.css'
+                    filename: '[name].[contenthash].rtl.css',
+                    minify: false
+                }),
+                new OptimizeCssAssetsPlugin({
+                    //assetNameRegExp: /.css$/g,
+                    cssProcessor: require("cssnano"),
+                    cssProcessorOptions: {
+                        discardComments: { removeAll: true },
+                        reduceIdents: false
+                    },
+                    canPrint: true
                 }),
                 
                 //new PurifyCSSPlugin({
