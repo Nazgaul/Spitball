@@ -65,7 +65,6 @@
                     sbf-close
                 </v-icon>
             </v-layout>
-
             <div class="progress-line" v-show="progressActive"></div>
             <!--<v-progress-circular-->
                     <!--:size="50"-->
@@ -142,7 +141,9 @@
                 return this.getFileData[this.singleFileIndex]
             },
             progressActive(){
-              return this.fileItem.progress !== 100 || this.fileItem.progress === '0.00'
+                if( this.fileItem && this.fileItem.progress){
+                    return this.fileItem.progress !== 100 || this.fileItem.progress === '0.00'
+                }
             },
             docType() {
                 return this.item.docType
