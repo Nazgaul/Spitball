@@ -16,7 +16,7 @@ namespace Cloudents.Admin2.Controllers
         {
             var redirectUrl = Url.Action(nameof(HomeController.Index), "Home");
             return Challenge(
-                new AuthenticationProperties { RedirectUri = redirectUrl, ExpiresUtc = new DateTimeOffset(DateTime.UtcNow + new TimeSpan(0, 5, 0)) },
+                new AuthenticationProperties { RedirectUri = redirectUrl, ExpiresUtc = new DateTimeOffset(DateTime.UtcNow.AddMinutes(5)) },
                 OpenIdConnectDefaults.AuthenticationScheme);
         }
 
