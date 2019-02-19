@@ -28,6 +28,16 @@
                           :item-value="country"
                           label="Select country"
                 ></v-select>
+                <div class="price-container">
+                    <div >
+                        <v-text-field solo class="question-price" :rules="[rules.required]"  placeholder="University name" :type="'text'" v-model="uni" />
+                    </div>
+                </div>
+                <div class="price-container" v-if="uni">
+                    <div>
+                        <v-text-field solo class="question-price" :rules="[rules.required]" placeholder="Course name" :type="'text'" v-model="course" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="upload-container" v-if="showTextArea">
@@ -57,7 +67,7 @@
             </div>
         </div>
 
-        <div class="add-container" v-if="showPriceSetter">
+        <div class="add-container" v-if="showPriceSetter && uni" >
             <v-btn   :loading="loading" class="btn-add" @click="addQ">Add</v-btn>
             <v-btn flat  @click="$refs.form.reset()">Clear</v-btn>
         </div>
@@ -77,11 +87,18 @@
                 showTextArea: false,
                 questionPrice: 1,
                 showPriceSetter: false,
+                showCourseSetter: false,
                 files: [],
                 filesNames: [],
                 country: "Us",
-                countryList: ['Us', 'Il'],
-                loading: false
+                countryList: ['Us', 'Il', 'In'],
+                uni: '',
+                course: '',
+                loading: false,
+                rules: {
+                    required: value => !!value || 'This field is required',
+                    // minimum: value => value.length >= 2 || 'Min 2 characters'
+                }
             }
         },
         methods: {
@@ -98,9 +115,14 @@
                 this.files= [];
                 this.filesNames= [];
                 this.country= "Us";
+                this.course = '';
+                this.uni = '';
             },
             setPrice: function () {
                 this.showPriceSetter = true;
+            },
+            setUni(){
+                this.showCourseSetter = true;
             },
             addQ: function () {
                 this.loading = true;
@@ -120,7 +142,7 @@
                         }
                     })
                 }
-                addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, uploads).then(() => {
+                addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, this.uni, this.course, uploads).then(() => {
                     this.resetData();
                     this.$toaster.success("Success on Adding Question");
                     this.loading= false;
