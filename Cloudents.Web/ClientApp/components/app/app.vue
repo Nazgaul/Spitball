@@ -60,6 +60,7 @@
         :showDialog="newQuestionDialogSate"
         :popUpType="'newQuestion'"
         :content-class="'newQuestionDialog'"
+        :max-width="'500px'"
       >
         <Add-Question></Add-Question>
         <!-- <New-Question></New-Question> -->
