@@ -4,11 +4,13 @@ using System.Text;
 
 namespace Cloudents.Core.DTOs.Admin
 {
-    public class UserUpVotsDto
+    public class UserFlagsDto
     {
-        public Guid Id { get; set; }
+        public string Text { get; set; }
         public DateTime Created { get; set; }
-        public string ItemText { get; set; }
+        public string State { get; set; }
+        public string FlagReason { get; set; }
+        public int VoteCount { get; set; }
         public char ItemType { get; set; }
     }
 }

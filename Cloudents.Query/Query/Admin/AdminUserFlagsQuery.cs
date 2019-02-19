@@ -5,16 +5,14 @@ using System.Text;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminUserUpVotsQuery: IQuery<IEnumerable<UserUpVotsDto>>
+    public class AdminUserFlagsQuery : IQuery<IEnumerable<UserFlagsDto>>
     {
-        public AdminUserUpVotsQuery(long id, int page)
+        public AdminUserFlagsQuery(long id, int page)
         {
             Id = id;
             Page = page;
         }
         public long Id { get; set; }
         public int Page { get; set; }
-
-      
     }
 }

@@ -1,0 +1,51 @@
+﻿using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Interfaces;
+using Cloudents.Query.Query.Admin;
+using Dapper;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Cloudents.Query.Admin
+{
+    public class AdminUserFlagsQueryHandler : IQueryHandler<AdminUserFlagsQuery, IEnumerable<UserFlagsDto>>
+    {
+        private readonly IConfigurationKeys _provider;
+        public AdminUserFlagsQueryHandler(IConfigurationKeys provider)
+        {
+            _provider = provider;
+        }
+        private const int PageSize = 200;
+
+        public async Task<IEnumerable<UserFlagsDto>> GetAsync(AdminUserFlagsQuery query, CancellationToken token)
+        {
+            const string sql = @"select A.Text, A.Created, A.State, A.FlagReason, A.VoteCount, 'A' as ItemType
+                                from sb.Answer A
+                                where FlaggedUserId = @Id
+                                union
+                                select Q.Text, Q.Created, Q.State, Q.FlagReason, Q.VoteCount, 'Q' as ItemType
+                                from sb.Question Q
+                                where FlaggedUserId = @Id
+                                union
+                                select D.Name, D.CreationTime, D.State, D.FlagReason, D.VoteCount, 'D' as ItemType
+                                from sb.Document D
+                                where FlaggedUserId = @Id
+                                order by 2 desc
+                                OFFSET @pageSize * @PageNumber ROWS
+                                FETCH NEXT @pageSize ROWS ONLY;";
+            using (var connection = new SqlConnection(_provider.Db.Db))
+            {
+                return await connection.QueryAsync<UserFlagsDto>(sql,
+                    new
+                    {
+                        id = query.Id,
+                        PageNumber = query.Page,
+                        PageSize
+                    });
+            }
+        }
+    }
+}
