@@ -65,21 +65,13 @@
                     sbf-close
                 </v-icon>
             </v-layout>
-            <div class="progress-line" v-show="progressActive"></div>
-            <!--<v-progress-circular-->
-                    <!--:size="50"-->
-                    <!--:active="true"-->
-                    <!--color="primary"-->
-                    <!--indeterminate-->
-            <!--&gt;</v-progress-circular>-->
-            <!--<v-progress-linear :indeterminate="true"></v-progress-linear>-->
-            <!--<v-progress-linear-->
-                    <!--:height="'8px'"-->
-                    <!--:indeterminate="true"-->
-                    <!--v-show="progressActive"-->
-                    <!--:color="'#5cbbf6'"-->
-                    <!--class="sb-file-card-progress ma-0">-->
-            <!--</v-progress-linear>-->
+            <v-progress-linear
+                    :height="'8px'"
+                    :indeterminate="true"
+                    v-show="progressActive"
+                    :color="'#5cbbf6'"
+                    class="sb-file-card-progress ma-0">
+            </v-progress-linear>
         </v-container>
     </v-card>
 </template>
@@ -102,7 +94,6 @@
                 price: 0,
                 rules: {
                     required: value => !!value || LanguageService.getValueByKey("formErrors_required"),
-                    // minimum: value => value.length >= 2 || 'Min 2 characters'
                 }
             }
         },
