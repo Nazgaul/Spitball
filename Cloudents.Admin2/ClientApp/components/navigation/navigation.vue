@@ -72,7 +72,7 @@
                             },
                             {name: 'Flagged Questions', link: '/question/flaggedQuestions', icon: 'outlined_flag'},
                             {name: 'Delete', link: '/question/delete', icon: 'delete_outline'},
-                            // {name: 'Add', link: '/question/add', icon: 'add'},
+                            {name: 'Add', link: '/question/add', icon: 'add'},
                             {name: 'Add Multiple', link: '/question/addBulk', icon: 'add_circle_outline'},
                             {name: 'Flagged Answers', link: '/answer/flaggedAnswers', icon: 'notifications_paused'},
                         ]

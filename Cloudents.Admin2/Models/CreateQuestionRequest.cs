@@ -25,6 +25,9 @@ namespace Cloudents.Admin2.Models
         [Required]
         public Country Country { get; set; }
 
+        [Required]
+        public string University { get; set; }
+
         [MaxLength(4)]
         public string[] Files { get; set; }
     }
@@ -32,6 +35,7 @@ namespace Cloudents.Admin2.Models
     public enum Country
     {
         Us,
-        Il
+        Il,
+        In
     }
 }

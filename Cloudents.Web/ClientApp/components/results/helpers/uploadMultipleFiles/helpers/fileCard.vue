@@ -53,6 +53,7 @@
                                  separator=","
                                  v-model="item.price"></vue-numeric>
                 </v-flex>
+
                 <v-flex xs6 sm5 md5 order-sm4 order-md4>
                     <v-text-field
                             solo
@@ -64,13 +65,21 @@
                     sbf-close
                 </v-icon>
             </v-layout>
-            <v-progress-linear
-                    :height="'8px'"
-                    :indeterminate="true"
-                    v-show="fileItem.progress != 100"
-                    :color="'#5cbbf6'"
-                    class="sb-file-card-progress ma-0">
-            </v-progress-linear>
+            <div class="progress-line" v-show="progressActive"></div>
+            <!--<v-progress-circular-->
+                    <!--:size="50"-->
+                    <!--:active="true"-->
+                    <!--color="primary"-->
+                    <!--indeterminate-->
+            <!--&gt;</v-progress-circular>-->
+            <!--<v-progress-linear :indeterminate="true"></v-progress-linear>-->
+            <!--<v-progress-linear-->
+                    <!--:height="'8px'"-->
+                    <!--:indeterminate="true"-->
+                    <!--v-show="progressActive"-->
+                    <!--:color="'#5cbbf6'"-->
+                    <!--class="sb-file-card-progress ma-0">-->
+            <!--</v-progress-linear>-->
         </v-container>
     </v-card>
 </template>
@@ -131,6 +140,11 @@
             item() {
                 return this.getFileData[this.singleFileIndex]
             },
+            progressActive(){
+                if( this.fileItem && this.fileItem.progress){
+                    return this.fileItem.progress !== 100 || this.fileItem.progress === '0.00'
+                }
+            },
             docType() {
                 return this.item.docType
             },
@@ -183,10 +197,20 @@
 
 <style lang="less">
     @import '../../../../../styles/mixin.less';
-
     @uploadGreyBackground: rgba(68, 82, 252, 0.09);
     @chipActiveColor: #4452FC;
     .file-item-card {
+        //progress
+        .progress-line {
+            background-color: #b3d4fc;
+            display: flex;
+            height: 8px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
         display: flex;
         width: 660px;
         max-width: 660px;

@@ -2,27 +2,32 @@ import { connectivityModule } from '../../services/connectivity.module'
 
 function UserData(objInit) {
     this.userInfo = createUserInfoItem(objInit.user);
-    this.userAnswers =  createAnswertItem(objInit.answers);
+    this.userAnswers = createAnswertItem(objInit.answers);
     this.userQuestions = createQuestionItem(objInit.questions);
     this.userDocuments = createDocumentItem(objInit.documents);
 }
 
 function UserInfo(objInit) {
-    this.id=  {value: objInit.id || 0, label: 'User ID' };
-    this.name = {value: objInit.name || '', label: 'User Name' };
-    this.email =  {value: objInit.email || '', label: 'User Email' };
-    this.emailConfirmed =  {value: objInit.emailConfirmed ? 'Yes' : 'No', label: 'Email Confirmed' };
-    this.phoneNumber = {value: objInit.phoneNumber ||  '--', label: 'Phone Number', showButton: !objInit.phoneNumberConfirmed, buttonText:"verify Phone" };
-    this.phoneNumberConfirmed = {value: objInit.phoneNumberConfirmed ? 'Yes' : 'No', label:"Phone Confirmed"};
-    this.university = {value: objInit.university ||  '', label: 'University' };
-    this.country =  {value: objInit.country ||  '', label: 'Country' };
-    this.score =  {value: objInit.score ||  0, label: 'Score' };
-    this.fraudScore = {value: objInit.fraudScore ||  0, label: 'Fraud Score' };
-    this.referredCount = {value: objInit.referredCount ||  0, label: 'People Referred' };
-    this.balance = {value: objInit.balance ||  0, label: 'Balance' };
-    this.status = {value: objInit.isActive ? false : true , label: 'Suspended' };
-    this.wasSuspended = {value: objInit.wasSuspended ? true : false, label : 'Was Suspended' };
-    this.joined = {value: new Date(objInit.joined).toLocaleString(), label:"Join Date"}
+    this.id = {value: objInit.id || 0, label: 'User ID'};
+    this.name = {value: objInit.name || '', label: 'User Name'};
+    this.email = {value: objInit.email || '', label: 'User Email'};
+    this.emailConfirmed = {value: objInit.emailConfirmed ? 'Yes' : 'No', label: 'Email Confirmed'};
+    this.phoneNumber = {
+        value: objInit.phoneNumber || '--',
+        label: 'Phone Number',
+        showButton: !objInit.phoneNumberConfirmed,
+        buttonText: "verify Phone"
+    };
+    this.phoneNumberConfirmed = {value: objInit.phoneNumberConfirmed ? 'Yes' : 'No', label: "Phone Confirmed"};
+    this.university = {value: objInit.university || '', label: 'University'};
+    this.country = {value: objInit.country || '', label: 'Country'};
+    this.score = {value: objInit.score || 0, label: 'Score'};
+    this.fraudScore = {value: objInit.fraudScore || 0, label: 'Fraud Score'};
+    this.referredCount = {value: objInit.referredCount || 0, label: 'People Referred'};
+    this.balance = {value: objInit.balance || 0, label: 'Balance'};
+    this.status = {value: objInit.isActive ? false : true, label: 'Suspended'};
+    this.wasSuspended = {value: objInit.wasSuspended ? true : false, label: 'Was Suspended'};
+    this.joined = {value: new Date(objInit.joined).toLocaleString(), label: "Join Date"}
 }
 
 function createUserInfoItem(data) {
@@ -33,7 +38,7 @@ function QuestionItem(objInit) {
     this.id = objInit.id || 0;
     this.create = objInit.created;
     this.text = objInit.text;
-    this.state =  objInit.state ? objInit.state.toLowerCase() : 'ok';
+    this.state = objInit.state ? objInit.state.toLowerCase() : 'ok';
 }
 
 function DocumentItem(objInit) {
@@ -43,7 +48,7 @@ function DocumentItem(objInit) {
     this.university = objInit.university;
     this.course = objInit.course;
     this.price = objInit.price;
-    this.state =  objInit.state ? objInit.state.toLowerCase() : 'ok';
+    this.state = objInit.state ? objInit.state.toLowerCase() : 'ok';
     this.preview = objInit.preview || '';
     this.siteLink = objInit.siteLink || 'Not specified';
 }
@@ -57,6 +62,14 @@ function AnswerItem(objInit) {
     this.state = objInit.state ? objInit.state.toLowerCase() : 'ok';
 }
 
+function PurchasedDocItem(objInit) {
+    this.id = objInit.documentId  || 'no ID';
+    this.title = objInit.title  || 'not specified';
+    this.university = objInit.university || 'not specified';
+    this.class = objInit.class  || 'not specified';
+    this.price = Math.abs(objInit.price ) || 'not specified';
+}
+
 function createUserItem(objInit) {
     return new UserData(objInit);
 }
@@ -66,14 +79,21 @@ function createQuestionItem(data) {
         return new QuestionItem(item)
     });
 }
+
 function createDocumentItem(data) {
     return data.map((item) => {
         return new DocumentItem(item)
     });
 }
+
 function createAnswertItem(data) {
     return data.map((item) => {
         return new AnswerItem(item)
+    });
+}
+function purchasedDocItem(data) {
+    return data.map((item) => {
+        return new PurchasedDocItem(item)
     });
 }
 
@@ -117,6 +137,17 @@ export default {
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createAnswertItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getPurchasedDocs: (id, page) => {
+        let path = `AdminUser/purchased?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return purchasedDocItem(resp);
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
