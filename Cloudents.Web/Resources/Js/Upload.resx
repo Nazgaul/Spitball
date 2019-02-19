@@ -226,4 +226,7 @@
   <data name="multiple_fileName_placeholder" xml:space="preserve">
     <value>File name</value>
   </data>
+  <data name="multiple_btn_uploading" xml:space="preserve">
+    <value>Uploading...</value>
+  </data>
 </root>
