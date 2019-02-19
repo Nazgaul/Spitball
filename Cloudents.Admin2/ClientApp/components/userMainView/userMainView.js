@@ -20,10 +20,15 @@ export default {
         userCashout,
         userSuspend
     },
+   props:{
+        userId:{
+
+        }
+   },
     data() {
         return {
             userIdentifier: '',
-            userId: null,
+            //userId: null,
             suspendedUser: false,
             filters: [
                 {name: 'Accepted', value: 'ok'},
@@ -32,18 +37,18 @@ export default {
                 {name: 'Flagged', value: 'flagged'}
             ],
             scrollFunc: {
-                questions: {
-                    page: 0,
-                    getData: this.getUserQuestionsData,
-                    scrollLock: false,
-                    wasCalled: false
-                },
-                answers: {
-                    page: 0,
-                    getData: this.getUserAnswersData,
-                    scrollLock: false,
-                    wasCalled: false
-                },
+                // questions: {
+                //     page: 0,
+                //     getData: this.getUserQuestionsData,
+                //     scrollLock: false,
+                //     wasCalled: false
+                // },
+                // answers: {
+                //     page: 0,
+                //     getData: this.getUserAnswersData,
+                //     scrollLock: false,
+                //     wasCalled: false
+                // },
                 documents: {
                     page: 0,
                     getData: this.getUserDocumentsData,
@@ -105,12 +110,12 @@ export default {
             ],
             suspendDialog: false,
             activeTab: 'tab-0',
-            searchQuery: 'ok',
+            // searchQuery: 'ok',
             userComponentsShow: false,
             activeUserComponent: '',
             deleteUserQuestions: false,
             activeTabEnum: {
-                'tab-0': 'questions',
+                // 'tab-0': 'questions',
                 'tab-1': 'answers',
                 'tab-2': 'documents',
                 'tab-3': 'purchasedDocs',
@@ -119,6 +124,7 @@ export default {
             }
         }
     },
+
     computed: {
         ...mapGetters([
             "getTokensDialogState",
@@ -128,7 +134,8 @@ export default {
             "UserQuestions",
             "UserAnswers",
             "UserDocuments",
-            "UserPurchasedDocuments"
+            "UserPurchasedDocuments",
+            "filterValue"
         ]),
         userInfo() {
             return this.UserInfo
@@ -164,7 +171,8 @@ export default {
             "getUserDocuments",
             "verifyUserPhone",
             "getUserPurchasedDocuments",
-            "clearUserState"
+            "clearUserState",
+            "updateFilterValue"
         ]),
         resetUserData(){
             let strDefault;
@@ -191,18 +199,18 @@ export default {
                 })
             }
         },
-        nextPage() {
-            this.scrollFunc[this.activeTabEnum[this.activeTab]].page++
-        },
-        handleScroll(event) {
-            let offset = 2000;
-            if (event.target.scrollHeight - offset < event.target.scrollTop) {
-                if (!this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock) {
-                    this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock = true;
-                    this.scrollFunc[this.activeTabEnum[this.activeTab]].getData(this.userId, this.scrollFunc[this.activeTabEnum[this.activeTab]].page )
-                }
-            }
-        },
+        // nextPage() {
+        //     this.scrollFunc[this.activeTabEnum[this.activeTab]].page++
+        // },
+        // handleScroll(event) {
+        //     let offset = 2000;
+        //     if (event.target.scrollHeight - offset < event.target.scrollTop) {
+        //         if (!this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock) {
+        //             this.scrollFunc[this.activeTabEnum[this.activeTab]].scrollLock = true;
+        //             this.scrollFunc[this.activeTabEnum[this.activeTab]].getData(this.userId, this.scrollFunc[this.activeTabEnum[this.activeTab]].page )
+        //         }
+        //     }
+        // },
         openTokensDialog() {
             this.setTokensDialogState(true);
         },
@@ -213,24 +221,26 @@ export default {
             return this.activeTab = activeTabName;
         },
         updateFilter(val) {
-            return this.searchQuery = val
+            return this.updateFilterValue(val)
         },
         getDataByTabName() {
             if (!this.userId) return;
-            if(this.scrollFunc[this.activeTabEnum[this.activeTab]].wasCalled)return;
-            if (this.activeTab === "tab-0" ) {
-                let page = this.scrollFunc.questions.page;
-                this.getUserQuestionsData(this.userId, page)
-            } else if (this.activeTab === "tab-1") {
-                let page = this.scrollFunc.answers.page;
-                this.getUserAnswersData(this.userId, page)
-            } else if (this.activeTab === "tab-2") {
-                let page = this.scrollFunc.documents.page;
-                this.getUserDocumentsData(this.userId, page)
-            } else if (this.activeTab === "tab-3") {
-                let page = this.scrollFunc.purchasedDocs.page;
-                this.getUserPurchasedDocs(this.userId, page)
-            }
+            // if(this.scrollFunc[this.activeTabEnum[this.activeTab]].wasCalled)return;
+            // if (this.activeTab === "tab-0" ) {
+            //     let page = this.scrollFunc.questions.page;
+            //     this.getUserQuestionsData(this.userId, page)
+            // } else
+            //     if (this.activeTab === "tab-1") {
+            //     let page = this.scrollFunc.answers.page;
+            //     this.getUserAnswersData(this.userId, page)
+            // } else
+            //     if (this.activeTab === "tab-2") {
+            //     let page = this.scrollFunc.documents.page;
+            //     this.getUserDocumentsData(this.userId, page)
+            // } else if (this.activeTab === "tab-3") {
+            //     let page = this.scrollFunc.purchasedDocs.page;
+            //     this.getUserPurchasedDocs(this.userId, page)
+            // }
         },
         getUserInfoData() {
             if(!!this.UserInfo){
@@ -240,26 +250,27 @@ export default {
             let self = this;
             self.getUserData(id)
                 .then((data) => {
-                    self.userId =  data.id.value;
-                    self.getDataByTabName()
+                    // self.userId =  data.id.value;
+                    self.$router.push({ name: 'home', params: { userId:  data.id.value  } })
+                    // self.getDataByTabName()
 
                 })
         },
-        getUserQuestionsData(id, page) {
-            let self = this;
-            self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
-            self.loading = true;
-            self.getUserQuestions({id, page}).then((isComplete) => {
-                self.nextPage();
-                if(!isComplete){
-                    self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
-                }else{
-                    self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
-                }
-                self.loading = false;
-
-            });
-        },
+        // getUserQuestionsData(id, page) {
+        //     let self = this;
+        //     self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
+        //     self.loading = true;
+        //     self.getUserQuestions({id, page}).then((isComplete) => {
+        //         self.nextPage();
+        //         if(!isComplete){
+        //             self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+        //         }else{
+        //             self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+        //         }
+        //         self.loading = false;
+        //
+        //     });
+        // },
         getUserPurchasedDocs(id, page){
             let self = this;
             self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
@@ -275,21 +286,21 @@ export default {
 
             });
         },
-        getUserAnswersData(id, page) {
-            let self = this;
-            self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
-            self.loading = true;
-            self.getUserAnswers({id, page}).then((isComplete) => {
-                self.nextPage();
-                if(!isComplete){
-                    self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
-                }else{
-                    self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
-                }
-                self.loading = false;
-
-            });
-        },
+        // getUserAnswersData(id, page) {
+        //     let self = this;
+        //     self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
+        //     self.loading = true;
+        //     self.getUserAnswers({id, page}).then((isComplete) => {
+        //         self.nextPage();
+        //         if(!isComplete){
+        //             self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock = false;
+        //         }else{
+        //             self.scrollFunc[self.activeTabEnum[self.activeTab]].scrollLock  = true;
+        //         }
+        //         self.loading = false;
+        //
+        //     });
+        // },
         getUserDocumentsData(id, page) {
             let self = this;
             self.scrollFunc[self.activeTabEnum[self.activeTab]].wasCalled = true;
@@ -328,7 +339,7 @@ export default {
         }
     },
     created() {
-        console.log('hello created');
+        console.log('hello created' + this.userId);
         this.$nextTick(function () {
             this.attachToScroll();
         })

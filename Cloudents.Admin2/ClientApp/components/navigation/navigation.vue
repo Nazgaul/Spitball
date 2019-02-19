@@ -1,16 +1,5 @@
 <template>
     <v-card class="nav-card elevation-0" >
-        <!--<v-toolbar color="teal" dark fixed>-->
-        <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
-
-        <!--<v-toolbar-title>Topics</v-toolbar-title>-->
-
-        <!--<v-spacer></v-spacer>-->
-
-        <!--<v-btn icon>-->
-        <!--<v-icon>more_vert</v-icon>-->
-        <!--</v-btn>-->
-        <!--</v-toolbar>-->
         <v-navigation-drawer
                 class="sb-navigation-drawer"
                 stateless
@@ -53,9 +42,9 @@
                             title: 'Home',
                             path: '/home'
                         },
-                        /*childrens: [
-                            {name: 'Management', link: '', icon: 'people_outline'},
-                        ]*/
+                        // /*childrens: [
+                        //     {name: 'Management', link: '', icon: 'people_outline'},
+                        // ]
 
                     },
                     {

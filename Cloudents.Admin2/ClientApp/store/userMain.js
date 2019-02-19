@@ -8,10 +8,12 @@ const state = {
     userQuestions: [],
     userAnswers: [],
     userDocuments: [],
-    userPurchasedDocs: []
+    userPurchasedDocs: [],
+    filterVal: 'ok'
 
 };
 const mutations = {
+
     clearUserData(state) {
         state.userInfo = {};
         state.userQuestions = [];
@@ -63,9 +65,13 @@ const mutations = {
     },
     removeDocument(state, index) {
         state.userDocuments.splice(index, 1);
+    },
+    setFilterStr(state, strVal){
+        state.filterVal = strVal
     }
 };
 const getters = {
+    filterValue: (state) => state.filterVal,
     getTokensDialogState: (state) => state.tokensDilaogState,
     suspendDialogState: (state) => state.suspendDialog,
     getUserBalance: (state) => state.userBalance,
@@ -77,7 +83,11 @@ const getters = {
 
 };
 const actions = {
-    clearUserState({commit}) {
+    updateFilterValue({commit}, val) {
+        commit('setFilterStr', val);
+    },
+
+   clearUserState({commit}) {
         commit('clearUserData');
     },
     setTokensDialogState({commit}, val) {

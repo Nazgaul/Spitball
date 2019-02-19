@@ -1,14 +1,21 @@
 <template>
     <div data-app>
       <!--<h1>Welcome to the ADMIN portal</h1>-->
-        <user-main-view></user-main-view>
+        <user-main-view :userId="userId"></user-main-view>
     </div>
 </template>
 
 <script>
     import userMainView from '../components/userMainView/userMainView.vue'
 export default {
-        components:{userMainView}
+        components:{userMainView},
+    props: {
+        userId:{
+        }
+    },
+    created(){
+            console.log("sdfmhgdf")
+    }
 }
 </script>
 

@@ -28,11 +28,48 @@ import Dev from './components/dev/dev.vue'
 import UChangeCountry from './components/dev/changeCountry/changeCountry.vue'
 import UDelete from './components/dev/deleteUser/deleteUser.vue'
 
+import userQuestions from './components/userMainView/userQuestions/userQuestions.vue';
+import userAnswers from './components/userMainView/userAnswers/userAnswers.vue';
+
+
 export const routes = [
     {
-       path: '/home',
+       path: '/home/:userId',
        name: 'home',
-       component: Home
+       component: Home,
+       props: true,
+        children: [
+            {
+                name: 'userQuestions',
+                path: 'userQuestions',
+                component: userQuestions
+            },
+            {
+                name: 'userAnswers',
+                path:'userAnswers',
+                component: userAnswers
+            },
+            // {
+            //     path:'userDocuments',
+            //     component: userDocuments
+            // },
+            // {
+            //     path:'userPurchasedDocuments',
+            //     component: userPurchasedDocuments
+            // },
+            // {
+            //     path:'userUpvotes',
+            //     component: userUpvotes
+            // },
+            // {
+            //     path:'userDownvotes',
+            //     component: userDownvotes
+            // },
+            // {
+            //     path:'userFlags',
+            //     component: userFlags
+            // },
+        ]
     },
     {
         path: '/question',
@@ -191,7 +228,7 @@ export const routes = [
     },
     {
          path: '/*',
-         redirect: '/home',
+         redirect: '/home/-1',
        },
 ]
 

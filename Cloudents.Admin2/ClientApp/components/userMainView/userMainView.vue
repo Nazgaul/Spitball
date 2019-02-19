@@ -53,42 +53,47 @@
                                 v-model="activeTab"
                                 icons-and-text
                         >
-                            <v-tab :href="`#tab-0`">User Question</v-tab>
-                            <v-tab :href="`#tab-1`">User Answers</v-tab>
-                            <v-tab :href="`#tab-2`">User Documents</v-tab>
-                            <v-tab :href="`#tab-3`">User Purchased Documents</v-tab>
+                            <v-tab :to="{name: 'userQuestions', params : userId }">User Question</v-tab>
+                            <v-tab :to="{name: 'userAnswers', params:userId}">User Answers</v-tab>
+                            <v-tab :to="'home/userDocuments'">User Documents</v-tab>
+                            <v-tab :to="'home/userPurchasedDocuments'">User Purchased Documents</v-tab>
+                            <!--<v-tab :href="`#tab-0`">User Question</v-tab>-->
+                            <!--<v-tab :href="`#tab-1`">User Answers</v-tab>-->
+                            <!--<v-tab :href="`#tab-2`">User Documents</v-tab>-->
+                            <!--<v-tab :href="`#tab-3`">User Purchased Documents</v-tab>-->
                         </v-tabs>
                         <div class="filters mb-2">
                             <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
-                                   :color="searchQuery === filter.value ? '#00bcd4' : ''  "
+                                   :color="filterValue === filter.value ? '#00bcd4' : ''  "
                                    :key="'filter_'+index">{{filter.name}}
                             </v-btn>
                         </div>
-                        <v-tabs-items v-model="activeTab">
-                            <v-tab-item :value="`tab-0`">
-                                <v-flex xs12>
-                                    <question-item
-                                             :filterVal="searchQuery" :questions="UserQuestions"
-                                    ></question-item>
-                                </v-flex>
-                            </v-tab-item>
-                            <v-tab-item :value="`tab-1`">
-                                <v-flex xs12>
-                                    <answer-item  :filterVal="searchQuery" :answers="UserAnswers"></answer-item>
-                                </v-flex>
-                            </v-tab-item>
-                            <v-tab-item :value="`tab-2`">
-                                <v-flex xs12>
-                                    <document-item  :documents="UserDocuments"
-                                                   :filterVal="searchQuery"></document-item>
-                                </v-flex>
-                            </v-tab-item>
-                            <v-tab-item :value="`tab-3`">
-                                <v-flex xs12>
-                                    <purchased-doc-item  :purchasedDocuments="UserPurchasedDocuments"
-                                                    :filterVal="searchQuery"></purchased-doc-item>
-                                </v-flex>
-                            </v-tab-item>
+                        <v-tabs-items>
+                            <router-view :userId="userId"></router-view>
+                            <!--<v-tab-item :value="`tab-0`">-->
+                                <!--<v-flex xs12>-->
+                                    <!--<question-item-->
+                                             <!--:filterVal="searchQuery" :questions="UserQuestions"-->
+                                    <!--&gt;</question-item>-->
+                                <!--</v-flex>-->
+                            <!--</v-tab-item>-->
+                            <!--<v-tab-item :value="`tab-1`">-->
+                                <!--<v-flex xs12>-->
+                                    <!--<answer-item  :filterVal="searchQuery" :answers="UserAnswers"></answer-item>-->
+                                <!--</v-flex>-->
+                            <!--</v-tab-item>-->
+                            <!--<v-tab-item :value="`tab-2`">-->
+                                <!--<v-flex xs12>-->
+                                    <!--<document-item  :documents="UserDocuments"-->
+                                                   <!--:filterVal="searchQuery"></document-item>-->
+                                <!--</v-flex>-->
+                            <!--</v-tab-item>-->
+                            <!--<v-tab-item :value="`tab-3`">-->
+                                <!--<v-flex xs12>-->
+                                    <!--<purchased-doc-item  :purchasedDocuments="UserPurchasedDocuments"-->
+                                                    <!--:filterVal="searchQuery"></purchased-doc-item>-->
+                                <!--</v-flex>-->
+                            <!--</v-tab-item>-->
                         </v-tabs-items>
                     </div>
                 </v-layout>
