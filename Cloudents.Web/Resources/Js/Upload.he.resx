@@ -226,4 +226,7 @@
   <data name="multiple_select_filetype" xml:space="preserve">
     <value>תייג מסמך</value>
   </data>
+  <data name="multiple_btn_uploading" xml:space="preserve">
+    <value>מעלה</value>
+  </data>
 </root>
