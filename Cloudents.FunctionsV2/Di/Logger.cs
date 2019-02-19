@@ -4,7 +4,7 @@ using Cloudents.Core.Interfaces;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 
-namespace Cloudents.Web.Services
+namespace Cloudents.FunctionsV2.Di
 {
     public class Logger : ILogger
     {
