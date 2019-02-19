@@ -29,9 +29,13 @@
                           label="Select country"
                 ></v-select>
                 <div class="price-container">
-                    <!--<v-btn  @click="setPrice">Set University</v-btn>-->
+                    <div >
+                        <v-text-field solo class="question-price" :rules="[rules.required]"  placeholder="University name" :type="'text'" v-model="uni" />
+                    </div>
+                </div>
+                <div class="price-container" v-if="uni">
                     <div>
-                        <v-text-field solo class="question-price" required placeholder="University name" :type="'text'" v-model="uni" />
+                        <v-text-field solo class="question-price" :rules="[rules.required]" placeholder="Course name" :type="'text'" v-model="course" />
                     </div>
                 </div>
             </div>
@@ -83,12 +87,18 @@
                 showTextArea: false,
                 questionPrice: 1,
                 showPriceSetter: false,
+                showCourseSetter: false,
                 files: [],
                 filesNames: [],
                 country: "Us",
                 countryList: ['Us', 'Il', 'In'],
                 uni: '',
-                loading: false
+                course: '',
+                loading: false,
+                rules: {
+                    required: value => !!value || 'This field is required',
+                    // minimum: value => value.length >= 2 || 'Min 2 characters'
+                }
             }
         },
         methods: {
@@ -105,10 +115,14 @@
                 this.files= [];
                 this.filesNames= [];
                 this.country= "Us";
+                this.course = '';
                 this.uni = '';
             },
             setPrice: function () {
                 this.showPriceSetter = true;
+            },
+            setUni(){
+                this.showCourseSetter = true;
             },
             addQ: function () {
                 this.loading = true;
@@ -128,7 +142,7 @@
                         }
                     })
                 }
-                addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, this.uni, uploads).then(() => {
+                addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice, this.country, this.uni, this.course, uploads).then(() => {
                     this.resetData();
                     this.$toaster.success("Success on Adding Question");
                     this.loading= false;
