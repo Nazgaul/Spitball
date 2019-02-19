@@ -66,13 +66,14 @@
                 </v-icon>
             </v-layout>
 
-
-            <v-progress-circular
-                    :size="50"
-                    color="primary"
-                    indeterminate
-            ></v-progress-circular>
-            <v-progress-linear :indeterminate="true"></v-progress-linear>
+            <div class="progress-line" v-show="progressActive"></div>
+            <!--<v-progress-circular-->
+                    <!--:size="50"-->
+                    <!--:active="true"-->
+                    <!--color="primary"-->
+                    <!--indeterminate-->
+            <!--&gt;</v-progress-circular>-->
+            <!--<v-progress-linear :indeterminate="true"></v-progress-linear>-->
             <!--<v-progress-linear-->
                     <!--:height="'8px'"-->
                     <!--:indeterminate="true"-->
@@ -195,10 +196,20 @@
 
 <style lang="less">
     @import '../../../../../styles/mixin.less';
-
     @uploadGreyBackground: rgba(68, 82, 252, 0.09);
     @chipActiveColor: #4452FC;
     .file-item-card {
+        //progress
+        .progress-line {
+            background-color: #b3d4fc;
+            display: flex;
+            height: 8px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
         display: flex;
         width: 660px;
         max-width: 660px;

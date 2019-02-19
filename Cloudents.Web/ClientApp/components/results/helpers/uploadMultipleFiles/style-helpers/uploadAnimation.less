@@ -61,64 +61,25 @@
   }
 }
 
-/**
-* ==============================================
-* Dot Flashing
-* ==============================================
-*/
-/**
- * ==============================================
- * Dot Flashing
- * ==============================================
- */
-.dot-flashing {
-  position: relative;
-  width: 6px;
-  height: 6px;
-  border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
-  animation: dotFlashing 1s infinite linear alternate;
-  animation-delay: .5s;
+//custom progress
+.progress-line, .progress-line:before {
+  height: 8px;
+  width: 100%;
+  margin: 0;
 }
-
-.dot-flashing::before, .dot-flashing::after {
+.progress-line:before {
+  background-color: rgb(92, 187, 246);
   content: '';
-  display: inline-block;
-  position: absolute;
-  top: 0;
+  -webkit-animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
-
-.dot-flashing::before {
-  left: -10px;
-  width: 6px;
-  height: 6px;
-  border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
-  animation: dotFlashing 1s infinite alternate;
-  animation-delay: 0s;
+@-webkit-keyframes running-progress {
+  0% { margin-left: 0px; margin-right: 100%; }
+  50% { margin-left: 25%; margin-right: 0%; }
+  100% { margin-left: 100%; margin-right: 0; }
 }
-
-.dot-flashing::after {
-  left: 10px;
-  width: 6px;
-  height: 6px;
-  border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
-  animation: dotFlashing 1s infinite alternate;
-  animation-delay: 1s;
+@keyframes running-progress {
+  0% { margin-left: 0px; margin-right: 100%; }
+  50% { margin-left: 25%; margin-right: 0%; }
+  100% { margin-left: 100%; margin-right: 0; }
 }
-
-@keyframes dotFlashing {
-  0% {
-    background-color:  #4452fc;
-  }
-  50%,
-  100% {
-    background-color: #ebe6ff;
-  }
-}
-
-
