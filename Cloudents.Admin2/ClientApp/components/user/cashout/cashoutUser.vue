@@ -19,7 +19,7 @@
         <v-data-table
                 :headers="headers"
                 :items="cashOutList"
-                class="elevation-1"
+                class="elevation-1 cash-out-table"
                 disable-initial-sort
                 :rows-per-page-items="[25, 50, 100,{text: 'All', value:-1}]"
                 :search="search"
@@ -91,7 +91,7 @@
     </div>
 </template>
 <script>
-    import { getCashoutList, declineCashout, approveCashout, createCashoutItem } from './cashoutUserService'
+    import { approveCashout, declineCashout, getCashoutList } from './cashoutUserService'
 
     export default {
         data() {
@@ -114,17 +114,17 @@
                 headers: [
                     {text: 'User ID', value: 'userId'},
                     {text: 'Cashout Price', value: 'cashOutPrice'},
-                    { text: 'User Email', value: 'userEmail' },
-                    { text: 'Date of cash out', value: 'cashOutTime' },
-                    { text: 'Is From Israel', value: 'isIsarel' },
-                    { text: 'Refer users count', value: 'referCount' },
-                    { text: 'Document sold', value: 'soldDocument' },
-                    { text: 'Answer Correct', value: 'correctAnswer' },
-                    { text: 'Deleted Document', value: 'soldDeletedDocument' },
-                    { text: 'Deleted Answer', value: 'deletedCorrectAnswer' },
-                    { text: 'Cashout', value: 'cashOut' },
-                    { text: 'Award', value: 'awardCount' },
-                    { text: 'Buy Points', value: 'buyCount' },
+                    {text: 'User Email', value: 'userEmail'},
+                    {text: 'Date of cash out', value: 'cashOutTime'},
+                    {text: 'Is From Israel', value: 'isIsarel'},
+                    {text: 'Refer users count', value: 'referCount'},
+                    {text: 'Document sold', value: 'soldDocument'},
+                    {text: 'Answer Correct', value: 'correctAnswer'},
+                    {text: 'Deleted Document', value: 'soldDeletedDocument'},
+                    {text: 'Deleted Answer', value: 'deletedCorrectAnswer'},
+                    {text: 'Cashout', value: 'cashOut'},
+                    {text: 'Award', value: 'awardCount'},
+                    {text: 'Buy Points', value: 'buyCount'},
                     {text: 'Decline reason', value: 'declinedReason'},
                     {text: 'Is Approved', value: 'approved'},
                     {text: 'Actions', value: 'Actions'},
@@ -187,29 +187,14 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
+    table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child),
+    table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child){
+        padding: 0 4px;
+    }
     .cashout-table-container {
         width: 100%;
-        max-width:  calc(100vw - 325px);
-        .cashout-table {
-            margin: 0 auto;
-            text-align: center;
-            vertical-align: middle;
-            width: 90%;
-            td {
-                border: 2px solid #b6b6b6;
-                border-radius: 18px;
-                &.suspect {
-                    background-color: #ff9b9b;
-                    font-weight: 600;
-                }
-            }
-            th {
-                border: 2px solid #b6b6b6;
-                border-radius: 18px;
-                background-color: #b6b6b6;
-            }
-        }
+        max-width: calc(100vw - 325px);
 
     }
 </style>

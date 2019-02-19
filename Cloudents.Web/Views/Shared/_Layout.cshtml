@@ -32,12 +32,12 @@
     <environment exclude="Development">
         <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
               asp-fallback-href="~/dist/@p.GetCss()"
-              asp-fallback-test-class="cdn-only" asp-fallback-test-property="position"
+              asp-fallback-test-class="cdn-only" asp-fallback-test-property="position" asp-append-version="true"
               asp-fallback-test-value="absolute" />
 
         <link rel="stylesheet" href="@cdnEndPoint/dist/@main.GetCss()"
               asp-fallback-href="~/dist/@main.GetCss()"
-              asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position"
+              asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position" asp-append-version="true"
               asp-fallback-test-value="absolute" />
     </environment>
     @await RenderSectionAsync("styleSection", required: false).ConfigureAwait(false)

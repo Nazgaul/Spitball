@@ -12,7 +12,7 @@ namespace Cloudents.Web.Models
         public string BlobName { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
+       // [Required]
         public string Type { get; set; }
 
         [Required]

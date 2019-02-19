@@ -57,10 +57,15 @@ namespace Cloudents.Core.DTOs.Admin
 
     public class UserPurchasedDocsDto
     {
+        [DtoToEntityConnection(nameof(Document.Id))]
         public long DocumentId { get; set; }
+        [DtoToEntityConnection(nameof(Document.Name))]
         public string Title { get; set; }
+        [DtoToEntityConnection(nameof(Document.University.Name))]
         public string Univesity { get; set; }
+        [DtoToEntityConnection(nameof(Document.Course))]
         public string Class { get; set; }
+        [DtoToEntityConnection(nameof(Document.Price))]
         public decimal Price { get; set; }
     }
 }

@@ -12,7 +12,7 @@
             <h1>Add Multiple Questions</h1>
             <div class="example-container">
                 <span>Example</span>
-                <img style="width: 100%;" src="../../../../assets/img/csvExample3.png" alt="">
+                <img style="width: 100%; min-width: 600px" src="../../../../assets/img/exampleLast.png" alt="">
             </div>
             <!-- Deprecated -->
             <!-- <div class="text-area-container">
@@ -87,7 +87,9 @@ export default {
                         "course": item[0],
                         "text": item[1],
                         "price": item[2],
-                        "country": item[3]
+                        "country": item[3],
+                        "uni": item[4],
+
                     }
                 })
 
@@ -106,7 +108,7 @@ export default {
             try{
                 if(questions && questions.length > 0){
                 questions.forEach((question)=>{
-                    addQuestion(question.course, question.text, question.price, question.country).then(()=>{   
+                    addQuestion(question.course, question.text, question.price, question.country, question.uni).then(()=>{
                         this.addedQuestions++; 
                         if(this.addedQuestions === this.questionsToUpload.length){
                             this.questionsToUpload = null;

@@ -32,7 +32,7 @@ namespace Cloudents.FunctionsV2.System
         //DocumentPurchasedMessage
         public async Task DoOperationAsync(DocumentPurchasedMessage msg, IBinder binder, CancellationToken token)
         {
-            
+            await Task.Delay(TimeSpan.FromSeconds(30), token);
             var query = new GetDocumentPurchasedEmailQuery(msg.TransactionId);
             var data = await _queryBus.QueryAsync(query, token);
             var template = await GetEmail("DocumentPurchased", data.Language, binder, token);

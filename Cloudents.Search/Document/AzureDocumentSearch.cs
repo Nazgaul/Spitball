@@ -92,7 +92,7 @@ namespace Cloudents.Search.Document
                 filters.Add($"({filterStr})");
             }
 
-            if (query.FilterByUniversity)
+            if (query.FilterByUniversity && userProfile.University != null)
             {
                 var universityStr = $"{Entities.Document.UniversityIdFieldName} eq '{userProfile.University.Id.ToString()}'";
                 filters.Add($"({universityStr})");
