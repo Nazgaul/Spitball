@@ -26,13 +26,14 @@ const getSubjectList = function(){
 }
 
 const addQuestion = function(course, text, price, country, uni){
-    let path = "AdminQuestion"
+    let path = "AdminQuestion";
+    let university = uni;
     let questionData = {
         course,
         text,
         price,
         country,
-        uni
+        university
     }
     return connectivityModule.http.post(path, questionData).then(()=>{
         return Promise.resolve()

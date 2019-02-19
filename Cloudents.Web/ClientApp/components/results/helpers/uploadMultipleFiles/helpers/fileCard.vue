@@ -53,6 +53,7 @@
                                  separator=","
                                  v-model="item.price"></vue-numeric>
                 </v-flex>
+
                 <v-flex xs6 sm5 md5 order-sm4 order-md4>
                     <v-text-field
                             solo
@@ -64,13 +65,21 @@
                     sbf-close
                 </v-icon>
             </v-layout>
-            <v-progress-linear
-                    :height="'8px'"
-                    :indeterminate="true"
-                    v-show="fileItem.progress != 100"
-                    :color="'#5cbbf6'"
-                    class="sb-file-card-progress ma-0">
-            </v-progress-linear>
+
+
+            <v-progress-circular
+                    :size="50"
+                    color="primary"
+                    indeterminate
+            ></v-progress-circular>
+            <v-progress-linear :indeterminate="true"></v-progress-linear>
+            <!--<v-progress-linear-->
+                    <!--:height="'8px'"-->
+                    <!--:indeterminate="true"-->
+                    <!--v-show="progressActive"-->
+                    <!--:color="'#5cbbf6'"-->
+                    <!--class="sb-file-card-progress ma-0">-->
+            <!--</v-progress-linear>-->
         </v-container>
     </v-card>
 </template>
@@ -130,6 +139,9 @@
             ...mapGetters(['getFileData']),
             item() {
                 return this.getFileData[this.singleFileIndex]
+            },
+            progressActive(){
+              return this.fileItem.progress !== 100 || this.fileItem.progress === '0.00'
             },
             docType() {
                 return this.item.docType
