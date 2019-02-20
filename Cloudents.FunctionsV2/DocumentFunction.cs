@@ -1,6 +1,5 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Sync;
@@ -13,7 +12,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -34,29 +32,29 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        [FunctionName("ReduBlobFunction")]
-        public static async Task ReduBlobFunctionAsync(
-            [QueueTrigger("generate-search-preview-poison")] string id,
-            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory dir,// IDictionary<string, string> metadata,
-            [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,// IDictionary<string, string> metadata,
-            [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
-            [Inject] ICommandBus commandBus,
+        //[FunctionName("ReduBlobFunction")]
+        //public static async Task ReduBlobFunctionAsync(
+        //    [QueueTrigger("generate-search-preview-poison")] string id,
+        //    [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory dir,// IDictionary<string, string> metadata,
+        //    [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,// IDictionary<string, string> metadata,
+        //    [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
+        //    [Inject] ICommandBus commandBus,
 
-            CancellationToken token)
-        {
-            var x = await dir.ListBlobsSegmentedAsync(null);
-            if (!x.Results.Any())
-            {
-                //There is no file - deleting it.
-                var command = new DeleteDocumentCommand(Convert.ToInt64(id));
-                await commandBus.DispatchAsync(command, token);
-                return;
-            }
-            var text = await blob.DownloadTextAsync();
-            await blob.FetchAttributesAsync();
-            var metadata = blob.Metadata;
-            await SyncBlobWithSearch(text, Convert.ToInt64(id), metadata, indexInstance, commandBus, token);
-        }
+        //    CancellationToken token)
+        //{
+        //    var x = await dir.ListBlobsSegmentedAsync(null);
+        //    if (!x.Results.Any())
+        //    {
+        //        //There is no file - deleting it.
+        //        var command = new DeleteDocumentCommand(Convert.ToInt64(id));
+        //        await commandBus.DispatchAsync(command, token);
+        //        return;
+        //    }
+        //    var text = await blob.DownloadTextAsync();
+        //    await blob.FetchAttributesAsync();
+        //    var metadata = blob.Metadata;
+        //    await SyncBlobWithSearch(text, Convert.ToInt64(id), metadata, indexInstance, commandBus, token);
+        //}
        
 
         private static async Task SyncBlobWithSearch(string text, long id, IDictionary<string, string> metadata,

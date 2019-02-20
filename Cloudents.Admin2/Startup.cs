@@ -59,7 +59,7 @@ namespace Cloudents.Admin2
                     config.Filters.Add(new AuthorizeFilter(policy));
                 }
 
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             if (HostingEnvironment.IsDevelopment())
             {

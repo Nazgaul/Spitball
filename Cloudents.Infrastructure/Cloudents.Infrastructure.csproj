@@ -25,7 +25,7 @@
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.2.0" />
-    <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="Dapper" Version="1.50.7" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Language.TextAnalytics" Version="2.8.0-preview" />
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.0.0" />
