@@ -67,7 +67,7 @@
                             </v-btn>
                         </div>
                         <v-tabs-items>
-                            <router-view :userId="userId"></router-view>
+                            <router-view  :userId="userId"></router-view>
                         </v-tabs-items>
                     </div>
                 </v-layout>

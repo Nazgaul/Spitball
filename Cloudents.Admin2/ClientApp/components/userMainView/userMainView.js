@@ -120,17 +120,20 @@ export default {
         updateFilter(val) {
             return this.updateFilterValue(val)
         },
-        getUserInfoData() {
+        getUserInfoData(paramId) {
             if (!!this.UserInfo) {
                 this.resetUserData();
             }
-            let id = this.userIdentifier;
+            let id = this.userIdentifier || paramId
             let self = this;
             self.getUserData(id)
                 .then((data) => {
-                    self.$router.push({name: 'home', params: {userId: data.id.value}})
-
-
+                    if(data &&  data.id && data.id.value){
+                        self.$router.push({name: 'userMainView', params: {userId: data.id.value}})
+                    }else{
+                        //clean id from url if not valid and nopthing reterned from server
+                        self.$router.push({name: 'userMainView', params: {userId: ''}})
+                    }
                 })
         },
 
@@ -154,7 +157,10 @@ export default {
         },
     },
     created() {
-        console.log('usr main view created' + this.userId);
+        if(this.$route.params && this.$route.params.userId){
+            this. getUserInfoData(this.$route.params.userId)
+        }
+        console.log('usr main view created' + this.userId, this.$route);
 
     },
 }

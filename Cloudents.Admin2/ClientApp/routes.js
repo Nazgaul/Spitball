@@ -28,6 +28,7 @@ import Dev from './components/dev/dev.vue';
 import UChangeCountry from './components/dev/changeCountry/changeCountry.vue';
 import UDelete from './components/dev/deleteUser/deleteUser.vue';
 
+import userMain from './components/userMainView/userMainView.vue';
 import userQuestions from './components/userMainView/userQuestions/userQuestions.vue';
 import userAnswers from './components/userMainView/userAnswers/userAnswers.vue';
 import userDocuments from './components/userMainView/userDocuments/userDocuments.vue';
@@ -39,8 +40,8 @@ import userFlagged from './components/userMainView/userFlaggedItems/userFlaggedI
 export const routes = [
     {
        path: '/home/:userId',
-       name: 'home',
-       component: Home,
+       name: 'userMainView',
+       component: userMain,
        props: true,
         children: [
             {

@@ -141,7 +141,11 @@ export default {
         let path = `AdminUser/info?userIdentifier=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
-                return createUserInfoItem(resp);
+                if(resp){
+                    return createUserInfoItem(resp);
+                }else{
+                    return false
+                }
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
