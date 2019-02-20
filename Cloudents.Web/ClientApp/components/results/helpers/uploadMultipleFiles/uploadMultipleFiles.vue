@@ -65,7 +65,8 @@
                     <v-flex v-show="!firstStep && !lastStep">
                         <v-btn :loading="loading" class="upload-btn" :disabled="!isLoaded || disableBtn"
                                @click="sendDocumentData()">
-                            <span class="sb-btn-text" v-language:inner>upload_multiple_btn_upload</span>
+                            <span v-show="isLoaded" class="sb-btn-text" v-language:inner>upload_multiple_btn_upload</span>
+                            <span v-show="!isLoaded"  class="sb-btn-text" v-language:inner>upload_multiple_btn_uploading</span>
                         </v-btn>
                     </v-flex>
 

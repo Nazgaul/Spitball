@@ -190,12 +190,14 @@ namespace Cloudents.Web.Api
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
             [FromQuery]QuestionsRequest model,
-            //[ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             [FromServices] IQueryBus queryBus,
            CancellationToken token)
         {
             var query = new QuestionsQuery(model.Profile, model.Term, model.Course, model.NeedUniversity, model.Source,
-                model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
+                model.Filter?.Where(w => w.HasValue).Select(s => s.Value))
+            {
+                Page = model.Page.GetValueOrDefault()
+            };
 
 
             var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);

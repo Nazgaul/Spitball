@@ -11,6 +11,7 @@ using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Controllers
 {
@@ -32,7 +33,6 @@ namespace Cloudents.Web.Controllers
         }
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        //[ServiceFilter(typeof(RedirectToOldSiteFilterAttribute))]
         public async Task<IActionResult> Index(
             [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,

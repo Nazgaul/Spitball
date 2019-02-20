@@ -8,14 +8,15 @@ const state = {
     userQuestions: [],
     userAnswers: [],
     userDocuments: [],
+    userPurchasedDocs: []
 
 };
 const mutations = {
     clearUserData(state) {
-        state.userInfo ={};
-        state.userQuestions =[];
-        state.userAnswers =[];
-        state.userDocuments =[];
+        state.userInfo = {};
+        state.userQuestions = [];
+        state.userAnswers = [];
+        state.userDocuments = [];
     },
     updateTokensDialog(state, val) {
         state.tokensDilaogState = val;
@@ -48,6 +49,9 @@ const mutations = {
     setUserAnswers(state, data) {
         state.userAnswers = data;
     },
+    setUserPurchasedDocs(state, data) {
+        state.userPurchasedDocs = data;
+    },
     setUserDocuments(state, data) {
         state.userDocuments = data;
     },
@@ -68,7 +72,8 @@ const getters = {
     UserInfo: (state) => state.userInfo,
     UserQuestions: (state) => state.userQuestions,
     UserAnswers: (state) => state.userAnswers,
-    UserDocuments: (state) => state.userDocuments
+    UserDocuments: (state) => state.userDocuments,
+    UserPurchasedDocuments: (state)=> state.userPurchasedDocs
 
 };
 const actions = {
@@ -137,6 +142,20 @@ const actions = {
                 }
 
 
+            },
+            (error) => {
+                console.log(error, 'error')
+            }
+        )
+    },
+    getUserPurchasedDocuments(context, idPageObj) {
+        return UserMainService.getPurchasedDocs(idPageObj.id, idPageObj.page).then((data) => {
+                if (data && data.length !== 0) {
+                    context.commit('setUserPurchasedDocs', data);
+                }
+                if (data.length < quantatyPerPage) {
+                    return true;
+                }
             },
             (error) => {
                 console.log(error, 'error')

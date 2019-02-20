@@ -1,15 +1,16 @@
-﻿using Cloudents.Core;
+﻿using Autofac.Features.Indexed;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using NHibernate;
 using NHibernate.Linq;
 using System;
@@ -46,10 +47,12 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(Duration = 1 * TimeConst.Day)]
         public async Task<IActionResult> IndexAsync(CancellationToken token)
         {
-            var query = new EmptyQuery();
+            var query = new SiteMapQuery();
             var result = await _queryBus.QueryAsync(query, token);
+
             XNamespace nameSpace = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
+            result.Add(new SiteMapCountDto(SeoType.Static, 1));
             // ReSharper disable once StringLiteralTypo
             var root = new XElement(nameSpace + "sitemapindex");
 
@@ -70,67 +73,71 @@ namespace Cloudents.Web.Controllers
             return Content(document.ToString(), "application/xml");
         }
 
-        [Route("sitemap-flashcard-{index:int}.xml", Order = 1)]
-        public IActionResult FlashcardSeoAsync(int index,
-            [FromServices] IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery> query2,
-            CancellationToken token)
-        {
-            return new FileCallbackResult("application/xml", async (stream, context) =>
-            {
+        //[Route("sitemap-flashcard-{index:int}.xml", Order = 1)]
+        //public IActionResult FlashcardSeoAsync(int index,
+        //    [FromServices] IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery> query2,
+        //    CancellationToken token)
+        //{
+        //    return new FileCallbackResult("application/xml", async (stream, context) =>
+        //    {
 
-                using (var writer = XmlWriter.Create(stream, _xmlWriterSettings))
-                {
-                    await writer.WriteStartDocumentAsync();
-                    writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-                    var iterator = 0;
-                    var query = new SeoQuery(index, PageSize);
-                    foreach (var entity in query2.Get(query))
-                    {
-                        var url = Url.RouteUrl(SeoTypeString.Flashcard, new
-                        {
-                            universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
-                            boxId = entity.BoxId,
-                            boxName = UrlConst.NameToQueryString(entity.BoxName),
-                            id = entity.Id,
-                            name = UrlConst.NameToQueryString(entity.Name)
-                        }, Request.GetUri().Scheme);
-                        if (string.IsNullOrEmpty(url))
-                        {
-                            continue;
-                        }
-                        await WriteTagAsync("1", "Daily", url, writer);
-                        if (iterator == 100)
-                        {
-                            await writer.FlushAsync();
-                            iterator = 0;
-                        }
-                    }
+        //        using (var writer = XmlWriter.Create(stream, _xmlWriterSettings))
+        //        {
+        //            await writer.WriteStartDocumentAsync();
+        //            writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
+        //            var iterator = 0;
+        //            var query = new SeoQuery(index, PageSize);
+        //            foreach (var entity in query2.Get(query))
+        //            {
+        //                var url = Url.RouteUrl(SeoTypeString.Flashcard, new
+        //                {
+        //                    universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
+        //                    boxId = entity.BoxId,
+        //                    boxName = UrlConst.NameToQueryString(entity.BoxName),
+        //                    id = entity.Id,
+        //                    name = UrlConst.NameToQueryString(entity.Name)
+        //                }, Request.GetUri().Scheme);
 
-                    await writer.WriteEndElementAsync();
-                    await writer.WriteEndDocumentAsync();
-                    await writer.FlushAsync();
-                }
-            });
-        }
+        //                if (string.IsNullOrEmpty(url))
+        //                {
+        //                    continue;
+        //                }
+        //                await WriteTagAsync("1", "Daily", url, writer);
+        //                if (iterator == 100)
+        //                {
+        //                    await writer.FlushAsync();
+        //                    iterator = 0;
+        //                }
+        //            }
+
+        //            await writer.WriteEndElementAsync();
+        //            await writer.WriteEndDocumentAsync();
+        //            await writer.FlushAsync();
+        //        }
+        //    });
+        //}
 
         [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription", Order = 2)]
         public IActionResult DetailIndexAsync(SeoType type, int index,
-            [FromServices] IStatelessSession session,
-            CancellationToken token)
+            [FromServices] IIndex<SeoType, IBuildSeo> seoBuilder,
+        CancellationToken token)
         {
-           
-            var t = session.Query<Document>()
-                    .Fetch(f => f.University)
-                  .Where(w => w.Status.State == ItemState.Ok)
-                  .Take(PageSize).Skip(PageSize * index)
-                  .Select(s => new DocumentSeoDto
-                  {
-                      Id = s.Id,
-                      Name = s.Name,
-                      Country = s.University.Country,
-                      CourseName = s.Course.Name,
-                      UniversityName = s.University.Name
-                  });
+
+            //var t = session.Query<Document>()
+            //        .Fetch(f => f.University)
+            //      .Where(w => w.Status.State == ItemState.Ok)
+            //      .Take(PageSize).Skip(PageSize * index)
+            //      .Select(s => new DocumentSeoDto
+            //      {
+            //          Id = s.Id,
+            //          Name = s.Name,
+            //          Country = s.University.Country,
+            //          CourseName = s.Course.Name,
+            //          UniversityName = s.University.Name
+            //      });
+            var provider = seoBuilder[type];
+            var x = provider.GetUrls(index);
+
             return new FileCallbackResult("application/xml", async (stream, context) =>
             {
                 using (var writer = XmlWriter.Create(stream, _xmlWriterSettings))
@@ -138,15 +145,15 @@ namespace Cloudents.Web.Controllers
                     var i = 0;
                     await writer.WriteStartDocumentAsync();
                     writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-                    foreach (var link in t)
+                    foreach (var url in x)
                     {
-                        var url = Url.RouteUrl(SeoTypeString.Document, new
-                        {
-                            universityName = FriendlyUrlHelper.GetFriendlyTitle(link.UniversityName),
-                            courseName = FriendlyUrlHelper.GetFriendlyTitle(link.CourseName),
-                            link.Id,
-                            name = FriendlyUrlHelper.GetFriendlyTitle(link.Name)
-                        }, Request.GetUri().Scheme);
+                        //var url = Url.RouteUrl(SeoTypeString.Document, new
+                        //{
+                        //    universityName = FriendlyUrlHelper.GetFriendlyTitle(link.UniversityName),
+                        //    courseName = FriendlyUrlHelper.GetFriendlyTitle(link.CourseName),
+                        //    link.Id,
+                        //    name = FriendlyUrlHelper.GetFriendlyTitle(link.Name)
+                        //}, Request.GetUri().Scheme);
                         i++;
                         await WriteTagAsync("1", "Daily", url, writer);
                         if (i % 100 == 0)
@@ -182,8 +189,106 @@ namespace Cloudents.Web.Controllers
             myWriter.WriteStartElement("priority");
             myWriter.WriteValue(priority);
             await myWriter.WriteEndElementAsync();
-            
+
             await myWriter.WriteEndElementAsync();
+        }
+    }
+
+    public interface IBuildSeo
+    {
+        IEnumerable<string> GetUrls(int index);
+
+
+    }
+
+    public class StaticSeoBuilder : IBuildSeo
+    {
+        private readonly LinkGenerator _linkGenerator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public StaticSeoBuilder(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        {
+            _linkGenerator = linkGenerator;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public IEnumerable<string> GetUrls(int index)
+        {
+            yield return _linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, "Index", "Home");
+        }
+    }
+
+    public class DocumentSeoBuilder : IBuildSeo
+    {
+        private readonly IStatelessSession _session;
+        private readonly LinkGenerator _linkGenerator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public DocumentSeoBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        {
+            _session = session;
+            _linkGenerator = linkGenerator;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public IEnumerable<string> GetUrls(int index)
+        {
+            var t = _session.Query<Document>()
+                 .Fetch(f => f.University)
+                 .Where(w => w.Status.State == ItemState.Ok)
+                 .Take(4000).Skip(4000 * index)
+                 .Select(s => new DocumentSeoDto
+                 {
+                     Id = s.Id,
+                     Name = s.Name,
+                     Country = s.University.Country,
+                     CourseName = s.Course.Name,
+                     UniversityName = s.University.Name
+                 });
+
+            foreach (var item in t)
+            {
+                yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Document, new
+                {
+                    universityName = FriendlyUrlHelper.GetFriendlyTitle(item.UniversityName),
+                    courseName = FriendlyUrlHelper.GetFriendlyTitle(item.CourseName),
+                    item.Id,
+                    name = FriendlyUrlHelper.GetFriendlyTitle(item.Name)
+                });
+
+            }
+        }
+    }
+
+
+    public class QuestionSeoBuilder : IBuildSeo
+    {
+        private readonly IStatelessSession _session;
+        private readonly LinkGenerator _linkGenerator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public QuestionSeoBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        {
+            _session = session;
+            _linkGenerator = linkGenerator;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public IEnumerable<string> GetUrls(int index)
+        {
+            var t = _session.Query<Question>()
+                .Where(w => w.Status.State == ItemState.Ok)
+                .Take(4000).Skip(4000 * index)
+                .Select(s => s.Id);
+
+            foreach (var item in t)
+            {
+                yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Question, new
+                {
+                    Id = item,
+                });
+
+            }
         }
     }
 }
