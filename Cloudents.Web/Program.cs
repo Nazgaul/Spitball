@@ -13,7 +13,7 @@ namespace Cloudents.Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseKestrel(p => p.AddServerHeader = false)
+                .ConfigureKestrel(f=>f.AddServerHeader = false)
                 .UseApplicationInsights()
                 .UseStartup<Startup>()
                 .ConfigureLogging((hostingContext, logging) =>

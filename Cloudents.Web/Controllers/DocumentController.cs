@@ -47,7 +47,7 @@ namespace Cloudents.Web.Controllers
             _userManager = userManager;
         }
 
-        [Route("item/{universityName}/{boxId:long}/{boxName}/{oldId:long}/{name}", Name = SeoTypeString.Item)]
+        [Route("item/{universityName}/{boxId:long}/{boxName}/{oldId:long}/{name}")]
         public async Task<IActionResult> OldDocumentLinkRedirect(string universityName, string boxName, long oldId, string name, CancellationToken token)
         {
             var query = new DocumentSeoByOldId(oldId);
