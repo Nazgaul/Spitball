@@ -31,24 +31,24 @@
                     </v-list-tile-content>
 
                     <v-list-tile-action v-if="!isDeleted">
-                        <v-tooltip left>
-                            <v-btn slot="activator" flat class="doc-action" v-if="!isOk"
+                        <v-tooltip left attach="tooltip-1">
+                            <v-btn slot="activator" flat class="doc-action tooltip-1 " v-if="!isOk"
                                    @click="isFlagged ? unflagSingleDocument(document, index) : approveSingleDocument(document, index)"
                                    :disabled="proccessedDocuments.includes(document.id)">
                                 <v-icon>check</v-icon>
                             </v-btn>
                             <span>{{isFlagged ? 'UnFlag Document' : 'Approve Document' }}</span>
                         </v-tooltip>
-                        <v-tooltip left>
-                            <v-btn slot="activator" flat color="purple" class="doc-action"
+                        <v-tooltip left attach="tooltip-2">
+                            <v-btn slot="activator" flat color="purple" class="doc-action tooltip-2"
                                    :disabled="proccessedDocuments.includes(document.id)"
                                    @click="deleteDocument(document, index)">
                                 <v-icon>delete</v-icon>
                             </v-btn>
                             <span>Delete Document</span>
                         </v-tooltip>
-                        <v-tooltip left>
-                            <v-btn slot="activator" class="doc-action" flat :href="document.siteLink"
+                        <v-tooltip left attach="tooltip-3">
+                            <v-btn slot="activator" class="doc-action tooltip-3" flat :href="document.siteLink"
                                    target="_blank">
 
                                 <v-icon>link</v-icon>

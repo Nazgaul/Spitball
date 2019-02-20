@@ -1,5 +1,5 @@
 <template>
-    <v-layout justify-center class="user-page-wrap" data-app>
+    <v-layout justify-center class="user-page-wrap">
         <v-flex xs12 sm12 md12 class="px-2 py-3" style="background: #ffffff;">
             <h1>Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">

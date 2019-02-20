@@ -36,8 +36,6 @@
                     scrollLock: false,
                     wasCalled: false
                 },
-
-                searchQuery: ''
             }
         },
         props: {
