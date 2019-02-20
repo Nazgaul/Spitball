@@ -176,7 +176,7 @@
     <comment>do not translate to english</comment>
   </data>
   <data name="enter_the_confirm_code" xml:space="preserve">
-    <value>Enter the confirmation code</value>
+    <value>Enter the confirmation code.</value>
   </data>
   <data name="enter_your_phone_number" xml:space="preserve">
     <value>Enter your phone number</value>
