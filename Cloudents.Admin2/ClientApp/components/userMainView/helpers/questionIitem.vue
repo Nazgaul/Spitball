@@ -11,13 +11,13 @@
 
                 <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
                 <div class="question-actions-container">
-                    <v-tooltip left :attach="'tooltip-1'">
+                    <v-tooltip left attach="tooltip-1">
                         <v-btn slot="activator" icon @click="deleteQuestionByID(question)" class="tooltip-1">
                             <v-icon color="red">close</v-icon>
                         </v-btn>
                         <span>Delete Question</span>
                     </v-tooltip>
-                    <v-tooltip left :attach="'tooltip-2'">
+                    <v-tooltip left attach="tooltip-2">
                         <v-btn slot="activator" icon @click="aproveQ(question, index)"  class="tooltip-2">
                             <v-icon color="green">done</v-icon>
                         </v-btn>

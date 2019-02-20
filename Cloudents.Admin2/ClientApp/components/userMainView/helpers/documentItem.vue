@@ -31,7 +31,7 @@
                     </v-list-tile-content>
 
                     <v-list-tile-action v-if="!isDeleted">
-                        <v-tooltip left attach="tooltip-1">
+                        <v-tooltip left attach="tooltip-1" lazy>
                             <v-btn slot="activator" flat class="doc-action tooltip-1 " v-if="!isOk"
                                    @click="isFlagged ? unflagSingleDocument(document, index) : approveSingleDocument(document, index)"
                                    :disabled="proccessedDocuments.includes(document.id)">
@@ -39,7 +39,7 @@
                             </v-btn>
                             <span>{{isFlagged ? 'UnFlag Document' : 'Approve Document' }}</span>
                         </v-tooltip>
-                        <v-tooltip left attach="tooltip-2">
+                        <v-tooltip left attach="tooltip-2" lazy>
                             <v-btn slot="activator" flat color="purple" class="doc-action tooltip-2"
                                    :disabled="proccessedDocuments.includes(document.id)"
                                    @click="deleteDocument(document, index)">
@@ -47,7 +47,7 @@
                             </v-btn>
                             <span>Delete Document</span>
                         </v-tooltip>
-                        <v-tooltip left attach="tooltip-3">
+                        <v-tooltip left attach="tooltip-3" lazy>
                             <v-btn slot="activator" class="doc-action tooltip-3" flat :href="document.siteLink"
                                    target="_blank">
 
