@@ -1,5 +1,5 @@
 <template>
-    <div class="item-wrap">
+    <div class="item-wrap" data-app>
         <v-card class="answer-card" v-for="(answer, index) in answers" :key="index" v-if="isVisible(answer.state)">
             <v-toolbar class="answer-toolbar mt-4 back-color-purple">
                 <v-toolbar-title class="answer-text-title">
@@ -12,15 +12,15 @@
                     <span>Answer Id: {{answer.id}}</span>
                 </div>
                 <v-flex>
-                    <v-tooltip left>
-                        <v-btn slot="activator" icon @click="declineAnswer(answer, index)">
+                    <v-tooltip left  attach="tooltip-1">
+                        <v-btn slot="activator" icon @click="declineAnswer(answer, index)" class="tooltip-1">
                             <v-icon color="red">close</v-icon>
                         </v-btn>
                         <span>Decline Answer</span>
                     </v-tooltip>
                     <v-list-tile-action-text></v-list-tile-action-text>
-                    <v-tooltip left>
-                        <v-btn slot="activator" icon @click="aproveA(answer, index)">
+                    <v-tooltip left  attach="tooltip-2">
+                        <v-btn slot="activator" icon @click="aproveA(answer, index)" class="tooltip-2">
                             <v-icon color="green">done</v-icon>
                         </v-btn>
                         <span>Approve Answer</span>
@@ -93,9 +93,6 @@
                 })
             },
         },
-        created() {
-            console.log(this.answers)
-        }
     }
 </script>
 

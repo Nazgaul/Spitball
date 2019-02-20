@@ -1,5 +1,5 @@
 <template>
-    <div class="item-wrap" >
+    <div class="item-wrap" data-app>
         <v-card v-for="(question, index) in questions" :key="index" v-if="isVisible(question.state)">
             <v-toolbar class="question-toolbar mt-4 back-color-purple">
                 <v-toolbar-title class="question-text-title" @click="openQuestion(question.url)">
@@ -11,14 +11,14 @@
 
                 <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
                 <div class="question-actions-container">
-                    <v-tooltip left>
-                        <v-btn slot="activator" icon @click="deleteQuestionByID(question)">
+                    <v-tooltip left attach="tooltip-1">
+                        <v-btn slot="activator" icon @click="deleteQuestionByID(question)" class="tooltip-1">
                             <v-icon color="red">close</v-icon>
                         </v-btn>
                         <span>Delete Question</span>
                     </v-tooltip>
-                    <v-tooltip left>
-                        <v-btn slot="activator" icon @click="aproveQ(question, index)">
+                    <v-tooltip left attach="tooltip-2">
+                        <v-btn slot="activator" icon @click="aproveQ(question, index)"  class="tooltip-2">
                             <v-icon color="green">done</v-icon>
                         </v-btn>
                         <span>Accept Question</span>

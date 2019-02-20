@@ -1,38 +1,93 @@
 import Home from './components/Home.vue';
 
-import Question from './components/question/question.vue'
-import QMark from './components/question/questionComponents/mark/markQuestion.vue'
-import QDelete from './components/question/questionComponents/delete/deleteQuestion.vue'
-import QAdd from './components/question/questionComponents/add/addQuestion.vue'
-import QAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue'
-import QAccept from './components/question/questionComponents/accept/acceptQuestion.vue'
-import QPending from './components/question/questionComponents/pendingQuestions/pendingQuestions.vue'
-import QFlagged from './components/question/questionComponents/flaggedQuestions/flaggedQuestions.vue'
+import Question from './components/question/question.vue';
+import QMark from './components/question/questionComponents/mark/markQuestion.vue';
+import QDelete from './components/question/questionComponents/delete/deleteQuestion.vue';
+import QAdd from './components/question/questionComponents/add/addQuestion.vue';
+import QAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue';
+import QAccept from './components/question/questionComponents/accept/acceptQuestion.vue';
+import QPending from './components/question/questionComponents/pendingQuestions/pendingQuestions.vue';
+import QFlagged from './components/question/questionComponents/flaggedQuestions/flaggedQuestions.vue';
 
-import Answer from './components/answer/answer.vue'
-import ADelete from './components/answer/answerComponents/delete/deleteAnswer.vue'
-import AAccept from './components/answer/answerComponents/accept/acceptAnswer.vue'
-import AFlagged from './components/answer/answerComponents/flaggedAnswers/flaggedAnswers.vue'
+import Answer from './components/answer/answer.vue';
+import ADelete from './components/answer/answerComponents/delete/deleteAnswer.vue';
+import AAccept from './components/answer/answerComponents/accept/acceptAnswer.vue';
+import AFlagged from './components/answer/answerComponents/flaggedAnswers/flaggedAnswers.vue';
 
-import User from './components/user/user.vue'
-import UToken from './components/user/token/tokenUser.vue'
-import UCashout from './components/user/cashout/cashoutUser.vue'
-import USuspend from './components/user/suspend/suspendUser.vue'
+import User from './components/user/user.vue';
+import UToken from './components/user/token/tokenUser.vue';
+import UCashout from './components/user/cashout/cashoutUser.vue';
+import USuspend from './components/user/suspend/suspendUser.vue';
 
-import Document from './components/document/document.vue'
-import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue'
-import documentDelete from './components/document/documentComponents/documentDelete/documentDelete.vue'
-import flaggedDocument from './components/document/documentComponents/flaggedDocument/flaggedDocument.vue'
+import Document from './components/document/document.vue';
+import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue';
+import documentDelete from './components/document/documentComponents/documentDelete/documentDelete.vue';
+import flaggedDocument from './components/document/documentComponents/flaggedDocument/flaggedDocument.vue';
 
-import Dev from './components/dev/dev.vue'
-import UChangeCountry from './components/dev/changeCountry/changeCountry.vue'
-import UDelete from './components/dev/deleteUser/deleteUser.vue'
+import Dev from './components/dev/dev.vue';
+import UChangeCountry from './components/dev/changeCountry/changeCountry.vue';
+import UDelete from './components/dev/deleteUser/deleteUser.vue';
+
+import userMain from './components/userMainView/userMainView.vue';
+import userQuestions from './components/userMainView/userQuestions/userQuestions.vue';
+import userAnswers from './components/userMainView/userAnswers/userAnswers.vue';
+import userDocuments from './components/userMainView/userDocuments/userDocuments.vue';
+import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
+import userUpVotes from './components/userMainView/userUpVotes/userUpVotes.vue';
+import userDownVotes from './components/userMainView/userDownVotes/userDownVotes.vue';
+import userFlagged from './components/userMainView/userFlaggedItems/userFlaggedItems.vue';
 
 export const routes = [
     {
-       path: '/home',
-       name: 'home',
-       component: Home
+       path: '/home/:userId',
+       name: 'userMainView',
+       component: userMain,
+       props: true,
+        children: [
+            {
+                name: 'userQuestions',
+                path: 'userQuestions',
+                component: userQuestions
+            },
+            {
+                name: 'userAnswers',
+                path:'userAnswers',
+                component: userAnswers
+            },
+            {
+                name:'userDocuments',
+                path:'userDocuments',
+                component: userDocuments
+            },
+            {
+                name:'userPurchasedDocuments',
+                path:'userPurchasedDocuments',
+                component: userPurchasedDocuments
+            },
+            {
+                name:'userUpVotes',
+                path:'userUpVotes',
+                component: userUpVotes
+            },
+            {
+                name:'userDownVotes',
+                path:'userDownVotes',
+                component: userDownVotes
+            },
+            {
+                name:'userFlagged',
+                path:'userFlaggedItems',
+                component: userFlagged
+            },
+            // {
+            //     path:'userDownvotes',
+            //     component: userDownvotes
+            // },
+            // {
+            //     path:'userFlags',
+            //     component: userFlags
+            // },
+        ]
     },
     {
         path: '/question',
@@ -191,7 +246,7 @@ export const routes = [
     },
     {
          path: '/*',
-         redirect: '/home',
+         redirect: '/home/-1',
        },
 ]
 

@@ -1,5 +1,5 @@
 <template>
-    <v-layout justify-center class="user-page-wrap" data-app>
+    <v-layout justify-center class="user-page-wrap">
         <v-flex xs12 sm12 md12 class="px-2 py-3" style="background: #ffffff;">
             <h1>Welcome to Admin</h1>
             <div class="input-wrap d-flex  justify-end">
@@ -50,45 +50,24 @@
                                 centered
                                 color="cyan"
                                 dark
-                                v-model="activeTab"
                                 icons-and-text
                         >
-                            <v-tab :href="`#tab-0`">User Question</v-tab>
-                            <v-tab :href="`#tab-1`">User Answers</v-tab>
-                            <v-tab :href="`#tab-2`">User Documents</v-tab>
-                            <v-tab :href="`#tab-3`">User Purchased Documents</v-tab>
+                            <v-tab :to="{name: 'userQuestions', params : userId }">User Question</v-tab>
+                            <v-tab :to="{name: 'userAnswers', params:userId}">User Answers</v-tab>
+                            <v-tab :to="{name: 'userDocuments', params:userId}">User Documents</v-tab>
+                            <v-tab :to="{name: 'userPurchasedDocuments', params:userId} ">User Purchased Documents</v-tab>
+                            <v-tab :to="{name: 'userUpVotes', params:userId} ">User Up Votes</v-tab>
+                            <v-tab :to="{name: 'userDownVotes', params:userId} ">User Down Votes</v-tab>
+                            <v-tab :to="{name: 'userFlagged', params:userId} ">Flagged Items</v-tab>
                         </v-tabs>
                         <div class="filters mb-2">
                             <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
-                                   :color="searchQuery === filter.value ? '#00bcd4' : ''  "
+                                   :color="filterValue === filter.value ? '#00bcd4' : ''  "
                                    :key="'filter_'+index">{{filter.name}}
                             </v-btn>
                         </div>
-                        <v-tabs-items v-model="activeTab">
-                            <v-tab-item :value="`tab-0`">
-                                <v-flex xs12>
-                                    <question-item
-                                             :filterVal="searchQuery" :questions="UserQuestions"
-                                    ></question-item>
-                                </v-flex>
-                            </v-tab-item>
-                            <v-tab-item :value="`tab-1`">
-                                <v-flex xs12>
-                                    <answer-item  :filterVal="searchQuery" :answers="UserAnswers"></answer-item>
-                                </v-flex>
-                            </v-tab-item>
-                            <v-tab-item :value="`tab-2`">
-                                <v-flex xs12>
-                                    <document-item  :documents="UserDocuments"
-                                                   :filterVal="searchQuery"></document-item>
-                                </v-flex>
-                            </v-tab-item>
-                            <v-tab-item :value="`tab-3`">
-                                <v-flex xs12>
-                                    <purchased-doc-item  :purchasedDocuments="UserPurchasedDocuments"
-                                                    :filterVal="searchQuery"></purchased-doc-item>
-                                </v-flex>
-                            </v-tab-item>
+                        <v-tabs-items>
+                            <router-view  :userId="userId"></router-view>
                         </v-tabs-items>
                     </div>
                 </v-layout>
@@ -135,16 +114,6 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-progress-circular
-                style="position: absolute; top: 300px; left: auto; right: auto;"
-                :size="150"
-                class="loading-spinner"
-                color="#00bcd4"
-                v-show="loading"
-                indeterminate
-        >
-            <span>Loading...</span>
-        </v-progress-circular>
     </v-layout>
 </template>
 
