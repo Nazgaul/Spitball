@@ -86,7 +86,7 @@
                         childrens: [
                             {name: 'User Token', link: '/user/token', icon: 'title'},
                             {name: 'Cashout List', link: '/user/cashout', icon: 'attach_money'},
-                            {name: 'Suspend User', link: '/user/suspend', icon: 'block'},
+                            // {name: 'Suspend User', link: '/user/suspend', icon: 'block'},
                         ]
                     },
                     {
