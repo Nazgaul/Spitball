@@ -299,5 +299,13 @@ namespace Cloudents.Admin2.Api
 
             return retVal;
         }
+
+        [HttpGet("usersFlags")]
+        public async Task<UsersFlagsResponse> GetFlags(int minFlags, int page, CancellationToken token)
+        {
+            var query = new AdminUserFlagsOthersQuery(minFlags, page);
+            var res = await _queryBus.QueryAsync(query, token);
+            return new UsersFlagsResponse { flags = res.Item1, Rows = res.Item2 };
+        }
     }
 }
