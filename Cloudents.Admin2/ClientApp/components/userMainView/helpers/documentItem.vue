@@ -1,7 +1,7 @@
 <template>
     <div class="item-wrap">
         <v-list three-line class="docs-list">
-            <template v-for="(document, index) in documents"  v-if="isVisible(document.state)">
+            <template v-for="(document, index) in documents" v-if="isVisible(document.state)">
 
                 <v-list-tile class="document-tile"
                              :key="'doc'+index"

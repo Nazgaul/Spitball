@@ -50,17 +50,15 @@
                                 centered
                                 color="cyan"
                                 dark
-                                v-model="activeTab"
                                 icons-and-text
                         >
                             <v-tab :to="{name: 'userQuestions', params : userId }">User Question</v-tab>
                             <v-tab :to="{name: 'userAnswers', params:userId}">User Answers</v-tab>
-                            <v-tab :to="'home/userDocuments'">User Documents</v-tab>
-                            <v-tab :to="'home/userPurchasedDocuments'">User Purchased Documents</v-tab>
-                            <!--<v-tab :href="`#tab-0`">User Question</v-tab>-->
-                            <!--<v-tab :href="`#tab-1`">User Answers</v-tab>-->
-                            <!--<v-tab :href="`#tab-2`">User Documents</v-tab>-->
-                            <!--<v-tab :href="`#tab-3`">User Purchased Documents</v-tab>-->
+                            <v-tab :to="{name: 'userDocuments', params:userId}">User Documents</v-tab>
+                            <v-tab :to="{name: 'userPurchasedDocuments', params:userId} ">User Purchased Documents</v-tab>
+                            <v-tab :to="{name: 'userUpVotes', params:userId} ">User Up Votes</v-tab>
+                            <v-tab :to="{name: 'userDownVotes', params:userId} ">User Down Votes</v-tab>
+                            <v-tab :to="{name: 'userFlagged', params:userId} ">Flagged Items</v-tab>
                         </v-tabs>
                         <div class="filters mb-2">
                             <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
@@ -70,30 +68,6 @@
                         </div>
                         <v-tabs-items>
                             <router-view :userId="userId"></router-view>
-                            <!--<v-tab-item :value="`tab-0`">-->
-                                <!--<v-flex xs12>-->
-                                    <!--<question-item-->
-                                             <!--:filterVal="searchQuery" :questions="UserQuestions"-->
-                                    <!--&gt;</question-item>-->
-                                <!--</v-flex>-->
-                            <!--</v-tab-item>-->
-                            <!--<v-tab-item :value="`tab-1`">-->
-                                <!--<v-flex xs12>-->
-                                    <!--<answer-item  :filterVal="searchQuery" :answers="UserAnswers"></answer-item>-->
-                                <!--</v-flex>-->
-                            <!--</v-tab-item>-->
-                            <!--<v-tab-item :value="`tab-2`">-->
-                                <!--<v-flex xs12>-->
-                                    <!--<document-item  :documents="UserDocuments"-->
-                                                   <!--:filterVal="searchQuery"></document-item>-->
-                                <!--</v-flex>-->
-                            <!--</v-tab-item>-->
-                            <!--<v-tab-item :value="`tab-3`">-->
-                                <!--<v-flex xs12>-->
-                                    <!--<purchased-doc-item  :purchasedDocuments="UserPurchasedDocuments"-->
-                                                    <!--:filterVal="searchQuery"></purchased-doc-item>-->
-                                <!--</v-flex>-->
-                            <!--</v-tab-item>-->
                         </v-tabs-items>
                     </div>
                 </v-layout>
@@ -140,16 +114,6 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-progress-circular
-                style="position: absolute; top: 300px; left: auto; right: auto;"
-                :size="150"
-                class="loading-spinner"
-                color="#00bcd4"
-                v-show="loading"
-                indeterminate
-        >
-            <span>Loading...</span>
-        </v-progress-circular>
     </v-layout>
 </template>
 
