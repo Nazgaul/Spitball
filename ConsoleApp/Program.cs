@@ -509,11 +509,16 @@ where left(blobName ,4) != 'file'");
 
         private static async Task HadarMethod()
         {
+            
+            var commandBus = _container.Resolve<ICommandBus>();
 
+            var command = new CreateQuestionCommand(QuestionSubject.Accounting, "EmailTest", 5,
+                    160259, new List<string> { }, "econ 101");
+            await commandBus.DispatchAsync(command, token);
             //await CoursesWithSimilarNames();
             //await FunctionsExtensions.MergeCourses(_container);
 
-            var d = _container.Resolve<DapperRepository>();
+            /*var d = _container.Resolve<DapperRepository>();
             
 
             var res = await d.WithConnectionAsync(async f =>
@@ -549,7 +554,7 @@ where left(blobName ,4) != 'file'");
                      sb.AppendLine(string.Join(delimiter, output[index]));
                  }*/
 
-            }
+            //}
 
             //File.WriteAllText(filePath, sb.ToString());
 

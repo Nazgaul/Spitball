@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Cloudents.Admin2.Controllers
 {
@@ -15,7 +16,7 @@ namespace Cloudents.Admin2.Controllers
         {
             var redirectUrl = Url.Action(nameof(HomeController.Index), "Home");
             return Challenge(
-                new AuthenticationProperties { RedirectUri = redirectUrl },
+                new AuthenticationProperties { RedirectUri = redirectUrl, ExpiresUtc = new DateTimeOffset(DateTime.UtcNow.AddMinutes(5)) },
                 OpenIdConnectDefaults.AuthenticationScheme);
         }
 
