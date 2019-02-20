@@ -27,7 +27,9 @@ function UserInfo(objInit) {
     this.balance = {value: objInit.balance || 0, label: 'Balance'};
     this.status = {value: objInit.isActive ? false : true, label: 'Suspended'};
     this.wasSuspended = {value: objInit.wasSuspended ? true : false, label: 'Was Suspended'};
-    this.joined = {value: new Date(objInit.joined).toLocaleString(), label: "Join Date"}
+    this.joined =
+        {value: `${new Date(objInit.joined).getUTCMonth() + 1}/${new Date(objInit.joined).getUTCDate()}/${new Date(objInit.joined).getUTCFullYear()}`,
+        label: "Join Date"}
 }
 
 function createUserInfoItem(data) {
@@ -84,7 +86,7 @@ function FlaggedItem(objInit) {
     this.date = objInit.created  || 'no date';
     this.text = objInit.text  || 'not specified';
     this.type = objInit.itemType || 'not specified';
-    this.voteCount = objInit.voteCount || 'not specified';
+    this.voteCount = objInit.voteCount || 0;
     this.flagReason = objInit.flagReason || 'not specified';
     this.state = objInit.state || 'not specified';
 
@@ -197,7 +199,7 @@ export default {
             })
     },
     getUpvotes: (id, page) => {
-        let path = `AdminUser/upVots?id=${id}&page=${page}`;
+        let path = `AdminUser/upVotes?id=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createUpVoteItem(resp);
@@ -208,7 +210,7 @@ export default {
             })
     },
     getDownVotes: (id, page) => {
-        let path = `AdminUser/downVots?id=${id}&page=${page}`;
+        let path = `AdminUser/downVotes?id=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createDownVoteItem(resp);

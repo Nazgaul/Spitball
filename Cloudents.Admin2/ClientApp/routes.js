@@ -18,6 +18,7 @@ import User from './components/user/user.vue';
 import UToken from './components/user/token/tokenUser.vue';
 import UCashout from './components/user/cashout/cashoutUser.vue';
 import USuspend from './components/user/suspend/suspendUser.vue';
+import ActiveUsers from './components/user/activeUsers/activeUsers.vue';
 
 import Document from './components/document/document.vue';
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue';
@@ -188,6 +189,10 @@ export const routes = [
             path:'suspend',
             component: USuspend
           },
+            {
+                path:'active-users',
+                component: ActiveUsers
+            },
           {
             path: '*',
             redirect: 'token',
