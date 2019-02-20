@@ -215,6 +215,10 @@ namespace Cloudents.Web.Controllers
         public IEnumerable<string> GetUrls(int index)
         {
             yield return _linkGenerator.GetUriByAction(_httpContextAccessor.HttpContext, "Index", "Home");
+            yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, "Static", new
+            {
+                page = "faq"
+            });
         }
     }
 

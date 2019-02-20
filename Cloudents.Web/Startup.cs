@@ -318,6 +318,11 @@ namespace Cloudents.Web
                     defaults: new { controller = "Home", action = "Index" }
                 );
                 routes.MapRoute(
+                    name: "Static",
+                    template: "/{**page}",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
