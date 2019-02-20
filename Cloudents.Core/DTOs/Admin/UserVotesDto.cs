@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Cloudents.Core.DTOs.Admin
 {
-    public class UserVotsDto
+    public class UserVotesDto
     {
         public DateTime Created { get; set; }
         public string ItemText { get; set; }
-        public char ItemType { get; set; }
+        public string ItemType { get; set; }
     }
 }

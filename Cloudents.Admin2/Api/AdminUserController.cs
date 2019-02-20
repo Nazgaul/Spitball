@@ -238,17 +238,17 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-        [HttpGet("upVots")]
-        public async Task<IEnumerable<UserVotsDto>> GetUserUpVotsDetails(long id, int page, CancellationToken token)
+        [HttpGet("upVotes")]
+        public async Task<IEnumerable<UserVotesDto>> GetUserUpVotsDetails(long id, int page, CancellationToken token)
         {
-            var query = new AdminUserVotsQuery(id, page, 1);
+            var query = new AdminUserVotesQuery(id, page, 1);
             return await _queryBus.QueryAsync(query, token);
         }
 
-        [HttpGet("downVots")]
-        public async Task<IEnumerable<UserVotsDto>> GetUserDownVotsDetails(long id, int page, CancellationToken token)
+        [HttpGet("downVotes")]
+        public async Task<IEnumerable<UserVotesDto>> GetUserDownVotsDetails(long id, int page, CancellationToken token)
         {
-            var query = new AdminUserVotsQuery(id, page, -1);
+            var query = new AdminUserVotesQuery(id, page, -1);
             return await _queryBus.QueryAsync(query, token);
         }
 
