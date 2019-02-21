@@ -116,7 +116,7 @@
                     {text: 'Cashout Price', value: 'cashOutPrice'},
                     {text: 'User Email', value: 'userEmail'},
                     {text: 'Date of cash out', value: 'cashOutTime'},
-                    {text: 'Is From Israel', value: 'isIsarel'},
+                    {text: 'Is From Israel', value: 'isIsrael'},
                     {text: 'Refer users count', value: 'referCount'},
                     {text: 'Document sold', value: 'soldDocument'},
                     {text: 'Answer Correct', value: 'correctAnswer'},
