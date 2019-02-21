@@ -65,7 +65,7 @@ namespace ConsoleApp
                     EmailObject obj = new EmailObject()
                     {
                         id = $"{row[1].ToString().Replace(" ", string.Empty)}_{new CultureInfo(row[0].ToString())}",
-                        socialShare = row[2].ToString() == "Yes" ? true : false,
+                        socialShare = row[2].ToString() == "Yes",
                         eventName = row[1].ToString().Replace(" ", string.Empty),
                         subject = row[3].ToString(),
                         cultureInfo = new CultureInfo(row[0].ToString()),

@@ -4,7 +4,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
-    public class QuestionMap : ClassMap<Question>
+    public sealed class QuestionMap : ClassMap<Question>
     {
         public QuestionMap()
         {

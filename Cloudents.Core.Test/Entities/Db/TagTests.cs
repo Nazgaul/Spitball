@@ -14,8 +14,12 @@ namespace Cloudents.Core.Test.Entities.Db
 
         public void CreateTag_InvalidTagName_Exception(string name)
         {
-            Action action = () => new Tag(name);
-            Assert.Throws<ArgumentException>(action);
+            void Action()
+            {
+                var tag = new Tag(name);
+            }
+
+            Assert.Throws<ArgumentException>((Action) Action);
         }
 
 

@@ -150,15 +150,6 @@
   <data name="how_title" xml:space="preserve">
     <value>איך זה עובד?</value>
   </data>
-  <data name="learn_subtitle" xml:space="preserve">
-    <value>בספיטבול כל סטודנט יכול להציע את המשאבים שלו לסטודנטים אחרים ולהחליט אם הוא מציע אותם תמורת נקודות.</value>
-  </data>
-  <data name="learn_title" xml:space="preserve">
-    <value>איך ספיטבול עובד?</value>
-  </data>
-  <data name="welcome_subtitle" xml:space="preserve">
-    <value>קהילת הסטודנטים שבה לומדים וחולקים חומרי לימוד אחד עם השני.</value>
-  </data>
   <data name="welcome_text" xml:space="preserve">
     <value>הקהילה בה הסטודנטים מקבלים גישה לחומרי לימוד ועוזרים אחד לשני.</value>
   </data>

@@ -54,7 +54,9 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
-            return (Name != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Name.Trim()) : 0);
+            // ReSharper disable once NonReadonlyMemberInGetHashCode Nhibernate
+            var name = Name;
+            return (name != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(name.Trim()) : 0);
         }
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
 

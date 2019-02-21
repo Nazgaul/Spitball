@@ -46,9 +46,11 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
+            // ReSharper disable once NonReadonlyMemberInGetHashCode nhibernate
             return (GetRealType().ToString() + Id).GetHashCode();
         }
 
+        // ReSharper disable once VirtualMemberNeverOverridden.Global nhibernate
         public virtual object Actual => this;
 
         private Type GetRealType()

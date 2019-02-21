@@ -1,33 +1,21 @@
 ﻿using Autofac;
-using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Core;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.System;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
 using Cloudents.Search.Document;
 using Cloudents.Search.Question;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
-using Newtonsoft.Json;
-using NHibernate;
-using NHibernate.Linq;
 using SimMetricsMetricUtilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -41,10 +29,10 @@ namespace ConsoleApp
     internal static class Program
     {
         private static IContainer _container;
-        private static CancellationToken token = CancellationToken.None;
+        //private static CancellationToken token = CancellationToken.None;
 
-        private static readonly log4net.ILog log =
-            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private static readonly log4net.ILog log =
+        //    log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         static async Task Main()
         {
             
@@ -101,15 +89,7 @@ namespace ConsoleApp
 
 
         }
-
-        private static async Task UpdateQuestionIndex()
-        {
-            var bus = _container.Resolve<QuestionSearchWrite>();
-            await bus.CreateOrUpdateAsync(default);
-
-            var bus2 = _container.Resolve<DocumentSearchWrite>();
-            await bus2.CreateOrUpdateAsync(default);
-        }
+        
 
         private static async Task RamMethod()
         {

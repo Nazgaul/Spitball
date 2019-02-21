@@ -52,6 +52,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string LockoutReason { get; set; }
 
+        // ReSharper disable once CollectionNeverUpdated.Local Nhiberate
         private readonly IList<Answer> _answers = new List<Answer>();
 
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();

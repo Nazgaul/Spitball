@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistance.Maps
 {
-    public class DocumentMap : ClassMap<Document>
+    public sealed class DocumentMap : ClassMap<Document>
     {
         public DocumentMap()
         {
