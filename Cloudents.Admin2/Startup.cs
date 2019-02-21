@@ -36,7 +36,7 @@ namespace Cloudents.Admin2
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            
 
             services.AddAuthentication(sharedOptions =>
                 {
@@ -50,6 +50,13 @@ namespace Cloudents.Admin2
             {
                 o.ApplicationDiscriminator = "spitball";
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("https://login.microsoftonline.com"));
+            });
+
 
             services.AddMvc(config =>
             {
@@ -116,6 +123,8 @@ namespace Cloudents.Admin2
                 app.UseExceptionHandler("/Home/Error");
 
             }
+
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
