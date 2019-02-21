@@ -2,9 +2,8 @@
     <div>
         <v-layout align-start column v-for="(downItem, index) in downvotedItems" :key="`down`+index" class="mb-3 px-2 py-2 elevation-2">
             <v-flex xs12 md12 sm12 class="py-1">
-                <span class="label subheading text-xs-left text-md-left mr-3">Down Vote Date:</span>
+                <span class="label subheading text-xs-left text-md-left mr-3">Date:</span>
                 <span class="font-weight-medium">{{downItem.date | dateFromISO}}</span>
-
             </v-flex>
             <v-flex class="py-1" xs12 md12 sm12><span class="label subheading text-xs-left text-md-left mr-3">Text:</span>
                 <span class="font-weight-medium">{{downItem.text}}</span>
