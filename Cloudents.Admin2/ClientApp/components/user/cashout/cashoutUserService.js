@@ -5,7 +5,7 @@ function cashoutUser(objInit) {
     this.cashOutPrice = objInit.cashOutPrice || 0;
     this.userEmail = objInit.userEmail || 'None';
     this.cashOutTime = new Date( objInit.cashOutTime );
-    this.isIsrael = objInit.isIsrael || false;
+    this.isIsrael = objInit.isIsrael  || false;
     this.declinedReason = objInit.declinedReason || '';
     this.approved = objInit.approved || null;
     this.transactionId = objInit.transactionId || '';
