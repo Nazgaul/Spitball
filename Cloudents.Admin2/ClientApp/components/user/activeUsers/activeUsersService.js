@@ -1,8 +1,9 @@
 import { connectivityModule } from '../../../services/connectivity.module'
 
 function ActiveUserItem(objInit) {
-    this.userId = objInit.userId;
+    this.userId = objInit.id;
     this.country = objInit.country;
+    this.flags = objInit.flags;
 }
 
 function createActiveUserItem(objInit) {

@@ -1,8 +1,6 @@
 <template>
-    <div class="cashout-table-container">
-        <span v-if="showLoading">Loading List...</span>
-        <span v-if="showNoResult">NO RESULTS!</span>
-        <h4>Cashout List</h4>
+    <div class="active-users-container">
+        <h4>Active helping users list List</h4>
         <v-layout>
             <v-spacer></v-spacer>
             <v-flex xs4 sm4 md4>
@@ -13,28 +11,21 @@
                         single-line
                         hide-details
                 ></v-text-field>
-                <v-btn @click="getActiveList()">Get User list</v-btn>
             </v-flex>
         </v-layout>
         <v-data-table
                 :headers="headers"
                 :items="activeUsersList"
-                :total-items="activeUsersTotal"
-                hide-actions
                 :pagination.sync="pagination"
-                class="elevation-1 cash-out-table"
-                disable-initial-sort
-
-        >
+                :loading="loading"
+                class="elevation-1 active-users-table">
+            <v-progress-linear slot="progress" color="blue" v-show="loading" indeterminate></v-progress-linear>
             <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.userId }}</td>
-                <td class="text-xs-center">{{ props.item.country }}</td>
-
+                <td class="text-xs-left cursor-pointer" @click="openUserView(props.item.userId)">{{ props.item.userId }}</td>
+                <td class="text-xs-left">{{ props.item.country }}</td>
+                <td class="text-xs-left">{{ props.item.flags }}</td>
             </template>
         </v-data-table>
-        <div class="text-xs-center pt-2">
-            <v-pagination v-model="pages" :length="activeUsersTotal /200"></v-pagination>
-        </div>
     </div>
 </template>
 <script>
@@ -45,8 +36,9 @@
             return {
                 activeUsersList: [],
                 activeUsersTotal: 0,
-                page: 0,
-                minFlags: null,
+                serverPage: 0,
+                loading: true,
+                minFlags: 1,
                 showLoading: true,
                 showNoResult: false,
                 pages: 0,
@@ -55,6 +47,7 @@
                 headers: [
                     {text: 'User ID', value: 'userId'},
                     {text: 'Country', value: 'country'},
+                    {text: 'Flags', value: 'flags'},
                 ],
             }
         },
@@ -62,54 +55,73 @@
         watch: {
             pagination: {
                 handler() {
-                    if (this.minFlags) {
-                        this.getActiveList()
-                            .then(data => {
-                                this.activeUsersList = data.activeUsersList;
-                                this.activeUsersTotal = data.total
-                            })
+                    this.getActiveList()
+                        .then(data => {
+                            this.activeUsersList = data.items;
+                            this.activeUsersTotal = data.total;
 
-                    }
-
+                        });
                 },
                 deep: true
             },
-        },
-            methods: {
-                nextPage() {
-                    this.page++
-                },
+            minFlags: {
+                handler(newVal) {
+                    if (newVal) {
+                        this.getActiveList()
+                            .then(data => {
+                                this.activeUsersList = data.items;
+                                this.activeUsersTotal = data.total;
 
-                getActiveList() {
-                    let total, rowsPerPage, page, minFlags;
-                    minFlags = this.minFlags;
-                    rowsPerPage = 200;
-                    page = this.page;
-                    let self = this;
-                    getActiveUsers(minFlags, page)
-                        .then((data) => {
-                            let activeList = data.flags;
-                            if (data.rows !== -1) {
-                                total = data.rows;
-                            }
-                            // activeList = activeList.slice((page - 1) * rowsPerPage, page * rowsPerPage);
-                            self.showLoading = false;
-                            let returnData = {
-                                activeUsersList: activeList,
-                                total: total
-                            };
-                            self.nextPage();
-                            return returnData;
-
-
-                        }, (err) => {
-                            console.log(err)
-                        })
+                            });
+                    }
                 }
+            }
+
+        },
+        methods: {
+            openUserView(userId){
+                this.$router.push({name: 'userMainView', params: {userId: userId}})
             },
+            nextPage() {
+                this.serverPage++
+            },
+            getActiveList() {
+                this.loading= true;
+                let total, rowsPerPage, serverPage, minFlags;
+                minFlags = this.minFlags;
+                rowsPerPage = 200;
+                serverPage = this.serverPage;
+                let sortBy = '';
+                let descending = false;
+                let items;
+                let currentPage;
+                return getActiveUsers(minFlags, serverPage)
+                    .then((data) => {
+                        items = data.flags;
+                        if (data.rows !== -1) {
+                            total = data.rows;
+                            if (total > 200) {
+                                this.nextPage()
+                            }
+                        }
+                        if (rowsPerPage > 0) {
+                            if (this.serverPage === 0) {
+                                currentPage = 1;
+                            } else {
+                                currentPage = this.serverPage + 1;
+                            }
+                            items = items.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+                        }
+                        this.loading = false;
+                        return {items, total};
+                    }, (err) => {
+                        console.log(err)
+                    })
+            }
+        },
 
 
-        }
+    }
 
 </script>
 
@@ -119,10 +131,11 @@
     table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child) {
         padding: 0 4px;
     }
-
-    .cashout-table-container {
+    .active-users-container {
         width: 100%;
         max-width: calc(100vw - 325px);
-
+        .cursor-pointer{
+            cursor: pointer;
+        }
     }
 </style>
