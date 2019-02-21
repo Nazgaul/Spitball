@@ -30,8 +30,8 @@
             </div>
             <div class="questions-answers-wrap">
                 <v-layout row>
-                    <div class="general-info d-flex elevation-2 mb-2" v-if="showActions">
-                        <div class="info-item py-2 px-2" v-for="(infoItem, index) in userInfo" :key="index">
+                    <div class="general-info d-flex elevation-2 mb-2" v-if="showActions" style="max-height: 468px;">
+                        <div class="info-item px-2" v-for="(infoItem, index) in userInfo" :key="index">
                             <v-flex row class="d-flex align-baseline justify-center">
                                 <div class="user-info-label">
                                     <span>{{infoItem.label}}</span>
@@ -52,13 +52,13 @@
                                 dark
                                 icons-and-text
                         >
-                            <v-tab :to="{name: 'userQuestions', params : userId }">User Question</v-tab>
-                            <v-tab :to="{name: 'userAnswers', params:userId}">User Answers</v-tab>
-                            <v-tab :to="{name: 'userDocuments', params:userId}">User Documents</v-tab>
-                            <v-tab :to="{name: 'userPurchasedDocuments', params:userId} ">User Purchased Documents</v-tab>
-                            <v-tab :to="{name: 'userUpVotes', params:userId} ">User Up Votes</v-tab>
-                            <v-tab :to="{name: 'userDownVotes', params:userId} ">User Down Votes</v-tab>
-                            <v-tab :to="{name: 'userFlagged', params:userId} ">Flagged Items</v-tab>
+                            <v-tab :to="{name: 'userQuestions', params : userId }">Question</v-tab>
+                            <v-tab :to="{name: 'userAnswers', params:userId}">Answers</v-tab>
+                            <v-tab :to="{name: 'userDocuments', params:userId}">Documents</v-tab>
+                            <v-tab :to="{name: 'userPurchasedDocuments', params:userId} ">Purchased Documents</v-tab>
+                            <v-tab :to="{name: 'userUpVotes', params:userId} ">Up Votes</v-tab>
+                            <v-tab :to="{name: 'userDownVotes', params:userId} ">Down Votes</v-tab>
+                            <v-tab :to="{name: 'userFlagged', params:userId} ">Flagged</v-tab>
                         </v-tabs>
                         <div class="filters mb-2">
                             <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"

@@ -37,7 +37,7 @@
                                    :disabled="proccessedDocuments.includes(document.id)">
                                 <v-icon>check</v-icon>
                             </v-btn>
-                            <span>{{isFlagged ? 'UnFlag Document' : 'Approve Document' }}</span>
+                            <span>{{isFlagged ? 'Accept' : 'Accept' }}</span>
                         </v-tooltip>
                         <v-tooltip left attach="tooltip-2" lazy>
                             <v-btn slot="activator" flat color="purple" class="doc-action tooltip-2"
@@ -45,7 +45,7 @@
                                    @click="deleteDocument(document, index)">
                                 <v-icon>delete</v-icon>
                             </v-btn>
-                            <span>Delete Document</span>
+                            <span>Delete</span>
                         </v-tooltip>
                         <v-tooltip left attach="tooltip-3" lazy>
                             <v-btn slot="activator" class="doc-action tooltip-3" flat :href="document.siteLink"
@@ -75,7 +75,8 @@
 <script>
     import flaggedDocumentService from '../../document/documentComponents/flaggedDocument/flaggedDocumentService';
     import approveDeleteService from '../../document/documentComponents/approveDelete/approveDeleteService';
-    import {mapActions} from 'vuex';
+    import { mapActions } from 'vuex';
+
     export default {
         name: "documentItem",
         data() {
@@ -110,7 +111,7 @@
             isFlagged() {
                 return this.filterVal === 'flagged'
             },
-            isDeleted(){
+            isDeleted() {
                 return this.filterVal === 'deleted'
             }
         },
@@ -189,9 +190,12 @@
         top: 0;
         right: 0;
     }
-
     .item-wrap {
-
+        .v-avatar {
+            img {
+                border-radius: 0;
+            }
+        }
         .doc-action {
             height: 24px;
         }

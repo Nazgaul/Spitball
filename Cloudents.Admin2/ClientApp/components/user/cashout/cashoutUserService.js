@@ -2,17 +2,18 @@ import { connectivityModule } from '../../../services/connectivity.module'
 
 function cashoutUser(objInit) {
     this.userId = objInit.userId;
+    this.awardCount = objInit.awardCount || 0;
     this.cashOutPrice = objInit.cashOutPrice || 0;
+    this.buyCount = objInit.buyCount || 0;
+    this.cashOut= objInit.cashOut || 0;
     this.userEmail = objInit.userEmail || 'None';
     this.cashOutTime = new Date( objInit.cashOutTime );
-    this.isIsrael = objInit.isIsrael  || false;
-    this.declinedReason = objInit.declinedReason || '';
     this.approved = objInit.approved || null;
     this.transactionId = objInit.transactionId || '';
     this.correctAnswer = objInit.correctAnswer;
     this.declinedReason = objInit.declinedReason;
     this.deletedCorrectAnswer = objInit.deletedCorrectAnswer;
-    this.isIsrael = objInit.isIsrael;
+    this.isIsrael = objInit.isIsrael || false;
     this.referCount = objInit.referCount;
     this.soldDeletedDocument = objInit.soldDeletedDocument;
     this.soldDocument = objInit.soldDocument;

@@ -43,23 +43,23 @@
                 <td class="text-xs-center">{{ props.item.declinedReason }}</td>
                 <td class="text-xs-center">{{ props.item.approved }}</td>
                 <td class="text-xs-center">
-                    <span v-if="!props.item.approved && !props.item.declinedReason">
-                        <v-icon small
-                                color="red"
-                                class="mr-2"
-                                @click="editItem(props.item)">
-                            delete
+                    <span>
 
-                        </v-icon>
+                    <!--<span v-if="!props.item.approved && !props.item.declinedReason">-->
                         <v-icon small
                                 color="green"
-                                @click="approveCashout(props.item)">
-                            check
+                                class="mr-2"
+                                @click="editItem(props.item)">
+                            call_to_action
+
                         </v-icon>
+                        <!--<v-icon small-->
+                                <!--color="green"-->
+                                <!--@click="approveCashout(props.item)">-->
+                            <!--check-->
+                        <!--</v-icon>-->
                     </span>
-
                 </td>
-
 
             </template>
         </v-data-table>
@@ -73,7 +73,11 @@
                     <v-container grid-list-md>
                         <v-layout wrap>
                             <v-flex xs12 sm12 md12>
-                                <v-text-field v-model="editedItem.declinedReason" label="Decline Reason"></v-text-field>
+                                <v-radio-group v-model="radios">
+                                    <v-radio label="Decline" value="decline"></v-radio>
+                                    <v-radio label="Approve" value="approve"></v-radio>
+                                </v-radio-group>
+                                <v-text-field v-show="radios === 'decline'" v-model="editedItem.declinedReason" label="Decline Reason"></v-text-field>
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -82,8 +86,8 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                    <v-btn color="red darken-1" :disabled="!editedItem.declinedReason" flat @click="decline()">
-                        Decline
+                    <v-btn color="red darken-1" :disabled="!editedItem.declinedReason" flat @click="done()">
+                        Done
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -100,6 +104,7 @@
                 showLoading: true,
                 showNoResult: false,
                 editedIndex: -1,
+                radios: 'approve',
                 editedItem: {
                     declinedReason: '',
                     approved: false,
@@ -113,20 +118,20 @@
                 search: '',
                 headers: [
                     {text: 'User ID', value: 'userId'},
-                    {text: 'Cashout Price', value: 'cashOutPrice'},
+                    {text: 'Price', value: 'cashOutPrice'},
                     {text: 'User Email', value: 'userEmail'},
-                    {text: 'Date of cash out', value: 'cashOutTime'},
-                    {text: 'Is From Israel', value: 'isIsrael'},
-                    {text: 'Refer users count', value: 'referCount'},
-                    {text: 'Document sold', value: 'soldDocument'},
-                    {text: 'Answer Correct', value: 'correctAnswer'},
-                    {text: 'Deleted Document', value: 'soldDeletedDocument'},
-                    {text: 'Deleted Answer', value: 'deletedCorrectAnswer'},
+                    {text: 'Date', value: 'cashOutTime'},
+                    {text: 'Israel', value: 'isIsrael'},
+                    {text: 'Referrals', value: 'referCount'},
+                    {text: 'Docs sold', value: 'soldDocument'},
+                    {text: 'Ans Accept', value: 'correctAnswer'},
+                    {text: 'Del Doc', value: 'soldDeletedDocument'},
+                    {text: 'Del Answer', value: 'deletedCorrectAnswer'},
                     {text: 'Cashout', value: 'cashOut'},
                     {text: 'Award', value: 'awardCount'},
                     {text: 'Buy Points', value: 'buyCount'},
                     {text: 'Decline reason', value: 'declinedReason'},
-                    {text: 'Is Approved', value: 'approved'},
+                    {text: 'Approved', value: 'approved'},
                     {text: 'Actions', value: 'Actions'},
 
                 ],
@@ -137,6 +142,14 @@
                 this.editedIndex = this.cashOutList.indexOf(item);
                 this.editedItem = Object.assign({}, item);
                 this.dialog = true;
+            },
+            done(){
+                if(this.radios === 'decline'){
+                    this.decline()
+                }else {
+                    this.approveCashout();
+                }
+                this.dialog = false;
             },
             decline() {
                 if (this.editedIndex > -1) {
@@ -150,11 +163,11 @@
 
                 this.close()
             },
-            approveCashout(item) {
-                let transactionId = item.transactionId;
+            approveCashout() {
+                let transactionId = this.editedItem.transactionId;
                 approveCashout(transactionId)
                     .then((success) => {
-                            item.approved = true;
+                            this.editedItem.approved = true;
                             this.$toaster.success(`Cashout Approved`);
 
                         },
@@ -187,12 +200,16 @@
     }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
     //overwrite vuetify css to narrow the table
-    table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child),
-    table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child){
-        padding: 0 4px;
+    table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child), table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child) {
+        padding: 0 4px !important;
     }
+
+    /*table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child),*/
+    /*table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child){*/
+    /*padding: 0 4px!important;*/
+    /*}*/
     .cashout-table-container {
         width: 100%;
         max-width: calc(100vw - 325px);

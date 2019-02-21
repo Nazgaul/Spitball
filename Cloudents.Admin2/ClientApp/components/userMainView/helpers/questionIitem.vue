@@ -27,7 +27,7 @@
                 </div>
             </v-toolbar>
 
-            <v-list two-line avatar>
+            <v-list two-line avatar v-show="question.answers">
                 <template v-for="(answer, index) in question.answers">
                     <v-list-tile class="answers-list-tile">
                         <v-list-tile-content class="answers-content">
@@ -122,6 +122,9 @@
     .item-wrap{
         .question-toolbar{
             max-width: 100%;
+            background-color: transparent!important;
+            box-shadow: none;
+            border-bottom: 1px solid grey;
         }
         .v-card{
             max-width: 100%;
