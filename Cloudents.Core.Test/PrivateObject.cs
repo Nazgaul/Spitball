@@ -22,7 +22,7 @@ namespace Cloudents.Core.Test
 
         public object Invoke(string methodName, params object[] parameters)
         {
-            MethodInfo methodInfo = _obj.GetType().GetMethod(methodName);
+            MethodInfo methodInfo = _obj.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             //object[] parameters = { "parameters here" };
             return methodInfo.Invoke(_obj, parameters);
         }

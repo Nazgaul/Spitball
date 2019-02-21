@@ -80,11 +80,7 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            //else
-            //{
-            //id = id2.Value;
-            //}
-            //}
+           
 
             var query = new DocumentSeoById(id);
             var model = await _queryBus.QueryAsync(query, token);

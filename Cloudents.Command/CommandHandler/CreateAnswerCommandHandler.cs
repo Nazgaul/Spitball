@@ -38,7 +38,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
         {
-            var question = await _questionRepository.GetAsync(message.QuestionId, token).ConfigureAwait(false);
+            var question = await _questionRepository.GetAsync(message.QuestionId, token);
            
             if (question == null)
             {
@@ -54,7 +54,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new QuestionAlreadyAnsweredException();
 
             }
-            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
+            var user = await _userRepository.LoadAsync(message.UserId, token);
 
             if (user.Id == question.User.Id)
             {
