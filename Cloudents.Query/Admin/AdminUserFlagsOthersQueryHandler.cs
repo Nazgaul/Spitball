@@ -21,7 +21,7 @@ namespace Cloudents.Query.Admin
         private const int PageSize = 200;
         public async Task<(IEnumerable<UserFlagsOthersDto>, int)> GetAsync(AdminUserFlagsOthersQuery query, CancellationToken token)
         {
-            string sql = @"select Id as UserId, Country, (select count(1) from sb.Document where FlaggedUserId = U.Id) + 
+            string sql = @"select Id, Country, (select count(1) from sb.Document where FlaggedUserId = U.Id) + 
 			                                (select count(1) from sb.Question where FlaggedUserId = U.Id) +
 			                                (select count(1) from sb.Answer where FlaggedUserId = U.Id) as flags
                                 from sb.[User] U
