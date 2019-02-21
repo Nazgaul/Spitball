@@ -20,21 +20,14 @@
                 :headers="headers"
                 :items="activeUsersList"
                 :total-items="activeUsersTotal"
-                hide-actions
                 :pagination.sync="pagination"
-                class="elevation-1 cash-out-table"
-                disable-initial-sort
-
-        >
+                class="elevation-1 cash-out-table">
             <template slot="items" slot-scope="props">
                 <td class="text-xs-center">{{ props.item.userId }}</td>
                 <td class="text-xs-center">{{ props.item.country }}</td>
 
             </template>
         </v-data-table>
-        <div class="text-xs-center pt-2">
-            <v-pagination v-model="pages" :length="activeUsersTotal /200"></v-pagination>
-        </div>
     </div>
 </template>
 <script>
@@ -46,7 +39,7 @@
                 activeUsersList: [],
                 activeUsersTotal: 0,
                 page: 0,
-                minFlags: null,
+                minFlags: 1,
                 showLoading: true,
                 showNoResult: false,
                 pages: 0,
@@ -62,54 +55,54 @@
         watch: {
             pagination: {
                 handler() {
-                    if (this.minFlags) {
-                        this.getActiveList()
-                            .then(data => {
-                                this.activeUsersList = data.activeUsersList;
-                                this.activeUsersTotal = data.total
-                            })
-
-                    }
+                    this.getActiveList()
+                        .then(data => {
+                            this.activeUsersList = data.items;
+                            this.activeUsersTotal = data.total
+                        })
 
                 },
                 deep: true
             },
         },
-            methods: {
-                nextPage() {
-                    this.page++
-                },
-
-                getActiveList() {
-                    let total, rowsPerPage, page, minFlags;
-                    minFlags = this.minFlags;
-                    rowsPerPage = 200;
-                    page = this.page;
-                    let self = this;
-                    getActiveUsers(minFlags, page)
-                        .then((data) => {
-                            let activeList = data.flags;
-                            if (data.rows !== -1) {
-                                total = data.rows;
-                            }
-                            // activeList = activeList.slice((page - 1) * rowsPerPage, page * rowsPerPage);
-                            self.showLoading = false;
-                            let returnData = {
-                                activeUsersList: activeList,
-                                total: total
-                            };
-                            self.nextPage();
-                            return returnData;
-
-
-                        }, (err) => {
-                            console.log(err)
-                        })
-                }
+        methods: {
+            nextPage() {
+                this.page++
             },
+            getActiveList() {
+                let total, rowsPerPage, page, minFlags;
+                minFlags = this.minFlags;
+                rowsPerPage = 200;
+                page = this.page;
+                let self = this;
+                let sortBy = '';
+                let descending = false;
+                let items;
+                let currentPage;
+                return getActiveUsers(minFlags, page)
+                    .then((data) => {
+                        items = data.flags;
+                        if (data.rows !== -1) {
+                            total = data.rows;
+                        }
+                        if (rowsPerPage > 0) {
+                            if (this.page === 0) {
+                                currentPage = 1;
+                            } else {
+                                currentPage = this.page;
+                            }
+                            items = items.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
+                        }
+                        // this.nextPage();
+                        return {items, total};
+                    }, (err) => {
+                        console.log(err)
+                    })
+            }
+        },
 
 
-        }
+    }
 
 </script>
 
