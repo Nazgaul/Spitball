@@ -51,7 +51,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -1540,10 +1540,9 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                     {
                         Console.WriteLine(blob.Uri);
                     }
-                    foreach (var item in blob.Uri.Segments)
-                    {
-                        Console.WriteLine(item);
-                    }
+                    
+                    Console.WriteLine(blob.Uri);
+                    
                     var blobToCheckStr = blob.Uri.Segments[4];
                     var test = blob.Uri.Segments.Length;
                     if (test > 5)
