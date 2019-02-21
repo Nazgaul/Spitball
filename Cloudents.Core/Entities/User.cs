@@ -40,7 +40,6 @@ namespace Cloudents.Core.Entities
 
         public virtual string AuthenticatorKey { get; set; }
 
-        public virtual string PrivateKey { get; set; }
         public virtual bool? OldUser { get; set; }
 
         //public virtual int Score { get; protected set; }

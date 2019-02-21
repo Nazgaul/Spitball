@@ -175,7 +175,7 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
 
-            var PhoneCommand = new ConfirmePhoneNumberCommand(model.Id);
+            var PhoneCommand = new ConfirmPhoneNumberCommand(model.Id);
             var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
             try
             {

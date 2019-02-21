@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
             if (GetRealType() != other.GetRealType())
                 return false;
 
-            if (Id.Equals(default(T)) || other.Id.Equals(default(T)))
+            if (Id.Equals(default) || other.Id.Equals(default))
                 return false;
 
             return EqualityComparer<T>.Default.Equals(Id, other.Id);

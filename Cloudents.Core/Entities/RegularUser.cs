@@ -9,13 +9,12 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class RegularUser : User
     {
-        public RegularUser(string email, string name, string privateKey, Language language) : this()
+        public RegularUser(string email, string name,  Language language) : this()
         {
             Email = email;
             Name = name;
             TwoFactorEnabled = true;
             Language = language;
-            PrivateKey = privateKey;
             Created = DateTime.UtcNow;
             //Fictive = false;
 

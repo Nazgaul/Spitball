@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Command;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Stuff

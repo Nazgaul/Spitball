@@ -1,15 +1,9 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Admin;
 using Dapper;
-using NHibernate;
-using NHibernate.Linq;
-using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

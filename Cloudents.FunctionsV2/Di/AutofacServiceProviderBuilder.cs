@@ -5,7 +5,6 @@ using Cloudents.FunctionsV2.System;
 using Cloudents.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -21,12 +20,10 @@ namespace Cloudents.FunctionsV2.Di
     public class AutofacServiceProviderBuilder : IServiceProviderBuilder
     {
         private readonly IConfiguration _configuration;
-        private readonly ILoggerFactory _loggerFactory;
 
-        public AutofacServiceProviderBuilder(IConfiguration configuration, ILoggerFactory loggerFactory)
+        public AutofacServiceProviderBuilder(IConfiguration configuration)
         {
             _configuration = configuration;
-            _loggerFactory = loggerFactory;
         }
 
         public IServiceProvider Build()

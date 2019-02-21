@@ -70,14 +70,15 @@ namespace Cloudents.Core.Entities
         public virtual string Professor { get; protected set; }
 
         public virtual int Views { get; protected set; }
-        public virtual int Downloads { get; set; }
-        public virtual int Purchased { get; set; }
+        public virtual int Downloads { get; protected set; }
+        public virtual int Purchased { get; protected set; }
         public virtual int? PageCount { get; set; }
-        public virtual long? OldId { get; set; }
+        public virtual long? OldId { get; protected set; }
 
         public virtual string MetaContent { get; set; }
 
         public virtual decimal Price { get; protected set; }
+        // ReSharper disable once CollectionNeverUpdated.Local Resharper
         private readonly IList<Transaction> _transactions = new List<Transaction>();
         public virtual IReadOnlyCollection<Transaction> Transactions => _transactions.ToList();
 
