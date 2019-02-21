@@ -22,15 +22,15 @@ namespace Cloudents.Query.Admin
 
         public async Task<IEnumerable<UserFlagsDto>> GetAsync(AdminUserFlagsQuery query, CancellationToken token)
         {
-            const string sql = @"select A.Text, A.Created, A.State, A.FlagReason, A.VoteCount, 'A' as ItemType
+            const string sql = @"select A.Text, A.Created, A.State, A.FlagReason, A.VoteCount, 'Answer' as ItemType
                                 from sb.Answer A
                                 where FlaggedUserId = @Id
                                 union
-                                select Q.Text, Q.Created, Q.State, Q.FlagReason, Q.VoteCount, 'Q' as ItemType
+                                select Q.Text, Q.Created, Q.State, Q.FlagReason, Q.VoteCount, 'Question' as ItemType
                                 from sb.Question Q
                                 where FlaggedUserId = @Id
                                 union
-                                select D.Name, D.CreationTime, D.State, D.FlagReason, D.VoteCount, 'D' as ItemType
+                                select D.Name, D.CreationTime, D.State, D.FlagReason, D.VoteCount, 'Document' as ItemType
                                 from sb.Document D
                                 where FlaggedUserId = @Id
                                 order by 2 desc
