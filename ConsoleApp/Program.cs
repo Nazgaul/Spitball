@@ -95,7 +95,7 @@ namespace ConsoleApp
 
             if (Environment.UserName == "Ram")
             {
-                await RamMethod();
+                await HadarMethod();
             }
             else
             {
@@ -1555,11 +1555,12 @@ select top 1 id from sb.[user] where Fictive = 1 and country = @country order by
                         string blobToMoveStr = blobToMoveList.First().Uri.ToString().Split('/')[blobToMoveList.First().Uri.ToString().Split('/').Length - 1];
                         var blobToMove = dirToRemove.GetBlockBlobReference(blobToMoveStr);
 
-                        var name = blob.Uri.Segments[blob.Uri.Segments.Length - 1].Replace('/', '-');
-                        var id = blob.Uri.Segments[blob.Uri.Segments.Length - 2].Replace('/', '-').Remove(0, 5);
+                        var name = blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 2].Replace('/', '-');
+                        var ect = Path.GetExtension(blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 1]).TrimStart('.');
+                        var id = blob.Uri.Segments[blob.Uri.Segments.Length - 3].Trim('/');
 
                         CloudBlockBlob blobDestination = dir.GetBlockBlobReference(
-                            $"file-{Path.GetFileNameWithoutExtension(name)}-{id}.{Path.GetExtension(name).TrimStart('.')}");
+                            $"{id}/{name}.{ect}");
 
 
                         var sharedAccessUri = GetShareAccessUri(blobToMoveStr, 360, dirToRemove);
