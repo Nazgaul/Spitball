@@ -1,5 +1,5 @@
 <template>
-    <div class="cashout-table-container">
+    <div class="active-users-container">
         <h4>Active helping users list List</h4>
         <v-layout>
             <v-spacer></v-spacer>
@@ -18,13 +18,12 @@
                 :items="activeUsersList"
                 :pagination.sync="pagination"
                 :loading="loading"
-                class="elevation-1 cash-out-table">
+                class="elevation-1 active-users-table">
             <v-progress-linear slot="progress" color="blue" v-show="loading" indeterminate></v-progress-linear>
             <template slot="items" slot-scope="props">
-                <td class="text-xs-left">{{ props.item.userId }}</td>
+                <td class="text-xs-left cursor-pointer" @click="openUserView(props.item.userId)">{{ props.item.userId }}</td>
                 <td class="text-xs-left">{{ props.item.country }}</td>
                 <td class="text-xs-left">{{ props.item.flags }}</td>
-
             </template>
         </v-data-table>
     </div>
@@ -80,6 +79,9 @@
 
         },
         methods: {
+            openUserView(userId){
+                this.$router.push({name: 'userMainView', params: {userId: userId}})
+            },
             nextPage() {
                 this.serverPage++
             },
@@ -129,10 +131,11 @@
     table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child) {
         padding: 0 4px;
     }
-
-    .cashout-table-container {
+    .active-users-container {
         width: 100%;
         max-width: calc(100vw - 325px);
-
+        .cursor-pointer{
+            cursor: pointer;
+        }
     }
 </style>
