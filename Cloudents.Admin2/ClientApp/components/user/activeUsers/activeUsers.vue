@@ -1,8 +1,6 @@
 <template>
     <div class="cashout-table-container">
-        <span v-if="showLoading">Loading List...</span>
-        <span v-if="showNoResult">NO RESULTS!</span>
-        <h4>Cashout List</h4>
+        <h4>Active helping users list List</h4>
         <v-layout>
             <v-spacer></v-spacer>
             <v-flex xs4 sm4 md4>
@@ -13,18 +11,19 @@
                         single-line
                         hide-details
                 ></v-text-field>
-                <v-btn @click="getActiveList()">Get User list</v-btn>
             </v-flex>
         </v-layout>
         <v-data-table
                 :headers="headers"
                 :items="activeUsersList"
-                :total-items="activeUsersTotal"
                 :pagination.sync="pagination"
+                :loading="loading"
                 class="elevation-1 cash-out-table">
+            <v-progress-linear slot="progress" color="blue" v-show="loading" indeterminate></v-progress-linear>
             <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.userId }}</td>
-                <td class="text-xs-center">{{ props.item.country }}</td>
+                <td class="text-xs-left">{{ props.item.userId }}</td>
+                <td class="text-xs-left">{{ props.item.country }}</td>
+                <td class="text-xs-left">{{ props.item.flags }}</td>
 
             </template>
         </v-data-table>
@@ -38,7 +37,8 @@
             return {
                 activeUsersList: [],
                 activeUsersTotal: 0,
-                page: 0,
+                serverPage: 0,
+                loading: true,
                 minFlags: 1,
                 showLoading: true,
                 showNoResult: false,
@@ -48,6 +48,7 @@
                 headers: [
                     {text: 'User ID', value: 'userId'},
                     {text: 'Country', value: 'country'},
+                    {text: 'Flags', value: 'flags'},
                 ],
             }
         },
@@ -58,42 +59,58 @@
                     this.getActiveList()
                         .then(data => {
                             this.activeUsersList = data.items;
-                            this.activeUsersTotal = data.total
-                        })
+                            this.activeUsersTotal = data.total;
 
+                        });
                 },
                 deep: true
             },
+            minFlags: {
+                handler(newVal) {
+                    if (newVal) {
+                        this.getActiveList()
+                            .then(data => {
+                                this.activeUsersList = data.items;
+                                this.activeUsersTotal = data.total;
+
+                            });
+                    }
+                }
+            }
+
         },
         methods: {
             nextPage() {
-                this.page++
+                this.serverPage++
             },
             getActiveList() {
-                let total, rowsPerPage, page, minFlags;
+                this.loading= true;
+                let total, rowsPerPage, serverPage, minFlags;
                 minFlags = this.minFlags;
                 rowsPerPage = 200;
-                page = this.page;
-                let self = this;
+                serverPage = this.serverPage;
                 let sortBy = '';
                 let descending = false;
                 let items;
                 let currentPage;
-                return getActiveUsers(minFlags, page)
+                return getActiveUsers(minFlags, serverPage)
                     .then((data) => {
                         items = data.flags;
                         if (data.rows !== -1) {
                             total = data.rows;
+                            if (total > 200) {
+                                this.nextPage()
+                            }
                         }
                         if (rowsPerPage > 0) {
-                            if (this.page === 0) {
+                            if (this.serverPage === 0) {
                                 currentPage = 1;
                             } else {
-                                currentPage = this.page;
+                                currentPage = this.serverPage + 1;
                             }
-                            items = items.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
+                            items = items.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
                         }
-                        // this.nextPage();
+                        this.loading = false;
                         return {items, total};
                     }, (err) => {
                         console.log(err)
