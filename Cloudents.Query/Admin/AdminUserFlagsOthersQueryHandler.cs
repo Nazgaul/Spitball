@@ -34,7 +34,7 @@ namespace Cloudents.Query.Admin
 
             if (query.Page == 0)
             {
-                sql = sql + @"select count(1)
+                sql = sql + @"select count(1) as rows
                             from (
                             select Id, Country, (select count(1) from sb.Document where FlaggedUserId = U.Id) + 
 			                            (select count(1) from sb.Question where FlaggedUserId = U.Id) +

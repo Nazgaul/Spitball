@@ -1,14 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.Attributes
 {
     public class DtoToEntityConnectionAttribute : Attribute
     {
-        public DtoToEntityConnectionAttribute(string entityName)
+        public DtoToEntityConnectionAttribute(string entityName): this()
         {
-            EntityName = entityName;
+            EntityNames.Add(entityName);
+        }
+        public DtoToEntityConnectionAttribute(params string[] entityNames) : this()
+        {
+            EntityNames = entityNames;
         }
 
-        private string EntityName { get; set; }
+        protected DtoToEntityConnectionAttribute()
+        {
+            EntityNames = new List<string>();
+        }
+        
+        public IList<string> EntityNames { get; set; }
     }
 }
