@@ -13,7 +13,7 @@ namespace Cloudents.Admin2.Controllers
     public class AccountController : Controller
     {
         [HttpGet]
-        [EnableCors("https://login.microsoftonline.com")]
+        [EnableCors("AllowSpecificOrigin")]
         public IActionResult SignIn()
         {
             var redirectUrl = Url.Action(nameof(HomeController.Index), "Home");
@@ -23,7 +23,7 @@ namespace Cloudents.Admin2.Controllers
         }
 
         [HttpGet]
-        [EnableCors("https://login.microsoftonline.com")]
+        [EnableCors("AllowSpecificOrigin")]
         public IActionResult SignOut()
         {
             var callbackUrl = Url.Action(nameof(SignedOut), "Account", values: null, protocol: Request.Scheme);
