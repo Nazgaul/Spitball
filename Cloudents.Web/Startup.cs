@@ -119,7 +119,7 @@ namespace Cloudents.Web
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
-            services.AddDetectionCore().AddDevice();
+            services.AddDetectionCore().AddDevice().AddCrawler();
             services.AddScoped<SignInManager<RegularUser>, SbSignInManager>();
             services.AddIdentity<RegularUser, ApplicationRole>(options =>
             {

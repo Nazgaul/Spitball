@@ -34,6 +34,8 @@ namespace Cloudents.Core.Storage
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
+
+        Task<string> DownloadTextAsync(string name, string directory, CancellationToken token);
         /// <summary>
         /// Used to check if a blob exists - used in ico site
         /// </summary>

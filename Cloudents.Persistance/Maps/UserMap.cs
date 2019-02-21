@@ -40,7 +40,7 @@ namespace Cloudents.Persistance.Maps
                 .Cascade.AllDeleteOrphan();
 
             Map(x => x.Score).ReadOnly();
-            Table("User");
+            Table("[User]"); //if not there is sql error
             
             SchemaAction.None();
             DiscriminateSubClassesOnColumn("Fictive");
