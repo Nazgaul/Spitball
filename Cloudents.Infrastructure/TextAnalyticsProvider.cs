@@ -1,5 +1,8 @@
 ﻿using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using IBM.WatsonDeveloperCloud.NaturalLanguageUnderstanding.v1;
+using IBM.WatsonDeveloperCloud.NaturalLanguageUnderstanding.v1.Model;
+using IBM.WatsonDeveloperCloud.Util;
 using Microsoft.Azure.CognitiveServices.Language.TextAnalytics;
 using Microsoft.Azure.CognitiveServices.Language.TextAnalytics.Models;
 using Microsoft.Rest;
@@ -15,7 +18,7 @@ using static Cloudents.Core.Entities.Language;
 
 namespace Cloudents.Infrastructure
 {
-    public class TextAnalysisProvider : ITextAnalysis
+    public class TextAnalysisProvider : ITextAnalysis, ITextClassifier
     {
         private class ApiKeyServiceClientCredentials : ServiceClientCredentials
         {
@@ -114,7 +117,45 @@ namespace Cloudents.Infrastructure
         }
     }
 
+    public class TextClassifierAnalysis : ITextClassifier
+    {
+        private readonly NaturalLanguageUnderstandingService _naturalLanguageUnderstandingService;
+        public TextClassifierAnalysis()
+        {
+            TokenOptions iamAssistantTokenOptions = new TokenOptions()
+            {
+                IamApiKey = "tJLg4zulbTIXu1zUprqfDP6KuHpnpW8oQ4iVt06i1nES",
+                ServiceUrl = "https://gateway-lon.watsonplatform.net/natural-language-understanding/api"
+            };
+            _naturalLanguageUnderstandingService = new NaturalLanguageUnderstandingService(iamAssistantTokenOptions, "2019-02-24");
 
+        }
+
+        public Task<IEnumerable<string>> KeyPhraseAsync(string text, CancellationToken token)
+        {
+            Parameters parameters = new Parameters()
+            {
+                Text = text,
+                Features = new Features()
+                {
+                    Keywords = new KeywordsOptions()
+                    {
+                        Limit = 50,
+                        Sentiment = false,
+                        Emotion = false
+                    },
+                    Categories = new CategoriesOptions()
+                    {
+                        Limit = 50
+                    }
+                }
+            };
+            var apiResult = _naturalLanguageUnderstandingService.Analyze(parameters);
+            var result = apiResult.Categories.SelectMany(s => s.Label.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries));
+            return Task.FromResult<IEnumerable<string>>(result);
+
+        }
+    }
 
     public class TextTranslatorProvider : ITextTranslator
     {

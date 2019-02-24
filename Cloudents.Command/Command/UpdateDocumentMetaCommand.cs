@@ -1,24 +1,26 @@
-﻿namespace Cloudents.Command.Command
+﻿using System.Collections.Generic;
+
+namespace Cloudents.Command.Command
 {
     public class UpdateDocumentMetaCommand : ICommand
     {
         public UpdateDocumentMetaCommand(long id, 
-            //CultureInfo language,
-            int? pageCount, string snippet)
+            int? pageCount, string snippet, IEnumerable<string> tags)
         {
             Id = id;
             
            // Language = language;
             PageCount = pageCount;
             Snippet = snippet;
+            Tags = tags;
         }
 
         public long Id { get; }
 
-        //public CultureInfo Language { get; }
-
         public int? PageCount { get; }
 
         public string Snippet { get; }
+
+        public IEnumerable<string> Tags { get;  }
     }
 }

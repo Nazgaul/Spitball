@@ -11,11 +11,17 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 
 namespace Cloudents.Functions
 {
     public static class BlobMigration
     {
+
+
+
+
         [FunctionName("BlobPreview")]
         public static async Task Run([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
             CloudBlockBlob myBlob, string id, string name,
@@ -209,7 +215,7 @@ namespace Cloudents.Functions
                                         stream.Seek(0, SeekOrigin.Begin);
                                         var blob = directory.GetBlockBlobReference($"preview-{previewName}");
                                         blob.Properties.ContentType = "image/jpeg";
-                                        log.Info($"uploading to {id} preview-{previewName}");
+                                       // log.Info($"uploading to {id} preview-{previewName}");
                                         return blob.UploadFromStreamAsync(stream, token);
                                     }, token);
                                 }
@@ -227,9 +233,10 @@ namespace Cloudents.Functions
                                     myBlob.Metadata["ErrorProcess"] = ex.Message;
                                     await myBlob.SetMetadataAsync(token);
                                 }
-
-                                wait.Set();
                                 log.Error($"did not process id:{id}", ex);
+                                wait.Set();
+                                
+                                
                                 //myBlob.Metadata["CantProcess"] = true.ToString();
                                 //myBlob.Metadata["ErrorProcess"] = ex.Message.ToString();
                                 //await myBlob.SetMetadataAsync(token);

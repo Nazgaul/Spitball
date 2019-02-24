@@ -98,6 +98,7 @@ namespace ConsoleApp
             var dapper = _container.Resolve<DapperRepository>();
             var blobStorage = _container.Resolve<IBlobProvider<DocumentContainer>>();
             var textAnalysis = _container.Resolve<ITextAnalysis>();
+            var textClassifier = _container.Resolve<ITextClassifier>();
             var englishCulture = new CultureInfo("en");
 
             var list = new List<string>();
@@ -110,7 +111,7 @@ namespace ConsoleApp
                 and state = 'Ok'");
             }
 
-            var FileName = @"C:\Users\Ram\Documents\keyphrases-Liniar.txt";
+            var FileName = @"C:\Users\Ram\Documents\keyphrases-Liniar2.txt";
             foreach (var documentId in result.Take(50))
             {
                 Console.WriteLine($"Processing document {documentId.Item1}");
@@ -126,14 +127,14 @@ namespace ConsoleApp
                     text = await textTranslator.TranslateAsync(text, "en", default);
                 }
 
-                var keyPhrases = await textAnalysis.KeyPhraseAsync(text, default);
+                var keyPhrases = await textClassifier.KeyPhraseAsync(text, default);
 
                 if (!v.Equals(englishCulture))
                 {
                     text = string.Join(" , ", keyPhrases);
                     text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName.ToLowerInvariant(), default);
 
-                    keyPhrases = text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                    keyPhrases = text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
                 }
 
                 using (var fileStream = new FileStream(FileName, FileMode.Append))
