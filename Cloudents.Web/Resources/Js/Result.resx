@@ -130,13 +130,13 @@
     <value>Try different keywords.</value>
   </data>
   <data name="fewer_keywords" xml:space="preserve">
-    <value>Try fewer keywords.</value>
+    <value>Shorten your query.</value>
   </data>
   <data name="filter_not_applied" xml:space="preserve">
     <value>Filter was not applied, because it will give you no results.</value>
   </data>
   <data name="general_keywords" xml:space="preserve">
-    <value>Try more general keywords.</value>
+    <value>Look for something broader.</value>
   </data>
   <data name="new_questions" xml:space="preserve">
     <value>New questions</value>
