@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -6,7 +7,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -39,6 +39,7 @@ namespace Cloudents.Core.Interfaces
         Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token);
 
         Task<bool> PostJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token);
+        Task<TU> PostJsonAsync<T, TU>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token);
 
         Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers,
             CancellationToken token);

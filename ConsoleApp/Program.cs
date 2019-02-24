@@ -1,11 +1,10 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
-using Cloudents.Search.Document;
-using Cloudents.Search.Question;
 using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -14,12 +13,12 @@ using SimMetricsMetricUtilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -29,17 +28,17 @@ namespace ConsoleApp
     internal static class Program
     {
         private static IContainer _container;
-        //private static CancellationToken token = CancellationToken.None;
 
-        //private static readonly log4net.ILog log =
-        //    log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
+
         static async Task Main()
         {
-            
+
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -47,7 +46,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
@@ -65,9 +64,9 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Search"),
                 Assembly.Load("Cloudents.Core"));
-           
+
             builder.RegisterModule<ModuleFile>();
-          
+
 
             _container = builder.Build();
 
@@ -89,15 +88,86 @@ namespace ConsoleApp
 
 
         }
-        
+
 
         private static async Task RamMethod()
         {
-            
-           
+            var textTranslator = _container.Resolve<ITextTranslator>();
+            //var result2 = await textTranslator.TranslateAsync("hello text", "he", default);
+
+            var dapper = _container.Resolve<DapperRepository>();
+            var blobStorage = _container.Resolve<IBlobProvider<DocumentContainer>>();
+            var textAnalysis = _container.Resolve<ITextAnalysis>();
+            var englishCulture = new CultureInfo("en");
+
+            var list = new List<string>();
+
+            IEnumerable<(long, string)> result;
+            using (var db = dapper.OpenConnection())
+            {
+                result = await db.QueryAsync<(long, string)>(@"Select id,name from sb.Document
+                where CourseName = N'ליניארית'
+                and state = 'Ok'");
+            }
+
+            var FileName = @"C:\Users\Ram\Documents\keyphrases-Liniar.txt";
+            foreach (var documentId in result.Take(50))
+            {
+                Console.WriteLine($"Processing document {documentId.Item1}");
+                var text = await blobStorage.DownloadTextAsync("text.txt", documentId.Item1.ToString(), default);
+                if (string.IsNullOrEmpty(text))
+                {
+                    continue;
+                }
+
+                var v = await textAnalysis.DetectLanguageAsync(text, default);
+                if (!v.Equals(englishCulture))
+                {
+                    text = await textTranslator.TranslateAsync(text, "en", default);
+                }
+
+                var keyPhrases = await textAnalysis.KeyPhraseAsync(text, default);
+
+                if (!v.Equals(englishCulture))
+                {
+                    text = string.Join(" , ", keyPhrases);
+                    text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName.ToLowerInvariant(), default);
+
+                    keyPhrases = text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                }
+
+                using (var fileStream = new FileStream(FileName, FileMode.Append))
+                using (var sw = new StreamWriter(fileStream))
+                {
+                    await sw.WriteLineAsync($"Document Id: {documentId.Item1} documentName {documentId.Item2}");
+                    await sw.WriteLineAsync($"===============================================================");
+                    foreach (var keyPhrase in keyPhrases)
+                    {
+                        list.Add(keyPhrase);
+                        await sw.WriteLineAsync($"{keyPhrase}");
+                    }
+
+                    await sw.WriteLineAsync($"---------------------------------------------------------------");
+                    await sw.WriteLineAsync();
+
+                }
+
+
+            }
+            using (var fileStream = new FileStream(FileName, FileMode.Append))
+            using (var sw = new StreamWriter(fileStream))
+            {
+                await sw.WriteLineAsync($"For course data");
+
+                var numberGroups = list.GroupBy(i => i);
+                foreach (var grp in numberGroups.OrderByDescending(o => o.Count()))
+                {
+                    await sw.WriteLineAsync($"Key phrase: {grp.Key} count { grp.Count()}");
+                }
+            }
 
             Console.WriteLine("done");
-          
+
         }
 
 
@@ -272,11 +342,11 @@ namespace ConsoleApp
             //await FunctionsExtensions.MergeCourses(_container);
 
             var d = _container.Resolve<DapperRepository>();
-            
+
 
             var res = await d.WithConnectionAsync(async f =>
             {
-               
+
                 return await f.QueryAsync<(string, long)>(
                 @"declare @tmp table (CourseName nvarchar(max), DocumentId bigint, rn bigint)
                     insert into @tmp
@@ -295,7 +365,7 @@ namespace ConsoleApp
             //List<(string,string)> output = new List<(string, string)>();
             foreach (var r in res)
             {
-                
+
                 var b62 = new Base62(r.Item2);
                 string str = "https://www.spitball.co/document/" + b62.ToString();
                 File.AppendAllText(filePath, str + "," + r.Item1 + "," + r.Item2.ToString() + Environment.NewLine);
@@ -311,9 +381,9 @@ namespace ConsoleApp
 
         }
 
-        
 
-       
-       
+
+
+
     }
 }

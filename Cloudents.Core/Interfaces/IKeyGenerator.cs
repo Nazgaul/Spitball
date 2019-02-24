@@ -16,5 +16,13 @@ namespace Cloudents.Core.Interfaces
             IEnumerable<KeyValuePair<T, string>> texts, CancellationToken token);
 
         Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token);
+
+
+        Task<IEnumerable<string>> KeyPhraseAsync(string text, CancellationToken token);
+    }
+
+    public interface ITextTranslator
+    {
+        Task<string> TranslateAsync(string text, string to, CancellationToken token);
     }
 }
