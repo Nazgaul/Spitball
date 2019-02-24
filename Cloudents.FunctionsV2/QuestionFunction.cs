@@ -50,7 +50,6 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
-            log.LogInformation("QuestionPopulate invoke");
             var questions = await queryBus.QueryAsync<IList<FictivePendingQuestionDto>>(new AdminEmptyQuery(), token);
             if (questions.Count > 0)
             {
