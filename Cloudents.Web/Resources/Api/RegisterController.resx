@@ -121,7 +121,7 @@
     <value>Cannot resend email</value>
   </data>
   <data name="GoogleNoResponse" xml:space="preserve">
-    <value>No result from Google</value>
+    <value>No result from google</value>
   </data>
   <data name="GoogleUserRegisteredWithEmail" xml:space="preserve">
     <value>User email is already registered</value>

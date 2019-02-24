@@ -169,7 +169,7 @@
     <value>Privacy Policy</value>
   </data>
   <data name="footer_terms" xml:space="preserve">
-    <value>Terms &amp; conditions</value>
+    <value>Terms &amp; Conditions</value>
   </data>
   <data name="get_your_sbl" xml:space="preserve">
     <value>Get Your Points</value>
@@ -253,7 +253,7 @@
     <value>SIGN UP</value>
   </data>
   <data name="spitball_student_title" xml:space="preserve">
-    <value>Students talk about Spitball</value>
+    <value>Students Talk about Spitball</value>
   </data>
   <data name="stats_answers" xml:space="preserve">
     <value>Total Answers</value>

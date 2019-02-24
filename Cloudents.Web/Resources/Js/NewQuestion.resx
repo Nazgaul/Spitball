@@ -151,7 +151,7 @@
     <value>Other amount</value>
   </data>
   <data name="max_percent_SBL" xml:space="preserve">
-    <value>You do not have sufficient SBL, earn more points by answering questions</value>
+    <value>You do not have sufficient SBL, Earn more points by answering questions</value>
   </data>
   <data name="sbl_calc" xml:space="preserve">
     <value>You have {1} points, you can offer up to {2} points for your question</value>

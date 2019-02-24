@@ -172,7 +172,7 @@
     <value>Lecture note</value>
   </data>
   <data name="DocumentTypeTextbook" xml:space="preserve">
-    <value>Textbook notes</value>
+    <value>Textbook note</value>
     <comment>Ram Change</comment>
   </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
