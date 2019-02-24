@@ -48,9 +48,10 @@ namespace Cloudents.FunctionsV2
             [Inject] ITextAnalysis textAnalysis,
             [Inject] ITextClassifier textClassifier,
             [Inject] ITextTranslator textTranslator,
-
+            ILogger log,
             CancellationToken token)
         {
+            log.LogInformation($"Processing {id}");
             var x = await dir.ListBlobsSegmentedAsync(null);
 
             var longId = Convert.ToInt64(id);
