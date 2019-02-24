@@ -49,7 +49,7 @@ namespace Cloudents.Search.Question
                 filters.Add($"({filterStr})");
             }
 
-            if (query.FilterByUniversity)
+            if (query.FilterByUniversity && query.UserProfile.University != null)
             {
                 var universityStr = $"{nameof(Entities.Question.UniversityName)} eq '{query.UserProfile.University.Name}'";
                 filters.Add($"({universityStr})");

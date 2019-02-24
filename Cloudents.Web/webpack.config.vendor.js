@@ -21,7 +21,7 @@ const allModules = [
     "vue-plugin-load-script",
     "vue-line-clamp",
     "./ClientApp/main.styl",
-    "./wwwroot/content/main.less",
+    //"./wwwroot/content/main.less",
     "./ClientApp/myFont.font.js",
     "vuetify/es5/components/Vuetify",
     "vuetify/es5/components/VApp",
@@ -98,19 +98,14 @@ module.exports = (env) => {
             ]
         },
         plugins: [
-            new OptimizeCssAssetsPlugin({
-                assetNameRegExp: /\.optimize\.css$/g,
-                cssProcessor: require("cssnano"),
-                cssProcessorOptions: { discardComments: { removeAll: true } },
-                canPrint: true
-            }),
+           
             new ExtractTextPlugin({
                 filename: '[name].[contenthash].css'
             }),
 
             new WebpackRTLPlugin({
                 filename: '[name].[contenthash].rtl.css',
-                minify: true
+                minify: false
             }),
             //new PurifyCSSPlugin({
             //    // Give paths to parse for rules. These should be absolute!
@@ -126,11 +121,28 @@ module.exports = (env) => {
 
 
         ]
-        //    .concat(isDevBuild ? [
+            .concat(isDevBuild ? [
+                new OptimizeCssAssetsPlugin({
+                    //assetNameRegExp: /.css$/g,
+                    cssProcessor: require("cssnano"),
+                    cssProcessorOptions: {
+                        discardComments: { removeAll: true },
+                        reduceIdents: false
+                    },
+                    canPrint: true
+                }),
 
-        //] : [
-
-        //    ])
+        ] : [
+                    new OptimizeCssAssetsPlugin({
+                        //assetNameRegExp: /.css$/g,
+                        cssProcessor: require("cssnano"),
+                        cssProcessorOptions: {
+                            discardComments: { removeAll: true },
+                            reduceIdents: false
+                        },
+                        canPrint: true
+                    }),
+            ])
     });
     const clientBundleConfig = merge(sharedConfig(),
         {
