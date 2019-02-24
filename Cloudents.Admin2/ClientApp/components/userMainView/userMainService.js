@@ -27,7 +27,9 @@ function UserInfo(objInit) {
     this.balance = {value: objInit.balance || 0, label: 'Balance'};
     this.status = {value: objInit.isActive ? false : true, label: 'Suspended'};
     this.wasSuspended = {value: objInit.wasSuspended ? true : false, label: 'Was Suspended'};
-    this.joined = {value: new Date(objInit.joined).toLocaleString(), label: "Join Date"}
+    this.joined =
+        {value: `${new Date(objInit.joined).getUTCMonth() + 1}/${new Date(objInit.joined).getUTCDate()}/${new Date(objInit.joined).getUTCFullYear()}`,
+        label: "Join Date"}
 }
 
 function createUserInfoItem(data) {
@@ -70,6 +72,44 @@ function PurchasedDocItem(objInit) {
     this.price = Math.abs(objInit.price ) || 'not specified';
 }
 
+function UpVoteItem(objInit) {
+    this.created = objInit.created  || 'no date';
+    this.itemText = objInit.itemText  || 'not specified';
+    this.itemType = objInit.itemType || 'not specified';
+}
+function DownVoteItem(objInit) {
+    this.date = objInit.created  || 'no date';
+    this.text = objInit.itemText  || 'not specified';
+    this.type = objInit.itemType || 'not specified';
+}
+function FlaggedItem(objInit) {
+    this.date = objInit.created  || 'no date';
+    this.text = objInit.text  || 'not specified';
+    this.type = objInit.itemType || 'not specified';
+    this.voteCount = objInit.voteCount || 0;
+    this.flagReason = objInit.flagReason || 'not specified';
+    this.state = objInit.state || 'not specified';
+
+}
+
+function createUpVoteItem(data) {
+    return data.map((item) => {
+        return new UpVoteItem(item);
+    });
+
+}
+
+function createDownVoteItem(data) {
+    return data.map((item) => {
+        return new DownVoteItem(item)
+    });
+}
+function createFlaggedItem(data) {
+    return data.map((item) => {
+        return new FlaggedItem(item)
+    });
+}
+
 function createUserItem(objInit) {
     return new UserData(objInit);
 }
@@ -91,7 +131,7 @@ function createAnswertItem(data) {
         return new AnswerItem(item)
     });
 }
-function purchasedDocItem(data) {
+function createPurchasedDocItem(data) {
     return data.map((item) => {
         return new PurchasedDocItem(item)
     });
@@ -103,7 +143,11 @@ export default {
         let path = `AdminUser/info?userIdentifier=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
-                return createUserInfoItem(resp);
+                if(resp){
+                    return createUserInfoItem(resp);
+                }else{
+                    return false
+                }
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');
@@ -147,7 +191,40 @@ export default {
         let path = `AdminUser/purchased?id=${id}&page=${page}`;
         return connectivityModule.http.get(path)
             .then((resp) => {
-                return purchasedDocItem(resp);
+                return createPurchasedDocItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getUpvotes: (id, page) => {
+        let path = `AdminUser/upVotes?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createUpVoteItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getDownVotes: (id, page) => {
+        let path = `AdminUser/downVotes?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createDownVoteItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return Promise.reject(error)
+            })
+    },
+    getFlaggedItems: (id, page) => {
+        let path = `AdminUser/flags?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createFlaggedItem(resp);
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');

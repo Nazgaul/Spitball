@@ -1,7 +1,7 @@
 <template>
-    <div class="item-wrap">
+    <div>
         <template>
-            <v-layout align-start column v-for="(document, index) in purchasedDocuments" class="mb-3 px-2 py-2 elevation-2">
+            <v-layout align-start column v-for="(document, index) in purchasedDocuments" :key="`doc`+index" class="mb-3 px-2 py-2 elevation-2">
                 <v-flex xs12 md12 sm12 class="py-1">
                     <span class="label subheading text-xs-left text-md-left mr-3">Document ID:</span>
                     <span class="font-weight-medium">  {{document.id}}</span>
@@ -54,7 +54,6 @@
     }
 
     .item-wrap {
-
         .doc-action {
             height: 24px;
         }

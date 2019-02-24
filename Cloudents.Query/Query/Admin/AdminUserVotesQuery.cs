@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminUserVotsQuery: IQuery<IEnumerable<UserVotsDto>>
+    public class AdminUserVotesQuery: IQuery<IEnumerable<UserVotesDto>>
     {
-        public AdminUserVotsQuery(long id, int page, int type)
+        public AdminUserVotesQuery(long id, int page, int type)
         {
             Id = id;
             Page = page;

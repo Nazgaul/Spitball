@@ -1,16 +1,5 @@
 <template>
     <v-card class="nav-card elevation-0" >
-        <!--<v-toolbar color="teal" dark fixed>-->
-        <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
-
-        <!--<v-toolbar-title>Topics</v-toolbar-title>-->
-
-        <!--<v-spacer></v-spacer>-->
-
-        <!--<v-btn icon>-->
-        <!--<v-icon>more_vert</v-icon>-->
-        <!--</v-btn>-->
-        <!--</v-toolbar>-->
         <v-navigation-drawer
                 class="sb-navigation-drawer"
                 stateless
@@ -53,9 +42,9 @@
                             title: 'Home',
                             path: '/home'
                         },
-                        /*childrens: [
-                            {name: 'Management', link: '', icon: 'people_outline'},
-                        ]*/
+                        // /*childrens: [
+                        //     {name: 'Management', link: '', icon: 'people_outline'},
+                        // ]
 
                     },
                     {
@@ -84,9 +73,9 @@
                             path: '/document'
                         },
                         childrens: [
-                            {name: 'Approve or Delete', link: '/document/approveDelete', icon: 'done'},
-                            {name: 'Delete by ID', link: '/document/documentDelete', icon: 'delete_outline'},
-                            {name: 'Flaged Docs', link: '/document/flaggedDocument', icon: 'outlined_flag'},
+                            {name: 'Pending ', link: '/document/approveDelete', icon: 'done'},
+                            {name: 'Delete', link: '/document/documentDelete', icon: 'delete_outline'},
+                            {name: 'Flaged', link: '/document/flaggedDocument', icon: 'outlined_flag'},
                         ]
                     },
                     {
@@ -97,7 +86,8 @@
                         childrens: [
                             {name: 'User Token', link: '/user/token', icon: 'title'},
                             {name: 'Cashout List', link: '/user/cashout', icon: 'attach_money'},
-                            {name: 'Suspend User', link: '/user/suspend', icon: 'block'},
+                            {name: 'Users who flagged', link: '/user/active-users', icon: ''},
+                            // {name: 'Suspend User', link: '/user/suspend', icon: 'block'},
                         ]
                     },
                     {

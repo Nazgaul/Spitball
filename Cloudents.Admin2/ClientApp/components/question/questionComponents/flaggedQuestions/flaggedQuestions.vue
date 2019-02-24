@@ -34,7 +34,7 @@
                   <v-btn slot="activator" icon @click="declineQuestion(question, index)">
                     <v-icon color="red">close</v-icon>
                   </v-btn>
-                    <span>Decline Question</span>
+                    <span>Delete</span>
                   </v-tooltip>
                 </v-list-tile-action>
                 <v-list-tile-action class="answer-action">
@@ -43,7 +43,7 @@
                   <v-btn slot="activator" icon  @click="unflagQ(question, index)">
                     <v-icon color="green">done</v-icon>
                   </v-btn>
-                    <span>UnFlag Question</span>
+                    <span>Accept</span>
                   </v-tooltip>
                 </v-list-tile-action>
               </v-list-tile>

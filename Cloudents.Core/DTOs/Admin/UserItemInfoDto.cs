@@ -62,7 +62,7 @@ namespace Cloudents.Core.DTOs.Admin
         [DtoToEntityConnection(nameof(Document.Name))]
         public string Title { get; set; }
         [DtoToEntityConnection(nameof(Document.University.Name))]
-        public string Univesity { get; set; }
+        public string University { get; set; }
         [DtoToEntityConnection(nameof(Document.Course))]
         public string Class { get; set; }
         [DtoToEntityConnection(nameof(Document.Price))]
