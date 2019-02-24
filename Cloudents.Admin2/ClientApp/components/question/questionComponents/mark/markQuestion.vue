@@ -10,6 +10,7 @@
                         <v-card v-show="questions.length > 0" v-for="(question,index) in questions" :key="index">
                             <v-toolbar class="question-toolbar mt-4 back-color-purple">
                                 <v-toolbar-title class="question-text-title" @click="openQuestion(question.url)">
+                                    <span class="question-text-label d-block mb-1">Question Text</span>
                                     {{question.text}}
                                 </v-toolbar-title>
                                 <v-spacer></v-spacer>
@@ -21,7 +22,7 @@
                                         <v-btn slot="activator" icon @click="deleteQuestionByID(question)">
                                             <v-icon color="red">close</v-icon>
                                         </v-btn>
-                                        <span>Delete question by ID</span>
+                                        <span>Delete question</span>
                                     </v-tooltip>
                                 </div>
                                 <!--<v-btn icon @click="openQuestion(question.url)">-->
@@ -30,7 +31,8 @@
                             </v-toolbar>
 
                             <v-list two-line avatar>
-                                <template v-for="(answer, index) in question.answers">
+                                <span class="question-text-label text-xs-left text-md-left pl-4  font-weight-medium text-sm-left d-block mb-1">Answer Text</span>
+                                <template v-for="(answer, index) in question.answers" v-show="question.answers">
                                     <v-list-tile class="answers-list-tile">
                                         <v-list-tile-content class="answers-content">
                                             <v-list-tile-sub-title class="answer-subtitle">{{answer.text}}
@@ -135,13 +137,15 @@
     /*visibility: hidden;*/
     /*}*/
 
-    .question-toolbar, .v-card {
+    .question-toolbar{
         max-width: 1280px;
-        /*&:hover {*/
-        /*.question-actions-container {*/
-        /*visibility: visible;*/
-        /*}*/
-        /*}*/
+        background-color: transparent!important;
+        box-shadow: none!important;
+        border-bottom: 1px solid grey;
+    }
+
+    .v-card {
+        max-width: 1280px;
     }
 
     .question-toolbar {

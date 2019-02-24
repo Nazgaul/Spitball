@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Query;
@@ -13,7 +12,6 @@ using SimMetricsMetricUtilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -38,7 +36,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                     ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
@@ -46,7 +44,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
@@ -92,80 +90,81 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var textTranslator = _container.Resolve<ITextTranslator>();
-            //var result2 = await textTranslator.TranslateAsync("hello text", "he", default);
+            //var textTranslator = _container.Resolve<ITextTranslator>();
+            ////var result2 = await textTranslator.TranslateAsync("hello text", "he", default);
 
-            var dapper = _container.Resolve<DapperRepository>();
-            var blobStorage = _container.Resolve<IBlobProvider<DocumentContainer>>();
-            var textAnalysis = _container.Resolve<ITextAnalysis>();
-            var englishCulture = new CultureInfo("en");
+            //var dapper = _container.Resolve<DapperRepository>();
+            //var blobStorage = _container.Resolve<IBlobProvider<DocumentContainer>>();
+            //var textAnalysis = _container.Resolve<ITextAnalysis>();
+            //var textClassifier = _container.Resolve<ITextClassifier>();
+            //var englishCulture = new CultureInfo("en");
 
-            var list = new List<string>();
+            //var list = new List<string>();
 
-            IEnumerable<(long, string)> result;
-            using (var db = dapper.OpenConnection())
-            {
-                result = await db.QueryAsync<(long, string)>(@"Select id,name from sb.Document
-                where CourseName = N'ליניארית'
-                and state = 'Ok'");
-            }
+            //IEnumerable<(long, string)> result;
+            //using (var db = dapper.OpenConnection())
+            //{
+            //    result = await db.QueryAsync<(long, string)>(@"Select id,name from sb.Document
+            //    where CourseName = N'ליניארית'
+            //    and state = 'Ok'");
+            //}
 
-            var FileName = @"C:\Users\Ram\Documents\keyphrases-Liniar.txt";
-            foreach (var documentId in result.Take(50))
-            {
-                Console.WriteLine($"Processing document {documentId.Item1}");
-                var text = await blobStorage.DownloadTextAsync("text.txt", documentId.Item1.ToString(), default);
-                if (string.IsNullOrEmpty(text))
-                {
-                    continue;
-                }
+            //var FileName = @"C:\Users\Ram\Documents\keyphrases-Liniar2.txt";
+            //foreach (var documentId in result.Take(50))
+            //{
+            //    Console.WriteLine($"Processing document {documentId.Item1}");
+            //    var text = await blobStorage.DownloadTextAsync("text.txt", documentId.Item1.ToString(), default);
+            //    if (string.IsNullOrEmpty(text))
+            //    {
+            //        continue;
+            //    }
 
-                var v = await textAnalysis.DetectLanguageAsync(text, default);
-                if (!v.Equals(englishCulture))
-                {
-                    text = await textTranslator.TranslateAsync(text, "en", default);
-                }
+            //    var v = await textAnalysis.DetectLanguageAsync(text, default);
+            //    if (!v.Equals(englishCulture))
+            //    {
+            //        text = await textTranslator.TranslateAsync(text, "en", default);
+            //    }
 
-                var keyPhrases = await textAnalysis.KeyPhraseAsync(text, default);
+            //    var keyPhrases = await textClassifier.KeyPhraseAsync(text, default);
 
-                if (!v.Equals(englishCulture))
-                {
-                    text = string.Join(" , ", keyPhrases);
-                    text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName.ToLowerInvariant(), default);
+            //    if (!v.Equals(englishCulture))
+            //    {
+            //        text = string.Join(" , ", keyPhrases);
+            //        text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName.ToLowerInvariant(), default);
 
-                    keyPhrases = text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                }
+            //        keyPhrases = text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+            //    }
 
-                using (var fileStream = new FileStream(FileName, FileMode.Append))
-                using (var sw = new StreamWriter(fileStream))
-                {
-                    await sw.WriteLineAsync($"Document Id: {documentId.Item1} documentName {documentId.Item2}");
-                    await sw.WriteLineAsync($"===============================================================");
-                    foreach (var keyPhrase in keyPhrases)
-                    {
-                        list.Add(keyPhrase);
-                        await sw.WriteLineAsync($"{keyPhrase}");
-                    }
+            //    using (var fileStream = new FileStream(FileName, FileMode.Append))
+            //    using (var sw = new StreamWriter(fileStream))
+            //    {
+            //        await sw.WriteLineAsync($"Document Id: {documentId.Item1} documentName {documentId.Item2}");
+            //        await sw.WriteLineAsync($"===============================================================");
+            //        foreach (var keyPhrase in keyPhrases)
+            //        {
+            //            list.Add(keyPhrase);
+            //            await sw.WriteLineAsync($"{keyPhrase}");
+            //        }
 
-                    await sw.WriteLineAsync($"---------------------------------------------------------------");
-                    await sw.WriteLineAsync();
+            //        await sw.WriteLineAsync($"---------------------------------------------------------------");
+            //        await sw.WriteLineAsync();
 
-                }
+            //    }
 
 
-            }
-            using (var fileStream = new FileStream(FileName, FileMode.Append))
-            using (var sw = new StreamWriter(fileStream))
-            {
-                await sw.WriteLineAsync($"For course data");
+            //}
+            //using (var fileStream = new FileStream(FileName, FileMode.Append))
+            //using (var sw = new StreamWriter(fileStream))
+            //{
+            //    await sw.WriteLineAsync($"For course data");
 
-                var numberGroups = list.GroupBy(i => i);
-                foreach (var grp in numberGroups.OrderByDescending(o => o.Count()))
-                {
-                    await sw.WriteLineAsync($"Key phrase: {grp.Key} count { grp.Count()}");
-                }
-            }
-
+            //    var numberGroups = list.GroupBy(i => i);
+            //    foreach (var grp in numberGroups.OrderByDescending(o => o.Count()))
+            //    {
+            //        await sw.WriteLineAsync($"Key phrase: {grp.Key} count { grp.Count()}");
+            //    }
+            //}
+            await ReduWordProcessing();
             Console.WriteLine("done");
 
         }
@@ -184,7 +183,7 @@ namespace ConsoleApp
 
             var container = blobClient.GetContainerReference("spitball-files");
             var dir = container.GetDirectoryReference("files");
-            var queue = queueClient.GetQueueReference("generate-blob-preview");
+
 
 
             BlobContinuationToken blobToken = null;
@@ -194,47 +193,73 @@ namespace ConsoleApp
                     new BlobRequestOptions(),
                     new OperationContext(), default);
 
-                var list = new HashSet<string>();
+                var list = new HashSet<long>();
                 Console.WriteLine("Receiving a new batch of blobs");
                 foreach (IListBlobItem blob in result.Results)
                 {
 
-                    var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
-                    var id = blob.Uri.Segments[3].TrimEnd('/');
+                    //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
+                    var id = long.Parse(blob.Uri.Segments[3].TrimEnd('/'));
                     if (!list.Add(id))
                     {
                         continue;
                     }
                     var fileDir = container.GetDirectoryReference($"files/{id}");
                     var blobs = fileDir.ListBlobs().ToList();
-
-                    if (!blobs.Any(a => a.Uri.AbsoluteUri.Contains("preview")))
+                    var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
+                    if (textBlobItem != null)
                     {
-                        var msg = new CloudQueueMessage(id);
+                        var queue = queueClient.GetQueueReference("generate-search-preview");
+                        var msg = new CloudQueueMessage(id.ToString());
                         await queue.AddMessageAsync(msg);
-                        using (var file =
-           new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
-                        {
+                        Console.WriteLine("Processing tags " + id);
+                    }
 
-                            file.WriteLine(id);
-
-                        }
+                    else
+                    {
+                        var queue = queueClient.GetQueueReference("generate-blob-preview");
+                        var msg = new CloudQueueMessage(id.ToString());
+                        await queue.AddMessageAsync(msg);
                         Console.WriteLine("Processing regular " + id);
                         continue;
                     }
-                    if (!blobs.Any(a => a.Uri.AbsoluteUri.Contains("blur")))
-                    {
-                        var queue2 = queueClient.GetQueueReference("generate-blob-preview-blur");
-                        var msg = new CloudQueueMessage(id);
-                        await queue2.AddMessageAsync(msg);
 
-                        using (var file =
-         new StreamWriter(@"C:\Users\Ram\Documents\blur.txt", true))
+                    var count = blobs.Count(a => a.Uri.AbsoluteUri.Contains("preview"));
+                    var textBlob = (CloudBlockBlob)blob;
+                    textBlob.FetchAttributes();
+                    textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
+                    int.TryParse(pageCountStr, out var pageCount);
+                    if (count == 0 || count < pageCount)
+                        if (!blobs.Any(a => a.Uri.AbsoluteUri.Contains("preview")))
                         {
+                            var queue = queueClient.GetQueueReference("generate-blob-preview");
+                            var msg = new CloudQueueMessage(id.ToString());
+                            await queue.AddMessageAsync(msg);
+                            //             using (var file =
+                            //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
+                            //             {
 
-                            file.WriteLine(id);
+                            //                 file.WriteLine(id);
 
+                            //             }
+                            Console.WriteLine("Processing regular " + id);
+                            continue;
                         }
+
+                    var blobBlurCount = blobs.Count(a => a.Uri.AbsoluteUri.Contains("blur"));
+                    if (blobBlurCount == 0 || blobBlurCount < Math.Min(pageCount, 10))
+                    {
+                        var queue = queueClient.GetQueueReference("generate-blob-preview-blur");
+                        var msg = new CloudQueueMessage(id.ToString());
+                        await queue.AddMessageAsync(msg);
+
+                        //               using (var file =
+                        //new StreamWriter(@"C:\Users\Ram\Documents\blur.txt", true))
+                        //               {
+
+                        //                   file.WriteLine(id);
+
+                        //               }
                         Console.WriteLine("Processing blur " + id);
                     }
 
@@ -337,8 +362,12 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
+            await FixStorageAsync();
+            /* var commandBus = _container.Resolve<ICommandBus>();
 
             await CoursesWithSimilarNames();
+                     160259, new List<string> { }, "econ 101");
+             await commandBus.DispatchAsync(command, token);*/
             //await FunctionsExtensions.MergeCourses(_container);
 
             //var d = _container.Resolve<DapperRepository>();
@@ -374,11 +403,98 @@ namespace ConsoleApp
 
             }*/
 
+
+
+
+
+
+
+        private static string GetShareAccessUri(string blobname,
+                int validityPeriodInMinutes,
+                CloudBlobDirectory dir)
+        {
+            var toDateTime = DateTime.Now.AddMinutes(validityPeriodInMinutes);
+
+            var policy = new SharedAccessBlobPolicy
+            {
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessStartTime = null,
+                SharedAccessExpiryTime = new DateTimeOffset(toDateTime)
+            };
+
+            var blob = dir.GetBlockBlobReference(blobname);
+            var sas = blob.GetSharedAccessSignature(policy);
+            return blob.Uri.AbsoluteUri + sas;
         }
 
+        private static async Task FixStorageAsync()
+        {
+            var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+            var blobClient = productionOldStorageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("spitball-files");
+            var dir = container.GetDirectoryReference("files");
 
 
+            BlobContinuationToken blobToken = null;
+            do
+            {
+                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
+                    new BlobRequestOptions(),
+                    new OperationContext(), default);
 
+                var list = new HashSet<string>();
+                Console.WriteLine("Receiving a new batch of blobs");
+                foreach (IListBlobItem blob in result.Results)
+                {
+                    if (blob.Uri.Segments.Contains("220643"))
+                    {
+                        Console.WriteLine(blob.Uri);
+                    }
+
+                    Console.WriteLine(blob.Uri);
+
+                    var blobToCheckStr = blob.Uri.Segments[4];
+                    var test = blob.Uri.Segments.Length;
+                    if (test > 5)
+                    {
+                        var dirToRemove = blob.Parent;
+                        string dirToRemoveStr = dirToRemove.Uri.ToString().Split('/')[dirToRemove.Uri.ToString().Split('/').Length - 2];
+                        var blobToMoveList = dirToRemove.ListBlobs();
+
+
+                        string blobToMoveStr = blobToMoveList.First().Uri.ToString().Split('/')[blobToMoveList.First().Uri.ToString().Split('/').Length - 1];
+                        var blobToMove = dirToRemove.GetBlockBlobReference(blobToMoveStr);
+
+                        var name = blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 2].Replace('/', '-');
+                        var ect = Path.GetExtension(blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 1]).TrimStart('.');
+                        var id = blob.Uri.Segments[blob.Uri.Segments.Length - 3].Trim('/');
+
+                        CloudBlockBlob blobDestination = dir.GetBlockBlobReference(
+                            $"{id}/{name}.{ect}");
+
+
+                        var sharedAccessUri = GetShareAccessUri(blobToMoveStr, 360, dirToRemove);
+
+                        var blobUri = new Uri(sharedAccessUri);
+
+                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+                        while (blobDestination.CopyState.Status != CopyStatus.Success)
+                        {
+                            Console.WriteLine(blobDestination.CopyState.Status);
+                            await Task.Delay(TimeSpan.FromSeconds(1));
+                            await blobDestination.ExistsAsync();
+                        }
+
+
+                        blobToMove.DeleteIfExists();
+                    }
+                }
+
+                blobToken = result.ContinuationToken;
+            } while (blobToken != null);
+
+        }
 
     }
 }

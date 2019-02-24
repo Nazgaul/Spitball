@@ -18,6 +18,11 @@ namespace Cloudents.Core.Interfaces
         Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token);
 
 
+       
+    }
+
+    public interface ITextClassifier
+    {
         Task<IEnumerable<string>> KeyPhraseAsync(string text, CancellationToken token);
     }
 

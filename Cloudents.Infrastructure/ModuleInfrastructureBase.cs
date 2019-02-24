@@ -31,6 +31,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<PayPalClient>().As<IPayPal>().SingleInstance();
             builder.RegisterType<TextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
+            builder.RegisterType<TextClassifierAnalysis>().As<ITextClassifier>().SingleInstance();
             builder.RegisterType<TextTranslatorProvider>().As<ITextTranslator>();
 
             builder.RegisterAssemblyTypes(assembly)

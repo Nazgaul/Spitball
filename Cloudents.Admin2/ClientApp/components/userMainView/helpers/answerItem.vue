@@ -1,29 +1,28 @@
 <template>
-    <div class="item-wrap">
+    <div class="item-wrap" data-app>
         <v-card class="answer-card" v-for="(answer, index) in answers" :key="index" v-if="isVisible(answer.state)">
             <v-toolbar class="answer-toolbar mt-4 back-color-purple">
                 <v-toolbar-title class="answer-text-title">
+                    <span class="question-text-label">Answer Text</span>
+
                     {{answer.text}}
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <span title="Fictive Or Original Question ">{{answer.flaggedUserEmail}}</span>
                 <v-spacer></v-spacer>
-                <div class="answer-id" @click="doCopy(answer.id, 'Answer ID')">
-                    <span>Answer Id: {{answer.id}}</span>
-                </div>
                 <v-flex>
-                    <v-tooltip left>
-                        <v-btn slot="activator" icon @click="declineAnswer(answer, index)">
+                    <v-tooltip left  attach="tooltip-1">
+                        <v-btn slot="activator" icon @click="declineAnswer(answer, index)" class="tooltip-1">
                             <v-icon color="red">close</v-icon>
                         </v-btn>
-                        <span>Decline Answer</span>
+                        <span>Delete</span>
                     </v-tooltip>
                     <v-list-tile-action-text></v-list-tile-action-text>
-                    <v-tooltip left>
-                        <v-btn slot="activator" icon @click="aproveA(answer, index)">
+                    <v-tooltip left  attach="tooltip-2">
+                        <v-btn slot="activator" icon @click="aproveA(answer, index)" class="tooltip-2">
                             <v-icon color="green">done</v-icon>
                         </v-btn>
-                        <span>Approve Answer</span>
+                        <span>Accept</span>
                     </v-tooltip>
                 </v-flex>
             </v-toolbar>
@@ -93,9 +92,6 @@
                 })
             },
         },
-        created() {
-            console.log(this.answers)
-        }
     }
 </script>
 
@@ -108,7 +104,7 @@
 
         .v-toolbar__content {
             height: 100% !important; //vuetify overwrite
-            padding: 12px 12px;
+            padding: 12px 24px;
         }
         .answer-toolbar {
             height: 100%;
@@ -128,6 +124,9 @@
         }
         .answer-toolbar {
             max-width: 100%;
+            background-color: transparent!important;
+            box-shadow: none;
+            border-bottom: 1px solid grey;
             .answer-text-title {
 
             }

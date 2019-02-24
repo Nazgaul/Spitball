@@ -22,12 +22,14 @@
         /*height: 100%;*/
         margin: 0;
         padding: 0;
-        background-color: #e0e0e0;
+        /*background-color: #e0e0e0;*/
     }
 body{
     flex-direction: column;
     display: flex;
 }
+
+
     #template-app {
         font-family: 'Roboto', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;

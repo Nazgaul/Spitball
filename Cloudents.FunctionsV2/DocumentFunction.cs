@@ -1,6 +1,8 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Sync;
 using Cloudents.Search.Document;
@@ -12,6 +14,8 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -23,43 +27,45 @@ namespace Cloudents.FunctionsV2
     {
         [FunctionName("BlobFunction")]
         public static async Task RunAsync(
-            [BlobTrigger("spitball-files/files/{id}/text.txt")]string text, long id, IDictionary<string, string> metadata,
+            [BlobTrigger("spitball-files/files/{id}/text.txt")]string text, long id,
+            [Queue("generate-search-preview")] IAsyncCollector<string> collector,
             [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
-            [Inject] ICommandBus commandBus,
             CancellationToken token)
         {
-            await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, token);
+            await collector.AddAsync(id.ToString(), token);
+            //await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, token);
         }
 
 
-        //[FunctionName("ReduBlobFunction")]
-        //public static async Task ReduBlobFunctionAsync(
-        //    [QueueTrigger("generate-search-preview-poison")] string id,
-        //    [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory dir,// IDictionary<string, string> metadata,
-        //    [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,// IDictionary<string, string> metadata,
-        //    [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
-        //    [Inject] ICommandBus commandBus,
 
-        //    CancellationToken token)
-        //{
-        //    var x = await dir.ListBlobsSegmentedAsync(null);
-        //    if (!x.Results.Any())
-        //    {
-        //        //There is no file - deleting it.
-        //        var command = new DeleteDocumentCommand(Convert.ToInt64(id));
-        //        await commandBus.DispatchAsync(command, token);
-        //        return;
-        //    }
-        //    var text = await blob.DownloadTextAsync();
-        //    await blob.FetchAttributesAsync();
-        //    var metadata = blob.Metadata;
-        //    await SyncBlobWithSearch(text, Convert.ToInt64(id), metadata, indexInstance, commandBus, token);
-        //}
-       
+        [FunctionName("DocumentProcessFunction")]
+        public static async Task DocumentProcessFunctionAsync(
+            [QueueTrigger("generate-search-preview")] string id,
+            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory dir,
+            [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,
+            [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
+            [Inject] ICommandBus commandBus,
+            [Inject] ITextAnalysis textAnalysis,
+            [Inject] ITextClassifier textClassifier,
+            [Inject] ITextTranslator textTranslator,
 
-        private static async Task SyncBlobWithSearch(string text, long id, IDictionary<string, string> metadata,
-            IAsyncCollector<AzureSearchSyncOutput> searchInstance, ICommandBus commandBus, CancellationToken token)
+            CancellationToken token)
         {
+            var x = await dir.ListBlobsSegmentedAsync(null);
+
+            var longId = Convert.ToInt64(id);
+            if (!x.Results.Any())
+            {
+                //There is no file - deleting it.
+                var command = new DeleteDocumentCommand(longId);
+                await commandBus.DispatchAsync(command, token);
+                return;
+            }
+            var text = await blob.DownloadTextAsync();
+            var tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
+            await blob.FetchAttributesAsync();
+            var metadata = blob.Metadata;
+
             int? pageCount = null;
             if (metadata.TryGetValue("PageCount", out var pageCountStr) &&
                 int.TryParse(pageCountStr, out var pageCount2))
@@ -69,14 +75,14 @@ namespace Cloudents.FunctionsV2
             try
             {
                 var snippet = text.Truncate(200, true);
-                var command = new UpdateDocumentMetaCommand(id, pageCount, snippet);
+                var command = new UpdateDocumentMetaCommand(longId, pageCount, snippet, tags);
                 await commandBus.DispatchAsync(command, token);
 
-                await searchInstance.AddAsync(new AzureSearchSyncOutput()
+                await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
                     Item = new Document
                     {
-                        Id = id.ToString(),
+                        Id = id,
                         Content = text.Truncate(6000)
                     },
                     Insert = true
@@ -85,15 +91,46 @@ namespace Cloudents.FunctionsV2
             }
             catch (ObjectNotFoundException)
             {
-                await searchInstance.AddAsync(new AzureSearchSyncOutput()
+                await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
                     Item = new Document
                     {
-                        Id = id.ToString(),
+                        Id = id,
                     },
                     Insert = false
                 }, token);
             }
+        }
+
+        private static async Task<IEnumerable<string>> GenerateTagsAsync(string text,
+            ITextAnalysis textAnalysis,
+            ITextClassifier textClassifier,
+            ITextTranslator textTranslator,
+            CancellationToken token)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return null;
+            }
+            var englishCulture = new CultureInfo("en");
+
+            var v = await textAnalysis.DetectLanguageAsync(text, token);
+            if (!v.Equals(englishCulture))
+            {
+                text = await textTranslator.TranslateAsync(text, "en", token);
+            }
+
+            var keyPhrases = await textClassifier.KeyPhraseAsync(text, token);
+
+            if (!v.Equals(englishCulture))
+            {
+                text = string.Join(" , ", keyPhrases);
+                text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName.ToLowerInvariant(), token);
+
+                return text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+            }
+
+            return keyPhrases.Select(s => s.Trim());
         }
 
 
