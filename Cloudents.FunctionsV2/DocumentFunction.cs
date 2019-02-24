@@ -108,6 +108,10 @@ namespace Cloudents.FunctionsV2
             ITextTranslator textTranslator,
             CancellationToken token)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return null;
+            }
             var englishCulture = new CultureInfo("en");
 
             var v = await textAnalysis.DetectLanguageAsync(text, token);

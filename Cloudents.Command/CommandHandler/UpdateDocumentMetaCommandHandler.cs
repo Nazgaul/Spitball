@@ -1,4 +1,5 @@
-﻿using Cloudents.Command.Command;
+﻿using System.Linq;
+using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
@@ -23,7 +24,7 @@ namespace Cloudents.Command.CommandHandler
             var doc = await _documentRepository.LoadAsync(message.Id, token);
             doc.PageCount = message.PageCount;
             doc.MetaContent = message.Snippet;
-            foreach (var tagStr in message.Tags)
+            foreach (var tagStr in message.Tags ?? Enumerable.Empty<string>())
             {
                 var tag = await _tagRepository.GetOrAddAsync(tagStr, token);
                 doc.Tags.Add(tag);
