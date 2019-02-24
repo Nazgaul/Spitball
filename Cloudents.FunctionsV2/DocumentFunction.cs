@@ -25,16 +25,16 @@ namespace Cloudents.FunctionsV2
 {
     public static class DocumentFunction
     {
-        [FunctionName("BlobFunction")]
-        public static async Task RunAsync(
-            [BlobTrigger("spitball-files/files/{id}/text.txt")]string text, long id,
-            [Queue("generate-search-preview")] IAsyncCollector<string> collector,
-            [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
-            CancellationToken token)
-        {
-            await collector.AddAsync(id.ToString(), token);
-            //await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, token);
-        }
+        //[FunctionName("BlobFunction")]
+        //public static async Task RunAsync(
+        //    [BlobTrigger("spitball-files/files/{id}/text.txt")]string text, long id,
+        //    [Queue("generate-search-preview")] IAsyncCollector<string> collector,
+        //    [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
+        //    CancellationToken token)
+        //{
+        //    await collector.AddAsync(id.ToString(), token);
+        //    //await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, token);
+        //}
 
 
 
@@ -63,9 +63,16 @@ namespace Cloudents.FunctionsV2
                 return;
             }
             var text = await blob.DownloadTextAsync();
-            var tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
             await blob.FetchAttributesAsync();
             var metadata = blob.Metadata;
+            IEnumerable<string> tags = null;
+            if (!metadata.ContainsKey("ProcessTags"))
+            {
+                tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
+                metadata.Add("ProcessTags", bool.TrueString);
+                await blob.SetMetadataAsync();
+            }
+
 
             int? pageCount = null;
             if (metadata.TryGetValue("PageCount", out var pageCountStr) &&
@@ -73,6 +80,7 @@ namespace Cloudents.FunctionsV2
             {
                 pageCount = pageCount2;
             }
+
             try
             {
                 var snippet = text.Truncate(200, true);
@@ -118,7 +126,7 @@ namespace Cloudents.FunctionsV2
             var v = await textAnalysis.DetectLanguageAsync(text, token);
             if (!v.Equals(englishCulture))
             {
-                text = await textTranslator.TranslateAsync(text, "en", token);
+                text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName, "en", token);
             }
 
             var keyPhrases = await textClassifier.KeyPhraseAsync(text, token);
@@ -126,7 +134,7 @@ namespace Cloudents.FunctionsV2
             if (!v.Equals(englishCulture))
             {
                 text = string.Join(" , ", keyPhrases);
-                text = await textTranslator.TranslateAsync(text, v.TwoLetterISOLanguageName.ToLowerInvariant(), token);
+                text = await textTranslator.TranslateAsync(text, "en", v.TwoLetterISOLanguageName.ToLowerInvariant(), token);
 
                 return text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
             }
