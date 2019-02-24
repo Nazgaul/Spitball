@@ -278,7 +278,7 @@ namespace ConsoleApp
             {
                 var result = jaroWinkler.GetSimilarity(r, t);
 
-                if (result > 0.95)
+                if (result > 0.92)
                 { res.Add((t, r)); }
             }
             return res;
@@ -338,13 +338,13 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
 
-            //await CoursesWithSimilarNames();
+            await CoursesWithSimilarNames();
             //await FunctionsExtensions.MergeCourses(_container);
 
-            var d = _container.Resolve<DapperRepository>();
+            //var d = _container.Resolve<DapperRepository>();
 
 
-            var res = await d.WithConnectionAsync(async f =>
+           /* var res = await d.WithConnectionAsync(async f =>
             {
 
                 return await f.QueryAsync<(string, long)>(
@@ -370,14 +370,9 @@ namespace ConsoleApp
                 string str = "https://www.spitball.co/document/" + b62.ToString();
                 File.AppendAllText(filePath, str + "," + r.Item1 + "," + r.Item2.ToString() + Environment.NewLine);
 
-                /* int length = output.Count();
+   
 
-                 for (int index = 0; index < length; index++)
-                 {
-                     sb.AppendLine(string.Join(delimiter, output[index]));
-                 }*/
-
-            }
+            }*/
 
         }
 

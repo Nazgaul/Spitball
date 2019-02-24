@@ -42,8 +42,8 @@ namespace ConsoleApp
             });
 
             // Define request parameters.
-            string spreadsheetId = "16XyVRE-Pu8I1cL_iD9mM8IwtavlMsVEZwt3ndclp7_A";
-            string range = "Sheet1!A2:C";
+            string spreadsheetId = "17DHdoaE61YkuMhjldw7J8yY7nBOgNf2_zsv-_ptTz7E";
+            string range = "Sheet3!A2:B";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -57,13 +57,13 @@ namespace ConsoleApp
 
                 foreach (var row in values)
                 {
-                    long.TryParse(row[1].ToString(), out var t);
+                    //long.TryParse(row[1].ToString(), out var t);
                     // Print columns A and E, which correspond to indices 0 and 4.
                     CorseToMigratre obj = new CorseToMigratre()
                     {
-                        Id = t,
+                        Id = row[0].ToString(),
                         Name = row[0].ToString(),
-                        NewId = row[2].ToString()
+                        NewId = row[1].ToString()
                     };
                    
                     res.Add(obj);
@@ -106,8 +106,8 @@ namespace ConsoleApp
 
 
 
-            String spreadsheetId2 = "16XyVRE-Pu8I1cL_iD9mM8IwtavlMsVEZwt3ndclp7_A";
-            String range2 = $"Sheet1!D{rowNumber}";  // update cell F5 
+            String spreadsheetId2 = "17DHdoaE61YkuMhjldw7J8yY7nBOgNf2_zsv-_ptTz7E";
+            String range2 = $"Sheet3!C{rowNumber}";  // update cell F5 
             ValueRange valueRange = new ValueRange();
             valueRange.MajorDimension = "COLUMNS";//"ROWS";//COLUMNS
 
@@ -276,7 +276,7 @@ namespace ConsoleApp
 
     public class CorseToMigratre
     {
-        public long Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string NewId { get; set; }
     }

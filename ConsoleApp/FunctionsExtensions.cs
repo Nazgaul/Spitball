@@ -16,7 +16,13 @@ namespace ConsoleApp
         {
             var d = container.Resolve<DapperRepository>();
             var t = MigrateCoursesAndUni.Read();
-            const string update = @"update sb.Document
+            const string update = @"BEGIN
+                                       IF NOT EXISTS (select * from sb.Course where Name = @NewId)
+                                       BEGIN
+                                          insert into sb.Course values (@NewId, 0, GETUTCDATE())
+                                       END
+                                    END
+                            update sb.Document
                             set CourseName = @newId
                             where CourseName = @oldId;
 
@@ -36,7 +42,7 @@ namespace ConsoleApp
             var counter = 2;
             foreach (var item in t)
             {
-                if (long.TryParse(item.NewId, out long x) && x != item.Id)
+                if (item.NewId != "ok" && item.NewId != "dont know" && item.NewId != "delete")
                 {
                     try
                     {
@@ -45,8 +51,7 @@ namespace ConsoleApp
                         {
                             return await f.ExecuteAsync(update, new
                             {
-                                newId = t.Where(w => w.Id == x).Select(s => s.Name)
-                                .FirstOrDefault(),
+                                newId = item.NewId,
                                 oldId = item.Name
                             });
 
@@ -58,7 +63,7 @@ namespace ConsoleApp
                         Thread.Sleep(1000);
                     }
                 }
-                else if (item.NewId == "Delete")
+                else if (item.NewId == "delete")
                 {
                     try
                     {
