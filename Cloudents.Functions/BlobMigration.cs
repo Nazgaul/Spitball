@@ -11,8 +11,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
 
 namespace Cloudents.Functions
 {
@@ -115,6 +113,7 @@ namespace Cloudents.Functions
             [Inject] IFactoryProcessor factory,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
             [Queue("generate-blob-preview-blur")] IAsyncCollector<string> collectorBlur,
+            [Queue("generate-search-preview")] IAsyncCollector<string> collectorSearch,
             TraceWriter log, CancellationToken token)
 
         {
@@ -203,6 +202,7 @@ namespace Cloudents.Functions
                                     text = StripUnwantedChars(text);
                                     blob.Metadata["PageCount"] = pagesCount.ToString();
                                     await blob.UploadTextAsync(text ?? string.Empty, token);
+                                    await collectorSearch.AddAsync(id, token);
                                     pageCount = pagesCount;
                                 }
 
@@ -269,6 +269,7 @@ namespace Cloudents.Functions
                 }
 
                 await collectorBlur.AddAsync(id, token);
+               
                 log.Info("C# Blob trigger function Processed");
 
             }
