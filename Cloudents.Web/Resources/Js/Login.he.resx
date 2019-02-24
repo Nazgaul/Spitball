@@ -332,7 +332,7 @@
 בטוח שברצונך &lt;b&gt;לצאת&lt;b&gt;?</value>
   </data>
   <data name="terms_of_services" xml:space="preserve">
-    <value>תנאי שירות</value>
+    <value>תנאי השירות</value>
   </data>
   <data name="until_activate_account" xml:space="preserve">
     <value>תוכל להיכנס אל Spitball.co רק לאחר שתפעיל את חשבונך</value>

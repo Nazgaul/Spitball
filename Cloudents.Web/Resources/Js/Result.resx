@@ -130,13 +130,13 @@
     <value>Try different keywords.</value>
   </data>
   <data name="fewer_keywords" xml:space="preserve">
-    <value>Try fewer keywords.</value>
+    <value>Shorten your query.</value>
   </data>
   <data name="filter_not_applied" xml:space="preserve">
     <value>Filter was not applied, because it will give you no results.</value>
   </data>
   <data name="general_keywords" xml:space="preserve">
-    <value>Try more general keywords.</value>
+    <value>Look for something broader.</value>
   </data>
   <data name="new_questions" xml:space="preserve">
     <value>New questions</value>
@@ -190,12 +190,12 @@
     <value>Get Help</value>
   </data>
   <data name="no_result_found_for" xml:space="preserve">
-    <value>No Results Found for</value>
+    <value>No results found for</value>
   </data>
   <data name="still_cant_find" xml:space="preserve">
     <value>Still can’t find what you are looking for?</value>
   </data>
   <data name="no_result_found" xml:space="preserve">
-    <value>No Results Found</value>
+    <value>No results found</value>
   </data>
 </root>

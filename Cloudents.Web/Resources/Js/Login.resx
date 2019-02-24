@@ -263,7 +263,7 @@
     <value>Enter phone number</value>
   </data>
   <data name="please_agree" xml:space="preserve">
-    <value>Please agree to Terms And Services in order to proceed</value>
+    <value>Please agree to terms and services in order to proceed</value>
   </data>
   <data name="please_login" xml:space="preserve">
     <value>please login</value>
@@ -322,7 +322,7 @@ you want
 to &lt;b&gt;exit&lt;/b&gt;?</value>
   </data>
   <data name="terms_of_services" xml:space="preserve">
-    <value>Terms of Services</value>
+    <value>Terms of service</value>
   </data>
   <data name="until_activate_account" xml:space="preserve">
     <value>You will not be able to log in to Spitball.co until you activate your account</value>

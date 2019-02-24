@@ -154,7 +154,7 @@
     <value>Join me on Spitball</value>
   </data>
   <data name="ref_placeholder" xml:space="preserve">
-    <value>Select Document to Share</value>
+    <value>Select document to share</value>
   </data>
   <data name="share_facebook" xml:space="preserve">
     <value>Share</value>
@@ -172,7 +172,7 @@
     <value>or share with</value>
   </data>
   <data name="spread" xml:space="preserve">
-    <value>Spread the Word</value>
+    <value>Spread the word</value>
   </data>
   <data name="title_document" xml:space="preserve">
     <value>I just uploaded some of my academic notes to Spitball.</value>

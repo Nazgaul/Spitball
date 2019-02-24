@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="class_result" xml:space="preserve">
-    <value>Results From Class</value>
+    <value>Results from class</value>
   </data>
   <data name="spitball_result" xml:space="preserve">
-    <value>Results From Spitball</value>
+    <value>Results from Spitball</value>
   </data>
   <data name="university_result" xml:space="preserve">
-    <value>Results From</value>
+    <value>Results from</value>
   </data>
 </root>

@@ -170,13 +170,13 @@
     <value>Keywords</value>
   </data>
   <data name="multiple_or_browse_label" xml:space="preserve">
-    <value>Or Browse</value>
+    <value>Or browse</value>
   </data>
   <data name="multiple_placeholder_doctype_all" xml:space="preserve">
     <value>Set document type to all</value>
   </data>
   <data name="multiple_placeholder_setAll" xml:space="preserve">
-    <value>Set price to all 0.00</value>
+    <value>Set all prices to free</value>
   </data>
   <data name="multiple_price_placeholder" xml:space="preserve">
     <value>price 0.00 Points</value>
