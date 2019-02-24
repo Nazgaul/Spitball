@@ -340,7 +340,7 @@ namespace ConsoleApp
             {
                 var result = jaroWinkler.GetSimilarity(r, t);
 
-                if (result > 0.95)
+                if (result > 0.92)
                 { res.Add((t, r)); }
             }
             return res;
@@ -402,50 +402,43 @@ namespace ConsoleApp
             await FixStorageAsync();
             /* var commandBus = _container.Resolve<ICommandBus>();
 
-             var command = new CreateQuestionCommand(QuestionSubject.Accounting, "EmailTest", 5,
+            await CoursesWithSimilarNames();
                      160259, new List<string> { }, "econ 101");
              await commandBus.DispatchAsync(command, token);*/
-            //await CoursesWithSimilarNames();
             //await FunctionsExtensions.MergeCourses(_container);
 
-            /*var d = _container.Resolve<DapperRepository>();
+            //var d = _container.Resolve<DapperRepository>();
 
 
-            var res = await d.WithConnectionAsync(async f =>
-            {
+            /* var res = await d.WithConnectionAsync(async f =>
+             {
 
-                return await f.QueryAsync<(string, long)>(
-                @"declare @tmp table (CourseName nvarchar(max), DocumentId bigint, rn bigint)
-                    insert into @tmp
-                    select CourseName, Id, ROW_NUMBER () over (Partition By CourseName Order By Id asc) as rn
-                    from sb.Document
-                    where [state] = 'ok' and CourseName in (select * from ##CourseTbl)
-                    select CourseName, DocumentId from @tmp where rn < 4");
+                 return await f.QueryAsync<(string, long)>(
+                 @"declare @tmp table (CourseName nvarchar(max), DocumentId bigint, rn bigint)
+                     insert into @tmp
+                     select CourseName, Id, ROW_NUMBER () over (Partition By CourseName Order By Id asc) as rn
+                     from sb.Document
+                     where [state] = 'ok' and CourseName in (select * from ##CourseTbl)
+                     select CourseName, DocumentId from @tmp where rn < 4");
 
-            }, default);
-            StringBuilder sb = new StringBuilder();
-            ////string delimiter = ",";
+             }, default);
+             StringBuilder sb = new StringBuilder();
+             ////string delimiter = ",";
 
-            ////int rowNumber = 1;
+             ////int rowNumber = 1;
 
-            string filePath = @"C:\Users\Charlie even\DocumentsOfCoursesToDelete.csv";
-            //List<(string,string)> output = new List<(string, string)>();
-            foreach (var r in res)
-            {
+             string filePath = @"C:\Users\Charlie even\DocumentsOfCoursesToDelete.csv";
+             //List<(string,string)> output = new List<(string, string)>();
+             foreach (var r in res)
+             {
 
-                var b62 = new Base62(r.Item2);
-                string str = "https://www.spitball.co/document/" + b62.ToString();
-                File.AppendAllText(filePath, str + "," + r.Item1 + "," + r.Item2.ToString() + Environment.NewLine);
+                 var b62 = new Base62(r.Item2);
+                 string str = "https://www.spitball.co/document/" + b62.ToString();
+                 File.AppendAllText(filePath, str + "," + r.Item1 + "," + r.Item2.ToString() + Environment.NewLine);
 
-                /* int length = output.Count();
 
-                 for (int index = 0; index < length; index++)
-                 {
-                     sb.AppendLine(string.Join(delimiter, output[index]));
-                 }*/
 
-            //}
-
+             }*/
         }
 
 

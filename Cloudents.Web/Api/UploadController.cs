@@ -141,11 +141,22 @@ namespace Cloudents.Web.Api
             return new UploadResponse(tempData2.BlobName);
         }
 
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
         private static string BlobFileName(Guid sessionId, string name)
         {
-            Regex rgx = new Regex("[^\x00-\x7F]+");
-            name = rgx.Replace(name, "");
-            
+            Regex rgx = new Regex(@"[^\x00-\x7F]+|\s+");
+            name = rgx.Replace(name, string.Empty);
+            if (name.StartsWith('.'))
+            {
+                name = RandomString(3) + name;
+            }
             return $"file-{sessionId}-{name?.Replace("/",string.Empty)}";
         }
 
