@@ -1,12 +1,7 @@
 ﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions;
 using Microsoft.Azure.WebJobs.Host.Config;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Linq;
-using Twilio.Types;
 
 namespace Cloudents.FunctionsV2.Binders
 {

@@ -166,7 +166,7 @@ namespace Cloudents.Web.Api
                 {
                     try
                     {
-                        var command = new ReferringUserCommand(base62.Value, user.Id);
+                        var command = new ReferringUserCommand(base62, user.Id);
                         await _commandBus.DispatchAsync(command, token);
                     }
                     catch (UserLockoutException)

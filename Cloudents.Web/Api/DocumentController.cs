@@ -15,7 +15,6 @@ using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -31,6 +30,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
 {
@@ -65,6 +65,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] IBlobProvider blobProvider,
+            [FromServices] ICrawlerResolver crawlerResolver,
 
             CancellationToken token)
         {
@@ -87,17 +88,22 @@ namespace Cloudents.Web.Api
             {
                 prefix = "blur-";
             }
-            var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
-            var fileNameTask = _blobProvider.FilesInDirectoryAsync("file-", query.Id.ToString(), token);
 
-            await Task.WhenAll(filesTask, tQueue, fileNameTask);
+            var textTask = Task.FromResult<string>(null);
+            if (crawlerResolver.Crawler != null)
+            {
+                textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
+            }
+            var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
+
+            await Task.WhenAll(filesTask, tQueue, textTask);
             var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
             if (!filesTask.Result.Any())
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
             }
 
-            return new DocumentPreviewResponse(model, files);
+            return new DocumentPreviewResponse(model, files, textTask.Result);
         }
 
         [HttpPost]
@@ -111,7 +117,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Name), "Invalid file name");
                 return BadRequest(ModelState);
             }
-            var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type,
+            var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type ?? "Document",
                 model.Course, model.Tags, userId, model.Professor, model.Price);
             await _commandBus.DispatchAsync(command, token);
 
@@ -127,7 +133,6 @@ namespace Cloudents.Web.Api
         /// Search document vertical result
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="profile">User profile - server generated</param>
         /// <param name="searchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
@@ -179,8 +184,8 @@ namespace Cloudents.Web.Api
                     result.Facet.Select(s => new KeyValuePair<string, string>(s, s)));
                 filters.Add(filter);
             }
-           
-           
+
+
             return new WebResponseWithFacet<DocumentFeedDto>
             {
                 Result = p.Select(s =>

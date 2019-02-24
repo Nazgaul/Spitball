@@ -50,7 +50,7 @@ namespace Cloudents.Core.Entities
             //}
             //price = -Math.Abs(price);
 
-            Price = 1000;
+            Price = -1000;
             Action = TransactionActionType.CashOut;
             Type = TransactionType.Spent;
         }
@@ -153,21 +153,21 @@ namespace Cloudents.Core.Entities
         public static AwardMoneyTransaction FinishRegistration(RegularUser user)
         {
             var initBalance = 0;
-            var awardScore = 0;
+           //var awardScore = 0;
             if (Tier1Users.Contains(user.Country))
             {
                 initBalance = 150;
-                awardScore = 2;
+                //awardScore = 2;
             }
             //Score
             return new AwardMoneyTransaction(initBalance)
             {
                 Action = TransactionActionType.SignUp,
-                _awardScore = awardScore
+              //  _awardScore = awardScore
             };
         }
 
-        private int _awardScore;
+       // private int _awardScore;
        // public override int AwardScore => _awardScore;
     }
 
@@ -181,7 +181,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        private int _awardScore;
+        //private int _awardScore;
 
         public virtual Question Question { get;  set; }
         public virtual Answer Answer { get; protected set; }
@@ -248,7 +248,7 @@ namespace Cloudents.Core.Entities
                 Type = TransactionType.Earned,
                 Price = money,
                 Answer = correctAnswer,
-                _awardScore = 1
+                //_awardScore = 1
             };
             var ta2 = new AwardMoneyTransaction(AwardsTransaction.QuestionAnswererBonus);
             userAnswer.MakeTransaction(ta1);
@@ -314,7 +314,7 @@ namespace Cloudents.Core.Entities
                 Action = TransactionActionType.SoldDocument,
                 Price = document.Price,
                 Type = TransactionType.Earned,
-                _awardScore = 1
+               // _awardScore = 1
 
             };
         }
@@ -326,7 +326,7 @@ namespace Cloudents.Core.Entities
             seller.MakeTransaction(new CommissionTransaction(d.Price));
         }
 
-        private int _awardScore ;
+        //private int _awardScore ;
 
         //public override int AwardScore => _awardScore;
     }

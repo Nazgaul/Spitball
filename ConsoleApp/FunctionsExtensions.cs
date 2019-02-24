@@ -40,7 +40,7 @@ namespace ConsoleApp
                 {
                     try
                     {
-                        var testnewId = t.Where(w => w.Id == x).Select(s => s.Name).FirstOrDefault();
+                      //  var testnewId = t.Where(w => w.Id == x).Select(s => s.Name).FirstOrDefault();
                         var z = await d.WithConnectionAsync(async f =>
                         {
                             return await f.ExecuteAsync(update, new

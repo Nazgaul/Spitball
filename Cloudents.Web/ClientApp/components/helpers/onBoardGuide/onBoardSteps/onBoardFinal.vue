@@ -10,7 +10,7 @@
                 <bdi>
                     <span class="ammount">&nbsp;{{tokensAmmount | currencyLocalyFilter}}&nbsp;</span>
                 </bdi>
-                    <span class="step-subtitle" v-language:inner>onboard_final_to_wallet</span>
+                    <!--<span class="step-subtitle" v-language:inner>onboard_final_to_wallet</span>-->
 
             </div>
         </div>

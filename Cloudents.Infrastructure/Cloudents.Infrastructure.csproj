@@ -8,29 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Blockchain\Crowdsale.json" />
-    <None Remove="Blockchain\QAndA.json" />
-    <None Remove="BlockChain\TokenAbi.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Blockchain\CrowdSale.json" />
-    <EmbeddedResource Include="Blockchain\QAndA.json" />
-    <EmbeddedResource Include="Blockchain\TokenAbi.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.5.0" />
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.2.0" />
-    <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="Dapper" Version="1.50.7" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Language.TextAnalytics" Version="2.8.0-preview" />
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.0.0" />
     <PackageReference Include="Nager.PublicSuffix" Version="1.3.0" />
-    <PackageReference Include="Nethereum.Web3" Version="2.5.1" />
     <PackageReference Include="PayPal" Version="2.0.0-rc2" />
     <!--We have a problem with redis nuget packages.-->
     <!--<PackageReference Include="NHibernate.Caches.CoreDistributedCache.Redis" Version="5.5.1" />-->

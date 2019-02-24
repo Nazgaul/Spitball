@@ -4,11 +4,11 @@ using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class QuestionsApiTests :  IClassFixture<WebApplicationFactory<Startup>>
+    public class QuestionsApiTests :  IClassFixture<SbWebApplicationFactory>
     {
-        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly SbWebApplicationFactory _factory;
 
-        public QuestionsApiTests(WebApplicationFactory<Startup> factory)
+        public QuestionsApiTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
         }

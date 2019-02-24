@@ -1,5 +1,4 @@
 ﻿using Cloudents.Infrastructure.Mapper;
-using Cloudents.Query.Stuff;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Test

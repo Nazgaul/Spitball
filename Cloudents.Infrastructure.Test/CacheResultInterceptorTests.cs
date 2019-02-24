@@ -6,6 +6,7 @@ using Cloudents.Core.Query;
 using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Job;
+using FluentAssertions;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Test
@@ -56,7 +57,10 @@ namespace Cloudents.Infrastructure.Test
             var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
             var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
 
-            Assert.NotEqual(result1, result2);
+
+            
+            result1.Should().Be(result2);
+            //Assert.NotEqual(result1, result2);
         }
 
         [Fact]

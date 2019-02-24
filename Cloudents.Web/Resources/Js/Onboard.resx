@@ -144,9 +144,6 @@
   <data name="final_title" xml:space="preserve">
     <value>Jump right in!</value>
   </data>
-  <data name="final_to_wallet" xml:space="preserve">
-    <value />
-  </data>
   <data name="how_text" xml:space="preserve">
     <value>Every student can offer study resources to other students for free or for a fee.</value>
   </data>

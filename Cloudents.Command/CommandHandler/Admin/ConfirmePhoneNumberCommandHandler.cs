@@ -1,15 +1,12 @@
 ﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
-    public class ConfirmePhoneNumberCommandHandler : ICommandHandler<ConfirmePhoneNumberCommand>
+    public class ConfirmePhoneNumberCommandHandler : ICommandHandler<ConfirmPhoneNumberCommand>
     {
         private readonly IRepository<RegularUser> _userRepository;
 
@@ -18,7 +15,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             _userRepository = userRepository;
         }
 
-        public async Task ExecuteAsync(ConfirmePhoneNumberCommand message, CancellationToken token)
+        public async Task ExecuteAsync(ConfirmPhoneNumberCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, token);
          

@@ -45,83 +45,68 @@
         <login-to-answer></login-to-answer>
       </sb-dialog>
 
-      <sb-dialog
-        :showDialog="universitySelectPopup"
-        :popUpType="'universitySelectPopup'"
-        :onclosefn="closeUniPopDialog"
-        :activateOverlay="true"
-        :content-class="'pop-uniselect-container'"
-      >
-        <uni-Select-pop :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
-      </sb-dialog>
+            <sb-dialog :showDialog="universitySelectPopup"
+                       :popUpType="'universitySelectPopup'"
+                       :onclosefn="closeUniPopDialog"
+                       :activateOverlay="true"
+                       :content-class="'pop-uniselect-container'">
+                <uni-Select-pop :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
+            </sb-dialog>
 
-      <sb-dialog
-        :isPersistent="true"
-        :showDialog="newQuestionDialogSate"
-        :popUpType="'newQuestion'"
-        :content-class="'newQuestionDialog'"
-      >
-        <Add-Question></Add-Question>
-        <!-- <New-Question></New-Question> -->
-      </sb-dialog>
-      <sb-dialog
-        :showDialog="newIsraeliUser"
-        :popUpType="'newIsraeliUserDialog'"
-        :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` "
-      >
-        <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
-      </sb-dialog>
-      <sb-dialog
-        :showDialog="getDialogState"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
-        :popUpType="'uploadDialog'"
-        :maxWidth="'852'"
-        :onclosefn="setUploadDialogState"
-        :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'upload-dialog'"
-      >
-        <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
-      </sb-dialog>
+            <sb-dialog :isPersistent="true"
+                       :showDialog="newQuestionDialogSate"
+                       :popUpType="'newQuestion'"
+                       :content-class="'newQuestionDialog'">
+        :max-width="'500px'"
+                <Add-Question></Add-Question>
+                <!-- <New-Question></New-Question> -->
+            </sb-dialog>
+            <sb-dialog :showDialog="newIsraeliUser"
+                       :popUpType="'newIsraeliUserDialog'"
+                       :content-class="`newIsraeliPop ${isRtl? 'rtl': ''}` ">
+                <new-israeli-pop :closeDialog="closeNewIsraeli"></new-israeli-pop>
+            </sb-dialog>
+            <sb-dialog :showDialog="getDialogState"
+                       :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
+                       :popUpType="'uploadDialog'"
+                       :maxWidth="'852'"
+                       :onclosefn="setUploadDialogState"
+                       :activateOverlay="false"
+                       :isPersistent="$vuetify.breakpoint.smAndUp"
+                       :content-class="'upload-dialog'">
+                <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
+            </sb-dialog>
 
-      <sb-dialog
-        :showDialog="getOnBoardState"
-        :popUpType="'onBoardGuide'"
-        :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
-        :maxWidth="'1280px'"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-      >
-        <board-guide></board-guide>
-      </sb-dialog>
+            <sb-dialog :showDialog="getOnBoardState"
+                       :popUpType="'onBoardGuide'"
+                       :content-class=" $vuetify.breakpoint.smAndUp ?  'onboard-guide-container' : ''"
+                       :maxWidth="'1280px'"
+                       :isPersistent="$vuetify.breakpoint.smAndUp">
+                <board-guide></board-guide>
+            </sb-dialog>
 
-      <sb-dialog
-        :showDialog="newBallerDialog"
-        :popUpType="'newBallerDialog'"
-        :content-class="'new-baller'"
-        :maxWidth="'700px'"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-      >
-        <new-baller></new-baller>
-      </sb-dialog>
+            <sb-dialog :showDialog="newBallerDialog"
+                       :popUpType="'newBallerDialog'"
+                       :content-class="'new-baller'"
+                       :maxWidth="'700px'"
+                       :isPersistent="$vuetify.breakpoint.smAndUp">
+                <new-baller></new-baller>
+            </sb-dialog>
 
-      <sb-dialog
-        :showDialog="getShowBuyDialog"
-        :popUpType="'buyTokens'"
-        :content-class="'buy-tokens-popup'"
-        :onclosefn="closeSblToken"
-      >
-        <buy-tokens></buy-tokens>
-      </sb-dialog>
+            <sb-dialog :showDialog="getShowBuyDialog"
+                       :popUpType="'buyTokens'"
+                       :content-class="'buy-tokens-popup'"
+                       :onclosefn="closeSblToken">
+                <buy-tokens></buy-tokens>
+            </sb-dialog>
 
-      <mobile-footer
-        v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
-        :onStepChange="onFooterStepChange"
-      ></mobile-footer>
-    </v-content>
-    <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
-      <div class="text-wrap" v-html="getToasterText"></div>
-    </v-snackbar>
-  </v-app>
+            <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
+                           :onStepChange="onFooterStepChange"></mobile-footer>
+        </v-content>
+        <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
+            <div class="text-wrap" v-html="getToasterText"></div>
+        </v-snackbar>
+    </v-app>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
@@ -422,4 +407,5 @@ export default {
 };
 </script>
 <style lang="less" src="./app.less"></style>
+<style lang="less" src="./main.less"></style>
 

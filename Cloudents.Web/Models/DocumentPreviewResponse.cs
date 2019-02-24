@@ -8,14 +8,17 @@ namespace Cloudents.Web.Models
 {
     public class DocumentPreviewResponse
     {
-        public DocumentPreviewResponse(DocumentDetailDto details, IEnumerable<Uri> preview)
+        public DocumentPreviewResponse(DocumentDetailDto details, IEnumerable<Uri> preview, string content)
         {
             Details = details;
+            Content = content;
             Preview = preview.OrderBy(o=>o,new OrderPreviewComparer());
         }
 
-        public DocumentDetailDto Details { get; set; }
-        public IEnumerable<Uri> Preview { get; set; }
+        public DocumentDetailDto Details { get;  }
+        public IEnumerable<Uri> Preview { get;  }
+
+        public string Content { get; private set; }
     }
 
 

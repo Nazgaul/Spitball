@@ -4,11 +4,11 @@ using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    public class ConfirmEmailControllerTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class ConfirmEmailControllerTests : IClassFixture<SbWebApplicationFactory>
     {
-        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly SbWebApplicationFactory _factory;
 
-        public ConfirmEmailControllerTests(WebApplicationFactory<Startup> factory)
+        public ConfirmEmailControllerTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
         }
@@ -18,7 +18,10 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task Get_WrongLongId_500Page(string url)
         {
             // Arrange
-            var client = _factory.CreateClient();
+            var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
+            {
+                AllowAutoRedirect = false
+            });
 
             // Act
             var response = await client.GetAsync(url);

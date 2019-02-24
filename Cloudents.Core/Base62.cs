@@ -15,8 +15,14 @@ namespace Cloudents.Core
 
         public Base62(string value)
         {
-            if (value == null) throw new ArgumentNullException(nameof(value));
             Value = 0;
+            if (value == null)
+            {
+                _stringValue = null;
+                return;
+                
+            }
+           
             var count = 0;
 
             for (var i = value.Length - 1; i >= 0; i--)

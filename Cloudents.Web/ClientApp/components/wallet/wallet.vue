@@ -63,7 +63,7 @@
                 <v-tab-item :key="'3'" :id="'tab-3'" class="tab-padding" v-if="activeTab === 3">
                     <div class="cash-out-wrapper">
                         <div class="text-wrap">
-                            <div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div>
+                            <!--<div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div>-->
                             <div class="points-text">
                                 <span>
                                     <span v-language:inner>wallet_You_have</span>

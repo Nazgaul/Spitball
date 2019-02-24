@@ -47,10 +47,10 @@ namespace Cloudents.Infrastructure.Test
             {
                 var sut = mock.Create<BingSearch>();
                 var privateObj = new PrivateObject(sut);
-                var courses = new[] { "course1", "course2" };
+                string courses ="course1";
                 var result = privateObj.Invoke("BuildQuery",
                     BindingFlags.Static | BindingFlags.NonPublic, null, courses, null, "hi");
-                Assert.Equal("(course1) AND (course2)", result);
+                Assert.Equal("(course1)", result);
             }
         }
 
@@ -76,12 +76,12 @@ namespace Cloudents.Infrastructure.Test
                 var sut = mock.Create<BingSearch>();
                 var privateObj = new PrivateObject(sut);
                 var university = new[] { "uni1", "uni2" };
-                var courses = new[] { "course1", "course2" };
+                string course =  "course1";
                 var subject = "sub1";
                 var result = privateObj.Invoke("BuildQuery",
-                    BindingFlags.Static | BindingFlags.NonPublic, university, courses, subject, "hi");
+                    BindingFlags.Static | BindingFlags.NonPublic, university, course, subject, "hi");
 
-                Assert.Equal(@"(""uni1"" OR ""uni2"") AND (course1) AND (course2) AND (sub1)",
+                Assert.Equal(@"(""uni1"" OR ""uni2"") AND (course1) AND (sub1)",
                     result);
             }
         }

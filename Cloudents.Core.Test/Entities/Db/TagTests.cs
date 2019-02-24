@@ -9,12 +9,12 @@ namespace Cloudents.Core.Test.Entities.Db
         [Theory]
         [InlineData("")]
         [InlineData("ttt,sdfks")]
-        [InlineData("tt")]
         [InlineData("2. Greek civilization was flourished in te year")]
 
         public void CreateTag_InvalidTagName_Exception(string name)
         {
             Action action = () => new Tag(name);
+
             Assert.Throws<ArgumentException>(action);
         }
 

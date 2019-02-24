@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;

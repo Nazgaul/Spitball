@@ -175,7 +175,7 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
 
-            var PhoneCommand = new ConfirmePhoneNumberCommand(model.Id);
+            var PhoneCommand = new ConfirmPhoneNumberCommand(model.Id);
             var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
             try
             {
@@ -235,6 +235,27 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
         {
             AdminUserAnswersQuery query = new AdminUserAnswersQuery(id, page);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("upVots")]
+        public async Task<IEnumerable<UserVotsDto>> GetUserUpVotsDetails(long id, int page, CancellationToken token)
+        {
+            var query = new AdminUserVotsQuery(id, page, 1);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("downVots")]
+        public async Task<IEnumerable<UserVotsDto>> GetUserDownVotsDetails(long id, int page, CancellationToken token)
+        {
+            var query = new AdminUserVotsQuery(id, page, -1);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("flags")]
+        public async Task<IEnumerable<UserFlagsDto>> GetUserFlagsDetails(long id, int page, CancellationToken token)
+        {
+            var query = new AdminUserFlagsQuery(id, page);
             return await _queryBus.QueryAsync(query, token);
         }
 

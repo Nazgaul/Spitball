@@ -98,7 +98,7 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_changeUniversity</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <span class="edit-text"><span v-language:inner>menuList_Change</span>
+                    <span class="edit-text">
                  <v-icon class="edit-after-icon">sbf-edit-icon</v-icon>
                 </span>
 
@@ -188,9 +188,7 @@
                 </v-list-tile-content>
             </router-link>
         </v-list>
-        <!--<v-dialog v-if="showSettingsFirst" v-model="showSettings" content-class="settings-dialog" max-width="610">-->
-        <!--<user-settings v-model="showSettings"></user-settings>-->
-        <!--</v-dialog>-->
+
         <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
                    :onclosefn="closeReferralDialog"
                    :content-class="'login-popup'">

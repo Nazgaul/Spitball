@@ -17,7 +17,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Twilio.Rest.Api.V2010.Account;
@@ -174,7 +173,7 @@ namespace Cloudents.FunctionsV2
 
 
             var hostName2 = string.Format("http://{0}.azurewebsites.net", Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%"));
-            if (hostName2 == null || hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
+            if (hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
             {
                 hostName2 = "https://spitball-function-dev2.azurewebsites.net";
             }

@@ -165,15 +165,6 @@
   <data name="BookConditionUsed" xml:space="preserve">
     <value>משומש</value>
   </data>
-  <data name="DocumentTypeExam" xml:space="preserve">
-    <value>מבחנים ופתרונות</value>
-  </data>
-  <data name="DocumentTypeLecture" xml:space="preserve">
-    <value>הרצאות  ותירגולים</value>
-  </data>
-  <data name="DocumentTypeTextbook" xml:space="preserve">
-    <value>סיכומים</value>
-  </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>שאלות שנענו</value>
   </data>

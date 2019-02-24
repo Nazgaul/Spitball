@@ -32,9 +32,11 @@ namespace Cloudents.Core.Entities
                    ProviderKey == login.ProviderKey;
         }
 
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Nhibernate")]
         public override int GetHashCode()
         {
             var hashCode = 1582216818;
+            
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LoginProvider);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProviderKey);
             return hashCode;
