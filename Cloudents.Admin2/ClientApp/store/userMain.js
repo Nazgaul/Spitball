@@ -8,15 +8,24 @@ const state = {
     userQuestions: [],
     userAnswers: [],
     userDocuments: [],
-    userPurchasedDocs: []
+    userPurchasedDocs: [],
+    userUpVotes: [],
+    userDownVotes: [],
+    userFlaggedItems: [],
+    filterVal: 'ok'
 
 };
 const mutations = {
+
     clearUserData(state) {
         state.userInfo = {};
         state.userQuestions = [];
         state.userAnswers = [];
         state.userDocuments = [];
+        state.userPurchasedDocs = [];
+        state.userUpVotes = [];
+        state.userDownVotes = [];
+        state.userFlaggedItems = [];
     },
     updateTokensDialog(state, val) {
         state.tokensDilaogState = val;
@@ -55,6 +64,15 @@ const mutations = {
     setUserDocuments(state, data) {
         state.userDocuments = data;
     },
+    setUserUpVotes(state, data) {
+        state.userUpVotes = data;
+    },
+    setUserFlaggedItems(state, data) {
+        state.userFlaggedItems = data;
+    },
+    setUserDownVotes(state, data) {
+        state.userDownVotes = data;
+    },
     removeQuestion(state, index) {
         state.userQuestions.splice(index, 1);
     },
@@ -63,9 +81,13 @@ const mutations = {
     },
     removeDocument(state, index) {
         state.userDocuments.splice(index, 1);
+    },
+    setFilterStr(state, strVal) {
+        state.filterVal = strVal
     }
 };
 const getters = {
+    filterValue: (state) => state.filterVal,
     getTokensDialogState: (state) => state.tokensDilaogState,
     suspendDialogState: (state) => state.suspendDialog,
     getUserBalance: (state) => state.userBalance,
@@ -73,10 +95,17 @@ const getters = {
     UserQuestions: (state) => state.userQuestions,
     UserAnswers: (state) => state.userAnswers,
     UserDocuments: (state) => state.userDocuments,
-    UserPurchasedDocuments: (state)=> state.userPurchasedDocs
+    UserPurchasedDocuments: (state) => state.userPurchasedDocs,
+    UserUpVotes: (state) => state.userUpVotes,
+    UserDownVotes: (state) => state.userDownVotes,
+    UserFlaggedItems: (state) => state.userFlaggedItems
 
 };
 const actions = {
+    updateFilterValue({commit}, val) {
+        commit('setFilterStr', val);
+    },
+
     clearUserState({commit}) {
         commit('clearUserData');
     },
@@ -92,14 +121,17 @@ const actions = {
     setUserCurrentStatus({commit}, val) {
         commit('updateStatus', val)
     },
-
     updateUserData({commit}, data) {
         commit('setUserData', data)
     },
     getUserData(context, id) {
         return UserMainService.getUserData(id).then((data) => {
-                context.commit('setUserInfo', data)
-                return data
+                if (data) {
+                    context.commit('setUserInfo', data);
+                    return data
+                }else{
+                    context.commit('clearUserData')
+                }
             },
             (error) => {
                 console.log(error, 'error')
@@ -178,6 +210,56 @@ const actions = {
             }
         )
     },
+
+    getUserFlaggedItems(context, idPageObj) {
+        return UserMainService.getFlaggedItems(idPageObj.id, idPageObj.page).then((data) => {
+                if (data && data.length !== 0) {
+                    context.commit('setUserFlaggedItems', data)
+                }
+                if (data.length < quantatyPerPage) {
+                    return true;
+                }
+                context.commit('setUserFlaggedItems', data)
+
+            },
+            (error) => {
+                console.log(error, 'error')
+            }
+        )
+    },
+    getUserUpVotes(context, idPageObj) {
+        return UserMainService.getUpvotes(idPageObj.id, idPageObj.page).then((data) => {
+                if (data && data.length !== 0) {
+                    context.commit('setUserUpVotes', data)
+                }
+                if (data.length < quantatyPerPage) {
+                    return true;
+                }
+                context.commit('setUserUpVotes', data)
+
+            },
+            (error) => {
+                console.log(error, 'error')
+            }
+        )
+    },
+    getUserDownVotes(context, idPageObj) {
+        return UserMainService.getDownVotes(idPageObj.id, idPageObj.page).then((data) => {
+                if (data && data.length !== 0) {
+                    context.commit('setUserDownVotes', data)
+                }
+                if (data.length < quantatyPerPage) {
+                    return true;
+                }
+                context.commit('setUserDownVotes', data)
+
+            },
+            (error) => {
+                console.log(error, 'error')
+            }
+        )
+    },
+
     verifyUserPhone(context, verifyObj) {
         return UserMainService.verifyPhone(verifyObj).then((resp) => {
             context.commit('setPhoneConfirmStatus');

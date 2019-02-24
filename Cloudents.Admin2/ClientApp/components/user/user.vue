@@ -36,5 +36,6 @@ export default {
 
     .user-content{
         padding: 5px;
+        width: 100%;
     }
 </style>

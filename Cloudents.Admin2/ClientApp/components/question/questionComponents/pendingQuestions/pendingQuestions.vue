@@ -23,39 +23,16 @@
                                 <v-btn slot="activator" icon @click="declineQuestion(question, index)">
                                     <v-icon color="red">close</v-icon>
                                 </v-btn>
-                                    <span>Decline Question</span>
+                                    <span>Delete</span>
                                 </v-tooltip>
                                 <v-tooltip left>
                                 <v-btn slot="activator" icon @click="aproveQ(question, index)">
                                     <v-icon color="green">done</v-icon>
                                 </v-btn>
-                                    <span>Accept Question</span>
+                                    <span>Accept</span>
                                 </v-tooltip>
                             </div>
                         </v-toolbar>
-
-                        <v-list two-line avatar>
-                            <template>
-                                <v-list-tile class="answers-list-tile">
-                                    <v-list-tile-content class="answers-content">
-                                        <!--<v-list-tile-sub-title class="answer-subtitle">{{question.reason}}-->
-                                        <!--</v-list-tile-sub-title>-->
-                                    </v-list-tile-content>
-                                    <v-list-tile-action class="answer-action">
-                                        <v-list-tile-action-text></v-list-tile-action-text>
-                                        <!--<v-btn icon  @click="declineQuestion(question, index)">-->
-                                        <!--<v-icon color="red">close</v-icon>-->
-                                        <!--</v-btn>-->
-                                    </v-list-tile-action>
-                                    <v-list-tile-action class="answer-action">
-                                        <v-list-tile-action-text></v-list-tile-action-text>
-                                        <!--<v-btn icon @click="aproveQ(question, index)">-->
-                                        <!--<v-icon color="green">done</v-icon>-->
-                                        <!--</v-btn>-->
-                                    </v-list-tile-action>
-                                </v-list-tile>
-                            </template>
-                        </v-list>
                     </v-card>
                 </v-flex>
             </v-layout>
