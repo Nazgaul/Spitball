@@ -38,9 +38,11 @@ body{
         height: 100%;
         display: flex;
         justify-content: space-between;
+        overflow: auto;
         .nav-container {
             min-width: 200px;
         }
+        
     }
 
     .router-view-wrap {
