@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -142,6 +143,9 @@ namespace Cloudents.Web.Api
 
         private static string BlobFileName(Guid sessionId, string name)
         {
+            Regex rgx = new Regex("[^\x00-\x7F]+");
+            name = rgx.Replace(name, "");
+            
             return $"file-{sessionId}-{name?.Replace("/",string.Empty)}";
         }
 
