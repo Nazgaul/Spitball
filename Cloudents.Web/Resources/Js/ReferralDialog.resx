@@ -136,7 +136,7 @@
     <value> invited friends have joined</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
-    <value>Earn 50 points for each one that joins</value>
+    <value>Earn 10 points for each one that joins</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
     <value>Spread the word at </value>
@@ -145,10 +145,10 @@
     <value>Click this link to have a look, I am certain it will worth your while and help you in your studying!</value>
   </data>
   <data name="get_your_homework" xml:space="preserve">
-    <value>Get your homework questions answered in minutes, and make money answering other students questions. Get 150 Free points if you sign up using this link:</value>
+    <value>Get your homework questions answered in minutes, and make money answering other students questions. Sign up using this link and start learning and earning today:</value>
   </data>
   <data name="get_your_homework_twitter" xml:space="preserve">
-    <value>Get your homework questions answered in minutes, and make money answering other students questions. Get 150 Free points if you sign up using this link</value>
+    <value>Get your homework questions answered in minutes, and make money answering other students questions. Sign up using this link and start learning and earning today:</value>
   </data>
   <data name="join_me" xml:space="preserve">
     <value>Join me on Spitball</value>
