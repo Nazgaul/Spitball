@@ -1,9 +1,9 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Storage
 {
@@ -44,6 +44,6 @@ namespace Cloudents.Core.Storage
         /// <returns>true if blob exists other wise false</returns>
         Task<bool> ExistsAsync(string blobName, CancellationToken token);
 
-        Task DeleteDirectoryAsync(string id);
+        Task DeleteDirectoryAsync(string id, CancellationToken token);
     }
 }

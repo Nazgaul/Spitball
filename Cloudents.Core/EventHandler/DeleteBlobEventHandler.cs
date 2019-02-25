@@ -17,7 +17,7 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(DocumentDeletedEvent eventMessage, CancellationToken token)
         {
-            return _blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString());
+            return _blobProvider.DeleteDirectoryAsync(eventMessage.Document.Id.ToString(), token);
         }
     }
 }
