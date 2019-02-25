@@ -25,5 +25,17 @@ namespace Cloudents.Web.Test.IntegrationTests
             var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
         }
+
+        [Theory]
+        [InlineData("/api/Question/28944")]
+        public async Task GetAsync_Url_Success(string url)
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }
