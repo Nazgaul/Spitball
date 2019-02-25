@@ -399,12 +399,12 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            await FixStorageAsync();
-            /* var commandBus = _container.Resolve<ICommandBus>();
-
-            await CoursesWithSimilarNames();
-                     160259, new List<string> { }, "econ 101");
-             await commandBus.DispatchAsync(command, token);*/
+            // await FixStorageAsync();
+            /* var commandBus = _container.Resolve<ICommandBus>();*/
+            await ReNameFiles();
+            //await CoursesWithSimilarNames();
+            //         160259, new List<string> { }, "econ 101");
+            // await commandBus.DispatchAsync(command, token);
             //await FunctionsExtensions.MergeCourses(_container);
 
             //var d = _container.Resolve<DapperRepository>();
@@ -531,6 +531,95 @@ namespace ConsoleApp
                 blobToken = result.ContinuationToken;
             } while (blobToken != null);
 
+        }
+
+
+        private static async Task ReNameFiles()
+        {
+            var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
+            var productionOldStorageAccount = CloudStorageAccount.Parse(key);
+            var blobClient = productionOldStorageAccount.CreateCloudBlobClient();
+            
+
+            var container = blobClient.GetContainerReference("spitball-files");
+            var dir = container.GetDirectoryReference("files");
+
+
+            BlobContinuationToken blobToken = null;
+            do
+            {
+                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, blobToken,
+                    new BlobRequestOptions(),
+                    new OperationContext(), default);
+
+                var list = new HashSet<long>();
+                Console.WriteLine("Receiving a new batch of blobs");
+                foreach (IListBlobItem blob in result.Results)
+                {
+
+                    //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
+                    var id = long.Parse(blob.Uri.Segments[3].TrimEnd('/'));
+                    if (!list.Add(id))
+                    {
+                        continue;
+                    }
+                    var fileDir = container.GetDirectoryReference($"files/{id}");
+                    var blobs = fileDir.ListBlobs().ToList();
+                    var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("file-"));
+
+                    Regex rgx = new Regex(@"[^\x00-\x7F]+|\s+");
+
+                    var t = rgx.Replace(textBlobItem.Uri.Segments.Last().Replace("%20", " "), string.Empty);
+                    //t = ".pdf";
+                    if (Path.GetFileNameWithoutExtension(t.Split('-').Last()) == string.Empty)
+                    {
+                        t = RandomString(3) + t;
+                    }
+
+                    if ($"/spitball-files/files/{id}/" + t != textBlobItem.Uri.LocalPath.ToString().Replace(" ", ""))
+                    {
+                        var dirToRemove = blob.Parent;
+                        string dirToRemoveStr = dirToRemove.Uri.ToString().Split('/')[dirToRemove.Uri.ToString().Split('/').Length - 2];
+                        var blobToMoveList = dirToRemove.ListBlobs();
+
+
+                        string blobToMoveStr = blobToMoveList.First().Uri.ToString().Split('/')[blobToMoveList.First().Uri.ToString().Split('/').Length - 1];
+                        var blobToMove = dirToRemove.GetBlockBlobReference(blobToMoveStr);
+
+                        var name = blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 2].Replace('/', '-');
+                        var ect = Path.GetExtension(blob.Uri.ToString().Split('/')[blob.Uri.ToString().Split('/').Length - 1]).TrimStart('.');
+                        var newName = rgx.Replace(name, string.Empty);
+                        CloudBlockBlob blobDestination = dir.GetBlockBlobReference(
+                            $"{id}/{newName}.{ect}");
+
+                        var sharedAccessUri = GetShareAccessUri(blobToMoveStr, 360, dirToRemove);
+
+                        var blobUri = new Uri(sharedAccessUri);
+                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+                        while (blobDestination.CopyState.Status != CopyStatus.Success)
+                        {
+                            Console.WriteLine(blobDestination.CopyState.Status);
+                            await Task.Delay(TimeSpan.FromSeconds(1));
+                            await blobDestination.ExistsAsync();
+                        }
+
+
+                        blobToMove.DeleteIfExists();
+                    }
+
+                }
+
+                blobToken = result.ContinuationToken;
+            } while (blobToken != null);
+
+        }
+
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
     }
