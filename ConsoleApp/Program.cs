@@ -246,10 +246,15 @@ namespace ConsoleApp
                     var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
                     if (textBlobItem != null)
                     {
-                        var queue = queueClient.GetQueueReference("generate-search-preview");
-                        var msg = new CloudQueueMessage(id.ToString());
-                        await queue.AddMessageAsync(msg);
-                        Console.WriteLine("Processing tags " + id);
+                        var textBlob2 = (CloudBlockBlob)blob;
+                        textBlob2.FetchAttributes();
+                        if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
+                        {
+                            var queue = queueClient.GetQueueReference("generate-search-preview");
+                            var msg = new CloudQueueMessage(id.ToString());
+                            await queue.AddMessageAsync(msg);
+                            Console.WriteLine("Processing tags " + id);
+                        }
                     }
 
                     else
