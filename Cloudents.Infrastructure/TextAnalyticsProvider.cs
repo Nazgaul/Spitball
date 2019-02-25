@@ -1,120 +1,47 @@
 ﻿using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using IBM.WatsonDeveloperCloud.LanguageTranslator.v3;
 using IBM.WatsonDeveloperCloud.NaturalLanguageUnderstanding.v1;
 using IBM.WatsonDeveloperCloud.NaturalLanguageUnderstanding.v1.Model;
 using IBM.WatsonDeveloperCloud.Util;
-using Microsoft.Azure.CognitiveServices.Language.TextAnalytics;
-using Microsoft.Azure.CognitiveServices.Language.TextAnalytics.Models;
-using Microsoft.Rest;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using static Cloudents.Core.Entities.Language;
+using IBM.WatsonDeveloperCloud.LanguageTranslator.v3.Model;
 
 namespace Cloudents.Infrastructure
 {
-    public class TextAnalysisProvider : ITextAnalysis, ITextClassifier
+    public class TextAnalysisProvider : ITextAnalysis
     {
-        private class ApiKeyServiceClientCredentials : ServiceClientCredentials
-        {
-            public override Task ProcessHttpRequestAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-            {
-                //TODO: configuration file ????
-                request.Headers.Add("Ocp-Apim-Subscription-Key", "d5a65fba156a490281577c13cbefee2c");
-                return base.ProcessHttpRequestAsync(request, cancellationToken);
-            }
-        }
-
-        private readonly ITextAnalyticsClient _client;
+        readonly LanguageTranslatorService _languageTranslator;
         public TextAnalysisProvider()
         {
 
-            _client = new TextAnalyticsClient(new ApiKeyServiceClientCredentials())
+            _languageTranslator = new LanguageTranslatorService(new TokenOptions()
             {
-                Endpoint = "https://northeurope.api.cognitive.microsoft.com"
-            };
+                IamApiKey = "y4dcd2v_eK-H4qkrJ8gedQIK7AZDavY1K-5TpQYiItkg",
+                ServiceUrl = "https://gateway-lon.watsonplatform.net/language-translator/api"
+            }, "2019-02-24");
+
         }
 
-        /// <summary>
-        /// Detect batch of sentences
-        /// </summary>
-        /// <typeparam name="T">The type of the id</typeparam>
-        /// <param name="texts">Key value of id - string</param>
-        /// <param name="token"></param>
-        /// <returns>key value of id - culture</returns>
-        public async Task<IEnumerable<KeyValuePair<T, CultureInfo>>> DetectLanguageAsync<T>(IEnumerable<KeyValuePair<T, string>> texts, CancellationToken token)
+        public Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token)
         {
-
-
-            var b = new BatchInput(texts.Where(w => !string.IsNullOrEmpty(w.Value))
-                .Select(s => new Input(s.Key.ToString(), s.Value.Truncate(4000)))
-                .ToList());
-            if (b.Documents.Count == 0)
+            var result2 = _languageTranslator.Identify(text);
+            var identify = result2.Languages.FirstOrDefault();
+            if (identify == null)
             {
-                return null;
+                return Task.FromResult<CultureInfo>(null);
             }
-            var result =
-                await _client.DetectLanguageAsync(b, cancellationToken: token);
+            return Task.FromResult(new CultureInfo(identify.Language));
 
-
-
-            return result.Documents.Select(x =>
-             {
-                 CultureInfo t = English;
-                 if (x.DetectedLanguages[0].Score > 0)
-                 {
-                     t = new CultureInfo(x.DetectedLanguages[0].Iso6391Name.Replace("_", "-"));
-                 }
-
-                 return new KeyValuePair<T, CultureInfo>((T)Convert.ChangeType(x.Id, typeof(T)), t);
-             });
         }
 
-        public async Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                return English;
-            }
-            var result = await DetectLanguageAsync(new[] { new KeyValuePair<string, string>("1", text) }, token);
-            return result.FirstOrDefault().Value ?? English;
-        }
-
-        public async Task<IEnumerable<string>> KeyPhraseAsync(string text, CancellationToken token)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                return null;
-            }
-
-            KeyPhraseBatchResult result2 = await _client.KeyPhrasesAsync(new MultiLanguageBatchInput(
-                new List<MultiLanguageInput>()
-                {
-                    new MultiLanguageInput(language:"en", text: text.Truncate(4500),id:"1")
-                }), cancellationToken: token);
-
-            // Printing keyphrases
-            var p = result2.Documents.FirstOrDefault();
-            return p?.KeyPhrases.Take(50);
-
-            //foreach (var document in result2.Documents)
-            //{
-            //    Console.WriteLine($"Document ID: {document.Id} ");
-
-            //    Console.WriteLine("\t Key phrases:");
-
-            //    foreach (string keyphrase in document.KeyPhrases)
-            //    {
-
-            //        Console.WriteLine($"\t\t{keyphrase}");
-            //    }
-            //}
-        }
+        
     }
 
     public class TextClassifierAnalysis : ITextClassifier
@@ -127,7 +54,8 @@ namespace Cloudents.Infrastructure
                 IamApiKey = "tJLg4zulbTIXu1zUprqfDP6KuHpnpW8oQ4iVt06i1nES",
                 ServiceUrl = "https://gateway-lon.watsonplatform.net/natural-language-understanding/api"
             };
-            _naturalLanguageUnderstandingService = new NaturalLanguageUnderstandingService(iamAssistantTokenOptions, "2019-02-24");
+            _naturalLanguageUnderstandingService = new NaturalLanguageUnderstandingService(iamAssistantTokenOptions,
+                "2019-02-24");
 
         }
 
@@ -147,7 +75,8 @@ namespace Cloudents.Infrastructure
                     Categories = new CategoriesOptions()
                     {
                         Limit = 50
-                    }
+                    },
+
                 }
             };
             var apiResult = _naturalLanguageUnderstandingService.Analyze(parameters);
@@ -170,12 +99,13 @@ namespace Cloudents.Infrastructure
         }
 
 
-        public async Task<string> TranslateAsync(string text, string to, CancellationToken token)
+        public async Task<string> TranslateAsync(string text,string from, string to, CancellationToken token)
         {
             var uriBuilder = new UriBuilder(new Uri(host + route));
             uriBuilder.AddQuery(new NameValueCollection()
             {
                 ["to"] = to,
+                ["from"] = from,
                 ["api-version"] = "3.0"
             });
 

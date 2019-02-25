@@ -30,7 +30,7 @@ namespace Cloudents.Core.Entities
                 return false;
             }
 
-            if (tag.Count(x => x == ' ') > 2)
+            if (tag.Count(x => x == ' ') > 6)
             {
                 return false;
             }
@@ -68,7 +68,7 @@ namespace Cloudents.Core.Entities
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException($"not a valid tag name: {name}",nameof(name));
             }
         }
 

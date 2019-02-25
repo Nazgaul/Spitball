@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
@@ -26,8 +27,15 @@ namespace Cloudents.Command.CommandHandler
             doc.MetaContent = message.Snippet;
             foreach (var tagStr in message.Tags ?? Enumerable.Empty<string>())
             {
-                var tag = await _tagRepository.GetOrAddAsync(tagStr, token);
-                doc.Tags.Add(tag);
+                try
+                {
+                    var tag = await _tagRepository.GetOrAddAsync(tagStr.Replace(",", " "), token);
+                    doc.Tags.Add(tag);
+                }
+                catch (ArgumentException)
+                {
+
+                }
             }
             await _documentRepository.UpdateAsync(doc, token);
         }

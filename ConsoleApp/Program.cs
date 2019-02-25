@@ -27,35 +27,72 @@ namespace ConsoleApp
     {
         private static IContainer _container;
 
+        public enum EnvironmentSettings
+        {
+            Dev,
+            Prod
+        }
 
 
+        public static ConfigurationKeys GetSettings(EnvironmentSettings dev)
+        {
+            switch (dev)
+            {
+                case EnvironmentSettings.Dev:
+                    return new ConfigurationKeys("https://dev.spitball.co")
+                    {
+                        Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                            ConfigurationManager.AppSettings["Redis"]),
+                        MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
+                        Search = new SearchServiceCredentials(
+
+                            ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                            ConfigurationManager.AppSettings["AzureSearchKey"], true),
+                        Redis = ConfigurationManager.AppSettings["Redis"],
+                        Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
+                        LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
+                        BlockChainNetwork = "http://localhost:8545",
+                        ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
+                        PayPal = new PayPalCredentials(
+                            "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
+                            "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8",
+                            true)
+                    };
+                case EnvironmentSettings.Prod:
+                    return new ConfigurationKeys("https://www.spitball.co")
+                    {
+                        Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                            ConfigurationManager.AppSettings["Redis"]),
+                        MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
+                        Search = new SearchServiceCredentials(
+
+                            ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                            ConfigurationManager.AppSettings["AzureSearchKey"], false),
+                        Redis = ConfigurationManager.AppSettings["Redis"],
+                        Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
+                        LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
+                        BlockChainNetwork = "http://localhost:8545",
+                        ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
+                        PayPal = new PayPalCredentials(
+                            "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
+                            "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8",
+                            true)
+                    };
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(dev), dev, null);
+            }
+
+           
+        }
 
         static async Task Main()
         {
 
             var builder = new ContainerBuilder();
-            var keys = new ConfigurationKeys("https://www.spitball.co")
-            {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                    ConfigurationManager.AppSettings["Redis"]),
-                MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
-                Search = new SearchServiceCredentials(
-
-                    ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"], true),
-                Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
-                LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://localhost:8545",
-                ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
-                PayPal = new PayPalCredentials(
-                    "AcaET-3DaTqu01QZ0Ad7-5C52pMZ5s4nx59TmbCqdn8gZpfJoM3UPLYCnZmDELZfc-22N_yhmaGEjS3e",
-                    "EPBamUk7w8Ibrld_eNRV18FYp1zqcYBqx8gCpBBUU9_W5h4tBf8_PhqYS9rzyBBjXJhZ0elFoXoLvdk8",
-                    true)
-            };
+            
 
 
-            builder.Register(_ => keys).As<IConfigurationKeys>();
+            builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistance"),
