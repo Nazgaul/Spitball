@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using IBM.WatsonDeveloperCloud.LanguageTranslator.v3.Model;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure
 {
@@ -29,9 +30,10 @@ namespace Cloudents.Infrastructure
 
         }
 
+        [ItemCanBeNull]
         public Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token)
         {
-            var result2 = _languageTranslator.Identify(text);
+            var result2 = _languageTranslator.Identify(text.Truncate(5000));
             var identify = result2.Languages.FirstOrDefault();
             if (identify == null)
             {
@@ -66,12 +68,12 @@ namespace Cloudents.Infrastructure
                 Text = text,
                 Features = new Features()
                 {
-                    Keywords = new KeywordsOptions()
-                    {
-                        Limit = 50,
-                        Sentiment = false,
-                        Emotion = false
-                    },
+                    //Keywords = new KeywordsOptions()
+                    //{
+                    //    Limit = 50,
+                    //    Sentiment = false,
+                    //    Emotion = false
+                    //},
                     Categories = new CategoriesOptions()
                     {
                         Limit = 50
