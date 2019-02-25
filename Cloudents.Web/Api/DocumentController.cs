@@ -43,22 +43,21 @@ namespace Cloudents.Web.Api
         private readonly UserManager<RegularUser> _userManager;
         private readonly IBlobProvider<DocumentContainer> _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
-        private readonly IProfileUpdater _profileUpdater;
+        //private readonly IProfileUpdater _profileUpdater;
 
 
 
         public DocumentController(IQueryBus queryBus,
              ICommandBus commandBus, UserManager<RegularUser> userManager,
             IBlobProvider<DocumentContainer> blobProvider,
-            IStringLocalizer<DocumentController> localizer,
-            IProfileUpdater profileUpdater)
+            IStringLocalizer<DocumentController> localizer
+            )
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
             _userManager = userManager;
             _blobProvider = blobProvider;
             _localizer = localizer;
-            _profileUpdater = profileUpdater;
         }
 
         [HttpGet("{id}"), AllowAnonymous]
@@ -151,7 +150,6 @@ namespace Cloudents.Web.Api
                 Page = model.Page.GetValueOrDefault(),
             };
 
-            var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
             var resultTask = searchProvider.SearchDocumentsAsync(query, token);
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
@@ -168,7 +166,7 @@ namespace Cloudents.Web.Api
 
             }
 
-            await Task.WhenAll(resultTask, queueTask, votesTask);
+            await Task.WhenAll(resultTask, votesTask);
             var result = resultTask.Result;
             var p = result.Result.ToList();
             string nextPageLink = null;

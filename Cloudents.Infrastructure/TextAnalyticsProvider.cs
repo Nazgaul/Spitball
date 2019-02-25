@@ -4,6 +4,7 @@ using IBM.WatsonDeveloperCloud.LanguageTranslator.v3;
 using IBM.WatsonDeveloperCloud.NaturalLanguageUnderstanding.v1;
 using IBM.WatsonDeveloperCloud.NaturalLanguageUnderstanding.v1.Model;
 using IBM.WatsonDeveloperCloud.Util;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -11,7 +12,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure
 {
@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure
 
         }
 
-        
+
     }
 
     public class TextClassifierAnalysis : ITextClassifier
@@ -100,7 +100,7 @@ namespace Cloudents.Infrastructure
         }
 
 
-        public async Task<string> TranslateAsync(string text,string from, string to, CancellationToken token)
+        public async Task<string> TranslateAsync(string text, string from, string to, CancellationToken token)
         {
             var uriBuilder = new UriBuilder(new Uri(host + route));
             uriBuilder.AddQuery(new NameValueCollection()
@@ -119,14 +119,6 @@ namespace Cloudents.Infrastructure
             }, token);
 
             return result.FirstOrDefault()?.translations.FirstOrDefault()?.text;
-
-
-
-
-
-
-
-
         }
 
         private class Result

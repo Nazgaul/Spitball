@@ -144,10 +144,23 @@ namespace Cloudents.Infrastructure
             var response = await TransferJsonBodyAsync(HttpMethod.Post, url, obj, headers, token);
             if (!response.IsSuccessStatusCode)
             {
+
                 var content = await response.Content.ReadAsStringAsync();
-                _logger.Warning(content);
+
+                var v = new HttpRequestException($"failed to invoke url: {url}")
+                {
+                    Data =
+                    {
+                        ["content"] = content,
+                        ["obj"] = JsonConvert.SerializeObject(obj),
+                        ["headers"] = JsonConvert.SerializeObject(headers)
+                    }
+                    
+                };
+                throw v;
             }
-            response.EnsureSuccessStatusCode();
+           
+            //response.EnsureSuccessStatusCode();
             using (var s = await response.Content.ReadAsStreamAsync())
             using (var sr = new StreamReader(s))
             using (var reader = new JsonTextReader(sr))

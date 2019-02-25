@@ -8,7 +8,7 @@
             Tag = tag;
         }
 
-        public long UserId { get; set; }
-        public string Tag { get; set; }
+        public long UserId { get;  }
+        public string Tag { get; }
     }
 }

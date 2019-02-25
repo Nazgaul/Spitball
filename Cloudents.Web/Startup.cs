@@ -165,7 +165,6 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<RegularUser>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
-            services.AddTransient<IProfileUpdater, QueueProfileUpdater>();
             services.AddTransient<ICountryProvider, CountryProvider>();
 
             var assembliesOfProgram = new[]
