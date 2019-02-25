@@ -28,7 +28,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QnA>> GetAsync(CancellationToken token)
         {
             var uri = new Uri("https://zboxstorage.blob.core.windows.net/zboxhelp/new/help2.xml");
-            var t = await _restClient.DownloadStreamAsync(uri, token).ConfigureAwait(false);
+            var t = await _restClient.DownloadStreamAsync(uri, token);
 
             using (var stream = t.stream)
             {

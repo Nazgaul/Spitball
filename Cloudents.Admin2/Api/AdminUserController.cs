@@ -13,8 +13,6 @@ using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Storage;
 using System.Linq;
 using Cloudents.Command.Command;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Admin2.Api
 {

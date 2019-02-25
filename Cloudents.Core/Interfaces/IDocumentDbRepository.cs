@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿//using System.Threading.Tasks;
 
-namespace Cloudents.Core.Interfaces
-{
-    public interface IDocumentDbRepository<T> where T : class
-    {
-        Task<T> GetItemAsync(string id);
-    }
-}
+//namespace Cloudents.Core.Interfaces
+//{
+//    public interface IDocumentDbRepository<T> where T : class
+//    {
+//        Task<T> GetItemAsync(string id);
+//    }
+//}

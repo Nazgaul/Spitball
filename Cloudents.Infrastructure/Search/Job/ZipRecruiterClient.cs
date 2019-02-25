@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
-using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
@@ -22,12 +21,10 @@ namespace Cloudents.Infrastructure.Search.Job
     public class ZipRecruiterClient : IJobProvider
     {
         private readonly IRestClient _client;
-        private readonly IMapper _mapper;
 
-        public ZipRecruiterClient(IRestClient client, IMapper mapper)
+        public ZipRecruiterClient(IRestClient client)
         {
             _client = client;
-            _mapper = mapper;
         }
 
         [Cache(TimeConst.Hour, "job-zipRecruiter", false)]
@@ -53,7 +50,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["radius_miles"] = JobSearch.RadiusOfFindingJobMiles.ToString(CultureInfo.InvariantCulture)
             };
 
-            var result = await _client.GetAsync<ZipRecruiterResult>(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token).ConfigureAwait(false);
+            var result = await _client.GetAsync<ZipRecruiterResult>(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token);
             if (result == null)
             {
                 return null;
@@ -64,7 +61,19 @@ namespace Cloudents.Infrastructure.Search.Job
                 return null;
             }
 
-            var jobs = _mapper.MapWithPriority<Job, JobProviderDto>(result.Jobs);
+            var jobs = result.Jobs.Select((s, i) => new JobProviderDto
+            {
+                DateTime = s.PostedTime,
+                Url = s.Url,
+                PrioritySource = PrioritySource.JobZipRecruiter,
+                //Source = "ZipRecruiter",
+                Company = s.HiringCompany.Name,
+                Address = s.Location,
+                Title = s.Name,
+                CompensationType = "Paid",
+                Responsibilities = s.Snippet.StripAndDecode(),
+                Order = i + 1
+            });
 
             return new ResultWithFacetDto<JobProviderDto>
             {

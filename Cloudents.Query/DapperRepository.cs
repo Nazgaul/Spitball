@@ -31,9 +31,9 @@ namespace Cloudents.Query
             {
                 using (var connection = new SqlConnection(_connectionString))
                 {
-                    await connection.OpenAsync(token).ConfigureAwait(false); // Asynchronously open a connection to the database
+                    await connection.OpenAsync(token); // Asynchronously open a connection to the database
                           // Asynchronously execute getData, which has been passed in as a Func<IDBConnection, Task<T>>
-                    return await getData(connection).ConfigureAwait(false);
+                    return await getData(connection);
                 }
             }
             catch (TimeoutException ex)

@@ -23,7 +23,7 @@
 //        {
 //            //return this.RedirectToOldSite();
 //            ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/fbFlashcard.png";
-//            var model = await _repository.GetAsync(id, token).ConfigureAwait(false);
+//            var model = await _repository.GetAsync(id, token);
 
 //            if (model == null)
 //            {

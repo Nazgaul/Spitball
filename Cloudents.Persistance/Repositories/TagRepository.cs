@@ -25,7 +25,7 @@ namespace Cloudents.Persistance.Repositories
             {
 
                 tag = new Tag(name);
-                await AddAsync(tag, token).ConfigureAwait(true);
+                await AddAsync(tag, token);
             }
 
             return tag;

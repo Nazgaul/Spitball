@@ -50,7 +50,7 @@ namespace Cloudents.Web.Api
                 var query = new NextQuestionQuery(model.QuestionId, userId);
                 var t2 = queryBus.QueryAsync(query, token);
 
-                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+                await Task.WhenAll(t1, t2);
 
              
 

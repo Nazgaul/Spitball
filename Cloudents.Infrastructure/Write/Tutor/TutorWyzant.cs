@@ -66,7 +66,7 @@
 //            {
 //                filter |= TutorFilter.Online;
 //            }
-//            var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
+//            var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token);
 //            return new Core.Entities.Search.Tutor
 //            {
 //                Id = obj.TutorId.ToString(),

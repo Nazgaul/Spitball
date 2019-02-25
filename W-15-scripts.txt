@@ -1,11 +1,7 @@
-﻿az servicebus topic create --name communication --namespace-name spitball-prod --resource-group zbox
-az servicebus topic subscription create --resource-group zbox --namespace-name spitball-prod --topic-name communication --name sms
-az servicebus topic subscription rule create --resource-group zbox --namespace-name spitball-prod --topic-name communication --subscription-name sms --name smsRule --filter-sql-expression "sys.Label= 'sms'"
-az servicebus topic subscription create --resource-group zbox --namespace-name spitball-prod --topic-name communication --name call
-az servicebus topic subscription rule create --resource-group zbox --namespace-name spitball-prod --topic-name communication --subscription-name call --name phoneRule --filter-sql-expression "sys.Label= 'phone'"
+﻿--we can remove the bing custom search api key from azure
 
-need to upload azure function v2.
 
+--need to do when we transfer to new scoring system.
 need to run in case we want to change the Score system to transactions count
 first run the first update statement until all records have been updated and 
 then run the second update for all tire1 users

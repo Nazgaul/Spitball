@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -10,7 +6,10 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using JetBrains.Annotations;
-using IMapper = AutoMapper.IMapper;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
@@ -19,17 +18,15 @@ namespace Cloudents.Infrastructure.Search.Job
     {
         private readonly IEnumerable<IJobProvider> _providers;
         private readonly IShuffle _shuffle;
-        private readonly IMapper _mapper;
 
         public const int PageSize = 10;
         public const double RadiusOfFindingJobKm = RadiusOfFindingJobMiles * 1.6;
         public const double RadiusOfFindingJobMiles = 50;
 
-        public JobSearch(IEnumerable<IJobProvider> providers, IShuffle shuffle, IMapper mapper)
+        public JobSearch(IEnumerable<IJobProvider> providers, IShuffle shuffle)
         {
             _providers = providers;
             _shuffle = shuffle;
-            _mapper = mapper;
         }
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
@@ -48,15 +45,26 @@ namespace Cloudents.Infrastructure.Search.Job
             }).Where(w => w != JobFilter.None);
             var jobRequest = new JobProviderRequest(str.Trim(), sort, facetEnum, location, page);
             var tasks = _providers.Select(s => s.SearchAsync(jobRequest, token));
-            var tasksResult = await Task.WhenAll(tasks).ConfigureAwait(false);
+            var tasksResult = await Task.WhenAll(tasks);
 
             var result = tasksResult.Where(w => w != null).ToList();
 
-            var retVal = result.Aggregate(new ResultWithFacetDto<JobDto>(), (dto,  next) =>
+            var retVal = result.Aggregate(new ResultWithFacetDto<JobDto>(), (dto, next) =>
             {
                 if (next.Result != null)
                 {
-                    var resultNext = _mapper.Map<IEnumerable<JobDto>>(next.Result);
+                    var resultNext = next.Result.Where(s => s != null).Select(s => new JobDto()
+                    {
+                        Order = s.Order,
+                        Url = s.Url,
+                        Title = s.Title,
+                        DateTime = s.DateTime,
+                        PrioritySource = s.PrioritySource,
+                        Company = s.Company,
+                        CompensationType = s.CompensationType,
+                        Responsibilities = s.Responsibilities,
+                        Address = s.Address
+                    });
                     dto.Result = (dto.Result ?? Enumerable.Empty<JobDto>()).Union(resultNext);
                 }
 
