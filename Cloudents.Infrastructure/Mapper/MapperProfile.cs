@@ -5,7 +5,6 @@ using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Suggest;
-using SearchResult = Cloudents.Core.DTOs.SearchResult;
 
 namespace Cloudents.Infrastructure.Mapper
 {
@@ -14,7 +13,7 @@ namespace Cloudents.Infrastructure.Mapper
         public MapperProfile()
         {
             CreateMap<GoogleGeoCodeDto, (Address address, GeoPoint point)>().ConvertUsing<GoogleGeoConverter>();
-            CreateMap<BingWebPage, SearchResult>().ConvertUsing<BingConverter>();
+            //CreateMap<BingWebPage, SearchResult>().ConvertUsing<BingConverter>();
             CreateMap<BingSuggest.SuggestionsObject, IEnumerable<string>>().ConvertUsing<BingSuggestConverter>();
         }
     }

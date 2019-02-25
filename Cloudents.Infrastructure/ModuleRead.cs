@@ -2,7 +2,6 @@
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
-using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
@@ -15,8 +14,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Search.Document;
 using Cloudents.Infrastructure.Suggest;
-using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
-using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
@@ -33,15 +30,15 @@ namespace Cloudents.Infrastructure
                 /*.As<IStartable>()*/.SingleInstance()/*.AutoActivate()*/;
             builder.RegisterGeneric(typeof(DocumentDbRepository<>)).AsImplementedInterfaces();
 
-            builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
+            //builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
+            //    .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
-            builder.RegisterType<DomainParser>().AsSelf().As<IDomainParser>().SingleInstance();
-            builder.RegisterType<DomainCache>().As<ICacheProvider>();
+            //builder.RegisterType<DomainParser>().AsSelf().As<IDomainParser>().SingleInstance();
+            //builder.RegisterType<DomainCache>().As<ICacheProvider>();
 
-            builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
+            //builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
 
-            builder.RegisterType<WebSearch>();
+            //builder.RegisterType<WebSearch>();
 
             //builder.RegisterType<AzureQuestionSearch>().AsSelf();//
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();

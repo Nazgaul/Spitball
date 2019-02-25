@@ -28,8 +28,8 @@ namespace Cloudents.Infrastructure.Stuff
             builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
             builder.RegisterType<Shuffle>().As<IShuffle>();
 
-            builder.RegisterType<WebSearch>().As<IWebDocumentSearch>().WithParameter("api", CustomApiKey.Documents);
-            builder.RegisterType<WebSearch>().As<IWebFlashcardSearch>().WithParameter("api", CustomApiKey.Flashcard);
+            //builder.RegisterType<WebSearch>().As<IWebDocumentSearch>().WithParameter("api", CustomApiKey.Documents);
+            //builder.RegisterType<WebSearch>().As<IWebFlashcardSearch>().WithParameter("api", CustomApiKey.Flashcard);
 
             //builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 

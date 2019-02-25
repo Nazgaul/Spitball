@@ -12,15 +12,15 @@ namespace Cloudents.Core.Interfaces
             CancellationToken cancelToken);
     }
 
-    public interface IWebDocumentSearch
-    {
-        Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(BingSearchQuery model,
-             CancellationToken token);
-    }
+    //public interface IWebDocumentSearch
+    //{
+    //    Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(BingSearchQuery model,
+    //         CancellationToken token);
+    //}
 
-    public interface IWebFlashcardSearch
-    {
-        Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(BingSearchQuery model,
-             CancellationToken token);
-    }
+    //public interface IWebFlashcardSearch
+    //{
+    //    Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(BingSearchQuery model,
+    //         CancellationToken token);
+    //}
 }

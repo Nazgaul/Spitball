@@ -9,7 +9,6 @@ using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Cloudents.Infrastructure.Domain;
 using Cloudents.Web.Models;
 
 namespace Cloudents.Web.Controllers
@@ -20,14 +19,13 @@ namespace Cloudents.Web.Controllers
     {
         private readonly IQueueProvider _queueProvider;
         private readonly ILogger _logger;
-        private readonly IDomainParser _domainParser;
+        //private readonly IDomainParser _domainParser;
        
 
-        public UrlController(IQueueProvider queueProvider, ILogger logger, IDomainParser domainParser)
+        public UrlController(IQueueProvider queueProvider, ILogger logger)
         {
             _queueProvider = queueProvider;
             _logger = logger;
-            _domainParser = domainParser;
         }
 
         private static readonly IList<string> Domains = PrioritySource.DocumentPriority.Values
@@ -58,12 +56,12 @@ namespace Cloudents.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            if (refererUri.PathAndQuery.Contains(new[] { "flashcard", "note" }, StringComparison.OrdinalIgnoreCase))
-            {
-                var domain = _domainParser.GetDomain(model.Url.Host);
-                if (!Domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
-                    throw new ArgumentException("invalid url");
-            }
+            //if (refererUri.PathAndQuery.Contains(new[] { "flashcard", "note" }, StringComparison.OrdinalIgnoreCase))
+            //{
+                //var domain = _domainParser.GetDomain(model.Url.Host);
+                //if (!Domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
+                //    throw new ArgumentException("invalid url");
+            //}
             _queueProvider.InsertMessageAsync(new RedirectUserMessage(model.Host, model.Url, referer, model.Location, userIp.ToString()), token);
 
             if (model.Url.Host.Contains("courseHero", StringComparison.OrdinalIgnoreCase))

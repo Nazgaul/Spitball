@@ -42,27 +42,29 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [Route("flashcards", Name = "FlashcardSearch"), HttpGet]
-        public async Task<WebResponseWithFacet<SearchResult>> SearchFlashcardAsync([FromQuery] SearchRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
-            [FromServices] IWebFlashcardSearch searchProvider, CancellationToken token)
+        public WebResponseWithFacet<SearchResult> SearchFlashcardAsync(
+           // [FromQuery] SearchRequest model,
+            //[ProfileModelBinder(ProfileServiceQuery.University)] UserProfile profile,
+           //[FromServices] IWebFlashcardSearch searchProvider, CancellationToken token
+           )
         {
-            var query = BingSearchQuery.Flashcard(model.Query, profile.University?.ExtraName, model.Course, model.Source, model.Page.GetValueOrDefault());
-            var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, token).ConfigureAwait(false);
-            string nextPageLink = null;
-            var p = result.Result?.ToList();
-            if (p?.Any() == true)
-            {
-                nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
-            }
+           // var query = BingSearchQuery.Flashcard(model.Query, profile.University?.ExtraName, model.Course, model.Source, model.Page.GetValueOrDefault());
+            //var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, token).ConfigureAwait(false);
+            //string nextPageLink = null;
+           // var p = result.Result?.ToList();
+           // if (p?.Any() == true)
+           // {
+           //     nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
+           // }
             return new WebResponseWithFacet<SearchResult>
             {
-                Result = p,
+                Result = new SearchResult[0],
                 Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = new IFilters[]
                 {
-                    new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
+                    //new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
-                NextPageLink = nextPageLink
+                NextPageLink = null
             };
            
         }
