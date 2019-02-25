@@ -63,7 +63,7 @@ namespace Cloudents.Search.Job
             };
 
             var retValSearchResult = await
-                _client.Documents.SearchAsync<Entities.Job>(jobProviderRequest.Term, searchParams, cancellationToken: token).ConfigureAwait(false);
+                _client.Documents.SearchAsync<Entities.Job>(jobProviderRequest.Term, searchParams, cancellationToken: token);
             if (retValSearchResult.Results.Count == 0)
             {
                 return null;

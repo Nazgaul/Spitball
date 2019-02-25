@@ -58,7 +58,7 @@
 //            var response = await _restClient.GetAsync<BingCustomSearchResponse>(uri, nvc, new[]
 //            {
 //                new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", SubscriptionKey)
-//            }, token).ConfigureAwait(false);
+//            }, token);
 //            if (response?.WebPages?.Value == null)
 //            {
 //                return null;

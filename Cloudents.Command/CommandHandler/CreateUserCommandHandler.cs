@@ -18,7 +18,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(CreateUserCommand message, CancellationToken token)
         {
-            await _userRepository.AddAsync(message.User, token).ConfigureAwait(false);
+            await _userRepository.AddAsync(message.User, token);
         }
     }
 }

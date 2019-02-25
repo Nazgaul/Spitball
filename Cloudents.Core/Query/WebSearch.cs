@@ -29,7 +29,7 @@
 
 //            var cseModel = new SearchModel(model.Query, BuildSources(model.Source),
 //                _api, model.Course, model.University);
-//            var result = await _search.SearchAsync(cseModel, model.Page,  token).ConfigureAwait(false);
+//            var result = await _search.SearchAsync(cseModel, model.Page,  token);
 //            var facets = _api.Priority.Select(s => s.Key).OrderBy(s => s);
 //            return new ResultWithFacetDto<SearchResult>
 //            {

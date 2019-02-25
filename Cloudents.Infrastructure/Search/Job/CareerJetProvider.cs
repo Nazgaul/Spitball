@@ -90,7 +90,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 nvc.Add("location", $"{jobProviderRequest.Location.Address.City}, {jobProviderRequest.Location.Address.RegionCode}");
             }
 
-            var result = await _client.GetAsync<CareerJetResult>(new Uri("http://public.api.careerjet.net/search"), nvc, token).ConfigureAwait(false);
+            var result = await _client.GetAsync<CareerJetResult>(new Uri("http://public.api.careerjet.net/search"), nvc, token);
             if (result == null)
             {
                 return null;

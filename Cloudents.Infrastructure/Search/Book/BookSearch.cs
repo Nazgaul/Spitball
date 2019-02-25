@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Search.Book
                 ["image_width"] = 150.ToString(),
                 ["format"] = "json"
             };
-            var result = await MakeApiCallAsync(nvc, token).ConfigureAwait(false);
+            var result = await MakeApiCallAsync(nvc, token);
             if (ValidateSearchResult(page, result))
             {
 
@@ -79,7 +79,7 @@ namespace Cloudents.Infrastructure.Search.Book
 
         private async Task<BookDetailResult> MakeApiCallAsync(NameValueCollection nvc, CancellationToken token)
         {
-            var result = await _restClient.GetAsync<BookDetailResult>(new Uri(Url), nvc, token).ConfigureAwait(false);
+            var result = await _restClient.GetAsync<BookDetailResult>(new Uri(Url), nvc, token);
             if (result == null)
             {
                 return null;
@@ -114,7 +114,7 @@ namespace Cloudents.Infrastructure.Search.Book
             };
             //https://api2.campusbooks.com/13/rest/books?key=sP8C5AHcdiT0tsMsotT&f=search,prices&format=json&isbn=9780446556224&type=buyback
 
-            var result = await MakeApiCallAsync(nvc, token).ConfigureAwait(false);
+            var result = await MakeApiCallAsync(nvc, token);
             if (result == null)
             {
                 return null;
@@ -167,7 +167,7 @@ namespace Cloudents.Infrastructure.Search.Book
         [Cache(TimeConst.Minute * 5, "book-sell", false)]
         public async Task<BookDetailsDto> SellAsync(string isbn13, CancellationToken token)
         {
-            var result = await BuyOrSellApiAsync(isbn13, true, token).ConfigureAwait(false);
+            var result = await BuyOrSellApiAsync(isbn13, true, token);
             if (result == null)
             {
                 return null;

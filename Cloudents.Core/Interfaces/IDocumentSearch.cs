@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Query;
-using Cloudents.Core.Request;
 
 namespace Cloudents.Core.Interfaces
 {

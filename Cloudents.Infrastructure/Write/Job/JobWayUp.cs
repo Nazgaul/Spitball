@@ -87,7 +87,7 @@
 //                dateTime = p;
 //            }
 
-//            var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
+//            var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token);
 //            var job = new Core.Entities.Search.Job
 //            {
 //                City = obj.City,

@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure.Search.Job
             }
             nvc.Add("jobtype", string.Join(",", jobFilter));
 
-            var result = await _client.GetAsync<Jobs2CareersResult>(new Uri("http://api.jobs2careers.com/api/search.php"), nvc, token).ConfigureAwait(false);
+            var result = await _client.GetAsync<Jobs2CareersResult>(new Uri("http://api.jobs2careers.com/api/search.php"), nvc, token);
 
             if (result == null)
             {

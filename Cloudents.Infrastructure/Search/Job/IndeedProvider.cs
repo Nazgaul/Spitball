@@ -86,7 +86,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 nvc.Add("sort", "date");
             }
 
-            var result = await _client.GetAsync<IndeedResult>(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token).ConfigureAwait(false);
+            var result = await _client.GetAsync<IndeedResult>(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token);
             if (result == null)
             {
                 return null;

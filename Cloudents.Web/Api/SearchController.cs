@@ -1,18 +1,10 @@
-﻿using Cloudents.Web.Extensions;
-using Cloudents.Web.Models;
+﻿using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
-using Cloudents.Core.Request;
-using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
@@ -24,23 +16,19 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController]
     public class SearchController : ControllerBase
     {
-        private readonly IStringLocalizer<SearchController> _localizer;
+        //private readonly IStringLocalizer<SearchController> _localizer;
 
 
-        public SearchController(IStringLocalizer<SearchController> localizer
-        )
-        {
-            _localizer = localizer;
-        }
+        //public SearchController(IStringLocalizer<SearchController> localizer
+        //)
+        //{
+        //    _localizer = localizer;
+        //}
 
         /// <summary>
         /// Search flashcard vertical result
         /// </summary>
-        /// <param name="model">The model</param>
-        /// <param name="profile">Profile - generated on server not to transfer</param>
-        /// <param name="searchProvider">DI</param>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <returns>None - this atm not supported</returns>
         [Route("flashcards", Name = "FlashcardSearch"), HttpGet]
         public WebResponseWithFacet<SearchResult> SearchFlashcardAsync(
            // [FromQuery] SearchRequest model,
@@ -49,7 +37,7 @@ namespace Cloudents.Web.Api
            )
         {
            // var query = BingSearchQuery.Flashcard(model.Query, profile.University?.ExtraName, model.Course, model.Source, model.Page.GetValueOrDefault());
-            //var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, token).ConfigureAwait(false);
+            //var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, token);
             //string nextPageLink = null;
            // var p = result.Result?.ToList();
            // if (p?.Any() == true)

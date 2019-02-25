@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Storage
                 using (var stream = File.Open(fileNameWithPath, FileMode.Create))
                 {
                     streamArray.Seek(0, SeekOrigin.Begin);
-                    await streamArray.CopyToAsync(stream).ConfigureAwait(false);
+                    await streamArray.CopyToAsync(stream);
                 }
                 return fileNameWithPath;
             }
@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Storage
             }
             using (var stream = File.Open(fileNameWithPath, FileMode.Create))
             {
-                await streamArray.CopyToAsync(stream).ConfigureAwait(false);
+                await streamArray.CopyToAsync(stream);
             }
             return fileNameWithPath;
         }

@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Infrastructure.Auth;
-using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
@@ -11,9 +10,9 @@ using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Search.Document;
 using Cloudents.Infrastructure.Suggest;
+using Cloudents.Query;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
@@ -26,9 +25,9 @@ namespace Cloudents.Infrastructure
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
 
-            builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf()
-                /*.As<IStartable>()*/.SingleInstance()/*.AutoActivate()*/;
-            builder.RegisterGeneric(typeof(DocumentDbRepository<>)).AsImplementedInterfaces();
+            // builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf()
+            //    /*.As<IStartable>()*/.SingleInstance()/*.AutoActivate()*/;
+            // builder.RegisterGeneric(typeof(DocumentDbRepository<>)).AsImplementedInterfaces();
 
             //builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
             //    .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
@@ -41,6 +40,7 @@ namespace Cloudents.Infrastructure
             //builder.RegisterType<WebSearch>();
 
             //builder.RegisterType<AzureQuestionSearch>().AsSelf();//
+            builder.RegisterType<DapperRepository>().AsSelf();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
 
             //builder.RegisterType<AzureDocumentSearch>().AsSelf();//

@@ -515,7 +515,7 @@ namespace ConsoleApp
 
                         var blobUri = new Uri(sharedAccessUri);
 
-                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+                        await blobDestination.StartCopyAsync(blobUri);
                         while (blobDestination.CopyState.Status != CopyStatus.Success)
                         {
                             Console.WriteLine(blobDestination.CopyState.Status);
@@ -595,7 +595,7 @@ namespace ConsoleApp
                         var sharedAccessUri = GetShareAccessUri(blobToMoveStr, 360, dirToRemove);
 
                         var blobUri = new Uri(sharedAccessUri);
-                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+                        await blobDestination.StartCopyAsync(blobUri);
                         while (blobDestination.CopyState.Status != CopyStatus.Success)
                         {
                             Console.WriteLine(blobDestination.CopyState.Status);

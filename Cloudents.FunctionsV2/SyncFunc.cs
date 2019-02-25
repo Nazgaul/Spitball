@@ -126,9 +126,9 @@ namespace Cloudents.FunctionsV2
             var dynamicBlobAttribute =
                 new BlobAttribute($"spitball/AzureSearch/{blobName}-version.txt");
 
-            var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token).ConfigureAwait(false);
-            if (!await blob.ExistsAsync().ConfigureAwait(false)) return SyncAzureQuery.Empty();
-            var text = await blob.DownloadTextAsync().ConfigureAwait(false);
+            var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token);
+            if (!await blob.ExistsAsync()) return SyncAzureQuery.Empty();
+            var text = await blob.DownloadTextAsync();
             return SyncAzureQuery.ConvertFromString(text);
         }
 
@@ -140,8 +140,8 @@ namespace Cloudents.FunctionsV2
             var dynamicBlobAttribute =
                 new BlobAttribute($"spitball/AzureSearch/{searchSyncInput.BlobName}-version.txt");
 
-            var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token).ConfigureAwait(false);
-            await blob.UploadTextAsync(searchSyncInput.SyncAzureQuery.ToString()).ConfigureAwait(false);
+            var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token);
+            await blob.UploadTextAsync(searchSyncInput.SyncAzureQuery.ToString());
         }
     }
 }

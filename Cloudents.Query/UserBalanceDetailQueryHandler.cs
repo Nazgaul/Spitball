@@ -41,7 +41,7 @@ namespace Cloudents.Query
                 listOfQueries.Add(xx);
             }
 
-            await listOfQueries[0].GetValueAsync(token).ConfigureAwait(false);
+            await listOfQueries[0].GetValueAsync(token);
 
             var decimals = listOfQueries.Select(s => s.Value);
             return decimals.Select(

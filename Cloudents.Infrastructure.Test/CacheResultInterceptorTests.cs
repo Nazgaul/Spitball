@@ -2,11 +2,9 @@
 using System.Threading;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
-using Cloudents.Core.Query;
 using Cloudents.Core.Test;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Job;
-using FluentAssertions;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Test

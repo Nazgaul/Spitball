@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["radius_miles"] = JobSearch.RadiusOfFindingJobMiles.ToString(CultureInfo.InvariantCulture)
             };
 
-            var result = await _client.GetAsync<ZipRecruiterResult>(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token).ConfigureAwait(false);
+            var result = await _client.GetAsync<ZipRecruiterResult>(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token);
             if (result == null)
             {
                 return null;

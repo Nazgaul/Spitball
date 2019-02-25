@@ -26,7 +26,7 @@ namespace Cloudents.Persistance.Repositories
             {
 
                 course = new Course(name);
-                await AddAsync(course, token).ConfigureAwait(true);
+                await AddAsync(course, token);
             }
 
             return course;

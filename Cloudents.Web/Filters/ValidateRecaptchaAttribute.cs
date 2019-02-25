@@ -39,7 +39,7 @@ namespace Cloudents.Web.Filters
                 if (_environment.IsDevelopment() &&
                     context.HttpContext.Request.Headers["referer"].ToString().Contains("swagger"))
                 {
-                    await base.OnActionExecutionAsync(context, next).ConfigureAwait(false);
+                    await base.OnActionExecutionAsync(context, next);
                     return;
                 }
 
@@ -48,7 +48,7 @@ namespace Cloudents.Web.Filters
                 using (var sr = new StreamReader(context.HttpContext.Request.Body))
                 using (var jsonTextReader = new JsonTextReader(sr))
                 {
-                    var t = await JToken.ReadFromAsync(jsonTextReader).ConfigureAwait(false);
+                    var t = await JToken.ReadFromAsync(jsonTextReader);
                     captcha = t["captcha"].Value<string>();
                 }
                 var secret = _configuration["GoogleReCaptcha:Secret"];
@@ -60,7 +60,7 @@ namespace Cloudents.Web.Filters
 
                 var result = await _httpClient.GetAsync<RecaptchaResponse>(
                     new Uri("https://www.google.com/recaptcha/api/siteverify"), nvc,
-                    context.HttpContext.RequestAborted).ConfigureAwait(false);
+                    context.HttpContext.RequestAborted);
 
                 if (result == null)
                 {
@@ -73,7 +73,7 @@ namespace Cloudents.Web.Filters
                     context.ModelState.AddModelError("captcha", "captcha is invalid");
                     context.Result = new BadRequestObjectResult(context.ModelState);
                 }
-                await base.OnActionExecutionAsync(context, next).ConfigureAwait(false);
+                await base.OnActionExecutionAsync(context, next);
             }
         }
 

@@ -60,7 +60,7 @@ namespace Cloudents.Search.Tutor
 
             };
             var retVal = await
-                _client.Documents.SearchAsync<Entities.Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
+                _client.Documents.SearchAsync<Entities.Tutor>(term, searchParams, cancellationToken: token);
 
             return retVal.Results.Select((s, i) => new TutorDto
             {

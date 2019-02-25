@@ -11,7 +11,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using IBM.WatsonDeveloperCloud.LanguageTranslator.v3.Model;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure
@@ -83,7 +82,7 @@ namespace Cloudents.Infrastructure
             };
             var apiResult = _naturalLanguageUnderstandingService.Analyze(parameters);
             var result = apiResult.Categories.SelectMany(s => s.Label.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries));
-            return Task.FromResult<IEnumerable<string>>(result);
+            return Task.FromResult(result);
 
         }
     }

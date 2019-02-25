@@ -157,7 +157,7 @@ namespace Cloudents.Web.Api
             {
                 name = RandomString(3) + name;
             }
-            return $"file-{sessionId}-{name?.Replace("/",string.Empty)}";
+            return $"file-{sessionId}-{name.Replace("/",string.Empty)}";
         }
 
 

@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             bool isMobile, CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>());
-            query = await _tutorSuggestion.GetValueAsync(query, token).ConfigureAwait(false) ?? query;
+            query = await _tutorSuggestion.GetValueAsync(query, token) ?? query;
             if (string.IsNullOrWhiteSpace(query))
             {
                 query = "Physics";
@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             var tasks = _tutorSearch.Select(s => s.SearchAsync(query, filters ?? Array.Empty<TutorRequestFilter>(), sort,
                 location, page, isMobile, token));
 
-            var result2 = await Task.WhenAll(tasks).ConfigureAwait(false);
+            var result2 = await Task.WhenAll(tasks);
             var result = result2.Where(w => w != null).SelectMany(s => s);
             if (sort == TutorRequestSort.Price)
             {

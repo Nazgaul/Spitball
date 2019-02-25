@@ -1,8 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
+﻿using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;

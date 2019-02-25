@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure.Search.Places
         //        ["key"] = Key,
         //    };
 
-        //    var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
+        //    var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token);
         //    var result = SerializeResult(str);
         //    return _mapper.Map<GoogleGeoCodeDto, (Address address, GeoPoint point)>(result);
         //}
@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Search.Places
                 ["key"] = Key,
             };
 
-            var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
+            var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token);
             var source = SerializeResult(str);
 
             if (!string.Equals(source.Status, "ok", StringComparison.OrdinalIgnoreCase))
@@ -89,7 +89,7 @@ namespace Cloudents.Infrastructure.Search.Places
                 ["key"] = Key
             };
 
-            var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
+            var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token);
 
             var source = SerializeResult(str);
             if (!string.Equals(source.Status, "ok", StringComparison.OrdinalIgnoreCase))

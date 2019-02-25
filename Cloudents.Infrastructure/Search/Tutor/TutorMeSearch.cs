@@ -51,7 +51,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             // page is 12
             var nvc = BuildQueryString(term, page);
             var result = await _restClient.GetAsync<TutorMeResult>(
-                new Uri(UrlEndpoint), nvc, token).ConfigureAwait(false);
+                new Uri(UrlEndpoint), nvc, token);
             if (result?.Group == null)
             {
                 return null;
