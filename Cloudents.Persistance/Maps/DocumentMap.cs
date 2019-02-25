@@ -35,6 +35,7 @@ namespace Cloudents.Persistance.Maps
             Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); 
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
+                .KeyColumn("DocumentId")
                 //.Cascade.()
                 .Access.CamelCaseField(Prefix.Underscore)
                 .LazyLoad()
