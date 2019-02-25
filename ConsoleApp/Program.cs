@@ -82,14 +82,14 @@ namespace ConsoleApp
                     throw new ArgumentOutOfRangeException(nameof(dev), dev, null);
             }
 
-           
+
         }
 
         static async Task Main()
         {
 
             var builder = new ContainerBuilder();
-            
+
 
 
             builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
@@ -272,21 +272,20 @@ namespace ConsoleApp
                     textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
                     int.TryParse(pageCountStr, out var pageCount);
                     if (count == 0 || count < pageCount)
-                        if (!blobs.Any(a => a.Uri.AbsoluteUri.Contains("preview")))
-                        {
-                            var queue = queueClient.GetQueueReference("generate-blob-preview");
-                            var msg = new CloudQueueMessage(id.ToString());
-                            await queue.AddMessageAsync(msg);
-                            //             using (var file =
-                            //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
-                            //             {
+                    {
+                        var queue = queueClient.GetQueueReference("generate-blob-preview");
+                        var msg = new CloudQueueMessage(id.ToString());
+                        await queue.AddMessageAsync(msg);
+                        //             using (var file =
+                        //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
+                        //             {
 
-                            //                 file.WriteLine(id);
+                        //                 file.WriteLine(id);
 
-                            //             }
-                            Console.WriteLine("Processing regular " + id);
-                            continue;
-                        }
+                        //             }
+                        Console.WriteLine("Processing regular " + id);
+                        continue;
+                    }
 
                     var blobBlurCount = blobs.Count(a => a.Uri.AbsoluteUri.Contains("blur"));
                     if (blobBlurCount == 0 || blobBlurCount < Math.Min(pageCount, 10))
@@ -544,7 +543,7 @@ namespace ConsoleApp
             var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
             var productionOldStorageAccount = CloudStorageAccount.Parse(key);
             var blobClient = productionOldStorageAccount.CreateCloudBlobClient();
-            
+
 
             var container = blobClient.GetContainerReference("spitball-files");
             var dir = container.GetDirectoryReference("files");
