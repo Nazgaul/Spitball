@@ -146,8 +146,10 @@ namespace Cloudents.Core.Entities
         private static readonly SortedSet<string> Tier1Users =
             new SortedSet<string>(StringComparer.OrdinalIgnoreCase)
             {
-                "US", "CA", "AU" , "GB", "IE", "IL", "NZ", "MX", "SE" ,
-                "NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
+                //"US", "CA", "AU" , "GB", "IE",
+                "IL",
+                //"NZ", "MX", "SE" ,
+                //"NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
             };
 
         public static AwardMoneyTransaction FinishRegistration(RegularUser user)
@@ -268,7 +270,7 @@ namespace Cloudents.Core.Entities
         {
             InvitedUser = invitedUser;
             Action = TransactionActionType.ReferringUser;
-            Price = 50;
+            Price = 10;
             Type = TransactionType.Earned;
         }
 
