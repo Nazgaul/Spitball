@@ -1,20 +1,18 @@
-﻿using System;
+﻿using Cloudents.Core;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Extensions;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
-using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
@@ -23,12 +21,10 @@ namespace Cloudents.Infrastructure.Search.Job
     {
         //https://ads.indeed.com/jobroll/xmlfeed
         private readonly IRestClient _client;
-        private readonly IMapper _mapper;
 
-        public IndeedProvider(IRestClient client, IMapper mapper)
+        public IndeedProvider(IRestClient client)
         {
             _client = client;
-            _mapper = mapper;
         }
 
         [Cache(TimeConst.Hour, "job-indeed", false)]
@@ -101,7 +97,19 @@ namespace Cloudents.Infrastructure.Search.Job
                 return null;
             }
 
-            var jobs = _mapper.MapWithPriority<Result, JobProviderDto>(result.Results);
+            var jobs = result.Results.Select((s, i) => new JobProviderDto
+            {
+                DateTime = s.Date,
+                Url = s.Url,
+                PrioritySource = PrioritySource.JobIndeed,
+                //Source = "Indeed",
+                Address = s.FormattedLocation,
+                Title = s.JobTitle,
+                Company = s.Company,
+                CompensationType = "Paid",
+                Responsibilities = s.Snippet,
+                Order = i + 1
+            });
 
             return new ResultWithFacetDto<JobProviderDto>
             {
@@ -126,7 +134,7 @@ namespace Cloudents.Infrastructure.Search.Job
             // public bool dupefilter { get; set; }
             // public bool highlight { get; set; }
             [JsonProperty("totalResults")]
-             public int TotalResults { get; set; }
+            public int TotalResults { get; set; }
             //public int start { get; set; }
             //public int end { get; set; }
             //public int pageNumber { get; set; }

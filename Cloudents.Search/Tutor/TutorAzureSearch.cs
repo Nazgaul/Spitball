@@ -2,13 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Extensions;
 using Cloudents.Infrastructure.Search.Tutor;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -18,12 +16,10 @@ namespace Cloudents.Search.Tutor
     public class TutorAzureSearch : ITutorProvider
     {
         private readonly ISearchIndexClient _client;
-        private readonly IMapper _mapper;
         private static readonly int PageSize = (int)PrioritySource.TutorMe.Priority * TutorMeSearch.TutorMePage;
 
-        public TutorAzureSearch(ISearchService client, IMapper mapper)
+        public TutorAzureSearch(ISearchService client)
         {
-            _mapper = mapper;
             _client = client.GetOldClient(TutorSearchWrite.IndexName);
         }
 
@@ -66,7 +62,19 @@ namespace Cloudents.Search.Tutor
             var retVal = await
                 _client.Documents.SearchAsync<Entities.Tutor>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
 
-            return _mapper.MapWithPriority<Entities.Tutor, TutorDto>(retVal.Results.Select(s => s.Document));
+            return retVal.Results.Select((s, i) => new TutorDto
+            {
+                State = s.Document.State,
+                Name = s.Document.Name,
+                Url = s.Document.Url,
+                Image = s.Document.Image,
+                Order = i + 1,
+                City = s.Document.City,
+                Description = s.Document.Description,
+                Fee = s.Document.Fee,
+                Online = s.Document.TutorFilter == TutorFilter.Online,
+                PrioritySource = PrioritySource.TutorWyzant
+            });
         }
 
         private static IEnumerable<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)

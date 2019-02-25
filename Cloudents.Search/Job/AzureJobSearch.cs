@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -13,6 +8,11 @@ using Cloudents.Infrastructure.Search.Job;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Search.Job
 {
@@ -20,11 +20,9 @@ namespace Cloudents.Search.Job
     public class AzureJobSearch : IJobProvider
     {
         private readonly ISearchIndexClient _client;
-        private readonly IMapper _mapper;
 
-        public AzureJobSearch(ISearchService client, IMapper mapper)
+        public AzureJobSearch(ISearchService client)
         {
-            _mapper = mapper;
             _client = client.GetOldClient(JobSearchWrite.IndexName);
         }
 
@@ -64,13 +62,40 @@ namespace Cloudents.Search.Job
                 OrderBy = sortQuery
             };
 
-            var retVal = await
+            var retValSearchResult = await
                 _client.Documents.SearchAsync<Entities.Job>(jobProviderRequest.Term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            if (retVal.Results.Count == 0)
+            if (retValSearchResult.Results.Count == 0)
             {
                 return null;
             }
-            return _mapper.Map<ResultWithFacetDto<JobProviderDto>>(retVal);
+
+
+            var retVal = new ResultWithFacetDto<JobProviderDto>
+            {
+
+                Result = retValSearchResult.Results.Select((s, i) => new JobProviderDto()
+                {
+                    Url = s.Document.Url,
+                    CompensationType = "Paid",
+                    Company = s.Document.Company,
+                    DateTime = s.Document.DateTime.GetValueOrDefault(),
+                    Address = $"{s.Document.City}, {s.Document.State}",
+                    Title = s.Document.Title,
+                    Responsibilities = s.Document.Description,
+                    PrioritySource = PrioritySource.JobWayUp,
+                    Order = i + 1
+                })
+            };
+
+            if (retValSearchResult.Facets != null)
+            {
+                retValSearchResult.Facets.TryGetValue(nameof(Entities.Job.JobType), out var facets);
+                retVal.Facet = facets?.Select(s => s.AsValueFacetResult<string>().Value).Where(w => !string.Equals(w,
+                    "none", StringComparison.OrdinalIgnoreCase));
+            }
+
+            return retVal;
+            //return _mapper.Map<ResultWithFacetDto<JobProviderDto>>(retVal);
         }
 
         private static IList<string> BuildFilter(IEnumerable<JobFilter> filters, Location location)
@@ -82,7 +107,7 @@ namespace Cloudents.Search.Job
                     $"{nameof(Entities.Job.JobType)} eq '{s.GetDescription()}'"));
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
-                   // filterStr = $"({filterStr})";
+                    // filterStr = $"({filterStr})";
                     filterQuery.Add($"({filterStr})");
                 }
             }

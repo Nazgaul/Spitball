@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
-using IMapper = AutoMapper.IMapper;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core;
+
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {
@@ -21,12 +22,10 @@ namespace Cloudents.Infrastructure.Search.Tutor
     public class TutorMeSearch : ITutorProvider
     {
         private const string UrlEndpoint = "https://tutorme.com/api/v1/tutors/";
-        private readonly IMapper _mapper;
         private readonly IRestClient _restClient;
 
-        public TutorMeSearch(IMapper mapper, IRestClient restClient)
+        public TutorMeSearch(IRestClient restClient)
         {
-            _mapper = mapper;
             _restClient = restClient;
         }
 
@@ -58,7 +57,18 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 return null;
             }
 
-            return _mapper.MapWithPriority<Result,TutorDto>(result.Results);
+            return result.Results.Select((source, i) => new TutorDto()
+            {
+                Description = source.About,
+                Fee = 60,
+                Image = source.Avatar.X300,
+                Name = source.ShortName,
+                Online = source.IsOnline,
+                //Source = "TutorMe",
+                PrioritySource = PrioritySource.TutorMe,
+                Url = $"https://tutorme.com/tutors/{source.Id}/",
+                Order = i + 1
+            });
         }
 
         public const int TutorMePage = 12;
