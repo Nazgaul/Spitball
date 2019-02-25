@@ -191,7 +191,8 @@ namespace Cloudents.Functions
                                 {
                                     var blob = directory.GetBlockBlobReference(blobTextName);
                                     await blob.FetchAttributesAsync(token);
-                                    pageCount = int.Parse(blob.Metadata["PageCount"]);
+                                    blob.Metadata.TryGetValue("PageCount", out var pageCountStr);
+                                    int.TryParse(pageCountStr, out pageCount);
                                 }
                                 if (pageCount == 0)
                                 {
