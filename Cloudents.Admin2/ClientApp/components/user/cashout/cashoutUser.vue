@@ -49,6 +49,7 @@
                         <v-icon small
                                 color="green"
                                 class="mr-2"
+                                :disabled="props.item.approved || props.item.declinedReason"
                                 @click="editItem(props.item)">
                             call_to_action
 
@@ -86,7 +87,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                    <v-btn color="red darken-1" :disabled="!editedItem.declinedReason" flat @click="done()">
+                    <v-btn color="red darken-1" flat @click="done()">
                         Done
                     </v-btn>
                 </v-card-actions>
@@ -137,6 +138,11 @@
                 ],
             }
         },
+        computed: {
+            disableDoneBtn() {
+                return this.radios === 'decline' &&  !this.editedItem.declinedReason
+            }
+        },
         methods: {
             editItem(item) {
                 this.editedIndex = this.cashOutList.indexOf(item);
@@ -153,6 +159,7 @@
             },
             decline() {
                 if (this.editedIndex > -1) {
+                    this.editedItem.approved = null;
                     Object.assign(this.cashOutList[this.editedIndex], this.editedItem)
                 }
                 declineCashout(this.editedItem.transactionId, this.editedItem.declinedReason)
@@ -164,15 +171,23 @@
                 this.close()
             },
             approveCashout() {
-                let transactionId = this.editedItem.transactionId;
+                 let itemToAssign = {};
+                 let self = this;
+                 if (self.editedIndex > -1) {
+                 itemToAssign = {
+                    declinedReason: '',
+                    approved: true
+                    }
+                }
+                let transactionId = self.editedItem.transactionId;
                 approveCashout(transactionId)
                     .then((success) => {
-                            this.editedItem.approved = true;
-                            this.$toaster.success(`Cashout Approved`);
+                            Object.assign(self.cashOutList[self.editedIndex], itemToAssign)
+                            self.$toaster.success(`Cashout Approved`);
 
                         },
                         (error) => {
-                            this.$toaster.error(`Error cant approve`);
+                            self.$toaster.error(`Error cant approve`);
 
                         }
                     )
