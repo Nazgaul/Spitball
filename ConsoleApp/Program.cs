@@ -246,7 +246,7 @@ namespace ConsoleApp
                     var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
                     if (textBlobItem != null)
                     {
-                        var textBlob2 = (CloudBlockBlob)blob;
+                        var textBlob2 = (CloudBlockBlob)textBlobItem;
                         textBlob2.FetchAttributes();
                         if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
                         {
