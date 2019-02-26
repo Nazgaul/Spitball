@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
@@ -19,6 +20,15 @@ namespace Cloudents.Command.Command
             UserId = userId;
         }
 
+        public static CreateDocumentCommand DbiOnly(string blobName, string name, string type, string course,
+    IEnumerable<string> tags, long userId, string professor, Guid universityId)
+        {
+            return new CreateDocumentCommand(blobName, name, type, course, tags, userId, professor, 0)
+            {
+                UniversityId = universityId
+            };
+        }
+
         public string BlobName { get; }
         [NotNull] public string Name { get; }
         public string Type { get; }
@@ -32,5 +42,6 @@ namespace Cloudents.Command.Command
         public decimal Price { get; }
 
         public long Id { get; set; }
+        public Guid? UniversityId { get; private set; }
     }
 }
