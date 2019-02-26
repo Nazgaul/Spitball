@@ -53,10 +53,10 @@ namespace Cloudents.Infrastructure
             var uri = new UriBuilder(url);
             uri.AddQuery(queryString);
 
-            var response = await _client.GetAsync(uri.Uri, token).ConfigureAwait(false);
+            var response = await _client.GetAsync(uri.Uri, token);
             if (!response.IsSuccessStatusCode)
                 return null;
-            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return await response.Content.ReadAsStringAsync();
         }
 
         public Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
@@ -74,12 +74,12 @@ namespace Cloudents.Infrastructure
             }
 
             var result = await _client.GetAsync(url,
-                    HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
+                    HttpCompletionOption.ResponseHeadersRead, token);
             result.EnsureSuccessStatusCode();
-            var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            var stream = await result.Content.ReadAsStreamAsync();
             if (result.Content.Headers.ContentType.MediaType.Contains("gzip", StringComparison.OrdinalIgnoreCase))
             {
-                stream = await Compress.DecompressFromGzipAsync(stream).ConfigureAwait(false);
+                stream = await Compress.DecompressFromGzipAsync(stream);
             }
 
             return (stream, result.Headers.ETag);
@@ -87,7 +87,7 @@ namespace Cloudents.Infrastructure
 
         public async Task<Uri> UrlRedirectAsync(Uri url)
         {
-            var response = await _client.GetAsync(url).ConfigureAwait(false);
+            var response = await _client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             return response.RequestMessage.RequestUri;
         }
@@ -144,10 +144,23 @@ namespace Cloudents.Infrastructure
             var response = await TransferJsonBodyAsync(HttpMethod.Post, url, obj, headers, token);
             if (!response.IsSuccessStatusCode)
             {
+
                 var content = await response.Content.ReadAsStringAsync();
-                _logger.Warning(content);
+
+                var v = new HttpRequestException($"failed to invoke url: {url}")
+                {
+                    Data =
+                    {
+                        ["content"] = content,
+                        ["obj"] = JsonConvert.SerializeObject(obj),
+                        ["headers"] = JsonConvert.SerializeObject(headers)
+                    }
+                    
+                };
+                throw v;
             }
-            response.EnsureSuccessStatusCode();
+           
+            //response.EnsureSuccessStatusCode();
             using (var s = await response.Content.ReadAsStreamAsync())
             using (var sr = new StreamReader(s))
             using (var reader = new JsonTextReader(sr))

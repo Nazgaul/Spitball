@@ -30,7 +30,7 @@ namespace Cloudents.Web.Api
             {
                 suggestProvider = suggest;
             }
-            return await suggestProvider.Value.SuggestAsync(sentence, token).ConfigureAwait(false);
+            return await suggestProvider.Value.SuggestAsync(sentence, token);
         }
     }
 }

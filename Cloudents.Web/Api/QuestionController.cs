@@ -38,20 +38,18 @@ namespace Cloudents.Web.Api
     {
         private readonly ICommandBus _commandBus;
 
-        private readonly IProfileUpdater _profileUpdater;
         private readonly UserManager<RegularUser> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
         private readonly IQuestionSearch _questionSearch;
 
         public QuestionController(ICommandBus commandBus, UserManager<RegularUser> userManager,
-            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch,
-            IProfileUpdater profileUpdater)
+            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch
+           )
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _localizer = localizer;
             _questionSearch = questionSearch;
-            _profileUpdater = profileUpdater;
         }
 
         [HttpPost]
@@ -198,7 +196,6 @@ namespace Cloudents.Web.Api
             };
 
 
-            var queueTask = _profileUpdater.AddTagToUser(model.Term, User, token);
 
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
@@ -225,7 +222,6 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
-            await queueTask;
             return new WebResponseWithFacet<QuestionFeedDto>
             {
                 Result = result.Result.Select(s =>

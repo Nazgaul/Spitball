@@ -70,7 +70,7 @@ namespace Cloudents.Web.Identity
         public async Task<IdentityResult> CreateAsync(RegularUser user, CancellationToken cancellationToken)
         {
             var command = new CreateUserCommand(user);
-            await _bus.DispatchAsync(command, cancellationToken).ConfigureAwait(false);
+            await _bus.DispatchAsync(command, cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -79,7 +79,7 @@ namespace Cloudents.Web.Identity
             try
             {
                 var command = new UpdateUserCommand(user);
-                await _bus.DispatchAsync(command, cancellationToken).ConfigureAwait(false);
+                await _bus.DispatchAsync(command, cancellationToken);
             }
             catch (DuplicateRowException)
             {

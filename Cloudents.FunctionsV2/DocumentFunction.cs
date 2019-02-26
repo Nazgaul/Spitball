@@ -25,16 +25,16 @@ namespace Cloudents.FunctionsV2
 {
     public static class DocumentFunction
     {
-        //[FunctionName("BlobFunction")]
-        //public static async Task RunAsync(
-        //    [BlobTrigger("spitball-files/files/{id}/text.txt")]string text, long id,
-        //    [Queue("generate-search-preview")] IAsyncCollector<string> collector,
-        //    [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
-        //    CancellationToken token)
-        //{
-        //    await collector.AddAsync(id.ToString(), token);
-        //    //await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, token);
-        //}
+        [FunctionName("BlobFunction")]
+        public static async Task RunAsync(
+            [BlobTrigger("spitball-files/files/{id}/text.txt")]string text, long id,
+            [Queue("generate-search-preview")] IAsyncCollector<string> collector,
+            [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
+            CancellationToken token)
+        {
+            await collector.AddAsync(id.ToString(), token);
+            //await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, token);
+        }
 
 
 
@@ -68,9 +68,17 @@ namespace Cloudents.FunctionsV2
             IEnumerable<string> tags = null;
             if (!metadata.ContainsKey("ProcessTags"))
             {
-                tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
-                metadata.Add("ProcessTags", bool.TrueString);
-                await blob.SetMetadataAsync();
+
+                try
+                {
+                    tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
+                    metadata.Add("ProcessTags", bool.TrueString);
+                    await blob.SetMetadataAsync();
+                }
+                catch (Exception e)
+                {
+                    log.LogError(e, "error extracting tags");
+                }
             }
 
 

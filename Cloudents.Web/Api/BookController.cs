@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
         public async Task<WebResponseWithFacet<BookSearchDto>> GetAsync([FromQuery]BookRequest bookRequest, CancellationToken token)
         {
             bookRequest = bookRequest ?? new BookRequest();
-            var result = (await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false)).ToListIgnoreNull();
+            var result = (await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Page.GetValueOrDefault(), token)).ToListIgnoreNull();
             string nextPageLink = null;
             if (result.Count > 0)
             {
@@ -64,7 +64,7 @@ namespace Cloudents.Web.Api
         public async Task<BookDetailsDto> BuyAsync(string isbn13, CancellationToken token)
         {
             if (isbn13 == null) throw new ArgumentNullException(nameof(isbn13));
-            var result = await _booksSearch.BuyAsync(isbn13, token).ConfigureAwait(false);
+            var result = await _booksSearch.BuyAsync(isbn13, token);
             return result;
         }
 
@@ -79,7 +79,7 @@ namespace Cloudents.Web.Api
         public async Task<BookDetailsDto> SellAsync(string isbn13, CancellationToken token)
         {
             if (isbn13 == null) throw new ArgumentNullException(nameof(isbn13));
-            var result = await _booksSearch.SellAsync(isbn13, token).ConfigureAwait(false);
+            var result = await _booksSearch.SellAsync(isbn13, token);
             return result;
         }
     }

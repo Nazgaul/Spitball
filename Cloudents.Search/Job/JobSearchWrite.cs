@@ -98,10 +98,10 @@ namespace Cloudents.Search.Job
             do
             {
                 var searchRetVal = await IndexClient.Documents.SearchAsync<Entities.Job>("*", parameters, cancellationToken: token)
-                    .ConfigureAwait(false);
+                    ;
                 result = searchRetVal.Results;
 
-                await DeleteDataAsync(result.Select(s => s.Document.Id), token).ConfigureAwait(false);
+                await DeleteDataAsync(result.Select(s => s.Document.Id), token);
 
             } while (result.Count == top);
         }

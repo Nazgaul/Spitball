@@ -4,6 +4,7 @@ using IBM.WatsonDeveloperCloud.LanguageTranslator.v3;
 using IBM.WatsonDeveloperCloud.NaturalLanguageUnderstanding.v1;
 using IBM.WatsonDeveloperCloud.NaturalLanguageUnderstanding.v1.Model;
 using IBM.WatsonDeveloperCloud.Util;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -11,7 +12,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using IBM.WatsonDeveloperCloud.LanguageTranslator.v3.Model;
 
 namespace Cloudents.Infrastructure
 {
@@ -29,9 +29,10 @@ namespace Cloudents.Infrastructure
 
         }
 
+        [ItemCanBeNull]
         public Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token)
         {
-            var result2 = _languageTranslator.Identify(text);
+            var result2 = _languageTranslator.Identify(text.Truncate(5000));
             var identify = result2.Languages.FirstOrDefault();
             if (identify == null)
             {
@@ -41,7 +42,7 @@ namespace Cloudents.Infrastructure
 
         }
 
-        
+
     }
 
     public class TextClassifierAnalysis : ITextClassifier
@@ -66,12 +67,12 @@ namespace Cloudents.Infrastructure
                 Text = text,
                 Features = new Features()
                 {
-                    Keywords = new KeywordsOptions()
-                    {
-                        Limit = 50,
-                        Sentiment = false,
-                        Emotion = false
-                    },
+                    //Keywords = new KeywordsOptions()
+                    //{
+                    //    Limit = 50,
+                    //    Sentiment = false,
+                    //    Emotion = false
+                    //},
                     Categories = new CategoriesOptions()
                     {
                         Limit = 50
@@ -81,7 +82,7 @@ namespace Cloudents.Infrastructure
             };
             var apiResult = _naturalLanguageUnderstandingService.Analyze(parameters);
             var result = apiResult.Categories.SelectMany(s => s.Label.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries));
-            return Task.FromResult<IEnumerable<string>>(result);
+            return Task.FromResult(result);
 
         }
     }
@@ -99,7 +100,7 @@ namespace Cloudents.Infrastructure
         }
 
 
-        public async Task<string> TranslateAsync(string text,string from, string to, CancellationToken token)
+        public async Task<string> TranslateAsync(string text, string from, string to, CancellationToken token)
         {
             var uriBuilder = new UriBuilder(new Uri(host + route));
             uriBuilder.AddQuery(new NameValueCollection()
@@ -118,14 +119,6 @@ namespace Cloudents.Infrastructure
             }, token);
 
             return result.FirstOrDefault()?.translations.FirstOrDefault()?.text;
-
-
-
-
-
-
-
-
         }
 
         private class Result

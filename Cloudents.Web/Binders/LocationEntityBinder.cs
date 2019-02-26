@@ -50,7 +50,7 @@ namespace Cloudents.Web.Binders
                         return;
                     }
                 }
-                var resultApi = await _googlePlacesSearch.ReverseGeocodingAsync(point.ToGeoPoint(), bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
+                var resultApi = await _googlePlacesSearch.ReverseGeocodingAsync(point.ToGeoPoint(), bindingContext.HttpContext.RequestAborted);
                 locationFromTemp = new LocationQuery
                 {
                     Address = resultApi.address,
@@ -68,7 +68,7 @@ namespace Cloudents.Web.Binders
                 return;
             }
             var ipV4 = bindingContext.HttpContext.Connection.GetIpAddress();
-            var retVal = await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
+            var retVal = await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted);
             if (retVal == null)
             {
                 bindingContext.Result = ModelBindingResult.Failed();

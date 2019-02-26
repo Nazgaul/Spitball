@@ -1,8 +1,5 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Models
 {

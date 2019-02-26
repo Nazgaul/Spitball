@@ -3,9 +3,10 @@
         <doc-header></doc-header>
         <div class="item document-wrap">
             <div class="item-content">
-                <span class="img-placeholder-text" v-if="isPlaceholder"v-language:inner>preview_doc_placeholder_text</span>
+                <span class="img-placeholder-text" v-if="isPlaceholder" v-language:inner>preview_doc_placeholder_text</span>
                 <div class="page text-xs-center" style="position: relative;" v-for="(page, index) in preview" :key="index">
                     <component class="page-content" :is="currentComponent" :src="page"
+                    :alt="item.content"
                                :class="item.contentType+'-content'"></component>
                 </div>
             </div>

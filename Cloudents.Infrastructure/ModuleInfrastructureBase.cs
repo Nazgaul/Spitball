@@ -2,7 +2,6 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
-using AutoMapper;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Places;
@@ -34,8 +33,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TextClassifierAnalysis>().As<ITextClassifier>().SingleInstance();
             builder.RegisterType<TextTranslatorProvider>().As<ITextTranslator>().SingleInstance();
 
-            builder.RegisterAssemblyTypes(assembly)
-                .AsClosedTypesOf(typeof(ITypeConverter<,>));
+          
 
         }
     }

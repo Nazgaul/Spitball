@@ -47,7 +47,7 @@ namespace Cloudents.Web.Api
         {
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
-                model.Facet, model.Location?.ToLocation(), model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
+                model.Facet, model.Location?.ToLocation(), model.Page.GetValueOrDefault(), token);
             result.Result = result.Result?.ToList();
 
             var retVal = new WebResponseWithFacet<JobDto>()

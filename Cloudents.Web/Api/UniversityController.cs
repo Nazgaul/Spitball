@@ -70,7 +70,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new AssignUniversityToUserCommand(userId, model.Name, model.Country);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
 
             await _signInManager.RefreshSignInAsync(user);

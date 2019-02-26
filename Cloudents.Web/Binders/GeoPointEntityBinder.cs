@@ -32,7 +32,7 @@ namespace Cloudents.Web.Binders
             }
 
             var ipV4 = bindingContext.HttpContext.Connection.GetIpAddress();
-            var location = await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
+            var location = await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted);
             if (location == null)
             {
                 ModelBindingResult.Failed();

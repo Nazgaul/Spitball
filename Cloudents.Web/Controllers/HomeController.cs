@@ -116,7 +116,7 @@ namespace Cloudents.Web.Controllers
             {
                 message
             }, token);
-            await signInManager.SignOutAsync().ConfigureAwait(false);
+            await signInManager.SignOutAsync();
             TempData.Clear();
 
 

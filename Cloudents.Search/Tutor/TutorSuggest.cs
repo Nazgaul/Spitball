@@ -38,7 +38,7 @@ namespace Cloudents.Search.Tutor
                 Top = BingSuggest.NumberOfEntries,
                 ScoringProfile = AutoCompleteSearchWrite.ScoringProfile
             };
-            var result = await _client.Documents.SearchAsync<Entities.AutoComplete>(query, searchParameter, cancellationToken: token).ConfigureAwait(false);
+            var result = await _client.Documents.SearchAsync<Entities.AutoComplete>(query, searchParameter, cancellationToken: token);
 
             return result.Results.Select(s => s.Document.Key);
         }

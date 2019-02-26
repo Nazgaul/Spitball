@@ -88,14 +88,14 @@ namespace ConsoleApp
                     throw new ArgumentOutOfRangeException(nameof(dev), dev, null);
             }
 
-           
+
         }
 
         static async Task Main()
         {
 
             var builder = new ContainerBuilder();
-            
+
 
 
             builder.Register(_ => GetSettings(EnvironmentSettings.Dev)).As<IConfigurationKeys>();
@@ -252,10 +252,15 @@ namespace ConsoleApp
                     var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
                     if (textBlobItem != null)
                     {
-                        var queue = queueClient.GetQueueReference("generate-search-preview");
-                        var msg = new CloudQueueMessage(id.ToString());
-                        await queue.AddMessageAsync(msg);
-                        Console.WriteLine("Processing tags " + id);
+                        var textBlob2 = (CloudBlockBlob)textBlobItem;
+                        textBlob2.FetchAttributes();
+                        if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
+                        {
+                            var queue = queueClient.GetQueueReference("generate-search-preview");
+                            var msg = new CloudQueueMessage(id.ToString());
+                            await queue.AddMessageAsync(msg);
+                            Console.WriteLine("Processing tags " + id);
+                        }
                     }
 
                     else
@@ -273,21 +278,20 @@ namespace ConsoleApp
                     textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
                     int.TryParse(pageCountStr, out var pageCount);
                     if (count == 0 || count < pageCount)
-                        if (!blobs.Any(a => a.Uri.AbsoluteUri.Contains("preview")))
-                        {
-                            var queue = queueClient.GetQueueReference("generate-blob-preview");
-                            var msg = new CloudQueueMessage(id.ToString());
-                            await queue.AddMessageAsync(msg);
-                            //             using (var file =
-                            //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
-                            //             {
+                    {
+                        var queue = queueClient.GetQueueReference("generate-blob-preview");
+                        var msg = new CloudQueueMessage(id.ToString());
+                        await queue.AddMessageAsync(msg);
+                        //             using (var file =
+                        //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
+                        //             {
 
-                            //                 file.WriteLine(id);
+                        //                 file.WriteLine(id);
 
-                            //             }
-                            Console.WriteLine("Processing regular " + id);
-                            continue;
-                        }
+                        //             }
+                        Console.WriteLine("Processing regular " + id);
+                        continue;
+                    }
 
                     var blobBlurCount = blobs.Count(a => a.Uri.AbsoluteUri.Contains("blur"));
                     if (blobBlurCount == 0 || blobBlurCount < Math.Min(pageCount, 10))
@@ -522,7 +526,7 @@ namespace ConsoleApp
 
                         var blobUri = new Uri(sharedAccessUri);
 
-                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+                        await blobDestination.StartCopyAsync(blobUri);
                         while (blobDestination.CopyState.Status != CopyStatus.Success)
                         {
                             Console.WriteLine(blobDestination.CopyState.Status);
@@ -546,7 +550,7 @@ namespace ConsoleApp
             var key = ConfigurationManager.AppSettings["StorageConnectionStringProd"];
             var productionOldStorageAccount = CloudStorageAccount.Parse(key);
             var blobClient = productionOldStorageAccount.CreateCloudBlobClient();
-            
+
 
             var container = blobClient.GetContainerReference("spitball-files");
             var dir = container.GetDirectoryReference("files");
@@ -602,7 +606,7 @@ namespace ConsoleApp
                         var sharedAccessUri = GetShareAccessUri(blobToMoveStr, 360, dirToRemove);
 
                         var blobUri = new Uri(sharedAccessUri);
-                        await blobDestination.StartCopyAsync(blobUri).ConfigureAwait(false);
+                        await blobDestination.StartCopyAsync(blobUri);
                         while (blobDestination.CopyState.Status != CopyStatus.Success)
                         {
                             Console.WriteLine(blobDestination.CopyState.Status);

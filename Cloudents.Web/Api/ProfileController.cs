@@ -34,7 +34,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<UserProfileDto>> GetAsync(long id, CancellationToken token)
         {
             var query = new UserDataByIdQuery(id);
-            var retVal = await _queryBus.QueryAsync<UserProfileDto>(query, token).ConfigureAwait(false);
+            var retVal = await _queryBus.QueryAsync<UserProfileDto>(query, token);
             if (retVal == null)
             {
                 return NotFound();

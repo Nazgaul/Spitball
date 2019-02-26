@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
@@ -166,7 +165,6 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<RegularUser>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
-            services.AddTransient<IProfileUpdater, QueueProfileUpdater>();
             services.AddTransient<ICountryProvider, CountryProvider>();
 
             var assembliesOfProgram = new[]
@@ -187,7 +185,6 @@ namespace Cloudents.Web
             .Where(t => t.FullName.Split('.')[0] == "Cloudents");*/
 
 
-            services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
             var keys = new ConfigurationKeys(Configuration["Site"])

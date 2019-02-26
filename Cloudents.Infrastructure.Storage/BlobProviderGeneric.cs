@@ -159,7 +159,7 @@ namespace Cloudents.Infrastructure.Storage
             await sourceBlob.DeleteAsync();
         }
 
-        public async Task DeleteDirectoryAsync(string id)
+        public async Task DeleteDirectoryAsync(string id,CancellationToken token)
         {
             var directory = _blobDirectory.GetDirectoryReference(id);
             var blobs = await directory.ListBlobsSegmentedAsync(null);
@@ -171,7 +171,7 @@ namespace Cloudents.Infrastructure.Storage
                 if (blob is CloudBlockBlob p)
                 {
 
-                    var t = p.DeleteAsync();
+                    var t = p.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots,AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
                     l.Add(t);
                 }
             }

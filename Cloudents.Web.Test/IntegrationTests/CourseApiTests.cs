@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests

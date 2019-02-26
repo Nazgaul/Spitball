@@ -40,7 +40,7 @@
               asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position" asp-append-version="true"
               asp-fallback-test-value="absolute" />
     </environment>
-    @await RenderSectionAsync("styleSection", required: false).ConfigureAwait(false)
+    @await RenderSectionAsync("styleSection", required: false)
     <partial name="_HeaderTags" model="cdnEndPoint" />
     @*@Html.Raw(JavaScriptSnippet.FullScript)*@
     @Html.Raw(ClickJackingTagHelper.FullScript)
@@ -83,7 +83,7 @@
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
     <!-- End Google Tag Manager -->
-    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
+    <!-- <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script> -->
 </head>
 <body lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
     <div>

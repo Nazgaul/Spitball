@@ -89,9 +89,9 @@
         </div>
         <v-layout row align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
             <v-flex xs1 sm1 md1>
-                <i class="bottom-five">
-                    <spreadOutLoud style="width: 50px; height: 50px;"></spreadOutLoud>
-                </i>
+                <!-- <i class="bottom-five"> -->
+                    <spreadOutLoud  class="spread-out-loud-icon"></spreadOutLoud>
+                <!-- </i> -->
             </v-flex>
             <v-flex xs11 sm11 md11>
                 <div style="text-align: center">

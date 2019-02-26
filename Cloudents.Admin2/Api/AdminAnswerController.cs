@@ -56,7 +56,7 @@ namespace Cloudents.Admin2.Api
         public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagAnswerRequest model, CancellationToken token)
         {
             var command = new UnFlagAnswerCommand(model.Id);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
     }
