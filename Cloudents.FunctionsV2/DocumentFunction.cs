@@ -68,9 +68,17 @@ namespace Cloudents.FunctionsV2
             IEnumerable<string> tags = null;
             if (!metadata.ContainsKey("ProcessTags"))
             {
-                tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
-                metadata.Add("ProcessTags", bool.TrueString);
-                await blob.SetMetadataAsync();
+
+                try
+                {
+                    tags = await GenerateTagsAsync(text, textAnalysis, textClassifier, textTranslator, token);
+                    metadata.Add("ProcessTags", bool.TrueString);
+                    await blob.SetMetadataAsync();
+                }
+                catch (Exception e)
+                {
+                    log.LogError(e, "error extracting tags");
+                }
             }
 
 

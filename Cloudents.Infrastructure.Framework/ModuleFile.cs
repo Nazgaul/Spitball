@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Framework
         {
             builder.RegisterType<FileFactoryProcessor>().AsImplementedInterfaces();
             builder.RegisterType<WordProcessor>().As<IPreviewProvider2>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, WordProcessor.Extensions));
-            builder.RegisterType<PdfProcessor>().As<IPreviewProvider2>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, PdfProcessor.Extensions));
+            builder.RegisterType<PdfProcessor>().AsSelf().As<IPreviewProvider2>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, PdfProcessor.Extensions));
             builder.RegisterType<ImageProcessor>().As<IPreviewProvider2>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, ImageProcessor.Extensions));
             builder.RegisterType<ImageProcessor>().As<IBlurProcessor>();
             builder.RegisterType<ExcelProcessor>().As<IPreviewProvider2>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, ExcelProcessor.Extensions));
