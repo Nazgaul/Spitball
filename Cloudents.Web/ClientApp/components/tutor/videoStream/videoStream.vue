@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import Twilio, { connect, createLocalTracks, createLocalVideoTrack } from 'twilio-video'
+    import Twilio, { connect, createLocalTracks, createLocalVideoTrack } from 'twilio-video';
     import videoService from '../../../services/videoStreamService';
 
     export default {
