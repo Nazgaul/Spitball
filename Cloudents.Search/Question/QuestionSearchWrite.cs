@@ -13,6 +13,7 @@ namespace Cloudents.Search.Question
     {
         public const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
+        internal const string TagsTagsParameter = "Tag";
         internal const string ScoringProfile = "ScoringProfile";
 
 
@@ -54,6 +55,7 @@ namespace Cloudents.Search.Question
                         {
                             new FreshnessScoringFunction(nameof(Entities.Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
                             new TagScoringFunction(nameof(Entities.Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
+                            new TagScoringFunction(nameof(Entities.Question.Tags),170, new TagScoringParameters(TagsTagsParameter)),
                         }
                     }
                 },

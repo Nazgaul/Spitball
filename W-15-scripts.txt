@@ -1,4 +1,8 @@
 ﻿--we can remove the bing custom search api key from azure
+Need to run update version in console app
+Need to update azure functions v2
+Need to update functions
+
 
 
 --need to do when we transfer to new scoring system.

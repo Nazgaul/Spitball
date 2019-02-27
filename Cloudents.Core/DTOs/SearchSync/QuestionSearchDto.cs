@@ -54,5 +54,6 @@ namespace Cloudents.Core.DTOs.SearchSync
         public QuestionSubject? Subject { get; set; } // facetable readonly
         public QuestionFilter? State { get; set; }
         public string UniversityName { get; set; }
+        public string[] Tags { get; set; }
     }
 }

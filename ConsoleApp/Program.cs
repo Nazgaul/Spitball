@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -124,9 +125,16 @@ namespace ConsoleApp
 
         }
 
+        private static async Task VersionChanges()
+        {
+            var qsw = _container.Resolve<QuestionSearchWrite>();
+            await qsw.CreateOrUpdateAsync(default);
+        }
 
         private static async Task RamMethod()
         {
+           var t = _container.Resolve<AzureQuestionSearch>();
+           var z = await t.GetById("9361");
             //var textTranslator = _container.Resolve<ITextTranslator>();
             ////var result2 = await textTranslator.TranslateAsync("hello text", "he", default);
 
