@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using Twilio;
 using Twilio.Jwt.AccessToken;
 using Twilio.Rest.Video.V1;
@@ -19,10 +20,18 @@ namespace Cloudents.Web.Controllers
             TwilioClient.Init(AccountSid, AccountSecret);
         }
         // GET
+        [Authorize]
         public IActionResult Index(string roomName)
         {
+            RoomResource room = null;
+            try
+            {
+                room = RoomResource.Fetch(pathSid: roomName);
+            }
+            catch
+            {
 
-            var room = RoomResource.Fetch(pathSid: roomName);
+            }
             if (room == null)
             {
                 room = RoomResource.Create(uniqueName: roomName);
@@ -30,7 +39,7 @@ namespace Cloudents.Web.Controllers
             //var grant = new VideoGrant();
             //grant.Room = room.UniqueName;
 
-            var identity = "example-user";
+            var identity = User.Identity.Name;
             //var token = new Token(AccountSid, ApiKey,SecretVideo, identity);
 
 
