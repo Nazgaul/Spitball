@@ -122,9 +122,9 @@
                 this.loading = true;
                 const self = this;
 
-                this.getAccessToken().then((data) => {
+                //this.getAccessToken().then((data) => {
                     self.roomName = null;
-                    const token = data.data.token;
+                const token = global.room;// data.data.token;
                     let connectOptions = {
                         name: room_name,
                         logLevel: 'debug',
@@ -138,7 +138,7 @@
                     // remove any remote track when joining a new room
                     document.getElementById('remoteTrack').innerHTML = "";
 
-                    Twilio.connect(token, connectOptions)
+                    Twilio.connect(token)
                         .then((room) => {
                                 // console.log('Successfully joined a Room: ', room);
                                 console.log('Successfully joined a Room: ' + room_name, 'dfgdfg', room);
@@ -187,7 +187,7 @@
                             (error) => {
                                 console.log(error, 'error cant connect')
                             });
-                })
+                //})
             },
         },
     }
