@@ -21,7 +21,12 @@ namespace Cloudents.Web.Controllers
         // GET
         public IActionResult Index(string roomName)
         {
-            var room = RoomResource.Create(uniqueName: roomName);
+
+            var room = RoomResource.Fetch(pathSid: roomName);
+            if (room == null)
+            {
+                room = RoomResource.Create(uniqueName: roomName);
+            }
             //var grant = new VideoGrant();
             //grant.Room = room.UniqueName;
 
