@@ -32,7 +32,6 @@ namespace Cloudents.Search.Question
             SearchAsync(QuestionsQuery query, CancellationToken token)
         {
             var filters = new List<string>();
-            //var filter1 = $"{nameof(Entities.Question.Language)} eq 'en'";
 
             var country = query.UserProfile.Country ?? query.UserProfile.University?.Country;
 
