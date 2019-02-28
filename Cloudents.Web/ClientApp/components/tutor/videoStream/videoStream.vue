@@ -118,7 +118,7 @@
             },
 
             //delete members from array when left
-            removeMember(mem){
+            removeMember(mem) {
                 let index = this.members.indexOf(mem);
                 this.members.splice(index, 1);
             },
@@ -201,24 +201,24 @@
                             });
                             // if local preview is not active, create it
                             if (!self.localTrack) {
-                                let localTracksOptions = {
-                                    // name: room_name,
-                                    logLevel: 'debug',
-                                    audio: false,
-                                    video: false
-                                };
-                                createLocalTracks().then(tracks => {
-                                        let localMediaContainer = document.getElementById('localTrack');
-                                        tracks.forEach((track) => {
-                                            localMediaContainer.appendChild(track.attach());
-                                            self.localTrack = true;
-                                        })
-
-                                    },
-                                    (error) => {
-                                        console.error('Unable to access local media video and audio', error);
-                                    }
-                                );
+                                // let localTracksOptions = {
+                                //     // name: room_name,
+                                //     logLevel: 'debug',
+                                //     audio: false,
+                                //     video: false
+                                // };
+                                createLocalTracks()
+                                    .then(tracks => {
+                                            let localMediaContainer = document.getElementById('localTrack');
+                                            tracks.forEach((track) => {
+                                                localMediaContainer.appendChild(track.attach());
+                                                self.localTrack = true;
+                                            })
+                                        },
+                                        (error) => {
+                                            console.error('Unable to access local media video and audio', error);
+                                        }
+                                    );
                             }
 
                         },
