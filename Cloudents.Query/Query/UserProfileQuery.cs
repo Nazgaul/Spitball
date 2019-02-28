@@ -34,8 +34,11 @@ namespace Cloudents.Query.Query
             {
                 //TODO: add cache in here
 
-                var sqlCourses = _session.CreateSQLQuery(@"select CourseId from sb.UsersCourses
-where UserId = :id");
+                var sqlCourses = _session.CreateSQLQuery(@"select c.Name 
+                                                        from sb.UsersCourses2 uc
+                                                        join sb.Course2 C
+	                                                        on uc.CourseId = C.Id
+                                                        where UserId = :id");
                 sqlCourses.SetInt64("id", query.Id);
 
                 var coursesFuture = sqlCourses.Future<string>();

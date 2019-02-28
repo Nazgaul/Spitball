@@ -25,46 +25,52 @@ namespace Cloudents.Query.SearchSync
         }
 
         const string VersionSql = @"select q.Id as QuestionId,
-	                            q.Language as Language,
-	                            u.Country as Country,
-	                            (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
-	                            q.Updated as DateTime,
-	                            CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
-	                            q.Text as Text,
-	                            q.State as State,
-	                            q.Subject_id as Subject,
-q.CourseId as Course,
-uni.Name as University,
-	                            c.* 
-                            From sb.[Question] q  
-                            right outer join CHANGETABLE (CHANGES sb.[Question], @Version) AS c ON q.Id = c.id 
-                            join sb.[User] u 
-	                            On u.Id = q.UserId
-left join sb.University uni on uni.Id = q.UniversityId
-                            Order by q.Id 
-                            OFFSET @PageSize * @PageNumber 
-                            ROWS FETCH NEXT @PageSize ROWS ONLY";
+	    q.Language as Language,
+	    u.Country as Country,
+	    (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
+	    q.Updated as DateTime,
+	    CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
+	    q.Text as Text,
+	    q.State as State,
+	    q.Subject_id as Subject,
+	    c2.Name as Course,
+	    uni.Name as University,
+	    c.* 
+        From sb.[Question] q  
+        right outer join CHANGETABLE (CHANGES sb.[Question], @Version) AS c ON q.Id = c.id 
+        join sb.[User] u 
+        	On u.Id = q.UserId
+        left join sb.University uni 
+        	on uni.Id = q.UniversityId
+        left join sb.Course2 C2
+        	on q.CourseId2 = C2.Id
+        Order by q.Id 
+        OFFSET @PageSize * @PageNumber 
+        ROWS FETCH NEXT @PageSize ROWS ONLY";
 
         const string FirstQuery = @"select q.Id as QuestionId,
-	                            q.Language as Language,
-	                            u.Country as Country,
-	                            (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
-	                            q.Updated as DateTime, 
-	                            CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
-	                            q.Text as Text,
-	                            q.State as State,
-	                             q.Subject_id as Subject,
-q.CourseId as Course,
-uni.Name as University,
-	                             c.* 
-                            From sb.[Question] q 
-                            CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c
-                            join sb.[User] u 
-	                            On u.Id = q.UserId
-left join sb.University uni on uni.Id = q.UniversityId
-                            Order by q.Id 
-                            OFFSET @PageSize * @PageNumber 
-                            ROWS FETCH NEXT @PageSize ROWS ONLY";
+	    q.Language as Language,
+	    u.Country as Country,
+	    (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
+	    q.Updated as DateTime, 
+	    CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
+	    q.Text as Text,
+	    q.State as State,
+	    q.Subject_id as Subject,
+		C2.Name as Course,
+		uni.Name as University,
+	    c.* 
+From sb.[Question] q 
+CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c
+join sb.[User] u 
+	On u.Id = q.UserId
+left join sb.University uni 
+	on uni.Id = q.UniversityId
+left join sb.Course2 C2
+        on q.CourseId2 = C2.Id
+Order by q.Id 
+OFFSET @PageSize * @PageNumber 
+ROWS FETCH NEXT @PageSize ROWS ONLY";
 
 
         private const int PageSize = 200;

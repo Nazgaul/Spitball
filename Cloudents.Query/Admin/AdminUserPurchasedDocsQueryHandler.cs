@@ -23,12 +23,14 @@ namespace Cloudents.Query.Admin
 
         public async Task<IEnumerable<UserPurchasedDocsDto>> GetAsync(AdminUserPurchasedDocsQuery query, CancellationToken token)
         {
-            const string sql = @"select DocumentId, D.Name as Title, U.Name as University, D.CourseName as Class, T.Price
+            const string sql = @"select DocumentId, D.Name as Title, U.Name as University, C.Name as Class, T.Price
                 from sb.[Transaction] T
                 join sb.Document D
 	                on T.DocumentId = D.Id
                 join sb.University U
 	                on D.UniversityId = U.Id
+				join sb.Course2 C
+					on D.CourseId = C.Id
                 where User_Id = @Id and TransactionType = 'Document' and T.[Type] = 'Spent'
                 order by 1
                 OFFSET @pageSize * @PageNumber ROWS
