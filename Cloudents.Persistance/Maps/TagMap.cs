@@ -9,7 +9,10 @@ namespace Cloudents.Persistance.Maps
     {
         public TagMap()
         {
-            Id(e => e.Name).GeneratedBy.Assigned().Length(150);
+            Table("Tag2");
+            Id(e => e.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10",
+                $"{nameof(HiLoGenerator.TableName)}='{nameof(Tag)}'");
+            Map(e => e.Name).Length(150);
             Map(x => x.Count).Not.Nullable();
 
             SchemaAction.None();

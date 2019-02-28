@@ -18,13 +18,13 @@ namespace Cloudents.Persistance.Maps
             HasManyToMany(x => x.Tags)
                 .ParentKeyColumn("DocumentId")
                 .ChildKeyColumn("TagId")
-                .ForeignKeyConstraintNames("Document_Tags", "Tags_Documents")
-                .Table("DocumentsTags").AsSet();
+                .ForeignKeyConstraintNames("Document_Tags2", "Tags_Documents2")
+                .Table("DocumentsTags2").AsSet();
 
             
             Component(x => x.TimeStamp);
            
-            References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
+            References(x => x.Course).Column("CourseId").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
             Map(x => x.Downloads).Not.Nullable();
@@ -49,7 +49,7 @@ namespace Cloudents.Persistance.Maps
 
    
             Component(x => x.Status);
-            SchemaAction.None();
+            SchemaAction.Update();
         }
     }
 }

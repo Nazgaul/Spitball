@@ -22,10 +22,12 @@ namespace Cloudents.Query.Admin
 
         public async Task<IEnumerable<UserDocumentsDto>> GetAsync(AdminUserDocumentsQuery query, CancellationToken token)
         {
-            const string sql = @"select D.Id, D.Name, D.CreationTime as Created, U.Name as University, D.CourseName as Course, D.Price, D.[state]
+            const string sql = @"select D.Id, D.Name, D.CreationTime as Created, U.Name as University, C.Name as Course, D.Price, D.[state]
                 from sb.Document D
                 join sb.University U
 	                on D.UniversityId = U.Id
+				join sb.Course2 C
+					on D.CourseId = C.Id
                 where UserId = @Id
 				order by 1
                  OFFSET @PageSize * @PageNumber ROWS
