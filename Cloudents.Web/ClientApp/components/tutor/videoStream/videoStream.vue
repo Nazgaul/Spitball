@@ -182,20 +182,28 @@
                                 participant.tracks.forEach(publication => {
                                     if (publication.isSubscribed) {
                                         const track = publication.track;
-                                        document.getElementById('remoteTrack').appendChild(track.attach());
+                                        // document.getElementById('remoteTrack').appendChild(track.attach());
+                                        let previewContainer = document.getElementById('remoteTrack');
+                                        console.log('track attached', " added track: " + track.kind)
+                                        self.attachTracks([track], previewContainer);
                                     }
                                 });
-
-                                participant.on('trackSubscribed', track => {
-                                    document.getElementById('remoteTrack').appendChild(track.attach());
-                                });
+                                //
+                                // participant.on('trackSubscribed', track => {
+                                //     let previewContainer = document.getElementById('remoteTrack');
+                                //     console.log('track attached', " added track: " + track.kind)
+                                //     self.attachTracks([track], previewContainer);
+                                //     // document.getElementById('remoteTrack').appendChild(track.attach());
+                                //     // self.attachTracks([track], previewContainer);
+                                // });
                             });
                             // When a Participant adds a Track, attach it to the DOM.
-                            // room.on('trackSubscribed', (track, participant) => {
-                            //     let previewContainer = document.getElementById('remoteTrack');
-                            //     console.log('track attached', " added track: " + track.kind)
-                            //     self.attachTracks([track], previewContainer);
-                            // });
+                            //keep commented cause adds multiple
+                            room.on('trackSubscribed', (track, participant) => {
+                                let previewContainer = document.getElementById('remoteTrack');
+                                console.log('track attached', " added track: " + track.kind)
+                                self.attachTracks([track], previewContainer);
+                            });
                             // When a Participant removes a Track, detach it from the DOM.
                             room.on('trackUnsubscribed', (track, participant) => {
                                 console.log(participant.identity + " removed track: " + track.kind);
@@ -210,13 +218,13 @@
                             // if local preview is not active, create it
                             if (!self.localTrackAval) {
                                 console.log('11local tracks got here')
-                                // let localTracksOptions = {
-                                //     // name: room_name,
-                                //     logLevel: 'debug',
-                                //     audio: false,
-                                //     video: false
-                                // };
-                                createLocalTracks()
+                                let localTracksOptions = {
+                                    // name: room_name,
+                                    logLevel: 'debug',
+                                    audio: self.availableDevices.includes('audioinput'),
+                                    video: self.availableDevices.includes('videoinput')
+                                };
+                                createLocalTracks(localTracksOptions)
                                     .then(tracks => {
                                             console.log('222 inside than local tracks got here')
                                             let localMediaContainer = document.getElementById('localTrack');
