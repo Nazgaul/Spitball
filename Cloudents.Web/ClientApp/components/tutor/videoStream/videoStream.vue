@@ -193,22 +193,20 @@
                             self.members.push(participant);
                             self.attachParticipantTracks(participant, previewContainer);
                         });
-                        if(room.participants.size === 0){
-                            console.log(room.participants)
 
                         // Attach the Participant's Media to a <div> element.
                         room.on('participantConnected', participant => {
                             console.log(`Participant "${participant.identity}" connected`);
                             self.members.push(participant);
-                            participant.tracks.forEach(publication => {
-                                if (publication.isSubscribed) {
-                                    const track = publication.track;
-                                        // document.getElementById('remoteTrack').appendChild(track.attach());
-                                        let previewContainer = document.getElementById('remoteTrack');
-                                        console.log('track attached', " added track: " + track.kind)
-                                        self.attachTracks([track], previewContainer);
-                                    }
-                                });
+                            // participant.tracks.forEach(publication => {
+                            //     if (publication.isSubscribed) {
+                            //         const track = publication.track;
+                            //             // document.getElementById('remoteTrack').appendChild(track.attach());
+                            //             let previewContainer = document.getElementById('remoteTrack');
+                            //             console.log('track attached', " added track: " + track.kind)
+                            //             self.attachTracks([track], previewContainer);
+                            //         }
+                            //     });
                                 //
                                 // participant.on('trackSubscribed', track => {
                                 //     let previewContainer = document.getElementById('remoteTrack');
@@ -225,7 +223,7 @@
                                 console.log('track attached', " added track: " + track.kind);
                                 self.attachTracks([track], previewContainer);
                             });
-                        }
+
 
                         // When a Participant removes a Track, detach it from the DOM.
                         room.on('trackUnsubscribed', (track, participant) => {
