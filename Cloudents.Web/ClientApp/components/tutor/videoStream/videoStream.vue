@@ -57,14 +57,15 @@
             return {
                 loading: false,
                 data: {},
-                localTrack: false,
+                localTrackAval: false,
                 remoteTrack: '',
                 activeRoom: '',
                 previewTracks: '',
                 identity: '',
                 roomName: 'Room One',
                 username: '',
-                members: []
+                members: [],
+                availableDevices: []
             }
         },
         // props: ['username'], // props that will be passed to this component
@@ -122,34 +123,51 @@
                 let index = this.members.indexOf(mem);
                 this.members.splice(index, 1);
             },
-            // Create a new chat
-            createChat(room_name) {
-                this.loading = true;
-                const self = this;
+            isHardawareAvaliable() {
+                let self = this;
+                if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+                    console.log("enumerateDevices() not supported.");
+                    return;
+                }
+                // List cameras and microphones.
+                 navigator.mediaDevices.enumerateDevices()
+                    .then(function (devices) {
+                        devices.forEach(function (device) {
+                            console.log(device.kind + ": " + device.label +
+                                " id = " + device.deviceId);
+                            self.availableDevices.push(device.kind);
+                        });
+                        const token = global.room;// data.data.token;
+                        let connectOptions;
+                        if(self.availableDevices){
+                            connectOptions= {
+                                audio: self.availableDevices.includes('audioinput'),
+                                video: self.availableDevices.includes('videoinput')
+                            }
+                        }
+                        // let connectOptions = {
+                        //     // name: room_name,
+                        //     // logLevel: 'debug',
+                        //     audio: true,
+                        //     video: true
+                        // };
+                        self.connect(token, connectOptions);
 
-                //this.getAccessToken().then((data) => {
-                self.roomName = null;
-                const token = global.room;// data.data.token;
-                let connectOptions = {
-                    // name: room_name,
-                    // logLevel: 'debug',
-                    audio: true,
-                    video: true
-                };
-                // before a user enters a new room,
-                // disconnect the user from they joined already
-                this.leaveRoomIfJoined();
-
-                // remove any remote track when joining a new room
-                document.getElementById('remoteTrack').innerHTML = "";
-                Twilio.connect(token, connectOptions)
+                    })
+                    .catch(function (err) {
+                        console.log(err.name + ": " + err.message);
+                    });
+            },
+            connect(token, options){
+                let self = this;
+                Twilio.connect(token, options)
                     .then((room) => {
                             // console.log('Successfully joined a Room: ', room);
-                            console.log('Successfully joined a Room: ' + room_name, 'dfgdfg', room);
+                            console.log('Successfully joined a Room: ' + room, 'dfgdfg');
 
                             // set active toom
                             self.activeRoom = room;
-                            self.roomName = room_name;
+                            self.roomName = room.name;
                             self.loading = false;
                             // Attach the Tracks of all the remote Participants.
                             room.participants.forEach((participant) => {
@@ -157,12 +175,6 @@
                                 self.members.push(participant);
                                 self.attachParticipantTracks(participant, previewContainer);
                             });
-
-                            // what the difference ?? with below one ?? Log new Participants as they connect to the Room
-                            // room.once('participantConnected', participant => {
-                            //     self.members.push(participant.identity);
-                            //     console.log(`Participant "${participant.identity}" has connected to the Room`);
-                            // });
                             // Attach the Participant's Media to a <div> element.
                             room.on('participantConnected', participant => {
                                 console.log(`Participant "${participant.identity}" connected`);
@@ -178,16 +190,12 @@
                                     document.getElementById('remoteTrack').appendChild(track.attach());
                                 });
                             });
-                            // When a Participant joins the Room, log the event.
-                            // room.on('participantConnected', (participant) => {
-                            //     console.log('user connected', participant.identity)
-                            // });
                             // When a Participant adds a Track, attach it to the DOM.
-                            room.on('trackSubscribed', (track, participant) => {
-                                let previewContainer = document.getElementById('remoteTrack');
-                                console.log('track attached', " added track: " + track.kind)
-                                self.attachTracks([track], previewContainer);
-                            });
+                            // room.on('trackSubscribed', (track, participant) => {
+                            //     let previewContainer = document.getElementById('remoteTrack');
+                            //     console.log('track attached', " added track: " + track.kind)
+                            //     self.attachTracks([track], previewContainer);
+                            // });
                             // When a Participant removes a Track, detach it from the DOM.
                             room.on('trackUnsubscribed', (track, participant) => {
                                 console.log(participant.identity + " removed track: " + track.kind);
@@ -195,12 +203,13 @@
                             });
                             // When a Participant leaves the Room, detach its Tracks.
                             room.on('participantDisconnected', (participant) => {
-                                self.removeMember(participant)
+                                self.removeMember(participant);
                                 console.log("Participant '" + participant.identity + "' left the room");
                                 self.detachParticipantTracks(participant);
                             });
                             // if local preview is not active, create it
-                            if (!self.localTrack) {
+                            if (!self.localTrackAval) {
+                                console.log('11local tracks got here')
                                 // let localTracksOptions = {
                                 //     // name: room_name,
                                 //     logLevel: 'debug',
@@ -209,10 +218,11 @@
                                 // };
                                 createLocalTracks()
                                     .then(tracks => {
+                                            console.log('222 inside than local tracks got here')
                                             let localMediaContainer = document.getElementById('localTrack');
                                             tracks.forEach((track) => {
                                                 localMediaContainer.appendChild(track.attach());
-                                                self.localTrack = true;
+                                                self.localTrackAval = true;
                                             })
                                         },
                                         (error) => {
@@ -225,7 +235,21 @@
                         (error) => {
                             console.log(error, 'error cant connect')
                         });
-                //})
+            },
+            // Create a new chat
+            createChat() {
+                this.loading = true;
+                const self = this;
+                 self.isHardawareAvaliable();
+                // self.roomName = null;
+
+
+                // before a user enters a new room,
+                // disconnect the user from they joined already
+                self.leaveRoomIfJoined();
+                // remove any remote track when joining a new room
+                document.getElementById('remoteTrack').innerHTML = "";
+
             },
         },
     }
