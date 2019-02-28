@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Search.Document;
 using Cloudents.Search.Extensions;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -90,7 +91,7 @@ namespace Cloudents.Search.Question
                         , new[] {query.UserProfile.Country}),
                     new ScoringParameter(
                         QuestionSearchWrite.TagsTagsParameter,
-                        query.UserProfile.Tags
+                        AzureDocumentSearch.GenerateScoringParameterValues(query.UserProfile.Tags)
                         ),
 
                 }

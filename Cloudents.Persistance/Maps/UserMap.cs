@@ -90,15 +90,15 @@ namespace Cloudents.Persistance.Maps
             HasManyToMany(x => x.Courses)
                 .ParentKeyColumn("UserId")
                 .ChildKeyColumn("CourseId")
-                .ForeignKeyConstraintNames("User_Courses", "Courses_User")
-                .Table("UsersCourses").AsSet();
+                .ForeignKeyConstraintNames("User_Courses2", "Courses_User2")
+                .Table("UsersCourses2").AsSet();
 
 
             HasManyToMany(x => x.Tags)
                 .ParentKeyColumn("UserId")
                 .ChildKeyColumn("TagId")
-                .ForeignKeyConstraintNames("User_Tags", "Tags_User")
-                .Table("UsersTags").AsSet();
+                .ForeignKeyConstraintNames("User_Tags2", "Tags_User2")
+                .Table("UsersTags2").AsSet();
 
         }
     }

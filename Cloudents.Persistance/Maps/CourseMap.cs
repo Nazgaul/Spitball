@@ -9,9 +9,13 @@ namespace Cloudents.Persistance.Maps
     {
         public CourseMap()
         {
-            Id(e => e.Name).GeneratedBy.Assigned().Length(150);
+            Table("Course2");
+            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10",
+                $"{nameof(HiLoGenerator.TableName)}='{nameof(Course)}'");
+            Map(e => e.Name).Not.Nullable().Length(150);
             Map(x => x.Count).Not.Nullable();
             Map(x => x.Created);
+            
             SchemaAction.None();
         }
     }

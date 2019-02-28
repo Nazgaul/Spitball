@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
-    public class Tag :Entity<string>
+    public class Tag :Entity<long>
     {
         public const int MinLength = 2;
         public const int MaxLength = 150;

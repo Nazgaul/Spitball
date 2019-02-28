@@ -42,3 +42,174 @@ and Score != 2 + (select count(1)
 			)
 commit
 rollback
+
+
+
+--on prod we have more courses the in dev. we can use top x to make the ETL work in good run time.
+Create table sb.Course2 (Id bigint NOT NULL, [Name] nvarchar(150), [Count] int, Created datetime2(7))
+
+CREATE SCHEMA Test ;  
+GO  
+CREATE SEQUENCE Test.CountBy1  
+    START WITH 1  
+    INCREMENT BY 1 ;  
+GO  
+
+insert into sb.Course2
+select NEXT VALUE FOR Test.CountBy1 ,Name, [Count], Created
+from sb.Course
+
+CREATE NONCLUSTERED INDEX IX_Course_Name 
+    ON sb.Course2 ([Name]);
+
+
+--After CourseId created by NHibernate
+update D
+set CourseId = (select id from sb.Course2 C where D.CourseName = C.Name)
+from sb.Document D
+
+
+--After CourseId created by NHibernate
+update Q
+set CourseId2 = (select id from sb.Course2 C where Q.CourseId = C.Name)
+from sb.Question Q
+
+
+
+--Create new relationship table user_courses
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[UsersCourses2](
+	[UserId] [bigint] NOT NULL,
+	[CourseId] [bigint] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[CourseId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[UsersCourses2]  WITH CHECK ADD  CONSTRAINT [Courses_User2] FOREIGN KEY([CourseId])
+REFERENCES [sb].[Course2] ([Id])
+GO
+
+ALTER TABLE [sb].[UsersCourses2] CHECK CONSTRAINT [Courses_User2]
+GO
+
+ALTER TABLE [sb].[UsersCourses2]  WITH CHECK ADD  CONSTRAINT [User_Courses2] FOREIGN KEY([UserId])
+REFERENCES [sb].[User] ([Id])
+GO
+
+ALTER TABLE [sb].[UsersCourses2] CHECK CONSTRAINT [User_Courses2]
+GO
+
+
+--Populate new relationship table user_courses
+insert into [sb].[UsersCourses2]
+select UC.UserId, C.Id
+from sb.UsersCourses UC
+join sb.[Course2] C
+	on UC.CourseId = C.[Name]
+
+
+
+insert into [sb].[HiLoGenerator] ([TableName], NextHi)
+values('Course', (select max(id)+1 from sb.Course2))
+
+
+
+
+--Tags
+Create table sb.Tag2 (Id bigint primary key NOT NULL, [Name] nvarchar(150) not null, [Count] int not null)
+
+
+CREATE SEQUENCE Test.Tag
+    START WITH 1  
+    INCREMENT BY 1 ;  
+GO  
+
+insert into sb.Tag2
+select NEXT VALUE FOR Test.Tag ,Name, [Count]
+from sb.Tag
+
+CREATE NONCLUSTERED INDEX IX_Tage_Name 
+    ON sb.Tag2 ([Name]);
+
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[UsersTags2](
+	[UserId] [bigint] NOT NULL,
+	[TagId] [bigint] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[TagId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[UsersTags2]  WITH CHECK ADD  CONSTRAINT [Tags_User2] FOREIGN KEY([TagId])
+REFERENCES [sb].[Tag2] ([ID])
+GO
+
+ALTER TABLE [sb].[UsersTags2] CHECK CONSTRAINT [Tags_User2]
+GO
+
+ALTER TABLE [sb].[UsersTags2]  WITH CHECK ADD  CONSTRAINT [User_Tags2] FOREIGN KEY([UserId])
+REFERENCES [sb].[User] ([Id])
+GO
+
+ALTER TABLE [sb].[UsersTags2] CHECK CONSTRAINT [User_Tags2]
+GO
+
+
+
+
+
+--create [sb].[DocumentsTags2]
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[DocumentsTags2](
+	[DocumentId] [bigint] NOT NULL,
+	[TagId] [bigint] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[DocumentId] ASC,
+	[TagId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[DocumentsTags2]  WITH CHECK ADD  CONSTRAINT [Document_Tags2] FOREIGN KEY([DocumentId])
+REFERENCES [sb].[Document] ([Id])
+GO
+
+ALTER TABLE [sb].[DocumentsTags2] CHECK CONSTRAINT [Document_Tags2]
+GO
+
+ALTER TABLE [sb].[DocumentsTags2]  WITH CHECK ADD  CONSTRAINT [Tags_Documents2] FOREIGN KEY([TagId])
+REFERENCES [sb].[Tag2] ([Id])
+GO
+
+
+ALTER TABLE [sb].[DocumentsTags2] CHECK CONSTRAINT [Tags_Documents2]
+GO
+
+
+insert into [sb].[HiLoGenerator] ([TableName], NextHi)
+values('Tag', (select max(id)+1 from sb.Tag2))

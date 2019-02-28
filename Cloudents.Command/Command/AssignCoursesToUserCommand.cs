@@ -4,14 +4,14 @@ namespace Cloudents.Command.Command
 {
     public class AssignCoursesToUserCommand : ICommand
     {
-        public AssignCoursesToUserCommand(IEnumerable<string> name, long userId)
+        public AssignCoursesToUserCommand(IEnumerable<string> names, long userId)
         {
-            Name = name;
+            Names = names;
             UserId = userId;
         }
 
 
-        public IEnumerable<string> Name { get; }
+        public IEnumerable<string> Names { get; }
         public long UserId { get; }
     }
 }
