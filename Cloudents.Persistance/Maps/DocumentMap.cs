@@ -24,7 +24,7 @@ namespace Cloudents.Persistance.Maps
             
             Component(x => x.TimeStamp);
            
-            References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
+            References(x => x.Course).Column("CourseId").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
             Map(x => x.Downloads).Not.Nullable();
@@ -49,7 +49,7 @@ namespace Cloudents.Persistance.Maps
 
    
             Component(x => x.Status);
-            SchemaAction.None();
+            SchemaAction.Update();
         }
     }
 }

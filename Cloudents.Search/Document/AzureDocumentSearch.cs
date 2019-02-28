@@ -148,7 +148,7 @@ namespace Cloudents.Search.Document
 
         }
 
-        private static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
+        internal static IEnumerable<string> GenerateScoringParameterValues(IEnumerable<string> input)
         {
             if (input == null)
             {

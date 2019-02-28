@@ -146,7 +146,7 @@ namespace ConsoleApp
             //var z = new SyncAzureQuery(2844404, 0);
             //var result =await queryBus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(z, default);
            var t = _container.Resolve<AzureQuestionSearch>();
-           var z2 = await t.GetById("9361");
+           var z2 = await t.GetById("8482");
             //var textTranslator = _container.Resolve<ITextTranslator>();
             ////var result2 = await textTranslator.TranslateAsync("hello text", "he", default);
 
@@ -423,7 +423,14 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            await TransferDocuments();
+            var t = _container.Resolve<AzureQuestionSearch>();
+            var z2 = await t.GetById("8482");
+            //var _queryBus = _container.Resolve<IQueryBus>();
+
+            //var query = new Cloudents.Query.Query.CourseSearchQuery("לינארית");
+            //var retValTask = _queryBus.QueryAsync<IEnumerable<Cloudents.Core.DTOs.CourseDto>>(query,
+            //        new System.Threading.CancellationToken());
+            ////await TransferDocuments();
             // await FixStorageAsync();
             /* var commandBus = _container.Resolve<ICommandBus>();*/
             //await ReNameFiles();

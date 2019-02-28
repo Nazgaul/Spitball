@@ -42,3 +42,81 @@ and Score != 2 + (select count(1)
 			)
 commit
 rollback
+
+
+
+--on prod we have more courses the in dev. we can use top x to make the ETL work in good run time.
+Create table sb.Course2 (Id bigint NOT NULL, [Name] nvarchar(150), [Count] int, Created datetime2(7))
+
+CREATE SCHEMA Test ;  
+GO  
+CREATE SEQUENCE Test.CountBy1  
+    START WITH 1  
+    INCREMENT BY 1 ;  
+GO  
+
+insert into sb.Course2
+select NEXT VALUE FOR Test.CountBy1 ,Name, [Count], Created
+from sb.Course
+
+CREATE NONCLUSTERED INDEX IX_Course_Name 
+    ON sb.Course2 ([Name]);
+
+
+--After CourseId created by NHibernate
+update D
+set CourseId = (select id from sb.Course2 C where D.CourseName = C.Name)
+from sb.Document D
+
+
+--After CourseId created by NHibernate
+update Q
+set CourseId2 = (select id from sb.Course2 C where Q.CourseId = C.Name)
+from sb.Question Q
+
+
+
+--Create new relationship table user_courses
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[UsersCourses2](
+	[UserId] [bigint] NOT NULL,
+	[CourseId] [bigint] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[CourseId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[UsersCourses2]  WITH CHECK ADD  CONSTRAINT [Courses_User2] FOREIGN KEY([CourseId])
+REFERENCES [sb].[Course2] ([Id])
+GO
+
+ALTER TABLE [sb].[UsersCourses2] CHECK CONSTRAINT [Courses_User2]
+GO
+
+ALTER TABLE [sb].[UsersCourses2]  WITH CHECK ADD  CONSTRAINT [User_Courses2] FOREIGN KEY([UserId])
+REFERENCES [sb].[User] ([Id])
+GO
+
+ALTER TABLE [sb].[UsersCourses2] CHECK CONSTRAINT [User_Courses2]
+GO
+
+
+--Populate new relationship table user_courses
+insert into [sb].[UsersCourses2]
+select UC.UserId, C.Id
+from sb.UsersCourses UC
+join sb.[Course2] C
+	on UC.CourseId = C.[Name]
+
+
+
+insert into [sb].[HiLoGenerator] ([TableName], NextHi)
+values('Course', (select max(id)+1 from sb.Course2))
