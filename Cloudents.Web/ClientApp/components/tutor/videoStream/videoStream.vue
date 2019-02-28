@@ -183,7 +183,6 @@
                     .then((room) => {
                         // console.log('Successfully joined a Room: ', room);
                         console.log('Successfully joined a Room: ' + room, 'dfgdfg');
-
                         // set active toom
                         self.activeRoom = room;
                         self.roomName = room.name;
@@ -194,6 +193,9 @@
                             self.members.push(participant);
                             self.attachParticipantTracks(participant, previewContainer);
                         });
+                        if(room.participants.size === 0){
+                            console.log(room.participants)
+
                         // Attach the Participant's Media to a <div> element.
                         room.on('participantConnected', participant => {
                             console.log(`Participant "${participant.identity}" connected`);
@@ -220,9 +222,11 @@
                             //keep commented cause adds multiple
                             room.on('trackSubscribed', (track, participant) => {
                                 let previewContainer = document.getElementById('remoteTrack');
-                                console.log('track attached', " added track: " + track.kind)
+                                console.log('track attached', " added track: " + track.kind);
                                 self.attachTracks([track], previewContainer);
                             });
+                        }
+
                         // When a Participant removes a Track, detach it from the DOM.
                         room.on('trackUnsubscribed', (track, participant) => {
                             console.log(participant.identity + " removed track: " + track.kind);
