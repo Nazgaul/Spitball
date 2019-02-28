@@ -47,12 +47,11 @@
     <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.1" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" />
-    <PackageReference Include="libphonenumber-csharp" Version="8.10.5" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.6.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.SnapshotCollector" Version="1.3.3" />
   
-    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.0.6" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureStorage" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.2.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
@@ -68,11 +67,6 @@
     <ProjectReference Include="..\Cloudents.Persistance\Cloudents.Persistance.csproj" />
     <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
     <ProjectReference Include="..\Cloudents.Search\Cloudents.Search.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Twilio">
-      <HintPath>..\..\..\..\.nuget\packages\twilio\5.6.3\lib\netstandard1.4\Twilio.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Update="log4net.config">

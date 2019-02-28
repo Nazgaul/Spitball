@@ -141,8 +141,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var queryBus = _container.Resolve<IQueryBus>();
-            
+            var queryBus = _container.Resolve<ISmsProvider>();
+            var result = await queryBus.ValidateNumberAsync("+972542642202", default);
             //var z = new SyncAzureQuery(2844404, 0);
             //var result =await queryBus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(z, default);
            var t = _container.Resolve<AzureQuestionSearch>();

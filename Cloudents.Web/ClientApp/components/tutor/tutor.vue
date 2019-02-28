@@ -5,7 +5,13 @@
     import videoStream from './videoStream/videoStream.vue'
     export default {
         components:{videoStream},
-        name: "tutor"
+        name: "tutor",
+        props: {
+            id: ''
+        }, 
+        created() {
+            console.log('ID Tutor!!',this.id)
+        }
     }
 </script>
 

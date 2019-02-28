@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-using Microsoft.Spatial;
 
 namespace Cloudents.Core.Models
 {
@@ -61,9 +60,9 @@ namespace Cloudents.Core.Models
             return !(obj1 == obj2);
         }
 
-        public GeographyPoint ToPoint()
-        {
-            return GeographyPoint.Create(Latitude, Longitude);
-        }
+        //public GeographyPoint ToPoint()
+        //{
+        //    return GeographyPoint.Create(Latitude, Longitude);
+        //}
     }
 }

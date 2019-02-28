@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Newtonsoft.Json;
+using Twilio;
 
 //using Twilio;
 //using Twilio.Rest.Lookups.V1;
@@ -15,7 +14,6 @@ namespace Cloudents.Infrastructure.Mail
 {
     public class SmsProvider : ISmsProvider
     {
-        private readonly IRestClient _restClient;
 
 
         private readonly string[] _badProviders = {
@@ -28,50 +26,64 @@ namespace Cloudents.Infrastructure.Mail
         private const string AccountSid = "AC1796f09281da07ec03149db53b55db8d";
         private const string AuthToken = "c4cdf14c4f6ca25c345c3600a72e8b49";
 
-        public SmsProvider(IRestClient restClient)
+        public SmsProvider()
         {
-            _restClient = restClient;
-            
-
-            // TwilioClient.Init(accountSid, authToken);
+            TwilioClient.Init(AccountSid, AuthToken);
         }
 
-        public async Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token)
+        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, CancellationToken token)
         {
+            var result = await Twilio.Rest.Lookups.V1.PhoneNumberResource.FetchAsync(
+                pathPhoneNumber: phoneNumber,
+                type: new List<string>()
+                {
+                    "carrier"
+                }
+            );
+            //var uri = new Uri($"https://lookups.twilio.com/v1/PhoneNumbers/{phoneNumber}?Type=carrier");
 
-            var uri = new Uri($"https://lookups.twilio.com/v1/PhoneNumbers/{phoneNumber}?Type=carrier");
-
-            var byteArray = Encoding.ASCII.GetBytes($"{AccountSid}:{AuthToken}");
-            var authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-            var headers = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("Authorization", authorization.ToString())
-            };
+            //var byteArray = Encoding.ASCII.GetBytes($"{AccountSid}:{AuthToken}");
+            //var authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+            //var headers = new List<KeyValuePair<string, string>>
+            //{
+            //    new KeyValuePair<string, string>("Authorization", authorization.ToString())
+            //};
 
 
-            var result = await _restClient.GetAsync<PhoneValidator>(uri, null, headers, token);
+            //var result = await _restClient.GetAsync<PhoneValidator>(uri, null, headers, token);
 
             if (result == null)
             {
-                return null;
+                return (null, null);
             }
             var carrier = result.Carrier;
 
-            //https://support.twilio.com/hc/en-us/articles/360004563433-Twilio-Lookups-API-is-Not-Returning-Carrier-Data-for-Canadian-Phone-Numbers
-            if (carrier.Type != null)
+            if (carrier.TryGetValue("type", out var carrierType))
             {
-                if (!string.Equals(carrier.Type, "mobile", StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(carrierType, "mobile", StringComparison.OrdinalIgnoreCase))
                 {
-                    return null;
+                    return (null, null);
+                }
+            }
+            //https://support.twilio.com/hc/en-us/articles/360004563433-Twilio-Lookups-API-is-Not-Returning-Carrier-Data-for-Canadian-Phone-Numbers
+            //if (carrier.Type != null)
+            //{
+            //    if (!string.Equals(carrier.Type, "mobile", StringComparison.OrdinalIgnoreCase))
+            //    {
+            //        return null;
+            //    }
+            //}
+            if (carrier.TryGetValue("name", out var carrierName))
+            {
+
+
+                if (_badProviders.Contains(carrierName, StringComparer.OrdinalIgnoreCase))
+                {
+                    return (null, null);
                 }
             }
 
-            if (_badProviders.Contains(carrier.Name, StringComparer.OrdinalIgnoreCase))
-            {
-                return null;
-            }
-
-            return result.PhoneNumber;
+            return (result.PhoneNumber.ToString(), result.CountryCode);
         }
 
 

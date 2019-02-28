@@ -212,7 +212,7 @@ let routes2 = [
     },
 
     {
-        path: "/tutoring",
+        path: "/tutoring/:id?",
         name: 'tutoring',
         components: {
             default: tutorComponent,
@@ -220,7 +220,12 @@ let routes2 = [
         },
         header: () => ({
             submitRoute: '/tutoring',
-        })
+        }),
+        props: {
+            default: (route) => ({
+                id: route.params.id
+            })
+        }
     },
     {
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
