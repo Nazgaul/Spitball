@@ -26,34 +26,34 @@ namespace Cloudents.Query.SearchSync
 
         const string FirstQuery = @"with cte as (
 select q.Id as QuestionId,
-	    q.Language as Language,
-	    u.Country as Country,
-	    (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
-	    q.Updated as DateTime,
-	    CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
-	    q.Text as Text,
-	    q.State as State,
-	    q.Subject_id as Subject,
-	    c2.Name as Course,
-	    uni.Name as University,
-	    c.* 
-				FROM (
-				Select top 15 TagId from sb.DocumentsTags where DocumentId in (
+                           q.Language as Language,
+                           u.Country as Country,
+                           (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
+                           q.Updated as DateTime, 
+                           CASE when q.CorrectAnswer_id IS null Then 0 else 1  END HasCorrectAnswer,
+                           q.Text as Text,
+                           q.State as State,
+                            q.Subject_id as Subject,
+--q.CourseId as Course,
+c2.Name as Course,
+uni.Name as University,
+(select STRING_AGG(dt.TagId, ', ')	
+FROM (
+Select top 15 TagId from sb.DocumentsTags where DocumentId in (
 Select id from sb.Document where CourseName = q.CourseId)
 group by TagId
 order by count(*) desc) dt
-				) AS Tags	 
-        From sb.[Question] q  
-        right outer join CHANGETABLE (CHANGES sb.[Question], @Version) AS c ON q.Id = c.id 
-        join sb.[User] u 
-        	On u.Id = q.UserId
-        left join sb.University uni 
-        	on uni.Id = q.UniversityId
-        left join sb.Course2 C2
-        	on q.CourseId2 = C2.Id
-        Order by q.Id 
-        OFFSET @PageSize * @PageNumber 
-        ROWS FETCH NEXT @PageSize ROWS ONLY";
+) AS Tags	
+From sb.[Question] q 
+ CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c
+                           join sb.[User] u 
+                           On u.Id = q.UserId
+left join sb.University uni on uni.Id = q.UniversityId
+left join sb.Course2 c2 on q.CourseId2 = c2.Id
+                           Order by q.Id  
+                           OFFSET @PageSize * @PageNumber 
+                            ROWS FETCH NEXT @PageSize ROWS ONLY
+
 )
 select * from 
 cte

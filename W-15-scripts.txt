@@ -71,7 +71,7 @@ from sb.Document D
 
 --After CourseId created by NHibernate
 update Q
-set CourseId = (select id from sb.Course2 C where Q.CourseName = C.Name)
+set CourseId2 = (select id from sb.Course2 C where Q.CourseId = C.Name)
 from sb.Question Q
 
 
