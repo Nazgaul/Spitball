@@ -24,6 +24,8 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Query.Query.Sync;
 using Cloudents.Search.Question;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -139,8 +141,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var queryBus = _container.Resolve<IQueryBus>();
+            
+            //var z = new SyncAzureQuery(2844404, 0);
+            //var result =await queryBus.QueryAsync<(IEnumerable<QuestionSearchDto> update, IEnumerable<string> delete, long version)>(z, default);
            var t = _container.Resolve<AzureQuestionSearch>();
-           var z = await t.GetById("9361");
+           var z2 = await t.GetById("9361");
             //var textTranslator = _container.Resolve<ITextTranslator>();
             ////var result2 = await textTranslator.TranslateAsync("hello text", "he", default);
 

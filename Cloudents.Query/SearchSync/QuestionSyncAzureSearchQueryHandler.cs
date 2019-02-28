@@ -24,7 +24,7 @@ namespace Cloudents.Query.SearchSync
             _repository = repository;
         }
 
-        const string VersionSql = @"with cte as (
+        const string FirstQuery = @"with cte as (
 select q.Id as QuestionId,
 	                            q.Language as Language,
 	                            u.Country as Country,
@@ -56,7 +56,7 @@ select * from
 cte
 CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c;";
 
-        const string FirstQuery = @"select q.Id as QuestionId,
+        const string VersionSql = @"select q.Id as QuestionId,
 	                            q.Language as Language,
 	                            u.Country as Country,
 	                            (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
