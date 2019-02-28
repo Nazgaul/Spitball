@@ -1,4 +1,7 @@
-﻿using Cloudents.Search.Extensions;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
+using Cloudents.Search.Extensions;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using System;
@@ -6,9 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 
 namespace Cloudents.Search.Question
 {
@@ -32,7 +32,6 @@ namespace Cloudents.Search.Question
             SearchAsync(QuestionsQuery query, CancellationToken token)
         {
             var filters = new List<string>();
-            //var filter1 = $"{nameof(Entities.Question.Language)} eq 'en'";
 
             var country = query.UserProfile.Country ?? query.UserProfile.University?.Country;
 
@@ -89,6 +88,11 @@ namespace Cloudents.Search.Question
                     new ScoringParameter
                     (QuestionSearchWrite.TagsCountryParameter
                         , new[] {query.UserProfile.Country}),
+                    new ScoringParameter(
+                        QuestionSearchWrite.TagsTagsParameter,
+                        query.UserProfile.Tags
+                        ),
+
                 }
 
             };

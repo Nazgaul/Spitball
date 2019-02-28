@@ -25,6 +25,7 @@ namespace Cloudents.Search.Entities
             Subject = dto.Subject;
             State = dto.State;
             UniversityName = dto.UniversityName;
+            Tags = dto.Tags;
         }
 
         public Question(string id)
@@ -64,6 +65,9 @@ namespace Cloudents.Search.Entities
 
         [IsFilterable, IsFacetable]
         public QuestionFilter? State { get; set; }
+
+        [IsFilterable, IsSearchable]
+        public string[] Tags { get; set; }
 
     }
 }

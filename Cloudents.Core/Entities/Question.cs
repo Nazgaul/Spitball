@@ -98,8 +98,6 @@ namespace Cloudents.Core.Entities
         public virtual IList<QuestionTransaction> Transactions { get; protected set; }
 
 
-        // public virtual int AnswerCount { get; set; }
-
         public virtual Answer AddAnswer(string text, int attachments, RegularUser user, CultureInfo language)
         {
             var answer = new Answer(this, text, attachments, user, language);

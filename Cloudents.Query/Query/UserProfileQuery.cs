@@ -44,8 +44,11 @@ namespace Cloudents.Query.Query
                 var coursesFuture = sqlCourses.Future<string>();
 
 
-                var sqlTags = _session.CreateSQLQuery(@"select tagid from sb.UsersTags
-where UserId = :id");
+                var sqlTags = _session.CreateSQLQuery(@"Select  distinct TagId from sb.DocumentsTags where DocumentId in (
+Select id from sb.Document where CourseName in (
+Select CourseId from sb.UsersCourses where userid = :id
+)
+)");
                 sqlTags.SetInt64("id", query.Id);
 
                 var tagsFuture = sqlTags.Future<string>();

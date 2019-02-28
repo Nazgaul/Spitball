@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Sync;
 using Dapper;
@@ -7,7 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.SearchSync
 {
@@ -24,7 +24,8 @@ namespace Cloudents.Query.SearchSync
             _repository = repository;
         }
 
-        const string VersionSql = @"select q.Id as QuestionId,
+        const string FirstQuery = @"with cte as (
+select q.Id as QuestionId,
 	    q.Language as Language,
 	    u.Country as Country,
 	    (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
@@ -36,6 +37,12 @@ namespace Cloudents.Query.SearchSync
 	    c2.Name as Course,
 	    uni.Name as University,
 	    c.* 
+				FROM (
+				Select top 15 TagId from sb.DocumentsTags where DocumentId in (
+Select id from sb.Document where CourseName = q.CourseId)
+group by TagId
+order by count(*) desc) dt
+				) AS Tags	 
         From sb.[Question] q  
         right outer join CHANGETABLE (CHANGES sb.[Question], @Version) AS c ON q.Id = c.id 
         join sb.[User] u 
@@ -47,8 +54,12 @@ namespace Cloudents.Query.SearchSync
         Order by q.Id 
         OFFSET @PageSize * @PageNumber 
         ROWS FETCH NEXT @PageSize ROWS ONLY";
+)
+select * from 
+cte
+CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c;";
 
-        const string FirstQuery = @"select q.Id as QuestionId,
+        const string VersionSql = @"select q.Id as QuestionId,
 	    q.Language as Language,
 	    u.Country as Country,
 	    (select count(*) from sb.Answer where QuestionId = q.Id and State = 'Ok') AnswerCount,
@@ -59,6 +70,13 @@ namespace Cloudents.Query.SearchSync
 	    q.Subject_id as Subject,
 		C2.Name as Course,
 		uni.Name as University,
+(select STRING_AGG(dt.TagId, ', ')		
+				FROM (
+				Select top 15 TagId from sb.DocumentsTags where DocumentId in (
+Select id from sb.Document where CourseName = q.CourseId)
+group by TagId
+order by count(*) desc) dt
+				) AS Tags,
 	    c.* 
 From sb.[Question] q 
 CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c
@@ -117,7 +135,7 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
                             state = QuestionFilter.Sold;
                         }
 
-                       
+
                         update.Add(new QuestionSearchDto
                         {
                             Country = dbResult.Country,
@@ -128,7 +146,8 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
                             Language = dbResult.Language ?? "en",
                             Subject = dbResult.Subject,
                             Text = dbResult.Text,
-                            UniversityName = dbResult.University
+                            UniversityName = dbResult.University,
+                            Tags = dbResult.Tags?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                         });
                     }
                 }
@@ -174,6 +193,8 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
 
             [Core.Attributes.DtoToEntityConnection(nameof(Question.University.Name))]
             public string University { get; set; }
+            [Core.Attributes.DtoToEntityConnection(nameof(Question.Course), nameof(Document.Tags), nameof(Tag.Name))]
+            public string Tags { get; set; }
         }
 
 

@@ -70,6 +70,11 @@
     <ProjectReference Include="..\Cloudents.Search\Cloudents.Search.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Twilio">
+      <HintPath>..\..\..\..\.nuget\packages\twilio\5.6.3\lib\netstandard1.4\Twilio.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
