@@ -33,7 +33,10 @@ namespace Cloudents.Web.Api
         [HttpPost("create")]
         public IActionResult CreateAsync()
         {
-            var room = RoomResource.Create(uniqueName: Guid.NewGuid().ToString());
+            var room = RoomResource.Create(
+                uniqueName: Guid.NewGuid().ToString(),
+                type: RoomResource.RoomTypeEnum.PeerToPeer);
+
             return Ok(new
             {
                 name = room.UniqueName
@@ -46,6 +49,7 @@ namespace Cloudents.Web.Api
         {
 
             var room = await RoomResource.FetchAsync(roomName);
+
             var grant = new VideoGrant
             {
                 Room = room.UniqueName
