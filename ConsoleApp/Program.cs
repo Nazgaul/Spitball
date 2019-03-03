@@ -23,6 +23,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Query.Query.Sync;
@@ -141,12 +142,19 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var queryBus = _container.Resolve<IEnumerable<ITextAnalysis>>();
-            foreach (var textAnalysis in queryBus)
-            {
-                var t = await textAnalysis.DetectLanguageAsync("1+2+3+4+5+7", default);
 
-            }
+
+            var queryBus = _container.Resolve<ICommandBus>();
+
+            var command = new ChatAddMessageCommand("hi to you too", 159039L, new[] {638L});
+
+           await queryBus.DispatchAsync(command, CancellationToken.None);
+
+            //foreach (var textAnalysis in queryBus)
+            //{
+            //    var t = await textAnalysis.DetectLanguageAsync("1+2+3+4+5+7", default);
+
+            //}
             //var textTranslator = _container.Resolve<ITextTranslator>();
             ////var result2 = await textTranslator.TranslateAsync("hello text", "he", default);
 

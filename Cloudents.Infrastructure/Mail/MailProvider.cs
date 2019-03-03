@@ -69,8 +69,8 @@ namespace Cloudents.Infrastructure.Mail
                 ["api_key"] = "pubkey-871e78a663947b3b87c523a7b81c4b78",
                 ["mailbox_verification"] = "true"
             };
-            var w = await _restClient.Value.GetAsync<VerifyEmail>(uri, nvc, null, token);
 
+            var w = await _restClient.Value.GetAsync<VerifyEmail>(uri, nvc, null, token);
             return w?.IsValid ?? false;
         }
 

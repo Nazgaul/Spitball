@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public ChatRoom(IEnumerable<User> users)
+        public ChatRoom(IEnumerable<RegularUser> users)
         {
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             UpdateTime = DateTime.UtcNow;
@@ -19,6 +19,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Guid Id { get; protected set; }
         public virtual DateTime UpdateTime { get; set; }
+
         public virtual ICollection<ChatUser> Users { get; protected set; }
     }
 
@@ -29,7 +30,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public ChatUser(ChatRoom chatRoom, User user)
+        public ChatUser(ChatRoom chatRoom, RegularUser user)
         {
             ChatRoom = chatRoom;
             User = user;
@@ -37,7 +38,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Guid Id { get; protected set; }
         public virtual ChatRoom ChatRoom { get; protected set; }
-        public virtual User User { get; protected set; }
+        public virtual RegularUser User { get; protected set; }
 
         public virtual int Unread { get; set; }
     }
@@ -49,22 +50,18 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public ChatMessage(ChatRoom chatRoom, User user, string message, string blob)
+        public ChatMessage(ChatUser user, string message)
         {
-            ChatRoom = chatRoom;
             User = user;
             Message = message;
             CreationTime = DateTime.UtcNow;
-            Blob = blob;
         }
 
         public virtual Guid Id { get; protected set; }
 
-        public virtual ChatRoom ChatRoom { get; protected set; }
-        public virtual User User { get; protected set; }
+        public virtual ChatUser User { get; protected set; }
         public virtual string Message { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
 
-        public virtual string Blob { get; protected set; }
     }
 }
