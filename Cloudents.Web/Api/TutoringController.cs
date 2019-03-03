@@ -52,9 +52,8 @@ namespace Cloudents.Web.Api
 
             var grant = new VideoGrant
             {
-                Room = room.UniqueName
+                Room = room.UniqueName,
             };
-
             var grants = new HashSet<IGrant> { grant };
 
             // Create an Access Token generator
