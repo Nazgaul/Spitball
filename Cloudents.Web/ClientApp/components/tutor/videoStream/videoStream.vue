@@ -1,103 +1,130 @@
 <template>
-    <v-container>
+    <v-container class="videos-wrapper">
         <v-layout>
             <v-flex>
-                <!--<v-text-field solo type="text" class="form-control" v-model="username"></v-text-field>-->
-                <!--<v-text-field solo type="text" class="form-control" v-model="roomName"></v-text-field>-->
                 <v-btn @click="generateRoom()" v-if="!id" primary>Generate Room</v-btn>
-                <div>Room Link{{roomLink}}</div>
+                <v-btn @click="doCopy" v-if="id">{{isCopied ? 'Copied' : 'Copy Link'}}</v-btn>
+                <v-btn @click="sendData()">Click</v-btn>
             </v-flex>
         </v-layout>
-        <!--<v-layout>-->
-            <!--<v-flex>-->
-                <!--<v-btn @click="startChat()" primary>Submit</v-btn>-->
-            <!--</v-flex>-->
-        <!--</v-layout>-->
         <v-layout>
             <v-flex>
                 <div class="roomTitle">
                     <span v-if="loading"> Loading... {{roomName}}</span>
                     <span v-else-if="!loading && roomName"> Connected to {{roomName}}</span>
-                    <span v-else>Select a room to get started</span>
+                    <span v-else>Generate a room to get started</span>
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout row>
-            <v-flex>
-                <div class="row remote_video_container">
-                    <div id="remoteTrack"></div>
-                    <h4>sdfsdfsd</h4>
-                </div>
-            </v-flex>
-            <v-flex>
-                <div v-for="member in members">
-                    <div>Participants Name</div>
-                    <h4>{{member.identity}}</h4>
-                </div>
-            </v-flex>
-        </v-layout>
-        <v-layout>
-            <v-flex>
-                <div class="spacing"></div>
-                <div class="row">
-                    <div id="localTrack"></div>
-                </div>
-            </v-flex>
+        <v-layout column align-end>
+            <div class="video-holder">
+                <v-flex>
+                    <span class="video-size-ctrl" @click="minimize('local_player')">{{visible.local_player ? "Minimize" : "Maximize"}}</span>
+                    <span class="video-size-ctrl" @click="biggerLocalVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
+                    <span class="video-size-ctrl" @click="requestPictureInPicture('localTrack')">Picture mode</span>
+                </v-flex>
+                <v-flex v-show="visible.local_player">
+                    <div class="row">
+                         <!--<h4>Tutor {{members[0].identity}}</h4>-->
+                        <div id="localTrack"></div>
+                    </div>
+                </v-flex>
+            </div>
+            <div class="video-holder">
+                <v-flex>
+                <span class="video-size-ctrl" @click="minimize('remote_player')">{{visible.remote_player ? "Minimize" : "Maximize"}}</span>
+                <span class="video-size-ctrl" @click="biggerRemoteVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
+                <span class="video-size-ctrl" @click="requestPictureInPicture('remoteTrack')">Picture mode</span>
+                </v-flex>
+                <v-flex v-show="visible.remote_player">
+                    <div class="row remote_video_container">
+                        <!--<h4>Student {{members[1].identity}}</h4>-->
+                        <div id="remoteTrack" ref='remote_player'></div>
+                    </div>
+                </v-flex>
+            </div>
+
         </v-layout>
     </v-container>
 </template>
 
 <script>
-    import Twilio, { connect, createLocalTracks, createLocalVideoTrack } from 'twilio-video';
+    import Twilio, { connect, createLocalTracks, createLocalVideoTrack, LocalDataTrack } from 'twilio-video';
     import videoService from '../../../services/videoStreamService';
 
+    const dataTrack = new LocalDataTrack();
     export default {
         name: "videoStream",
         data() {
             return {
                 loading: false,
                 data: {},
+                isCopied: false,
                 localTrackAval: false,
                 remoteTrack: '',
                 activeRoom: '',
                 previewTracks: '',
                 identity: '',
-                roomName: 'Room One',
+                roomName: '',
                 roomLink: '',
                 username: '',
-                members: [],
-                availableDevices: []
+                members: ['', ''],
+                availableDevices: [],
+                visible: {
+                    'local_player': true,
+                    'remote_player': true
+                }
             }
         },
         props: {
             id: ''
         },
         watch: {
-           '$route': 'createChat'
+            '$route': 'createChat'
         },
         methods: {
+            biggerLocalVideo(){
+                let video = document.querySelectorAll("#localTrack video")[0];
+                video.requestFullscreen()
+            },
+            biggerRemoteVideo(){
+                let video = document.querySelectorAll("#remoteTrack video")[0];
+                video.requestFullscreen()
+            },
+            requestPictureInPicture(videoType){
+                let video = document.querySelectorAll(`#${videoType} video`)[0];
+                video.requestPictureInPicture();
+            },
+            minimize(type) {
+                this.visible[`${type}`] = !this.visible[`${type}`];
+            },
+            sendData() {
+                let joy = {test: 'Hello Beny DATA!!!!'};
+                dataTrack.send(JSON.stringify(joy));
+            },
             generateRoom() {
                 let self = this;
-                videoService.generateRoom().then( data  => {
+                videoService.generateRoom().then(data => {
                     self.roomLink = data.data.name;
-                    self.$router.push({name: 'tutoring', params:{id :  self.roomLink}});
-                    // self.id = self.roomLink;
-                    // self.createChat();
+                    self.$router.push({name: 'tutoring', params: {id: self.roomLink}});
                 })
-                
+
             },
             startChat() {
                 this.createChat()
             },
+            doCopy() {
+                let self = this;
+                    this.$copyText(self.roomLink).then((e) => {
+                        self.isCopied = true;
+                    }, (e) => {
+                    })
+                },
+
             // Generate access token
             async getAccessToken() {
                 return await videoService.getToken(this.id);
             },
-
-            //async generateRoom() {
-            //    return await videoService.generateRoom();
-            //},
-
 
             // Attach the Tracks to the DOM.
             attachTracks(tracks, container) {
@@ -154,109 +181,112 @@
                                 " id = " + device.deviceId);
                             self.availableDevices.push(device.kind);
                         });
-                       // global.room;// data.data.token;
                         let connectOptions;
-                        if (self.availableDevices) {
-                            connectOptions = {
-                                audio: self.availableDevices.includes('audioinput'),
-                                video: self.availableDevices.includes('videoinput')
+                        createLocalTracks({
+                            audio: self.availableDevices.includes('audioinput'),
+                            video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : {},
+                        }).then((tracksCreated) => {
+                            let localMediaContainer = document.getElementById('localTrack');
+                            tracksCreated.forEach((track) => {
+                                localMediaContainer.appendChild(track.attach());
+                                self.localTrackAval = true;
+                            });
+                            if (self.availableDevices) {
+                                tracksCreated.push(dataTrack);
+                                connectOptions = {
+                                    tracks: tracksCreated
+                                }
                             }
-                        }
-                        self.connect(token, connectOptions);
+                            self.connect(token, connectOptions);
+
+                        }, (error) => {
+                            console.log(error, 'error create tracks before connect')
+                        })
 
                     })
                     .catch(function (err) {
                         console.log(err.name + ": " + err.message);
                     });
             },
+
             connect(token, options) {
                 let self = this;
+                // disconnect the user from they joined already
+                self.leaveRoomIfJoined();
                 Twilio.connect(token, options)
                     .then((room) => {
-                        console.log('Successfully joined a Room: ', 'dfgdfg');
-                        // set active toom
-                        self.activeRoom = room;
-                        self.roomName = room.name;
-                        self.loading = false;
-                        // Attach the Tracks of all the remote Participants.
+                            console.log('Successfully joined a Room: ', 'dfgdfg');
+                            // set active toom
+                            self.activeRoom = room;
+                            self.roomName = room.name;
+                            self.loading = false;
+                            // Attach the Tracks of all the remote Participants.
                             self.activeRoom.participants.forEach((participant, index) => {
-                                console.log('index', index)
-                            let previewContainer = document.getElementById('remoteTrack');
-                            self.members.push(participant);
-                            self.attachParticipantTracks(participant, previewContainer);
-                        });
+                                let previewContainer = document.getElementById('remoteTrack');
+                                self.members.push(participant);
+                                self.attachParticipantTracks(participant, previewContainer);
+                            });
 
-                        // Attach the Participant's Media to a <div> element.
-                        room.on('participantConnected', participant => {
-                            console.log(`Participant "${participant.identity}" connected`);
-                            self.members.push(participant);
-                            participant.tracks.forEach(publication => {
-                                if (publication.isSubscribed) {
-                                    const track = publication.track;
+                            // Attach the Participant's Media to a <div> element.
+                            room.on('participantConnected', participant => {
+                                console.log(`Participant "${participant.identity}" connected`);
+                                self.members.push(participant);
+                                participant.tracks.forEach(publication => {
+                                    if (publication.isSubscribed) {
+                                        const track = publication.track;
                                         let previewContainer = document.getElementById('remoteTrack');
-                                        console.log('track attached', " added track: " + track.kind)
+                                        console.log('remote track attached', " added track: " + track.kind)
                                         self.attachTracks([track], previewContainer);
                                     }
                                 });
-                                //
-                                // participant.on('trackSubscribed', track => {
-                                //     let previewContainer = document.getElementById('remoteTrack');
-                                //     console.log('track attached', " added track: " + track.kind)
-                                //     self.attachTracks([track], previewContainer);
-                                //     // document.getElementById('remoteTrack').appendChild(track.attach());
-                                //     // self.attachTracks([track], previewContainer);
-                                // });
                             });
                             // When a Participant adds a Track, attach it to the DOM.
-                            //keep commented cause adds multiple
                             room.on('trackSubscribed', (track, participant) => {
-                                if(room){
-                                    console.log('room', room, 'room')
+                                if (track.kind === 'data') {
+                                    track.on('message', data => {
+                                        console.log(`Mouse coordinates: (${data})`);
+                                        alert(data)
+                                    });
                                 }
-
-
                                 let previewContainer = document.getElementById('remoteTrack');
                                 console.log('track attached', " added track: " + track.kind);
                                 self.attachTracks([track], previewContainer);
                             });
+                            // When a Participant's Track is unsubscribed from, detach it from the DOM.
+                            room.on('trackUnsubscribed', function (track) {
+                                console.log(" removed track: " + track.kind);
+                                self.detachTracks([track]);
+                            });
 
-
-                        // When a Participant removes a Track, detach it from the DOM.
-                        room.on('trackRemoved', (track, participant) => {
-                            console.log(participant.identity + " removed track: " + track.kind);
-                            self.detachTracks([track]);
-                        });
-                        // When a Participant leaves the Room, detach its Tracks.
-                        room.on('participantDisconnected', (participant) => {
-                            self.removeMember(participant);
-                            console.log("Participant '" + participant.identity + "' left the room");
-                            self.detachParticipantTracks(participant);
-                        });
-                        // if local preview is not active, create it
-                        if (!self.localTrackAval) {
-                            console.log('11local tracks got here')
+                            // When a Participant leaves the Room, detach its Tracks.
+                            room.on('participantDisconnected', (participant) => {
+                                self.removeMember(participant);
+                                console.log("Participant '" + participant.identity + "' left the room");
+                                self.detachParticipantTracks(participant);
+                            });
+                            // if local preview is not active, create it
+                            if (!self.localTrackAval) {
                                 let localTracksOptions = {
-                                    // name: room_name,
                                     logLevel: 'debug',
                                     audio: self.availableDevices.includes('audioinput'),
-                                    video: self.availableDevices.includes('videoinput')
+                                    // video: self.availableDevices.includes('videoinput'),
+                                    video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : {},
                                 };
                                 createLocalTracks(localTracksOptions)
-                                .then(tracks => {
-                                    console.log('222 inside than local tracks got here')
-                                    let localMediaContainer = document.getElementById('localTrack');
-                                    tracks.forEach((track) => {
-                                        localMediaContainer.appendChild(track.attach());
-                                        self.localTrackAval = true;
-                                    })
-                                },
-                                    (error) => {
-                                        console.error('Unable to access local media video and audio', error);
-                                    }
-                                );
-                        }
+                                    .then(tracks => {
+                                            let localMediaContainer = document.getElementById('localTrack');
+                                            tracks.forEach((track) => {
+                                                localMediaContainer.appendChild(track.attach());
+                                                self.localTrackAval = true;
+                                            })
+                                        },
+                                        (error) => {
+                                            console.error('Unable to access local media video and audio', error);
+                                        }
+                                    );
+                            }
 
-                    },
+                        },
                         (error) => {
                             console.log(error, 'error cant connect')
                         });
@@ -265,48 +295,23 @@
             createChat() {
                 this.loading = true;
                 const self = this;
-                self.isHardawareAvaliable();
-                // self.roomName = null;
-                // before a user enters a new room,
-                // disconnect the user from they joined already
-                // self.leaveRoomIfJoined();
                 // remove any remote track when joining a new room
-                document.getElementById('remoteTrack').innerHTML = "";
-
+                let clearEl =document.getElementById('remoteTrack');
+                if(clearEl){
+                    clearEl.innerHTML = "";
+                }
+                self.isHardawareAvaliable();
             },
         },
         created() {
-            if(this.id){
+            if (this.id) {
                 this.startChat();
             }
-            console.log('ID VIDEO!!', this.id)
         }
-        
+
     }
 </script>
 
-<style scoped lang="less">
-    .remote_video_container {
-        left: 0;
-        margin: 0;
-        border: 1px solid rgb(124, 129, 124);
-    }
+<style lang="less" src="./videoStream.less">
 
-    #localTrack video {
-        border: 3px solid rgb(124, 129, 124);
-        margin: 0px;
-        max-width: 50% !important;
-        background-repeat: no-repeat;
-    }
-
-    .spacing {
-        padding: 20px;
-        width: 100%;
-    }
-
-    .roomTitle {
-        border: 1px solid rgb(124, 129, 124);
-        padding: 4px;
-        color: dodgerblue;
-    }
 </style>
