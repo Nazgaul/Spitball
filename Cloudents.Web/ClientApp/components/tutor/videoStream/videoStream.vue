@@ -4,15 +4,15 @@
             <v-flex>
                 <!--<v-text-field solo type="text" class="form-control" v-model="username"></v-text-field>-->
                 <!--<v-text-field solo type="text" class="form-control" v-model="roomName"></v-text-field>-->
-                <v-btn @click="generateRoom()" primary>Generate Room</v-btn>
-                <div>{{roomLink}}</div>
+                <v-btn @click="generateRoom()" v-if="!id" primary>Generate Room</v-btn>
+                <div>Room Link{{roomLink}}</div>
             </v-flex>
         </v-layout>
-        <v-layout>
-            <v-flex>
-                <v-btn @click="startChat()" primary>Submit</v-btn>
-            </v-flex>
-        </v-layout>
+        <!--<v-layout>-->
+            <!--<v-flex>-->
+                <!--<v-btn @click="startChat()" primary>Submit</v-btn>-->
+            <!--</v-flex>-->
+        <!--</v-layout>-->
         <v-layout>
             <v-flex>
                 <div class="roomTitle">
@@ -44,8 +44,6 @@
                 </div>
             </v-flex>
         </v-layout>
-
-
     </v-container>
 </template>
 
@@ -73,20 +71,23 @@
         },
         props: {
             id: ''
-        }, // props that will be passed to this component
-
+        },
+        watch: {
+           '$route': 'createChat'
+        },
         methods: {
             generateRoom() {
                 let self = this;
-                console.log("swefrkhjslfjslf")
                 videoService.generateRoom().then( data  => {
-                    self.roomLink = data.data.name
+                    self.roomLink = data.data.name;
+                    self.$router.push({name: 'tutoring', params:{id :  self.roomLink}});
+                    // self.id = self.roomLink;
+                    // self.createChat();
                 })
-               
                 
             },
             startChat() {
-                this.createChat(this.roomName)
+                this.createChat()
             },
             // Generate access token
             async getAccessToken() {
@@ -97,9 +98,6 @@
             //    return await videoService.generateRoom();
             //},
 
-            // Trigger log events
-            dispatchLog(message) {
-            },
 
             // Attach the Tracks to the DOM.
             attachTracks(tracks, container) {
@@ -164,12 +162,6 @@
                                 video: self.availableDevices.includes('videoinput')
                             }
                         }
-                        // let connectOptions = {
-                        //     // name: room_name,
-                        //     // logLevel: 'debug',
-                        //     audio: true,
-                        //     video: true
-                        // };
                         self.connect(token, connectOptions);
 
                     })
@@ -181,20 +173,18 @@
                 let self = this;
                 Twilio.connect(token, options)
                     .then((room) => {
-                        // console.log('Successfully joined a Room: ', room);
-                        console.log('Successfully joined a Room: ' + room, 'dfgdfg');
+                        console.log('Successfully joined a Room: ', 'dfgdfg');
                         // set active toom
                         self.activeRoom = room;
                         self.roomName = room.name;
                         self.loading = false;
                         // Attach the Tracks of all the remote Participants.
-                        room.participants.forEach((participant) => {
+                            self.activeRoom.participants.forEach((participant, index) => {
+                                console.log('index', index)
                             let previewContainer = document.getElementById('remoteTrack');
                             self.members.push(participant);
                             self.attachParticipantTracks(participant, previewContainer);
                         });
-                        if(room.participants.size === 0){
-                            console.log(room.participants)
 
                         // Attach the Participant's Media to a <div> element.
                         room.on('participantConnected', participant => {
@@ -203,7 +193,6 @@
                             participant.tracks.forEach(publication => {
                                 if (publication.isSubscribed) {
                                     const track = publication.track;
-                                        // document.getElementById('remoteTrack').appendChild(track.attach());
                                         let previewContainer = document.getElementById('remoteTrack');
                                         console.log('track attached', " added track: " + track.kind)
                                         self.attachTracks([track], previewContainer);
@@ -221,14 +210,19 @@
                             // When a Participant adds a Track, attach it to the DOM.
                             //keep commented cause adds multiple
                             room.on('trackSubscribed', (track, participant) => {
+                                if(room){
+                                    console.log('room', room, 'room')
+                                }
+
+
                                 let previewContainer = document.getElementById('remoteTrack');
                                 console.log('track attached', " added track: " + track.kind);
                                 self.attachTracks([track], previewContainer);
                             });
-                        }
+
 
                         // When a Participant removes a Track, detach it from the DOM.
-                        room.on('trackUnsubscribed', (track, participant) => {
+                        room.on('trackRemoved', (track, participant) => {
                             console.log(participant.identity + " removed track: " + track.kind);
                             self.detachTracks([track]);
                         });
@@ -273,17 +267,18 @@
                 const self = this;
                 self.isHardawareAvaliable();
                 // self.roomName = null;
-
-
                 // before a user enters a new room,
                 // disconnect the user from they joined already
-                self.leaveRoomIfJoined();
+                // self.leaveRoomIfJoined();
                 // remove any remote track when joining a new room
                 document.getElementById('remoteTrack').innerHTML = "";
 
             },
         },
         created() {
+            if(this.id){
+                this.startChat();
+            }
             console.log('ID VIDEO!!', this.id)
         }
         
