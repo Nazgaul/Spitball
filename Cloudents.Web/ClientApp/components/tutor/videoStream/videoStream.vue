@@ -25,16 +25,16 @@
                 </v-flex>
                 <v-flex v-show="visible.local_player">
                     <div class="row">
-                         <!--<h4>Tutor {{members[0].identity}}</h4>-->
+                        <!--<h4>Tutor {{members[0].identity}}</h4>-->
                         <div id="localTrack"></div>
                     </div>
                 </v-flex>
             </div>
             <div class="video-holder">
                 <v-flex>
-                <span class="video-size-ctrl" @click="minimize('remote_player')">{{visible.remote_player ? "Minimize" : "Maximize"}}</span>
-                <span class="video-size-ctrl" @click="biggerRemoteVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
-                <span class="video-size-ctrl" @click="requestPictureInPicture('remoteTrack')">Picture mode</span>
+                    <span class="video-size-ctrl" @click="minimize('remote_player')">{{visible.remote_player ? "Minimize" : "Maximize"}}</span>
+                    <span class="video-size-ctrl" @click="biggerRemoteVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
+                    <span class="video-size-ctrl" @click="requestPictureInPicture('remoteTrack')">Picture mode</span>
                 </v-flex>
                 <v-flex v-show="visible.remote_player">
                     <div class="row remote_video_container">
@@ -51,8 +51,10 @@
 <script>
     import Twilio, { connect, createLocalTracks, createLocalVideoTrack, LocalDataTrack } from 'twilio-video';
     import videoService from '../../../services/videoStreamService';
+    import { dataTrack } from '../tutorService';
+    import whiteBoardService from '../whiteboard/whiteBoardService'
 
-    const dataTrack = new LocalDataTrack();
+
     export default {
         name: "videoStream",
         data() {
@@ -83,15 +85,15 @@
             '$route': 'createChat'
         },
         methods: {
-            biggerLocalVideo(){
+            biggerLocalVideo() {
                 let video = document.querySelectorAll("#localTrack video")[0];
                 video.requestFullscreen()
             },
-            biggerRemoteVideo(){
+            biggerRemoteVideo() {
                 let video = document.querySelectorAll("#remoteTrack video")[0];
                 video.requestFullscreen()
             },
-            requestPictureInPicture(videoType){
+            requestPictureInPicture(videoType) {
                 let video = document.querySelectorAll(`#${videoType} video`)[0];
                 video.requestPictureInPicture();
             },
@@ -115,11 +117,11 @@
             },
             doCopy() {
                 let self = this;
-                    this.$copyText(self.roomLink).then((e) => {
-                        self.isCopied = true;
-                    }, (e) => {
-                    })
-                },
+                this.$copyText(self.roomLink).then((e) => {
+                    self.isCopied = true;
+                }, (e) => {
+                })
+            },
 
             // Generate access token
             async getAccessToken() {
@@ -142,9 +144,11 @@
             // Detach the Tracks from the DOM.
             detachTracks(tracks) {
                 tracks.forEach((track) => {
-                    track.detach().forEach((detachedElement) => {
-                        detachedElement.remove();
-                    });
+                    if (track.detach) {
+                        track.detach().forEach((detachedElement) => {
+                            detachedElement.remove();
+                        });
+                    }
                 });
 
             },
@@ -243,9 +247,15 @@
                             // When a Participant adds a Track, attach it to the DOM.
                             room.on('trackSubscribed', (track, participant) => {
                                 if (track.kind === 'data') {
-                                    track.on('message', data => {
-                                        console.log(`Mouse coordinates: (${data})`);
-                                        alert(data)
+                                    track.on('message', transferObj => {
+                                        // console.log(`Mouse coordinates: (${transferObj})`);
+                                        let Data = JSON.parse(transferObj)
+                                        let parsedData = Data.data;
+                                        if (Data.type === 'redrawData') {
+                                            whiteBoardService.redraw(parsedData);
+                                        } else if (Data.type === 'undoData') {
+                                            whiteBoardService.undo(parsedData);
+                                        }
                                     });
                                 }
                                 let previewContainer = document.getElementById('remoteTrack');
@@ -296,8 +306,8 @@
                 this.loading = true;
                 const self = this;
                 // remove any remote track when joining a new room
-                let clearEl =document.getElementById('remoteTrack');
-                if(clearEl){
+                let clearEl = document.getElementById('remoteTrack');
+                if (clearEl) {
                     clearEl.innerHTML = "";
                 }
                 self.isHardawareAvaliable();

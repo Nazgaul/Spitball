@@ -31,12 +31,20 @@ const init = function(optionName){
     return optionsEnum[optionName];
 }
 
+const getContext = function(){
+    let canvas = document.getElementById('canvas');
+    return canvas.getContext("2d");
+}
+
 const redraw = function(canvasData){
     let previouseDrawingObj = null;
     canvasData.dragData.forEach((shape)=>{
         if(shape.isGhost) return;
         if(!shape.visible) return;
         shape.points.forEach(dragObj=>{
+            if(Object.keys(canvasData.context).length === 0){
+                canvasData.context = getContext();
+            }
             previouseDrawingObj = dragObj.eventName === 'start' ? dragObj : previouseDrawingObj;
             optionsEnum[shape.type].draw.bind(canvasData, dragObj, true, previouseDrawingObj)();
         })

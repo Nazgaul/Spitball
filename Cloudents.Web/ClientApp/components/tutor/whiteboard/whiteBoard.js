@@ -3,6 +3,7 @@ import {
 } from 'vue-color'
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
+import { dataTrack } from '../tutorService';
 
 export default {
     components: {
@@ -79,14 +80,27 @@ export default {
         addShape(dragObj, callback) {
             this.canvasData.dragData.push(dragObj);
             callback();
+            let transferDataObj = {
+                type: "redrawData",
+                data: this.canvasData
+            };
+            let normalizedData = JSON.stringify(transferDataObj);
+            dataTrack.send(normalizedData);
         },
         undo(){
             whiteBoardService.cleanCanvas(this.canvasData.context);
             whiteBoardService.undo(this.canvasData);
+
         },
         keyPressed(e) {
             //signalR should be fired Here
             if ((e.which == 90 || e.keyCode == 90) && e.ctrlKey) {
+                let transferDataObj = {
+                    type: "undoData",
+                    data: this.canvasData
+                };
+                let normalizedData = JSON.stringify(transferDataObj);
+                dataTrack.send(normalizedData);
                 this.undo();
             }if((e.which == 46 || e.keyCode == 46) && this.selectedOptionString === this.enumOptions.select){
                 this.currentOptionSelected.deleteSelectedShape.bind(this.canvasData)();
