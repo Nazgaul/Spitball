@@ -40,9 +40,9 @@ namespace Cloudents.Persistance.Maps
                 .Cascade.AllDeleteOrphan();
 
             Map(x => x.Score).ReadOnly();
-            Table("[User]"); //if not there is sql error
+            //Table("User]"); //if not there is sql error
             
-            SchemaAction.None();
+            SchemaAction.Update();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
@@ -83,9 +83,10 @@ namespace Cloudents.Persistance.Maps
             });
             //Map(x => x.Balance).CustomSqlType("smallmoney");
             //Map(x => x.Score);
-            
 
 
+            Map(x => x.Online);
+            Map(x => x.LastOnline);
 
             HasManyToMany(x => x.Courses)
                 .ParentKeyColumn("UserId")
