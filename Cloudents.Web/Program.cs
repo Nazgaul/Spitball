@@ -18,10 +18,10 @@ namespace Cloudents.Web
                 .UseStartup<Startup>()
                 .ConfigureLogging((hostingContext, logging) =>
                 {
-                    if (hostingContext.HostingEnvironment.IsDevelopment())
-                    {
-                        logging.AddLog4Net();
-                    }
+                    //if (hostingContext.HostingEnvironment.IsDevelopment())
+                    //{
+                    //    logging.AddLog4Net();
+                    //}
                 });
     }
 }

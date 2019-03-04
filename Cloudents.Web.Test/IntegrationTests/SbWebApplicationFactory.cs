@@ -7,7 +7,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
+            //builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
         }
         
     }
