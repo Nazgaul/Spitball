@@ -26,7 +26,7 @@ const init = function(optionName){
         return null;
     }
     if(optionsEnum[optionName].init){
-        optionsEnum[optionName].init();
+        optionsEnum[optionName].init.bind(this)();
     }
     return optionsEnum[optionName];
 }

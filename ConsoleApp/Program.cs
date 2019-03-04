@@ -287,7 +287,7 @@ namespace ConsoleApp
                     }
 
                     var count = blobs.Count(a => a.Uri.AbsoluteUri.Contains("preview"));
-                    var textBlob = (CloudBlockBlob)blob;
+                    var textBlob = (CloudBlockBlob)textBlobItem;
                     textBlob.FetchAttributes();
                     textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
                     int.TryParse(pageCountStr, out var pageCount);

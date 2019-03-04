@@ -18,7 +18,9 @@ const imageXDefaultPosition = 0;
 const imageYDefaultPosition = 0;
 
 const init = function(){
-    
+    let imageElm = document.getElementById('imageUpload');
+    imageElm.removeEventListener('change', handleImage.bind(this), false);
+    imageElm.addEventListener('change', handleImage.bind(this), false);
 }
 
 const draw = function(imgObj){
@@ -30,36 +32,42 @@ const liveDraw = function(imgObj){
     draw.bind(this, imgObj)();
     // this.context.closePath();
     // this.context.stroke();
-    
 }
 
-const mousedown = function(e){
+const handleImage = function(e){
     //Set Click Position
     let mouseX = imageXDefaultPosition;
     let mouseY = imageYDefaultPosition;
     this.methods.hideColorPicker();
 
-    let img = new Image();
+    let reader = new FileReader();
     let self = this;
-    img.onload = function(){
-        let imgObj = createPointsByOption({
-            mouseX,
-            mouseY,
-            width:img.width,
-            height: img.height,
-            option: OPTION_TYPE,
-            eventName: 'start',
-            img: img
-        })
-        localShape.points.push(imgObj);
-        liveDraw.bind(self, imgObj)();
-        self.methods.addShape(localShape, clearLocalShape);
-        
-        
+    reader.onload = (event)=>{
+        let img = new Image();
+        img.onload = function(){
+            let imgObj = createPointsByOption({
+                mouseX,
+                mouseY,
+                width:img.width,
+                height: img.height,
+                option: OPTION_TYPE,
+                eventName: 'start',
+                img: img
+            })
+            localShape.points.push(imgObj);
+            liveDraw.bind(self, imgObj)();
+            self.methods.addShape(localShape, clearLocalShape);
+        }
+        img.src = event.target.result;
     }
-    img.src = 'http://s3.media.squarespace.com/production/454594/5165598/wordpress/wp-content/uploads/2007/11/fantasygn-ideas-07-bugglefug.thumbnail.jpg';
+    reader.readAsDataURL(e.target.files[0]);
+}
+
+const mousedown = function(e){
+    return;
 }
 const mousemove = function(e){
+    return;
 }
 
 const defineEndPosition = function(e){
