@@ -21,7 +21,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("/api/profile/304600")]
+        [InlineData("/api/profile/159039")]
         public async Task GetAsync_OK(string url)
         {
             var client = _factory.CreateClient();
