@@ -66,7 +66,7 @@ const hideHelperObj = function(){
 
 const setHelperObj = function(e, selectedHelper){
     let currentX = selectedHelper ? selectedHelper.mouseX + e.target.offsetLeft : e.clientX;
-    let currentY = selectedHelper ? selectedHelper.mouseY + e.target.offsetTop : e.clientY;
+    let currentY = selectedHelper ? selectedHelper.mouseY + e.target.getBoundingClientRect().top : e.clientY;
     let helperObj = {
         currentX,
         currentY,
@@ -121,7 +121,7 @@ const mousedown = function(e){
         //Set Click Position
         isWriting = true;
         let mouseX = e.pageX - e.target.offsetLeft;
-        let mouseY = e.pageY - e.target.offsetTop;
+        let mouseY = e.pageY - e.target.getBoundingClientRect().top;
         let hasShape = canvasFinder.getShapeByPoint(mouseX, mouseY, this);
         if(Object.keys(hasShape).length > 0){
             let prop = Object.keys(hasShape)[0];
@@ -138,7 +138,7 @@ const mousedown = function(e){
             }
         }else{
             startingMousePosition.x = e.pageX - e.target.offsetLeft;
-            startingMousePosition.y = e.pageY - e.target.offsetTop;
+            startingMousePosition.y = e.pageY - e.target.getBoundingClientRect().top;
             currentId = createGuid('text');
             setHelperObj.bind(this, e)();
         }

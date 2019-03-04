@@ -88,7 +88,7 @@ const mousedown = function(e){
     startingMousePosition.x = e.clientX;
     startingMousePosition.y = e.clientY;
     let mouseX = currentX - e.target.offsetLeft;
-    let mouseY = currentY - e.target.offsetTop;
+    let mouseY = currentY - e.target.getBoundingClientRect().top;
     this.shouldPaint = true;
     if(!currentHelperObj){
         this.shapesSelected = canvasFinder.getShapeByPoint(mouseX, mouseY, this);
@@ -190,9 +190,9 @@ const defineEndPosition = function(e){
                 multiSelectActive = false;
                 //get rectangle with the offsets
                 let startX = currentHelperObj.startPositionLeft - e.target.offsetLeft;
-                let startY = currentHelperObj.startPositionTop - e.target.offsetTop;
+                let startY = currentHelperObj.startPositionTop - e.target.getBoundingClientRect().top;
                 let w = (currentHelperObj.currentX - e.target.offsetLeft) - startX;
-                let h = (currentHelperObj.currentY - e.target.offsetTop) - startY;
+                let h = (currentHelperObj.currentY - e.target.getBoundingClientRect().top) - startY;
                 let rect = {
                     startX,
                     startY,

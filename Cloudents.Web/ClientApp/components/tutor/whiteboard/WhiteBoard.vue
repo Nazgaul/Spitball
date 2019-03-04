@@ -1,5 +1,5 @@
 <template>
-  <div class="canvas-container" :style="`max-width:${canvasWidth}px`" id="canvasDiv">
+  <div class="canvas-container" :style="`max-width:${canvasWidth}px;`" id="canvasDiv">
       <div class="nav-container">
         <button @click="clearCanvas">clear</button>&nbsp;&nbsp;&nbsp;
         <slider-picker v-show="showPickColorInterface" v-model="canvasData.color" />
