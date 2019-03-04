@@ -57,7 +57,7 @@
                 color: white;
                 background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
                 background-attachment: fixed;
-                padding: 16px;
+                padding: 6px 12px;
                 border-radius: 16px;
                 .message-text{
                     text-align: left;
@@ -68,7 +68,7 @@
                 justify-items: flex-end;
                 background-color: #eee;
                 color: #000000;
-                padding: 16px;
+                padding: 6px 12px;
                 border-radius: 16px;
                 .message-text{
                     text-align: right;
