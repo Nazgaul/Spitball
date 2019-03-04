@@ -94,7 +94,6 @@
             flex-direction: row;
             background-color: #ffffff;
             min-width: 388px;
-
         }
         .messages-container{
             height: 100%;
@@ -102,6 +101,7 @@
             max-width: 388px;
             min-width: 388px;
             overflow: auto;
+            padding: 0 8px;
         }
         .chat-input-block{
             display: flex;

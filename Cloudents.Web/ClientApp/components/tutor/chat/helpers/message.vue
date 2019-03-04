@@ -43,10 +43,10 @@
             flex-direction: column;
 
             &.own-message {
-                align-items: flex-start;
+                align-items: flex-end;
             }
             &.not-own-message {
-                align-items: flex-end;
+                align-items: flex-start;
             }
         }
         .chat-message-wrap-text {
