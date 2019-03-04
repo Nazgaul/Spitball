@@ -41,6 +41,12 @@
     margin:0 auto;
     .nav-container{
         position:relative;
+        background: white;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        width: 90px;
+        margin-top: 150px;
         .vc-slider{
             position: absolute;
             top:30px;
@@ -48,7 +54,6 @@
         }
     }
     canvas{
-        border:1px solid #000;
         &.select-object{
             cursor: pointer;
         }

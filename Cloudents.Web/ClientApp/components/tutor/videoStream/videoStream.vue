@@ -2,13 +2,6 @@
     <v-container class="videos-wrapper py-0">
         <v-layout>
             <v-flex>
-                <v-btn @click="generateRoom()" v-if="!id" primary>Generate Room</v-btn>
-                <v-btn @click="doCopy" v-if="id">{{isCopied ? 'Copied' : 'Copy Link'}}</v-btn>
-                <!--<v-btn @click="sendData()">Click</v-btn>-->
-            </v-flex>
-        </v-layout>
-        <v-layout>
-            <v-flex>
                 <div class="roomTitle">
                     <span v-if="loading"> Loading... {{roomName}}</span>
                     <span v-else-if="!loading && roomName"> Connected to {{roomName}}</span>
@@ -16,6 +9,14 @@
                 </div>
             </v-flex>
         </v-layout>
+        <v-layout>
+            <v-flex>
+                <v-btn @click="generateRoom()" v-if="!id" primary>Generate Room</v-btn>
+                <v-btn @click="doCopy" v-if="id">{{isCopied ? 'Copied' : 'Copy ID'}}</v-btn>
+                <!--<v-btn @click="sendData()">Click</v-btn>-->
+            </v-flex>
+        </v-layout>
+
         <v-layout column align-end>
             <div class="video-holder">
                 <v-flex>
