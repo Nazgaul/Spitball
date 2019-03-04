@@ -73,7 +73,7 @@ const mousedown = function(e){
 
     let dragObj = createPointsByOption({
         mouseX: e.pageX - e.target.offsetLeft,
-        mouseY: e.pageY - e.target.offsetTop,
+        mouseY: e.pageY - e.target.getBoundingClientRect().top,
         isDragging: false,
         strokeStyle: this.color.hex,
         option: OPTION_TYPE,
@@ -109,7 +109,7 @@ const defineEndPosition = function(e){
     if(this.shouldPaint){
         let dragObj = createPointsByOption({
             mouseX: e.pageX - e.target.offsetLeft,
-            mouseY: e.pageY - e.target.offsetTop,
+            mouseY: e.pageY - e.target.getBoundingClientRect().top,
             isDragging: false,
             strokeStyle: this.color.hex,
             option: OPTION_TYPE,

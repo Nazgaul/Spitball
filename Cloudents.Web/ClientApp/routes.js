@@ -216,7 +216,7 @@ let routes2 = [
         name: 'tutoring',
         components: {
             default: tutorComponent,
-            header: bookDetailsHeader
+            // header: bookDetailsHeader
         },
         header: () => ({
             submitRoute: '/tutoring',

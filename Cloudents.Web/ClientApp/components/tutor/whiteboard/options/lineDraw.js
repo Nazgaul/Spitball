@@ -54,7 +54,7 @@ const defineEndPosition = function(e){
     if(this.shouldPaint){
         let dragObj = createPointsByOption({
             mouseX: e.pageX - e.target.offsetLeft,
-            mouseY: e.pageY - e.target.offsetTop,
+            mouseY: e.pageY - e.target.getBoundingClientRect().top,
             isDragging: true,
             strokeStyle: this.color.hex,
             option: OPTION_TYPE,
@@ -80,7 +80,7 @@ const defineEndPosition = function(e){
 const mousedown = function(e){
     //Set Click Position
     mouseState.mouseX = e.pageX - e.target.offsetLeft;
-    mouseState.mouseY = e.pageY - e.target.offsetTop;
+    mouseState.mouseY = e.pageY - e.target.getBoundingClientRect().top;
 
     startingMousePosition.x = e.clientX;
     startingMousePosition.y = e.clientY;

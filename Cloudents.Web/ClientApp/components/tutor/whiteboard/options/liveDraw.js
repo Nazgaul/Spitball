@@ -40,7 +40,7 @@ const liveDraw = function(dragObj){
 const mousedown = function(e){
     //Set Click Position
     let mouseX = e.pageX - e.target.offsetLeft;
-    let mouseY = e.pageY - e.target.offsetTop;
+    let mouseY = e.pageY - e.target.getBoundingClientRect().top;
     this.methods.hideColorPicker();
 
     let dragObj = createPointsByOption({
@@ -59,7 +59,7 @@ const mousedown = function(e){
 const mousemove = function(e){
     if(this.shouldPaint){
         let mouseX = e.pageX - e.target.offsetLeft;
-        let mouseY = e.pageY - e.target.offsetTop;
+        let mouseY = e.pageY - e.target.getBoundingClientRect().top;
         let dragObj = createPointsByOption({
             mouseX,
             mouseY,
