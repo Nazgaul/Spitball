@@ -47,5 +47,16 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
+
+        [Theory]
+        [InlineData("api/profile/304600")]
+        public async Task GetAsync_UserTabs_OK(string url)
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync(url);
+
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

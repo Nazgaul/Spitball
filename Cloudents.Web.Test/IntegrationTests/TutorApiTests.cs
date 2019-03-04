@@ -16,6 +16,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Theory]
         [InlineData("/api/Tutor?term=ajax&sort=null&page=0&location.latitude=31.9155609&location.longitude=34.8049517")]
         [InlineData("/api/Tutor?term=ajax&sort=price&page=0&location.latitude=31.9155609&location.longitude=34.8049517")]
+        [InlineData("/api/Tutor?term=ajax&sort=relevance&page=0&location.latitude=31.9155609&location.longitude=34.8049517")]
+        [InlineData("api/Tutor?term=ajax&sort=price")]
+        [InlineData("api/Tutor")]
         public async Task Search_ReturnResult(string url)
         {
             // Arrange
