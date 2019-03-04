@@ -47,5 +47,25 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
+
+        [Theory]
+        [InlineData("api/profile/159039/questions")]
+        [InlineData("api/profile/159039/answers")]
+        [InlineData("api/profile/159039/documents")]
+        [InlineData("api/profile/159039/purchaseDocuments")]
+        public async Task GetAsync_UserTabs_OK(string url)
+        {
+            var client = _factory.CreateClient();
+
+            HttpResponseMessage response = await client.GetAsync(url);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            JArray obj = JArray.Parse(str);
+
+            var id = obj.Children();
+            
+            id.Should().NotBeNull();
+        }
     }
 }

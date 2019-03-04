@@ -11,6 +11,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _factory = factory;
         }
+
         [Theory]
         [InlineData("/api/university")]
         public async Task GetAsync_OK(string url)
