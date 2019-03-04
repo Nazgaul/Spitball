@@ -1,10 +1,10 @@
 <template>
-    <v-container class="videos-wrapper">
+    <v-container class="videos-wrapper py-0">
         <v-layout>
             <v-flex>
                 <v-btn @click="generateRoom()" v-if="!id" primary>Generate Room</v-btn>
                 <v-btn @click="doCopy" v-if="id">{{isCopied ? 'Copied' : 'Copy Link'}}</v-btn>
-                <v-btn @click="sendData()">Click</v-btn>
+                <!--<v-btn @click="sendData()">Click</v-btn>-->
             </v-flex>
         </v-layout>
         <v-layout>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     import Twilio, { connect, createLocalTracks, createLocalVideoTrack, LocalDataTrack } from 'twilio-video';
     import videoService from '../../../services/videoStreamService';
     import { dataTrack } from '../tutorService';
@@ -85,6 +86,7 @@
             '$route': 'createChat'
         },
         methods: {
+            ...mapActions(['addMessage', 'updateUserIdentity']),
             biggerLocalVideo() {
                 let video = document.querySelectorAll("#localTrack video")[0];
                 video.requestFullscreen()
@@ -100,10 +102,10 @@
             minimize(type) {
                 this.visible[`${type}`] = !this.visible[`${type}`];
             },
-            sendData() {
-                let joy = {test: 'Hello Beny DATA!!!!'};
-                dataTrack.send(JSON.stringify(joy));
-            },
+            // sendData() {
+            //     let joy = {test: 'Hello Beny DATA!!!!'};
+            //     dataTrack.send(JSON.stringify(joy));
+            // },
             generateRoom() {
                 let self = this;
                 videoService.generateRoom().then(data => {
@@ -224,6 +226,8 @@
                             self.activeRoom = room;
                             self.roomName = room.name;
                             self.loading = false;
+                            let localIdentity = room.localParticipant &&  room.localParticipant.identity ? room.localParticipant.identity : ''
+                            self.updateUserIdentity(localIdentity);
                             // Attach the Tracks of all the remote Participants.
                             self.activeRoom.participants.forEach((participant, index) => {
                                 let previewContainer = document.getElementById('remoteTrack');
@@ -249,12 +253,16 @@
                                 if (track.kind === 'data') {
                                     track.on('message', transferObj => {
                                         // console.log(`Mouse coordinates: (${transferObj})`);
-                                        let Data = JSON.parse(transferObj)
+                                        let Data = JSON.parse(transferObj);
                                         let parsedData = Data.data;
                                         if (Data.type === 'redrawData') {
                                             whiteBoardService.redraw(parsedData);
                                         } else if (Data.type === 'undoData') {
                                             whiteBoardService.undo(parsedData);
+                                        }
+                                        else if (Data.type === 'tutoringChatMessage') {
+                                            console.log('chat message', Data);
+                                            this.addMessage(Data);
                                         }
                                     });
                                 }

@@ -11,8 +11,8 @@ export default {
     },
     data() {
         return {
-            canvasWidth: 1000,
-            canvasHeight: 500,
+            canvasWidth: global.innerWidth -50,
+            canvasHeight: global.innerHeight -50,
             showPickColorInterface: false,
             showHelper: false,
             enumOptions: {

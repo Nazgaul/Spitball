@@ -24,6 +24,8 @@ import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
 import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
+import tutoringChat from './tutoringChat';
+
 
 
 
@@ -51,7 +53,8 @@ const store = new Vuex.Store({
         leaderBoard,
         mobileFooter,
         onBoardGuide,
-        buyTokens
+        buyTokens,
+        tutoringChat
     }
 });
 
