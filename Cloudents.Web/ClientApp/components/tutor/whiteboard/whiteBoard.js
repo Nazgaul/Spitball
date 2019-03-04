@@ -62,9 +62,13 @@ export default {
     },
     methods: {
         setOptionType(selectedOption) {
-            this.currentOptionSelected = whiteBoardService.init(selectedOption);
+            this.currentOptionSelected = whiteBoardService.init.bind(this.canvasData, selectedOption)();
             this.selectedOptionString = selectedOption;
             helperUtil.HelperObj.isActive = false;
+            if(selectedOption === this.enumOptions.image){
+                let inputImgElm = document.getElementById('imageUpload');
+                inputImgElm.click();
+            }
         },
         showColorPicker() {
             this.showPickColorInterface = true;
