@@ -4,7 +4,7 @@ function MessageItem(objInit) {
     this.type = 'tutoringChatMessage';
     this.data = {
         "text":  objInit.text || '',
-        "user" : objInit.user || ''
+        "identity" : objInit.identity || '',
     }
 }
 function createMessageItem(ObjInit) {
@@ -13,14 +13,8 @@ function createMessageItem(ObjInit) {
 }
 
 export default {
-    sendChatMessage: (objInit) => {
-        let message = createMessageItem(objInit);
+    sendChatMessage: (message) => {
         return dataTrack.send(JSON.stringify(message));
-    },
-    getMessage: () =>{
-        dataTrack.on('tutoringChatMessage', data => {
-          console.log('got data', data)
-        });
     },
     createMessageItem
 }
