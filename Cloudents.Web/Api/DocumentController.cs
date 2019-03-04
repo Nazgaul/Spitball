@@ -96,8 +96,8 @@ namespace Cloudents.Web.Api
             var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
 
             await Task.WhenAll(filesTask, tQueue, textTask);
-            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
-            if (!filesTask.Result.Any())
+            var files = (filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20))).ToList();
+            if (!files.Any())
             {
                 await queueProvider.InsertBlobReprocessAsync(id);
             }
