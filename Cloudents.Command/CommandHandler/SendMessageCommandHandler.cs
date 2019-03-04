@@ -8,20 +8,22 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    public class ChatAddMessageCommandHandler : ICommandHandler<ChatAddMessageCommand>
+    public class SendMessageCommandHandler : ICommandHandler<SendMessageCommand>
     {
         private readonly IChatRoomRepository _chatRoomRepository;
         private readonly IRegularUserRepository _userRepository;
+        private readonly IRepository<ChatUser> _chatUserRepository;
         private readonly IRepository<ChatMessage> _chatMessageRepository;
 
-        public ChatAddMessageCommandHandler(IChatRoomRepository chatRoomRepository, IRegularUserRepository userRepository, IRepository<ChatMessage> chatMessageRepository)
+        public SendMessageCommandHandler(IChatRoomRepository chatRoomRepository, IRegularUserRepository userRepository, IRepository<ChatMessage> chatMessageRepository, IRepository<ChatUser> chatUserRepository)
         {
             _chatRoomRepository = chatRoomRepository;
             _userRepository = userRepository;
             _chatMessageRepository = chatMessageRepository;
+            _chatUserRepository = chatUserRepository;
         }
 
-        public async Task ExecuteAsync(ChatAddMessageCommand message, CancellationToken token)
+        public async Task ExecuteAsync(SendMessageCommand message, CancellationToken token)
         {
             var users = message.ToUsersId.ToList();
             users.Add(message.UserSendingId);
@@ -39,35 +41,22 @@ namespace Cloudents.Command.CommandHandler
             chatRoom.UpdateTime = DateTime.UtcNow;
             await _chatRoomRepository.UpdateAsync(chatRoom, token);
             //var t = Task.CompletedTask;
-            //foreach (var user in chatRoom.Users)
-            //{
-            //    if (message.UserId != user.User.Id && !user.User.Online)
-            //    {
-            //        t = m_QueueRepository.InsertMessageToMailNewAsync(new MessageMailData(
-            //            message.Message,
-            //            user.User.Email,
-            //            userAction.Name,
-            //            userAction.ImageLarge,
-            //            userAction.Email,
-            //            user.User.Culture,
-            //            user.User.Id,
-            //            chatRoom.Id, userAction.Id));
-            //    }
-            //    if (user.User.Id == message.UserId)
-            //    {
-            //        user.Unread = 0;
-            //    }
-            //    else
-            //    {
-            //        user.Unread++;
-            //    }
-            //    m_ChatUserRepository.Save(user);
-            //}
-
-
-            //m_ChatRoomRepository.Save(chatRoom);
-
-            //m_ChatMessageRepository.Save(chatMessage);
+            foreach (var user in chatRoom.Users)
+            {
+                if (message.UserSendingId != user.User.Id && !user.User.Online)
+                {
+                   //TODO: need to send an email or something
+                }
+                if (user.User.Id == message.UserSendingId)
+                {
+                    user.Unread = 0;
+                }
+                else
+                {
+                    user.Unread++;
+                }
+                await _chatUserRepository.UpdateAsync(user, token);
+            }
         }
     }
 }

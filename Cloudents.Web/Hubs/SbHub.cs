@@ -84,7 +84,7 @@ namespace Cloudents.Web.Hubs
                 return;
             }
 
-            var command = new ChatAddMessageCommand(message, currentUserId, new[] { userId });
+            var command = new SendMessageCommand(message, currentUserId, new[] { userId });
             var t1 = _commandBus.Value.DispatchAsync(command, token);
 
             var t2 =  Clients.Users(new[] { currentUserId.ToString(), userId.ToString() }).SendAsync("Chat", new
