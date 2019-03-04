@@ -68,6 +68,7 @@ export default {
             if(selectedOption === this.enumOptions.image){
                 let inputImgElm = document.getElementById('imageUpload');
                 inputImgElm.click();
+                this.setOptionType(this.enumOptions.select)
             }
         },
         showColorPicker() {
