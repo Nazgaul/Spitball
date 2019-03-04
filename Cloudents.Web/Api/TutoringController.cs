@@ -35,6 +35,8 @@ namespace Cloudents.Web.Api
         {
             var room = RoomResource.Create(
                 uniqueName: Guid.NewGuid().ToString(),
+                maxParticipants: 2,
+                recordParticipantsOnConnect: true,
                 type: RoomResource.RoomTypeEnum.PeerToPeer);
 
             return Ok(new
@@ -52,9 +54,8 @@ namespace Cloudents.Web.Api
 
             var grant = new VideoGrant
             {
-                Room = room.UniqueName
+                Room = room.UniqueName,
             };
-
             var grants = new HashSet<IGrant> { grant };
 
             // Create an Access Token generator

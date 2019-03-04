@@ -24,7 +24,7 @@ const viewProfile = () => import("./components/profile/profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 const login = () => import("./components/new_registration/login.vue");
 const university = () => import("./components/helpers/uni-select/uniSelect.vue");
-const tutorComponent = () => import("./components/tutor/videoStream/videoStream.vue");
+const tutorComponent = () => import("./components/tutor/tutor.vue");
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
 
@@ -216,7 +216,7 @@ let routes2 = [
         name: 'tutoring',
         components: {
             default: tutorComponent,
-            header: bookDetailsHeader
+            // header: bookDetailsHeader
         },
         header: () => ({
             submitRoute: '/tutoring',
