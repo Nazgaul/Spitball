@@ -4,7 +4,7 @@
             <v-flex>
                 <v-btn @click="generateRoom()" v-if="!id" primary>Generate Room</v-btn>
                 <v-btn @click="doCopy" v-if="id">{{isCopied ? 'Copied' : 'Copy Link'}}</v-btn>
-                <v-btn @click="sendData()">Click</v-btn>
+                <!--<v-btn @click="sendData()">Click</v-btn>-->
             </v-flex>
         </v-layout>
         <v-layout>
@@ -53,6 +53,7 @@
     import videoService from '../../../services/videoStreamService';
     import { dataTrack } from '../tutorService';
     import whiteBoardService from '../whiteboard/whiteBoardService'
+    import chatService from "../chat/chatService";
 
 
     export default {
@@ -100,10 +101,10 @@
             minimize(type) {
                 this.visible[`${type}`] = !this.visible[`${type}`];
             },
-            sendData() {
-                let joy = {test: 'Hello Beny DATA!!!!'};
-                dataTrack.send(JSON.stringify(joy));
-            },
+            // sendData() {
+            //     let joy = {test: 'Hello Beny DATA!!!!'};
+            //     dataTrack.send(JSON.stringify(joy));
+            // },
             generateRoom() {
                 let self = this;
                 videoService.generateRoom().then(data => {
@@ -255,6 +256,9 @@
                                             whiteBoardService.redraw(parsedData);
                                         } else if (Data.type === 'undoData') {
                                             whiteBoardService.undo(parsedData);
+                                        }
+                                        else if(Data.type === 'tutoringChatMessage'){
+                                            chatService.getMessage(Data);
                                         }
                                     });
                                 }

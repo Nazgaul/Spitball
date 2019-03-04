@@ -6,16 +6,20 @@
       <v-flex>
           <video-stream :id="id"></video-stream>
       </v-flex>
+        <v-flex>
+            <chat :id="id"></chat>
+        </v-flex>
 
     </v-layout>
 
 
 </template>
 <script>
-    import videoStream from './videoStream/videoStream.vue'
-    import whiteBoard from './whiteboard/WhiteBoard.vue'
+    import videoStream from './videoStream/videoStream.vue';
+    import whiteBoard from './whiteboard/WhiteBoard.vue';
+    import chat from './chat/chat.vue'
     export default {
-        components:{videoStream, whiteBoard},
+        components:{videoStream, whiteBoard, chat},
         name: "tutor",
         props: {
             id: ''
