@@ -5,8 +5,12 @@ export default {
     generateRoom: () => {
         return connectivityModule.http.post("tutoring/create");
     },
-    getToken: (name) => {
-        return connectivityModule.http.get(`tutoring/join?roomName=${name}`).then(data => data.data.token);
+    getToken: (name, identityName) => {
+        let userIdentity = identityName || '';
+        return connectivityModule.http.get(`tutoring/join?roomName=${name}&identityName=${userIdentity}`)
+            .then((data) => {
+                return data.data.token
+            });
     }
 
 }

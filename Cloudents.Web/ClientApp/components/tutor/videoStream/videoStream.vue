@@ -135,7 +135,8 @@
             },
             // Generate access token
             async getAccessToken() {
-                return await videoService.getToken(this.id);
+                let identity = localStorage.getItem("identity");
+                return await videoService.getToken(this.id,identity);
             },
 
             // Attach the Tracks to the DOM.
@@ -176,7 +177,6 @@
                     this.activeRoom.disconnect();
                 }
             },
-
             //delete members from array when left
             removeMember(mem) {
                 let index = this.members.indexOf(mem);
@@ -199,7 +199,7 @@
                         });
                         let connectOptions;
                         createLocalTracks({
-                            audio: self.availableDevices.includes('audioinput') ? true : false,
+                            audio: self.availableDevices.includes('audioinput'),
                             video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : false,
                         }).then((tracksCreated) => {
                             let localMediaContainer = document.getElementById('localTrack');
@@ -237,9 +237,10 @@
                             self.roomName = room.name;
                             self.loading = false;
                             let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
-                            self.members.push(room.localParticipant);
+                            self.members.push(localIdentity);
                             self.updateUserIdentity(localIdentity);
                             self.localOffline = false;
+                            localStorage.setItem("identity", localIdentity);
 
                             // Attach the Tracks of all the remote Participants.
                             self.activeRoom.participants.forEach((participant, index) => {
@@ -302,27 +303,28 @@
                                 }
                                 self.detachParticipantTracks(participant);
                             });
+                            //do we need this ???? creating local track before on connect
                             // if local preview is not active, create it
-                            if (!self.localTrackAval) {
-                                let localTracksOptions = {
-                                    logLevel: 'debug',
-                                    audio: self.availableDevices.includes('audioinput'),
-                                    // video: self.availableDevices.includes('videoinput'),
-                                    video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : {},
-                                };
-                                createLocalTracks(localTracksOptions)
-                                    .then(tracks => {
-                                            let localMediaContainer = document.getElementById('localTrack');
-                                            tracks.forEach((track) => {
-                                                localMediaContainer.appendChild(track.attach());
-                                                self.localTrackAval = true;
-                                            })
-                                        },
-                                        (error) => {
-                                            console.error('Unable to access local media video and audio', error);
-                                        }
-                                    );
-                            }
+                            // if (!self.localTrackAval) {
+                            //     let localTracksOptions = {
+                            //         logLevel: 'debug',
+                            //         audio: self.availableDevices.includes('audioinput'),
+                            //         // video: self.availableDevices.includes('videoinput'),
+                            //         video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : false,
+                            //     };
+                            //     createLocalTracks(localTracksOptions)
+                            //         .then(tracks => {
+                            //                 let localMediaContainer = document.getElementById('localTrack');
+                            //                 tracks.forEach((track) => {
+                            //                     localMediaContainer.appendChild(track.attach());
+                            //                     self.localTrackAval = true;
+                            //                 })
+                            //             },
+                            //             (error) => {
+                            //                 console.error('Unable to access local media video and audio', error);
+                            //             }
+                            //         );
+                            // }
 
                         },
                         (error) => {
