@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -33,8 +34,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("document")]
-        [InlineData("document?page=1")]
+        [InlineData("api/document")]
+        [InlineData("/api/document?page=1")]
         public async Task GetAsync_OK(string url)
         {
             var client = _factory.CreateClient(new WebApplicationFactoryClientOptions()
@@ -42,17 +43,38 @@ namespace Cloudents.Web.Test.IntegrationTests
                 AllowAutoRedirect = false
             });
 
-            HttpResponseMessage response = await client.GetAsync(url);
+            var response = await client.GetAsync(url);
 
-            /*var str = await response.Content.ReadAsStringAsync();
+            var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
 
-            var details = d["details"]?.Value<string>();
-            var id = d["id"]?.Value<long>();
-            var score = d["score"]?.Value<int>();
-            id.Should().NotBeNull();
-            score.Should().NotBeNull();*/
+            var result = d["result"]?.Value<JArray>();
+            var filters = d["filters"]?.Value<JArray>();
+            var type = filters[0]["data"]?.Value<JArray>();
+            var next = d["nextPageLink"]?.Value<string>();
+
+            result.Should().NotBeNull();
+            filters.Should().NotBeNull();
+            type.Should().HaveCountGreaterThan(3);
+        }
+
+        [Fact]
+        public async Task GetAsync_Filters()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("/api/document");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var filters = d["filters"]?.Value<JArray>();
+            var type = filters[0]["data"]?.Value<JArray>();
+
+            filters.Should().NotBeNull();
+            type.Should().HaveCountGreaterThan(3);
         }
     }
 }

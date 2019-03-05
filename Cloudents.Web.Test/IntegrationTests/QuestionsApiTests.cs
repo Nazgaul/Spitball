@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using FluentAssertions;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -10,6 +12,26 @@ namespace Cloudents.Web.Test.IntegrationTests
         public QuestionsApiTests(SbWebApplicationFactory factory)
         {
             _factory = factory;
+        }
+
+        [Fact]
+        public async Task GetAsync_Filters()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("/api/question");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var filters = d["filters"]?.Value<JArray>();
+            var type = filters[0]["data"]?.Value<JArray>();
+            var subject = filters[1]["data"]?.Value<JArray>();
+
+            filters.Should().HaveCount(2);
+            type.Should().HaveCount(3);
+            subject.Should().HaveCount(24);
         }
 
         [Theory]
@@ -26,7 +48,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("/api/Question/28944")]
+        [InlineData("/api/Question/9339")]
         public async Task GetAsync_Url_Success(string url)
         {
             // Arrange
@@ -34,7 +56,44 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             // Act
             var response = await client.GetAsync(url);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+            
+            var subject = d["subject"]?.Value<string>();
+            var id = d["id"]?.Value<long?>();
+            var text = d["text"]?.Value<string>();
+            var price = d["price"]?.Value<decimal?>();
+            var course = d["course"]?.Value<string>();
+            var user = d["user"]?.Value<JObject>();
+            var answers = d["answers"]?.Value<JArray>();
+            var create = d["create"]?.Value<System.DateTime?>();
+            var files = d["files"]?.Value<JArray>();
+            var rtl = d["isRtl"]?.Value<bool?>();
+            var vote = d["vote"]?.Value<JObject>();
+
             response.EnsureSuccessStatusCode();
+            id.Should().NotBeNull();
+            user.Should().NotBeNull();
+            rtl.Should().NotBeNull();
+            vote.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task GetAsync_Not_Found()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("/api/question/123");
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var status = d["status"]?.Value<int?>();
+
+            status.Should().Be(404);
         }
     }
 }
