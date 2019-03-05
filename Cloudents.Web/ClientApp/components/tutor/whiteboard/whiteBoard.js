@@ -62,7 +62,8 @@ export default {
         },
         helperShow(){
             return helperUtil.HelperObj.isActive;
-        }
+        },
+        
     },
     methods: {
         setOptionType(selectedOption) {
@@ -118,9 +119,35 @@ export default {
         },
         resizeCanvas(){
             let canvas = document.getElementById('canvas');
+            this.canvasWidth = global.innerWidth -50;
+            this.canvasHeight = global.innerHeight -50;
             canvas.width = this.canvasWidth;
             canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
+        },
+        registerEvents(canvas){
+            let self = this;
+            global.addEventListener('resize', this.resizeCanvas, false);
+            canvas.addEventListener('mousedown', (e) => {
+                if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
+                    self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
+                }
+            });
+            canvas.addEventListener('mouseup', (e) => {
+                if (!!self.currentOptionSelected && self.currentOptionSelected.mouseup) {
+                    self.currentOptionSelected.mouseup.bind(self.canvasData, e)()
+                }
+            });
+            canvas.addEventListener('mouseleave', (e) => {
+                if (!!self.currentOptionSelected && self.currentOptionSelected.mouseleave) {
+                    self.currentOptionSelected.mouseleave.bind(self.canvasData, e)()
+                }
+            });
+            canvas.addEventListener('mousemove', (e) => {
+                    if (!!self.currentOptionSelected && self.currentOptionSelected.mousemove) {
+                        self.currentOptionSelected.mousemove.bind(self.canvasData, e)()
+                    }
+            });      
         }
     },
     mounted() {
@@ -130,61 +157,7 @@ export default {
         this.canvasData.context = canvas.getContext("2d");
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
         this.canvasData.context.lineWidth = this.canvasData.lineWidth;
-        let self = this;
-        global.addEventListener('resize', this.resizeCanvas, false);
-        canvas.addEventListener('mousedown', (e) => {
-            if (!!self.currentOptionSelected && self.currentOptionSelected.mousedown) {
-                self.currentOptionSelected.mousedown.bind(self.canvasData, e)()
-            }
-        });
-        canvas.addEventListener('mouseup', (e) => {
-            if (!!self.currentOptionSelected && self.currentOptionSelected.mouseup) {
-                self.currentOptionSelected.mouseup.bind(self.canvasData, e)()
-            }
-        });
-        canvas.addEventListener('mouseleave', (e) => {
-            if (!!self.currentOptionSelected && self.currentOptionSelected.mouseleave) {
-                self.currentOptionSelected.mouseleave.bind(self.canvasData, e)()
-            }
-        });
-        canvas.addEventListener('mousemove', (e) => {
-                if (!!self.currentOptionSelected && self.currentOptionSelected.mousemove) {
-                    self.currentOptionSelected.mousemove.bind(self.canvasData, e)()
-                }
-        });        
-        // canvas.addEventListener("touchstart", function (e) {
-        //     if (e.target == canvas) {
-        //         e.preventDefault();
-        //     }
-        //     let touch = e.touches[0];
-        //     let mouseEvent = new MouseEvent("mousedown", {
-        //         clientX: touch.clientX,
-        //         clientY: touch.clientY
-        //     });
-        //     canvas.dispatchEvent(mouseEvent);
-        // }, false);
-        // canvas.addEventListener("touchend", function (e) {
-        //     if (e.target == canvas) {
-        //         e.preventDefault();
-        //       }
-        //       let touch = e.changedTouches[0];
-        //     let mouseEvent = new MouseEvent("mouseup", {
-        //         clientX: touch.clientX,
-        //         clientY: touch.clientY
-        //     });
-        //     canvas.dispatchEvent(mouseEvent);
-        // }, false);
-        // canvas.addEventListener("touchmove", function (e) {
-        //     if (e.target == canvas) {
-        //         e.preventDefault();
-        //       }
-        //     let touch = e.touches[0];
-        //     let mouseEvent = new MouseEvent("mousemove", {
-        //         clientX: touch.clientX,
-        //         clientY: touch.clientY
-        //     });
-        //     canvas.dispatchEvent(mouseEvent);
-        // }, false);
+        this.registerEvents(canvas);
         global.document.addEventListener("keydown", self.keyPressed);
     }
 }
