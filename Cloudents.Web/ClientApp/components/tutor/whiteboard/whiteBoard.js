@@ -6,7 +6,7 @@ import helperUtil from './utils/helper';
 import { dataTrack } from '../tutorService';
 import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
-
+import {mapGetters} from 'vuex';
 export default {
     components: {
         'sliderPicker': Compact,
@@ -20,7 +20,20 @@ export default {
             showPickColorInterface: false,
             showHelper: false,
             predefinedColors:[
-                '#f00', '#00ff00', '#00ff0055', 'rgb(201, 76, 76)', 'rgba(0,0,255,1)', 'hsl(89, 43%, 51%)', 'hsla(89, 43%, 51%, 0.6)'
+                '#000000',
+                '#FF0000',
+                '#00ff00',
+                '#40e0d0',
+                '#800000',
+                '#0000ff',
+                '#008000',
+                '#ffd700',
+                '#8a2be2',
+                '#ff00ff',
+                '#c0c0c0',
+                '#ffff00',
+                '#088da5',
+                '#003366'
             ],
             enumOptions: {
                 draw: 'liveDraw',
@@ -58,6 +71,7 @@ export default {
         }
     },
     computed:{
+        ...mapGetters(['isRoomCreated']),
         helperStyle(){
             return helperUtil.HelperObj.style
         },

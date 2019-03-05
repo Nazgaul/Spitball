@@ -2,11 +2,11 @@
     <v-container class="py-0" id="tutoring-chat-holder">
         <v-layout row>
             <v-flex>
-                <div class="chat-header px-3 py-2">
+                <div class="chat-header px-3 py-2" @click="minimizeChat()">
                         <span class="title-chat">Chat</span>
-                        <span class="chat-size-ctrl" @click="minimizeChat()">
-                             <v-icon v-if="visibleChat" class="chat-size-icon" >sbf-close</v-icon>
-                             <v-icon v-else class="video-size-icon" >sbf-expand-icon</v-icon>
+                        <span class="chat-size-ctrl" @click.stop="minimizeChat()">
+                              <v-icon v-if="visibleChat" class="video-size-icon">sbf-minimize</v-icon>
+                              <v-icon v-else class="video-size-icon">sbf-toggle-enlarge</v-icon>
                         </span>
                 </div>
             </v-flex>

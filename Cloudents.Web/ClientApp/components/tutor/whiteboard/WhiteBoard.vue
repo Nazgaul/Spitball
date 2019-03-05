@@ -6,52 +6,116 @@
                 <AppLogo></AppLogo>
             </div>
             <div>
-                <share-room-btn></share-room-btn>
+                <share-room-btn v-show="isRoomCreated"></share-room-btn>
             </div>
-
         </div>
         <div class="nav-container elevation-2">
-            <button :class="[selectedOptionString === enumOptions.select ? 'active-tool' : '']" class="nav-action" @click="setOptionType(enumOptions.select)">
-                <v-icon>sbf-mouse-pointer</v-icon>
-            </button>
-            <button  :class="[selectedOptionString === enumOptions.text ? 'active-tool' : '']" class="nav-action" @click="setOptionType(enumOptions.text)">
-                <v-icon>sbf-text-icon</v-icon>
-            </button>
-            <!--<button class="nav-action" @click="clearCanvas">clear</button>-->
+            <!--Select-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" :class="[selectedOptionString === enumOptions.select ? 'active-tool' : '']"
+                            class="nav-action" @click="setOptionType(enumOptions.select)">
+                        <v-icon>sbf-mouse-pointer</v-icon>
+                    </button>
+                </template>
+                <span >Select</span>
+            </v-tooltip>
+
+            <!--Text-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button  v-on="on"
+                             :class="[selectedOptionString === enumOptions.text ? 'active-tool' : '']"
+                             class="nav-action" @click="setOptionType(enumOptions.text)">
+                        <v-icon>sbf-text-icon</v-icon>
+                    </button>
+                </template>
+                <span >Text</span>
+            </v-tooltip>
+            <!--Color Picker-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" :class="[showPickColorInterface ? 'active-tool' : '']" class="nav-action"
+                            @click="showColorPicker">
+                        <span class="selected-color" :style="{ backgroundColor: canvasData.color.hex}"></span>
+                    </button>
+                </template>
+                <span >Color Picker</span>
+            </v-tooltip>
             <slider-picker class="color-picker" :palette="predefinedColors" v-show="showPickColorInterface"
                            v-model="canvasData.color"/>
-            <button :class="[showPickColorInterface ? 'active-tool' : '']" class="nav-action"
-                    @click="showColorPicker">
-                <span class="selected-color" :style="{ backgroundColor: canvasData.color.hex}"></span>
-            </button>
-            <button :class="[selectedOptionString === enumOptions.draw ? 'active-tool' : '']"
-                    class="nav-action" @click="setOptionType(enumOptions.draw)">
-                <v-icon>sbf-pencil-empty</v-icon>
-            </button>
-            <button :class="[selectedOptionString === enumOptions.line ? 'active-tool' : '']"
-                    class="nav-action" @click="setOptionType(enumOptions.line)">
-                <v-icon>sbf-connect-line</v-icon>
-            </button>
-            <button :class="[selectedOptionString === enumOptions.circle ? 'active-tool' : '']"
-                    class="nav-action" @click="setOptionType(enumOptions.circle)">
-                <v-icon>sbf-eclipse</v-icon>
-            </button>
-            <button :class="[selectedOptionString === enumOptions.rectangle ? 'active-tool' : '']"
-                    class="nav-action" @click="setOptionType(enumOptions.rectangle)">
-                <v-icon>sbf-square</v-icon>
-            </button>
-            <button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"
-                    class="nav-action" @click="setOptionType(enumOptions.eraser)">
-                <v-icon>sbf-eraser-empty</v-icon>
-            </button>
+            <!--<button class="nav-action" @click="clearCanvas">clear</button>-->
+
+            <!--Draw-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" :class="[selectedOptionString === enumOptions.draw ? 'active-tool' : '']"
+                            class="nav-action" @click="setOptionType(enumOptions.draw)">
+                        <v-icon>sbf-pencil-empty</v-icon>
+                    </button>
+                </template>
+                <span >Pen</span>
+            </v-tooltip>
+
+            <!--Line-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" :class="[selectedOptionString === enumOptions.line ? 'active-tool' : '']"
+                            class="nav-action" @click="setOptionType(enumOptions.line)">
+                        <v-icon>sbf-connect-line</v-icon>
+                    </button>
+                </template>
+                <span >Line</span>
+            </v-tooltip>
+
+            <!--Circle-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" :class="[selectedOptionString === enumOptions.circle ? 'active-tool' : '']"
+                            class="nav-action" @click="setOptionType(enumOptions.circle)">
+                        <v-icon>sbf-eclipse</v-icon>
+                    </button>
+                </template>
+                <span>Circle</span>
+            </v-tooltip>
+
+            <!--Square-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" :class="[selectedOptionString === enumOptions.rectangle ? 'active-tool' : '']"
+                            class="nav-action" @click="setOptionType(enumOptions.rectangle)">
+                        <v-icon>sbf-square</v-icon>
+                    </button>
+                </template>
+                <span>Square</span>
+            </v-tooltip>
+
+            <!--Upload Image-->
             <input class="nav-action" type="file" name="Image Upload" id="imageUpload" v-show="false"/>
-            <button  :class="[selectedOptionString === enumOptions.image ? 'active-tool' : '']"
-                     class="nav-action" @click="setOptionType(enumOptions.image)">
-                <v-icon>sbf-upload</v-icon>
-            </button>
-            <button class="nav-action" @click="undo();">
-                <v-icon>sbf-undo</v-icon>
-            </button>
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" :class="[selectedOptionString === enumOptions.image ? 'active-tool' : '']"
+                             class="nav-action" @click="setOptionType(enumOptions.image)">
+                        <v-icon>sbf-upload</v-icon>
+                    </button>
+                </template>
+                <span>Upload Image</span>
+            </v-tooltip>
+
+            <!--<button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"-->
+                    <!--class="nav-action" @click="setOptionType(enumOptions.eraser)">-->
+                <!--<v-icon>sbf-eraser-empty</v-icon>-->
+            <!--</button>-->
+
+            <!--Undo-->
+            <v-tooltip right>
+                <template v-slot:activator="{on}">
+                    <button v-on="on" class="nav-action" @click="undo();">
+                        <v-icon>sbf-undo</v-icon>
+                    </button>
+                </template>
+                <span>Undo</span>
+            </v-tooltip>
 
         </div>
         <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
@@ -88,11 +152,11 @@
                    :class="[helperClass, helperStyle.id]"
                    :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
         </div>
-        <div>
-            <ul>
-                <li v-for="(shape, index) in canvasData.dragData" :key="index">{{shape.type}}</li>
-            </ul>
-        </div>
+        <!--<div>-->
+            <!--<ul>-->
+                <!--<li v-for="(shape, index) in canvasData.dragData" :key="index">{{shape.type}}</li>-->
+            <!--</ul>-->
+        <!--</div>-->
     </div>
 </template>
 
@@ -124,6 +188,10 @@
             margin-top: 150px;
             .nav-action {
                 padding: 12px 16px;
+                outline: none!important;
+                .v-icon {
+                    color: #000000;
+                }
                 &.active-tool{
                     .v-icon {
                         color:#2a79ff;
@@ -145,7 +213,7 @@
             }
             .color-picker {
                 position: absolute;
-                top: 100px;
+                top: 106px;
                 left: 80px;
                 height: auto;
                 .vc-compact-color-item {

@@ -4,30 +4,29 @@
             <v-flex>
                 <div class="roomTitle">
                     <span v-if="loading"> Loading... {{roomName}}</span>
-                    <span v-else-if="!loading && roomName"> Connected to {{roomName}}</span>
-                    <span v-else>Generate a room to get started</span>
                 </div>
             </v-flex>
         </v-layout>
         <v-layout>
             <v-flex>
-                <v-btn @click="generateRoom()" v-if="!id" primary>Generate Room</v-btn>
+                <v-btn color="primary" @click="generateRoom()" v-if="!id">Initiate tutoring session</v-btn>
             </v-flex>
         </v-layout>
 
-        <v-layout column align-end>
+        <v-layout column align-end v-show="loaded">
             <div class="video-holder">
-                <v-flex class="px-3 video-con-controls">
-                    <div>
+                <v-flex class="px-3 video-con-controls" @click="minimize('remote_player')">
+                    <div style="display: flex; align-items: center;">
                         <span :class="[remoteOffline  ? 'remote-offline' : 'remote-online']"></span>
                         <span class="user-badge ml-2">Guest</span>
                     </div>
-                    <div>
+                    <div style="display: flex; align-items: center;">
                     <span class="video-size-ctrl mr-2" @click="biggerRemoteVideo">
                         <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
                     </span>
-                        <span class="video-size-ctrl" @click="minimize('remote_player')">
-                        <v-icon class="video-size-icon">sbf-close</v-icon>
+                        <span class="video-size-ctrl" @click.stop="minimize('remote_player')">
+                         <v-icon v-if="visible.remote_player" class="video-size-icon">sbf-minimize</v-icon>
+                         <v-icon v-else class="video-size-icon">sbf-toggle-enlarge</v-icon>
                     </span>
                     </div>
                     <!--<span class="video-size-ctrl" @click="requestPictureInPicture('remoteTrack')">Picture mode</span>-->
@@ -39,18 +38,18 @@
                 </v-flex>
             </div>
             <div class="video-holder">
-                <v-flex class="px-3 video-con-controls">
-                    <div>
+                <v-flex class="px-3 video-con-controls"  @click="minimize('local_player')">
+                    <div style="display: flex; align-items: center;">
                         <span :class="[localOffline ? 'local-offline' : 'local-online']"></span>
                         <span class="user-badge ml-2">You</span>
                     </div>
-                    <div>
+                    <div style="display: flex; align-items: center;">
                     <span class="video-size-ctrl mr-2" @click="biggerLocalVideo">
                      <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
                     </span>
-                        <span class="video-size-ctrl" @click="minimize('local_player')">
-                        <v-icon class="video-size-icon">sbf-close</v-icon>
-                    </span>
+                        <span class="video-size-ctrl" @click.stop="minimize('local_player')">
+                            <v-icon v-if="visible.local_player" class="video-size-icon">sbf-minimize</v-icon>
+                         <v-icon v-else class="video-size-icon">sbf-toggle-enlarge</v-icon>                    </span>
                     </div>
                     <!--<span class="video-size-ctrl" @click="requestPictureInPicture('localTrack')">Picture mode</span>-->
                 </v-flex>
@@ -78,6 +77,7 @@
         data() {
             return {
                 loading: false,
+                loaded : false,
                 data: {},
                 isCopied: false,
                 localTrackAval: false,
@@ -105,7 +105,7 @@
             '$route': 'createChat'
         },
         methods: {
-            ...mapActions(['addMessage', 'updateUserIdentity']),
+            ...mapActions(['addMessage', 'updateUserIdentity', 'updateRoomStatus']),
             biggerLocalVideo() {
                 let video = document.querySelectorAll("#localTrack video")[0];
                 video.requestFullscreen()
@@ -136,7 +136,7 @@
             // Generate access token
             async getAccessToken() {
                 let identity = localStorage.getItem("identity");
-                return await videoService.getToken(this.id,identity);
+                return await videoService.getToken(this.id, identity);
             },
 
             // Attach the Tracks to the DOM.
@@ -147,7 +147,6 @@
                     }
                 });
             },
-
             // Attach the Participant's Tracks to the DOM.
             attachParticipantTracks(participant, container) {
                 let tracks = Array.from(participant.tracks.values());
@@ -236,6 +235,9 @@
                             self.activeRoom = room;
                             self.roomName = room.name;
                             self.loading = false;
+                            self.loaded = true;
+                            //update room status in store of chat to use for show/hide shareBtn
+                            self.updateRoomStatus(true);
                             let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
                             self.members.push(localIdentity);
                             self.updateUserIdentity(localIdentity);

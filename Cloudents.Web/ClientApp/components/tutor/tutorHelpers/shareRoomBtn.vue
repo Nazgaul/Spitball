@@ -1,5 +1,5 @@
 <template>
-    <v-btn @click="copyUrl" :color="isCopied ? 'success' : 'primary'">{{isCopied ? 'Copied' : 'Share'}}</v-btn>
+    <v-btn @click="copyUrl" :color="isCopied ? 'success' : 'primary'">{{isCopied ? 'Copied' : 'Share session link'}}</v-btn>
 </template>
 
 <script>
@@ -17,7 +17,10 @@
                     self.$copyText(url).then((e) => {
                         self.isCopied = true;
                     }, (e) => {
-                    })
+                    });
+                setTimeout((uncopy)=>{
+                    self.isCopied = false;
+                }, 1000)
             }
         },
     }

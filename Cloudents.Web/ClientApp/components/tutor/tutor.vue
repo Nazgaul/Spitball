@@ -1,5 +1,5 @@
 <template>
-    <v-layout row>
+    <v-layout row class="tutoring-page">
         <v-flex>
             <white-board></white-board>
         </v-flex>
@@ -8,7 +8,7 @@
                 <video-stream :id="id"></video-stream>
             </v-flex>
             <v-flex xs6 sm6 md6>
-                <chat :id="id"></chat>
+                <chat v-show="isRoomCreated" :id="id"></chat>
             </v-flex>
         </v-layout>
     </v-layout>
@@ -16,14 +16,18 @@
 
 </template>
 <script>
+    import {mapGetters} from 'vuex';
     import videoStream from './videoStream/videoStream.vue';
     import whiteBoard from './whiteboard/WhiteBoard.vue';
-    import chat from './chat/chat.vue'
+    import chat from './chat/chat.vue';
     export default {
         components:{videoStream, whiteBoard, chat},
         name: "tutor",
         props: {
             id: ''
+        },
+        computed: {
+            ...mapGetters(['isRoomCreated']),
         },
 
         created() {
@@ -35,6 +39,12 @@
     }
 </script>
 
-<style scoped>
+<style lang="less">
+    .tutoring-page{
+        /*rtl:ignore*/
+        direction: ltr;
+
+
+    }
 
 </style>

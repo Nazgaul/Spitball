@@ -35,6 +35,10 @@
 <style scoped lang="less">
     .chat-bubble {
         margin-bottom: 8px;
+        word-break: break-word;
+        &:first-child{
+            margin-top: 4px;
+        }
         .username {
             font-size: 10px;
         }
