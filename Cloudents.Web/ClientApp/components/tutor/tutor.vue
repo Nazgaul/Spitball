@@ -24,9 +24,13 @@
         name: "tutor",
         props: {
             id: ''
-        }, 
+        },
+
         created() {
             console.log('ID Tutor!!',this.id)
+            global.onbeforeunload = function(){
+                return "Are you sure you want to close the window?";
+            }
         }
     }
 </script>
