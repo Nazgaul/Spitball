@@ -20,27 +20,24 @@ namespace Cloudents.Query
         {
 
             const string sql = @"SELECT  q.Id as Id,
-                                q.Subject_id as Subject,
-                                q.Price as Price,
-                                q.Text as Text,
-                                q.Attachments as Files,
-                                c.Name as Course,
-                                (SELECT count(*) as y0_ FROM sb.[Answer] this_0_ WHERE (this_0_.QuestionId = q.Id and this_0_.State = 'Ok')) as Answers,
-                                q.Updated as DateTime,
-                                (case when not (q.CorrectAnswer_id is null) then 1 else 0 end) as HasCorrectAnswer,
-                                q.Language as CultureInfo,
-                                u.Id as Id,
-                                u.Name as Name,
-                                u.Score as Score,
-                                u.Image as Image,
-                                q.VoteCount as Votes
-                                FROM sb.[Question] q 
-                                inner join sb.[User] u 
-	                                on q.UserId=u.Id
-                                left join sb.Course2 c
-	                                on q.CourseId2 = c.Id
-                                WHERE q.Id in @ids
-                                and q.State = 'ok';";
+  q.Subject_id as Subject,
+  q.Price as Price,
+   q.Text as Text,
+    q.Attachments as Files,
+	 q.CourseId as Course,
+	  (SELECT count(*) as y0_ FROM sb.[Answer] this_0_ WHERE (this_0_.QuestionId = q.Id and this_0_.State = 'Ok')) as Answers,
+	   q.Updated as DateTime,
+		    (case when not (q.CorrectAnswer_id is null) then 1 else 0 end) as HasCorrectAnswer,
+			 q.Language as CultureInfo,
+		u.Id as Id,
+	   u.Name as Name,
+		 u.Score as Score,
+		  u.Image as Image,
+ q.VoteCount as Votes
+			  FROM sb.[Question] q 
+			  inner join sb.[User] u on q.UserId=u.Id
+			   WHERE q.Id in @ids
+			   and q.State = 'ok';";
 
             using (var conn = _dapperRepository.OpenConnection())
             {

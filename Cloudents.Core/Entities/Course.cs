@@ -5,7 +5,7 @@ namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
-    public class Course : Entity<long>
+    public class Course //: Entity<string>
     {
         public const int MinLength = 4;
         public const int MaxLength = 150;
@@ -52,7 +52,7 @@ namespace Cloudents.Core.Entities
         {
             return !Equals(left, right);
         }
-        
+
         public virtual string Name { get; protected set; }
         public virtual int Count { get; set; }
 

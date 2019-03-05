@@ -36,6 +36,7 @@ namespace Cloudents.Core.Interfaces
     public interface ICourseRepository : IRepository<Course>
     {
         Task<Course> GetOrAddAsync(string name, CancellationToken token);
+        Task<Course> GetByNameAsync(string name, CancellationToken token);
     }
 
    

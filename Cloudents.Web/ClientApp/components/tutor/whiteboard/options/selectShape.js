@@ -87,6 +87,7 @@ const clearMark = function(){
 const mousedown = function(e){
     startingMousePosition.x = e.clientX;
     startingMousePosition.y = e.clientY;
+    this.methods.hideColorPicker();
     let mouseX = currentX - e.target.offsetLeft;
     let mouseY = currentY - e.target.getBoundingClientRect().top;
     this.shouldPaint = true;
@@ -134,7 +135,6 @@ const mousedown = function(e){
                     startShapes[shapeId] = createShape(this.shapesSelected[shapeId])
                 })
                 markShapes.bind(this)();
-                //mouseInsideSelectedRectangle = true;
             }
         }
     }
@@ -148,10 +148,8 @@ const moveShapes = function(){
             let dragoffy =  (currentY - startingMousePosition.y);
             point.mouseX = startShapes[shapeId].points[index].mouseX + dragoffx
             point.mouseY = startShapes[shapeId].points[index].mouseY + dragoffy
-            //console.log(`start: ${startShapes[shapeId].points[index].mouseX} current: ${point.mouseX}`)
         })
     })
-    whiteBoardService.cleanCanvas(this.context);
     whiteBoardService.redraw(this);
     markShapes.bind(this)();
     
@@ -232,7 +230,6 @@ const deleteSelectedShape = function(e){
             this.shapesSelected[shapeId].visible = false;
         })
         addShape.bind(this)();
-        whiteBoardService.cleanCanvas(this.context);
         whiteBoardService.redraw(this);
         clearMark();
     }
