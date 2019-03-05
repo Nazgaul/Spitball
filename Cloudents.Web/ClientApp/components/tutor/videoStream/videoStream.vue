@@ -303,6 +303,7 @@
                                 }
                                 self.detachParticipantTracks(participant);
                             });
+                            //do we need this ???? creating local track before on connect
                             // if local preview is not active, create it
                             // if (!self.localTrackAval) {
                             //     let localTracksOptions = {
