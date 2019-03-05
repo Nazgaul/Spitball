@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using FluentAssertions;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -11,6 +13,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _factory = factory;
         }
+
         [Theory]
         [InlineData("/api/university")]
         public async Task GetAsync_OK(string url)
@@ -20,7 +23,16 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             // Act
             var response = await client.GetAsync(url);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var uni = d["universities"].Value<JArray>();
+
             response.EnsureSuccessStatusCode();
+
+            d.Should().NotBeNull();
         }
 
         

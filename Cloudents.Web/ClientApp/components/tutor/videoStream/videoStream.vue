@@ -2,13 +2,6 @@
     <v-container class="videos-wrapper py-0">
         <v-layout>
             <v-flex>
-                <v-btn @click="generateRoom()" v-if="!id" primary>Generate Room</v-btn>
-                <v-btn @click="doCopy" v-if="id">{{isCopied ? 'Copied' : 'Copy Link'}}</v-btn>
-                <!--<v-btn @click="sendData()">Click</v-btn>-->
-            </v-flex>
-        </v-layout>
-        <v-layout>
-            <v-flex>
                 <div class="roomTitle">
                     <span v-if="loading"> Loading... {{roomName}}</span>
                     <span v-else-if="!loading && roomName"> Connected to {{roomName}}</span>
@@ -16,30 +9,38 @@
                 </div>
             </v-flex>
         </v-layout>
+        <v-layout>
+            <v-flex>
+                <v-btn @click="generateRoom()" v-if="!id" primary>Generate Room</v-btn>
+            </v-flex>
+        </v-layout>
+
         <v-layout column align-end>
+
             <div class="video-holder">
                 <v-flex>
-                    <span class="video-size-ctrl" @click="minimize('local_player')">{{visible.local_player ? "Minimize" : "Maximize"}}</span>
-                    <span class="video-size-ctrl" @click="biggerLocalVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
-                    <span class="video-size-ctrl" @click="requestPictureInPicture('localTrack')">Picture mode</span>
+                    <span :class="[remoteOffline  ? 'remote-offline' : 'remote-online']"></span>
+                    <span class="video-size-ctrl" @click="minimize('remote_player')">{{visible.remote_player ? "Minimize" : "Maximize"}}</span>
+                    <span class="video-size-ctrl" @click="biggerRemoteVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
+                    <!--<span class="video-size-ctrl" @click="requestPictureInPicture('remoteTrack')">Picture mode</span>-->
+
                 </v-flex>
-                <v-flex v-show="visible.local_player">
-                    <div class="row">
-                        <!--<h4>Tutor {{members[0].identity}}</h4>-->
-                        <div id="localTrack"></div>
+                <v-flex v-show="visible.remote_player">
+                    <div class="row remote_video_container">
+                        <div id="remoteTrack" ref='remote_player'></div>
                     </div>
                 </v-flex>
             </div>
             <div class="video-holder">
                 <v-flex>
-                    <span class="video-size-ctrl" @click="minimize('remote_player')">{{visible.remote_player ? "Minimize" : "Maximize"}}</span>
-                    <span class="video-size-ctrl" @click="biggerRemoteVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
-                    <span class="video-size-ctrl" @click="requestPictureInPicture('remoteTrack')">Picture mode</span>
+                    <span :class="[localOffline ? 'local-offline' : 'local-online']"></span>
+                    <span class="video-size-ctrl" @click="minimize('local_player')">{{visible.local_player ? "Minimize" : "Maximize"}}</span>
+                    <span class="video-size-ctrl" @click="biggerLocalVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
+                    <!--<span class="video-size-ctrl" @click="requestPictureInPicture('localTrack')">Picture mode</span>-->
                 </v-flex>
-                <v-flex v-show="visible.remote_player">
-                    <div class="row remote_video_container">
-                        <!--<h4>Student {{members[1].identity}}</h4>-->
-                        <div id="remoteTrack" ref='remote_player'></div>
+                <v-flex v-show="visible.local_player">
+                    <div class="row">
+                        <div id="localTrack"></div>
                     </div>
                 </v-flex>
             </div>
@@ -53,7 +54,7 @@
     import Twilio, { connect, createLocalTracks, createLocalVideoTrack, LocalDataTrack } from 'twilio-video';
     import videoService from '../../../services/videoStreamService';
     import { dataTrack } from '../tutorService';
-    import whiteBoardService from '../whiteboard/whiteBoardService'
+    import whiteBoardService from '../whiteboard/whiteBoardService';
 
 
     export default {
@@ -71,7 +72,9 @@
                 roomName: '',
                 roomLink: '',
                 username: '',
-                members: ['', ''],
+                members: [],
+                localOffline: true,
+                remoteOffline: true,
                 availableDevices: [],
                 visible: {
                     'local_player': true,
@@ -95,17 +98,14 @@
                 let video = document.querySelectorAll("#remoteTrack video")[0];
                 video.requestFullscreen()
             },
-            requestPictureInPicture(videoType) {
-                let video = document.querySelectorAll(`#${videoType} video`)[0];
-                video.requestPictureInPicture();
-            },
+            // requestPictureInPicture(videoType) {
+            //     let video = document.querySelectorAll(`#${videoType} video`)[0];
+            //     video.requestPictureInPicture();
+            // },
             minimize(type) {
                 this.visible[`${type}`] = !this.visible[`${type}`];
             },
-            // sendData() {
-            //     let joy = {test: 'Hello Beny DATA!!!!'};
-            //     dataTrack.send(JSON.stringify(joy));
-            // },
+
             generateRoom() {
                 let self = this;
                 videoService.generateRoom().then(data => {
@@ -117,14 +117,6 @@
             startChat() {
                 this.createChat()
             },
-            doCopy() {
-                let self = this;
-                this.$copyText(self.roomLink).then((e) => {
-                    self.isCopied = true;
-                }, (e) => {
-                })
-            },
-
             // Generate access token
             async getAccessToken() {
                 return await videoService.getToken(this.id);
@@ -133,7 +125,9 @@
             // Attach the Tracks to the DOM.
             attachTracks(tracks, container) {
                 tracks.forEach((track) => {
-                    container.appendChild(track.attach());
+                    if (track.attach){
+                        container.appendChild(track.attach());
+                    }
                 });
             },
 
@@ -189,8 +183,8 @@
                         });
                         let connectOptions;
                         createLocalTracks({
-                            audio: self.availableDevices.includes('audioinput'),
-                            video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : {},
+                            audio: self.availableDevices.includes('audioinput') ? true : false,
+                            video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : false,
                         }).then((tracksCreated) => {
                             let localMediaContainer = document.getElementById('localTrack');
                             tracksCreated.forEach((track) => {
@@ -226,13 +220,17 @@
                             self.activeRoom = room;
                             self.roomName = room.name;
                             self.loading = false;
-                            let localIdentity = room.localParticipant &&  room.localParticipant.identity ? room.localParticipant.identity : ''
+                            let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
+                            self.members.push(room.localParticipant);
                             self.updateUserIdentity(localIdentity);
+                            self.localOffline = false;
+
                             // Attach the Tracks of all the remote Participants.
                             self.activeRoom.participants.forEach((participant, index) => {
                                 let previewContainer = document.getElementById('remoteTrack');
                                 self.members.push(participant);
                                 self.attachParticipantTracks(participant, previewContainer);
+                                self.remoteOffline = false;
                             });
 
                             // Attach the Participant's Media to a <div> element.
@@ -247,6 +245,7 @@
                                         self.attachTracks([track], previewContainer);
                                     }
                                 });
+                                self.remoteOffline = false;
                             });
                             // When a Participant adds a Track, attach it to the DOM.
                             room.on('trackSubscribed', (track, participant) => {
@@ -280,6 +279,11 @@
                             room.on('participantDisconnected', (participant) => {
                                 self.removeMember(participant);
                                 console.log("Participant '" + participant.identity + "' left the room");
+                                if (participant.identity === self.userIdentity) {
+                                    self.localOffline = true;
+                                } else {
+                                    self.remoteOffline = true
+                                }
                                 self.detachParticipantTracks(participant);
                             });
                             // if local preview is not active, create it

@@ -1,13 +1,17 @@
 import {
-    Slider
+    Compact
 } from 'vue-color'
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
 import { dataTrack } from '../tutorService';
+import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
+import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
 
 export default {
     components: {
-        'sliderPicker': Slider,
+        'sliderPicker': Compact,
+         shareRoomBtn,
+         AppLogo
     },
     data() {
         return {
@@ -68,6 +72,7 @@ export default {
             if(selectedOption === this.enumOptions.image){
                 let inputImgElm = document.getElementById('imageUpload');
                 inputImgElm.click();
+                this.setOptionType(this.enumOptions.select)
             }
         },
         showColorPicker() {
