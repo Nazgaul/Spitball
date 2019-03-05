@@ -94,9 +94,12 @@ const enterPressed = function(e){
     }
 }
 
+const moveToSelectTool = function(){
+    this.methods.selectDefaultTool();
+}
+
 const mousedown = function(e){
     this.methods.hideColorPicker();
-    this.shouldPaint = true;
     if(isWriting){
         isWriting = false;
         //here the user finished to write text
@@ -124,12 +127,14 @@ const mousedown = function(e){
                 liveDraw.bind(this, textObj)();
                 this.methods.addShape(localShape, clearLocalShape);
                 whiteBoardService.redraw(this);
+                moveToSelectTool.bind(this)();
             }else{
                 isEditing = false;
                 let meassureText = this.context.measureText(text.value);
                 currentShapeEditing.points[0].text = text.value;
                 currentShapeEditing.points[0].width = meassureText.width;
                 whiteBoardService.redraw(this);
+                moveToSelectTool.bind(this)();
             }
         }
         hideHelperObj();
@@ -170,7 +175,6 @@ const mousedown = function(e){
     }
 }
 const mousemove = function(e){
-    this.shouldPaint = false;
 }
 
 const defineEndPosition = function(e){

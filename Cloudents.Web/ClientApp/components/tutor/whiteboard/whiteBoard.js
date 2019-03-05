@@ -47,7 +47,8 @@ export default {
                 },
                 methods: {
                     addShape: this.addShape,
-                    hideColorPicker: this.hideColorPicker
+                    hideColorPicker: this.hideColorPicker,
+                    selectDefaultTool: this.selectDefaultTool
                 },
                 objDetected: false
             }
@@ -66,6 +67,9 @@ export default {
         
     },
     methods: {
+        selectDefaultTool(){
+            this.setOptionType(this.enumOptions.select);
+        },
         setOptionType(selectedOption) {
             this.currentOptionSelected = whiteBoardService.init.bind(this.canvasData, selectedOption)();
             this.selectedOptionString = selectedOption;
@@ -73,7 +77,7 @@ export default {
             if(selectedOption === this.enumOptions.image){
                 let inputImgElm = document.getElementById('imageUpload');
                 inputImgElm.click();
-                this.setOptionType(this.enumOptions.select)
+                this.selectDefaultTool();
             }
         },
         showColorPicker() {
