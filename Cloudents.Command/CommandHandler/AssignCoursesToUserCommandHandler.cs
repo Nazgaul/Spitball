@@ -24,7 +24,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(AssignCoursesToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            
+
             //var firstCourseTransaction = await _transactionRepository.GetFirstCourseTransaction(message.UserId, token);
 
             //if (!user.Courses.Any() && firstCourseTransaction == TransactionActionType.None)
@@ -33,7 +33,7 @@ namespace Cloudents.Command.CommandHandler
             //    await _userRepository.UpdateAsync(user, token);
             //}
             user.Courses.Clear();
-            foreach (var name in message.Names)
+            foreach (var name in message.Name)
             {
                 var course = await _courseRepository.GetOrAddAsync(name, token);
                 if (user.Courses.Add(course))

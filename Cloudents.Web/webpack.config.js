@@ -39,7 +39,7 @@ module.exports = (env) => {
                                 { cleanupIDs: true },
                                 {convertPathData: false},
                                 {removeMetadata: true},
-                                {cleanupAttrs: true},
+                                {cleanupAttrs: false},
                                 {removeEditorsNSData: true},
                                 {removeEmptyAttrs: true },
                                 {convertTransform: false},

@@ -19,6 +19,9 @@ export default {
             canvasHeight: global.innerHeight -50,
             showPickColorInterface: false,
             showHelper: false,
+            predefinedColors:[
+                '#f00', '#00ff00', '#00ff0055', 'rgb(201, 76, 76)', 'rgba(0,0,255,1)', 'hsl(89, 43%, 51%)', 'hsla(89, 43%, 51%, 0.6)'
+            ],
             enumOptions: {
                 draw: 'liveDraw',
                 line: 'lineDraw',
@@ -43,7 +46,7 @@ export default {
                 lineJoin: "round",
                 lineWidth: 2,
                 color: {
-                    hex: '#194d33'
+                    hex: '#000000'
                 },
                 methods: {
                     addShape: this.addShape,
@@ -64,6 +67,7 @@ export default {
         helperShow(){
             return helperUtil.HelperObj.isActive;
         },
+
         
     },
     methods: {

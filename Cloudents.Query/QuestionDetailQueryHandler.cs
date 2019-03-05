@@ -87,24 +87,21 @@ namespace Cloudents.Query
             {
                 using (var grid = connection.QueryMultiple(@"
                         select U.Id as UserId, U.Name as UserName, U.Score as UserScore, 
-                                Q.Id, Q.Text,  Q.Price, 
-	                            Q.Updated as 'Create', Q.CorrectAnswer_id as CorrectAnswerId, 
-                                Q.Subject_id as Subject, 
-	                            Q.Language, Q.VoteCount as Votes, 
-	                            C.Name as Course
-                            from sb.Question Q
-                            join sb.[user] U
-	                            on Q.UserId = U.Id
-                            left join sb.Course2 C
-	                            on Q.CourseId2 = C.Id
-                            where Q.Id = @id and Q.State = 'ok';
+                                                        Q.Id, Q.Text,  Q.Price, 
+	                                                    Q.Updated as 'Create', Q.CorrectAnswer_id as CorrectAnswerId, 
+                                                        Q.Subject_id as Subject, 
+	                                                    Q.Language, Q.VoteCount as Votes, Q.CourseId as Course
+                                                    from sb.Question Q
+                                                    join sb.[user] U
+	                                                    on Q.UserId = U.Id
+                                                    where Q.Id = @id and Q.State = 'ok';
 
-                            select A.Id, A.Text, U.Id as UserId, U.Name as UserName, 
-                            U.Score as UserScore, A.Created, A.VoteCount, A.Language
-                            from sb.Answer A
-                            join sb.[user] U
-	                            on A.UserId = U.Id
-                            where A.State = 'ok' and A.QuestionId = @id;", new { id }))
+                                                    select A.Id, A.Text, U.Id as UserId, U.Name as UserName, 
+                                                    U.Score as UserScore, A.Created, A.VoteCount, A.Language
+                                                    from sb.Answer A
+                                                    join sb.[user] U
+	                                                    on A.UserId = U.Id
+                                                    where A.State = 'ok' and A.QuestionId = @id;", new { id }))
                 {
 
 

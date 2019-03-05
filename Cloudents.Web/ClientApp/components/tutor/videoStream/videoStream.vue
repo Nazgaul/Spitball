@@ -16,14 +16,21 @@
         </v-layout>
 
         <v-layout column align-end>
-
             <div class="video-holder">
-                <v-flex>
-                    <span :class="[remoteOffline  ? 'remote-offline' : 'remote-online']"></span>
-                    <span class="video-size-ctrl" @click="minimize('remote_player')">{{visible.remote_player ? "Minimize" : "Maximize"}}</span>
-                    <span class="video-size-ctrl" @click="biggerRemoteVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
+                <v-flex class="px-3 video-con-controls">
+                    <div>
+                        <span :class="[remoteOffline  ? 'remote-offline' : 'remote-online']"></span>
+                        <span class="user-badge ml-2">Guest</span>
+                    </div>
+                    <div>
+                    <span class="video-size-ctrl mr-2" @click="biggerRemoteVideo">
+                        <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
+                    </span>
+                        <span class="video-size-ctrl" @click="minimize('remote_player')">
+                        <v-icon class="video-size-icon">sbf-close</v-icon>
+                    </span>
+                    </div>
                     <!--<span class="video-size-ctrl" @click="requestPictureInPicture('remoteTrack')">Picture mode</span>-->
-
                 </v-flex>
                 <v-flex v-show="visible.remote_player">
                     <div class="row remote_video_container">
@@ -32,10 +39,19 @@
                 </v-flex>
             </div>
             <div class="video-holder">
-                <v-flex>
-                    <span :class="[localOffline ? 'local-offline' : 'local-online']"></span>
-                    <span class="video-size-ctrl" @click="minimize('local_player')">{{visible.local_player ? "Minimize" : "Maximize"}}</span>
-                    <span class="video-size-ctrl" @click="biggerLocalVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
+                <v-flex class="px-3 video-con-controls">
+                    <div>
+                        <span :class="[localOffline ? 'local-offline' : 'local-online']"></span>
+                        <span class="user-badge ml-2">You</span>
+                    </div>
+                    <div>
+                    <span class="video-size-ctrl mr-2" @click="biggerLocalVideo">
+                     <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
+                    </span>
+                        <span class="video-size-ctrl" @click="minimize('local_player')">
+                        <v-icon class="video-size-icon">sbf-close</v-icon>
+                    </span>
+                    </div>
                     <!--<span class="video-size-ctrl" @click="requestPictureInPicture('localTrack')">Picture mode</span>-->
                 </v-flex>
                 <v-flex v-show="visible.local_player">
@@ -125,7 +141,7 @@
             // Attach the Tracks to the DOM.
             attachTracks(tracks, container) {
                 tracks.forEach((track) => {
-                    if (track.attach){
+                    if (track.attach) {
                         container.appendChild(track.attach());
                     }
                 });

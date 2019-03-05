@@ -21,7 +21,7 @@ namespace Cloudents.Query.SearchSync
             {
                 const string res = @"select d.Id as ItemId,
 	                            d.Name as Name,
-								c.Name as Course,
+	                            d.CourseName as Course,
 	                            d.UniversityId as UniversityId,
 	                            d.Type as Type,
 	                            d.State as State,
@@ -33,9 +33,7 @@ namespace Cloudents.Query.SearchSync
                             From sb.[Document] d  
                             right outer join CHANGETABLE (CHANGES sb.[Document], :Version) AS c ON d.Id = c.id 
                             left join sb.[University] u 
-		                        On u.Id = d.UniversityId 
-							join sb.Course2 C
-								on D.CourseId = C.Id
+		                        On u.Id = d.UniversityId  
                             Order by d.Id 
                             OFFSET :PageSize * :PageNumber 
                             ROWS FETCH NEXT :PageSize ROWS ONLY";

@@ -26,7 +26,7 @@ namespace Cloudents.Query
                return await connection.QueryAsync<DocumentFeedDto, UserDto, VoteDto, DocumentFeedDto>(@"select
 d.Id as id,
 u.Name as University,
-c.Name as 'Course',
+d.CourseName as 'Course',
 d.MetaContent as snippet,
 d.Name as Title,
 d.Professor,
@@ -45,8 +45,6 @@ d.VoteCount as Votes
 Join sb.Document d on t.DocumentId = d.Id and d.state = 'ok' and t.action='PurchaseDocument'
 join sb.University u on u.Id = d.UniversityId
 join sb.[User] u2 on u2.Id = d.UserId
-join sb.Course2 c
-	on d.CourseId = c.Id
 where t.User_id = @userId", (dto, userDto, arg3) =>
                {
                    dto.User = userDto;
