@@ -22,7 +22,8 @@ namespace Cloudents.Query
         public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
         {
             return await _session.Query<Course>()
-                .Where(w => w.Name.Contains(query.Term))
+                //.Where(w => w.Name.IsLike(query.Term,MatchMode.End))
+                .Where(w => w.Name.StartsWith(query.Term))
                 .OrderByDescending(o => o.Count)
                 .Take(10).Select(s => new CourseDto(s.Name)).ToListAsync(token);
         }

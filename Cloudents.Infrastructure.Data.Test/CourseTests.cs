@@ -1,4 +1,6 @@
 ﻿
+using Xunit;
+
 namespace Cloudents.Infrastructure.Data.Test
 {
     public class CourseTests : InMemoryDatabaseTest
@@ -17,5 +19,14 @@ namespace Cloudents.Infrastructure.Data.Test
         //        .CheckReference(c => c.University, university)
         //        .VerifyTheMappings();
         //}
+    }
+
+    public class CoursesRepositoryTests
+    {
+        [Fact]
+        public void GetOrAddAsync_NameWithSpacesAtEnd_CourseTrim()
+        {
+
+        }
     }
 }

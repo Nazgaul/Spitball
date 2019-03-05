@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Persistance.Repositories
 {
@@ -16,17 +17,16 @@ namespace Cloudents.Persistance.Repositories
 
         public async Task<Course> GetOrAddAsync(string name, CancellationToken token)
         {
-            var id = Session.Query<Course>()
-                .Where(w => w.Name.Equals(name)).Select(s => s.Id).FirstOrDefault();
-                
-
-
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
             name = name.Trim();
-            var course = await GetAsync(id, token);
+
+            var course = await Session.Query<Course>()
+                .Where(w => w.Name.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
+
+
 
             if (course == null)
             {
@@ -36,6 +36,12 @@ namespace Cloudents.Persistance.Repositories
             }
 
             return course;
+        }
+
+        public async Task<Course> GetByNameAsync(string name, CancellationToken token)
+        {
+            return await Session.Query<Course>()
+                .Where(w => w.Name.Equals(name)).FirstOrDefaultAsync(cancellationToken: token);
         }
     }
 }

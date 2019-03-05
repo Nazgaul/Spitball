@@ -36,8 +36,7 @@ namespace Cloudents.Web.Api
             var room = RoomResource.Create(
                 uniqueName: Guid.NewGuid().ToString(),
                 maxParticipants: 2,
-                recordParticipantsOnConnect: true,
-                type: RoomResource.RoomTypeEnum.PeerToPeer);
+                recordParticipantsOnConnect: true);
 
             return Ok(new
             {

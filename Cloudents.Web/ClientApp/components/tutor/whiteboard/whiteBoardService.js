@@ -37,14 +37,15 @@ const getContext = function(){
 }
 
 const redraw = function(canvasData){
+    if(Object.keys(canvasData.context).length === 0){
+        canvasData.context = getContext();
+    }
+    cleanCanvas(canvasData.context);
     let previouseDrawingObj = null;
     canvasData.dragData.forEach((shape)=>{
         if(shape.isGhost) return;
         if(!shape.visible) return;
         shape.points.forEach(dragObj=>{
-            if(Object.keys(canvasData.context).length === 0){
-                canvasData.context = getContext();
-            }
             previouseDrawingObj = dragObj.eventName === 'start' ? dragObj : previouseDrawingObj;
             optionsEnum[shape.type].draw.bind(canvasData, dragObj, true, previouseDrawingObj)();
         })
@@ -79,6 +80,5 @@ const cleanCanvas = function(ctx){
 export default {
     init,
     undo,
-    redraw,
-    cleanCanvas
+    redraw
 }

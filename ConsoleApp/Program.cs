@@ -423,14 +423,8 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            var t = _container.Resolve<AzureQuestionSearch>();
-            var z2 = await t.GetById("8482");
+            await TransferDocuments();
             //var _queryBus = _container.Resolve<IQueryBus>();
-
-            //var query = new Cloudents.Query.Query.CourseSearchQuery("לינארית");
-            //var retValTask = _queryBus.QueryAsync<IEnumerable<Cloudents.Core.DTOs.CourseDto>>(query,
-            //        new System.Threading.CancellationToken());
-            ////await TransferDocuments();
             // await FixStorageAsync();
             /* var commandBus = _container.Resolve<ICommandBus>();*/
             //await ReNameFiles();
