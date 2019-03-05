@@ -117,14 +117,12 @@ const mousedown = function(e){
                 //draw
                 liveDraw.bind(this, textObj)();
                 this.methods.addShape(localShape, clearLocalShape);
-                //whiteBoardService.cleanCanvas(this.context);
                 whiteBoardService.redraw(this);
             }else{
                 isEditing = false;
                 let meassureText = this.context.measureText(text.value);
                 currentShapeEditing.points[0].text = text.value;
                 currentShapeEditing.points[0].width = meassureText.width;
-                //whiteBoardService.cleanCanvas(this.context);
                 whiteBoardService.redraw(this);
             }
         }

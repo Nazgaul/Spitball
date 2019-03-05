@@ -83,7 +83,6 @@ export default {
             this.showPickColorInterface = false;
         },
         clearCanvas() {
-            // whiteBoardService.cleanCanvas(this.canvasData.context);
             this.canvasData.dragData = [];
             whiteBoardService.redraw(this.canvasData)
             helperUtil.HelperObj.isActive = false;
@@ -99,7 +98,6 @@ export default {
             dataTrack.send(normalizedData);
         },
         undo(){
-            //whiteBoardService.cleanCanvas(this.canvasData.context);
             whiteBoardService.undo(this.canvasData);
 
         },
