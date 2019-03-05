@@ -265,11 +265,11 @@
         .text-helper-container {
             .text-helper {
                 position: absolute;
-                border: none;
-                background-color: rgba(0, 0, 0, 0.05);
+                border: 1px solid #7b7b7b;
+                padding: 6px;
                 outline: none;
                 border-radius: 4px;
-                font-family: sans-serif;
+                font-family: "Open Sans", sans-serif;
                 font-size: 14px;
             }
         }

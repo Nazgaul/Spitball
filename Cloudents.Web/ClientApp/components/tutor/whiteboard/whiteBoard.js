@@ -6,7 +6,6 @@ import helperUtil from './utils/helper';
 import { dataTrack } from '../tutorService';
 import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
-import {mapGetters} from 'vuex';
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -188,6 +187,7 @@ export default {
         canvas.width = this.canvasWidth;
         canvas.height = this.canvasHeight;
         this.canvasData.context = canvas.getContext("2d");
+        this.canvasData.context.font = '16px Open Sans';
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
         this.canvasData.context.lineWidth = this.canvasData.lineWidth;
         this.registerCanvasEvents(canvas);

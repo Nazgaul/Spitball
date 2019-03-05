@@ -9,7 +9,7 @@
         </v-layout>
         <v-layout>
             <v-flex>
-                <v-btn color="primary" @click="generateRoom()" v-if="!id">Initiate tutoring session</v-btn>
+                <v-btn class="create-session" color="primary" @click="generateRoom()" v-if="!id">Initiate tutoring session</v-btn>
             </v-flex>
         </v-layout>
 
