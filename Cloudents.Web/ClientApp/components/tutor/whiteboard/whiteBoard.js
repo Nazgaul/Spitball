@@ -123,7 +123,7 @@ export default {
             canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
         },
-        registerEvents(canvas){
+        registerCanvasEvents(canvas){
             let self = this;
             global.addEventListener('resize', this.resizeCanvas, false);
             canvas.addEventListener('mousedown', (e) => {
@@ -155,7 +155,7 @@ export default {
         this.canvasData.context = canvas.getContext("2d");
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
         this.canvasData.context.lineWidth = this.canvasData.lineWidth;
-        this.registerEvents(canvas);
+        this.registerCanvasEvents(canvas);
         global.document.addEventListener("keydown", this.keyPressed);
     }
 }
