@@ -88,6 +88,12 @@ const addGhostLocalShape = function(){
     startShapes = {};
 }
 
+const enterPressed = function(e){
+    if(isWriting){
+        mousedown.bind(this, e)();
+    }
+}
+
 const mousedown = function(e){
     this.methods.hideColorPicker();
     this.shouldPaint = true;
@@ -188,5 +194,6 @@ export default{
     mousemove,
     mouseleave,
     draw: liveDraw,
-    init
+    init,
+    enterPressed
 }

@@ -111,8 +111,13 @@ export default {
                 let normalizedData = JSON.stringify(transferDataObj);
                 dataTrack.send(normalizedData);
                 this.undo();
-            }if((e.which == 46 || e.keyCode == 46) && this.selectedOptionString === this.enumOptions.select){
+            }
+            if((e.which == 46 || e.keyCode == 46) && this.selectedOptionString === this.enumOptions.select){
                 this.currentOptionSelected.deleteSelectedShape.bind(this.canvasData)();
+            }
+            if(((e.which == 13 || e.keyCode == 13) || (e.which == 27 || e.keyCode == 27)) && this.selectedOptionString === this.enumOptions.text){
+               //enter or escape in text mode
+                this.currentOptionSelected.enterPressed.bind(this.canvasData)();
             }
         },
         resizeCanvas(){
