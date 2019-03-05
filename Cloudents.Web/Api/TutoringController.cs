@@ -57,12 +57,18 @@ namespace Cloudents.Web.Api
             };
             var grants = new HashSet<IGrant> { grant };
 
+            var name = identityName;
+            if (string.IsNullOrEmpty(name))
+            {
+                name = GetName();
+            }
+
             // Create an Access Token generator
             var token = new Token(
                 AccountSid,
                 ApiKey,
                 SecretVideo,
-                identity: identityName ?? GetName(),
+                identity: name,
                 grants: grants);
 
 
