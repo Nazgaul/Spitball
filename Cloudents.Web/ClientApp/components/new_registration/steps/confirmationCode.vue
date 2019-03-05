@@ -50,7 +50,9 @@
     import registrationService from '../../../services/registrationService'
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
-    import {LanguageService} from "../../../services/language/languageService";
+    import { LanguageService } from "../../../services/language/languageService";
+    const Fingerprint2 = require('fingerprintjs2');
+
 
     const defaultSubmitRoute = {path: '/ask'};
 
@@ -104,33 +106,55 @@
             changePhone() {
                 this.$parent.$emit('changeStep', 'enterphone');
             },
+           
             smsCodeVerify() {
+                let data = {
+                    code: this.confirmationCode,
+                    fingerprint: ""
+                };
                 let self = this;
                 self.loading = true;
-                registrationService.smsCodeVerification(this.confirmationCode)
-                    .then(function (userId) {
-                        //got to congratulations route if new user
-                        if (self.isNewUser) {
-                            self.$parent.$emit('changeStep', 'congrats');
-                            analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
-                            if(!!userId){
-                                analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
-                            }
-                            self.loading = false;
-                        } else {
-                            self.loading = false;
-                            analyticsService.sb_unitedEvent('Login', 'Phone Verified');
-                            if(!!userId){
-                                analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
-                            }
-                            let url = self.lastActiveRoute || defaultSubmitRoute;
-                            window.isAuth = true;
-                            self.$router.push({path: `${url.path }`});
-                        }
-                    }, function (error) {
-                        self.loading = false;
-                        self.errorMessage.code = "Invalid code";
-                    });
+
+                var options = {}
+                Fingerprint2.getPromise(options)
+                    .then(function (components) {
+                    var values = components.map(function (component) { return component.value })
+                    var murmur = Fingerprint2.x64hash128(values.join(''), 31)
+                        data.fingerprint = murmur;
+                        registrationService.smsCodeVerification(data)
+                            .then(function (userId) {
+                                //got to congratulations route if new user
+                                if (self.isNewUser) {
+                                    self.$parent.$emit('changeStep', 'congrats');
+                                    analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
+                                    if (!!userId) {
+                                        analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
+                                    }
+                                    self.loading = false;
+                                } else {
+                                    self.loading = false;
+                                    analyticsService.sb_unitedEvent('Login', 'Phone Verified');
+                                    if (!!userId) {
+                                        analyticsService.sb_unitedEvent('Registration', 'User Id', userId.data.id);
+                                    }
+                                    let url = self.lastActiveRoute || defaultSubmitRoute;
+                                    window.isAuth = true;
+                                    self.$router.push({ path: `${url.path}` });
+                                }
+                            }, function (error) {
+                                self.loading = false;
+                                self.errorMessage.code = "Invalid code";
+                            });
+                })
+
+                //Fingerprint2.get(function (components) {
+                //    var values = components.map(function (component) { return component.value })
+                //    let murmur = Fingerprint2.x64hash128(values.join(''), 31)
+                //    data.fingerprint = murmur;
+                //})
+
+                
+               
             },
             voiceCall(){
                 this.updateLoading(true);

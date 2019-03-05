@@ -91,6 +91,7 @@
   "dependencies": {
     "@aspnet/signalr": "1.0.3",
     "cloudents-tour": "1.2.6",
+    "fingerprintjs2": "^2.0.6",
     "npm": "^6.7.0",
     "timeago.js": "^4.0.0-beta.1",
     "tslib": "^1.9.3",

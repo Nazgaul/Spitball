@@ -8,9 +8,7 @@ namespace Cloudents.Web.Models
         [StringLength(6, MinimumLength = 6, ErrorMessage = "StringLength")]
         public string Number { get; set; }
 
-        public override string ToString()
-        {
-            return $"{nameof(Number)}: {Number}";
-        }
+        [Required(ErrorMessage = "Required")]
+        public string FingerPrint { get; set; }
     }
 }
