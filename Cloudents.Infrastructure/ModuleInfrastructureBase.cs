@@ -4,6 +4,7 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
+using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Search.Places;
 using Module = Autofac.Module;
 
@@ -34,7 +35,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TextClassifierAnalysis>().As<ITextClassifier>().SingleInstance();
             builder.RegisterType<TextTranslatorProvider>().As<ITextTranslator>().SingleInstance();
 
-          
+            builder.RegisterType<SmsProvider>().As<ISmsProvider>().SingleInstance();
 
         }
     }
