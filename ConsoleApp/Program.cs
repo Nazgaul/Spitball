@@ -424,7 +424,6 @@ namespace ConsoleApp
         private static async Task HadarMethod()
         {
             await TransferDocuments();
-            var z2 = await t.GetById("8482");
             //var _queryBus = _container.Resolve<IQueryBus>();
             // await FixStorageAsync();
             /* var commandBus = _container.Resolve<ICommandBus>();*/
