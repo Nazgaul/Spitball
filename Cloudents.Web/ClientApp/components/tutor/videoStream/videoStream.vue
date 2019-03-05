@@ -135,7 +135,8 @@
             },
             // Generate access token
             async getAccessToken() {
-                return await videoService.getToken(this.id);
+                let identity = localStorage.getItem("identity");
+                return await videoService.getToken(this.id,identity);
             },
 
             // Attach the Tracks to the DOM.
@@ -236,9 +237,10 @@
                             self.roomName = room.name;
                             self.loading = false;
                             let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
-                            self.members.push(room.localParticipant);
+                            self.members.push(localIdentity);
                             self.updateUserIdentity(localIdentity);
                             self.localOffline = false;
+                            localStorage.setItem("identity", localIdentity);
 
                             // Attach the Tracks of all the remote Participants.
                             self.activeRoom.participants.forEach((participant, index) => {
