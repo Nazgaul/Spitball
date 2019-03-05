@@ -34,11 +34,11 @@
       <div class="text-helper-container" v-if="helperShow">
           <input type="text" placeholder="Enter Some Text" v-if="selectedOptionString === enumOptions.text" v-model="helperStyle.text" :class="[helperClass, helperStyle.id]" :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
       </div>
-      <div>
+      <!-- <div>
           <ul>
               <li v-for="(shape, index) in canvasData.dragData" :key="index">{{shape.type}}</li>
           </ul>
-      </div>
+      </div> -->
   </div>
 </template>
 

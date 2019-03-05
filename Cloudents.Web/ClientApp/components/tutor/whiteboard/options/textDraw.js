@@ -24,8 +24,8 @@ let ghostLocalShape = createGhostShape({
     shapesObj: {}
 });
 
-const ghostClearLocalShape = function(){
-    localShape = createGhostShape({
+const clearGhostLocalShape = function(){
+    ghostLocalShape = createGhostShape({
         type: OPTION_TYPE,
         shapesObj: {}
     });
@@ -41,11 +41,15 @@ const yOffset = 12;
 let isWriting = false;
 let isEditing = false;
 let currentId = null;
+let startShapes = {};
+let currentShapeEditing = null;
 
 const init = function(){
     currentId = null;
     isWriting = false;
     isEditing = false;
+    startShapes = {};
+    currentShapeEditing = null;
 }
 const draw = function(textObj){
     //determin the stroke color
@@ -79,8 +83,8 @@ const setHelperObj = function(e, selectedHelper){
 }
 
 const addGhostLocalShape = function(){
-    ghostLocalShape.shapesObj = startShapes;
-    this.methods.addShape(ghostLocalShape, ghostClearLocalShape);
+    ghostLocalShape.shapesObj[startShapes.id] = startShapes;
+    this.methods.addShape(ghostLocalShape, clearGhostLocalShape);
     startShapes = {};
 }
 
@@ -92,28 +96,37 @@ const mousedown = function(e){
         //here the user finished to write text
         let text = document.getElementsByClassName(currentId)[0];
         if(!!text.value){
-            this.context.font = `17px serif`
-            let meassureText = this.context.measureText(text.value);
-            let textObj = createPointsByOption({
-                mouseX: startingMousePosition.x,
-                mouseY: startingMousePosition.y + yOffset,
-                yOffset: yOffset,
-                width: meassureText.width,
-                height: 17,
-                fontFamily: 'serif',
-                color: this.color.hex,
-                option: OPTION_TYPE,
-                eventName: 'start',
-                id: currentId,
-                text: text.value
-            })
-            localShape.id = textObj.id;
-            localShape.points.push(textObj);
-            //draw
-            liveDraw.bind(this, textObj)();
-            this.methods.addShape(localShape, clearLocalShape);
-            whiteBoardService.cleanCanvas(this.context);
-            whiteBoardService.redraw(this);
+            if(!isEditing){
+                this.context.font = `17px serif`
+                let meassureText = this.context.measureText(text.value);
+                let textObj = createPointsByOption({
+                    mouseX: startingMousePosition.x,
+                    mouseY: startingMousePosition.y + yOffset,
+                    yOffset: yOffset,
+                    width: meassureText.width,
+                    height: 17,
+                    fontFamily: 'serif',
+                    color: this.color.hex,
+                    option: OPTION_TYPE,
+                    eventName: 'start',
+                    id: currentId,
+                    text: text.value
+                })
+                localShape.id = textObj.id;
+                localShape.points.push(textObj);
+                //draw
+                liveDraw.bind(this, textObj)();
+                this.methods.addShape(localShape, clearLocalShape);
+                //whiteBoardService.cleanCanvas(this.context);
+                whiteBoardService.redraw(this);
+            }else{
+                isEditing = false;
+                let meassureText = this.context.measureText(text.value);
+                currentShapeEditing.points[0].text = text.value;
+                currentShapeEditing.points[0].width = meassureText.width;
+                //whiteBoardService.cleanCanvas(this.context);
+                whiteBoardService.redraw(this);
+            }
         }
         hideHelperObj();
     }else{
@@ -128,10 +141,12 @@ const mousedown = function(e){
             if(hasShape[prop].type === "textDraw"){
                 startingMousePosition.x = hasShape[prop].points[0].mouseX;
                 startingMousePosition.y = hasShape[prop].points[0].mouseY - yOffset;
+                currentShapeEditing = hasShape[prop];
                 isEditing = true;
                 currentId = hasShape[prop].id;
                 setHelperObj.bind(this, e, hasShape[prop].points[0])();
-                hasShape[prop].visible = false;
+                startShapes = createShape(hasShape[prop]);
+                addGhostLocalShape.bind(this)();
             }else{
                 currentId = createGuid('text');
                 setHelperObj.bind(this, e)();
