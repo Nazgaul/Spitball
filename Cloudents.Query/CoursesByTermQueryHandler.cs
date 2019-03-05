@@ -23,7 +23,7 @@ namespace Cloudents.Query
         {
             return await _session.Query<Course>()
                 //.Where(w => w.Name.IsLike(query.Term,MatchMode.End))
-                .Where(w => w.Name.StartsWith(query.Term))
+                .Where(w => w.Name.Contains(query.Term))
                 .OrderByDescending(o => o.Count)
                 .Take(10).Select(s => new CourseDto(s.Name)).ToListAsync(token);
         }
