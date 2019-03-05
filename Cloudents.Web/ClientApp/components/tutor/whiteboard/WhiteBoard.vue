@@ -13,7 +13,7 @@
             <!--Select-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="[selectedOptionString === enumOptions.select ? 'active-tool' : '']"
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.select}"
                             class="nav-action" @click="setOptionType(enumOptions.select)">
                         <v-icon>sbf-mouse-pointer</v-icon>
                     </button>
@@ -25,7 +25,7 @@
             <v-tooltip right>
                 <template v-slot:activator="{on}">
                     <button  v-on="on"
-                             :class="[selectedOptionString === enumOptions.text ? 'active-tool' : '']"
+                             :class="{'active-tool': selectedOptionString === enumOptions.text}"
                              class="nav-action" @click="setOptionType(enumOptions.text)">
                         <v-icon>sbf-text-icon</v-icon>
                     </button>
@@ -35,7 +35,7 @@
             <!--Color Picker-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="[showPickColorInterface ? 'active-tool' : '']" class="nav-action"
+                    <button v-on="on" :class="{'active-tool': showPickColorInterface}" class="nav-action"
                             @click="showColorPicker">
                         <span class="selected-color" :style="{ backgroundColor: canvasData.color.hex}"></span>
                     </button>
@@ -49,7 +49,7 @@
             <!--Draw-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="[selectedOptionString === enumOptions.draw ? 'active-tool' : '']"
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.draw}"
                             class="nav-action" @click="setOptionType(enumOptions.draw)">
                         <v-icon>sbf-pencil-empty</v-icon>
                     </button>
@@ -60,7 +60,7 @@
             <!--Line-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="[selectedOptionString === enumOptions.line ? 'active-tool' : '']"
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.line}"
                             class="nav-action" @click="setOptionType(enumOptions.line)">
                         <v-icon>sbf-connect-line</v-icon>
                     </button>
@@ -71,7 +71,7 @@
             <!--Circle-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="[selectedOptionString === enumOptions.circle ? 'active-tool' : '']"
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
                             class="nav-action" @click="setOptionType(enumOptions.circle)">
                         <v-icon>sbf-eclipse</v-icon>
                     </button>
@@ -82,7 +82,7 @@
             <!--Square-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="[selectedOptionString === enumOptions.rectangle ? 'active-tool' : '']"
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
                             class="nav-action" @click="setOptionType(enumOptions.rectangle)">
                         <v-icon>sbf-square</v-icon>
                     </button>
@@ -94,7 +94,7 @@
             <input class="nav-action" type="file" name="Image Upload" id="imageUpload" v-show="false"/>
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="[selectedOptionString === enumOptions.image ? 'active-tool' : '']"
+                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.image}"
                              class="nav-action" @click="setOptionType(enumOptions.image)">
                         <v-icon>sbf-upload</v-icon>
                     </button>
