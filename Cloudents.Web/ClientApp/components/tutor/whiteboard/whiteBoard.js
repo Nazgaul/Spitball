@@ -1,5 +1,5 @@
 import {
-    Slider
+    Compact
 } from 'vue-color'
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
@@ -9,7 +9,7 @@ import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
 
 export default {
     components: {
-        'sliderPicker': Slider,
+        'sliderPicker': Compact,
          shareRoomBtn,
          AppLogo
     },
