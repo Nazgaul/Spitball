@@ -19,7 +19,7 @@
         <button class="nav-action" @click="setOptionType(enumOptions.circle)">Ellipse</button>
         <button class="nav-action" @click="setOptionType(enumOptions.rectangle)">Rectangle</button>
         <button class="nav-action" @click="setOptionType(enumOptions.image)">Upload Image</button>
-        <button class="nav-action" @click="setOptionType(enumOptions.eraser)">Eraser</button>
+        <!-- <button class="nav-action" @click="setOptionType(enumOptions.eraser)">Eraser</button> -->
         <button class="nav-action" @click="setOptionType(enumOptions.text)">Text</button>
         <button class="nav-action" @click="setOptionType(enumOptions.select)">Select</button>
         <input class="nav-action" type="file" name="Image Upload" id="imageUpload" v-show="false"/>
@@ -58,11 +58,11 @@
                  :class="[helperClass, helperStyle.id]"
                  :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
       </div>
-      <div>
+      <!-- <div>
           <ul>
               <li v-for="(shape, index) in canvasData.dragData" :key="index">{{shape.type}}</li>
           </ul>
-      </div>
+      </div> -->
   </div>
 </template>
 

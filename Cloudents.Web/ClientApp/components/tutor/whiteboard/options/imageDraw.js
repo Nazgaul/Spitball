@@ -14,8 +14,8 @@ const clearLocalShape = function(){
     });
 }
 
-const imageXDefaultPosition = 0;
-const imageYDefaultPosition = 0;
+const imageXDefaultPosition = 100;
+const imageYDefaultPosition = 75;
 
 const init = function(){
     let imageElm = document.getElementById('imageUpload');
