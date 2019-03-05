@@ -148,6 +148,8 @@ const mousedown = function(e){
                 startShapes = createShape(hasShape[prop]);
                 addGhostLocalShape.bind(this)();
             }else{
+                startingMousePosition.x = e.pageX - e.target.offsetLeft;
+                startingMousePosition.y = e.pageY - e.target.getBoundingClientRect().top;
                 currentId = createGuid('text');
                 setHelperObj.bind(this, e)();
             }
