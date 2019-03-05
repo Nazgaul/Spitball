@@ -2,25 +2,24 @@
     <v-container class="py-0" id="tutoring-chat-holder">
         <v-layout row>
             <v-flex>
-                <div class="chat-header">
-                    <v-flex>
-                        <h4>Chat</h4>
-                        <span class="video-size-ctrl" @click="minimizeChat()">{{visibleChat ? "Minimize" : "Maximize"}}</span>
-                    </v-flex>
+                <div class="chat-header px-3 py-2">
+                        <span class="title-chat">Chat</span>
+                        <span class="chat-size-ctrl" @click="minimizeChat()">
+                             <v-icon v-if="visibleChat" class="chat-size-icon" >sbf-close</v-icon>
+                             <v-icon v-else class="video-size-icon" >sbf-expand-icon</v-icon>
+                        </span>
                 </div>
             </v-flex>
         </v-layout>
 
     <v-layout row class="chat-container" v-show="visibleChat">
         <v-flex xs12 sm12>
-            <!--<div class="chat-container" v-on:scroll="onScroll" >-->
             <div class="messages-container" id="messages-container">
                 <message :message="singleMessage" v-for="singleMessage in messages"></message>
             </div>
             <div class="chat-input-block">
                 <v-text-field solo type="text" placeholder="Write a message..." @keyup.enter="send" v-model="messageText">
                 </v-text-field>
-                <!--<v-btn @click="send">Send</v-btn>-->
             </div>
         </v-flex>
     </v-layout>
@@ -92,8 +91,23 @@
         .chat-header{
             display: flex;
             flex-direction: row;
-            background-color: #ffffff;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 4px;
+            background-color: #eeeeee;
             min-width: 388px;
+            .title-chat{
+                color: #000000;
+                width: 30px;
+                font-size: 14px;
+                font-weight: 600;
+                letter-spacing: -0.4px;
+            }
+                .chat-size-icon{
+                    color: #7b7b7b;
+                    font-size: 14px;
+                }
+
         }
         .messages-container{
             height: 100%;

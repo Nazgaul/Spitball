@@ -16,14 +16,21 @@
         </v-layout>
 
         <v-layout column align-end>
-
             <div class="video-holder">
-                <v-flex>
-                    <span :class="[remoteOffline  ? 'remote-offline' : 'remote-online']"></span>
-                    <span class="video-size-ctrl" @click="minimize('remote_player')">{{visible.remote_player ? "Minimize" : "Maximize"}}</span>
-                    <span class="video-size-ctrl" @click="biggerRemoteVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
+                <v-flex class="px-3 video-con-controls">
+                    <div>
+                        <span :class="[remoteOffline  ? 'remote-offline' : 'remote-online']"></span>
+                        <span class="user-badge ml-2">Guest</span>
+                    </div>
+                    <div>
+                    <span class="video-size-ctrl mr-2" @click="biggerRemoteVideo">
+                        <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
+                    </span>
+                        <span class="video-size-ctrl" @click="minimize('remote_player')">
+                        <v-icon class="video-size-icon">sbf-close</v-icon>
+                    </span>
+                    </div>
                     <!--<span class="video-size-ctrl" @click="requestPictureInPicture('remoteTrack')">Picture mode</span>-->
-
                 </v-flex>
                 <v-flex v-show="visible.remote_player">
                     <div class="row remote_video_container">
@@ -32,10 +39,19 @@
                 </v-flex>
             </div>
             <div class="video-holder">
-                <v-flex>
-                    <span :class="[localOffline ? 'local-offline' : 'local-online']"></span>
-                    <span class="video-size-ctrl" @click="minimize('local_player')">{{visible.local_player ? "Minimize" : "Maximize"}}</span>
-                    <span class="video-size-ctrl" @click="biggerLocalVideo">{{visible.local_player ? "Full" : "Not full"}}</span>
+                <v-flex class="px-3 video-con-controls">
+                    <div>
+                        <span :class="[localOffline ? 'local-offline' : 'local-online']"></span>
+                        <span class="user-badge ml-2">You</span>
+                    </div>
+                    <div>
+                    <span class="video-size-ctrl mr-2" @click="biggerLocalVideo">
+                     <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
+                    </span>
+                        <span class="video-size-ctrl" @click="minimize('local_player')">
+                        <v-icon class="video-size-icon">sbf-close</v-icon>
+                    </span>
+                    </div>
                     <!--<span class="video-size-ctrl" @click="requestPictureInPicture('localTrack')">Picture mode</span>-->
                 </v-flex>
                 <v-flex v-show="visible.local_player">
@@ -119,13 +135,14 @@
             },
             // Generate access token
             async getAccessToken() {
-                return await videoService.getToken(this.id);
+                let identity = localStorage.getItem("identity");
+                return await videoService.getToken(this.id,identity);
             },
 
             // Attach the Tracks to the DOM.
             attachTracks(tracks, container) {
                 tracks.forEach((track) => {
-                    if (track.attach){
+                    if (track.attach) {
                         container.appendChild(track.attach());
                     }
                 });
@@ -160,7 +177,6 @@
                     this.activeRoom.disconnect();
                 }
             },
-
             //delete members from array when left
             removeMember(mem) {
                 let index = this.members.indexOf(mem);
@@ -183,7 +199,7 @@
                         });
                         let connectOptions;
                         createLocalTracks({
-                            audio: self.availableDevices.includes('audioinput') ? true : false,
+                            audio: self.availableDevices.includes('audioinput'),
                             video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : false,
                         }).then((tracksCreated) => {
                             let localMediaContainer = document.getElementById('localTrack');
@@ -221,9 +237,10 @@
                             self.roomName = room.name;
                             self.loading = false;
                             let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
-                            self.members.push(room.localParticipant);
+                            self.members.push(localIdentity);
                             self.updateUserIdentity(localIdentity);
                             self.localOffline = false;
+                            localStorage.setItem("identity", localIdentity);
 
                             // Attach the Tracks of all the remote Participants.
                             self.activeRoom.participants.forEach((participant, index) => {
@@ -286,27 +303,28 @@
                                 }
                                 self.detachParticipantTracks(participant);
                             });
+                            //do we need this ???? creating local track before on connect
                             // if local preview is not active, create it
-                            if (!self.localTrackAval) {
-                                let localTracksOptions = {
-                                    logLevel: 'debug',
-                                    audio: self.availableDevices.includes('audioinput'),
-                                    // video: self.availableDevices.includes('videoinput'),
-                                    video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : {},
-                                };
-                                createLocalTracks(localTracksOptions)
-                                    .then(tracks => {
-                                            let localMediaContainer = document.getElementById('localTrack');
-                                            tracks.forEach((track) => {
-                                                localMediaContainer.appendChild(track.attach());
-                                                self.localTrackAval = true;
-                                            })
-                                        },
-                                        (error) => {
-                                            console.error('Unable to access local media video and audio', error);
-                                        }
-                                    );
-                            }
+                            // if (!self.localTrackAval) {
+                            //     let localTracksOptions = {
+                            //         logLevel: 'debug',
+                            //         audio: self.availableDevices.includes('audioinput'),
+                            //         // video: self.availableDevices.includes('videoinput'),
+                            //         video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : false,
+                            //     };
+                            //     createLocalTracks(localTracksOptions)
+                            //         .then(tracks => {
+                            //                 let localMediaContainer = document.getElementById('localTrack');
+                            //                 tracks.forEach((track) => {
+                            //                     localMediaContainer.appendChild(track.attach());
+                            //                     self.localTrackAval = true;
+                            //                 })
+                            //             },
+                            //             (error) => {
+                            //                 console.error('Unable to access local media video and audio', error);
+                            //             }
+                            //         );
+                            // }
 
                         },
                         (error) => {

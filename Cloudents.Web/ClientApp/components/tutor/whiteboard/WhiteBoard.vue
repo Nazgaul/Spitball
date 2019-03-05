@@ -11,35 +11,42 @@
 
         </div>
         <div class="nav-container elevation-2">
-            <button class="nav-action" @click="setOptionType(enumOptions.select)">
+            <button :class="[selectedOptionString === enumOptions.select ? 'active-tool' : '']" class="nav-action" @click="setOptionType(enumOptions.select)">
                 <v-icon>sbf-mouse-pointer</v-icon>
             </button>
-            <button class="nav-action" @click="setOptionType(enumOptions.text)">
+            <button  :class="[selectedOptionString === enumOptions.text ? 'active-tool' : '']" class="nav-action" @click="setOptionType(enumOptions.text)">
                 <v-icon>sbf-text-icon</v-icon>
             </button>
             <!--<button class="nav-action" @click="clearCanvas">clear</button>-->
             <slider-picker class="color-picker" :palette="predefinedColors" v-show="showPickColorInterface"
                            v-model="canvasData.color"/>
-            <button class="nav-action" @click="showColorPicker">
+            <button :class="[showPickColorInterface ? 'active-tool' : '']" class="nav-action"
+                    @click="showColorPicker">
                 <span class="selected-color" :style="{ backgroundColor: canvasData.color.hex}"></span>
             </button>
-            <button class="nav-action" @click="setOptionType(enumOptions.draw)">
+            <button :class="[selectedOptionString === enumOptions.draw ? 'active-tool' : '']"
+                    class="nav-action" @click="setOptionType(enumOptions.draw)">
                 <v-icon>sbf-pencil-empty</v-icon>
             </button>
-            <button class="nav-action" @click="setOptionType(enumOptions.line)">
+            <button :class="[selectedOptionString === enumOptions.line ? 'active-tool' : '']"
+                    class="nav-action" @click="setOptionType(enumOptions.line)">
                 <v-icon>sbf-connect-line</v-icon>
             </button>
-            <button class="nav-action" @click="setOptionType(enumOptions.circle)">
+            <button :class="[selectedOptionString === enumOptions.circle ? 'active-tool' : '']"
+                    class="nav-action" @click="setOptionType(enumOptions.circle)">
                 <v-icon>sbf-eclipse</v-icon>
             </button>
-            <button class="nav-action" @click="setOptionType(enumOptions.rectangle)">
+            <button :class="[selectedOptionString === enumOptions.rectangle ? 'active-tool' : '']"
+                    class="nav-action" @click="setOptionType(enumOptions.rectangle)">
                 <v-icon>sbf-square</v-icon>
             </button>
-            <button class="nav-action" @click="setOptionType(enumOptions.eraser)">
+            <button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"
+                    class="nav-action" @click="setOptionType(enumOptions.eraser)">
                 <v-icon>sbf-eraser-empty</v-icon>
             </button>
             <input class="nav-action" type="file" name="Image Upload" id="imageUpload" v-show="false"/>
-            <button class="nav-action" @click="setOptionType(enumOptions.image)">
+            <button  :class="[selectedOptionString === enumOptions.image ? 'active-tool' : '']"
+                     class="nav-action" @click="setOptionType(enumOptions.image)">
                 <v-icon>sbf-upload</v-icon>
             </button>
             <button class="nav-action" @click="undo();">
@@ -117,9 +124,14 @@
             margin-top: 150px;
             .nav-action {
                 padding: 12px 16px;
+                &.active-tool{
+                    .v-icon {
+                        color:#2a79ff;
+                    }
+                }
                 &:hover {
                     .v-icon {
-                        color: #3e45a0;
+                        color: #2a79ff;
                     }
 
                 }

@@ -46,7 +46,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet("join")]
-        public async Task<IActionResult> ConnectAsync(string roomName)
+        public async Task<IActionResult> ConnectAsync(string roomName, string identityName)
         {
 
             var room = await RoomResource.FetchAsync(roomName);
@@ -57,19 +57,24 @@ namespace Cloudents.Web.Api
             };
             var grants = new HashSet<IGrant> { grant };
 
+            var name = identityName;
+            if (string.IsNullOrEmpty(name))
+            {
+                name = GetName();
+            }
+
             // Create an Access Token generator
             var token = new Token(
                 AccountSid,
                 ApiKey,
                 SecretVideo,
-                identity: GetName(),
+                identity: name,
                 grants: grants);
 
 
             return Ok(new
             {
                 token = token.ToJwt()
-
             }
             );
         }
