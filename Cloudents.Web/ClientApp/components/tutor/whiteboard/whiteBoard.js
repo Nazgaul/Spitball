@@ -7,6 +7,8 @@ import { dataTrack } from '../tutorService';
 import shareRoomBtn from '../tutorHelpers/shareRoomBtn.vue'
 import AppLogo from "../../../../wwwroot/Images/logo-spitball.svg";
 import {mapGetters} from 'vuex';
+import { mapGetters, mapActions } from "vuex";
+
 export default {
     components: {
         'sliderPicker': Compact,
@@ -48,7 +50,6 @@ export default {
             currentOptionSelected: whiteBoardService.init('liveDraw'),
             selectedOptionString: '',
             canvasData: {
-                dragData: [],
                 shapesSelected: {},
                 shouldPaint: false,
                 context: null,
@@ -71,7 +72,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['isRoomCreated']),
+        ...mapGetters(['isRoomCreated', 'getDragData']),
         helperStyle(){
             return helperUtil.HelperObj.style
         },
@@ -81,10 +82,13 @@ export default {
         helperShow(){
             return helperUtil.HelperObj.isActive;
         },
-
+        dragData(){
+            return this.getDragData;
+        }
         
     },
     methods: {
+        ...mapActions(['resetDragData', 'updateDragData']),
         selectDefaultTool(){
             this.setOptionType(this.enumOptions.select);
         },
@@ -105,33 +109,37 @@ export default {
             this.showPickColorInterface = false;
         },
         clearCanvas() {
-            this.canvasData.dragData = [];
+            this.resetDragData();
             whiteBoardService.redraw(this.canvasData)
             helperUtil.HelperObj.isActive = false;
         },
         addShape(dragObj, callback) {
-            this.canvasData.dragData.push(dragObj);
+            this.updateDragData(dragObj);
             callback();
+            let data = {
+                canvasContext: this.canvasData,
+                dataContext: this.dragData
+            }
             let transferDataObj = {
                 type: "redrawData",
-                data: this.canvasData
+                data: data
             };
             let normalizedData = JSON.stringify(transferDataObj);
             dataTrack.send(normalizedData);
         },
         undo(){
+            let transferDataObj = {
+                type: "undoData",
+                data: this.canvasData
+            };
+            let normalizedData = JSON.stringify(transferDataObj);
+            dataTrack.send(normalizedData);
             whiteBoardService.undo(this.canvasData);
 
         },
         keyPressed(e) {
             //signalR should be fired Here
             if ((e.which == 90 || e.keyCode == 90) && e.ctrlKey) {
-                let transferDataObj = {
-                    type: "undoData",
-                    data: this.canvasData
-                };
-                let normalizedData = JSON.stringify(transferDataObj);
-                dataTrack.send(normalizedData);
                 this.undo();
             }
             if((e.which == 46 || e.keyCode == 46) && this.selectedOptionString === this.enumOptions.select){

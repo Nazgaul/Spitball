@@ -144,7 +144,7 @@ const mousedown = function(e){
         isWriting = true;
         let mouseX = e.pageX - e.target.offsetLeft;
         let mouseY = e.pageY - e.target.getBoundingClientRect().top;
-        let hasShape = canvasFinder.getShapeByPoint(mouseX, mouseY, this);
+        let hasShape = canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData());
         if(Object.keys(hasShape).length > 0){
             let prop = Object.keys(hasShape)[0];
             if(hasShape[prop].type === "textDraw"){

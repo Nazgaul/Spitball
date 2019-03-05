@@ -274,7 +274,7 @@
                                         let Data = JSON.parse(transferObj);
                                         let parsedData = Data.data;
                                         if (Data.type === 'redrawData') {
-                                            whiteBoardService.redraw(parsedData);
+                                            whiteBoardService.redraw(parsedData.canvasContext, parsedData.dataContext);
                                         } else if (Data.type === 'undoData') {
                                             whiteBoardService.undo(parsedData);
                                         }

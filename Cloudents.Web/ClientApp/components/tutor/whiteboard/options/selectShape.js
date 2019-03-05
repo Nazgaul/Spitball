@@ -92,7 +92,7 @@ const mousedown = function(e){
     let mouseY = currentY - e.target.getBoundingClientRect().top;
     this.shouldPaint = true;
     if(!currentHelperObj){
-        this.shapesSelected = canvasFinder.getShapeByPoint(mouseX, mouseY, this);
+        this.shapesSelected = canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData());
         if(Object.keys(this.shapesSelected).length > 0){
             Object.keys(this.shapesSelected).forEach(shapeId=>{
                 startShapes[shapeId] = createShape(this.shapesSelected[shapeId])
@@ -197,7 +197,7 @@ const defineEndPosition = function(e){
                     w,
                     h,
                 }
-                this.shapesSelected = canvasFinder.getShapesByRectangle(this, rect);
+                this.shapesSelected = canvasFinder.getShapesByRectangle(this, rect, whiteBoardService.getDragData());
                 if(Object.keys(this.shapesSelected).length > 0){
                     Object.keys(this.shapesSelected).forEach(shapeId=>{
                         startShapes[shapeId] = createShape(this.shapesSelected[shapeId])

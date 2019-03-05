@@ -25,6 +25,7 @@ import mobileFooter from './mobileFooter';
 import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
 import tutoringChat from './tutoringChat';
+import tutoringCanvas from './tutoringCanvas';
 
 
 
@@ -54,7 +55,8 @@ const store = new Vuex.Store({
         mobileFooter,
         onBoardGuide,
         buyTokens,
-        tutoringChat
+        tutoringChat,
+        tutoringCanvas
     }
 });
 
