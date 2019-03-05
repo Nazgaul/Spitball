@@ -156,6 +156,6 @@ export default {
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
         this.canvasData.context.lineWidth = this.canvasData.lineWidth;
         this.registerEvents(canvas);
-        global.document.addEventListener("keydown", self.keyPressed);
+        global.document.addEventListener("keydown", this.keyPressed);
     }
 }
