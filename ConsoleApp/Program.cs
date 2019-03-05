@@ -146,7 +146,7 @@ namespace ConsoleApp
 
             var queryBus = _container.Resolve<ICommandBus>();
 
-            var command = new ChatAddMessageCommand("hi to you too", 159039L, new[] {638L});
+            var command = new ChangeOnlineStatusCommand(638L,true);
 
            await queryBus.DispatchAsync(command, CancellationToken.None);
 

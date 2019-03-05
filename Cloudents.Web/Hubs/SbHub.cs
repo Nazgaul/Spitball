@@ -4,7 +4,6 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Linq;
@@ -18,10 +17,12 @@ namespace Cloudents.Web.Hubs
     public class SbHub : Hub
     {
         private readonly Lazy<UserManager<RegularUser>> _userManager;
+        private readonly Lazy<ICommandBus> _commandBus;
 
-        public SbHub(Lazy<UserManager<RegularUser>> userManager)
+        public SbHub(Lazy<UserManager<RegularUser>> userManager, Lazy<ICommandBus> commandBus)
         {
             _userManager = userManager;
+            _commandBus = commandBus;
         }
 
         public const string MethodName = "Message";
@@ -40,13 +41,18 @@ namespace Cloudents.Web.Hubs
             var country = Context.User.Claims.FirstOrDefault(f =>
                 string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
                     StringComparison.OrdinalIgnoreCase))?.Value;
+
+            var currentUserId = _userManager.Value.GetLongUserId(Context.User);
+            var command = new ChangeOnlineStatusCommand(currentUserId, true);
+            await _commandBus.Value.DispatchAsync(command, default);
+
             if (country != null)
             {
 
                 await Groups.AddToGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
             }
 
-            //await base.OnConnectedAsync();
+            await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
@@ -60,12 +66,17 @@ namespace Cloudents.Web.Hubs
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"country_{country.ToLowerInvariant()}");
             }
 
+            var currentUserId = _userManager.Value.GetLongUserId(Context.User);
+            var command = new ChangeOnlineStatusCommand(currentUserId, false);
+            await _commandBus.Value.DispatchAsync(command, default);
+
             await base.OnDisconnectedAsync(exception);
         }
 
 
         public async Task ChatAsync(string message,
-            long userId, [FromServices] ICommandBus bus, CancellationToken token)
+            long userId, 
+            CancellationToken token)
         {
             var currentUserId = _userManager.Value.GetLongUserId(Context.User);
             if (userId == currentUserId)
@@ -73,8 +84,8 @@ namespace Cloudents.Web.Hubs
                 return;
             }
 
-            var command = new ChatAddMessageCommand(message, currentUserId, new[] { userId });
-            var t1 =  bus.DispatchAsync(command, token);
+            var command = new SendMessageCommand(message, currentUserId, new[] { userId });
+            var t1 = _commandBus.Value.DispatchAsync(command, token);
 
             var t2 =  Clients.Users(new[] { currentUserId.ToString(), userId.ToString() }).SendAsync("Chat", new
             {

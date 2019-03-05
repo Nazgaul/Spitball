@@ -6,6 +6,7 @@ using NHibernate.Caches.CoreDistributedCache;
 using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
 using NHibernate.Event;
+using NHibernate.Tool.hbm2ddl;
 
 namespace Cloudents.Persistance
 {
@@ -66,6 +67,7 @@ namespace Cloudents.Persistance
 
         private void BuildSchema(Configuration config)
         {
+            SchemaMetadataUpdater.QuoteTableAndColumns(config, new SbDialect());
 #if DEBUG
             config.SetInterceptor(new LoggingInterceptor());
 #endif
@@ -87,7 +89,7 @@ namespace Cloudents.Persistance
             //    .Exclude(x => x.Status.FlaggedUser)
             //    .ExcludeRelationData(x => x.Tags);
 
-            
+
             //config.IntegrateWithEnvers(enversConf);
             //config.LinqToHqlGeneratorsRegistry<MyLinqToHqlGeneratorsRegistry>();
 

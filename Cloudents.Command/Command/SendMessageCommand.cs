@@ -1,9 +1,9 @@
 ﻿namespace Cloudents.Command.Command
 {
-    public class ChatAddMessageCommand : ICommand
+    public class SendMessageCommand : ICommand
     {
       
-        public ChatAddMessageCommand(string message, long userSendingId, long[] usersId)
+        public SendMessageCommand(string message, long userSendingId, long[] usersId)
         {
             Message = message;
             UserSendingId = userSendingId;
