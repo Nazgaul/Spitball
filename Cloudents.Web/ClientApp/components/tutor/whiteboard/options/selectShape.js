@@ -98,7 +98,7 @@ const mousedown = function(e){
                 startShapes[shapeId] = createShape(this.shapesSelected[shapeId])
             })
             markShapes.bind(this)();
-            //mouseInsideSelectedRectangle = true;
+            mouseInsideSelectedRectangle = true;
         }else{
             startShapes = {};
             //chack if mouse clicked inside a selection box
