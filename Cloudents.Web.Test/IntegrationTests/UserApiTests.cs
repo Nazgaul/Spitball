@@ -22,20 +22,25 @@ namespace Cloudents.Web.Test.IntegrationTests
 
         [Theory]
         [InlineData("/api/profile/159039")]
+        [InlineData("/api/profile/160171")]
         public async Task GetAsync_OK(string url)
         {
             var client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync(url);
+            var response = await client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
 
-            var id = d["id"]?.Value<long>();
-            var score = d["score"]?.Value<int>();
-            id.Should().NotBeNull();
-            score.Should().NotBeNull();
+            var uni = d["universityName"]?.Value<string>();
+            var id = d["id"]?.Value<long?>();
+            var name = d["name"]?.Value<string>();
+            var score = d["score"]?.Value<int?>();
+
+            id.Should().BeGreaterThan(0);
+            name.Should().NotBeNull();
+            score.Should().BeGreaterOrEqualTo(0);
         }
 
         [Fact]
@@ -43,9 +48,15 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
             
-            HttpResponseMessage response = await client.GetAsync("api/profile/1");
+            var response = await client.GetAsync("api/profile/1");
 
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var status = d["status"]?.Value<int?>();
+
+            status.Should().Be(404);
         }
 
         [Theory]
@@ -57,7 +68,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             var client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync(url);
+            var response = await client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
 
