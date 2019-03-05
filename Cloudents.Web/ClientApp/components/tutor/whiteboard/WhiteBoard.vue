@@ -40,10 +40,10 @@
                     class="nav-action" @click="setOptionType(enumOptions.rectangle)">
                 <v-icon>sbf-square</v-icon>
             </button>
-            <button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"
+            <!-- <button :class="[selectedOptionString === enumOptions.eraser ? 'active-tool' : '']"
                     class="nav-action" @click="setOptionType(enumOptions.eraser)">
                 <v-icon>sbf-eraser-empty</v-icon>
-            </button>
+            </button> -->
             <input class="nav-action" type="file" name="Image Upload" id="imageUpload" v-show="false"/>
             <button  :class="[selectedOptionString === enumOptions.image ? 'active-tool' : '']"
                      class="nav-action" @click="setOptionType(enumOptions.image)">
@@ -90,7 +90,7 @@
         </div>
         <div>
             <ul>
-                <li v-for="(shape, index) in canvasData.dragData" :key="index">{{shape.type}}</li>
+                <li v-for="(shape, index) in dragData" :key="index">{{shape.type}}</li>
             </ul>
         </div>
     </div>

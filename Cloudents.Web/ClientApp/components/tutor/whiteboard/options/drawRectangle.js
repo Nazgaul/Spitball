@@ -1,5 +1,7 @@
 import {createPointsByOption, createShape} from '../utils/factories'
 import helper from '../utils/helper'
+import whiteBoard from '../whiteBoard';
+import whiteBoardService from '../whiteBoardService';
 
 const OPTION_TYPE = 'drawRectangle';
 
@@ -107,7 +109,6 @@ const defineEndPosition = function(e){
             eventName: 'end'
         })
         localShape.points.push(dragObj);
-        console.log(this.dragData)
         liveDraw.bind(this, dragObj)();
         this.shouldPaint = false;
         localShape.path.stroke = rectPath2D;

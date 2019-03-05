@@ -116,8 +116,8 @@ const clickSearchShapeByType = {
 }
 
 
-const getShapeByPoint = function(x, y, globalObj){
-    let shapes = globalObj.dragData;
+const getShapeByPoint = function(x, y, globalObj, dragData){
+    let shapes = dragData;
     let ctx = globalObj.context;
     let selectedShape = {};
     // console.log(`x:${x}, y:${y}`)
@@ -135,8 +135,8 @@ const getShapeByPoint = function(x, y, globalObj){
     return selectedShape;
 }
 
-const getShapesByRectangle = function(globalObj, helperBoundries){
-    let shapes = globalObj.dragData;
+const getShapesByRectangle = function(globalObj, helperBoundries, dragData){
+    let shapes = dragData;
     let selectedShape = {};
     if(!!shapes && shapes.length > 0){
         shapes.forEach((shape)=>{
