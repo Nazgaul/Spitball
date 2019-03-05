@@ -19,17 +19,20 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
@@ -63,9 +66,9 @@ namespace Cloudents.Web.Api
         [HttpGet("{id}"), AllowAnonymous]
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
-            [FromServices] IBlobProvider blobProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
-
+            [FromServices] IDataProtectionProvider dataProtectionProvider,
+            [FromServices] IConfiguration configuration,
             CancellationToken token)
         {
             long? userId = null;
@@ -81,26 +84,55 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
+
+
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
+            var textTask = Task.FromResult<string>(null);
+            if (crawlerResolver.Crawler != null)
+            {
+                textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
+            }
+
+            var range = Enumerable.Range(0, model.PageCount);
+
+            var protector = dataProtectionProvider.CreateProtector("image");
+            var files = range.Select(page =>
+            {
+                var properties = JsonConvert.SerializeObject(new ImageProperties()
+                {
+                    Id = model.Id,
+                    Page = page,
+                    Blur = !model.IsPurchased
+                });
+                var hash = protector.Protect(properties);
+                
+                var uri = QueryHelpers.AddQueryString($"{configuration["functionCdnEndpoint"]}/api/image/{id}/{hash}",
+                    new Dictionary<string, string>()
+                {
+                    {"width","880" },
+                    {"height","1270"},
+                    {"mode","Max" }
+                });
+                return new Uri(uri);
+            });
+
+
+
             var prefix = "preview-";
             if (!model.IsPurchased)
             {
                 prefix = "blur-";
             }
 
-            var textTask = Task.FromResult<string>(null);
-            if (crawlerResolver.Crawler != null)
-            {
-                textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
-            }
+
             var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
 
             await Task.WhenAll(filesTask, tQueue, textTask);
-            var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
-            if (!filesTask.Result.Any())
-            {
-                await queueProvider.InsertBlobReprocessAsync(id);
-            }
+            //var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
+            //if (!filesTask.Result.Any())
+            //{
+            //    await queueProvider.InsertBlobReprocessAsync(id);
+            //}
 
             return new DocumentPreviewResponse(model, files, textTask.Result);
         }
@@ -138,8 +170,8 @@ namespace Cloudents.Web.Api
         [HttpGet(Name = "DocumentSearch"), AllowAnonymous]
         //TODO:We have issue in here because of changing course we need to invalidate the query.
         //[ResponseCache(Duration = TimeConst.Second * 15, VaryByQueryKeys = new[] { "*" }, Location = ResponseCacheLocation.Client)]
-        public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync([FromQuery] DocumentRequest model,
-
+        public async Task<WebResponseWithFacet<DocumentFeedDto>> SearchDocumentAsync(
+            [FromQuery] DocumentRequest model,
             [FromServices] IDocumentSearch searchProvider,
             CancellationToken token)
         {
