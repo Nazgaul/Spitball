@@ -60,7 +60,7 @@ const handleImage = function(e){
     let formData = new FormData();
     let fileData = e.target.files[0];
     //name ned to be added
-    formData.append(fileData.name, fileData);
+    formData.append("file", fileData);
     let self = this;
     //apiCall
     whiteBoardService.uploadImage(formData).then(url=>{
