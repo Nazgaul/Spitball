@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using System;
@@ -32,7 +33,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+using Cloudents.Core.Extension;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
@@ -67,7 +68,6 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
-            [FromServices] IDataProtectionProvider dataProtectionProvider,
             [FromServices] IConfiguration configuration,
             CancellationToken token)
         {
@@ -95,7 +95,6 @@ namespace Cloudents.Web.Api
 
             var range = Enumerable.Range(0, model.PageCount);
 
-            var protector = dataProtectionProvider.CreateProtector("image");
             var files = range.Select(page =>
             {
                 var properties = JsonConvert.SerializeObject(new ImageProperties()
@@ -104,8 +103,9 @@ namespace Cloudents.Web.Api
                     Page = page,
                     Blur = !model.IsPurchased
                 });
-                var hash = protector.Protect(properties);
-                
+
+                var hash = properties.Encrypt(ImageProperties.ImageHashKey);
+
                 var uri = QueryHelpers.AddQueryString($"{configuration["functionCdnEndpoint"]}/api/image/{id}/{hash}",
                     new Dictionary<string, string>()
                 {
@@ -118,16 +118,16 @@ namespace Cloudents.Web.Api
 
 
 
-            var prefix = "preview-";
-            if (!model.IsPurchased)
-            {
-                prefix = "blur-";
-            }
+            //var prefix = "preview-";
+            //if (!model.IsPurchased)
+            //{
+            //    prefix = "blur-";
+            //}
 
 
-            var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
+            // var filesTask = _blobProvider.FilesInDirectoryAsync(prefix, query.Id.ToString(), token);
 
-            await Task.WhenAll(filesTask, tQueue, textTask);
+            await Task.WhenAll(tQueue, textTask);
             //var files = filesTask.Result.Select(s => blobProvider.GeneratePreviewLink(s, 20));
             //if (!filesTask.Result.Any())
             //{

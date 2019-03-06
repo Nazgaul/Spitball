@@ -15,6 +15,7 @@ using SixLabors.Primitives;
 using System;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
@@ -26,17 +27,15 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/{id}/{hash}")]
             HttpRequest req, string hash, long id,
             [Blob("spitball-files/files/{id}")] CloudBlobDirectory directory,
-            [Inject] IDataProtectionProvider dataProtectProvider,
             ILogger log)
         {
 
-            var dataProtector = dataProtectProvider.CreateProtector("image");
             if (string.IsNullOrEmpty(hash))
             {
                 return new BadRequestResult();
             }
 
-            var objectStr = dataProtector.Unprotect(hash);
+            var objectStr = hash.Decrypt(ImageProperties.ImageHashKey);
             var properties = JsonConvert.DeserializeObject<ImageProperties>(objectStr);
 
 

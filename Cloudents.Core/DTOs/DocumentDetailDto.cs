@@ -46,5 +46,8 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         public int Page { get; set; }
         public bool Blur { get; set; }
+
+
+        public static string ImageHashKey = "59b514174bffe4ae402b3d63aad79fe0";
     }
 }
