@@ -3,10 +3,12 @@
         <v-flex>
             <white-board></white-board>
         </v-flex>
-        <v-layout column align-end style="position: fixed; right: 0; top: 0; bottom: 0;">
+        <v-layout column align-start style="position: fixed; right: 0; top: 0;">
             <v-flex xs6 sm6 md6>
                 <video-stream :id="id"></video-stream>
             </v-flex>
+        </v-layout>
+        <v-layout column align-end style="position: fixed; right: 24px; bottom: 12px;">
             <v-flex xs6 sm6 md6>
                 <chat v-show="isRoomCreated" :id="id"></chat>
             </v-flex>
@@ -31,7 +33,7 @@
         },
 
         created() {
-            console.log('ID Tutor!!',this.id)
+            console.log('ID Tutor!!',this.id);
             global.onbeforeunload = function(){
                 return "Are you sure you want to close the window?";
             }
@@ -43,8 +45,6 @@
     .tutoring-page{
         /*rtl:ignore*/
         direction: ltr;
-
-
     }
 
 </style>

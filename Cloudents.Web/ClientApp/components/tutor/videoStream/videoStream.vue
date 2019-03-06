@@ -21,7 +21,7 @@
                         <span class="user-badge ml-2">Guest</span>
                     </div>
                     <div style="display: flex; align-items: center;">
-                    <span class="video-size-ctrl mr-2" @click="biggerRemoteVideo">
+                    <span class="video-size-ctrl mr-2" @click.stop="biggerRemoteVideo">
                         <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
                     </span>
                         <span class="video-size-ctrl" @click.stop="minimize('remote_player')">
@@ -44,7 +44,7 @@
                         <span class="user-badge ml-2">You</span>
                     </div>
                     <div style="display: flex; align-items: center;">
-                    <span class="video-size-ctrl mr-2" @click="biggerLocalVideo">
+                    <span class="video-size-ctrl mr-2" @click.stop="biggerLocalVideo">
                      <v-icon class="video-size-icon">sbf-expand-icon</v-icon>
                     </span>
                         <span class="video-size-ctrl" @click.stop="minimize('local_player')">
@@ -199,7 +199,7 @@
                         let connectOptions;
                         createLocalTracks({
                             audio: self.availableDevices.includes('audioinput'),
-                            video: self.availableDevices.includes('videoinput') ? {width: 350, height: 200} : false,
+                            video: self.availableDevices.includes('videoinput') ? {width: 300, height: 150} : false,
                         }).then((tracksCreated) => {
                             let localMediaContainer = document.getElementById('localTrack');
                             tracksCreated.forEach((track) => {

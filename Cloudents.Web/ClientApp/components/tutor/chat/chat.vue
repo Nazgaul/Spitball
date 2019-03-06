@@ -1,5 +1,5 @@
 <template>
-    <v-container class="py-0" id="tutoring-chat-holder">
+    <v-container :class="['py-0 px-0', visibleChat ? 'open-chat-holder' : 'closed-chat-holder' ]" id="tutoring-chat-holder">
         <v-layout row>
             <v-flex>
                 <div class="chat-header px-3 py-2" @click="minimizeChat()">
@@ -88,14 +88,15 @@
 <style  lang="less">
     @import '../../../styles/mixin.less';
     #tutoring-chat-holder{
+        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.5);
         .chat-header{
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            border-radius: 4px;
+            border-radius: 4px 4px 0 0;
             background-color: #eeeeee;
-            min-width: 388px;
+            min-width: 300px;
             .title-chat{
                 color: #000000;
                 width: 30px;
@@ -112,8 +113,7 @@
         .messages-container{
             height: 100%;
             max-height: 270px;
-            max-width: 388px;
-            min-width: 388px;
+            width: 300px;
             overflow: auto;
             padding: 0 8px;
         }
@@ -122,6 +122,10 @@
             background-color: #cccccc;
             border-radius: 0 0 16px 16px;
             max-height: 45px;
+            .v-input__slot{
+                border-top: 1px solid #eeeeee;
+                box-shadow: none;
+            }
 
         }
         .chat-container{
@@ -129,8 +133,7 @@
             background-color: #ffffff;
             bottom: 0;
             height: 320px;
-            max-width: 388px;
-            min-width: 388px;
+            width: 300px;
             font-family: 'Open Sans', sans-serif;
 
         }
