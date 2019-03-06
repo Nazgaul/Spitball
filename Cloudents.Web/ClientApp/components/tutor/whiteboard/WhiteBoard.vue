@@ -2,7 +2,7 @@
     <div class="canvas-container" :style="`max-width:${canvasWidth}px;`" id="canvasDiv">
         <div class="powered-by">
             <div>
-                <h4 class="text-sm-center text-md-center">Powered by</h4>
+                <h5 class="text-sm-center text-md-center">Powered by</h5>
                 <AppLogo></AppLogo>
             </div>
             <div>
@@ -37,7 +37,8 @@
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': showPickColorInterface}" class="nav-action"
                             @click="showColorPicker">
-                        <span class="selected-color" :style="{ backgroundColor: canvasData.color.hex}"></span>
+                        <v-icon class="selected-color"  :style="{ color: canvasData.color.hex}">sbf-color-picked</v-icon>
+                        <!--<span class="selected-color" :style="{ backgroundColor: canvasData.color.hex}"></span>-->
                     </button>
                 </template>
                 <span >Color Picker</span>
@@ -73,7 +74,7 @@
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
                             class="nav-action" @click="setOptionType(enumOptions.circle)">
-                        <v-icon>sbf-elipse-stroke</v-icon>
+                        <v-icon>sbf-oval_Test</v-icon>
                     </button>
                 </template>
                 <span>Circle</span>
@@ -84,7 +85,7 @@
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
                             class="nav-action" @click="setOptionType(enumOptions.rectangle)">
-                        <v-icon>sbf-square-stroke</v-icon>
+                        <v-icon>sbf-rectangle_2</v-icon>
                     </button>
                 </template>
                 <span>Square</span>
@@ -211,10 +212,7 @@
                 }
             }
             .selected-color {
-                display: inline-flex;
-                width: 28px;
-                height: 28px;
-                border-radius: 28px;
+                font-size: 26px;
                 cursor: pointer;
             }
             .color-picker {
