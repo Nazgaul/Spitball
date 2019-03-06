@@ -173,7 +173,7 @@
             display: inline-flex;
             max-width: 350px;
             position: fixed;
-            top: 25px;
+            top: 58px;
             .logo {
                 margin-right: 40px;
                 fill: #3e45a0;
@@ -186,7 +186,7 @@
             display: flex;
             flex-direction: column;
             width: auto;
-            margin-top: 150px;
+            margin-top: 70px;
             .nav-action {
                 padding: 12px 16px;
                 outline: none!important;

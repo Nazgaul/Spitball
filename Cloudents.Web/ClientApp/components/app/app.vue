@@ -8,7 +8,7 @@
       ></v-tour>
     <router-view name="header"></router-view>
     <router-view name="schoolBlock"></router-view>
-    <v-content class="site-content" :class="{'loading':getIsLoading, 'gridBackground': $route.name === 'tutoring'}">
+    <v-content class="site-content" :class="{'loading':getIsLoading}">
       <div class="loader" v-show="getIsLoading">
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
       </div>
