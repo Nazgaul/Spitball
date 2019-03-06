@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
@@ -35,7 +36,7 @@ namespace Cloudents.FunctionsV2.System
             await Task.Delay(TimeSpan.FromSeconds(30), token);
             var query = new GetDocumentPurchasedEmailQuery(msg.TransactionId);
             var data = await _queryBus.QueryAsync(query, token);
-            var template = await GetEmail("DocumentPurchased", data.Language, binder, token);
+            var template = await GetEmail("DocumentPurchased", data.Language, _queryBus, token);
             var dataProtector = _dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
             var code = dataProtector.Protect(data.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
@@ -63,14 +64,17 @@ namespace Cloudents.FunctionsV2.System
 
         }
 
-        public static async Task<EmailObject> GetEmail(string @event, 
-            Language language,IBinder binder, CancellationToken token)
+        public static async Task<EmailObjectDto> GetEmail(string @event, 
+            Language language,IQueryBus _queryBus, CancellationToken token)
         {
-            var template2 = await binder.BindAsync<IEnumerable<EmailObject>>(new CosmosDBAttribute("Zbox", "Email")
-            {
-                ConnectionStringSetting = "Cosmos",
-                SqlQuery = $"SELECT * FROM c where c.eventName = '{@event}'"
-            }, token);
+            //var template2 = await binder.BindAsync<IEnumerable<EmailObject>>(new CosmosDBAttribute("Zbox", "Email")
+            //{
+            //    ConnectionStringSetting = "Cosmos",
+            //    SqlQuery = $"SELECT * FROM c where c.eventName = '{@event}'"
+            //}, token);
+
+            var query = new GetEmailByEventQuery(@event);
+            var template2 = await _queryBus.QueryAsync(query, token);
 
             if (template2 == null)
             {
