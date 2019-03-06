@@ -1,7 +1,7 @@
-﻿using Microsoft.WindowsAzure.Storage.Blob;
+﻿using Cloudents.Core.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Net;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -20,28 +20,28 @@ namespace Cloudents.Infrastructure.Storage
         }
 
 
-        public Uri GeneratePreviewLink(Uri blobUrl, double expirationTimeInMinutes)
+        public Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime)
         {
             var blob = GetBlob(blobUrl);
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {
                 SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
                 Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
+                SharedAccessExpiryTime = new DateTimeOffset(DateTime.UtcNow, expirationTime)
 
             });
             var url = new Uri(blob.Uri, signedUrl);
             return url;
         }
 
-        public Uri GenerateDownloadLink(Uri blobUrl, double expirationTimeInMinutes, string fileName)
+        public Uri GenerateDownloadLink(Uri blobUrl, TimeSpan expirationTime, string fileName)
         {
             var blob = GetBlob(blobUrl);
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {
                 SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
                 Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
+                SharedAccessExpiryTime = new DateTimeOffset(DateTime.UtcNow, expirationTime)
 
             }, new SharedAccessBlobHeaders
             {

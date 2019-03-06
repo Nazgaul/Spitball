@@ -53,7 +53,7 @@ namespace Cloudents.Admin2.Api
                 {
                     document.Preview =
                         blobProvider.GeneratePreviewLink(file,
-                            20);
+                            TimeSpan.FromMinutes(20));
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new {id = document.Id});
                     counter++;
@@ -127,7 +127,7 @@ namespace Cloudents.Admin2.Api
                 {
                     document.Preview =
                         blobProvider.GeneratePreviewLink(file,
-                            20);
+                            TimeSpan.FromMinutes(20));
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
                    

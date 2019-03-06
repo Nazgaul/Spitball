@@ -127,7 +127,6 @@ const mousedown = function(e){
                 liveDraw.bind(this, textObj)();
                 this.methods.addShape(localShape, clearLocalShape);
                 whiteBoardService.redraw(this);
-                // moveToSelectTool.bind(this)();
             }else{
                 isEditing = false;
                 let meassureText = this.context.measureText(text.value);
