@@ -144,11 +144,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var z = new ImageProperties(1, 2, true);
+            var bytes = z.Encrypt();
+            var bytes2 = z.Encrypt();
+            var z2 = ImageProperties.Decrypt(bytes);
 
-            var someText = "hi ram ram hi hi ram ram hi";
-            var x = someText.Encrypt(ImageProperties.ImageHashKey);
-            var y = someText.Encrypt(ImageProperties.ImageHashKey);
-            someText = x.Decrypt(ImageProperties.ImageHashKey);
+
             var queryBus = _container.Resolve<ICommandBus>();
 
             var command = new ChangeOnlineStatusCommand(638L,true);

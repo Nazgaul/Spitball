@@ -1,4 +1,3 @@
-using Cloudents.Core;
 using Cloudents.FunctionsV2.Di;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +6,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Newtonsoft.Json;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -16,7 +14,9 @@ using System;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
+using Microsoft.AspNetCore.WebUtilities;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using static Cloudents.Core.TimeConst;
 
 namespace Cloudents.FunctionsV2
 {
@@ -35,8 +35,8 @@ namespace Cloudents.FunctionsV2
                 return new BadRequestResult();
             }
 
-            var objectStr = hash.Decrypt(ImageProperties.ImageHashKey);
-            var properties = JsonConvert.DeserializeObject<ImageProperties>(objectStr);
+            var hashBytes = Base64UrlTextEncoder.Decode(hash);
+            var properties = ImageProperties.Decrypt(hashBytes);
 
 
             if (properties.Id != id)
@@ -79,7 +79,7 @@ namespace Cloudents.FunctionsV2
 
                 return new FileCallbackResult("image/jpg", (stream, context) =>
                     {
-                        context.HttpContext.Response.Headers.Add("Cache-Control", $"public, max-age={TimeConst.Year}");
+                        context.HttpContext.Response.Headers.Add("Cache-Control", $"public, max-age={Year}, s-max-age={Year}");
                         image.SaveAsJpeg(stream);
                         image?.Dispose();
                         return Task.CompletedTask;
@@ -87,7 +87,5 @@ namespace Cloudents.FunctionsV2
                 );
             }
         }
-
-       
     }
 }

@@ -97,16 +97,12 @@ namespace Cloudents.Web.Api
 
             var files = range.Select(page =>
             {
-                var properties = JsonConvert.SerializeObject(new ImageProperties()
-                {
-                    Id = model.Id,
-                    Page = page,
-                    Blur = !model.IsPurchased
-                });
+                var properties = new ImageProperties(model.Id, page, !model.IsPurchased);
 
-                var hash = properties.Encrypt(ImageProperties.ImageHashKey);
+                var hash = properties.Encrypt();
 
-                var uri = QueryHelpers.AddQueryString($"{configuration["functionCdnEndpoint"]}/api/image/{id}/{hash}",
+                var uri = QueryHelpers.AddQueryString(
+                    $"{configuration["functionCdnEndpoint"]}/api/image/{id}/{Base64UrlTextEncoder.Encode(hash)}",
                     new Dictionary<string, string>()
                 {
                     {"width","880" },

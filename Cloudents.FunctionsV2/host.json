@@ -1,5 +1,5 @@
 {
   "version": "2.0",
-  "functions": [ "ImageFunction" ]
+  //"functions": [ "ImageFunction" ]
   //"functions": [ "DocumentSearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }
