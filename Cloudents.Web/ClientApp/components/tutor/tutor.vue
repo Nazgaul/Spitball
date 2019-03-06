@@ -1,6 +1,7 @@
 <template>
     <v-layout row class="tutoring-page">
         <v-flex>
+            <!--<codeEditor></codeEditor>-->
             <white-board></white-board>
         </v-flex>
         <v-layout column align-start style="position: fixed; right: 0; top: 0;">
@@ -21,9 +22,10 @@
     import {mapGetters} from 'vuex';
     import videoStream from './videoStream/videoStream.vue';
     import whiteBoard from './whiteboard/WhiteBoard.vue';
+    import codeEditor from './codeEditor/codeEditor.vue'
     import chat from './chat/chat.vue';
     export default {
-        components:{videoStream, whiteBoard, chat},
+        components:{videoStream, whiteBoard, codeEditor, chat},
         name: "tutor",
         props: {
             id: ''
