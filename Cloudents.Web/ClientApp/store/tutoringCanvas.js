@@ -33,8 +33,8 @@ const actions = {
         return Promise.resolve(state.dragData.pop());
     },
     uploadImage(context, data){
-        return uploadCanvasImage(data).then((url)=>{
-            return url;
+        return uploadCanvasImage(data).then((response)=>{
+            return response.data.link;
         })
     }
 };

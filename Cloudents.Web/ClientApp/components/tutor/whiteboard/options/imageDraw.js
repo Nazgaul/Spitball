@@ -59,7 +59,6 @@ const handleImage = function(e){
 
     let formData = new FormData();
     let fileData = e.target.files[0];
-    //name ned to be added
     formData.append("file", fileData);
     let self = this;
     //apiCall
@@ -86,33 +85,6 @@ const handleImage = function(e){
         }
         img.src = url;
     })
-
-    // let reader = new FileReader();
-    // let self = this;
-    // reader.onload = (event)=>{
-    //     let img = new Image();
-    //     img.onload = function(){
-    //         let imgObj = createPointsByOption({
-    //             mouseX,
-    //             mouseY,
-    //             width:img.width,
-    //             height: img.height,
-    //             option: OPTION_TYPE,
-    //             eventName: 'start',
-    //             src: img.src
-    //         })
-    //         let dictionaryImage = {
-    //             imgObj,
-    //             img
-    //         }
-    //         imageDictionary[imgObj.id] = dictionaryImage;
-    //         localShape.points.push(imgObj);
-    //         liveDraw.bind(self, imgObj)();
-    //         self.methods.addShape(localShape, clearLocalShape);
-    //     }
-    //     img.src = event.target.result;
-    // }
-    // reader.readAsDataURL(e.target.files[0]);
 }
 
 const mousedown = function(e){
