@@ -83,7 +83,7 @@ namespace Cloudents.Web.Api
             );
         }
 
-        [HttpGet("upload")]
+        [HttpPost("upload")]
         public async Task<IActionResult> UploadAsync(IFormFile file,
             [FromServices] IBlobProvider<DocumentContainer> blobProvider,
             [FromServices] IBlobProvider blobProvider2,
