@@ -74,7 +74,7 @@
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
                             class="nav-action" @click="setOptionType(enumOptions.circle)">
-                        <v-icon>sbf-oval_Test</v-icon>
+                        <v-icon>sbf-elipse-stroke</v-icon>
                     </button>
                 </template>
                 <span>Circle</span>
@@ -85,7 +85,7 @@
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
                             class="nav-action" @click="setOptionType(enumOptions.rectangle)">
-                        <v-icon>sbf-rectangle_2</v-icon>
+                        <v-icon>sbf-rectangle-stroke</v-icon>
                     </button>
                 </template>
                 <span>Square</span>

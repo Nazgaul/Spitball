@@ -39,13 +39,14 @@ function RectangleObj(objInit){
     this.eventName=objInit.eventName;
 }
 function ImageObj(objInit){
+    this.id = objInit.id || createGuid('image');
     this.mouseX= objInit.mouseX;
     this.mouseY= objInit.mouseY;
     this.width = objInit.width;
     this.height = objInit.height;
     this.option=objInit.option;
     this.eventName=objInit.eventName;
-    this.img = objInit.img;
+    this.src = objInit.src;
 }
 
 function TextObj(objInit){
