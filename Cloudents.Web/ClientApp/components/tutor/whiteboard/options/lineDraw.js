@@ -83,7 +83,7 @@ const mousedown = function(e){
     mouseState.mouseY = e.pageY - e.target.getBoundingClientRect().top;
 
     startingMousePosition.x = e.clientX;
-    startingMousePosition.y = e.clientY;
+    startingMousePosition.y = e.clientY - e.target.getBoundingClientRect().top;
 
     this.methods.hideColorPicker();
 
@@ -104,7 +104,7 @@ const mousedown = function(e){
 const mousemove = function(e){
     if(this.shouldPaint){
         let currentX = e.clientX;
-        let currentY = e.clientY;
+        let currentY = e.clientY - e.target.getBoundingClientRect().top;
         let helperObj = {
             startPositionLeft: startingMousePosition.x,
             startPositionTop: startingMousePosition.y,
