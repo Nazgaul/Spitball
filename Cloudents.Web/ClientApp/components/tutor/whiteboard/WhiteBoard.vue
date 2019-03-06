@@ -111,7 +111,7 @@
             <!--Undo-->
             <v-tooltip right>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" class="nav-action" @click="undo();">
+                    <button v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo();">
                         <v-icon>sbf-undo</v-icon>
                     </button>
                 </template>
@@ -192,6 +192,12 @@
                 outline: none!important;
                 .v-icon {
                     color: #000000;
+                }
+                &.disabled{
+                    pointer-events: none;
+                    .v-icon {
+                        color: gray;
+                    }
                 }
                 &.active-tool{
                     .v-icon {
