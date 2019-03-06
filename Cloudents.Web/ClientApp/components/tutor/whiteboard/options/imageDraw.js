@@ -17,6 +17,8 @@ const clearLocalShape = function(){
 const imageXDefaultPosition = 100;
 const imageYDefaultPosition = 75;
 
+let imageDictionary = {};
+
 const init = function(){
     let imageElm = document.getElementById('imageUpload');
     imageElm.removeEventListener('change', handleImage.bind(this), false);
@@ -24,8 +26,22 @@ const init = function(){
 }
 
 const draw = function(imgObj){
-    let img = imgObj.img;
-    this.context.drawImage(img, imgObj.mouseX, imgObj.mouseY, imgObj.width, imgObj.height);
+    if(!!imageDictionary[imgObj.id]){
+        let img = imageDictionary[imgObj.id].img;
+        this.context.drawImage(img, imgObj.mouseX, imgObj.mouseY, imgObj.width, imgObj.height);
+    }else{
+        let img = new Image();
+        let self = this;
+        img.onload = function(){
+            let dictionaryImage = {
+                imgObj,
+                img
+            }
+            imageDictionary[imgObj.id] = dictionaryImage;
+            self.context.drawImage(img, imgObj.mouseX, imgObj.mouseY, imgObj.width, imgObj.height);
+        }
+        img.src = imgObj.src;
+    }
 }
 const liveDraw = function(imgObj){
     // this.context.beginPath();
@@ -52,8 +68,13 @@ const handleImage = function(e){
                 height: img.height,
                 option: OPTION_TYPE,
                 eventName: 'start',
-                img: img
+                src: img.src
             })
+            let dictionaryImage = {
+                imgObj,
+                img
+            }
+            imageDictionary[imgObj.id] = dictionaryImage;
             localShape.points.push(imgObj);
             liveDraw.bind(self, imgObj)();
             self.methods.addShape(localShape, clearLocalShape);
