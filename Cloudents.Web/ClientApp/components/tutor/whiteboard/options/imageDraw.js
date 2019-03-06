@@ -1,4 +1,5 @@
 import {createPointsByOption, createShape} from '../utils/factories'
+import whiteBoardService from '../whiteBoardService';
 
 const OPTION_TYPE = 'imageDraw';
 
@@ -56,9 +57,12 @@ const handleImage = function(e){
     let mouseY = imageYDefaultPosition;
     this.methods.hideColorPicker();
 
-    let reader = new FileReader();
+    let formData = new FormData();
+    let fileData = e.target.files[0];
+    formData.append("file", fileData);
     let self = this;
-    reader.onload = (event)=>{
+    //apiCall
+    whiteBoardService.uploadImage(formData).then(url=>{
         let img = new Image();
         img.onload = function(){
             let imgObj = createPointsByOption({
@@ -79,9 +83,8 @@ const handleImage = function(e){
             liveDraw.bind(self, imgObj)();
             self.methods.addShape(localShape, clearLocalShape);
         }
-        img.src = event.target.result;
-    }
-    reader.readAsDataURL(e.target.files[0]);
+        img.src = url;
+    })
 }
 
 const mousedown = function(e){

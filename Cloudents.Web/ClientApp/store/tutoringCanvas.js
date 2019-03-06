@@ -1,3 +1,5 @@
+import {uploadCanvasImage} from '../components/tutor/tutorService'
+
 const state = {
     dragData: [],
 };
@@ -29,6 +31,11 @@ const actions = {
     },
     popDragData({state}){
         return Promise.resolve(state.dragData.pop());
+    },
+    uploadImage(context, data){
+        return uploadCanvasImage(data).then((response)=>{
+            return response.data.link;
+        })
     }
 };
 export default {

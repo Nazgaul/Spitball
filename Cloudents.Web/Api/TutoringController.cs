@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cloudents.Core.Storage;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Twilio;
 using Twilio.Jwt.AccessToken;
@@ -79,6 +83,25 @@ namespace Cloudents.Web.Api
             );
         }
 
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadAsync(IFormFile file,
+            [FromServices] IBlobProvider<DocumentContainer> blobProvider,
+            [FromServices] IBlobProvider blobProvider2,
+            CancellationToken token)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName());
+            await blobProvider
+                .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, false, 60 * 24, token);
+
+            var uri = blobProvider.GetBlobUrl(fileName);
+            var link = blobProvider2.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
+
+            return Ok(new
+            {
+                link
+            });
+
+        }
         #region Borrowed from https://github.com/twilio/video-quickstart-js/blob/1.x/server/randomname.js
 
         readonly string[] _adjectives =

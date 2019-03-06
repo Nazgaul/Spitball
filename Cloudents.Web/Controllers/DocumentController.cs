@@ -186,7 +186,7 @@ namespace Cloudents.Web.Controllers
             await _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);
             var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
             var extension = Path.GetExtension(file);
-            var url = blobProvider2.GenerateDownloadLink(uri, 30, nameToDownload + extension);
+            var url = blobProvider2.GenerateDownloadLink(uri, TimeSpan.FromMinutes(30), nameToDownload + extension);
             return Redirect(url.AbsoluteUri);
         }
     }
