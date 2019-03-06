@@ -125,6 +125,7 @@ export default {
             };
             let normalizedData = JSON.stringify(transferDataObj);
             dataTrack.send(normalizedData);
+            this.selectDefaultTool(); //case SPITBALL-647
         },
         undo(){
             let transferDataObj = {
